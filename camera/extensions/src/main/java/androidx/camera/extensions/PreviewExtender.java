@@ -20,6 +20,8 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Pair;
 
 import androidx.annotation.GuardedBy;
@@ -37,22 +39,31 @@ import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageInfoProcessor;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.extensions.ExtensionsErrorListener.ExtensionsErrorCode;
+import androidx.camera.extensions.ExtensionsManager.EffectMode;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.PreviewExtenderImpl;
 import androidx.camera.extensions.impl.RequestUpdateProcessorImpl;
 
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Class for using an OEM provided extension on preview.
  */
 public abstract class PreviewExtender {
+    static final Config.Option<EffectMode> OPTION_PREVIEW_EXTENDER_MODE = Config.Option.create(
+            "camerax.extensions.previewExtender.mode", EffectMode.class);
+
     private PreviewConfig.Builder mBuilder;
     PreviewExtenderImpl mImpl;
+    private EffectMode mEffectMode;
 
-    void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
+    void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation,
+            EffectMode effectMode) {
         mBuilder = builder;
         mImpl = implementation;
+        mEffectMode = effectMode;
     }
 
     /**
@@ -68,6 +79,13 @@ public abstract class PreviewExtender {
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
+    /**
+     * Enables the derived preview extension feature.
+     *
+     * <p>Preview extension has dependence on image capture extension. A
+     * IMAGE_CAPTURE_EXTENSION_REQUIRED error will be thrown if corresponding image capture
+     * extension is not enabled together.
+     */
     public void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
@@ -77,6 +95,12 @@ public abstract class PreviewExtender {
         switch (mImpl.getProcessorType()) {
             case PROCESSOR_TYPE_NONE:
                 CaptureStageImpl captureStage = mImpl.getCaptureStage();
+
+                /** captureStage could be null since the extension feature could be enabled in
+                 *  {@link ExtenderStateListener}.*/
+                if (captureStage == null) {
+                    break;
+                }
 
                 Camera2Config.Builder camera2ConfigurationBuilder =
                         new Camera2Config.Builder();
@@ -130,12 +154,32 @@ public abstract class PreviewExtender {
                 });
         }
 
-        PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);
+        PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl,
+                mEffectMode);
         new Camera2Config.Extender(mBuilder).setCameraEventCallback(
                 new CameraEventCallbacks(previewExtenderAdapter));
         mBuilder.setUseCaseEventListener(previewExtenderAdapter);
+        mBuilder.getMutableConfig().insertOption(OPTION_PREVIEW_EXTENDER_MODE, mEffectMode);
     }
 
+    static void checkImageCaptureEnabled(EffectMode effectMode) {
+        Collection<UseCase> activeUseCases = CameraX.getActiveUseCases();
+        boolean bIsImageCaptureExtenderEnabled = false;
+
+        for (UseCase useCase : activeUseCases) {
+            EffectMode imageCaptureExtenderMode = useCase.getUseCaseConfig().retrieveOption(
+                    ImageCaptureExtender.OPTION_IMAGE_CAPTURE_EXTENDER_MODE, null);
+            if (effectMode == imageCaptureExtenderMode) {
+                bIsImageCaptureExtenderEnabled = true;
+                break;
+            }
+        }
+
+        if (!bIsImageCaptureExtenderEnabled) {
+            ExtensionsManager.postExtensionsError(
+                    ExtensionsErrorCode.IMAGE_CAPTURE_EXTENSION_REQUIRED);
+        }
+    }
 
     /**
      * An implementation to adapt the OEM provided implementation to core.
@@ -144,6 +188,7 @@ public abstract class PreviewExtender {
             UseCase.EventListener {
 
         private final PreviewExtenderImpl mImpl;
+        private final EffectMode mEffectMode;
         private final AtomicBoolean mActive = new AtomicBoolean(true);
         private final Object mLock = new Object();
         @GuardedBy("mLock")
@@ -151,8 +196,9 @@ public abstract class PreviewExtender {
         @GuardedBy("mLock")
         private volatile boolean mUnbind = false;
 
-        PreviewExtenderAdapter(PreviewExtenderImpl impl) {
+        PreviewExtenderAdapter(PreviewExtenderImpl impl, EffectMode effectMode) {
             mImpl = impl;
+            mEffectMode = effectMode;
         }
 
         @Override
@@ -184,6 +230,12 @@ public abstract class PreviewExtender {
         @Override
         public CaptureConfig onPresetSession() {
             if (mActive.get()) {
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    public void run() {
+                        checkImageCaptureEnabled(mEffectMode);
+                    }
+                });
                 CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
                 if (captureStageImpl != null) {
                     return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
