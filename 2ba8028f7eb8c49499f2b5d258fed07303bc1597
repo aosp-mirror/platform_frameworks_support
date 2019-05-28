@@ -22,6 +22,30 @@
       "revId": "2ba8028f7eb8c49499f2b5d258fed07303bc1597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ca2730_f837c7e6",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2067,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-28T19:43:39Z",
+      "side": 1,
+      "message": "+1: this was my thought as well.\n\nexecutePopOps() already inverts the animations. Maybe you want to pass a parameter to choose which animation to use instead of swapping the animation on the op.",
+      "parentUuid": "0558a385_618ea7ef",
+      "range": {
+        "startLine": 2067,
+        "startChar": 19,
+        "endLine": 2067,
+        "endChar": 74
+      },
+      "revId": "2ba8028f7eb8c49499f2b5d258fed07303bc1597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
