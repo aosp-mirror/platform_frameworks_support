@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "329fe145_d948642c",
+        "filename": "lifecycle/common-java8/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-28T15:33:25Z",
+      "side": 0,
+      "message": "\u003e all artifacts in a groupId had to use the same version\n\nOnly for libraries that have opted-in to that behavior. Per LibraryGroups.kt, ROOM is not one of them.",
+      "parentUuid": "97c09725_8b0699a8",
+      "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edc82882_62672852",
         "filename": "room/common-java8/build.gradle",
         "patchSetId": 2
