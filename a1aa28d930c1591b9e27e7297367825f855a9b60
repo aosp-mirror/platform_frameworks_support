@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6f537fdb_63c721b2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-28T23:37:17Z",
+      "side": 1,
+      "message": "Yeah this is a bit backwards. The alternative is to reimplement/refactor what we do in Release.kt for filtering inputs. I can pursue that if you prefer.\n\n./gradlew createArchive is ~15 seconds on my p920.",
+      "parentUuid": "a6d09737_0aec41df",
+      "revId": "a1aa28d930c1591b9e27e7297367825f855a9b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56f669ce_6255f818",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2019-05-28T21:45:20Z",
       "side": 1,
       "message": "That\u0027s interesting. I suppose that the fact that this is a SNAPSHOT in the Maven sense is a property of the fact that the url that developers will be using will be some arbitrary build number.\n\nTechnically I think a few of these builds would also be the actual official builds too.\n\nI\u0027ve also seen the term \u0027repo\u0027 used to refer to a (non-packed) maven repository, although I guess that because the actual artifacts inside the repo claim (incorrectly) to already have the correct release versions, it could confuse developers.\n\nTheoretically, someone could publish a library that depends on one of these artifacts in a \"snapshot\" directory, but the dependency version in their published library would still look like it refers to a release version.\n\nHow would we feel about first implementing the ability for projects in AndroidX to have non-release versions (probably ending in \"-dev\")? Do we have an idea of who\u0027s asking about this and what their preference is?",
+      "range": {
+        "startLine": 240,
+        "startChar": 66,
+        "endLine": 240,
+        "endChar": 74
+      },
+      "revId": "a1aa28d930c1591b9e27e7297367825f855a9b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56deb9a_3af734bc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-28T23:37:17Z",
+      "side": 1,
+      "message": "Renamed it to out/dist/repository/\n\nNow it also changes the version to be -SNAPSHOT if the env variable is set.",
+      "parentUuid": "56f669ce_6255f818",
       "range": {
         "startLine": 240,
         "startChar": 66,
