@@ -33,7 +33,7 @@ object LibraryGroups {
     val CAMERA = LibraryGroup("androidx.camera", false)
     val CAR = LibraryGroup("androidx.car", false)
     val CARDVIEW = LibraryGroup("androidx.cardview", false)
-    val COLLECTION = LibraryGroup("androidx.collection", false)
+    val COLLECTION = LibraryGroup("androidx.collection")
     val CONCURRENT = LibraryGroup("androidx.concurrent", false)
     val CONTENTPAGER = LibraryGroup("androidx.contentpager", false)
     val COORDINATORLAYOUT = LibraryGroup("androidx.coordinatorlayout", false)
@@ -94,4 +94,4 @@ object LibraryGroups {
  * This object contains the library group, as well as whether libraries
  * in this group are all required to have the same development version.
  */
-data class LibraryGroup(val group: String = "unspecified", val requireSameVersion: Boolean = false)
+data class LibraryGroup(val group: String = "unspecified", val requireSameVersion: Boolean = true)
