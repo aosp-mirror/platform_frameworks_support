@@ -46,6 +46,30 @@
       "revId": "82663c50455e9836f567945976e1e67b5863c1f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c7f042_765cfa25",
+        "filename": "security/identity-credential/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-05-28T15:33:53Z",
+      "side": 1,
+      "message": "For now, I\u0027m fine with having one. Please add swillden@google.com to the file as well.",
+      "parentUuid": "7263ac6e_f0df7111",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "82663c50455e9836f567945976e1e67b5863c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
