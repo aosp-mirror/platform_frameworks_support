@@ -475,6 +475,29 @@
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1dc49c_70d411dd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-29T12:15:43Z",
+      "side": 1,
+      "message": "Thanks! I think the boolean version will be very beneficial. Writing all the toggles of tri-state was a pain.",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 12
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
