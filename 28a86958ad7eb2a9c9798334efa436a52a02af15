@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69b1a8a7_3d6d8371",
+        "filename": "browser/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-29T16:16:02Z",
+      "side": 1,
+      "message": "This is not acceptable. This is a generic library that other browsers implement. This version checking functionality has to live in Chrome\u0027s code base or we have to make it generic to work for every browser.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 87
+      },
+      "revId": "28a86958ad7eb2a9c9798334efa436a52a02af15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
