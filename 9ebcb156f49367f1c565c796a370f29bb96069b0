@@ -311,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "c62c75e1_ecd21eef",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T05:32:23Z",
+      "side": 1,
+      "message": "Ok. Let\u0027s talk about this direction in the meeting before going forward.",
+      "parentUuid": "9f9921d9_f0db3747",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f6d212_6b1b1f8b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 3
@@ -379,6 +403,30 @@
       "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98525aa2_77b51850",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T05:32:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf4c8c05_fd944377",
+      "range": {
+        "startLine": 1325,
+        "startChar": 16,
+        "endLine": 1325,
+        "endChar": 29
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
