@@ -51,6 +51,24 @@
       "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fd24d15_f2eba136",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:48:34Z",
+      "side": 1,
+      "message": "Overall the answer is \"yes\", it should be onCheckedChange and it should require \"checked\" instead of \"value\", and be pretty much the same as new Switch API. For now it requires ToggleableState and it\u0027s a little bit harder to do. \n\nI will address all of the above on the follow-up CL when we will have our decision about this (Switch\u0027s) API, so I will be able to move forward",
+      "parentUuid": "3e3ebd7e_0d8ab7ad",
+      "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
