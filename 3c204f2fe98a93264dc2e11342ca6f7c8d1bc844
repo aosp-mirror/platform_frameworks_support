@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "56d8f8c8_769d6dae",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T18:32:09Z",
+      "side": 1,
+      "message": "It also means that you could potentially allow for, say, detecting clicks on a visually-disabled control to, for instance, show a dialog explaining why it\u0027s disabled.",
+      "parentUuid": "d07134c6_099c2737",
+      "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e3ebd7e_0d8ab7ad",
         "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
         "patchSetId": 3
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "Agree, altogether will be better. I still need to ask a11y team about this indeterminate state support before moving towards removing it from Toggleable, it takes some time, so I\u0027ve decided to publish this CL first while waiting :)",
       "parentUuid": "0cb6e825_8e7edf5b",
+      "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "527949ed_6a79ed38",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T18:32:09Z",
+      "side": 1,
+      "message": "This is on my list of standing questions for the a11y team, especially as we\u0027re starting to discuss a11y state approaches.  We should sync up if you have thoughts on this.",
+      "parentUuid": "08e06733_29a4925b",
       "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
