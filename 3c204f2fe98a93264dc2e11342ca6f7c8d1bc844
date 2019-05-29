@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1484e880_89d813f6",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:28:07Z",
+      "side": 1,
+      "message": "We still have to make decision around it. For now it nullable because null represents \"disabled\" state, like in Flutter. In general, there\u0027re two possibilities:\n\n1. Make it non-null and add `enabled: Boolean \u003d true` param. But they you have to pass something for onCheckedChange even when component is disabled (and you don\u0027t have this lambda sometimes), which sometimes can be inconvenient. We can add `val DefaultOnClickDisable \u003d {}` somewhere, but I\u0027m not sure if this is the right kotlin-y way.\n\n2. Make nullability represents enabled/disabled state of this component. This way you will always pass something non-null otherwise it\u0027s disabled. \n\nPersonally I like 1., because it seems inconvenient to type `onCheckedChange \u003d if (user.nonEmpty) doStuff() else null` in some cases, rather than typing `{}` rarely.\n\nHappy to chat more about it :)",
+      "parentUuid": "af2bea3a_b5a6d83b",
+      "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e3ebd7e_0d8ab7ad",
         "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
         "patchSetId": 3
