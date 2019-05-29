@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd3b0718_07474b3d",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-29T16:57:52Z",
+      "side": 1,
+      "message": "But that would turn it for everyone - also for developers using our testing infra. I think we want to turn it only for us as we\u0027d like to be strict. But I think we should wait for things to settle up anyway.",
+      "parentUuid": "38ba8980_912e71ba",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "e727d775d7a0717d5847cd4f177a268c4dfddaa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ac8dc50_db77d306",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "e727d775d7a0717d5847cd4f177a268c4dfddaa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15768683_1a59c21a",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-29T16:57:52Z",
+      "side": 1,
+      "message": "I think testonly makes sense for public methods. This is internal field so shouldn\u0027t matter.",
+      "parentUuid": "4ac8dc50_db77d306",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "e727d775d7a0717d5847cd4f177a268c4dfddaa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
