@@ -22,6 +22,30 @@
       "revId": "2a9d6ec3432654533b520c9072bdc18e113b8020",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b29a155e_136d3f4d",
+        "filename": "ui/material/src/test/java/androidx/ui/material/ripple/DefaultRippleEffectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 0,
+      "message": "These are outdated now as the logic was simplified. looks like the next proper way to test the appearance of the animation will be the screenshot testing when we have it",
+      "parentUuid": "1943d600_b97f0b4b",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "2a9d6ec3432654533b520c9072bdc18e113b8020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

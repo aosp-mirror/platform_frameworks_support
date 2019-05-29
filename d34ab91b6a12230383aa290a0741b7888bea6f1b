@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e1444b2_0c3d2891",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4af833fd_93ea149c",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0032698_ce7c908c",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc696e6_4d4c994a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "Specs are not providing the number. I took this number from the example in the spec(just calculated an amount of the pixels on the screenshot :) ). Anyway, I decided to remove this changes from this CL, I was wanted to just test that changing the radius for unbounded ripples works correctly. But in fact the specifications should be updated first with the numbers and then we update our components with them.",
+      "parentUuid": "e0032698_ce7c908c",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 40
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f1645ad4_e69965a9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "I removed it",
+      "parentUuid": "7134e938_8eb19b2a",
+      "range": {
+        "startLine": 190,
+        "startChar": 15,
+        "endLine": 190,
+        "endChar": 32
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e10adcd4_36ee4f0a",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-28T21:45:55Z",
       "side": 1,
       "message": "Is it really required to be a parent coordinates? It can be anyone up in hierarchy, right? With your changes (removed boundedCallback and clipCallbacks, etc.) it\u0027s basically just the coordinates where the ripple effect happens? It\u0027s a bounds for bounded ripple and it\u0027s a source for radiuses and epicenter for unbounded one.\n\nMaybe we should reflect this in naming and / or documentation",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 75
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2297ab_87b4bf4f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "oh, it is indeed not a parent. it is the \"target\" or \"child\". the parent(surface or owner in other words) coordinates are stored inside the rippleSurface object. I currently reworded it to use \"target\"",
+      "parentUuid": "e10adcd4_36ee4f0a",
       "range": {
         "startLine": 96,
         "startChar": 11,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a230f507_8185cfa5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "I don\u0027t want this api to change much when designers would decide to change an animation. now the animation itself is the details of the implementation. now we don\u0027t use touch position for bounded ripples but the idea is given this amount of the parameters we should be able to create any generic animation so it is valid to use not everything for some cases. also your suggestion can overcomplicate the code here I think.",
+      "parentUuid": "8570fa79_1a893fc7",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51f01ad4_a6dc7faa",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "15dacb86_9a5a214a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "ok, renamed to radius",
+      "parentUuid": "51f01ad4_a6dc7faa",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77572f81_d60094d9",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
         "patchSetId": 1
@@ -151,6 +295,30 @@
       "writtenOn": "2019-05-28T21:45:55Z",
       "side": 1,
       "message": "maybe use \"parent\" instead?",
+      "range": {
+        "startLine": 35,
+        "startChar": 71,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934dc16a_d97d8c17",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T16:26:35Z",
+      "side": 1,
+      "message": "it is not parent. the simplified usage is\nContainer1 {\n  RippleSurface {\n    Clickable(onClick) {\n      BoundedRipple {\n        Container2()\n      }\n    }\n  }\n}\nSo Container2 is a layout which bounds will be used for this ripple, so it is in fact \"the first layout child\", but I think the word target is also reasonable here",
+      "parentUuid": "77572f81_d60094d9",
       "range": {
         "startLine": 35,
         "startChar": 71,
