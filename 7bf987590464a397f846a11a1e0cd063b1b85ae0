@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a8daaff_78402f7d",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-29T10:24:02Z",
+      "side": 1,
+      "message": "Just FYI, we might need to handle contentUri and remote Uri (requiring http connection) in different way. Yeah, it has not been properly handled in the previous VV code.\nCould you add TODO comment for it? Thanks!",
+      "revId": "7bf987590464a397f846a11a1e0cd063b1b85ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
