@@ -23,6 +23,79 @@ package androidx.browser.browseractions {
 
 package androidx.browser.customtabs {
 
+  public class CustomTabsCallback {
+  }
+
+  public class CustomTabsClient {
+  }
+
+  public final class CustomTabsIntent {
+  }
+
+  public static final class CustomTabsIntent.Builder {
+  }
+
+
+  public abstract class CustomTabsService extends android.app.Service {
+  }
+
+
+  public final class CustomTabsSession {
+  }
+
+
+  public class CustomTabsSessionToken {
+  }
+
+
+  public abstract class PostMessageServiceConnection implements androidx.browser.customtabs.PostMessageBackend android.content.ServiceConnection {
+  }
+
+  public class TrustedWebUtils {
+  }
+
+
+
+}
+
+package androidx.browser.trusted {
+
+
+
+
+
+
+
+  public static interface TrustedWebActivityServiceConnectionManager.ExecutionCallback {
+    method public void onConnected(androidx.browser.trusted.TrustedWebActivityServiceWrapper?) throws android.os.RemoteException;
+  }
+
+
+
+
+  public static class TwaProviderPicker.Action {
+    ctor public TwaProviderPicker.Action(@androidx.browser.trusted.TwaProviderPicker.LaunchMode int, String?);
+    field @androidx.browser.trusted.TwaProviderPicker.LaunchMode public final int launchMode;
+    field public final String? provider;
+  }
+
+  @IntDef({androidx.browser.trusted.TwaProviderPicker.LaunchMode.TRUSTED_WEB_ACTIVITY, androidx.browser.trusted.TwaProviderPicker.LaunchMode.CUSTOM_TAB, androidx.browser.trusted.TwaProviderPicker.LaunchMode.BROWSER}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface TwaProviderPicker.LaunchMode {
+    field public static final int BROWSER = 2; // 0x2
+    field public static final int CUSTOM_TAB = 1; // 0x1
+    field public static final int TRUSTED_WEB_ACTIVITY = 0; // 0x0
+  }
+
+
+}
+
+package androidx.browser.trusted.splashscreens {
+
+
+
+  public static interface SplashImageTransferTask.Callback {
+    method public void onFinished(boolean);
+  }
+
 
 }
 
