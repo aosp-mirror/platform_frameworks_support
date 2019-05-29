@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "08081142_7c2db411",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-29T17:54:38Z",
+      "side": 1,
+      "message": "Turns out that I can\u0027t add the @VisibleForTesting bit either because the DocumentsUI library currently instantiates a DefaultSelectionTracker even though the RestrictTo was LIBRARY_GROUP_ID.",
+      "parentUuid": "65970d47_b800db1c",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d999a4a_c74a4ee3",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
         "patchSetId": 2

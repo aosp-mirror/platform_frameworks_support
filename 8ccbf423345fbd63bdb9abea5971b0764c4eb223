@@ -16,6 +16,24 @@
       "revId": "8ccbf423345fbd63bdb9abea5971b0764c4eb223",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde99387_e48aaca4",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-29T17:54:38Z",
+      "side": 1,
+      "message": "I\u0027ll leave alone for this CL as I\u0027m not actually changing anything that will affect any developers.",
+      "parentUuid": "49ea868f_bb3789e7",
+      "revId": "8ccbf423345fbd63bdb9abea5971b0764c4eb223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
