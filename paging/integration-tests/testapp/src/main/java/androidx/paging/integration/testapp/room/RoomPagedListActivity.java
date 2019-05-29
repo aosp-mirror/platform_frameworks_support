@@ -89,7 +89,7 @@ public class RoomPagedListActivity extends AppCompatActivity {
         if (useKeyedQuery()) {
             Customer customer = list.get(targetPosition);
             if (customer != null) {
-                String key = LastNameAscCustomerDataSource.getKeyStatic(customer);
+                String key = LastNameAscCustomerDataSource.Companion.getKeyStatic(customer);
                 outState.putString(STRING_KEY, key);
             }
         } else {
