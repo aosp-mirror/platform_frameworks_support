@@ -286,6 +286,11 @@ package androidx.paging {
     method public static androidx.paging.PagedList.Config Config(int pageSize, int prefetchDistance = pageSize, boolean enablePlaceholders = true, int initialLoadSizeHint = pageSize * androidx.paging.PagedList.Config.Builder.DEFAULT_INITIAL_PAGE_MULTIPLIER, int maxSize = 2147483647);
   }
 
+  public final class PagedListKt {
+    ctor public PagedListKt();
+    method public static <Key, Value> androidx.paging.PagedList<Value> PagedList(androidx.paging.DataSource<Key,Value> dataSource, androidx.paging.PagedList.Config config, java.util.concurrent.Executor notifyExecutor, java.util.concurrent.Executor fetchExecutor, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, Key? initialKey = null);
+  }
+
   public final class PagedStorage<T> extends java.util.AbstractList<T> {
     ctor public PagedStorage();
     ctor public PagedStorage(int leadingNulls, java.util.List<? extends T> page, int trailingNulls);
