@@ -1396,7 +1396,9 @@ public class MediaControlView extends ViewGroup {
 
         // Update play/pause and ffwd buttons based on whether currently the replay button is shown
         // or not.
-        updateReplayButton(mIsShowingReplayButton);
+        if (mPlayer != null) {
+            updateReplayButton(mIsShowingReplayButton);
+        }
     }
 
     private View initTransportControls(int id) {
