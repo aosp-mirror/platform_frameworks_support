@@ -24,12 +24,14 @@ import static junit.framework.TestCase.assertNotNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assume.assumeTrue;
 
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.Preview;
 import androidx.camera.integration.core.idlingresource.ElapsedTimeIdlingResource;
 import androidx.camera.integration.core.idlingresource.WaitForViewToShow;
+import androidx.camera.testing.CameraUtil;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
@@ -42,6 +44,7 @@ import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.Until;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +79,11 @@ public final class ToggleButtonUITest {
         IdlingRegistry.getInstance().register(idlingResource);
         Espresso.onIdle();
         IdlingRegistry.getInstance().unregister(idlingResource);
+    }
+
+    @Before
+    public void setUp() {
+        assumeTrue(CameraUtil.deviceHasCamera());
     }
 
     @Test

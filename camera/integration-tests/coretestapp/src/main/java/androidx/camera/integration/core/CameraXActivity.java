@@ -16,12 +16,17 @@
 
 package androidx.camera.integration.core;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -680,6 +685,22 @@ public class CameraXActivity extends AppCompatActivity
         setupPermissions();
     }
 
+    private boolean hasCamera() {
+        int numberOfCamera = 0;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                numberOfCamera = ((CameraManager) getApplicationContext()
+                        .getSystemService(Context.CAMERA_SERVICE)).getCameraIdList().length;
+            } catch (CameraAccessException e) {
+                Log.e(CameraXActivity.class.getSimpleName(),
+                        "Unable to check camera availability.", e);
+            }
+        } else {
+            numberOfCamera = Camera.getNumberOfCameras();
+        }
+        return numberOfCamera > 0;
+    }
+
     private void setupCamera() {
         try {
             // Wait for permissions before proceeding.
@@ -721,6 +742,9 @@ public class CameraXActivity extends AppCompatActivity
 
                                 Log.d(TAG, "Change camera direction: " + mCurrentCameraLensFacing);
 
+                                if (!hasCamera()) {
+                                    return;
+                                }
                                 // Rebind all use cases.
                                 CameraX.unbindAll();
                                 if (mImageCapture != null) {
@@ -838,7 +862,9 @@ public class CameraXActivity extends AppCompatActivity
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
             int oldTop, int oldRight, int oldBottom) {
-        transformPreview();
+        if (mPreview != null) {
+            transformPreview();
+        }
     }
 
     /** A {@link Callable} whose return value can be set. */
