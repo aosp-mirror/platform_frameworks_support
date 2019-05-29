@@ -34,6 +34,24 @@
       "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3c528e8_094d76d4",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "If it\u0027s meant to be subclassed then non-final protected without any annotation or hide seems appropriate, but I\u0027m not sure why the others are final and packaged scoped then. Seems like all should be designed the same way.",
+      "parentUuid": "5f531e6c_d58a4615",
+      "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

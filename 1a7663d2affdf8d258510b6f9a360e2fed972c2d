@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "89f4a521_e57c24e7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e184a50_690c5906",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bf02f07_6a7d5ef4",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/AutoScroller.java",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea9c9c6d_8d72214a",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/AutoScroller.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "Ah, makes sense. I only was looking at src/main usages.",
+      "parentUuid": "f20a8cd3_19ddcaa6",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "65970d47_b800db1c",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "408361df_eca867c6",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d999a4a_c74a4ee3",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
         "patchSetId": 2
@@ -139,6 +193,24 @@
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271d0d06_ce5cc90b",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cc1663c9_e43b6adf",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +264,24 @@
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7502d3_cc15c2c9",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-29T03:18:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed149f10_85b52e7b",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
