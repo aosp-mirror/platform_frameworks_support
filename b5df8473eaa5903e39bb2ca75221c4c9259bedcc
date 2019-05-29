@@ -88,6 +88,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf9b39e4_15950485",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T23:37:07Z",
+      "side": 1,
+      "message": "\u003e There could be usages of a composable function that draws some decorations around child widgets and uses several DrawNode instances but can re-use the same paint in this case.\n\nProbably it\u0027s a speculation, but in order to pass Paint down, you have to know that you have DrawNodes down the hierarchy, it usually means that you own them, then you can even avoid multiply DrawNodes and draw everything in one DrawNode and introduce just functions instead of DrawNodes. Am I wrong?\n\n\nThe idea with internal Paint() in interesting, we can consider this. I\u0027m afraid that then you won\u0027t be able to create paint nowhere else besides composition scope, so we will need to introduce some other factory methods in order to work around it. I don\u0027t know right now, how we can avoid just several +paint() invocations, which will create several Paint objects. It might be not a problem, but potentially people can use it this way.\n\nPlease note that I\u0027m not saying this is a good and/or final API, but I think it solves our problems and encourage better design (for example, as it\u0027s already provided, you don\u0027t even think about creating the new one).",
+      "parentUuid": "832c7b93_de8dd31c",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
