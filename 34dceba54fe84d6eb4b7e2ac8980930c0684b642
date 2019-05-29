@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c266dfe_1ed0b93e",
+        "filename": "media2/widget/src/main/res/values/strings.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "Q) How can we request for translation?",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "7ce6e429_7de7a3c3",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "44077251_7c484a9c",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f0a2496_688a9e4f",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac89118a_5598c58b",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26014921_ee974bf6",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -239,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "9f9921d9_f0db3747",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "It might be set by both of them, I think.",
+      "parentUuid": "3cffbce3_ea6f5b30",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f6d212_6b1b1f8b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 3
@@ -286,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "cf4c8c05_fd944377",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "Thanks! Could you mention the added default value at the comment above?",
+      "parentUuid": "910709b7_b1f35bed",
+      "range": {
+        "startLine": 1325,
+        "startChar": 16,
+        "endLine": 1325,
+        "endChar": 29
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c520f371_be060479",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -330,6 +426,30 @@
       "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e3f8ae_c79375bb",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "Looks fine.",
+      "parentUuid": "b2875ef7_5fead996",
+      "range": {
+        "startLine": 714,
+        "startChar": 29,
+        "endLine": 714,
+        "endChar": 48
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -415,6 +535,30 @@
       "side": 1,
       "message": "Done. Also changed the default background color to the color in the AOSP Media UX Study presentation slide 25.",
       "parentUuid": "34c84e55_e4b68a80",
+      "range": {
+        "startLine": 742,
+        "startChar": 12,
+        "endLine": 742,
+        "endChar": 26
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a562380_8326dc0f",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-29T05:19:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "159995e0_040d4a67",
       "range": {
         "startLine": 742,
         "startChar": 12,
