@@ -70,6 +70,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832c7b93_de8dd31c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-29T23:07:31Z",
+      "side": 1,
+      "message": "We should attempt to discourage allocations of a Paint within a DrawNode composable. Maybe we can make the Paint() constructor internal and the only way to obtain a paint is to use a memoized effect? This would enforce re-usage across composition without the worry of accidentally allocating a paint within a DrawNode. There could be usages of a composable function that draws some decorations around child widgets and uses several DrawNode instances but can re-use the same paint in this case.",
+      "parentUuid": "3ee56220_984a2428",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
