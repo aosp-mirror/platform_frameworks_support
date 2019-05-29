@@ -18,12 +18,16 @@ package androidx.ui.core
 import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
+import android.os.Looper
+import android.os.Trace
+import android.view.Choreographer
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.annotation.RestrictTo
+import androidx.compose.ObserverMap
 import androidx.ui.core.input.TextInputServiceAndroid
 import androidx.ui.core.pointerinput.PointerInputEventProcessor
 import androidx.ui.core.pointerinput.toPointerInputEvent
@@ -40,8 +44,8 @@ class AndroidCraneView constructor(context: Context)
 
     val root = LayoutNode()
     private val relayoutNodes = mutableSetOf<LayoutNode>()
-    private val modelToNodes = mutableMapOf<Any, MutableSet<ComponentNode>>()
-    private val nodeToModels = mutableMapOf<ComponentNode, MutableSet<Any>>()
+    private val modelToNodes = ObserverMap<Any, ComponentNode>()
+    private val nodeToModels = ObserverMap<ComponentNode, Any>()
 
     var ref: Ref<AndroidCraneView>? = null
         set(value) {
@@ -60,30 +64,34 @@ class AndroidCraneView constructor(context: Context)
     private var currentNode: ComponentNode? = null
 
     private val frameReadObserver: FrameReadObserver = { readValue ->
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            throw IllegalStateException("Frame reads are expected only on the main thread")
+        }
         val node = currentNode
         if (node != null) {
-            val models = nodeToModels.getOrElse(node) {
-                val set = mutableSetOf<Any>()
-                nodeToModels[node] = set
-                set
-            }
-            models += readValue
-            val nodes = modelToNodes.getOrElse(readValue) {
-                val set = mutableSetOf<ComponentNode>()
-                modelToNodes[readValue] = set
-                set
-            }
-            nodes += node
+            nodeToModels.add(node, readValue)
+            modelToNodes.add(readValue, node)
         }
     }
 
     private val commitObserver: FrameCommitObserver = { committed ->
-        committed.forEach {
-            modelToNodes[it]?.forEach { node ->
-                when (node) {
-                    is DrawNode -> node.invalidate()
-                    is LayoutNode -> node.requestLayout()
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            onModelsCommitted(committed)
+        } else {
+            val list = ArrayList(committed)
+            post(object : Runnable {
+                override fun run() {
+                    onModelsCommitted(list)
                 }
+            })
+        }
+    }
+
+    private fun onModelsCommitted(models: Iterable<Any>) {
+        modelToNodes[models].forEach { node ->
+            when (node) {
+                is DrawNode -> node.invalidate()
+                is LayoutNode -> node.requestLayout()
             }
         }
     }
@@ -137,7 +145,7 @@ class AndroidCraneView constructor(context: Context)
         if (layout == root) {
             requestLayout()
         } else {
-            postOnAnimation {
+            Choreographer.getInstance().postFrameCallback {
                 measureAndLayout()
             }
         }
@@ -157,43 +165,53 @@ class AndroidCraneView constructor(context: Context)
      * Iterates through all LayoutNodes that have requested layout and measures and lays them out
      */
     private fun measureAndLayout() {
-        val frame = currentFrame()
-        frame.observeReads(frameReadObserver) {
-            relayoutNodes.sortedBy { it.depth }.forEach { layoutNode ->
-                if (layoutNode.needsRemeasure) {
-                    val parent = layoutNode.parentLayoutNode
-                    if (parent != null) {
-                        // This should call measure and layout on the child
-                        parent.layout?.callLayout()
-                    } else {
-                        layoutNode.layout?.callMeasure(layoutNode.constraints)
-                        layoutNode.layout?.callLayout()
+        Trace.beginSection("Compose:measureAndLayout")
+        try {
+            val frame = currentFrame()
+            frame.observeReads(frameReadObserver) {
+                relayoutNodes.sortedBy { it.depth }.forEach { layoutNode ->
+                    if (layoutNode.needsRemeasure) {
+                        val parent = layoutNode.parentLayoutNode
+                        if (parent != null) {
+                            // This should call measure and layout on the child
+                            parent.layout?.callLayout()
+                        } else {
+                            layoutNode.layout?.callMeasure(layoutNode.constraints)
+                            layoutNode.layout?.callLayout()
+                        }
                     }
                 }
+                relayoutNodes.clear()
             }
-            relayoutNodes.clear()
+            invalidate()
+        } finally {
+            Trace.endSection()
         }
-        invalidate()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val targetWidth = convertMeasureSpec(widthMeasureSpec)
-        val targetHeight = convertMeasureSpec(heightMeasureSpec)
+        Trace.beginSection("Compose:onMeasure")
+        try {
+            val targetWidth = convertMeasureSpec(widthMeasureSpec)
+            val targetHeight = convertMeasureSpec(heightMeasureSpec)
 
-        val constraints = Constraints(
-            targetWidth.min, targetWidth.max,
-            targetHeight.min, targetHeight.max
-        )
+            val constraints = Constraints(
+                targetWidth.min, targetWidth.max,
+                targetHeight.min, targetHeight.max
+            )
 
-        if (this.constraints != constraints) {
-            this.constraints = constraints
+            if (this.constraints != constraints) {
+                this.constraints = constraints
+            }
+            // commit the current frame
+            val frame = currentFrame()
+            frame.observeReads(frameReadObserver) {
+                callMeasure(constraints)
+            }
+            setMeasuredDimension(root.width.value, root.height.value)
+        } finally {
+            Trace.endSection()
         }
-        // commit the current frame
-        val frame = currentFrame()
-        frame.observeReads(frameReadObserver) {
-            callMeasure(constraints)
-        }
-        setMeasuredDimension(root.width.value, root.height.value)
     }
 
     override fun onEndLayout(layoutNode: LayoutNode) {
@@ -214,16 +232,21 @@ class AndroidCraneView constructor(context: Context)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val frame = currentFrame()
-        root.startLayout()
-        frame.observeReads(frameReadObserver) {
-            root.visitChildren { child ->
-                child.layoutNode?.moveTo(0.ipx, 0.ipx)
-                child.layoutNode?.layout?.callLayout()
+        Trace.beginSection("Compose:onLayout")
+        try {
+            val frame = currentFrame()
+            root.startLayout()
+            frame.observeReads(frameReadObserver) {
+                root.visitChildren { child ->
+                    child.layoutNode?.moveTo(0.ipx, 0.ipx)
+                    child.layoutNode?.layout?.callLayout()
+                }
             }
+            root.layoutNode.moveTo(0.ipx, 0.ipx)
+            root.endLayout()
+        } finally {
+            Trace.endSection()
         }
-        root.layoutNode.moveTo(0.ipx, 0.ipx)
-        root.endLayout()
         measureAndLayout()
     }
 
@@ -266,15 +289,20 @@ class AndroidCraneView constructor(context: Context)
     }
 
     override fun dispatchDraw(canvas: android.graphics.Canvas) {
-        // Start looking for model changes:
-        val frame = currentFrame()
-        frame.observeReads(frameReadObserver) {
-            val uiCanvas = Canvas(canvas)
-            val densityReceiver = DensityReceiverImpl(density = Density(context))
-            val parentSize = PxSize(root.width, root.height)
-            callDraw(uiCanvas, root, parentSize, densityReceiver)
+        Trace.beginSection("Compose:draw")
+        try {
+            // Start looking for model changes:
+            val frame = currentFrame()
+            frame.observeReads(frameReadObserver) {
+                val uiCanvas = Canvas(canvas)
+                val densityReceiver = DensityReceiverImpl(density = Density(context))
+                val parentSize = PxSize(root.width, root.height)
+                callDraw(uiCanvas, root, parentSize, densityReceiver)
+            }
+            currentNode = null
+        } finally {
+            Trace.endSection()
         }
-        currentNode = null
     }
 
     override fun onAttachedToWindow() {
@@ -288,8 +316,13 @@ class AndroidCraneView constructor(context: Context)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        pointerInputEventProcessor.process(event.toPointerInputEvent())
-        // TODO(shepshapard): Only return if a child was hit.
+        Trace.beginSection("Compose:touch")
+        try {
+            pointerInputEventProcessor.process(event.toPointerInputEvent())
+            // TODO(shepshapard): Only return if a child was hit.
+        } finally {
+            Trace.endSection()
+        }
         return true
     }
 
@@ -329,6 +362,12 @@ class AndroidCraneView constructor(context: Context)
     override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? =
         textInputServiceAndroid.createInputConnection(outAttrs)
 
+    override fun calculatePosition(): PxPosition {
+        val positionArray = intArrayOf(0, 0)
+        getLocationInWindow(positionArray)
+        return PxPosition(positionArray[0].ipx, positionArray[1].ipx)
+    }
+
     private fun callMeasure(constraints: Constraints) {
         var maxWidth = 0.ipx
         var maxHeight = 0.ipx
@@ -346,11 +385,8 @@ class AndroidCraneView constructor(context: Context)
     }
 
     private fun clearNodeModels(node: ComponentNode) {
-        val models = nodeToModels.remove(node)
-        if (models != null) {
-            models.forEach { model ->
-                modelToNodes[model]!! -= node
-            }
+        nodeToModels.remove(node).forEach { model ->
+            modelToNodes.remove(model, node)
         }
     }
 

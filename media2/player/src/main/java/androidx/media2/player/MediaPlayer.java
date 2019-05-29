@@ -325,13 +325,6 @@ public final class MediaPlayer extends SessionPlayer {
      */
     public static final int MEDIA_INFO_VIDEO_NOT_PLAYING = 805;
 
-    /** Failed to handle timed text track properly.
-     * @see PlayerCallback#onInfo
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public static final int MEDIA_INFO_TIMED_TEXT_ERROR = 900;
-
     /**
      * Subtitle track was not supported by the media framework.
      * @see PlayerCallback#onInfo
@@ -369,7 +362,6 @@ public final class MediaPlayer extends SessionPlayer {
             MEDIA_INFO_EXTERNAL_METADATA_UPDATE,
             MEDIA_INFO_AUDIO_NOT_PLAYING,
             MEDIA_INFO_VIDEO_NOT_PLAYING,
-            MEDIA_INFO_TIMED_TEXT_ERROR,
             MEDIA_INFO_UNSUPPORTED_SUBTITLE,
             MEDIA_INFO_SUBTITLE_TIMED_OUT
     })
@@ -511,11 +503,19 @@ public final class MediaPlayer extends SessionPlayer {
         @MediaPlayer2.CallCompleted final int mCallType;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         final ResolvableFuture mFuture;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        final TrackInfo mTrackInfo;
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         PendingCommand(int callType, ResolvableFuture future) {
+            this(callType, future, null);
+        }
+
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        PendingCommand(int callType, ResolvableFuture future, TrackInfo trackInfo) {
             mCallType = callType;
             mFuture = future;
+            mTrackInfo = trackInfo;
         }
     }
 
@@ -684,6 +684,23 @@ public final class MediaPlayer extends SessionPlayer {
             int callType, final ResolvableFuture future, final Object token) {
         final PendingCommand pendingCommand = new PendingCommand(callType, future);
         mPendingCommands.add(pendingCommand);
+        addFutureListener(pendingCommand, future, token);
+    }
+
+    @GuardedBy("mPendingCommands")
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void addPendingCommandWithTrackInfoLocked(
+            int callType, final ResolvableFuture future, final TrackInfo trackInfo,
+            final Object token) {
+        final PendingCommand pendingCommand = new PendingCommand(callType, future, trackInfo);
+        mPendingCommands.add(pendingCommand);
+        addFutureListener(pendingCommand, future, token);
+    }
+
+    @GuardedBy("mPendingCommands")
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void addFutureListener(final PendingCommand pendingCommand, final ResolvableFuture future,
+            final Object token) {
         future.addListener(new Runnable() {
             @Override
             public void run() {
@@ -1847,12 +1864,8 @@ public final class MediaPlayer extends SessionPlayer {
      */
     @NonNull
     public VideoSize getVideoSize() {
-        synchronized (mStateLock) {
-            if (mClosed) {
-                return new VideoSize(0, 0);
-            }
-        }
-        return new VideoSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
+        androidx.media2.common.VideoSize sizeInternal = getVideoSizeInternal();
+        return new VideoSize(sizeInternal);
     }
 
     /** @hide */
@@ -1860,8 +1873,13 @@ public final class MediaPlayer extends SessionPlayer {
     @Override
     @NonNull
     public androidx.media2.common.VideoSize getVideoSizeInternal() {
-        VideoSize playerSize = getVideoSize();
-        return new androidx.media2.common.VideoSize(playerSize.getWidth(), playerSize.getHeight());
+        synchronized (mStateLock) {
+            if (mClosed) {
+                return new androidx.media2.common.VideoSize(0, 0);
+            }
+        }
+        return new androidx.media2.common.VideoSize(mPlayer.getVideoWidth(),
+                mPlayer.getVideoHeight());
     }
 
     /**
@@ -2174,12 +2192,22 @@ public final class MediaPlayer extends SessionPlayer {
                 return Collections.emptyList();
             }
         }
-        List<MediaPlayer2.TrackInfo> list = mPlayer.getTrackInfo();
-        List<TrackInfo> trackList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            trackList.add(mPlayer.getTrackInfo(i));
+        List<MediaPlayer2.TrackInfo> info2s = mPlayer.getTrackInfo();
+        MediaItem item = mPlayer.getCurrentMediaItem();
+        List<TrackInfo> infos = new ArrayList<>();
+        for (int index = 0; index < info2s.size(); index++) {
+            MediaPlayer2.TrackInfo info2 = info2s.get(index);
+            infos.add(new TrackInfo(index, item, info2.getTrackType(), info2.getFormat()));
         }
-        return trackList;
+        return infos;
+    }
+
+    @NonNull
+    TrackInfo getTrackInfo(int index) {
+        List<MediaPlayer2.TrackInfo> info2s = mPlayer.getTrackInfo();
+        MediaPlayer2.TrackInfo info2 = info2s.get(index);
+        MediaItem item = mPlayer.getCurrentMediaItem();
+        return new TrackInfo(index, item, info2.getTrackType(), info2.getFormat());
     }
 
     /**
@@ -2206,7 +2234,7 @@ public final class MediaPlayer extends SessionPlayer {
             }
         }
         final int ret = mPlayer.getSelectedTrack(trackType);
-        return ret < 0 ? null : mPlayer.getTrackInfo(ret);
+        return ret < 0 ? null : getTrackInfo(ret);
     }
 
     /**
@@ -2258,9 +2286,10 @@ public final class MediaPlayer extends SessionPlayer {
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
                 ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
                 synchronized (mPendingCommands) {
+                    // TODO (b/131873726): trackId may be invalid
                     Object token = mPlayer.selectTrack(trackId);
-                    addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SELECT_TRACK,
-                            future, token);
+                    addPendingCommandWithTrackInfoLocked(MediaPlayer2.CALL_COMPLETED_SELECT_TRACK,
+                            future, trackInfo, token);
                 }
                 futures.add(future);
                 return futures;
@@ -2273,7 +2302,7 @@ public final class MediaPlayer extends SessionPlayer {
     /**
      * Deselects a track.
      * <p>
-     * Currently, the track must be a timed text track and no audio or video tracks can be
+     * Currently, the track must be a subtitle track and no audio or video tracks can be
      * deselected.
      * </p>
      * @param trackInfo metadata corresponding to the track to be selected. A {@code trackInfo}
@@ -2307,9 +2336,10 @@ public final class MediaPlayer extends SessionPlayer {
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
                 ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
                 synchronized (mPendingCommands) {
+                    // TODO (b/131873726): trackId may be invalid
                     Object token = mPlayer.deselectTrack(trackId);
-                    addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK,
-                            future, token);
+                    addPendingCommandWithTrackInfoLocked(MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK,
+                            future, trackInfo, token);
                 }
                 futures.add(future);
                 return futures;
@@ -2320,7 +2350,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#getTrackInfo()}
+     * TODO: Merge this into {@link #getTrackInfo()} (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2336,7 +2366,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#selectTrack(TrackInfo)}
+     * TODO: Merge this into {@link #selectTrack(TrackInfo)} (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2347,7 +2377,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#deselectTrack(TrackInfo)}
+     * TODO: Merge this into {@link #deselectTrack(TrackInfo)} (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2355,6 +2385,17 @@ public final class MediaPlayer extends SessionPlayer {
     @Override
     public ListenableFuture<PlayerResult> deselectTrackInternal(SessionPlayer.TrackInfo info) {
         return deselectTrack(createTrackInfo(info));
+    }
+
+    /**
+     * TODO: Merge this into {@link #getSelectedTrack(int)} (b/132928418)
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionPlayer.TrackInfo getSelectedTrackInternal(int trackType) {
+        return createTrackInfoInternal(getSelectedTrack(trackType));
     }
 
     /**
@@ -2895,6 +2936,7 @@ public final class MediaPlayer extends SessionPlayer {
             return;
         }
 
+        final TrackInfo trackInfo = expected.mTrackInfo;
         if (what != expected.mCallType) {
             Log.w(TAG, "Call type does not match. expeced:" + expected.mCallType
                     + " actual:" + what);
@@ -2948,6 +2990,24 @@ public final class MediaPlayer extends SessionPlayer {
                         }
                     });
                     break;
+                case MediaPlayer2.CALL_COMPLETED_SELECT_TRACK:
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                            callback.onTrackSelected(MediaPlayer.this,
+                                    createTrackInfoInternal(trackInfo));
+                        }
+                    });
+                    break;
+                case MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK:
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                            callback.onTrackDeselected(MediaPlayer.this,
+                                    createTrackInfoInternal(trackInfo));
+                        }
+                    });
+                    break;
             }
         }
         if (what != MediaPlayer2.CALL_COMPLETED_PREPARE_DRM) {
@@ -2984,12 +3044,18 @@ public final class MediaPlayer extends SessionPlayer {
         }
     }
 
-    private SessionPlayer.TrackInfo createTrackInfoInternal(TrackInfo info) {
+    SessionPlayer.TrackInfo createTrackInfoInternal(TrackInfo info) {
+        if (info == null) {
+            return null;
+        }
         return new SessionPlayer.TrackInfo(info.getId(), info.getMediaItem(), info.getTrackType(),
                 info.getFormat());
     }
 
     private TrackInfo createTrackInfo(SessionPlayer.TrackInfo info) {
+        if (info == null) {
+            return null;
+        }
         return new TrackInfo(info.getId(), info.getMediaItem(), info.getTrackType(),
                 info.getFormat());
     }
@@ -3061,6 +3127,14 @@ public final class MediaPlayer extends SessionPlayer {
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_STARVED);
                     break;
                 case MediaPlayer2.MEDIA_INFO_PREPARED:
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
+                        }
+                    });
+                    setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
+                    break;
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_END:
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                     break;
@@ -3075,6 +3149,14 @@ public final class MediaPlayer extends SessionPlayer {
                         @Override
                         public void callCallback(SessionPlayer.PlayerCallback callback) {
                             callback.onPlaybackCompleted(MediaPlayer.this);
+                        }
+                    });
+                    break;
+                case MediaPlayer2.MEDIA_INFO_METADATA_UPDATE:
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
                         }
                     });
                     break;
@@ -3113,12 +3195,13 @@ public final class MediaPlayer extends SessionPlayer {
         }
 
         @Override
-        public void onSubtitleData(
-                MediaPlayer2 mp, final MediaItem item, final SubtitleData data) {
+        public void onSubtitleData(@NonNull MediaPlayer2 mp, final @NonNull MediaItem item,
+                final int trackIdx, final @NonNull SubtitleData data) {
             notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(SessionPlayer.PlayerCallback callback) {
-                    callback.onSubtitleData(MediaPlayer.this, item, data);
+                    SessionPlayer.TrackInfo track = createTrackInfoInternal(getTrackInfo(trackIdx));
+                    callback.onSubtitleData(MediaPlayer.this, item, track, data);
                 }
             });
         }
@@ -3149,12 +3232,12 @@ public final class MediaPlayer extends SessionPlayer {
         @Override
         public void onVideoSizeChangedInternal(
                 @NonNull SessionPlayer player, @NonNull MediaItem item,
-                @NonNull androidx.media2.common.VideoSize commonSize) {
+                @NonNull androidx.media2.common.VideoSize sizeInternal) {
             if (!(player instanceof MediaPlayer)) {
                 throw new IllegalArgumentException("player must be MediaPlayer");
             }
-            VideoSize playerSize = new VideoSize(commonSize.getWidth(), commonSize.getHeight());
-            onVideoSizeChanged((MediaPlayer) player, item, playerSize);
+            VideoSize size = new VideoSize(sizeInternal);
+            onVideoSizeChanged((MediaPlayer) player, item, size);
         }
 
         /**
@@ -3247,9 +3330,6 @@ public final class MediaPlayer extends SessionPlayer {
         public static final int MEDIA_TRACK_TYPE_UNKNOWN = 0;
         public static final int MEDIA_TRACK_TYPE_VIDEO = 1;
         public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
-        /** @hide */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
-        public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3;
         public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
         public static final int MEDIA_TRACK_TYPE_METADATA = 5;
 
@@ -3274,7 +3354,7 @@ public final class MediaPlayer extends SessionPlayer {
 
         /**
          * Gets the track type.
-         * @return TrackType which indicates if the track is video, audio, timed text.
+         * @return TrackType which indicates if the track is video, audio, subtitle or metadata.
          */
         public @MediaTrackType int getTrackType() {
             return mTrackType;
@@ -3299,8 +3379,7 @@ public final class MediaPlayer extends SessionPlayer {
          */
         @Nullable
         public MediaFormat getFormat() {
-            if (mTrackType == MEDIA_TRACK_TYPE_TIMEDTEXT
-                    || mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
+            if (mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
                 return mFormat;
             }
             return null;
@@ -3335,9 +3414,6 @@ public final class MediaPlayer extends SessionPlayer {
                     break;
                 case MEDIA_TRACK_TYPE_AUDIO:
                     out.append("AUDIO");
-                    break;
-                case MEDIA_TRACK_TYPE_TIMEDTEXT:
-                    out.append("TIMEDTEXT");
                     break;
                 case MEDIA_TRACK_TYPE_SUBTITLE:
                     out.append("SUBTITLE");

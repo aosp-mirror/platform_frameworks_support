@@ -28,9 +28,8 @@ import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.DefaultRippleEffectFactory
 import androidx.ui.material.ripple.RippleTheme
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.TextStyle
-import androidx.ui.painting.withAlphaPercent
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable
@@ -38,6 +37,7 @@ import androidx.compose.Effect
 import androidx.compose.ambient
 import androidx.compose.composer
 import androidx.compose.effectOf
+import androidx.compose.memo
 import androidx.compose.unaryPlus
 
 /**
@@ -224,17 +224,20 @@ data class MaterialTypography(
 @Composable
 fun MaterialRippleTheme(@Children children: @Composable() () -> Unit) {
     val materialColors = +ambient(Colors)
-    val defaultTheme = RippleTheme(
-        factory = DefaultRippleEffectFactory,
-        colorCallback = { background ->
-            if (background == null || background.alpha == 0 ||
-                background.computeLuminance() >= 0.5) { // light bg
-                materialColors.primary.withAlphaPercent(12f)
-            } else { // dark bg
-                Color(0xFFFFFFFF.toInt()).withAlphaPercent(24f)
+    val defaultTheme = +memo {
+        RippleTheme(
+            factory = DefaultRippleEffectFactory,
+            colorCallback = { background ->
+                if (background == null || background.alpha == 0f ||
+                    background.luminance() >= 0.5
+                ) { // light bg
+                    materialColors.primary.copy(alpha = 0.12f)
+                } else { // dark bg
+                    Color(0xFFFFFFFF.toInt()).copy(alpha = 0.24f)
+                }
             }
-        }
-    )
+        )
+    }
     CurrentRippleTheme.Provider(value = defaultTheme, children = children)
 }
 

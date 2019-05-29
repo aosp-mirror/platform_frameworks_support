@@ -16,12 +16,14 @@ android {
 
 dependencies {
     api("androidx.annotation:annotation:1.1.0-rc01")
-    api("androidx.core:core:1.1.0-beta01")
+    api(project(":core")) {
+        exclude group: 'androidx.annotation'
+    }
     api("androidx.collection:collection:1.1.0-rc01")
     api("androidx.viewpager:viewpager:1.0.0")
     api("androidx.annotation:annotation:1.1.0-rc01")
     api("androidx.loader:loader:1.0.0")
-    api("androidx.activity:activity:1.0.0-alpha08")
+    api(project(":activity"))
     api(ARCH_LIFECYCLE_VIEWMODEL, libs.exclude_annotations_transitive)
 
     androidTestImplementation(KOTLIN_STDLIB)

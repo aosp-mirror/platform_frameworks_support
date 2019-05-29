@@ -33,6 +33,7 @@ import android.os.ResultReceiver;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
@@ -41,7 +42,9 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.util.ObjectsCompat;
+import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
 import androidx.media2.common.MediaItem;
@@ -50,6 +53,8 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession.CommandButton;
 import androidx.versionedparcelable.ParcelField;
@@ -60,6 +65,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -102,6 +108,8 @@ import java.util.concurrent.Executor;
  * @see MediaSessionService
  */
 public class MediaController implements AutoCloseable {
+    private static final String TAG = "MediaController";
+
     /**
      * @hide
      */
@@ -129,6 +137,9 @@ public class MediaController implements AutoCloseable {
 
     final ControllerCallback mCallback;
     final Executor mCallbackExecutor;
+
+    @GuardedBy("mLock")
+    private final List<Pair<ControllerCallback, Executor>> mExtraCallbacks = new ArrayList<>();
 
     // For testing.
     Long mTimeDiff;
@@ -1109,6 +1120,80 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
+     * Gets the cached track info list from the
+     * {@link ControllerCallback#onTrackInfoChanged(MediaController, List)}.
+     * The types of tracks supported may vary based on player implementation.
+     * If it is not connected yet, it returns null.
+     *
+     * @return List of tracks. The total number of tracks is the size of the list.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public List<TrackInfo> getTrackInfo() {
+        return isConnected() ? getImpl().getTrackInfo() : null;
+    }
+
+    /**
+     * Selects the {@link TrackInfo} for the current media item.
+     * The types of tracks supported may vary based on player implementation.
+     *
+     * @param trackInfo track to be selected.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public ListenableFuture<SessionResult> selectTrack(@NonNull TrackInfo trackInfo) {
+        if (trackInfo == null) {
+            throw new NullPointerException("TrackInfo shouldn't be null");
+        }
+        return isConnected() ? getImpl().selectTrack(trackInfo) : createDisconnectedFuture();
+    }
+
+    /**
+     * Deselects the {@link TrackInfo} for the current media item.
+     * The types of tracks supported may vary based on player implementation.
+     *
+     * @param trackInfo track to be deselected.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public ListenableFuture<SessionResult> deselectTrack(@NonNull TrackInfo trackInfo) {
+        if (trackInfo == null) {
+            throw new NullPointerException("TrackInfo shouldn't be null");
+        }
+        return isConnected() ? getImpl().deselectTrack(trackInfo) : createDisconnectedFuture();
+    }
+
+    /**
+     * Gets the currently selected track for the given {@link TrackInfo.MediaTrackType}. The return
+     * value is an element in the list returned by {@link #getTrackInfo()} and supported track types
+     * may vary based on the player implementation.
+     *
+     * The returned value can be outdated after
+     * {@link ControllerCallback#onTrackInfoChanged(MediaController, List)},
+     * {@link ControllerCallback#onTrackSelected(MediaController, TrackInfo)},
+     * or {@link ControllerCallback#onTrackDeselected(MediaController, TrackInfo)} is called.
+     *
+     * If it is not connected yet, it returns null.
+     *
+     * @param trackType type of selected track
+     * @return selected track info
+     *
+     * @hide
+     */
+    // TODO: revise the method document once subtitle track support is re-enabled. (b/130312596)
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType) {
+        return isConnected() ? getImpl().getSelectedTrack(trackType) : null;
+    }
+
+    /**
      * Sets the time diff forcefully when calculating current position.
      * @param timeDiff {@code null} for reset.
      *
@@ -1119,12 +1204,108 @@ public class MediaController implements AutoCloseable {
         mTimeDiff = timeDiff;
     }
 
+    /**
+     * Registers an extra {@link ControllerCallback}.
+     * @param executor a callback executor
+     * @param callback a ControllerCallback
+     * @see #unregisterExtraCallback(ControllerCallback)
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void registerExtraCallback(@NonNull /*@CallbackExecutor*/ Executor executor,
+            @NonNull ControllerCallback callback) {
+        if (executor == null) {
+            throw new NullPointerException("executor shouldn't be null");
+        }
+        if (callback == null) {
+            throw new NullPointerException("callback shouldn't be null");
+        }
+        boolean found = false;
+        synchronized (mLock) {
+            for (Pair<ControllerCallback, Executor> pair : mExtraCallbacks) {
+                if (pair.first == callback) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                mExtraCallbacks.add(new Pair<>(callback, executor));
+            }
+        }
+        if (found) {
+            Log.w(TAG, "registerExtraCallback: the callback already exists");
+        }
+    }
+
+    /**
+     * Unregisters an {@link ControllerCallback} that has been registered by
+     * {@link #registerExtraCallback(Executor, ControllerCallback)}.
+     * The callback passed to {@link Builder#setControllerCallback(Executor, ControllerCallback)}
+     * can not be unregistered by this method.
+     * @param callback a ControllerCallback
+     * @see #registerExtraCallback(Executor, ControllerCallback)
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void unregisterExtraCallback(@NonNull ControllerCallback callback) {
+        if (callback == null) {
+            throw new NullPointerException("callback shouldn't be null");
+        }
+        boolean found = false;
+        synchronized (mLock) {
+            for (int i = mExtraCallbacks.size() - 1; i >= 0; i--) {
+                if (mExtraCallbacks.get(i).first == callback) {
+                    found = true;
+                    mExtraCallbacks.remove(i);
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            Log.w(TAG, "unregisterExtraCallback: no such callback found");
+        }
+    }
+
+    /** @hide */
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    @RestrictTo(LIBRARY_GROUP) // TODO: LIBRARY_GROUP -> LIBRARY (b/131782509)
+    @NonNull
+    public List<Pair<ControllerCallback, Executor>> getExtraCallbacks() {
+        List<Pair<ControllerCallback, Executor>> extraCallbacks;
+        synchronized (mLock) {
+            extraCallbacks = new ArrayList<>(mExtraCallbacks);
+        }
+        return extraCallbacks;
+    }
+
+    /**
+     * Gets the cached allowed commands from {@link ControllerCallback#onAllowedCommandsChanged}.
+     * If it is not connected yet, it returns {@code null}.
+     *
+     * @return the allowed commands
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public SessionCommandGroup getAllowedCommands() {
+        if (!isConnected()) {
+            return null;
+        }
+        return getImpl().getAllowedCommands();
+    }
+
     private static ListenableFuture<SessionResult> createDisconnectedFuture() {
         return SessionResult.createFutureWithResult(
                 SessionResult.RESULT_ERROR_SESSION_DISCONNECTED);
     }
 
-    void notifyControllerCallback(final ControllerCallbackRunnable callbackRunnable) {
+    /** @hide */
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    @RestrictTo(LIBRARY_GROUP) // TODO: LIBRARY_GROUP -> LIBRARY (b/131782509)
+    public void notifyControllerCallback(final ControllerCallbackRunnable callbackRunnable) {
         if (mCallback != null && mCallbackExecutor != null) {
             mCallbackExecutor.execute(new Runnable() {
                 @Override
@@ -1133,9 +1314,33 @@ public class MediaController implements AutoCloseable {
                 }
             });
         }
+
+        for (Pair<ControllerCallback, Executor> pair : getExtraCallbacks()) {
+            final ControllerCallback callback = pair.first;
+            final Executor executor = pair.second;
+            if (callback == null) {
+                Log.e(TAG, "notifyControllerCallback: mExtraCallbacks contains a null "
+                        + "ControllerCallback! Ignoring...");
+                continue;
+            }
+            if (executor == null) {
+                Log.e(TAG, "notifyControllerCallback: mExtraCallbacks contains a null "
+                        + "Executor! Ignoring...");
+                continue;
+            }
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callbackRunnable.run(callback);
+                }
+            });
+        }
     }
 
-    interface ControllerCallbackRunnable {
+    /** @hide */
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    @RestrictTo(LIBRARY_GROUP) // TODO: LIBRARY_GROUP -> LIBRARY (b/131782509)
+    public interface ControllerCallbackRunnable {
         void run(@NonNull ControllerCallback callback);
     }
 
@@ -1201,6 +1406,11 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode);
         @NonNull VideoSize getVideoSize();
         ListenableFuture<SessionResult> setSurface(@Nullable Surface surface);
+        @NonNull List<TrackInfo> getTrackInfo();
+        ListenableFuture<SessionResult> selectTrack(TrackInfo trackInfo);
+        ListenableFuture<SessionResult> deselectTrack(TrackInfo trackInfo);
+        @Nullable TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType);
+        @Nullable SessionCommandGroup getAllowedCommands();
 
         // Internally used methods
         @NonNull Context getContext();
@@ -1635,6 +1845,81 @@ public class MediaController implements AutoCloseable {
         @RestrictTo(LIBRARY_GROUP)
         public void onVideoSizeChanged(@NonNull MediaController controller, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {}
+
+        /**
+         * Called when the tracks are first retrieved after media is prepared or when new tracks are
+         * found during playback.
+         * <p>
+         * When it's called, you should invalidate previous track information and use the new
+         * tracks to call {@link #selectTrack(TrackInfo)} or
+         * {@link #deselectTrack(TrackInfo)}.
+         * <p>
+         * The types of tracks supported may vary based on player implementation.
+         *
+         * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+         *
+         * @param controller the controller for this event
+         * @param trackInfos the list of track infos
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackInfoChanged(@NonNull MediaController controller,
+                @NonNull List<TrackInfo> trackInfos) {}
+
+        /**
+         * Called when a track is selected.
+         * <p>
+         * The types of tracks supported may vary based on player implementation, but generally
+         * one track will be selected for each track type.
+         *
+         * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+         *
+         * @param controller the controller for this event
+         * @param trackInfo the selected track
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackSelected(@NonNull MediaController controller,
+                @NonNull TrackInfo trackInfo) {}
+
+        /**
+         * Called when a track is deselected.
+         * <p>
+         * The types of tracks supported may vary based on player implementation, but generally
+         * a track should already be selected in order to be deselected and audio and video tracks
+         * should not be deselected.
+         *
+         * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+         *
+         * @param controller the controller for this event
+         * @param trackInfo the deselected track
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackDeselected(@NonNull MediaController controller,
+                @NonNull TrackInfo trackInfo) {}
+
+        /**
+         * Called when the subtitle track has new subtitle data available.
+         * @param controller the controller for this event
+         * @param item the MediaItem of this media item
+         * @param track the track that has the subtitle data
+         * @param data the subtitle data
+         *
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onSubtitleData(@NonNull MediaController controller, @NonNull MediaItem item,
+                @NonNull TrackInfo track, @NonNull SubtitleData data) {}
     }
 
     /**

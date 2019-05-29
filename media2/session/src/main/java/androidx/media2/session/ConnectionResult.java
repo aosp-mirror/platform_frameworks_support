@@ -23,6 +23,7 @@ import android.os.SystemClock;
 
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.ParcelImplListSlice;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.VideoSize;
 import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.NonParcelField;
@@ -81,6 +82,17 @@ class ConnectionResult extends CustomVersionedParcelable {
     Bundle mTokenExtras;
     @ParcelField(18)
     VideoSize mVideoSize;
+    @ParcelField(19)
+    List<TrackInfo> mTrackInfos;
+    // TODO: Reduce parceling / un-parceling cost by using track id. (b/131873726)
+    @ParcelField(20)
+    TrackInfo mSelectedVideoTrack;
+    @ParcelField(21)
+    TrackInfo mSelectedAudioTrack;
+    @ParcelField(23)
+    TrackInfo mSelectedSubtitleTrack;
+    @ParcelField(24)
+    TrackInfo mSelectedMetadataTrack;
 
     // For versioned parcelable
     ConnectionResult() {
@@ -105,6 +117,11 @@ class ConnectionResult extends CustomVersionedParcelable {
         mNextMediaItemIndex = sessionImpl.getNextMediaItemIndex();
         mTokenExtras = sessionImpl.getToken().getExtras();
         mVideoSize = sessionImpl.getVideoSize();
+        mTrackInfos = sessionImpl.getTrackInfo();
+        mSelectedVideoTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_VIDEO);
+        mSelectedAudioTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO);
+        mSelectedSubtitleTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
+        mSelectedMetadataTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_METADATA);
         if (allowedCommands != null
                 && allowedCommands.hasCommand(SessionCommand.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
             List<MediaItem> playlist = sessionImpl.getPlaylist();
@@ -190,6 +207,26 @@ class ConnectionResult extends CustomVersionedParcelable {
 
     public VideoSize getVideoSize() {
         return mVideoSize;
+    }
+
+    public List<TrackInfo> getTrackInfo() {
+        return mTrackInfos;
+    }
+
+    public TrackInfo getSelectedVideoTrack() {
+        return mSelectedVideoTrack;
+    }
+
+    public TrackInfo getSelectedAudioTrack() {
+        return mSelectedAudioTrack;
+    }
+
+    public TrackInfo getSelectedSubtitleTrack() {
+        return mSelectedSubtitleTrack;
+    }
+
+    public TrackInfo getSelectedMetadataTrack() {
+        return mSelectedMetadataTrack;
     }
 
     @Override

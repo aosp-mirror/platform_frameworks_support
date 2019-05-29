@@ -20,6 +20,7 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.util.Pair;
+import android.util.Size;
 import android.view.Surface;
 
 import androidx.camera.camera2.impl.Camera2CameraCaptureResultConverter;
@@ -51,6 +52,7 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
     @Override
     public void onOutputSurface(Surface surface, int imageFormat) {
         mImpl.onOutputSurface(surface, imageFormat);
+        mImpl.onImageFormatUpdate(imageFormat);
     }
 
     @Override
@@ -90,12 +92,16 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
                 Pair<Image, TotalCaptureResult> imageCapturePair = new Pair<>(imageProxy.getImage(),
                         totalCaptureResult);
                 bundleMap.put(id, imageCapturePair);
-
             } catch (TimeoutException | ExecutionException | InterruptedException e) {
                 return;
             }
         }
 
         mImpl.process(bundleMap);
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size) {
+        mImpl.onResolutionUpdate(size);
     }
 }
