@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a843814e_c69f3227",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-29T18:12:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this is verifying what you are intending. If your description of the problem is correct, then this should fail the second time the captureCallback is called for 2 reasons. First, you are saying that onCaptureCompleted() should have a maximum of 1 interaction, but that\u0027s not the case if it is called again due to the preview CaptureRequest. Second, you\u0027re saying that the CaptureRequest argument must have intent STILL_CAPTURE, but that won\u0027t be the case for preview captures either.",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 518,
+        "endChar": 47
+      },
+      "revId": "40edbbd1ac0b95652c11a32a3170e7701347943b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
