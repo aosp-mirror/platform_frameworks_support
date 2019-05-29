@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a2ed45e_7a4d6460",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/SelectionsControlsDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T01:24:16Z",
+      "side": 1,
+      "message": "Why is this a function?  It seems like this could just be a Boolean.",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0012f60d_b82b60c9",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
         "patchSetId": 1
@@ -101,6 +118,41 @@
       "side": 1,
       "message": "Ideally I want to remove it or make it as an effect, but I need to think and play with it more, as now it\u0027s hard to make it look good. Naturally, because clicking/changing parent state require me to change children states, which I don\u0027t want to be responsible for here. \n\nWhat API you would like to see here?",
       "parentUuid": "d8ccf31c_6c47be78",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413134ec_dcbbe22d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T01:24:16Z",
+      "side": 1,
+      "message": "This also feels sort of awkward as a non-factory top level function.  I think we should be judicious with our introduction of those sorts of things, as they\u0027re hard to find and it\u0027s hard to end up not polluting the namespace - this would be androidx.ui.material.parentCheckboxState and would autocomplete anywhere someone started typing parent... in their code.  Perhaps this could be a factory-style function called just ToggleableState?  It\u0027s not exactly a factory since it\u0027s an enum, so maybe that\u0027s a weird pattern...I think it\u0027s still better than just a top-level function.  Thoughts?",
+      "parentUuid": "a2bdb906_903e4865",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92818eba_2954e1b4",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T01:24:16Z",
+      "side": 1,
+      "message": "Very much a nit: this unnecessarily iterates over all the children states twice if they\u0027re not all checked, though it\u0027s a bunch of booleans, so the actual impact here is probably ~negligible.",
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -218,6 +270,52 @@
       "side": 1,
       "message": "Answered in another CL where you asked this :) I hope later it will be non-null, but I want to address this in another CL",
       "parentUuid": "d09b9bd1_efed4e8e",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ef2d120_ab045fe8",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T01:24:16Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 46
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c43bf05_690fd09a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-29T01:24:16Z",
+      "side": 1,
+      "message": "Nit: This phrasing is a bit off - should this be something like \"so this component provides that functionality\" or something to that effect?",
+      "range": {
+        "startLine": 94,
+        "startChar": 69,
+        "endLine": 94,
+        "endChar": 91
+      },
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
