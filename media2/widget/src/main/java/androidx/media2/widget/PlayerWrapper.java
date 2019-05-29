@@ -16,6 +16,8 @@
 
 package androidx.media2.widget;
 
+import android.view.Surface;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media2.common.MediaItem;
@@ -35,13 +37,13 @@ import java.util.concurrent.Executor;
  * Wrapper for MediaController and SessionPlayer
  */
 class PlayerWrapper {
-    private final MediaController mController;
-    private final SessionPlayer mPlayer;
+    final MediaController mController;
+    final SessionPlayer mPlayer;
 
     private final Executor mCallbackExecutor;
 
-    private final MediaController.ControllerCallback mControllerCallback;
-    private final SessionPlayer.PlayerCallback mPlayerCallback;
+    private final MediaControllerCallback mControllerCallback;
+    private final SessionPlayerCallback mPlayerCallback;
 
     private boolean mCallbackAttached;
 
@@ -73,20 +75,31 @@ class PlayerWrapper {
         if (callback == null) throw new NullPointerException("callback must not be null");
         mPlayer = player;
         mCallbackExecutor = executor;
+
         mPlayerCallback = new SessionPlayerCallback(callback);
 
         mController = null;
         mControllerCallback = null;
     }
 
+    PlayerWrapper(@NonNull PlayerWrapper playerWrapper) {
+        mController = playerWrapper.mController;
+        mControllerCallback = playerWrapper.mControllerCallback;
+        mPlayer = playerWrapper.mPlayer;
+        mPlayerCallback = playerWrapper.mPlayerCallback;
+        mCallbackExecutor = playerWrapper.mCallbackExecutor;
+    }
+
     void attachCallback() {
         if (mCallbackAttached) return;
+        updateCachedStates();
         if (mController != null) {
             mController.registerExtraCallback(mCallbackExecutor, mControllerCallback);
+            mControllerCallback.mWrapperCallback.onAttachCallback(this);
         } else if (mPlayer != null) {
             mPlayer.registerPlayerCallback(mCallbackExecutor, mPlayerCallback);
+            mPlayerCallback.mWrapperCallback.onAttachCallback(this);
         }
-        updateCachedStates();
         mCallbackAttached = true;
     }
 
@@ -322,8 +335,25 @@ class PlayerWrapper {
         return null;
     }
 
+    void setSurface(Surface surface, Runnable listener, Executor executor) {
+        if (mController != null) {
+            mController.setSurface(surface).addListener(listener, executor);
+        } else if (mPlayer != null) {
+            mPlayer.setSurfaceInternal(surface).addListener(listener, executor);
+        }
+    }
+
+    float getPlaybackSpeed() {
+        if (mController != null) {
+            mController.getPlaybackSpeed();
+        } else if (mPlayer != null) {
+            mPlayer.getPlaybackSpeed();
+        }
+        return 1.0f;
+    }
+
     private class MediaControllerCallback extends MediaController.ControllerCallback {
-        private final PlayerCallback mWrapperCallback;
+        final PlayerCallback mWrapperCallback;
 
         MediaControllerCallback(@NonNull PlayerCallback callback) {
             mWrapperCallback = callback;
@@ -404,7 +434,7 @@ class PlayerWrapper {
     }
 
     private class SessionPlayerCallback extends SessionPlayer.PlayerCallback {
-        private final PlayerCallback mWrapperCallback;
+        final PlayerCallback mWrapperCallback;
 
         SessionPlayerCallback(@NonNull PlayerCallback callback) {
             mWrapperCallback = callback;
@@ -469,6 +499,8 @@ class PlayerWrapper {
     }
 
     abstract static class PlayerCallback {
+        void onAttachCallback(@NonNull PlayerWrapper player) {
+        }
         void onAllowedCommandsChanged(@NonNull PlayerWrapper player,
                 @NonNull SessionCommandGroup commands) {
         }
