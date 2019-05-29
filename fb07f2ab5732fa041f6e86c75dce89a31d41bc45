@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0012f60d_b82b60c9",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "but... why?",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f072a5c_0628da32",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/selection/Toggleable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "how do we see people using this?",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ccf31c_6c47be78",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "do we really need to provide this as a helper?",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232e3817_96960ff7",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "update name?",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea18db62_9e57bc2b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "I think this is commonly called `TriStateCheckbox` fwiw.",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d09b9bd1_efed4e8e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:22:21Z",
+      "side": 1,
+      "message": "also wondering if this needs to be nullable or not...",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
