@@ -19,63 +19,68 @@ package androidx.appcompat.app
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.appcompat.testutils.NightSetMode
+import androidx.appcompat.testutils.TestUtilsActions.rotateScreenOrientation
 import androidx.appcompat.testutils.assertConfigurationNightModeEquals
 import androidx.appcompat.testutils.setNightModeAndWaitForRecreate
-import androidx.lifecycle.Lifecycle
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.waitUntilState
+import org.junit.Assert.assertSame
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
-class NightModePreventOverrideConfigTestCase {
-    @get:Rule
-    val activityRule = ActivityTestRule(
-        NightModePreventOverrideConfigActivity::class.java,
+@RunWith(Parameterized::class)
+class NightModeOrientationConfigChangesTestCase(private val setMode: NightSetMode) {
+
+    @Rule
+    val rule = ActivityTestRule(
+        NightModeOrientationConfigChangesActivity::class.java,
         false,
         false
     )
 
     @Before
-    @Throws(Throwable::class)
     fun setup() {
         // By default we'll set the night mode to NO, which allows us to make better
         // assumptions in the test below
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         // Now launch the test activity
-        activityRule.launchActivity(null)
+        rule.launchActivity(null)
     }
 
     @Test
     @Throws(Throwable::class)
-    fun testActivityRecreate() {
-        // Activity should be able to reach fully resumed state in default NIGHT_NO.
-        waitUntilState(activityRule, state = Lifecycle.State.RESUMED)
-        assertConfigurationNightModeEquals(
-            Configuration.UI_MODE_NIGHT_NO,
-            activityRule.activity.resources.configuration
-        )
-
-        // Simulate the user setting night mode, which should force an activity recreate().
+    fun testRotateDoesNotRecreateActivity() {
+        // Set local night mode to YES
         setNightModeAndWaitForRecreate(
-            activityRule,
+            rule,
             nightMode = MODE_NIGHT_YES,
-            setMode = NightSetMode.LOCAL
+            setMode = setMode
         )
 
-        // Activity should be able to reach fully resumed state again.
-        waitUntilState(activityRule, state = Lifecycle.State.RESUMED)
+        val activity = rule.activity
 
-        // The requested night mode value should have been set by
-        // updateResourcesConfigurationForNightMode().
+        // Assert that the current Activity is 'dark'
         assertConfigurationNightModeEquals(
             Configuration.UI_MODE_NIGHT_YES,
-            activityRule.activity.resources.configuration
+            activity.resources.configuration
         )
+
+        // Now rotate the device
+        onView(isRoot()).perform(rotateScreenOrientation(activity))
+
+        // And assert that we have the same Activity, and thus was not recreated
+        assertSame(activity, rule.activity)
+    }
+
+    companion object {
+        @Parameterized.Parameters
+        @JvmStatic
+        fun data() = listOf(NightSetMode.DEFAULT, NightSetMode.LOCAL)
     }
 }

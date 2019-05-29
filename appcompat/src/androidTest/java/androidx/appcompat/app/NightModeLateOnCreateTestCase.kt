@@ -17,14 +17,14 @@
 package androidx.appcompat.app
 
 import android.content.res.Configuration
-import androidx.appcompat.testutils.NightModeUtils
-import androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals
-import androidx.appcompat.testutils.NightModeUtils.setNightModeAndWaitForDestroy
+import androidx.appcompat.testutils.NightSetMode
+import androidx.appcompat.testutils.assertConfigurationNightModeEquals
+import androidx.appcompat.testutils.setNightModeAndWaitForRecreate
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.LifecycleOwnerUtils
+import androidx.testutils.waitUntilState
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -41,32 +41,30 @@ class NightModeLateOnCreateTestCase {
     @Throws(Throwable::class)
     fun setup() {
         // By default we'll set the night mode to NO, which allows us to make better
-        // assumptions in the test below.
-        activityRule.runOnUiThread {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
+        // assumptions in the test below
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        // Now launch the test activity
+        activityRule.launchActivity(null)
     }
 
     @Test
     fun testActivityRecreateLoop() {
-        activityRule.launchActivity(null)
-
         // Activity should be able to reach fully resumed state in default NIGHT_NO.
-        LifecycleOwnerUtils.waitUntilState(activityRule, Lifecycle.State.RESUMED)
+        waitUntilState(activityRule, state = Lifecycle.State.RESUMED)
         assertConfigurationNightModeEquals(
             Configuration.UI_MODE_NIGHT_NO,
             activityRule.activity.resources.configuration
         )
 
         // Simulate the user setting night mode, which should force an activity recreate().
-        setNightModeAndWaitForDestroy(
+        setNightModeAndWaitForRecreate(
             activityRule,
-            AppCompatDelegate.MODE_NIGHT_YES,
-            NightModeUtils.NightSetMode.LOCAL
+            nightMode = AppCompatDelegate.MODE_NIGHT_YES,
+            setMode = NightSetMode.LOCAL
         )
 
         // Activity should be able to reach fully resumed state again.
-        LifecycleOwnerUtils.waitUntilState(activityRule, Lifecycle.State.RESUMED)
+        waitUntilState(activityRule, state = Lifecycle.State.RESUMED)
 
         // The request night mode value should have been set during attachBaseContext().
         assertConfigurationNightModeEquals(
