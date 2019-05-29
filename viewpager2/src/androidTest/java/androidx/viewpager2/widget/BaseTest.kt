@@ -39,9 +39,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.AppCompatActivityUtils
-import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
 import androidx.testutils.LocaleTestUtils
+import androidx.testutils.recreate
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
@@ -56,6 +55,7 @@ import androidx.viewpager2.widget.swipe.PageSwiperManual
 import androidx.viewpager2.widget.swipe.SelfChecking
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
+import androidx.viewpager2.widget.swipe.WaitForInjectMotionEventsAction.Companion.waitForInjectMotionEvents
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -101,13 +101,7 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
-        // TODO(b/130801606): replace waitForActivityDrawn with correct tool
-        // waitForActivityDrawn waits until the first frame is drawn, not until the window
-        // transitions are completed. Usually, two invocations of waitForActivityDrawn are enough
-        // for the window transitions to complete, but it's a horrible solution.
-        // See also other invocations of waitForActivityDrawn
-        waitForActivityDrawn(activityTestRule.activity)
-        waitForActivityDrawn(activityTestRule.activity)
+        onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
@@ -143,10 +137,9 @@ open class BaseTest {
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
-            activity = AppCompatActivityUtils.recreateActivity(activityTestRule, activity)
+            activity = activityTestRule.recreate()
             TestActivity.onCreateCallback = { }
-            waitForActivityDrawn(activity)
-            waitForActivityDrawn(activity)
+            onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
         }
 
         var activity: TestActivity = activityTestRule.activity
@@ -157,10 +150,6 @@ open class BaseTest {
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
-
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
 
         fun peekForward() {
             peek(adjustForRtl(-50f))
@@ -220,14 +209,14 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
-                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
                 SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -425,6 +414,18 @@ open class BaseTest {
     }
 
     /**
+     * Returns the slice between the first and second element. First and second element are not
+     * included in the results. Search for the second element starts on the element after the first
+     * element. If first element is not found, an empty list is returned. If second element is not
+     * found, all elements after the first are returned.
+     *
+     * @return A list with all elements between the first and the second element
+     */
+    fun <T> List<T>.slice(first: T, second: T): List<T> {
+        return dropWhile { it != first }.drop(1).takeWhile { it != second }
+    }
+
+    /**
      * Is between [min, max)
      * @param min - inclusive
      * @param max - exclusive
@@ -561,3 +562,8 @@ fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
         }
     }
 }
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL

@@ -46,6 +46,8 @@ import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
@@ -707,6 +709,30 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
+        void onTrackInfoChanged(int seq, List<TrackInfo> trackInfos,
+                TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+                TrackInfo selectedSubtitleTrack, TrackInfo selectedMetadataTrack)
+                throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackSelected(int seq, TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackDeselected(int seq, TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onSubtitleData(int seq, @NonNull MediaItem item,
+                @NonNull TrackInfo track, @NonNull SubtitleData data) {
+            // no-op
+        }
+
+        @Override
         public int hashCode() {
             return ObjectsCompat.hash(mRemoteUserInfo);
         }
@@ -894,6 +920,30 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
         @Override
         void onVideoSizeChanged(int seq, @NonNull MediaItem item, @NonNull VideoSize videoSize) {
+            // no-op
+        }
+
+        @Override
+        void onTrackInfoChanged(int seq, List<TrackInfo> trackInfos,
+                TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+                TrackInfo selectedSubtitleTrack, TrackInfo selectedMetadataTrack)
+                throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackSelected(int seq, TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackDeselected(int seq, TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onSubtitleData(int seq, @NonNull MediaItem item,
+                @NonNull TrackInfo track, @NonNull SubtitleData data) {
             // no-op
         }
     }

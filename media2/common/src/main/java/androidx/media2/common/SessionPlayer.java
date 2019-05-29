@@ -20,8 +20,10 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.media.MediaFormat;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
@@ -34,6 +36,10 @@ import androidx.annotation.RestrictTo;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
+import androidx.versionedparcelable.CustomVersionedParcelable;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -855,35 +861,87 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
-     * TODO: Change this into getTrackInfo()
+     * Gets the list of tracks.
+     * <p>
+     * The types of tracks supported may vary based on player implementation.
+     *
+     * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+     * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+     *
+     * TODO: Change this into getTrackInfo() (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public List<TrackInfo> getTrackInfoInternal() {
-        throw new UnsupportedOperationException("getTrackInfoInternal is for internal use only.");
+        throw new UnsupportedOperationException("getTrackInfoInternal is for internal use only");
     };
 
     /**
-     * TODO: Change this into selectTrack(TrackInfo)
+     * Selects a track.
+     * <p>
+     * Generally one track will be selected for each track type.
+     * <p>
+     * The types of tracks supported may vary based on player implementation.
+     *
+     * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+     * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+     * @see PlayerCallback#onTrackSelected(SessionPlayer, TrackInfo)
+     *
+     * TODO: Change this into selectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public ListenableFuture<PlayerResult> selectTrackInternal(
             @NonNull TrackInfo trackInfo) {
-        throw new UnsupportedOperationException("selectTrackInternal is for internal use only.");
+        throw new UnsupportedOperationException("selectTrackInternal is for internal use only");
     }
 
     /**
-     * TODO: Change this into deselectTrack(TrackInfo)
+     * Deselects a track.
+     * <p>
+     * Generally, a track should already be selected in order to be deselected and audio and video
+     * tracks should not be deselected.
+     * <p>
+     * The types of tracks supported may vary based on player implementation.
+     *
+     * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+     * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+     * @see PlayerCallback#onTrackDeselected(SessionPlayer, TrackInfo)
+     *
+     * TODO: Change this into deselectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public ListenableFuture<PlayerResult> deselectTrackInternal(
             @NonNull TrackInfo trackInfo) {
-        throw new UnsupportedOperationException("deselectTrackInternal is for internal use only.");
+        throw new UnsupportedOperationException("deselectTrackInternal is for internal use only");
+    }
+
+    /**
+     * Gets currently selected track's {@link TrackInfo} for the given track type.
+     *
+     * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+     * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+     * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA
+     *
+     * TODO: Change this into getSelectedTrack(int) (b/132928418)
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrackInternal(@TrackInfo.MediaTrackType int trackType) {
+        throw new UnsupportedOperationException(
+                "getSelectedTrackInternal is for internal use only.");
     }
 
     /**
@@ -892,11 +950,11 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public static final class TrackInfo {
+    @VersionedParcelize(isCustom = true)
+    public static final class TrackInfo extends CustomVersionedParcelable {
         public static final int MEDIA_TRACK_TYPE_UNKNOWN = 0;
         public static final int MEDIA_TRACK_TYPE_VIDEO = 1;
         public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
-        public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3;
         public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
         public static final int MEDIA_TRACK_TYPE_METADATA = 5;
 
@@ -913,14 +971,38 @@ public abstract class SessionPlayer implements AutoCloseable {
         @Retention(RetentionPolicy.SOURCE)
         @RestrictTo(LIBRARY_GROUP)
         public @interface MediaTrackType {}
-        private final int mId;
-        private final MediaItem mItem;
-        private final int mTrackType;
-        private final MediaFormat mFormat;
+
+        @ParcelField(1)
+        int mId;
+        @ParcelField(2)
+        MediaItem mUpCastMediaItem;
+        @ParcelField(3)
+        int mTrackType;
+        @ParcelField(4)
+        Bundle mParcelledFormat;
+
+        @NonParcelField
+        MediaFormat mFormat;
+        @NonParcelField
+        MediaItem mMediaItem;
+
+        /**
+         * Used for VersionedParcelable
+         */
+        TrackInfo() {
+            // no-op
+        }
+
+        public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
+            mId = id;
+            mMediaItem = item;
+            mTrackType = type;
+            mFormat = format;
+        }
 
         /**
          * Gets the track type.
-         * @return MediaTrackType which indicates if the track is video, audio, timed text.
+         * @return MediaTrackType which indicates if the track is video, audio or subtitle.
          */
         @MediaTrackType
         public int getTrackType() {
@@ -946,8 +1028,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          */
         @Nullable
         public MediaFormat getFormat() {
-            if (mTrackType == MEDIA_TRACK_TYPE_TIMEDTEXT
-                    || mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
+            if (mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
                 return mFormat;
             }
             return null;
@@ -959,31 +1040,22 @@ public abstract class SessionPlayer implements AutoCloseable {
 
         @Nullable
         public MediaItem getMediaItem() {
-            return mItem;
-        }
-
-        public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
-            mId = id;
-            mItem = item;
-            mTrackType = type;
-            mFormat = format;
+            return mMediaItem;
         }
 
         @Override
         public String toString() {
             StringBuilder out = new StringBuilder(128);
             out.append(getClass().getName());
-            out.append('#').append(mId);
-            out.append('{');
+            out.append(", id: ").append(mId);
+            out.append(", MediaItem: " + mMediaItem);
+            out.append(", TrackType: ");
             switch (mTrackType) {
                 case MEDIA_TRACK_TYPE_VIDEO:
                     out.append("VIDEO");
                     break;
                 case MEDIA_TRACK_TYPE_AUDIO:
                     out.append("AUDIO");
-                    break;
-                case MEDIA_TRACK_TYPE_TIMEDTEXT:
-                    out.append("TIMEDTEXT");
                     break;
                 case MEDIA_TRACK_TYPE_SUBTITLE:
                     out.append("SUBTITLE");
@@ -992,8 +1064,7 @@ public abstract class SessionPlayer implements AutoCloseable {
                     out.append("UNKNOWN");
                     break;
             }
-            out.append(", " + mFormat.toString());
-            out.append("}");
+            out.append(", Format: " + mFormat);
             return out.toString();
         }
 
@@ -1003,11 +1074,11 @@ public abstract class SessionPlayer implements AutoCloseable {
             int result = 1;
             result = prime * result + mId;
             int hashCode = 0;
-            if (mItem != null) {
-                if (mItem.getMediaId() != null) {
-                    hashCode = mItem.getMediaId().hashCode();
+            if (mMediaItem != null) {
+                if (mMediaItem.getMediaId() != null) {
+                    hashCode = mMediaItem.getMediaId().hashCode();
                 } else {
-                    hashCode = mItem.hashCode();
+                    hashCode = mMediaItem.hashCode();
                 }
             }
             result = prime * result + hashCode;
@@ -1029,16 +1100,100 @@ public abstract class SessionPlayer implements AutoCloseable {
             if (mId != other.mId) {
                 return false;
             }
-            if (mItem == null && other.mItem == null) {
-                return true;
-            } else if (mItem == null || other.mItem == null) {
+            if (mTrackType != other.mTrackType) {
+                return false;
+            }
+            if (mFormat == null && other.mFormat == null) {
+                // continue
+            } else if (mFormat == null && other.mFormat != null) {
+                return false;
+            } else if (mFormat != null && other.mFormat == null) {
                 return false;
             } else {
-                String mediaId = mItem.getMediaId();
-                if (mediaId != null) {
-                    return mediaId.equals(other.mItem.getMediaId());
+                if (!stringEquals(MediaFormat.KEY_LANGUAGE, mFormat, other.mFormat)
+                        || !stringEquals(MediaFormat.KEY_MIME, mFormat, other.mFormat)
+                        || !intEquals(MediaFormat.KEY_IS_FORCED_SUBTITLE, mFormat, other.mFormat)
+                        || !intEquals(MediaFormat.KEY_IS_AUTOSELECT, mFormat, other.mFormat)
+                        || !intEquals(MediaFormat.KEY_IS_DEFAULT, mFormat, other.mFormat)) {
+                    return false;
                 }
-                return mItem.equals(other.mItem);
+            }
+            // TODO (b/131873726): Replace this with MediaItem#getMediaId once media id is
+            // guaranteed to be NonNull.
+            if (mMediaItem == null && other.mMediaItem == null) {
+                return true;
+            } else if (mMediaItem == null || other.mMediaItem == null) {
+                return false;
+            } else {
+                String mediaId = mMediaItem.getMediaId();
+                if (mediaId != null) {
+                    return mediaId.equals(other.mMediaItem.getMediaId());
+                }
+                return mMediaItem.equals(other.mMediaItem);
+            }
+        }
+
+        @Override
+        public void onPreParceling(boolean isStream) {
+            if (mFormat != null) {
+                mParcelledFormat = new Bundle();
+                parcelStringValue(MediaFormat.KEY_LANGUAGE);
+                parcelStringValue(MediaFormat.KEY_MIME);
+                parcelIntValue(MediaFormat.KEY_IS_FORCED_SUBTITLE);
+                parcelIntValue(MediaFormat.KEY_IS_AUTOSELECT);
+                parcelIntValue(MediaFormat.KEY_IS_DEFAULT);
+            }
+
+            // Up-cast MediaItem's subclass object to MediaItem class.
+            if (mMediaItem != null && mUpCastMediaItem == null) {
+                mUpCastMediaItem = new MediaItem(mMediaItem);
+            }
+        }
+
+        @Override
+        public void onPostParceling() {
+            if (mParcelledFormat != null) {
+                mFormat = new MediaFormat();
+                unparcelStringValue(MediaFormat.KEY_LANGUAGE);
+                unparcelStringValue(MediaFormat.KEY_MIME);
+                unparcelIntValue(MediaFormat.KEY_IS_FORCED_SUBTITLE);
+                unparcelIntValue(MediaFormat.KEY_IS_AUTOSELECT);
+                unparcelIntValue(MediaFormat.KEY_IS_DEFAULT);
+            }
+            if (mMediaItem == null) {
+                mMediaItem = mUpCastMediaItem;
+            }
+        }
+
+        private boolean stringEquals(String key, MediaFormat format1, MediaFormat format2) {
+            return TextUtils.equals(format1.getString(key), format2.getString(key));
+        }
+
+        private boolean intEquals(String key, MediaFormat format1, MediaFormat format2) {
+            return format1.getInteger(key) == format2.getInteger(key);
+        }
+
+        private void parcelIntValue(String key) {
+            if (mFormat.containsKey(key)) {
+                mParcelledFormat.putInt(key, mFormat.getInteger(key));
+            }
+        }
+
+        private void parcelStringValue(String key) {
+            if (mFormat.containsKey(key)) {
+                mParcelledFormat.putString(key, mFormat.getString(key));
+            }
+        }
+
+        private void unparcelIntValue(String key) {
+            if (mParcelledFormat.containsKey(key)) {
+                mFormat.setInteger(key, mParcelledFormat.getInt(key));
+            }
+        }
+
+        private void unparcelStringValue(String key) {
+            if (mParcelledFormat.containsKey(key)) {
+                mFormat.setString(key, mParcelledFormat.getString(key));
             }
         }
     }
@@ -1212,13 +1367,59 @@ public abstract class SessionPlayer implements AutoCloseable {
          * Called when the player's subtitle track has new subtitle data available.
          * @param player the player that reports the new subtitle data
          * @param item the MediaItem of this media item
+         * @param track the track that has the subtitle data
          * @param data the subtitle data
          *
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onSubtitleData(@NonNull SessionPlayer player,
-                @NonNull MediaItem item, @NonNull SubtitleData data) {
+        public void onSubtitleData(@NonNull SessionPlayer player, @NonNull MediaItem item,
+                @NonNull TrackInfo track, @NonNull SubtitleData data) {
+        }
+
+        /**
+         * Called when the tracks are first retrieved after media is prepared or when new tracks are
+         * found during playback.
+         * <p>
+         * When it's called, you should invalidate previous track information and use the new
+         * tracks to call {@link #selectTrackInternal(SessionPlayer.TrackInfo)} or
+         * {@link #deselectTrackInternal(SessionPlayer.TrackInfo)}.
+         *
+         * @param player the player associated with this callback
+         * @param trackInfos the list of track
+         * @see #getTrackInfoInternal()
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackInfoChanged(@NonNull SessionPlayer player,
+                @NonNull List<TrackInfo> trackInfos) {
+        }
+
+        /**
+         * Called when a track is selected.
+         *
+         * @param player the player associated with this callback
+         * @param trackInfo the selected track
+         * @see #selectTrackInternal(TrackInfo)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackSelected(@NonNull SessionPlayer player, @NonNull TrackInfo trackInfo) {
+        }
+
+        /**
+         * Called when a track is deselected.
+         * <p>
+         * This callback will generally be called only after calling
+         * {@link #deselectTrackInternal(TrackInfo)}.
+         *
+         * @param player the player associated with this callback
+         * @param trackInfo the deselected track
+         * @see #deselectTrackInternal(TrackInfo)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackDeselected(@NonNull SessionPlayer player, @NonNull TrackInfo trackInfo) {
         }
     }
 

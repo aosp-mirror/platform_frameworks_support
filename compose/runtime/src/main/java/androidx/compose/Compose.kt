@@ -33,9 +33,10 @@ import java.util.WeakHashMap
 object Compose {
 
     private class Root : Component() {
-        @Suppress("DEPRECATION")
-        fun update() = recomposeSync()
+        fun update() = composer.compose()
+
         lateinit var composable: @Composable() () -> Unit
+        lateinit var composer: CompositionContext
         @Suppress("PLUGIN_ERROR")
         override fun compose() {
             val cc = currentComposerNonNull
@@ -84,7 +85,7 @@ object Compose {
         group: Any,
         component: Component,
         reference: CompositionReference?
-    ): CompositionContext = CompositionContext.create(
+    ): CompositionContext = CompositionContext.prepare(
         context,
         group,
         component,
@@ -126,17 +127,18 @@ object Compose {
             root = Root()
             root.composable = composable
             setRoot(container, root)
-            val cc = CompositionContext.create(
+            val cc = CompositionContext.prepare(
                 container.context,
                 container,
                 root,
                 parent
             )
-            cc.recompose()
+            root.composer = cc
+            root.update()
             return cc
         } else {
             root.composable = composable
-            root.recomposeCallback?.invoke(true)
+            root.update()
         }
         return null
     }
@@ -158,6 +160,7 @@ object Compose {
     @MainThread
     fun disposeComposition(container: ViewGroup, parent: CompositionReference? = null) {
         // temporary easy way to call correct lifecycles on everything
+        // need to remove compositionContext from context map as well
         composeInto(container, parent) { }
         container.setTag(TAG_ROOT_COMPONENT, null)
     }
@@ -193,11 +196,12 @@ object Compose {
             root = Root()
             root.composable = composable
             setRoot(container, root)
-            val cc = CompositionContext.create(context, container, root, parent)
-            cc.recompose()
+            val cc = CompositionContext.prepare(context, container, root, parent)
+            root.composer = cc
+            root.update()
         } else {
             root.composable = composable
-            root.recomposeCallback?.invoke(true)
+            root.update()
         }
     }
 
@@ -250,7 +254,7 @@ fun Activity.disposeComposition() {
         .decorView
         .findViewById<ViewGroup>(android.R.id.content)
         .getChildAt(0) as? ViewGroup
-            ?: error("No root view found")
+        ?: error("No root view found")
     Compose.disposeComposition(view, null)
 }
 

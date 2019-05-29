@@ -36,16 +36,19 @@ def includeProject(name, filePath) {
 includeProject(":activity", "activity")
 includeProject(":activity-ktx", "activity/ktx")
 includeProject(":activity:integration-tests:testapp", "activity/integration-tests/testapp")
+includeProject(":ads-identifier", "ads/ads-identifier")
 includeProject(":annotation", "annotations")
 includeProject(":animation", "animation")
 includeProject(":animation:testing", "animation/testing")
 includeProject(":animation:integration-tests:testapp", "animation/integration-tests/testapp")
 includeProject(":appcompat", "appcompat")
+includeProject(":appcompat-benchmark", "appcompat/benchmark")
 includeProject(":appcompat:appcompat-resources", "appcompat/resources")
 includeProject(":arch:core-common", "arch/core-common")
 includeProject(":arch:core-testing", "arch/core-testing")
 includeProject(":arch:core-runtime", "arch/core-runtime")
 includeProject(":asynclayoutinflater", "asynclayoutinflater")
+includeProject(":autofill", "autofill")
 includeProject(":benchmark", "benchmark")
 includeProject(":benchmark:benchmark-gradle-plugin", "benchmark/gradle-plugin")
 includeProject(":biometric", "biometric")
@@ -82,6 +85,7 @@ includeProject(":emoji", "emoji/core")
 includeProject(":emoji-bundled", "emoji/bundled")
 includeProject(":emoji-appcompat", "emoji/appcompat")
 includeProject(":enterprise-feedback", "enterprise/feedback")
+includeProject(":enterprise-feedback-testing", "enterprise/feedback/testing")
 includeProject(":exifinterface", "exifinterface")
 includeProject(":fragment", "fragment")
 includeProject(":fragment-ktx", "fragment/ktx")
@@ -176,6 +180,7 @@ includeProject(":versionedparcelable-annotation", "versionedparcelable/annotatio
 includeProject(":versionedparcelable", "versionedparcelable")
 includeProject(":savedstate", "savedstate")
 includeProject(":security:security-crypto", "security/crypto")
+includeProject(":security:security-identity-credential", "security/identity-credential")
 includeProject(":sharetarget", "sharetarget")
 includeProject(":sharetarget:integration-tests:testapp", "sharetarget/integration-tests/testapp")
 includeProject(":slice-core", "slices/core")
@@ -214,9 +219,7 @@ includeProject(":work:integration-tests:testapp", "work/integration-tests/testap
 //
 /////////////////////////////
 
-includeProject(":legacy-support-core-ui", "legacy/core-ui")
 includeProject(":legacy-support-core-utils", "legacy/core-utils")
-includeProject(":legacy-support-v13", "legacy/v13")
 
 /////////////////////////////
 //

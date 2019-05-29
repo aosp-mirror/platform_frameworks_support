@@ -32,7 +32,7 @@ import androidx.ui.engine.geometry.shrink
 import androidx.ui.engine.geometry.withRadius
 import androidx.ui.layout.Container
 import androidx.ui.layout.Padding
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle
 import androidx.ui.painting.StrokeCap
@@ -90,7 +90,7 @@ fun Checkbox(
 @Composable
 private fun DrawCheckbox(value: ToggleableState, color: Color?) {
     val activeColor = +color.orFromTheme { secondary }
-    val unselectedColor = (+themeColor { onSurface }).withOpacity(UncheckedBoxOppacity)
+    val unselectedColor = (+themeColor { onSurface }).copy(alpha = UncheckedBoxOppacity)
     val definition = +memo(activeColor, unselectedColor) {
         generateTransitionDefinition(activeColor, unselectedColor)
     }
@@ -217,9 +217,7 @@ private fun generateTransitionDefinition(color: Color, unselectedColor: Color) =
         }
         transition(fromState = ToggleableState.Unchecked, toState = ToggleableState.Checked) {
             boxTransitionFromUnchecked()
-            CenterGravitationForCheck using tween {
-                duration = 0
-            }
+            CenterGravitationForCheck using snap()
         }
         transition(fromState = ToggleableState.Checked, toState = ToggleableState.Unchecked) {
             boxTransitionToUnchecked()
@@ -245,10 +243,8 @@ private fun generateTransitionDefinition(color: Color, unselectedColor: Color) =
         }
     }
 
-private fun TransitionSpec.boxTransitionFromUnchecked() {
-    BoxColorProp using tween {
-        duration = 0
-    }
+private fun TransitionSpec<ToggleableState>.boxTransitionFromUnchecked() {
+    BoxColorProp using snap()
     InnerRadiusFractionProp using tween {
         duration = BoxAnimationDuration
     }
@@ -258,10 +254,8 @@ private fun TransitionSpec.boxTransitionFromUnchecked() {
     }
 }
 
-private fun TransitionSpec.boxTransitionToUnchecked() {
-    BoxColorProp using tween {
-        duration = 0
-    }
+private fun TransitionSpec<ToggleableState>.boxTransitionToUnchecked() {
+    BoxColorProp using snap()
     InnerRadiusFractionProp using tween {
         duration = BoxAnimationDuration
         delay = CheckStrokeAnimationDuration

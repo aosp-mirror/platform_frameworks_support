@@ -16,19 +16,25 @@
 
 package androidx.benchmark
 
+import android.os.Build
 import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @SmallTest
 @RunWith(JUnit4::class)
 class ResultWriterTest {
+
+    @get:Rule
+    val tempFolder = TemporaryFolder()
+
     private val reportA = BenchmarkState.Report(
         testName = "MethodA",
         className = "package.Class1",
-        nanos = 100,
         data = listOf(100, 101, 102),
         repeatIterations = 100000,
         warmupIterations = 8000
@@ -36,81 +42,85 @@ class ResultWriterTest {
     private val reportB = BenchmarkState.Report(
         testName = "MethodB",
         className = "package.Class2",
-        nanos = 100,
         data = listOf(100, 101, 102),
         repeatIterations = 100000,
         warmupIterations = 8000
     )
 
     @Test
-    fun validateXml() {
-        val manager = ResultWriter.fileManagers.find { it.extension == "xml" }!!
-        manager.currentContent = manager.initial
-        manager.append(reportA)
-        manager.append(reportB)
-        assertEquals("""
-            <benchmarksuite>
-                <testcase
-                        name="MethodA"
-                        className="package.Class1"
-                        nanos="100"
-                        warmupIterations="8000"
-                        repeatIterations="100000">
-                    <run nanos="100"/>
-                    <run nanos="101"/>
-                    <run nanos="102"/>
-                </testcase>
-                <testcase
-                        name="MethodB"
-                        className="package.Class2"
-                        nanos="100"
-                        warmupIterations="8000"
-                        repeatIterations="100000">
-                    <run nanos="100"/>
-                    <run nanos="101"/>
-                    <run nanos="102"/>
-                </testcase>
-            </benchmarksuite>
-            """.trimIndent(),
-            manager.fullFileContent
-        )
+    fun shouldClearExistingContent() {
+        val tempFile = tempFolder.newFile()
+
+        val fakeText = "This text should not be in the final output"
+        tempFile.writeText(fakeText)
+
+        ResultWriter.writeReport(tempFile, listOf(reportA, reportB))
+        assert(!tempFile.readText().startsWith(fakeText))
     }
 
     @Test
     fun validateJson() {
-        val manager = ResultWriter.fileManagers.find { it.extension == "json" }!!
-        manager.currentContent = manager.initial
-        manager.append(reportA)
-        manager.append(reportB)
-        assertEquals("""
-            { "results": [
-                {
-                    "name": "MethodA",
-                    "className": "package.Class1",
-                    "nanos": 100,
-                    "warmupIterations": 8000,
-                    "repeatIterations": 100000,
-                    "runs": [
-                        100,
-                        101,
-                        102
-                    ]
+        val tempFile = tempFolder.newFile()
+
+        val sustainedPerformanceModeInUse = AndroidBenchmarkRunner.sustainedPerformanceModeInUse
+
+        ResultWriter.writeReport(tempFile, listOf(reportA, reportB))
+        assertEquals(
+            """
+            {
+                "context": {
+                    "build": {
+                        "device": "${Build.DEVICE}",
+                        "fingerprint": "${Build.FINGERPRINT}",
+                        "model": "${Build.MODEL}",
+                        "version": {
+                            "sdk": ${Build.VERSION.SDK_INT}
+                        }
+                    },
+                    "cpuLocked": ${Clocks.areLocked},
+                    "sustainedPerformanceModeEnabled": $sustainedPerformanceModeInUse
                 },
-                {
-                    "name": "MethodB",
-                    "className": "package.Class2",
-                    "nanos": 100,
-                    "warmupIterations": 8000,
-                    "repeatIterations": 100000,
-                    "runs": [
-                        100,
-                        101,
-                        102
-                    ]
-                }
-            ]}
+                "benchmarks": [
+                    {
+                        "name": "MethodA",
+                        "className": "package.Class1",
+                        "metrics": {
+                            "timeNs": {
+                                "minimum": 100,
+                                "maximum": 102,
+                                "median": 101,
+                                "runs": [
+                                    100,
+                                    101,
+                                    102
+                                ]
+                            }
+                        },
+                        "warmupIterations": 8000,
+                        "repeatIterations": 100000
+                    },
+                    {
+                        "name": "MethodB",
+                        "className": "package.Class2",
+                        "metrics": {
+                            "timeNs": {
+                                "minimum": 100,
+                                "maximum": 102,
+                                "median": 101,
+                                "runs": [
+                                    100,
+                                    101,
+                                    102
+                                ]
+                            }
+                        },
+                        "warmupIterations": 8000,
+                        "repeatIterations": 100000
+                    }
+                ]
+            }
             """.trimIndent(),
-            manager.fullFileContent
+            tempFile.readText()
         )
     }
 }
