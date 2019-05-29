@@ -34,6 +34,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a9282c6_766a3cef",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T22:54:23Z",
+      "side": 1,
+      "message": "I can imagine usecases when you want only to clip canvas and drawChildren() and you don\u0027t need paint, like in Scroller.kt above. \n\nFor this usecases we will create unnecessary Paint, that\u0027s a problem.\n\nRegarding effect, I considered this, but I\u0027m not sure if it will be discoverable enough for users. I can imagine situations where people use Draw node and just don\u0027t know about +paint effect and create their own every recomposition cycle.\n\nWe can have two Draw overloads, one with Paint and one without. Not sure it then it will be discoverable enough... What\u0027s your thought on this?",
+      "parentUuid": "d9abe3e6_47571bf2",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
