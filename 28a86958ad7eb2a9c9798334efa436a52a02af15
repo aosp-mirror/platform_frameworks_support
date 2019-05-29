@@ -22,6 +22,30 @@
       "revId": "28a86958ad7eb2a9c9798334efa436a52a02af15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d758768_20dcf900",
+        "filename": "browser/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-05-29T16:31:18Z",
+      "side": 1,
+      "message": "Ultimately what we want to do is split this library into two - the core 90% which are the basic building blocks and classes like TrustedWebUtils, LauncherActivity and ManageDataLauncherActivity which provide a sort of default implementation - at no point are they going to be in this code base and public (we just want to move everything over to androidx then start refactoring) (although admittedly TrustedWebUtils is already public, but that\u0027s one small method).\n\nIs there some way we can have these resources checked in but never part of the API that would be acceptable? Otherwise I guess we have to split the library into two as we move things into AndroidX.",
+      "parentUuid": "69b1a8a7_3d6d8371",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 87
+      },
+      "revId": "28a86958ad7eb2a9c9798334efa436a52a02af15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
