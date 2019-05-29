@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c74366f_cbeb33bc",
+        "filename": "browser/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1101575
+      },
+      "writtenOn": "2019-05-29T15:58:41Z",
+      "side": 1,
+      "message": "Where\u0027d we land on allowing customization of the navigation bar divider color?",
+      "range": {
+        "startLine": 113,
+        "startChar": 37,
+        "endLine": 113,
+        "endChar": 63
+      },
+      "revId": "86fd992a120f3c4b034e9cb100b890c8fcbe9593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
