@@ -1393,10 +1393,6 @@ public class MediaControlView extends ViewGroup {
                 mProgress.getThumb().setLevel(0);
                 break;
         }
-
-        // Update play/pause and ffwd buttons based on whether currently the replay button is shown
-        // or not.
-        updateReplayButton(mIsShowingReplayButton);
     }
 
     private View initTransportControls(int id) {
@@ -2065,7 +2061,7 @@ public class MediaControlView extends ViewGroup {
             if (player != mPlayer) return;
 
             if (DEBUG) {
-                Log.d(TAG, "onTrackInfoChanged(): trackInfos: " + trackInfos);
+                Log.d(TAG, "onTrackInfoChanged(): " + trackInfos);
             }
 
             updateTracks(player, trackInfos);
@@ -2076,6 +2072,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackSelected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackSelected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2108,6 +2107,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackDeselected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackDeselected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2129,6 +2131,11 @@ public class MediaControlView extends ViewGroup {
         @Override
         void onVideoSizeChanged(@NonNull PlayerWrapper player, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {
+            if (player != mPlayer) return;
+
+            if (DEBUG) {
+                Log.d(TAG, "onVideoSizeChanged(): " + videoSize);
+            }
             if (mVideoTrackCount == 0 && videoSize.getHeight() > 0 && videoSize.getWidth() > 0) {
                 List<TrackInfo> tracks = player.getTrackInfo();
                 if (tracks != null) {
