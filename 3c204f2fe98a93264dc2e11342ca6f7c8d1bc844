@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af2bea3a_b5a6d83b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T00:07:24Z",
+      "side": 1,
+      "message": "have we decided that it\u0027s important for us to make this parameter nullable? It feels like something where providing null to it is always the wrong thing?",
+      "revId": "3c204f2fe98a93264dc2e11342ca6f7c8d1bc844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
