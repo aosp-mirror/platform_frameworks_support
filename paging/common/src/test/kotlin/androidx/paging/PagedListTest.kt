@@ -16,6 +16,7 @@
 
 package androidx.paging
 
+import androidx.paging.futures.DirectExecutor
 import androidx.testutils.TestExecutor
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -26,6 +27,24 @@ import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 class PagedListTest {
+
+    companion object {
+        private val dataSource = object : PositionalDataSource<String>() {
+            override fun loadInitial(
+                params: LoadInitialParams,
+                callback: LoadInitialCallback<String>
+            ) {
+                callback.onResult(listOf("a"), 0, 1)
+            }
+
+            override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<String>) {
+                fail()
+            }
+        }
+
+        private val config = Config(10)
+    }
+
     private val mainThread = TestExecutor()
     private val backgroundThread = TestExecutor()
 
@@ -102,6 +121,19 @@ class PagedListTest {
         }, backgroundThread)
         backgroundThread.executeAll()
         assertTrue(success[0])
+    }
+
+    @Test
+    fun defaults() {
+        val pagedList = PagedList(
+            dataSource = dataSource,
+            config = config,
+            fetchExecutor = DirectExecutor.INSTANCE,
+            notifyExecutor = DirectExecutor.INSTANCE
+        )
+
+        assertEquals(dataSource, pagedList.dataSource)
+        assertEquals(config, pagedList.getConfig())
     }
 
     private val ITEMS = List(100) { "$it" }
