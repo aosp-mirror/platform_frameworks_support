@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "346b94e7_5d8dbb76",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Good question. Because I explicitly didn\u0027t set null as a default value so people will be forced to provide legit onClick action or pass null to indicate that Checkbox should be disabled.\n\nI think that if we consider null as disable, it makes sense to not set it as a default, I don\u0027t want disabled state to be state \"by default\".\n\nDoes it make sense?",
+      "parentUuid": "0012f60d_b82b60c9",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f072a5c_0628da32",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/selection/Toggleable.kt",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f2c95eca_1ada763f",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/selection/Toggleable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Good catch, made it internal now so we can use it. At least as long as Toggleable component requires it. (I have some ideas around it)",
+      "parentUuid": "2f072a5c_0628da32",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8ccf31c_6c47be78",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-29T00:22:21Z",
       "side": 1,
       "message": "do we really need to provide this as a helper?",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2bdb906_903e4865",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Ideally I want to remove it or make it as an effect, but I need to think and play with it more, as now it\u0027s hard to make it look good. Naturally, because clicking/changing parent state require me to change children states, which I don\u0027t want to be responsible for here. \n\nWhat API you would like to see here?",
+      "parentUuid": "d8ccf31c_6c47be78",
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "5c1db57a_d82dd870",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "232e3817_96960ff7",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea18db62_9e57bc2b",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "571cfaba_3ff86734",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea18db62_9e57bc2b",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d09b9bd1_efed4e8e",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2019-05-29T00:22:21Z",
       "side": 1,
       "message": "also wondering if this needs to be nullable or not...",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485d93d2_d73b0b54",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T00:57:47Z",
+      "side": 1,
+      "message": "Answered in another CL where you asked this :) I hope later it will be non-null, but I want to address this in another CL",
+      "parentUuid": "d09b9bd1_efed4e8e",
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
