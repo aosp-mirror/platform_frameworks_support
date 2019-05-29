@@ -1,0 +1,15 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.work {
+
+  public abstract class RxWorker extends androidx.work.ListenableWorker {
+    ctor public RxWorker(android.content.Context, androidx.work.WorkerParameters);
+    method @MainThread public abstract io.reactivex.Single<androidx.work.ListenableWorker.Result!> createWork();
+    method protected io.reactivex.Scheduler getBackgroundScheduler();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.work.ListenableWorker.Result!> startWork();
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

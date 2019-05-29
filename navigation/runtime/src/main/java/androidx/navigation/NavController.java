@@ -30,6 +30,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.annotation.CallSuper;
+import androidx.annotation.IdRes;
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.TaskStackBuilder;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelStore;
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -62,6 +76,8 @@ public class NavController {
     static final String KEY_DEEP_LINK_IDS = "android-support-nav:controller:deepLinkIds";
     static final String KEY_DEEP_LINK_EXTRAS =
             "android-support-nav:controller:deepLinkExtras";
+    static final String KEY_DEEP_LINK_HANDLED =
+            "android-support-nav:controller:deepLinkHandled";
     /**
      * The {@link Intent} that triggered a deep link to the current destination.
      */
@@ -76,6 +92,7 @@ public class NavController {
     private Bundle mNavigatorStateToRestore;
     private int[] mBackStackIdsToRestore;
     private Parcelable[] mBackStackArgsToRestore;
+    private boolean mDeepLinkHandled;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Deque<NavBackStackEntry> mBackStack = new ArrayDeque<>();
@@ -500,7 +517,8 @@ public class NavController {
             mBackStackArgsToRestore = null;
         }
         if (mGraph != null && mBackStack.isEmpty()) {
-            boolean deepLinked = mActivity != null && handleDeepLink(mActivity.getIntent());
+            boolean deepLinked = !mDeepLinkHandled && mActivity != null
+                    && handleDeepLink(mActivity.getIntent());
             if (!deepLinked) {
                 // Navigate to the first destination in the graph
                 // if we haven't deep linked to a destination
@@ -616,6 +634,7 @@ public class NavController {
                         .setEnterAnim(0).setExitAnim(0).build(), null);
             }
         }
+        mDeepLinkHandled = true;
         return true;
     }
 
@@ -923,6 +942,12 @@ public class NavController {
             b.putIntArray(KEY_BACK_STACK_IDS, backStackIds);
             b.putParcelableArray(KEY_BACK_STACK_ARGS, backStackArgs);
         }
+        if (mDeepLinkHandled) {
+            if (b == null) {
+                b = new Bundle();
+            }
+            b.putBoolean(KEY_DEEP_LINK_HANDLED, mDeepLinkHandled);
+        }
         return b;
     }
 
@@ -946,5 +971,70 @@ public class NavController {
         mNavigatorStateToRestore = navState.getBundle(KEY_NAVIGATOR_STATE);
         mBackStackIdsToRestore = navState.getIntArray(KEY_BACK_STACK_IDS);
         mBackStackArgsToRestore = navState.getParcelableArray(KEY_BACK_STACK_ARGS);
+        mDeepLinkHandled = navState.getBoolean(KEY_DEEP_LINK_HANDLED);
     }
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+
+    void setLifecycleOwner(@NonNull LifecycleOwner owner) {
+        mLifecycleOwner = owner;
+    }
+
+    void setOnBackPressedDispatcher(@NonNull OnBackPressedDispatcher dispatcher) {
+        if (mLifecycleOwner == null) {
+            throw new IllegalStateException("You must call setLifecycleOwner() before calling "
+                    + "setOnBackPressedDispatcher()");
+        }
+        // Remove the callback from any previous dispatcher
+        mOnBackPressedCallback.remove();
+        // Then add it to the new dispatcher
+        dispatcher.addCallback(mLifecycleOwner, mOnBackPressedCallback);
+    }
+
+    void enableOnBackPressed(boolean enabled) {
+        mEnableOnBackPressedCallback = enabled;
+        updateOnBackPressedCallbackEnabled();
+    }
+
+    private void updateOnBackPressedCallbackEnabled() {
+        mOnBackPressedCallback.setEnabled(mEnableOnBackPressedCallback
+                && getDestinationCountOnBackStack() > 1);
+    }
+
+    void setViewModelStore(@NonNull ViewModelStore viewModelStore) {
+        mViewModel = NavControllerViewModel.getInstance(viewModelStore);
+    }
+
+    /**
+     * Gets the view model for a NavGraph. If a view model does not exist it will create and
+     * store one.
+     *
+     * @param navGraphId ID of a NavGraph that exists on the back stack
+     * @throws IllegalStateException if called before the {@link NavHost} has called
+     * {@link NavHostController#setViewModelStore}.
+     * @throws IllegalArgumentException if the NavGraph is not on the back stack
+     */
+    @NonNull
+    public ViewModelStore getViewModelStore(@IdRes int navGraphId) {
+        if (mViewModel == null) {
+            throw new IllegalStateException("You must call setViewModelStore() before calling "
+                    + "getViewModelStore().");
+        }
+        NavBackStackEntry lastFromBackStack = null;
+        Iterator<NavBackStackEntry> iterator = mBackStack.descendingIterator();
+        while (iterator.hasNext()) {
+            NavBackStackEntry entry = iterator.next();
+            NavDestination destination = entry.getDestination();
+            if (destination instanceof NavGraph && destination.getId() == navGraphId) {
+                lastFromBackStack = entry;
+                break;
+            }
+        }
+        if (lastFromBackStack == null) {
+            throw new IllegalArgumentException("No NavGraph with ID " + navGraphId + " is on the "
+                    + "NavController's back stack");
+        }
+        return mViewModel.getViewModelStore(lastFromBackStack.mId);
+    }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 }

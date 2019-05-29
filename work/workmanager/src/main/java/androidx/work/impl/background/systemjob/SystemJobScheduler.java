@@ -15,6 +15,8 @@
  */
 package androidx.work.impl.background.systemjob;
 
+import static androidx.work.impl.background.systemjob.SystemJobInfoConverter.EXTRA_WORK_SPEC_ID;
+
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
@@ -25,6 +27,14 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import androidx.work.Logger;
 import androidx.work.WorkInfo;
 import androidx.work.impl.Scheduler;
@@ -78,25 +88,26 @@ public class SystemJobScheduler implements Scheduler {
         for (WorkSpec workSpec : workSpecs) {
             workDatabase.beginTransaction();
             try {
-                // It is possible that this WorkSpec got cancelled/pruned since this isn't part of
-                // the same database transaction as marking it enqueued (for example, if we using
-                // any of the synchronous operations).  For now, handle this gracefully by exiting
-                // the loop.  When we plumb ListenableFutures all the way through, we can remove the
-                // *sync methods and return ListenableFutures, which will block on an operation on
-                // the background task thread so all database operations happen on the same thread.
-                // See b/114705286.
                 WorkSpec currentDbWorkSpec = workDatabase.workSpecDao().getWorkSpec(workSpec.id);
                 if (currentDbWorkSpec == null) {
                     Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it's no longer in the DB");
+
+                    // Marking this transaction as successful, as we don't want this transaction
+                    // to affect transactions for unrelated WorkSpecs.
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 } else if (currentDbWorkSpec.state != WorkInfo.State.ENQUEUED) {
                     Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it is no longer enqueued");
+
+                    // Marking this transaction as successful, as we don't want this transaction
+                    // to affect transactions for unrelated WorkSpecs.
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 }
 
@@ -137,7 +148,32 @@ public class SystemJobScheduler implements Scheduler {
                             mWorkManager.getConfiguration().getMinJobSchedulerId(),
                             mWorkManager.getConfiguration().getMaxJobSchedulerId());
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
                     scheduleInternal(workSpec, nextJobId);
+=======
+                    // jobIds can be null if getPendingJobIds() throws an Exception.
+                    // When this happens this will not setup a second job, and hence might delay
+                    // execution, but it's better than crashing the app.
+                    if (jobIds != null) {
+                        // Remove the jobId which has been used from the list of eligible jobIds.
+                        int index = jobIds.indexOf(jobId);
+                        if (index >= 0) {
+                            jobIds.remove(index);
+                        }
+
+                        int nextJobId;
+                        if (!jobIds.isEmpty()) {
+                            // Use the next eligible jobId
+                            nextJobId = jobIds.get(0);
+                        } else {
+                            // Create a new jobId
+                            nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
+                                    mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                                    mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                        }
+                        scheduleInternal(workSpec, nextJobId);
+                    }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                 }
 
                 workDatabase.setTransactionSuccessful();
@@ -158,7 +194,39 @@ public class SystemJobScheduler implements Scheduler {
         Logger.get().debug(
                 TAG,
                 String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         mJobScheduler.schedule(jobInfo);
+=======
+        try {
+            mJobScheduler.schedule(jobInfo);
+        } catch (IllegalStateException e) {
+            // This only gets thrown if we exceed 100 jobs.  Let's figure out if WorkManager is
+            // responsible for all these jobs.
+            int numWorkManagerJobs = 0;
+            List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
+            if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
+                for (JobInfo currentJobInfo : allJobInfos) {
+                    PersistableBundle extras = currentJobInfo.getExtras();
+                    if (extras != null && extras.getString(EXTRA_WORK_SPEC_ID) != null) {
+                        ++numWorkManagerJobs;
+                    }
+                }
+            }
+
+            String message = String.format(Locale.getDefault(),
+                    "JobScheduler 100 job limit exceeded.  We count %d WorkManager "
+                            + "jobs in JobScheduler; we have %d tracked jobs in our DB; "
+                            + "our Configuration limit is %d.",
+                    numWorkManagerJobs,
+                    mWorkManager.getWorkDatabase().workSpecDao().getScheduledWork().size(),
+                    mWorkManager.getConfiguration().getMaxSchedulerLimit());
+
+            Logger.get().error(TAG, message);
+
+            // Rethrow a more verbose exception.
+            throw new IllegalStateException(message, e);
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     @Override
@@ -169,9 +237,8 @@ public class SystemJobScheduler implements Scheduler {
         List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
         if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
             for (JobInfo jobInfo : allJobInfos) {
-                if (workSpecId.equals(
-                        jobInfo.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
-
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null && workSpecId.equals(extras.getString(EXTRA_WORK_SPEC_ID))) {
                     // Its safe to call this method twice.
                     mWorkManager.getWorkDatabase()
                             .systemIdInfoDao()
@@ -202,7 +269,7 @@ public class SystemJobScheduler implements Scheduler {
                 for (JobInfo jobInfo : jobInfos) {
                     PersistableBundle extras = jobInfo.getExtras();
                     // This is a job scheduled by WorkManager.
-                    if (extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (extras != null && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
                         jobScheduler.cancel(jobInfo.getId());
                     }
                 }
@@ -210,10 +277,21 @@ public class SystemJobScheduler implements Scheduler {
         }
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     private static JobInfo getPendingJobInfo(
+=======
+    /**
+     * Always wrap a call to getPendingJobs() with a try catch as there are platform bugs with
+     * several OEMs in API 23, which cause this method to throw Exceptions.
+     * For reference: b/133556574, b/133556809, b/133556535
+     */
+    @Nullable
+    private static List<Integer> getPendingJobIds(
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             @NonNull JobScheduler jobScheduler,
             @NonNull String workSpecId) {
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
         // Apparently this CAN be null on API 23?
         if (jobInfos != null) {
@@ -224,10 +302,33 @@ public class SystemJobScheduler implements Scheduler {
                     if (workSpecId.equals(
                             extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
                         return jobInfo;
+=======
+        try {
+            // We have atmost 2 jobs per WorkSpec
+            List<Integer> pendingJobs = new ArrayList<>(2);
+            List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+            // Apparently this CAN be null on API 23?
+            if (jobInfos != null) {
+                for (JobInfo jobInfo : jobInfos) {
+                    PersistableBundle extras = jobInfo.getExtras();
+                    if (extras != null
+                            && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
+                        if (workSpecId.equals(
+                                extras.getString(EXTRA_WORK_SPEC_ID))) {
+                            pendingJobs.add(jobInfo.getId());
+                        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                     }
                 }
             }
+            return pendingJobs;
+        } catch (Throwable throwable) {
+            Logger.get().error(TAG, "Ignoring an exception with getPendingJobIds", throwable);
+            return null;
         }
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         return null;
+=======
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 }

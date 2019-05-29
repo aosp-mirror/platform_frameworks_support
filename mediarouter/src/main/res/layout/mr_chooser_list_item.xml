@@ -17,9 +17,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:minHeight="56dp"
+              android:minHeight="32dp"
               android:paddingLeft="24dp"
               android:paddingRight="24dp"
+              android:paddingBottom="24dp"
               android:orientation="horizontal"
               android:gravity="center_vertical" >
 
@@ -36,6 +37,10 @@
         <TextView android:id="@+id/mr_chooser_route_name"
                   android:layout_width="fill_parent"
                   android:layout_height="32dp"
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+                  android:gravity="start"
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                   android:singleLine="true"
                   android:ellipsize="marquee"
                   android:textAppearance="@style/TextAppearance.MediaRouter.PrimaryText" />
@@ -43,6 +48,10 @@
         <TextView android:id="@+id/mr_chooser_route_desc"
                   android:layout_width="fill_parent"
                   android:layout_height="24dp"
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+                  android:gravity="start"
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                   android:singleLine="true"
                   android:ellipsize="marquee"
                   android:textAppearance="@style/TextAppearance.MediaRouter.SecondaryText" />

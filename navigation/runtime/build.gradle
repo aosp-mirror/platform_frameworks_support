@@ -33,12 +33,17 @@ android {
 dependencies {
     api(NAV_SUPPORT_CORE_UTILS)
     api(project(":navigation:navigation-common"))
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
     testImplementation(TEST_EXT_JUNIT)
     testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
+=======
+    api(project(":activity"))
+    api("androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01")
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     androidTestImplementation(project(":navigation:navigation-testing"))
     androidTestImplementation(TEST_EXT_JUNIT)

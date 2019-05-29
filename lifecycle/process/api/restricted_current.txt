@@ -1,0 +1,18 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.lifecycle {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class ProcessLifecycleOwnerInitializer extends android.content.ContentProvider {
+    ctor public ProcessLifecycleOwnerInitializer();
+    method public int delete(android.net.Uri, String!, String![]!);
+    method public String? getType(android.net.Uri);
+    method public android.net.Uri? insert(android.net.Uri, android.content.ContentValues!);
+    method public boolean onCreate();
+    method public android.database.Cursor? query(android.net.Uri, String![]!, String!, String![]!, String!);
+    method public int update(android.net.Uri, android.content.ContentValues!, String!, String![]!);
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

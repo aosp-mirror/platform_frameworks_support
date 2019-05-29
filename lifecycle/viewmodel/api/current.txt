@@ -14,10 +14,15 @@ package androidx.lifecycle {
   public class ViewModelProvider {
     ctor public ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner, androidx.lifecycle.ViewModelProvider.Factory);
     ctor public ViewModelProvider(androidx.lifecycle.ViewModelStore, androidx.lifecycle.ViewModelProvider.Factory);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     ctor public ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner, androidx.lifecycle.ViewModelProvider.KeyedFactory);
     ctor public ViewModelProvider(androidx.lifecycle.ViewModelStore, androidx.lifecycle.ViewModelProvider.KeyedFactory);
     method @MainThread public <T extends androidx.lifecycle.ViewModel> T get(Class<T>);
     method @MainThread public <T extends androidx.lifecycle.ViewModel> T get(String, Class<T>);
+=======
+    method @MainThread public <T extends androidx.lifecycle.ViewModel> T get(Class<T!>);
+    method @MainThread public <T extends androidx.lifecycle.ViewModel> T get(String, Class<T!>);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
   }
 
   public static class ViewModelProvider.AndroidViewModelFactory extends androidx.lifecycle.ViewModelProvider.NewInstanceFactory {
@@ -26,7 +31,7 @@ package androidx.lifecycle {
   }
 
   public static interface ViewModelProvider.Factory {
-    method public <T extends androidx.lifecycle.ViewModel> T create(Class<T>);
+    method public <T extends androidx.lifecycle.ViewModel> T create(Class<T!>);
   }
 
   public static interface ViewModelProvider.KeyedFactory {
@@ -35,7 +40,7 @@ package androidx.lifecycle {
 
   public static class ViewModelProvider.NewInstanceFactory implements androidx.lifecycle.ViewModelProvider.Factory {
     ctor public ViewModelProvider.NewInstanceFactory();
-    method public <T extends androidx.lifecycle.ViewModel> T create(Class<T>);
+    method public <T extends androidx.lifecycle.ViewModel> T create(Class<T!>);
   }
 
   public class ViewModelStore {

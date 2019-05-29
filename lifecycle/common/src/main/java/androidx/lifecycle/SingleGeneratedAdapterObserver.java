@@ -16,6 +16,7 @@
 
 package androidx.lifecycle;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 import androidx.annotation.RestrictTo;
 
 /**
@@ -23,6 +24,11 @@ import androidx.annotation.RestrictTo;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class SingleGeneratedAdapterObserver implements LifecycleEventObserver {
+=======
+import androidx.annotation.NonNull;
+
+class SingleGeneratedAdapterObserver implements LifecycleEventObserver {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     private final GeneratedAdapter mGeneratedAdapter;
 
@@ -31,7 +37,7 @@ public class SingleGeneratedAdapterObserver implements LifecycleEventObserver {
     }
 
     @Override
-    public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
         mGeneratedAdapter.callMethods(source, event, false, null);
         mGeneratedAdapter.callMethods(source, event, true, null);
     }

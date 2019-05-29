@@ -42,8 +42,15 @@ public class NightModeOrientationConfigChangesTestCase {
     @Rule
     public final ActivityTestRule<NightModeOrientationConfigChangesActivity> mActivityTestRule;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     public NightModeOrientationConfigChangesTestCase() {
         mActivityTestRule = new ActivityTestRule<>(NightModeOrientationConfigChangesActivity.class);
+=======
+    public NightModeOrientationConfigChangesTestCase(NightSetMode setMode) {
+        mSetMode = setMode;
+        mActivityTestRule = new ActivityTestRule<>(
+                NightModeOrientationConfigChangesActivity.class, false, false);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     @Before
@@ -51,6 +58,8 @@ public class NightModeOrientationConfigChangesTestCase {
         // By default we'll set the night mode to NO, which allows us to make better
         // assumptions in the test below
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        // Now launch the test activity
+        mActivityTestRule.launchActivity(null);
     }
 
     @Test

@@ -30,6 +30,19 @@
                 app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         </fragment>
     </navigation>
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    <dialog
+        android:id="@+id/learn_more"
+        android:name="androidx.navigation.testapp.LearnMoreDialogFragment">
+        <argument android:name="myarg" android:defaultValue="@null" />
+        <action
+            android:id="@+id/learn_more_about_android"
+            app:destination="@+id/android"
+            app:popUpTo="@+id/learn_more"
+            app:popUpToInclusive="true"/>
+    </dialog>
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     <fragment android:id="@+id/android"
               android:label="@string/android"
               android:name="androidx.navigation.testapp.AndroidFragment">

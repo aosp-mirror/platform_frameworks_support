@@ -18,6 +18,7 @@ package androidx.viewpager2.widget
 
 import android.os.SystemClock.sleep
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
@@ -661,6 +662,81 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
         }
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    @Test
+    fun test_swipeReleaseSwipeBack() {
+        // given
+        val test = setUpTest(config.orientation)
+        test.setAdapterSync(adapterProvider(stringSequence(3)))
+        val currentPage = test.viewPager.currentItem
+        val halfPage = test.viewPager.pageSize / 2f
+        val pageSwiper = PageSwiperManual(test.viewPager)
+        var recorder = test.viewPager.addNewRecordingCallback()
+
+        val vc = ViewConfiguration.get(test.viewPager.context)
+        val touchSlop = vc.scaledTouchSlop
+
+        // when
+        tryNTimes(3, resetBlock = {
+            test.viewPager.setCurrentItemSync(currentPage, false, 2, SECONDS)
+            activityTestRule.waitForExecution(1)
+            test.viewPager.unregisterOnPageChangeCallback(recorder)
+            recorder = test.viewPager.addNewRecordingCallback()
+        }) {
+            val settleLatch = test.viewPager.addWaitForStateLatch(SCROLL_STATE_SETTLING)
+            val idleLatch = test.viewPager.addWaitForIdleLatch()
+
+            // Swipe towards next page
+            pageSwiper.swipeForward(halfPage + 2 * touchSlop, AccelerateInterpolator())
+            settleLatch.await(2, SECONDS)
+            var scrollLatch: CountDownLatch? = null
+            activityTestRule.runOnUiThread {
+                scrollLatch = test.viewPager.addWaitForFirstScrollEventLatch()
+            }
+            scrollLatch!!.await(2, SECONDS)
+
+            // now catch the settling view pager and swipe back
+            pageSwiper.swipeBackward(halfPage, AccelerateInterpolator())
+            idleLatch.await(2, SECONDS)
+
+            if (!recorder.wasSettleInterrupted) {
+                throw RetryException("Settling phase of first swipe was not interrupted in time")
+            }
+        }
+
+        // then:
+
+        // 1) We're at the right page
+        assertThat(test.viewPager.currentItem, equalTo(0))
+        assertThat(test.viewPager.currentCompletelyVisibleItem, equalTo(0))
+
+        // 2) State sequence was DRAGGING -> SETTLING -> DRAGGING -> SETTLING -> IDLE
+        assertThat(
+            recorder.stateEvents.map { it.state },
+            equalTo(listOf(SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING,
+                SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING, SCROLL_STATE_IDLE))
+        )
+
+        // 3) Page selected sequence was select(1) -> select(0)
+        assertThat(
+            recorder.selectEvents.map { it.position },
+            equalTo(listOf(1, 0))
+        )
+
+        val idle = OnPageScrollStateChangedEvent(SCROLL_STATE_IDLE)
+        val dragging = OnPageScrollStateChangedEvent(SCROLL_STATE_DRAGGING)
+        val settling = OnPageScrollStateChangedEvent(SCROLL_STATE_SETTLING)
+
+        // 4) Scroll events during the first swipe were ascending
+        recorder.allEvents
+            .assertScrollEventsBetweenEventsSorted(dragging, dragging, SortOrder.ASC)
+        // 5) Scroll events during the second swipe were descending
+        recorder.allEvents.dropWhile { it != settling }
+            .assertScrollEventsBetweenEventsSorted(dragging, idle, SortOrder.DESC)
+    }
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     /**
      * Test behavior when no {@link OnPageChangeCallback}s are attached.
      * Introduced after finding a regression.

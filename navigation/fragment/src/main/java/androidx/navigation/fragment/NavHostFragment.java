@@ -33,6 +33,7 @@ import android.widget.FrameLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavHost;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.Navigator;
 
@@ -120,7 +121,12 @@ public class NavHostFragment extends Fragment implements NavHost {
                 + " does not have a NavController set");
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     private NavController mNavController;
+=======
+    private NavHostController mNavController;
+    private Boolean mIsPrimaryBeforeOnCreate = null;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     // State that will be saved and restored
     private int mGraphId;
@@ -203,8 +209,21 @@ public class NavHostFragment extends Fragment implements NavHost {
         super.onCreate(savedInstanceState);
         final Context context = requireContext();
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         mNavController = new NavController(context);
         mNavController.getNavigatorProvider().addNavigator(createFragmentNavigator());
+=======
+        mNavController = new NavHostController(context);
+        mNavController.setLifecycleOwner(this);
+        mNavController.setOnBackPressedDispatcher(requireActivity().getOnBackPressedDispatcher());
+        // Set the default state - this will be updated whenever
+        // onPrimaryNavigationFragmentChanged() is called
+        mNavController.enableOnBackPressed(
+                mIsPrimaryBeforeOnCreate != null && mIsPrimaryBeforeOnCreate);
+        mIsPrimaryBeforeOnCreate = null;
+        mNavController.setViewModelStore(getViewModelStore());
+        onCreateNavController(mNavController);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
         Bundle navState = null;
         if (savedInstanceState != null) {
@@ -238,6 +257,39 @@ public class NavHostFragment extends Fragment implements NavHost {
     }
 
     /**
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+     * Callback for when the {@link #getNavController() NavController} is created. If you
+     * support any custom destination types, their {@link Navigator} should be added here to
+     * ensure it is available before the navigation graph is inflated / set.
+     * <p>
+     * By default, this adds a {@link FragmentNavigator}.
+     * <p>
+     * This is only called once in {@link #onCreate(Bundle)} and should not be called directly by
+     * subclasses.
+     *
+     * @param navController The newly created {@link NavController}.
+     */
+    @SuppressWarnings({"WeakerAccess", "deprecation"})
+    @CallSuper
+    protected void onCreateNavController(@NonNull NavController navController) {
+        navController.getNavigatorProvider().addNavigator(
+                new DialogFragmentNavigator(requireContext(), getChildFragmentManager()));
+        navController.getNavigatorProvider().addNavigator(createFragmentNavigator());
+    }
+
+    @CallSuper
+    @Override
+    public void onPrimaryNavigationFragmentChanged(boolean isPrimaryNavigationFragment) {
+        if (mNavController != null) {
+            mNavController.enableOnBackPressed(isPrimaryNavigationFragment);
+        } else {
+            mIsPrimaryBeforeOnCreate = isPrimaryNavigationFragment;
+        }
+    }
+
+    /**
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
      * Create the FragmentNavigator that this NavHostFragment will use. By default, this uses
      * {@link FragmentNavigator}, which replaces the entire contents of the NavHostFragment.
      * <p>

@@ -35,7 +35,11 @@ open class UpdateApiTask : DefaultTask() {
     var inputApiLocation: ApiLocation? = null
 
     /** Text files to which API signatures will be written. */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     var outputApiLocations: List<ApiLocation> = listOf()
+=======
+    abstract val outputApiLocations: ListProperty<ApiLocation>
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     /** Whether to update restricted API files too */
     var updateRestrictedAPIs = false

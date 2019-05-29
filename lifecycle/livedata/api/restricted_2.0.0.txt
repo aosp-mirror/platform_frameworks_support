@@ -1,0 +1,16 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.lifecycle {
+
+  @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public abstract class ComputableLiveData<T> {
+    ctor public ComputableLiveData();
+    ctor public ComputableLiveData(java.util.concurrent.Executor);
+    method @WorkerThread protected abstract T! compute();
+    method public androidx.lifecycle.LiveData<T!> getLiveData();
+    method public void invalidate();
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

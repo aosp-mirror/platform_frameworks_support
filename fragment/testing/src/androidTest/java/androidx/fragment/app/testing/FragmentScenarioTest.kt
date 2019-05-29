@@ -19,9 +19,18 @@ package androidx.fragment.app.testing
 import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.testing.test.R.style.ThemedFragmentTheme
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import androidx.lifecycle.Lifecycle
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import androidx.lifecycle.Lifecycle.State
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+=======
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -188,6 +197,36 @@ class FragmentScenarioTest {
     }
 
     @Test
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    fun launchInContainerWithEarlyLifecycleCallbacks() {
+        var tagSetBeforeOnStart = false
+        with(launchFragmentInContainer {
+            StateRecordingFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        fragment.requireView().setTag(view_tag_id, "fakeNavController")
+                    }
+                }
+                fragment.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_START) {
+                        tagSetBeforeOnStart =
+                            fragment.requireView().getTag(view_tag_id) == "fakeNavController"
+                    }
+                })
+            }
+        }) {
+            assertThat(tagSetBeforeOnStart).isTrue()
+            onFragment { fragment ->
+                assertThat(fragment.state).isEqualTo(State.RESUMED)
+                assertThat(fragment.numberOfRecreations).isEqualTo(0)
+                assertThat(fragment.isViewAttachedToWindow).isTrue()
+            }
+        }
+    }
+
+    @Test
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     fun fromResumedToCreated() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.CREATED)

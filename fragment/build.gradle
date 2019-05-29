@@ -14,11 +14,19 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     api(project(":annotation"))
     api(project(":core")) {
         exclude group: 'androidx.annotation'
     }
     api(project(":collection"))
+=======
+    api("androidx.annotation:annotation:1.1.0-rc01")
+    api(project(":core")) {
+        exclude group: 'androidx.annotation'
+    }
+    api("androidx.collection:collection:1.1.0-rc01")
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     api("androidx.viewpager:viewpager:1.0.0")
     api(project(":annotation"))
     api("androidx.loader:loader:1.0.0")

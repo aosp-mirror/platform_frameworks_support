@@ -1,0 +1,19 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.room {
+
+  public class EmptyResultSetException extends java.lang.RuntimeException {
+    ctor public EmptyResultSetException(String!);
+  }
+
+  public class RxRoom {
+    ctor @Deprecated public RxRoom();
+    method public static io.reactivex.Flowable<java.lang.Object!>! createFlowable(androidx.room.RoomDatabase!, java.lang.String!...);
+    method public static io.reactivex.Observable<java.lang.Object!>! createObservable(androidx.room.RoomDatabase!, java.lang.String!...);
+    field public static final Object! NOTHING;
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

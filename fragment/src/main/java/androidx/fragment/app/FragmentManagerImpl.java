@@ -287,8 +287,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (mPrimaryNav != null // We have a primary nav fragment
                 && id < 0 // No valid id (since they're local)
                 && name == null) { // no name to pop to (since they're local)
-            final FragmentManager childManager = mPrimaryNav.peekChildFragmentManager();
-            if (childManager != null && childManager.popBackStackImmediate()) {
+            final FragmentManager childManager = mPrimaryNav.getChildFragmentManager();
+            if (childManager.popBackStackImmediate()) {
                 // We did something, just not to this specific FragmentManager. Return true.
                 return true;
             }
@@ -572,6 +572,15 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     AnimationOrAnimator loadAnimation(Fragment fragment, int transit, boolean enter,
                                       int transitionStyle) {
         int nextAnim = fragment.getNextAnim();
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+        // Clear the Fragment animation
+        fragment.setNextAnim(0);
+        // If there is a transition on the container, clear those set on the fragment
+        if (fragment.mContainer != null && fragment.mContainer.getLayoutTransition() != null) {
+            return null;
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
         Animation animation = fragment.onCreateAnimation(transit, enter, nextAnim);
         if (animation != null) {
             return new AnimationOrAnimator(animation);
@@ -952,17 +961,20 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             f.mContainer.endViewTransition(f.mView);
                             f.mView.clearAnimation();
                             AnimationOrAnimator anim = null;
-                            if (mCurState > Fragment.INITIALIZING && !mDestroyed
-                                    && f.mView.getVisibility() == View.VISIBLE
-                                    && f.mPostponedAlpha >= 0) {
-                                anim = loadAnimation(f, transit, false,
-                                        transitionStyle);
+                            // If parent is being removed, no need to handle child animations.
+                            if (f.getParentFragment() == null || !f.getParentFragment().mRemoving) {
+                                if (mCurState > Fragment.INITIALIZING && !mDestroyed
+                                        && f.mView.getVisibility() == View.VISIBLE
+                                        && f.mPostponedAlpha >= 0) {
+                                    anim = loadAnimation(f, transit, false,
+                                            transitionStyle);
+                                }
+                                f.mPostponedAlpha = 0;
+                                if (anim != null) {
+                                    animateRemoveFragment(f, anim, newState);
+                                }
+                                f.mContainer.removeView(f.mView);
                             }
-                            f.mPostponedAlpha = 0;
-                            if (anim != null) {
-                                animateRemoveFragment(f, anim, newState);
-                            }
-                            f.mContainer.removeView(f.mView);
                         }
                         f.mContainer = null;
                         f.mView = null;
@@ -3019,6 +3031,28 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    // Checks if fragments that belong to this fragment manager (or their children) have menus,
+    // and if they are visible.
+    boolean checkForMenus() {
+        boolean hasMenu = false;
+        for (Fragment f: mActive.values()) {
+            if (f != null) {
+                hasMenu = isMenuAvailable(f);
+            }
+            if (hasMenu) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isMenuAvailable(Fragment f) {
+        return f.mHasMenu && f.mMenuVisible || f.mChildFragmentManager.checkForMenus();
+    }
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     public static int reverseTransit(int transit) {
         int rev = 0;
         switch (transit) {
@@ -3214,8 +3248,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (mPrimaryNav != null // We have a primary nav fragment
                     && mId < 0 // No valid id (since they're local)
                     && mName == null) { // no name to pop to (since they're local)
-                final FragmentManager childManager = mPrimaryNav.peekChildFragmentManager();
-                if (childManager != null && childManager.popBackStackImmediate()) {
+                final FragmentManager childManager = mPrimaryNav.getChildFragmentManager();
+                if (childManager.popBackStackImmediate()) {
                     // We didn't add any operations for this FragmentManager even though
                     // a child did do work.
                     return false;

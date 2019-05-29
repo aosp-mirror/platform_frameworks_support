@@ -30,7 +30,7 @@ package androidx.webkit {
   }
 
   public class TracingConfig {
-    method public java.util.List<java.lang.String> getCustomIncludedCategories();
+    method public java.util.List<java.lang.String!> getCustomIncludedCategories();
     method public int getPredefinedCategories();
     method public int getTracingMode();
     field public static final int CATEGORIES_ALL = 1; // 0x1
@@ -48,8 +48,8 @@ package androidx.webkit {
   public static class TracingConfig.Builder {
     ctor public TracingConfig.Builder();
     method public androidx.webkit.TracingConfig.Builder addCategories(int...);
-    method public androidx.webkit.TracingConfig.Builder addCategories(java.lang.String...);
-    method public androidx.webkit.TracingConfig.Builder addCategories(java.util.Collection<java.lang.String>);
+    method public androidx.webkit.TracingConfig.Builder addCategories(java.lang.String!...);
+    method public androidx.webkit.TracingConfig.Builder addCategories(java.util.Collection<java.lang.String!>);
     method public androidx.webkit.TracingConfig build();
     method public androidx.webkit.TracingConfig.Builder setTracingMode(int);
   }
@@ -63,9 +63,9 @@ package androidx.webkit {
 
   public class WebMessageCompat {
     ctor public WebMessageCompat(String?);
-    ctor public WebMessageCompat(String?, androidx.webkit.WebMessagePortCompat[]?);
+    ctor public WebMessageCompat(String?, androidx.webkit.WebMessagePortCompat![]?);
     method public String? getData();
-    method public androidx.webkit.WebMessagePortCompat[]? getPorts();
+    method public androidx.webkit.WebMessagePortCompat![]? getPorts();
   }
 
   public abstract class WebMessagePortCompat {
@@ -107,7 +107,7 @@ package androidx.webkit {
   }
 
   public class WebViewCompat {
-    method @RequiresFeature(name=androidx.webkit.WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebMessagePortCompat[] createWebMessageChannel(android.webkit.WebView);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebMessagePortCompat![] createWebMessageChannel(android.webkit.WebView);
     method public static android.content.pm.PackageInfo? getCurrentWebViewPackage(android.content.Context);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static android.net.Uri getSafeBrowsingPrivacyPolicyUrl();
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.GET_WEB_CHROME_CLIENT, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static android.webkit.WebChromeClient? getWebChromeClient(android.webkit.WebView);
@@ -116,10 +116,17 @@ package androidx.webkit {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebViewRendererClient? getWebViewRendererClient(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.VISUAL_STATE_CALLBACK, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postVisualStateCallback(android.webkit.WebView, long, androidx.webkit.WebViewCompat.VisualStateCallback);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.POST_WEB_MESSAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postWebMessage(android.webkit.WebView, androidx.webkit.WebMessageCompat, android.net.Uri);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_WHITELIST, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setSafeBrowsingWhitelist(java.util.List<java.lang.String>, android.webkit.ValueCallback<java.lang.Boolean>?);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWebViewRendererClient(android.webkit.WebView, java.util.concurrent.Executor, androidx.webkit.WebViewRendererClient);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWebViewRendererClient(android.webkit.WebView, androidx.webkit.WebViewRendererClient?);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.START_SAFE_BROWSING, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void startSafeBrowsing(android.content.Context, android.webkit.ValueCallback<java.lang.Boolean>?);
+=======
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_WHITELIST, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setSafeBrowsingWhitelist(java.util.List<java.lang.String!>, android.webkit.ValueCallback<java.lang.Boolean!>?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWebViewRenderProcessClient(android.webkit.WebView, java.util.concurrent.Executor, androidx.webkit.WebViewRenderProcessClient);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWebViewRenderProcessClient(android.webkit.WebView, androidx.webkit.WebViewRenderProcessClient?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.START_SAFE_BROWSING, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void startSafeBrowsing(android.content.Context, android.webkit.ValueCallback<java.lang.Boolean!>?);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
   }
 
   public static interface WebViewCompat.VisualStateCallback {

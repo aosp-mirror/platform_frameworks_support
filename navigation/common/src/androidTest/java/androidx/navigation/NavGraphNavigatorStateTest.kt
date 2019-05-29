@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -65,3 +66,5 @@ class NavGraphNavigatorStateTest {
             .isEqualTo(destination)
     }
 }
+=======
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

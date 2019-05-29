@@ -30,11 +30,25 @@ android {
     }
 }
 
+configurations {
+    repackage
+}
+
 dependencies {
     api(project(":room:room-common"))
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     api(project(":sqlite:sqlite-framework"))
     api(project(":sqlite:sqlite"))
     implementation(project(":arch:core-runtime"))
+=======
+    // ----------- Start of workaround to include room-common-java8 inside of aar as jar ----------
+    repackage(project(":room:room-common-java8")) { transitive = false } // no dependencies
+    implementation files(configurations.repackage) // files causes it to be bundled inside of aar
+    // ----------- End of workaround to include room-common-java8 inside of aar as jar ------------
+    api(ANDROIDX_SQLITE_FRAMEWORK)
+    api(ANDROIDX_SQLITE)
+    implementation(ARCH_CORE_RUNTIME)
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     implementation(ANDROIDX_CORE)
     implementation(ANDROIDX_COLLECTION)
     compileOnly(ARCH_PAGING_COMMON)

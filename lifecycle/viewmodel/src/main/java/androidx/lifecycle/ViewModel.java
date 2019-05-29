@@ -147,8 +147,19 @@ public abstract class ViewModel {
      * it implements {@link Closeable}. The same object may receive multiple close calls, so method
      * should be idempotent.
      */
+    @SuppressWarnings("unchecked")
     <T> T setTagIfAbsent(String key, T newValue) {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         @SuppressWarnings("unchecked") T previous = (T) mBagOfTags.putIfAbsent(key, newValue);
+=======
+        T previous;
+        synchronized (mBagOfTags) {
+            previous = (T) mBagOfTags.get(key);
+            if (previous == null) {
+                mBagOfTags.put(key, newValue);
+            }
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
         T result = previous == null ? newValue : previous;
         if (mCleared) {
             // It is possible that we'll call close() multiple times on the same object, but
@@ -162,10 +173,16 @@ public abstract class ViewModel {
     /**
      * Returns the tag associated with this viewmodel and the specified key.
      */
-    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
     <T> T getTag(String key) {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         //noinspection unchecked
         return (T) mBagOfTags.get(key);
+=======
+        synchronized (mBagOfTags) {
+            return (T) mBagOfTags.get(key);
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     private static void closeWithRuntimeException(Object obj) {

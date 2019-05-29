@@ -94,6 +94,21 @@ class WorkTimer {
         }
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    /**
+     * This method needs to be idempotent. This could be called more than once, and therefore,
+     * this method should only perform cleanup when necessary.
+     */
+    void onDestroy() {
+        if (!mExecutorService.isShutdown()) {
+            // Calling shutdown() waits for pending scheduled WorkTimerRunnable's which is not
+            // something we care about. Hence call shutdownNow().
+            mExecutorService.shutdownNow();
+        }
+    }
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     @VisibleForTesting
     synchronized Map<String, WorkTimerRunnable> getTimerMap() {
         return mTimerMap;

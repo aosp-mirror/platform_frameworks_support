@@ -369,8 +369,10 @@ public class CarAlertDialog extends Dialog {
      * multiple {@code TouchDelegate}s and will delegate out touch events to each.
      */
     private static final class ButtonPanelTouchDelegate extends TouchDelegate {
-        @Nullable private TouchDelegate mPositiveButtonDelegate;
-        @Nullable private TouchDelegate mNegativeButtonDelegate;
+        @Nullable
+        private TouchDelegate mPositiveButtonDelegate;
+        @Nullable
+        private TouchDelegate mNegativeButtonDelegate;
 
         ButtonPanelTouchDelegate(View view) {
             super(new Rect(), view);
@@ -442,7 +444,7 @@ public class CarAlertDialog extends Dialog {
          *
          * @param context The {@code Context} that the dialog is to be created in.
          */
-        public Builder(Context context) {
+        public Builder(@NonNull Context context) {
             mContext = context;
         }
 
@@ -489,7 +491,12 @@ public class CarAlertDialog extends Dialog {
          * @param title The string to be used as the title.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setTitle(CharSequence title) {
+=======
+        @NonNull
+        public Builder setTitle(@Nullable CharSequence title) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mTitle = title;
             return this;
         }
@@ -511,7 +518,12 @@ public class CarAlertDialog extends Dialog {
          * @param body The string to be used as the body text.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setBody(CharSequence body) {
+=======
+        @NonNull
+        public Builder setBody(@Nullable CharSequence body) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mBody = body;
             return this;
         }
@@ -519,7 +531,7 @@ public class CarAlertDialog extends Dialog {
         /**
          * Sets the {@link MovementMethod} to be applied on the body text of this alert dialog.
          *
-         * @param  movementMethod The {@code MovementMethod} to apply or {@code null}.
+         * @param movementMethod The {@code MovementMethod} to apply or {@code null}.
          * @return This {@code Builder} object to allow for chaining of calls.
          * @see TextView#setMovementMethod(MovementMethod)
          */
@@ -536,7 +548,7 @@ public class CarAlertDialog extends Dialog {
          * <p>The positive button should be used to accept and continue with the action (e.g.
          * an "OK" action).
          *
-         * @param textId The resource id of the string to be used for the positive button text.
+         * @param textId   The resource id of the string to be used for the positive button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
@@ -556,12 +568,18 @@ public class CarAlertDialog extends Dialog {
          * <p>The positive button should be used to accept and continue with the action (e.g.
          * an "OK" action).
          *
-         * @param text The string to be used for the positive button text.
+         * @param text     The string to be used for the positive button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setPositiveButton(CharSequence text, @Nullable OnClickListener listener) {
+=======
+        @NonNull
+        public Builder setPositiveButton(@NonNull CharSequence text,
+                @Nullable OnClickListener listener) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mPositiveButtonText = text;
             mPositiveButtonListener = listener;
             return this;
@@ -574,7 +592,7 @@ public class CarAlertDialog extends Dialog {
          *
          * <p>The negative button should be used to cancel any actions the dialog represents.
          *
-         * @param textId The resource id of the string to be used for the negative button text.
+         * @param textId   The resource id of the string to be used for the negative button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
@@ -593,12 +611,18 @@ public class CarAlertDialog extends Dialog {
          *
          * <p>The negative button should be used to cancel any actions the dialog represents.
          *
-         * @param text The string to be used for the negative button text.
+         * @param text     The string to be used for the negative button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setNegativeButton(CharSequence text, @Nullable OnClickListener listener) {
+=======
+        @NonNull
+        public Builder setNegativeButton(@NonNull CharSequence text,
+                @Nullable OnClickListener listener) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mNegativeButtonText = text;
             mNegativeButtonListener = listener;
             return this;
@@ -624,11 +648,15 @@ public class CarAlertDialog extends Dialog {
          *
          * @param onCancelListener The listener to be invoked when this dialog is canceled.
          * @return This {@code Builder} object to allow for chaining of calls.
-         *
          * @see #setCancelable(boolean)
          * @see #setOnDismissListener(OnDismissListener)
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+=======
+        @NonNull
+        public Builder setOnCancelListener(@Nullable OnCancelListener onCancelListener) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mOnCancelListener = onCancelListener;
             return this;
         }
@@ -638,7 +666,12 @@ public class CarAlertDialog extends Dialog {
          *
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         public Builder setOnDismissListener(OnDismissListener onDismissListener) {
+=======
+        @NonNull
+        public Builder setOnDismissListener(@Nullable OnDismissListener onDismissListener) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             mOnDismissListener = onDismissListener;
             return this;
         }

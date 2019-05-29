@@ -1,0 +1,17 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.viewpager2.widget {
+
+  @IntDef({androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT}) @IntRange(from=1) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface ViewPager2.OffscreenPageLimit {
+  }
+
+  @IntDef({androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL, androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface ViewPager2.Orientation {
+  }
+
+  @IntDef({androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface ViewPager2.ScrollState {
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

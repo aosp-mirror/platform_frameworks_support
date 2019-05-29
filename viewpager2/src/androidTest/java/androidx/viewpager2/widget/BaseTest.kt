@@ -128,10 +128,6 @@ open class BaseTest {
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
-
         fun peekForward() {
             peek(adjustForRtl(-50f))
         }
@@ -189,16 +185,22 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
                 SwipeMethod.ESPRESSO -> PageSwiperEspresso(
                     viewPager.orientation,
                     isRtl
                 )
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+=======
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
+                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -486,3 +488,45 @@ val AdapterProviderForItems.supportsMutations: Boolean
     get() {
         return this == fragmentAdapterProvider
     }
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+
+fun scrollStateToString(@ViewPager2.ScrollState state: Int): String {
+    return when (state) {
+        SCROLL_STATE_IDLE -> "IDLE"
+        SCROLL_STATE_DRAGGING -> "DRAGGING"
+        SCROLL_STATE_SETTLING -> "SETTLING"
+        else -> throw IllegalArgumentException("Scroll state $state doesn't exist")
+    }
+}
+
+fun scrollStateGlossary(): String {
+    return "Scroll states: " +
+            "$SCROLL_STATE_IDLE=${scrollStateToString(SCROLL_STATE_IDLE)}, " +
+            "$SCROLL_STATE_DRAGGING=${scrollStateToString(SCROLL_STATE_DRAGGING)}, " +
+            "$SCROLL_STATE_SETTLING=${scrollStateToString(SCROLL_STATE_SETTLING)})"
+}
+
+class RetryException(msg: String) : Exception(msg)
+
+fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
+    repeat(n) { i ->
+        try {
+            tryBlock()
+            return
+        } catch (e: RetryException) {
+            if (i < n - 1) {
+                Log.w(BaseTest.TAG, "Bad state, retrying block", e)
+            } else {
+                throw AssertionError("Block hit bad state $n times", e)
+            }
+            resetBlock()
+        }
+    }
+}
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

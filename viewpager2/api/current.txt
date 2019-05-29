@@ -4,8 +4,12 @@ package androidx.viewpager2.adapter {
   public abstract class FragmentStateAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.viewpager2.adapter.FragmentViewHolder> implements androidx.viewpager2.adapter.StatefulAdapter {
     ctor public FragmentStateAdapter(androidx.fragment.app.FragmentManager);
     method public boolean containsItem(long);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method public abstract androidx.fragment.app.Fragment getItem(int);
     method public final void onAttachedToRecyclerView(androidx.recyclerview.widget.RecyclerView);
+=======
+    method public abstract androidx.fragment.app.Fragment createFragment(int);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     method public final void onBindViewHolder(androidx.viewpager2.adapter.FragmentViewHolder, int);
     method public final androidx.viewpager2.adapter.FragmentViewHolder onCreateViewHolder(android.view.ViewGroup, int);
     method public final void onDetachedFromRecyclerView(androidx.recyclerview.widget.RecyclerView);
@@ -29,15 +33,49 @@ package androidx.viewpager2.adapter {
 
 package androidx.viewpager2.widget {
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
   public class ViewPager2 extends android.view.ViewGroup {
+=======
+  public final class CompositePageTransformer implements androidx.viewpager2.widget.ViewPager2.PageTransformer {
+    ctor public CompositePageTransformer();
+    method public void addTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void removeTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void transformPage(android.view.View, @FloatRange(from=-1.0, to=1.0) float);
+  }
+
+  public final class MarginPageTransformer implements androidx.viewpager2.widget.ViewPager2.PageTransformer {
+    ctor public MarginPageTransformer(@Px int);
+    method public void transformPage(android.view.View, @FloatRange(from=-1.0, to=1.0) float);
+  }
+
+  public final class ViewPager2 extends android.view.ViewGroup {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     ctor public ViewPager2(android.content.Context);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?, int);
     ctor @RequiresApi(21) public ViewPager2(android.content.Context, android.util.AttributeSet?, int, int);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method public final androidx.recyclerview.widget.RecyclerView.Adapter? getAdapter();
     method public final int getCurrentItem();
     method @androidx.viewpager2.widget.ViewPager2.Orientation public final int getOrientation();
+=======
+    method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
+    method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration, int);
+    method public boolean beginFakeDrag();
+    method public boolean endFakeDrag();
+    method public boolean fakeDragBy(@Px float);
+    method public androidx.recyclerview.widget.RecyclerView.Adapter? getAdapter();
+    method public int getCurrentItem();
+    method public androidx.recyclerview.widget.RecyclerView.ItemDecoration getItemDecorationAt(int);
+    method public int getItemDecorationCount();
+    method public int getOffscreenPageLimit();
+    method public int getOrientation();
+    method public int getScrollState();
+    method public void invalidateItemDecorations();
+    method public boolean isFakeDragging();
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     method public boolean isUserInputEnabled();
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method public final void onViewAdded(android.view.View!);
     method public final void registerOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
     method public final void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter?);
@@ -45,8 +83,25 @@ package androidx.viewpager2.widget {
     method public final void setCurrentItem(int, boolean);
     method public final void setOrientation(@androidx.viewpager2.widget.ViewPager2.Orientation int);
     method public final void setPageTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer?);
+=======
+    method public void registerOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
+    method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
+    method public void removeItemDecorationAt(int);
+    method public void requestTransform();
+    method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter?);
+    method public void setCurrentItem(int);
+    method public void setCurrentItem(int, boolean);
+    method public void setOffscreenPageLimit(int);
+    method public void setOrientation(int);
+    method public void setPageTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer?);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     method public void setUserInputEnabled(boolean);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method public final void unregisterOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
+=======
+    method public void unregisterOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
+    field public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1; // 0xffffffff
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     field public static final int ORIENTATION_HORIZONTAL = 0; // 0x0
     field public static final int ORIENTATION_VERTICAL = 1; // 0x1
     field public static final int SCROLL_STATE_DRAGGING = 1; // 0x1

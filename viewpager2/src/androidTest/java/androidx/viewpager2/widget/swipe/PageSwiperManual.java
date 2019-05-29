@@ -16,7 +16,13 @@
 
 package androidx.viewpager2.widget.swipe;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
+=======
+import static androidx.test.espresso.action.GeneralLocation.CENTER;
+import static androidx.viewpager2.widget.BaseTestKt.isHorizontal;
+import static androidx.viewpager2.widget.BaseTestKt.isRtl;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
 import android.app.Instrumentation;
 import android.view.View;
@@ -29,8 +35,9 @@ public class PageSwiperManual implements PageSwiper {
     private final SwipeAction mActionPrevious;
     private final SwipeAction mActionNext;
 
-    public PageSwiperManual(ViewPager2 viewPager, boolean isRtl) {
+    public PageSwiperManual(ViewPager2 viewPager) {
         mViewPager = viewPager;
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         int orientation = viewPager.getOrientation();
         mActionPrevious = orientation == ORIENTATION_HORIZONTAL
                 ? (isRtl ? SWIPE_LEFT : SWIPE_RIGHT)
@@ -38,6 +45,14 @@ public class PageSwiperManual implements PageSwiper {
         mActionNext = orientation == ORIENTATION_HORIZONTAL
                 ? (isRtl ? SWIPE_RIGHT : SWIPE_LEFT)
                 : SWIPE_UP;
+=======
+        boolean isRtl = isRtl(mViewPager);
+        boolean isHorizontal = isHorizontal(mViewPager);
+        mActionPrevious = isHorizontal ? (isRtl ? SWIPE_LEFT : SWIPE_RIGHT) : SWIPE_DOWN;
+        mActionNext = isHorizontal ? (isRtl ? SWIPE_RIGHT : SWIPE_LEFT) : SWIPE_UP;
+        mXForwardFactor = isHorizontal ? (isRtl ? 1 : -1) : 0;
+        mYForwardFactor = isHorizontal ? 0 : -1;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     @Override
@@ -50,6 +65,29 @@ public class PageSwiperManual implements PageSwiper {
         mActionPrevious.swipe(InstrumentationRegistry.getInstrumentation(), mViewPager);
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    public void swipeForward(float px, Interpolator interpolator) {
+        swipe(px * mXForwardFactor, px * mYForwardFactor, interpolator);
+    }
+
+    public void swipeBackward(float px, Interpolator interpolator) {
+        swipe(px * -mXForwardFactor, px * -mYForwardFactor, interpolator);
+    }
+
+    private void swipe(float xOffset, float yOffset, Interpolator interpolator) {
+        new ManualSwipeInjector(
+                offsetCenter(-xOffset / 2, -yOffset / 2),
+                offsetCenter(xOffset / 2, yOffset / 2),
+                150, 20
+        ).perform(InstrumentationRegistry.getInstrumentation(), mViewPager, interpolator);
+    }
+
+    private static CoordinatesProvider offsetCenter(final float dx, final float dy) {
+        return new TranslatedCoordinatesProvider(CENTER, dx, dy);
+    }
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     private interface SwipeAction {
         void swipe(Instrumentation instrumentation, View view);
     }

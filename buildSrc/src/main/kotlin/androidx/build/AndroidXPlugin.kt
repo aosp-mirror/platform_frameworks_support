@@ -16,6 +16,13 @@
 
 package androidx.build
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import androidx.benchmark.gradle.Adb
+import androidx.benchmark.gradle.LockClocksTask
+import androidx.benchmark.gradle.UnlockClocksTask
+import androidx.build.SupportConfig.BENCHMARK_INSTRUMENTATION_RUNNER
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
@@ -215,12 +222,27 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
         extension.compileSdkVersion(COMPILE_SDK_VERSION)
         extension.buildToolsVersion = BUILD_TOOLS_VERSION
         // Expose the compilation SDK for use as the target SDK in test manifests.
         extension.defaultConfig.addManifestPlaceholders(
                 mapOf("target-sdk-version" to TARGET_SDK_VERSION))
+=======
+    private fun TestedExtension.configureAndroidCommonOptions(
+        project: Project,
+        androidXExtension: AndroidXExtension
+    ) {
+        // Force AGP to use our version of JaCoCo
+        jacoco.version = Jacoco.VERSION
+        compileSdkVersion(COMPILE_SDK_VERSION)
+        buildToolsVersion = BUILD_TOOLS_VERSION
+        defaultConfig.targetSdkVersion(TARGET_SDK_VERSION)
+        defaultConfig.testInstrumentationRunner =
+            if (project.isBenchmark()) BENCHMARK_INSTRUMENTATION_RUNNER else INSTRUMENTATION_RUNNER
+        testOptions.unitTests.isReturnDefaultValues = true
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
         extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
         extension.testOptions.unitTests.isReturnDefaultValues = true
@@ -246,8 +268,17 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+        val debugSigningConfig = signingConfigs.getByName("debug")
         // Use a local debug keystore to avoid build server issues.
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
+=======
+        debugSigningConfig.storeFile = SupportConfig.getKeystore(project)
+        buildTypes.all { buildType ->
+            // Sign all the builds (including release) with debug key
+            buildType.signingConfig = debugSigningConfig
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
         // Disable generating BuildConfig.java
         // TODO remove after https://issuetracker.google.com/72050365
@@ -328,7 +359,8 @@ class AndroidXPlugin : Plugin<Project> {
 
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
-    return name.endsWith("-benchmark")
+    // Note: also match benchmark/src/androidTest, so it gets the BENCHMARK_INSTRUMENTATION_RUNNER
+    return name.endsWith("-benchmark") || name == "benchmark"
 }
 
 fun Project.addToProjectMap(group: String?) {

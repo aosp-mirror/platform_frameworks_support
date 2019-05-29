@@ -1,0 +1,17 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.room {
+
+  public final class CoroutinesRoomKt {
+    ctor public CoroutinesRoomKt();
+  }
+
+  public final class RoomDatabaseKt {
+    ctor public RoomDatabaseKt();
+    method public static suspend <R> Object! withTransaction(androidx.room.RoomDatabase, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super R>,?> block, kotlin.coroutines.Continuation<? super R> p);
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

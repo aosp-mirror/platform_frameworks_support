@@ -24,5 +24,9 @@
     <string name="fingerprint_error_no_fingerprints" msgid="3350805046152877040">"Walang naka-enroll na fingerprint."</string>
     <string name="fingerprint_error_hw_not_present" msgid="1176237289575184578">"Walang sensor para sa fingerprint ang device na ito"</string>
     <string name="fingerprint_error_user_canceled" msgid="3421037373085129417">"Kinansela ng user ang operasyon sa fingerprint."</string>
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    <string name="fingerprint_error_lockout" msgid="1651062876313169162">"Masyadong maraming pagsubok. Pakisubukan ulit sa ibang pagkakataon."</string>
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     <string name="default_error_msg" msgid="7497355367608150274">"Hindi alam na error"</string>
 </resources>

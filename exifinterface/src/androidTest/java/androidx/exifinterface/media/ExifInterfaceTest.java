@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import android.Manifest;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -37,9 +38,11 @@ import androidx.exifinterface.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SmallTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -66,6 +69,10 @@ public class ExifInterfaceTest {
     private static final String TAG = ExifInterface.class.getSimpleName();
     private static final boolean VERBOSE = false;  // lots of logging
     private static final double DIFFERENCE_TOLERANCE = .001;
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule =
+            GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     private static final String EXIF_BYTE_ORDER_II_JPEG = "image_exif_byte_order_ii.jpg";
     private static final String EXIF_BYTE_ORDER_MM_JPEG = "image_exif_byte_order_mm.jpg";

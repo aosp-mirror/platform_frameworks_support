@@ -178,6 +178,148 @@ class NavControllerTest {
     }
 
     @Test
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    fun testInvalidNavigateViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/invalid")
+
+        try {
+            navController.navigate(deepLink)
+            fail("navController.navigate must throw")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat().contains(
+                    "navigation destination with deepLink $deepLink is unknown to this" +
+                            " NavController"
+                )
+        }
+    }
+
+    @Test
+    fun testNavigateViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0).isEqualTo(R.id.second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+    }
+
+    @Test
+    fun testNavigationViaDeepLinkPopUpTo() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink, navOptions {
+            popUpTo(0) { inclusive = true }
+        })
+        assertThat(navController.currentDestination?.id ?: 0).isEqualTo(R.id.second_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+    fun testNavigateToDifferentGraphViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_child_second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+    fun testNavigateToDifferentGraphViaDeepLink3x() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_child_second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        navController.popBackStack()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        // repeat nav and pop 2 more times.
+        navController.navigate(deepLink)
+        navController.popBackStack()
+        navController.navigate(deepLink)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+    fun testNavigateToDifferentGraphViaDeepLinkToGrandchild3x() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/grand_child_test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_grandchild_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        navController.popBackStack()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        // repeat nav and pop 2 more times.
+        navController.navigate(deepLink)
+        navController.popBackStack()
+        navController.navigate(deepLink)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     fun testSaveRestoreStateXml() {
         val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
@@ -703,6 +845,90 @@ class NavControllerTest {
         verifyNoMoreInteractions(onDestinationChangedListener)
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    @Test
+    fun testGetViewModelStore() {
+        val navController = createNavController()
+        navController.setViewModelStore(ViewModelStore())
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+    }
+
+    @Test
+    fun testSaveRestoreGetViewModelStore() {
+        val hostStore = ViewModelStore()
+        val navController = createNavController()
+        navController.setViewModelStore(hostStore)
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+
+        val savedState = navController.saveState()
+        val restoredNavController = createNavController()
+        restoredNavController.setViewModelStore(hostStore)
+        restoredNavController.restoreState(savedState)
+        restoredNavController.graph = navGraph
+
+        assertWithMessage("Restored NavController should return the same ViewModelStore")
+            .that(restoredNavController.getViewModelStore(navGraph.id))
+            .isSameInstanceAs(store)
+    }
+
+    @Test
+    fun testGetViewModelStoreNoGraph() {
+        val navController = createNavController()
+        navController.setViewModelStore(ViewModelStore())
+        val navGraphId = 1
+
+        try {
+            navController.getViewModelStore(navGraphId)
+            fail(
+                "Attempting to get ViewModelStore for navGraph not on back stack should throw " +
+                        "IllegalArgumentException"
+            )
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat().contains(
+                    "No NavGraph with ID $navGraphId is on the NavController's back stack"
+                )
+        }
+    }
+
+    @Test
+    fun testGetViewModelStoreSameGraph() {
+        val navController = createNavController()
+        navController.setViewModelStore(ViewModelStore())
+        val provider = navController.navigatorProvider
+        val graph = provider.navigation(1, startDestination = 1) {
+            navigation(1, startDestination = 2) {
+                test(2)
+            }
+        }
+
+        navController.setGraph(graph, null)
+        val viewStore = navController.getViewModelStore(graph.id)
+
+        assertThat(viewStore).isNotNull()
+        assertThat(navController.getViewModelStore(graph.id)).isSameInstanceAs(viewStore)
+    }
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     private fun createNavController(): NavController {
         val navController = NavController(ApplicationProvider.getApplicationContext())
         val navigator = TestNavigator()

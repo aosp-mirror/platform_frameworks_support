@@ -48,6 +48,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * A reporter of keyed app states to enable communication between an app and an EMM (enterprise
  * mobility management).
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+ *
+ * For production use {@link SingletonKeyedAppStatesReporter}.
+ * For testing see the {@code FakeKeyedAppStatesReporter} class in
+ * the {@code enterprise-feedback-testing} artifact.
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
  */
 public class KeyedAppStatesReporter {
 

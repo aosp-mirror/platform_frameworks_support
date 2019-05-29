@@ -31,13 +31,17 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import org.gradle.api.tasks.TaskProvider
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import org.gradle.kotlin.dsl.getPlugin
 import java.io.File
 
 object Metalava {
     private fun Project.createMetalavaConfiguration(): Configuration {
         return configurations.create("metalava") {
-            val dependency = dependencies.create("com.android:metalava:1.2.5-SNAPSHOT:shadow@jar")
+            val dependency = dependencies.create("com.android:metalava:1.3.0:shadow@jar")
             it.dependencies.add(dependency)
         }
     }
@@ -103,11 +107,20 @@ object Metalava {
         val currentTxtApi = ApiLocation.fromPublicApiFile(File(libraryVersionApi.publicApiFile.parentFile, "current.txt"))
 
         // make sure to update current.txt if it wasn't previously planned to be updated
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         val outputApiLocations: List<ApiLocation> = if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
             listOf(libraryVersionApi)
         } else {
             listOf(libraryVersionApi, currentTxtApi)
         }
+=======
+        val outputApiLocations =
+            if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
+                listOf(libraryVersionApi)
+            } else {
+                listOf(libraryVersionApi, currentTxtApi)
+            }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
         val builtApiLocation = ApiLocation.fromPublicApiFile(File(project.docsDir(), "release/${project.name}/current.txt"))
 

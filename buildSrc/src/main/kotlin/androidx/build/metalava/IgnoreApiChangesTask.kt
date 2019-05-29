@@ -36,7 +36,11 @@ open class IgnoreApiChangesTask : MetalavaTask() {
     var processRestrictedAPIs = false
 
     // Path of temporary api-changes exemptions file
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     var intermediateExclusionsFile: File? = null
+=======
+    abstract val intermediateExclusionsFile: Property<File>
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     @InputFiles
     fun getTaskInputs(): List<File> {
@@ -84,8 +88,8 @@ open class IgnoreApiChangesTask : MetalavaTask() {
             apiFile.toString(),
 
             "--update-baseline",
-            intermediateExclusionsFile.toString(),
-            "--baseline", intermediateExclusionsFile.toString(),
+            intermediateExclusions.toString(),
+            "--baseline", intermediateExclusions.toString(),
             "--pass-baseline-updates",
 
             "--format=v3",

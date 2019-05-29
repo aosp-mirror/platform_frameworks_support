@@ -503,12 +503,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             ab.setShowHideAnimationEnabled(false);
         }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         // Make sure we clean up any receivers setup for AUTO mode
         if (mAutoTimeNightModeManager != null) {
             mAutoTimeNightModeManager.cleanup();
         }
         if (mAutoBatteryNightModeManager != null) {
             mAutoBatteryNightModeManager.cleanup();
+=======
+        if (mHost instanceof Dialog) {
+            // If the host is a Dialog, we should clean up the Auto managers now. This is
+            // because Dialogs do not have an onDestroy()
+            cleanupAutoManagers();
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
         }
     }
 
@@ -575,6 +582,11 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             mActionBar.onDestroy();
         }
 
+        // Make sure we clean up any receivers setup for AUTO mode
+        cleanupAutoManagers();
+    }
+
+    private void cleanupAutoManagers() {
         // Make sure we clean up any receivers setup for AUTO mode
         if (mAutoTimeNightModeManager != null) {
             mAutoTimeNightModeManager.cleanup();
@@ -2892,6 +2904,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mContext.unregisterReceiver(mReceiver);
                 mReceiver = null;
             }
+        }
+
+        boolean isListening() {
+            return mReceiver != null;
         }
     }
 

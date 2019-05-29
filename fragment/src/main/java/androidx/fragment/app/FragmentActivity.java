@@ -967,8 +967,8 @@ public class FragmentActivity extends ComponentActivity implements
                 hadNotMarked = true;
             }
 
-            FragmentManager childFragmentManager = fragment.peekChildFragmentManager();
-            if (childFragmentManager != null) {
+            if (fragment.getHost() != null) {
+                FragmentManager childFragmentManager = fragment.getChildFragmentManager();
                 hadNotMarked |= markState(childFragmentManager, state);
             }
         }

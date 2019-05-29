@@ -11,6 +11,7 @@ package androidx.browser.browseractions {
 
   public class BrowserActionsIntent {
     method @Deprecated public static String? getCreatorPackageName(android.content.Intent);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     method public android.content.Intent getIntent();
     method public static String? getUntrustedCreatorPackageName(android.content.Intent);
     method public static void launchIntent(android.content.Context!, android.content.Intent!);
@@ -38,8 +39,38 @@ package androidx.browser.browseractions {
     field public static final int URL_TYPE_NONE = 0; // 0x0
     field public static final int URL_TYPE_PLUGIN = 5; // 0x5
     field public static final int URL_TYPE_VIDEO = 2; // 0x2
+=======
+    method @Deprecated public android.content.Intent getIntent();
+    method @Deprecated public static String? getUntrustedCreatorPackageName(android.content.Intent);
+    method @Deprecated public static void launchIntent(android.content.Context!, android.content.Intent!);
+    method @Deprecated public static void openBrowserAction(android.content.Context!, android.net.Uri!);
+    method @Deprecated public static void openBrowserAction(android.content.Context!, android.net.Uri!, int, java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem!>!, android.app.PendingIntent!);
+    method @Deprecated public static java.util.List<androidx.browser.browseractions.BrowserActionItem!>! parseBrowserActionItems(java.util.ArrayList<android.os.Bundle!>!);
+    field @Deprecated public static final String ACTION_BROWSER_ACTIONS_OPEN = "androidx.browser.browseractions.browser_action_open";
+    field @Deprecated public static final String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
+    field @Deprecated public static final String EXTRA_MENU_ITEMS = "androidx.browser.browseractions.extra.MENU_ITEMS";
+    field @Deprecated public static final String EXTRA_SELECTED_ACTION_PENDING_INTENT = "androidx.browser.browseractions.extra.SELECTED_ACTION_PENDING_INTENT";
+    field @Deprecated public static final String EXTRA_TYPE = "androidx.browser.browseractions.extra.TYPE";
+    field @Deprecated public static final int ITEM_COPY = 3; // 0x3
+    field @Deprecated public static final int ITEM_DOWNLOAD = 2; // 0x2
+    field @Deprecated public static final int ITEM_INVALID_ITEM = -1; // 0xffffffff
+    field @Deprecated public static final int ITEM_OPEN_IN_INCOGNITO = 1; // 0x1
+    field @Deprecated public static final int ITEM_OPEN_IN_NEW_TAB = 0; // 0x0
+    field @Deprecated public static final int ITEM_SHARE = 4; // 0x4
+    field @Deprecated public static final String KEY_ACTION = "androidx.browser.browseractions.ACTION";
+    field @Deprecated public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
+    field @Deprecated public static final String KEY_TITLE = "androidx.browser.browseractions.TITLE";
+    field @Deprecated public static final int MAX_CUSTOM_ITEMS = 5; // 0x5
+    field @Deprecated public static final int URL_TYPE_AUDIO = 3; // 0x3
+    field @Deprecated public static final int URL_TYPE_FILE = 4; // 0x4
+    field @Deprecated public static final int URL_TYPE_IMAGE = 1; // 0x1
+    field @Deprecated public static final int URL_TYPE_NONE = 0; // 0x0
+    field @Deprecated public static final int URL_TYPE_PLUGIN = 5; // 0x5
+    field @Deprecated public static final int URL_TYPE_VIDEO = 2; // 0x2
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
   }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
   public static final class BrowserActionsIntent.Builder {
     ctor public BrowserActionsIntent.Builder(android.content.Context!, android.net.Uri!);
     method public androidx.browser.browseractions.BrowserActionsIntent! build();
@@ -47,6 +78,15 @@ package androidx.browser.browseractions {
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(androidx.browser.browseractions.BrowserActionItem...!);
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setOnItemSelectedAction(android.app.PendingIntent!);
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setUrlType(int);
+=======
+  @Deprecated public static final class BrowserActionsIntent.Builder {
+    ctor @Deprecated public BrowserActionsIntent.Builder(android.content.Context!, android.net.Uri!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent! build();
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem!>!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(androidx.browser.browseractions.BrowserActionItem!...);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setOnItemSelectedAction(android.app.PendingIntent!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setUrlType(int);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
   }
 
 }
@@ -72,8 +112,8 @@ package androidx.browser.customtabs {
     method public static boolean bindCustomTabsService(android.content.Context!, String!, androidx.browser.customtabs.CustomTabsServiceConnection!);
     method public static boolean connectAndInitialize(android.content.Context!, String!);
     method public android.os.Bundle! extraCommand(String!, android.os.Bundle!);
-    method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String>?);
-    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String>?, boolean);
+    method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String!>?);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?, boolean);
     method public androidx.browser.customtabs.CustomTabsSession! newSession(androidx.browser.customtabs.CustomTabsCallback!);
     method public boolean warmup(long);
   }
@@ -136,7 +176,7 @@ package androidx.browser.customtabs {
     ctor public CustomTabsService();
     method protected boolean cleanUpSession(androidx.browser.customtabs.CustomTabsSessionToken!);
     method protected abstract android.os.Bundle! extraCommand(String!, android.os.Bundle!);
-    method protected abstract boolean mayLaunchUrl(androidx.browser.customtabs.CustomTabsSessionToken!, android.net.Uri!, android.os.Bundle!, java.util.List<android.os.Bundle>!);
+    method protected abstract boolean mayLaunchUrl(androidx.browser.customtabs.CustomTabsSessionToken!, android.net.Uri!, android.os.Bundle!, java.util.List<android.os.Bundle!>!);
     method protected abstract boolean newSession(androidx.browser.customtabs.CustomTabsSessionToken!);
     method public android.os.IBinder! onBind(android.content.Intent!);
     method @androidx.browser.customtabs.CustomTabsService.Result protected abstract int postMessage(androidx.browser.customtabs.CustomTabsSessionToken!, String!, android.os.Bundle!);
@@ -168,7 +208,7 @@ package androidx.browser.customtabs {
 
   public final class CustomTabsSession {
     method @VisibleForTesting public static androidx.browser.customtabs.CustomTabsSession createMockSessionForTesting(android.content.ComponentName);
-    method public boolean mayLaunchUrl(android.net.Uri!, android.os.Bundle!, java.util.List<android.os.Bundle>!);
+    method public boolean mayLaunchUrl(android.net.Uri!, android.os.Bundle!, java.util.List<android.os.Bundle!>!);
     method @androidx.browser.customtabs.CustomTabsService.Result public int postMessage(String!, android.os.Bundle!);
     method public boolean requestPostMessageChannel(android.net.Uri!);
     method public boolean setActionButton(android.graphics.Bitmap, String);

@@ -1,0 +1,16 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.paging {
+
+  @Deprecated @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public abstract class TiledDataSource<T> extends androidx.paging.PositionalDataSource<T> {
+    ctor public TiledDataSource();
+    method @WorkerThread public abstract int countItems();
+    method public void loadInitial(androidx.paging.PositionalDataSource.LoadInitialParams, androidx.paging.PositionalDataSource.LoadInitialCallback<T>);
+    method @WorkerThread public abstract java.util.List<T!>? loadRange(int, int);
+    method public void loadRange(androidx.paging.PositionalDataSource.LoadRangeParams, androidx.paging.PositionalDataSource.LoadRangeCallback<T>);
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

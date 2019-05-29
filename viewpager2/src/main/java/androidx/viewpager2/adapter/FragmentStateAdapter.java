@@ -88,9 +88,18 @@ public abstract class FragmentStateAdapter extends
     }
 
     /**
-     * Provide a Fragment associated with the specified position.
+     * Provide a new Fragment associated with the specified position.
+     * <p>
+     * The adapter will be responsible for the Fragment lifecycle:
+     * <ul>
+     *     <li>The Fragment will be used to display an item.</li>
+     *     <li>The Fragment will be destroyed when it gets too far from the viewport, and its state
+     *     will be saved. When the item is close to the viewport again, a new Fragment will be
+     *     requested, and a previously saved state will be used to initialize it.
+     * </ul>
+     * @see ViewPager2#setOffscreenPageLimit
      */
-    public abstract @NonNull Fragment getItem(int position);
+    public abstract @NonNull Fragment createFragment(int position);
 
     @NonNull
     @Override
@@ -125,9 +134,18 @@ public abstract class FragmentStateAdapter extends
     private Fragment getFragment(int position) {
         Fragment fragment = getItem(position);
         long itemId = getItemId(position);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         fragment.setInitialSavedState(mSavedStates.get(itemId));
         mFragments.put(itemId, fragment);
         return fragment;
+=======
+        if (!mFragments.containsKey(itemId)) {
+            // TODO(133419201): check if a Fragment provided here is a new Fragment
+            Fragment newFragment = createFragment(position);
+            newFragment.setInitialSavedState(mSavedStates.get(itemId));
+            mFragments.put(itemId, newFragment);
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     @Override
@@ -254,6 +272,7 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     public void restoreState(@NonNull Parcelable savedState) {
         try {
             Bundle bundle = (Bundle) savedState;
@@ -263,6 +282,26 @@ public abstract class FragmentStateAdapter extends
             //noinspection ConstantConditions
             if (keys.length != values.length) {
                 throw new IllegalStateException();
+=======
+    public final void restoreState(@NonNull Parcelable savedState) {
+        if (!mSavedStates.isEmpty() || !mFragments.isEmpty()) {
+            throw new IllegalStateException(
+                    "Expected the adapter to be 'fresh' while restoring state.");
+        }
+
+        Bundle bundle = (Bundle) savedState;
+        if (bundle.getClassLoader() == null) {
+            /** TODO(b/133752041): pass the class loader from {@link ViewPager2.SavedState } */
+            bundle.setClassLoader(getClass().getClassLoader());
+        }
+
+        for (String key : bundle.keySet()) {
+            if (isValidKey(key, KEY_PREFIX_FRAGMENT)) {
+                long itemId = parseIdFromKey(key, KEY_PREFIX_FRAGMENT);
+                Fragment fragment = mFragmentManager.getFragment(bundle, key);
+                mFragments.put(itemId, fragment);
+                continue;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             }
 
             mSavedStates.clear();

@@ -16,6 +16,12 @@
 
 package androidx.viewpager2.widget;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.annotation.SuppressLint;
@@ -35,10 +41,12 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
@@ -46,6 +54,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 import androidx.viewpager2.R;
 import androidx.viewpager2.adapter.StatefulAdapter;
 
@@ -58,7 +67,13 @@ import java.lang.annotation.Retention;
  *
  * @see androidx.viewpager.widget.ViewPager
  */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
 public class ViewPager2 extends ViewGroup {
+=======
+public final class ViewPager2 extends ViewGroup {
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     @Retention(SOURCE)
     @IntDef({ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL})
     public @interface Orientation {
@@ -67,15 +82,45 @@ public class ViewPager2 extends ViewGroup {
     public static final int ORIENTATION_HORIZONTAL = RecyclerView.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = RecyclerView.VERTICAL;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Retention(SOURCE)
+    @IntDef({OFFSCREEN_PAGE_LIMIT_DEFAULT})
+    @IntRange(from = 1)
+    public @interface OffscreenPageLimit {
+    }
+
+    /**
+     * Indicates that the ViewPager2 is in an idle, settled state. The current page
+     * is fully in view and no animation is in progress.
+     */
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     public static final int SCROLL_STATE_IDLE = 0;
     public static final int SCROLL_STATE_DRAGGING = 1;
     public static final int SCROLL_STATE_SETTLING = 2;
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    /**
+     * Value to indicate that the default caching mechanism of RecyclerView should be used instead
+     * of explicitly prefetch and retain pages to either side of the current page.
+     * @see #setOffscreenPageLimit(int)
+     */
+    public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1;
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     // reused in layout(...)
     private final Rect mTmpContainerRect = new Rect();
     private final Rect mTmpChildRect = new Rect();
@@ -90,6 +135,10 @@ public class ViewPager2 extends ViewGroup {
     private PageTransformerAdapter mPageTransformerAdapter;
     private CompositeOnPageChangeCallback mPageChangeEventDispatcher;
     private boolean mUserInputEnabled = true;
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    private @OffscreenPageLimit int mOffscreenPageLimit = OFFSCREEN_PAGE_LIMIT_DEFAULT;
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 
     public ViewPager2(@NonNull Context context) {
         super(context);
@@ -473,6 +522,112 @@ public class ViewPager2 extends ViewGroup {
     }
 
     /**
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+     * Returns the current scroll state of the ViewPager2. Returned value is one of can be one of
+     * {@link #SCROLL_STATE_IDLE}, {@link #SCROLL_STATE_DRAGGING} or {@link #SCROLL_STATE_SETTLING}.
+     *
+     * @return The scroll state that was last dispatched to {@link
+     *         OnPageChangeCallback#onPageScrollStateChanged(int)}
+     */
+    @ScrollState
+    public int getScrollState() {
+        return mScrollEventAdapter.getScrollState();
+    }
+
+    /**
+     * Start a fake drag of the pager.
+     *
+     * <p>A fake drag can be useful if you want to synchronize the motion of the ViewPager2 with the
+     * touch scrolling of another view, while still letting the ViewPager2 control the snapping
+     * motion and fling behavior. (e.g. parallax-scrolling tabs.) Call {@link #fakeDragBy(float)} to
+     * simulate the actual drag motion. Call {@link #endFakeDrag()} to complete the fake drag and
+     * fling as necessary.
+     *
+     * <p>A fake drag can be interrupted by a real drag. From that point on, all calls to {@code
+     * fakeDragBy} and {@code endFakeDrag} will be ignored until the next fake drag is started by
+     * calling {@code beginFakeDrag}. If you need the ViewPager2 to ignore touch events and other
+     * user input during a fake drag, use {@link #setUserInputEnabled(boolean)}. If a real or fake
+     * drag is already in progress, this method will return {@code false}.
+     *
+     * @return {@code true} if the fake drag began successfully, {@code false} if it could not be
+     *         started
+     *
+     * @see #fakeDragBy(float)
+     * @see #endFakeDrag()
+     * @see #isFakeDragging()
+     */
+    public boolean beginFakeDrag() {
+        return mFakeDragger.beginFakeDrag();
+    }
+
+    /**
+     * Fake drag by an offset in pixels. You must have called {@link #beginFakeDrag()} first. Drag
+     * happens in the direction of the orientation. Positive offsets will drag to the previous page,
+     * negative values to the next page, with one exception: if layout direction is set to RTL and
+     * the ViewPager2's orientation is horizontal, then the behavior will be inverted. This matches
+     * the deltas of touch events that would cause the same real drag.
+     *
+     * <p>If the pager is not in the fake dragging state anymore, it ignores this call and returns
+     * {@code false}.
+     *
+     * @param offsetPxFloat Offset in pixels to drag by
+     * @return {@code true} if the fake drag was executed. If {@code false} is returned, it means
+     *         there was no fake drag to end.
+     *
+     * @see #beginFakeDrag()
+     * @see #endFakeDrag()
+     * @see #isFakeDragging()
+     */
+    public boolean fakeDragBy(@SuppressLint("SupportAnnotationUsage") @Px float offsetPxFloat) {
+        return mFakeDragger.fakeDragBy(offsetPxFloat);
+    }
+
+    /**
+     * End a fake drag of the pager.
+     *
+     * @return {@code true} if the fake drag was ended. If {@code false} is returned, it means there
+     *         was no fake drag to end.
+     *
+     * @see #beginFakeDrag()
+     * @see #fakeDragBy(float)
+     * @see #isFakeDragging()
+     */
+    public boolean endFakeDrag() {
+        return mFakeDragger.endFakeDrag();
+    }
+
+    /**
+     * Returns {@code true} if a fake drag is in progress.
+     *
+     * @return {@code true} if currently in a fake drag, {@code false} otherwise.
+     * @see #beginFakeDrag()
+     * @see #fakeDragBy(float)
+     * @see #endFakeDrag()
+     */
+    public boolean isFakeDragging() {
+        return mFakeDragger.isFakeDragging();
+    }
+
+    /**
+     * Snaps the ViewPager2 to the closest page
+     */
+    void snapToPage() {
+        // Method copied from PagerSnapHelper#snapToTargetExistingView
+        // When fixing something here, make sure to update that method as well
+        View view = mPagerSnapHelper.findSnapView(mLayoutManager);
+        if (view == null) {
+            return;
+        }
+        int[] snapDistance = mPagerSnapHelper.calculateDistanceToFinalSnap(mLayoutManager, view);
+        //noinspection ConstantConditions
+        if (snapDistance[0] != 0 || snapDistance[1] != 0) {
+            mRecyclerView.smoothScrollBy(snapDistance[0], snapDistance[1]);
+        }
+    }
+
+    /**
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
      * Enable or disable user initiated scrolling. This includes touch input (scroll and fling
      * gestures) and accessibility input. Disabling keyboard input is not yet supported. When user
      * initiated scrolling is disabled, programmatic scrolls through {@link #setCurrentItem(int,
@@ -497,6 +652,56 @@ public class ViewPager2 extends ViewGroup {
     }
 
     /**
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+     * <p>Set the number of pages that should be retained to either side of the currently visible
+     * page(s). Pages beyond this limit will be recreated from the adapter when needed. Set this to
+     * {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT} to use RecyclerView's caching strategy. The given value
+     * must either be larger than 0, or {@code #OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
+     *
+     * <p>Pages within {@code limit} pages away from the current page are created and added to the
+     * view hierarchy, even though they are not visible on the screen. Pages outside this limit will
+     * be removed from the view hierarchy, but the {@code ViewHolder}s will be recycled as usual by
+     * {@link RecyclerView}.</p>
+     *
+     * <p>This is offered as an optimization. If you know in advance the number of pages you will
+     * need to support or have lazy-loading mechanisms in place on your pages, tweaking this setting
+     * can have benefits in perceived smoothness of paging animations and interaction. If you have a
+     * small number of pages (3-4) that you can keep active all at once, less time will be spent in
+     * layout for newly created view subtrees as the user pages back and forth.</p>
+     *
+     * <p>You should keep this limit low, especially if your pages have complex layouts. By default
+     * it is set to {@code OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
+     *
+     * @param limit How many pages will be kept offscreen on either side. Valid values are all
+     *        values {@code >= 1} and {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}
+     * @throws IllegalArgumentException If the given limit is invalid
+     * @see #getOffscreenPageLimit()
+     */
+    public void setOffscreenPageLimit(@OffscreenPageLimit int limit) {
+        if (limit < 1 && limit != OFFSCREEN_PAGE_LIMIT_DEFAULT) {
+            throw new IllegalArgumentException(
+                    "Offscreen page limit must be OFFSCREEN_PAGE_LIMIT_DEFAULT or a number > 0");
+        }
+        mOffscreenPageLimit = limit;
+        // Trigger layout so prefetch happens through getExtraLayoutSize()
+        mRecyclerView.requestLayout();
+    }
+
+    /**
+     * Returns the number of pages that will be retained to either side of the current page in the
+     * view hierarchy in an idle state. Defaults to {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}.
+     *
+     * @return How many pages will be kept offscreen on either side
+     * @see #setOffscreenPageLimit(int)
+     */
+    @OffscreenPageLimit
+    public int getOffscreenPageLimit() {
+        return mOffscreenPageLimit;
+    }
+
+    /**
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
      * Add a callback that will be invoked whenever the page changes or is incrementally
      * scrolled. See {@link OnPageChangeCallback}.
      *
@@ -669,5 +874,92 @@ public class ViewPager2 extends ViewGroup {
          *                 page position to the right, and -1 is one page position to the left.
          */
         void transformPage(@NonNull View page, float position);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.addItemDecoration(decor);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     * @param index Position in the decoration chain to insert this decoration at. If this value
+     *              is negative the decoration will be added at the end.
+     * @throws IndexOutOfBoundsException on indexes larger than {@link #getItemDecorationCount}
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor, int index) {
+        mRecyclerView.addItemDecoration(decor, index);
+    }
+
+    /**
+     * Returns an {@link ItemDecoration} previously added to this ViewPager2.
+     *
+     * @param index The index position of the desired ItemDecoration.
+     * @return the ItemDecoration at index position
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    @NonNull
+    public ItemDecoration getItemDecorationAt(int index) {
+        return mRecyclerView.getItemDecorationAt(index);
+    }
+
+    /**
+     * Returns the number of {@link ItemDecoration} currently added to this ViewPager2.
+     *
+     * @return number of ItemDecorations currently added added to this ViewPager2.
+     */
+    public int getItemDecorationCount() {
+        return mRecyclerView.getItemDecorationCount();
+    }
+
+    /**
+     * Invalidates all ItemDecorations. If ViewPager2 has item decorations, calling this method
+     * will trigger a {@link #requestLayout()} call.
+     */
+    public void invalidateItemDecorations() {
+        mRecyclerView.invalidateItemDecorations();
+    }
+
+    /**
+     * Removes the {@link ItemDecoration} associated with the supplied index position.
+     *
+     * @param index The index position of the ItemDecoration to be removed.
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    public void removeItemDecorationAt(int index) {
+        mRecyclerView.removeItemDecorationAt(index);
+    }
+
+    /**
+     * Remove an {@link ItemDecoration} from this ViewPager2.
+     *
+     * <p>The given decoration will no longer impact the measurement and drawing of
+     * item views.</p>
+     *
+     * @param decor Decoration to remove
+     * @see #addItemDecoration(ItemDecoration)
+     */
+    public void removeItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.removeItemDecoration(decor);
     }
 }

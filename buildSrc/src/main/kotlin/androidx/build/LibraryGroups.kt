@@ -20,6 +20,7 @@ package androidx.build
  * The list of maven group names of all the libraries in this project.
  */
 object LibraryGroups {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     const val ACTIVITY = "androidx.activity"
     const val ANIMATION = "androidx.animation"
     const val ANNOTATION = "androidx.annotation"
@@ -84,4 +85,84 @@ object LibraryGroups {
     const val JETIFIER = "com.android.tools.build.jetifier"
     const val WORKMANAGER = "android.arch.work"
     const val VERSIONEDPARCELABLE = "androidx.versionedparcelable"
+=======
+    val ACTIVITY = LibraryGroup("androidx.activity")
+    val ADS = LibraryGroup("androidx.ads", false)
+    val ANIMATION = LibraryGroup("androidx.animation", false)
+    val ANNOTATION = LibraryGroup("androidx.annotation")
+    val APPCOMPAT = LibraryGroup("androidx.appcompat", false)
+    val ARCH_CORE = LibraryGroup("androidx.arch.core", false)
+    val ASYNCLAYOUTINFLATER = LibraryGroup("androidx.asynclayoutinflater")
+    val AUTOFILL = LibraryGroup("androidx.autofill")
+    val BIOMETRIC = LibraryGroup("androidx.biometric")
+    val BROWSER = LibraryGroup("androidx.browser")
+    val BENCHMARK = LibraryGroup("androidx.benchmark")
+    val CAMERA = LibraryGroup("androidx.camera", false)
+    val CAR = LibraryGroup("androidx.car", false)
+    val CARDVIEW = LibraryGroup("androidx.cardview")
+    val COLLECTION = LibraryGroup("androidx.collection")
+    val CONCURRENT = LibraryGroup("androidx.concurrent")
+    val CONTENTPAGER = LibraryGroup("androidx.contentpager")
+    val COORDINATORLAYOUT = LibraryGroup("androidx.coordinatorlayout")
+    val COMPOSE = LibraryGroup("androidx.compose", false)
+    val CORE = LibraryGroup("androidx.core")
+    val CURSORADAPTER = LibraryGroup("androidx.cursoradapter")
+    val CUSTOMVIEW = LibraryGroup("androidx.customview")
+    val DOCUMENTFILE = LibraryGroup("androidx.documentfile")
+    val DRAWERLAYOUT = LibraryGroup("androidx.drawerlayout")
+    val DYNAMICANIMATION = LibraryGroup("androidx.dynamicanimation", false)
+    val EMOJI = LibraryGroup("androidx.emoji", false)
+    val ENTERPRISE = LibraryGroup("androidx.enterprise")
+    val EXIFINTERFACE = LibraryGroup("androidx.exifinterface")
+    val FRAGMENT = LibraryGroup("androidx.fragment")
+    val GRIDLAYOUT = LibraryGroup("androidx.gridlayout")
+    val HEIFWRITER = LibraryGroup("androidx.heifwriter")
+    val INTERPOLATOR = LibraryGroup("androidx.interpolator")
+    val JETIFIER = LibraryGroup("com.android.tools.build.jetifier", false)
+    val LEANBACK = LibraryGroup("androidx.leanback", false)
+    val LEGACY = LibraryGroup("androidx.legacy", false)
+    val LIFECYCLE = LibraryGroup("androidx.lifecycle", false)
+    val LOADER = LibraryGroup("androidx.loader")
+    val LOCALBROADCASTMANAGER = LibraryGroup("androidx.localbroadcastmanager")
+    val MEDIA = LibraryGroup("androidx.media", false)
+    val MEDIA2 = LibraryGroup("androidx.media2", false)
+    val MEDIAROUTER = LibraryGroup("androidx.mediarouter")
+    val NAVIGATION = LibraryGroup("androidx.navigation")
+    val PAGING = LibraryGroup("androidx.paging", false)
+    val PALETTE = LibraryGroup("androidx.palette")
+    val PERCENTLAYOUT = LibraryGroup("androidx.percentlayout")
+    val PERSISTENCE = LibraryGroup("androidx.sqlite", false)
+    val PREFERENCE = LibraryGroup("androidx.preference")
+    val PRINT = LibraryGroup("androidx.print")
+    val RECOMMENDATION = LibraryGroup("androidx.recommendation")
+    val RECYCLERVIEW = LibraryGroup("androidx.recyclerview", false)
+    val REMOTECALLBACK = LibraryGroup("androidx.remotecallback")
+    val ROOM = LibraryGroup("androidx.room", false)
+    val SAVEDSTATE = LibraryGroup("androidx.savedstate")
+    val SECURITY = LibraryGroup("androidx.security", false)
+    val SHARETARGET = LibraryGroup("androidx.sharetarget")
+    val SLICE = LibraryGroup("androidx.slice", false)
+    val SLIDINGPANELAYOUT = LibraryGroup("androidx.slidingpanelayout")
+    val SWIPEREFRESHLAYOUT = LibraryGroup("androidx.swiperefreshlayout")
+    val TEXTCLASSIFIER = LibraryGroup("androidx.textclassifier")
+    val TRANSITION = LibraryGroup("androidx.transition")
+    val TVPROVIDER = LibraryGroup("androidx.tvprovider")
+    val UI = LibraryGroup("androidx.ui", false)
+    val VECTORDRAWABLE = LibraryGroup("androidx.vectordrawable", false)
+    val VERSIONEDPARCELABLE = LibraryGroup("androidx.versionedparcelable", false)
+    val VIEWPAGER = LibraryGroup("androidx.viewpager")
+    val VIEWPAGER2 = LibraryGroup("androidx.viewpager2")
+    val WEAR = LibraryGroup("androidx.wear")
+    val WEBKIT = LibraryGroup("androidx.webkit")
+    val WORKMANAGER = LibraryGroup("androidx.work")
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
 }
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+
+/**
+ * This object contains the library group, as well as whether libraries
+ * in this group are all required to have the same development version.
+ */
+data class LibraryGroup(val group: String = "unspecified", val requireSameVersion: Boolean = true)
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

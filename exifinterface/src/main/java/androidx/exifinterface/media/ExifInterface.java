@@ -3760,6 +3760,7 @@ public class ExifInterface {
         }
         mAssetInputStream = null;
         mFilename = null;
+        boolean isFdDuped = false;
         if (Build.VERSION.SDK_INT >= 21 && isSeekableFD(fileDescriptor)) {
             mSeekableFileDescriptor = fileDescriptor;
             // Keep the original file descriptor in order to save attributes when it's seekable.
@@ -3767,6 +3768,7 @@ public class ExifInterface {
             // feature won't be working.
             try {
                 fileDescriptor = Os.dup(fileDescriptor);
+                isFdDuped = true;
             } catch (Exception e) {
                 throw new IOException("Failed to duplicate file descriptor", e);
             }
@@ -3779,6 +3781,9 @@ public class ExifInterface {
             loadAttributes(in);
         } finally {
             closeQuietly(in);
+            if (isFdDuped) {
+                closeFileDescriptor(fileDescriptor);
+            }
         }
     }
 
@@ -4457,6 +4462,7 @@ public class ExifInterface {
 
         // Read the thumbnail.
         InputStream in = null;
+        FileDescriptor newFileDescriptor = null;
         try {
             if (mAssetInputStream != null) {
                 in = mAssetInputStream;
@@ -4469,9 +4475,9 @@ public class ExifInterface {
             } else if (mFilename != null) {
                 in = new FileInputStream(mFilename);
             } else if (Build.VERSION.SDK_INT >= 21 && mSeekableFileDescriptor != null) {
-                FileDescriptor fileDescriptor = Os.dup(mSeekableFileDescriptor);
-                Os.lseek(fileDescriptor, 0, OsConstants.SEEK_SET);
-                in = new FileInputStream(fileDescriptor);
+                newFileDescriptor = Os.dup(mSeekableFileDescriptor);
+                Os.lseek(newFileDescriptor, 0, OsConstants.SEEK_SET);
+                in = new FileInputStream(newFileDescriptor);
             }
             if (in == null) {
                 // Should not be reached this.
@@ -4491,6 +4497,9 @@ public class ExifInterface {
             Log.d(TAG, "Encountered exception while getting thumbnail", e);
         } finally {
             closeQuietly(in);
+            if (newFileDescriptor != null) {
+                closeFileDescriptor(newFileDescriptor);
+            }
         }
         return null;
     }
@@ -6603,6 +6612,24 @@ public class ExifInterface {
                 throw rethrown;
             } catch (Exception ignored) {
             }
+        }
+    }
+
+    /**
+     * Closes a file descriptor that has been duplicated.
+     */
+    private static void closeFileDescriptor(FileDescriptor fd) {
+        // Os.dup and Os.close was introduced in API 21 so this method shouldn't be called
+        // in API < 21.
+        if (Build.VERSION.SDK_INT >= 21) {
+            try {
+                Os.close(fd);
+                // Catching ErrnoException will raise error in API < 21
+            } catch (Exception ex) {
+                Log.e(TAG, "Error closing fd.");
+            }
+        } else {
+            Log.e(TAG, "closeFileDescriptor is called in API < 21, which must be wrong.");
         }
     }
 

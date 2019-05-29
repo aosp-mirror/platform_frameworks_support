@@ -1,0 +1,14 @@
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+// Signature format: 3.0
+package androidx.benchmark {
+
+
+  public static final class IsolationActivity.Companion {
+    method @AnyThread public void finishSingleton();
+    method @WorkerThread public void launchSingleton();
+  }
+
+}
+
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)

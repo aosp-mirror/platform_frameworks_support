@@ -27,6 +27,11 @@
         <TextView android:id="@+id/mr_name"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+                  android:gravity="start"
+                  android:textAlignment="viewStart"
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                   android:textAppearance="@style/TextAppearance.MediaRouter.SecondaryText"
                   android:singleLine="true" />
         <LinearLayout android:layout_width="fill_parent"

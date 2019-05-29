@@ -37,7 +37,6 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
-import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -94,10 +93,6 @@ public class InvalidationTracker {
 
     @NonNull
     private Map<String, Set<String>> mViewTables;
-
-    @NonNull
-    @VisibleForTesting
-    final BitSet mTableInvalidStatus;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final RoomDatabase mDatabase;
@@ -157,7 +152,6 @@ public class InvalidationTracker {
                 mShadowTableLookup.append(id, shadowTableName.toLowerCase(Locale.US));
             }
         }
-        mTableInvalidStatus = new BitSet(tableNames.length);
     }
 
     /**
@@ -362,7 +356,7 @@ public class InvalidationTracker {
         @Override
         public void run() {
             final Lock closeLock = mDatabase.getCloseLock();
-            boolean hasUpdatedTable = false;
+            Set<Integer> invalidatedTableIds = null;
             try {
                 closeLock.lock();
 
@@ -388,13 +382,13 @@ public class InvalidationTracker {
                     SupportSQLiteDatabase db = mDatabase.getOpenHelper().getWritableDatabase();
                     db.beginTransaction();
                     try {
-                        hasUpdatedTable = checkUpdatedTable();
+                        invalidatedTableIds = checkUpdatedTable();
                         db.setTransactionSuccessful();
                     } finally {
                         db.endTransaction();
                     }
                 } else {
-                    hasUpdatedTable = checkUpdatedTable();
+                    invalidatedTableIds = checkUpdatedTable();
                 }
             } catch (IllegalStateException | SQLiteException exception) {
                 // may happen if db is closed. just log.
@@ -403,34 +397,35 @@ public class InvalidationTracker {
             } finally {
                 closeLock.unlock();
             }
-            if (hasUpdatedTable) {
+            if (invalidatedTableIds != null && !invalidatedTableIds.isEmpty()) {
                 synchronized (mObserverMap) {
                     for (Map.Entry<Observer, ObserverWrapper> entry : mObserverMap) {
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
                         entry.getValue().notifyByTableVersions(mTableInvalidStatus);
+=======
+                        entry.getValue().notifyByTableInvalidStatus(invalidatedTableIds);
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
                     }
                 }
-                // Reset invalidated status flags.
-                mTableInvalidStatus.clear();
             }
         }
 
-        private boolean checkUpdatedTable() {
-            boolean hasUpdatedTable = false;
+        private Set<Integer> checkUpdatedTable() {
+            ArraySet<Integer> invalidatedTableIds = new ArraySet<>();
             Cursor cursor = mDatabase.query(new SimpleSQLiteQuery(SELECT_UPDATED_TABLES_SQL));
             //noinspection TryFinallyCanBeTryWithResources
             try {
                 while (cursor.moveToNext()) {
                     final int tableId = cursor.getInt(0);
-                    mTableInvalidStatus.set(tableId);
-                    hasUpdatedTable = true;
+                    invalidatedTableIds.add(tableId);
                 }
             } finally {
                 cursor.close();
             }
-            if (hasUpdatedTable) {
+            if (!invalidatedTableIds.isEmpty()) {
                 mCleanupStatement.executeUpdateDelete();
             }
-            return hasUpdatedTable;
+            return invalidatedTableIds;
         }
     };
 
@@ -593,14 +588,18 @@ public class InvalidationTracker {
          * Updates the table versions and notifies the underlying {@link #mObserver} if any of the
          * observed tables are invalidated.
          *
-         * @param tableInvalidStatus The table invalid statuses.
+         * @param invalidatedTablesIds The table ids of the tables that are invalidated.
          */
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
         void notifyByTableVersions(BitSet tableInvalidStatus) {
+=======
+        void notifyByTableInvalidStatus(Set<Integer> invalidatedTablesIds) {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
             Set<String> invalidatedTables = null;
             final int size = mTableIds.length;
             for (int index = 0; index < size; index++) {
                 final int tableId = mTableIds[index];
-                if (tableInvalidStatus.get(tableId)) {
+                if (invalidatedTablesIds.contains(tableId)) {
                     if (size == 1) {
                         // Optimization for a single-table observer
                         invalidatedTables = mSingleTableSet;

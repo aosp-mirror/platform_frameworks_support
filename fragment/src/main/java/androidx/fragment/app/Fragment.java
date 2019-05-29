@@ -157,7 +157,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     FragmentHostCallback mHost;
 
     // Private fragment manager for child fragments inside of this one.
-    FragmentManagerImpl mChildFragmentManager;
+    @NonNull
+    FragmentManagerImpl mChildFragmentManager = new FragmentManagerImpl();
 
     // If this Fragment is contained in another Fragment, this is that container.
     Fragment mParentFragment;
@@ -437,7 +438,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (Build.VERSION.SDK_INT >= 19) {
             mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
                 @Override
-                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         if (mView != null) {
                             mView.cancelPendingInputEvents();
@@ -883,27 +885,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     @NonNull
     final public FragmentManager getChildFragmentManager() {
-        if (mChildFragmentManager == null) {
-            instantiateChildFragmentManager();
-            if (mState >= RESUMED) {
-                mChildFragmentManager.dispatchResume();
-            } else if (mState >= STARTED) {
-                mChildFragmentManager.dispatchStart();
-            } else if (mState >= ACTIVITY_CREATED) {
-                mChildFragmentManager.dispatchActivityCreated();
-            } else if (mState >= CREATED) {
-                mChildFragmentManager.dispatchCreate();
-            }
+        if (mHost == null) {
+            throw new IllegalStateException("Fragment " + this + " has not been attached yet.");
         }
-        return mChildFragmentManager;
-    }
-
-    /**
-     * Return this fragment's child FragmentManager one has been previously created,
-     * otherwise null.
-     */
-    @Nullable
-    FragmentManager peekChildFragmentManager() {
         return mChildFragmentManager;
     }
 
@@ -1406,7 +1390,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     + "Fragment is attached to the FragmentManager.");
         }
         LayoutInflater result = mHost.onGetLayoutInflater();
-        getChildFragmentManager(); // Init if needed; use raw implementation below.
         LayoutInflaterCompat.setFactory2(result, mChildFragmentManager.getLayoutInflaterFactory());
         return result;
     }
@@ -1578,8 +1561,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mCalled = true;
         mSavedStateRegistryController.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
-        if (mChildFragmentManager != null
-                && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
+        if (!mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
             mChildFragmentManager.dispatchCreate();
         }
     }
@@ -1601,9 +1583,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             Parcelable p = savedInstanceState.getParcelable(
                     FragmentActivity.FRAGMENTS_TAG);
             if (p != null) {
-                if (mChildFragmentManager == null) {
-                    instantiateChildFragmentManager();
-                }
                 mChildFragmentManager.restoreSaveState(p);
                 mChildFragmentManager.dispatchCreate();
             }
@@ -1861,7 +1840,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mRestored = false;
         mBackStackNesting = 0;
         mFragmentManager = null;
-        mChildFragmentManager = null;
+        mChildFragmentManager = new FragmentManagerImpl();
         mHost = null;
         mFragmentId = 0;
         mContainerId = 0;
@@ -2475,10 +2454,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (getContext() != null) {
             LoaderManager.getInstance(this).dump(prefix, fd, writer, args);
         }
-        if (mChildFragmentManager != null) {
-            writer.print(prefix); writer.println("Child " + mChildFragmentManager + ":");
-            mChildFragmentManager.dump(prefix + "  ", fd, writer, args);
-        }
+        writer.print(prefix);
+        writer.println("Child " + mChildFragmentManager + ":");
+        mChildFragmentManager.dump(prefix + "  ", fd, writer, args);
     }
 
     @Nullable
@@ -2486,17 +2464,18 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (who.equals(mWho)) {
             return this;
         }
-        if (mChildFragmentManager != null) {
-            return mChildFragmentManager.findFragmentByWho(who);
-        }
-        return null;
+        return mChildFragmentManager.findFragmentByWho(who);
     }
 
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
     void instantiateChildFragmentManager() {
         if (mHost == null) {
             throw new IllegalStateException("Fragment has not been attached yet.");
         }
         mChildFragmentManager = new FragmentManagerImpl();
+=======
+    void performAttach() {
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
         mChildFragmentManager.attachController(mHost, new FragmentContainer() {
             @Override
             @Nullable
@@ -2512,12 +2491,19 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 return (mView != null);
             }
         }, this);
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+        mCalled = false;
+        onAttach(mHost.getContext());
+        if (!mCalled) {
+            throw new SuperNotCalledException("Fragment " + this
+                    + " did not call through to super.onAttach()");
+        }
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     }
 
     void performCreate(Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mState = CREATED;
         mCalled = false;
         onCreate(savedInstanceState);
@@ -2531,9 +2517,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mPerformedCreateView = true;
         mViewLifecycleOwner = new FragmentViewLifecycleOwner();
         mView = onCreateView(inflater, container, savedInstanceState);
@@ -2552,9 +2536,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performActivityCreated(Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mState = ACTIVITY_CREATED;
         mCalled = false;
         onActivityCreated(savedInstanceState);
@@ -2562,16 +2544,12 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onActivityCreated()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchActivityCreated();
-        }
+        mChildFragmentManager.dispatchActivityCreated();
     }
 
     void performStart() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-            mChildFragmentManager.execPendingActions();
-        }
+        mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.execPendingActions();
         mState = STARTED;
         mCalled = false;
         onStart();
@@ -2579,20 +2557,16 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onStart()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchStart();
-        }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START);
         }
+        mChildFragmentManager.dispatchStart();
     }
 
     void performResume() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-            mChildFragmentManager.execPendingActions();
-        }
+        mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.execPendingActions();
         mState = RESUMED;
         mCalled = false;
         onResume();
@@ -2600,48 +2574,50 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onResume()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchResume();
-            mChildFragmentManager.execPendingActions();
-        }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         }
+        mChildFragmentManager.dispatchResume();
+        mChildFragmentManager.execPendingActions();
     }
 
     void noteStateNotSaved() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.noteStateNotSaved();
+    }
+
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+    void performPrimaryNavigationFragmentChanged() {
+        boolean isPrimaryNavigationFragment = mFragmentManager.isPrimaryNavigation(this);
+        // Only send out the callback / dispatch if the state has changed
+        if (mIsPrimaryNavigationFragment == null
+                || mIsPrimaryNavigationFragment != isPrimaryNavigationFragment) {
+            mIsPrimaryNavigationFragment = isPrimaryNavigationFragment;
+            onPrimaryNavigationFragmentChanged(isPrimaryNavigationFragment);
+            mChildFragmentManager.dispatchPrimaryNavigationFragmentChanged();
         }
     }
 
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
     void performMultiWindowModeChanged(boolean isInMultiWindowMode) {
         onMultiWindowModeChanged(isInMultiWindowMode);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchMultiWindowModeChanged(isInMultiWindowMode);
-        }
+        mChildFragmentManager.dispatchMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     void performPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         onPictureInPictureModeChanged(isInPictureInPictureMode);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchPictureInPictureModeChanged(isInPictureInPictureMode);
-        }
+        mChildFragmentManager.dispatchPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     void performConfigurationChanged(@NonNull Configuration newConfig) {
         onConfigurationChanged(newConfig);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchConfigurationChanged(newConfig);
-        }
+        mChildFragmentManager.dispatchConfigurationChanged(newConfig);
     }
 
     void performLowMemory() {
         onLowMemory();
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchLowMemory();
-        }
+        mChildFragmentManager.dispatchLowMemory();
     }
 
     /*
@@ -2660,9 +2636,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 show = true;
                 onCreateOptionsMenu(menu, inflater);
             }
-            if (mChildFragmentManager != null) {
-                show |= mChildFragmentManager.dispatchCreateOptionsMenu(menu, inflater);
-            }
+            show |= mChildFragmentManager.dispatchCreateOptionsMenu(menu, inflater);
         }
         return show;
     }
@@ -2674,9 +2648,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 show = true;
                 onPrepareOptionsMenu(menu);
             }
-            if (mChildFragmentManager != null) {
-                show |= mChildFragmentManager.dispatchPrepareOptionsMenu(menu);
-            }
+            show |= mChildFragmentManager.dispatchPrepareOptionsMenu(menu);
         }
         return show;
     }
@@ -2688,10 +2660,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     return true;
                 }
             }
-            if (mChildFragmentManager != null) {
-                if (mChildFragmentManager.dispatchOptionsItemSelected(item)) {
-                    return true;
-                }
+            if (mChildFragmentManager.dispatchOptionsItemSelected(item)) {
+                return true;
             }
         }
         return false;
@@ -2702,10 +2672,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             if (onContextItemSelected(item)) {
                 return true;
             }
-            if (mChildFragmentManager != null) {
-                if (mChildFragmentManager.dispatchContextItemSelected(item)) {
-                    return true;
-                }
+            if (mChildFragmentManager.dispatchContextItemSelected(item)) {
+                return true;
             }
         }
         return false;
@@ -2716,31 +2684,25 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             if (mHasMenu && mMenuVisible) {
                 onOptionsMenuClosed(menu);
             }
-            if (mChildFragmentManager != null) {
-                mChildFragmentManager.dispatchOptionsMenuClosed(menu);
-            }
+            mChildFragmentManager.dispatchOptionsMenuClosed(menu);
         }
     }
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
         mSavedStateRegistryController.performSave(outState);
-        if (mChildFragmentManager != null) {
-            Parcelable p = mChildFragmentManager.saveAllState();
-            if (p != null) {
-                outState.putParcelable(FragmentActivity.FRAGMENTS_TAG, p);
-            }
+        Parcelable p = mChildFragmentManager.saveAllState();
+        if (p != null) {
+            outState.putParcelable(FragmentActivity.FRAGMENTS_TAG, p);
         }
     }
 
     void performPause() {
+        mChildFragmentManager.dispatchPause();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchPause();
-        }
         mState = STARTED;
         mCalled = false;
         onPause();
@@ -2751,13 +2713,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performStop() {
+        mChildFragmentManager.dispatchStop();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchStop();
-        }
         mState = ACTIVITY_CREATED;
         mCalled = false;
         onStop();
@@ -2768,11 +2728,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performDestroyView() {
+        mChildFragmentManager.dispatchDestroyView();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroyView();
         }
         mState = CREATED;
         mCalled = false;
@@ -2790,10 +2748,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performDestroy() {
+        mChildFragmentManager.dispatchDestroy();
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroy();
-        }
         mState = INITIALIZING;
         mCalled = false;
         mIsCreated = false;
@@ -2802,7 +2758,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onDestroy()");
         }
-        mChildFragmentManager = null;
     }
 
     void performDetach() {
@@ -2817,9 +2772,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         // Destroy the child FragmentManager if we still have it here.
         // This is normally done in performDestroy(), but is done here
         // specifically if the Fragment is retained.
-        if (mChildFragmentManager != null) {
+        if (!mChildFragmentManager.isDestroyed()) {
             mChildFragmentManager.dispatchDestroy();
-            mChildFragmentManager = null;
+            mChildFragmentManager = new FragmentManagerImpl();
         }
     }
 

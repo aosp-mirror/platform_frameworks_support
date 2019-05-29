@@ -19,6 +19,10 @@
           android:id="@+id/mr_cast_header_name"
           android:layout_width="match_parent"
           android:layout_height="@dimen/mr_dynamic_dialog_row_height"
+<<<<<<< HEAD   (5a228e Merge "Merge empty history for sparse-5593360-L5240000032052)
+=======
+          android:gravity="start"
+>>>>>>> BRANCH (2bab7f Merge "Merge cherrypicks of [972846] into sparse-5613706-L34)
           android:paddingLeft="16dp"
           android:paddingRight="16dp"
           android:paddingTop="24dp"

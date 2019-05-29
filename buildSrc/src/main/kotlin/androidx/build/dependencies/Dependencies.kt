@@ -27,6 +27,7 @@ const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.0@
 const val DEXMAKER_MOCKITO = "com.linkedin.dexmaker:dexmaker-mockito:2.19.0"
 const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.1.0"
 const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.1.0"
+const val ESPRESSO_IDLING_RESOURCE = "androidx.test.espresso:espresso-idling-resource:3.1.0"
 const val FINDBUGS = "com.google.code.findbugs:jsr305:3.0.2"
 const val GOOGLE_COMPILE_TESTING = "com.google.testing.compile:compile-testing:0.11"
 const val GSON = "com.google.code.gson:gson:2.8.0"
@@ -84,10 +85,9 @@ const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
 // Arch libraries
 const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:2.0.0"
 const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common:2.0.0@jar"
-const val ARCH_LIFECYCLE_LIVEDATA_CORE =
-        "androidx.lifecycle:lifecycle-livedata-core:2.0.0"
-const val ARCH_LIFECYCLE_LIVEDATA =
-        "androidx.lifecycle:lifecycle-livedata:2.0.0"
+const val ARCH_LIFECYCLE_LIVEDATA_CORE = "androidx.lifecycle:lifecycle-livedata-core:2.0.0"
+const val ARCH_LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata:2.0.0"
+const val ARCH_LIFECYCLE_SERVICE = "androidx.lifecycle:lifecycle-service:2.0.0"
 const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:2.0.0"
 const val ARCH_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:2.0.0"
 const val ARCH_CORE_COMMON = "androidx.arch.core:core-common:2.0.0@jar"
