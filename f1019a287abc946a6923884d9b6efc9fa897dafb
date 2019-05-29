@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37559a7d_b3ab7484",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 1,
+      "message": "Hmm it could be more readable if we could add a method called either \"release()\" or \"publishRelease\" to the Publish enum and then have this be `extension.publish.release()`, to make it more clear that this is checking whether the release version is being published",
+      "range": {
+        "startLine": 632,
+        "startChar": 12,
+        "endLine": 632,
+        "endChar": 61
+      },
+      "revId": "f1019a287abc946a6923884d9b6efc9fa897dafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd6f2f88_6dfe8a5a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildServerConfiguration.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 1,
+      "message": "that\u0027s neat",
+      "revId": "f1019a287abc946a6923884d9b6efc9fa897dafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84e2d715_8269a38d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildServerConfiguration.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 1,
+      "message": "How about adding an explanatory comment like \"For snapshot builds we put the artifacts directly where in a place when downstream users can find them\"",
+      "revId": "f1019a287abc946a6923884d9b6efc9fa897dafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56fdb23_ce7a8cb3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckSameVersionLibraryGroupsTask.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 1,
+      "message": "here too",
+      "range": {
+        "startLine": 35,
+        "startChar": 58,
+        "endLine": 35,
+        "endChar": 86
+      },
+      "revId": "f1019a287abc946a6923884d9b6efc9fa897dafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467c1080_acacbcff",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 1,
+      "message": "same comment as in the other file about adding a \".release()\" method on the Publish enum",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 56
+      },
+      "revId": "f1019a287abc946a6923884d9b6efc9fa897dafb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

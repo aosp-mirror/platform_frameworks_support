@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73d2288d_2b7118c8",
+        "filename": "dumb-tests/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T19:10:18Z",
+      "side": 0,
+      "message": "Was it intentional to remove this?",
+      "revId": "a245808ef09dad210afea94e004c54204ce08682",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
