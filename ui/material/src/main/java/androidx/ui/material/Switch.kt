@@ -94,24 +94,24 @@ private fun DrawSwitch(checked: Boolean, color: Color? = null) {
 
 @Composable
 private fun DrawTrack(color: Color) {
-    Draw { canvas, parentSize ->
-        drawTrack(canvas, parentSize, color)
+    Draw { canvas, paint, parentSize ->
+        drawTrack(canvas, paint, parentSize, color)
     }
 }
 
 @Composable
 private fun DrawThumb(relativePosition: Float, color: Color) {
-    Draw { canvas, parentSize ->
-        drawThumb(canvas, parentSize, relativePosition, color)
+    Draw { canvas, paint, parentSize ->
+        drawThumb(canvas, paint, parentSize, relativePosition, color)
     }
 }
 
 private fun DensityReceiver.drawTrack(
     canvas: Canvas,
+    paint: Paint,
     parentSize: PxSize,
     color: Color
 ) {
-    val paint = Paint()
     paint.isAntiAlias = true
     paint.color = color
     paint.strokeCap = StrokeCap.round
@@ -129,11 +129,11 @@ private fun DensityReceiver.drawTrack(
 
 private fun DensityReceiver.drawThumb(
     canvas: Canvas,
+    paint: Paint,
     parentSize: PxSize,
     relativePosition: Float,
     color: Color
 ) {
-    val paint = Paint()
     paint.isAntiAlias = true
     paint.color = color
 

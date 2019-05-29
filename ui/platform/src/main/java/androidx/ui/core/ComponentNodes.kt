@@ -20,6 +20,7 @@ import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.painting.Canvas
 import androidx.compose.Emittable
+import androidx.ui.painting.Paint
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -337,11 +338,14 @@ interface DrawNodeScope : DensityReceiver {
  * Backing node for the Draw component.
  */
 class DrawNode : SingleChildComponentNode() {
-    var onPaint: DrawNodeScope.(canvas: Canvas, parentSize: PxSize) -> Unit = { _, _ -> }
+    var onPaint: DrawNodeScope.(canvas: Canvas, paint: Paint, parentSize: PxSize) -> Unit =
+        { _, _, _ -> }
         set(value) {
             field = value
             invalidate()
         }
+
+    internal val paint: Paint = Paint()
 
     var needsPaint = true
 

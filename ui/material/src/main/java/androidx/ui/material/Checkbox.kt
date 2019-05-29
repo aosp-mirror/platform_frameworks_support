@@ -108,8 +108,7 @@ private fun DrawCheckbox(value: ToggleableState, color: Color?) {
 
 @Composable
 private fun DrawBox(color: Color, innerRadiusFraction: Float) {
-    Draw { canvas, parentSize ->
-        val paint = Paint()
+    Draw { canvas, paint, parentSize ->
         paint.strokeWidth = StrokeWidth.toPx().value
         paint.isAntiAlias = true
         paint.color = color
@@ -144,8 +143,7 @@ private fun DrawCheck(
     checkFraction: Float,
     crossCenterGravitation: Float
 ) {
-    Draw { canvas, parentSize ->
-        val paint = Paint()
+    Draw { canvas, paint, parentSize ->
         paint.isAntiAlias = true
         paint.style = PaintingStyle.stroke
         paint.strokeCap = StrokeCap.square

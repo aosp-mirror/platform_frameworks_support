@@ -138,8 +138,7 @@ class ScrollerTest : LayoutTest() {
                                                     height = 5.px.toDp(),
                                                     width = 45.px.toDp()
                                                 ) {
-                                                    Draw { canvas, parentSize ->
-                                                        val paint = Paint()
+                                                    Draw { canvas, paint, parentSize ->
                                                         paint.color = color
                                                         paint.style = PaintingStyle.fill
                                                         canvas.drawRect(parentSize.toRect(), paint)
@@ -148,7 +147,7 @@ class ScrollerTest : LayoutTest() {
                                             }
                                         }
                                     }
-                                    Draw { _, _ ->
+                                    Draw { _, _, _ ->
                                         drawLatch.countDown()
                                     }
                                 }

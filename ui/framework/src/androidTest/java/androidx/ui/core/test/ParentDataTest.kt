@@ -152,8 +152,7 @@ class ParentDataTest {
 @Composable
 fun SimpleDrawChild(drawLatch: CountDownLatch) {
     AtLeastSize(size = 10.ipx) {
-        Draw { canvas, parentSize ->
-            val paint = Paint()
+        Draw { canvas, paint, parentSize ->
             paint.color = Color(0xFF008000.toInt())
             canvas.drawRect(parentSize.toRect(), paint)
             drawLatch.countDown()

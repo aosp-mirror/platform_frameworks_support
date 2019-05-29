@@ -273,8 +273,8 @@ fun SingleCompositionColumn(@Children children: @Composable() () -> Unit) {
 @Composable
 fun SingleCompositionRect() {
     val Rectangle = @Composable {
-        Draw { canvas, parentSize ->
-            val paint = Paint().apply { this.color = rectColorModel.color }
+        Draw { canvas, paint, parentSize ->
+            paint.color = rectColorModel.color
             canvas.drawRect(parentSize.toRect(), paint)
         }
     }
@@ -295,8 +295,8 @@ val rectColorModel = RectColor()
 @Composable
 fun SingleCompositionRectWithIntrinsics() {
     val Rectangle = @Composable {
-        Draw { canvas, parentSize ->
-            val paint = Paint().apply { this.color = rectColorModel.color }
+        Draw { canvas, paint, parentSize ->
+            paint.color = rectColorModel.color
             canvas.drawRect(parentSize.toRect(), paint)
         }
     }
@@ -414,9 +414,8 @@ fun Collection<IntPx>.max(): IntPx {
 
 @Composable
 fun DrawRectangle(color: Color) {
-    val paint = Paint()
-    paint.color = color
-    Draw { canvas, parentSize ->
+    Draw { canvas, paint, parentSize ->
+        paint.color = color
         canvas.drawRect(parentSize.toRect(), paint)
     }
 }

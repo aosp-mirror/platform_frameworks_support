@@ -23,6 +23,7 @@ import androidx.ui.core.px
 import androidx.ui.material.surface.Surface
 import androidx.ui.painting.Canvas
 import androidx.ui.graphics.Color
+import androidx.ui.painting.Paint
 import androidx.ui.vectormath64.Matrix4
 import androidx.ui.vectormath64.Vector3
 
@@ -58,7 +59,7 @@ abstract class RippleEffect(
         onRemoved?.invoke()
     }
 
-    internal fun draw(canvas: Canvas) {
+    internal fun draw(canvas: Canvas, paint: Paint) {
         assert(!debugDisposed)
         val offset = rippleSurface.layoutCoordinates
             .childToLocal(coordinates, PxPosition(0.px, 0.px))
@@ -67,7 +68,7 @@ abstract class RippleEffect(
             offset.y.value,
             0f
         ))
-        drawEffect(canvas, transform)
+        drawEffect(canvas, paint, transform)
     }
 
     /**
@@ -76,7 +77,7 @@ abstract class RippleEffect(
      * The transform argument gives the coordinate conversion from the coordinate
      * system of the canvas to the coordinate system of the target layout.
      */
-    protected abstract fun drawEffect(canvas: Canvas, transform: Matrix4)
+    protected abstract fun drawEffect(canvas: Canvas, paint: Paint, transform: Matrix4)
 
     /**
      * Called when the user input that triggered this ripple's appearance was confirmed or canceled.

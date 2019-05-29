@@ -30,6 +30,7 @@ import androidx.compose.memo
 import androidx.compose.unaryPlus
 import androidx.ui.animation.Transition
 import androidx.ui.baseui.DeterminateProgressIndicator
+import androidx.ui.core.DensityReceiver
 import androidx.ui.core.Draw
 import androidx.ui.core.PxSize
 import androidx.ui.core.ambientDensity
@@ -68,13 +69,10 @@ fun LinearProgressIndicator(
         Wrap {
             Container(width = LinearIndicatorWidth, height = StrokeWidth) {
                 val primaryColor = +color.orFromTheme { primary }
-                val paint = +paint(primaryColor, StrokeCap.butt)
-                val backgroundPaint = +paint(
-                    primaryColor.copy(alpha = BackgroundOpacity),
-                    StrokeCap.butt
-                )
-                Draw { canvas, parentSize ->
-                    drawLinearIndicatorBackground(canvas, parentSize, backgroundPaint)
+                Draw { canvas, paint, parentSize ->
+                    setupPaint(paint, StrokeCap.butt, primaryColor.copy(alpha = BackgroundOpacity))
+                    drawLinearIndicatorBackground(canvas, parentSize, paint)
+                    paint.color = primaryColor
                     drawLinearIndicator(canvas, parentSize, 0f, progress, paint)
                 }
             }
@@ -94,19 +92,16 @@ fun LinearProgressIndicator(color: Color? = null) {
     Wrap {
         Container(width = LinearIndicatorWidth, height = StrokeWidth) {
             val primaryColor = +color.orFromTheme { primary }
-            val paint = +paint(primaryColor, StrokeCap.butt)
-            val backgroundPaint = +paint(
-                primaryColor.copy(alpha = BackgroundOpacity),
-                StrokeCap.butt
-            )
             Transition(definition = LinearIndeterminateTransition, toState = 1) { state ->
                 val firstLineHead = state[FirstLineHeadProp]
                 val firstLineTail = state[FirstLineTailProp]
                 val secondLineHead = state[SecondLineHeadProp]
                 val secondLineTail = state[SecondLineTailProp]
 
-                Draw { canvas, parentSize ->
-                    drawLinearIndicatorBackground(canvas, parentSize, backgroundPaint)
+                Draw { canvas, paint, parentSize ->
+                    setupPaint(paint, StrokeCap.butt, primaryColor.copy(alpha = BackgroundOpacity))
+                    drawLinearIndicatorBackground(canvas, parentSize, paint)
+                    paint.color = primaryColor
                     if (firstLineHead - firstLineTail > 0) {
                         drawLinearIndicator(
                             canvas,
@@ -173,8 +168,8 @@ fun CircularProgressIndicator(
     DeterminateProgressIndicator(progress = progress) {
         CircularIndicatorContainer {
             val primaryColor = +color.orFromTheme { primary }
-            val paint = +paint(primaryColor, StrokeCap.butt)
-            Draw { canvas, parentSize ->
+            Draw { canvas, paint, parentSize ->
+                setupPaint(paint, StrokeCap.butt, primaryColor)
                 // Start at 12 O'clock
                 val startAngle = 270f
                 val sweep = progress * 360f
@@ -201,7 +196,6 @@ fun CircularProgressIndicator(
 fun CircularProgressIndicator(color: Color? = null) {
     CircularIndicatorContainer {
         val primaryColor = +color.orFromTheme { primary }
-        val paint = +paint(primaryColor, StrokeCap.square)
         Transition(definition = CircularIndeterminateTransition, toState = 1) { state ->
             val currentRotation = state[IterationProp]
             val baseRotation = state[BaseRotationProp]
@@ -217,7 +211,8 @@ fun CircularProgressIndicator(color: Color? = null) {
             startAngle += StartAngleOffset + currentRotationAngleOffset
             startAngle += baseRotation
 
-            Draw { canvas, parentSize ->
+            Draw { canvas, paint, parentSize ->
+                setupPaint(paint, StrokeCap.square, primaryColor)
                 drawIndeterminateCircularIndicator(
                     canvas,
                     parentSize,
@@ -479,18 +474,11 @@ private val CircularIndeterminateTransition = transitionDefinition {
     }
 }
 
-@CheckResult(suggest = "+")
-private fun paint(color: Color, strokeCap: StrokeCap) = effectOf<Paint> {
-    val basePaint = withDensity(+ambientDensity()) {
-        +memo {
-            Paint().apply {
-                isAntiAlias = true
-                style = PaintingStyle.stroke
-                this.strokeWidth = StrokeWidth.toPx().value
-            }
-        }
-    }
-    basePaint.color = color
-    basePaint.strokeCap = strokeCap
-    basePaint
+
+private fun DensityReceiver.setupPaint(paint: Paint, strokeCap: StrokeCap, color: Color) {
+    paint.isAntiAlias = true
+    paint.style = PaintingStyle.stroke
+    paint.strokeWidth = StrokeWidth.toPx().value
+    paint.strokeCap = strokeCap
+    paint.color = color
 }

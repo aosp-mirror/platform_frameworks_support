@@ -107,12 +107,10 @@ fun VerticalScroller(
         max = maxPosition.value,
         offsetChange = { newOffset -> onScrollChanged(newOffset, maxPosition.value) }) {
         Layout(children = {
-            Draw { canvas, parentSize ->
+            Draw(child) { canvas, _, parentSize ->
                 canvas.save()
                 canvas.clipRect(parentSize.toRect())
-            }
-            child()
-            Draw { canvas, _ ->
+                drawChildren()
                 canvas.restore()
             }
         }, layoutBlock = { measurables, constraints ->

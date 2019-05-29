@@ -53,8 +53,7 @@ fun ColoredRect(color: Color, width: Dp? = null, height: Dp? = null) {
 
 @Composable
 private fun DrawFillRect(brush: Brush) {
-    Draw { canvas, parentSize ->
-        val paint = Paint()
+    Draw { canvas, paint, parentSize ->
         brush.applyBrush(paint)
         canvas.drawRect(parentSize.toRect(), paint)
     }

@@ -33,8 +33,8 @@ fun SimpleImage(
     // TODO b132071873: WithDensity should be able to use the DSL syntax
     WithDensity(block = {
         Container(width = image.width.toDp(), height = image.height.toDp()) {
-            Draw { canvas, _ ->
-                canvas.drawImage(image, Offset.zero, Paint())
+            Draw { canvas, paint, _ ->
+                canvas.drawImage(image, Offset.zero, paint)
             }
         }
     })

@@ -215,7 +215,7 @@ internal class DefaultRippleEffect(
         }
     }
 
-    override fun drawEffect(canvas: Canvas, transform: Matrix4) {
+    override fun drawEffect(canvas: Canvas, paint: Paint, transform: Matrix4) {
         val alpha = if (transitionState == RippleTransition.State.Initial && finishRequested) {
             // if we still fading-in we should immediately switch to the final alpha.
             color.alpha
@@ -224,7 +224,6 @@ internal class DefaultRippleEffect(
         }
         val radius = animation[RippleTransition.Radius].value
         val centerOffset = animation[RippleTransition.Center].toOffset()
-        val paint = Paint()
         paint.color = color.copy(alpha = alpha)
         val originOffset = transform.getAsTranslation()
         val clipRect = clipCallback?.invoke(coordinates)?.toRect()
