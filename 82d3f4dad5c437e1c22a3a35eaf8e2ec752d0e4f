@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c71e18d_d5600da5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T18:15:30Z",
+      "side": 1,
+      "message": "Agree! I also replaced \"children\" -\u003e \"dependent\" to avoid confusion",
+      "parentUuid": "9f03c703_e6be2c69",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bc16952_934fd30c",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab692bba_1c42c6b1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T18:15:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bc16952_934fd30c",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "54f67519_87875b4a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T18:15:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6325910b_6df10e9a",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9b07523_ab8e6aae",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c3ed08a0_c364aedd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T18:15:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9b07523_ab8e6aae",
+      "range": {
+        "startLine": 83,
+        "startChar": 27,
+        "endLine": 83,
+        "endChar": 59
+      },
+      "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec48d573_1a21af9d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56470ffb_8e365734",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T18:15:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec48d573_1a21af9d",
+      "range": {
+        "startLine": 87,
+        "startChar": 28,
+        "endLine": 87,
+        "endChar": 49
+      },
+      "revId": "82d3f4dad5c437e1c22a3a35eaf8e2ec752d0e4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
