@@ -917,8 +917,10 @@ open class Composer<N>(
 
             invalidations.removeLocation(location)
 
-            recordExits(location, enterStackSize)
-            recordEnters(location)
+            trace("Compose:recordExitsEnters") {
+                recordExits(location, enterStackSize)
+                recordEnters(location)
+            }
 
             composeScope(firstInRange.scope)
 
@@ -934,11 +936,15 @@ open class Composer<N>(
         }
 
         if (recomposed) {
-            recordExits(end, enterStackSize)
+            trace("Compose:recordExits") {
+                recordExits(end, enterStackSize)
+            }
         } else {
-            // No recompositions were requested in the range, skip it.
-            recordSkip(START_GROUP)
-            slots.skipGroup()
+            trace("Compose:recordSkip") {
+                // No recompositions were requested in the range, skip it.
+                recordSkip(START_GROUP)
+                slots.skipGroup()
+            }
         }
         isComposing = wasComposing
     }
@@ -981,40 +987,44 @@ open class Composer<N>(
         valid: Boolean,
         compose: (invalidate: (sync: Boolean) -> Unit) -> Unit
     ): (sync: Boolean) -> Unit {
-        return if (!valid) {
-            val invalidate = if (inserting) {
-                val scope = RecomposeScope(compose)
-                invalidateStack.push(scope)
-                scope.invalidate = { invalidate(scope, it) }
-                recordStart(START_GROUP)
-                recordOperation { _, slots, _ ->
-                    scope.anchor = slots.anchor(slots.current - 1)
+        trace("Compose:startJoin") {
+            return if (!valid) {
+                val invalidate = if (inserting) {
+                    val scope = RecomposeScope(compose)
+                    invalidateStack.push(scope)
+                    scope.invalidate = { invalidate(scope, it) }
+                    recordStart(START_GROUP)
+                    recordOperation { _, slots, _ ->
+                        scope.anchor = slots.anchor(slots.current - 1)
+                    }
+                    updateValue(scope)
+                    slots.beginEmpty()
+                    scope.invalidate
+                } else {
+                    invalidations.removeLocation(slots.current)
+                    slots.startGroup()
+                    @Suppress("UNCHECKED_CAST")
+                    val scope = slots.next() as RecomposeScope
+                    scope.compose = compose
+                    invalidateStack.push(scope)
+                    recordStart(START_GROUP)
+                    skipValue()
+                    scope.invalidate
                 }
-                updateValue(scope)
-                slots.beginEmpty()
-                scope.invalidate
-            } else {
-                invalidations.removeLocation(slots.current)
-                slots.startGroup()
-                @Suppress("UNCHECKED_CAST")
-                val scope = slots.next() as RecomposeScope
-                scope.compose = compose
-                invalidateStack.push(scope)
-                recordStart(START_GROUP)
-                skipValue()
-                scope.invalidate
-            }
-            enterGroup(START_GROUP, null, null)
-            invalidate ?: IGNORE_RECOMPOSE
-        } else IGNORE_RECOMPOSE
+                enterGroup(START_GROUP, null, null)
+                invalidate ?: IGNORE_RECOMPOSE
+            } else IGNORE_RECOMPOSE
+        }
     }
 
     fun doneJoin(valid: Boolean) {
-        if (!valid) {
-            end(END_GROUP)
-            invalidateStack.pop()
-        } else {
-            skipGroupAndRecomposeRange()
+        trace("Compose:doneJoin") {
+            if (!valid) {
+                end(END_GROUP)
+                invalidateStack.pop()
+            } else {
+                skipGroupAndRecomposeRange()
+            }
         }
     }
 
@@ -1106,11 +1116,13 @@ open class Composer<N>(
     }
 
     internal fun finalizeCompose() {
-        finalRealizeSlots()
-        assert(pendingStack.isEmpty()) { "Start end imbalance" }
-        pending = null
-        nodeIndex = 0
-        groupNodeCount = 0
+        trace("Compose:finalizeCompose") {
+            finalRealizeSlots()
+            assert(pendingStack.isEmpty()) { "Start end imbalance" }
+            pending = null
+            nodeIndex = 0
+            groupNodeCount = 0
+        }
     }
 
     private fun recordSlotNext(count: Int = 1) {

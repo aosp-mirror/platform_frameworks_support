@@ -104,18 +104,18 @@ open class SlotEditor internal constructor(val table: SlotTable) {
     /**
      * Return true if the current slot starts a group
      */
-    val isGroup get() = current < currentEnd && get(current) is GroupStart
+    val isGroup get() = trace("isGroup") { current < currentEnd && get(current) is GroupStart }
 
     /**
      * Return true if the slot at index starts a gorup
      */
-    fun isGroup(index: Int) = get(index) is GroupStart
+    fun isGroup(index: Int) = trace("isGroup") { get(index) is GroupStart }
 
     /**
      * Return true if the current slot starts a node. A node is a kind of group so this will
      * return true for isGroup as well.
      */
-    val isNode get() = current < currentEnd && (get(current) as? GroupStart)?.isNode ?: false
+    val isNode get() = trace("isNode") { current < currentEnd && (get(current) as? GroupStart)?.isNode ?: false }
 
     /**
      * Return the number of nodes in the group. isGroup must be true or this will throw.
@@ -828,8 +828,9 @@ class SlotTable(internal var slots: Array<Any?> = arrayOf()) {
     }
 }
 
-private fun ArrayList<Anchor>.locationOf(index: Int) =
+private fun ArrayList<Anchor>.locationOf(index: Int) = trace("SlotTable:Search") {
     search(index).let { if (it >= 0) it else -(it + 1) }
+}
 private fun ArrayList<Anchor>.search(index: Int) = binarySearch { it.loc.compareTo(index) }
 
 /**

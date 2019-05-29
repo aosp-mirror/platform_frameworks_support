@@ -24,6 +24,7 @@ import androidx.ui.core.offset
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.trace
 
 /**
  * Describes a set of offsets from each of the four sides of a box. For example,
@@ -68,7 +69,9 @@ fun Padding(
             val verticalPadding = (paddingTop + paddingBottom)
 
             val newConstraints = constraints.offset(-horizontalPadding, -verticalPadding)
-            val placeable = measurable.measure(newConstraints)
+            val placeable = trace("UI:Padding:measure") {
+                measurable.measure(newConstraints)
+            }
             val width =
                 min(placeable.width + horizontalPadding, constraints.maxWidth)
             val height =
@@ -123,5 +126,7 @@ fun Padding(
     padding: Dp,
     @Children children: @Composable() () -> Unit
 ) {
-    Padding(padding = EdgeInsets(padding), children = children)
+    trace("UI:Padding") {
+        Padding(padding = EdgeInsets(padding), children = children)
+    }
 }

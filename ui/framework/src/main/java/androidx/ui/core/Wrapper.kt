@@ -81,9 +81,9 @@ val ContextAmbient = Ambient.of<Context>()
 
 val DensityAmbient = Ambient.of<Density>()
 
-internal val FocusManagerAmbient = Ambient.of<FocusManager>()
+val FocusManagerAmbient = Ambient.of<FocusManager>()
 
-internal val TextInputServiceAmbient = Ambient.of<TextInputService?>()
+val TextInputServiceAmbient = Ambient.of<TextInputService?>()
 
 /**
  * [ambient] to get a [Density] object from an internal [DensityAmbient].

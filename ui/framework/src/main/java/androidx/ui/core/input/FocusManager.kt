@@ -21,7 +21,7 @@ package androidx.ui.core.input
  *
  * TODO(nona): make this public?
  */
-internal class FocusManager {
+class FocusManager {
 
     /**
      * An interface for focusable object

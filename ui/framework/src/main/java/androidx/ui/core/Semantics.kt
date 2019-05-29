@@ -21,6 +21,7 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.ambient
 import androidx.compose.composer
+import androidx.compose.trace
 import androidx.compose.unaryPlus
 
 // TODO(ryanmentley): This is the wrong package, move it as a standalone CL
@@ -126,30 +127,31 @@ fun Semantics(
     actions: List<SemanticsAction<*>> = emptyList(),
     @Children children: @Composable() () -> Unit
 ) {
-    val providedTestTag = +ambient(TestTagAmbient)
-    <SemanticsComponentNode
-        container
-        explicitChildNodes
-        enabled
-        checked
-        selected
-        button
-        header=null
-        textField=null
-        focused=null
-        inMutuallyExclusiveGroup
-        obscured=null
-        scopesRoute=null
-        namesRoute=null
-        hidden
-        label
-        value
-        hint=null
-        textDirection
-        testTag=(testTag ?: providedTestTag)
-        actions>
-        TestTag(tag=DefaultTestTag) {
+    trace("UI:Semantics") {
+        val providedTestTag = +ambient(TestTagAmbient)
+        <SemanticsComponentNode
+            container
+            explicitChildNodes
+            enabled
+            checked
+            selected
+            button
+            header=null
+            textField=null
+            focused=null
+            inMutuallyExclusiveGroup
+            obscured=null
+            scopesRoute=null
+            namesRoute=null
+            hidden
+            label
+            value
+            hint=null
+            textDirection
+            testTag=(testTag ?: providedTestTag)
+            actions> TestTag(tag = DefaultTestTag) {
             children()
         }
-    </SemanticsComponentNode>
+        </SemanticsComponentNode>
+    }
 }

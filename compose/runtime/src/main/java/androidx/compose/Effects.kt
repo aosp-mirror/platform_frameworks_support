@@ -137,7 +137,9 @@ class Effect<T> internal constructor(
  * @param block the executable block of code that returns the value of the effect, run in the context of the Effect
  */
 fun <T> effectOf(block: Effect<T>.() -> T): Effect<T> =
-    Effect(block)
+    trace("Compose:Memo") {
+        Effect(block)
+    }
 
 /**
  * A CommitScope represents an object that executes some code and has a cleanup in the context of the Composition lifecycle.

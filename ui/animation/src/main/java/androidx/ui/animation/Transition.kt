@@ -25,6 +25,7 @@ import androidx.compose.Composable
 import androidx.compose.Model
 import androidx.compose.composer
 import androidx.compose.memo
+import androidx.compose.trace
 import androidx.compose.unaryPlus
 
 /**
@@ -48,15 +49,18 @@ fun <T> Transition(
     toState: T,
     @Children children: @Composable() (state: TransitionState) -> Unit
 ) {
-    if (transitionsEnabled) {
-        // TODO: This null is workaround for b/132148894
-        val model = +memo(definition, null) { TransitionModel(definition) }
-        model.anim.toState(toState)
-        children(state = model)
-    } else {
-        val state = +memo(definition, toState) { definition.getStateFor(toState) }
-        children(state = state)
+    trace("UI:Transition") {
+        if (transitionsEnabled) {
+            // TODO: This null is workaround for b/132148894
+            val model = +memo(definition, null) { TransitionModel(definition) }
+            model.anim.toState(toState)
+            children(state = model)
+        } else {
+            val state = +memo(definition, toState) { definition.getStateFor(toState) }
+            children(state = state)
+        }
     }
+
 }
 
 /**
@@ -72,12 +76,13 @@ private class TransitionModel<T>(
 ) : TransitionState {
 
     private var animationPulse = 0L
-    internal val anim: TransitionAnimation<T> =
+    internal val anim: TransitionAnimation<T> = trace("UI:TransitionAnimation:property") {
         transitionDef.createAnimation().apply {
             onUpdate = {
                 animationPulse++
             }
         }
+    }
 
     override fun <T> get(propKey: PropKey<T>): T {
         // we need to access the animationPulse so Compose will record this @Model values usage.
