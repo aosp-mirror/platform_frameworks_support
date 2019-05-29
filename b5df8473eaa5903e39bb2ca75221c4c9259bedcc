@@ -52,6 +52,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee56220_984a2428",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-29T23:03:58Z",
+      "side": 1,
+      "message": "I have seen very few examples of the Draw used without a Paint and very few examples of reusing a Paint between different Draws. I have seen many examples of Paint() instantiated on every draw call.\n\nI don\u0027t think it is worth having multiple overloads until we see it being used regularly without the Paint parameter. In other words, I think it is better to optimize the API later when we know more about the real uses.",
+      "parentUuid": "5a9282c6_766a3cef",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
