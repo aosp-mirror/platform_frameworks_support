@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "9b6272d6_78914064",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewImageProcessorImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-29T00:20:53Z",
+      "side": 1,
+      "message": "Discussed this offline. As per our discussion, we should investigate solutions for using non-framework classes in these APIs. But that shouldn\u0027t block this version.",
+      "parentUuid": "80dbccd2_9068ced0",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "6012f1f22c7f49b7679984c4a9e07aba7897ce96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39b268ee_32878449",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/ProcessorImpl.java",
         "patchSetId": 2
