@@ -466,6 +466,11 @@ public class MediaControlView extends ViewGroup {
             sizeType = SIZE_TYPE_MINIMAL;
         }
 
+        if (sizeType != SIZE_TYPE_UNDEFINED && mSizeType == SIZE_TYPE_UNDEFINED
+                && mPlayer != null) {
+            updatePlayPauseButton(mPlayer.getPlayerState());
+        }
+
         if (mSizeType != sizeType) {
             mSizeType = sizeType;
             updateLayoutForSizeChange(sizeType);
@@ -1616,17 +1621,55 @@ public class MediaControlView extends ViewGroup {
         return mPlayer.getCurrentPosition();
     }
 
-    void removeCustomSpeedFromList() {
-        mPlaybackSpeedMultBy100List.remove(mCustomPlaybackSpeedIndex);
-        mPlaybackSpeedTextList.remove(mCustomPlaybackSpeedIndex);
-        mCustomPlaybackSpeedIndex = -1;
-    }
-
-    void updateSelectedSpeed(int selectedSpeedIndex, String selectedSpeedText) {
-        mSelectedSpeedIndex = selectedSpeedIndex;
-        mSettingsSubTextsList.set(SETTINGS_MODE_PLAYBACK_SPEED, selectedSpeedText);
-        mSubSettingsAdapter.setTexts(mPlaybackSpeedTextList);
-        mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
+    void updatePlayPauseButton(int state) {
+        if (mSizeType == SIZE_TYPE_UNDEFINED) {
+            return;
+        }
+        // Update pause button depending on playback state for the following two reasons:
+        //   1) Need to handle case where app customizes playback state behavior when app
+        //      activity is resumed.
+        //   2) Need to handle case where the media file reaches end of duration.
+        ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
+        switch (state) {
+            case SessionPlayer.PLAYER_STATE_PLAYING:
+                removeCallbacks(mUpdateProgress);
+                post(mUpdateProgress);
+                resetHideCallbacks();
+                updateReplayButton(false);
+                break;
+            case SessionPlayer.PLAYER_STATE_PAUSED:
+                playPauseButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_play_circle_filled));
+                playPauseButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_play_button_desc));
+                removeCallbacks(mUpdateProgress);
+                removeCallbacks(mHideMainBars);
+                removeCallbacks(mHideProgressBar);
+                post(mShowAllBars);
+                break;
+            case SessionPlayer.PLAYER_STATE_ERROR:
+                playPauseButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_play_circle_filled));
+                playPauseButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_play_button_desc));
+                removeCallbacks(mUpdateProgress);
+                if (getWindowToken() != null) {
+                    new AlertDialog.Builder(getContext())
+                            .setMessage(R.string.mcv2_playback_error_text)
+                            .setPositiveButton(R.string.mcv2_error_dialog_button,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(
+                                                DialogInterface dialogInterface,
+                                                int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    })
+                            .setCancelable(true)
+                            .show();
+                }
+                break;
+        }
     }
 
     void updateReplayButton(boolean toBeShown) {
@@ -1664,6 +1707,57 @@ public class MediaControlView extends ViewGroup {
                 ffwdButton.setEnabled(true);
             }
         }
+    }
+
+    void updatePlaybackSpeedList(float speed) {
+        int customSpeedMultBy100 = Math.round(speed * 100);
+        // An application may set a custom playback speed that is not included in the
+        // default playback speed list. The code below handles adding/removing the custom
+        // playback speed to the default list.
+        if (mCustomPlaybackSpeedIndex != -1) {
+            // Remove existing custom playback speed
+            mPlaybackSpeedMultBy100List.remove(mCustomPlaybackSpeedIndex);
+            mPlaybackSpeedTextList.remove(mCustomPlaybackSpeedIndex);
+            mCustomPlaybackSpeedIndex = -1;
+        }
+
+        if (mPlaybackSpeedMultBy100List.contains(customSpeedMultBy100)) {
+            for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
+                if (customSpeedMultBy100 == mPlaybackSpeedMultBy100List.get(i)) {
+                    updateSelectedSpeed(i, mPlaybackSpeedTextList.get(i));
+                    break;
+                }
+            }
+        } else {
+            String customSpeedText = mResources.getString(
+                    R.string.MediaControlView_custom_playback_speed_text,
+                    customSpeedMultBy100 / 100.0f);
+
+            for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
+                if (customSpeedMultBy100 < mPlaybackSpeedMultBy100List.get(i)) {
+                    mPlaybackSpeedMultBy100List.add(i, customSpeedMultBy100);
+                    mPlaybackSpeedTextList.add(i, customSpeedText);
+                    updateSelectedSpeed(i, customSpeedText);
+                    break;
+                }
+                // Add to end of list if the custom speed value is greater than all the
+                // value in the default speed list.
+                if (i == mPlaybackSpeedMultBy100List.size() - 1
+                        && customSpeedMultBy100 > mPlaybackSpeedMultBy100List.get(i)) {
+                    mPlaybackSpeedMultBy100List.add(customSpeedMultBy100);
+                    mPlaybackSpeedTextList.add(customSpeedText);
+                    updateSelectedSpeed(i + 1, customSpeedText);
+                }
+            }
+            mCustomPlaybackSpeedIndex = mSelectedSpeedIndex;
+        }
+    }
+
+    void updateSelectedSpeed(int selectedSpeedIndex, String selectedSpeedText) {
+        mSelectedSpeedIndex = selectedSpeedIndex;
+        mSettingsSubTextsList.set(SETTINGS_MODE_PLAYBACK_SPEED, selectedSpeedText);
+        mSubSettingsAdapter.setTexts(mPlaybackSpeedTextList);
+        mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
     }
 
     void postDelayedRunnable(Runnable runnable, long interval) {
@@ -1899,54 +1993,9 @@ public class MediaControlView extends ViewGroup {
             if (player != mPlayer) return;
 
             if (DEBUG) {
-                Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
+                Log.d(TAG, "onPlayerStateChanged(): " + state);
             }
-
-            // Update pause button depending on playback state for the following two reasons:
-            //   1) Need to handle case where app customizes playback state behavior when app
-            //      activity is resumed.
-            //   2) Need to handle case where the media file reaches end of duration.
-            ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
-            switch (state) {
-                case SessionPlayer.PLAYER_STATE_PLAYING:
-                    removeCallbacks(mUpdateProgress);
-                    post(mUpdateProgress);
-                    resetHideCallbacks();
-                    updateReplayButton(false);
-                    break;
-                case SessionPlayer.PLAYER_STATE_PAUSED:
-                    playPauseButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_play_circle_filled));
-                    playPauseButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_play_button_desc));
-                    removeCallbacks(mUpdateProgress);
-                    removeCallbacks(mHideMainBars);
-                    removeCallbacks(mHideProgressBar);
-                    post(mShowAllBars);
-                    break;
-                case SessionPlayer.PLAYER_STATE_ERROR:
-                    playPauseButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_play_circle_filled));
-                    playPauseButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_play_button_desc));
-                    removeCallbacks(mUpdateProgress);
-                    if (getWindowToken() != null) {
-                        new AlertDialog.Builder(getContext())
-                                .setMessage(R.string.mcv2_playback_error_text)
-                                .setPositiveButton(R.string.mcv2_error_dialog_button,
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(
-                                                    DialogInterface dialogInterface,
-                                                    int i) {
-                                                dialogInterface.dismiss();
-                                            }
-                                        })
-                                .setCancelable(true)
-                                .show();
-                    }
-                    break;
-            }
+            updatePlayPauseButton(state);
         }
 
         @Override
@@ -2011,6 +2060,9 @@ public class MediaControlView extends ViewGroup {
                 @NonNull SessionCommandGroup commands) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onAllowedCommandsChanged(): " + commands.getCommands());
+            }
             updateAllowedCommands();
         }
 
@@ -2018,45 +2070,10 @@ public class MediaControlView extends ViewGroup {
         public void onPlaybackSpeedChanged(@NonNull PlayerWrapper player, float speed) {
             if (player != mPlayer) return;
 
-            int customSpeedMultBy100 = Math.round(speed * 100);
-            // An application may set a custom playback speed that is not included in the
-            // default playback speed list. The code below handles adding/removing the custom
-            // playback speed to the default list.
-            if (mCustomPlaybackSpeedIndex != -1) {
-                // Remove existing custom playback speed
-                removeCustomSpeedFromList();
+            if (DEBUG) {
+                Log.d(TAG, "onPlaybackSpeedChanged(): " + speed);
             }
-
-            if (mPlaybackSpeedMultBy100List.contains(customSpeedMultBy100)) {
-                for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
-                    if (customSpeedMultBy100 == mPlaybackSpeedMultBy100List.get(i)) {
-                        updateSelectedSpeed(i, mPlaybackSpeedTextList.get(i));
-                        break;
-                    }
-                }
-            } else {
-                String customSpeedText = mResources.getString(
-                        R.string.MediaControlView_custom_playback_speed_text,
-                        customSpeedMultBy100 / 100.0f);
-
-                for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
-                    if (customSpeedMultBy100 < mPlaybackSpeedMultBy100List.get(i)) {
-                        mPlaybackSpeedMultBy100List.add(i, customSpeedMultBy100);
-                        mPlaybackSpeedTextList.add(i, customSpeedText);
-                        updateSelectedSpeed(i, customSpeedText);
-                        break;
-                    }
-                    // Add to end of list if the custom speed value is greater than all the
-                    // value in the default speed list.
-                    if (i == mPlaybackSpeedMultBy100List.size() - 1
-                            && customSpeedMultBy100 > mPlaybackSpeedMultBy100List.get(i)) {
-                        mPlaybackSpeedMultBy100List.add(customSpeedMultBy100);
-                        mPlaybackSpeedTextList.add(customSpeedText);
-                        updateSelectedSpeed(i + 1, customSpeedText);
-                    }
-                }
-                mCustomPlaybackSpeedIndex = mSelectedSpeedIndex;
-            }
+            updatePlaybackSpeedList(speed);
         }
 
         @Override
@@ -2065,9 +2082,8 @@ public class MediaControlView extends ViewGroup {
             if (player != mPlayer) return;
 
             if (DEBUG) {
-                Log.d(TAG, "onTrackInfoChanged(): trackInfos: " + trackInfos);
+                Log.d(TAG, "onTrackInfoChanged(): " + trackInfos);
             }
-
             updateTracks(player, trackInfos);
             updateMetadata();
         }
@@ -2076,6 +2092,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackSelected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackSelected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2108,6 +2127,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackDeselected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackDeselected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2129,6 +2151,11 @@ public class MediaControlView extends ViewGroup {
         @Override
         void onVideoSizeChanged(@NonNull PlayerWrapper player, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {
+            if (player != mPlayer) return;
+
+            if (DEBUG) {
+                Log.d(TAG, "onVideoSizeChanged(): " + videoSize);
+            }
             if (mVideoTrackCount == 0 && videoSize.getHeight() > 0 && videoSize.getWidth() > 0) {
                 List<TrackInfo> tracks = player.getTrackInfo();
                 if (tracks != null) {
