@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a763dead_18ad7285",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T14:23:09Z",
+      "side": 1,
+      "message": "I raised the same concern when we were discussing it in the team chat, however Adam suggested it is ok for now to have duplicates of the default value definition for now. In Buttons I also have a few overloads and each of them will have `color: Color \u003d +themeColor { primary }`.\nbut this approach indeed improving the readability as we can even skip \" By default\n * [androidx.ui.material.MaterialColors.primary] will be used.\" in the documentation as you see what is the default right with the function definition",
+      "parentUuid": "415ac9ea_19dbf68c",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57a339d7_9531b0fd",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I do feel it is related, as the spacer should only exist if there is a Leading Icon, otherwise the Title will just use the regular padding to the start. We will need UX clarification on this, as the spec (which calls this Navigation icon instead of Leading Icon, as opposed to Material naming sheet) mentions the icon is optional but shows no examples of how this looks.",
       "parentUuid": "cf4f8c33_eb2c0a29",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c944f4_194b5984",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-29T14:23:09Z",
+      "side": 1,
+      "message": "as you will anyway need to define somewhere a spacer when there is no leading icon you would have something like(once you figure out what is the size of it according to the spec):\ninflexible {\n    if (icon !\u003d null) {\n        LeadingIcon(icon)\n        WidthSpacer(width \u003d 32.dp)\n    } else {\n        WidthSpacer(width \u003d 16.dp)\n    }\n}\nexpanded(flex \u003d 1f) {\n    TitleTextLabel(title)\n}",
+      "parentUuid": "c9c00263_7965d264",
       "range": {
         "startLine": 92,
         "startChar": 4,
