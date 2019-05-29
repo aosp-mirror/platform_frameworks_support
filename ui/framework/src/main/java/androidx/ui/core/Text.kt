@@ -48,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
 
-
 @Composable
 fun Text(
     /** How the text should be aligned horizontally. */
@@ -190,7 +189,7 @@ internal fun Text(
             // Get the layout coordinates of the text widget. This is for hit test of cross-widget
             // selection.
             OnPositioned(onPositioned = { layoutCoordinates.value = it })
-            Draw { canvas, _ ->
+            Draw { canvas, _, _ ->
                 internalSelection.value?.let { renderParagraph.paintSelection(canvas, it) }
                 renderParagraph.paint(canvas, Offset(0.0f, 0.0f))
             }

@@ -32,10 +32,9 @@ import androidx.compose.composer
 @Composable
 fun DrawColor(color: Color?) {
     if (color != null && color.alpha > 0) {
-        val paint = Paint()
-        paint.color = color
-        paint.style = PaintingStyle.fill
-        Draw { canvas, parentSize ->
+        Draw { canvas, paint, parentSize ->
+            paint.color = color
+            paint.style = PaintingStyle.fill
             canvas.drawRect(parentSize.toRect(), paint)
         }
     }

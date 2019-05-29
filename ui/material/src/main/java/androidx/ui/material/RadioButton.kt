@@ -225,23 +225,23 @@ fun RadioButton(
 
 @Composable
 private fun DrawRadioButton(color: Color, outerRadius: Dp, innerRadius: Dp, gap: Dp) {
-    Draw { canvas, parentSize ->
-        drawRadio(canvas, parentSize, color, outerRadius, innerRadius, gap)
+    Draw { canvas, paint, parentSize ->
+        drawRadio(canvas, paint, parentSize, color, outerRadius, innerRadius, gap)
     }
 }
 
 private fun DensityReceiver.drawRadio(
     canvas: Canvas,
+    paint: Paint,
     parentSize: PxSize,
     color: Color,
     outerRadius: Dp,
     innerRadius: Dp,
     gap: Dp
 ) {
-    val p = Paint()
-    p.isAntiAlias = true
-    p.color = color
-    p.style = PaintingStyle.fill
+    paint.isAntiAlias = true
+    paint.color = color
+    paint.style = PaintingStyle.fill
 
     // TODO(malkov): currently Radio gravity is always CENTER but we need to be flexible
     val centerW = parentSize.width.value / 2
@@ -260,13 +260,13 @@ private fun DensityReceiver.drawRadio(
 
     if (gap == 0.dp) {
         val inner = outer.shrink(outerPx - innerPx)
-        canvas.drawDRRect(outer, inner, p)
+        canvas.drawDRRect(outer, inner, paint)
     } else {
         val inner = outer.shrink(RadioStrokeWidth.toPx().value)
-        canvas.drawDRRect(outer, inner, p)
+        canvas.drawDRRect(outer, inner, paint)
         val radioOuter = inner.shrink(gap.toPx().value)
         val radioInner = outer.shrink(outerPx - innerPx)
-        canvas.drawDRRect(radioOuter, radioInner, p)
+        canvas.drawDRRect(radioOuter, radioInner, paint)
     }
 }
 

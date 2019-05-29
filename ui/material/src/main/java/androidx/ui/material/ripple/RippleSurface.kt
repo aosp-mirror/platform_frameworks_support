@@ -99,13 +99,13 @@ fun RippleSurface(
     Recompose { recompose ->
         owner.recompose = recompose
 
-        Draw { canvas, size ->
+        Draw { canvas, paint, size ->
             // TODO(Andrey) Find a better way to disable ripples when transitions are disabled.
             val transitionsEnabled = transitionsEnabled
             if (owner.effects.isNotEmpty() && transitionsEnabled) {
                 canvas.save()
                 canvas.clipRect(size.toRect())
-                owner.effects.forEach { it.draw(canvas) }
+                owner.effects.forEach { it.draw(canvas, paint) }
                 canvas.restore()
             }
         }

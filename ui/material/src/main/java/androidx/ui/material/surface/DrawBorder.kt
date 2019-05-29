@@ -29,7 +29,8 @@ import androidx.compose.composer
  */
 @Composable
 fun DrawBorder(shape: ShapeBorder) {
-    Draw { canvas, parentSize ->
+    Draw { canvas, _, parentSize ->
+        //TODO accept paint as a param here and not create every time
         shape.paint(
             canvas,
             density,

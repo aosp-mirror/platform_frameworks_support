@@ -103,14 +103,12 @@ fun DrawColorRectState(state: TransitionState) {
 
     DrawRectangle(color = color)
 
-    val paint = Paint().apply {
-        this.color = Color(alpha = 255, red = 255, green = 255, blue = 255)
-    }
-    Draw { canvas, pixelSize ->
+    Draw { canvas, paint, parentSize ->
+        paint.color = Color(alpha = 255, red = 255, green = 255, blue = 255)
         canvas.drawRect(
             Rect(
-                100f, 0f, pixelSize.width.value - 100f,
-                scaleY * pixelSize.height.value
+                100f, 0f, parentSize.width.value - 100f,
+                scaleY * parentSize.height.value
             ), paint
         )
     }
@@ -118,9 +116,8 @@ fun DrawColorRectState(state: TransitionState) {
 
 @Composable
 fun DrawRectangle(color: Color) {
-    val paint = Paint()
-    paint.color = color
-    Draw { canvas, parentSize ->
+    Draw { canvas, paint, parentSize ->
+        paint.color = color
         canvas.drawRect(parentSize.toRect(), paint)
     }
 }

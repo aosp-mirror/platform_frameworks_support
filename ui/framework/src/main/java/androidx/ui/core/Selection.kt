@@ -198,7 +198,8 @@ fun SelectionContainer(
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     if (selection != null &&
                         selection.startLayoutCoordinates != null &&
-                        selection.endLayoutCoordinates != null) {
+                        selection.endLayoutCoordinates != null
+                    ) {
                         val startOffset = manager.containerLayoutCoordinates!!.childToLocal(
                             selection.startLayoutCoordinates,
                             PxPosition(selection.startOffset.dx.px, selection.startOffset.dy.px)
@@ -217,9 +218,8 @@ fun SelectionContainer(
 
 @Composable
 internal fun SelectionHandle() {
-    val paint = +memo { Paint() }
-    paint.color = Color(0xAAD94633.toInt())
-    Draw { canvas, parentSize ->
+    Draw { canvas, paint, parentSize ->
+        paint.color = Color(0xAAD94633.toInt())
         canvas.drawRect(parentSize.toRect(), paint)
     }
 }

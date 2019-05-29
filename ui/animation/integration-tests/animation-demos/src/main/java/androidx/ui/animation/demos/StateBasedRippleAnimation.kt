@@ -90,19 +90,16 @@ fun RippleRectFromState(state: TransitionState) {
     val x = down.x
     val y = down.y
 
-    val paint =
-        Paint().apply {
-            color = Color(
-                alpha = (state[androidx.ui.animation.demos.alpha] * 255).toInt(),
-                red = 0,
-                green = 235,
-                blue = 224
-            )
-        }
-
     val radius = state[radius]
+    val color = Color(
+        alpha = (state[androidx.ui.animation.demos.alpha] * 255).toInt(),
+        red = 0,
+        green = 235,
+        blue = 224
+    )
 
-    Draw { canvas, _ ->
+    Draw { canvas, paint, _ ->
+        paint.color = color
         canvas.drawCircle(Offset(x, y), radius, paint)
     }
 }

@@ -411,7 +411,7 @@ package androidx.ui.material.ripple {
   public abstract class RippleEffect {
     ctor public RippleEffect(androidx.ui.material.ripple.RippleSurfaceOwner rippleSurface, androidx.ui.core.LayoutCoordinates coordinates, androidx.ui.graphics.Color color, kotlin.jvm.functions.Function0<kotlin.Unit>? onRemoved);
     method @CallSuper public void dispose();
-    method protected abstract void drawEffect(androidx.ui.painting.Canvas canvas, androidx.ui.vectormath64.Matrix4 transform);
+    method protected abstract void drawEffect(androidx.ui.painting.Canvas canvas, androidx.ui.painting.Paint paint, androidx.ui.vectormath64.Matrix4 transform);
     method public void finish(boolean canceled);
     method public final androidx.ui.graphics.Color getColor();
     method public final androidx.ui.core.LayoutCoordinates getCoordinates();

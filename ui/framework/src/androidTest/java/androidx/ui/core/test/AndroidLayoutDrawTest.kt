@@ -158,10 +158,8 @@ class AndroidLayoutDrawTest {
             activity.setContent {
                 CraneWrapper {
                     Padding(size = (model.size * 3)) {
-                        Draw { canvas, parentSize ->
-                            val paint = Paint().apply {
-                                color = model.outerColor
-                            }
+                        Draw { canvas, paint, parentSize ->
+                            paint.color = model.outerColor
                             canvas.drawRect(parentSize.toRect(), paint)
                             drawLatch.countDown()
                         }
@@ -200,18 +198,16 @@ class AndroidLayoutDrawTest {
                 CraneWrapper {
                     Layout(children = {
                         Padding(size = (model.size * 3)) {
-                            Draw { canvas, parentSize ->
+                            Draw { canvas, paint, parentSize ->
                                 drawLatch.countDown()
-                                val paint = Paint()
                                 paint.color = model.outerColor
                                 canvas.drawRect(parentSize.toRect(), paint)
                                 drawLatch.countDown()
                             }
                         }
                         Padding(size = model.size) {
-                            Draw { canvas, parentSize ->
+                            Draw { canvas, paint, parentSize ->
                                 drawLatch.countDown()
-                                val paint = Paint()
                                 paint.color = model.innerColor
                                 canvas.drawRect(parentSize.toRect(), paint)
                             }
@@ -239,9 +235,8 @@ class AndroidLayoutDrawTest {
         runOnUiThread {
             activity.setContent {
                 CraneWrapper {
-                    Draw { canvas, parentSize ->
+                    Draw { canvas, paint, parentSize ->
                         // Fill the space with the outerColor
-                        val paint = Paint()
                         paint.color = model.outerColor
                         canvas.drawRect(parentSize.toRect(), paint)
                         canvas.save()
@@ -250,10 +245,9 @@ class AndroidLayoutDrawTest {
                         canvas.clipRect(Rect(offset, offset, offset * 2, offset * 2))
                     }
                     Padding(size = (model.size * 3)) {
-                        Draw { canvas, parentSize ->
+                        Draw { canvas, paint, parentSize ->
                             // Fill top half with innerColor -- should be clipped
                             drawLatch.countDown()
-                            val paint = Paint()
                             paint.color = model.innerColor
                             val paintRect = Rect(
                                 0f, 0f, parentSize.width.value,
@@ -262,9 +256,8 @@ class AndroidLayoutDrawTest {
                             canvas.drawRect(paintRect, paint)
                         }
                     }
-                    Draw { canvas, parentSize ->
+                    Draw { canvas, paint, parentSize ->
                         // Fill bottom half with innerColor -- should be clipped
-                        val paint = Paint()
                         paint.color = model.innerColor
                         val paintRect = Rect(
                             0f, parentSize.height.value / 2f,
@@ -305,7 +298,7 @@ class AndroidLayoutDrawTest {
                                     secondChildConstraints.value = chilConstraints
                                     layout(size, size) { }
                                 }, children = { })
-                                Draw { _, _ ->
+                                Draw { _, _, _ ->
                                     countDownLatch.countDown()
                                 }
                             }
@@ -424,16 +417,14 @@ class AndroidLayoutDrawTest {
         val layoutLatch = CountDownLatch(2)
         runOnUiThread {
             activity.compose {
-                Draw { canvas, parentSize ->
-                    val paint = Paint()
+                Draw { canvas, paint, parentSize ->
                     paint.color = model.outerColor
                     canvas.drawRect(parentSize.toRect(), paint)
                 }
                 Layout(children = {
                     AtLeastSize(size = model.size) {
-                        Draw { canvas, parentSize ->
+                        Draw { canvas, paint, parentSize ->
                             drawLatch.countDown()
-                            val paint = Paint()
                             paint.color = model.innerColor
                             canvas.drawRect(parentSize.toRect(), paint)
                         }
@@ -508,7 +499,7 @@ class AndroidLayoutDrawTest {
             latch: CountDownLatch
         ) {
             Layout(children = {
-                Draw(children = { }, onPaint = { _, _ ->
+                Draw(children = { }, onPaint = { _, _, _ ->
                     drawn.value = true
                     latch.countDown()
                 })
@@ -567,16 +558,14 @@ class AndroidLayoutDrawTest {
         runOnUiThread {
             activity.setContent {
                 CraneWrapper {
-                    Draw { canvas, parentSize ->
-                        val paint = Paint()
+                    Draw { canvas, paint, parentSize ->
                         paint.color = model.outerColor
                         canvas.drawRect(parentSize.toRect(), paint)
                     }
                     Padding(size = model.size) {
                         AtLeastSize(size = model.size) {
-                            Draw { canvas, parentSize ->
+                            Draw { canvas, paint, parentSize ->
                                 drawLatch.countDown()
-                                val paint = Paint()
                                 paint.color = model.innerColor
                                 canvas.drawRect(parentSize.toRect(), paint)
                             }
@@ -594,14 +583,12 @@ class AndroidLayoutDrawTest {
                     Draw(children = {
                         AtLeastSize(size = (model.size * 3)) {
                             Draw(children = {
-                                Draw { canvas, parentSize ->
-                                    val paint = Paint()
+                                Draw { canvas, paint, parentSize ->
                                     paint.color = model.innerColor
                                     canvas.drawRect(parentSize.toRect(), paint)
                                     drawLatch.countDown()
                                 }
-                            }, onPaint = { canvas, parentSize ->
-                                val paint = Paint()
+                            }, onPaint = { canvas, paint, parentSize ->
                                 paint.color = model.outerColor
                                 canvas.drawRect(parentSize.toRect(), paint)
                                 val start = model.size.value.toFloat()
@@ -612,8 +599,7 @@ class AndroidLayoutDrawTest {
                                 canvas.restore()
                             })
                         }
-                    }, onPaint = { canvas, parentSize ->
-                        val paint = Paint()
+                    }, onPaint = { canvas, paint, parentSize ->
                         paint.color = Color(0xFF000000.toInt())
                         canvas.drawRect(parentSize.toRect(), paint)
                     })

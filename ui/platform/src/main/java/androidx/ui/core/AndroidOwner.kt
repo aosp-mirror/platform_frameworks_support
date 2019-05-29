@@ -39,8 +39,8 @@ import androidx.compose.frames.currentFrame
 import androidx.compose.frames.registerCommitObserver
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-class AndroidCraneView constructor(context: Context)
-    : ViewGroup(context), Owner, SemanticsTreeProvider {
+class AndroidCraneView constructor(context: Context) : ViewGroup(context), Owner,
+    SemanticsTreeProvider {
 
     val root = LayoutNode()
     private val relayoutNodes = mutableSetOf<LayoutNode>()
@@ -264,9 +264,13 @@ class AndroidCraneView constructor(context: Context)
                 val onPaint = node.onPaint
                 currentNode = node
                 clearNodeModels(node)
-                val receiver = DrawNodeScopeImpl(node.child, canvas, parentSize,
-                    densityReceiver.density)
-                receiver.onPaint(canvas, parentSize)
+                val receiver = DrawNodeScopeImpl(
+                    node.child,
+                    canvas,
+                    parentSize,
+                    densityReceiver.density
+                )
+                receiver.onPaint(canvas, node.paint, parentSize)
                 if (!receiver.childDrawn) {
                     receiver.drawChildren()
                 }

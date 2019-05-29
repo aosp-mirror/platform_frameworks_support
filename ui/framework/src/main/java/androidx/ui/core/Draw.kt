@@ -19,6 +19,7 @@ import androidx.ui.painting.Canvas
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.painting.Paint
 
 /**
  * Use Draw to get a [Canvas] to paint into the parent.
@@ -46,18 +47,17 @@ import androidx.compose.composer
 fun Draw(
     children: @Composable() () -> Unit = {},
     @Children(composable = false)
-    onPaint: DrawScope.(canvas: Canvas, parentSize: PxSize) -> Unit
+    onPaint: DrawScope.(canvas: Canvas, paint: Paint, parentSize: PxSize) -> Unit
 ) {
     // Hide the internals of DrawNode
-    <DrawNode onPaint={ canvas, parentSize ->
-        DrawScope(this).onPaint(canvas, parentSize)
-    }>
-        children()
+    <DrawNode onPaint={ canvas, paint, parentSize ->
+        DrawScope(this).onPaint(canvas, paint, parentSize)
+    }> children()
     </DrawNode>
 }
 
 /**
- * Receiver scope for [Draw] lamda that allows ordering the child drawing between
+ * Receiver scope for [Draw] lambda that allows ordering the child drawing between
  * canvas operations.
  */
 class DrawScope internal constructor(private val drawNodeScope: DrawNodeScope) : DensityReceiver {

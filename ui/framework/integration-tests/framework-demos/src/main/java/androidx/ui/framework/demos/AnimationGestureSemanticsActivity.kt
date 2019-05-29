@@ -215,11 +215,11 @@ class AnimationGestureSemanticsActivity : Activity() {
 
     @Composable
     fun Circle(color: Color, sizeRatio: Float) {
-        Draw { canvas, parentSize ->
+        Draw { canvas, paint, parentSize ->
             canvas.drawCircle(
                 c = Offset(parentSize.width.value / 2, parentSize.height.value / 2),
                 radius = min(parentSize.height, parentSize.width).value * sizeRatio / 2,
-                paint = Paint().apply { this.color = color })
+                paint = paint.apply { this.color = color })
         }
     }
 }

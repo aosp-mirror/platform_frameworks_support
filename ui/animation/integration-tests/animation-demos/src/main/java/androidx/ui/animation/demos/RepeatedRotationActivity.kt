@@ -73,11 +73,11 @@ fun RepeatedRotation() {
                         definition = definition,
                         toState = state.value
                     ) { state ->
-                        Draw { canvas, parentSize ->
+                        Draw { canvas, paint, parentSize ->
                             canvas.save()
                             canvas.rotate(radians(state[rotation]))
                             canvas.drawRect(parentSize.toRect(),
-                                Paint().apply { color = Color(0xFF00FF00.toInt()) })
+                                paint.apply { color = Color(0xFF00FF00.toInt()) })
                             canvas.restore()
                         }
                     }

@@ -84,12 +84,11 @@ fun TransitionExample() {
     }
 }
 
-val paint: Paint = Paint()
 const val halfSize = 200f
 
 @Composable
 fun DrawScaledRect(scale: Float, color: Color) {
-    Draw { canvas, parentSize ->
+    Draw { canvas, paint, parentSize ->
         val centerX = parentSize.width.value / 2
         val centerY = parentSize.height.value / 2
         paint.color = color

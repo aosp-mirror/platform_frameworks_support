@@ -107,12 +107,12 @@ fun Draggable(@Children children: @Composable() () -> Unit) {
 
     DragGestureDetector(canDrag, dragObserver) {
         Layout(children = {
-            Draw { canvas, parentSize ->
+            Draw { canvas, _, parentSize ->
                 canvas.save()
                 canvas.clipRect(parentSize.toRect())
             }
             children()
-            Draw { canvas, _ ->
+            Draw { canvas, _, _ ->
                 canvas.restore()
             }
         }, layoutBlock = { measurables, constraints ->
@@ -155,11 +155,11 @@ fun Pressable(
         }
 
     val children = @Composable {
-        Draw { canvas, parentSize ->
-            val backgroundPaint = Paint().apply { this.color = resolvedColor }
+        Draw { canvas, paint, parentSize ->
+            paint.color = resolvedColor
             canvas.drawRect(
                 Rect(0f, 0f, parentSize.width.value, parentSize.height.value),
-                backgroundPaint
+                paint
             )
         }
     }
@@ -250,15 +250,12 @@ fun Border(color: Color, width: Dp, @Children children: @Composable() () -> Unit
     Layout(
         children = {
             children()
-            Draw { canvas, parentSize ->
+            Draw { canvas, paint, parentSize ->
 
                 val floatWidth = width.toPx().value
-
-                val backgroundPaint = Paint().apply {
-                    this.color = color
-                    style = PaintingStyle.stroke
-                    strokeWidth = floatWidth
-                }
+                paint.color = color
+                paint.style = PaintingStyle.stroke
+                paint.strokeWidth = floatWidth
                 canvas.drawRect(
                     Rect(
                         floatWidth / 2,
@@ -266,7 +263,7 @@ fun Border(color: Color, width: Dp, @Children children: @Composable() () -> Unit
                         parentSize.width.value - floatWidth / 2 + 1,
                         parentSize.height.value - floatWidth / 2 + 1
                     ),
-                    backgroundPaint
+                    paint
                 )
             }
         },
@@ -311,11 +308,11 @@ fun Column(@Children children: @Composable() () -> Unit) {
 @Composable
 fun Divider(height: Dp, color: Color) {
     val children = @Composable {
-        Draw { canvas, parentSize ->
-            val backgroundPaint = Paint().apply { this.color = color }
+        Draw { canvas, paint, parentSize ->
+            paint.color = color
             canvas.drawRect(
                 Rect(0f, 0f, parentSize.width.value, parentSize.height.value),
-                backgroundPaint
+                paint
             )
         }
     }
