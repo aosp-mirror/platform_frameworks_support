@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1d1098a8_54ab87e9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T08:30:37Z",
+      "side": 1,
+      "message": "For non-music items, only the title bar is shown, which is a child view of MediaControlView.",
+      "parentUuid": "79e665d9_33ebeb4e",
+      "range": {
+        "startLine": 116,
+        "startChar": 42,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac98a7ab_c087cdef",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 6
@@ -128,6 +152,30 @@
       "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e92e64e6_0e03805e",
+        "filename": "media2/widget/src/main/res/values/strings.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T08:30:37Z",
+      "side": 1,
+      "message": "SGTM. Done.",
+      "parentUuid": "7c9f3d89_7de41b07",
+      "range": {
+        "startLine": 64,
+        "startChar": 53,
+        "endLine": 64,
+        "endChar": 66
+      },
+      "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

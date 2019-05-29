@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cdfd7f22_e7755dd3",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T08:30:37Z",
+      "side": 1,
+      "message": "Changed in Patchset 6. :)",
+      "parentUuid": "94cfa3e1_ae04d056",
+      "range": {
+        "startLine": 108,
+        "startChar": 92,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c266dfe_1ed0b93e",
         "filename": "media2/widget/src/main/res/values/strings.xml",
         "patchSetId": 5
@@ -93,6 +117,30 @@
       "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce672f0e_97af7def",
+        "filename": "media2/widget/src/main/res/values/strings.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T08:30:37Z",
+      "side": 1,
+      "message": "Thanks. In that case, I\u0027ll just leave it as-is.",
+      "parentUuid": "9f030f61_97d83d99",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
