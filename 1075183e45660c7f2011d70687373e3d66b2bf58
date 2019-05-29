@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "06282723_6fc2a33b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-29T16:57:12Z",
+      "side": 1,
+      "message": "That sounds good, let\u0027s make Room isolating then! I\u0027ll update this when I write the test.",
+      "parentUuid": "a20ac833_5d851519",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2
