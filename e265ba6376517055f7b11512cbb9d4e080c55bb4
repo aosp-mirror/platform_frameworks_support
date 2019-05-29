@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3ac6194_cf372464",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "I think this function still serve its purpose, which is querying camera id by lens facing.",
+      "parentUuid": "d744587a_3720c3ee",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7f699e4_783758ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1375e5c4_ee2e4c81",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7f699e4_783758ee",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4293bc11_53ab8b87",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "Make sense. I\u0027ve removed OPTION_LENS_FACING and directly determine lens facing by camera id filter set.",
+      "parentUuid": "6beb7e3c_015c6cfe",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46df90e8_28532f15",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9634c4b_7b1bcfe6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46df90e8_28532f15",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6210c151_aef72286",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "230bf54a_b5a9bf58",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "daa31535_98ba1666",
         "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b50869_1019d5e3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daa31535_98ba1666",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
