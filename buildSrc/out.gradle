@@ -33,7 +33,6 @@ def chooseOutDir(subdir = "") {
     }
     ext.supportRepoOut = new File(buildDir, 'support_repo')
     ext.supportRepoOut.mkdirs()
-    ext.docsDir = new File(buildDir, 'javadoc')
 }
 
 ext.init.chooseOutDir = this.&chooseOutDir
