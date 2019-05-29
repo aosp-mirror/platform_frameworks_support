@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package androidx.paging.integration.testapp.room;
+package androidx.paging.integration.testapp.room
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 /**
  * Sample database of customers.
  */
-@Database(entities = {Customer.class}, version = 1)
-public abstract class SampleDatabase extends RoomDatabase {
+@Database(entities = [Customer::class], version = 1)
+internal abstract class SampleDatabase : RoomDatabase() {
     /**
      * @return customer dao.
      */
-    public abstract CustomerDao getCustomerDao();
+    internal abstract val customerDao: CustomerDao
 }
