@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "415ac9ea_19dbf68c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-29T11:26:08Z",
+      "side": 1,
+      "message": "the interesting bit here is then we need both AppBar and TopAppBar to define a default, vs we could let the lowest level decide while using null. Doesn\u0027t seem too much of a problem here but I\u0027d be curious to see where we get with this. For now I\u0027ll write the default here and force AppBar to take a color, we\u0027ll see if that needs to change once we have BottomAppBar.",
+      "parentUuid": "b399eed4_869d62ae",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57a339d7_9531b0fd",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac86d80d_640fb19f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-29T11:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57a339d7_9531b0fd",
+      "range": {
+        "startLine": 50,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3610bc49_ac02a382",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-29T11:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c8b79ab_5d0859f3",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf4f8c33_eb2c0a29",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-24T16:08:36Z",
       "side": 1,
       "message": "it feels to me this spacer shouldn\u0027t be inside LeadingIcon as doesn\u0027t directly related to it. maybe to move it one level up?",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c00263_7965d264",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-29T11:26:08Z",
+      "side": 1,
+      "message": "I do feel it is related, as the spacer should only exist if there is a Leading Icon, otherwise the Title will just use the regular padding to the start. We will need UX clarification on this, as the spec (which calls this Navigation icon instead of Leading Icon, as opposed to Material naming sheet) mentions the icon is optional but shows no examples of how this looks.",
+      "parentUuid": "cf4f8c33_eb2c0a29",
       "range": {
         "startLine": 92,
         "startChar": 4,
@@ -114,6 +210,30 @@
       "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13fd4649_b9dbb0e1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-29T11:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4976eda2_a4fb4773",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 41
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
