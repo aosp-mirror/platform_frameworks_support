@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f93a9775_68abbf10",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-29T02:37:59Z",
+      "side": 1,
+      "message": "Since this is a value the app returns to us (and we already anticipate it can be null), I think this should be safe.",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29fd5160_a93aa1a0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-29T02:37:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this counts as a breaking change.",
+      "range": {
+        "startLine": 62,
+        "startChar": 46,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d41b2c_089c7a95",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-29T02:37:59Z",
+      "side": 1,
+      "message": "Ridiculously, I needed to rename this from \"webSettings\" to \"settings,\" because \"webSettings\" puts the line over the limit, and the style checker can\u0027t handle line wrapping. If I try:\n\npublic static @MenuItemFlags int getDisabledActionModeMenuItems(\n        @NonNull WebSettings webSettings)\n\nthe style checker insists I indent \"public static...\" (and if I indent it, it keeps asking me to indent it more).\n\nRenamed the variable name everywhere for consistency, since it shows up in public docs.",
+      "range": {
+        "startLine": 215,
+        "startChar": 89,
+        "endLine": 215,
+        "endChar": 97
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
