@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "753ac79c_51d8101f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T21:42:00Z",
+      "side": 1,
+      "message": "How often will we have DrawNodes that don\u0027t need a Paint instance? From this CL, it looks like maybe not very often? If so, this seems like a reasonable thing to do (though I\u0027m a little bit bummed about adding yet-another parameter to `onPaint`).",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
