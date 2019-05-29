@@ -34,21 +34,17 @@ class PagedListSampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
-        val viewModel = ViewModelProviders.of(this)
-            .get(PagedListItemViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(PagedListItemViewModel::class.java)
 
         val adapter = PagedListItemAdapter()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.adapter = adapter
 
-        viewModel.livePagedList.observe(this,
-            Observer<PagedList<Item>> { adapter.submitList(it) })
+        viewModel.livePagedList.observe(this, Observer<PagedList<Item>> { adapter.submitList(it) })
 
         setupLoadStateButtons(viewModel, adapter)
 
-        findViewById<Button>(R.id.button_error).setOnClickListener {
-            dataSourceError.set(true)
-        }
+        findViewById<Button>(R.id.button_error).setOnClickListener { dataSourceError.set(true) }
     }
 
     private fun setupLoadStateButtons(
@@ -59,15 +55,9 @@ class PagedListSampleActivity : AppCompatActivity() {
         val buttonRefresh = findViewById<Button>(R.id.button_refresh)
         val buttonEnd = findViewById<Button>(R.id.button_end)
 
-        buttonRefresh.setOnClickListener {
-            viewModel.invalidateList()
-        }
-        buttonStart.setOnClickListener {
-            adapter.currentList?.retry()
-        }
-        buttonEnd.setOnClickListener {
-            adapter.currentList?.retry()
-        }
+        buttonRefresh.setOnClickListener { viewModel.invalidateList() }
+        buttonStart.setOnClickListener { adapter.currentList?.retry() }
+        buttonEnd.setOnClickListener { adapter.currentList?.retry() }
 
         adapter.addLoadStateListener(object : PagedList.LoadStateListener {
             override fun onLoadStateChanged(
