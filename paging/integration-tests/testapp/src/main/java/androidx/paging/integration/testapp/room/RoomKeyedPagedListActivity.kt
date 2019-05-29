@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package androidx.paging.integration.testapp.room;
+package androidx.paging.integration.testapp.room
 
 /**
  * Sample PagedList activity which uses Room.
  */
-public class RoomKeyedPagedListActivity extends RoomPagedListActivity {
-    @Override
-    protected boolean useKeyedQuery() {
-        return true;
-    }
+class RoomKeyedPagedListActivity : RoomPagedListActivity() {
+    override fun useKeyedQuery() = true
 }
