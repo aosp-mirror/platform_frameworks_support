@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public class TestCustomTabsCallback extends CustomTabsCallback {
 
         @Override
         public void onRelationshipValidationResult(int relation, Uri origin, boolean result,
-                Bundle extras) throws RemoteException {
+                                                   Bundle extras) throws RemoteException {
             TestCustomTabsCallback.this.onRelationshipValidationResult(
                     relation, origin, result, extras);
         }

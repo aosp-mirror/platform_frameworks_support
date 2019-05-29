@@ -19,4 +19,6 @@
     <string name="fallback_menu_item_copy_link">Copy link</string>
     <string name="fallback_menu_item_share_link">Share link</string>
     <string name="copy_toast_msg">Link copied to clipboard</string>
+    <string name="update_chrome_toast">Please update to Chrome Stable 72 or later.</string>
+    <string name="no_provider_toast">Please install Chrome Stable 72 or later.</string>
 </resources>
