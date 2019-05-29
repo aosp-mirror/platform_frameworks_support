@@ -15,19 +15,5 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="androidx.ads.identifier.test">
-
-    <application>
-        <service
-            android:name="androidx.ads.identifier.MockAdvertisingIdService"
-            android:enabled="true"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="androidx.ads.identifier.provider.GET_AD_ID" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
-    </application>
+          package="androidx.ads.identifier.provider.test">
 </manifest>
