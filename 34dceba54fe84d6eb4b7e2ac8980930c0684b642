@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "94cfa3e1_ae04d056",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-29T08:17:19Z",
+      "side": 1,
+      "message": "isn\u0027t mcv2_non_music_title_unknown_text used?",
+      "range": {
+        "startLine": 108,
+        "startChar": 92,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c266dfe_1ed0b93e",
         "filename": "media2/widget/src/main/res/values/strings.xml",
         "patchSetId": 5
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "Not sure. The past translations were done without a request, and the only way we found out was when this bug was filed (b/119621788).\n\nInsun, do you know anything about this?",
       "parentUuid": "9c266dfe_1ed0b93e",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "34dceba54fe84d6eb4b7e2ac8980930c0684b642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f030f61_97d83d99",
+        "filename": "media2/widget/src/main/res/values/strings.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-29T08:17:19Z",
+      "side": 1,
+      "message": "There\u0027s a periodic pipeline. If we don\u0027t want to translate it, we should mark it as translatable\u003d\"false\"",
+      "parentUuid": "4f8eaaa7_2535ee77",
       "range": {
         "startLine": 64,
         "startChar": 18,
