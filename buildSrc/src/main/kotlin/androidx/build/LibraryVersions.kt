@@ -42,7 +42,7 @@ object LibraryVersions {
     val COLLECTION = Version("1.2.0-alpha01")
     val CONTENTPAGER = Version("1.1.0-alpha01")
     val COMPOSE = Version("1.0.0-alpha01")
-    val COORDINATORLAYOUT = Version("1.1.0-alpha02")
+    val COORDINATORLAYOUT = Version("1.1.0-beta01")
     val CORE = Version("1.1.0-rc01")
     val CURSORADAPTER = Version("1.1.0-alpha01")
     val CUSTOMVIEW = Version("1.1.0-alpha01")
