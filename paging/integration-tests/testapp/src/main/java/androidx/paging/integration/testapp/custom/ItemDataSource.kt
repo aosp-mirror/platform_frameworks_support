@@ -23,11 +23,19 @@ import java.util.ArrayList
 import java.util.concurrent.atomic.AtomicBoolean
 
 val dataSourceError = AtomicBoolean(false)
+
 /**
  * Sample data source with artificial data.
  */
 internal class ItemDataSource : PositionalDataSource<Item>() {
     class RetryableItemError : Exception()
+
+    companion object {
+        private const val COUNT = 60
+        @ColorInt
+        private val COLORS = intArrayOf(Color.RED, Color.BLUE, Color.BLACK)
+        private var sGenerationId: Int = 0
+    }
 
     private val mGenerationId = sGenerationId++
 
@@ -48,15 +56,6 @@ internal class ItemDataSource : PositionalDataSource<Item>() {
             return null
         }
         return items
-    }
-
-    companion object {
-        private const val COUNT = 60
-
-        @ColorInt
-        private val COLORS = intArrayOf(Color.RED, Color.BLUE, Color.BLACK)
-
-        private var sGenerationId: Int = 0
     }
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
