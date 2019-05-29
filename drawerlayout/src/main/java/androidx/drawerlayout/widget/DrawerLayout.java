@@ -59,6 +59,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.customview.view.AbsSavedState;
 import androidx.customview.widget.ViewDragHelper;
+import androidx.drawerlayout.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -104,6 +105,13 @@ public class DrawerLayout extends ViewGroup {
     private static final int[] THEME_ATTRS = {
             android.R.attr.colorPrimaryDark
     };
+
+    /**
+     * TypedArray index
+     */
+    private static final int DRAWER_ELEVATION = R.styleable.DrawerLayout_elevation;
+
+    private static final int DEFAULT_DRAWER_ELEVATION = 10; //dp
 
     @IntDef({STATE_IDLE, STATE_DRAGGING, STATE_SETTLING})
     @Retention(RetentionPolicy.SOURCE)
@@ -156,9 +164,7 @@ public class DrawerLayout extends ViewGroup {
     @Retention(RetentionPolicy.SOURCE)
     private @interface EdgeGravity {}
 
-
     private static final int MIN_DRAWER_MARGIN = 64; // dp
-    private static final int DRAWER_ELEVATION = 10; //dp
 
     private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
 
@@ -310,11 +316,11 @@ public class DrawerLayout extends ViewGroup {
     }
 
     public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, R.attr.DrawerLayoutStyle);
     }
 
-    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         final float density = getResources().getDisplayMetrics().density;
         mMinDrawerMargin = (int) (MIN_DRAWER_MARGIN * density + 0.5f);
@@ -364,7 +370,12 @@ public class DrawerLayout extends ViewGroup {
             }
         }
 
-        mDrawerElevation = DRAWER_ELEVATION * density;
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DrawerLayout);
+        try {
+            mDrawerElevation = a.getInt(DRAWER_ELEVATION, DEFAULT_DRAWER_ELEVATION) * density;
+        } finally {
+            a.recycle();
+        }
 
         mNonDrawerViews = new ArrayList<View>();
     }

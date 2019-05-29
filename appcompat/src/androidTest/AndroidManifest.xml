@@ -60,6 +60,11 @@
                 android:theme="@style/Theme.SampleDrawerLayout"/>
 
         <activity
+                android:name="androidx.drawerlayout.widget.DrawerCustomThemeActivity"
+                android:label="@string/drawer_layout_activity"
+                android:theme="@style/Theme.CustomDrawerLayout"/>
+
+        <activity
                 android:name="androidx.appcompat.app.AlertDialogTestActivity"
                 android:label="@string/alert_dialog_activity"
                 android:theme="@style/Theme.AppCompat.Light"/>
