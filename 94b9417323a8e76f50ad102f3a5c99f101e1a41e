@@ -188,6 +188,30 @@
       "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f6ccbb8_7ba98d2c",
+        "filename": "role/src/main/java/androidx/role/RoleManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2019-05-29T19:18:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d1a283a3_cf631be7",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
