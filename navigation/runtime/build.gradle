@@ -33,7 +33,11 @@ android {
 
 dependencies {
     api(project(":navigation:navigation-common"))
+<<<<<<< HEAD   (b6e16c Merge "Merge cherrypicks of [962393] into androidx-master-re)
     api("androidx.activity:activity:1.0.0-alpha08")
+=======
+    api(project(":activity"))
+>>>>>>> BRANCH (9231e8 Merge "Move androidx.core and androidx.versionedparcelable t)
     api("androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01")
 
     androidTestImplementation(project(":navigation:navigation-testing"))

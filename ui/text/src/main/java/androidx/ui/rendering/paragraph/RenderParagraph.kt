@@ -25,12 +25,11 @@ import androidx.ui.core.round
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.TextAlign
-import androidx.ui.engine.text.TextBaseline
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.painting.BlendMode
 import androidx.ui.painting.Canvas
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Gradient
 import androidx.ui.painting.Paint
 import androidx.ui.painting.Path
@@ -49,42 +48,38 @@ private val DEFAULT_SELECTION_COLOR = Color(0x6633B5E5)
  *
  * Creates a paragraph render object.
  *
- * * `text`: The text to display.
- *   Must not be null.
+ * @param text The text to display.
  *
- * * `textAlign`: How the text should be aligned horizontally.
- *   Must not be null.
+ * @param textAlign How the text should be aligned horizontally.
  *
- * * `textDirection`: The directionality of the text.
+ * @param textDirection The directionality of the text.
  *   This decides how the [TextAlign.start], [TextAlign.end], and [TextAlign.justify] values of
  *   [textAlign] are interpreted.
- *   Must not be null.
  *
- * * `softWrap`: Whether the text should break at soft line breaks.
+ * @param softWrap Whether the text should break at soft line breaks.
  *   If false, the glyphs in the text will be positioned as if there was unlimited horizontal space.
  *   If [softWrap] is false, [overflow] and [textAlign] may have unexpected effects.
- *   Must not be null.
  *
- * * `overflow`: How visual overflow should be handled.
- *   Must not be null.
+ * @param overflow How visual overflow should be handled.
  *
- * * `textScaleFactor`: The number of font pixels for each logical pixel.
+ * @param textScaleFactor The number of font pixels for each logical pixel.
  *   For example, if the text scale factor is 1.5, text will be 50% larger than the specified font
  *   size.
- *   Must not be null.
  *
- * * `maxLines`: An optional maximum number of lines for the text to span, wrapping if necessary.
+ * @param maxLines An optional maximum number of lines for the text to span, wrapping if necessary.
  *   If the text exceeds the given number of lines, it will be truncated according to [overflow] and
  *   [softWrap].
  *   The value may be null. If it is not null, then it must be greater than zero.
+ *
+ * @param selectionColor The highlight color when the text is selected.
  */
 
 class RenderParagraph(
     text: TextSpan,
-    textAlign: TextAlign = TextAlign.START,
+    textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection,
     softWrap: Boolean = true,
-    overflow: TextOverflow = TextOverflow.CLIP,
+    overflow: TextOverflow = TextOverflow.Clip,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
     selectionColor: Color = DEFAULT_SELECTION_COLOR
@@ -106,7 +101,7 @@ class RenderParagraph(
             textDirection = textDirection,
             textScaleFactor = textScaleFactor,
             maxLines = maxLines,
-            ellipsis = overflow == TextOverflow.ELLIPSIS
+            ellipsis = overflow == TextOverflow.Ellipsis
         )
         selectionPaint = Paint()
         selectionPaint.color = selectionColor
@@ -162,7 +157,7 @@ class RenderParagraph(
         set(value) {
             if (field == value) return
             field = value
-            textPainter.ellipsis = value === TextOverflow.ELLIPSIS
+            textPainter.ellipsis = value === TextOverflow.Ellipsis
             // markNeedsLayout()
         }
 
@@ -200,7 +195,7 @@ class RenderParagraph(
     // TODO(b/130800659): IR compiler bug, should be internal
     @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
     fun layoutText(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
-        val widthMatters = softWrap || overflow == TextOverflow.ELLIPSIS
+        val widthMatters = softWrap || overflow == TextOverflow.Ellipsis
         textPainter.layout(
             minWidth = minWidth, maxWidth =
             if (widthMatters) maxWidth else Float.POSITIVE_INFINITY
@@ -230,23 +225,15 @@ class RenderParagraph(
         return textPainter.height
     }
 
-    fun computeMinIntrinsicHeight(width: Float): Float {
-        return computeIntrinsicHeight(width)
-    }
-
-    fun computeMaxIntrinsicHeight(width: Float): Float {
-        return computeIntrinsicHeight(width)
-    }
-
-    fun computeDistanceToActualBaseline(baseline: TextBaseline): Float {
-        // TODO(Migration/qqd): Need to figure out where this constraints come from and how to make
-        // it non-null.
-        assert(constraints != null)
-        constraints?.let {
-            layoutTextWithConstraints(it)
-        }
-        return textPainter.computeDistanceToActualBaseline(baseline)
-    }
+    // Height computation functions were unused, therefore commenting out.
+    // we will go over them when we decide on the final state of render paragraph class.
+//    fun computeMinIntrinsicHeight(width: Float): Float {
+//        return computeIntrinsicHeight(width)
+//    }
+//
+//    fun computeMaxIntrinsicHeight(width: Float): Float {
+//        return computeIntrinsicHeight(width)
+//    }
 
 //    public override fun hitTestSelf(position: Offset): Boolean = true
 
@@ -296,8 +283,8 @@ class RenderParagraph(
         hasVisualOverflow = didOverflowWidth || didOverflowHeight
         if (hasVisualOverflow) {
             when (overflow) {
-                TextOverflow.CLIP, TextOverflow.ELLIPSIS -> overflowShader = null
-                TextOverflow.FADE -> {
+                TextOverflow.Clip, TextOverflow.Ellipsis -> overflowShader = null
+                TextOverflow.Fade -> {
                     val fadeSizePainter = TextPainter(
                         text = TextSpan(style = textPainter.text?.style, text = "\u2026"),
                         textDirection = textDirection,
@@ -308,11 +295,11 @@ class RenderParagraph(
                         var fadeEnd: Float
                         var fadeStart: Float
                         when (textDirection) {
-                            TextDirection.RTL -> {
+                            TextDirection.Rtl -> {
                                 fadeEnd = 0.0f
                                 fadeStart = fadeSizePainter.width
                             }
-                            TextDirection.LTR -> {
+                            TextDirection.Ltr -> {
                                 fadeEnd = size.width
                                 fadeStart = fadeEnd - fadeSizePainter.width
                             }

@@ -16,6 +16,7 @@
 
 package androidx.viewpager2.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -38,10 +39,12 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
@@ -49,6 +52,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 import androidx.viewpager2.R;
 import androidx.viewpager2.adapter.StatefulAdapter;
 
@@ -63,6 +67,7 @@ import java.lang.annotation.Retention;
  */
 public final class ViewPager2 extends ViewGroup {
     /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL})
     public @interface Orientation {
@@ -72,9 +77,18 @@ public final class ViewPager2 extends ViewGroup {
     public static final int ORIENTATION_VERTICAL = RecyclerView.VERTICAL;
 
     /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Retention(SOURCE)
+    @IntDef({OFFSCREEN_PAGE_LIMIT_DEFAULT})
+    @IntRange(from = 1)
+    public @interface OffscreenPageLimit {
     }
 
     /**
@@ -99,7 +113,7 @@ public final class ViewPager2 extends ViewGroup {
      * of explicitly prefetch and retain pages to either side of the current page.
      * @see #setOffscreenPageLimit(int)
      */
-    public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = 0;
+    public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1;
 
     // reused in layout(...)
     private final Rect mTmpContainerRect = new Rect();
@@ -118,7 +132,7 @@ public final class ViewPager2 extends ViewGroup {
     private FakeDrag mFakeDragger;
     private PageTransformerAdapter mPageTransformerAdapter;
     private boolean mUserInputEnabled = true;
-    private int mOffscreenPageLimit = OFFSCREEN_PAGE_LIMIT_DEFAULT;
+    private @OffscreenPageLimit int mOffscreenPageLimit = OFFSCREEN_PAGE_LIMIT_DEFAULT;
 
     public ViewPager2(@NonNull Context context) {
         super(context);
@@ -605,7 +619,7 @@ public final class ViewPager2 extends ViewGroup {
      * @see #endFakeDrag()
      * @see #isFakeDragging()
      */
-    public boolean fakeDragBy(float offsetPxFloat) {
+    public boolean fakeDragBy(@SuppressLint("SupportAnnotationUsage") @Px float offsetPxFloat) {
         return mFakeDragger.fakeDragBy(offsetPxFloat);
     }
 
@@ -680,7 +694,7 @@ public final class ViewPager2 extends ViewGroup {
      * <p>Set the number of pages that should be retained to either side of the currently visible
      * page(s). Pages beyond this limit will be recreated from the adapter when needed. Set this to
      * {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT} to use RecyclerView's caching strategy. The given value
-     * must either be larger than 0, or {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
+     * must either be larger than 0, or {@code #OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
      *
      * <p>Pages within {@code limit} pages away from the current page are created and added to the
      * view hierarchy, even though they are not visible on the screen. Pages outside this limit will
@@ -696,10 +710,12 @@ public final class ViewPager2 extends ViewGroup {
      * <p>You should keep this limit low, especially if your pages have complex layouts. By default
      * it is set to {@code OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
      *
-     * @param limit How many pages will be kept offscreen on either side
+     * @param limit How many pages will be kept offscreen on either side. Valid values are all
+     *        values {@code >= 1} and {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}
+     * @throws IllegalArgumentException If the given limit is invalid
      * @see #getOffscreenPageLimit()
      */
-    public void setOffscreenPageLimit(int limit) {
+    public void setOffscreenPageLimit(@OffscreenPageLimit int limit) {
         if (limit < 1 && limit != OFFSCREEN_PAGE_LIMIT_DEFAULT) {
             throw new IllegalArgumentException(
                     "Offscreen page limit must be OFFSCREEN_PAGE_LIMIT_DEFAULT or a number > 0");
@@ -716,6 +732,7 @@ public final class ViewPager2 extends ViewGroup {
      * @return How many pages will be kept offscreen on either side
      * @see #setOffscreenPageLimit(int)
      */
+    @OffscreenPageLimit
     public int getOffscreenPageLimit() {
         return mOffscreenPageLimit;
     }
@@ -947,5 +964,92 @@ public final class ViewPager2 extends ViewGroup {
          *                 page position to the right, and -1 is one page position to the left.
          */
         void transformPage(@NonNull View page, @FloatRange(from = -1.0, to = 1.0) float position);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.addItemDecoration(decor);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     * @param index Position in the decoration chain to insert this decoration at. If this value
+     *              is negative the decoration will be added at the end.
+     * @throws IndexOutOfBoundsException on indexes larger than {@link #getItemDecorationCount}
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor, int index) {
+        mRecyclerView.addItemDecoration(decor, index);
+    }
+
+    /**
+     * Returns an {@link ItemDecoration} previously added to this ViewPager2.
+     *
+     * @param index The index position of the desired ItemDecoration.
+     * @return the ItemDecoration at index position
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    @NonNull
+    public ItemDecoration getItemDecorationAt(int index) {
+        return mRecyclerView.getItemDecorationAt(index);
+    }
+
+    /**
+     * Returns the number of {@link ItemDecoration} currently added to this ViewPager2.
+     *
+     * @return number of ItemDecorations currently added added to this ViewPager2.
+     */
+    public int getItemDecorationCount() {
+        return mRecyclerView.getItemDecorationCount();
+    }
+
+    /**
+     * Invalidates all ItemDecorations. If ViewPager2 has item decorations, calling this method
+     * will trigger a {@link #requestLayout()} call.
+     */
+    public void invalidateItemDecorations() {
+        mRecyclerView.invalidateItemDecorations();
+    }
+
+    /**
+     * Removes the {@link ItemDecoration} associated with the supplied index position.
+     *
+     * @param index The index position of the ItemDecoration to be removed.
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    public void removeItemDecorationAt(int index) {
+        mRecyclerView.removeItemDecorationAt(index);
+    }
+
+    /**
+     * Remove an {@link ItemDecoration} from this ViewPager2.
+     *
+     * <p>The given decoration will no longer impact the measurement and drawing of
+     * item views.</p>
+     *
+     * @param decor Decoration to remove
+     * @see #addItemDecoration(ItemDecoration)
+     */
+    public void removeItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.removeItemDecoration(decor);
     }
 }

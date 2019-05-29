@@ -249,6 +249,76 @@ class NavControllerTest {
     }
 
     @Test
+    fun testNavigateToDifferentGraphViaDeepLink3x() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_child_second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        navController.popBackStack()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        // repeat nav and pop 2 more times.
+        navController.navigate(deepLink)
+        navController.popBackStack()
+        navController.navigate(deepLink)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+    fun testNavigateToDifferentGraphViaDeepLinkToGrandchild3x() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/grand_child_test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_grandchild_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        navController.popBackStack()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        // repeat nav and pop 2 more times.
+        navController.navigate(deepLink)
+        navController.popBackStack()
+        navController.navigate(deepLink)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
     fun testSaveRestoreStateXml() {
         val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
@@ -804,7 +874,7 @@ class NavControllerTest {
     @Test
     fun testGetViewModelStore() {
         val navController = createNavController()
-        navController.setHostViewModelStore(ViewModelStore())
+        navController.setViewModelStore(ViewModelStore())
         val navGraph = navController.navigatorProvider.navigation(
             id = 1,
             startDestination = R.id.start_test
@@ -821,7 +891,7 @@ class NavControllerTest {
     fun testSaveRestoreGetViewModelStore() {
         val hostStore = ViewModelStore()
         val navController = createNavController()
-        navController.setHostViewModelStore(hostStore)
+        navController.setViewModelStore(hostStore)
         val navGraph = navController.navigatorProvider.navigation(
             id = 1,
             startDestination = R.id.start_test
@@ -835,7 +905,7 @@ class NavControllerTest {
 
         val savedState = navController.saveState()
         val restoredNavController = createNavController()
-        restoredNavController.setHostViewModelStore(hostStore)
+        restoredNavController.setViewModelStore(hostStore)
         restoredNavController.restoreState(savedState)
         restoredNavController.graph = navGraph
 
@@ -847,7 +917,7 @@ class NavControllerTest {
     @Test
     fun testGetViewModelStoreNoGraph() {
         val navController = createNavController()
-        navController.setHostViewModelStore(ViewModelStore())
+        navController.setViewModelStore(ViewModelStore())
         val navGraphId = 1
 
         try {
@@ -867,7 +937,7 @@ class NavControllerTest {
     @Test
     fun testGetViewModelStoreSameGraph() {
         val navController = createNavController()
-        navController.setHostViewModelStore(ViewModelStore())
+        navController.setViewModelStore(ViewModelStore())
         val provider = navController.navigatorProvider
         val graph = provider.navigation(1, startDestination = 1) {
             navigation(1, startDestination = 2) {

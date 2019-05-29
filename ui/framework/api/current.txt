@@ -26,13 +26,13 @@ package androidx.ui.core {
   }
 
   public final class EditorStyle {
-    ctor public EditorStyle(androidx.ui.painting.TextStyle textStyle, androidx.ui.painting.Color compositionColor, androidx.ui.painting.Color selectionColor);
+    ctor public EditorStyle(androidx.ui.painting.TextStyle textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
     method public androidx.ui.painting.TextStyle component1();
-    method public androidx.ui.painting.Color component2();
-    method public androidx.ui.painting.Color component3();
-    method public androidx.ui.core.EditorStyle copy(androidx.ui.painting.TextStyle textStyle, androidx.ui.painting.Color compositionColor, androidx.ui.painting.Color selectionColor);
-    method public androidx.ui.painting.Color getCompositionColor();
-    method public androidx.ui.painting.Color getSelectionColor();
+    method public androidx.ui.graphics.Color component2();
+    method public androidx.ui.graphics.Color component3();
+    method public androidx.ui.core.EditorStyle copy(androidx.ui.painting.TextStyle textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
+    method public androidx.ui.graphics.Color getCompositionColor();
+    method public androidx.ui.graphics.Color getSelectionColor();
     method public androidx.ui.painting.TextStyle getTextStyle();
   }
 
@@ -71,7 +71,7 @@ package androidx.ui.core {
     ctor public LayoutKt();
     method public static void ComplexLayout(kotlin.jvm.functions.Function0<kotlin.Unit> children, kotlin.jvm.functions.Function1<? super androidx.ui.core.ComplexLayoutReceiver,kotlin.Unit> block);
     method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit> children, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
-    method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit>[] childrenArray, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
+    method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit>![] childrenArray, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
     method public static void OnChildPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void OnPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned);
     method public static void WithConstraints(kotlin.jvm.functions.Function1<? super androidx.ui.core.Constraints,kotlin.Unit> children);
@@ -105,7 +105,7 @@ package androidx.ui.core {
 
   public final class PointerInputWrapperKt {
     ctor public PointerInputWrapperKt();
-    method public static void PointerInputWrapper(kotlin.jvm.functions.Function2<? super androidx.ui.core.PointerInputChange,? super androidx.ui.core.PointerEventPass,androidx.ui.core.PointerInputChange> pointerInputHandler = { event, _ -> event }, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void PointerInputWrapper(kotlin.jvm.functions.Function2<? super java.util.List<androidx.ui.core.PointerInputChange>,? super androidx.ui.core.PointerEventPass,? extends java.util.List<androidx.ui.core.PointerInputChange>> pointerInputHandler = { event, _ -> event }, kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class PositioningBlockReceiver {
@@ -115,11 +115,15 @@ package androidx.ui.core {
   }
 
   public final class Selection {
-    ctor public Selection(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset);
+    ctor public Selection(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
     method public androidx.ui.engine.geometry.Offset component1();
     method public androidx.ui.engine.geometry.Offset component2();
-    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset);
+    method public androidx.ui.core.LayoutCoordinates? component3();
+    method public androidx.ui.core.LayoutCoordinates? component4();
+    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
+    method public androidx.ui.core.LayoutCoordinates? getEndLayoutCoordinates();
     method public androidx.ui.engine.geometry.Offset getEndOffset();
+    method public androidx.ui.core.LayoutCoordinates? getStartLayoutCoordinates();
     method public androidx.ui.engine.geometry.Offset getStartOffset();
   }
 
@@ -149,23 +153,36 @@ package androidx.ui.core {
   public final class TextKt {
     ctor public TextKt();
     method public static void CurrentTextStyleProvider(androidx.ui.painting.TextStyle value, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public static void Text(androidx.ui.painting.TextSpan text, androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.painting.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor);
+    method public static void Text(androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
     method public static void Text(String text, androidx.ui.painting.TextStyle? style = null, androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines);
     method public static androidx.compose.Effect<androidx.ui.painting.TextStyle> currentTextStyle();
   }
 
   public interface TextSelectionHandler {
-    method public androidx.ui.core.Selection? getSelection(kotlin.Pair<androidx.ui.core.PxPosition,androidx.ui.core.PxPosition> coordinates);
+    method public androidx.ui.core.Selection? getSelection(kotlin.Pair<androidx.ui.core.PxPosition,androidx.ui.core.PxPosition> selectionCoordinates, androidx.ui.core.LayoutCoordinates containerLayoutCoordinates);
+  }
+
+  public final class TextSpanComposeKt {
+    ctor public TextSpanComposeKt();
+    method public static void Span(androidx.ui.core.TextSpanScope, String? text = null, androidx.ui.painting.TextStyle? style = null, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
+    method public static void Span(androidx.ui.core.TextSpanScope, String? text = null, androidx.ui.painting.TextStyle? style = null);
+    method public static void compose(androidx.ui.painting.TextSpan container, androidx.compose.CompositionReference? parent = null, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> composable);
+    method public static void disposeComposition(androidx.ui.painting.TextSpan container, androidx.compose.CompositionReference? parent = null);
+  }
+
+  public final class TextSpanScope {
+    ctor public TextSpanScope(androidx.ui.painting.TextSpanComposition composer);
+    method public androidx.ui.painting.TextSpanComposition getComposer();
   }
 
   public final class WrapperKt {
     ctor public WrapperKt();
     method public static void CraneWrapper(kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void WithDensity(kotlin.jvm.functions.Function1<? super androidx.ui.core.DensityReceiver,kotlin.Unit> block);
-    method @CheckResult("+") public static androidx.compose.Effect<androidx.ui.core.Density> ambientDensity();
+    method @CheckResult(suggest="+") public static androidx.compose.Effect<androidx.ui.core.Density> ambientDensity();
     method public static androidx.compose.Ambient<android.content.Context> getContextAmbient();
     method public static androidx.compose.Ambient<androidx.ui.core.Density> getDensityAmbient();
-    method @CheckResult("+") public static <R> androidx.compose.Effect<R> withDensity(kotlin.jvm.functions.Function1<? super androidx.ui.core.DensityReceiver,? extends R> block);
+    method @CheckResult(suggest="+") public static <R> androidx.compose.Effect<R> withDensity(kotlin.jvm.functions.Function1<? super androidx.ui.core.DensityReceiver,? extends R> block);
   }
 
 }
@@ -266,7 +283,7 @@ package androidx.ui.core.vectorgraphics {
   }
 
   public final class LinearGradient implements androidx.ui.core.vectorgraphics.Brush {
-    ctor public LinearGradient(kotlin.Pair<androidx.ui.painting.Color,java.lang.Float>[] colorStops, float startX, float startY, float endX, float endY, androidx.ui.painting.TileMode tileMode);
+    ctor public LinearGradient(kotlin.Pair<androidx.ui.graphics.Color,java.lang.Float>![] colorStops, float startX, float startY, float endX, float endY, androidx.ui.painting.TileMode tileMode);
     method public void applyBrush(androidx.ui.painting.Paint p);
     method public float getEndX();
     method public float getEndY();
@@ -282,7 +299,7 @@ package androidx.ui.core.vectorgraphics {
     method public androidx.ui.core.vectorgraphics.PathBuilder close();
     method public androidx.ui.core.vectorgraphics.PathBuilder curveTo(float x1, float y1, float x2, float y2, float x3, float y3);
     method public androidx.ui.core.vectorgraphics.PathBuilder curveToRelative(float dx1, float dy1, float dx2, float dy2, float dx3, float dy3);
-    method public androidx.ui.core.vectorgraphics.PathNode[] getNodes();
+    method public androidx.ui.core.vectorgraphics.PathNode![] getNodes();
     method public androidx.ui.core.vectorgraphics.PathBuilder horizontalLineTo(float x);
     method public androidx.ui.core.vectorgraphics.PathBuilder horizontalLineToRelative(float x);
     method public androidx.ui.core.vectorgraphics.PathBuilder lineTo(float x, float y);
@@ -300,7 +317,6 @@ package androidx.ui.core.vectorgraphics {
   }
 
   public enum PathCommand {
-    ctor protected PathCommand(char mKey);
     method public final char toKey();
     enum_constant public static final androidx.ui.core.vectorgraphics.PathCommand ArcTo;
     enum_constant public static final androidx.ui.core.vectorgraphics.PathCommand Close;
@@ -350,10 +366,10 @@ package androidx.ui.core.vectorgraphics {
 
   public final class PathParser {
     ctor public PathParser();
-    method public androidx.ui.core.vectorgraphics.PathParser addPathNodes(androidx.ui.core.vectorgraphics.PathNode[] nodes);
+    method public androidx.ui.core.vectorgraphics.PathParser addPathNodes(androidx.ui.core.vectorgraphics.PathNode![] nodes);
     method public void clear();
     method public androidx.ui.core.vectorgraphics.PathParser parsePathString(String pathData) throws java.lang.IllegalArgumentException, java.lang.NumberFormatException;
-    method public androidx.ui.core.vectorgraphics.PathNode[] toNodes();
+    method public androidx.ui.core.vectorgraphics.PathNode![] toNodes();
     method public androidx.ui.painting.Path toPath(androidx.ui.painting.Path target = Path());
   }
 
@@ -362,22 +378,22 @@ package androidx.ui.core.vectorgraphics {
   }
 
   public final class RadialGradient implements androidx.ui.core.vectorgraphics.Brush {
-    ctor public RadialGradient(kotlin.Pair<androidx.ui.painting.Color,java.lang.Float>[] colorStops, float centerX, float centerY, float radius, androidx.ui.painting.TileMode tileMode);
+    ctor public RadialGradient(kotlin.Pair<androidx.ui.graphics.Color,java.lang.Float>![] colorStops, float centerX, float centerY, float radius, androidx.ui.painting.TileMode tileMode);
     method public void applyBrush(androidx.ui.painting.Paint p);
   }
 
   public final class SolidColor implements androidx.ui.core.vectorgraphics.Brush {
-    ctor public SolidColor(androidx.ui.painting.Color value);
+    ctor public SolidColor(androidx.ui.graphics.Color value);
     method public void applyBrush(androidx.ui.painting.Paint p);
   }
 
   public final class VectorKt {
     ctor public VectorKt();
-    method public static androidx.ui.core.vectorgraphics.PathNode[] addPathNodes(String? pathStr);
+    method public static androidx.ui.core.vectorgraphics.PathNode![] addPathNodes(String? pathStr);
     method public static android.view.View? adoptVectorGraphic(Object? parent, Object? child);
     method public static androidx.ui.painting.StrokeCap getDefaultStrokeLineCap();
     method public static androidx.ui.painting.StrokeJoin getDefaultStrokeLineJoin();
-    method public static androidx.ui.core.vectorgraphics.PathNode[] getEmptyPath();
+    method public static androidx.ui.core.vectorgraphics.PathNode![] getEmptyPath();
     method public static void group(String name = "", float rotate = 0.0f, float pivotX = 0.0f, float pivotY = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f, float translateX = 0.0f, float translateY = 0.0f, Object? clipPathData = EmptyPath, kotlin.jvm.functions.Function0<kotlin.Unit> childNodes);
     method public static void path(Object? pathData, String name = "", Object fill = EmptyBrush, float fillAlpha = 1.0f, Object stroke = EmptyBrush, float strokeAlpha = 1.0f, float strokeLineWidth = 0.0f, androidx.ui.painting.StrokeCap strokeLineCap = DefaultStrokeLineCap, androidx.ui.painting.StrokeJoin strokeLineJoin = DefaultStrokeLineJoin, float strokeLineMiter = 4.0f);
     method public static void vector(String name = "", float viewportWidth, float viewportHeight, float defaultWidth = viewportWidth, float defaultHeight = viewportHeight, kotlin.jvm.functions.Function0<kotlin.Unit> children);

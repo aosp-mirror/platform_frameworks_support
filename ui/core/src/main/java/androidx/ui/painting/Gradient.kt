@@ -17,6 +17,7 @@
 package androidx.ui.painting
 
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.graphics.Color
 import androidx.ui.vectormath64.Matrix4
 import androidx.ui.vectormath64.PI
 
@@ -47,8 +48,6 @@ class Gradient private constructor(private val shader: android.graphics.Shader) 
          * [NoSuchMethodError].
          */
         //    Gradient.linear(
-        // TODO(Migration/njawad remove annotation after b/113119778 is fixed/deployed)
-        @SuppressWarnings("SyntheticAccessor")
         fun linear(
             from: Offset,
             to: Offset,
@@ -101,8 +100,6 @@ class Gradient private constructor(private val shader: android.graphics.Shader) 
          * not be equal to [Offset.zero].
          */
         // TODO(Migration/njawad change matrix4 parameter to Float64List to match Flutter implementation)
-        // TODO(Migration/njawad remove annotation after b/113119778 is fixed/deployed)
-        @SuppressWarnings("SyntheticAccessor")
         fun radial(
             center: Offset,
             radius: Float,
@@ -159,9 +156,7 @@ class Gradient private constructor(private val shader: android.graphics.Shader) 
          * be a column-major matrix packed into a list of 16 values.
          */
         // TODO(Migration/njawad change matrix4 parameter to Float64List to match Flutter implementation)
-        // TODO(Migration/njawad remove annotation after b/113119778 is fixed/deployed)
         @Suppress("UNUSED_PARAMETER")
-        @SuppressWarnings("SyntheticAccessor")
         fun sweep(
             center: Offset,
             colors: List<Color>,
@@ -201,7 +196,7 @@ class Gradient private constructor(private val shader: android.graphics.Shader) 
 
         private fun toIntArray(colors: List<Color>): IntArray {
             return IntArray(colors.size) { i ->
-                colors[i].value
+                colors[i].toArgb()
             }
         }
 
