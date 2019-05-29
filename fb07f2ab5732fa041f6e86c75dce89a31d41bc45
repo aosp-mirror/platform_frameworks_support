@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fabdb430_f9350212",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T02:14:09Z",
+      "side": 1,
+      "message": "yes, but seeing this test wants me to have `enabled: Boolean` as an explicit param even more :)",
+      "parentUuid": "346b94e7_5d8dbb76",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f072a5c_0628da32",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/selection/Toggleable.kt",
         "patchSetId": 1
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "This also feels sort of awkward as a non-factory top level function.  I think we should be judicious with our introduction of those sorts of things, as they\u0027re hard to find and it\u0027s hard to end up not polluting the namespace - this would be androidx.ui.material.parentCheckboxState and would autocomplete anywhere someone started typing parent... in their code.  Perhaps this could be a factory-style function called just ToggleableState?  It\u0027s not exactly a factory since it\u0027s an enum, so maybe that\u0027s a weird pattern...I think it\u0027s still better than just a top-level function.  Thoughts?",
       "parentUuid": "a2bdb906_903e4865",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1311c80c_d00752ab",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-29T02:14:09Z",
+      "side": 1,
+      "message": "\u003e What API you would like to see here?\n\nPreferably I\u0027d like us to provide nothing at all. This is fairly basic logic and everyone\u0027s use case might be different. Let\u0027s not tell them how we expect them to use a TriStateCheckbox? The concept of a \"parent checkbox\" might be different for different applications, and they might want to manage the state in different ways. This feels overly prescriptive while also being not that helpful",
+      "parentUuid": "413134ec_dcbbe22d",
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
