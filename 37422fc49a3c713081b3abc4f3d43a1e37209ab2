@@ -33,6 +33,42 @@
       "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d0f3095_dbc21bb2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraIdFilterSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:19:53Z",
+      "side": 1,
+      "message": "Yeah right, that\u0027s better. Thanks.",
+      "parentUuid": "8979941b_80be8456",
+      "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e18cfbb_b37ae0fb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraIdFilterSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-29T08:19:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a84b3bb_b3728602",
+      "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
