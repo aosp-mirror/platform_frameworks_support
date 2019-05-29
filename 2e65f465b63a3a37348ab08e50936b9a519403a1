@@ -94,6 +94,30 @@
       "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e2131a_07b3757e",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-29T15:20:45Z",
+      "side": 1,
+      "message": "Removed the sleep for now.",
+      "parentUuid": "e6b406de_ca4cf273",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
