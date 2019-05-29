@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d97d233_6720379a",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/SelectionsControlsDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "you are right, it should be a val with memo. However, there was a bug and it wasn\u0027t working. Changed now, thanks!",
+      "parentUuid": "7a2ed45e_7a4d6460",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0012f60d_b82b60c9",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96378368_935279a3",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "+1 , we\u0027ll see how this one will evolve",
+      "parentUuid": "fabdb430_f9350212",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "5dc90679_352370e9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "Agree. It was kind of temporary solution until I\u0027ll find the better one, so I can move it away from public API to demos and later we\u0027ll decide what we will provide (or no)",
+      "parentUuid": "1311c80c_d00752ab",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92818eba_2954e1b4",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
@@ -192,6 +246,24 @@
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44d3560f_ef2e1d48",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92818eba_2954e1b4",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -355,6 +427,54 @@
       "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "357d1436_c6b00ef1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c43bf05_690fd09a",
+      "range": {
+        "startLine": 94,
+        "startChar": 69,
+        "endLine": 94,
+        "endChar": 91
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0211b0a2_5a856df2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T02:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ef2d120_ab045fe8",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 46
+      },
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
