@@ -16,6 +16,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9abe3e6_47571bf2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-29T21:59:10Z",
+      "side": 1,
+      "message": "Yes I am wondering if we can get by without it. Depending on the scope of the usage, a single paint could be accessed across multiple DrawNode instances similar to how dependencies of other composables would still be accessible. Rather than assuming each DrawNode would have it\u0027s own paint, maybe we could get by with a specialized paint memoization effect instead for now and see if that satisfies our use case?",
+      "parentUuid": "753ac79c_51d8101f",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
