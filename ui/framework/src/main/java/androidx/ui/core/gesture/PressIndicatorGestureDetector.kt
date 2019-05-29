@@ -29,6 +29,7 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
+import androidx.compose.trace
 import androidx.compose.unaryPlus
 import androidx.ui.core.PointerInputWrapper
 
@@ -55,12 +56,14 @@ fun PressIndicatorGestureDetector(
     onCancel: (() -> Unit)? = null,
     @Children children: @Composable() () -> Unit
 ) {
-    val recognizer = +memo { PressIndicatorGestureRecognizer() }
-    recognizer.onStart = onStart
-    recognizer.onStop = onStop
-    recognizer.onCancel = onCancel
-    PointerInputWrapper(pointerInputHandler = recognizer.pointerInputHandler) {
-        children()
+    trace("UI:PressIndicatorGestureDetector") {
+        val recognizer = +memo { PressIndicatorGestureRecognizer() }
+        recognizer.onStart = onStart
+        recognizer.onStop = onStop
+        recognizer.onCancel = onCancel
+        PointerInputWrapper(pointerInputHandler = recognizer.pointerInputHandler) {
+            children()
+        }
     }
 }
 

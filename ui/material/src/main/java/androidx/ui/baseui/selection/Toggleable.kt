@@ -23,6 +23,7 @@ import androidx.ui.core.semantics.SemanticsActionType
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.trace
 
 @Composable
 fun Toggleable(
@@ -30,22 +31,25 @@ fun Toggleable(
     onToggle: (() -> Unit)? = null,
     @Children children: @Composable() () -> Unit
 ) {
-    val actions = if (onToggle != null) {
-        listOf(SemanticsAction(SemanticsActionType.Tap, onToggle))
-    } else {
-        emptyList()
-    }
-    PressReleasedGestureDetector(
-        onRelease = onToggle,
-        consumeDownOnStart = false) {
-        // TODO: enabled should not be hardcoded
-        // TODO(pavlis): Semantics currently doesn't support 4 states (only checked / unchecked / not checkable).
-        Semantics(
-            checked = (value == ToggleableState.Checked),
-            enabled = true,
-            actions = actions
+    trace("UI:Toggleable") {
+        val actions = if (onToggle != null) {
+            listOf(SemanticsAction(SemanticsActionType.Tap, onToggle))
+        } else {
+            emptyList()
+        }
+        PressReleasedGestureDetector(
+            onRelease = onToggle,
+            consumeDownOnStart = false
         ) {
-            children()
+            // TODO: enabled should not be hardcoded
+            // TODO(pavlis): Semantics currently doesn't support 4 states (only checked / unchecked / not checkable).
+            Semantics(
+                checked = (value == ToggleableState.Checked),
+                enabled = true,
+                actions = actions
+            ) {
+                children()
+            }
         }
     }
 }

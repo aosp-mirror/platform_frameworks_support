@@ -28,6 +28,7 @@ import androidx.compose.ambient
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.onDispose
+import androidx.compose.trace
 import androidx.compose.unaryPlus
 import androidx.ui.core.Dp
 
@@ -62,30 +63,32 @@ fun Ripple(
     radius: Dp? = null,
     @Children children: @Composable() () -> Unit
 ) {
-    val density = +ambientDensity()
-    val rippleSurface = +ambientRippleSurface()
-    val state = +memo { RippleState() }
+    trace("UI:Ripple") {
+        val density = +ambientDensity()
+        val rippleSurface = +ambientRippleSurface()
+        val state = +memo { RippleState() }
 
-    val theme = +ambient(CurrentRippleTheme)
-    state.currentEffect?.color = theme.colorCallback.invoke(
-        rippleSurface.backgroundColor
-    )
-
-    OnChildPositioned(onPositioned = { state.coordinates = it }) {
-        PressIndicatorGestureDetector(
-            onStart = { position ->
-                state.handleStart(position, rippleSurface, theme, density, bounded, radius)
-            },
-            onStop = { state.handleFinish(false) },
-            onCancel = { state.handleFinish(true) },
-            children = children
+        val theme = +ambient(CurrentRippleTheme)
+        state.currentEffect?.color = theme.colorCallback.invoke(
+            rippleSurface.backgroundColor
         )
-    }
 
-    +onDispose {
-        state.effects.forEach { it.dispose() }
-        state.effects.clear()
-        state.currentEffect = null
+        OnChildPositioned(onPositioned = { state.coordinates = it }) {
+            PressIndicatorGestureDetector(
+                onStart = { position ->
+                    state.handleStart(position, rippleSurface, theme, density, bounded, radius)
+                },
+                onStop = { state.handleFinish(false) },
+                onCancel = { state.handleFinish(true) },
+                children = children
+            )
+        }
+
+        +onDispose {
+            state.effects.forEach { it.dispose() }
+            state.effects.clear()
+            state.currentEffect = null
+        }
     }
 }
 

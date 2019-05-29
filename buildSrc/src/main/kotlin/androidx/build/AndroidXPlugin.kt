@@ -182,9 +182,9 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
                 is KotlinBasePluginWrapper -> {
-                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
-                        compile.kotlinOptions.allWarningsAsErrors = true
-                    }
+                    //project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                    //    compile.kotlinOptions.allWarningsAsErrors = true
+                    //}
                 }
             }
         }
