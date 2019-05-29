@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "105d465e_b12a6487",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T07:44:38Z",
+      "side": 1,
+      "message": "MusicView is shown only when current item is music.",
+      "parentUuid": "953b1dc9_7f3b0d29",
+      "range": {
+        "startLine": 116,
+        "startChar": 42,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac98a7ab_c087cdef",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8db2357_3faa2418",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T07:44:38Z",
+      "side": 1,
+      "message": "Yes, because updating metadata by calling MediaItem#setMetadata will call the callback onCurrentMediaItemChanged.",
+      "parentUuid": "ac98a7ab_c087cdef",
+      "revId": "13d5339b2025c6028252142d26115c9c99761d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
