@@ -16,22 +16,13 @@
 
 package androidx.paging.futures
 
-import androidx.annotation.RestrictTo
-
 import java.util.concurrent.Executor
 
 /**
- * TODO: Make this internal and remove @RestrictTo once common-ktx is merged in.
- *
  * Executor that runs each task in the thread that invokes [execute][Executor.execute]
- *
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-class DirectExecutor private constructor() : Executor {
-    override fun execute(runnable: Runnable) = runnable.run()
-
-    companion object {
+internal class DirectExecutor private constructor() : Executor {
+    internal companion object {
         /**
          * Returns an [Executor] that runs each task in the thread that invokes [Executor.execute].
          *
@@ -46,4 +37,6 @@ class DirectExecutor private constructor() : Executor {
          */
         val INSTANCE = DirectExecutor()
     }
+
+    override fun execute(runnable: Runnable) = runnable.run()
 }
