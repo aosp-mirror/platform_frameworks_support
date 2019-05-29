@@ -18,11 +18,13 @@ package androidx.ui.material
 
 import androidx.animation.ColorPropKey
 import androidx.animation.FloatPropKey
+import androidx.animation.TransitionDefinition
 import androidx.animation.TransitionSpec
 import androidx.animation.transitionDefinition
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
+import androidx.compose.trace
 import androidx.compose.unaryPlus
 import androidx.ui.animation.Transition
 import androidx.ui.baseui.selection.Toggleable
@@ -128,61 +130,67 @@ fun Checkbox(
     onCheckedChange: ((Boolean) -> Unit)?,
     color: Color = +themeColor { secondary }
 ) {
-    TriStateCheckbox(
-        value = ToggleableState(checked),
-        onClick = onCheckedChange?.let { { it(!checked) } },
-        color = color
-    )
+    trace("UI:Checkbox") {
+        TriStateCheckbox(
+            value = ToggleableState(checked),
+            onClick = onCheckedChange?.let { { it(!checked) } },
+            color = color
+        )
+    }
 }
 
 @Composable
 private fun DrawCheckbox(value: ToggleableState, activeColor: Color) {
-    val unselectedColor = (+themeColor { onSurface }).copy(alpha = UncheckedBoxOppacity)
-    val definition = +memo(activeColor, unselectedColor) {
-        generateTransitionDefinition(activeColor, unselectedColor)
-    }
-    Transition(definition = definition, toState = value) { state ->
-        DrawBox(
-            color = state[BoxColorProp],
-            innerRadiusFraction = state[InnerRadiusFractionProp]
-        )
-        DrawCheck(
-            checkFraction = state[CheckFractionProp],
-            crossCenterGravitation = state[CenterGravitationForCheck]
-        )
+    trace("UI:DrawCheckbox") {
+        val unselectedColor = (+themeColor { onSurface }).copy(alpha = UncheckedBoxOppacity)
+        val definition = +memo(activeColor, unselectedColor) {
+            generateTransitionDefinition(activeColor, unselectedColor)
+        }
+        Transition(definition = definition, toState = value) { state ->
+            DrawBox(
+                color = state[BoxColorProp],
+                innerRadiusFraction = state[InnerRadiusFractionProp]
+            )
+            DrawCheck(
+                checkFraction = state[CheckFractionProp],
+                crossCenterGravitation = state[CenterGravitationForCheck]
+            )
+        }
     }
 }
 
 @Composable
 private fun DrawBox(color: Color, innerRadiusFraction: Float) {
-    Draw { canvas, parentSize ->
-        val paint = Paint()
-        paint.strokeWidth = StrokeWidth.toPx().value
-        paint.isAntiAlias = true
-        paint.color = color
+    trace("UI:DrawBox") {
+        Draw { canvas, parentSize ->
+            val paint = Paint()
+            paint.strokeWidth = StrokeWidth.toPx().value
+            paint.isAntiAlias = true
+            paint.color = color
 
-        val checkboxSize = parentSize.width.value
+            val checkboxSize = parentSize.width.value
 
-        val outer = RRect(
-            0f,
-            0f,
-            checkboxSize,
-            checkboxSize,
-            Radius.circular(RadiusSize.toPx().value)
-        )
+            val outer = RRect(
+                0f,
+                0f,
+                checkboxSize,
+                checkboxSize,
+                Radius.circular(RadiusSize.toPx().value)
+            )
 
-        val shrinkTo = calcMiddleValue(
-            paint.strokeWidth,
-            outer.width / 2,
-            innerRadiusFraction
-        )
-        val innerSquared = outer.shrink(shrinkTo)
-        val squareMultiplier = innerRadiusFraction * innerRadiusFraction
+            val shrinkTo = calcMiddleValue(
+                paint.strokeWidth,
+                outer.width / 2,
+                innerRadiusFraction
+            )
+            val innerSquared = outer.shrink(shrinkTo)
+            val squareMultiplier = innerRadiusFraction * innerRadiusFraction
 
-        // TODO(malkov): this radius formula is not in material spec
-        val inner = innerSquared
-            .withRadius(Radius.circular(innerSquared.width * squareMultiplier))
-        canvas.drawDRRect(outer, inner, paint)
+            // TODO(malkov): this radius formula is not in material spec
+            val inner = innerSquared
+                .withRadius(Radius.circular(innerSquared.width * squareMultiplier))
+            canvas.drawDRRect(outer, inner, paint)
+        }
     }
 }
 
@@ -191,41 +199,43 @@ private fun DrawCheck(
     checkFraction: Float,
     crossCenterGravitation: Float
 ) {
-    Draw { canvas, parentSize ->
-        val paint = Paint()
-        paint.isAntiAlias = true
-        paint.style = PaintingStyle.stroke
-        paint.strokeCap = StrokeCap.square
-        paint.strokeWidth = StrokeWidth.toPx().value
-        paint.color = CheckStrokeDefaultColor
+    trace("UI:DrawCheck") {
+        Draw { canvas, parentSize ->
+            val paint = Paint()
+            paint.isAntiAlias = true
+            paint.style = PaintingStyle.stroke
+            paint.strokeCap = StrokeCap.square
+            paint.strokeWidth = StrokeWidth.toPx().value
+            paint.color = CheckStrokeDefaultColor
 
-        val width = parentSize.width.value
+            val width = parentSize.width.value
 
-        val checkCrossX = 0.4f
-        val checkCrossY = 0.7f
-        val leftX = 0.2f
-        val leftY = 0.5f
-        val rightX = 0.8f
-        val rightY = 0.3f
+            val checkCrossX = 0.4f
+            val checkCrossY = 0.7f
+            val leftX = 0.2f
+            val leftY = 0.5f
+            val rightX = 0.8f
+            val rightY = 0.3f
 
-        val gravitatedCrossX = calcMiddleValue(checkCrossX, 0.5f, crossCenterGravitation)
-        val gravitatedCrossY = calcMiddleValue(checkCrossY, 0.5f, crossCenterGravitation)
+            val gravitatedCrossX = calcMiddleValue(checkCrossX, 0.5f, crossCenterGravitation)
+            val gravitatedCrossY = calcMiddleValue(checkCrossY, 0.5f, crossCenterGravitation)
 
-        // gravitate only Y for end to achieve center line
-        val gravitatedLeftY = calcMiddleValue(leftY, 0.5f, crossCenterGravitation)
-        val gravitatedRightY = calcMiddleValue(rightY, 0.5f, crossCenterGravitation)
+            // gravitate only Y for end to achieve center line
+            val gravitatedLeftY = calcMiddleValue(leftY, 0.5f, crossCenterGravitation)
+            val gravitatedRightY = calcMiddleValue(rightY, 0.5f, crossCenterGravitation)
 
-        val crossPoint = Offset(width * gravitatedCrossX, width * gravitatedCrossY)
-        val rightBranch = Offset(
-            width * calcMiddleValue(gravitatedCrossX, rightX, checkFraction),
-            width * calcMiddleValue(gravitatedCrossY, gravitatedRightY, checkFraction)
-        )
-        val leftBranch = Offset(
-            width * calcMiddleValue(gravitatedCrossX, leftX, checkFraction),
-            width * calcMiddleValue(gravitatedCrossY, gravitatedLeftY, checkFraction)
-        )
-        canvas.drawLine(crossPoint, leftBranch, paint)
-        canvas.drawLine(crossPoint, rightBranch, paint)
+            val crossPoint = Offset(width * gravitatedCrossX, width * gravitatedCrossY)
+            val rightBranch = Offset(
+                width * calcMiddleValue(gravitatedCrossX, rightX, checkFraction),
+                width * calcMiddleValue(gravitatedCrossY, gravitatedRightY, checkFraction)
+            )
+            val leftBranch = Offset(
+                width * calcMiddleValue(gravitatedCrossX, leftX, checkFraction),
+                width * calcMiddleValue(gravitatedCrossY, gravitatedLeftY, checkFraction)
+            )
+            canvas.drawLine(crossPoint, leftBranch, paint)
+            canvas.drawLine(crossPoint, rightBranch, paint)
+        }
     }
 }
 
@@ -242,53 +252,68 @@ private val BoxColorProp = ColorPropKey()
 private val BoxAnimationDuration = 100
 private val CheckStrokeAnimationDuration = 100
 
-private fun generateTransitionDefinition(color: Color, unselectedColor: Color) =
-    transitionDefinition {
-        state(ToggleableState.Checked) {
-            this[CheckFractionProp] = 1f
-            this[InnerRadiusFractionProp] = 1f
-            this[CenterGravitationForCheck] = 0f
-            this[BoxColorProp] = color
-        }
-        state(ToggleableState.Unchecked) {
-            this[CheckFractionProp] = 0f
-            this[InnerRadiusFractionProp] = 0f
-            this[CenterGravitationForCheck] = 1f
-            this[BoxColorProp] = unselectedColor
-        }
-        state(ToggleableState.Indeterminate) {
-            this[CheckFractionProp] = 1f
-            this[InnerRadiusFractionProp] = 1f
-            this[CenterGravitationForCheck] = 1f
-            this[BoxColorProp] = color
-        }
-        transition(fromState = ToggleableState.Unchecked, toState = ToggleableState.Checked) {
-            boxTransitionFromUnchecked()
-            CenterGravitationForCheck using snap()
-        }
-        transition(fromState = ToggleableState.Checked, toState = ToggleableState.Unchecked) {
-            boxTransitionToUnchecked()
-            CenterGravitationForCheck using tween {
-                duration = CheckStrokeAnimationDuration
+private fun generateTransitionDefinition(color: Color, unselectedColor: Color): TransitionDefinition<ToggleableState> {
+    return trace("UI:generateTransitionDefinition") {
+        transitionDefinition {
+            state(ToggleableState.Checked) {
+                this[CheckFractionProp] = 1f
+                this[InnerRadiusFractionProp] = 1f
+                this[CenterGravitationForCheck] = 0f
+                this[BoxColorProp] = color
             }
-        }
-        transition(fromState = ToggleableState.Checked, toState = ToggleableState.Indeterminate) {
-            CenterGravitationForCheck using tween {
-                duration = CheckStrokeAnimationDuration
+            state(ToggleableState.Unchecked) {
+                this[CheckFractionProp] = 0f
+                this[InnerRadiusFractionProp] = 0f
+                this[CenterGravitationForCheck] = 1f
+                this[BoxColorProp] = unselectedColor
             }
-        }
-        transition(fromState = ToggleableState.Indeterminate, toState = ToggleableState.Checked) {
-            CenterGravitationForCheck using tween {
-                duration = CheckStrokeAnimationDuration
+            state(ToggleableState.Indeterminate) {
+                this[CheckFractionProp] = 1f
+                this[InnerRadiusFractionProp] = 1f
+                this[CenterGravitationForCheck] = 1f
+                this[BoxColorProp] = color
             }
-        }
-        transition(fromState = ToggleableState.Indeterminate, toState = ToggleableState.Unchecked) {
-            boxTransitionToUnchecked()
-        }
-        transition(fromState = ToggleableState.Unchecked, toState = ToggleableState.Indeterminate) {
-            boxTransitionFromUnchecked()
+            transition(fromState = ToggleableState.Unchecked, toState = ToggleableState.Checked) {
+                boxTransitionFromUnchecked()
+                CenterGravitationForCheck using snap()
+            }
+            transition(fromState = ToggleableState.Checked, toState = ToggleableState.Unchecked) {
+                boxTransitionToUnchecked()
+                CenterGravitationForCheck using tween {
+                    duration = CheckStrokeAnimationDuration
+                }
+            }
+            transition(
+                fromState = ToggleableState.Checked,
+                toState = ToggleableState.Indeterminate
+            ) {
+                CenterGravitationForCheck using tween {
+                    duration = CheckStrokeAnimationDuration
+                }
+            }
+            transition(
+                fromState = ToggleableState.Indeterminate,
+                toState = ToggleableState.Checked
+            ) {
+                CenterGravitationForCheck using tween {
+                    duration = CheckStrokeAnimationDuration
+                }
+            }
+            transition(
+                fromState = ToggleableState.Indeterminate,
+                toState = ToggleableState.Unchecked
+            ) {
+                boxTransitionToUnchecked()
+            }
+            transition(
+                fromState = ToggleableState.Unchecked,
+                toState = ToggleableState.Indeterminate
+            ) {
+                boxTransitionFromUnchecked()
+            }
         }
     }
+}
 
 private fun TransitionSpec<ToggleableState>.boxTransitionFromUnchecked() {
     BoxColorProp using snap()

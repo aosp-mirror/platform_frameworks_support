@@ -828,8 +828,9 @@ class SlotTable(internal var slots: Array<Any?> = arrayOf()) {
     }
 }
 
-private fun ArrayList<Anchor>.locationOf(index: Int) =
+private fun ArrayList<Anchor>.locationOf(index: Int) = trace("SlotTable:Search") {
     search(index).let { if (it >= 0) it else -(it + 1) }
+}
 private fun ArrayList<Anchor>.search(index: Int) = binarySearch { it.loc.compareTo(index) }
 
 /**

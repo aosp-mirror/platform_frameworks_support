@@ -16,6 +16,8 @@
 
 package androidx.ui.test
 
+import android.util.Log
+
 fun SemanticsTreeInteraction.doClick(): SemanticsTreeInteraction {
     val foundNodes = findAllMatching()
     if (foundNodes.size != 1) {
@@ -27,6 +29,7 @@ fun SemanticsTreeInteraction.doClick(): SemanticsTreeInteraction {
         ?: throw AssertionError("Semantic Node has no child layout to perform click on!")
     val x = globalCoordinates.x.value + 1f
     val y = globalCoordinates.y.value + 1f
+
 
     sendClick(x, y)
 

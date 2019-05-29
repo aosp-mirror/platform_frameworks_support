@@ -24,6 +24,7 @@ import androidx.ui.core.max
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.trace
 
 /**
  * A layout that expects a child and places it within itself. The child will be measured
@@ -36,22 +37,24 @@ import androidx.compose.composer
  */
 @Composable
 fun Wrap(alignment: Alignment = Alignment.TopLeft, @Children children: @Composable() () -> Unit) {
-    Layout(layoutBlock = { measurables, constraints ->
-        val measurable = measurables.firstOrNull()
-        // The child cannot be larger than our max constraints, but we ignore min constraints.
-        val placeable = measurable?.measure(constraints.looseMin())
+    trace("UI:Wrap") {
+        Layout(layoutBlock = { measurables, constraints ->
+            val measurable = measurables.firstOrNull()
+            // The child cannot be larger than our max constraints, but we ignore min constraints.
+            val placeable = measurable?.measure(constraints.looseMin())
 
-        // Try to be as small as possible.
-        val layoutWidth = max(placeable?.width ?: 0.ipx, constraints.minWidth)
-        val layoutHeight = max(placeable?.height ?: 0.ipx, constraints.minHeight)
+            // Try to be as small as possible.
+            val layoutWidth = max(placeable?.width ?: 0.ipx, constraints.minWidth)
+            val layoutHeight = max(placeable?.height ?: 0.ipx, constraints.minHeight)
 
-        layout(layoutWidth, layoutHeight) {
-            if (placeable != null) {
-                val position = alignment.align(
-                    IntPxSize(layoutWidth - placeable.width, layoutHeight - placeable.height)
-                )
-                placeable.place(position.x, position.y)
+            layout(layoutWidth, layoutHeight) {
+                if (placeable != null) {
+                    val position = alignment.align(
+                        IntPxSize(layoutWidth - placeable.width, layoutHeight - placeable.height)
+                    )
+                    placeable.place(position.x, position.y)
+                }
             }
-        }
-    }, children=children)
+        }, children = children)
+    }
 }

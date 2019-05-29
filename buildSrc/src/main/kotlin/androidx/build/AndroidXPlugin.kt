@@ -182,9 +182,9 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
                 is KotlinBasePluginWrapper -> {
-                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
-                        compile.kotlinOptions.allWarningsAsErrors = true
-                    }
+                    //project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                    //    compile.kotlinOptions.allWarningsAsErrors = true
+                    //}
                 }
             }
         }
@@ -411,9 +411,9 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Enable code coverage for debug builds only if we are not running inside the IDE, since
         // enabling coverage reports breaks the method parameter resolution in the IDE debugger.
-        buildTypes.getByName("debug").isTestCoverageEnabled =
-                !project.hasProperty("android.injected.invoked.from.ide") &&
-                !project.isBenchmark()
+        buildTypes.getByName("debug").isTestCoverageEnabled = false
+         //       !project.hasProperty("android.injected.invoked.from.ide") &&
+         //       !project.isBenchmark()
 
         // Set the officially published version to be the release version with minimum dependency
         // versions.
