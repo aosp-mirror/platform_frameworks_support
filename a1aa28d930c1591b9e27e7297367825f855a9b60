@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4793ebf2_92ef1ea3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T16:47:01Z",
+      "side": 1,
+      "message": "Oh hmm. My vote would be to open a bug so we remember later that we can save ~15 seconds by parallelizing this task and the createArchive task",
+      "parentUuid": "6f537fdb_63c721b2",
+      "revId": "a1aa28d930c1591b9e27e7297367825f855a9b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56f669ce_6255f818",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78146d44_15ff95de",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T16:47:01Z",
+      "side": 1,
+      "message": "Hmm technically the output of the \u0027snapshot\u0027 task is the same as the output of the createArchiveTask, just unpacked, and the use case that we have in mind is that unlike most other builds, this directory will be of interest to developers even when it is a SNAPSHOT version.\n\nCould we name the task something more like \"unpackArchive\" or \"publish\" or \"createMavenRepo\"? (It could make sense to me to include the word \"snapshot\" in a comment if we still want to have it somewhere)",
+      "range": {
+        "startLine": 237,
+        "startChar": 24,
+        "endLine": 237,
+        "endChar": 32
+      },
+      "revId": "e80d7f84ffdab235f15f314daaf06b7143293fd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "633a0bdf_ca99399d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildServerConfiguration.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-29T16:47:01Z",
+      "side": 1,
+      "message": "Oh cool. I guess that if we set this for the normal postsubmit builds and not for the release builds then it should be unambiguous.\n\nI guess that it would be slightly more correct to have the value default be true rather than false though so that developer builds are considered to be SNAPSHOT versions too, although that might be more surprising and therefore more annoying.",
+      "revId": "e80d7f84ffdab235f15f314daaf06b7143293fd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
