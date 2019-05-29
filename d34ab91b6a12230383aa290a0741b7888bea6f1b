@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "978f401d_ffb2bb67",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T16:54:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb2297ab_87b4bf4f",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 75
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8570fa79_1a893fc7",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
         "patchSetId": 1
@@ -234,6 +258,30 @@
       "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8436e5_4c3a8680",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T16:54:34Z",
+      "side": 1,
+      "message": "Hm, now I see that this is a private class -- it makes sense :) I saw kotlindocs above and thought it was a public class, which will ignore  some params sometimes. \n\nI think for a factory method that theoretically know nothing about implementation -- it\u0027s fine to have it.",
+      "parentUuid": "a230f507_8185cfa5",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -328,6 +376,30 @@
       "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666c95cf_bab1651b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-29T16:54:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "934dc16a_d97d8c17",
+      "range": {
+        "startLine": 35,
+        "startChar": 71,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
