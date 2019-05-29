@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "44077251_7c484a9c",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "I removed testGetMetadataFromMusicFile and modified testGetMetadata so that we check that MediaItem#setMetadata calls onCurrentMediaItemChanged and that the MediaMetadata inside MediaItem is correctly updated. WDYT?",
+      "parentUuid": "b63567f3_bde5ed24",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f0a2496_688a9e4f",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "writtenOn": "2019-05-28T08:11:56Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26014921_ee974bf6",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Removed. Please refer to comment above.",
+      "parentUuid": "0f0a2496_688a9e4f",
       "range": {
         "startLine": 278,
         "startChar": 4,
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "3cffbce3_ea6f5b30",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "In that case, would METADATA_KEY_MEDIA_URI be set by developers or internally? (e.g. MediaSession or MediaPlayer)",
+      "parentUuid": "6e01085f_d6cb484d",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f6d212_6b1b1f8b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 3
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "910709b7_b1f35bed",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done. Added default title as \"Unknown Media\"",
+      "parentUuid": "d3f6d212_6b1b1f8b",
+      "range": {
+        "startLine": 1325,
+        "startChar": 16,
+        "endLine": 1325,
+        "endChar": 29
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c520f371_be060479",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -201,6 +297,30 @@
       "writtenOn": "2019-05-28T08:11:56Z",
       "side": 1,
       "message": "minor) How about taking MediaMetadata?",
+      "range": {
+        "startLine": 714,
+        "startChar": 29,
+        "endLine": 714,
+        "endChar": 48
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2875ef7_5fead996",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "I think this is better for doing null check on MediaItem since SessionPlayer#getCurrentMediaItem is nullable. Not sure if it\u0027s better to not update music view when MediaItem/MediaMetadata is null though..",
+      "parentUuid": "c520f371_be060479",
       "range": {
         "startLine": 714,
         "startChar": 29,
@@ -236,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "914e0de6_e70024d0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88c1c5b7_ca144f98",
+      "range": {
+        "startLine": 735,
+        "startChar": 33,
+        "endLine": 735,
+        "endChar": 55
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c84e55_e4b68a80",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -256,6 +400,30 @@
       "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "159995e0_040d4a67",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done. Also changed the default background color to the color in the AOSP Media UX Study presentation slide 25.",
+      "parentUuid": "34c84e55_e4b68a80",
+      "range": {
+        "startLine": 742,
+        "startChar": 12,
+        "endLine": 742,
+        "endChar": 26
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -282,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "44b34b86_41bbc46b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad72ea6_0ceae175",
+      "range": {
+        "startLine": 756,
+        "startChar": 29,
+        "endLine": 756,
+        "endChar": 51
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d55ce0ae_bd5df4a0",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -305,6 +497,30 @@
     },
     {
       "key": {
+        "uuid": "fcb3535b_b8ac923e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d55ce0ae_bd5df4a0",
+      "range": {
+        "startLine": 757,
+        "startChar": 23,
+        "endLine": 764,
+        "endChar": 9
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0226917c_7c338c6b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -325,6 +541,30 @@
       "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "687e6da3_b64105c8",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-29T03:24:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0226917c_7c338c6b",
+      "range": {
+        "startLine": 916,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 21
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
