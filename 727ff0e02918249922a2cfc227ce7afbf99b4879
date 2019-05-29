@@ -52,6 +52,24 @@
       "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47e14d71_d9a41900",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-05-29T16:20:16Z",
+      "side": 1,
+      "message": "Agreed, seems a bit shaggy. Need to take a look at how this is being used.",
+      "parentUuid": "b3c528e8_094d76d4",
+      "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

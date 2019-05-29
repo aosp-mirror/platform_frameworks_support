@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49ea868f_bb3789e7",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-05-29T16:20:16Z",
+      "side": 1,
+      "message": "Maybe:\n\n/* @return true if there is an item at the event coordinates, and the item has a selection key.\n\nNote, I don\u0027t want to get too pedantic in the docs. Technically the item is *eligible* for selection, but may not be selectable at runtime because of other factors, like the lib is configured w/ SelectionPredicates#createSelectSingleAnything(), or configured w/ a custom SelectionPredicate with zany rules defined by developer :)\n\nUltimately I should audit the cases where this method is being used by developers to see how and why it is being used. I don\u0027t recall the use case.",
+      "revId": "8ccbf423345fbd63bdb9abea5971b0764c4eb223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
