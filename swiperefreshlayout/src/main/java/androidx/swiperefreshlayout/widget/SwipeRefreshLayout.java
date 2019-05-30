@@ -27,6 +27,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.DecelerateInterpolator;
@@ -225,6 +226,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
             setTargetOffsetTopAndBottom(mOriginalOffsetTop - mCurrentTargetOffsetTop);
         }
         mCurrentTargetOffsetTop = mCircleView.getTop();
+        stopDisallowingIntercept();
     }
 
     @Override
@@ -819,6 +821,22 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
         }
     }
 
+    private void startDisallowingIntercept() {
+        // While the spinner is being dragged down, our parent shouldn't try
+        // to intercept touch events. It will stop the drag gesture abruptly.
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
+    }
+
+    private void stopDisallowingIntercept() {
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(false);
+        }
+    }
+
     // NestedScrollingParent 3
 
     @Override
@@ -1102,6 +1120,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
 
     private void moveSpinner(float overscrollTop) {
         mProgress.setArrowEnabled(true);
+        startDisallowingIntercept();
         float originalDragPercent = overscrollTop / mTotalDragDistance;
 
         float dragPercent = Math.min(1f, Math.abs(originalDragPercent));
@@ -1153,6 +1172,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
     }
 
     private void finishSpinner(float overscrollTop) {
+        stopDisallowingIntercept();
         if (overscrollTop > mTotalDragDistance) {
             setRefreshing(true, true /* notify */);
         } else {
