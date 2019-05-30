@@ -17,9 +17,13 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.semantics.hidden
+import androidx.ui.semantics.testTag
+import androidx.ui.semantics.value
 import androidx.ui.test.helpers.FakeSemanticsTreeInteraction
 import org.junit.Test
 
+// TODO(i18n): Hardcoded strings
 class AssertsTests {
 
     @Test
@@ -28,7 +32,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isHidden = false
+                    it.hidden = false
                 })
         }
 
@@ -42,7 +46,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isHidden = true
+                    it.hidden = true
                 })
         }
 
@@ -56,7 +60,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isHidden = true
+                    it.hidden = true
                 })
         }
 
@@ -70,7 +74,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isHidden = false
+                    it.hidden = false
                 })
         }
 
@@ -84,7 +88,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isChecked = true
+                    it.value = "Checked"
                 })
         }
 
@@ -98,12 +102,12 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isChecked = false
+                    it.value = "Unchecked"
                 })
         }
 
         findByTag("test")
-            .assertIsHidden()
+            .assertIsChecked()
     }
 
     @Test(expected = AssertionError::class)
@@ -112,7 +116,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isSelected = false
+                    it.value = "Not selected"
                 })
         }
 
@@ -126,7 +130,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isSelected = true
+                    it.value = "Selected"
                 })
         }
 
@@ -140,7 +144,7 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isSelected = true
+                    it.value = "Selected"
                 })
         }
 
@@ -154,39 +158,11 @@ class AssertsTests {
             FakeSemanticsTreeInteraction(selector)
                 .withProperties(SemanticsConfiguration().also {
                     it.testTag = "test"
-                    it.isSelected = false
+                    it.value = "Not selected"
                 })
         }
 
         findByTag("test")
             .assertIsNotSelected()
-    }
-
-    @Test(expected = AssertionError::class)
-    fun assertItemInExclusiveGroup_forItemNotInGroup_throwsError() {
-        semanticsTreeInteractionFactory = { selector ->
-            FakeSemanticsTreeInteraction(selector)
-                .withProperties(SemanticsConfiguration().also {
-                    it.testTag = "test"
-                    it.isInMutuallyExclusiveGroup = false
-                })
-        }
-
-        findByTag("test")
-            .assertIsInMutuallyExclusiveGroup()
-    }
-
-    @Test
-    fun assertItemInExclusiveGroup_forItemInGroup_isOk() {
-        semanticsTreeInteractionFactory = { selector ->
-            FakeSemanticsTreeInteraction(selector)
-                .withProperties(SemanticsConfiguration().also {
-                    it.testTag = "test"
-                    it.isInMutuallyExclusiveGroup = true
-                })
-        }
-
-        findByTag("test")
-            .assertIsInMutuallyExclusiveGroup()
     }
 }

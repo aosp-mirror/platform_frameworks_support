@@ -16,6 +16,7 @@
 
 package androidx.ui.test
 
+import androidx.ui.semantics.testTag
 // TODO(b/133217292)
 fun SemanticsNodeInteraction.dumpSemantics(consumer: (String) -> Unit) {
     val builder = StringBuilder()
