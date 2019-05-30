@@ -165,6 +165,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45b82a0_0eb1caf8",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T19:17:44Z",
+      "side": 1,
+      "message": "The issue I am referring to can be reproduced easily. Consider \nDraw { canvas, paint, parentSize -\u003e\n  paint.color \u003d Color.Red\n  canvas.drawRect(parentSize.toRect(), paint)\n  paint.color \u003d Color.Blue\n  paint.style \u003d PaintingStyle.stroke\n  canvas.drawRect(parentSize.toRect(), paint)\n}\nThis will be drawn correctly for the first time but when reused style will not be reset to default PaintingStyle.fill so no filled rect drawn. It feels too fragile to ask developers to always remember this and truly understand what is going on. especially there is a possibility that this would never be recomposed during the testing of the widget so the issue would be discovered only at some point later.\nThe same with some conditional logic\nDraw { canvas, paint, parentSize -\u003e\n  if (someBoolean) {\n    paint.style \u003d PaintingStyle.stroke\n  }\n  canvas.drawRect(parentSize.toRect(), paint)\n}",
+      "parentUuid": "e7e42335_92dd0415",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
