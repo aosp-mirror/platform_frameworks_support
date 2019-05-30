@@ -183,6 +183,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69ede57_02bd3d19",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-30T19:54:15Z",
+      "side": 1,
+      "message": "yeah, sorry - i wasn\u0027t clear. this is definitely an issue in this case, but seemed like a place where it\u0027s a fairly reasonable contract to follow. if this type of thing was happening across nodes, it would be a nightmare though.",
+      "parentUuid": "a45b82a0_0eb1caf8",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
