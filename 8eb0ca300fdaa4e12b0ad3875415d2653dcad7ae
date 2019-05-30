@@ -16,6 +16,24 @@
       "revId": "8eb0ca300fdaa4e12b0ad3875415d2653dcad7ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f61ec880_b0875507",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-30T17:13:26Z",
+      "side": 1,
+      "message": "Yes. The nasty part was all the Project.property(\"ext\") uses where we blindly cast things. Eventually i want to move to proper static methods for all of it.",
+      "parentUuid": "af2fb498_fff2077f",
+      "revId": "8eb0ca300fdaa4e12b0ad3875415d2653dcad7ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
