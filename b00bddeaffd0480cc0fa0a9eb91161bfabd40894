@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "c7b0ad86_c36ec87d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T12:09:29Z",
+      "side": 1,
+      "message": "to not have boolean flag here we can:\n1) create something like BaseRipple with all params, create Ripple and BoundedRipple with only the necessary params and they use BaseRipple. but we still have two options how to do it as you still can just use BaseRipple as it is public\n2) Well, maybe remove BoundedRipple at all. Maybe the usage Ripple(bounded \u003d true) doesn\u0027t look so bad?",
+      "parentUuid": "ba7101e7_269b98f2",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e75735f4_0bce6864",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/RippleEffectFactory.kt",
         "patchSetId": 4
