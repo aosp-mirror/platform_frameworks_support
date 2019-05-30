@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "557eda3a_7a808f0d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "627998c6_21150a0f",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 85
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "195b9c69_08ead8e3",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6dd892a4_ac601054",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "195b9c69_08ead8e3",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d38212f4_dd2da3fa",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1983a1d3_4c0cd3df",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d38212f4_dd2da3fa",
+      "range": {
+        "startLine": 50,
+        "startChar": 71,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e3ded483_84b8e7df",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:16:43Z",
+      "side": 1,
+      "message": "the good thing about point 2 is we always can introduce one more BoundedRipple composable if we decide we need it, so I also vote for this.\nalso I am really struggling to figure out which option will be more common so I decided to make bounded the required parameter for now without defaults",
+      "parentUuid": "98acb6d0_e2514981",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e75735f4_0bce6864",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/RippleEffectFactory.kt",
         "patchSetId": 4
@@ -162,6 +258,30 @@
       "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d9af599_cca7c45d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/RippleEffectFactory.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:16:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e75735f4_0bce6864",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 69
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
