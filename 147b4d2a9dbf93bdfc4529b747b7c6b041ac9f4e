@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e79d4f2_259d23b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-30T23:37:33Z",
+      "side": 1,
+      "message": "extra o",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 11
+      },
+      "revId": "147b4d2a9dbf93bdfc4529b747b7c6b041ac9f4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ff8c7b_bec18ecc",
+        "filename": "navigation/common/src/main/java/androidx/navigation/FloatingWindow.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-30T23:37:33Z",
+      "side": 1,
+      "message": "This Javadoc should be reworked to highlight what type of class should implement this interface (NavDestination subclasses) and what behavior it affects (allows OnDestinationChangedListener instances to customize their behavior based on whether the destination is a FloatingWindow).",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "147b4d2a9dbf93bdfc4529b747b7c6b041ac9f4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48c2642_f2779522",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/AbstractAppBarOnDestinationChangedListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-30T23:37:33Z",
+      "side": 1,
+      "message": "You don\u0027t want to call removeOnDestinationChangedListener() when encountering a FloatingWindow. Just return.",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 49
+      },
+      "revId": "147b4d2a9dbf93bdfc4529b747b7c6b041ac9f4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
