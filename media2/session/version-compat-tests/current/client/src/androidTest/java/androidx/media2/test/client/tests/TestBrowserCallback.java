@@ -27,6 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaBrowser;
 import androidx.media2.session.MediaBrowser.BrowserCallback;
@@ -181,6 +183,28 @@ public class TestBrowserCallback extends BrowserCallback
     public void onVideoSizeChanged(@NonNull MediaController controller, @NonNull MediaItem item,
             @NonNull VideoSize videoSize) {
         mCallbackProxy.onVideoSizeChanged(controller, item, videoSize);
+    }
+
+    @Override
+    public void onTrackInfoChanged(MediaController controller,
+            List<SessionPlayer.TrackInfo> trackInfos) {
+        mCallbackProxy.onTrackInfoChanged(controller, trackInfos);
+    }
+
+    @Override
+    public void onTrackSelected(MediaController controller, SessionPlayer.TrackInfo trackInfo) {
+        mCallbackProxy.onTrackSelected(controller, trackInfo);
+    }
+
+    @Override
+    public void onTrackDeselected(MediaController controller, SessionPlayer.TrackInfo trackInfo) {
+        mCallbackProxy.onTrackDeselected(controller, trackInfo);
+    }
+
+    @Override
+    public void onSubtitleData(@NonNull MediaController controller, @NonNull MediaItem item,
+            @NonNull SessionPlayer.TrackInfo track, @NonNull SubtitleData data) {
+        mCallbackProxy.onSubtitleData(controller, item, track, data);
     }
 
     @Override
