@@ -46,6 +46,30 @@
       "revId": "a07f615a6b380b03744664c6d0365d5cd9ec4531",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce8057ac_83cdd755",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-30T23:46:50Z",
+      "side": 1,
+      "message": "Gotcha - thanks!",
+      "parentUuid": "f96720dc_962f5367",
+      "range": {
+        "startLine": 391,
+        "startChar": 28,
+        "endLine": 391,
+        "endChar": 37
+      },
+      "revId": "a07f615a6b380b03744664c6d0365d5cd9ec4531",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
