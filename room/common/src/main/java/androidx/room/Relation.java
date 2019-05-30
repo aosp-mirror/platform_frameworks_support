@@ -27,24 +27,24 @@ import java.lang.annotation.Target;
  *
  * <pre>
  * {@literal @}Entity
- * public class Pet {
+ * public class Song {
  *     {@literal @} PrimaryKey
  *     int id;
- *     int userId;
+ *     int albumId;
  *     String name;
  *     // other fields
  * }
- * public class UserNameAndAllPets {
- *   public int id;
- *   public String name;
- *   {@literal @}Relation(parentColumn = "id", entityColumn = "userId")
- *   public List&lt;Pet&gt; pets;
+ * public class AlbumNameAndAllSongs {
+ *     int id;
+ *     String name;
+ *     {@literal @}Relation(parentColumn = "id", entityColumn = "albumId")
+ *     List&lt;Song&gt; songs;
  * }
  *
  * {@literal @}Dao
- * public interface UserPetDao {
- *     {@literal @}Query("SELECT id, name from User")
- *     public List&lt;UserNameAndAllPets&gt; loadUserAndPets();
+ * public interface MusicDao {
+ *     {@literal @}Query("SELECT id, name from Album")
+ *     List&lt;AlbumNameAndAllSongs&gt; loadAlbumAndSongs();
  * }
  * </pre>
  * <p>
@@ -53,51 +53,57 @@ import java.lang.annotation.Target;
  * If you would like to return a different object, you can specify the {@link #entity()} property
  * in the annotation.
  * <pre>
- * public class User {
+ * public class Album {
  *     int id;
  *     // other fields
  * }
- * public class PetNameAndId {
+ * public class SongNameAndId {
  *     int id;
  *     String name;
  * }
- * public class UserAllPets {
- *   {@literal @}Embedded
- *   public User user;
- *   {@literal @}Relation(parentColumn = "id", entityColumn = "userId", entity = Pet.class)
- *   public List&lt;PetNameAndId&gt; pets;
+ * public class AlbumAllSongs {
+ *     {@literal @}Embedded
+ *     Album album;
+ *     {@literal @}Relation(parentColumn = "id", entityColumn = "albumId", entity = Song.class)
+ *     List&lt;SongNameAndId&gt; songs;
  * }
  * {@literal @}Dao
- * public interface UserPetDao {
- *     {@literal @}Query("SELECT * from User")
- *     public List&lt;UserAllPets&gt; loadUserAndPets();
+ * public interface MusicDao {
+ *     {@literal @}Query("SELECT * from Album")
+ *     List&lt;AlbumAllSongs&gt; loadAlbumAndSongs();
  * }
  * </pre>
  * <p>
- * In the example above, {@code PetNameAndId} is a regular Pojo but all of fields are fetched
- * from the {@code entity} defined in the {@code @Relation} annotation (<i>Pet</i>).
- * {@code PetNameAndId} could also define its own relations all of which would also be fetched
+ * In the example above, {@code SongNameAndId} is a regular Pojo but all of fields are fetched
+ * from the {@code entity} defined in the {@code @Relation} annotation (<i>Song</i>).
+ * {@code SongNameAndId} could also define its own relations all of which would also be fetched
  * automatically.
  * <p>
  * If you would like to specify which columns are fetched from the child {@link Entity}, you can
  * use {@link #projection()} property in the {@code Relation} annotation.
  * <pre>
- * public class UserAndAllPets {
- *   {@literal @}Embedded
- *   public User user;
- *   {@literal @}Relation(parentColumn = "id", entityColumn = "userId", entity = Pet.class,
- *           projection = {"name"})
- *   public List&lt;String&gt; petNames;
+ * public class AlbumAndAllSongs {
+ *     {@literal @}Embedded
+ *     Album album;
+ *     {@literal @}Relation(
+ *             parentColumn = "id",
+ *             entityColumn = "albumId",
+ *             entity = Song.class,
+ *             projection = {"name"})
+ *     List&lt;String&gt; songNames;
  * }
  * </pre>
+ * <p>
+ * If the relationship is defined in a associative table (also know as join table, junction table or
+ * cross-reference table) then you can use {@link #joinEntity()} to specify it. This is useful for
+ * fetching many-to-many relations.
  * <p>
  * Note that {@code @Relation} annotation can be used only in Pojo classes, an {@link Entity} class
  * cannot have relations. This is a design decision to avoid common pitfalls in {@link Entity}
  * setups. You can read more about it in the main Room documentation. When loading data, you can
  * simply work around this limitation by creating Pojo classes that extend the {@link Entity}.
- * <p>
- * Note that the {@code @Relation} annotated field cannot be a constructor parameter, it must be
- * public or have a public setter.
+ *
+ * @see JoinEntity
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)
@@ -116,20 +122,36 @@ public @interface Relation {
      * If you would like to access to a sub item of a {@link Embedded}d field, you can use
      * the {@code .} notation.
      * <p>
-     * For instance, if you have a {@link Embedded}d field named {@code user} with a sub field
-     * {@code id}, you can reference it via {@code user.id}.
+     * For instance, if you have a {@link Embedded}d field named {@code playlist} with a sub field
+     * {@code id}, you can reference it via {@code playlist.id}.
      * <p>
-     * This value will be matched against the value defined in {@link #entityColumn()}.
+     * In a one-to-one or one-to-many relation this value will be matched against the value defined
+     * in {@link #entityColumn()}. In a many-to-many using a {@link #joinEntity()} then
+     * this value will be matched against {@link JoinEntity#parentColumn()}
      *
      * @return The field reference in the parent object.
      */
     String parentColumn();
 
     /**
-     * The field path to match in the {@link #entity()}. This value will be matched against the
-     * value defined in {@link #parentColumn()}.
+     * The field path to match in the {@link #entity()}.
+     * <p>
+     * In a one-to-one or one-to-many relation this value will be matched against the value defined
+     * in {@link #parentColumn()} ()}. In a many-to-many using a {@link #joinEntity()} then
+     * this value will be matched against {@link JoinEntity#entityColumn()}
      */
     String entityColumn();
+
+    /**
+     * The entity or view to be used as a join table (also know as associative table,
+     * cross-reference table or junction table) when fetching the relating entities.
+     *
+     * @return The entity to be used as a join table. By default, no join entity is specified and
+     *         none will be used.
+     *
+     * @see JoinEntity
+     */
+    JoinEntity joinEntity() default @JoinEntity(Object.class);
 
     /**
      * If sub fields should be fetched from the entity, you can specify them using this field.
