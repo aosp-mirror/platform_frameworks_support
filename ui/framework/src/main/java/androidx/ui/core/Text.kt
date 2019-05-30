@@ -39,6 +39,7 @@ import androidx.compose.unaryPlus
 import androidx.ui.core.selection.SelectionRegistrarAmbient
 import androidx.ui.core.selection.TextSelectionHandlerImpl
 import androidx.ui.painting.TextPainter
+import androidx.ui.semantics.label
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -170,7 +171,9 @@ internal fun Text(
     val styledText = TextSpan(style = mergedStyle, children = mutableListOf(text))
 
     Semantics(
-        label = styledText.toPlainText()
+        properties = {
+            label = styledText.toPlainText()
+        }
     ) {
         val textPainter = TextPainter(
             text = styledText,

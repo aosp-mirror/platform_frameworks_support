@@ -18,11 +18,14 @@ package androidx.ui.baseui
 
 import androidx.ui.core.Semantics
 import androidx.ui.core.gesture.PressReleasedGestureDetector
-import androidx.ui.core.semantics.SemanticsAction
-import androidx.ui.core.semantics.SemanticsActionType
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.ReplaceSemantics
+import androidx.ui.semantics.SemanticsAction
+import androidx.ui.semantics.enabled
+import androidx.ui.semantics.onClick
+import androidx.ui.semantics.testTag
 
 /**
  * Combines [PressReleasedGestureDetector] and [Semantics] for the clickable
@@ -41,13 +44,18 @@ fun Clickable(
     @Children children: @Composable() () -> Unit
 ) {
     Semantics(
-        button = true,
-        enabled = (onClick != null),
-        actions = if (onClick != null) {
-            // TODO(ryanmentley): The unnecessary generic type specification works around an IR bug
-            listOf<SemanticsAction<*>>(SemanticsAction(SemanticsActionType.Tap, onClick))
-        } else {
-            emptyList<SemanticsAction<*>>()
+        properties = {
+            enabled = (onClick != null)
+            if (onClick != null) {
+                // Downside...high probability of name shadowing, but easy workaround
+//                this.onClick = onClick
+//                this.onClick = SemanticsAction(label = "foo", action = onClick)
+                onClick(action = onClick)
+                 onClick(onClick) // Can't do this
+                onClick(label = "Foo", action = onClick)
+                onClick { println() }
+//                onClick { onClick } // Wrong, but generates a compiler warning
+            }
         }
     ) {
         PressReleasedGestureDetector(
@@ -58,3 +66,18 @@ fun Clickable(
         }
     }
 }
+
+//@Composable
+//fun TestTag(tag: String, @Children children: @Composable() () -> Unit) {
+//    ReplaceSemantics(properties = {
+//        testTag = tag
+//    }) {
+//        children()
+//    }
+//
+//    ReplaceSemantics(properties = {
+//        onClick = { /* some action code */ }
+//    }) {
+//        ComponentThatNeedsItsOnClickReplaced()
+//    }
+//}
