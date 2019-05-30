@@ -70,6 +70,16 @@ class AndroidXPlugin : Plugin<Project> {
         // TODO do not use evaluationDependsOn in DiffAndDocs to break this cycle!
         project.configureExternalDependencyLicenseCheck()
 
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
+=======
+        val androidXExtension =
+            project.extensions.create("androidx", AndroidXExtension::class.java, project)
+
+        // This has to be first due to bad behavior by DiffAndDocs. It fails if this configuration
+        // is called after DiffAndDocs.configureDiffAndDocs. b/129762955
+        project.configureMavenArtifactUpload(androidXExtension)
+
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
         if (project.isRoot) {
             project.configureRootProject()
         }
@@ -199,6 +209,7 @@ class AndroidXPlugin : Plugin<Project> {
             evaluationDependsOnChildren()
             subprojects { project ->
                 project.configurations.all { configuration ->
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
                     // Substitute only for debug configurations/tasks only because we can not
                     // change release dependencies after evaluation. Test hooks, buildOnServer
                     // and buildTestApks use the debug configurations as well.
@@ -207,6 +218,21 @@ class AndroidXPlugin : Plugin<Project> {
                         configuration.resolutionStrategy.dependencySubstitution.apply {
                             for (e in projectModules) {
                                 substitute(module(e.key)).with(project(e.value))
+=======
+                    project.afterEvaluate {
+                        val androidXExtension =
+                            project.extensions.getByType(AndroidXExtension::class.java)
+                        // Substitute only for debug configurations/tasks only because we can not
+                        // change release dependencies after evaluation. Test hooks, buildOnServer
+                        // and buildTestApks use the debug configurations as well.
+                        if (androidXExtension.publish.shouldRelease() &&
+                            configuration.name.toLowerCase().contains("debug")
+                        ) {
+                            configuration.resolutionStrategy.dependencySubstitution.apply {
+                                for (e in projectModules) {
+                                    substitute(module(e.key)).with(project(e.value))
+                                }
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
                             }
                         }
                     }
@@ -318,6 +344,42 @@ class AndroidXPlugin : Plugin<Project> {
                 VerifyDependencyVersionsTask::class.java)
     }
 
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
+=======
+    // Task that creates a json file of a project's dependencies
+    private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
+        afterEvaluate {
+            if (extension.publish.shouldRelease()) {
+                // Only generate build info files for published libraries.
+                val task = project.tasks.register(
+                    "createLibraryBuildInfoFile",
+                    CreateLibraryBuildInfoFileTask::class.java
+                )
+                project.rootProject.tasks.getByName(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
+                    .dependsOn(task)
+            }
+        }
+    }
+
+    private fun Project.configureJacoco() {
+        project.apply(plugin = "jacoco")
+        project.configure<JacocoPluginExtension> {
+            toolVersion = Jacoco.VERSION
+        }
+
+        project.tasks.withType(JacocoReport::class.java).configureEach { task ->
+            task.reports {
+                it.xml.isEnabled = true
+                it.html.isEnabled = false
+                it.csv.isEnabled = false
+
+                it.xml.destination = File(getHostTestCoverageDirectory(),
+                    "${project.path.replace(':', '-').substring(1)}.xml")
+            }
+        }
+    }
+
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
@@ -331,6 +393,7 @@ fun Project.isBenchmark(): Boolean {
     return name.endsWith("-benchmark")
 }
 
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
 fun Project.addToProjectMap(group: String?) {
     if (group != null) {
         val module = "$group:${project.name}"
@@ -338,6 +401,31 @@ fun Project.addToProjectMap(group: String?) {
         var projectModules = project.rootProject.extra.get("projects")
                 as ConcurrentHashMap<String, String>
         projectModules.put(module, projectName)
+=======
+fun Project.hideJavadocTask() {
+    // Most tasks named "javadoc" are unused
+    // So, few tasks named "javadoc" are interesting to developers
+    // So, we don't want "javadoc" to appear in the output of `./gradlew tasks`
+    // So, we set the group to null for any task named "javadoc"
+    project.tasks.all { task ->
+        if (task.name == "javadoc") {
+            task.group = null
+        }
+    }
+}
+
+fun Project.addToProjectMap(extension: AndroidXExtension) {
+    afterEvaluate {
+        if (extension.publish.shouldRelease()) {
+            val group = extension.mavenGroup?.group
+            if (group != null) {
+                val module = "$group:${project.name}"
+                @Suppress("UNCHECKED_CAST")
+                val projectModules = getProjectsMap()
+                projectModules[module] = project.path
+            }
+        }
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
     }
 }
 

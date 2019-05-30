@@ -34,5 +34,4 @@ uploadArchives.enabled = false
 
 supportLibrary {
     name = "Dummy Project for test runner"
-    publish = false
 }

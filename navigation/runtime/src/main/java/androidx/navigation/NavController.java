@@ -62,6 +62,8 @@ public class NavController {
     static final String KEY_DEEP_LINK_IDS = "android-support-nav:controller:deepLinkIds";
     static final String KEY_DEEP_LINK_EXTRAS =
             "android-support-nav:controller:deepLinkExtras";
+    static final String KEY_DEEP_LINK_HANDLED =
+            "android-support-nav:controller:deepLinkHandled";
     /**
      * The {@link Intent} that triggered a deep link to the current destination.
      */
@@ -76,6 +78,7 @@ public class NavController {
     private Bundle mNavigatorStateToRestore;
     private int[] mBackStackIdsToRestore;
     private Parcelable[] mBackStackArgsToRestore;
+    private boolean mDeepLinkHandled;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Deque<NavBackStackEntry> mBackStack = new ArrayDeque<>();
@@ -500,7 +503,8 @@ public class NavController {
             mBackStackArgsToRestore = null;
         }
         if (mGraph != null && mBackStack.isEmpty()) {
-            boolean deepLinked = mActivity != null && handleDeepLink(mActivity.getIntent());
+            boolean deepLinked = !mDeepLinkHandled && mActivity != null
+                    && handleDeepLink(mActivity.getIntent());
             if (!deepLinked) {
                 // Navigate to the first destination in the graph
                 // if we haven't deep linked to a destination
@@ -616,6 +620,7 @@ public class NavController {
                         .setEnterAnim(0).setExitAnim(0).build(), null);
             }
         }
+        mDeepLinkHandled = true;
         return true;
     }
 
@@ -923,6 +928,12 @@ public class NavController {
             b.putIntArray(KEY_BACK_STACK_IDS, backStackIds);
             b.putParcelableArray(KEY_BACK_STACK_ARGS, backStackArgs);
         }
+        if (mDeepLinkHandled) {
+            if (b == null) {
+                b = new Bundle();
+            }
+            b.putBoolean(KEY_DEEP_LINK_HANDLED, mDeepLinkHandled);
+        }
         return b;
     }
 
@@ -946,5 +957,6 @@ public class NavController {
         mNavigatorStateToRestore = navState.getBundle(KEY_NAVIGATOR_STATE);
         mBackStackIdsToRestore = navState.getIntArray(KEY_BACK_STACK_IDS);
         mBackStackArgsToRestore = navState.getParcelableArray(KEY_BACK_STACK_ARGS);
+        mDeepLinkHandled = navState.getBoolean(KEY_DEEP_LINK_HANDLED);
     }
 }

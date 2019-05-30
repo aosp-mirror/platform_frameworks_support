@@ -20,13 +20,14 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 import androidx.build.SupportLibraryExtension
 import androidx.build.SupportConfig
+import androidx.build.Publish
 
 apply plugin: androidx.build.SupportKotlinLibraryPlugin
 apply plugin: 'java-gradle-plugin'
 
 ext.generatedResources = "$buildDir/generated/resources"
-ext.prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../prebuilts"
-ext.debugKeystore = "${project.projectDir.getParentFile()}/../development/keystore/debug.keystore"
+ext.prebuiltsRoot = SupportConfig.getPrebuiltsRootPath(project)
+ext.debugKeystore = SupportConfig.getKeystore(project)
 
 sourceSets {
     test.java.srcDirs += 'src/tests/kotlin'
@@ -88,7 +89,7 @@ gradlePlugin {
 
 supportLibrary {
     name = "Android Navigation TypeSafe Arguments Gradle Plugin"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     toolingProject = true
     mavenVersion = LibraryVersions.NAVIGATION
     mavenGroup = LibraryGroups.NAVIGATION

@@ -53,4 +53,28 @@ fun Project.getHostTestResultDirectory(): File =
 private fun getRootDirectory(project: Project): File {
     val actualRootProject = if (project.isRoot) project else project.rootProject
     return actualRootProject.extensions.extraProperties.get("supportRootFolder") as File
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
 }
+=======
+}
+
+/**
+ * Whether the build should force all versions to be snapshots.
+ */
+fun isSnapshotBuild() = System.getenv("SNAPSHOT") != null
+
+/**
+ * Directory in a maven format to put all the publishing libraries.
+ */
+fun Project.getRepositoryDirectory(): File {
+    val actualRootProject = if (project.isRoot) project else project.rootProject
+    val directory = if (isSnapshotBuild()) {
+        // For snapshot builds we put artifacts directly where downstream users can find them.
+        File(actualRootProject.getDistributionDirectory(), "repository")
+    } else {
+        File(actualRootProject.buildDir, "support_repo")
+    }
+    directory.mkdirs()
+    return directory
+}
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)

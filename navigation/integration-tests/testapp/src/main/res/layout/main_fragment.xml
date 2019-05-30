@@ -26,7 +26,20 @@
         android:id="@+id/next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
         android:text="Navigate next"
         android:transitionName="next"
         tools:ignore="UnusedAttribute"/>
+=======
+        android:text="Navigate next"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/learn_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/learn_more"/>
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
 </LinearLayout>

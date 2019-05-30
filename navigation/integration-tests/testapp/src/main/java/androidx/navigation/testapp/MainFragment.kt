@@ -23,7 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
 
+=======
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 
@@ -46,6 +51,7 @@ class MainFragment : Fragment() {
         tv.text = arguments?.getString("myarg")
 
         val b = view.findViewById<Button>(R.id.next_button)
+        ViewCompat.setTransitionName(b, "next")
         b.setOnClickListener {
             findNavController().navigate(R.id.next, null, null,
                     FragmentNavigatorExtras(b to "next"))

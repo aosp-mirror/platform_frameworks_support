@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
 import androidx.webkit.internal.AssetHelper;
 
 import java.io.InputStream;
@@ -38,6 +39,7 @@ import java.net.URLConnection;
  * Hosting assets and resources on http(s):// URLs is desirable as it is compatible with the
  * Same-Origin policy.
  *
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
  * This class is intended to be used from within the
  * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView,
  * android.webkit.WebResourceRequest)}
@@ -46,6 +48,30 @@ import java.net.URLConnection;
  *     WebViewAssetLoader assetLoader = new WebViewAssetLoader(this);
  *     // For security WebViewAssetLoader uses a unique subdomain by default.
  *     assetLoader.hostAssets();
+=======
+ * <p>
+ * For more context about application's assets and resources and how to normally access them please
+ * refer to <a href="https://developer.android.com/guide/topics/resources/providing-resources">
+ * Android Developer Docs: App resources overview</a>.
+ *
+ * <p class='note'>
+ * This class is expected to be used within
+ * {@link android.webkit.WebViewClient#shouldInterceptRequest}, which is not invoked on the
+ * application's main thread. Although instances are themselves thread-safe (and may be safely
+ * constructed on the application's main thread), exercise caution when accessing private data or
+ * the view system.
+ *
+ * <p>
+ * Using http(s):// URLs to access local resources may conflict with a real website. This means
+ * that local resources should only be hosted on domains your organization owns (at paths reserved
+ * for this purpose) or the default domain reserved for this: {@code appassets.androidplatform.net}.
+ *
+ * <p>
+ * A typical usage would be like:
+ * <pre class="prettyprint">
+ *     WebViewAssetLoader.Builder assetLoaderBuilder = new WebViewAssetLoader.Builder(this);
+ *     final WebViewAssetLoader assetLoader = assetLoaderBuilder.build();
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
  *     webView.setWebViewClient(new WebViewClient() {
  *         @Override
  *         public WebResourceResponse shouldInterceptRequest(WebView view,
@@ -64,11 +90,16 @@ import java.net.URLConnection;
  *
  * @hide
  */
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class WebViewAssetLoader {
+=======
+public final class WebViewAssetLoader {
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
     private static final String TAG = "WebViewAssetLoader";
 
     /**
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
      * Using http(s):// URL to access local resources may conflict with a real website. This means
      * that local resources should only be hosted on domains that the user has control of or which
      * have been dedicated for this purpose.
@@ -78,6 +109,11 @@ public class WebViewAssetLoader {
      * used by default unless the user specified a different domain.
      *
      * A subdomain "appassets" will be used to even make sure no such collisons would happen.
+=======
+     * An unused domain reserved for Android applications to intercept requests for app assets.
+     * <p>
+     * It'll be used by default unless the user specified a different domain.
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
      */
     public static final String KNOWN_UNUSED_AUTHORITY = "appassets.androidplatform.net";
 
@@ -224,8 +260,49 @@ public class WebViewAssetLoader {
      * @return a response if the request URL had a matching registered url, null otherwise.
      */
     @RequiresApi(21)
+    @WorkerThread
     @Nullable
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
     public WebResourceResponse shouldInterceptRequest(WebResourceRequest request) {
+=======
+    public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request) {
+        return shouldInterceptRequestImpl(request.getUrl());
+    }
+
+    /**
+     * Attempt to resolve the {@code url} to an application resource or asset, and return
+     * a {@link WebResourceResponse} for the content.
+     * <p>
+     * The prefix path used shouldn't be a prefix of a real web path. Thus, in case of having a URL
+     * that matches a registered prefix path but the requested asset cannot be found or opened a
+     * {@link WebResourceResponse} object with a {@code null} {@link InputStream} will be returned
+     * instead of {@code null}. This saves the time of falling back to network and trying to
+     * resolve a path that doesn't exist. A {@link WebResourceResponse} with {@code null}
+     * {@link InputStream} will be received as an HTTP response with status code {@code 404} and
+     * no body.
+     * <p>
+     * This method should be invoked from within
+     * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView, String)}.
+     *
+     * @param url the URL string to process.
+     * @return {@link WebResourceResponse} if the request URL matches a registered URL,
+     *         {@code null} otherwise.
+     */
+    @WorkerThread
+    @Nullable
+    public WebResourceResponse shouldInterceptRequest(@NonNull String url) {
+        PathHandler handler = null;
+        Uri uri = parseAndVerifyUrl(url);
+        if (uri == null) {
+            return null;
+        }
+        return shouldInterceptRequestImpl(uri);
+    }
+
+    @WorkerThread
+    @Nullable
+    private WebResourceResponse shouldInterceptRequestImpl(@NonNull Uri url) {
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
         PathHandler handler;
 
         if (mAssetsHandler != null && mAssetsHandler.match(request.getUrl())) {

@@ -190,11 +190,16 @@ object Release {
     /**
      * Registers the project to be included in its group's zip file as well as the global zip files.
      */
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
     fun register(project: Project, extension: SupportLibraryExtension) {
         if (!extension.publish) {
+=======
+    fun register(project: Project, extension: AndroidXExtension) {
+        if (!extension.publish.shouldRelease()) {
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
             throw IllegalArgumentException(
                     "Cannot register ${project.path} into the release" +
-                            " because publish is false!"
+                            " because publish is not Publish.SNAPSHOT_AND_RELEASE!"
             )
         }
         val mavenGroup = extension.mavenGroup ?: throw IllegalArgumentException(
@@ -233,7 +238,7 @@ object Release {
         val params = configActionParams ?: GMavenZipTask.ConfigAction.Params(
                 mavenGroup = "",
                 includeMetadata = false,
-                supportRepoOut = project.property("supportRepoOut") as File,
+                supportRepoOut = project.getRepositoryDirectory(),
                 gMavenVersionChecker =
                 project.property("versionChecker") as GMavenVersionChecker,
                 distDir = projectDist,

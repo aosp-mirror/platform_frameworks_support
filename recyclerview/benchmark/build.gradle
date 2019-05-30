@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 import static androidx.build.dependencies.DependenciesKt.*
-import androidx.build.LibraryGroups
-import androidx.build.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
@@ -33,6 +31,7 @@ dependencies {
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(KOTLIN_STDLIB)
 }
+<<<<<<< HEAD   (45b71a Merge "Merge empty history for sparse-5611686-L1840000032132)
 
 supportLibrary {
     name = "RecyclerView Benchmarks"
@@ -42,3 +41,5 @@ supportLibrary {
     inceptionYear = "2018"
     description = "RecyclerView Benchmarks"
 }
+=======
+>>>>>>> BRANCH (2c8b21 Merge "Merge cherrypicks of [973155, 973156] into sparse-561)
