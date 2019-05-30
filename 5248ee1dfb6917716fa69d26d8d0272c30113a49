@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbc85033_ba9d9ff8",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-30T10:17:41Z",
+      "side": 1,
+      "message": "Oops. reverted.",
+      "parentUuid": "28cac43f_576cdf3e",
+      "range": {
+        "startLine": 258,
+        "startChar": 35,
+        "endLine": 258,
+        "endChar": 46
+      },
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a054e30_d42eb661",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-30T03:30:25Z",
       "side": 1,
       "message": "Q) do you have a reference?",
+      "range": {
+        "startLine": 306,
+        "startChar": 11,
+        "endLine": 306,
+        "endChar": 84
+      },
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4d1a39f_cac30e31",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-30T10:17:41Z",
+      "side": 1,
+      "message": "Well, I don\u0027t. I jsut ran the test without setting a Surface and it was failed. Should I check native MediaPlayer implementation?",
+      "parentUuid": "2a054e30_d42eb661",
       "range": {
         "startLine": 306,
         "startChar": 11,
@@ -62,6 +110,24 @@
       "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65cebffa_4888a6f9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-30T10:17:41Z",
+      "side": 1,
+      "message": "Other methods call updateReplayButton as well.",
+      "parentUuid": "baa6d552_ab398cb7",
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
