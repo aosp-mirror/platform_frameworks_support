@@ -29,6 +29,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.FloatingWindow;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 
@@ -75,7 +76,8 @@ abstract class AbstractAppBarOnDestinationChangedListener
         DrawerLayout drawerLayout = mDrawerLayoutWeakReference != null
                 ? mDrawerLayoutWeakReference.get()
                 : null;
-        if (mDrawerLayoutWeakReference != null && drawerLayout == null) {
+        if (destination instanceof FloatingWindow
+                || (mDrawerLayoutWeakReference != null) && (drawerLayout == null)) {
             controller.removeOnDestinationChangedListener(this);
             return;
         }
