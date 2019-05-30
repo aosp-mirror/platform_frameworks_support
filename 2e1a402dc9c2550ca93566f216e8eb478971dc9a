@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c13de1e2_15d20f16",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T13:19:51Z",
+      "side": 1,
+      "message": "If true, ripples are clipped by the bounds of the target layout.\nUnbounded ripples always animate from the center position, bounded ripples animate from the touch position.",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "2e1a402dc9c2550ca93566f216e8eb478971dc9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4932bd4_04a6612c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T13:19:51Z",
+      "side": 1,
+      "message": "nit: think of adding a usage example here",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 3
+      },
+      "revId": "2e1a402dc9c2550ca93566f216e8eb478971dc9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
