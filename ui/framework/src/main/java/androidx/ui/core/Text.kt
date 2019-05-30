@@ -41,6 +41,7 @@ import androidx.ui.painting.TextSpan
 import androidx.ui.painting.TextStyle
 import androidx.ui.painting.toAnnotatedString
 import androidx.ui.rendering.paragraph.TextOverflow
+import androidx.ui.semantics.label
 import androidx.ui.services.text_editing.TextSelection
 
 private val DefaultSoftWrap: Boolean = true
@@ -195,7 +196,11 @@ fun Text(
     mergedStyle.fontFamily?.context = context
     text.textStyles.forEach { it.style.fontFamily?.context = context }
 
-    Semantics(label = text.text) {
+    Semantics(
+        properties = {
+            label = text.text
+        }
+    ) {
         val textPainter = TextPainter(
             text = text,
             style = mergedStyle,
