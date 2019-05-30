@@ -17,8 +17,8 @@
 package androidx.activity
 
 import android.os.Bundle
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -58,7 +58,7 @@ class ComponentActivityViewModelTest {
         assertWithMessage(
             "Pre-onCreate() ViewModelStore should equal the post-onCreate() ViewModelStore")
             .that(activity.preOnCreateViewModelStore)
-            .isSameAs(activity.postOnCreateViewModelStore)
+            .isSameInstanceAs(activity.postOnCreateViewModelStore)
     }
 
     @Test
@@ -69,12 +69,14 @@ class ComponentActivityViewModelTest {
         activityRule.runOnUiThread {
             activityModel[0] = viewModelActivity.activityModel
             defaultActivityModel[0] = viewModelActivity.defaultActivityModel
-            assertThat(defaultActivityModel[0]).isNotSameAs(activityModel[0])
+            assertThat(defaultActivityModel[0]).isNotSameInstanceAs(activityModel[0])
         }
         val recreatedActivity = recreateActivity(activityRule)
         activityRule.runOnUiThread {
-            assertThat(recreatedActivity.activityModel).isSameAs(activityModel[0])
-            assertThat(recreatedActivity.defaultActivityModel).isSameAs(defaultActivityModel[0])
+            assertThat(recreatedActivity.activityModel)
+                .isSameInstanceAs(activityModel[0])
+            assertThat(recreatedActivity.defaultActivityModel)
+                .isSameInstanceAs(defaultActivityModel[0])
         }
     }
 
@@ -83,7 +85,7 @@ class ComponentActivityViewModelTest {
     fun testActivityOnCleared() {
         val activity = activityRule.activity
         val latch = CountDownLatch(1)
-        val observer = GenericLifecycleObserver { _, event ->
+        val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_DESTROY) {
                 activity.window.decorView.post {
                     try {

@@ -25,6 +25,7 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -55,6 +56,7 @@ public class MockPlayer extends SessionPlayer {
     public @PlayerState int mLastPlayerState;
     public @BuffState int mLastBufferingState;
     public long mDuration;
+    public List<TrackInfo> mTrackInfos;
 
     public List<MediaItem> mPlaylist;
     public MediaMetadata mMetadata;
@@ -260,6 +262,45 @@ public class MockPlayer extends SessionPlayer {
         }
     }
 
+    public void notifyTrackInfoChanged(final List<TrackInfo> trackInfos) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onTrackInfoChanged(MockPlayer.this, trackInfos);
+                }
+            });
+        }
+    }
+
+    public void notifyTrackSelected(final TrackInfo trackInfo) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onTrackSelected(MockPlayer.this, trackInfo);
+                }
+            });
+        }
+    }
+
+    public void notifyTrackDeselected(final TrackInfo trackInfo) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onTrackDeselected(MockPlayer.this, trackInfo);
+                }
+            });
+        }
+    }
+
     @Override
     public ListenableFuture<PlayerResult> setAudioAttributes(AudioAttributesCompat attributes) {
         mAudioAttributes = attributes;
@@ -434,6 +475,29 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
+    @Override
+    public List<TrackInfo> getTrackInfoInternal() {
+        if (mTrackInfos == null) {
+            return new ArrayList<TrackInfo>();
+        }
+        return mTrackInfos;
+    }
+
+    @NonNull
+    @Override
+    public ListenableFuture<PlayerResult> selectTrackInternal(@NonNull TrackInfo trackInfo) {
+        notifyTrackSelected(trackInfo);
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @NonNull
+    @Override
+    public ListenableFuture<PlayerResult> deselectTrackInternal(@NonNull TrackInfo trackInfo) {
+        notifyTrackDeselected(trackInfo);
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
     public void notifyShuffleModeChanged() {
         final int shuffleMode = mShuffleMode;
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
@@ -537,5 +601,19 @@ public class MockPlayer extends SessionPlayer {
 
     public boolean surfaceExists() {
         return mSurface != null;
+    }
+
+    public void notifySubtitleData(final @NonNull MediaItem item, final @NonNull TrackInfo track,
+            final @NonNull SubtitleData data) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSubtitleData(MockPlayer.this, item, track, data);
+                }
+            });
+        }
     }
 }

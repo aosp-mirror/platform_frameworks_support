@@ -17,8 +17,7 @@ package androidx.ui.core
 
 import androidx.ui.core.input.TextInputClient
 import androidx.ui.input.EditorState
-import androidx.ui.painting.Color
-import androidx.ui.painting.TextSpan
+import androidx.ui.graphics.Color
 import androidx.ui.painting.TextStyle
 import androidx.compose.Composable
 import androidx.compose.composer
@@ -35,7 +34,7 @@ data class EditorStyle(
      *
      * @see EditorState.composition
      */
-    val compositionColor: Color = Color.fromARGB(0xFF, 0xB0, 0xE0, 0xE6),
+    val compositionColor: Color = Color(alpha = 0xFF, red = 0xB0, green = 0xE0, blue = 0xE6),
 
     /**
      *  The selection background color
@@ -43,32 +42,8 @@ data class EditorStyle(
      *  @see EditorState.selection
      */
     // TODO(nona): share with Text.DEFAULT_SELECTION_COLOR
-    val selectionColor: Color = Color.fromARGB(0x66, 0x33, 0xB5, 0xE5)
+    val selectionColor: Color = Color(alpha = 0x66, red = 0x33, green = 0xB5, blue = 0xE5)
 )
-
-internal fun makeEditorDisplayText(editorState: EditorState, editorStyle: EditorStyle): TextSpan {
-    val compositionTextStyle =
-        editorStyle.textStyle.merge(TextStyle(background = editorStyle.compositionColor))
-    // TODO(nona): Implement selection highlight
-    return editorState.composition?.let {
-        TextSpan(
-            children = listOf(
-                TextSpan(
-                    text = editorState.text.substring(TextRange(0, it.start)),
-                    style = editorStyle.textStyle
-                ),
-                TextSpan(
-                    text = editorState.text.substring(it),
-                    style = compositionTextStyle
-                ),
-                TextSpan(
-                    text = editorState.text.substring(it.end),
-                    style = editorStyle.textStyle
-                )
-            )
-        )
-    } ?: TextSpan(text = editorState.text, style = editorStyle.textStyle)
-}
 
 /**
  * A default implementation of EditableText
@@ -99,12 +74,28 @@ fun EditableText(
     /** Called when the InputMethod forwarded a key event */
     onKeyEventForwarded: (Any) -> Unit = {} // TODO(nona): Define argument type
 ) {
+    val text = value.text
+    val composition = value.composition
     TextInputClient(
         editorState = value,
         onEditorStateChange = onValueChange,
         onEditorActionPerformed = onEditorActionPerformed,
         onKeyEventForwarded = onKeyEventForwarded
     ) {
-        Text(text = makeEditorDisplayText(value, editorStyle))
+        Text {
+            Span(style = editorStyle.textStyle) {
+                // TODO(nona): Implement selection highlight
+                if (composition != null) {
+                    Span(text = text.substring(TextRange(0, composition.start)))
+                    Span(
+                        text = text.substring(composition),
+                        style = TextStyle(background = editorStyle.compositionColor)
+                    )
+                    Span(text = text.substring(composition.end))
+                } else {
+                    Span(text = text)
+                }
+            }
+        }
     }
 }

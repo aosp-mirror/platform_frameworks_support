@@ -21,12 +21,14 @@ import static androidx.media2.common.SessionPlayer.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.common.SessionPlayer.UNKNOWN_TIME;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_CUSTOM;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM;
+import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_DESELECT_TRACK;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_PAUSE;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_PLAY;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_PREPARE;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_SEEK_TO;
+import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_SELECT_TRACK;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_SET_MEDIA_ITEM;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_SET_PLAYLIST;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_PLAYER_SET_REPEAT_MODE;
@@ -69,6 +71,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.v4.media.MediaBrowserCompat;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
@@ -81,6 +84,8 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.ControllerCallback;
 import androidx.media2.session.MediaController.ControllerCallbackRunnable;
@@ -154,6 +159,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
     private SessionCommandGroup mAllowedCommands;
     @GuardedBy("mLock")
     private VideoSize mVideoSize = new VideoSize(0, 0);
+    @GuardedBy("mLock")
+    private List<TrackInfo> mTrackInfos;
+    @GuardedBy("mLock")
+    private SparseArray<TrackInfo> mSelectedTracks = new SparseArray<>();
 
     // Assignment should be used with the lock hold, but should be used without a lock to prevent
     // potential deadlock.
@@ -768,6 +777,50 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
+    @Nullable
+    public List<SessionPlayer.TrackInfo> getTrackInfo() {
+        synchronized (mLock) {
+            return mTrackInfos;
+        }
+    }
+
+    @Override
+    @NonNull
+    public ListenableFuture<SessionResult> selectTrack(
+            final @NonNull SessionPlayer.TrackInfo trackInfo) {
+        return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SELECT_TRACK,
+                new RemoteSessionTask() {
+                    @Override
+                    public void run(IMediaSession iSession, int seq) throws RemoteException {
+                        iSession.selectTrack(mControllerStub, seq,
+                                MediaParcelUtils.toParcelable(trackInfo));
+                    }
+                });
+    }
+
+    @Override
+    @NonNull
+    public ListenableFuture<SessionResult> deselectTrack(
+            final @NonNull SessionPlayer.TrackInfo trackInfo) {
+        return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_DESELECT_TRACK,
+                new RemoteSessionTask() {
+                    @Override
+                    public void run(IMediaSession iSession, int seq) throws RemoteException {
+                        iSession.deselectTrack(mControllerStub, seq,
+                                MediaParcelUtils.toParcelable(trackInfo));
+                    }
+                });
+    }
+
+    @Nullable
+    @Override
+    public TrackInfo getSelectedTrack(int trackType) {
+        synchronized (mLock) {
+            return mSelectedTracks.get(trackType);
+        }
+    }
+
+    @Override
     @NonNull
     public VideoSize getVideoSize() {
         synchronized (mLock) {
@@ -784,6 +837,17 @@ class MediaControllerImplBase implements MediaControllerImpl {
                         iSession.setSurface(mControllerStub, seq, surface);
                     }
                 });
+    }
+
+    @Override
+    public SessionCommandGroup getAllowedCommands() {
+        synchronized (mLock) {
+            if (mISession == null) {
+                Log.w(TAG, "Session isn't active", new IllegalStateException());
+                return null;
+            }
+            return mAllowedCommands;
+        }
     }
 
     @Override
@@ -1080,6 +1144,71 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
+    void notifyTrackInfoChanged(final int seq, final List<TrackInfo> trackInfos,
+            TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+            TrackInfo selectedSubtitleTrack, TrackInfo selectedMetadataTrack) {
+        synchronized (mLock) {
+            mTrackInfos = trackInfos;
+            // Update selected tracks
+            mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_VIDEO, selectedVideoTrack);
+            mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_AUDIO, selectedAudioTrack);
+            mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE, selectedSubtitleTrack);
+            mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_METADATA, selectedMetadataTrack);
+        }
+
+        mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
+            @Override
+            public void run(@NonNull ControllerCallback callback) {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                callback.onTrackInfoChanged(mInstance, trackInfos);
+            }
+        });
+    }
+
+    void notifyTrackSelected(final int seq, final TrackInfo trackInfo) {
+        synchronized (mLock) {
+            mSelectedTracks.put(trackInfo.getTrackType(), trackInfo);
+        }
+        mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
+            @Override
+            public void run(@NonNull ControllerCallback callback) {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                callback.onTrackSelected(mInstance, trackInfo);
+            }
+        });
+    }
+
+    void notifyTrackDeselected(final int seq, final TrackInfo trackInfo) {
+        synchronized (mLock) {
+            mSelectedTracks.remove(trackInfo.getTrackType());
+        }
+        mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
+            @Override
+            public void run(@NonNull ControllerCallback callback) {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                callback.onTrackDeselected(mInstance, trackInfo);
+            }
+        });
+    }
+
+    void notifySubtitleData(final MediaItem item, final TrackInfo track, final SubtitleData data) {
+        mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
+            @Override
+            public void run(@NonNull ControllerCallback callback) {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                callback.onSubtitleData(mInstance, item, track, data);
+            }
+        });
+    }
+
     // Should be used without a lock to prevent potential deadlock.
     void onConnectedNotLocked(IMediaSession sessionBinder,
             final SessionCommandGroup allowedCommands,
@@ -1098,7 +1227,12 @@ class MediaControllerImplBase implements MediaControllerImpl {
             final int previousMediaItemIndex,
             final int nextMediaItemIndex,
             final Bundle tokenExtras,
-            final VideoSize videoSize) {
+            final VideoSize videoSize,
+            final List<TrackInfo> trackInfos,
+            final TrackInfo selectedVideoTrack,
+            final TrackInfo selectedAudioTrack,
+            final TrackInfo selectedSubtitleTrack,
+            final TrackInfo selectedMetadataTrack) {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked sessionBinder=" + sessionBinder
                     + ", allowedCommands=" + allowedCommands);
@@ -1138,6 +1272,11 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mPreviousMediaItemIndex = previousMediaItemIndex;
                 mNextMediaItemIndex = nextMediaItemIndex;
                 mVideoSize = videoSize;
+                mTrackInfos = trackInfos;
+                mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_VIDEO, selectedVideoTrack);
+                mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_AUDIO, selectedAudioTrack);
+                mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE, selectedSubtitleTrack);
+                mSelectedTracks.put(TrackInfo.MEDIA_TRACK_TYPE_METADATA, selectedMetadataTrack);
                 try {
                     // Implementation for the local binder is no-op,
                     // so can be used without worrying about deadlock.
@@ -1207,6 +1346,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     void onAllowedCommandsChanged(final SessionCommandGroup commands) {
+        synchronized (mLock) {
+            mAllowedCommands = commands;
+        }
         mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
             @Override
             public void run(@NonNull ControllerCallback callback) {

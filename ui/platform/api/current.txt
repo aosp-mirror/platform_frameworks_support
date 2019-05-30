@@ -3,6 +3,7 @@ package androidx.ui.core {
 
   public final class AndroidCraneView extends android.view.ViewGroup implements androidx.ui.core.Owner androidx.ui.core.SemanticsTreeProvider {
     ctor public AndroidCraneView(android.content.Context context);
+    method public androidx.ui.core.PxPosition calculatePosition();
     method public java.util.List<androidx.ui.core.SemanticsTreeNode> getAllSemanticNodes();
     method public androidx.ui.core.Constraints getConstraints();
     method public androidx.ui.core.Ref<androidx.ui.core.AndroidCraneView>? getRef();
@@ -56,11 +57,12 @@ package androidx.ui.core {
     method public static void add(androidx.ui.core.ComponentNode, androidx.ui.core.ComponentNode child);
     method public static androidx.ui.core.PxPosition childToLocal(androidx.ui.core.LayoutNode, androidx.ui.core.LayoutNode child, androidx.ui.core.PxPosition childLocal);
     method public static java.util.List<java.lang.Object> childrenLayouts(androidx.ui.core.LayoutNode);
-    method public static androidx.ui.core.PxPosition globalToLocal(androidx.ui.core.LayoutNode, androidx.ui.core.PxPosition global);
+    method public static androidx.ui.core.PxPosition globalToLocal(androidx.ui.core.LayoutNode, androidx.ui.core.PxPosition global, boolean withOwnerOffset = true);
     method public static boolean isAttached(androidx.ui.core.ComponentNode);
-    method public static androidx.ui.core.PxPosition localToGlobal(androidx.ui.core.LayoutNode, androidx.ui.core.PxPosition local);
+    method public static androidx.ui.core.PxPosition localToGlobal(androidx.ui.core.LayoutNode, androidx.ui.core.PxPosition local, boolean withOwnerOffset = true);
     method public static androidx.ui.core.PxPosition positionRelativeToAncestor(androidx.ui.core.LayoutNode, androidx.ui.core.LayoutNode ancestor);
     method public static androidx.ui.core.PxPosition positionRelativeToRoot(androidx.ui.core.LayoutNode);
+    method public static androidx.ui.core.Owner requireOwner(androidx.ui.core.ComponentNode);
   }
 
   public final class DebugUtilsKt {
@@ -137,6 +139,7 @@ package androidx.ui.core {
   }
 
   public interface Owner {
+    method public androidx.ui.core.PxPosition calculatePosition();
     method public void onAttach(androidx.ui.core.ComponentNode node);
     method public void onDetach(androidx.ui.core.ComponentNode node);
     method public void onEndLayout(androidx.ui.core.LayoutNode layoutNode);
@@ -151,9 +154,9 @@ package androidx.ui.core {
 
   public final class PointerInputNode extends androidx.ui.core.SingleChildComponentNode {
     ctor public PointerInputNode();
-    method public kotlin.jvm.functions.Function2<androidx.ui.core.PointerInputChange,androidx.ui.core.PointerEventPass,androidx.ui.core.PointerInputChange> getPointerInputHandler();
-    method public void setPointerInputHandler(kotlin.jvm.functions.Function2<? super androidx.ui.core.PointerInputChange,? super androidx.ui.core.PointerEventPass,androidx.ui.core.PointerInputChange> p);
-    property public final kotlin.jvm.functions.Function2<androidx.ui.core.PointerInputChange,androidx.ui.core.PointerEventPass,androidx.ui.core.PointerInputChange> pointerInputHandler;
+    method public kotlin.jvm.functions.Function2<java.util.List<androidx.ui.core.PointerInputChange>,androidx.ui.core.PointerEventPass,java.util.List<androidx.ui.core.PointerInputChange>> getPointerInputHandler();
+    method public void setPointerInputHandler(kotlin.jvm.functions.Function2<? super java.util.List<androidx.ui.core.PointerInputChange>,? super androidx.ui.core.PointerEventPass,? extends java.util.List<androidx.ui.core.PointerInputChange>> p);
+    property public final kotlin.jvm.functions.Function2<java.util.List<androidx.ui.core.PointerInputChange>,androidx.ui.core.PointerEventPass,java.util.List<androidx.ui.core.PointerInputChange>> pointerInputHandler;
   }
 
   public final class Ref<T> {
@@ -428,7 +431,6 @@ package androidx.ui.core.semantics {
   }
 
   public enum SemanticsFlag {
-    ctor protected SemanticsFlag();
     enum_constant public static final androidx.ui.core.semantics.SemanticsFlag HasCheckedState;
     enum_constant public static final androidx.ui.core.semantics.SemanticsFlag HasEnabledState;
     enum_constant public static final androidx.ui.core.semantics.SemanticsFlag HasImplicitScrolling;

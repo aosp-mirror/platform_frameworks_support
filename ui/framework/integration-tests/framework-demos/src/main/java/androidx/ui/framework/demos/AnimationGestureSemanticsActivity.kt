@@ -29,7 +29,7 @@ import androidx.ui.core.PxPosition
 import androidx.ui.core.gesture.PressGestureDetector
 import androidx.ui.core.min
 import androidx.ui.engine.geometry.Offset
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Composable
 import androidx.compose.composer
@@ -46,11 +46,11 @@ class AnimationGestureSemanticsActivity : Activity() {
     private val sizeKey = FloatPropKey()
     private val transitionDefinition = transitionDefinition {
         state(ComponentState.Pressed) {
-            this[colorKey] = Color.fromARGB(255, 200, 0, 0)
+            this[colorKey] = Color(alpha = 255, red = 200, green = 0, blue = 0)
             this[sizeKey] = 0.2f
         }
         state(ComponentState.Released) {
-            this[colorKey] = Color.fromARGB(255, 0, 200, 0)
+            this[colorKey] = Color(alpha = 255, red = 0, green = 200, blue = 0)
             this[sizeKey] = 1.0f
         }
     }
@@ -65,13 +65,14 @@ class AnimationGestureSemanticsActivity : Activity() {
                 // This component is a sample using the Level 1 API.
                 // Level1Api()
 
-                // TODO(ralu): Add Level 2 API Sample. (Need to implement node merging).
+                // This component is a sample using the Level 2 API.
+                Level2Api()
 
                 // This component is a sample using the Level 3 API, with the built-in defaults.
                 // Level3Api()
 
                 // This component is a sample using the Level 3 API, along with extra parameters.
-                Level3ApiExtras()
+                // Level3ApiExtras()
             }
         }
     }
@@ -79,7 +80,7 @@ class AnimationGestureSemanticsActivity : Activity() {
     /**
      * This component does not use Semantics. The gesture detector triggers the animation.
      */
-    @Suppress("FunctionName", "Unused")
+    @Suppress("Unused")
     @Composable
     fun WithoutSemanticActions() {
         val animationEndState = +state { ComponentState.Released }
@@ -93,7 +94,7 @@ class AnimationGestureSemanticsActivity : Activity() {
     /**
      * This component uses the level 1 Semantics API.
      */
-    @Suppress("FunctionName", "Unused")
+    @Suppress("Unused")
     @Composable
     fun Level1Api() {
         val animationEndState = +state { ComponentState.Released }
@@ -124,16 +125,55 @@ class AnimationGestureSemanticsActivity : Activity() {
     }
 
     /**
+     * This component uses the level 2 Semantics API.
+     */
+    @Suppress("Unused")
+    @Composable
+    fun Level2Api() {
+        val animationEndState = +state { ComponentState.Released }
+
+        SemanticAction(
+            phrase = "Shrink",
+            defaultParam = PxPosition.Origin,
+            types = setOf<ActionType>(AccessibilityAction.Primary, PolarityAction.Negative),
+            action = { animationEndState.value = ComponentState.Pressed }) { shrinkAction ->
+            SemanticAction(
+                phrase = "Enlarge",
+                defaultParam = Unit,
+                types = setOf<ActionType>(AccessibilityAction.Secondary, PolarityAction.Positive),
+                action = { animationEndState.value = ComponentState.Released }) { enlargeAction ->
+                SemanticProperties(
+                    label = "Animating Circle",
+                    visibility = Visibility.Visible,
+                    // After implementing node merging, we can remove this line.
+                    actions = setOf(shrinkAction, enlargeAction)
+                ) {
+                    PressGestureDetectorWithActions(
+                        onPress = shrinkAction,
+                        onRelease = enlargeAction
+                    ) { Animation(animationEndState = animationEndState.value) }
+                }
+            }
+        }
+    }
+
+    /**
      * This component uses the level 3 Semantics API. The [ClickInteraction] provides default
      * parameters for the [SemanticAction]s. The developer has to provide the callback lambda.
      */
-    @Suppress("FunctionName", "Unused")
+    @Suppress("Unused")
     @Composable
     fun Level3Api() {
         val animationEndState = +state { ComponentState.Released }
         ClickInteraction(
-            press = { action { animationEndState.value = ComponentState.Pressed } },
-            release = { action { animationEndState.value = ComponentState.Released } }
+            click = {
+                action = {
+                    animationEndState.value = when (animationEndState.value) {
+                        ComponentState.Released -> ComponentState.Pressed
+                        ComponentState.Pressed -> ComponentState.Released
+                    }
+                }
+            }
         ) { Animation(animationEndState = animationEndState.value) }
     }
 
@@ -141,24 +181,24 @@ class AnimationGestureSemanticsActivity : Activity() {
      * This component uses the level 3 Semantics API. Instead of using the default parameter that
      * [ClickInteraction] provides, we provide a custom action phrase and a set of types.
      */
-    @Suppress("FunctionName", "Unused")
+    @Suppress("Unused")
     @Composable
     fun Level3ApiExtras() {
         val animationEndState = +state { ComponentState.Released }
         ClickInteraction(
-            press = {
-                label = "Shrink"
-                types = setOf(AccessibilityAction.Primary, PolarityAction.Negative)
-                action = { animationEndState.value = ComponentState.Pressed }
-            },
-            release = {
-                label = "Enlarge"
-                types = setOf(AccessibilityAction.Secondary, PolarityAction.Positive)
-                action = { animationEndState.value = ComponentState.Released }
-            }) { Animation(animationEndState = animationEndState.value) }
+            click = {
+                phrase = "Toggle"
+                types = setOf(AccessibilityAction.Primary, PolarityAction.Positive)
+                action = {
+                    animationEndState.value = when (animationEndState.value) {
+                        ComponentState.Released -> ComponentState.Pressed
+                        ComponentState.Pressed -> ComponentState.Released
+                    }
+                }
+            }
+        ) { Animation(animationEndState = animationEndState.value) }
     }
 
-    @Suppress("FunctionName")
     @Composable
     private fun Animation(animationEndState: ComponentState) {
         Layout(children = {
@@ -173,7 +213,6 @@ class AnimationGestureSemanticsActivity : Activity() {
         })
     }
 
-    @Suppress("FunctionName")
     @Composable
     fun Circle(color: Color, sizeRatio: Float) {
         Draw { canvas, parentSize ->
