@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3f54aa5_feebf161",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/vo/PlaylistWithSongs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-30T22:53:45Z",
+      "side": 1,
+      "message": "Yigit doesn\u0027t like a lot \u0027JoinEntity\u0027, other possible names can be:\n\nassociatedBy \u003d @Join(...)\nassociatedBy \u003d @Junction(...)\n\nThere are quite a few names for what a \u0027join table\u0027 is referred by:\n\n\"Associative tables are colloquially known under many names, including association table, bridge table, cross-reference table, crosswalk, intermediary table, intersection table, join table, junction table, link table, linking table, many-to-many resolver, map table, mapping table, pairing table, pivot table (as used incorrectly in Laravel - not to be confused with the correct use of pivot table in spreadsheets), or transition table.\" - Wikipedia",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
