@@ -18,6 +18,8 @@ package androidx.ui.core.semantics
 
 import androidx.ui.core.ifDebug
 import androidx.ui.engine.geometry.Rect
+import androidx.ui.semantics.SemanticsAction
+import androidx.ui.semantics.SemanticsPropertyKey
 
 /**
  * Signature for a function that is called for each [SemanticsNode].
@@ -349,11 +351,8 @@ class SemanticsNode private constructor(
         }
     }
 
-    fun isDifferentFromCurrentSemanticAnnotation(config: SemanticsConfiguration): Boolean {
-        return this.config.isSemanticallyDifferentFrom(config) ||
-                mergeAllDescendantsIntoThisNode != config.isMergingSemanticsOfDescendants
-    }
-
-    internal fun canPerformAction(action: SemanticsActionType<*>) =
-        this.config._actions.containsKey(action)
+    internal fun <T : Function<Unit>> canPerformAction(
+        action: SemanticsPropertyKey<SemanticsAction<T>>
+    ) =
+        this.config.containsKey(action)
 }
