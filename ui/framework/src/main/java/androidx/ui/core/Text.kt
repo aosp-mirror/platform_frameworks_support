@@ -40,6 +40,7 @@ import androidx.ui.core.selection.TextSelectionHandlerImpl
 import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.TextPainter
 import androidx.ui.painting.toAnnotatedString
+import androidx.ui.semantics.label
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -171,7 +172,11 @@ fun Text(
     mergedStyle.fontFamily?.context = context
     text.textStyles.forEach { it.style.fontFamily?.context = context }
 
-    Semantics(label = text.text) {
+    Semantics(
+        properties = {
+            label = text.text
+        }
+    ) {
         val textPainter = TextPainter(
             text = text,
             style = mergedStyle,
