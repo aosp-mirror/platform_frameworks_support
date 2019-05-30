@@ -378,6 +378,30 @@ object ProcessorErrors {
                 " Options: ${availableColumns.joinToString(", ")}"
     }
 
+    fun relationCannotFindJunctionEntityField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the child entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun relationCannotFindJunctionParentField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the parent entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun junctionColumnWithoutForeignKey(entityName: String, columnName: String) =
+            "The column $columnName in the junction entity $entityName is being used to resolve " +
+                    "a relationship but it is not part of any foreign key definition. Integrity " +
+                    "of the data in the table can be compromised if there are no foreign key " +
+                    "constrains."
+
     val RELATION_IN_ENTITY = "Entities cannot have relations."
 
     val CANNOT_FIND_TYPE = "Cannot find type."
