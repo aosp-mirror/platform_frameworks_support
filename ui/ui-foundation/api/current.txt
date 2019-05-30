@@ -45,6 +45,28 @@ package androidx.ui.foundation.selection {
 
 }
 
+package androidx.ui.foundation.semantics {
+
+  public final class FoundationSemanticsProperties {
+    ctor public FoundationSemanticsProperties();
+    field public static final androidx.ui.foundation.semantics.FoundationSemanticsProperties.Companion! Companion;
+  }
+
+  public static final class FoundationSemanticsProperties.Companion {
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getInMutuallyExclusiveGroup();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getSelected();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getToggleState();
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> InMutuallyExclusiveGroup;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> Selected;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> ToggleState;
+  }
+
+  public final class FoundationSemanticsPropertiesKt {
+    ctor public FoundationSemanticsPropertiesKt();
+  }
+
+}
+
 package androidx.ui.foundation.shape {
 
   public final class DrawShapeKt {

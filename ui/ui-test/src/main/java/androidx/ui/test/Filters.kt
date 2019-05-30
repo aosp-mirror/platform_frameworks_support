@@ -17,10 +17,23 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.core.semantics.getOrNull
+import androidx.ui.foundation.semantics.FoundationSemanticsProperties
+import androidx.ui.semantics.SemanticsProperties
+import androidx.ui.semantics.SemanticsPropertyKey
 
 /**
  * Verifies that a component is checkable.
  */
-fun SemanticsConfiguration.isCheckable(): Boolean {
-    return isChecked != null
-}
+val SemanticsConfiguration.isToggleable: Boolean
+    get() = containsKey(FoundationSemanticsProperties.ToggleState)
+
+
+// TODO(ryanmentley/pavlis): Do we want these convenience functions?
+/**
+ * Verifies that a component is in a mutually exclusive group - that is,
+ * that [FoundationSemanticsProperties.InMutuallyExclusiveGroup] is set to true
+ *
+ */
+val SemanticsConfiguration.isInMutuallyExclusiveGroup: Boolean
+    get() = getOrNull(FoundationSemanticsProperties.InMutuallyExclusiveGroup) == true

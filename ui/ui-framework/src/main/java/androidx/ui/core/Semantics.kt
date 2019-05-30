@@ -15,15 +15,42 @@
  */
 package androidx.ui.core
 
-import androidx.ui.core.semantics.SemanticsAction
-import androidx.ui.text.style.TextDirection
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.ambient
 import androidx.compose.composer
 import androidx.compose.unaryPlus
+import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.core.semantics.getOrNull
+import androidx.ui.semantics.SemanticsProperties
+import androidx.ui.semantics.SemanticsPropertyReceiver
+import androidx.ui.semantics.testTag
 
-// TODO(ryanmentley): This is the wrong package, move it as a standalone CL
+// TODO(ryanmentley): This file is in the wrong package, move it as a standalone CL
+
+@Composable
+@Suppress("UNUSED_PARAMETER")
+fun ReplaceSemantics(
+    properties: SemanticsPropertyReceiver.() -> Unit,
+    @Children children: @Composable() () -> Unit
+) {
+    children()
+}
+
+// @Composable
+// fun TestTag(tag: String, @Children children: @Composable() () -> Unit) {
+//    ReplaceSemantics(properties = {
+//        testTag = tag
+//    }) {
+//        children()
+//    }
+//
+//    ReplaceSemantics(properties = {
+//        onClick = { /* some action code */ }
+//    }) {
+//        ComponentThatNeedsItsOnClickReplaced()
+//    }
+// }
 
 @Composable
 @Suppress("PLUGIN_ERROR")
@@ -53,101 +80,20 @@ fun Semantics(
      * create semantic boundaries that are either writable or not for children.
      */
     explicitChildNodes: Boolean = false,
-    /**
-     * Whether the component represented by this configuration is currently enabled.
-     *
-     * A disabled object does not respond to user interactions. Only objects that
-     * usually respond to user interactions, but which currently do not (like a
-     * disabled button) should be marked as disabled.
-     *
-     * The corresponding getter on [SemanticsConfiguration] will return null if the component
-     * doesn't support the concept of being enabled/disabled.
-     */
-    enabled: Boolean? = null,
-    /**
-     * If this node has Boolean state that can be controlled by the user, whether
-     * that state is checked or unchecked, corresponding to true and false,
-     * respectively.
-     *
-     * Do not set this field if the component doesn't have checked/unchecked state that can be
-     * controlled by the user.
-     *
-     * The corresponding getter on [SemanticsConfiguration] returns null if the component does not
-     * have checked/unchecked state.
-     */
-    checked: Boolean? = null,
-    /** Whether the component represented by this configuration is selected (true) or not (false). */
-    selected: Boolean? = null,
-    /** Whether the component represented by this configuration is a button (true) or not (false). */
-    button: Boolean? = null,
-//    header: Boolean? = null,
-//    textField: Boolean? = null,
-//    focused: Boolean? = null,
-    /**
-     * Whether this component corresponds to UI that allows the user to
-     * pick one of several mutually exclusive options.
-     *
-     * For example, a [Radio] button is in a mutually exclusive group because
-     * only one radio button in that group can be marked as [isChecked].
-     */
-    inMutuallyExclusiveGroup: Boolean? = null,
-//    obscured: Boolean? = null,
-//    scopesRoute: Boolean? = null,
-//    namesRoute: Boolean? = null,
-    hidden: Boolean? = null,
-    /**
-     * A textual description of the component
-     *
-     * On iOS this is used for the `accessibilityLabel` property defined in the
-     * `UIAccessibility` Protocol. On Android it is concatenated together with
-     * [value] and [hint] in the following order: [value], [label], [hint].
-     * The concatenated value is then used as the `Text` description.
-     *
-     * The reading direction is given by [textDirection].
-     */
-    label: String? = null,
-    /**
-     * A textual description for the current value of the owning component.
-     *
-     * On iOS this is used for the `accessibilityValue` property defined in the
-     * `UIAccessibility` Protocol. On Android it is concatenated together with
-     * [label] and [hint] in the following order: [value], [label], [hint].
-     * The concatenated value is then used as the `Text` description.
-     *
-     * The reading direction is given by [textDirection].
-     */
-    value: String? = null,
-//    hint: String? = null,
-    /**
-     * The reading direction for the text in [label], [value],  and [hint]
-     */
-    textDirection: TextDirection? = null,
-    testTag: String? = null,
-    actions: List<SemanticsAction<*>> = emptyList(),
+    properties: (SemanticsPropertyReceiver.() -> Unit)? = null,
     @Children children: @Composable() () -> Unit
 ) {
     val providedTestTag = +ambient(TestTagAmbient)
+    val semanticsConfiguration = SemanticsConfiguration().also {
+        properties?.invoke(it)
+        // TODO(ryanmentley): replace with the real thing
+        it.testTag = it.getOrNull(SemanticsProperties.TestTag) ?: providedTestTag
+    }
+
     <SemanticsComponentNode
         container
         explicitChildNodes
-        enabled
-        checked
-        selected
-        button
-        header=null
-        textField=null
-        focused=null
-        inMutuallyExclusiveGroup
-        obscured=null
-        scopesRoute=null
-        namesRoute=null
-        hidden
-        label
-        value
-        hint=null
-        textDirection
-        testTag=(testTag ?: providedTestTag)
-        actions>
+        semanticsConfiguration>
         TestTag(tag=DefaultTestTag) {
             children()
         }
