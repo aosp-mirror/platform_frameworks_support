@@ -23,13 +23,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.executePendingTransactions
 import androidx.fragment.app.popBackStackImmediate
-import androidx.fragment.app.waitForExecution
 import androidx.fragment.test.R
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import androidx.testutils.waitForExecution
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.After
@@ -166,15 +166,15 @@ class FragmentTransactionTest {
             .commit()
         activity.supportFragmentManager.executePendingTransactions()
 
-        assertThat(fragment1.layoutInflater).isSameAs(layoutInflater)
+        assertThat(fragment1.layoutInflater).isSameInstanceAs(layoutInflater)
         assertThat(fragment1.onGetLayoutInflaterCalls).isEqualTo(1)
 
         // Popping it should cause onCreateView again, so a new LayoutInflater...
         activity.supportFragmentManager.popBackStackImmediate()
-        assertThat(fragment1.layoutInflater).isNotSameAs(layoutInflater)
+        assertThat(fragment1.layoutInflater).isNotSameInstanceAs(layoutInflater)
         assertThat(fragment1.onGetLayoutInflaterCalls).isEqualTo(2)
         layoutInflater = fragment1.baseLayoutInflater
-        assertThat(fragment1.layoutInflater).isSameAs(layoutInflater)
+        assertThat(fragment1.layoutInflater).isSameInstanceAs(layoutInflater)
 
         // Popping it should detach it, clearing the cached value again
         activity.supportFragmentManager.popBackStackImmediate()

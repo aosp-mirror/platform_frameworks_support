@@ -16,6 +16,7 @@
 package androidx.ui.layout.test
 
 import android.graphics.Bitmap
+import android.os.Build
 import android.view.PixelCopy
 import androidx.test.filters.SmallTest
 import androidx.ui.core.CraneWrapper
@@ -36,12 +37,12 @@ import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.DpConstraints
 import androidx.ui.layout.ScrollerPosition
 import androidx.ui.layout.VerticalScroller
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle
 import androidx.compose.composer
 import androidx.compose.setContent
-import org.junit.Assert
+import androidx.test.filters.SdkSuppress
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
@@ -56,14 +57,14 @@ import java.util.concurrent.TimeUnit
 @RunWith(JUnit4::class)
 class ScrollerTest : LayoutTest() {
     val colors = listOf(
-        Color.fromARGB(0xFF, 0xFF, 0, 0),
-        Color.fromARGB(0xFF, 0xFF, 0xA5, 0),
-        Color.fromARGB(0xFF, 0xFF, 0xFF, 0),
-        Color.fromARGB(0xFF, 0xA5, 0xFF, 0),
-        Color.fromARGB(0xFF, 0, 0xFF, 0),
-        Color.fromARGB(0xFF, 0, 0xFF, 0xA5),
-        Color.fromARGB(0xFF, 0, 0, 0xFF),
-        Color.fromARGB(0xFF, 0xA5, 0, 0xFF)
+        Color(alpha = 0xFF, red = 0xFF, green = 0, blue = 0),
+        Color(alpha = 0xFF, red = 0xFF, green = 0xA5, blue = 0),
+        Color(alpha = 0xFF, red = 0xFF, green = 0xFF, blue = 0),
+        Color(alpha = 0xFF, red = 0xA5, green = 0xFF, blue = 0),
+        Color(alpha = 0xFF, red = 0, green = 0xFF, blue = 0),
+        Color(alpha = 0xFF, red = 0, green = 0xFF, blue = 0xA5),
+        Color(alpha = 0xFF, red = 0, green = 0, blue = 0xFF),
+        Color(alpha = 0xFF, red = 0xA5, green = 0, blue = 0xFF)
     )
 
     var drawLatch = CountDownLatch(1)
@@ -73,6 +74,7 @@ class ScrollerTest : LayoutTest() {
         drawLatch = CountDownLatch(1)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_SmallContent() {
         composeScroller()
@@ -80,6 +82,7 @@ class ScrollerTest : LayoutTest() {
         validateScroller(0, 40)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_LargeContent_NoScroll() {
         composeScroller(height = 30.ipx)
@@ -87,6 +90,7 @@ class ScrollerTest : LayoutTest() {
         validateScroller(0, 30)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_LargeContent_ScrollToEnd() {
         val scrollerPosition = ScrollerPosition()
@@ -175,7 +179,7 @@ class ScrollerTest : LayoutTest() {
                 val pixel = bitmap.getPixel(x, y)
                 assertEquals(
                     "Expected $expectedColor, but got ${Color(pixel)} at $x, $y",
-                    expectedColor.value, pixel
+                    expectedColor.toArgb(), pixel
                 )
             }
         }

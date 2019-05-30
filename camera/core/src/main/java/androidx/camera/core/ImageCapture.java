@@ -17,12 +17,9 @@
 package androidx.camera.core;
 
 import android.graphics.ImageFormat;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CaptureRequest;
 import android.location.Location;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -106,6 +103,7 @@ public class ImageCapture extends UseCase {
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
     private final SessionConfig.Builder mSessionConfigBuilder;
+    private final CaptureConfig mCaptureConfig;
     private final ExecutorService mExecutor =
             Executors.newFixedThreadPool(
                     1,
@@ -124,6 +122,7 @@ public class ImageCapture extends UseCase {
 
     /** The set of requests that will be sent to the camera for the final captured image. */
     private final CaptureBundle mCaptureBundle;
+    private final int mMaxCaptureStages;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
@@ -163,6 +162,8 @@ public class ImageCapture extends UseCase {
         mFlashMode = mConfig.getFlashMode();
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
+        mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
+
         Integer bufferFormat = mConfig.getBufferFormat(null);
         if (bufferFormat != null) {
             if (mCaptureProcessor != null) {
@@ -180,8 +181,8 @@ public class ImageCapture extends UseCase {
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-
-        if (mCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
+        CaptureBundle captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+        if (captureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
             throw new IllegalArgumentException(
                     "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
         }
@@ -199,6 +200,9 @@ public class ImageCapture extends UseCase {
 
         mSessionConfigBuilder = SessionConfig.Builder.createFrom(mConfig);
         mSessionConfigBuilder.addRepeatingCameraCaptureCallback(mSessionCallbackChecker);
+
+        CaptureConfig.Builder captureBuilder = CaptureConfig.Builder.createFrom(mConfig);
+        mCaptureConfig = captureBuilder.build();
     }
 
     private static String getCameraIdUnchecked(LensFacing lensFacing) {
@@ -599,8 +603,9 @@ public class ImageCapture extends UseCase {
                     new ProcessingImageReader(
                             resolution.getWidth(),
                             resolution.getHeight(),
-                            getImageFormat(), MAX_IMAGES,
-                            mHandler, mCaptureBundle, mCaptureProcessor);
+                            getImageFormat(), mMaxCaptureStages,
+                            mHandler, getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle()),
+                            mCaptureProcessor);
             mMetadataMatchingCaptureCallback = processingImageReader.getCameraCaptureCallback();
             mImageReader = processingImageReader;
         } else {
@@ -805,28 +810,19 @@ public class ImageCapture extends UseCase {
         }
     }
 
-    /**
-     * Issues a {@link CaptureRequest#CONTROL_AF_TRIGGER_START} request to start auto focus scan.
-     */
+    /** Issues a request to start auto focus scan. */
     private void triggerAf(TakePictureState state) {
         state.mIsAfTriggered = true;
         getCurrentCameraControl().triggerAf();
     }
 
-    /**
-     * Issues a {@link CaptureRequest#CONTROL_AE_PRECAPTURE_TRIGGER_START} request to start auto
-     * exposure scan.
-     */
+    /** Issues a request to start auto exposure scan. */
     void triggerAePrecapture(TakePictureState state) {
         state.mIsAePrecaptureTriggered = true;
         getCurrentCameraControl().triggerAePrecapture();
     }
 
-    /**
-     * Issues {@link CaptureRequest#CONTROL_AF_TRIGGER_CANCEL} or {@link
-     * CaptureRequest#CONTROL_AE_PRECAPTURE_TRIGGER_CANCEL} request to cancel auto focus or auto
-     * exposure scan.
-     */
+    /** Issues a request to cancel auto focus and/or auto exposure scan. */
     void cancelAfAeTrigger(TakePictureState state) {
         if (!state.mIsAfTriggered && !state.mIsAePrecaptureTriggered) {
             return;
@@ -837,42 +833,43 @@ public class ImageCapture extends UseCase {
         state.mIsAePrecaptureTriggered = false;
     }
 
-    // TODO(b/123897971):  move the device specific code once we complete the device workaround
-    // module.
-    private void applyPixelHdrPlusChangeForCaptureMode(
-            CaptureMode captureMode, CaptureConfig.Builder takePhotoRequestBuilder) {
-        if (Build.MANUFACTURER.equals("Google")
-                && (Build.MODEL.equals("Pixel 2") || Build.MODEL.equals("Pixel 3"))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                switch (captureMode) {
-                    case MAX_QUALITY:
-                        // enable ZSL to make sure HDR+ is enabled
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, true);
-                        break;
-                    case MIN_LATENCY:
-                        // disable ZSL to turn off HDR+
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, false);
-                        break;
-                }
-            }
-        }
-    }
-
     /** Issues a take picture request. */
     ListenableFuture<Void> issueTakePicture() {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
         final List<CaptureConfig> captureConfigs = new ArrayList<>();
 
-        for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
+        CaptureBundle captureBundle;
+        if (mCaptureProcessor != null) {
+            // If the Processor is provided, check if we have valid CaptureBundle and update
+            // ProcessingImageReader before actually issuing a take picture request.
+            captureBundle = getCaptureBundle(null);
+
+            if (captureBundle == null) {
+                throw new IllegalArgumentException(
+                        "ImageCapture cannot set empty CaptureBundle.");
+            }
+
+            if (captureBundle.getCaptureStages().size() > mMaxCaptureStages) {
+                throw new IllegalArgumentException(
+                        "ImageCapture has CaptureStages > Max CaptureStage size");
+            }
+
+            ((ProcessingImageReader) mImageReader).setCaptureBundle(captureBundle);
+        } else {
+            captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+            if (captureBundle.getCaptureStages().size() > 1) {
+                throw new IllegalArgumentException(
+                        "ImageCapture have no CaptureProcess set with CaptureBundle size > 1.");
+            }
+        }
+
+        for (final CaptureStage captureStage : captureBundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
+            builder.setTemplateType(mCaptureConfig.getTemplateType());
+            builder.addImplementationOptions(mCaptureConfig.getImplementationOptions());
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
             builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
-            builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
-
-            applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
 
             builder.addImplementationOptions(
                     captureStage.getCaptureConfig().getImplementationOptions());
@@ -933,6 +930,15 @@ public class ImageCapture extends UseCase {
                 return "issueTakePicture";
             }
         });
+    }
+
+    private CaptureBundle getCaptureBundle(CaptureBundle defaultCaptureBundle) {
+        List<CaptureStage> captureStages = mCaptureBundle.getCaptureStages();
+        if (captureStages == null || captureStages.isEmpty()) {
+            return defaultCaptureBundle;
+        }
+
+        return CaptureBundles.createCaptureBundle(captureStages);
     }
 
     /**

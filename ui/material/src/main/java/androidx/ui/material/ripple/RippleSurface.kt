@@ -22,10 +22,11 @@ import androidx.ui.core.Draw
 import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.OnPositioned
 import androidx.ui.core.toRect
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable
+import androidx.compose.Recompose
 import androidx.compose.ambient
 import androidx.compose.composer
 import androidx.compose.effectOf
@@ -93,17 +94,20 @@ fun RippleSurface(
 ) {
     val owner = +memo { RippleSurfaceOwnerImpl() }
     owner.backgroundColor = color
-    owner.recompose = +invalidate
 
     OnPositioned(onPositioned = { owner._layoutCoordinates = it })
-    Draw { canvas, size ->
-        // TODO(Andrey) Find a better way to disable ripples when transitions are disabled.
-        val transitionsEnabled = transitionsEnabled
-        if (owner.effects.isNotEmpty() && transitionsEnabled) {
-            canvas.save()
-            canvas.clipRect(size.toRect())
-            owner.effects.forEach { it.draw(canvas) }
-            canvas.restore()
+    Recompose { recompose ->
+        owner.recompose = recompose
+
+        Draw { canvas, size ->
+            // TODO(Andrey) Find a better way to disable ripples when transitions are disabled.
+            val transitionsEnabled = transitionsEnabled
+            if (owner.effects.isNotEmpty() && transitionsEnabled) {
+                canvas.save()
+                canvas.clipRect(size.toRect())
+                owner.effects.forEach { it.draw(canvas) }
+                canvas.restore()
+            }
         }
     }
     CurrentRippleSurface.Provider(value = owner, children = children)

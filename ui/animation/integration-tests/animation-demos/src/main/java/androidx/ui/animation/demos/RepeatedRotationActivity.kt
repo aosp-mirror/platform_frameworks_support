@@ -33,9 +33,8 @@ import androidx.ui.layout.Center
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.MainAxisAlignment
-import androidx.ui.painting.Color
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
-import androidx.ui.painting.TextSpan
 import androidx.ui.painting.TextStyle
 import androidx.ui.vectormath64.radians
 import androidx.compose.Composable
@@ -62,12 +61,12 @@ fun RepeatedRotation() {
                 PressReleasedGestureDetector(onRelease = {
                     state.value = RotationStates.Rotated
                 }) {
-                    Text(text = TextSpan(text = "Rotate 10 times", style = textStyle))
+                    Text(text = "Rotate 10 times", style = textStyle)
                 }
                 PressReleasedGestureDetector(onRelease = {
                     state.value = RotationStates.Original
                 }) {
-                    Text(text = TextSpan(text = "Reset", style = textStyle))
+                    Text(text = "Reset", style = textStyle)
                 }
                 Container(width = 100.dp, height = 100.dp) {
                     Transition(
