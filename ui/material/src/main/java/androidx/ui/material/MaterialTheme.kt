@@ -306,40 +306,10 @@ fun MaterialButtonShapeTheme(@Children children: @Composable() () -> Unit) {
     CurrentShapeAmbient.Provider(value = value, children = children)
 }
 
-// Syntax helpers for having theme fallbacks
-
 /**
- * Helps to resolve the [Color]. It will take the current value or the [choosingBlock]
- * value from [Colors] if null was used.
- *
- * Example:
- *     val finalColor = +color.orFromTheme { primary }
+ * Helps to resolve the [ShapeBorder] by applying [choosingBlock] for the [Shapes].
  */
-fun Color?.orFromTheme(choosingBlock: MaterialColors.() -> Color): Effect<Color> {
-    val color = this
-    return effectOf {
-        if (color == null) {
-            (+ambient(Colors)).choosingBlock()
-        } else {
-            color
-        }
-    }
-}
-
-/**
- * Helps to resolve the [ShapeBorder]. It will take the current value or the [choosingBlock]
- * value from [CurrentShapeAmbient] if null was used.
- *
- * Example:
- *     val surfaceShape = +shape.orFromTheme{ button }
- */
-fun ShapeBorder?.orFromTheme(choosingBlock: Shapes.() -> ShapeBorder): Effect<ShapeBorder> {
-    val shape = this
-    return effectOf {
-        if (shape == null) {
-            (+ambient(CurrentShapeAmbient)).choosingBlock()
-        } else {
-            shape
-        }
-    }
-}
+@CheckResult(suggest = "+")
+fun themeShape(
+    choosingBlock: Shapes.() -> ShapeBorder
+) = effectOf<ShapeBorder> { (+ambient(CurrentShapeAmbient)).choosingBlock() }

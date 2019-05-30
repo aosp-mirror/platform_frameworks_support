@@ -28,7 +28,6 @@ import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.clip.ClipPath
 import androidx.ui.material.clip.ShapeBorderClipper
 import androidx.ui.material.clip.cache.CachingClipper
-import androidx.ui.material.orFromTheme
 import androidx.ui.material.ripple.RippleEffect
 import androidx.ui.material.ripple.RippleSurface
 import androidx.ui.material.ripple.RippleSurfaceOwner
@@ -40,6 +39,7 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
+import androidx.ui.material.themeColor
 
 /**
  * The [Surface] is responsible for:
@@ -78,19 +78,18 @@ import androidx.compose.unaryPlus
 @Composable
 fun Surface(
     shape: ShapeBorder = RoundedRectangleBorder(),
-    color: Color? = null,
+    color: Color = +themeColor { surface },
     elevation: Dp = 0.dp,
     @Children children: @Composable() () -> Unit
 ) {
-    val finalColor = +color.orFromTheme { surface }
     SurfaceLayout {
         CachingClipper(
             clipper = ShapeBorderClipper(shape)) { clipper ->
             DrawShadow(elevation = elevation, clipper = clipper)
             ClipPath(clipper = clipper) {
-                DrawColor(color = finalColor)
-                RippleSurface(color = finalColor) {
-                    val textColor = +textColorForBackground(finalColor)
+                DrawColor(color = color)
+                RippleSurface(color = color) {
+                    val textColor = +textColorForBackground(color)
                     if (textColor != null) {
                         CurrentTextStyleProvider(value = TextStyle(color = textColor)) {
                             children()

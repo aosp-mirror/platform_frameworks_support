@@ -93,7 +93,8 @@ fun RadioGroup(@Children children: @Composable RadioGroupScope.() -> Unit) {
  * @param selectedOption label which represents selected RadioButton,
  * or [null] if nothing is selected
  * @param onOptionSelected callback to be invoked when RadioButton is selected
- * @param radioColor color for RadioButtons when selected
+ * @param radioColor color for RadioButtons when selected.
+ * [MaterialColors.secondary] is used by default
  * @param textStyle parameters for text customization
  */
 @Composable
@@ -101,7 +102,7 @@ fun RadioGroup(
     options: List<String>,
     selectedOption: String?,
     onOptionSelected: (String) -> Unit,
-    radioColor: Color? = null,
+    radioColor: Color = +themeColor { secondary },
     textStyle: TextStyle? = null
 ) {
     RadioGroup {
@@ -163,7 +164,8 @@ class RadioGroupScope internal constructor() {
      * @param onSelected callback to be invoked when your item is selected
      * does nothing if item is already selected
      * @param text to put as a label description of this item
-     * @param radioColor color for RadioButtons when selected
+     * @param radioColor color for RadioButtons when selected.
+     * [MaterialColors.secondary] is used by default
      * @param textStyle parameters for text customization
      */
     @Composable
@@ -171,7 +173,7 @@ class RadioGroupScope internal constructor() {
         selected: Boolean,
         onSelected: () -> Unit,
         text: String,
-        radioColor: Color? = null,
+        radioColor: Color = +themeColor { secondary },
         textStyle: TextStyle? = null
     ) {
         RadioGroupItem(selected = selected, onSelected = onSelected) {
@@ -197,19 +199,18 @@ class RadioGroupScope internal constructor() {
  * the user can choose from.
  *
  * @param selected boolean state for this button: either it is selected or not
- * @param color optional color. [MaterialColors.primary] is used by default
+ * @param color optional color. [MaterialColors.secondary] is used by default
  */
 @Composable
 fun RadioButton(
     selected: Boolean,
-    color: Color? = null
+    color: Color = +themeColor { secondary }
 ) {
     Padding(padding = RadioButtonPadding) {
         Container(width = RadioButtonSize, height = RadioButtonSize) {
-            val selectedColor = +color.orFromTheme { secondary }
             val unselectedColor = (+themeColor { onSurface }).copy(alpha = UnselectedOpacity)
-            val definition = +memo(selectedColor, unselectedColor) {
-                generateTransitionDefinition(selectedColor, unselectedColor)
+            val definition = +memo(color, unselectedColor) {
+                generateTransitionDefinition(color, unselectedColor)
             }
             Transition(definition = definition, toState = selected) { state ->
                 DrawRadioButton(
