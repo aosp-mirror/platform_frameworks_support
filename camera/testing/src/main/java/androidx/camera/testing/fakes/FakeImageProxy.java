@@ -19,8 +19,14 @@ package androidx.camera.testing.fakes;
 import android.graphics.Rect;
 import android.media.Image;
 
+import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageProxy;
+import androidx.camera.core.impl.utils.futures.Futures;
+import androidx.concurrent.ListenableFuture;
+import androidx.concurrent.callback.CallbackToFutureAdapter;
+import androidx.core.util.Preconditions;
 
 /**
  * A fake implementation of {@link ImageProxy} where the values are settable.
@@ -34,10 +40,23 @@ public final class FakeImageProxy implements ImageProxy {
     private PlaneProxy[] mPlaneProxy = new PlaneProxy[0];
     private ImageInfo mImageInfo;
     private Image mImage;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Object mReleaseLock = new Object();
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @GuardedBy("mReleaseLock")
+    ListenableFuture<Void> mReleaseFuture;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @GuardedBy("mReleaseLock")
+    CallbackToFutureAdapter.Completer<Void> mReleaseCompleter;
 
     @Override
     public void close() {
-
+        synchronized (mReleaseLock) {
+            if (mReleaseCompleter != null) {
+                mReleaseCompleter.set(null);
+                mReleaseCompleter = null;
+            }
+        }
     }
 
     @Override
@@ -108,5 +127,30 @@ public final class FakeImageProxy implements ImageProxy {
 
     public void setImageInfo(ImageInfo imageInfo) {
         mImageInfo = imageInfo;
+    }
+
+    /**
+     * Returns ListenableFuture that completes when the {@link FakeImageProxy} has closed.
+     */
+    public ListenableFuture getCloseFuture() {
+        if (mReleaseFuture == null) {
+            synchronized (mReleaseLock) {
+                mReleaseFuture = CallbackToFutureAdapter.getFuture(
+                        new CallbackToFutureAdapter.Resolver<Void>() {
+                            @Override
+                            public Object attachCompleter(@NonNull
+                                    CallbackToFutureAdapter.Completer<Void> completer) {
+                                Preconditions.checkState(Thread.holdsLock(mReleaseLock));
+                                Preconditions.checkState(mReleaseCompleter == null,
+                                        "Release completer expected to be null");
+                                mReleaseCompleter = completer;
+                                return "Release[imageProxy=" + FakeImageProxy.this + "]";
+                            }
+                        });
+                return mReleaseFuture;
+            }
+        } else {
+            return Futures.immediateFuture(null);
+        }
     }
 }

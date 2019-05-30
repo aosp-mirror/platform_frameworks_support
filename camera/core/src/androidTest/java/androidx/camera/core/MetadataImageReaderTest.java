@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import androidx.camera.testing.fakes.FakeCameraCaptureResult;
-import androidx.camera.testing.fakes.FakeImageProxy;
 import androidx.camera.testing.fakes.FakeImageReaderProxy;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
@@ -35,6 +34,8 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
@@ -42,7 +43,7 @@ public final class MetadataImageReaderTest {
     private static final long TIMESTAMP_0 = 0L;
     private static final long TIMESTAMP_1 = 1000L;
     private static final long TIMESTAMP_NONEXISTANT = 5000L;
-    private final FakeImageReaderProxy mImageReader = new FakeImageReaderProxy();
+    private FakeImageReaderProxy mImageReader;
     private final FakeCameraCaptureResult mCameraCaptureResult0 = new FakeCameraCaptureResult();
     private final FakeCameraCaptureResult mCameraCaptureResult1 = new FakeCameraCaptureResult();
     private final Semaphore mSemaphore = new Semaphore(0);
@@ -177,15 +178,15 @@ public final class MetadataImageReaderTest {
         mMetadataImageReader.getCameraCaptureCallback().onCaptureCompleted(mCameraCaptureResult0);
         mMetadataImageReader.getCameraCaptureCallback().onCaptureCompleted(mCameraCaptureResult1);
 
+        final AtomicReference<ImageProxy> receivedImage = new AtomicReference<>();
+
         ImageReaderProxy.OnImageAvailableListener outputListener =
                 new ImageReaderProxy.OnImageAvailableListener() {
                     @Override
                     public void onImageAvailable(ImageReaderProxy imageReader) {
                         // The First ImageProxy is output without closing.
                         ImageProxy resultImage = imageReader.acquireNextImage();
-                        assertThat(resultImage.getTimestamp()).isEqualTo(TIMESTAMP_0);
-                        assertThat(resultImage.getImageInfo().getTimestamp()).isEqualTo(
-                                TIMESTAMP_0);
+                        receivedImage.set(resultImage);
                         mSemaphore.release();
                     }
                 };
@@ -194,31 +195,66 @@ public final class MetadataImageReaderTest {
         triggerImageAvailable(TIMESTAMP_0);
         mSemaphore.acquire();
 
+        assertThat(receivedImage.get().getTimestamp()).isEqualTo(TIMESTAMP_0);
+        assertThat(receivedImage.get().getImageInfo().getTimestamp()).isEqualTo(
+                TIMESTAMP_0);
+
+        final AtomicBoolean receivedSecondImage = new AtomicBoolean(false);
         outputListener =
                 new ImageReaderProxy.OnImageAvailableListener() {
                     @Override
                     public void onImageAvailable(ImageReaderProxy imageReader) {
                         // The second ImageProxy should be dropped, otherwise fail the test case.
-                        fail("Should not exceed maximum Image number.");
+                        receivedSecondImage.set(true);
                         mSemaphore.release();
                     }
                 };
         mMetadataImageReader.setOnImageAvailableListener(outputListener, mBackgroundHandler);
         // Feeds the second Image.
-        triggerImageAvailable(TIMESTAMP_1);
+        assertThat(mImageReader.triggerImageAvailableNonblocking(null, TIMESTAMP_1, 50,
+                TimeUnit.MILLISECONDS)).isFalse();
+
         // Waits for a time period.
         mSemaphore.tryAcquire(300, TimeUnit.MILLISECONDS);
+
+        assertThat(receivedSecondImage.get()).isFalse();
+    }
+
+    @Test(timeout = 1000)
+    public void doesNotBlockOnMismatchingImageInfoAndImageProxy() throws InterruptedException {
+        createMetadataImageReaderWithCapacity(3);
+
+        mMetadataImageReader.setOnImageAvailableListener(
+                new ImageReaderProxy.OnImageAvailableListener() {
+                    @Override
+                    public void onImageAvailable(ImageReaderProxy imageReader) {
+                        // No image should be available since there should be no matches found
+                        assertThat(false);
+                    }
+                },
+                mBackgroundHandler
+        );
+
+        // Trigger ImageInfo and ImageProxy to be pushed into the MetadataImageReader, which should
+        // discard older data without matches so it does not get blocked.
+        for (int i = 0; i < 5; i++) {
+            triggerImageAvailable(i * 2);
+            triggerImageInfoAvailable(i * 2 + 1);
+        }
     }
 
     private void createMetadataImageReaderWithCapacity(int maxImages) {
-        mImageReader.setMaxImages(maxImages);
+        mImageReader = new FakeImageReaderProxy(maxImages);
         mMetadataImageReader = new MetadataImageReader(mImageReader, null);
     }
 
-    private void triggerImageAvailable(long timestamp) {
-        FakeImageProxy image = new FakeImageProxy();
-        image.setTimestamp(timestamp);
-        mImageReader.setImageProxy(image);
-        mImageReader.triggerImageAvailable();
+    private void triggerImageAvailable(long timestamp) throws InterruptedException {
+        mImageReader.triggerImageAvailable(null, timestamp);
+    }
+
+    private void triggerImageInfoAvailable(long timestamp) {
+        FakeCameraCaptureResult.Builder builder = new FakeCameraCaptureResult.Builder();
+        builder.setTimestamp(timestamp);
+        mMetadataImageReader.getCameraCaptureCallback().onCaptureCompleted(builder.build());
     }
 }

@@ -24,8 +24,10 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Preconditions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +122,7 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
      * @param imageReaderProxy The existed ImageReaderProxy to be set underlying this
      *                         MetadataImageReader.
      * @param handler          Handler for executing
-     * {@link ImageReaderProxy.OnImageAvailableListener}
+     *                         {@link ImageReaderProxy.OnImageAvailableListener}
      */
     MetadataImageReader(ImageReaderProxy imageReaderProxy, @Nullable Handler handler) {
         mImageReaderProxy = imageReaderProxy;
@@ -344,6 +346,67 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
         }
     }
 
+    // Remove the stale {@link ImageProxy} and {@link ImageInfo} from the pending queue if there are
+    // any missing which can happen if the camera is momentarily shut off.
+    // The ImageProxy and ImageInfo timestamps are assumed to be monotonically increasing. This
+    // means any ImageProxy or ImageInfo which has a timestamp older (smaller in value) than the
+    // oldest timestamp in the other queue will never get matched, so they should be removed.
+    //
+    // This should only be called at the end of matchImages(). The assumption is that there are no
+    // matching timestamps.
+    private void removeStaleData() {
+        synchronized (mLock) {
+            // No stale data if no ImageProxy. ImageInfo is allowed to build up because there isn't
+            // a max number that can be acquired
+            if (mPendingImages.isEmpty()) {
+                return;
+            }
+
+            Long minImageProxyTimestamp = Collections.min(mPendingImages.keySet());
+
+            // Do the discarding if both mPendingImage and mPendingImageInfos are non-empty
+            if (!mPendingImageInfos.isEmpty()) {
+                Long minImageInfoTimestamp = Collections.min(mPendingImageInfos.keySet());
+
+                // If timestamps are equal then matchImages did not correctly match up the ImageInfo
+                // and ImageProxy
+                Preconditions.checkArgument(!minImageInfoTimestamp.equals(minImageProxyTimestamp));
+
+                if (minImageInfoTimestamp > minImageProxyTimestamp) {
+                    List<Long> toRemove = new ArrayList<>();
+
+                    for (Long key : mPendingImages.keySet()) {
+                        if (key < minImageInfoTimestamp) {
+                            toRemove.add(key);
+                        }
+                    }
+
+                    for (Long key : toRemove) {
+                        mPendingImages.get(key).close();
+                        mPendingImages.remove(key);
+                    }
+                } else {
+                    List<Long> toRemove = new ArrayList<>();
+                    for (Long key : mPendingImageInfos.keySet()) {
+                        if (key < minImageProxyTimestamp) {
+                            toRemove.add(key);
+                        }
+                    }
+
+                    for (Long key : toRemove) {
+                        mPendingImageInfos.remove(key);
+                    }
+                }
+            }
+
+            // Discard oldest ImageProxy if the max size reached so that mImageReaderProxy is not
+            // stalled
+            if (mPendingImages.size() == mImageReaderProxy.getMaxImages()) {
+                mPendingImages.remove(minImageProxyTimestamp);
+            }
+        }
+    }
+
     // Match incoming Image from the ImageReader with the corresponding ImageInfo.
     private void matchImages() {
         synchronized (mLock) {
@@ -366,6 +429,8 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
             for (Long key : toRemove) {
                 mPendingImageInfos.remove(key);
             }
+
+            removeStaleData();
         }
     }
 }
