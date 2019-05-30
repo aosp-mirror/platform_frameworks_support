@@ -25,6 +25,8 @@ import androidx.ui.graphics.Color
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.unaryPlus
+import androidx.ui.material.themeColor
 
 /**
  * Cards are [Surface]s that display content and actions on a single topic.
@@ -42,7 +44,7 @@ import androidx.compose.composer
 @Composable
 fun Card(
     shape: ShapeBorder = RoundedRectangleBorder(),
-    color: Color? = null,
+    color: Color = +themeColor { surface },
     elevation: Dp = 0.dp,
     @Children children: @Composable() () -> Unit
 ) {

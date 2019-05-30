@@ -34,12 +34,11 @@ import androidx.compose.unaryPlus
  */
 @Composable
 fun Divider(
-    color: Color? = null,
+    color: Color = +themeColor { onSurface },
     height: Dp = 1.dp,
     indent: Dp = 0.dp
 ) {
-    val dividerColor = +color.orFromTheme { onSurface }
     Padding(left = indent) {
-        ColoredRect(height = height, color = dividerColor)
+        ColoredRect(height = height, color = color)
     }
 }
