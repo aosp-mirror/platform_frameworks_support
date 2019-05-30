@@ -29,7 +29,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime:2.0.0")
     implementation("androidx.annotation:annotation:1.0.0")
     implementation(project(":camera:camera-core"))
+    implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha03")
+    implementation("androidx.core:core:1.1.0-rc01")
 }
+
 android {
     defaultConfig {
         minSdkVersion 21
