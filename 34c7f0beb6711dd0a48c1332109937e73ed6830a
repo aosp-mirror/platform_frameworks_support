@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3652b058_3cfcc9b7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T22:30:35Z",
+      "side": 1,
+      "message": "No, I meant this comment to apply to all the below instances as well.",
+      "parentUuid": "89a0b788_3bc0c6a5",
+      "range": {
+        "startLine": 62,
+        "startChar": 46,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79d41b2c_089c7a95",
         "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
         "patchSetId": 1
