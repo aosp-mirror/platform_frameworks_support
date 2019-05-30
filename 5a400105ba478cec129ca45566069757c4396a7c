@@ -22,6 +22,30 @@
       "revId": "5a400105ba478cec129ca45566069757c4396a7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06fb4ad1_74bb56cd",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-30T15:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96dcc258_7f8cde3a",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 50
+      },
+      "revId": "5a400105ba478cec129ca45566069757c4396a7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
