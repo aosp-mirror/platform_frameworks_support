@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "829af513_75b11990",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "nit: exception messages usually start with capital letters\n\nPerhaps rephrase this to make the expected behavior a little clearer: \"Should be ableo to open \u0027/\u0027 file from internal storage\". Leads decided the word \"should\" was a pretty good one for assertion messages, see http://ag/6914850",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 36
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e281f223_c6c415d4",
         "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
         "patchSetId": 10
@@ -30,6 +53,282 @@
       "writtenOn": "2019-05-30T18:34:26Z",
       "side": 1,
       "message": "I don\u0027t think anything in our test infrastructure is actually clearing the files directory of the test APK between tests, so this seems like it might one day lead to accidental state leakage between tests (even if the tests might not hit any cases right now).\n\nIf we need to write files to disk, the best practise is generally to create a dedicated temporary directory in setUp() and delete it in tearDown().",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc7ef1b_e8e37c65",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "It\u0027s not clear what app internal storage is, how an app should create a subdirectory as the doc talks about, etc. Can you add clarification? Ex. does \"app internal storage\" mean \"in the app\u0027s data directory?\"",
+      "range": {
+        "startLine": 320,
+        "startChar": 43,
+        "endLine": 320,
+        "endChar": 65
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b9c32e_c4984cfd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "\"highly recommended\" sounds like it deserves to move into its own paragraph, as a `\u003cp class\u003d\"note\"\u003e`. I think we can expand on this sentence too, maybe with \"To avoid leaking user or app data to the web, make sure to choose {@code subdirectory} carefully, and assume any file under this directory could be leaked.\"",
+      "range": {
+        "startLine": 322,
+        "startChar": 38,
+        "endLine": 322,
+        "endChar": 61
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b90cdbf1_a2d12310",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "suggestion: just merge these sentences: \"App internal storage is only hosted when this method is called to host {@code subdirectory} at URLs with {@code path}.\"",
+      "range": {
+        "startLine": 321,
+        "startChar": 35,
+        "endLine": 322,
+        "endChar": 37
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c527b704_be15760f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "It\u0027s confusing to have \"path\" and \"subdirectory\" as params. I think you should distinguish every reference to \"path\" as \"{@code path}\" or as \"URL path\"",
+      "range": {
+        "startLine": 325,
+        "startChar": 15,
+        "endLine": 325,
+        "endChar": 19
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9843dfc1_60078b1f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "\"\u003cp\u003e\"",
+      "range": {
+        "startLine": 325,
+        "startChar": 11,
+        "endLine": 325,
+        "endChar": 14
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf571192_74011ec5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "What are the correct values? ex. \"foo\", \"foo/\", or \"/foo/\"? What about \"\" or \"/\"?",
+      "range": {
+        "startLine": 329,
+        "startChar": 48,
+        "endLine": 329,
+        "endChar": 60
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52d20b02_be650ab3",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "TODO to unhide",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 16
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e838e6_b6d8de94",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "Does it make sense to refactor out the authority, or just leave as-is?",
+      "range": {
+        "startLine": 347,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 27
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92fd25a0_c193deab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "can we share with buildForTest()?",
+      "range": {
+        "startLine": 404,
+        "startChar": 12,
+        "endLine": 411,
+        "endChar": 0
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f712fcc5_eb89e096",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "Usual pattern is to call the other overload (easier to extend things in the future)",
+      "range": {
+        "startLine": 440,
+        "startChar": 19,
+        "endLine": 440,
+        "endChar": 78
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5283b0d6_c05cd835",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "\"Default\" is a bit misleading. By default, this won\u0027t host internal storage at all.",
+      "range": {
+        "startLine": 687,
+        "startChar": 91,
+        "endLine": 687,
+        "endChar": 98
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8ba7fb_02609f89",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "S (capital)",
+      "range": {
+        "startLine": 691,
+        "startChar": 23,
+        "endLine": 691,
+        "endChar": 24
+      },
       "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -76,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "b8a984bc_ca8ba22a",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "Or, throw an exception at the time it\u0027s registered",
+      "parentUuid": "dc34abd0_5dd1581b",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f4b7d4f_716bcc43",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
         "patchSetId": 10
@@ -93,6 +410,29 @@
     },
     {
       "key": {
+        "uuid": "19b585d0_b4cce395",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "What happens if this file is gzipped or zipped? I think that was the original use-case, right?",
+      "range": {
+        "startLine": 157,
+        "startChar": 38,
+        "endLine": 157,
+        "endChar": 53
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c982201_ef4d5dd0",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
         "patchSetId": 10
@@ -104,6 +444,24 @@
       "writtenOn": "2019-05-30T18:34:26Z",
       "side": 1,
       "message": "I dont\u0027 think the subdirectory is very important here - for debugging what seems most useful to me is showing the developer the URI and then the actual path that URI mapped to. Also, when logging a message while catching an exception you generally want to attach the caught exception to the log..",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f3951c_5c6040f1",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-30T23:02:36Z",
+      "side": 1,
+      "message": "Why did we downgrade to Log.w()? I think Log.e() was right.",
+      "parentUuid": "2c982201_ef4d5dd0",
       "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
