@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8609574_33cffd4f",
+        "filename": "room/common/src/main/java/androidx/room/ColumnInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-30T22:32:38Z",
+      "side": 1,
+      "message": "Hmm, would be great if we lifted this requirement, we can surround it with single-quotes if we see the column is of type TEXT.",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 72
+      },
+      "revId": "bb24b315d231b4820d8a1df1b2c59befaf6d4e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f87b4408_ee51e61a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Field.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-30T22:32:38Z",
+      "side": 1,
+      "message": "If formatting the fields then also update the indent on these comments.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "bb24b315d231b4820d8a1df1b2c59befaf6d4e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
