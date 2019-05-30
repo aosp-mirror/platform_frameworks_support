@@ -11,7 +11,6 @@ package androidx.ui.test {
     method public static androidx.ui.test.SemanticsTreeInteraction assertDoesNotExist(androidx.ui.test.SemanticsTreeInteraction);
     method public static androidx.ui.test.SemanticsTreeInteraction assertIsChecked(androidx.ui.test.SemanticsTreeInteraction);
     method public static androidx.ui.test.SemanticsTreeInteraction assertIsHidden(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsInMutuallyExclusiveGroup(androidx.ui.test.SemanticsTreeInteraction);
     method public static androidx.ui.test.SemanticsTreeInteraction assertIsNotChecked(androidx.ui.test.SemanticsTreeInteraction);
     method public static androidx.ui.test.SemanticsTreeInteraction assertIsSelected(androidx.ui.test.SemanticsTreeInteraction, boolean expected);
     method public static androidx.ui.test.SemanticsTreeInteraction assertIsVisible(androidx.ui.test.SemanticsTreeInteraction);
@@ -54,7 +53,7 @@ package androidx.ui.test {
     ctor public GoldenSemanticsKt();
     method public static void assertEquals(androidx.ui.core.semantics.SemanticsConfiguration, androidx.ui.core.semantics.SemanticsConfiguration expected);
     method public static androidx.ui.core.semantics.SemanticsConfiguration copyWith(androidx.ui.core.semantics.SemanticsConfiguration, kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,kotlin.Unit> diff);
-    method public static androidx.ui.core.semantics.SemanticsConfiguration createFullSemantics(Boolean? isEnabled = null, Boolean? isChecked = null, boolean isSelected = false, boolean isButton = false, boolean inMutuallyExclusiveGroup = false);
+    method public static androidx.ui.core.semantics.SemanticsConfiguration createFullSemantics(Boolean? isEnabled = null, String? value = null);
   }
 
   public final class OutputKt {
