@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e281f223_c6c415d4",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "So these should probably be three different filenames so that it\u0027s clear which of the files each of the cases below is actually attempting to refer to.",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfb3dca_f09817c3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "I don\u0027t think anything in our test infrastructure is actually clearing the files directory of the test APK between tests, so this seems like it might one day lead to accidental state leakage between tests (even if the tests might not hit any cases right now).\n\nIf we need to write files to disk, the best practise is generally to create a dedicated temporary directory in setUp() and delete it in tearDown().",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b7d5b10_de69151a",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "So something I didn\u0027t notice the first time I looked at this is that getFilesDir() is likely *not* the base directory that we want to use here, because that\u0027s already a subdirectory of the app\u0027s data directory (it\u0027s typically going to be /data/data/com.myapp/files) and the files the app wants to mount might not be in that directory - apps very often do not use the files dir at all and just put their files elsewhere, and there are lots of methods on Context that explicitly support this (e.g. just getDir(String) which makes a directory that\u0027s a *sibling* of getFilesDir(), not a subdirectory)\n\nAs I said in one of my other comments, it might be best if we just don\u0027t assume the base directory here at all and let the app specify the full path (and then just validate that it makes sense if we want to protect them from making mistakes).",
+      "range": {
+        "startLine": 141,
+        "startChar": 54,
+        "endLine": 141,
+        "endChar": 65
+      },
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc34abd0_5dd1581b",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "We should probably just check this at the time they set it up and log a warning then, rather than doing it on every access, which could get spammy. I don\u0027t think it\u0027s necessary during usage to treat this any differently than the file not existing.",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4b7d4f_716bcc43",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "probably need to specify what the path was that we rejected here, to make it clear to the developer why it was rejected",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c982201_ef4d5dd0",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "I dont\u0027 think the subdirectory is very important here - for debugging what seems most useful to me is showing the developer the URI and then the actual path that URI mapped to. Also, when logging a message while catching an exception you generally want to attach the caught exception to the log..",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97630f0_419b430d",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "It should be the case here that parent.isDirectory is always true and that child.isDirectory is never true, no? This could probably be simpler :)",
+      "revId": "080bce22e46ef9fb51c675bcff5d7ed1eca304a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

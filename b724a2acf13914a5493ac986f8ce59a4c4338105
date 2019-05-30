@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "176cbd46_48eaa6b5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-30T18:34:26Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s anything particularly wrong with mounting a subdirectory of an already mounted subdirectory or similar; this happens all the time in webserver configs. I realise the existing builder methods make it feel logical to just have a set* method for this too, but it doesn\u0027t seem like there\u0027s really a problem with just having a hostInternalStorageDir() or something that can be called repeatedly. If we only allow them to mount subdirectories then only letting them mount one feels like a pretty big restriction.\n\nI also don\u0027t think we should trust developers to be aware of what they are actually exposing.. much of the point of this library is to encourage best practises (since it doesn\u0027t contain anything they couldn\u0027t have done themselves if they wanted to). It seems like we should either:\n\n- have an API that lets them mount an arbitrary directory in the filesystem, without caring where that directory is, which would give them the most flexibility and enable them to mount things we haven\u0027t thought of or don\u0027t think are ideal (e.g. non-app-owned directories on external storage, or cases that don\u0027t show up on Google devices like /sdcard2 for devices that have multiple \"external\" storages)\n\n- or, have an API that only allows them to mount things that we\u0027re fairly confident are safe (non-blacklisted subdirs of their internal storage dir, etc) to encourage best practises, and expand this over time as developers request other functionality.\n\nI was suggesting the latter, but I don\u0027t think the former is out of the question. I also don\u0027t think that either of these really benefit from having specific methods to handle internal vs external storage and so on: I suspect that in practise the thing the developer has when they want to use this is just a path, and having to then go back and think about \"well, is this path on external storage or not\" makes the API harder to use.\n\nSo, what I\u0027m suggesting (I think) is that *either way* the API should just take the path directly from the developer, and then if we want to go with the latter option, we can check the path \"makes sense\" as something to expose. We can evolve the *rules* for that over time (e.g. add more places that we think are ok) without having to change the API at all, which is easier for developers..",
+      "parentUuid": "f26b520f_79f6b5a4",
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e89ed18_f0aea85f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 6
