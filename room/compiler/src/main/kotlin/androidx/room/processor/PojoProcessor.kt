@@ -19,6 +19,7 @@ package androidx.room.processor
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Ignore
+import androidx.room.JoinEntity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.ext.extendsBoundOrSelf
@@ -491,7 +492,6 @@ class PojoProcessor private constructor(
 
         // now find the field in the entity.
         val entityField = entity.findFieldByColumnName(annotation.value.entityColumn)
-
         if (entityField == null) {
             context.logger.e(relationElement,
                     ProcessorErrors.relationCannotFindEntityField(
@@ -499,6 +499,57 @@ class PojoProcessor private constructor(
                             columnName = annotation.value.entityColumn,
                             availableColumns = entity.columnNames))
             return null
+        }
+
+        // do we have a join entity?
+        val joinEntityAnnotation = annotation.getAsAnnotationBox<JoinEntity>("joinEntity")
+        val joinEntityClassInput = joinEntityAnnotation.getAsTypeMirror("value")
+        val joinEntityElement: TypeElement? = if (joinEntityClassInput != null &&
+                !MoreTypes.isTypeOf(Any::class.java, joinEntityClassInput)) {
+            joinEntityClassInput.asTypeElement()
+        } else {
+            null
+        }
+        val joinEntity = joinEntityElement?.let {
+            val entityOrView = EntityOrViewProcessor(context, it, referenceStack).process()
+
+            // was jump table parent reference field specified?
+            val joinParentColumnName = if (joinEntityAnnotation.value.parentColumn.isNotEmpty()) {
+                joinEntityAnnotation.value.parentColumn
+            } else {
+                parentField.columnName
+            }
+            // find reference parent field in jump table
+            val joinParentField = entityOrView.findFieldByColumnName(joinParentColumnName)
+            if (joinParentField == null) {
+                context.logger.e(joinEntityElement,
+                    ProcessorErrors.relationCannotFindParentEntityField(
+                        entityName = entityOrView.typeName.toString(),
+                        columnName = joinParentColumnName,
+                        availableColumns = entityOrView.columnNames))
+                return null
+            }
+
+            // was jump table entity reference field specified?
+            val joinEntityColumnName = if (joinEntityAnnotation.value.entityColumn.isNotEmpty()) {
+                joinEntityAnnotation.value.entityColumn
+            } else {
+                entityField.columnName
+            }
+            // find reference entity field in the jump table
+            val joinEntityField = entityOrView.findFieldByColumnName(joinEntityColumnName)
+            if (joinEntityField == null) {
+                context.logger.e(joinEntityElement,
+                    ProcessorErrors.relationCannotFindEntityField(
+                        entityName = entityOrView.typeName.toString(),
+                        columnName = joinEntityColumnName,
+                        availableColumns = entityOrView.columnNames))
+                return null
+            }
+            androidx.room.vo.JoinEntity(
+                entity = entityOrView,
+                parentField = joinParentField,
+                entityField = joinEntityField)
         }
 
         val field = Field(
@@ -523,6 +574,7 @@ class PojoProcessor private constructor(
                 field = field,
                 parentField = parentField,
                 entityField = entityField,
+                joinEntity = joinEntity,
                 projection = projection
         )
     }
