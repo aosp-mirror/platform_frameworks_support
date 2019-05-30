@@ -17,10 +17,19 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.semantics.value
 
 /**
  * Verifies that a component is checkable.
  */
-fun SemanticsConfiguration.isCheckable(): Boolean {
-    return isChecked != null
-}
+val SemanticsConfiguration.isCheckable: Boolean
+    get() = value == "Checked" || value == "Unchecked"
+
+val SemanticsConfiguration.isChecked: Boolean?
+    get() {
+        return when (value) {
+            "Checked" -> true
+            "Unchecked" -> false
+            else -> null
+        }
+    }

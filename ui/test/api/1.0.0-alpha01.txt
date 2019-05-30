@@ -12,7 +12,6 @@ package androidx.ui.test {
     method public static void assertDoesNotExist(kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
     method public static androidx.ui.test.SemanticsNodeInteraction assertIsChecked(androidx.ui.test.SemanticsNodeInteraction);
     method public static androidx.ui.test.SemanticsNodeInteraction assertIsHidden(androidx.ui.test.SemanticsNodeInteraction);
-    method public static androidx.ui.test.SemanticsNodeInteraction assertIsInMutuallyExclusiveGroup(androidx.ui.test.SemanticsNodeInteraction);
     method public static androidx.ui.test.SemanticsNodeInteraction assertIsNotChecked(androidx.ui.test.SemanticsNodeInteraction);
     method public static androidx.ui.test.SemanticsNodeInteraction assertIsNotSelected(androidx.ui.test.SemanticsNodeInteraction);
     method public static androidx.ui.test.SemanticsNodeInteraction assertIsSelected(androidx.ui.test.SemanticsNodeInteraction);
@@ -50,6 +49,7 @@ package androidx.ui.test {
   public final class FiltersKt {
     ctor public FiltersKt();
     method public static boolean isCheckable(androidx.ui.core.semantics.SemanticsConfiguration);
+    method public static Boolean? isChecked(androidx.ui.core.semantics.SemanticsConfiguration);
   }
 
   public final class FindersKt {
@@ -64,7 +64,7 @@ package androidx.ui.test {
     ctor public GoldenSemanticsKt();
     method public static void assertEquals(androidx.ui.core.semantics.SemanticsConfiguration, androidx.ui.core.semantics.SemanticsConfiguration expected);
     method public static androidx.ui.core.semantics.SemanticsConfiguration copyWith(androidx.ui.core.semantics.SemanticsConfiguration, kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,kotlin.Unit> diff);
-    method public static androidx.ui.core.semantics.SemanticsConfiguration createFullSemantics(Boolean? isEnabled = null, Boolean? isChecked = null, boolean isSelected = false, boolean isButton = false, boolean inMutuallyExclusiveGroup = false);
+    method public static androidx.ui.core.semantics.SemanticsConfiguration createFullSemantics(Boolean? isEnabled = null, String? value = null);
   }
 
   public final class OutputKt {

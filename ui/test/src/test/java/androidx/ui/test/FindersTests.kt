@@ -18,6 +18,7 @@ package androidx.ui.test
 
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.semantics.testTag
 import androidx.ui.test.helpers.FakeSemanticsTreeInteraction
 import com.google.common.truth.Truth
 import org.junit.Test
