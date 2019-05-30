@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe5d324_70b00e99",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T13:22:50Z",
+      "side": 1,
+      "message": "since you\u0027re touching imports, can you fix the order overall?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "a7f8253b2b6fa8740bdd80141f903e895888da85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
