@@ -577,6 +577,148 @@ class PojoProcessorTest {
     }
 
     @Test
+    fun relation_joinEntity() {
+        val jumpEntity = """
+            package foo.bar;
+
+            import androidx.room.*;
+
+            @Entity(primaryKeys = {"uid","friendId"})
+            public class UserFriendsXRef {
+                public int uid;
+                public int friendId;
+            }
+        """.toJFO("foo.bar.UserFriendsXRef")
+        singleRun(
+            """
+                int id;
+                @Relation(
+                    parentColumn = "id", entityColumn = "uid",
+                    joinEntity = @JoinEntity(
+                        value = UserFriendsXRef.class,
+                        parentColumn = "uid", entityColumn = "friendId")
+                )
+                public List<User> user;
+                """, COMMON.USER, jumpEntity
+        ) { pojo ->
+            assertThat(pojo.relations.size, `is`(1))
+            assertThat(pojo.relations.first().joinEntity, notNullValue())
+            assertThat(pojo.relations.first().joinEntity!!.parentField.columnName,
+                `is`("uid"))
+            assertThat(pojo.relations.first().joinEntity!!.entityField.columnName,
+                `is`("friendId"))
+        }.compilesWithoutError().withWarningCount(0)
+    }
+
+    @Test
+    fun relation_joinEntity_withView() {
+        val jumpEntity = """
+            package foo.bar;
+
+            import androidx.room.*;
+
+            @DatabaseView("SELECT 1, 2, FROM User")
+            public class UserFriendsXRefView {
+                public int uid;
+                public int friendId;
+            }
+        """.toJFO("foo.bar.UserFriendsXRefView")
+        singleRun(
+            """
+                int id;
+                @Relation(
+                    parentColumn = "id", entityColumn = "uid",
+                    joinEntity = @JoinEntity(
+                        value = UserFriendsXRefView.class,
+                        parentColumn = "uid", entityColumn = "friendId")
+                )
+                public List<User> user;
+                """, COMMON.USER, jumpEntity
+        ) { _ ->
+        }.compilesWithoutError().withWarningCount(0)
+    }
+
+    @Test
+    fun relation_joinEntity_defaultColumns() {
+        val jumpEntity = """
+            package foo.bar;
+
+            import androidx.room.*;
+
+            @Entity(primaryKeys = {"uid","friendId"})
+            public class UserFriendsXRef {
+                public int uid;
+                public int friendId;
+            }
+        """.toJFO("foo.bar.UserFriendsXRef")
+        singleRun(
+            """
+                int friendId;
+                @Relation(
+                    parentColumn = "friendId", entityColumn = "uid",
+                    joinEntity = @JoinEntity(UserFriendsXRef.class))
+                public List<User> user;
+                """, COMMON.USER, jumpEntity
+        ) { _ ->
+        }.compilesWithoutError().withWarningCount(0)
+    }
+
+    @Test
+    fun relation_joinEntity_missingParentColumn() {
+        val jumpEntity = """
+            package foo.bar;
+
+            import androidx.room.*;
+
+            @Entity(primaryKeys = {"friendFrom","uid"})
+            public class UserFriendsXRef {
+                public int friendFrom;
+                public int uid;
+            }
+        """.toJFO("foo.bar.UserFriendsXRef")
+        singleRun(
+            """
+                int id;
+                @Relation(
+                    parentColumn = "id", entityColumn = "uid",
+                    joinEntity = @JoinEntity(UserFriendsXRef.class)
+                )
+                public List<User> user;
+                """, COMMON.USER, jumpEntity
+        ) { _ ->
+        }.failsToCompile().withErrorContaining(relationCannotFindParentEntityField(
+            "foo.bar.UserFriendsXRef", "id", listOf("friendFrom", "uid")))
+    }
+
+    @Test
+    fun relation_joinEntity_missingEntityColumn() {
+        val jumpEntity = """
+            package foo.bar;
+
+            import androidx.room.*;
+
+            @Entity(primaryKeys = {"friendA","friendB"})
+            public class UserFriendsXRef {
+                public int friendA;
+                public int friendB;
+            }
+        """.toJFO("foo.bar.UserFriendsXRef")
+        singleRun(
+            """
+                int friendA;
+                @Relation(
+                    parentColumn = "friendA", entityColumn = "uid",
+                    joinEntity = @JoinEntity(UserFriendsXRef.class)
+                )
+                public List<User> user;
+                """, COMMON.USER, jumpEntity
+        ) { _ ->
+        }.failsToCompile().withErrorContaining(relationCannotFindEntityField(
+            "foo.bar.UserFriendsXRef", "uid", listOf("friendA", "friendB"))
+        )
+    }
+
+    @Test
     fun cache() {
         val pojo = """
             $HEADER
