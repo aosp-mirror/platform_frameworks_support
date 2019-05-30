@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "80eb21ec_9ffd6bb1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T13:04:34Z",
+      "side": 1,
+      "message": "Ack, for now since I have TopAppBar and AppBar we can live with the default only in TopAppBar and let AppBar require a color, as a more basic component",
+      "parentUuid": "a763dead_18ad7285",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57a339d7_9531b0fd",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "as you will anyway need to define somewhere a spacer when there is no leading icon you would have something like(once you figure out what is the size of it according to the spec):\ninflexible {\n    if (icon !\u003d null) {\n        LeadingIcon(icon)\n        WidthSpacer(width \u003d 32.dp)\n    } else {\n        WidthSpacer(width \u003d 16.dp)\n    }\n}\nexpanded(flex \u003d 1f) {\n    TitleTextLabel(title)\n}",
       "parentUuid": "c9c00263_7965d264",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a10a43_b5e84602",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T13:04:34Z",
+      "side": 1,
+      "message": "Done. The icon is not a parameter yet so the code will look like yours once I get a clarified spec :)",
+      "parentUuid": "b3c944f4_194b5984",
       "range": {
         "startLine": 92,
         "startChar": 4,
