@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73d8fa07_f6ee7512",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-30T21:48:01Z",
+      "side": 1,
+      "message": "Definitely agree with you that onSelected is the worst possible naming :D \n\nI\u0027m not sure about onClick here though. Not only because the reasons that we discussed in the design doc, but also because it\u0027s essentially not an onClick. Not every click will be reported, e.g. when item is already selected, you can\u0027t unselect it or select again, so this callback won\u0027t fire, which seems reasonable to me.\n\nI choose onSelect right now, which seems like a good alternative. What do you think?",
+      "parentUuid": "d82155b4_8537e1f8",
+      "range": {
+        "startLine": 168,
+        "startChar": 105,
+        "endLine": 168,
+        "endChar": 115
+      },
+      "revId": "dad053d385690f707b842d07e927c55185373976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4475d1ec_7fe1f1e6",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/SelectionsControlsDemo.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "dad053d385690f707b842d07e927c55185373976",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bb83809_c79f9b35",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/SelectionsControlsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-30T21:48:01Z",
+      "side": 1,
+      "message": "you are right, that was incorrect. check out the new naming here, inspired my our collaboration in the design document.",
+      "parentUuid": "4475d1ec_7fe1f1e6",
+      "range": {
+        "startLine": 114,
+        "startChar": 35,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "dad053d385690f707b842d07e927c55185373976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
