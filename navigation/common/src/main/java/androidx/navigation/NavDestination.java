@@ -176,6 +176,7 @@ public class NavDestination {
     private ArrayList<NavDeepLink> mDeepLinks;
     private SparseArrayCompat<NavAction> mActions;
     private HashMap<String, NavArgument> mArguments;
+    private boolean mIsFloatingWindow;
 
     /**
      * Get the arguments supported by this destination. Returns a read-only map of argument names
@@ -258,6 +259,28 @@ public class NavDestination {
     public final void setId(@IdRes int id) {
         mId = id;
         mIdName = null;
+    }
+
+    /**
+     * Returns whether the destination is a floating window.
+     *
+     * @return <code>True</code> if this destination is a floating window, <code>false</code>
+     * otherwise.
+     */
+    public boolean isFloatingWindow() {
+        return mIsFloatingWindow;
+    }
+
+    /**
+     * Sets the floating window status of the destination.
+     *
+     * This should be set to <code>true</code> for destinations that float above the normal
+     * destination views (i.e. dialog destinations).
+     *
+     * @param floatingWindow  the destination's floatingWindow status.
+     */
+    public void setFloatingWindow(boolean floatingWindow) {
+        mIsFloatingWindow = floatingWindow;
     }
 
     @NonNull

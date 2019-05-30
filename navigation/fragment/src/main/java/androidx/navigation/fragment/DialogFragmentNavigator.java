@@ -178,6 +178,7 @@ public final class DialogFragmentNavigator extends Navigator<DialogFragmentNavig
          */
         public Destination(@NonNull Navigator<? extends Destination> fragmentNavigator) {
             super(fragmentNavigator);
+            setFloatingWindow(true);
         }
 
         @CallSuper

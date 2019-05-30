@@ -103,7 +103,7 @@ abstract class AbstractAppBarOnDestinationChangedListener
                 mTopLevelDestinations);
         if (drawerLayout == null && isTopLevelDestination) {
             setNavigationIcon(null, 0);
-        } else {
+        } else if (!destination.isFloatingWindow()) {
             setActionBarUpIndicator(drawerLayout != null && isTopLevelDestination);
         }
     }
