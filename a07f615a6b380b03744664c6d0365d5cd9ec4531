@@ -22,6 +22,30 @@
       "revId": "a07f615a6b380b03744664c6d0365d5cd9ec4531",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96720dc_962f5367",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-05-30T23:27:42Z",
+      "side": 1,
+      "message": "Yes, this is just for limiting the suppression scope.",
+      "parentUuid": "2527fc25_47391c24",
+      "range": {
+        "startLine": 391,
+        "startChar": 28,
+        "endLine": 391,
+        "endChar": 37
+      },
+      "revId": "a07f615a6b380b03744664c6d0365d5cd9ec4531",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
