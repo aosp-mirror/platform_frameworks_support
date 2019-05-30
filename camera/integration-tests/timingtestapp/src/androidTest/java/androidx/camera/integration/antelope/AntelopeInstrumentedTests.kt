@@ -38,18 +38,26 @@ import java.io.File
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.filters.MediumTest
 import androidx.test.filters.LargeTest
+import androidx.test.filters.Suppress
 import org.junit.Assume.assumeTrue
 import org.junit.FixMethodOrder
 import org.junit.runners.MethodSorters
 import java.util.concurrent.TimeUnit
 import androidx.camera.integration.antelope.MainActivity.Companion.antelopeIdlingResource
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
+import org.junit.runner.RunWith
 
 /**
  * Suite of tests that cover the major use cases for Antelope.
  *
  * Assumes device/emulator has a front and a back camera.
+ *
+ * Note: tests are suppressed for pre/post-submit testing as these tests exercise the camera
+ * device thoroughly - failures that leave the device in a bad state can cause future tests to fail.
  */
+@Suppress
+@RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AntelopeInstrumentedTests {
     @get: Rule
