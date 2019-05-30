@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "630192c7_6f203197",
+        "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-30T19:59:58Z",
+      "side": 1,
+      "message": "I don\u0027t need to make this public... it could certainly be private to minimize the changes in this CL.",
+      "range": {
+        "startLine": 1418,
+        "startChar": 4,
+        "endLine": 1418,
+        "endChar": 10
+      },
+      "revId": "129316a1268ff8fa19ae5207c0de8224fb7237ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e54e0c0_e8000a8b",
+        "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-30T19:59:58Z",
+      "side": 1,
+      "message": "Also don\u0027t need to make this public.",
+      "range": {
+        "startLine": 1458,
+        "startChar": 4,
+        "endLine": 1458,
+        "endChar": 10
+      },
+      "revId": "129316a1268ff8fa19ae5207c0de8224fb7237ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
