@@ -42,6 +42,11 @@ final class Camera2CameraCaptureResult implements CameraCaptureResult {
         mCaptureResult = captureResult;
     }
 
+    @Override
+    public CaptureResult realResult() {
+        return mCaptureResult;
+    }
+
     /**
      * Converts the camera2 {@link CaptureResult#CONTROL_AF_MODE} to {@link AfMode}.
      *

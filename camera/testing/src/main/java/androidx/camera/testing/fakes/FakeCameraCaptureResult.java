@@ -16,6 +16,8 @@
 
 package androidx.camera.testing.fakes;
 
+import android.hardware.camera2.CaptureResult;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -93,6 +95,11 @@ public final class FakeCameraCaptureResult implements CameraCaptureResult {
     @Override
     public CameraCaptureMetaData.FlashState getFlashState() {
         return mFlashState;
+    }
+
+    @Override
+    public CaptureResult realResult() {
+        return null;
     }
 
     @NonNull

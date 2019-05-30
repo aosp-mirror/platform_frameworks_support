@@ -16,6 +16,8 @@
 
 package androidx.camera.core;
 
+import android.hardware.camera2.CaptureResult;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -52,6 +54,9 @@ public interface CameraCaptureResult {
     /** Returns the current flash state. */
     @NonNull
     FlashState getFlashState();
+
+    /** Experimental: access to Camera2 object. */
+    CaptureResult realResult();
 
     /**
      * Returns the timestamp in nanoseconds.
@@ -107,6 +112,11 @@ public interface CameraCaptureResult {
 
         @Override
         public Object getTag() {
+            return null;
+        }
+
+        @Override
+        public CaptureResult realResult() {
             return null;
         }
     }

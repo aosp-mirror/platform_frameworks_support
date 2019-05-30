@@ -359,6 +359,69 @@ public final class Camera2CameraControl implements CameraControl {
         notifyCaptureRequests(Collections.singletonList(builder.build()));
     }
 
+    @Override
+    public void setExposureComp(final int val) {
+        if (Looper.myLooper() != mHandler.getLooper()) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Camera2CameraControl.this.setExposureComp(val);
+                }
+            });
+            return;
+        }
+
+        CaptureConfig.Builder builder = createCaptureBuilderWithSharedOptions();
+        builder.setTemplateType(getDefaultTemplate());
+        builder.setUseRepeatingSurface(true);
+        Camera2Config.Builder configBuilder = new Camera2Config.Builder();
+        configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION, val);
+        builder.addImplementationOptions(configBuilder.build());
+        notifyCaptureRequests(Collections.singletonList(builder.build()));
+    }
+
+    @Override
+    public void lockAe() {
+        if (Looper.myLooper() != mHandler.getLooper()) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Camera2CameraControl.this.lockAe();
+                }
+            });
+            return;
+        }
+
+        CaptureConfig.Builder builder = createCaptureBuilderWithSharedOptions();
+        builder.setTemplateType(getDefaultTemplate());
+        builder.setUseRepeatingSurface(true);
+        Camera2Config.Builder configBuilder = new Camera2Config.Builder();
+        configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AE_LOCK, true);
+        builder.addImplementationOptions(configBuilder.build());
+        notifyCaptureRequests(Collections.singletonList(builder.build()));
+    }
+
+    @Override
+    public void unlockAe() {
+        if (Looper.myLooper() != mHandler.getLooper()) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Camera2CameraControl.this.unlockAe();
+                }
+            });
+            return;
+        }
+
+        CaptureConfig.Builder builder = createCaptureBuilderWithSharedOptions();
+        builder.setTemplateType(getDefaultTemplate());
+        builder.setUseRepeatingSurface(true);
+        Camera2Config.Builder configBuilder = new Camera2Config.Builder();
+        configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AE_LOCK, false);
+        builder.addImplementationOptions(configBuilder.build());
+        notifyCaptureRequests(Collections.singletonList(builder.build()));
+    }
+
     /**
      * Issues {@link CaptureRequest#CONTROL_AF_TRIGGER_CANCEL} or {@link
      * CaptureRequest#CONTROL_AE_PRECAPTURE_TRIGGER_CANCEL} request to cancel auto focus or auto

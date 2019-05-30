@@ -101,6 +101,21 @@ public final class FakeCameraControl implements CameraControl {
     }
 
     @Override
+    public void setExposureComp(int val) {
+
+    }
+
+    @Override
+    public void lockAe() {
+
+    }
+
+    @Override
+    public void unlockAe() {
+
+    }
+
+    @Override
     public void cancelAfAeTrigger(final boolean cancelAfTrigger,
             final boolean cancelAePrecaptureTrigger) {
         Log.d(TAG, "cancelAfAeTrigger(" + cancelAfTrigger + ", "

@@ -103,6 +103,15 @@ public interface CameraControl {
     /** Performs a AE Precapture trigger. */
     void triggerAePrecapture();
 
+    /** Experimental: set ev comp. */
+    void setExposureComp(int val);
+
+    /** Experimental: lock ae. */
+    void lockAe();
+
+    /** Experimental: unlock ae. */
+    void unlockAe();
+
     /** Cancel AF trigger AND/OR AE Precapture trigger.* */
     void cancelAfAeTrigger(boolean cancelAfTrigger, boolean cancelAePrecaptureTrigger);
 
@@ -156,6 +165,21 @@ public interface CameraControl {
 
         @Override
         public void triggerAePrecapture() {
+        }
+
+        @Override
+        public void setExposureComp(int val) {
+
+        }
+
+        @Override
+        public void lockAe() {
+
+        }
+
+        @Override
+        public void unlockAe() {
+
         }
 
         @Override

@@ -16,7 +16,12 @@
 
 package androidx.camera.core;
 
+import android.content.Context;
 import android.graphics.ImageFormat;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CaptureResult;
 import android.location.Location;
 import android.media.Image;
 import android.media.ImageReader;
@@ -24,6 +29,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
+import android.util.Range;
 import android.util.Rational;
 import android.util.Size;
 import android.view.Display;
@@ -500,6 +506,8 @@ public class ImageCapture extends UseCase {
         takePictureInternal();
     }
 
+    private long mPicStartMs;
+    private long mPicTimeMs;
     /**
      * The take picture flow.
      *
@@ -515,16 +523,30 @@ public class ImageCapture extends UseCase {
     private void takePictureInternal() {
         final TakePictureState state = new TakePictureState();
 
+        mPicStartMs = SystemClock.elapsedRealtime();
+        mPicTimeMs = mPicStartMs;
+
         FluentFuture.from(preTakePicture(state))
                 .transformAsync(new AsyncFunction<Void, Void>() {
                     @Override
                     public ListenableFuture<Void> apply(Void v) throws Exception {
+                        long time = mPicTimeMs;
+                        mPicTimeMs = SystemClock.elapsedRealtime();
+                        time = mPicTimeMs - time;
+
+                        Log.d(TAG, "takepic: totalPreCapture " + time + " ms ");
                         return ImageCapture.this.issueTakePicture();
                     }
                 }, mExecutor)
                 .transformAsync(new AsyncFunction<Void, Void>() {
                     @Override
                     public ListenableFuture<Void> apply(Void v) throws Exception {
+                        long time = mPicTimeMs;
+                        mPicTimeMs = SystemClock.elapsedRealtime();
+                        time = mPicTimeMs - time;
+
+                        Log.d(TAG, "takepic: issueTakePicture " + time + " ms");
+
                         return ImageCapture.this.postTakePicture(state);
                     }
                 }, mExecutor)
@@ -532,6 +554,11 @@ public class ImageCapture extends UseCase {
                         new FutureCallback<Void>() {
                             @Override
                             public void onSuccess(Void result) {
+                                long time = mPicTimeMs;
+                                mPicTimeMs = SystemClock.elapsedRealtime();
+                                time = mPicTimeMs - time;
+
+                                Log.d(TAG, "takepic: postTakePicture " + time + " ms");
                             }
 
                             @Override
@@ -669,18 +696,25 @@ public class ImageCapture extends UseCase {
         return suggestedResolutionMap;
     }
 
+    private long mPrevTimeMs;
     /**
      * Routine before taking picture.
      *
      * <p>For example, trigger 3A scan, open torch and check 3A converged if necessary.
      */
     private ListenableFuture<Void> preTakePicture(final TakePictureState state) {
+        mPrevTimeMs = SystemClock.elapsedRealtime();
         return FluentFuture.from(getPreCaptureStateIfNeeded())
                 .transformAsync(
                         new AsyncFunction<CameraCaptureResult, Boolean>() {
                             @Override
                             public ListenableFuture<Boolean> apply(
                                     CameraCaptureResult captureResult) throws Exception {
+                                long time = mPrevTimeMs;
+                                mPrevTimeMs = SystemClock.elapsedRealtime();
+                                time = mPrevTimeMs - time;
+                                Log.d(TAG, "precap: getPreCaptureState " + time + " ms");
+
                                 state.mPreCaptureState = captureResult;
                                 ImageCapture.this.triggerAfIfNeeded(state);
 
@@ -693,9 +727,41 @@ public class ImageCapture extends UseCase {
                         },
                         mExecutor)
                 // Ignore the 3A convergence result.
+//                .transformAsync(
+//                    new AsyncFunction<Boolean, Boolean>() {
+//                        @Override
+//                        public ListenableFuture<Boolean> apply(Boolean v) {
+//                            long time = mPrevTimeMs;
+//                            mPrevTimeMs = SystemClock.elapsedRealtime();
+//                            time = mPrevTimeMs - time;
+//                            Log.d(TAG, "precap: 3A " + time + " ms");
+//
+//                            return ImageCapture.this.lockAe();
+//                        }
+//                    },
+//                    mExecutor)
+                .transformAsync(
+                        new AsyncFunction<Boolean, Boolean>() {
+                            @Override
+                            public ListenableFuture<Boolean> apply(Boolean v) {
+                                long time = mPrevTimeMs;
+                                mPrevTimeMs = SystemClock.elapsedRealtime();
+                                time = mPrevTimeMs - time;
+                                Log.d(TAG, "precap: 3A " + time + " ms");
+
+                                return ImageCapture.this.setUnderexpose();
+                            }
+                        },
+                        mExecutor)
+//
                 .transform(new Function<Boolean, Void>() {
                     @Override
-                    public Void apply(Boolean is3AConverged) {
+                    public Void apply(Boolean v) {
+                        long time = mPrevTimeMs;
+                        mPrevTimeMs = SystemClock.elapsedRealtime();
+                        time = mPrevTimeMs - time;
+                        Log.d(TAG, "precap: underExpose " + time + " ms");
+
                         return null;
                     }
                 }, mExecutor);
@@ -792,6 +858,106 @@ public class ImageCapture extends UseCase {
                 },
                 CHECK_3A_TIMEOUT_IN_MS,
                 false);
+    }
+
+    ListenableFuture<Boolean> lockAe() {
+        getCurrentCameraControl().lockAe();
+        return mSessionCallbackChecker.checkCaptureResult(
+                new CaptureCallbackChecker.CaptureResultChecker<Boolean>() {
+
+                    @Override
+                    public Boolean check(@NonNull CameraCaptureResult ccaptureResult) {
+                        CaptureResult captureResult = ccaptureResult.realResult();
+                        boolean isLocked = captureResult.get(CaptureResult.CONTROL_AE_LOCK);
+                        int exState = captureResult.get(CaptureResult.CONTROL_AE_STATE);
+                        // if (CaptureResult.CONTROL_AE_STATE_SEARCHING == exState) {
+                        Log.d(TAG, "Exposure state " + exState + " isLocked " + isLocked);
+                        if (exState == CaptureResult.CONTROL_AE_STATE_LOCKED || isLocked) {
+                            Log.d(TAG, "Exposure terminal " + exState);
+                            return true;
+                        }
+                        return null;
+                    }
+                },
+                5000,
+                false);
+    }
+
+
+    ListenableFuture<Boolean> unlockAe() {
+        getCurrentCameraControl().unlockAe();
+        return mSessionCallbackChecker.checkCaptureResult(
+                new CaptureCallbackChecker.CaptureResultChecker<Boolean>() {
+
+                    @Override
+                    public Boolean check(@NonNull CameraCaptureResult ccaptureResult) {
+                        CaptureResult captureResult = ccaptureResult.realResult();
+                        int exState = captureResult.get(CaptureResult.CONTROL_AE_STATE);
+                        if (CaptureResult.CONTROL_AE_STATE_SEARCHING == exState) {
+                            Log.d(TAG, "Exposure searching");
+                        } else if (exState == CaptureResult.CONTROL_AE_STATE_CONVERGED
+                                || exState == CaptureResult.CONTROL_AE_STATE_LOCKED
+                                || exState == CaptureResult.CONTROL_AE_STATE_FLASH_REQUIRED) {
+                            Log.d(TAG, "Exposure terminal " + exState);
+                            return true;
+                        }
+                        return null;
+                    }
+                },
+                2000,
+                false);
+    }
+
+    ListenableFuture<Boolean> setUnderexpose() {
+
+        try {
+            CameraManager cm =  (CameraManager) CameraX.getContext()
+                    .getSystemService(Context.CAMERA_SERVICE);
+            CameraCharacteristics cc =
+                    cm.getCameraCharacteristics(getAttachedCameraIds().iterator().next());
+            Rational step = cc.get(CameraCharacteristics.CONTROL_AE_COMPENSATION_STEP);
+            Range<Integer> range = cc.get(CameraCharacteristics.CONTROL_AE_COMPENSATION_RANGE);
+            Log.d(TAG, " step: " + step + " range: " + range);
+
+            getCurrentCameraControl().setExposureComp(-12); // Test value
+            return mSessionCallbackChecker.checkCaptureResult(
+                    new CaptureCallbackChecker.CaptureResultChecker<Boolean>() {
+
+                        @Override
+                        public Boolean check(@NonNull CameraCaptureResult ccaptureResult) {
+                            CaptureResult result = ccaptureResult.realResult();
+                            int exState = result.get(CaptureResult.CONTROL_AE_STATE);
+                            Log.d(TAG, "Exposure state [ue] = " + exState);
+
+                            long recentExposureTimeNs =
+                                    result.get(CaptureResult.SENSOR_EXPOSURE_TIME);
+                            int recentSensitivity = result.get(CaptureResult.SENSOR_SENSITIVITY);
+                            int evComp = result.get(CaptureResult.CONTROL_AE_EXPOSURE_COMPENSATION);
+                            boolean aeLock = result.get(CaptureResult.CONTROL_AE_LOCK);
+                            int aeState = result.get(CaptureResult.CONTROL_AE_STATE);
+                            int aeMode = result.get(CaptureResult.CONTROL_AE_MODE);
+                            Log.d(TAG, "exns:" + recentExposureTimeNs
+                                    + " exsen:" + recentSensitivity
+                                    + " evcomp:" + evComp
+                                    + " aelock:" + aeLock
+                                    + " aestate:" + aeState
+                                    + " aemode:" + aeMode);
+
+                            if (exState == CaptureResult.CONTROL_AE_STATE_CONVERGED
+                                    || exState == CaptureResult.CONTROL_AE_STATE_LOCKED
+                                    || exState == CaptureResult.CONTROL_AE_STATE_FLASH_REQUIRED) {
+                                Log.d(TAG, "Exposure terminal " + exState);
+                                return true;
+                            }
+                            return null;
+                        }
+                    },
+                    2000,
+                    false);
+        } catch (CameraAccessException e) {
+            Log.e(TAG, "UNDEREXPOSE FAILED", e);
+            return Futures.immediateFuture(null);
+        }
     }
 
     /**
