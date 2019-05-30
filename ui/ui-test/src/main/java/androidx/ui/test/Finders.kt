@@ -17,6 +17,8 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.semantics.label
+import androidx.ui.semantics.testTag
 
 /**
  * Extension methods that provide the entry point for the testing APIs.

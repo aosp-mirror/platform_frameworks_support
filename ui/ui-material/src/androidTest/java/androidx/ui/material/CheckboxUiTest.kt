@@ -26,6 +26,7 @@ import androidx.ui.foundation.selection.ToggleableState.Checked
 import androidx.ui.foundation.selection.ToggleableState.Indeterminate
 import androidx.ui.foundation.selection.ToggleableState.Unchecked
 import androidx.ui.layout.Column
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsChecked
 import androidx.ui.test.assertIsNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
@@ -47,14 +48,16 @@ class CheckboxUiTest {
     @get:Rule
     val composeTestRule = createComposeRule(disableTransitions = true)
 
+    // TODO(i18n): Hardcoded string
     // TODO(b/126881459): this should be the default semantic for checkbox
     private val defaultCheckboxCheckedSemantics = createFullSemantics(
         isEnabled = true,
-        isChecked = true
+        value = "Checked"
     )
 
+    // TODO(i18n): Hardcoded string
     private val defaultCheckboxUncheckedSemantics = defaultCheckboxCheckedSemantics.copyWith {
-        isChecked = false
+        value = "Unchecked"
     }
 
     private val defaultTag = "myCheckbox"

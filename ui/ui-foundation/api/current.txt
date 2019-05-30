@@ -45,6 +45,34 @@ package androidx.ui.foundation.selection {
 
 }
 
+package androidx.ui.foundation.semantics {
+
+  public final class FoundationSemanticsProperties {
+    ctor public FoundationSemanticsProperties();
+    field public static final androidx.ui.foundation.semantics.FoundationSemanticsProperties.Companion! Companion;
+  }
+
+  public static final class FoundationSemanticsProperties.Companion {
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getInMutuallyExclusiveGroup();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getSelected();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getToggleState();
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> InMutuallyExclusiveGroup;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> Selected;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> ToggleState;
+  }
+
+  public final class FoundationSemanticsPropertiesKt {
+    ctor public FoundationSemanticsPropertiesKt();
+    method public static boolean getInMutuallyExclusiveGroup(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static boolean getSelected(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static boolean getToggleState(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static void setInMutuallyExclusiveGroup(androidx.ui.semantics.SemanticsPropertyReceiver, boolean p);
+    method public static void setSelected(androidx.ui.semantics.SemanticsPropertyReceiver, boolean p);
+    method public static void setToggleState(androidx.ui.semantics.SemanticsPropertyReceiver, boolean p);
+  }
+
+}
+
 package androidx.ui.foundation.shape {
 
   public final class DrawShapeKt {

@@ -49,7 +49,7 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() && isChecked == true }
+        findAll { isToggleable && isChecked == true }
             .forEach {
                 it.assertIsChecked()
             }
@@ -76,7 +76,7 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() }
+        findAll { isToggleable }
             .forEach {
                 it.doClick()
                 it.assertIsChecked()
@@ -96,7 +96,7 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() && isChecked == false }
+        findAll { isToggleable && isChecked == false }
             .assertCountEquals(0)
     }
 
@@ -122,7 +122,7 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() }.apply {
+        findAll { isToggleable }.apply {
             get(0)
                 .doClick()
                 .assertIsChecked()
@@ -161,14 +161,14 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() }.apply {
+        findAll { isToggleable }.apply {
             get(0)
                 .assertIsNotChecked()
                 .doClick()
                 .assertIsChecked()
         }
 
-        findAll { isCheckable() }.apply {
+        findAll { isToggleable }.apply {
             get(2)
                 .assertIsNotChecked()
         }
@@ -199,7 +199,7 @@ class FindAllTest {
             }
         }
 
-        findAll { isCheckable() }.apply {
+        findAll { isToggleable }.apply {
             get(0)
                 .assertIsNotChecked()
                 .doClick()
