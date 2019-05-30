@@ -38,6 +38,7 @@ import java.io.File
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.filters.MediumTest
 import androidx.test.filters.LargeTest
+import androidx.test.filters.Suppress
 import org.junit.Assume.assumeTrue
 import org.junit.FixMethodOrder
 import org.junit.runners.MethodSorters
@@ -50,6 +51,7 @@ import org.junit.After
  *
  * Assumes device/emulator has a front and a back camera.
  */
+@Suppress
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AntelopeInstrumentedTests {
     @get: Rule
