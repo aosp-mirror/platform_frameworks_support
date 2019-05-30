@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cefc684b_20b8cde5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-30T16:29:09Z",
+      "side": 1,
+      "message": "Sets*",
+      "range": {
+        "startLine": 530,
+        "startChar": 7,
+        "endLine": 530,
+        "endChar": 10
+      },
+      "revId": "966db2469d83d067a71a0363b2033939a10af05e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e9a63e_fa319bc0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-30T16:29:09Z",
+      "side": 1,
+      "message": "Tweaking this just slightly. Mostly think that first sentence is a little confusing:\n\nIf enabled, a scroll bar will appear when the number of items causes the PagedListView to be scrollable. Otherwise, the scroll bar is hidden regardless of item count.",
+      "range": {
+        "startLine": 531,
+        "startChar": 6,
+        "endLine": 534,
+        "endChar": 32
+      },
+      "revId": "966db2469d83d067a71a0363b2033939a10af05e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739272b0_b9df8bea",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-30T16:29:09Z",
+      "side": 1,
+      "message": "Maybe: \"{@code true} to enable the scroll bar.\"\n\nThat way it won\u0027t just repeat the first sentence of the javadoc and chains together with the language of the second paragraph. Personally don\u0027t think it\u0027s necessary to call out the \"{@code false\" case here since it\u0027s implied, but I\u0027m also fine if you wanna include it.\n\nThis also aligns better with the language of arguments in the public doc:\n\ne.g. https://developer.android.com/reference/android/support/v7/widget/RecyclerView#setlayoutfrozen",
+      "range": {
+        "startLine": 536,
+        "startChar": 22,
+        "endLine": 536,
+        "endChar": 63
+      },
+      "revId": "966db2469d83d067a71a0363b2033939a10af05e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "371b6673_28fcac3e",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-30T16:29:09Z",
+      "side": 1,
+      "message": "Don\u0027t think it\u0027s necessary to repeat this. If you really want, you can add a @see that points to setScrollBarEnabled instead.",
+      "revId": "966db2469d83d067a71a0363b2033939a10af05e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
