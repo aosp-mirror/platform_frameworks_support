@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5b39a4e_85028194",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T15:30:03Z",
+      "side": 1,
+      "message": "I am removing the nullability of this params now http://aosp/973745\ncould you please replace this with\ncolor: Color \u003d +themeColor { secondary }",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "0006fe8f3b8a2dc6c121063cc80bc50116a5720b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
