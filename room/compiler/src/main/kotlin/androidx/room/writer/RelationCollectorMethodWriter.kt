@@ -130,9 +130,14 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
                     if (shouldCopyCursor) "true" else "false")
 
             beginControlFlow("try").apply {
+                val keyColumnName = if (relation.joinEntity != null) {
+                    relation.joinEntity.parentField.columnName
+                } else {
+                    relation.entityField.columnName
+                }
                 addStatement("final $T $L = $T.getColumnIndex($L, $S)",
                     TypeName.INT, itemKeyIndexVar, RoomTypeNames.CURSOR_UTIL, cursorVar,
-                    relation.entityField.columnName)
+                    keyColumnName)
 
                 beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
                     addStatement("return")

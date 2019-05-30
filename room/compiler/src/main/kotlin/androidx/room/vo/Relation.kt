@@ -33,20 +33,34 @@ class Relation(
     // the field referenced for querying. does not need to be in the response but the query
     // we generate always has it in the response.
     val entityField: Field,
+    // Used for joining on a many-to-many relation
+    val joinEntity: JoinEntity?,
     // the projection for the query
     val projection: List<String>
 ) {
-
     val pojoTypeName by lazy { pojoType.typeName() }
 
     fun createLoadAllSql(): String {
-        val resultFields = projection.toSet() + entityField.columnName
+        val resultFields = projection.toSet()
         return createSelect(resultFields)
     }
 
-    private fun createSelect(resultFields: Set<String>): String {
-        return "SELECT ${resultFields.joinToString(",") {"`$it`"}}" +
-                " FROM `${entity.tableName}`" +
-                " WHERE `${entityField.columnName}` IN (:args)"
-    }
+    private fun createSelect(resultFields: Set<String>) = StringBuilder().apply {
+        if (joinEntity != null) {
+            val joinTableName = joinEntity.entity.tableName
+            val resultColumns = resultFields.map { "`${entity.tableName}`.`$it`" } +
+                    "`$joinTableName`.`${joinEntity.parentField.columnName}`"
+            append("SELECT ${resultColumns.joinToString(",")}")
+            append(" FROM `$joinTableName`")
+            append(" INNER JOIN `${entity.tableName}` ON" +
+                    " (`$joinTableName`.`${joinEntity.entityField.columnName}`" +
+                    " = `${entity.tableName}`.`${entityField.columnName}`)")
+            append(" WHERE `$joinTableName`.`${joinEntity.parentField.columnName}` IN (:args)")
+        } else {
+            val resultColumns = resultFields.map { "`$it`" } + "`${entityField.columnName}`"
+            append("SELECT ${resultColumns.joinToString(",")}")
+            append(" FROM `${entity.tableName}`")
+            append(" WHERE `${entityField.columnName}` IN (:args)")
+        }
+    }.toString()
 }
