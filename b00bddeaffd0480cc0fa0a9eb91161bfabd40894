@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "98acb6d0_e2514981",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T12:30:20Z",
+      "side": 1,
+      "message": "I\u0027m leaning towards 2) wdyt",
+      "parentUuid": "c7b0ad86_c36ec87d",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e75735f4_0bce6864",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/RippleEffectFactory.kt",
         "patchSetId": 4
