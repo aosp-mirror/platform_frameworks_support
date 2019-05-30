@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2527fc25_47391c24",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-30T16:19:20Z",
+      "side": 1,
+      "message": "I might be missing something, but what is the purpose of this method? Is it just to avoid suppressing inspection in the call sites?",
+      "range": {
+        "startLine": 391,
+        "startChar": 28,
+        "endLine": 391,
+        "endChar": 37
+      },
+      "revId": "a07f615a6b380b03744664c6d0365d5cd9ec4531",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
