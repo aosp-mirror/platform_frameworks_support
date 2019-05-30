@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +121,7 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
      * @param imageReaderProxy The existed ImageReaderProxy to be set underlying this
      *                         MetadataImageReader.
      * @param handler          Handler for executing
-     * {@link ImageReaderProxy.OnImageAvailableListener}
+     *                         {@link ImageReaderProxy.OnImageAvailableListener}
      */
     MetadataImageReader(ImageReaderProxy imageReaderProxy, @Nullable Handler handler) {
         mImageReaderProxy = imageReaderProxy;
@@ -322,6 +323,7 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
                     // Add the incoming Image to pending list and do the matching logic.
                     mPendingImages.put(image.getTimestamp(), image);
 
+                    removeStaleData();
                     matchImages();
                 }
             }
@@ -340,7 +342,55 @@ class MetadataImageReader implements ImageReaderProxy, ForwardingImageProxy.OnIm
             mPendingImageInfos.put(cameraCaptureResult.getTimestamp(),
                     new CameraCaptureResultImageInfo(cameraCaptureResult));
 
+            removeStaleData();
             matchImages();
+        }
+    }
+
+    // Remove the stale {@link ImageProxy} and {@link ImageInfo} from the pending queue if there are
+    // any missing which can happen if the camera is momentarily shut off.
+    // The ImageProxy and ImageInfo timestamps are assumed to be monotonically increasing. This
+    // means any ImageProxy or ImageInfo which has a timestamp older (smaller in value) than the
+    // oldest timestamp in the other queue will never get matched, so they should be removed.
+    private void removeStaleData() {
+        synchronized (mLock) {
+            if (mPendingImageInfos.isEmpty() || mPendingImages.isEmpty()) {
+                return;
+            }
+
+            Long minImageInfoTimestamp = Collections.min(mPendingImageInfos.keySet());
+            Long minImageProxyTimestamp = Collections.min(mPendingImages.keySet());
+
+            // If timestamps are equal then they should not be removed
+            if (minImageInfoTimestamp.equals(minImageProxyTimestamp)) {
+                return;
+            }
+
+            if (minImageInfoTimestamp > minImageProxyTimestamp) {
+                List<Long> toRemove = new ArrayList<>();
+
+                for (Long key : mPendingImages.keySet()) {
+                    if (key < minImageInfoTimestamp) {
+                        toRemove.add(key);
+                    }
+                }
+
+                for (Long key : toRemove) {
+                    mPendingImages.get(key).close();
+                    mPendingImages.remove(key);
+                }
+            } else {
+                List<Long> toRemove = new ArrayList<>();
+                for (Long key : mPendingImageInfos.keySet()) {
+                    if (key < minImageProxyTimestamp) {
+                        toRemove.add(key);
+                    }
+                }
+
+                for (Long key : toRemove) {
+                    mPendingImageInfos.remove(key);
+                }
+            }
         }
     }
 

@@ -24,6 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.ImageReaderProxy;
 
+import java.util.NoSuchElementException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * A fake implementation of ImageReaderProxy where the values are settable and the
  * OnImageAvailableListener can be triggered.
@@ -32,21 +36,53 @@ public class FakeImageReaderProxy implements ImageReaderProxy {
     private int mWidth = 100;
     private int mHeight = 100;
     private int mImageFormat = ImageFormat.JPEG;
-    private int mMaxImages = 8;
+    private final int mMaxImages;
     private Surface mSurface;
     private Handler mHandler;
-    private ImageProxy mImageProxy;
 
+    private BlockingQueue<ImageProxy> mImageProxyQueue;
+
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     ImageReaderProxy.OnImageAvailableListener mListener;
+
+    /**
+     * Create a new {@link FakeImageReaderProxy} instance.
+     *
+     * @param maxImages The maximum number of images that can be acquired at once
+     */
+    public FakeImageReaderProxy(int maxImages) {
+        mMaxImages = maxImages;
+        mImageProxyQueue = new LinkedBlockingQueue<>(maxImages);
+    }
 
     @Override
     public ImageProxy acquireLatestImage() {
-        return mImageProxy;
+        ImageProxy imageProxy;
+
+        try {
+            do {
+                imageProxy = mImageProxyQueue.remove();
+            } while (!mImageProxyQueue.isEmpty());
+        } catch (NoSuchElementException e) {
+            throw new IllegalStateException(
+                    "Unable to acquire latest image from empty FakeImageReader");
+        }
+
+        return imageProxy;
     }
 
     @Override
     public ImageProxy acquireNextImage() {
-        return mImageProxy;
+        ImageProxy imageProxy;
+
+        try {
+            imageProxy = mImageProxyQueue.remove();
+        } catch (NoSuchElementException e) {
+            throw new IllegalStateException(
+                    "Unable to acquire next image from empty FakeImageReader");
+        }
+
+        return imageProxy;
     }
 
     @Override
@@ -88,22 +124,33 @@ public class FakeImageReaderProxy implements ImageReaderProxy {
         mHandler = handler;
     }
 
-    public void setMaxImages(int maxImages) {
-        mMaxImages = maxImages;
-    }
-
-    public void setImageProxy(ImageProxy imageProxy) {
-        mImageProxy = imageProxy;
-    }
-
     public void setSurface(Surface surface) {
         mSurface = surface;
     }
 
     /**
      * Manually trigger OnImageAvailableListener to notify the Image is ready.
+     *
+     * <p> Blocks until successfully added an ImageProxy. This can block if the maximum number of
+     * ImageProxy have been triggered without a {@link #acquireLatestImage()} or {@link
+     * #acquireNextImage()} being called.
      */
-    public void triggerImageAvailable() {
+    public void triggerImageAvailable(Object tag, long timestamp) throws InterruptedException {
+        FakeImageProxy fakeImageProxy = new FakeImageProxy();
+        fakeImageProxy.setFormat(mImageFormat);
+        fakeImageProxy.setHeight(mHeight);
+        fakeImageProxy.setWidth(mWidth);
+        fakeImageProxy.setTimestamp(timestamp);
+
+        if (tag != null) {
+            FakeImageInfo fakeImageInfo = new FakeImageInfo();
+            fakeImageInfo.setTag(tag);
+            fakeImageInfo.setTimestamp(timestamp);
+            fakeImageProxy.setImageInfo(fakeImageInfo);
+        }
+
+        mImageProxyQueue.put(fakeImageProxy);
+
         if (mListener != null) {
             if (mHandler != null) {
                 mHandler.post(

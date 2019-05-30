@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import androidx.camera.testing.fakes.FakeCameraCaptureResult;
-import androidx.camera.testing.fakes.FakeImageProxy;
 import androidx.camera.testing.fakes.FakeImageReaderProxy;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
@@ -42,7 +41,7 @@ public final class MetadataImageReaderTest {
     private static final long TIMESTAMP_0 = 0L;
     private static final long TIMESTAMP_1 = 1000L;
     private static final long TIMESTAMP_NONEXISTANT = 5000L;
-    private final FakeImageReaderProxy mImageReader = new FakeImageReaderProxy();
+    private FakeImageReaderProxy mImageReader;
     private final FakeCameraCaptureResult mCameraCaptureResult0 = new FakeCameraCaptureResult();
     private final FakeCameraCaptureResult mCameraCaptureResult1 = new FakeCameraCaptureResult();
     private final Semaphore mSemaphore = new Semaphore(0);
@@ -210,15 +209,41 @@ public final class MetadataImageReaderTest {
         mSemaphore.tryAcquire(300, TimeUnit.MILLISECONDS);
     }
 
+    @Test(timeout = 1000)
+    public void doesNotBlockOnMismatchingImageInfoAndImageProxy() throws InterruptedException {
+        createMetadataImageReaderWithCapacity(3);
+
+        mMetadataImageReader.setOnImageAvailableListener(
+                new ImageReaderProxy.OnImageAvailableListener() {
+                    @Override
+                    public void onImageAvailable(ImageReaderProxy imageReader) {
+                        // No image should be available since there should be no matches found
+                        assertThat(false);
+                    }
+                },
+                mBackgroundHandler
+        );
+
+        // Trigger ImageInfo and ImageProxy to be pushed into the MetadataImageReader, which should
+        // discard older data without matches so it does not get blocked.
+        for (int i = 0; i < 5; i++) {
+            triggerImageAvailable(i * 2);
+            triggerImageInfoAvailable(i * 2 + 1);
+        }
+    }
+
     private void createMetadataImageReaderWithCapacity(int maxImages) {
-        mImageReader.setMaxImages(maxImages);
+        mImageReader = new FakeImageReaderProxy(maxImages);
         mMetadataImageReader = new MetadataImageReader(mImageReader, null);
     }
 
-    private void triggerImageAvailable(long timestamp) {
-        FakeImageProxy image = new FakeImageProxy();
-        image.setTimestamp(timestamp);
-        mImageReader.setImageProxy(image);
-        mImageReader.triggerImageAvailable();
+    private void triggerImageAvailable(long timestamp) throws InterruptedException {
+        mImageReader.triggerImageAvailable(null, timestamp);
+    }
+
+    private void triggerImageInfoAvailable(long timestamp) {
+        FakeCameraCaptureResult.Builder builder = new FakeCameraCaptureResult.Builder();
+        builder.setTimestamp(timestamp);
+        mMetadataImageReader.getCameraCaptureCallback().onCaptureCompleted(builder.build());
     }
 }
