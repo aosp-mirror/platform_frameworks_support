@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37031264_5f5f3e83",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:55:12Z",
+      "side": 1,
+      "message": "Unnecessary, inline both of these.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 85
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8f2b1f4_cb0d5b69",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:55:12Z",
+      "side": 1,
+      "message": "We should avoid the getResources() call if possible. Consider changing this to:\n\nif (a.hasValueOrEmpty(...)) {\n  mDrawerElevation \u003d a.getDimension(..., 0);\n} else {\n  mDrawerElevation \u003d ...\n}",
+      "range": {
+        "startLine": 376,
+        "startChar": 64,
+        "endLine": 377,
+        "endChar": 59
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f0291f_153748d4",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:55:12Z",
+      "side": 1,
+      "message": "Please copy all of the attrs defined here to res-public, like this:\nhttps://cs.corp.google.com/aosp-androidx/core/res-public/values/public_attrs.xml\n\nThis allows developers to use the attributes.",
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49009ae_7f16adfa",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:55:12Z",
+      "side": 1,
+      "message": "Remove enclosing styleable element, rename to \"drawerLayoutStyle\" to match other default style attributes. Attributes are always camelCase.\n\nPlease also add an XML comment to the effect of:\n\u003c!-- Theme attribute for default {@link androidx.drawerlayout.widget.DrawerLayout} style. --\u003e",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
