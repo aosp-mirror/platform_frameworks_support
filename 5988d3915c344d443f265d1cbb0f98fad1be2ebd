@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63367021_3c35c2e1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/LensFacingCameraIdFilter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-30T07:33:54Z",
+      "side": 1,
+      "message": "CameraIdFilterSet would be store into HashSet, \nShould we implement the equals and hashcode to identify the same (duplicate) object?",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
