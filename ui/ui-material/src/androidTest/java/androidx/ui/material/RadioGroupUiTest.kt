@@ -24,7 +24,7 @@ import androidx.test.filters.MediumTest
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
 import androidx.ui.layout.Column
-import androidx.ui.test.assertIsInMutuallyExclusiveGroup
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsSelected
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
@@ -32,8 +32,7 @@ import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
-import androidx.ui.test.assertIsNotSelected
-import com.google.common.truth.Truth
+import androidx.ui.test.assertIsUnselected
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,12 +52,14 @@ class RadioGroupUiTest {
     private val itemTwo = "Foo"
     private val itemThree = "Sap"
 
+    // TODO(i18n): Hardcoded string
     private val unselectedRadioGroupItemSemantics = createFullSemantics(
-        inMutuallyExclusiveGroup = true,
-        isSelected = false
+        value = "Not selected"
     )
+
+    // TODO(i18n): Hardcoded string
     private val selectedRadioGroupItemSemantics = unselectedRadioGroupItemSemantics.copyWith {
-        isSelected = true
+        value = "Selected"
     }
     private val options = listOf(itemOne, itemTwo, itemThree)
 
@@ -93,14 +94,11 @@ class RadioGroupUiTest {
         findByTag(itemThree).assertSemanticsIsEqualTo(unselectedRadioGroupItemSemantics)
 
         findByTag(itemOne)
-            .assertIsInMutuallyExclusiveGroup()
             .assertIsSelected()
         findByTag(itemTwo)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsNotSelected()
+            .assertIsUnselected()
         findByTag(itemThree)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsNotSelected()
+            .assertIsUnselected()
     }
 
     @Test

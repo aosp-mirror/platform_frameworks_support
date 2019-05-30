@@ -22,9 +22,12 @@ import androidx.compose.unaryPlus
 import androidx.test.filters.MediumTest
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
+import androidx.ui.foundation.selection.ToggleableState
+import androidx.ui.foundation.semantics.toggleableState
 import androidx.ui.layout.Column
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertIsUnchecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createComposeRule
@@ -43,12 +46,17 @@ class SwitchUiTest {
     @get:Rule
     val composeTestRule = createComposeRule(disableTransitions = true)
 
+    // TODO(i18n): Hardcoded string
     private val defaultUncheckedSwitchSemantics = createFullSemantics(
         isEnabled = true,
-        isChecked = false
+        toggleableState = ToggleableState.Unchecked,
+        value = "Unchecked" // TODO(a11y): Do we still call this checked/unchecked?
     )
+
+    // TODO(i18n): Hardcoded string
     private val defaultCheckedSwitchSemantics = defaultUncheckedSwitchSemantics.copyWith {
-        isChecked = true
+        toggleableState = ToggleableState.Checked
+        value = "Checked"
     }
     private val defaultSwitchTag = "switch"
 
@@ -78,7 +86,7 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
             .assertIsChecked()
     }
@@ -93,11 +101,11 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
             .assertIsChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertIsUnchecked()
     }
 
     @Test
@@ -109,9 +117,9 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertIsUnchecked()
     }
 
     @Test

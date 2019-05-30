@@ -24,11 +24,12 @@ import androidx.ui.material.surface.Surface
 import androidx.ui.painting.Image
 import androidx.ui.painting.ImageConfig
 import androidx.ui.test.assertCountEquals
-import androidx.ui.test.assertIsNotSelected
+import androidx.ui.test.assertIsUnselected
 import androidx.ui.test.assertIsSelected
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.doClick
 import androidx.ui.test.findAll
+import androidx.ui.test.isInMutuallyExclusiveGroup
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -102,7 +103,7 @@ class TabTest {
                 if (index == 0) {
                     interaction.assertIsSelected()
                 } else {
-                    interaction.assertIsNotSelected()
+                    interaction.assertIsUnselected()
                 }
             }
         }.assertCountEquals(3)
@@ -121,7 +122,7 @@ class TabTest {
                 if (index == 0) {
                     interaction.assertIsSelected()
                 } else {
-                    interaction.assertIsNotSelected()
+                    interaction.assertIsUnselected()
                 }
             }
         }.assertCountEquals(3)
@@ -135,7 +136,7 @@ class TabTest {
                 if (index == lastIndex) {
                     interaction.assertIsSelected()
                 } else {
-                    interaction.assertIsNotSelected()
+                    interaction.assertIsUnselected()
                 }
             }
         }.assertCountEquals(3)

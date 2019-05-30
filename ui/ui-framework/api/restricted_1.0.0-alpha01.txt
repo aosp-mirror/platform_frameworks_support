@@ -128,7 +128,8 @@ package androidx.ui.core {
 
   public final class SemanticsKt {
     ctor public SemanticsKt();
-    method public static void Semantics(boolean container = false, boolean explicitChildNodes = false, Boolean? enabled = null, Boolean? checked = null, Boolean? selected = null, Boolean? button = null, Boolean? inMutuallyExclusiveGroup = null, Boolean? hidden = null, String? label = null, String? value = null, androidx.ui.text.style.TextDirection? textDirection = null, String? testTag = null, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions = emptyList(), kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void ReplaceSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.semantics.SemanticsPropertyReceiver,kotlin.Unit> properties, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Semantics(boolean container = false, boolean explicitChildNodes = false, kotlin.jvm.functions.Function1<? super androidx.ui.semantics.SemanticsPropertyReceiver,kotlin.Unit>? properties = null, kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class TestTagProviderKt {
@@ -439,6 +440,63 @@ package androidx.ui.core.vectorgraphics.compat {
   public final class VectorResourceKt {
     ctor public VectorResourceKt();
     method public static void vectorResource(android.content.res.Resources res, int resId);
+  }
+
+}
+
+package androidx.ui.semantics {
+
+  public class SemanticsActionKey<T extends kotlin.Function<? extends kotlin.Unit>> extends androidx.ui.semantics.SemanticsPropertyKey<androidx.ui.semantics.SemanticsAction<T>> {
+    ctor public SemanticsActionKey(String name);
+  }
+
+  public final class SemanticsActions {
+    ctor public SemanticsActions();
+    field public static final androidx.ui.semantics.SemanticsActions.Companion! Companion;
+  }
+
+  public static final class SemanticsActions.Companion {
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.util.List<androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>>>> getCustomActions();
+    method public androidx.ui.semantics.SemanticsActionKey<kotlin.jvm.functions.Function0<kotlin.Unit>> getOnClick();
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.util.List<androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>>>> CustomActions;
+    property public final androidx.ui.semantics.SemanticsActionKey<kotlin.jvm.functions.Function0<kotlin.Unit>> OnClick;
+  }
+
+  public final class SemanticsProperties {
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getEnabled();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getHidden();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> getLabel();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> getTestTag();
+    method public androidx.ui.semantics.SemanticsPropertyKey<androidx.ui.text.style.TextDirection> getTextDirection();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> getValue();
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> Enabled;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> Hidden;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> Label;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> TestTag;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<androidx.ui.text.style.TextDirection> TextDirection;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.String> Value;
+    field public static final androidx.ui.semantics.SemanticsProperties! INSTANCE;
+  }
+
+  public final class SemanticsPropertiesKt {
+    ctor public SemanticsPropertiesKt();
+    method public static java.util.List<androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>>> getCustomActions(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static boolean getEnabled(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static boolean getHidden(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static String getLabel(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>> getOnClick(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static String getTestTag(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static androidx.ui.text.style.TextDirection getTextDirection(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static String getValue(androidx.ui.semantics.SemanticsPropertyReceiver);
+    method public static void onClick(androidx.ui.semantics.SemanticsPropertyReceiver, String? label = null, kotlin.jvm.functions.Function0<kotlin.Unit> action);
+    method public static void setCustomActions(androidx.ui.semantics.SemanticsPropertyReceiver, java.util.List<androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>>> p);
+    method public static void setEnabled(androidx.ui.semantics.SemanticsPropertyReceiver, boolean p);
+    method public static void setHidden(androidx.ui.semantics.SemanticsPropertyReceiver, boolean p);
+    method public static void setLabel(androidx.ui.semantics.SemanticsPropertyReceiver, String p);
+    method public static void setOnClick(androidx.ui.semantics.SemanticsPropertyReceiver, androidx.ui.semantics.SemanticsAction<kotlin.jvm.functions.Function0<kotlin.Unit>> p);
+    method public static void setTestTag(androidx.ui.semantics.SemanticsPropertyReceiver, String p);
+    method public static void setTextDirection(androidx.ui.semantics.SemanticsPropertyReceiver, androidx.ui.text.style.TextDirection p);
+    method public static void setValue(androidx.ui.semantics.SemanticsPropertyReceiver, String p);
   }
 
 }
