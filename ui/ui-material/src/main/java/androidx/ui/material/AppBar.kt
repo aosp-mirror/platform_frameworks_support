@@ -35,6 +35,7 @@ import androidx.ui.material.surface.Surface
 import androidx.ui.graphics.Color
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.FlexSize
+import androidx.ui.semantics.testTag
 
 /**
  * A Top App Bar displays information and actions relating to the current screen and is placed at
@@ -145,7 +146,7 @@ fun AppBar(color: Color, @Children children: @Composable() () -> Unit) {
 @Composable
 fun AppBarLeadingIcon() {
     // TODO: Replace with real icon button
-    Semantics(testTag = "Leading icon") {
+    Semantics(properties = { testTag = "Leading icon" }) {
         FakeIcon(24.dp)
     }
 }
@@ -177,13 +178,13 @@ fun TopAppBarTrailingIcons(icons: List<Dp>) {
         numIcons = icons.size,
         maxIcons = MaxIconsInTopAppBar,
         icons = { index ->
-            Semantics(testTag = "Trailing icon") {
+            Semantics(properties = { testTag = "Trailing icon" }) {
                 // TODO: Replace with real icon button
                 FakeIcon(icons[index])
             }
         },
         overflowIcon = {
-            Semantics(testTag = "Overflow icon") {
+            Semantics(properties = { testTag = "Overflow icon" }) {
                 FakeIcon(12.dp)
             }
         }
