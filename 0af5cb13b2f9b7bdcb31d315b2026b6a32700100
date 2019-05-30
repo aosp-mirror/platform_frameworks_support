@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4aeabac_ee17e58b",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-30T22:45:39Z",
+      "side": 0,
+      "message": "Please don\u0027t remove this comment; it\u0027s pretty useful for someone new to this.",
+      "range": {
+        "startLine": 211,
+        "startChar": 11,
+        "endLine": 213,
+        "endChar": 19
+      },
+      "revId": "0af5cb13b2f9b7bdcb31d315b2026b6a32700100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
