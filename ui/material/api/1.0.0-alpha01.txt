@@ -448,6 +448,28 @@ package androidx.ui.material.ripple {
 
 }
 
+package androidx.ui.material.semantics {
+
+  public final class MaterialSemanticsProperties {
+    ctor public MaterialSemanticsProperties();
+    field public static final androidx.ui.material.semantics.MaterialSemanticsProperties.Companion! Companion;
+  }
+
+  public static final class MaterialSemanticsProperties.Companion {
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getInMutuallyExclusiveGroup();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getSelected();
+    method public androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> getToggleState();
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> InMutuallyExclusiveGroup;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> Selected;
+    property public final androidx.ui.semantics.SemanticsPropertyKey<java.lang.Boolean> ToggleState;
+  }
+
+  public final class MaterialSemanticsPropertiesKt {
+    ctor public MaterialSemanticsPropertiesKt();
+  }
+
+}
+
 package androidx.ui.material.shape {
 
   public final class CutCornerShape extends androidx.ui.baseui.shape.corner.CornerBasedShape {

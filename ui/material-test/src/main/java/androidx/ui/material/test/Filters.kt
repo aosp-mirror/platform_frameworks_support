@@ -17,10 +17,11 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.material.semantics.MaterialSemanticsProperties
+import androidx.ui.semantics.value
 
 /**
  * Verifies that a component is checkable.
  */
-fun SemanticsConfiguration.isCheckable(): Boolean {
-    return isChecked != null
-}
+val SemanticsConfiguration.isToggleable: Boolean
+    get() = containsKey(MaterialSemanticsProperties.ToggleState)

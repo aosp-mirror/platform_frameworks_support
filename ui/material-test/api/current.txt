@@ -1,0 +1,18 @@
+// Signature format: 3.0
+package androidx.ui.test {
+
+  public final class AssertionsKt {
+    ctor public AssertionsKt();
+    method public static androidx.ui.test.SemanticsNodeInteraction assertIsChecked(androidx.ui.test.SemanticsNodeInteraction);
+    method public static androidx.ui.test.SemanticsNodeInteraction assertIsNotChecked(androidx.ui.test.SemanticsNodeInteraction);
+    method public static androidx.ui.test.SemanticsNodeInteraction assertIsNotSelected(androidx.ui.test.SemanticsNodeInteraction);
+    method public static androidx.ui.test.SemanticsNodeInteraction assertIsSelected(androidx.ui.test.SemanticsNodeInteraction);
+  }
+
+  public final class FiltersKt {
+    ctor public FiltersKt();
+    method public static boolean isToggleable(androidx.ui.core.semantics.SemanticsConfiguration);
+  }
+
+}
+

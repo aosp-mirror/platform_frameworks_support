@@ -17,6 +17,11 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.core.semantics.getOrNull
+import androidx.ui.semantics.SemanticsProperties
+import androidx.ui.semantics.value
+
+// TODO(i18n): This whole file has hardcoded strings
 
 /**
  * Asserts no items found given a criteria, throws [AssertionError] otherwise.
@@ -38,7 +43,7 @@ fun assertDoesNotExist(
 // TODO(b/123702531): Provide guarantees of being visible VS being actually displayed
 fun SemanticsNodeInteraction.assertIsVisible(): SemanticsNodeInteraction {
     verify({ "The component is not visible!" }) {
-        !it.isHidden
+        it.getOrNull(SemanticsProperties.Hidden) != true
     }
     return this
 }
@@ -50,7 +55,7 @@ fun SemanticsNodeInteraction.assertIsVisible(): SemanticsNodeInteraction {
  */
 fun SemanticsNodeInteraction.assertIsHidden(): SemanticsNodeInteraction {
     verify({ "The component is visible!" }) {
-        it.isHidden
+        it.getOrNull(SemanticsProperties.Hidden) == true
     }
 
     return this
@@ -73,66 +78,6 @@ fun SemanticsNodeInteraction.assertNoLongerExists() {
     if (semanticsTreeInteraction.contains(semanticsTreeNode.data)) {
         throw AssertionError("Assert failed: The component does exist!")
     }
-}
-
-/**
- * Asserts that the current component is checked.
- */
-fun SemanticsNodeInteraction.assertIsChecked(): SemanticsNodeInteraction {
-        // TODO(pavlis): Throw exception if component is not checkable
-    verify({ "The component is not checked!" }) {
-        it.isChecked == true
-    }
-    return this
-}
-
-/**
- * Asserts that the current component is not checked.
- */
-fun SemanticsNodeInteraction.assertIsNotChecked(): SemanticsNodeInteraction {
-        // TODO(pavlis): Throw exception if component is not checkable
-    verify({ "The component is checked!" }) {
-        it.isChecked != true
-    }
-    return this
-}
-
-/**
- * Asserts that the current component is selected.
- */
-fun SemanticsNodeInteraction.assertIsSelected(): SemanticsNodeInteraction {
-        // TODO(pavlis): Throw exception if component is not selectable
-    verify(
-        { "The component is expected to be selected" }) {
-        it.isSelected == true
-    }
-    return this
-}
-
-/**
- * Asserts that the current component is not selected.
- */
-fun SemanticsNodeInteraction.assertIsNotSelected(): SemanticsNodeInteraction {
-    // TODO(pavlis): Throw exception if component is not selectable
-    verify(
-        { "The component is expected to not be selected!" }) {
-        it.isSelected == false
-    }
-    return this
-}
-
-/**
- * Asserts the component is in a mutually exclusive group. This is used by radio groups to assert
- * only one is selected at a given time.
- * For further details please check [SemanticsConfiguration.isInMutuallyExclusiveGroup].
- */
-fun SemanticsNodeInteraction.assertIsInMutuallyExclusiveGroup(): SemanticsNodeInteraction {
-    // TODO(pavlis): Throw exception if component is not selectable
-    verify(
-        { "The component is expected to be mutually exclusive group, but it's not!" }) {
-        it.isInMutuallyExclusiveGroup
-    }
-    return this
 }
 
 /**
@@ -174,7 +119,11 @@ fun List<SemanticsNodeInteraction>.assertCountEquals(
     return this
 }
 
-internal fun SemanticsNodeInteraction.verify(
+/**
+ * Verifies that the provided condition is true.
+ * Throws [AssertionError] if it is not.
+ */
+fun SemanticsNodeInteraction.verify(
     assertionMessage: (SemanticsConfiguration) -> String,
     condition: (SemanticsConfiguration) -> Boolean
 ) {
