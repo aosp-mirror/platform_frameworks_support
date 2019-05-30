@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c34e021e_42b2f204",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-30T15:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37031264_5f5f3e83",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 85
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8f2b1f4_cb0d5b69",
         "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1b946f7a_df8d5ee4",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-30T15:35:01Z",
+      "side": 1,
+      "message": "Done, but used hasValue() instead since hasValueOrEmpty() requires \u003e API22",
+      "parentUuid": "c8f2b1f4_cb0d5b69",
+      "range": {
+        "startLine": 376,
+        "startChar": 64,
+        "endLine": 377,
+        "endChar": 59
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7f0291f_153748d4",
         "filename": "drawerlayout/src/main/res/values/attrs.xml",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e45807_0965cef4",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-30T15:35:01Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c7f0291f_153748d4",
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b55d9ded_fa09410f",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-30T15:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e49009ae_7f16adfa",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "51e265b1dd0dc64799f76ab119c80fbe92877e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
