@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "85df4091_7dbcbc27",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-30T11:51:41Z",
+      "side": 1,
+      "message": "Hm, such behavior looks somewhat strange to me. We need to figure out if it is working as intended, I think. (Bug tracking)",
+      "parentUuid": "e4d1a39f_cac30e31",
+      "range": {
+        "startLine": 306,
+        "startChar": 11,
+        "endLine": 306,
+        "endChar": 84
+      },
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "baa6d552_ab398cb7",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
@@ -125,6 +149,24 @@
       "side": 1,
       "message": "Other methods call updateReplayButton as well.",
       "parentUuid": "baa6d552_ab398cb7",
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0538e70_2ff24f84",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-30T11:51:41Z",
+      "side": 1,
+      "message": "Oh. I\u0027ve mistakenly thought that mPlayer methods are not called in this method, but there was one, at line 1654.\n\nNow I think we can remove this if we change line 1654 as if (mPlayer !\u003d null \u0026\u0026 mPlayer.isPlaying()).",
+      "parentUuid": "65cebffa_4888a6f9",
       "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
