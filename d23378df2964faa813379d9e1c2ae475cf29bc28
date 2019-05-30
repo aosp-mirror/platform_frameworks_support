@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "60fb8450_68d9f169",
+        "filename": "paging/common/api/2.2.0-alpha01.ignore",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48a231b3_057816a4",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8dd41b87_c262c420",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -33,6 +51,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "197ed5ee_ff1cc152",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dd41b87_c262c420",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "881b7e69_3ac8d6c7",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - managed to remove the weird getter. I initially got spooked by the non-final call in constructor warning, but I don\u0027t think it\u0027s an issue here? (And making size() final would be a breaking change)",
+      "parentUuid": "8362bde4_cd32d2d1",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b371211_a122d204",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -64,6 +118,24 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "@hide this",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08b690b_aaabcc19",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - but this still makes it a public abstract method that external devs need to implement right? Does that mean we need to add it to the API now?",
+      "parentUuid": "6b371211_a122d204",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "81906efc_4dd03595",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "It depends on an internal method/field, so instead of making it @hide / public and then combining it in a follow-up CL I just combined it here.",
+      "parentUuid": "436853ef_8bfbc8fe",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac7294a1_c3d319eb",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -101,6 +191,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2167f00f_b5566a93",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - it can\u0027t be internal because of changing visibility.",
+      "parentUuid": "ac7294a1_c3d319eb",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "96fdabe9_1cffa01d",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "https://b.corp.google.com/issues/134068792",
+      "parentUuid": "5d06cdfb_786cd117",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab68a26c_e4f59aa1",
         "filename": "paging/common/ktx/src/test/java/PagedListTest.kt",
         "patchSetId": 17
@@ -152,6 +278,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665ee031_189cb048",
+        "filename": "paging/common/ktx/src/test/java/PagedListTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - however this introduces\n\nproperty public androidx.paging.PagedList.Config config;\n\nto the api doc - it is actually necessary for seamless migration though.",
+      "parentUuid": "ab68a26c_e4f59aa1",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +322,30 @@
     },
     {
       "key": {
+        "uuid": "fb9bac09_6c63e714",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Actually I think this is kotlin convention for backing properties: https://developer.android.com/kotlin/style-guide#backing-properties.\n\nAlthough I think I originally introduced the backing property to work around the warning about non-final access in constructor and I\u0027m not actually sure that\u0027s necessary so I can just remove this for now?",
+      "parentUuid": "66435ca0_07ba39f3",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "718ca156_f699872d",
         "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
         "patchSetId": 17
@@ -201,6 +369,30 @@
     },
     {
       "key": {
+        "uuid": "919fbd66_c7bbf214",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "718ca156_f699872d",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa44e209_e3e7afec",
         "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
         "patchSetId": 17
@@ -212,6 +404,24 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "can you make this a public val of the parent, and pass to the parent constructor?\n\nthat way, it\u0027s just passed to the parent, and not redeclared as a property here too\n\n(is shadowing the val ever the right thing to do here? can you do that in kotlin?)",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ccbe46_e5f4984a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "This isn\u0027t so much shadowing the val as it is the difference between\n\nabstract fun getDataSource(): DataSource\u003c*, V\u003e\n\nand getDataSource() returning whatever was set in the constructor, which is not an issue for us - but is a breaking api change (I think?)",
+      "parentUuid": "fa44e209_e3e7afec",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -241,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "bec69f72_77abe09c",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb50952_3f18b328",
+      "range": {
+        "startLine": 81,
+        "startChar": 12,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ce7b7de_5d54831c",
         "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
         "patchSetId": 17
@@ -264,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "4b2f3d79_b53d6525",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce7b7de_5d54831c",
+      "range": {
+        "startLine": 245,
+        "startChar": 59,
+        "endLine": 245,
+        "endChar": 64
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47bfe0d8_be6c3104",
         "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
         "patchSetId": 17
@@ -281,6 +539,24 @@
     },
     {
       "key": {
+        "uuid": "a216be8b_7d2e3d4a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "As above - https://developer.android.com/kotlin/style-guide#backing-properties I think this is the convention for backing properties.",
+      "parentUuid": "47bfe0d8_be6c3104",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8f9abe2_fc67258d",
         "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
         "patchSetId": 17
@@ -295,6 +571,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89817280_50a205c5",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f9abe2_fc67258d",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -332,6 +626,24 @@
     },
     {
       "key": {
+        "uuid": "5545d695_fb8e3a19",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ListenablePositionalDataSource.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2371184c_cae25932",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc553bc4_2943c8d1",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -349,6 +661,24 @@
     },
     {
       "key": {
+        "uuid": "75871c6f_22942b51",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc553bc4_2943c8d1",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd49d76e_77ff5d02",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -363,6 +693,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b902ac13_db5baa54",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd49d76e_77ff5d02",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -389,6 +737,30 @@
     },
     {
       "key": {
+        "uuid": "623c3fba_9532a3e1",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Actually seems like it might be opposite T_T\n\nFixed.",
+      "parentUuid": "97da869c_088da938",
+      "range": {
+        "startLine": 157,
+        "startChar": 32,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34e1b4b0_62fb52c6",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -400,6 +772,24 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "Let\u0027s keep track of the Builder APIs like this that should be converted to single kotlin methods.\n\nCan you file a bug for this (and each similar builder)?",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2134224_da59f384",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "What do you mean by single kotlin methods? Don\u0027t we need to keep back-compat? We can definitely also expose a constructor for a more kotlin idiotmatic api though, but I think we need to keep this around for migration purposes.",
+      "parentUuid": "34e1b4b0_62fb52c6",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -423,6 +813,24 @@
     },
     {
       "key": {
+        "uuid": "a275fc51_69ebafc3",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "450b315c_c34d6cec",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39a74ad7_62e6589f",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -440,6 +848,24 @@
     },
     {
       "key": {
+        "uuid": "abd24ecf_8e79e71b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "https://b.corp.google.com/issues/134062944",
+      "parentUuid": "39a74ad7_62e6589f",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c24f85a_c61cfcd7",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -451,6 +877,30 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "does intrange just work like this? I had trouble with it conflicting with Kotlin\u0027s IntRange (maybe the import overrides it, and I was doing a lazy convert)",
+      "range": {
+        "startLine": 578,
+        "startChar": 29,
+        "endLine": 578,
+        "endChar": 37
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3610c52c_f40191aa",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "This seems to be the right way to do things - https://developer.android.com/studio/write/annotations#kotlin\n\nBut I can\u0027t seem to get lint to trigger locally. Luckily we still have the check here, but I think it\u0027s still beneficial to have the annotation especially since there\u0027s precedent (i.e., ColorSpace.kt)",
+      "parentUuid": "6c24f85a_c61cfcd7",
       "range": {
         "startLine": 578,
         "startChar": 29,
@@ -486,6 +936,30 @@
     },
     {
       "key": {
+        "uuid": "045bde20_f399108a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fb137bf_3fa1e040",
+      "range": {
+        "startLine": 834,
+        "startChar": 20,
+        "endLine": 834,
+        "endChar": 33
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06c2b419_bfe86800",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -509,6 +983,30 @@
     },
     {
       "key": {
+        "uuid": "71d5f042_74b2b88c",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06c2b419_bfe86800",
+      "range": {
+        "startLine": 854,
+        "startChar": 44,
+        "endLine": 854,
+        "endChar": 56
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ade06c9_a8a43935",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 17
@@ -520,6 +1018,24 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "just make this a protected val",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efecb90b_d321e821",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "This is rather unfortunate since protected isn\u0027t a subset of internal and vice-versa...\n\ni.e., val storage is accessed from a param in the same module (internal) and getStorage() is used in a test source of a subclass (protected).\n\nhttps://discuss.kotlinlang.org/t/kotlin-to-support-package-protected-visibility/1544\n\nIt sounds like Kotlin team wants us to make this public, but the visibility here is more about limiting public API surface / support rather than encapsulation.",
+      "parentUuid": "2ade06c9_a8a43935",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -549,6 +1065,30 @@
     },
     {
       "key": {
+        "uuid": "915fca0e_2b9e5010",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "If you mean the headers / sections then yes it\u0027s the same as the original",
+      "parentUuid": "a505f2b2_34b080a6",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 0
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b14cad8_ca9fd394",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
         "patchSetId": 17
@@ -563,6 +1103,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6befd8_c4ad4b9e",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b14cad8_ca9fd394",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -589,6 +1147,30 @@
     },
     {
       "key": {
+        "uuid": "6b42949b_76b9b289",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a38c97a0_b9f58fb2",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76028f84_418136c0",
         "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
         "patchSetId": 17
@@ -612,6 +1194,30 @@
     },
     {
       "key": {
+        "uuid": "a00e2d2b_fbdb01ed",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76028f84_418136c0",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 30
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcc710b3_d04bfccd",
         "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
         "patchSetId": 17
@@ -629,6 +1235,24 @@
     },
     {
       "key": {
+        "uuid": "35ca6439_9eb3f465",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcc710b3_d04bfccd",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cb9be35_2e089eb8",
         "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
         "patchSetId": 17
@@ -643,6 +1267,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef45d81_020442d9",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Only if it\u0027s on a separate line unfortunately, but I did it because it\u0027s probably better to scope the suppress.",
+      "parentUuid": "5cb9be35_2e089eb8",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -680,6 +1322,24 @@
     },
     {
       "key": {
+        "uuid": "0f9e6598_7b100fbe",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/TiledDataSource.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba90279b_c29f1154",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66c147b1_cc347d8e",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/DirectExecutor.kt",
         "patchSetId": 17
@@ -694,6 +1354,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82ce463a_fcc60871",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/DirectExecutor.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Holy - I will now replace all the \u003cpre\u003e tags with ``` as that\u0027s apparently the right way to do it in .kt",
+      "parentUuid": "66c147b1_cc347d8e",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -714,6 +1392,24 @@
     },
     {
       "key": {
+        "uuid": "fe547c6b_7ec780f8",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "266fb1f9_aea942b5",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19149a1e_268a4364",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
         "patchSetId": 17
@@ -728,6 +1424,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a224dc11_0dbc43f0",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19149a1e_268a4364",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -748,6 +1462,24 @@
     },
     {
       "key": {
+        "uuid": "be69e816_c16e1580",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23ae6e05_8643c20c",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b313b6a6_b928089b",
         "filename": "paging/common/src/test/kotlin/androidx/paging/ContiguousPagedListTest.kt",
         "patchSetId": 17
@@ -759,6 +1491,30 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "why no lambda anymore?",
+      "range": {
+        "startLine": 130,
+        "startChar": 38,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d17a3d2_b70f10ad",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/ContiguousPagedListTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure why, but the kotlin conversion broke SAM conversions in this case - as well in a few other places (with Executor for example)",
+      "parentUuid": "b313b6a6_b928089b",
       "range": {
         "startLine": 130,
         "startChar": 38,
@@ -791,6 +1547,30 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c1aa01_bb189508",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/ContiguousPagedListTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - it adds a public property to the api doc though",
+      "parentUuid": "7d68671e_b9ef315e",
+      "range": {
+        "startLine": 172,
+        "startChar": 35,
+        "endLine": 172,
+        "endChar": 49
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -840,6 +1620,30 @@
     },
     {
       "key": {
+        "uuid": "153288db_830f0c28",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done - this introduces isInvalid as a public property though, but it does make migration easier.",
+      "parentUuid": "86f63a7e_9d09a023",
+      "range": {
+        "startLine": 451,
+        "startChar": 36,
+        "endLine": 451,
+        "endChar": 38
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13528a4d_7361e04f",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
         "patchSetId": 17
@@ -851,6 +1655,30 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "why no lambda anymore?",
+      "range": {
+        "startLine": 461,
+        "startChar": 29,
+        "endLine": 461,
+        "endChar": 37
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1997cb3e_fe922f9e",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "For whatever reason, the Kotlin conversion broke SAM conversion...",
+      "parentUuid": "13528a4d_7361e04f",
       "range": {
         "startLine": 461,
         "startChar": 29,
@@ -877,6 +1705,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18aca546_383bec62",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T21:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ee1b013_ccb5c414",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
