@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d3900d7_c9be1754",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-30T17:11:54Z",
+      "side": 1,
+      "message": "I think we need to add this before every single test. So I would remove it from here and add it before each after each @Test",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "d5cc1926d91f213766dbec3a94d3b0f1b0df3543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
