@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "6f441d55_c6328709",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:15:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e2a10a43_b5e84602",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4976eda2_a4fb4773",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
