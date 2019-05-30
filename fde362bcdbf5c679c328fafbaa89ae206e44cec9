@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ccb5115_b8f4a211",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Compose.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T13:38:45Z",
+      "side": 1,
+      "message": "Should it in fact be nullable?\nLeland, can Compose.composeInto always return nonnull CompositionContext? \nI see there Root with \"lateinit var composer: CompositionContext\" but maybe composer can be provided as a constructor param for Root so later in Compose.composeInto in else block we return root.composer?",
+      "range": {
+        "startLine": 271,
+        "startChar": 61,
+        "endLine": 271,
+        "endChar": 80
+      },
+      "revId": "fde362bcdbf5c679c328fafbaa89ae206e44cec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
