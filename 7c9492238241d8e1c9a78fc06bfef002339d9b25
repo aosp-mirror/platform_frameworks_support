@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32f9d0dd_9dc7d179",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/AbstractAppBarOnDestinationChangedListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-30T18:53:37Z",
+      "side": 1,
+      "message": "We should early return out of this method in general if isFloatingWindow() is true. We don\u0027t want the title changing in the background either.",
+      "range": {
+        "startLine": 106,
+        "startChar": 20,
+        "endLine": 106,
+        "endChar": 50
+      },
+      "revId": "7c9492238241d8e1c9a78fc06bfef002339d9b25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
