@@ -29,6 +29,7 @@ import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsChecked
 import androidx.ui.test.assertIsNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
@@ -50,12 +51,15 @@ class SwitchUiTest {
     @get:Rule
     val composeTestRule = createComposeRule(disableTransitions = true)
 
+    // TODO(i18n): Hardcoded string
     private val defaultUncheckedSwitchSemantics = createFullSemantics(
         isEnabled = true,
-        isChecked = false
+        value = "Unchecked" // TODO(a11y): Do we still call this checked/unchecked
     )
+
+    // TODO(i18n): Hardcoded string
     private val defaultCheckedSwitchSemantics = defaultUncheckedSwitchSemantics.copyWith {
-        isChecked = true
+        value = "Checked"
     }
     private val defaultSwitchTag = "switch"
 

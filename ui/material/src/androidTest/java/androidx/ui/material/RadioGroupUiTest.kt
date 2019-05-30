@@ -30,7 +30,7 @@ import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.assertIsInMutuallyExclusiveGroup
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsSelected
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
@@ -60,12 +60,14 @@ class RadioGroupUiTest {
 
     private val materialRadioSize = 24.dp
 
+    // TODO(i18n): Hardcoded string
     private val unselectedRadioGroupItemSemantics = createFullSemantics(
-        inMutuallyExclusiveGroup = true,
-        isSelected = false
+        value = "Not selected"
     )
+
+    // TODO(i18n): Hardcoded string
     private val selectedRadioGroupItemSemantics = unselectedRadioGroupItemSemantics.copyWith {
-        isSelected = true
+        value = "Selected"
     }
     private val options = listOf(itemOne, itemTwo, itemThree)
 
@@ -100,13 +102,10 @@ class RadioGroupUiTest {
         findByTag(itemThree).assertSemanticsIsEqualTo(unselectedRadioGroupItemSemantics)
 
         findByTag(itemOne)
-            .assertIsInMutuallyExclusiveGroup()
             .assertIsSelected(true)
         findByTag(itemTwo)
-            .assertIsInMutuallyExclusiveGroup()
             .assertIsSelected(false)
         findByTag(itemThree)
-            .assertIsInMutuallyExclusiveGroup()
             .assertIsSelected(false)
     }
 

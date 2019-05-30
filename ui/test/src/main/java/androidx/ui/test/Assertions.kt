@@ -17,6 +17,11 @@
 package androidx.ui.test
 
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.core.semantics.getOrNull
+import androidx.ui.semantics.SemanticsProperties
+import androidx.ui.semantics.value
+
+// TODO(i18n): This whole file has hardcoded strings
 
 /**
  * Asserts that current component is visible.
@@ -24,7 +29,7 @@ import androidx.ui.core.semantics.SemanticsConfiguration
 // TODO(b/123702531): Provide guarantees of being visible VS being actually displayed
 fun SemanticsTreeInteraction.assertIsVisible() =
     verifyAssertOnExactlyOne("The component is not visible!") {
-        !it.isHidden
+        it.getOrNull(SemanticsProperties.Hidden) != true
     }
 
 /**
@@ -34,7 +39,7 @@ fun SemanticsTreeInteraction.assertIsVisible() =
  */
 fun SemanticsTreeInteraction.assertIsHidden() =
     verifyAssertOnExactlyOne("The component is visible!") {
-        it.isHidden
+        it.getOrNull(SemanticsProperties.Hidden) == true
     }
 
 /**
@@ -50,36 +55,19 @@ fun SemanticsTreeInteraction.assertDoesNotExist(): SemanticsTreeInteraction {
 }
 
 /**
- * Asserts that current component is visible.
+ * Asserts that current component is checked.
  */
-// TODO(pavlis): Provide guarantees of being visible VS being actually displayed
+// TODO(pavlis): Throw different exception if component is not checkable?
 fun SemanticsTreeInteraction.assertIsChecked() =
-    // TODO(pavlis): Throw exception if component is not checkable
-    verifyAssertOnExactlyOne("The component is not checked!") {
-        it.isChecked == true
-    }
+    assertValueEquals("Checked")
 
+// TODO(pavlis): Throw different exception if component is not checkable?
 fun SemanticsTreeInteraction.assertIsNotChecked() =
-    // TODO(pavlis): Throw exception if component is not checkable
-    verifyAssertOnExactlyOne("The component is checked!") {
-        it.isChecked != true
-    }
+    assertValueEquals("Unchecked")
 
+// TODO(pavlis): Throw different exception if component is not selectable?
 fun SemanticsTreeInteraction.assertIsSelected(expected: Boolean) =
-    // TODO(pavlis): Throw exception if component is not selectable
-    verifyAssertOnExactlyOne(
-        "The component is expected to be selected = '$expected', but it's not!"
-    ) {
-        it.isSelected == expected
-    }
-
-fun SemanticsTreeInteraction.assertIsInMutuallyExclusiveGroup() =
-    // TODO(pavlis): Throw exception if component is not selectable
-    verifyAssertOnExactlyOne(
-        "The component is expected to be mutually exclusive group, but it's not!"
-    ) {
-        it.isInMutuallyExclusiveGroup
-    }
+    assertValueEquals(if (expected) "Selected" else "Not selected")
 
 fun SemanticsTreeInteraction.assertValueEquals(value: String) =
     verifyAssertOnExactlyOne({ node -> "Expected value: $value Actual value: ${node.value}" }) {

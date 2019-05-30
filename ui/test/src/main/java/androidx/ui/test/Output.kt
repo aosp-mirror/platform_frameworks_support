@@ -16,6 +16,8 @@
 
 package androidx.ui.test
 
+import androidx.ui.semantics.testTag
+
 fun SemanticsTreeInteraction.dumpSemantics(consumer: (String) -> Unit) {
     var builder = StringBuilder()
 
