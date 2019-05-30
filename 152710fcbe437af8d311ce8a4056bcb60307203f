@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50334b45_91055a68",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-30T18:12:23Z",
+      "side": 1,
+      "message": "So, there is only one other place in AndroidX where I see that it may be possible that false is passed in to requestDisallowInterceptTouchEvent.  :).  ViewGroup resets the disallow intercept state when a new stream of pointers interacts with it already.  I don\u0027t know for sure, but I think there may be a reason why this is never (or rarely) done and I can imagine why.  Unless you have a specific reason why you think this should be done... I simply wouldn\u0027t do it.",
+      "range": {
+        "startLine": 836,
+        "startChar": 12,
+        "endLine": 836,
+        "endChar": 61
+      },
+      "revId": "152710fcbe437af8d311ce8a4056bcb60307203f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d5bf55_8e697a84",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-30T18:12:23Z",
+      "side": 1,
+      "message": "So, this is something traditionally done in onTouchEvent/onInterceptTouchEvent.  The reason to stick with that traditional here is that for nested scrolling to work correctly, the child in control of the scroll must have already called requestDisallowInterceptTouchEvent(true) and that will continue up through all parents.  So, it is implicitly unnecessary (and potentially confusing) to call it again during nested scrolling.\n\nIt appears that in the case of SwipeToRefreshLayout, the only reasonable place to call requestDisallowInterceptTouchEvent(true) is right before the call to moveSpinner(overscrollTop) in onTouchEvent. \n\nSwipeToRefreshLayout is a bit tricky because (it appears that) the only way it handles touch (and thus moves the spinner) is if a finger passes touch slop and is moving down (and it is not involved in nested scrolling.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 8,
+        "endLine": 1123,
+        "endChar": 36
+      },
+      "revId": "152710fcbe437af8d311ce8a4056bcb60307203f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
