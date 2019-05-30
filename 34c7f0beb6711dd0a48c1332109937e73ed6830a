@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5488de18_f0750d5c",
+        "filename": "webkit/src/main/java/androidx/webkit/ServiceWorkerClientCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-05-30T13:59:14Z",
+      "side": 1,
+      "message": "It\u0027s documented as allowing a null return, so: agreed.",
+      "parentUuid": "f93a9775_68abbf10",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29fd5160_a93aa1a0",
         "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89a0b788_3bc0c6a5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-05-30T13:59:14Z",
+      "side": 1,
+      "message": "I think it\u0027s fine given that it would have thrown an exception before. Is there any reason why this might be breaking in a different manner to all the below instances?",
+      "parentUuid": "29fd5160_a93aa1a0",
+      "range": {
+        "startLine": 62,
+        "startChar": 46,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "34c7f0beb6711dd0a48c1332109937e73ed6830a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
