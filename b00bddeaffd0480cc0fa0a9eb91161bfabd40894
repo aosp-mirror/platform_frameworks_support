@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "627998c6_21150a0f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T11:49:43Z",
+      "side": 1,
+      "message": "consider a developer who comes and read this before Ripple, try to explain enough here that they don\u0027t need to go to the other component\n\nAn area of a [RippleSurface] that responds to touch. Ripples generated in this area will be clipped to the bounds of the target layout.\n\nFor unbounded ripples, use [Ripple].\n....",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 85
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195b9c69_08ead8e3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T11:49:43Z",
+      "side": 1,
+      "message": "nit: a",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d38212f4_dd2da3fa",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T11:49:43Z",
+      "side": 1,
+      "message": "nit: remove \u0027s",
+      "range": {
+        "startLine": 50,
+        "startChar": 71,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba7101e7_269b98f2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T11:49:43Z",
+      "side": 1,
+      "message": "let\u0027s choose one, either you have a separate composable or you have a param but not both",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e75735f4_0bce6864",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/RippleEffectFactory.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-30T11:49:43Z",
+      "side": 1,
+      "message": "The position the animation will start from",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 69
+      },
+      "revId": "b00bddeaffd0480cc0fa0a9eb91161bfabd40894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
