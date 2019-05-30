@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39255cb4_d2b8f7d9",
+        "filename": "core/src/main/java/androidx/core/net/UriCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:42:47Z",
+      "side": 1,
+      "message": "Needs private constructor to make this class non-instantiable. Please also make the class final.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "aad63cc0970d06e1e2c762b06bd478325ee03e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ce7e16a_a349f40e",
+        "filename": "core/src/main/java/androidx/core/net/UriCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-30T14:42:47Z",
+      "side": 1,
+      "message": "Fix formatting, add param and return docs.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "aad63cc0970d06e1e2c762b06bd478325ee03e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
