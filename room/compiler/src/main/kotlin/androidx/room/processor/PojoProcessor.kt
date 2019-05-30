@@ -19,6 +19,7 @@ package androidx.room.processor
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Ignore
+import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.ext.extendsBoundOrSelf
@@ -41,6 +42,7 @@ import androidx.room.processor.cache.Cache
 import androidx.room.vo.CallType
 import androidx.room.vo.Constructor
 import androidx.room.vo.EmbeddedField
+import androidx.room.vo.Entity
 import androidx.room.vo.EntityOrView
 import androidx.room.vo.Field
 import androidx.room.vo.FieldGetter
@@ -491,7 +493,6 @@ class PojoProcessor private constructor(
 
         // now find the field in the entity.
         val entityField = entity.findFieldByColumnName(annotation.value.entityColumn)
-
         if (entityField == null) {
             context.logger.e(relationElement,
                     ProcessorErrors.relationCannotFindEntityField(
@@ -499,6 +500,77 @@ class PojoProcessor private constructor(
                             columnName = annotation.value.entityColumn,
                             availableColumns = entity.columnNames))
             return null
+        }
+
+        // do we have a join entity?
+        val junctionAnnotation = annotation.getAsAnnotationBox<Junction>("associateBy")
+        val junctionClassInput = junctionAnnotation.getAsTypeMirror("value")
+        val junctionElement: TypeElement? = if (junctionClassInput != null &&
+                !MoreTypes.isTypeOf(Any::class.java, junctionClassInput)) {
+            junctionClassInput.asTypeElement()
+        } else {
+            null
+        }
+        val junction = junctionElement?.let {
+            val entityOrView = EntityOrViewProcessor(context, it, referenceStack).process()
+
+            // was junction table parent reference column specified?
+            val junctionParentColumnName = if (junctionAnnotation.value.parentColumn.isNotEmpty()) {
+                junctionAnnotation.value.parentColumn
+            } else {
+                parentField.columnName
+            }
+            // find reference parent field in jump table
+            val junctionParentField = entityOrView.findFieldByColumnName(junctionParentColumnName)
+            if (junctionParentField == null) {
+                context.logger.e(junctionElement,
+                    ProcessorErrors.relationCannotFindJunctionParentField(
+                        entityName = entityOrView.typeName.toString(),
+                        columnName = junctionParentColumnName,
+                        availableColumns = entityOrView.columnNames))
+                return null
+            }
+
+            // was junction table entity reference column specified?
+            val junctionEntityColumnName = if (junctionAnnotation.value.entityColumn.isNotEmpty()) {
+                junctionAnnotation.value.entityColumn
+            } else {
+                entityField.columnName
+            }
+            // find reference entity field in the jump table
+            val junctionEntityField = entityOrView.findFieldByColumnName(junctionEntityColumnName)
+            if (junctionEntityField == null) {
+                context.logger.e(junctionElement,
+                    ProcessorErrors.relationCannotFindJunctionEntityField(
+                        entityName = entityOrView.typeName.toString(),
+                        columnName = junctionEntityColumnName,
+                        availableColumns = entityOrView.columnNames))
+                return null
+            }
+
+            if (entityOrView is Entity) {
+                // warn about not having foreign keys in the junction columns
+                val foreignKeyFields = entityOrView.foreignKeys.flatMap { it.childFields }
+                if (!foreignKeyFields.contains(junctionParentField)) {
+                    context.logger.w(Warning.MISSING_FOREIGN_KEY_ON_JUNCTION,
+                        junctionParentField.element,
+                        ProcessorErrors.junctionColumnWithoutForeignKey(
+                            entityName = entityOrView.typeName.toString(),
+                            columnName = junctionParentColumnName))
+                }
+                if (!foreignKeyFields.contains(junctionEntityField)) {
+                    context.logger.w(Warning.MISSING_FOREIGN_KEY_ON_JUNCTION,
+                        junctionEntityField.element,
+                        ProcessorErrors.junctionColumnWithoutForeignKey(
+                            entityName = entityOrView.typeName.toString(),
+                            columnName = junctionEntityColumnName))
+                }
+            }
+
+            androidx.room.vo.Junction(
+                entity = entityOrView,
+                parentField = junctionParentField,
+                entityField = junctionEntityField)
         }
 
         val field = Field(
@@ -523,6 +595,7 @@ class PojoProcessor private constructor(
                 field = field,
                 parentField = parentField,
                 entityField = entityField,
+                junction = junction,
                 projection = projection
         )
     }
