@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e997b4b8_a2a3960b",
+        "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-30T14:06:19Z",
+      "side": 1,
+      "message": "was this test improperly disabled?",
+      "range": {
+        "startLine": 120,
+        "startChar": 16,
+        "endLine": 120,
+        "endChar": 27
+      },
+      "revId": "8c1b70f327f5da645fe5dc2ce6652868ea37977c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e89d71f8_68ac9aee",
         "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
         "patchSetId": 1
