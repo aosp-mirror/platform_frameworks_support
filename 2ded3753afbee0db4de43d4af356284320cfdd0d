@@ -22,6 +22,30 @@
       "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a4b6619_6bd0f678",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/vo/PlaylistWithSongs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-30T23:01:00Z",
+      "side": 1,
+      "message": "i think i like\n`associateBy \u003d @Junction(...)`\n\nI\u0027m not sure if associate vs associated by not putting d seems more consistent.",
+      "parentUuid": "f3f54aa5_feebf161",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
