@@ -22,6 +22,30 @@
       "revId": "447dcb59b9de760405bc6699c4f36cafc78fab59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fa7670_64c5419d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-30T16:12:14Z",
+      "side": 1,
+      "message": "Maybe setEntireItemClickable?\n\nOtherwise, I think setClickable is fine for now.",
+      "parentUuid": "3d7bd776_9e735b1a",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 28
+      },
+      "revId": "447dcb59b9de760405bc6699c4f36cafc78fab59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
