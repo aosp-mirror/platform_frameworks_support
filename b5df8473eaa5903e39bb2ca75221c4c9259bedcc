@@ -201,6 +201,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3b3aad_73c16e3c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T20:15:19Z",
+      "side": 1,
+      "message": "it really feels wrong to add such a contract. it is not obvious that on the second execution it will return the differently configured paint. adding this to the documentation doesn\u0027t help as many would not read.\nit is like if all the draw commands on the canvas during the first execution would be persisted for the second call so you first need to clear the canvas somehow before drawing something new.\nand it is really easy to solve this with just adding paint.reset() after the lambda execution inside DrawNode, why not to have it? doesn\u0027t seem like a very expensive call for me(have a jni call inside though)",
+      "parentUuid": "a69ede57_02bd3d19",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
