@@ -22,6 +22,30 @@
       "revId": "0006fe8f3b8a2dc6c121063cc80bc50116a5720b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "049be357_7bbc5c73",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-30T20:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5b39a4e_85028194",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "0006fe8f3b8a2dc6c121063cc80bc50116a5720b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
