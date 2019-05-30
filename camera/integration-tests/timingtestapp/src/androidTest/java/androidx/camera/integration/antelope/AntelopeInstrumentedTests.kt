@@ -42,8 +42,10 @@ import org.junit.FixMethodOrder
 import org.junit.runners.MethodSorters
 import java.util.concurrent.TimeUnit
 import androidx.camera.integration.antelope.MainActivity.Companion.antelopeIdlingResource
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import org.junit.After
+import org.junit.runner.RunWith
 import com.google.common.truth.Truth.assertThat
 
 const val PREVIEW_BUFFER = "1500"
@@ -52,7 +54,12 @@ const val PREVIEW_BUFFER = "1500"
  * Suite of tests that cover the major use cases for Antelope.
  *
  * Assumes device/emulator has a front and a back camera.
+ *
+ * Note: tests are suppressed for pre/post-submit testing as these tests exercise the camera
+ * device thoroughly - failures that leave the device in a bad state can cause future tests to fail.
  */
+@androidx.test.filters.Suppress
+@RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AntelopeInstrumentedTests {
     @get: Rule
@@ -143,6 +150,7 @@ class AntelopeInstrumentedTests {
     @MediumTest
     fun test02WriteandDeleteLogFiles() {
         val activity = activityRule.activity as MainActivity
+        val context = activity.applicationContext
 
         // Write a fake log file
         writeCSV(activity, "fakelogfile", "This is a fake log file")
@@ -167,6 +175,10 @@ class AntelopeInstrumentedTests {
 
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
+
+        // Delete any logs on the device
+        deleteCSVFiles(activity)
+        assert(isLogDirEmpty())
 
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "PHOTO")
@@ -412,7 +424,6 @@ class AntelopeInstrumentedTests {
         prefEditor.commit()
 
         activity.runOnUiThread {
-            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startSingleTest()
         }
 
@@ -449,7 +460,6 @@ class AntelopeInstrumentedTests {
         prefEditor.commit()
 
         activity.runOnUiThread {
-            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startSingleTest()
         }
 
@@ -493,7 +503,6 @@ class AntelopeInstrumentedTests {
         prefEditor.commit()
 
         activity.runOnUiThread {
-            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
@@ -537,7 +546,6 @@ class AntelopeInstrumentedTests {
         prefEditor.commit()
 
         activity.runOnUiThread {
-            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
@@ -582,7 +590,6 @@ class AntelopeInstrumentedTests {
         prefEditor.commit()
 
         activity.runOnUiThread {
-            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
