@@ -16,6 +16,9 @@
 
 package androidx.ui.core.semantics
 
+import androidx.ui.semantics.SemanticsAction
+import androidx.ui.semantics.SemanticsPropertyKey
+
 // TODO(ryanmentley): Clean up and integrate this (probably with AndroidCraneView)
 
 /**
@@ -41,9 +44,9 @@ class SemanticsOwner {
         detachedNodes.clear()
     }
 
-    private fun getSemanticsActionHandlerForId(
+    private fun <T : Function<Unit>> getSemanticsActionHandlerForId(
         id: Int,
-        action: SemanticsActionType<*>
+        action: SemanticsPropertyKey<SemanticsAction<T>>
     ): SemanticsAction<*>? {
         var result: SemanticsNode? = nodes[id]
         if (result != null && result.isPartOfNodeMerging && !result.canPerformAction(action)) {
@@ -58,19 +61,6 @@ class SemanticsOwner {
         if (result?.canPerformAction(action) != true) {
             return null
         }
-        return result!!.config._actions[action]
-    }
-
-    /**
-     * Asks the [SemanticsNode] with the given id to perform the given action.
-     *
-     * If the [SemanticsNode] has not indicated that it can perform the action,
-     * this function does nothing.
-     *
-     * If the given `action` requires arguments they need to be passed in via
-     * the `args` parameter.
-     */
-    fun performAction(id: Int, action: SemanticsActionType<*>, args: Any? = null) {
-        getSemanticsActionHandlerForId(id, action)?.invokeHandler(args)
+        return result!!.config[action]
     }
 }
