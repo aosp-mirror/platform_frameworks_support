@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3acec690_6d5e960b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T14:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13de1e2_15d20f16",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "2e1a402dc9c2550ca93566f216e8eb478971dc9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4932bd4_04a6612c",
         "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2e1a402dc9c2550ca93566f216e8eb478971dc9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e675786d_e91335fe",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-30T14:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4932bd4_04a6612c",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 3
+      },
+      "revId": "2e1a402dc9c2550ca93566f216e8eb478971dc9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
