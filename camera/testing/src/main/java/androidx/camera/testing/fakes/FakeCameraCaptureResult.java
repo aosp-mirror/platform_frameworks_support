@@ -105,4 +105,70 @@ public final class FakeCameraCaptureResult implements CameraCaptureResult {
     public Object getTag() {
         return mTag;
     }
+
+    /**
+     * Builder for fake implementation of {@link CameraCaptureResult} where the values are settable.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static class Builder {
+        private CameraCaptureMetaData.AfMode mAfMode = CameraCaptureMetaData.AfMode.UNKNOWN;
+        private CameraCaptureMetaData.AfState mAfState = CameraCaptureMetaData.AfState.UNKNOWN;
+        private CameraCaptureMetaData.AeState mAeState = CameraCaptureMetaData.AeState.UNKNOWN;
+        private CameraCaptureMetaData.AwbState mAwbState = CameraCaptureMetaData.AwbState.UNKNOWN;
+        private CameraCaptureMetaData.FlashState mFlashState =
+                CameraCaptureMetaData.FlashState.UNKNOWN;
+        private long mTimestamp = -1L;
+        private Object mTag = null;
+
+        /** Construct and return a new instance of a {@link FakeCameraCaptureResult}. */
+        public FakeCameraCaptureResult build() {
+            FakeCameraCaptureResult fakeCameraCaptureResult = new FakeCameraCaptureResult();
+            fakeCameraCaptureResult.setAfMode(mAfMode);
+            fakeCameraCaptureResult.setAfState(mAfState);
+            fakeCameraCaptureResult.setAeState(mAeState);
+            fakeCameraCaptureResult.setAwbState(mAwbState);
+            fakeCameraCaptureResult.setFlashState(mFlashState);
+            fakeCameraCaptureResult.setTimestamp(mTimestamp);
+            fakeCameraCaptureResult.setTag(mTag);
+
+            return fakeCameraCaptureResult;
+        }
+
+        /** Set the {@link androidx.camera.core.CameraCaptureMetaData.AfMode} **/
+        public void setAfMode(CameraCaptureMetaData.AfMode mode) {
+            mAfMode = mode;
+        }
+
+        /** Set the {@link androidx.camera.core.CameraCaptureMetaData.AfState} **/
+        public void setAfState(CameraCaptureMetaData.AfState state) {
+            mAfState = state;
+        }
+
+        /** Set the {@link androidx.camera.core.CameraCaptureMetaData.AeState} **/
+        public void setAeState(CameraCaptureMetaData.AeState state) {
+            mAeState = state;
+        }
+
+        /** Set the {@link androidx.camera.core.CameraCaptureMetaData.AwbState} **/
+        public void setAwbState(CameraCaptureMetaData.AwbState state) {
+            mAwbState = state;
+        }
+
+        /** Set the {@link androidx.camera.core.CameraCaptureMetaData.FlashState} **/
+        public void setFlashState(CameraCaptureMetaData.FlashState state) {
+            mFlashState = state;
+        }
+
+        /** Set the timestamp. */
+        public void setTimestamp(long timestamp) {
+            mTimestamp = timestamp;
+        }
+
+        /** Set the tag. */
+        public void setTag(Object tag) {
+            mTag = tag;
+        }
+    }
 }
