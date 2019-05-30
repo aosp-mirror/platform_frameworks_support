@@ -1766,6 +1766,30 @@
     },
     {
       "key": {
+        "uuid": "8ab3a082_a485671d",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T23:48:34Z",
+      "side": 1,
+      "message": "Originally it was to workaround metalava adding nullity to generics defined in Kotlin! (breaking api change since it was previously annotated @NonNull), but it looks like I found a way to make that not a breaking change - Metalava is still marking some methods and parameters as T! or T? instead of T, but it might be due to @JvmField.",
+      "parentUuid": "da0c5d46_5fef9516",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6859db74_d5995208",
         "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
         "patchSetId": 17
@@ -1786,6 +1810,30 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da09f89a_b2222d12",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T23:48:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6859db74_d5995208",
+      "range": {
+        "startLine": 264,
+        "startChar": 51,
+        "endLine": 264,
+        "endChar": 54
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1812,6 +1860,30 @@
     },
     {
       "key": {
+        "uuid": "07d6dc02_20aa4c76",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T23:48:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "893ed46c_1c3a43af",
+      "range": {
+        "startLine": 355,
+        "startChar": 45,
+        "endLine": 355,
+        "endChar": 57
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a85a518_a7248a29",
         "filename": "paging/runtime/src/androidTest/java/androidx/paging/LivePagedListBuilderTest.kt",
         "patchSetId": 17
@@ -1823,6 +1895,24 @@
       "writtenOn": "2019-05-29T22:51:39Z",
       "side": 1,
       "message": "why not a lambda anymore?",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40229c60_c5eb777f",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/LivePagedListBuilderTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T23:48:34Z",
+      "side": 1,
+      "message": "As above - somehow SAM conversions are broken...",
+      "parentUuid": "4a85a518_a7248a29",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -1866,6 +1956,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51f9be4_f139272a",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-30T23:48:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f126633_c411921d",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
