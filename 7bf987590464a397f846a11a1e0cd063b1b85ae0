@@ -16,6 +16,24 @@
       "revId": "7bf987590464a397f846a11a1e0cd063b1b85ae0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "137298af_ba136cb8",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-30T06:47:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a8daaff_78402f7d",
+      "revId": "7bf987590464a397f846a11a1e0cd063b1b85ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
