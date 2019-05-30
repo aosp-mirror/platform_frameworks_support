@@ -26,15 +26,15 @@ import androidx.ui.foundation.selection.ToggleableState.Checked
 import androidx.ui.foundation.selection.ToggleableState.Indeterminate
 import androidx.ui.foundation.selection.ToggleableState.Unchecked
 import androidx.ui.layout.Column
+import androidx.ui.semantics.value
 import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertIsUnchecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
-import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,14 +47,16 @@ class CheckboxUiTest {
     @get:Rule
     val composeTestRule = createComposeRule(disableTransitions = true)
 
+    // TODO(i18n): Hardcoded string
     // TODO(b/126881459): this should be the default semantic for checkbox
     private val defaultCheckboxCheckedSemantics = createFullSemantics(
         isEnabled = true,
-        isChecked = true
+        value = "Checked"
     )
 
+    // TODO(i18n): Hardcoded string
     private val defaultCheckboxUncheckedSemantics = defaultCheckboxCheckedSemantics.copyWith {
-        isChecked = false
+        value = "Unchecked"
     }
 
     private val defaultTag = "myCheckbox"
@@ -89,7 +91,7 @@ class CheckboxUiTest {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
             .assertIsChecked()
     }
@@ -104,11 +106,11 @@ class CheckboxUiTest {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
             .assertIsChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertIsUnchecked()
     }
 
     @Test
@@ -122,9 +124,9 @@ class CheckboxUiTest {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertIsUnchecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertIsUnchecked()
     }
 
     @Test
