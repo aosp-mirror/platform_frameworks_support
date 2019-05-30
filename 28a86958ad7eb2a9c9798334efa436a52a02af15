@@ -46,6 +46,30 @@
       "revId": "28a86958ad7eb2a9c9798334efa436a52a02af15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753fbc01_09d702fb",
+        "filename": "browser/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-05-30T15:03:48Z",
+      "side": 1,
+      "message": "I got rid of these two strings.",
+      "parentUuid": "3d758768_20dcf900",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 87
+      },
+      "revId": "28a86958ad7eb2a9c9798334efa436a52a02af15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
