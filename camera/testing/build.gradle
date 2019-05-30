@@ -30,7 +30,11 @@ dependencies {
     implementation(ARCH_LIFECYCLE_EXTENSIONS, libs.exclude_annotations_transitive)
     implementation("androidx.annotation:annotation:1.0.0")
     implementation(project(":camera:camera-core"))
+    implementation(project(":concurrent-listenablefuture"))
+    implementation(project(":concurrent-listenablefuture-callback"))
+    implementation("androidx.core:core:1.1.0-rc01")
 }
+
 android {
     defaultConfig {
         minSdkVersion 21
