@@ -147,6 +147,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7e42335_92dd0415",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-30T16:59:05Z",
+      "side": 1,
+      "message": "i think it would be very difficult right now to have the paint end up in a state that you\u0027re not aware of because of node reuse. DrawNodes won\u0027t be reused across tags/source locations, so it should be 1 to 1 with the onPaint lambdas, which probably have an expectation of reuse across executions but just for that lambda?\n\nWas talking with Chuck about this yesterday, and he had an interesting idea:\n\nWe could make Paint immutable, and then pool the construction of the underlying instances based on a hash of their properties.\n\nI\u0027m good with this PR as is, as I think it improves the current state by quite a bit, but perhaps this is something we want to consider as well as a more satisfiable long-term solution. It feels weird to me to have Paint and DrawNode be 1 to 1.",
+      "parentUuid": "80b565aa_d1712225",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
