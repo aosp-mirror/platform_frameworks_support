@@ -1,0 +1,8 @@
+<<<<<<< HEAD   (324600 Merge "Merge empty history for sparse-5619189-L8140000032198)
+=======
+// Baseline format: 1.0
+RemovedClass: androidx.recyclerview.selection.AutoScroller:
+    Removed class androidx.recyclerview.selection.AutoScroller
+RemovedClass: androidx.recyclerview.selection.EventBridge:
+    Removed class androidx.recyclerview.selection.EventBridge
+>>>>>>> BRANCH (8d2a4a Merge "Merge cherrypicks of [974205] into sparse-5622427-L46)
