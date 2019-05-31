@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43c550cb_c81019a3",
+        "filename": "browser/src/main/res/xml/image_share_filepaths.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:22:00Z",
+      "side": 0,
+      "message": "Why did you remove copyright header? Add it back.",
+      "revId": "341ac471b1f68709440396f12991e5a3fd9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

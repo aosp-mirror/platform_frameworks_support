@@ -22,6 +22,92 @@
       "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05469bdc_ddf86299",
+        "filename": "browser/src/androidTest/res/drawable/splash.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:22:00Z",
+      "side": 1,
+      "message": "All xml files should have copyright headers.",
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d46b974_4426f08e",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:22:00Z",
+      "side": 1,
+      "message": "As discussed before, this library is generic and any chrome specific should be in Chrome codebase, not here. Please remove all the Chrome mentions from this patch.",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bac1956f_92a74509",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:22:00Z",
+      "side": 1,
+      "message": "No need to add a product placement, call it a browser.",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 43
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761ff08d_8aab22ba",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TwaProviderPicker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:22:00Z",
+      "side": 1,
+      "message": "Just a heads up that if we ever intend to make it public \"Twa\" will not work, we\u0027ll have to make it a proper full name.",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
