@@ -13,6 +13,7 @@ package androidx.room {
     field public final android.content.Context context;
     field @androidx.room.DatabaseConfiguration.CopyFrom public final int copyFrom;
     field public final String? copyFromPath;
+    field public final boolean copyOnDestructiveMigration;
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -82,6 +83,7 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationOnDowngrade();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToRecreateOnDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
     method public androidx.room.RoomDatabase.Builder<T!> setJournalMode(androidx.room.RoomDatabase.JournalMode);
     method public androidx.room.RoomDatabase.Builder<T!> setQueryExecutor(java.util.concurrent.Executor);
