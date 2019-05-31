@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd235611_cab4dab8",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-31T08:55:10Z",
+      "side": 1,
+      "message": "Q) don\u0027t we need to call get() for this?",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 307,
+        "endChar": 70
+      },
+      "revId": "b4528e41b95c5d64f160621552ed749c4e61429a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
