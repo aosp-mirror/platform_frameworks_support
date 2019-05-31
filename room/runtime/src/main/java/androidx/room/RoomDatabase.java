@@ -538,6 +538,7 @@ public abstract class RoomDatabase {
 
         private String mCopyFromPath;
         private boolean mCopyFromExternalAsset;
+        private boolean mCopyOnDestructiveMigration;
 
         Builder(@NonNull Context context, @NonNull Class<T> klass, @Nullable String name) {
             mContext = context;
@@ -574,12 +575,32 @@ public abstract class RoomDatabase {
          *                          'assets/' directory.
          *
          * @return this
+         *
+         * @see #createFromFileOnDestructiveMigration()
          */
         @NonNull
         public Builder<T> createFromFile(@NonNull String databaseFilePath,
                 boolean fromExternalAsset) {
             mCopyFromPath = databaseFilePath;
             mCopyFromExternalAsset = fromExternalAsset;
+            return this;
+        }
+
+        /**
+         * Configures Room to recreate the database from a pre-packaged database on a destructive
+         * migration.
+         * <p>
+         * This configuration has no effect if no pre-packaged database is provided with
+         * {@link #createFromFile(String, boolean)} and none of the
+         * {@code RoomDatabase.Builder.fallbackToDestructiveMigration*} is invoked.
+         *
+         * @return this
+         *
+         * @see #createFromFile(String, boolean)
+         */
+        @NonNull
+        public Builder<T> createFromFileOnDestructiveMigration() {
+            mCopyOnDestructiveMigration = true;
             return this;
         }
 
@@ -640,6 +661,8 @@ public abstract class RoomDatabase {
          * You may want to turn this check off for testing.
          *
          * @return this
+         *
+         * @see #createFromFile(String, boolean)
          */
         @NonNull
         public Builder<T> allowMainThreadQueries() {
@@ -875,7 +898,7 @@ public abstract class RoomDatabase {
             if (mFactory == null) {
                 if (mCopyFromPath != null && mName != null) {
                     mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromPath,
-                            mCopyFromExternalAsset);
+                            mCopyFromExternalAsset, mCopyOnDestructiveMigration);
                 } else {
                     mFactory = new FrameworkSQLiteOpenHelperFactory();
                 }
@@ -896,7 +919,8 @@ public abstract class RoomDatabase {
                             mAllowDestructiveMigrationOnDowngrade,
                             mMigrationsNotRequiredFrom,
                             mCopyFromPath,
-                            mCopyFromExternalAsset);
+                            mCopyFromExternalAsset,
+                            mCopyOnDestructiveMigration);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;
