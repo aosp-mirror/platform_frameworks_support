@@ -291,6 +291,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1a1a4a_0841915a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T19:36:36Z",
+      "side": 1,
+      "message": "that is what I suggested. if during the one draw lambda call Paint() will be called 2 times we will return 2 different objects, paint1 and paint2. and the same object will be returned for all the next drawing calls. the number of allocations is the same as amount of Paint() calls. it is obviously not safe to return the same object for this use case",
+      "parentUuid": "65826fa7_50ad4127",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
