@@ -1617,6 +1617,30 @@
     },
     {
       "key": {
+        "uuid": "baddf3b1_e495b320",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/ContiguousPagedListTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T21:59:35Z",
+      "side": 1,
+      "message": "Okay - I believe it\u0027s related to https://discuss.kotlinlang.org/t/sam-conversion-on-kotlin-interfaces/1433",
+      "parentUuid": "4d17a3d2_b70f10ad",
+      "range": {
+        "startLine": 130,
+        "startChar": 38,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d68671e_b9ef315e",
         "filename": "paging/common/src/test/kotlin/androidx/paging/ContiguousPagedListTest.kt",
         "patchSetId": 17
