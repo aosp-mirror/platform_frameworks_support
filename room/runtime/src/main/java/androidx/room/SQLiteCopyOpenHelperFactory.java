@@ -29,12 +29,15 @@ class SQLiteCopyOpenHelperFactory implements SupportSQLiteOpenHelper.Factory {
     @NonNull
     private final String mCopyFromFilePath;
     private final boolean mCopyFromExternalAsset;
+    private final boolean mCopyOnDestructiveMigration;
     private final SupportSQLiteOpenHelper.Factory mDelegate =
             new FrameworkSQLiteOpenHelperFactory();
 
-    SQLiteCopyOpenHelperFactory(@NonNull String copyFromFilePath, boolean copyFromExternalAsset) {
+    SQLiteCopyOpenHelperFactory(@NonNull String copyFromFilePath, boolean copyFromExternalAsset,
+            boolean copyOnDestructiveMigration) {
         mCopyFromFilePath = copyFromFilePath;
         mCopyFromExternalAsset = copyFromExternalAsset;
+        mCopyOnDestructiveMigration = copyOnDestructiveMigration;
     }
 
     @Override
@@ -43,6 +46,8 @@ class SQLiteCopyOpenHelperFactory implements SupportSQLiteOpenHelper.Factory {
                 configuration.context,
                 mCopyFromFilePath,
                 mCopyFromExternalAsset,
+                mCopyOnDestructiveMigration,
+                configuration.callback.version,
                 mDelegate.create(configuration));
     }
 }
