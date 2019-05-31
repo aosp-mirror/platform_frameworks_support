@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e6e1622e_08bba7a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T23:50:28Z",
+      "side": 1,
+      "message": "As per design document, we decide to go with onCheckeChange, and given Clara\u0027s +1 API review, mark this as done",
+      "parentUuid": "05a4ea85_986f8fb2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "4ac6e6a6daa2bbcbabcdcaa8fb035e8e63cb7999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d905836_eab4a590",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
