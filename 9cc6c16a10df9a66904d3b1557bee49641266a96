@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93a35dd6_1735d61d",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-31T00:20:11Z",
+      "side": 1,
+      "message": "The challenge here is that the error message are part of the code-gen, so is as if we had to generate code that given some \u0027reason\u0027 it\u0027ll throw with the right message.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "9cc6c16a10df9a66904d3b1557bee49641266a96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

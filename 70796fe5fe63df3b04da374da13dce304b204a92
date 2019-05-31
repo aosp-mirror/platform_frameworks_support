@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "042807f6_2fb60a13",
+        "filename": "room/testing/src/main/java/androidx/room/testing/MigrationTestHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-31T00:20:11Z",
+      "side": 0,
+      "message": "Since we do validate now on open this throw doesn\u0027t make sense anymore.",
+      "range": {
+        "startLine": 487,
+        "startChar": 12,
+        "endLine": 488,
+        "endChar": 59
+      },
+      "revId": "70796fe5fe63df3b04da374da13dce304b204a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
