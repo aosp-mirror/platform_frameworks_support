@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3151c72_88af9d0e",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "Why is this noThrow?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86de43d2_7c117825",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Expectations.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "I would give it a name that makes it clear that this is related to amount of items. Expectation can be a bit too generic. Also try to provide some documentation.",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6876f844_a8893c71",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Expectations.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "Documentation",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b6b22a_3b83ef9b",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Finders.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "Please document what is the expected amount of items and point devs to the overload if they need to find multiple.",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 53
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee868ccb_54646d09",
+        "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "Any reasons why is this being renamed to NodeQuey?",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a39f487_d36d720f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T14:52:46Z",
+      "side": 1,
+      "message": "I would recommend doing the following to make the count assertion as much implicit as we can. Since the asserts should not longer care about count.\n\nfind() \u003c- runs the assert on expected count by default\nfindIgnoreExpectedCount() / findNone() \u003c- will be used only by does not exists.",
+      "range": {
+        "startLine": 55,
+        "startChar": 17,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
