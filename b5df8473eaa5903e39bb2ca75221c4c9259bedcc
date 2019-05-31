@@ -273,6 +273,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65826fa7_50ad4127",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:28:16Z",
+      "side": 1,
+      "message": "Interesting idea, actually. I can imagine the following code: \n`canvas.drawRect(rect, Paint().apply{ /* setup paint*/})`\nand then \n`canvas.drawLine(start, end, Paint().apply{ /* setup paint for line*/})`\n\nIt might seems to people like there are two independent Paints, so they won\u0027t reset it themselves and we need to provide some guaranties, which might be difficult / expensive.",
+      "parentUuid": "086d6900_f2add655",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
