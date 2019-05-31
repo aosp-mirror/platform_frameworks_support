@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7847dfd5_30e2a8a0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-31T16:41:26Z",
+      "side": 1,
+      "message": "NULL is technically a constant too, I think you can move it to the SQLITE_VALUE_CONSTANTS and you can get rid of this else case and should have the same result (minus the upper-casing of null to NULL).",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 22
+      },
+      "revId": "6700418f5deb6d941e392031b1f3bba666fcdfd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
