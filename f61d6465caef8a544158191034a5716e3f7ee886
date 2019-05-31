@@ -22,6 +22,30 @@
       "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c555e45_4b68c9ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-31T20:41:47Z",
+      "side": 1,
+      "message": "Oh interesting.  Does that accomplish the same thing?",
+      "parentUuid": "9be16045_5ec23084",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
