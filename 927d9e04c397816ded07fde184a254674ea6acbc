@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00d08a4_1aba8d91",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be adding explicit timeouts here. It should be handled by the test size annotation.",
+      "range": {
+        "startLine": 223,
+        "startChar": 9,
+        "endLine": 223,
+        "endChar": 25
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4eabffa_dfad4af0",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "Asserting on the background thread will not cause the test to fail, but will cause things to crash (possibly other tests).\n\nInstead you can increment a count and assert that it is zero back on the test thread. You may need to add an idle handler to block until the handler has completed triggering all the ImageInfoAvailable calls.",
+      "range": {
+        "startLine": 232,
+        "startChar": 24,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2b925cb_d7276797",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "LongSparseArray may be a more suitable data structure to use here. This is almost the exact use case it was created for. Could remove all of the \u0027toRemove\u0027 list allocations.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 73
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d232397_f38b4d76",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "You\u0027re accessing mReleaseFuture here outside the release lock even though it\u0027s annotated as \u0027@GuardedBy(\"mReleaseLock\")\u0027.",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012a1159_4fd26c9c",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "I don\u0027t think this logic is correct. If you call \"getCloseFuture()\" twice, then the second time it will return a completed future even if \"close()\" hasn\u0027t been called yet.",
+      "range": {
+        "startLine": 152,
+        "startChar": 9,
+        "endLine": 154,
+        "endChar": 9
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a469fc6_0cedbce1",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageReaderProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "Formatting",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b61104_6b4bd64d",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageReaderProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-31T23:24:20Z",
+      "side": 1,
+      "message": "This says nonblocking but it looks like it blocks?",
+      "range": {
+        "startLine": 175,
+        "startChar": 40,
+        "endLine": 175,
+        "endChar": 51
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
