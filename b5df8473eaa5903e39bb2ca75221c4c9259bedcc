@@ -255,6 +255,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "086d6900_f2add655",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-31T17:44:57Z",
+      "side": 1,
+      "message": "That definitely is possible. I wonder if we are hiding what is happening behind the scenes. By reusing the paint allocation this way, it makes it a bit more difficult to see what is happening by inspection vs making it a memoization effect.",
+      "parentUuid": "de936af3_0589ef46",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
