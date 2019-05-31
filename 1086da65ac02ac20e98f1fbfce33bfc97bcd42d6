@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a36a33a_71f417a3",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "would be nice to add a comment when this happens",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 11
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f480e1_811af37e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "maybe onRepaintBoundaryPositionChange? changeRepaintBoundary doesn\u0027t say much to me, what is changing?",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 37
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d05d9f2_c8d8df50",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "you are clearing the map you are iterating here. and also there is one more clear call on line 275, looks like we should delete this one",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 45
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8acc129_3953533f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "What will be the behavior if we wrap just one Draw inside RepaintBoundary? If I understand everything RepaintBoundaryView with 0 width and height will be produced, will it be drawn correctly? should we use a parent size for this cases?",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 299,
+        "endChar": 45
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937d48ed_e8cbbf7d",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "would be nice to have a comment why we don\u0027t use \"node\" in the else block",
+      "range": {
+        "startLine": 422,
+        "startChar": 20,
+        "endLine": 422,
+        "endChar": 38
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b2279af_2f14d824",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "we can also save on saving/restoring if there is no real offset, like node.x and nod.y are both 0",
+      "range": {
+        "startLine": 435,
+        "startChar": 37,
+        "endLine": 435,
+        "endChar": 83
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4622822_c8d653c5",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "can this and \"watchDraw\" be internal?",
+      "range": {
+        "startLine": 449,
+        "startChar": 4,
+        "endLine": 449,
+        "endChar": 7
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ed3472_b8659314",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "this is confusing, probably you wanted to save on clipping for the root layout node here by not calling callDraw(..., node, ...) but now it is possible to call watchDraw with DrawNode as parameter and looks like this node will not be drawn, only it\u0027s children",
+      "range": {
+        "startLine": 467,
+        "startChar": 16,
+        "endLine": 469,
+        "endChar": 17
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d200598_63e64502",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "should we call setClipChildren(false) on this to have a consistent behavior, if DrawNode is not inside RepaintBoundary it will not be clipped",
+      "range": {
+        "startLine": 638,
+        "startChar": 9,
+        "endLine": 638,
+        "endChar": 10
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50803dd7_83006ae1",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "offsetLeftAndRight will call invalidate internally as I understand, do we need it?",
+      "range": {
+        "startLine": 662,
+        "startChar": 16,
+        "endLine": 662,
+        "endChar": 28
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca006170_9b483632",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "dirty is never set to false. according to \"After this, [dirty] must be `false`.\" from the doc it should be done here",
+      "range": {
+        "startLine": 682,
+        "startChar": 8,
+        "endLine": 682,
+        "endChar": 9
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "667a5040_3fc1f2e2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "would be nice to add a comment here when this else could happen",
+      "range": {
+        "startLine": 702,
+        "startChar": 15,
+        "endLine": 702,
+        "endChar": 16
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a74b4a_36a8b6bf",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "and also maybe dirty should be set to false true? if it was redrawn by the framework for some reasons, not because of our callDraw",
+      "range": {
+        "startLine": 712,
+        "startChar": 4,
+        "endLine": 712,
+        "endChar": 5
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343823d0_9d452907",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "having both x and left is slightly confusing. maybe layoutX and ownerX?",
+      "range": {
+        "startLine": 341,
+        "startChar": 3,
+        "endLine": 349,
+        "endChar": 26
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3afbdc_0b6e3d21",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T15:51:29Z",
+      "side": 1,
+      "message": "should this also be renamed for consistency?",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 21
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
