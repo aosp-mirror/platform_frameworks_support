@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa1f4369_7df060a3",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/NavigationUI.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-31T22:55:54Z",
+      "side": 1,
+      "message": "I\u0027d leave this out as this seems to imply that we remove the Up button when you navigate to a FloatingWindow destination, which isn\u0027t the case (we just drop those changes).",
+      "range": {
+        "startLine": 156,
+        "startChar": 45,
+        "endLine": 157,
+        "endChar": 49
+      },
+      "revId": "72dbcb84387ca4c86b7cc4a208c1456b7636cd3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40981c78_340c7b05",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/NavigationUI.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-31T22:55:54Z",
+      "side": 1,
+      "message": "I think it is more clear to just say \"will be ignored.\"",
+      "range": {
+        "startLine": 160,
+        "startChar": 81,
+        "endLine": 161,
+        "endChar": 52
+      },
+      "revId": "72dbcb84387ca4c86b7cc4a208c1456b7636cd3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
