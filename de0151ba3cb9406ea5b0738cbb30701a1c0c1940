@@ -22,6 +22,30 @@
       "revId": "de0151ba3cb9406ea5b0738cbb30701a1c0c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0291495e_45a335a3",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-31T13:03:41Z",
+      "side": 1,
+      "message": "If I understood this correctly, this is exactly what the latest patch accomplished, I just forgot to run updateApi :) Could you check this out now?",
+      "parentUuid": "57fa42fa_82fb6755",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "de0151ba3cb9406ea5b0738cbb30701a1c0c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
