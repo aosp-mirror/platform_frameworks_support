@@ -237,6 +237,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de936af3_0589ef46",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-31T10:37:18Z",
+      "side": 1,
+      "message": "I have one more funny and magical idea:\nIf inside DrawScope class we define \"fun Paint() : Paint {...}\"\nthen without changes on the usage side:\nDraw { canvas, parentSize -\u003e\n   canvas.drawRect(parentSize.toRect(), Paint())\n}\nwe can control allocations. We can lazily create a paint object and then cache it and return the same Paint every redraw. If Paint() will be called for the second time during the drawing lambda call we create a second cached value and will use it every time Paint() called for the second time during the next redraws",
+      "parentUuid": "e477a922_e911da2b",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
