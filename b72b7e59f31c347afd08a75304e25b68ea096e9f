@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "73d05262_f3538b31",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T17:05:10Z",
+      "side": 1,
+      "message": "Sure I see your point and that was my initial intuition too. But there is a big danger in working with multiple elements without the developer knowing it. That\u0027s why frameworks like Espresso only work with one element and throw error on multiple ones. \n\nWhen you write:\nfindByText(\"myButton\").doClick()\n\nYou most likely don\u0027t want to click on more than one button. So multiple items are explicit opt-in currently.",
+      "parentUuid": "e9b1c1e2_df23ca03",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7786c208_2ad8eb8d",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 4
