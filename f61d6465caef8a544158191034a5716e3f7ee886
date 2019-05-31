@@ -94,6 +94,30 @@
       "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "790f3034_71a5887a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-31T21:13:25Z",
+      "side": 1,
+      "message": "Yup - for this change I recommend leaving as-is.",
+      "parentUuid": "c4bfa3ad_98c6cee7",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
