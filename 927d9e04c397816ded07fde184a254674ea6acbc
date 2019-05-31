@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "01e1d8c2_fc9b3982",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-31T23:49:59Z",
+      "side": 1,
+      "message": "Thanks for the catch. I changed it for the other ones, but not this one.",
+      "parentUuid": "d4eabffa_dfad4af0",
+      "range": {
+        "startLine": 232,
+        "startChar": 24,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2b925cb_d7276797",
         "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
         "patchSetId": 2
