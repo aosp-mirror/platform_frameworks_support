@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1028a78_bf92d82c",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-31T14:09:13Z",
+      "side": 1,
+      "message": "Copy this out to the top level, reference it later here as just\n\u003cattr name\u003d\"elevation\" /\u003e\nwith no format defined. I _just_ added this guideline yesterday, so you won\u0027t see this pattern elsewhere yet, but it\u0027s intended to help prevent accidental re-definition of attr formats.",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "6e35d12b62da125a7b4eddf2a5412f677b4303e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d9d150_c1b1e2e3",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-31T14:09:13Z",
+      "side": 1,
+      "message": "dimension",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "6e35d12b62da125a7b4eddf2a5412f677b4303e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
