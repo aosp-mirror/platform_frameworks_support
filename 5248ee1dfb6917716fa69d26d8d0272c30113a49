@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "067b65b9_37b4c7b8",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-31T06:25:38Z",
+      "side": 1,
+      "message": "The comment on MediaPlayerTest [1] says \"those tracks will be found after processing a number of **frames**\". So, I think it\u0027s intended behaviour.\n\n[1] https://android.git.corp.google.com/platform/frameworks/support/+/c2ea01c74a9e4ecfeca7426cf443dcd1ad067c25/media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java#743",
+      "parentUuid": "85df4091_7dbcbc27",
+      "range": {
+        "startLine": 306,
+        "startChar": 11,
+        "endLine": 306,
+        "endChar": 84
+      },
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa6d552_ab398cb7",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
@@ -167,6 +191,24 @@
       "side": 1,
       "message": "Oh. I\u0027ve mistakenly thought that mPlayer methods are not called in this method, but there was one, at line 1654.\n\nNow I think we can remove this if we change line 1654 as if (mPlayer !\u003d null \u0026\u0026 mPlayer.isPlaying()).",
       "parentUuid": "65cebffa_4888a6f9",
+      "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "539a56fb_361c58e7",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-31T06:25:38Z",
+      "side": 1,
+      "message": "That looks better. Done.",
+      "parentUuid": "c0538e70_2ff24f84",
       "revId": "5248ee1dfb6917716fa69d26d8d0272c30113a49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
