@@ -70,6 +70,30 @@
       "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4bfa3ad_98c6cee7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-31T21:02:54Z",
+      "side": 1,
+      "message": "Ack, although gerrit doesn\u0027t let me change the Change-Id.  So maybe this would need up happen before upload?",
+      "parentUuid": "b71c7dfc_2f854801",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
