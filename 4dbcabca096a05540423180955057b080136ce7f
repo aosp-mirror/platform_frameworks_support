@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa78f3d7_879f82a2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-31T22:10:58Z",
+      "side": 1,
+      "message": "nit: this line should end with a period.",
+      "revId": "4dbcabca096a05540423180955057b080136ce7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b44c002_1cae1029",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-31T22:10:58Z",
+      "side": 1,
+      "message": "nit: this line should end with a period.",
+      "revId": "4dbcabca096a05540423180955057b080136ce7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b222b30b_52f14e92",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-31T22:10:58Z",
+      "side": 1,
+      "message": "nit: this line should end with a period.",
+      "revId": "4dbcabca096a05540423180955057b080136ce7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
