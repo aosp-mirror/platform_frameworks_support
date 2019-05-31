@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "40b473a1_9c55db7b",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T18:12:13Z",
+      "side": 1,
+      "message": "OK I can see that",
+      "parentUuid": "73d05262_f3538b31",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7786c208_2ad8eb8d",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 4
