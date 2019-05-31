@@ -22,10 +22,13 @@ import static androidx.room.DatabaseConfiguration.COPY_FROM_NONE;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.room.DatabaseConfiguration.CopyFrom;
+import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
@@ -35,6 +38,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 
 /**
  * An open helper that will copy & open a pre-populated database if it doesn't exists in internal
@@ -48,8 +54,11 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
     private final int mCopyFrom;
     @NonNull
     private final String mCopyFromFilePath;
+    private final int mDatabaseVersion;
     @NonNull
     private final SupportSQLiteOpenHelper mDelegate;
+    @Nullable
+    private DatabaseConfiguration mDatabaseConfiguration;
 
     private boolean mVerified;
 
@@ -57,10 +66,12 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
             @NonNull Context context,
             @CopyFrom int copyFrom,
             @NonNull String copyFromFilePath,
+            int databaseVersion,
             @NonNull SupportSQLiteOpenHelper supportSQLiteOpenHelper) {
         mContext = context;
         mCopyFromFilePath = copyFromFilePath;
         mCopyFrom = copyFrom;
+        mDatabaseVersion = databaseVersion;
         mDelegate = supportSQLiteOpenHelper;
     }
 
@@ -99,49 +110,97 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
         mVerified = false;
     }
 
+    // Can't be constructor param because the factory is needed by the database builder which in
+    // turn is the one that actually builds the configuration.
+    void setDatabaseConfiguration(@Nullable DatabaseConfiguration databaseConfiguration) {
+        mDatabaseConfiguration = databaseConfiguration;
+    }
+
     private void verifyDatabaseFile() {
         String databaseName = getDatabaseName();
         File databaseFile = mContext.getDatabasePath(databaseName);
-        if (databaseFile.exists()) {
+        if (!databaseFile.exists()) {
+            try {
+                copyDatabaseFile(databaseFile);
+                return;
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to copy database file.", e);
+            }
+        }
+
+        if (mDatabaseConfiguration == null) {
             return;
         }
-        copyDatabaseFile(databaseFile);
-    }
 
-    private void copyDatabaseFile(File destinationFile) {
+        // A database file is present, check if we need to re-copy it.
+        int currentVersion;
         try {
-            File parent = destinationFile.getParentFile();
-            if (parent != null && !parent.exists() && !parent.mkdirs()) {
-                throw new IOException("Unable to create directories for "
-                        + destinationFile.getAbsolutePath());
-            }
-
-            InputStream input;
-            switch (mCopyFrom) {
-                case COPY_FROM_NONE:
-                    return;
-                case COPY_FROM_ASSET:
-                    input = mContext.getAssets().open(mCopyFromFilePath);
-                    break;
-                case COPY_FROM_FILE:
-                    input = new FileInputStream(mCopyFromFilePath);
-                    break;
-                default:
-                    throw new IllegalStateException("Unknown CopyFrom: " + mCopyFrom);
-            }
-            OutputStream output = new FileOutputStream(destinationFile);
-            copy(input, output);
+            currentVersion = DBUtil.readVersion(databaseFile);
         } catch (IOException e) {
-            throw new RuntimeException("Unable to copy database file.", e);
+            Log.w(Room.LOG_TAG, "Unable to read database version.", e);
+            return;
+        }
+
+        if (currentVersion == mDatabaseVersion) {
+            return;
+        }
+
+        if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
+            return;
+        }
+
+        if (mContext.deleteDatabase(databaseName)) {
+            try {
+                copyDatabaseFile(databaseFile);
+            } catch (IOException e) {
+                // We are more forgiving copying a database on a destructive migration since there
+                // is already a database file that can be opened.
+                Log.w(Room.LOG_TAG, "Unable to copy database file.", e);
+            }
         }
     }
 
-    private void copy(InputStream input, OutputStream output) throws IOException {
+    private void copyDatabaseFile(File destinationFile) throws IOException {
+        File parent = destinationFile.getParentFile();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new IOException("Unable to create directories for "
+                    + destinationFile.getAbsolutePath());
+        }
+
+        ReadableByteChannel input;
+        switch (mCopyFrom) {
+            case COPY_FROM_NONE:
+                return;
+            case COPY_FROM_ASSET:
+                input = Channels.newChannel(mContext.getAssets().open(mCopyFromFilePath));
+                break;
+            case COPY_FROM_FILE:
+                input = new FileInputStream(mCopyFromFilePath).getChannel();
+                break;
+            default:
+                throw new IllegalStateException("Unknown CopyFrom: " + mCopyFrom);
+        }
+        FileChannel output = new FileOutputStream(destinationFile).getChannel();
+        copy(input, output);
+    }
+
+    private void copy(ReadableByteChannel input, FileChannel output) throws IOException {
         try {
-            int length;
-            byte[] buffer = new byte[1024 * 4];
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
+            if (input instanceof FileChannel) {
+                FileChannel inputFileChannel = (FileChannel) input;
+                inputFileChannel.lock(0, inputFileChannel.size(), true);
+            }
+            output.lock();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                output.transferFrom(input, 0, Long.MAX_VALUE);
+            } else {
+                InputStream inputStream = Channels.newInputStream(input);
+                OutputStream outputStream = Channels.newOutputStream(output);
+                int length;
+                byte[] buffer = new byte[1024 * 4];
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
             }
         } finally {
             input.close();
