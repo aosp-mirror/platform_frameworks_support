@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "0b7f32f3_f1fd9b7e",
+        "filename": "room/common/src/main/java/androidx/room/JoinEntity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "skipping since this lang needs to be updated.",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c3b7f6_69623e32",
+        "filename": "room/common/src/main/java/androidx/room/JoinEntity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "i would recommend having the full example here so that we can make the PlaylistSongXRef small (no FKeys). We can just document taht FKeys are inferred if available",
+      "range": {
+        "startLine": 52,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 32
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb7418b3_aca3db01",
+        "filename": "room/common/src/main/java/androidx/room/JoinEntity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "matching as in? should we enforce fkeys? (i think probably ?)",
+      "range": {
+        "startLine": 85,
+        "startChar": 64,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cad85427_9e828d48",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Relation.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "i feel like we might be better off by renaming these tables in these SQLs to avoid conflicts.",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663f46be_e505d916",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Relation.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "do we have a test where relationship is within the same table?\nseems like this would conflict but not sure.",
+      "range": {
+        "startLine": 51,
+        "startChar": 55,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a61e2ca_269eed1f",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/PojoProcessorTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-31T00:11:17Z",
+      "side": 1,
+      "message": "can we add test that uses @Join w/ field names ?  especially cases where you specify 1, or both and we fail (i see we have success above but it specifies both)",
+      "range": {
+        "startLine": 719,
+        "startChar": 3,
+        "endLine": 719,
+        "endChar": 5
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3f54aa5_feebf161",
         "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/vo/PlaylistWithSongs.java",
         "patchSetId": 3
