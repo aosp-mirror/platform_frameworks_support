@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b91bd96_299e1009",
+        "filename": "browser/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-31T16:11:46Z",
+      "side": 1,
+      "message": "Just to make it clear, you are adding a new dependency to this project. Are we ok with the increase in size for the users of this library?",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 56
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
