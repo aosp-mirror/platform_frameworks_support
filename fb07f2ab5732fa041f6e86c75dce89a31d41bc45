@@ -384,6 +384,24 @@
     },
     {
       "key": {
+        "uuid": "0a4df17f_19fef091",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T23:49:10Z",
+      "side": 1,
+      "message": "As per another comment, this is a separate issue so we\u0027ll address in separately",
+      "parentUuid": "485d93d2_d73b0b54",
+      "revId": "fb07f2ab5732fa041f6e86c75dce89a31d41bc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ef2d120_ab045fe8",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 1
