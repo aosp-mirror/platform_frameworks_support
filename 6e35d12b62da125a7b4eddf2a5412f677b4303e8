@@ -45,6 +45,54 @@
       "revId": "6e35d12b62da125a7b4eddf2a5412f677b4303e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d486be6_0b94738c",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-31T14:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1028a78_bf92d82c",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "6e35d12b62da125a7b4eddf2a5412f677b4303e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9de871fb_72e80b46",
+        "filename": "drawerlayout/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-05-31T14:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37d9d150_c1b1e2e3",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "6e35d12b62da125a7b4eddf2a5412f677b4303e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
