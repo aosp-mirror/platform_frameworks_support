@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e9b1c1e2_df23ca03",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T16:59:12Z",
+      "side": 1,
+      "message": "I wouldn\u0027t oppose that proposal, but my most intuitive assumption was something like\n\nfind() // finds as many as there are\n    .assertNumElements(2) // replace this name with something more appropriate but you get the idea\n\nas you sometimes may want to find all elements without asserting how many there are\n\nfind { isCheckable() }\n    .doClick()\n    .assertChecked()",
+      "parentUuid": "27012d6d_e85b9c52",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7786c208_2ad8eb8d",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "We should have assertNotSelected :) It was just our laziness or it was not needed. But we expect to provide convenient wrapper for each boolean. Basically Truth style here.",
       "parentUuid": "7786c208_2ad8eb8d",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25284dba_f43dc8b5",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T16:59:12Z",
+      "side": 1,
+      "message": "The current state is inconsistent, as assertSelected right now takes a boolean",
+      "parentUuid": "9cbf59da_1e4f661f",
       "range": {
         "startLine": 15,
         "startChar": 52,
