@@ -22,10 +22,13 @@ import static androidx.room.DatabaseConfiguration.COPY_FROM_NONE;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.room.DatabaseConfiguration.CopyFrom;
+import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
@@ -48,8 +51,12 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
     private final int mCopyFrom;
     @NonNull
     private final String mCopyFromFilePath;
+    private final boolean mCopyOnDestructiveMigration;
+    private final int mDatabaseVersion;
     @NonNull
     private final SupportSQLiteOpenHelper mDelegate;
+    @Nullable
+    private DatabaseConfiguration mDatabaseConfiguration;
 
     private boolean mVerified;
 
@@ -57,10 +64,14 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
             @NonNull Context context,
             @CopyFrom int copyFrom,
             @NonNull String copyFromFilePath,
+            boolean copyOnDestructiveMigration,
+            int databaseVersion,
             @NonNull SupportSQLiteOpenHelper supportSQLiteOpenHelper) {
         mContext = context;
         mCopyFromFilePath = copyFromFilePath;
         mCopyFrom = copyFrom;
+        mCopyOnDestructiveMigration = copyOnDestructiveMigration;
+        mDatabaseVersion = databaseVersion;
         mDelegate = supportSQLiteOpenHelper;
     }
 
@@ -99,13 +110,45 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
         mVerified = false;
     }
 
+    void setDatabaseConfiguration(@Nullable DatabaseConfiguration databaseConfiguration) {
+        mDatabaseConfiguration = databaseConfiguration;
+    }
+
     private void verifyDatabaseFile() {
         String databaseName = getDatabaseName();
         File databaseFile = mContext.getDatabasePath(databaseName);
-        if (databaseFile.exists()) {
+        if (!databaseFile.exists()) {
+            copyDatabaseFile(databaseFile);
             return;
         }
-        copyDatabaseFile(databaseFile);
+
+        // A database file is present, check if we need to re-copy it.
+        if (mCopyOnDestructiveMigration) {
+            try {
+                if (mDatabaseConfiguration == null) {
+                    return;
+                }
+
+                int currentVersion = DBUtil.readVersion(databaseFile);
+                if (currentVersion == mDatabaseVersion) {
+                    return;
+                }
+
+                if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
+                    // A migration is required, don't copy the database file, instead open it and
+                    // let migrations run.
+                    return;
+                }
+
+                // Current database file is needs to migrate but a migration is not required, delete
+                // database and re-copy.
+                if (mContext.deleteDatabase(databaseName)) {
+                    copyDatabaseFile(databaseFile);
+                }
+            } catch (IOException e) {
+                Log.w(Room.LOG_TAG, "Unable to read database version.", e);
+            }
+        }
     }
 
     private void copyDatabaseFile(File destinationFile) {
