@@ -46,6 +46,30 @@
       "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71c7dfc_2f854801",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-31T20:48:48Z",
+      "side": 1,
+      "message": "There isn\u0027t an implicit \"Merged-In\" line, nope\n\nIt\u0027s just that it\u0027s legal for both changes to have the same Change-Id. Also, it\u0027s legal to have a Merged-In value matching the Change-Id value.\n\n(and that if the two values match then theoretically it could be easier to remember it if there are ever more branches and/or more changes involved)",
+      "parentUuid": "9c555e45_4b68c9ba",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
