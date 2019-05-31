@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "9c3a9706_5e0282a8",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T14:57:56Z",
+      "side": 1,
+      "message": "the api is getting much better, one thing to notice is I\u0027m not sure we need expectations as an API.\nin this statement, you are repeating that you expect 0 and that it does not exist, which is the same information. I would write\n\nfind { isCheckable() \u0026\u0026 isChecked \u003d\u003d false }\n    .assertDoesNotExist()\n\nand expect the same result, with less APIs to figure out.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7786c208_2ad8eb8d",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T14:57:56Z",
+      "side": 1,
+      "message": "this will quickly run into \"why don\u0027t we have an assertNotSelected\"? can we modify the ones that are a boolean value to be assertChecked(NodeQuery, value)?",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3151c72_88af9d0e",
         "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
         "patchSetId": 4
