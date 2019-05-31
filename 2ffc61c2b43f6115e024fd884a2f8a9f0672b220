@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "218854f6_4ca52583",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtenderVersioningManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-31T11:11:38Z",
+      "side": 1,
+      "message": "Got it, rename to ExtensionVersion.",
+      "parentUuid": "2c928a98_e4ab6844",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc403a23_87ef9f1f",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtenderVersioningManager.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4432f43d_122e0e4d",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtenderVersioningManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-31T11:11:38Z",
+      "side": 1,
+      "message": "Oops, sorry that the implementation in wrong direction.\nThe code is updated, please have a look.",
+      "parentUuid": "fc403a23_87ef9f1f",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad24068d_76bcbd12",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4660618f_bf92efcf",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-31T11:11:38Z",
+      "side": 1,
+      "message": "Oh, yes, move this to the create() method.",
+      "parentUuid": "ad24068d_76bcbd12",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
