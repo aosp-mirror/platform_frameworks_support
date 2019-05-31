@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c928a98_e4ab6844",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtenderVersioningManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-31T05:47:22Z",
+      "side": 1,
+      "message": "We don\u0027t really need to call this a manager class.\n1) Its not really managing a set of objects\n2) It usually best not to call something a manager, because its doesn\u0027t really tell you much about what the class is doing.\n\nIt might be nicer just to call it ExtensionVersion, otherwise its way too verbose.",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc403a23_87ef9f1f",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtenderVersioningManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-31T05:47:22Z",
+      "side": 1,
+      "message": "This will be a problem if the vendor library doesn\u0027t exist on device. What will happen is that if this call gets made then it will try to classload ExtenderVersioning, which doesn\u0027t exist which will cause a ClassNotFoundException. That is the reason why the the BokehImageCaptureExtender class is designed the way it is.\nThe interface that is defined in the vendor lib is wrapped in the Vendor extender class which extends a different interface.",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad24068d_76bcbd12",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-31T05:47:22Z",
+      "side": 1,
+      "message": "The version supported check can be done at the very beginning. Also if the versioning shows that the extension is not available then the implementation that we create should be the Default extender (which will return not available).",
+      "revId": "2ffc61c2b43f6115e024fd884a2f8a9f0672b220",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
