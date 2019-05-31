@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ee7f373_08cf6e57",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:19:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6ef50bd_5cbf46b8",
+      "range": {
+        "startLine": 48,
+        "startChar": 45,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2eb5ee8_9c30b40b",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c80b5668_5460ee1f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:19:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2eb5ee8_9c30b40b",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 37
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c427bc9_70752168",
         "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea8d638_e7d1accc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:19:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c427bc9_70752168",
+      "range": {
+        "startLine": 88,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 11
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
