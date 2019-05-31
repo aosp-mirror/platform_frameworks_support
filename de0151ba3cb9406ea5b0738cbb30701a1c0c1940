@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57fa42fa_82fb6755",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T12:50:09Z",
+      "side": 1,
+      "message": "would all of these make sense both for single and multi query? e.g. assertChecked(T) would assert one is checked for single and all are checked for multi. we just need a common parent for both used as the parameter instead of the specific type\n\nit also solves that at that point you don\u0027t really need to expose single and multi as public api",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "de0151ba3cb9406ea5b0738cbb30701a1c0c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
