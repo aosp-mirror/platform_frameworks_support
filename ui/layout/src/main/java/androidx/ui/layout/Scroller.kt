@@ -19,7 +19,6 @@ import androidx.ui.core.Constraints
 import androidx.ui.core.Direction
 import androidx.ui.core.Draw
 import androidx.ui.core.IntPx
-import androidx.ui.core.Layout
 import androidx.ui.core.Px
 import androidx.ui.core.PxPosition
 import androidx.ui.core.coerceIn
@@ -38,6 +37,7 @@ import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.SingleChildLayout
 
 /**
  * Tracks the vertical drag gesture offset, allowing a range between `0.px` and [max].
@@ -106,7 +106,7 @@ fun VerticalScroller(
     VerticalDragGestureDetector(
         max = maxPosition.value,
         offsetChange = { newOffset -> onScrollChanged(newOffset, maxPosition.value) }) {
-        Layout(children = {
+        SingleChildLayout(children = {
             Draw { canvas, parentSize ->
                 canvas.save()
                 canvas.clipRect(parentSize.toRect())
@@ -115,12 +115,8 @@ fun VerticalScroller(
             Draw { canvas, _ ->
                 canvas.restore()
             }
-        }, layoutBlock = { measurables, constraints ->
-            if (measurables.size > 1) {
-                throw IllegalStateException("Only one child is allowed in a VerticalScroller")
-            }
+        }, layoutBlock = { childMeasurable, constraints ->
             val childConstraints = constraints.copy(maxHeight = IntPx.Infinity)
-            val childMeasurable = measurables.firstOrNull()
             val placeable = childMeasurable?.measure(childConstraints)
             val width: IntPx
             val height: IntPx

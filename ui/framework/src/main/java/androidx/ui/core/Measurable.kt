@@ -21,9 +21,39 @@ package androidx.ui.core
  *
  * @return a [Placeable] that can be used within a [layoutResult] block
  */
-interface Measurable {
+abstract class Measurable {
     /**
      * Data provided by the [ParentData].
      */
-    val parentData: Any?
+    abstract val parentData: Any?
+    protected abstract fun MeasureReceiver.measure(constraints: Constraints): Placeable
+    protected abstract fun IntrinsicMeasurementsReceiver.minIntrinsicWidth(h: IntPx): IntPx
+    protected abstract fun IntrinsicMeasurementsReceiver.maxIntrinsicWidth(h: IntPx): IntPx
+    protected abstract fun IntrinsicMeasurementsReceiver.minIntrinsicHeight(w: IntPx): IntPx
+    protected abstract fun IntrinsicMeasurementsReceiver.maxIntrinsicHeight(w: IntPx): IntPx
+
+    private val measureReceiver = MeasureReceiver()
+    internal fun measureInternal(constraints: Constraints): Placeable {
+        return measureReceiver.measure(constraints)
+    }
+    private val intrinsicsReceiver = IntrinsicMeasurementsReceiver()
+    internal fun minIntrinsicWidthInternal(h: IntPx) = intrinsicsReceiver.minIntrinsicWidth(h)
+    internal fun maxIntrinsicWidthInternal(h: IntPx) = intrinsicsReceiver.maxIntrinsicWidth(h)
+    internal fun minIntrinsicHeightInternal(w: IntPx) = intrinsicsReceiver.minIntrinsicHeight(w)
+    internal fun maxIntrinsicHeightInternal(w: IntPx) = intrinsicsReceiver.maxIntrinsicHeight(w)
+
+    class MeasureReceiver internal constructor() {
+        fun Measurable.measure(constraints: Constraints) = measureInternal(constraints)
+        fun Measurable.minIntrinsicWidth(h: IntPx) = minIntrinsicWidthInternal(h)
+        fun Measurable.maxIntrinsicWidth(h: IntPx) = maxIntrinsicWidthInternal(h)
+        fun Measurable.minIntrinsicHeight(w: IntPx) = minIntrinsicHeightInternal(w)
+        fun Measurable.maxIntrinsicHeight(w: IntPx) = maxIntrinsicHeightInternal(w)
+    }
+
+    class IntrinsicMeasurementsReceiver internal constructor() {
+        fun Measurable.minIntrinsicWidth(h: IntPx) = minIntrinsicWidthInternal(h)
+        fun Measurable.maxIntrinsicWidth(h: IntPx) = maxIntrinsicWidthInternal(h)
+        fun Measurable.minIntrinsicHeight(w: IntPx) = minIntrinsicHeightInternal(w)
+        fun Measurable.maxIntrinsicHeight(w: IntPx) = maxIntrinsicHeightInternal(w)
+    }
 }

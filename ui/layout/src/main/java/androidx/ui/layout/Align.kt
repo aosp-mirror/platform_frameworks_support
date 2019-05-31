@@ -18,13 +18,13 @@ package androidx.ui.layout
 
 import androidx.ui.core.IntPxPosition
 import androidx.ui.core.IntPxSize
-import androidx.ui.core.Layout
 import androidx.ui.core.center
 import androidx.ui.core.isFinite
 import androidx.ui.core.looseMin
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.SingleChildLayout
 
 /**
  * Represents a positioning of a point inside a 2D box. [Alignment] is often used to define
@@ -66,8 +66,7 @@ data class Alignment(val verticalBias: Float, val horizontalBias: Float) {
  */
 @Composable
 fun Align(alignment: Alignment, @Children children: @Composable() () -> Unit) {
-    Layout(layoutBlock ={ measurables, constraints ->
-        val measurable = measurables.firstOrNull()
+    SingleChildLayout(children) { measurable, constraints ->
         // The child cannot be larger than our max constraints, but we ignore min constraints.
         val placeable = measurable?.measure(constraints.looseMin())
 
@@ -92,7 +91,7 @@ fun Align(alignment: Alignment, @Children children: @Composable() () -> Unit) {
                 placeable.place(position.x, position.y)
             }
         }
-    }, children = children)
+    }
 }
 
 /**

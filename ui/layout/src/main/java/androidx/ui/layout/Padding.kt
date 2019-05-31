@@ -17,13 +17,14 @@
 package androidx.ui.layout
 
 import androidx.ui.core.Dp
-import androidx.ui.core.Layout
 import androidx.ui.core.dp
-import androidx.ui.core.min
 import androidx.ui.core.offset
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.SingleChildLayout
+import androidx.ui.core.coerceIn
+import androidx.ui.core.ipx
 
 /**
  * Describes a set of offsets from each of the four sides of a box. For example,
@@ -55,30 +56,26 @@ fun Padding(
     padding: EdgeInsets,
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(layoutBlock = { measurables, constraints ->
-        val measurable = measurables.firstOrNull()
-        if (measurable == null) {
-            layout(constraints.minWidth, constraints.minHeight) { }
-        } else {
-            val paddingLeft = padding.left.toIntPx()
-            val paddingTop = padding.top.toIntPx()
-            val paddingRight = padding.right.toIntPx()
-            val paddingBottom = padding.bottom.toIntPx()
-            val horizontalPadding = (paddingLeft + paddingRight)
-            val verticalPadding = (paddingTop + paddingBottom)
+    SingleChildLayout(children) { measurable, constraints ->
+        val paddingLeft = padding.left.toIntPx()
+        val paddingTop = padding.top.toIntPx()
+        val paddingRight = padding.right.toIntPx()
+        val paddingBottom = padding.bottom.toIntPx()
+        val horizontalPadding = (paddingLeft + paddingRight)
+        val verticalPadding = (paddingTop + paddingBottom)
 
-            val newConstraints = constraints.offset(-horizontalPadding, -verticalPadding)
-            val placeable = measurable.measure(newConstraints)
-            val width =
-                min(placeable.width + horizontalPadding, constraints.maxWidth)
-            val height =
-                min(placeable.height + verticalPadding, constraints.maxHeight)
+        val newConstraints = constraints.offset(-horizontalPadding, -verticalPadding)
+        val placeable = measurable?.measure(newConstraints)
+        val width = (placeable?.width ?: 0.ipx) + horizontalPadding
+        val height = (placeable?.height ?: 0.ipx) + verticalPadding
 
-            layout(width, height) {
-                placeable.place(paddingLeft, paddingTop)
-            }
+        layout(
+            width.coerceIn(constraints.minWidth, constraints.maxWidth),
+            height.coerceIn(constraints.minHeight, constraints.maxHeight)
+        ) {
+            placeable?.place(paddingLeft, paddingTop)
         }
-    }, children = children)
+    }
 }
 
 /**

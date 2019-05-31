@@ -21,7 +21,7 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.ui.core.Constraints
 import androidx.ui.core.IntPxSize
-import androidx.ui.core.Layout
+import androidx.ui.core.SingleChildLayout
 import androidx.ui.core.ipx
 import androidx.ui.core.isFinite
 import androidx.ui.core.satisfiedBy
@@ -53,7 +53,7 @@ fun AspectRatio(
     aspectRatio: Float,
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(children) { measurables, constraints ->
+    SingleChildLayout(children) { measurable, constraints ->
         val size = listOf(
             IntPxSize(constraints.maxWidth, constraints.maxWidth / aspectRatio),
             IntPxSize(constraints.maxHeight * aspectRatio, constraints.maxHeight),
@@ -65,7 +65,6 @@ fun AspectRatio(
                     it.width.isFinite() && it.height.isFinite()
         }
 
-        val measurable = measurables.firstOrNull()
         val childConstraints = if (size != null) {
             Constraints.tightConstraints(size.width, size.height)
         } else {

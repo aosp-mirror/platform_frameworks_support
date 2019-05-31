@@ -19,7 +19,6 @@ package androidx.ui.layout
 import androidx.ui.core.Constraints
 import androidx.ui.core.Dp
 import androidx.ui.core.IntPxSize
-import androidx.ui.core.Layout
 import androidx.ui.core.dp
 import androidx.ui.core.enforce
 import androidx.ui.core.ipx
@@ -31,6 +30,7 @@ import androidx.ui.core.withTight
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.SingleChildLayout
 
 /**
  * A convenience widget that combines common layout widgets for one child:
@@ -62,7 +62,7 @@ fun Container(
     height: Dp? = null,
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(children = children, layoutBlock = { measurables, incomingConstraints ->
+    SingleChildLayout(children) { measurable, incomingConstraints ->
         val containerConstraints = Constraints(constraints)
             .withTight(width?.toIntPx(), height?.toIntPx())
             .enforce(incomingConstraints)
@@ -71,7 +71,7 @@ fun Container(
         val childConstraints = containerConstraints
             .looseMin()
             .offset(-totalHorizontal, -totalVertical)
-        val placeable = measurables.firstOrNull()?.measure(childConstraints)
+        val placeable = measurable?.measure(childConstraints)
         val containerWidth = if (!expanded || !containerConstraints.maxWidth.isFinite()) {
             max((placeable?.width ?: 0.ipx) + totalHorizontal, containerConstraints.minWidth)
         } else {
@@ -96,5 +96,5 @@ fun Container(
                 )
             }
         }
-    })
+    }
 }

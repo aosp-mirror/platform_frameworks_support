@@ -74,6 +74,7 @@ package androidx.ui.core {
     method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit>![] childrenArray, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
     method public static void OnChildPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void OnPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned);
+    method public static void SingleChildLayout(kotlin.jvm.functions.Function0<kotlin.Unit> children, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super androidx.ui.core.Measurable,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
     method public static void WithConstraints(kotlin.jvm.functions.Function1<? super androidx.ui.core.Constraints,kotlin.Unit> children);
   }
 
@@ -84,9 +85,30 @@ package androidx.ui.core {
     method public androidx.ui.core.Placeable measure(androidx.ui.core.Measurable, androidx.ui.core.Constraints constraints);
   }
 
-  public interface Measurable {
-    method public Object? getParentData();
+  public abstract class Measurable {
+    ctor public Measurable();
+    method public abstract Object? getParentData();
+    method protected abstract androidx.ui.core.IntPx maxIntrinsicHeight(androidx.ui.core.Measurable.IntrinsicMeasurementsReceiver, androidx.ui.core.IntPx w);
+    method protected abstract androidx.ui.core.IntPx maxIntrinsicWidth(androidx.ui.core.Measurable.IntrinsicMeasurementsReceiver, androidx.ui.core.IntPx h);
+    method protected abstract androidx.ui.core.Placeable measure(androidx.ui.core.Measurable.MeasureReceiver, androidx.ui.core.Constraints constraints);
+    method protected abstract androidx.ui.core.IntPx minIntrinsicHeight(androidx.ui.core.Measurable.IntrinsicMeasurementsReceiver, androidx.ui.core.IntPx w);
+    method protected abstract androidx.ui.core.IntPx minIntrinsicWidth(androidx.ui.core.Measurable.IntrinsicMeasurementsReceiver, androidx.ui.core.IntPx h);
     property public abstract Object? parentData;
+  }
+
+  public static final class Measurable.IntrinsicMeasurementsReceiver {
+    method public androidx.ui.core.IntPx maxIntrinsicHeight(androidx.ui.core.Measurable, androidx.ui.core.IntPx w);
+    method public androidx.ui.core.IntPx maxIntrinsicWidth(androidx.ui.core.Measurable, androidx.ui.core.IntPx h);
+    method public androidx.ui.core.IntPx minIntrinsicHeight(androidx.ui.core.Measurable, androidx.ui.core.IntPx w);
+    method public androidx.ui.core.IntPx minIntrinsicWidth(androidx.ui.core.Measurable, androidx.ui.core.IntPx h);
+  }
+
+  public static final class Measurable.MeasureReceiver {
+    method public androidx.ui.core.IntPx maxIntrinsicHeight(androidx.ui.core.Measurable, androidx.ui.core.IntPx w);
+    method public androidx.ui.core.IntPx maxIntrinsicWidth(androidx.ui.core.Measurable, androidx.ui.core.IntPx h);
+    method public androidx.ui.core.Placeable measure(androidx.ui.core.Measurable, androidx.ui.core.Constraints constraints);
+    method public androidx.ui.core.IntPx minIntrinsicHeight(androidx.ui.core.Measurable, androidx.ui.core.IntPx w);
+    method public androidx.ui.core.IntPx minIntrinsicWidth(androidx.ui.core.Measurable, androidx.ui.core.IntPx h);
   }
 
   public final class ParentDataKt {
@@ -98,9 +120,13 @@ package androidx.ui.core {
     ctor public Placeable();
     method public abstract androidx.ui.core.IntPx getHeight();
     method public abstract androidx.ui.core.IntPx getWidth();
-    method protected abstract void place(androidx.ui.core.IntPx x, androidx.ui.core.IntPx y);
+    method protected abstract void place(androidx.ui.core.Placeable.PlaceReceiver, androidx.ui.core.IntPx x, androidx.ui.core.IntPx y);
     property public abstract androidx.ui.core.IntPx height;
     property public abstract androidx.ui.core.IntPx width;
+  }
+
+  public static final class Placeable.PlaceReceiver {
+    method public void place(androidx.ui.core.Placeable, androidx.ui.core.IntPx x, androidx.ui.core.IntPx y);
   }
 
   public final class PointerInputWrapperKt {
