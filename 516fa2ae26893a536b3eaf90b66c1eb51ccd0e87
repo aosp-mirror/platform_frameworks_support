@@ -22,6 +22,30 @@
       "revId": "516fa2ae26893a536b3eaf90b66c1eb51ccd0e87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64cbdbd9_b58abb6f",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:23:26Z",
+      "side": 1,
+      "message": "Hm, interesting options, thanks! I feel like it\u0027s more \"Selected Option Change Requested\", but with requested, so it will be onSelectedOptionChange. But it stil lseems too long, so I\u0027ve decided to go with onSelectedChange. \n\nDoes it make sense?",
+      "parentUuid": "33f51fd4_cf78de7d",
+      "range": {
+        "startLine": 207,
+        "startChar": 176,
+        "endLine": 207,
+        "endChar": 192
+      },
+      "revId": "516fa2ae26893a536b3eaf90b66c1eb51ccd0e87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
