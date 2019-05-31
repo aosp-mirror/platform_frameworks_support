@@ -46,6 +46,30 @@
       "revId": "447dcb59b9de760405bc6699c4f36cafc78fab59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf1cf43_e2fdccf6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-31T18:22:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55fa7670_64c5419d",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 28
+      },
+      "revId": "447dcb59b9de760405bc6699c4f36cafc78fab59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
