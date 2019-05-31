@@ -22,6 +22,30 @@
       "revId": "0be958f0726f4cd43c1e438fbfb55119ad409f08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e7aac0_55ab8f91",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-31T19:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "149fc231_193b79d1",
+      "range": {
+        "startLine": 49,
+        "startChar": 64,
+        "endLine": 49,
+        "endChar": 71
+      },
+      "revId": "0be958f0726f4cd43c1e438fbfb55119ad409f08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
