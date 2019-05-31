@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6ef50bd_5cbf46b8",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T08:42:43Z",
+      "side": 1,
+      "message": "nit: missing period at the end.\nalso note that the next sentence will be directly appended, if you actually want a paragraph break you need to use \u003cp\u003e",
+      "range": {
+        "startLine": 48,
+        "startChar": 45,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2eb5ee8_9c30b40b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T08:42:43Z",
+      "side": 1,
+      "message": "nit: appears (and remains later in the sentence)",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 37
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c427bc9_70752168",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T08:42:43Z",
+      "side": 1,
+      "message": "nit: add a usage example in the docs (you can copy from the demos), same for tristate",
+      "range": {
+        "startLine": 88,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 11
+      },
+      "revId": "1ca076b3a0e0647737ad00ed05a87a53a8b4f33c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
