@@ -92,6 +92,7 @@ const val ANDROIDX_CORE = "androidx.core:core:1.0.0"
 const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
 const val ANDROIDX_SQLITE = "androidx.sqlite:sqlite:2.0.1"
 const val ANDROIDX_SQLITE_FRAMEWORK = "androidx.sqlite:sqlite-framework:2.0.1"
+const val ANDROIDX_VIEWPAGER2 = "androidx.viewpager2:viewpager2:1.0.0-alpha05"
 
 // Arch libraries
 const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:2.0.0"
