@@ -13,6 +13,7 @@ package androidx.room {
     field public final android.content.Context context;
     field @androidx.room.DatabaseConfiguration.CopyFrom public final int copyFrom;
     field public final String? copyFromPath;
+    field public final boolean copyOnDestructiveMigration;
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -78,6 +79,7 @@ package androidx.room {
     method public T build();
     method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
     method public androidx.room.RoomDatabase.Builder<T!> createFromFile(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFileOnDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
