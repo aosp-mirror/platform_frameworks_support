@@ -157,6 +157,10 @@ public abstract class RoomDatabase {
     @CallSuper
     public void init(@NonNull DatabaseConfiguration configuration) {
         mOpenHelper = createOpenHelper(configuration);
+        if (mOpenHelper instanceof SQLiteCopyOpenHelper) {
+            SQLiteCopyOpenHelper copyOpenHelper = (SQLiteCopyOpenHelper) mOpenHelper;
+            copyOpenHelper.setDatabaseConfiguration(configuration);
+        }
         boolean wal = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             wal = configuration.journalMode == JournalMode.WRITE_AHEAD_LOGGING;
@@ -534,6 +538,7 @@ public abstract class RoomDatabase {
 
         private String mCopyFromPath;
         private boolean mCopyFromAsset;
+        private boolean mCopyOnDestructiveMigration;
 
         Builder(@NonNull Context context, @NonNull Class<T> klass, @Nullable String name) {
             mContext = context;
@@ -563,6 +568,8 @@ public abstract class RoomDatabase {
          *                         database file is located.
          *
          * @return this
+         *
+         * @see #createFromFileOnDestructiveMigration()
          */
         @NonNull
         public Builder<T> createFromAsset(@NonNull String databaseFilePath) {
@@ -588,11 +595,32 @@ public abstract class RoomDatabase {
          * @param databaseFilePath The file path of where the database file is located.
          *
          * @return this
+         *
+         * @see #createFromFileOnDestructiveMigration()
          */
         @NonNull
         public Builder<T> createFromFile(@NonNull String databaseFilePath) {
             mCopyFromPath = databaseFilePath;
             mCopyFromAsset = false;
+            return this;
+        }
+
+        /**
+         * Configures Room to recreate the database from a pre-packaged database on a destructive
+         * migration.
+         * <p>
+         * This configuration has no effect if no pre-packaged database is provided with
+         * {@link #createFromFile(String, boolean)} and none of the
+         * {@code RoomDatabase.Builder.fallbackToDestructiveMigration*} is invoked.
+         *
+         * @return this
+         *
+         * @see #createFromAsset(String)
+         * @see #createFromFile(String)
+         */
+        @NonNull
+        public Builder<T> createFromFileOnDestructiveMigration() {
+            mCopyOnDestructiveMigration = true;
             return this;
         }
 
@@ -889,7 +917,8 @@ public abstract class RoomDatabase {
                 mFactory = new FrameworkSQLiteOpenHelperFactory();
             }
             if (mName != null && mCopyFromPath != null) {
-                mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromPath, mCopyFromAsset, mFactory);
+                mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromPath, mCopyFromAsset,
+                        mCopyOnDestructiveMigration, mFactory);
             }
             DatabaseConfiguration configuration =
                     new DatabaseConfiguration(
@@ -907,7 +936,8 @@ public abstract class RoomDatabase {
                             mAllowDestructiveMigrationOnDowngrade,
                             mMigrationsNotRequiredFrom,
                             mCopyFromPath,
-                            mCopyFromAsset);
+                            mCopyFromAsset,
+                            mCopyOnDestructiveMigration);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;

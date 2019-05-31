@@ -117,12 +117,17 @@ public class DatabaseConfiguration {
     public final boolean copyFromAsset;
 
     /**
+     * If true, Room should re-copy the provided pre-package database on a destructive migration.
+     */
+    public final boolean copyOnDestructiveMigration;
+
+    /**
      * Creates a database configuration with the given values.
      *
      * @deprecated Use {@link #DatabaseConfiguration(Context, String,
      * SupportSQLiteOpenHelper.Factory, RoomDatabase.MigrationContainer, List, boolean,
      * RoomDatabase.JournalMode, Executor, Executor, boolean, boolean, boolean, Set, String,
-     * boolean)}
+     * boolean, boolean)}
      *
      * @param context The application context.
      * @param name Name of the database, can be null if it is in memory.
@@ -152,7 +157,7 @@ public class DatabaseConfiguration {
             @Nullable Set<Integer> migrationNotRequiredFrom) {
         this(context, name, sqliteOpenHelperFactory, migrationContainer, callbacks,
                 allowMainThreadQueries, journalMode, queryExecutor, queryExecutor, false,
-                requireMigration, false, migrationNotRequiredFrom, null, false);
+                requireMigration, false, migrationNotRequiredFrom, null, false, false);
     }
 
     /**
@@ -161,7 +166,7 @@ public class DatabaseConfiguration {
      * @deprecated Use {@link #DatabaseConfiguration(Context, String,
      * SupportSQLiteOpenHelper.Factory, RoomDatabase.MigrationContainer, List, boolean,
      * RoomDatabase.JournalMode, Executor, Executor, boolean, boolean, boolean, Set, String,
-     * boolean)}
+     * boolean, boolean)}
      *
      * @param context The application context.
      * @param name Name of the database, can be null if it is in memory.
@@ -198,7 +203,7 @@ public class DatabaseConfiguration {
         this(context, name, sqliteOpenHelperFactory, migrationContainer, callbacks,
                 allowMainThreadQueries, journalMode, queryExecutor, transactionExecutor,
                 multiInstanceInvalidation, requireMigration, allowDestructiveMigrationOnDowngrade,
-                migrationNotRequiredFrom, null, false);
+                migrationNotRequiredFrom, null, false, false);
     }
 
     /**
@@ -220,7 +225,10 @@ public class DatabaseConfiguration {
      * @param migrationNotRequiredFrom The collection of schema versions from which migrations
      *                                 aren't required.
      * @param copyFromPath Path to pre-packaged DB to copy from on initial create.
-     * @param copyFromAsset Whether to copy from assets or not if copyFromPath is provided.
+     * @param copyFromAsset Whether to copy from a path outside of assets or not if
+     *                              copyFromPath is provided.
+     * @param copyOnDestructiveMigration True if Room should override the DB file with pre-packaged
+     *                                   file when performing a destructive migration.
      *
      * @hide
      */
@@ -238,7 +246,8 @@ public class DatabaseConfiguration {
             boolean allowDestructiveMigrationOnDowngrade,
             @Nullable Set<Integer> migrationNotRequiredFrom,
             @Nullable String copyFromPath,
-            boolean copyFromAsset) {
+            boolean copyFromAsset,
+            boolean copyOnDestructiveMigration) {
         this.sqliteOpenHelperFactory = sqliteOpenHelperFactory;
         this.context = context;
         this.name = name;
@@ -254,6 +263,7 @@ public class DatabaseConfiguration {
         this.mMigrationNotRequiredFrom = migrationNotRequiredFrom;
         this.copyFromPath = copyFromPath;
         this.copyFromAsset = copyFromAsset;
+        this.copyOnDestructiveMigration = copyOnDestructiveMigration;
     }
 
     /**

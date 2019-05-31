@@ -164,6 +164,7 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 null,
+                false,
                 false);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
@@ -224,6 +225,7 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 null,
+                false,
                 false);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
