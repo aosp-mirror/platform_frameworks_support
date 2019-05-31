@@ -309,6 +309,24 @@
       "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29f64114_822538bd",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-31T19:46:53Z",
+      "side": 1,
+      "message": "Definitely. It becomes a bit more tricky if the expectation is to use the defaults for every parameter except a few. In Matvei\u0027s example above, if you swapped the instructions the second drawRect call would render with a stroke if you were expecting the default parameter to be a fill.\n\nWhile we can technically reset the Paint in between call, it requires a JNI crossing to do so. Creating a memoization effect is more explicit and can be done for each paint used for various drawing operations which would help create more expected behavior.",
+      "parentUuid": "65826fa7_50ad4127",
+      "revId": "b5df8473eaa5903e39bb2ca75221c4c9259bedcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
