@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "69157655_d7e495a8",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "To clarify - this was initially blocked by a crash in metalava, but it looks like whatever was causing that crash is gone now in more recent patches ...?",
+      "parentUuid": "197ed5ee_ff1cc152",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8362bde4_cd32d2d1",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -142,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "df18ffaf_53a6a485",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Nevermind I got the good result that we want to happen :D",
+      "parentUuid": "c08b690b_aaabcc19",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "436853ef_8bfbc8fe",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -174,6 +210,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b240e343_3a2d042c",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81906efc_4dd03595",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +280,24 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f568b3_67e1c44b",
+        "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Alright - I finally figured out why; So it turns out this block was added for initExecutor but there\u0027s something stripping it out after.\n\nSimilar things are happening for the empty blocks below.\n\nChanging this to LIBRARY_GROUP works around the issue - I think because it is actually supposed to be LIBRARY_GROUP and not just LIBRARY (used in rxjava artifact). But I think the desired behaviour is probably not intended to be silently delete, so I\u0027ll leave the bug open for now.\n\nhttps://b.corp.google.com/issues/134168469",
+      "parentUuid": "27b4db79_5bba8442",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1305,6 +1377,24 @@
     },
     {
       "key": {
+        "uuid": "1755c275_2b0416ad",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PositionalDataSource.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee3dcec_0dd11733",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba90279b_c29f1154",
         "filename": "paging/common/src/main/kotlin/androidx/paging/TiledDataSource.kt",
         "patchSetId": 17
@@ -1597,6 +1687,30 @@
     },
     {
       "key": {
+        "uuid": "345988e1_490ecaee",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "This is actually a good point so I reverted it - but I\u0027m not sure what to do about key / value  types being nullable in some cases where it was previously marked @NonNull via constructor param previously in java.",
+      "parentUuid": "c031e108_a00b0ec6",
+      "range": {
+        "startLine": 392,
+        "startChar": 18,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86f63a7e_9d09a023",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
         "patchSetId": 17
@@ -1743,6 +1857,24 @@
     },
     {
       "key": {
+        "uuid": "e70bcf30_d4603c69",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/TiledDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "That\u0027s only true if you remove the first \"\" in the list init.\n\nBtw, there\u0027s (\u0027a\u0027..\u0027z\u0027).toList()",
+      "parentUuid": "712f841b_6e8999c4",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0c5d46_5fef9516",
         "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
         "patchSetId": 17
@@ -1778,6 +1910,30 @@
       "side": 1,
       "message": "Originally it was to workaround metalava adding nullity to generics defined in Kotlin! (breaking api change since it was previously annotated @NonNull), but it looks like I found a way to make that not a breaking change - Metalava is still marking some methods and parameters as T! or T? instead of T, but it might be due to @JvmField.",
       "parentUuid": "da0c5d46_5fef9516",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11d1d17_65ec3df1",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Actually - I think we might need to place `: Any` in quite a few places after all.\n\nRather than a breaking change - I think it just enforces the API unless we mean for Keys to be nullable.\n\nThe T! is definitely from @JvmField as it should be well known what the nullability is in kotlin (I think), but the upper bound for generics is Any? so if we don\u0027t want that propagated to all of our API files I think we\u0027ll need to set our generics to be specifically bounded by : Any, although it might make migration a bit harder for some.",
+      "parentUuid": "8ab3a082_a485671d",
       "range": {
         "startLine": 62,
         "startChar": 18,
@@ -1939,6 +2095,30 @@
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3171cce_c5a861dc",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-31T20:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b7a032f_067ba4c7",
+      "range": {
+        "startLine": 155,
+        "startChar": 40,
+        "endLine": 155,
+        "endChar": 60
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
