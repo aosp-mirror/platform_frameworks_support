@@ -34,11 +34,11 @@ abstract class Version implements Comparable<Version> {
             Pattern.compile("(\\d+)(?:\\.(\\d+))(?:\\.(\\d+))(?:\\-(.+))?");
 
     /**
-     * Parses a string into a version object.
+     * Parses a string to a version object.
      *
      * @param versionString string in the format "1.2.3" or "1.2.3-Description"
      *                      (major.minor.patch[-description])
-     * @return parsed Version object or <tt>null</tt> if the versionString format invalid.
+     * @return the parsed Version object or <tt>null</tt> if the versionString format is invalid.
      */
     public static Version parse(String versionString) {
         if (TextUtils.isEmpty(versionString)) {
@@ -58,7 +58,7 @@ abstract class Version implements Comparable<Version> {
     }
 
     /**
-     * Creates a new instance of Version with the given parameters.
+     * Creates a new instance of the Version object with the given parameters.
      */
     public static Version create(int major, int minor, int patch, String description) {
         return new AutoValue_Version(major, minor, patch, description);
@@ -125,7 +125,7 @@ abstract class Version implements Comparable<Version> {
 
         Version otherVersionObj = (Version) obj;
 
-        // The equals checking ignores the description since it can be ignored.
+        // The equals checking ignores the description.
         return Objects.equals(getMajor(), otherVersionObj.getMajor())
                 && Objects.equals(getMinor(), otherVersionObj.getMinor())
                 && Objects.equals(getPatch(), otherVersionObj.getPatch());
@@ -133,7 +133,7 @@ abstract class Version implements Comparable<Version> {
 
     @Override
     public int hashCode() {
-        // The hash code ignores the description since it can be ignored.
+        // The hash code ignores the description.
         return Objects.hash(getMajor(), getMinor(), getPatch());
     }
 }

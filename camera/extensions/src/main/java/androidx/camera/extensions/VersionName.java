@@ -26,7 +26,7 @@ import androidx.annotation.RestrictTo;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public enum VersionName {
 
-    /* The current version of CameraX extension. */
+    /* The current version of the CameraX extension. */
     CURRENT(BuildConfig.CAMERA_VERSION);
 
     private final Version mVersion;

@@ -58,7 +58,7 @@ abstract class ExtensionVersion {
     }
 
     /**
-     * Return the Version object that if OEM library is compatible with CameraX.
+     * Return the Version object of the OEM library if the version is compatible with CameraX.
      *
      * @return a Version object which composed of the version number string that's returned from
      * {@link ExtenderVersioning#checkApiVersion(String)}.
