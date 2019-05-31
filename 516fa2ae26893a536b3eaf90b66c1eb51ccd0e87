@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f51fd4_cf78de7d",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-31T16:48:13Z",
+      "side": 1,
+      "message": "onSelectChange? onChangeSelect?",
+      "range": {
+        "startLine": 207,
+        "startChar": 176,
+        "endLine": 207,
+        "endChar": 192
+      },
+      "revId": "516fa2ae26893a536b3eaf90b66c1eb51ccd0e87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
