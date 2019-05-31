@@ -23,6 +23,7 @@ import androidx.ui.core.enforce
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.SingleChildLayout
 
 /**
  * Widget that enforces additional [Constraints] to its only child. The ConstrainedBox will
@@ -38,8 +39,7 @@ fun ConstrainedBox(
     constraints: DpConstraints,
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(layoutBlock = { measurables, incomingConstraints ->
-        val measurable = measurables.firstOrNull()
+    SingleChildLayout(children) { measurable, incomingConstraints ->
         val childConstraints = Constraints(constraints).enforce(incomingConstraints)
         val placeable = measurable?.measure(childConstraints)
 
@@ -48,5 +48,5 @@ fun ConstrainedBox(
         layout(layoutWidth, layoutHeight) {
             placeable?.place(IntPx.Zero, IntPx.Zero)
         }
-    }, children = children)
+    }
 }

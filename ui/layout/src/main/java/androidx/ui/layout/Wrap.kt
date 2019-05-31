@@ -17,13 +17,13 @@
 package androidx.ui.layout
 
 import androidx.ui.core.IntPxSize
-import androidx.ui.core.Layout
 import androidx.ui.core.ipx
 import androidx.ui.core.looseMin
 import androidx.ui.core.max
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.SingleChildLayout
 
 /**
  * A layout that expects a child and places it within itself. The child will be measured
@@ -36,8 +36,7 @@ import androidx.compose.composer
  */
 @Composable
 fun Wrap(alignment: Alignment = Alignment.TopLeft, @Children children: @Composable() () -> Unit) {
-    Layout(layoutBlock = { measurables, constraints ->
-        val measurable = measurables.firstOrNull()
+    SingleChildLayout(children) { measurable, constraints ->
         // The child cannot be larger than our max constraints, but we ignore min constraints.
         val placeable = measurable?.measure(constraints.looseMin())
 
@@ -53,5 +52,5 @@ fun Wrap(alignment: Alignment = Alignment.TopLeft, @Children children: @Composab
                 placeable.place(position.x, position.y)
             }
         }
-    }, children=children)
+    }
 }

@@ -33,6 +33,34 @@ internal typealias IntrinsicMeasurementBlock = IntrinsicMeasurementsReceiver
 internal val LayoutBlockStub: LayoutBlock = { _, _ -> }
 internal val IntrinsicMeasurementBlockStub: IntrinsicMeasurementBlock = { _, _ -> 0.ipx }
 
+internal class LayoutMeasurable(
+    internal val complexLayoutState: ComplexLayoutState
+) : Measurable() {
+    override val parentData: Any? get() = complexLayoutState.layoutNode.parentData
+    override fun MeasureReceiver.measure(constraints: Constraints): Placeable {
+        complexLayoutState.measure(constraints)
+        return complexLayoutState.placeable
+    }
+    override fun IntrinsicMeasurementsReceiver.minIntrinsicWidth(h: IntPx): IntPx {
+        return complexLayoutState.minIntrinsicWidth(h)
+    }
+    override fun IntrinsicMeasurementsReceiver.maxIntrinsicWidth(h: IntPx): IntPx {
+        return complexLayoutState.maxIntrinsicWidth(h)
+    }
+    override fun IntrinsicMeasurementsReceiver.minIntrinsicHeight(w: IntPx): IntPx {
+        return complexLayoutState.minIntrinsicHeight(w)
+    }
+    override fun IntrinsicMeasurementsReceiver.maxIntrinsicHeight(w: IntPx): IntPx {
+        return complexLayoutState.maxIntrinsicHeight(w)
+    }
+}
+
+internal class LayoutPlaceable(internal val complexLayoutState: ComplexLayoutState) : Placeable() {
+    override val width: IntPx get() = complexLayoutState.layoutNode.width
+    override val height: IntPx get() = complexLayoutState.layoutNode.height
+    override fun PlaceReceiver.place(x: IntPx, y: IntPx) = complexLayoutState.place(x, y)
+}
+
 internal class ComplexLayoutState(
     internal var layoutBlock: LayoutBlock = LayoutBlockStub,
     internal var minIntrinsicWidthBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
@@ -40,9 +68,7 @@ internal class ComplexLayoutState(
     internal var minIntrinsicHeightBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
     internal var maxIntrinsicHeightBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
     internal val density: Density
-) : Measurable, Placeable(), MeasurableLayout {
-    override val parentData: Any?
-        get() = layoutNode.parentData
+) : MeasurableLayout {
 
     internal var block: ComplexLayoutReceiver.() -> Unit = {}
     internal var positioningBlock: PositioningBlockReceiver.() -> Unit = {}
@@ -57,26 +83,27 @@ internal class ComplexLayoutState(
         get() = layoutNodeRef.value!!
 
     internal val childrenMeasurables: List<Measurable> get() =
-        ComplexLayoutStateMeasurablesList(layoutNode.childrenLayouts().map { it as Measurable })
+        ComplexLayoutStateMeasurablesList(layoutNode.childrenLayouts().
+            map { (it as ComplexLayoutState).measurable })
 
     internal val onPositioned = mutableListOf<(LayoutCoordinates) -> Unit>()
     internal var onChildPositioned: List<(LayoutCoordinates) -> Unit> = emptyList()
 
-    override fun callMeasure(constraints: Constraints) { measure(constraints) }
-    override fun callLayout() {
-        placeChildren()
-    }
+    internal val measurable = LayoutMeasurable(this)
+    internal val placeable = LayoutPlaceable(this)
 
-    fun measure(constraints: Constraints): Placeable {
+    override fun callMeasure(constraints: Constraints) { measure(constraints) }
+    override fun callLayout() { placeChildren() }
+
+    fun measure(constraints: Constraints) {
         if (layoutNode.constraints == constraints && !layoutNode.needsRemeasure) {
             layoutNode.resize(layoutNode.width, layoutNode.height)
-            return this // we're already measured to this size, don't do anything
+            return // we're already measured to this size, don't do anything
         }
         layoutNode.startMeasure()
         layoutNode.constraints = constraints
         layoutBlockReceiver.layoutBlock(childrenMeasurables, constraints)
         layoutNode.endMeasure()
-        return this
     }
 
     fun minIntrinsicWidth(h: IntPx) =
@@ -119,9 +146,7 @@ internal class ComplexLayoutState(
         layoutNode.moveTo(x, y)
     }
 
-    override val width: IntPx get() = layoutNode.width
-    override val height: IntPx get() = layoutNode.height
-    override fun place(x: IntPx, y: IntPx) {
+    internal fun place(x: IntPx, y: IntPx) {
         moveTo(x, y)
         placeChildren()
     }
@@ -229,14 +254,10 @@ class IntrinsicMeasurementsReceiver internal constructor(
 ) : DensityReceiver {
     override val density: Density
         get() = layoutState.density
-    fun Measurable.minIntrinsicWidth(h: IntPx) =
-        (this as ComplexLayoutState).minIntrinsicWidth(h)
-    fun Measurable.maxIntrinsicWidth(h: IntPx) =
-        (this as ComplexLayoutState).maxIntrinsicWidth(h)
-    fun Measurable.minIntrinsicHeight(w: IntPx) =
-        (this as ComplexLayoutState).minIntrinsicHeight(w)
-    fun Measurable.maxIntrinsicHeight(w: IntPx) =
-        (this as ComplexLayoutState).maxIntrinsicHeight(w)
+    fun Measurable.minIntrinsicWidth(h: IntPx) = minIntrinsicWidthInternal(h)
+    fun Measurable.maxIntrinsicWidth(h: IntPx) = maxIntrinsicWidthInternal(h)
+    fun Measurable.minIntrinsicHeight(w: IntPx) = minIntrinsicHeightInternal(w)
+    fun Measurable.maxIntrinsicHeight(w: IntPx) = maxIntrinsicHeightInternal(w)
 }
 
 /**
@@ -249,8 +270,7 @@ class LayoutBlockReceiver internal constructor(
         get() = layoutState.density
 
     fun Measurable.measure(constraints: Constraints): Placeable {
-        this as ComplexLayoutState
-        return this.measure(constraints)
+        return measureInternal(constraints)
     }
     fun layoutResult(
         width: IntPx,
@@ -260,18 +280,14 @@ class LayoutBlockReceiver internal constructor(
         layoutState.resize(width, height)
         layoutState.positioningBlock = block
     }
-    fun Measurable.minIntrinsicWidth(h: IntPx) =
-        (this as ComplexLayoutState).minIntrinsicWidth(h)
-    fun Measurable.maxIntrinsicWidth(h: IntPx) =
-        (this as ComplexLayoutState).maxIntrinsicWidth(h)
-    fun Measurable.minIntrinsicHeight(w: IntPx) =
-        (this as ComplexLayoutState).minIntrinsicHeight(w)
-    fun Measurable.maxIntrinsicHeight(w: IntPx) =
-        (this as ComplexLayoutState).maxIntrinsicHeight(w)
+    fun Measurable.minIntrinsicWidth(h: IntPx) = minIntrinsicWidthInternal(h)
+    fun Measurable.maxIntrinsicWidth(h: IntPx) = maxIntrinsicWidthInternal(h)
+    fun Measurable.minIntrinsicHeight(w: IntPx) = minIntrinsicHeightInternal(w)
+    fun Measurable.maxIntrinsicHeight(w: IntPx) = maxIntrinsicHeightInternal(w)
 }
 
 internal class DummyPlaceable(override val width: IntPx, override val height: IntPx) : Placeable() {
-    override fun place(x: IntPx, y: IntPx) { }
+    override fun PlaceReceiver.place(x: IntPx, y: IntPx) { }
 }
 
 /**
@@ -483,6 +499,45 @@ fun WithConstraints(@Children children: @Composable() (Constraints) -> Unit) {
             }
         },
         children={})
+}
+
+internal class SingleChildMeasurable(private val measurables: List<Measurable>) : Measurable() {
+    override val parentData: Any? = null
+    override fun MeasureReceiver.measure(constraints: Constraints): Placeable {
+        val placeables = measurables.map { it.measure(constraints) }
+        return SingleChildPlaceable(placeables)
+    }
+    override fun IntrinsicMeasurementsReceiver.minIntrinsicWidth(h: IntPx) =
+        measurables.map { it.minIntrinsicWidth(h) }.maxBy { it.value } ?: 0.ipx
+    override fun IntrinsicMeasurementsReceiver.maxIntrinsicWidth(h: IntPx) =
+        measurables.map { it.maxIntrinsicWidth(h) }.maxBy { it.value } ?: 0.ipx
+    override fun IntrinsicMeasurementsReceiver.minIntrinsicHeight(w: IntPx) =
+        measurables.map { it.minIntrinsicHeight(w) }.maxBy { it.value } ?: 0.ipx
+    override fun IntrinsicMeasurementsReceiver.maxIntrinsicHeight(w: IntPx) =
+        measurables.map { it.maxIntrinsicHeight(w) }.maxBy { it.value } ?: 0.ipx
+}
+
+internal class SingleChildPlaceable(private val placeables: List<Placeable>) : Placeable() {
+    override val width: IntPx get() = placeables.fold(0.ipx) { width, placeable ->
+        max(width, placeable.width)
+    }
+    override val height: IntPx get() = placeables.fold(0.ipx) { height, placeable ->
+        max(height, placeable.height)
+    }
+    override fun PlaceReceiver.place(x: IntPx, y: IntPx) {
+        placeables.forEach { it.place(x, y) }
+    }
+}
+
+@Composable
+fun SingleChildLayout(
+    children: @Composable() () -> Unit,
+    @Children(composable = false) layoutBlock: LayoutReceiver.(Measurable?, Constraints) -> Unit
+) {
+    Layout(children) { measurables, constraints ->
+        val measurable = if (measurables.isNotEmpty()) SingleChildMeasurable(measurables) else null
+        layoutBlock(measurable, constraints)
+    }
 }
 
 internal val OnPositionedAmbient =

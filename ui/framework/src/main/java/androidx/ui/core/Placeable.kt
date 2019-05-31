@@ -22,10 +22,17 @@ package androidx.ui.core
 // TODO(popam): investigate if this class is really needed, as it blocks making
 //              MeasuredPlaceable an inline class
 abstract class Placeable {
+    private val receiver = PlaceReceiver()
     abstract val width: IntPx
     abstract val height: IntPx
-    protected abstract fun place(x: IntPx, y: IntPx)
+    protected abstract fun PlaceReceiver.place(x: IntPx, y: IntPx)
     internal fun placeInternal(x: IntPx, y: IntPx) {
-        place(x, y)
+        receiver.place(x, y)
+    }
+
+    class PlaceReceiver internal constructor() {
+        fun Placeable.place(x: IntPx, y: IntPx) {
+            placeInternal(x, y)
+        }
     }
 }
