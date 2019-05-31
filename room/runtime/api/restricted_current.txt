@@ -4,7 +4,7 @@ package androidx.room {
   public class DatabaseConfiguration {
     ctor @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public DatabaseConfiguration(android.content.Context, String?, androidx.sqlite.db.SupportSQLiteOpenHelper.Factory, androidx.room.RoomDatabase.MigrationContainer, java.util.List<androidx.room.RoomDatabase.Callback!>?, boolean, androidx.room.RoomDatabase.JournalMode!, java.util.concurrent.Executor, boolean, java.util.Set<java.lang.Integer!>?);
     ctor @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public DatabaseConfiguration(android.content.Context, String?, androidx.sqlite.db.SupportSQLiteOpenHelper.Factory, androidx.room.RoomDatabase.MigrationContainer, java.util.List<androidx.room.RoomDatabase.Callback!>?, boolean, androidx.room.RoomDatabase.JournalMode!, java.util.concurrent.Executor, java.util.concurrent.Executor, boolean, boolean, boolean, java.util.Set<java.lang.Integer!>?);
-    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public DatabaseConfiguration(android.content.Context, String?, androidx.sqlite.db.SupportSQLiteOpenHelper.Factory, androidx.room.RoomDatabase.MigrationContainer, java.util.List<androidx.room.RoomDatabase.Callback!>?, boolean, androidx.room.RoomDatabase.JournalMode!, java.util.concurrent.Executor, java.util.concurrent.Executor, boolean, boolean, boolean, java.util.Set<java.lang.Integer!>?, int, String?);
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public DatabaseConfiguration(android.content.Context, String?, androidx.sqlite.db.SupportSQLiteOpenHelper.Factory, androidx.room.RoomDatabase.MigrationContainer, java.util.List<androidx.room.RoomDatabase.Callback!>?, boolean, androidx.room.RoomDatabase.JournalMode!, java.util.concurrent.Executor, java.util.concurrent.Executor, boolean, boolean, boolean, java.util.Set<java.lang.Integer!>?, int, String?, boolean);
   }
 
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public abstract class EntityDeletionOrUpdateAdapter<T> extends androidx.room.SharedSQLiteStatement {
@@ -119,6 +119,7 @@ package androidx.room.util {
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class DBUtil {
     method public static void dropFtsSyncTriggers(androidx.sqlite.db.SupportSQLiteDatabase!);
     method public static android.database.Cursor query(androidx.room.RoomDatabase!, androidx.sqlite.db.SupportSQLiteQuery!, boolean);
+    method public static int readVersion(java.io.File!) throws java.io.IOException;
   }
 
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class FtsTableInfo {

@@ -164,7 +164,8 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 DatabaseConfiguration.COPY_FROM_NONE,
-                null);
+                null,
+                false);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
@@ -224,7 +225,8 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 DatabaseConfiguration.COPY_FROM_NONE,
-                null);
+                null,
+                false);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
                 // we pass the same hash twice since an old schema does not necessarily have
