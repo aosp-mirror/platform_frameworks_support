@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "e77dccf8_5df146e2",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-31T20:45:11Z",
+      "side": 1,
+      "message": "That synonyms dictionary style looks weird for me",
+      "range": {
+        "startLine": 97,
+        "startChar": 57,
+        "endLine": 98,
+        "endChar": 25
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cad85427_9e828d48",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Relation.kt",
         "patchSetId": 3
@@ -175,6 +198,30 @@
       "side": 1,
       "message": "i think i like\n`associateBy \u003d @Junction(...)`\n\nI\u0027m not sure if associate vs associated by not putting d seems more consistent.",
       "parentUuid": "f3f54aa5_feebf161",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a951cb2_55ae2c70",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/vo/PlaylistWithSongs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-31T20:45:11Z",
+      "side": 1,
+      "message": "+1 I don\u0027t like JoinEntity name as well, because it is not \"Entity\" it doesn\u0027t create table or anything like that.",
+      "parentUuid": "0a4b6619_6bd0f678",
       "range": {
         "startLine": 32,
         "startChar": 12,
