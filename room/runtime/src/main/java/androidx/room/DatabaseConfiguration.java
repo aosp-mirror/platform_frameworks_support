@@ -136,7 +136,6 @@ public class DatabaseConfiguration {
     @Nullable
     public final String copyFromPath;
 
-
     /**
      * Creates a database configuration with the given values.
      *
@@ -242,7 +241,6 @@ public class DatabaseConfiguration {
      *                 anything other than COPY_FROM_NONE, then path to copy from should be set into
      *                 the {@code copyFromPath} parameter.
      * @param copyFromPath Path to the pre-packaged database.
-     *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
