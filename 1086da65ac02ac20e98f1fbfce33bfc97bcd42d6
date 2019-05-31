@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "984ddf43_4ef9b910",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5a36a33a_71f417a3",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 11
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94f480e1_811af37e",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ff1cae2_1751544b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "I changed the name",
+      "parentUuid": "94f480e1_811af37e",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 37
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f64d6fe3_ecddef56",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "oops! Good catch. This wasn\u0027t a problem because the sortBy created a new list, but I don\u0027t need to clear it in a loop.",
+      "parentUuid": "4d05d9f2_c8d8df50",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 45
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8acc129_3953533f",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-31T15:51:29Z",
       "side": 1,
       "message": "What will be the behavior if we wrap just one Draw inside RepaintBoundary? If I understand everything RepaintBoundaryView with 0 width and height will be produced, will it be drawn correctly? should we use a parent size for this cases?",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 299,
+        "endChar": 45
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014a34a1_30795694",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "Wow, that\u0027s a good catch. I was just thinking about this earlier.\n\nIt seems clear to me that the repaint boundary should \"wrap\" a layout, but this case makes it weird. Furthermore, you could have a \"Draw\" as a sibling to a layout and suddenly you have to make it the size of the parent.\n\nFurthermore, we don\u0027t really know the size of the RepaintBoundary based on the LayoutNodes. It only governs where things are placed and not where they are drawn. We don\u0027t decide clip bounds yet. I would like to use the actually drawn bounds to govern the size of the repaint boundary rather than the layout size. That should help solve this problem once and for all. I\u0027ll need to talk with Nader about this, but for now, I\u0027m ok with leaving this as a shortcut until I get draw sizes.",
+      "parentUuid": "f8acc129_3953533f",
       "range": {
         "startLine": 299,
         "startChar": 12,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fbf42939_b4c8eca0",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "I changed this so that it is not necessary. We don\u0027t actually track changes against repaint boundary nodes, but we need to make sure that when dispatchDraw() is called in a RepaintBoundaryView that it doesn\u0027t call watchDraw()",
+      "parentUuid": "937d48ed_e8cbbf7d",
+      "range": {
+        "startLine": 422,
+        "startChar": 20,
+        "endLine": 422,
+        "endChar": 38
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b2279af_2f14d824",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d61286a_2186a3da",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "Sure. I don\u0027t know about the efficiency, but it sure won\u0027t hurt. May even prefer to use translate twice instead, if save/restore is expensive.",
+      "parentUuid": "1b2279af_2f14d824",
+      "range": {
+        "startLine": 435,
+        "startChar": 37,
+        "endLine": 435,
+        "endChar": 83
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "83ba16d3_c6375f4a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "b4622822_c8d653c5",
+      "range": {
+        "startLine": 449,
+        "startChar": 4,
+        "endLine": 449,
+        "endChar": 7
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3ed3472_b8659314",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2019-05-31T15:51:29Z",
       "side": 1,
       "message": "this is confusing, probably you wanted to save on clipping for the root layout node here by not calling callDraw(..., node, ...) but now it is possible to call watchDraw with DrawNode as parameter and looks like this node will not be drawn, only it\u0027s children",
+      "range": {
+        "startLine": 467,
+        "startChar": 16,
+        "endLine": 469,
+        "endChar": 17
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9db6d55_48d0941f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "watchDraw will never be called with a DrawNode -- only a LayoutNode (root) or RepaintBoundaryNode.\n\nI\u0027ll make this better by extracting the calls to child draws so that it can be reused by RepaintBoundaryView.",
+      "parentUuid": "a3ed3472_b8659314",
       "range": {
         "startLine": 467,
         "startChar": 16,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "e6a5c451_a498e4b1",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "Yes, we should do that in the short term. In the long term, I want to have clipChildren \u003d true so that we get the performance gain from that.",
+      "parentUuid": "6d200598_63e64502",
+      "range": {
+        "startLine": 638,
+        "startChar": 9,
+        "endLine": 638,
+        "endChar": 10
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50803dd7_83006ae1",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "370cf2bd_bc7f6740",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "ah, true. so will layout()",
+      "parentUuid": "50803dd7_83006ae1",
+      "range": {
+        "startLine": 662,
+        "startChar": 16,
+        "endLine": 662,
+        "endChar": 28
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca006170_9b483632",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -252,6 +492,30 @@
       "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c123bf5_eddb5ae6",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "whoops!",
+      "parentUuid": "ca006170_9b483632",
+      "range": {
+        "startLine": 682,
+        "startChar": 8,
+        "endLine": 682,
+        "endChar": 9
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "8f918844_5cdad310",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a74b4a_36a8b6bf",
+      "range": {
+        "startLine": 712,
+        "startChar": 4,
+        "endLine": 712,
+        "endChar": 5
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "343823d0_9d452907",
         "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
         "patchSetId": 1
@@ -321,6 +609,30 @@
       "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591167b7_4c65ba19",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-31T23:25:56Z",
+      "side": 1,
+      "message": "I agree. I had a problem thinking of good names, but I renamed them.",
+      "parentUuid": "343823d0_9d452907",
+      "range": {
+        "startLine": 341,
+        "startChar": 3,
+        "endLine": 349,
+        "endChar": 26
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
