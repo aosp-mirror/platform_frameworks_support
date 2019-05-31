@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb30a9bb_1ac68d7d",
+        "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-05-31T07:27:57Z",
+      "side": 1,
+      "message": "This was disabled because it was flaky. b/112005299",
+      "parentUuid": "e997b4b8_a2a3960b",
+      "range": {
+        "startLine": 120,
+        "startChar": 16,
+        "endLine": 120,
+        "endChar": 27
+      },
+      "revId": "8c1b70f327f5da645fe5dc2ce6652868ea37977c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e89d71f8_68ac9aee",
         "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8c1b70f327f5da645fe5dc2ce6652868ea37977c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d9a57f_2a2cefcd",
+        "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-05-31T07:27:57Z",
+      "side": 1,
+      "message": "This was a typo. Fixed.",
+      "parentUuid": "e89d71f8_68ac9aee",
+      "range": {
+        "startLine": 171,
+        "startChar": 44,
+        "endLine": 171,
+        "endChar": 48
+      },
+      "revId": "8c1b70f327f5da645fe5dc2ce6652868ea37977c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
