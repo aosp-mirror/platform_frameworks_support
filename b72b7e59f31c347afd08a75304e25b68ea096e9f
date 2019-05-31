@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "27012d6d_e85b9c52",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T15:05:31Z",
+      "side": 1,
+      "message": "+1 assertDoesNotExist should work with basic find()\n\nThe expectation as an API is used when you want to instruct the framework to test multiple elements.So:\nfind() \u003c- expects strictly one\nfind(expectExactly(2)) \u003c- expects exactly 2 elements. This is replacement for findAll.\n\nHope this clarifies this a bit.",
+      "parentUuid": "9c3a9706_5e0282a8",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7786c208_2ad8eb8d",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-31T14:57:56Z",
       "side": 1,
       "message": "this will quickly run into \"why don\u0027t we have an assertNotSelected\"? can we modify the ones that are a boolean value to be assertChecked(NodeQuery, value)?",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cbf59da_1e4f661f",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-31T15:05:31Z",
+      "side": 1,
+      "message": "We should have assertNotSelected :) It was just our laziness or it was not needed. But we expect to provide convenient wrapper for each boolean. Basically Truth style here.",
+      "parentUuid": "7786c208_2ad8eb8d",
       "range": {
         "startLine": 15,
         "startChar": 52,
