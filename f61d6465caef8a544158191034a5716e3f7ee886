@@ -118,6 +118,30 @@
       "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1b089cb_74da3125",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-31T21:13:56Z",
+      "side": 1,
+      "message": "Good to know!",
+      "parentUuid": "790f3034_71a5887a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
