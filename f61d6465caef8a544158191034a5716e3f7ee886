@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9be16045_5ec23084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-31T20:25:11Z",
+      "side": 1,
+      "message": "What you have here is totally fine\n\nAlthough it\u0027s often slightly easier to remember if the Change-Id is the same for the two commits (which can be edited manually)",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "f61d6465caef8a544158191034a5716e3f7ee886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
