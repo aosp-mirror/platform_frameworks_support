@@ -215,6 +215,31 @@ public class PrepackageTest {
     }
 
     @Test
+    public void createFromAsset_closeAndReOpen_upgrade() {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+        ProductDao dao;
+
+        ProductsDatabase database_v1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromFile("databases/products_v1.db", false)
+                .build();
+        dao = database_v1.getProductDao();
+        assertThat(dao.countProducts(), is(2));
+
+        database_v1.close();
+
+        ProductsDatabase_v2 database_v2 = Room.databaseBuilder(
+                context, ProductsDatabase_v2.class, "products.db")
+                .createFromFile("databases/products_v2.db", false)
+                .createFromFileOnDestructiveMigration()
+                .fallbackToDestructiveMigration()
+                .build();
+        dao = database_v2.getProductDao();
+        assertThat(dao.countProducts(), is(3));
+    }
+
+    @Test
     public void createFromFile() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
         context.deleteDatabase("products_external.db");
