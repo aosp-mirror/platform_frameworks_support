@@ -55,30 +55,25 @@ fun Padding(
     padding: EdgeInsets,
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(layoutBlock = { measurables, constraints ->
-        val measurable = measurables.firstOrNull()
-        if (measurable == null) {
-            layout(constraints.minWidth, constraints.minHeight) { }
-        } else {
-            val paddingLeft = padding.left.toIntPx()
-            val paddingTop = padding.top.toIntPx()
-            val paddingRight = padding.right.toIntPx()
-            val paddingBottom = padding.bottom.toIntPx()
-            val horizontalPadding = (paddingLeft + paddingRight)
-            val verticalPadding = (paddingTop + paddingBottom)
+    SingleChildLayout(children) { measurable, constraints ->
+        val paddingLeft = padding.left.toIntPx()
+        val paddingTop = padding.top.toIntPx()
+        val paddingRight = padding.right.toIntPx()
+        val paddingBottom = padding.bottom.toIntPx()
+        val horizontalPadding = (paddingLeft + paddingRight)
+        val verticalPadding = (paddingTop + paddingBottom)
 
-            val newConstraints = constraints.offset(-horizontalPadding, -verticalPadding)
-            val placeable = measurable.measure(newConstraints)
-            val width =
-                min(placeable.width + horizontalPadding, constraints.maxWidth)
-            val height =
-                min(placeable.height + verticalPadding, constraints.maxHeight)
+        val newConstraints = constraints.offset(-horizontalPadding, -verticalPadding)
+        val placeable = measurable.measure(newConstraints)
+        val width =
+            min(placeable.width + horizontalPadding, constraints.maxWidth)
+        val height =
+            min(placeable.height + verticalPadding, constraints.maxHeight)
 
-            layout(width, height) {
-                placeable.place(paddingLeft, paddingTop)
-            }
+        layout(width, height) {
+            placeable.place(paddingLeft, paddingTop)
         }
-    }, children = children)
+    }
 }
 
 /**

@@ -21,9 +21,20 @@ package androidx.ui.core
  *
  * @return a [Placeable] that can be used within a [layoutResult] block
  */
-interface Measurable {
+abstract class Measurable {
+    private val receiver = MeasureReceiver()
     /**
      * Data provided by the [ParentData].
      */
-    val parentData: Any?
+    abstract val parentData: Any?
+    protected abstract fun MeasureReceiver.measure(constraints: Constraints): Placeable
+    internal fun measureInternal(constraints: Constraints): Placeable {
+        return receiver.measure(constraints)
+    }
+}
+
+class MeasureReceiver internal constructor() {
+    fun Measurable.measure(constraints: Constraints): Placeable {
+        return measureInternal(constraints)
+    }
 }
