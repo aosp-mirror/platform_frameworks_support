@@ -33,7 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.futures.ResolvableFuture;
+import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
 import androidx.media.AudioAttributesCompat;
@@ -719,12 +719,13 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
     }
 
     @Override
-    public void onSubtitleData(final MediaItem mediaItem, final SubtitleData subtitleData) {
+    public void onSubtitleData(final MediaItem mediaItem, final int trackIndex,
+            final SubtitleData subtitleData) {
         notifyMediaPlayer2Event(new Mp2EventNotifier() {
             @Override
             public void notify(EventCallback cb) {
                 cb.onSubtitleData(
-                        ExoPlayerMediaPlayer2Impl.this, mediaItem, subtitleData);
+                        ExoPlayerMediaPlayer2Impl.this, mediaItem, trackIndex, subtitleData);
             }
         });
     }
