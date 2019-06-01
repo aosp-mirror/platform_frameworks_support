@@ -17,7 +17,6 @@
 <manifest
         xmlns:android="http://schemas.android.com/apk/res/android"
         package="androidx.ui.framework.demos">
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
     <application>
         <activity android:name=".AnimationGestureSemanticsActivity"
@@ -36,7 +35,14 @@
                 <category android:name="androidx.ui.demos.SAMPLE_CODE" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ComplexGestureDetectorInteractionsDemo"
+            android:configChanges="orientation|screenSize"
+            android:label="Gestures/Complex GestureDetector Interactions">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MultipleCollectActivity"
             android:configChanges="orientation|screenSize"
             android:label="Layout/Multiple collects measure">
