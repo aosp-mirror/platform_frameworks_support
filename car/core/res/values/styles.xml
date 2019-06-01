@@ -28,10 +28,18 @@ limitations under the License.
         <item name="android:textColor">@color/car_display1</item>
     </style>
 
+    <style name="TextAppearance.Car.Display1.Light">
+        <item name="android:textColor">@color/car_display1_light</item>
+    </style>
+
     <style name="TextAppearance.Car.Display2">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/car_display2_size</item>
         <item name="android:textColor">@color/car_display2</item>
+    </style>
+
+    <style name="TextAppearance.Car.Display2.Light">
+        <item name="android:textColor">@color/car_display2_light</item>
     </style>
 
     <style name="TextAppearance.Car.Display3">
@@ -40,10 +48,8 @@ limitations under the License.
         <item name="android:textColor">@color/car_display3</item>
     </style>
 
-    <style name="TextAppearance.Car.Display4">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/car_display4_size</item>
-        <item name="android:textColor">@color/car_display4</item>
+    <style name="TextAppearance.Car.Display3.Light">
+        <item name="android:textColor">@color/car_display3_light</item>
     </style>
 
     <!-- The styling for body text. The color of this text changes based on the day/night mode. -->
@@ -125,32 +131,30 @@ limitations under the License.
         <item name="android:textColor">@color/car_accent</item>
     </style>
 
-    <!-- The smallest styling for body text. The color of this text changes based on the day/night
-         mode. -->
-    <style name="TextAppearance.Car.Body4">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/car_body4_size</item>
-        <item name="android:textColor">@color/car_body4</item>
+    <!-- Deprecated. Mapping all Body4 text appearances to SubText1 until removal -->
+    <style name="TextAppearance.Car.Body4" parent="TextAppearance.Car.SubText1">
     </style>
 
-    <style name="TextAppearance.Car.Body4.Medium">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="TextAppearance.Car.Body4.Medium" parent="TextAppearance.Car.SubText1.Medium">
     </style>
 
-    <style name="TextAppearance.Car.Body4.Light">
-        <item name="android:textColor">@color/car_body4_light</item>
+    <style name="TextAppearance.Car.Body4.Light" parent="TextAppearance.Car.SubText1.Light">
     </style>
 
-    <style name="TextAppearance.Car.Body4.Medium.Light">
-        <item name="android:textColor">@color/car_body4_light</item>
+    <style name="TextAppearance.Car.Body4.Medium.Light" parent="TextAppearance.Car.SubText1.Medium.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
     </style>
 
-    <style name="TextAppearance.Car.Body4.Dark">
-        <item name="android:textColor">@color/car_body4_dark</item>
+    <style name="TextAppearance.Car.Body4.Dark" parent="TextAppearance.Car.SubText1.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
     </style>
 
-    <style name="TextAppearance.Car.Body4.Medium.Dark">
-        <item name="android:textColor">@color/car_body4_dark</item>
+    <style name="TextAppearance.Car.Body4.Medium.Dark" parent="TextAppearance.Car.SubText1.Medium.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.Body4.Medium.Accent" parent="TextAppearance.Car.SubText1.Medium.Accent">
+        <item name="android:textColor">@color/car_accent</item>
     </style>
 
     <style name="TextAppearance.Car.SubText1">
@@ -159,10 +163,58 @@ limitations under the License.
         <item name="android:textColor">@color/car_subtext1</item>
     </style>
 
+    <style name="TextAppearance.Car.SubText1.Medium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText1.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText1.Medium.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText1.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText1.Medium.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText1.Medium.Accent">
+        <item name="android:textColor">@color/car_accent</item>
+    </style>
+
     <style name="TextAppearance.Car.SubText2">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/car_subtext2_size</item>
         <item name="android:textColor">@color/car_subtext2</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Medium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Medium.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Medium.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText2.Medium.Accent">
+        <item name="android:textColor">@color/car_accent</item>
     </style>
 
     <style name="TextAppearance.Car.SubText3">
@@ -171,16 +223,32 @@ limitations under the License.
         <item name="android:textColor">@color/car_subtext3</item>
     </style>
 
-    <style name="TextAppearance.Car.SubText4">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/car_subtext4_size</item>
-        <item name="android:textColor">@color/car_subtext4</item>
+    <style name="TextAppearance.Car.SubText3.Medium">
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="TextAppearance.Car.SubText5">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/car_subtext5_size</item>
-        <item name="android:textColor">@color/car_subtext5</item>
+    <style name="TextAppearance.Car.SubText3.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText3.Medium.Light">
+        <item name="android:textColor">@color/car_body3_light</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText3.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText3.Medium.Dark">
+        <item name="android:textColor">@color/car_body3_dark</item>
+    </style>
+
+    <style name="TextAppearance.Car.SubText3.Medium.Accent">
+        <item name="android:textColor">@color/car_accent</item>
+    </style>
+
+    <!-- Deprecated. Mapping to SubText3 until removal -->
+    <style name="TextAppearance.Car.SubText4" parent="TextAppearance.Car.SubText3">
     </style>
 
     <!-- The styling for subheader text. This text uses android:colorAccent defined in the theme as
@@ -218,6 +286,56 @@ limitations under the License.
     <!-- ======= -->
     <eat-comment />
 
+    <!-- ============== -->
+    <!-- TextView Style -->
+    <!-- ============== -->
+    <eat-comment />
+
+    <style name="Widget.Car.TextView.Display1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Display2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Display3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
     <!-- ================ -->
     <!-- CarToolbar Style -->
     <!-- ================ -->
@@ -234,7 +352,7 @@ limitations under the License.
     </style>
 
     <!-- The styling for Toolbar used as action bar. -->
-    <style name="Widget.Car.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="Widget.Car.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="background">@color/car_card</item>
         <item name="contentInsetEnd">@dimen/car_keyline_1</item>
@@ -253,7 +371,7 @@ limitations under the License.
 
     <!-- The styling for the navigation button in action bar. -->
     <style name="Widget.Car.Toolbar.Button.Navigation"
-           parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:background">@drawable/car_button_ripple_background</item>
         <item name="android:scaleType">center</item>
         <item name="android:tint">@color/car_tint</item>
@@ -268,7 +386,7 @@ limitations under the License.
     <!-- A styling for action buttons within a toolbar. -->
     <style name="Widget.Car.ActionButton" parent="Widget.AppCompat.ActionButton">
         <item name="android:background">?attr/actionBarItemBackground</item>
-        <item name="android:minHeight">@dimen/car_action_bar_height</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:paddingLeft">@dimen/car_padding_2</item>
         <item name="android:paddingRight">@dimen/car_padding_2</item>
         <item name="android:scaleType">fitCenter</item>
@@ -295,9 +413,9 @@ limitations under the License.
     </style>
 
     <!-- The style for the regular buttons. -->
-    <style name="Widget.Car.Button" parent="Widget.AppCompat.Button">
+    <style name="Widget.Car.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:fadingEdgeLength">@dimen/car_button_fading_edge_length</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Medium</item>>
         <item name="android:ellipsize">none</item>
         <item name="android:layout_height">@dimen/car_button_height</item>
         <item name="android:maxEms">@integer/car_button_max_ems</item>
@@ -306,7 +424,6 @@ limitations under the License.
         <item name="android:paddingEnd">@dimen/car_padding_3</item>
         <item name="android:requiresFadingEdge">horizontal</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/car_body3_size</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/car_button_background</item>
         <item name="android:textColor">@color/car_body1</item>
@@ -325,7 +442,6 @@ limitations under the License.
     <!-- The style for borderless buttons. -->
     <style name="Widget.Car.Button.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:fadingEdgeLength">@dimen/car_button_fading_edge_length</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:ellipsize">none</item>
         <item name="android:layout_height">@dimen/car_button_height</item>
         <item name="android:maxEms">@integer/car_button_max_ems</item>
@@ -334,7 +450,6 @@ limitations under the License.
         <item name="android:paddingEnd">@dimen/car_padding_3</item>
         <item name="android:requiresFadingEdge">horizontal</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/car_body3_size</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">?android:attr/colorButtonNormal</item>
     </style>
@@ -397,7 +512,7 @@ limitations under the License.
         <item name="tabIndicatorHeight">0dp</item>
         <item name="tabMinWidth">@dimen/car_tab_min_width</item>
         <item name="tabIconTint">@color/car_tab_tint</item>
-        <item name="tabTextAppearance">@style/TextAppearance.Car.Body4.Medium.Light</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Car.SubText1.Medium.Light</item>
     </style>
 
     <!-- =========== -->
@@ -450,6 +565,9 @@ limitations under the License.
     <!-- A styling for ListItems that has dark text on a light-colored background. This style
          will automatically switch to darker colors during night mode. -->
     <style name="Widget.Car.ListItem" parent="android:Widget">
+        <item name="listItemFocusOutlineColor">@color/car_accent_dark</item>
+        <item name="listItemForeground">@drawable/car_card_ripple_background</item>
+        <item name="listItemBackground">@drawable/car_list_item_background</item>
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
         <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
@@ -458,6 +576,8 @@ limitations under the License.
     <!-- A styling for ListItems that has light text on a dark-colored background. This style
          will remain dark in night mode. -->
     <style name="Widget.Car.ListItem.Dark">
+        <item name="listItemFocusOutlineColor">@color/car_accent_light</item>
+        <item name="listItemForeground">@drawable/car_card_ripple_background_light</item>
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
         <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>

@@ -29,6 +29,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -74,6 +75,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Static library support version of the framework's {@link android.app.Fragment}.
@@ -126,6 +128,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // Target request code.
     int mTargetRequestCode;
 
+    // Boolean indicating whether this Fragment is the primary navigation fragment
+    private Boolean mIsPrimaryNavigationFragment = null;
+
     // True if the fragment is in the list of added fragments.
     boolean mAdded;
 
@@ -157,7 +162,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     FragmentHostCallback mHost;
 
     // Private fragment manager for child fragments inside of this one.
-    FragmentManagerImpl mChildFragmentManager;
+    @NonNull
+    FragmentManagerImpl mChildFragmentManager = new FragmentManagerImpl();
 
     // If this Fragment is contained in another Fragment, this is that container.
     Fragment mParentFragment;
@@ -196,7 +202,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     boolean mMenuVisible = true;
 
     // Used to verify that subclasses call through to super class.
-    boolean mCalled;
+    private boolean mCalled;
 
     // The parent container of the fragment after dynamically added to UI.
     ViewGroup mContainer;
@@ -240,6 +246,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // fragments can have mRetaining set to true without going through creation, so we must
     // track it separately.
     boolean mIsCreated;
+
+    // Max Lifecycle state this Fragment can achieve.
+    Lifecycle.State mMaxState = Lifecycle.State.RESUMED;
 
     LifecycleRegistry mLifecycleRegistry;
 
@@ -452,7 +461,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (Build.VERSION.SDK_INT >= 19) {
             mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
                 @Override
-                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         if (mView != null) {
                             mView.cancelPendingInputEvents();
@@ -900,27 +910,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     @NonNull
     final public FragmentManager getChildFragmentManager() {
-        if (mChildFragmentManager == null) {
-            instantiateChildFragmentManager();
-            if (mState >= RESUMED) {
-                mChildFragmentManager.dispatchResume();
-            } else if (mState >= STARTED) {
-                mChildFragmentManager.dispatchStart();
-            } else if (mState >= ACTIVITY_CREATED) {
-                mChildFragmentManager.dispatchActivityCreated();
-            } else if (mState >= CREATED) {
-                mChildFragmentManager.dispatchCreate();
-            }
+        if (mHost == null) {
+            throw new IllegalStateException("Fragment " + this + " has not been attached yet.");
         }
-        return mChildFragmentManager;
-    }
-
-    /**
-     * Return this fragment's child FragmentManager one has been previously created,
-     * otherwise null.
-     */
-    @Nullable
-    FragmentManager peekChildFragmentManager() {
         return mChildFragmentManager;
     }
 
@@ -1121,7 +1113,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      *
      * @param isVisibleToUser true if this fragment's UI is currently visible to the user (default),
      *                        false if it is not.
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (!mUserVisibleHint && isVisibleToUser && mState < STARTED
                 && mFragmentManager != null && isAdded() && mIsCreated) {
@@ -1139,7 +1135,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * @return The current value of the user-visible hint on this fragment.
      * @see #setUserVisibleHint(boolean)
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public boolean getUserVisibleHint() {
         return mUserVisibleHint;
     }
@@ -1423,7 +1423,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     + "Fragment is attached to the FragmentManager.");
         }
         LayoutInflater result = mHost.onGetLayoutInflater();
-        getChildFragmentManager(); // Init if needed; use raw implementation below.
         LayoutInflaterCompat.setFactory2(result, mChildFragmentManager.getLayoutInflaterFactory());
         return result;
     }
@@ -1594,8 +1593,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
         restoreChildFragmentState(savedInstanceState);
-        if (mChildFragmentManager != null
-                && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
+        if (!mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
             mChildFragmentManager.dispatchCreate();
         }
     }
@@ -1617,9 +1615,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             Parcelable p = savedInstanceState.getParcelable(
                     FragmentActivity.FRAGMENTS_TAG);
             if (p != null) {
-                if (mChildFragmentManager == null) {
-                    instantiateChildFragmentManager();
-                }
                 mChildFragmentManager.restoreSaveState(p);
                 mChildFragmentManager.dispatchCreate();
             }
@@ -1801,6 +1796,20 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Callback for when the primary navigation state of this Fragment has changed. This can be
+     * the result of the {@link #getFragmentManager() containing FragmentManager} having its
+     * primary navigation fragment changed via
+     * {@link androidx.fragment.app.FragmentTransaction#setPrimaryNavigationFragment} or due to
+     * the primary navigation fragment changing in a parent FragmentManager.
+     *
+     * @param isPrimaryNavigationFragment True if and only if this Fragment and any
+     * {@link #getParentFragment() parent fragment} is set as the primary navigation fragment
+     * via {@link androidx.fragment.app.FragmentTransaction#setPrimaryNavigationFragment}.
+     */
+    public void onPrimaryNavigationFragmentChanged(boolean isPrimaryNavigationFragment) {
+    }
+
+    /**
      * Called when the Fragment is no longer resumed.  This is generally
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
      * Activity's lifecycle.
@@ -1865,7 +1874,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mRestored = false;
         mBackStackNesting = 0;
         mFragmentManager = null;
-        mChildFragmentManager = null;
+        mChildFragmentManager = new FragmentManagerImpl();
         mHost = null;
         mFragmentId = 0;
         mContainerId = 0;
@@ -2058,6 +2067,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * entering Views will remain unaffected.
      *
      * @param transition The Transition to use to move Views into the initial Scene.
+     *         <code>transition</code> must be an
+     *         {@link android.transition.Transition} or
+     *         {@link androidx.transition.Transition}.
      */
     public void setEnterTransition(@Nullable Object transition) {
         ensureAnimationInfo().mEnterTransition = transition;
@@ -2091,8 +2103,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * use the same value as set in {@link #setEnterTransition(Object)}.
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
-     *         is preparing to close. <code>transition</code> must be an
-     *         {@link android.transition.Transition android.transition.Transition} or
+     *         is preparing to close due to popping the back stack. <code>transition</code> must be
+     *         an {@link android.transition.Transition} or
      *         {@link androidx.transition.Transition}.
      */
     public void setReturnTransition(@Nullable Object transition) {
@@ -2105,11 +2117,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Views will be those that are regular Views or ViewGroups that have
      * {@link ViewGroup#isTransitionGroup} return true. Typical Transitions will extend
      * {@link android.transition.Visibility} as entering is governed by changing visibility from
-     * {@link View#VISIBLE} to {@link View#INVISIBLE}. If <code>transition</code> is null,
-     * entering Views will remain unaffected.
+     * {@link View#VISIBLE} to {@link View#INVISIBLE}. If nothing is set, the default will be to use
+     * the same transition as {@link #getEnterTransition()}.
      *
      * @return the Transition to use to move Views out of the Scene when the Fragment
-     *         is preparing to close.
+     *         is preparing to close due to popping the back stack.
      */
     @Nullable
     public Object getReturnTransition() {
@@ -2132,8 +2144,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *          is being closed not due to popping the back stack. <code>transition</code>
      *          must be an
-     *          {@link android.transition.Transition android.transition.Transition} or
-     *          {@link androidx.transition.Transition androidx.transition.Transition}.
+     *          {@link android.transition.Transition} or
+     *          {@link androidx.transition.Transition}.
      */
     public void setExitTransition(@Nullable Object transition) {
         ensureAnimationInfo().mExitTransition = transition;
@@ -2166,13 +2178,13 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * will extend {@link android.transition.Visibility} as exiting is governed by changing
      * visibility from {@link View#VISIBLE} to {@link View#INVISIBLE}. If transition is null,
      * the views will remain unaffected. If nothing is set, the default will be to use the same
-     * transition as {@link #setExitTransition(Object)}.
+     * transition as {@link #getExitTransition()}.
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
-     *          previously-started Activity. <code>transition</code>
+     *          previously-started Activity due to popping the back stack. <code>transition</code>
      *          must be an
-     *          {@link android.transition.Transition android.transition.Transition} or
-     *          {@link androidx.transition.Transition androidx.transition.Transition}.
+     *          {@link android.transition.Transition} or
+     *          {@link androidx.transition.Transition}.
      */
     public void setReenterTransition(@Nullable Object transition) {
         ensureAnimationInfo().mReenterTransition = transition;
@@ -2183,12 +2195,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * to popping a back stack. The entering Views will be those that are regular Views
      * or ViewGroups that have {@link ViewGroup#isTransitionGroup} return true. Typical Transitions
      * will extend {@link android.transition.Visibility} as exiting is governed by changing
-     * visibility from {@link View#VISIBLE} to {@link View#INVISIBLE}. If transition is null,
-     * the views will remain unaffected. If nothing is set, the default will be to use the same
-     * transition as {@link #setExitTransition(Object)}.
+     * visibility from {@link View#VISIBLE} to {@link View#INVISIBLE}. If nothing is set, the
+     * default will be to use the same transition as {@link #getExitTransition()}.
      *
      * @return the Transition to use to move Views into the scene when reentering from a
-     *                   previously-started Activity.
+     *                   previously-started Activity due to popping the back stack.
      */
     @Nullable
     public Object getReenterTransition() {
@@ -2356,6 +2367,52 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Postpone the entering Fragment transition for a given amount of time and then call
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method gives the Fragment the ability to delay Fragment animations for a given amount
+     * of time. Until then, the added, shown, and attached Fragments will be INVISIBLE and removed,
+     * hidden, and detached Fragments won't be have their Views removed. The transaction runs when
+     * all postponed added Fragments in the transaction have called
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method should be called before being added to the FragmentTransaction or
+     * in {@link #onCreate(Bundle)}, {@link #onAttach(Context)}, or
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}}.
+     * <p>
+     * When a FragmentTransaction is started that may affect a postponed FragmentTransaction,
+     * based on which containers are in their operations, the postponed FragmentTransaction
+     * will have its start triggered. The early triggering may result in faulty or nonexistent
+     * animations in the postponed transaction. FragmentTransactions that operate only on
+     * independent containers will not interfere with each other's postponement.
+     * <p>
+     * Calling postponeEnterTransition on Fragments with a null View will not postpone the
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
+     * enabled.
+     *
+     * @param duration The length of the delay in {@code timeUnit} units
+     * @param timeUnit The units of time for {@code duration}
+     * @see Activity#postponeEnterTransition()
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
+     */
+    public final void postponeEnterTransition(long duration, @NonNull TimeUnit timeUnit) {
+        ensureAnimationInfo().mEnterTransitionPostponed = true;
+        Handler handler;
+        if (mFragmentManager != null) {
+            handler = mFragmentManager.mHost.getHandler();
+        } else {
+            handler = new Handler(Looper.getMainLooper());
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startPostponedEnterTransition();
+            }
+        }, timeUnit.toMillis(duration));
+    }
+
+    /**
      * Begin postponed transitions after {@link #postponeEnterTransition()} was called.
      * If postponeEnterTransition() was called, you must call startPostponedEnterTransition()
      * or {@link FragmentManager#executePendingTransactions()} to complete the FragmentTransaction.
@@ -2479,10 +2536,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (getContext() != null) {
             LoaderManager.getInstance(this).dump(prefix, fd, writer, args);
         }
-        if (mChildFragmentManager != null) {
-            writer.print(prefix); writer.println("Child " + mChildFragmentManager + ":");
-            mChildFragmentManager.dump(prefix + "  ", fd, writer, args);
-        }
+        writer.print(prefix);
+        writer.println("Child " + mChildFragmentManager + ":");
+        mChildFragmentManager.dump(prefix + "  ", fd, writer, args);
     }
 
     @Nullable
@@ -2490,17 +2546,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (who.equals(mWho)) {
             return this;
         }
-        if (mChildFragmentManager != null) {
-            return mChildFragmentManager.findFragmentByWho(who);
-        }
-        return null;
+        return mChildFragmentManager.findFragmentByWho(who);
     }
 
-    void instantiateChildFragmentManager() {
-        if (mHost == null) {
-            throw new IllegalStateException("Fragment " + this + " has not been attached yet.");
-        }
-        mChildFragmentManager = new FragmentManagerImpl();
+    void performAttach() {
         mChildFragmentManager.attachController(mHost, new FragmentContainer() {
             @Override
             @Nullable
@@ -2516,12 +2565,16 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 return (mView != null);
             }
         }, this);
+        mCalled = false;
+        onAttach(mHost.getContext());
+        if (!mCalled) {
+            throw new SuperNotCalledException("Fragment " + this
+                    + " did not call through to super.onAttach()");
+        }
     }
 
     void performCreate(Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mState = CREATED;
         mCalled = false;
         mSavedStateRegistryController.performRestore(savedInstanceState);
@@ -2536,9 +2589,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mPerformedCreateView = true;
         mViewLifecycleOwner = new FragmentViewLifecycleOwner();
         mView = onCreateView(inflater, container, savedInstanceState);
@@ -2557,9 +2608,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performActivityCreated(Bundle savedInstanceState) {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-        }
+        mChildFragmentManager.noteStateNotSaved();
         mState = ACTIVITY_CREATED;
         mCalled = false;
         onActivityCreated(savedInstanceState);
@@ -2567,16 +2616,12 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onActivityCreated()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchActivityCreated();
-        }
+        mChildFragmentManager.dispatchActivityCreated();
     }
 
     void performStart() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-            mChildFragmentManager.execPendingActions();
-        }
+        mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.execPendingActions();
         mState = STARTED;
         mCalled = false;
         onStart();
@@ -2584,20 +2629,16 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onStart()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchStart();
-        }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START);
         }
+        mChildFragmentManager.dispatchStart();
     }
 
     void performResume() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
-            mChildFragmentManager.execPendingActions();
-        }
+        mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.execPendingActions();
         mState = RESUMED;
         mCalled = false;
         onResume();
@@ -2605,48 +2646,47 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onResume()");
         }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchResume();
-            mChildFragmentManager.execPendingActions();
-        }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         }
+        mChildFragmentManager.dispatchResume();
+        mChildFragmentManager.execPendingActions();
     }
 
     void noteStateNotSaved() {
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.noteStateNotSaved();
+        mChildFragmentManager.noteStateNotSaved();
+    }
+
+    void performPrimaryNavigationFragmentChanged() {
+        boolean isPrimaryNavigationFragment = mFragmentManager.isPrimaryNavigation(this);
+        // Only send out the callback / dispatch if the state has changed
+        if (mIsPrimaryNavigationFragment == null
+                || mIsPrimaryNavigationFragment != isPrimaryNavigationFragment) {
+            mIsPrimaryNavigationFragment = isPrimaryNavigationFragment;
+            onPrimaryNavigationFragmentChanged(isPrimaryNavigationFragment);
+            mChildFragmentManager.dispatchPrimaryNavigationFragmentChanged();
         }
     }
 
     void performMultiWindowModeChanged(boolean isInMultiWindowMode) {
         onMultiWindowModeChanged(isInMultiWindowMode);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchMultiWindowModeChanged(isInMultiWindowMode);
-        }
+        mChildFragmentManager.dispatchMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     void performPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         onPictureInPictureModeChanged(isInPictureInPictureMode);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchPictureInPictureModeChanged(isInPictureInPictureMode);
-        }
+        mChildFragmentManager.dispatchPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     void performConfigurationChanged(@NonNull Configuration newConfig) {
         onConfigurationChanged(newConfig);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchConfigurationChanged(newConfig);
-        }
+        mChildFragmentManager.dispatchConfigurationChanged(newConfig);
     }
 
     void performLowMemory() {
         onLowMemory();
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchLowMemory();
-        }
+        mChildFragmentManager.dispatchLowMemory();
     }
 
     /*
@@ -2665,9 +2705,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 show = true;
                 onCreateOptionsMenu(menu, inflater);
             }
-            if (mChildFragmentManager != null) {
-                show |= mChildFragmentManager.dispatchCreateOptionsMenu(menu, inflater);
-            }
+            show |= mChildFragmentManager.dispatchCreateOptionsMenu(menu, inflater);
         }
         return show;
     }
@@ -2679,9 +2717,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 show = true;
                 onPrepareOptionsMenu(menu);
             }
-            if (mChildFragmentManager != null) {
-                show |= mChildFragmentManager.dispatchPrepareOptionsMenu(menu);
-            }
+            show |= mChildFragmentManager.dispatchPrepareOptionsMenu(menu);
         }
         return show;
     }
@@ -2693,10 +2729,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     return true;
                 }
             }
-            if (mChildFragmentManager != null) {
-                if (mChildFragmentManager.dispatchOptionsItemSelected(item)) {
-                    return true;
-                }
+            if (mChildFragmentManager.dispatchOptionsItemSelected(item)) {
+                return true;
             }
         }
         return false;
@@ -2707,10 +2741,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             if (onContextItemSelected(item)) {
                 return true;
             }
-            if (mChildFragmentManager != null) {
-                if (mChildFragmentManager.dispatchContextItemSelected(item)) {
-                    return true;
-                }
+            if (mChildFragmentManager.dispatchContextItemSelected(item)) {
+                return true;
             }
         }
         return false;
@@ -2721,31 +2753,25 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             if (mHasMenu && mMenuVisible) {
                 onOptionsMenuClosed(menu);
             }
-            if (mChildFragmentManager != null) {
-                mChildFragmentManager.dispatchOptionsMenuClosed(menu);
-            }
+            mChildFragmentManager.dispatchOptionsMenuClosed(menu);
         }
     }
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
         mSavedStateRegistryController.performSave(outState);
-        if (mChildFragmentManager != null) {
-            Parcelable p = mChildFragmentManager.saveAllState();
-            if (p != null) {
-                outState.putParcelable(FragmentActivity.FRAGMENTS_TAG, p);
-            }
+        Parcelable p = mChildFragmentManager.saveAllState();
+        if (p != null) {
+            outState.putParcelable(FragmentActivity.FRAGMENTS_TAG, p);
         }
     }
 
     void performPause() {
+        mChildFragmentManager.dispatchPause();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchPause();
-        }
         mState = STARTED;
         mCalled = false;
         onPause();
@@ -2756,13 +2782,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performStop() {
+        mChildFragmentManager.dispatchStop();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchStop();
-        }
         mState = ACTIVITY_CREATED;
         mCalled = false;
         onStop();
@@ -2773,11 +2797,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performDestroyView() {
+        mChildFragmentManager.dispatchDestroyView();
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        }
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroyView();
         }
         mState = CREATED;
         mCalled = false;
@@ -2795,10 +2817,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     void performDestroy() {
+        mChildFragmentManager.dispatchDestroy();
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroy();
-        }
         mState = INITIALIZING;
         mCalled = false;
         mIsCreated = false;
@@ -2807,7 +2827,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new SuperNotCalledException("Fragment " + this
                     + " did not call through to super.onDestroy()");
         }
-        mChildFragmentManager = null;
     }
 
     void performDetach() {
@@ -2822,9 +2841,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         // Destroy the child FragmentManager if we still have it here.
         // This is normally done in performDestroy(), but is done here
         // specifically if the Fragment is retained.
-        if (mChildFragmentManager != null) {
+        if (!mChildFragmentManager.isDestroyed()) {
             mChildFragmentManager.dispatchDestroy();
-            mChildFragmentManager = null;
+            mChildFragmentManager = new FragmentManagerImpl();
         }
     }
 

@@ -16,8 +16,6 @@
 
 package androidx.webkit;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -38,8 +36,8 @@ public class WebViewAssetLoaderIntegrationTest {
     private static final String TAG = "WebViewAssetLoaderIntegrationTest";
 
     @Rule
-    public final ActivityTestRule<TestActivity> mActivityRule =
-                                    new ActivityTestRule<>(TestActivity.class);
+    public final ActivityTestRule<WebViewTestActivity> mActivityRule =
+                                    new ActivityTestRule<>(WebViewTestActivity.class);
 
     private WebViewOnUiThread mOnUiThread;
     private WebViewAssetLoader mAssetLoader;
@@ -65,23 +63,6 @@ public class WebViewAssetLoaderIntegrationTest {
         }
     }
 
-    // An Activity for Integeration tests
-    public static class TestActivity extends Activity {
-        private WebView mWebView;
-
-        public WebView getWebView() {
-            return mWebView;
-        }
-
-        // Runs before test suite's @Before.
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mWebView = new WebView(this);
-            setContentView(mWebView);
-        }
-    }
-
     @Before
     public void setUp() {
         mAssetLoader = (new WebViewAssetLoader.Builder(mActivityRule.getActivity())).build();
@@ -99,12 +80,12 @@ public class WebViewAssetLoaderIntegrationTest {
     @Test
     @MediumTest
     public void testAssetHosting() throws Exception {
-        final TestActivity activity = mActivityRule.getActivity();
-        final String testWithTitlePath = "www/test_with_title.html";
+        final WebViewTestActivity activity = mActivityRule.getActivity();
 
         String url =
                 mAssetLoader.getAssetsHttpsPrefix().buildUpon()
-                        .appendPath(testWithTitlePath)
+                        .appendPath("www")
+                        .appendPath("test_with_title.html")
                         .build()
                         .toString();
 
@@ -116,13 +97,12 @@ public class WebViewAssetLoaderIntegrationTest {
     @Test
     @MediumTest
     public void testResourcesHosting() throws Exception {
-        final TestActivity activity = mActivityRule.getActivity();
-        final String testWithTitlePath = "test_with_title.html";
+        final WebViewTestActivity activity = mActivityRule.getActivity();
 
         String url =
                 mAssetLoader.getResourcesHttpsPrefix().buildUpon()
                 .appendPath("raw")
-                .appendPath(testWithTitlePath)
+                .appendPath("test_with_title.html")
                 .build()
                 .toString();
 

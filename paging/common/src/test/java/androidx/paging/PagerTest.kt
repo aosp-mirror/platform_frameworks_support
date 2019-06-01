@@ -22,9 +22,8 @@ import androidx.paging.PagedList.LoadState.IDLE
 import androidx.paging.PagedList.LoadState.LOADING
 import androidx.paging.PagedList.LoadType.END
 import androidx.paging.PagedList.LoadType.START
-import androidx.paging.PositionalDataSource.computeInitialLoadPosition
-import androidx.paging.PositionalDataSource.computeInitialLoadSize
 import androidx.paging.futures.DirectExecutor
+import androidx.testutils.TestExecutor
 import com.google.common.util.concurrent.ListenableFuture
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -130,7 +129,8 @@ class PagerTest {
         DirectExecutor.INSTANCE,
         consumer,
         null,
-        ListenablePositionalDataSource.InitialResult(data.subList(start, end), start, data.size))
+        ListenablePositionalDataSource.InitialResult(data.subList(start, end), start, data.size)
+    )
 
     @Test
     fun simplePagerAppend() {
@@ -143,15 +143,22 @@ class PagerTest {
         pager.tryScheduleAppend()
 
         assertTrue(consumer.takeResults().isEmpty())
-        assertEquals(consumer.takeStateChanges(), listOf(
-            StateChange(END, PagedList.LoadState.LOADING)))
+        assertEquals(
+            consumer.takeStateChanges(), listOf(
+                StateChange(END, PagedList.LoadState.LOADING)
+            )
+        )
 
         testExecutor.executeAll()
 
-        assertEquals(listOf(Result(END, RangeResult(6, 8))),
-            consumer.takeResults())
-        assertEquals(listOf(StateChange(END, IDLE)),
-            consumer.takeStateChanges())
+        assertEquals(
+            listOf(Result(END, RangeResult(6, 8))),
+            consumer.takeResults()
+        )
+        assertEquals(
+            listOf(StateChange(END, IDLE)),
+            consumer.takeStateChanges()
+        )
     }
 
     @Test
@@ -162,15 +169,22 @@ class PagerTest {
         pager.trySchedulePrepend()
 
         assertTrue(consumer.takeResults().isEmpty())
-        assertEquals(consumer.takeStateChanges(), listOf(
-            StateChange(START, PagedList.LoadState.LOADING)))
+        assertEquals(
+            consumer.takeStateChanges(), listOf(
+                StateChange(START, PagedList.LoadState.LOADING)
+            )
+        )
 
         testExecutor.executeAll()
 
-        assertEquals(listOf(Result(START, RangeResult(2, 4))),
-            consumer.takeResults())
-        assertEquals(listOf(StateChange(START, IDLE)),
-            consumer.takeStateChanges())
+        assertEquals(
+            listOf(Result(START, RangeResult(2, 4))),
+            consumer.takeResults()
+        )
+        assertEquals(
+            listOf(StateChange(START, IDLE)),
+            consumer.takeStateChanges()
+        )
     }
 
     @Test
@@ -183,16 +197,20 @@ class PagerTest {
         pager.tryScheduleAppend()
         testExecutor.executeAll()
 
-        assertEquals(listOf(
-            Result(END, RangeResult(6, 8)),
-            Result(END, RangeResult(8, 9))
-        ), consumer.takeResults())
-        assertEquals(listOf(
-            StateChange(END, LOADING),
-            StateChange(END, IDLE),
-            StateChange(END, LOADING),
-            StateChange(END, IDLE)
-        ), consumer.takeStateChanges())
+        assertEquals(
+            listOf(
+                Result(END, RangeResult(6, 8)),
+                Result(END, RangeResult(8, 9))
+            ), consumer.takeResults()
+        )
+        assertEquals(
+            listOf(
+                StateChange(END, LOADING),
+                StateChange(END, IDLE),
+                StateChange(END, LOADING),
+                StateChange(END, IDLE)
+            ), consumer.takeStateChanges()
+        )
     }
 
     @Test
@@ -205,16 +223,20 @@ class PagerTest {
         pager.trySchedulePrepend()
         testExecutor.executeAll()
 
-        assertEquals(listOf(
-            Result(START, RangeResult(2, 4)),
-            Result(START, RangeResult(0, 2))
-        ), consumer.takeResults())
-        assertEquals(listOf(
-            StateChange(START, LOADING),
-            StateChange(START, IDLE),
-            StateChange(START, LOADING),
-            StateChange(START, IDLE)
-        ), consumer.takeStateChanges())
+        assertEquals(
+            listOf(
+                Result(START, RangeResult(2, 4)),
+                Result(START, RangeResult(0, 2))
+            ), consumer.takeResults()
+        )
+        assertEquals(
+            listOf(
+                StateChange(START, LOADING),
+                StateChange(START, IDLE),
+                StateChange(START, LOADING),
+                StateChange(START, IDLE)
+            ), consumer.takeStateChanges()
+        )
     }
 
     @Test
@@ -225,12 +247,16 @@ class PagerTest {
         pager.tryScheduleAppend()
 
         // Pager triggers an immediate empty response here, so we don't need to flush the executor
-        assertEquals(listOf(
-            Result(END, DataSource.BaseResult.empty())
-        ), consumer.takeResults())
-        assertEquals(listOf(
-            StateChange(END, DONE)
-        ), consumer.takeStateChanges())
+        assertEquals(
+            listOf(
+                Result(END, DataSource.BaseResult.empty())
+            ), consumer.takeResults()
+        )
+        assertEquals(
+            listOf(
+                StateChange(END, DONE)
+            ), consumer.takeStateChanges()
+        )
     }
 
     @Test
@@ -241,11 +267,15 @@ class PagerTest {
         pager.trySchedulePrepend()
 
         // Pager triggers an immediate empty response here, so we don't need to flush the executor
-        assertEquals(listOf(
-            Result(START, DataSource.BaseResult.empty())
-        ), consumer.takeResults())
-        assertEquals(listOf(
-            StateChange(START, DONE)
-        ), consumer.takeStateChanges())
+        assertEquals(
+            listOf(
+                Result(START, DataSource.BaseResult.empty())
+            ), consumer.takeResults()
+        )
+        assertEquals(
+            listOf(
+                StateChange(START, DONE)
+            ), consumer.takeStateChanges()
+        )
     }
 }

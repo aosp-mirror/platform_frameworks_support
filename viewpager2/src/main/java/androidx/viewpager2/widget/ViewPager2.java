@@ -16,6 +16,9 @@
 
 package androidx.viewpager2.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
+
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.annotation.SuppressLint;
@@ -34,11 +37,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
@@ -46,6 +52,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 import androidx.viewpager2.R;
 import androidx.viewpager2.adapter.StatefulAdapter;
 
@@ -59,6 +66,8 @@ import java.lang.annotation.Retention;
  * @see androidx.viewpager.widget.ViewPager
  */
 public final class ViewPager2 extends ViewGroup {
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL})
     public @interface Orientation {
@@ -67,14 +76,44 @@ public final class ViewPager2 extends ViewGroup {
     public static final int ORIENTATION_HORIZONTAL = RecyclerView.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = RecyclerView.VERTICAL;
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
     }
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Retention(SOURCE)
+    @IntDef({OFFSCREEN_PAGE_LIMIT_DEFAULT})
+    @IntRange(from = 1)
+    public @interface OffscreenPageLimit {
+    }
+
+    /**
+     * Indicates that the ViewPager2 is in an idle, settled state. The current page
+     * is fully in view and no animation is in progress.
+     */
     public static final int SCROLL_STATE_IDLE = 0;
+
+    /**
+     * Indicates that the ViewPager2 is currently being dragged by the user, or programmatically
+     * via fake drag functionality.
+     */
     public static final int SCROLL_STATE_DRAGGING = 1;
+
+    /**
+     * Indicates that the ViewPager2 is in the process of settling to a final position.
+     */
     public static final int SCROLL_STATE_SETTLING = 2;
+
+    /**
+     * Value to indicate that the default caching mechanism of RecyclerView should be used instead
+     * of explicitly prefetch and retain pages to either side of the current page.
+     * @see #setOffscreenPageLimit(int)
+     */
+    public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1;
 
     // reused in layout(...)
     private final Rect mTmpContainerRect = new Rect();
@@ -84,14 +123,16 @@ public final class ViewPager2 extends ViewGroup {
             new CompositeOnPageChangeCallback(3);
 
     int mCurrentItem;
+    LinearLayoutManager mLayoutManager;
+    private int mPendingCurrentItem = NO_POSITION;
+    private Parcelable mPendingAdapterState;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private PagerSnapHelper mPagerSnapHelper;
     private ScrollEventAdapter mScrollEventAdapter;
     private FakeDrag mFakeDragger;
     private PageTransformerAdapter mPageTransformerAdapter;
-    private CompositeOnPageChangeCallback mPageChangeEventDispatcher;
     private boolean mUserInputEnabled = true;
+    private @OffscreenPageLimit int mOffscreenPageLimit = OFFSCREEN_PAGE_LIMIT_DEFAULT;
 
     public ViewPager2(@NonNull Context context) {
         super(context);
@@ -129,7 +170,7 @@ public final class ViewPager2 extends ViewGroup {
 
         // Create ScrollEventAdapter before attaching PagerSnapHelper to RecyclerView, because the
         // attach process calls PagerSnapHelperImpl.findSnapView, which uses the mScrollEventAdapter
-        mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
+        mScrollEventAdapter = new ScrollEventAdapter(this);
         // Create FakeDrag before attaching PagerSnapHelper, same reason as above
         mFakeDragger = new FakeDrag(this, mScrollEventAdapter, mRecyclerView);
         mPagerSnapHelper = new PagerSnapHelperImpl();
@@ -138,8 +179,9 @@ public final class ViewPager2 extends ViewGroup {
         // don't want to respond on the events sent out during the attach process
         mRecyclerView.addOnScrollListener(mScrollEventAdapter);
 
-        mPageChangeEventDispatcher = new CompositeOnPageChangeCallback(3);
-        mScrollEventAdapter.setOnPageChangeCallback(mPageChangeEventDispatcher);
+        CompositeOnPageChangeCallback pageChangeEventDispatcher =
+                new CompositeOnPageChangeCallback(3);
+        mScrollEventAdapter.setOnPageChangeCallback(pageChangeEventDispatcher);
 
         // Callback that updates mCurrentItem after swipes. Also triggered in other cases, but in
         // all those cases mCurrentItem will only be overwritten with the same value.
@@ -152,13 +194,13 @@ public final class ViewPager2 extends ViewGroup {
 
         // Add currentItemUpdater before mExternalPageChangeCallbacks, because we need to update
         // internal state first
-        mPageChangeEventDispatcher.addOnPageChangeCallback(currentItemUpdater);
-        mPageChangeEventDispatcher.addOnPageChangeCallback(mExternalPageChangeCallbacks);
+        pageChangeEventDispatcher.addOnPageChangeCallback(currentItemUpdater);
+        pageChangeEventDispatcher.addOnPageChangeCallback(mExternalPageChangeCallbacks);
 
         // Add mPageTransformerAdapter after mExternalPageChangeCallbacks, because page transform
         // events must be fired after scroll events
         mPageTransformerAdapter = new PageTransformerAdapter(mLayoutManager);
-        mPageChangeEventDispatcher.addOnPageChangeCallback(mPageTransformerAdapter);
+        pageChangeEventDispatcher.addOnPageChangeCallback(mPageTransformerAdapter);
 
         attachViewToParent(mRecyclerView, 0, mRecyclerView.getLayoutParams());
     }
@@ -205,15 +247,15 @@ public final class ViewPager2 extends ViewGroup {
         SavedState ss = new SavedState(superState);
 
         ss.mRecyclerViewId = mRecyclerView.getId();
-        ss.mOrientation = getOrientation();
-        ss.mCurrentItem = mCurrentItem;
-        ss.mUserScrollable = mUserInputEnabled;
-        ss.mScrollInProgress =
-                mLayoutManager.findFirstCompletelyVisibleItemPosition() != mCurrentItem;
+        ss.mCurrentItem = mPendingCurrentItem == NO_POSITION ? mCurrentItem : mPendingCurrentItem;
 
-        Adapter adapter = mRecyclerView.getAdapter();
-        if (adapter instanceof StatefulAdapter) {
-            ss.mAdapterState = ((StatefulAdapter) adapter).saveState();
+        if (mPendingAdapterState != null) {
+            ss.mAdapterState = mPendingAdapterState;
+        } else {
+            Adapter adapter = mRecyclerView.getAdapter();
+            if (adapter instanceof StatefulAdapter) {
+                ss.mAdapterState = ((StatefulAdapter) adapter).saveState();
+            }
         }
 
         return ss;
@@ -228,37 +270,29 @@ public final class ViewPager2 extends ViewGroup {
 
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-        setOrientation(ss.mOrientation);
-        mCurrentItem = ss.mCurrentItem;
-        mUserInputEnabled = ss.mUserScrollable;
-        if (ss.mScrollInProgress) {
-            // A scroll was in progress, so the RecyclerView is not at mCurrentItem right now. Move
-            // it to mCurrentItem instantly in the _next_ frame, as RecyclerView is not yet fired up
-            // at this moment. Remove the event dispatcher during this time, as it will fire a
-            // scroll event for the current position, which has already been fired before the config
-            // change.
-            final ScrollEventAdapter scrollEventAdapter = mScrollEventAdapter;
-            final OnPageChangeCallback eventDispatcher = mPageChangeEventDispatcher;
-            scrollEventAdapter.setOnPageChangeCallback(null);
-            final RecyclerView recyclerView = mRecyclerView; // to avoid a synthetic accessor
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    scrollEventAdapter.setOnPageChangeCallback(eventDispatcher);
-                    scrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
-                    recyclerView.scrollToPosition(mCurrentItem);
-                }
-            });
-        } else {
-            mScrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
-        }
+        mPendingCurrentItem = ss.mCurrentItem;
+        mPendingAdapterState = ss.mAdapterState;
+    }
 
-        if (ss.mAdapterState != null) {
-            Adapter adapter = mRecyclerView.getAdapter();
-            if (adapter instanceof StatefulAdapter) {
-                ((StatefulAdapter) adapter).restoreState(ss.mAdapterState);
-            }
+    private void restorePendingState() {
+        if (mPendingCurrentItem == NO_POSITION) {
+            // No state to restore, or state is already restored
+            return;
         }
+        Adapter adapter = getAdapter();
+        if (adapter == null) {
+            return;
+        }
+        if (mPendingAdapterState != null) {
+            if (adapter instanceof StatefulAdapter) {
+                ((StatefulAdapter) adapter).restoreState(mPendingAdapterState);
+            }
+            mPendingAdapterState = null;
+        }
+        // Now we have an adapter, we can clamp the pending current item and set it
+        mCurrentItem = Math.max(0, Math.min(mPendingCurrentItem, adapter.getItemCount() - 1));
+        mPendingCurrentItem = NO_POSITION;
+        mRecyclerView.scrollToPosition(mCurrentItem);
     }
 
     @Override
@@ -273,14 +307,14 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         super.dispatchRestoreInstanceState(container);
+
+        // State of ViewPager2 and its child (RecyclerView) has been restored now
+        restorePendingState();
     }
 
     static class SavedState extends BaseSavedState {
         int mRecyclerViewId;
-        @Orientation int mOrientation;
         int mCurrentItem;
-        boolean mUserScrollable;
-        boolean mScrollInProgress;
         Parcelable mAdapterState;
 
         @RequiresApi(24)
@@ -300,10 +334,7 @@ public final class ViewPager2 extends ViewGroup {
 
         private void readValues(Parcel source, ClassLoader loader) {
             mRecyclerViewId = source.readInt();
-            mOrientation = source.readInt();
             mCurrentItem = source.readInt();
-            mUserScrollable = source.readByte() != 0;
-            mScrollInProgress = source.readByte() != 0;
             mAdapterState = source.readParcelable(loader);
         }
 
@@ -311,10 +342,7 @@ public final class ViewPager2 extends ViewGroup {
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeInt(mRecyclerViewId);
-            out.writeInt(mOrientation);
             out.writeInt(mCurrentItem);
-            out.writeByte((byte) (mUserScrollable ? 1 : 0));
-            out.writeByte((byte) (mScrollInProgress ? 1 : 0));
             out.writeParcelable(mAdapterState, flags);
         }
 
@@ -339,11 +367,33 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /**
+     * <p>Set a new adapter to provide page views on demand.</p>
+     *
+     * <p>If you're planning to use {@link androidx.fragment.app.Fragment Fragments} as pages,
+     * implement {@link androidx.viewpager2.adapter.FragmentStateAdapter FragmentStateAdapter}. If
+     * your pages are Views, implement {@link RecyclerView.Adapter} as usual.</p>
+     *
+     * <p>If your pages contain LayoutTransitions, then those LayoutTransitions <em>must</em> have
+     * {@code animateParentHierarchy} set to {@code false}. Note that if you have a ViewGroup with
+     * {@code animateLayoutChanges="true"} in your layout xml file, a LayoutTransition is added
+     * automatically to that ViewGroup. You will need to manually call {@link
+     * android.animation.LayoutTransition#setAnimateParentHierarchy(boolean)
+     * getLayoutTransition().setAnimateParentHierarchy(false)} on that ViewGroup after you inflated
+     * the xml layout, like this:</p>
+     *
+     * <pre>
+     * View view = layoutInflater.inflate(R.layout.page, parent, false);
+     * ViewGroup viewGroup = view.findViewById(R.id.animated_viewgroup);
+     * viewGroup.getLayoutTransition().setAnimateParentHierarchy(false);
+     * </pre>
+     *
+     * @param adapter The adapter to use, or {@code null} to remove the current adapter
      * @see androidx.viewpager2.adapter.FragmentStateAdapter
      * @see RecyclerView#setAdapter(Adapter)
      */
     public void setAdapter(@Nullable Adapter adapter) {
         mRecyclerView.setAdapter(adapter);
+        restorePendingState();
     }
 
     public @Nullable Adapter getAdapter() {
@@ -396,8 +446,16 @@ public final class ViewPager2 extends ViewGroup {
                 mTmpChildRect.bottom);
     }
 
+    int getPageSize() {
+        return getOrientation() == ORIENTATION_HORIZONTAL
+                ? getWidth() - getPaddingLeft() - getPaddingRight()
+                : getHeight() - getPaddingTop() - getPaddingBottom();
+    }
+
     /**
-     * @param orientation {@link ViewPager2.Orientation}
+     * Sets the orientation of the ViewPager2.
+     *
+     * @param orientation {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}
      */
     public void setOrientation(@Orientation int orientation) {
         mLayoutManager.setOrientation(orientation);
@@ -405,6 +463,11 @@ public final class ViewPager2 extends ViewGroup {
 
     public @Orientation int getOrientation() {
         return mLayoutManager.getOrientation();
+    }
+
+    boolean isLayoutRtl() {
+        return mLayoutManager.getLayoutDirection()
+                == androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
     /**
@@ -430,12 +493,23 @@ public final class ViewPager2 extends ViewGroup {
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
+
+        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
+
         if (isFakeDragging()) {
             throw new IllegalStateException("Cannot change current item when ViewPager2 is fake "
                     + "dragging");
         }
         Adapter adapter = getAdapter();
-        if (adapter == null || adapter.getItemCount() <= 0) {
+        if (adapter == null) {
+            // Update the pending current item if we're still waiting for the adapter
+            if (mPendingCurrentItem != NO_POSITION) {
+                mPendingCurrentItem = Math.max(item, 0);
+            }
+            return;
+        }
+        if (adapter.getItemCount() <= 0) {
+            // Adapter is empty
             return;
         }
         item = Math.max(item, 0);
@@ -451,6 +525,8 @@ public final class ViewPager2 extends ViewGroup {
             return;
         }
 
+        // 2. Update the item internally
+
         float previousItem = mCurrentItem;
         mCurrentItem = item;
 
@@ -458,6 +534,8 @@ public final class ViewPager2 extends ViewGroup {
             // Scroll in progress, overwrite previousItem with actual current position
             previousItem = mScrollEventAdapter.getRelativeScrollPosition();
         }
+
+        // 3. Perform the necessary scroll actions on RecyclerView
 
         mScrollEventAdapter.notifyProgrammaticScroll(item, smoothScroll);
         if (!smoothScroll) {
@@ -541,7 +619,7 @@ public final class ViewPager2 extends ViewGroup {
      * @see #endFakeDrag()
      * @see #isFakeDragging()
      */
-    public boolean fakeDragBy(float offsetPxFloat) {
+    public boolean fakeDragBy(@SuppressLint("SupportAnnotationUsage") @Px float offsetPxFloat) {
         return mFakeDragger.fakeDragBy(offsetPxFloat);
     }
 
@@ -613,6 +691,53 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /**
+     * <p>Set the number of pages that should be retained to either side of the currently visible
+     * page(s). Pages beyond this limit will be recreated from the adapter when needed. Set this to
+     * {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT} to use RecyclerView's caching strategy. The given value
+     * must either be larger than 0, or {@code #OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
+     *
+     * <p>Pages within {@code limit} pages away from the current page are created and added to the
+     * view hierarchy, even though they are not visible on the screen. Pages outside this limit will
+     * be removed from the view hierarchy, but the {@code ViewHolder}s will be recycled as usual by
+     * {@link RecyclerView}.</p>
+     *
+     * <p>This is offered as an optimization. If you know in advance the number of pages you will
+     * need to support or have lazy-loading mechanisms in place on your pages, tweaking this setting
+     * can have benefits in perceived smoothness of paging animations and interaction. If you have a
+     * small number of pages (3-4) that you can keep active all at once, less time will be spent in
+     * layout for newly created view subtrees as the user pages back and forth.</p>
+     *
+     * <p>You should keep this limit low, especially if your pages have complex layouts. By default
+     * it is set to {@code OFFSCREEN_PAGE_LIMIT_DEFAULT}.</p>
+     *
+     * @param limit How many pages will be kept offscreen on either side. Valid values are all
+     *        values {@code >= 1} and {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}
+     * @throws IllegalArgumentException If the given limit is invalid
+     * @see #getOffscreenPageLimit()
+     */
+    public void setOffscreenPageLimit(@OffscreenPageLimit int limit) {
+        if (limit < 1 && limit != OFFSCREEN_PAGE_LIMIT_DEFAULT) {
+            throw new IllegalArgumentException(
+                    "Offscreen page limit must be OFFSCREEN_PAGE_LIMIT_DEFAULT or a number > 0");
+        }
+        mOffscreenPageLimit = limit;
+        // Trigger layout so prefetch happens through getExtraLayoutSize()
+        mRecyclerView.requestLayout();
+    }
+
+    /**
+     * Returns the number of pages that will be retained to either side of the current page in the
+     * view hierarchy in an idle state. Defaults to {@link #OFFSCREEN_PAGE_LIMIT_DEFAULT}.
+     *
+     * @return How many pages will be kept offscreen on either side
+     * @see #setOffscreenPageLimit(int)
+     */
+    @OffscreenPageLimit
+    public int getOffscreenPageLimit() {
+        return mOffscreenPageLimit;
+    }
+
+    /**
      * Add a callback that will be invoked whenever the page changes or is incrementally
      * scrolled. See {@link OnPageChangeCallback}.
      *
@@ -640,11 +765,35 @@ public final class ViewPager2 extends ViewGroup {
      * transformations to each page, overriding the default sliding behavior.
      *
      * @param transformer PageTransformer that will modify each page's animation properties
+     *
+     * @see MarginPageTransformer
+     * @see CompositePageTransformer
      */
     public void setPageTransformer(@Nullable PageTransformer transformer) {
         // TODO: add support for reverseDrawingOrder: b/112892792
         // TODO: add support for pageLayerType: b/112893074
+        if (transformer == mPageTransformerAdapter.getPageTransformer()) {
+            return;
+        }
         mPageTransformerAdapter.setPageTransformer(transformer);
+        requestTransform();
+    }
+
+    /**
+     * Trigger a call to the registered {@link PageTransformer PageTransformer}'s {@link
+     * PageTransformer#transformPage(View, float) transformPage} method. Call this when something
+     * has changed which has invalidated the transformations defined by the {@code PageTransformer}
+     * that did not trigger a page scroll.
+     */
+    public void requestTransform() {
+        if (mPageTransformerAdapter.getPageTransformer() == null) {
+            return;
+        }
+        float relativePosition = mScrollEventAdapter.getRelativeScrollPosition();
+        int position = (int) relativePosition;
+        float positionOffset = relativePosition - position;
+        int positionOffsetPx = Math.round(getPageSize() * positionOffset);
+        mPageTransformerAdapter.onPageScrolled(position, positionOffset, positionOffsetPx);
     }
 
     /**
@@ -710,13 +859,22 @@ public final class ViewPager2 extends ViewGroup {
             if (!isUserInputEnabled()) {
                 info.removeAction(AccessibilityActionCompat.ACTION_SCROLL_BACKWARD);
                 info.removeAction(AccessibilityActionCompat.ACTION_SCROLL_FORWARD);
-                removeScrollableFromNodeInfo(info);
+                info.setScrollable(false);
             }
         }
 
-        @SuppressWarnings("deprecation")
-        private void removeScrollableFromNodeInfo(@NonNull AccessibilityNodeInfoCompat info) {
-            info.setScrollable(false);
+        @Override
+        protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
+                @NonNull int[] extraLayoutSpace) {
+            int pageLimit = getOffscreenPageLimit();
+            if (pageLimit == OFFSCREEN_PAGE_LIMIT_DEFAULT) {
+                // Only do custom prefetching of offscreen pages if requested
+                super.calculateExtraLayoutSpace(state, extraLayoutSpace);
+                return;
+            }
+            final int offscreenSpace = getPageSize() * pageLimit;
+            extraLayoutSpace[0] = offscreenSpace;
+            extraLayoutSpace[1] = offscreenSpace;
         }
     }
 
@@ -805,6 +963,93 @@ public final class ViewPager2 extends ViewGroup {
          *                 position of the pager. 0 is front and center. 1 is one full
          *                 page position to the right, and -1 is one page position to the left.
          */
-        void transformPage(@NonNull View page, float position);
+        void transformPage(@NonNull View page, @FloatRange(from = -1.0, to = 1.0) float position);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.addItemDecoration(decor);
+    }
+
+    /**
+     * Add an {@link ItemDecoration} to this ViewPager2. Item decorations can
+     * affect both measurement and drawing of individual item views.
+     *
+     * <p>Item decorations are ordered. Decorations placed earlier in the list will
+     * be run/queried/drawn first for their effects on item views. Padding added to views
+     * will be nested; a padding added by an earlier decoration will mean further
+     * item decorations in the list will be asked to draw/pad within the previous decoration's
+     * given area.</p>
+     *
+     * @param decor Decoration to add
+     * @param index Position in the decoration chain to insert this decoration at. If this value
+     *              is negative the decoration will be added at the end.
+     * @throws IndexOutOfBoundsException on indexes larger than {@link #getItemDecorationCount}
+     */
+    public void addItemDecoration(@NonNull ItemDecoration decor, int index) {
+        mRecyclerView.addItemDecoration(decor, index);
+    }
+
+    /**
+     * Returns an {@link ItemDecoration} previously added to this ViewPager2.
+     *
+     * @param index The index position of the desired ItemDecoration.
+     * @return the ItemDecoration at index position
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    @NonNull
+    public ItemDecoration getItemDecorationAt(int index) {
+        return mRecyclerView.getItemDecorationAt(index);
+    }
+
+    /**
+     * Returns the number of {@link ItemDecoration} currently added to this ViewPager2.
+     *
+     * @return number of ItemDecorations currently added added to this ViewPager2.
+     */
+    public int getItemDecorationCount() {
+        return mRecyclerView.getItemDecorationCount();
+    }
+
+    /**
+     * Invalidates all ItemDecorations. If ViewPager2 has item decorations, calling this method
+     * will trigger a {@link #requestLayout()} call.
+     */
+    public void invalidateItemDecorations() {
+        mRecyclerView.invalidateItemDecorations();
+    }
+
+    /**
+     * Removes the {@link ItemDecoration} associated with the supplied index position.
+     *
+     * @param index The index position of the ItemDecoration to be removed.
+     * @throws IndexOutOfBoundsException on invalid index
+     */
+    public void removeItemDecorationAt(int index) {
+        mRecyclerView.removeItemDecorationAt(index);
+    }
+
+    /**
+     * Remove an {@link ItemDecoration} from this ViewPager2.
+     *
+     * <p>The given decoration will no longer impact the measurement and drawing of
+     * item views.</p>
+     *
+     * @param decor Decoration to remove
+     * @see #addItemDecoration(ItemDecoration)
+     */
+    public void removeItemDecoration(@NonNull ItemDecoration decor) {
+        mRecyclerView.removeItemDecoration(decor);
     }
 }

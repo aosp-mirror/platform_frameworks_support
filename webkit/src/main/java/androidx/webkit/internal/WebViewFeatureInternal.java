@@ -327,6 +327,18 @@ public enum WebViewFeatureInternal {
      */
     SUPPRESS_ERROR_PAGE(WebViewFeature.SUPPRESS_ERROR_PAGE, Features.SUPPRESS_ERROR_PAGE),
 
+    /**
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}.
+     */
+    MULTI_PROCESS_QUERY(WebViewFeature.MULTI_PROCESS_QUERY, Features.MULTI_PROCESS_QUERY),
+
+    /**
+     * This feature covers
+     * {@link androidx.webkit.WebSettingsCompat#setForceDark(WebSettings, int)} and
+     * {@link androidx.webkit.WebSettingsCompat#getForceDark(WebSettings)}.
+     */
+    FORCE_DARK(WebViewFeature.FORCE_DARK, Features.FORCE_DARK),
+
     ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;

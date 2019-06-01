@@ -19,19 +19,16 @@ package androidx.build
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.maven.MavenDeployer
 import org.gradle.api.artifacts.maven.MavenPom
 import org.gradle.api.tasks.Upload
-import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.withGroovyBuilder
-import java.io.File
-import java.util.concurrent.ConcurrentHashMap
 
 fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
     afterEvaluate {
-        if (extension.publish) {
+        if (extension.publish.shouldPublish()) {
             val mavenGroup = extension.mavenGroup?.group
             if (mavenGroup == null) {
                 throw Exception("You must specify mavenGroup for $name project")
@@ -52,19 +49,16 @@ fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
     // Set uploadArchives options.
     val uploadTask = tasks.getByName("uploadArchives") as Upload
 
-    val repo = uri(rootProject.property("supportRepoOut") as File)
-            ?: throw Exception("supportRepoOut not set")
-
     uploadTask.repositories {
         it.withGroovyBuilder {
             "mavenDeployer" {
-                "repository"(mapOf("url" to repo))
+                "repository"(mapOf("url" to uri(getRepositoryDirectory())))
             }
         }
     }
 
     afterEvaluate {
-        if (extension.publish) {
+        if (extension.publish.shouldPublish()) {
             uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
                 mavenDeployer.getPom().project {
                     it.withGroovyBuilder {
@@ -120,8 +114,10 @@ fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
                 }
             }
 
-            // Register it as part of release so that we create a Zip file for it
-            Release.register(this, extension)
+            if (extension.publish.shouldRelease()) {
+                // Register it as part of release so that we create a Zip file for it
+                Release.register(this, extension)
+            }
         } else {
             uploadTask.enabled = false
         }
@@ -209,11 +205,9 @@ private fun collectDependenciesForConfiguration(
     name: String
 ) {
     val config = project.configurations.findByName(name)
-    if (config != null) {
-        config.dependencies.forEach { dep ->
-            if (dep.group?.startsWith("androidx.") ?: false) {
-                androidxDependencies.add(dep)
-            }
+    config?.dependencies?.forEach { dep ->
+        if (dep.group?.startsWith("androidx.") == true) {
+            androidxDependencies.add(dep)
         }
     }
 }
@@ -226,18 +220,13 @@ private fun Project.isAndroidProject(
     for (dep in deps) {
         if (dep is ProjectDependency) {
             if (dep.group == groupId && dep.name == artifactId) {
-                return dep.getDependencyProject().plugins.hasPlugin(LibraryPlugin::class.java)
+                return dep.dependencyProject.plugins.hasPlugin(LibraryPlugin::class.java)
             }
         }
     }
-    var projectModules = project.rootProject.extra.get("projects")
-            as ConcurrentHashMap<String, String>
-    if (projectModules.containsKey("$groupId:$artifactId")) {
-        val localProjectVersion = project.findProject(
-                projectModules.get("$groupId:$artifactId"))
-        if (localProjectVersion != null) {
-            return localProjectVersion.plugins.hasPlugin(LibraryPlugin::class.java)
-        }
+    val projectModules = project.getProjectsMap()
+    projectModules["$groupId:$artifactId"]?.let { module ->
+        return project.findProject(module)?.plugins?.hasPlugin(LibraryPlugin::class.java) ?: false
     }
     return false
 }

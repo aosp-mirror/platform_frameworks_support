@@ -31,6 +31,7 @@ import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import androidx.testutils.waitForExecution
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.fail
@@ -128,11 +129,11 @@ class FragmentTest {
         }
         // Wait for the middle of the animation
         waitForHalfFadeIn(fragmentA)
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
 
         // Wait for the middle of the animation
         waitForHalfFadeIn(fragmentB)
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
     }
 
     @SmallTest
@@ -152,7 +153,7 @@ class FragmentTest {
     @RequiresApi(16) // ViewTreeObserver.OnDrawListener was added in API 16
     private fun waitForHalfFadeIn(fragment: Fragment) {
         if (fragment.view == null) {
-            FragmentTestUtil.waitForExecution(activityRule)
+            activityRule.waitForExecution()
         }
         val view = fragment.requireView()
         val animation = view.animation
@@ -210,7 +211,7 @@ class FragmentTest {
         val childFragmentManager = parentFragment.childFragmentManager
         val childFragment = StrictFragment()
         childFragmentManager.beginTransaction().add(childFragment, "child").commitNow()
-        assertThat(childFragment.requireParentFragment()).isSameAs(parentFragment)
+        assertThat(childFragment.requireParentFragment()).isSameInstanceAs(parentFragment)
     }
 
     @SmallTest
@@ -292,7 +293,7 @@ class FragmentTest {
         fragment.arguments = arguments
         assertWithMessage("requireArguments should return the arguments")
             .that(fragment.requireArguments())
-            .isSameAs(arguments)
+            .isSameInstanceAs(arguments)
     }
 
     class OrderFragment : Fragment() {

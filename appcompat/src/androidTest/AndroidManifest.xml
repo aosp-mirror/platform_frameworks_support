@@ -16,7 +16,6 @@
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="android.support.v7.appcompat.test">
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
     <application
             android:supportsRtl="true"
@@ -146,6 +145,14 @@
         <activity
                 android:name="androidx.appcompat.app.NightModeActivity"
                 android:theme="@style/Theme.AppCompat.DayNight"/>
+
+        <activity
+                android:name="androidx.appcompat.app.NightModePreventOverrideConfigActivity"
+                android:theme="@style/Theme.AppCompat.DayNight"/>
+
+        <activity
+            android:name="androidx.appcompat.app.NightModeLateOnCreateActivity"
+            android:theme="@style/Theme.AppCompat.DayNight"/>
 
         <activity
                 android:name="androidx.appcompat.app.NightModeUiModeConfigChangesActivity"
