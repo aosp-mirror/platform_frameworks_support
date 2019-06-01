@@ -20,14 +20,14 @@ import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.ListenableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -66,6 +66,10 @@ public class MockPlayer extends SessionPlayer {
     public @ShuffleMode int mShuffleMode = -1;
     public VideoSize mVideoSize = new VideoSize(0, 0);
     public Surface mSurface;
+    public TrackInfo mSelectedVideoTrack;
+    public TrackInfo mSelectedAudioTrack;
+    public TrackInfo mSelectedSubtitleTrack;
+    public TrackInfo mSelectedMetadataTrack;
 
     public boolean mSetPlaylistCalled;
     public boolean mUpdatePlaylistMetadataCalled;
@@ -262,6 +266,21 @@ public class MockPlayer extends SessionPlayer {
     }
 
     public void notifyTrackSelected(final TrackInfo trackInfo) {
+        switch (trackInfo.getTrackType()) {
+            case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                mSelectedVideoTrack = trackInfo;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                mSelectedAudioTrack = trackInfo;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                mSelectedSubtitleTrack = trackInfo;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_METADATA:
+                mSelectedMetadataTrack = trackInfo;
+                break;
+        }
+
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;
@@ -275,6 +294,21 @@ public class MockPlayer extends SessionPlayer {
     }
 
     public void notifyTrackDeselected(final TrackInfo trackInfo) {
+        switch (trackInfo.getTrackType()) {
+            case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                mSelectedVideoTrack = null;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                mSelectedAudioTrack = null;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                mSelectedSubtitleTrack = null;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_METADATA:
+                mSelectedMetadataTrack = null;
+                break;
+        }
+
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;
@@ -535,10 +569,40 @@ public class MockPlayer extends SessionPlayer {
         }
     }
 
+    @Nullable
+    @Override
+    public TrackInfo getSelectedTrackInternal(int trackType) {
+        switch (trackType) {
+            case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                return mSelectedVideoTrack;
+            case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                return mSelectedAudioTrack;
+            case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                return mSelectedSubtitleTrack;
+            case TrackInfo.MEDIA_TRACK_TYPE_METADATA:
+                return mSelectedMetadataTrack;
+        }
+        return null;
+    }
+
     @Override
     @NonNull
     public ListenableFuture<PlayerResult> setSurfaceInternal(@Nullable Surface surface) {
         mSurface = surface;
         return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    void notifySubtitleData(final @NonNull MediaItem item, final @NonNull TrackInfo track,
+            final @NonNull SubtitleData data) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSubtitleData(MockPlayer.this, item, track, data);
+                }
+            });
+        }
     }
 }

@@ -35,6 +35,7 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.concurrent.ListenableFuture;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
@@ -47,6 +48,7 @@ import androidx.media2.common.SessionPlayer.BuffState;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.common.SessionPlayer.PlayerState;
 import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.UriMediaItem;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -55,8 +57,6 @@ import androidx.media2.session.SessionResult.ResultCode;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.HashMap;
 import java.util.List;
@@ -1171,10 +1171,14 @@ public class MediaSession implements AutoCloseable {
         abstract void onDisconnected(int seq) throws RemoteException;
         abstract void onVideoSizeChanged(int seq, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) throws RemoteException;
-        abstract void onTrackInfoChanged(int seq, List<TrackInfo> trackInfos)
+        abstract void onTrackInfoChanged(int seq, List<TrackInfo> trackInfos,
+                TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+                TrackInfo selectedSubtitleTrack, TrackInfo selectedMetadataTrack)
                 throws RemoteException;
         abstract void onTrackSelected(int seq, TrackInfo trackInfo) throws RemoteException;
         abstract void onTrackDeselected(int seq, TrackInfo trackInfo) throws RemoteException;
+        abstract void onSubtitleData(int seq, @NonNull MediaItem item, @NonNull TrackInfo track,
+                @NonNull SubtitleData data) throws RemoteException;
 
         // Mostly matched with the methods in MediaBrowser.BrowserCallback.
         abstract void onChildrenChanged(int seq, @NonNull String parentId, int itemCount,
