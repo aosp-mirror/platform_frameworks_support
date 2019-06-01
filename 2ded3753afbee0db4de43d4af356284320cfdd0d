@@ -146,6 +146,30 @@
     },
     {
       "key": {
+        "uuid": "96b59e1d_df8f4092",
+        "filename": "room/common/src/main/java/androidx/room/JoinEntity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T03:52:46Z",
+      "side": 1,
+      "message": "to be clear, we should warn only if we are guessing and it is not a fkey. if developer specified, no reason to warn as fkeys have costs and weird behaviors due to lack of upsert.",
+      "parentUuid": "e3531060_8221a2f3",
+      "range": {
+        "startLine": 85,
+        "startChar": 64,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "2ded3753afbee0db4de43d4af356284320cfdd0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e77dccf8_5df146e2",
         "filename": "room/common/src/main/java/androidx/room/Relation.java",
         "patchSetId": 3
