@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -29,6 +30,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +47,8 @@ import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.ControllerCallback;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -64,7 +68,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -1660,56 +1663,88 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testGetTrackInfo() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
-        final List<SessionPlayer.TrackInfo> testTracks = new ArrayList<>();
-        testTracks.add(testTrack);
+        final List<TrackInfo> testTracks = TestUtils.createTrackInfoList();
 
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public void onTrackInfoChanged(MediaController controller,
-                    List<SessionPlayer.TrackInfo> trackInfos) {
-                assertEquals(testTrack, trackInfos.get(0));
+            public void onTrackInfoChanged(MediaController controller, List<TrackInfo> trackInfos) {
+                assertEquals(testTracks.size(), trackInfos.size());
+                for (int i = 0; i < testTracks.size(); i++) {
+                    assertEquals(testTracks.get(i), trackInfos.get(i));
+                }
                 latch.countDown();
             }
         };
         MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.notifyTrackInfoChanged(testTracks);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        List<TrackInfo> tracks = controller.getTrackInfo();
+        assertEquals(testTracks.size(), tracks.size());
+        for (int i = 0; i < testTracks.size(); i++) {
+            assertEquals(testTracks.get(i), tracks.get(i));
+        }
     }
 
     @Test
-    public void testSelectTrack() throws InterruptedException {
+    public void testSelectDeselectTrackAndGetSelectedTrack() throws InterruptedException {
         prepareLooper();
-        final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
+        final CountDownLatch trackSelectedLatch = new CountDownLatch(1);
+        final CountDownLatch trackDeselectedLatch = new CountDownLatch(1);
+        final List<TrackInfo> testTracks = TestUtils.createTrackInfoList();
+        final TrackInfo testTrack = testTracks.get(2);
+        int testTrackType = testTrack.getTrackType();
+
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public void onTrackSelected(MediaController controller,
-                    SessionPlayer.TrackInfo trackInfo) {
+            public void onTrackSelected(MediaController controller, TrackInfo trackInfo) {
                 assertEquals(testTrack, trackInfo);
-                latch.countDown();
+                trackSelectedLatch.countDown();
+            }
+
+            @Override
+            public void onTrackDeselected(MediaController controller, TrackInfo trackInfo) {
+                assertEquals(testTrack, trackInfo);
+                trackDeselectedLatch.countDown();
             }
         };
         MediaController controller = createController(mSession.getToken(), true, null, callback);
+
+        assertNull(controller.getSelectedTrack(testTrackType));
+
         mPlayer.notifyTrackSelected(testTrack);
-        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(trackSelectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(testTrack, controller.getSelectedTrack(testTrackType));
+
+        mPlayer.notifyTrackDeselected(testTrack);
+        assertTrue(trackDeselectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertNull(controller.getSelectedTrack(testTrackType));
     }
 
     @Test
-    public void testDeselectTrack() throws InterruptedException {
+    public void testOnSubtitleData() throws InterruptedException {
         prepareLooper();
+        MediaFormat format = new MediaFormat();
+        format.setString(MediaFormat.KEY_LANGUAGE, "und");
+        format.setString(MediaFormat.KEY_MIME, SubtitleData.MIMETYPE_TEXT_CEA_608);
+        final MediaItem testItem = TestUtils.createMediaItem("onSubtitleData");
+        final TrackInfo testTrack = new TrackInfo(1, testItem, TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE,
+                format);
+        final SubtitleData testData = new SubtitleData(123, 456,
+                new byte[] { 7, 8, 9, 0, 1, 2, 3, 4, 5, 6 });
+
         final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public void onTrackDeselected(MediaController controller,
-                    SessionPlayer.TrackInfo trackInfo) {
-                assertEquals(testTrack, trackInfo);
+            public void onSubtitleData(@NonNull MediaController controller, @NonNull MediaItem item,
+                    @NonNull TrackInfo track, @NonNull SubtitleData data) {
+                assertSame(testItem, item);
+                assertEquals(testTrack, track);
+                assertEquals(testData, data);
                 latch.countDown();
             }
         };
         MediaController controller = createController(mSession.getToken(), true, null, callback);
-        mPlayer.notifyTrackDeselected(testTrack);
+        mPlayer.notifySubtitleData(testItem, testTrack, testData);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 

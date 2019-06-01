@@ -87,11 +87,13 @@ public class LifecyclingTest {
     }
 
     // MUST BE HERE TILL Lifecycle 3.0.0 release for back-compatibility with other modules
+    @SuppressWarnings("deprecation")
     @Test
     public void testDeprecatedGenericLifecycleObserver() {
         GenericLifecycleObserver genericLifecycleObserver = new GenericLifecycleObserver() {
             @Override
-            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
             }
         };
         LifecycleEventObserver observer = lifecycleEventObserver(genericLifecycleObserver);
@@ -99,11 +101,13 @@ public class LifecyclingTest {
     }
 
     // MUST BE HERE TILL Lifecycle 3.0.0 release for back-compatibility with other modules
+    @SuppressWarnings("deprecation")
     @Test
     public void testDeprecatedLifecyclingCallback() {
         GenericLifecycleObserver genericLifecycleObserver = new GenericLifecycleObserver() {
             @Override
-            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
             }
         };
         LifecycleEventObserver observer = Lifecycling.getCallback(genericLifecycleObserver);

@@ -37,14 +37,16 @@ import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.ListenableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
-import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
@@ -55,8 +57,6 @@ import androidx.media2.session.MediaSession.ControllerCb;
 import androidx.media2.session.MediaSession.ControllerInfo;
 import androidx.media2.session.SessionCommand.CommandCode;
 import androidx.versionedparcelable.ParcelImpl;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1043,8 +1043,7 @@ class MediaSessionStub extends IMediaSession.Stub {
                 new SessionPlayerTask() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
-                        SessionPlayer.TrackInfo trackInfo =
-                                MediaParcelUtils.fromParcelable(trackInfoParcel);
+                        TrackInfo trackInfo = MediaParcelUtils.fromParcelable(trackInfoParcel);
                         if (trackInfo == null) {
                             return PlayerResult.createFuture(RESULT_ERROR_BAD_VALUE);
                         }
@@ -1062,8 +1061,7 @@ class MediaSessionStub extends IMediaSession.Stub {
                 new SessionPlayerTask() {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
-                        SessionPlayer.TrackInfo trackInfo =
-                                MediaParcelUtils.fromParcelable(trackInfoParcel);
+                        TrackInfo trackInfo = MediaParcelUtils.fromParcelable(trackInfoParcel);
                         if (trackInfo == null) {
                             return PlayerResult.createFuture(RESULT_ERROR_BAD_VALUE);
                         }
@@ -1426,20 +1424,36 @@ class MediaSessionStub extends IMediaSession.Stub {
         }
 
         @Override
-        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
+        void onTrackInfoChanged(int seq, List<TrackInfo> trackInfos,
+                TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+                TrackInfo selectedSubtitleTrack, TrackInfo selectedMetadataTrack)
                 throws RemoteException {
             List<ParcelImpl> trackInfoList = MediaParcelUtils.toParcelableList(trackInfos);
-            mIControllerCallback.onTrackInfoChanged(seq, trackInfoList);
+            mIControllerCallback.onTrackInfoChanged(seq, trackInfoList,
+                    MediaParcelUtils.toParcelable(selectedVideoTrack),
+                    MediaParcelUtils.toParcelable(selectedAudioTrack),
+                    MediaParcelUtils.toParcelable(selectedSubtitleTrack),
+                    MediaParcelUtils.toParcelable(selectedMetadataTrack));
         }
 
         @Override
-        void onTrackSelected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+        void onTrackSelected(int seq, TrackInfo trackInfo) throws RemoteException {
             mIControllerCallback.onTrackSelected(seq, MediaParcelUtils.toParcelable(trackInfo));
         }
 
         @Override
-        void onTrackDeselected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+        void onTrackDeselected(int seq, TrackInfo trackInfo) throws RemoteException {
             mIControllerCallback.onTrackDeselected(seq, MediaParcelUtils.toParcelable(trackInfo));
+        }
+
+        @Override
+        void onSubtitleData(int seq, @NonNull MediaItem item,
+                @NonNull TrackInfo track, @NonNull SubtitleData data)
+                throws RemoteException {
+            ParcelImpl itemParcel = MediaParcelUtils.toParcelable(item);
+            ParcelImpl trackParcel = MediaParcelUtils.toParcelable(track);
+            ParcelImpl dataParcel = MediaParcelUtils.toParcelable(data);
+            mIControllerCallback.onSubtitleData(seq, itemParcel, trackParcel, dataParcel);
         }
 
         @Override

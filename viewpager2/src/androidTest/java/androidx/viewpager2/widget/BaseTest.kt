@@ -151,10 +151,6 @@ open class BaseTest {
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
-
         fun peekForward() {
             peek(adjustForRtl(-50f))
         }
@@ -213,14 +209,14 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
-                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
                 SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -418,6 +414,18 @@ open class BaseTest {
     }
 
     /**
+     * Returns the slice between the first and second element. First and second element are not
+     * included in the results. Search for the second element starts on the element after the first
+     * element. If first element is not found, an empty list is returned. If second element is not
+     * found, all elements after the first are returned.
+     *
+     * @return A list with all elements between the first and the second element
+     */
+    fun <T> List<T>.slice(first: T, second: T): List<T> {
+        return dropWhile { it != first }.drop(1).takeWhile { it != second }
+    }
+
+    /**
      * Is between [min, max)
      * @param min - inclusive
      * @param max - exclusive
@@ -554,3 +562,8 @@ fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
         }
     }
 }
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL
