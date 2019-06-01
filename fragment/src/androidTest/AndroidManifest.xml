@@ -16,7 +16,6 @@
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="android.support.fragment.test">
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -40,6 +39,9 @@
         <activity android:name="androidx.fragment.app.test.NonConfigOnStopActivity"/>
         <activity android:name="androidx.fragment.app.test.HangingFragmentActivity"/>
         <activity android:name="androidx.fragment.app.test.ViewModelActivity" />
+        <activity android:name="androidx.fragment.app.ActivityLeakActivity"/>
+        <activity android:name="androidx.fragment.app.ContentViewActivity"/>
+        <activity android:name="androidx.fragment.app.OnBackPressedFragmentActivity"/>
         <activity android:name="androidx.fragment.app.OnResumeTestActivity" />
         <activity android:name="androidx.fragment.app.FragmentSavedStateActivity" />
         <activity android:name="androidx.fragment.app.FragmentFinishEarlyTestActivity" />

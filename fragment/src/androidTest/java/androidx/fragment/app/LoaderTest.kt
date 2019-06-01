@@ -26,7 +26,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.FragmentActivityUtils
+import androidx.testutils.recreate
+import androidx.testutils.waitForExecution
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +47,7 @@ class LoaderTest {
     fun testLeak() {
         // Restart the activity because activityRule keeps a strong reference to the
         // old activity.
-        val activity = FragmentActivityUtils.recreateActivity(activityRule, activityRule.activity)
+        val activity = activityRule.recreate()
 
         val fragment = LoaderFragment()
         val fm: FragmentManager = activity.supportFragmentManager
@@ -55,24 +56,24 @@ class LoaderTest {
             .add(fragment, "1")
             .commit()
 
-        FragmentTestUtil.executePendingTransactions(activityRule, fm)
+        activityRule.executePendingTransactions(fm)
 
         fm.beginTransaction()
             .remove(fragment)
             .addToBackStack(null)
             .commit()
 
-        FragmentTestUtil.executePendingTransactions(activityRule, fm)
+        activityRule.executePendingTransactions(fm)
 
         val weakActivity = WeakReference(LoaderActivity.activity)
 
         // Wait for everything to settle. We have to make sure that the old Activity
         // is ready to be collected.
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         // Force a garbage collection.
-        FragmentTestUtil.forceGC()
+        forceGC()
         assertThat(weakActivity.get()).isNull()
     }
 
@@ -85,9 +86,9 @@ class LoaderTest {
 
         assertThat(activity.textView.text).isEqualTo("Loaded!")
 
-        activity = FragmentActivityUtils.recreateActivity(activityRule, activity)
+        activity = activityRule.recreate()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         // After orientation change, the text should still be loaded properly
         assertThat(activity.textView.text).isEqualTo("Loaded!")
@@ -109,13 +110,13 @@ class LoaderTest {
             .detach(fragment)
             .commit()
 
-        FragmentTestUtil.executePendingTransactions(activityRule, fm)
+        activityRule.executePendingTransactions(fm)
 
         fm.beginTransaction()
             .attach(fragment)
             .commit()
 
-        FragmentTestUtil.executePendingTransactions(activityRule, fm)
+        activityRule.executePendingTransactions(fm)
 
         assertThat(fragment.textView.text).isEqualTo("Loaded!")
     }

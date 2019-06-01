@@ -27,6 +27,7 @@ import androidx.test.filters.MediumTest
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import androidx.testutils.waitForExecution
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.After
@@ -57,7 +58,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
 
     @Before
     fun setup() {
-        FragmentTestUtil.setContentView(activityRule, R.layout.simple_container)
+        activityRule.setContentView(R.layout.simple_container)
         onBackStackChangedTimes = 0
         fragmentManager = activityRule.activity.supportFragmentManager
         fragmentManager.addOnBackStackChangedListener(onBackStackChangedListener)
@@ -90,7 +91,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         assertThat(onBackStackChangedTimes).isEqualTo(2)
 
         // reenter transition
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         fragment.waitForTransition()
         val green2 = findGreen()
         val blue2 = findBlue()
@@ -99,7 +100,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         assertThat(onBackStackChangedTimes).isEqualTo(3)
 
         // return transition
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         fragment.waitForTransition()
         verifyAndClearTransition(fragment.returnTransition, null, green2, blue2)
         verifyNoOtherTransitions(fragment)
@@ -157,7 +158,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
                 .addToBackStack(null)
                 .commit()
         }
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo(2)
 
         // should be a normal transition from fragment1 to fragment2
@@ -170,7 +171,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         verifyNoOtherTransitions(fragment2)
 
         // Pop should also do the same thing
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         assertThat(onBackStackChangedTimes).isEqualTo(3)
 
         fragment1.waitForTransition()
@@ -185,7 +186,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
     // Make sure that shared elements on two different fragment containers don't interact
     @Test
     fun crossContainer() {
-        FragmentTestUtil.setContentView(activityRule, R.layout.double_container)
+        activityRule.setContentView(R.layout.double_container)
         val fragment1 = TransitionFragment(R.layout.scene1)
         val fragment2 = TransitionFragment(R.layout.scene1)
         fragmentManager.beginTransaction()
@@ -194,7 +195,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .add(R.id.fragmentContainer2, fragment2)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo(1)
 
         fragment1.waitForTransition()
@@ -317,7 +318,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .setReorderingAllowed(reorderingAllowed)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         fragment1.waitForTransition()
         fragment2.waitForTransition()
@@ -346,7 +347,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         }
         fragment1.setExitSharedElementCallback(mapBack)
 
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
 
         fragment1.waitForTransition()
         fragment2.waitForTransition()
@@ -391,7 +392,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .setReorderingAllowed(reorderingAllowed)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         fragment1.waitForTransition()
         fragment2.waitForTransition()
@@ -419,7 +420,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         }
         fragment2.setEnterSharedElementCallback(mapBack)
 
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
 
         fragment1.waitForTransition()
         fragment2.waitForTransition()
@@ -450,7 +451,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .addToBackStack(null)
             .setReorderingAllowed(true)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo(2)
 
         fragment1.waitForTransition()
@@ -470,7 +471,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         )
 
         // Now see if it works when popped
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         assertThat(onBackStackChangedTimes).isEqualTo(3)
 
         fragment1.waitForTransition()
@@ -533,7 +534,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .addToBackStack(null)
             .commit()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         fragment1.waitForTransition()
         fragment2.waitForTransition()
 
@@ -550,9 +551,9 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         verifyAndClearTransition(fragment2.enterTransition, null, endGreen, endBlue)
         verifyNoOtherTransitions(fragment2)
 
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         fragment1.waitForTransition()
         fragment2.waitForTransition()
 
@@ -583,7 +584,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .addToBackStack(null)
             .commit()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         val endGreen = findViewById(fragment2, R.id.greenSquare)
         val endBlue = findViewById(fragment2, R.id.blueSquare)
@@ -594,9 +595,9 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         verifyAndClearTransition(fragment2.enterTransition, null, endGreen, endBlue)
         verifyNoOtherTransitions(fragment2)
 
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         val reenterBlue = findBlue()
         val reenterGreen = findGreen()
@@ -626,7 +627,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .setReorderingAllowed(reorderingAllowed)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
 
         fragment1.waitForTransition()
         fragment2.waitForTransition()
@@ -688,7 +689,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .add(R.id.fragmentContainer, fragment)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         fragment.waitForNoTransition()
         verifyNoOtherTransitions(fragment)
 
@@ -703,12 +704,12 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         verifyNoOtherTransitions(fragment)
 
         // reenter transition
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         fragment.waitForNoTransition()
         verifyNoOtherTransitions(fragment)
 
         // return transition
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         fragment.waitForNoTransition()
         verifyNoOtherTransitions(fragment)
     }
@@ -755,7 +756,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         }
 
         // This shouldn't give an error.
-        FragmentTestUtil.executePendingTransactions(activityRule)
+        activityRule.executePendingTransactions()
 
         fragment2.waitForTransition()
         // It does not transition properly for ordered transactions, though.
@@ -813,7 +814,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
         verifyAndClearTransition(fragment2.enterTransition, midGreenBounds, midBlue, midRed!!)
         verifyNoOtherTransitions(fragment2)
 
-        FragmentTestUtil.popBackStackImmediate(activityRule)
+        activityRule.popBackStackImmediate()
         fragment2.waitForTransition()
         fragment1.waitForTransition()
 
@@ -831,7 +832,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .add(R.id.fragmentContainer, fragment1)
             .addToBackStack(null)
             .commit()
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo(1)
         fragment1.waitForTransition()
         val blueSquare1 = findBlue()
@@ -931,7 +932,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             .addToBackStack(null)
             .commit()
 
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo(startOnBackStackChanged + 1)
 
         to.waitForTransition()
@@ -993,7 +994,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
                 .addToBackStack(null)
                 .commit()
         }
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes)
             .isEqualTo(startNumOnBackStackChanged + changesPerOperation)
 
@@ -1027,7 +1028,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
             fragmentManager.popBackStack()
             fragmentManager.popBackStack()
         }
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes)
             .isEqualTo(startNumOnBackStackChanged + changesPerOperation + 1)
 
@@ -1072,7 +1073,7 @@ class FragmentTransitionTest(private val reorderingAllowed: Boolean) {
                 fragmentManager.popBackStack()
             }
         }
-        FragmentTestUtil.waitForExecution(activityRule)
+        activityRule.waitForExecution()
         assertThat(onBackStackChangedTimes).isEqualTo((startOnBackStackChanged + 1))
 
         to.waitForTransition()

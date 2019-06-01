@@ -227,10 +227,10 @@ public final class CarSingleChoiceDialog extends Dialog {
         RadioButtonListItem item = new RadioButtonListItem(getContext());
         item.setTitle(selectionItem.mTitle);
         item.setBody(selectionItem.mBody);
-        item.setShowRadioButtonDivider(false);
+        item.setShowCompoundButtonDivider(false);
         item.addViewBinder(vh -> {
-            vh.getRadioButton().setChecked(mSelectedItem == position);
-            vh.getRadioButton().setOnCheckedChangeListener(
+            vh.getCompoundButton().setChecked(mSelectedItem == position);
+            vh.getCompoundButton().setOnCheckedChangeListener(
                     (buttonView, isChecked) -> {
                         mSelectedItem = position;
                         // Refresh other radio button list items.
@@ -256,7 +256,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @param title The title of the item. This value must be non-empty.
          */
         public Item(@NonNull CharSequence title) {
-            this(title,  /* body= */ null);
+            this(title,  /* body= */ "");
         }
 
 
@@ -266,7 +266,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @param title The title of the item. This value must be non-empty.
          * @param body  The secondary body text of the item.
          */
-        public Item(@NonNull CharSequence title, @Nullable CharSequence body) {
+        public Item(@NonNull CharSequence title, @NonNull CharSequence body) {
             if (TextUtils.isEmpty(title)) {
                 throw new IllegalArgumentException("Title cannot be empty.");
             }

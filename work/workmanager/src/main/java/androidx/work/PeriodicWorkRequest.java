@@ -36,19 +36,10 @@ import java.util.concurrent.TimeUnit;
  * Periodic work has a minimum interval of 15 minutes and it cannot have an initial delay.
  * <p>
  * Periodic work is intended for use cases where you want a fairly consistent delay between
- * consecutive runs, and you are willing to tolerate drift.  For example, periodic work that runs
- * every 24 hours, may exhibit the following drift because of OS battery optimizations:
- *
- * <pre>
- * Iteration |  Execution Time
- * ----------+------------------
- *     1     | Jan 01, 06:00 AM
- *     2     | Jan 02, 06:24 AM
- *     3     | Jan 03, 07:15 AM
- *     4     | Jan 04, 08:00 AM
- *     5     | Jan 05, 08:00 AM
- *     6     | Jan 06, 08:02 AM</pre>
- *
+ * consecutive runs, and you are willing to accept inexactness due to battery optimizations and doze
+ * mode.  Please note that if your periodic work has constraints, it will not execute until the
+ * constraints are met, even if the delay between periods has been met.
+ * <p>
  * If you need to schedule work that happens exactly at a certain time or only during a certain time
  * window, you should consider using {@link OneTimeWorkRequest}s.
  * <p>
@@ -84,7 +75,7 @@ public final class PeriodicWorkRequest extends WorkRequest {
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once every interval period. The
          * {@link PeriodicWorkRequest} is guaranteed to run exactly one time during this interval
-         * (subject to OS battery optimizations, such as doze mode). The {@code intervalMillis} must
+         * (subject to OS battery optimizations, such as doze mode). The repeat interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS}. It
          * may run immediately, at the end of the period, or any time in between so long as the
          * other conditions are satisfied at the time. The run time of the
@@ -106,7 +97,7 @@ public final class PeriodicWorkRequest extends WorkRequest {
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once every interval period. The
          * {@link PeriodicWorkRequest} is guaranteed to run exactly one time during this interval
-         * (subject to OS battery optimizations, such as doze mode). The {@code intervalMillis} must
+         * (subject to OS battery optimizations, such as doze mode). The repeat interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS}. It
          * may run immediately, at the end of the period, or any time in between so long as the
          * other conditions are satisfied at the time. The run time of the
@@ -128,9 +119,9 @@ public final class PeriodicWorkRequest extends WorkRequest {
          * Creates a {@link PeriodicWorkRequest} to run periodically once within the
          * <strong>flex period</strong> of every interval period. See diagram below.  Note that flex
          * intervals are ignored for certain OS versions (in particular, API 23).  The flex period
-         * begins at {@code intervalMillis - flexMillis} to the end of the interval.
-         * {@code intervalMillis} must be greater than or equal to
-         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and {@code flexMillis} must
+         * begins at {@code repeatInterval - flexInterval} to the end of the interval.  The repeat
+         * interval must be greater than or equal to
+         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and the flex interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS}.
          *
          * <p><pre>
@@ -163,9 +154,9 @@ public final class PeriodicWorkRequest extends WorkRequest {
          * Creates a {@link PeriodicWorkRequest} to run periodically once within the
          * <strong>flex period</strong> of every interval period. See diagram below. Note that flex
          * intervals are ignored for certain OS versions (in particular, API 23).  The flex period
-         * begins at {@code intervalMillis - flexMillis} to the end of the interval.
-         * {@code intervalMillis} must be greater than or equal to
-         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and {@code flexMillis} must
+         * begins at {@code repeatInterval - flexInterval} to the end of the interval.  The repeat
+         * interval must be greater than or equal to
+         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and the flex interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS}.
          *
          * <p><pre>

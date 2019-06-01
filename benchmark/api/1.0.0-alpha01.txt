@@ -1,6 +1,10 @@
 // Signature format: 3.0
 package androidx.benchmark {
 
+  public class AndroidBenchmarkRunner extends androidx.test.runner.AndroidJUnitRunner {
+    ctor public AndroidBenchmarkRunner();
+  }
+
   public final class BenchmarkRule implements org.junit.rules.TestRule {
     ctor public BenchmarkRule();
     method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
@@ -19,6 +23,7 @@ package androidx.benchmark {
   public final class BenchmarkState {
     method public boolean keepRunning();
     method public void pauseTiming();
+    method public static void reportData(String className, String testName, long nanos, java.util.List<java.lang.Long> data, @IntRange(from=0) int warmupIterations, @IntRange(from=1) int repeatIterations);
     method public void resumeTiming();
   }
 

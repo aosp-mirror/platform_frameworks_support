@@ -34,8 +34,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -116,9 +116,18 @@ public abstract class FragmentStateAdapter extends
     }
 
     /**
-     * Provide a Fragment associated with the specified position.
+     * Provide a new Fragment associated with the specified position.
+     * <p>
+     * The adapter will be responsible for the Fragment lifecycle:
+     * <ul>
+     *     <li>The Fragment will be used to display an item.</li>
+     *     <li>The Fragment will be destroyed when it gets too far from the viewport, and its state
+     *     will be saved. When the item is close to the viewport again, a new Fragment will be
+     *     requested, and a previously saved state will be used to initialize it.
+     * </ul>
+     * @see ViewPager2#setOffscreenPageLimit
      */
-    public abstract @NonNull Fragment getItem(int position);
+    public abstract @NonNull Fragment createFragment(int position);
 
     @NonNull
     @Override
@@ -211,7 +220,8 @@ public abstract class FragmentStateAdapter extends
     private void ensureFragment(int position) {
         long itemId = getItemId(position);
         if (!mFragments.containsKey(itemId)) {
-            Fragment newFragment = getItem(position);
+            // TODO(133419201): check if a Fragment provided here is a new Fragment
+            Fragment newFragment = createFragment(position);
             newFragment.setInitialSavedState(mSavedStates.get(itemId));
             mFragments.put(itemId, newFragment);
         }
@@ -286,7 +296,7 @@ public abstract class FragmentStateAdapter extends
             if (mFragmentManager.isDestroyed()) {
                 return; // nothing we can do
             }
-            mLifecycle.addObserver(new LifecycleEventObserver() {
+            mLifecycle.addObserver(new GenericLifecycleObserver() {
                 @Override
                 public void onStateChanged(@NonNull LifecycleOwner source,
                         @NonNull Lifecycle.Event event) {
@@ -436,7 +446,7 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public @NonNull Parcelable saveState() {
+    public final @NonNull Parcelable saveState() {
         /** TODO(b/122670461): use custom {@link Parcelable} instead of Bundle to save space */
         Bundle savedState = new Bundle(mFragments.size() + mSavedStates.size());
 
@@ -463,13 +473,17 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public void restoreState(@NonNull Parcelable savedState) {
+    public final void restoreState(@NonNull Parcelable savedState) {
         if (!mSavedStates.isEmpty() || !mFragments.isEmpty()) {
             throw new IllegalStateException(
                     "Expected the adapter to be 'fresh' while restoring state.");
         }
 
         Bundle bundle = (Bundle) savedState;
+        if (bundle.getClassLoader() == null) {
+            /** TODO(b/133752041): pass the class loader from {@link ViewPager2.SavedState } */
+            bundle.setClassLoader(getClass().getClassLoader());
+        }
 
         for (String key : bundle.keySet()) {
             if (isValidKey(key, KEY_PREFIX_FRAGMENT)) {
@@ -509,7 +523,7 @@ public abstract class FragmentStateAdapter extends
             }
         };
 
-        mLifecycle.addObserver(new LifecycleEventObserver() {
+        mLifecycle.addObserver(new GenericLifecycleObserver() {
             @Override
             public void onStateChanged(@NonNull LifecycleOwner source,
                     @NonNull Lifecycle.Event event) {

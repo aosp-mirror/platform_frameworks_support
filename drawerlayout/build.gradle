@@ -1,19 +1,21 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-rc01")
     api(project(":core"))
     api(project(":customview"))
 }
 
 androidx {
     name = "Android Support Library Drawer Layout"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.DRAWERLAYOUT
     mavenGroup = LibraryGroups.DRAWERLAYOUT
     inceptionYear = "2018"
