@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40e4dffc_ed9de62d",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 26,
+        "startChar": 39,
+        "endLine": 26,
+        "endChar": 40
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8c9423_8744f8b9",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "reference",
+      "range": {
+        "startLine": 27,
+        "startChar": 46,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2195f9c_ae9655b2",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "not really ommitted since it is not required. should we say instead\n\"optional if columns are specified in @Junction\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f6d77d_fc02ca0d",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "table ?\nor \"entity or database view\" ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d131b2d_4bd5b175",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 124,
+        "startChar": 33,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd3c98f_c13fa661",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "relation,",
+      "range": {
+        "startLine": 127,
+        "startChar": 38,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f14c15_bc2cfcd4",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "relation,",
+      "range": {
+        "startLine": 138,
+        "startChar": 38,
+        "endLine": 138,
+        "endChar": 46
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "408e2cd5_acf81416",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "an assication\n\nor as a junction since it is the primary name we\u0027ve used? (and replace the one in pharantheseis with associative?)",
+      "range": {
+        "startLine": 145,
+        "startChar": 40,
+        "endLine": 145,
+        "endChar": 41
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf3545d2_9a41ab70",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "does this work properly in kotlin? I\u0027m afraid the Any check might confuse (even though it shouldn\u0027t since this runs in javac). a kotlin test would be nice to be sure.",
+      "range": {
+        "startLine": 509,
+        "startChar": 17,
+        "endLine": 509,
+        "endChar": 73
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57665ce_1b157f9b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "since it is repeated, move to a helper function? (also to cleanup here a bit)",
+      "range": {
+        "startLine": 542,
+        "startChar": 12,
+        "endLine": 549,
+        "endChar": 13
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bcc5d45_e680a9c7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "should only warn if name is inherited.",
+      "range": {
+        "startLine": 553,
+        "startChar": 16,
+        "endLine": 553,
+        "endChar": 38
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e84133_f7ea783a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 561,
+        "startChar": 21,
+        "endLine": 561,
+        "endChar": 37
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63650a90_fbc1e287",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-01T04:05:57Z",
+      "side": 1,
+      "message": "we should also update this message to ask them to either specify the column or add the fkey.",
+      "range": {
+        "startLine": 400,
+        "startChar": 11,
+        "endLine": 403,
+        "endChar": 33
+      },
+      "revId": "de95055a6fc2a9ca89d94d6278b92c61a2396753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
