@@ -17,9 +17,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:minHeight="56dp"
+              android:minHeight="32dp"
               android:paddingLeft="24dp"
               android:paddingRight="24dp"
+              android:paddingBottom="24dp"
               android:orientation="horizontal"
               android:gravity="center_vertical" >
 
@@ -37,6 +38,7 @@
         <TextView android:id="@+id/mr_chooser_route_name"
                   android:layout_width="fill_parent"
                   android:layout_height="32dp"
+                  android:gravity="start"
                   android:singleLine="true"
                   android:ellipsize="marquee"
                   android:textAlignment="viewStart"
@@ -45,6 +47,7 @@
         <TextView android:id="@+id/mr_chooser_route_desc"
                   android:layout_width="fill_parent"
                   android:layout_height="24dp"
+                  android:gravity="start"
                   android:singleLine="true"
                   android:ellipsize="marquee"
                   android:textAlignment="viewStart"
