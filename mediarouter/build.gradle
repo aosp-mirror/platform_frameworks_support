@@ -7,10 +7,17 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (000cf1 Merge "Merge empty history for sparse-5622427-L4650000032245)
     api(project(":media"))
     api(project(":appcompat"))
     api("androidx.palette:palette:1.0.0")
     api(project(":recyclerview"))
+=======
+    api("androidx.media:media:1.1.0-beta01")
+    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation("androidx.palette:palette:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.0.0")
+>>>>>>> BRANCH (7f194a Merge "Merge cherrypicks of [974452] into sparse-5623077-L85)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

@@ -19,9 +19,15 @@ dependencies {
         exclude group: 'androidx.annotation'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
+<<<<<<< HEAD   (000cf1 Merge "Merge empty history for sparse-5622427-L4650000032245)
     api(project(":lifecycle:lifecycle-runtime"), libs.exclude_annotations_transitive)
     api(project(":lifecycle:lifecycle-viewmodel"), libs.exclude_annotations_transitive)
     api(project(":savedstate"))
+=======
+    api("androidx.lifecycle:lifecycle-runtime:2.1.0-beta01")
+    api("androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01")
+    api("androidx.savedstate:savedstate:1.0.0-beta01")
+>>>>>>> BRANCH (7f194a Merge "Merge cherrypicks of [974452] into sparse-5623077-L85)
 
     androidTestImplementation(KOTLIN_STDLIB)
     androidTestImplementation(TEST_EXT_JUNIT)
