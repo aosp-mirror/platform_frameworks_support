@@ -10,7 +10,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":media"))
+    api("androidx.media:media:1.1.0-beta01")
     api(project(":media2:media2-common"))
     api(project(":concurrent-listenablefuture"))
     implementation(project(":concurrent-listenablefuture-callback"))
