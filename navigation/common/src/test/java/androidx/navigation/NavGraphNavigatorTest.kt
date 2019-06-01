@@ -17,7 +17,6 @@
 package androidx.navigation
 
 import androidx.annotation.IdRes
-import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Before
@@ -26,7 +25,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-@SmallTest
 class NavGraphNavigatorTest {
 
     companion object {
@@ -79,14 +77,6 @@ class NavGraphNavigatorTest {
         val graph = createGraphWithDestination(destination)
         assertThat(navGraphNavigator.navigate(graph, null, null, null))
             .isEqualTo(destination)
-    }
-
-    @Test
-    fun popWithEmptyStack() {
-        val success = navGraphNavigator.popBackStack()
-        assertWithMessage("popBackStack should return false on an empty stack")
-            .that(success)
-            .isFalse()
     }
 
     @Test

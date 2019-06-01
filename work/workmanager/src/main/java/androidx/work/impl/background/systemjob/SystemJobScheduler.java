@@ -15,6 +15,8 @@
  */
 package androidx.work.impl.background.systemjob;
 
+import static androidx.work.impl.background.systemjob.SystemJobInfoConverter.EXTRA_WORK_SPEC_ID;
+
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
@@ -22,6 +24,7 @@ import android.os.Build;
 import android.os.PersistableBundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
@@ -34,6 +37,7 @@ import androidx.work.impl.model.SystemIdInfo;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.IdGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,47 +77,37 @@ public class SystemJobScheduler implements Scheduler {
     }
 
     @Override
-    public void schedule(WorkSpec... workSpecs) {
+    public void schedule(@NonNull WorkSpec... workSpecs) {
         WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
 
         for (WorkSpec workSpec : workSpecs) {
             workDatabase.beginTransaction();
             try {
-                // It is possible that this WorkSpec got cancelled/pruned since this isn't part of
-                // the same database transaction as marking it enqueued (for example, if we using
-                // any of the synchronous operations).  For now, handle this gracefully by exiting
-                // the loop.  When we plumb ListenableFutures all the way through, we can remove the
-                // *sync methods and return ListenableFutures, which will block on an operation on
-                // the background task thread so all database operations happen on the same thread.
-                // See b/114705286.
                 WorkSpec currentDbWorkSpec = workDatabase.workSpecDao().getWorkSpec(workSpec.id);
                 if (currentDbWorkSpec == null) {
                     Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it's no longer in the DB");
+
+                    // Marking this transaction as successful, as we don't want this transaction
+                    // to affect transactions for unrelated WorkSpecs.
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 } else if (currentDbWorkSpec.state != WorkInfo.State.ENQUEUED) {
                     Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it is no longer enqueued");
+
+                    // Marking this transaction as successful, as we don't want this transaction
+                    // to affect transactions for unrelated WorkSpecs.
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 }
 
                 SystemIdInfo info = workDatabase.systemIdInfoDao()
                         .getSystemIdInfo(workSpec.id);
-
-                if (info != null) {
-                    JobInfo jobInfo = getPendingJobInfo(mJobScheduler, workSpec.id);
-                    if (jobInfo != null) {
-                        Logger.get().debug(TAG, String.format(
-                                "Skipping scheduling %s because JobScheduler is aware of it "
-                                        + "already.",
-                                workSpec.id));
-                        continue;
-                    }
-                }
 
                 int jobId = info != null ? info.systemId : mIdGenerator.nextJobSchedulerIdWithRange(
                         mWorkManager.getConfiguration().getMinJobSchedulerId(),
@@ -134,13 +128,33 @@ public class SystemJobScheduler implements Scheduler {
                 // we will double-schedule jobs on API 23 and de-dupe them
                 // in SystemJobService as needed.
                 if (Build.VERSION.SDK_INT == 23) {
-                    int nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
-                            mWorkManager.getConfiguration().getMinJobSchedulerId(),
-                            mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                    // Get pending jobIds that might be currently being used.
+                    // This is useful only for API 23, because we double schedule jobs.
+                    List<Integer> jobIds = getPendingJobIds(mJobScheduler, workSpec.id);
 
-                    scheduleInternal(workSpec, nextJobId);
+                    // jobIds can be null if getPendingJobIds() throws an Exception.
+                    // When this happens this will not setup a second job, and hence might delay
+                    // execution, but it's better than crashing the app.
+                    if (jobIds != null) {
+                        // Remove the jobId which has been used from the list of eligible jobIds.
+                        int index = jobIds.indexOf(jobId);
+                        if (index >= 0) {
+                            jobIds.remove(index);
+                        }
+
+                        int nextJobId;
+                        if (!jobIds.isEmpty()) {
+                            // Use the next eligible jobId
+                            nextJobId = jobIds.get(0);
+                        } else {
+                            // Create a new jobId
+                            nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
+                                    mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                                    mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                        }
+                        scheduleInternal(workSpec, nextJobId);
+                    }
                 }
-
                 workDatabase.setTransactionSuccessful();
             } finally {
                 workDatabase.endTransaction();
@@ -168,8 +182,8 @@ public class SystemJobScheduler implements Scheduler {
             List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
             if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
                 for (JobInfo currentJobInfo : allJobInfos) {
-                    if (currentJobInfo.getExtras().getString(
-                            SystemJobInfoConverter.EXTRA_WORK_SPEC_ID) != null) {
+                    PersistableBundle extras = currentJobInfo.getExtras();
+                    if (extras != null && extras.getString(EXTRA_WORK_SPEC_ID) != null) {
                         ++numWorkManagerJobs;
                     }
                 }
@@ -198,9 +212,8 @@ public class SystemJobScheduler implements Scheduler {
         List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
         if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
             for (JobInfo jobInfo : allJobInfos) {
-                if (workSpecId.equals(
-                        jobInfo.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
-
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null && workSpecId.equals(extras.getString(EXTRA_WORK_SPEC_ID))) {
                     // Its safe to call this method twice.
                     mWorkManager.getWorkDatabase()
                             .systemIdInfoDao()
@@ -231,7 +244,7 @@ public class SystemJobScheduler implements Scheduler {
                 for (JobInfo jobInfo : jobInfos) {
                     PersistableBundle extras = jobInfo.getExtras();
                     // This is a job scheduled by WorkManager.
-                    if (extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (extras != null && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
                         jobScheduler.cancel(jobInfo.getId());
                     }
                 }
@@ -239,24 +252,37 @@ public class SystemJobScheduler implements Scheduler {
         }
     }
 
-    private static JobInfo getPendingJobInfo(
+    /**
+     * Always wrap a call to getPendingJobs() with a try catch as there are platform bugs with
+     * several OEMs in API 23, which cause this method to throw Exceptions.
+     * For reference: b/133556574, b/133556809, b/133556535
+     */
+    @Nullable
+    private static List<Integer> getPendingJobIds(
             @NonNull JobScheduler jobScheduler,
             @NonNull String workSpecId) {
 
-        List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
-        // Apparently this CAN be null on API 23?
-        if (jobInfos != null) {
-            for (JobInfo jobInfo : jobInfos) {
-                PersistableBundle extras = jobInfo.getExtras();
-                if (extras != null
-                        && extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
-                    if (workSpecId.equals(
-                            extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
-                        return jobInfo;
+        try {
+            // We have atmost 2 jobs per WorkSpec
+            List<Integer> pendingJobs = new ArrayList<>(2);
+            List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+            // Apparently this CAN be null on API 23?
+            if (jobInfos != null) {
+                for (JobInfo jobInfo : jobInfos) {
+                    PersistableBundle extras = jobInfo.getExtras();
+                    if (extras != null
+                            && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
+                        if (workSpecId.equals(
+                                extras.getString(EXTRA_WORK_SPEC_ID))) {
+                            pendingJobs.add(jobInfo.getId());
+                        }
                     }
                 }
             }
+            return pendingJobs;
+        } catch (Throwable throwable) {
+            Logger.get().error(TAG, "Ignoring an exception with getPendingJobIds", throwable);
+            return null;
         }
-        return null;
     }
 }

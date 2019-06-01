@@ -87,6 +87,8 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
             SUPPRESS_ERROR_PAGE,
+            MULTI_PROCESS_QUERY,
+            FORCE_DARK,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -392,6 +394,27 @@ public class WebViewFeature {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
 
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}
+     *
+     * TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String MULTI_PROCESS_QUERY = "MULTI_PROCESS_QUERY";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebViewCompat#setForceDark(WebSettings, int)} and
+     * {@link WebViewCompat#getForceDark(WebSettings)}.
+     *
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String FORCE_DARK = "FORCE_DARK";
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

@@ -20,7 +20,7 @@ import androidx.build.gradle.isRoot
 import org.gradle.api.Project
 import java.io.File
 
-fun isRunningOnBuildServer() = System.getenv("DIST_DIR") != null && System.getenv("OUT_DIR") != null
+fun isRunningOnBuildServer() = System.getenv("DIST_DIR") != null
 
 /**
  * @return build id string for current build
@@ -40,7 +40,8 @@ fun Project.getDistributionDirectory(): File {
     return if (System.getenv("DIST_DIR") != null) {
         File(System.getenv("DIST_DIR"))
     } else {
-        File(getRootDirectory(this), "../../out/dist")
+        val subdir = System.getProperty("DIST_SUBDIR") ?: ""
+        File(getRootDirectory(this), "../../out/dist$subdir")
     }
 }
 
@@ -59,4 +60,24 @@ fun Project.getHostTestCoverageDirectory(): File =
 private fun getRootDirectory(project: Project): File {
     val actualRootProject = if (project.isRoot) project else project.rootProject
     return actualRootProject.extensions.extraProperties.get("supportRootFolder") as File
+}
+
+/**
+ * Whether the build should force all versions to be snapshots.
+ */
+fun isSnapshotBuild() = System.getenv("SNAPSHOT") != null
+
+/**
+ * Directory in a maven format to put all the publishing libraries.
+ */
+fun Project.getRepositoryDirectory(): File {
+    val actualRootProject = if (project.isRoot) project else project.rootProject
+    val directory = if (isSnapshotBuild()) {
+        // For snapshot builds we put artifacts directly where downstream users can find them.
+        File(actualRootProject.getDistributionDirectory(), "repository")
+    } else {
+        File(actualRootProject.buildDir, "support_repo")
+    }
+    directory.mkdirs()
+    return directory
 }

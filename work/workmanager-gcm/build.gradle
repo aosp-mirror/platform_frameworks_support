@@ -20,9 +20,11 @@ import androidx.build.LibraryVersions
 import androidx.build.AndroidXExtension
 
 import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -32,6 +34,9 @@ android {
             // Breaks Kotlin compiler
             testCoverageEnabled = false
         }
+    }
+    lintOptions {
+        fatal("UnknownNullness")
     }
 }
 
@@ -51,9 +56,9 @@ dependencies {
     }
 
     androidTestImplementation(project(":work:work-runtime-ktx"))
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
@@ -62,7 +67,7 @@ dependencies {
 
 androidx {
     name = "Android WorkManager GCMNetworkManager Support"
-    publish = false
+    publish = Publish.NONE
     mavenVersion = LibraryVersions.WORKMANAGER
     mavenGroup = LibraryGroups.WORKMANAGER
     inceptionYear = "2019"
