@@ -39,6 +39,11 @@ package androidx.ui.layout {
     property public final androidx.ui.layout.Alignment TopRight;
   }
 
+  public final class AspectRatioKt {
+    ctor public AspectRatioKt();
+    method public static void AspectRatio(float aspectRatio, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+  }
+
   public final class ConstrainedBoxKt {
     ctor public ConstrainedBoxKt();
     method public static void ConstrainedBox(androidx.ui.layout.DpConstraints constraints, kotlin.jvm.functions.Function0<kotlin.Unit> children);
@@ -121,8 +126,8 @@ package androidx.ui.layout {
   }
 
   public final class FlexChildren {
-    method public void expanded(@FloatRange(0.0) float flex, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public void flexible(@FloatRange(0.0) float flex, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public void expanded(@FloatRange(from=0.0) float flex, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public void flexible(@FloatRange(from=0.0) float flex, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public void inflexible(kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
