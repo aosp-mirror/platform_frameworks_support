@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "935f7e03_90756054",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "It\u0027s not a breaking change, since pagedlist isn\u0027t (functionally) an open class.\n\nMaking .size not work in kotlin is a breaking change, but it\u0027s just not tracked by metalava (can you please file a bug for that?)",
+      "parentUuid": "881b7e69_3ac8d6c7",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b371211_a122d204",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "Nevermind I got the good result that we want to happen :D",
       "parentUuid": "c08b690b_aaabcc19",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f800b183_804b8a7d",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "Devs shouldn\u0027t need to implement, since we can implement it in all subclasses.",
+      "parentUuid": "df18ffaf_53a6a485",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -266,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "ea1d70c3_64581e06",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "Changing? It\u0027s only used internal to this module, seems internal is the correct fit, but @hide is fine if needed (e.g. because it\u0027s parameter to public PagedList in hidden constructor)",
+      "parentUuid": "2167f00f_b5566a93",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27b4db79_5bba8442",
         "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -295,6 +349,24 @@
       "side": 1,
       "message": "Alright - I finally figured out why; So it turns out this block was added for initExecutor but there\u0027s something stripping it out after.\n\nSimilar things are happening for the empty blocks below.\n\nChanging this to LIBRARY_GROUP works around the issue - I think because it is actually supposed to be LIBRARY_GROUP and not just LIBRARY (used in rxjava artifact). But I think the desired behaviour is probably not intended to be silently delete, so I\u0027ll leave the bug open for now.\n\nhttps://b.corp.google.com/issues/134168469",
       "parentUuid": "27b4db79_5bba8442",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a23b0c50_2e09581d",
+        "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "Why is it used in the RX java artifact? That seems strange, though it might be for reasons of pagedlist construction, in a way we can fix in the future?",
+      "parentUuid": "18f568b3_67e1c44b",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -1735,6 +1807,30 @@
     },
     {
       "key": {
+        "uuid": "36e1a4f9_a5cf34f6",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "I think all generics are non-null in the library. We document that way, and assume that in code, but couldn\u0027t enforce in java.\n\nIn general, if a test had to be changed (kotlin or not) to support a change in the module itself, that\u0027s probably an api breakage we should fix",
+      "parentUuid": "345988e1_490ecaee",
+      "range": {
+        "startLine": 392,
+        "startChar": 18,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86f63a7e_9d09a023",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
         "patchSetId": 17
@@ -1829,6 +1925,30 @@
     },
     {
       "key": {
+        "uuid": "5e84938c_57ad0b2d",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "That seems like a really undesirable api breakage. Can we fix somehow?",
+      "parentUuid": "1997cb3e_fe922f9e",
+      "range": {
+        "startLine": 461,
+        "startChar": 29,
+        "endLine": 461,
+        "endChar": 37
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ee1b013_ccb5c414",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PagerTest.kt",
         "patchSetId": 17
@@ -1899,6 +2019,24 @@
     },
     {
       "key": {
+        "uuid": "61738291_087b7eaa",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/TiledDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "? Not sure what you mean by `only true if you remove the first \"\"`\n\nAgree \u0027a\u0027..\u0027z\u0027.toList is better, but as written, this changes behavior",
+      "parentUuid": "e70bcf30_d4603c69",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0c5d46_5fef9516",
         "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
         "patchSetId": 17
@@ -1958,6 +2096,30 @@
       "side": 1,
       "message": "Actually - I think we might need to place `: Any` in quite a few places after all.\n\nRather than a breaking change - I think it just enforces the API unless we mean for Keys to be nullable.\n\nThe T! is definitely from @JvmField as it should be well known what the nullability is in kotlin (I think), but the upper bound for generics is Any? so if we don\u0027t want that propagated to all of our API files I think we\u0027ll need to set our generics to be specifically bounded by : Any, although it might make migration a bit harder for some.",
       "parentUuid": "8ab3a082_a485671d",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51a8bf8_99eabad8",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-03T14:32:55Z",
+      "side": 1,
+      "message": "Are we forcing devs to change their kotlin code? If so, that\u0027s a source compatibility breakage and should only be done if we have good reason.\n\nNote - any time you see things like this, where we have to change kotlin tests, we should file a bug to metalava. It\u0027s the tool for preventing this sort of minor api regression",
+      "parentUuid": "a11d1d17_65ec3df1",
       "range": {
         "startLine": 62,
         "startChar": 18,
