@@ -18,7 +18,6 @@ package androidx.core.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.os.Build;
 import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
@@ -32,12 +31,6 @@ import androidx.annotation.RestrictTo;
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
 public interface AutoSizeableTextView {
-    /**
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    boolean PLATFORM_SUPPORTS_AUTOSIZE = Build.VERSION.SDK_INT >= 27;
-
     /**
      * Specify whether this widget should automatically scale the text to try to perfectly fit
      * within the layout bounds by using the default auto-size configuration.
@@ -53,7 +46,7 @@ public interface AutoSizeableTextView {
     /**
      * Specify whether this widget should automatically scale the text to try to perfectly fit
      * within the layout bounds. If all the configuration params are valid the type of auto-size is
-     * set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
+     * set to {@link android.widget.TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
      * @param autoSizeMinTextSize the minimum text size available for auto-size
      * @param autoSizeMaxTextSize the maximum text size available for auto-size
@@ -81,7 +74,8 @@ public interface AutoSizeableTextView {
     /**
      * Specify whether this widget should automatically scale the text to try to perfectly fit
      * within the layout bounds. If at least one value from the <code>presetSizes</code> is valid
-     * then the type of auto-size is set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
+     * then the type of auto-size is set to
+     * {@link android.widget.TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
      * @param presetSizes an {@code int} array of sizes in pixels
      * @param unit the desired dimension unit for the preset sizes above. See {@link TypedValue} for
@@ -102,8 +96,8 @@ public interface AutoSizeableTextView {
      * Returns the type of auto-size set for this widget.
      *
      * @return an {@code int} corresponding to one of the auto-size types:
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
+     *         {@link android.widget.TextView#AUTO_SIZE_TEXT_TYPE_NONE} or
+     *         {@link android.widget.TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      *
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)

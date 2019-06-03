@@ -80,18 +80,24 @@ public final class TextViewCompat {
 
     /**
      * The TextView does not auto-size text (default).
+     *
+     * @deprecated Use the platform constant {@link TextView#AUTO_SIZE_TEXT_TYPE_NONE}.
      */
+    @Deprecated
     public static final int AUTO_SIZE_TEXT_TYPE_NONE = TextView.AUTO_SIZE_TEXT_TYPE_NONE;
 
     /**
      * The TextView scales text size both horizontally and vertically to fit within the
      * container.
+     *
+     * @deprecated Use the platform constant {@link TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      */
+    @Deprecated
     public static final int AUTO_SIZE_TEXT_TYPE_UNIFORM = TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
     /** @hide */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    @IntDef({AUTO_SIZE_TEXT_TYPE_NONE, AUTO_SIZE_TEXT_TYPE_UNIFORM})
+    @IntDef({TextView.AUTO_SIZE_TEXT_TYPE_NONE, TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface AutoSizeTextType {}
 
@@ -315,14 +321,13 @@ public final class TextViewCompat {
      * within the layout bounds by using the default auto-size configuration.
      *
      * @param autoSizeTextType the type of auto-size. Must be one of
-     *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
-     *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
+     *        {@link TextView#AUTO_SIZE_TEXT_TYPE_NONE} or
+     *        {@link TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      *
      * @attr name android:autoSizeTextType
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeWithDefaults(@NonNull TextView textView,
-            int autoSizeTextType) {
+            @TextViewCompat.AutoSizeTextType int autoSizeTextType) {
         if (Build.VERSION.SDK_INT >= 27) {
             textView.setAutoSizeTextTypeWithDefaults(autoSizeTextType);
         } else if (textView instanceof AutoSizeableTextView) {
@@ -333,7 +338,7 @@ public final class TextViewCompat {
     /**
      * Specify whether this widget should automatically scale the text to try to perfectly fit
      * within the layout bounds. If all the configuration params are valid the type of auto-size is
-     * set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
+     * set to {@link TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
      * @param autoSizeMinTextSize the minimum text size available for auto-size
      * @param autoSizeMaxTextSize the maximum text size available for auto-size
@@ -343,15 +348,12 @@ public final class TextViewCompat {
      * @param unit the desired dimension unit for all sizes above. See {@link TypedValue} for the
      *             possible dimension units
      *
-     * @throws IllegalArgumentException if any of the configuration params are invalid.
-     *
      * @attr name android:autoSizeTextType
      * @attr name android:autoSizeTextType
      * @attr name android:autoSizeMinTextSize
      * @attr name android:autoSizeMaxTextSize
      * @attr name android:autoSizeStepGranularity
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeUniformWithConfiguration(
             @NonNull TextView textView,
             int autoSizeMinTextSize,
@@ -370,7 +372,7 @@ public final class TextViewCompat {
     /**
      * Specify whether this widget should automatically scale the text to try to perfectly fit
      * within the layout bounds. If at least one value from the <code>presetSizes</code> is valid
-     * then the type of auto-size is set to {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
+     * then the type of auto-size is set to {@link TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}.
      *
      * @param presetSizes an {@code int} array of sizes in pixels
      * @param unit the desired dimension unit for the preset sizes above. See {@link TypedValue} for
@@ -381,7 +383,6 @@ public final class TextViewCompat {
      * @attr name android:autoSizeTextType
      * @attr name android:autoSizePresetSizes
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull TextView textView,
             @NonNull int[] presetSizes, int unit) throws IllegalArgumentException {
         if (Build.VERSION.SDK_INT >= 27) {
@@ -396,12 +397,12 @@ public final class TextViewCompat {
      * Returns the type of auto-size set for this widget.
      *
      * @return an {@code int} corresponding to one of the auto-size types:
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
-     *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
+     *         {@link TextView#AUTO_SIZE_TEXT_TYPE_NONE} or
+     *         {@link TextView#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      *
      * @attr name android:autoSizeTextType
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
+    @TextViewCompat.AutoSizeTextType
     public static int getAutoSizeTextType(@NonNull TextView textView) {
         if (Build.VERSION.SDK_INT >= 27) {
             return textView.getAutoSizeTextType();
@@ -409,7 +410,7 @@ public final class TextViewCompat {
         if (textView instanceof AutoSizeableTextView) {
             return ((AutoSizeableTextView) textView).getAutoSizeTextType();
         }
-        return AUTO_SIZE_TEXT_TYPE_NONE;
+        return TextView.AUTO_SIZE_TEXT_TYPE_NONE;
     }
 
     /**
@@ -417,7 +418,6 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeStepGranularity
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeStepGranularity(@NonNull TextView textView) {
         if (Build.VERSION.SDK_INT >= 27) {
             return textView.getAutoSizeStepGranularity();
@@ -434,7 +434,6 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeMinTextSize
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeMinTextSize(@NonNull TextView textView) {
         if (Build.VERSION.SDK_INT >= 27) {
             return textView.getAutoSizeMinTextSize();
@@ -451,7 +450,6 @@ public final class TextViewCompat {
      *
      * @attr name android:autoSizeMaxTextSize
      */
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int getAutoSizeMaxTextSize(@NonNull TextView textView) {
         if (Build.VERSION.SDK_INT >= 27) {
             return textView.getAutoSizeMaxTextSize();
@@ -468,7 +466,6 @@ public final class TextViewCompat {
      * @attr name android:autoSizePresetSizes
      */
     @NonNull
-    @SuppressWarnings("RedundantCast") // Intentionally invoking interface method.
     public static int[] getAutoSizeTextAvailableSizes(@NonNull TextView textView) {
         if (Build.VERSION.SDK_INT >= 27) {
             return textView.getAutoSizeTextAvailableSizes();
