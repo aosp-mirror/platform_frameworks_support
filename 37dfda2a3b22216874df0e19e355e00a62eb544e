@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f03ed82_25faba34",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-03T11:44:02Z",
+      "side": 1,
+      "message": "This looks worrisome. Are there any usecases where you\u0027d want to have both? Maybe we should expose instead something like: \n\nPrePopulatedDBOpenHelper.createFromAsset(..., delegate)?\n\nAs well I think it is better to separate asset and file codepathes, it looks cleaner than having bool param in this case. Check if from reader point of view: createFromFile(\"path\", true) what does this \"true\" mean, a reader has to go and read the createFromFile docs. In \n\"createFromAsset\" case, there is no mysterious bool and it is obvious what is going on.",
+      "range": {
+        "startLine": 563,
+        "startChar": 10,
+        "endLine": 564,
+        "endChar": 60
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
