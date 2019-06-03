@@ -26,13 +26,30 @@ import java.lang.annotation.RetentionPolicy;
  * database.
  * <p>
  * All of the parameters of the Update method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * or collections/array of it. However if the target entity is specified via {@link #entity()} then
+ * the method can contain a single parameter of a Pojo class or collection of a class that
+ * will be interpreted as a partial entity.
  *
  * @see Insert
  * @see Delete
  */
 @Retention(RetentionPolicy.CLASS)
 public @interface Update {
+
+    /**
+     * The target entity of the update method.
+     * <p>
+     * When this is declared the update method must only contain a single parameter. The Pojo class
+     * of the parameter must contain a subset of the fields of the target entity along with the its
+     * primary keys.
+     * <p>
+     * By default the target entity is interpreted by the methods parameter.
+     *
+     * @return the target entity of the update method or none if the method should use the
+     *         parameter type entities.
+     */
+    Class entity() default Object.class;
+
     /**
      * What to do if a conflict happens.
      * <p>
