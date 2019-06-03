@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "436af0d5_165dd1ae",
+        "filename": "media2/session/version-compat-tests/previous/client/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-03T16:26:56Z",
+      "side": 1,
+      "message": "I see. Could you file a bug for media module?\n\nQ) media2-session 1.0.0-beta02 is not currently released in public. Shouldn\u0027t it be merged after the module is publicly available?",
+      "parentUuid": "b8376d07_2904ca3c",
+      "range": {
+        "startLine": 25,
+        "startChar": 62,
+        "endLine": 25,
+        "endChar": 74
+      },
+      "revId": "5da784cc7860ce5401724345b4c157a2a0b57917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6726bd36_9568b6c9",
         "filename": "media2/session/version-compat-tests/runtest.sh",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I think that is a nice suggestion. Could you file a bug for it?",
       "parentUuid": "6726bd36_9568b6c9",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "5da784cc7860ce5401724345b4c157a2a0b57917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6001a808_37131d94",
+        "filename": "media2/session/version-compat-tests/runtest.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-03T16:26:56Z",
+      "side": 1,
+      "message": "b/134391884",
+      "parentUuid": "f1b09fe5_6c7f93db",
       "range": {
         "startLine": 35,
         "startChar": 15,
