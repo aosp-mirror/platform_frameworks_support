@@ -69,6 +69,30 @@
       "revId": "6700418f5deb6d941e392031b1f3bba666fcdfd1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d4ff25_ff8dda4c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-03T06:12:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7847dfd5_30e2a8a0",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 22
+      },
+      "revId": "6700418f5deb6d941e392031b1f3bba666fcdfd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
