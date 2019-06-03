@@ -824,7 +824,11 @@ public final class MediaControllerCompat {
         /**
          * @hide
          */
+<<<<<<< HEAD   (4ab8d3 Merge "Merge empty history for sparse-5623077-L8570000032295)
         @RestrictTo(LIBRARY)
+=======
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (64e127 Merge "Merge cherrypicks of [975605, 975606] into sparse-562)
         public IMediaControllerCallback getIControllerCallback() {
             return mIControllerCallback;
         }
