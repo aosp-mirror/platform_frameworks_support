@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01a524a8_5b086789",
+        "filename": "browser/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-03T15:48:55Z",
+      "side": 1,
+      "message": "After removing a bunch of code, this was no longer needed.",
+      "parentUuid": "4b91bd96_299e1009",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 56
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05469bdc_ddf86299",
         "filename": "browser/src/androidTest/res/drawable/splash.xml",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9dde7a_6ad65467",
+        "filename": "browser/src/androidTest/res/drawable/splash.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-03T15:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05469bdc_ddf86299",
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "447b1a22_e8e3dc1b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-03T15:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d46b974_4426f08e",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bac1956f_92a74509",
         "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityService.java",
         "patchSetId": 6
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "2eee4636_85ba84cb",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-03T15:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bac1956f_92a74509",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 43
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "761ff08d_8aab22ba",
         "filename": "browser/src/main/java/androidx/browser/trusted/TwaProviderPicker.java",
         "patchSetId": 6
@@ -108,6 +198,30 @@
       "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5386b23_fd09c8c4",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TwaProviderPicker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-03T15:48:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "761ff08d_8aab22ba",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "6fc33a34c9e9bc57fff0029b90ab4b16fa21010e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
