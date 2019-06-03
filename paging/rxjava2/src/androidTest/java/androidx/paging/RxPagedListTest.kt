@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,9 @@ class RxPagedListTest {
 
     @Test
     fun observable_config() {
-        val observable = dataSourceFactory.toObservable(config)
+        val observable = dataSourceFactory.toObservable(
+            config
+        )
         val first = observable.blockingFirst()
         assertNotNull(first)
         assertEquals(config, first.config)
@@ -50,7 +52,9 @@ class RxPagedListTest {
 
     @Test
     fun flowable_config() {
-        val flowable = dataSourceFactory.toFlowable(config)
+        val flowable = dataSourceFactory.toFlowable(
+            config
+        )
         val first = flowable.blockingFirst()
         assertNotNull(first)
         assertEquals(config, first.config)
