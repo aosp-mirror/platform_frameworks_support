@@ -22,6 +22,29 @@
       "revId": "bcd06f1b7bf599c2b088b1d74a59d39b01d20936",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c19d838f_302e3560",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-03T12:10:57Z",
+      "side": 1,
+      "message": "nit: is this required?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "bcd06f1b7bf599c2b088b1d74a59d39b01d20936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
