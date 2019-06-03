@@ -118,6 +118,30 @@
       "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732355a7_848e963a",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-06-03T21:44:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f356107_f5fe547a",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
