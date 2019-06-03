@@ -21,8 +21,10 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.solver.CodeGenScope
-import androidx.room.vo.Entity
 import androidx.room.vo.FieldWithIndex
+import androidx.room.vo.Fields
+import androidx.room.vo.Pojo
+import androidx.room.vo.ShortcutEntity
 import androidx.room.vo.columnNames
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.MethodSpec
@@ -32,19 +34,31 @@ import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
 import javax.lang.model.element.Modifier.PUBLIC
 
-class EntityDeletionAdapterWriter(val entity: Entity) {
+class EntityDeletionAdapterWriter private constructor(
+    val tableName: String,
+    val pojo: Pojo,
+    val primaryKeyFields: Fields
+) {
+    companion object {
+        fun create(entity: ShortcutEntity) =
+            EntityDeletionAdapterWriter(
+                tableName = entity.tableName,
+                pojo = entity.pojo,
+                primaryKeyFields = entity.primaryKey.fields)
+    }
+
     fun createAnonymous(classWriter: ClassWriter, dbParam: String): TypeSpec {
         @Suppress("RemoveSingleExpressionStringTemplate")
         return TypeSpec.anonymousClassBuilder("$L", dbParam).apply {
             superclass(ParameterizedTypeName.get(RoomTypeNames.DELETE_OR_UPDATE_ADAPTER,
-                    entity.typeName)
+                pojo.typeName)
             )
             addMethod(MethodSpec.methodBuilder("createQuery").apply {
                 addAnnotation(Override::class.java)
                 returns(ClassName.get("java.lang", "String"))
                 addModifiers(PUBLIC)
-                val query = "DELETE FROM `${entity.tableName}` WHERE " +
-                        entity.primaryKey.columnNames.joinToString(" AND ") { "`$it` = ?" }
+                val query = "DELETE FROM `$tableName` WHERE " +
+                        primaryKeyFields.columnNames.joinToString(" AND ") { "`$it` = ?" }
                 addStatement("return $S", query)
             }.build())
             addMethod(MethodSpec.methodBuilder("bind").apply {
@@ -54,10 +68,10 @@ class EntityDeletionAdapterWriter(val entity: Entity) {
                 addParameter(ParameterSpec.builder(SupportDbTypeNames.SQLITE_STMT,
                         stmtParam).build())
                 val valueParam = "value"
-                addParameter(ParameterSpec.builder(entity.typeName, valueParam).build())
+                addParameter(ParameterSpec.builder(pojo.typeName, valueParam).build())
                 returns(TypeName.VOID)
                 addModifiers(PUBLIC)
-                val mapped = FieldWithIndex.byOrder(entity.primaryKey.fields)
+                val mapped = FieldWithIndex.byOrder(primaryKeyFields)
                 FieldReadWriteWriter.bindToStatement(ownerVar = valueParam,
                         stmtParamVar = stmtParam,
                         fieldsWithIndices = mapped,

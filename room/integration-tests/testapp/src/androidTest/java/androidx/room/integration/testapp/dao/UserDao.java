@@ -20,6 +20,7 @@ import android.database.Cursor;
 
 import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
+import androidx.room.AsEntity;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -34,6 +35,7 @@ import androidx.room.integration.testapp.vo.Day;
 import androidx.room.integration.testapp.vo.NameAndLastName;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserSummary;
+import androidx.room.integration.testapp.vo.Username;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -94,6 +96,9 @@ public abstract class UserDao {
     public abstract int delete(User user);
 
     @Delete
+    public abstract int deleteViaUsername(@AsEntity(User.class) Username username);
+
+    @Delete
     public abstract int deleteAll(User[] users);
 
     @Query("delete from user")
@@ -101,6 +106,9 @@ public abstract class UserDao {
 
     @Update
     public abstract int update(User user);
+
+    @Update
+    public abstract int updateUsername(@AsEntity(User.class) Username username);
 
     @Update
     public abstract Completable updateCompletable(User user);
