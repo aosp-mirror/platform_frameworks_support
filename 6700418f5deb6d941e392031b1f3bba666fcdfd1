@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b61e189e_82e79abb",
+        "filename": "room/common/src/main/java/androidx/room/ColumnInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-03T05:29:03Z",
+      "side": 1,
+      "message": "Done\n\nAdded a migration test for that, too.",
+      "parentUuid": "5a71721f_c98d1911",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 23
+      },
+      "revId": "6700418f5deb6d941e392031b1f3bba666fcdfd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7847dfd5_30e2a8a0",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 3
