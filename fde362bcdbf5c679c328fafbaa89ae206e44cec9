@@ -22,6 +22,29 @@
       "revId": "fde362bcdbf5c679c328fafbaa89ae206e44cec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51854685_8960660c",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/ScrollerPerformance.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-03T16:40:00Z",
+      "side": 1,
+      "message": "Wait a sec. How is it possible that your test does not quit right after you set the runnable here? I can\u0027t see any synchronization at the end to wait for the benchmark to finish.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 10
+      },
+      "revId": "fde362bcdbf5c679c328fafbaa89ae206e44cec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
