@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06d15082_ba8763c6",
+        "filename": "core/core/src/main/java/androidx/core/net/UriCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-03T17:56:54Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "6c0b54766400e62f9da84b79cd6994c380fee302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
