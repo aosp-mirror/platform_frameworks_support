@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "523a412c_7e819e17",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceSurfaceManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-03T18:39:40Z",
+      "side": 1,
+      "message": "It would be good to avoid encoding specific use cases into the interface for the CameraDeviceSurfaceManager. Maybe you could break it up into two APIs:\n\n/** Checks whether the use case requires a corrected aspect ratio due to device constraints. */\nboolean requiresCorrectedAspectRatio(UseCase useCase);\n\n\n/** Returns the corrected aspect ratio for the given use case or {@code null} if no correction is needed. */\n@Nullable\nRational getCorrectedAspectRatio(UseCase useCase);\n\nAlternatively, you could just use the second API and just check for null, but with two methods it is a little more explicit what is happening in code.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 54
+      },
+      "revId": "dfd016d5a7b0a14b179345afdfaebeffb2e0ba4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88422ff4_fe0cdcc3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-03T18:39:40Z",
+      "side": 1,
+      "message": "Does this need to be called twice? Is it sufficient to just call it once at the end of the method?",
+      "range": {
+        "startLine": 342,
+        "startChar": 8,
+        "endLine": 342,
+        "endChar": 49
+      },
+      "revId": "dfd016d5a7b0a14b179345afdfaebeffb2e0ba4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
