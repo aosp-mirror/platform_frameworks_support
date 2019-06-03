@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "37d9209e_303c740e",
+        "filename": "core/src/main/java/androidx/core/provider/FontsContractCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-03T18:27:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "73e698b7_1920b164",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 208,
+        "endChar": 45
+      },
+      "revId": "b0ac23281685babfc7710f133c13288091ab5474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e58dbe7_b22609c2",
         "filename": "core/src/main/java/androidx/core/provider/FontsContractCompat.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "b0ac23281685babfc7710f133c13288091ab5474",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e72342_755fbe86",
+        "filename": "core/src/main/java/androidx/core/provider/FontsContractCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-03T18:27:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1e58dbe7_b22609c2",
+      "range": {
+        "startLine": 362,
+        "startChar": 2,
+        "endLine": 372,
+        "endChar": 9
+      },
+      "revId": "b0ac23281685babfc7710f133c13288091ab5474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
