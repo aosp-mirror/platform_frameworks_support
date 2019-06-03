@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b54a7fb_6681be27",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-03T20:57:35Z",
+      "side": 1,
+      "message": "We could just use an intermediate Stack if we wanted this, right?\n\nI thought you were going to make a measurable that wraps other measurables and does the stack-like logic on the children...",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 3
+      },
+      "revId": "8f14310f96e380f07564273721909ad8343c163d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
