@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c21c89c6_a652ee0f",
+        "filename": "media2/session/version-compat-tests/previous/client/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-03T16:36:22Z",
+      "side": 1,
+      "message": "1) Filed b/134391680\n2) We may need to merge this after Wednesday when the beta02 is released.",
+      "parentUuid": "436af0d5_165dd1ae",
+      "range": {
+        "startLine": 25,
+        "startChar": 62,
+        "endLine": 25,
+        "endChar": 74
+      },
+      "revId": "5da784cc7860ce5401724345b4c157a2a0b57917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6726bd36_9568b6c9",
         "filename": "media2/session/version-compat-tests/runtest.sh",
         "patchSetId": 1
