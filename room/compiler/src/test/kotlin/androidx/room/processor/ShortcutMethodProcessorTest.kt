@@ -18,6 +18,8 @@ package androidx.room.processor
 
 import COMMON
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Update
 import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.GuavaUtilConcurrentTypeNames
 import androidx.room.ext.RxJava2TypeNames
@@ -39,8 +41,10 @@ import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
+import toJFO
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
+import javax.tools.JavaFileObject
 import kotlin.reflect.KClass
 
 /**
@@ -59,6 +63,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 """
         const val DAO_SUFFIX = "}"
         val USER_TYPE_NAME: TypeName = COMMON.USER_TYPE_NAME
+        val USERNAME_TYPE_NAME: TypeName = ClassName.get("foo.bar", "Username")
         val BOOK_TYPE_NAME: TypeName = ClassName.get("foo.bar", "Book")
     }
 
@@ -89,7 +94,8 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(param.type.typeName(), `is`(USER_TYPE_NAME))
             assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["user"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["user"]?.isPartialEntity, `is`(false))
+            assertThat(shortcut.entities["user"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -125,8 +131,8 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 assertThat(it.entityType?.typeName(), `is`(USER_TYPE_NAME))
             }
             assertThat(shortcut.entities.size, `is`(2))
-            assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-            assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(shortcut.parameters.map { it.name },
                     `is`(listOf("u1", "u2")))
         }.compilesWithoutError()
@@ -155,7 +161,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                                 ClassName.get("java.util", "List"), USER_TYPE_NAME) as TypeName))
                 assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
                 assertThat(shortcut.entities.size, `is`(1))
-                assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+                assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             }.compilesWithoutError()
         }
     }
@@ -173,7 +179,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(param.type.typeName(), `is`(
                     ArrayTypeName.of(COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -193,7 +199,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                             COMMON.USER_TYPE_NAME
                     ) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -211,7 +217,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                     ParameterizedTypeName.get(ClassName.get("java.lang", "Iterable"),
                             COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -230,7 +236,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                     ParameterizedTypeName.get(ClassName.get("foo.bar", "MyClass.MyList"),
                             CommonTypeNames.STRING, COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -257,8 +263,8 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                         `is`("foo.bar.Book"))
                 assertThat(shortcut.parameters.map { it.name }, `is`(listOf("u1", "b1")))
                 assertThat(shortcut.entities.size, `is`(2))
-                assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-                assertThat(shortcut.entities["b1"]?.typeName, `is`(BOOK_TYPE_NAME))
+                assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+                assertThat(shortcut.entities["b1"]?.pojo?.typeName, `is`(BOOK_TYPE_NAME))
             }.compilesWithoutError()
         }
     }
@@ -288,6 +294,174 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
         }
     }
 
+    @Test
+    fun asEntity() {
+        val usernameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Username {
+                int uid;
+                String name;
+            }
+        """.toJFO("foo.bar.Username")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) Username username);
+                """,
+            additionalJFOs = listOf(usernameJfo)) { shortcut, _ ->
+            assertThat(shortcut.name, `is`("foo"))
+            assertThat(shortcut.parameters.size, `is`(1))
+            val param = shortcut.parameters.first()
+            assertThat(param.type.typeName(), `is`(USERNAME_TYPE_NAME))
+            assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities.size, `is`(1))
+            assertThat(shortcut.entities["username"]?.isPartialEntity, `is`(true))
+            assertThat(shortcut.entities["username"]?.entityTypeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["username"]?.pojo?.typeName, `is`(USERNAME_TYPE_NAME))
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun asEntityMissingPrimaryKey() {
+        val usernameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Username {
+                String name;
+            }
+        """.toJFO("foo.bar.Username")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) Username username);
+                """,
+            additionalJFOs = listOf(usernameJfo)) { _, _ ->
+        }.failsToCompile().withErrorContaining(
+            when (annotation) {
+                Update::class ->
+                    ProcessorErrors.missingPrimaryKeysInPartialEntityForUpdate(
+                        partialEntityName = "foo.bar.Username",
+                        primaryKeyNames = listOf("uid"))
+                Delete::class ->
+                    ProcessorErrors.missingPrimaryKeysInPartialEntityForDelete(
+                        partialEntityName = "foo.bar.Username",
+                        primaryKeyNames = listOf("uid"))
+                else -> throw IllegalStateException("Only @Insert and @Update in this test.")
+            }
+        )
+    }
+
+    @Test
+    fun asEntityExtraColumn() {
+        val usernameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Username {
+                int uid;
+                String name;
+                long extraField;
+            }
+        """.toJFO("foo.bar.Username")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) Username username);
+                """,
+            additionalJFOs = listOf(usernameJfo)) { _, _ ->
+        }.failsToCompile().withErrorContaining(
+            ProcessorErrors.cannotFindAsEntityField("foo.bar.User"))
+    }
+
+    @Test
+    fun asEntityExtraColumnIgnored() {
+        val usernameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Username {
+                int uid;
+                String name;
+                @Ignore
+                long extraField;
+            }
+        """.toJFO("foo.bar.Username")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) Username username);
+                """,
+            additionalJFOs = listOf(usernameJfo)) { _, _ ->
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun asEntityWithEmbedded() {
+        val usernameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Username {
+                int uid;
+                @Embedded
+                Fullname name;
+            }
+        """.toJFO("foo.bar.Username")
+        val fullnameJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            public class Fullname {
+                @ColumnInfo(name = "name")
+                String firstName;
+                String lastName;
+            }
+        """.toJFO("foo.bar.Fullname")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) Username username);
+                """,
+            additionalJFOs = listOf(usernameJfo, fullnameJfo)) { _, _ ->
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun asEntityWithRelation() {
+        val userPetsJfo = """
+            package foo.bar;
+            import androidx.room.*;
+            import java.util.List;
+
+            public class UserPets {
+                int uid;
+                @Relation(parentColumn = "uid", entityColumn = "ownerId")
+                List<Pet> pets;
+            }
+        """.toJFO("foo.bar.UserPets")
+        val petJfo = """
+            package foo.bar;
+            import androidx.room.*;
+
+            @Entity
+            public class Pet {
+                @PrimaryKey
+                int petId;
+                int ownerId;
+            }
+        """.toJFO("foo.bar.Pet")
+        singleShortcutMethod(
+            """
+                @${annotation.java.canonicalName}
+                abstract public int foo(@AsEntity(User.class) UserPets userPets);
+                """,
+            additionalJFOs = listOf(userPetsJfo, petJfo)) { _, _ ->
+        }.failsToCompile().withErrorContaining(ProcessorErrors.INVALID_RELATION_IN_PARTIAL_ENTITY)
+    }
+
     abstract fun invalidReturnTypeError(): String
 
     abstract fun process(
@@ -298,6 +472,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
 
     fun singleShortcutMethod(
         vararg input: String,
+        additionalJFOs: List<JavaFileObject> = emptyList(),
         handler: (T, TestInvocation) -> Unit
     ):
             CompileTester {
@@ -305,7 +480,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 .that(listOf(JavaFileObjects.forSourceString("foo.bar.MyClass",
                         DAO_PREFIX + input.joinToString("\n") + DAO_SUFFIX
                 ), COMMON.USER, COMMON.BOOK, COMMON.NOT_AN_ENTITY, COMMON.COMPLETABLE, COMMON.MAYBE,
-                    COMMON.SINGLE, COMMON.LISTENABLE_FUTURE, COMMON.GUAVA_ROOM))
+                    COMMON.SINGLE, COMMON.LISTENABLE_FUTURE, COMMON.GUAVA_ROOM) + additionalJFOs)
                 .processedWith(TestProcessor.builder()
                         .forAnnotations(annotation, Dao::class)
                         .nextRunHandler { invocation ->

@@ -48,6 +48,7 @@ import androidx.room.integration.testapp.vo.Product;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
 import androidx.room.integration.testapp.vo.UserSummary;
+import androidx.room.integration.testapp.vo.Username;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
@@ -213,6 +214,16 @@ public class SimpleEntityReadWriteTest {
     }
 
     @Test
+    public void updateUsingPartialEntity() {
+        User user = TestUtil.createUser(3);
+        mUserDao.insert(user);
+        user.setName("i am an updated name");
+        Username name = new Username(3, "i am an updated name");
+        assertThat(mUserDao.updateUsername(name), is(1));
+        assertThat(mUserDao.load(user.getId()), equalTo(user));
+    }
+
+    @Test
     public void updateNonExisting() {
         User user = TestUtil.createUser(3);
         mUserDao.insert(user);
@@ -254,6 +265,16 @@ public class SimpleEntityReadWriteTest {
         mUserDao.insert(user);
         assertThat(mUserDao.delete(user), is(1));
         assertThat(mUserDao.delete(user), is(0));
+        assertThat(mUserDao.load(3), is(nullValue()));
+    }
+
+    @Test
+    public void deleteUsingPartialEntity() {
+        User user = TestUtil.createUser(3);
+        mUserDao.insert(user);
+        Username name = new Username(3, "I have a name");
+        assertThat(mUserDao.deleteViaUsername(name), is(1));
+        assertThat(mUserDao.deleteViaUsername(name), is(0));
         assertThat(mUserDao.load(3), is(nullValue()));
     }
 
