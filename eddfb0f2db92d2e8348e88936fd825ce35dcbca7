@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "ba1a67cb_f5a4f3ed",
+        "filename": "lifecycle/common-java8/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T23:01:05Z",
+      "side": 0,
+      "message": "It will be a follow up CL.",
+      "parentUuid": "7500445f_fec002d9",
+      "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edc82882_62672852",
         "filename": "room/common-java8/build.gradle",
         "patchSetId": 2
@@ -123,6 +141,24 @@
       "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9524a130_de31036c",
+        "filename": "room/common-java8/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T23:01:05Z",
+      "side": 0,
+      "message": "Filed a bug for this to be followed up later b/134425748",
+      "parentUuid": "edc82882_62672852",
+      "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
