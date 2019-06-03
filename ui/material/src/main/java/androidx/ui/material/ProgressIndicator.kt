@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+package androidx.ui.material
+
 import androidx.animation.CubicBezierEasing
 import androidx.animation.FloatPropKey
 import androidx.animation.Infinite
@@ -42,8 +44,6 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.Padding
 import androidx.ui.layout.Wrap
-import androidx.ui.material.MaterialColors
-import androidx.ui.material.themeColor
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle

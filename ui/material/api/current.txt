@@ -1,24 +1,4 @@
 // Signature format: 3.0
-package  {
-
-  public final class ProgressIndicatorKt {
-    ctor public ProgressIndicatorKt();
-    method public static void CircularProgressIndicator(@FloatRange(from=0.0, to=1.0) float progress, androidx.ui.graphics.Color color = +themeColor({ 
-    primary
-}));
-    method public static void CircularProgressIndicator(androidx.ui.graphics.Color color = +themeColor({ 
-    primary
-}));
-    method public static void LinearProgressIndicator(@FloatRange(from=0.0, to=1.0) float progress, androidx.ui.graphics.Color color = +themeColor({ 
-    primary
-}));
-    method public static void LinearProgressIndicator(androidx.ui.graphics.Color color = +themeColor({ 
-    primary
-}));
-  }
-
-}
-
 package androidx.ui.baseui {
 
   public final class ClickableKt {
@@ -39,7 +19,7 @@ package androidx.ui.baseui {
 
   public final class SimpleImageKt {
     ctor public SimpleImageKt();
-    method public static void SimpleImage(androidx.ui.painting.Image image);
+    method public static void SimpleImage(androidx.ui.painting.Image image, androidx.ui.graphics.Color? tint = null);
   }
 
 }
@@ -200,6 +180,22 @@ package androidx.ui.material {
     method public androidx.ui.painting.TextStyle getSubtitle2();
   }
 
+  public final class ProgressIndicatorKt {
+    ctor public ProgressIndicatorKt();
+    method public static void CircularProgressIndicator(@FloatRange(from=0.0, to=1.0) float progress, androidx.ui.graphics.Color color = +themeColor({ 
+    primary
+}));
+    method public static void CircularProgressIndicator(androidx.ui.graphics.Color color = +themeColor({ 
+    primary
+}));
+    method public static void LinearProgressIndicator(@FloatRange(from=0.0, to=1.0) float progress, androidx.ui.graphics.Color color = +themeColor({ 
+    primary
+}));
+    method public static void LinearProgressIndicator(androidx.ui.graphics.Color color = +themeColor({ 
+    primary
+}));
+  }
+
   public final class RadioButtonKt {
     ctor public RadioButtonKt();
     method public static void RadioButton(boolean selected, androidx.ui.graphics.Color color = +themeColor({ 
@@ -230,6 +226,28 @@ package androidx.ui.material {
     method public static void Switch(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit>? onCheckedChange, androidx.ui.graphics.Color color = +themeColor({ 
     secondaryVariant
 }));
+  }
+
+  public final class TabKt {
+    ctor public TabKt();
+    method public static void ImageTabLayout(java.util.List<androidx.ui.painting.Image> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> content);
+    method public static void TabLayout(kotlin.jvm.functions.Function1<? super androidx.ui.material.TabRowScope,kotlin.Unit> tabRow, kotlin.jvm.functions.Function0<kotlin.Unit> content = {});
+    method public static void TabLayout(java.util.List<kotlin.Pair<java.lang.String,androidx.ui.painting.Image>> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> content);
+    method public static void TextTabLayout(java.util.List<java.lang.String> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> content);
+  }
+
+  public final class TabRowScope {
+    method public void ImageTabRow(java.util.List<androidx.ui.painting.Image> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected);
+    method public void TabRow(int selectedIndex, kotlin.jvm.functions.Function1<? super androidx.ui.material.TabRowScope.TabScope,? extends java.util.List<? extends kotlin.jvm.functions.Function0<kotlin.Unit>>> tabs);
+    method public void TabRow(java.util.List<kotlin.Pair<java.lang.String,androidx.ui.painting.Image>> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected);
+    method public void TextTabRow(java.util.List<java.lang.String> tabs, int selectedIndex, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onSelected);
+  }
+
+  public static final class TabRowScope.TabScope {
+    method public void Tab(String text, boolean selected, kotlin.jvm.functions.Function0<kotlin.Unit> onSelected);
+    method public void Tab(androidx.ui.painting.Image image, boolean selected, kotlin.jvm.functions.Function0<kotlin.Unit> onSelected);
+    method public void Tab(String text, androidx.ui.painting.Image image, boolean selected, kotlin.jvm.functions.Function0<kotlin.Unit> onSelected);
+    method public void Tab(kotlin.jvm.functions.Function0<kotlin.Unit> onSelected, kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class TextKt {
