@@ -22,6 +22,30 @@
       "revId": "a714751fc1481f8d2fda7e83291c333ed3fddba5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c61981d_4c79e20d",
+        "filename": "media2/session/version-compat-tests/previous/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-03T16:27:37Z",
+      "side": 1,
+      "message": "Thanks for the notification. I\u0027ll remove this when above CL is merged.",
+      "parentUuid": "d2142a9e_4e4fee92",
+      "range": {
+        "startLine": 946,
+        "startChar": 4,
+        "endLine": 946,
+        "endChar": 26
+      },
+      "revId": "a714751fc1481f8d2fda7e83291c333ed3fddba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
