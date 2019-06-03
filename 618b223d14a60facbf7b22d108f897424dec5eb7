@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c3cc7195_2952a229",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/EnumWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-06-03T20:07:23Z",
+      "side": 1,
+      "message": "nonnull?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef25bdab_4b5d9c11",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 4
@@ -18,6 +41,29 @@
         "startChar": 9,
         "endLine": 302,
         "endChar": 23
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3d7d37_04886e9c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-06-03T20:07:23Z",
+      "side": 1,
+      "message": "why public?",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 14
       },
       "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
