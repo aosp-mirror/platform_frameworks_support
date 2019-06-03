@@ -89,7 +89,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(param.type.typeName(), `is`(USER_TYPE_NAME))
             assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["user"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["user"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -125,8 +125,8 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 assertThat(it.entityType?.typeName(), `is`(USER_TYPE_NAME))
             }
             assertThat(shortcut.entities.size, `is`(2))
-            assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-            assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(shortcut.parameters.map { it.name },
                     `is`(listOf("u1", "u2")))
         }.compilesWithoutError()
@@ -155,7 +155,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                                 ClassName.get("java.util", "List"), USER_TYPE_NAME) as TypeName))
                 assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
                 assertThat(shortcut.entities.size, `is`(1))
-                assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+                assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             }.compilesWithoutError()
         }
     }
@@ -173,7 +173,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(param.type.typeName(), `is`(
                     ArrayTypeName.of(COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -193,7 +193,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                             COMMON.USER_TYPE_NAME
                     ) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -211,7 +211,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                     ParameterizedTypeName.get(ClassName.get("java.lang", "Iterable"),
                             COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -230,7 +230,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                     ParameterizedTypeName.get(ClassName.get("foo.bar", "MyClass.MyList"),
                             CommonTypeNames.STRING, COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
-            assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(shortcut.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
         }.compilesWithoutError()
     }
 
@@ -257,8 +257,8 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                         `is`("foo.bar.Book"))
                 assertThat(shortcut.parameters.map { it.name }, `is`(listOf("u1", "b1")))
                 assertThat(shortcut.entities.size, `is`(2))
-                assertThat(shortcut.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-                assertThat(shortcut.entities["b1"]?.typeName, `is`(BOOK_TYPE_NAME))
+                assertThat(shortcut.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+                assertThat(shortcut.entities["b1"]?.pojo?.typeName, `is`(BOOK_TYPE_NAME))
             }.compilesWithoutError()
         }
     }

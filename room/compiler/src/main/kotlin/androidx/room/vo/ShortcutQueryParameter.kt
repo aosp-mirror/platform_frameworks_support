@@ -21,8 +21,13 @@ import javax.lang.model.type.TypeMirror
 /**
  * Parameters used in DAO methods that are annotated with Insert, Delete, Update.
  */
-data class ShortcutQueryParameter(val name: String, val type: TypeMirror,
-                                  val entityType: TypeMirror?, val isMultiple: Boolean) {
+data class ShortcutQueryParameter(
+    val name: String,
+    val type: TypeMirror,
+    val entityType: TypeMirror?,
+    val pojoType: TypeMirror?,
+    val isMultiple: Boolean
+) {
     /**
      * Method name in entity insertion or update adapter.
      */

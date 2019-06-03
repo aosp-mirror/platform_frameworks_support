@@ -47,7 +47,8 @@ class InsertionMethodProcessor(
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_INSERTION_METHODS)
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors.INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT
+            requiresPrimaryKeys = false,
+            missingParamError = ProcessorErrors.INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT
         )
 
         val methodBinder = delegate.findInsertMethodBinder(returnType, params)

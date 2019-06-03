@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package androidx.room.vo
+package androidx.room.integration.testapp.vo;
 
-import androidx.room.OnConflictStrategy
-import androidx.room.solver.shortcut.binder.DeleteOrUpdateMethodBinder
-import javax.lang.model.element.ExecutableElement
+import androidx.room.ColumnInfo;
 
-class UpdateMethod(
-    element: ExecutableElement,
-    name: String,
-    entities: Map<String, ShortcutEntity>,
-    parameters: List<ShortcutQueryParameter>,
-    methodBinder: DeleteOrUpdateMethodBinder?,
-    @OnConflictStrategy val onConflictStrategy: Int
-) : ShortcutMethod(element, name, entities, parameters, methodBinder)
+public class Username {
+    @ColumnInfo(name = "mId")
+    public int id;
+    @ColumnInfo(name = "mName")
+    public String name;
+}

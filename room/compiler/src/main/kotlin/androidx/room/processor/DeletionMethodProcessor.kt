@@ -42,7 +42,8 @@ class DeletionMethodProcessor(
         )
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors.DELETION_MISSING_PARAMS
+            requiresPrimaryKeys = true,
+            missingParamError = ProcessorErrors.DELETION_MISSING_PARAMS
         )
 
         return DeletionMethod(

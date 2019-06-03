@@ -40,7 +40,8 @@ class UpdateMethodProcessor(
                 executableElement, ProcessorErrors.INVALID_ON_CONFLICT_VALUE)
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors.UPDATE_MISSING_PARAMS
+            requiresPrimaryKeys = true,
+            missingParamError = ProcessorErrors.UPDATE_MISSING_PARAMS
         )
 
         val returnType = delegate.extractReturnType()

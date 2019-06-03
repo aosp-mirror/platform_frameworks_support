@@ -88,7 +88,7 @@ class InsertionMethodProcessorTest {
             val param = insertion.parameters.first()
             assertThat(param.type.typeName(), `is`(USER_TYPE_NAME))
             assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
-            assertThat(insertion.entities["user"]?.typeName,
+            assertThat(insertion.entities["user"]?.pojo?.typeName,
                     `is`(ClassName.get("foo.bar", "User") as TypeName))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.LONG))
         }.compilesWithoutError()
@@ -126,8 +126,8 @@ class InsertionMethodProcessorTest {
                 assertThat(it.entityType?.typeName(), `is`(USER_TYPE_NAME))
             }
             assertThat(insertion.entities.size, `is`(2))
-            assertThat(insertion.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-            assertThat(insertion.entities["u2"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["u2"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.parameters.map { it.name }, `is`(listOf("u1", "u2")))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
@@ -149,7 +149,7 @@ class InsertionMethodProcessorTest {
                             USER_TYPE_NAME) as TypeName))
             assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(
                     ParameterizedTypeName.get(
                             ClassName.get("java.util", "List"),
@@ -171,7 +171,7 @@ class InsertionMethodProcessorTest {
             assertThat(param.type.typeName(), `is`(
                     ArrayTypeName.of(COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
     }
@@ -191,7 +191,7 @@ class InsertionMethodProcessorTest {
                             ClassName.get("java.util", "Set"),
                             COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
     }
@@ -211,7 +211,7 @@ class InsertionMethodProcessorTest {
                             ClassName.get("java.util", "Queue"),
                             USER_TYPE_NAME) as TypeName))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
     }
@@ -230,7 +230,7 @@ class InsertionMethodProcessorTest {
                             ClassName.get("java.lang", "Iterable"),
                             USER_TYPE_NAME) as TypeName))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
     }
@@ -249,7 +249,7 @@ class InsertionMethodProcessorTest {
                     ClassName.get("foo.bar", "MyClass.MyList"),
                     CommonTypeNames.STRING, USER_TYPE_NAME) as TypeName))
             assertThat(insertion.entities.size, `is`(1))
-            assertThat(insertion.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["users"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
         }.compilesWithoutError()
     }
@@ -269,8 +269,8 @@ class InsertionMethodProcessorTest {
             assertThat(insertion.parameters.map { it.name }, `is`(listOf("u1", "b1")))
             assertThat(insertion.returnType.typeName(), `is`(TypeName.VOID))
             assertThat(insertion.entities.size, `is`(2))
-            assertThat(insertion.entities["u1"]?.typeName, `is`(USER_TYPE_NAME))
-            assertThat(insertion.entities["b1"]?.typeName, `is`(BOOK_TYPE_NAME))
+            assertThat(insertion.entities["u1"]?.pojo?.typeName, `is`(USER_TYPE_NAME))
+            assertThat(insertion.entities["b1"]?.pojo?.typeName, `is`(BOOK_TYPE_NAME))
         }.compilesWithoutError()
     }
 
