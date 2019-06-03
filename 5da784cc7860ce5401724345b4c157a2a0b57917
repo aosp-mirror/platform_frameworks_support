@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad6751fe_bcd9a353",
+        "filename": "media2/session/version-compat-tests/previous/client/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-03T14:50:31Z",
+      "side": 1,
+      "message": "Q) Which version will be best to be pinned as version goes up in the future? I\u0027ve referred to media1 but I couldn\u0027t get the answer. The projects in ./media/version-compat-tests/previous/ have support lib of version 27.1.0 and the current version of media is 1.1.0-beta03.",
+      "range": {
+        "startLine": 25,
+        "startChar": 62,
+        "endLine": 25,
+        "endChar": 74
+      },
+      "revId": "5da784cc7860ce5401724345b4c157a2a0b57917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6726bd36_9568b6c9",
+        "filename": "media2/session/version-compat-tests/runtest.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-03T14:50:31Z",
+      "side": 1,
+      "message": "Not related to this CL, could you set a return code for this script? I think it would be very useful if the script could return a code 0 or others on success or failure. For example, I have a script that runs a command until it fails to reproduce a failure for flaky tests, it works for connectedCheck but not for version-compat-tests.",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "5da784cc7860ce5401724345b4c157a2a0b57917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
