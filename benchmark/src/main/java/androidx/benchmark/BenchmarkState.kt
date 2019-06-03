@@ -21,6 +21,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Debug
 import android.util.Log
+import androidx.annotation.IntRange
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
@@ -70,9 +71,10 @@ class BenchmarkState internal constructor() {
 
     private var startTimeNs: Long = 0 // System.nanoTime() at start of last warmup/test iter.
 
-    private var paused: Boolean = false
+    private var paused = false
     private var pausedTimeNs: Long = 0 // The System.nanoTime() when the pauseTiming() is called.
     private var pausedDurationNs: Long = 0 // The duration of paused state in nano sec.
+    private var sleepNs: Long = 0 // The duration of sleep due to thermal throttling.
 
     private var repeatCount = 0
 
@@ -218,8 +220,10 @@ class BenchmarkState internal constructor() {
         if (repeatCount >= REPEAT_COUNT) {
             if (performThrottleChecks &&
                 throttleRemainingRetries > 0 &&
-                sleepIfThermalThrottled()
+                sleepIfThermalThrottled(THROTTLE_BACKOFF_S)
             ) {
+                sleepNs += TimeUnit.SECONDS.toNanos(THROTTLE_BACKOFF_S)
+
                 // We've slept due to thermal throttle - retry benchmark!
                 throttleRemainingRetries -= 1
                 results.clear()
@@ -331,6 +335,7 @@ class BenchmarkState internal constructor() {
         val testName: String,
         val data: List<Long>,
         val repeatIterations: Int,
+        val sleepNs: Long,
         val warmupIterations: Int
     ) {
         val stats = Stats(data)
@@ -341,6 +346,7 @@ class BenchmarkState internal constructor() {
         testName = testName,
         data = results,
         repeatIterations = maxIterations,
+        sleepNs = sleepNs,
         warmupIterations = warmupIteration
     )
 
@@ -407,6 +413,7 @@ class BenchmarkState internal constructor() {
          * @param dataNs List of all measured results, in nanoseconds
          * @param warmupIterations Number of iterations of warmup before measurements started.
          *                         Should be no less than 0.
+         * @param sleepNs Number of nanoseconds benchmark was paused during thermal throttling.
          * @param repeatIterations Number of iterations in between each measurement. Should be no
          *                         less than 1.
          */
@@ -416,14 +423,16 @@ class BenchmarkState internal constructor() {
             className: String,
             testName: String,
             dataNs: List<Long>,
-            @androidx.annotation.IntRange(from = 0) warmupIterations: Int,
-            @androidx.annotation.IntRange(from = 1) repeatIterations: Int
+            @IntRange(from = 0) warmupIterations: Int,
+            @IntRange(from = 0) sleepNs: Long,
+            @IntRange(from = 1) repeatIterations: Int
         ) {
             val report = Report(
                 className = className,
                 testName = testName,
                 data = dataNs,
                 repeatIterations = repeatIterations,
+                sleepNs = sleepNs,
                 warmupIterations = warmupIterations
             )
 
@@ -438,14 +447,13 @@ class BenchmarkState internal constructor() {
             ResultWriter.appendReport(report)
         }
 
-        internal fun sleepIfThermalThrottled(): Boolean {
-            return if (ThrottleDetector.isDeviceThermalThrottled()) {
-                Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $THROTTLE_BACKOFF_S SECONDS")
-                Thread.sleep(TimeUnit.SECONDS.toMillis(THROTTLE_BACKOFF_S))
+        internal fun sleepIfThermalThrottled(sleepSeconds: Long) = when {
+            ThrottleDetector.isDeviceThermalThrottled() -> {
+                Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $sleepSeconds SECONDS")
+                Thread.sleep(TimeUnit.SECONDS.toMillis(sleepSeconds))
                 true
-            } else {
-                false
             }
+            else -> false
         }
 
         internal fun ideSummaryLineWrapped(key: String, nanos: Long): String {
