@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "fbc0e585_b23e526f",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/IdentityDetectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "I think we should still fail if master table is dropped unless we are opening from assets. Open for debate.",
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb550f0_cd05b7a4",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/PrepackageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "why not reference ErrorMessages ?",
+      "range": {
+        "startLine": 83,
+        "startChar": 60,
+        "endLine": 83,
+        "endChar": 85
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4893595e_4fdddc45",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "why is it external? just copyFromAssets ? or copyFromResource ?",
+      "range": {
+        "startLine": 238,
+        "startChar": 20,
+        "endLine": 238,
+        "endChar": 41
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f03ed82_25faba34",
         "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
         "patchSetId": 6
@@ -18,6 +81,76 @@
         "startChar": 10,
         "endLine": 564,
         "endChar": 60
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3a21026_6a233374",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "+1 for both.\n\nre: Helper -\u003e This would make it impossible to use this feature w/ encrpyted dbs. We could somehow implement delegation ourselves.",
+      "parentUuid": "4f03ed82_25faba34",
+      "range": {
+        "startLine": 563,
+        "startChar": 10,
+        "endLine": 564,
+        "endChar": 60
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c92451_d315703a",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "we should rely on configuration to make this decision.",
+      "range": {
+        "startLine": 145,
+        "startChar": 12,
+        "endLine": 146,
+        "endChar": 27
+      },
+      "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56055199_3da47811",
+        "filename": "room/testing/src/main/java/androidx/room/testing/MigrationTestHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-03T14:31:44Z",
+      "side": 1,
+      "message": "again, i would like to condition this change on opening w/ an asset db.",
+      "range": {
+        "startLine": 486,
+        "startChar": 23,
+        "endLine": 486,
+        "endChar": 40
       },
       "revId": "37dfda2a3b22216874df0e19e355e00a62eb544e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
