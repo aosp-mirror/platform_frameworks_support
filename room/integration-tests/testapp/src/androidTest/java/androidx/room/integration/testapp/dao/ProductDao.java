@@ -21,12 +21,16 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.integration.testapp.vo.Product;
+import androidx.room.integration.testapp.vo.ProductName;
 
 @Dao
 public interface ProductDao {
 
     @Insert
     long insert(@NonNull Product product);
+
+    @Insert(entity = Product.class)
+    long insert(ProductName productName);
 
     /**
      * Insert a new product with the given name.

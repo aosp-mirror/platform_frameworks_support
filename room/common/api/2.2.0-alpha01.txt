@@ -42,6 +42,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.METHOD) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Delete {
+    method public abstract Class entity() default java.lang.Object.class;
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Embedded {
@@ -117,6 +118,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Insert {
+    method public abstract Class entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
   }
 
@@ -178,6 +180,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Update {
+    method public abstract Class entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
   }
 
