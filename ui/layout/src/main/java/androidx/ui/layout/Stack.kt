@@ -100,10 +100,10 @@ class StackChildren {
 @Composable
 fun Stack(
     defaultAlignment: Alignment = Alignment.Center,
-    @Children(composable = false) block: StackChildren.() -> Unit
+    @Children() block: @Composable StackChildren.() -> Unit
 ) {
     val children: @Composable() () -> Unit = with(StackChildren()) {
-        apply(block)
+        this.block()
         val composable = @Composable {
             stackChildren.forEach {
                 it()
