@@ -25,6 +25,8 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
@@ -137,22 +139,39 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
 
     @RequiresApi(24)
     private class NetworkStateCallback extends NetworkCallback {
+        private final Handler mMainHandler;
         NetworkStateCallback() {
+            mMainHandler = new Handler(Looper.getMainLooper());
         }
 
         @Override
-        public void onCapabilitiesChanged(Network network, NetworkCapabilities capabilities) {
+        public void onCapabilitiesChanged(
+                final Network network,
+                final NetworkCapabilities capabilities) {
+
             // The Network parameter is unreliable when a VPN app is running - use active network.
-            Logger.get().debug(
-                    TAG,
-                    String.format("Network capabilities changed: %s", capabilities));
-            setState(getActiveNetworkState());
+            // Make sure you post updates to NetworkState on the main thread. This is to allow
+            // graceful completion of a WorkRequest. For more info b/134361006
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Logger.get().debug(
+                            TAG,
+                            String.format("Network capabilities changed: %s", capabilities));
+                    setState(getActiveNetworkState());
+                }
+            });
         }
 
         @Override
-        public void onLost(Network network) {
-            Logger.get().debug(TAG, "Network connection lost");
-            setState(getActiveNetworkState());
+        public void onLost(final Network network) {
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Logger.get().debug(TAG, "Network connection lost");
+                    setState(getActiveNetworkState());
+                }
+            });
         }
     }
 
