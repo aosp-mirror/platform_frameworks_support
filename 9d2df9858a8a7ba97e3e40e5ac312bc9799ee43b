@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "561d2f73_7f494f6e",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T18:16:28Z",
+      "side": 1,
+      "message": "One more chrome mention left.",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1842c550_8c9a5564",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T18:16:28Z",
+      "side": 1,
+      "message": "how are developers supposed to know if a browser supports the new one or not? Should we have a similar set up like webview library with @RequiresFeature(FOO) and hasFeature(FOO)?",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f014f2e_b9372bb6",
+        "filename": "browser/src/test/java/androidx/browser/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T18:16:28Z",
+      "side": 1,
+      "message": "All Chrome specific test should be made generic or removed.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

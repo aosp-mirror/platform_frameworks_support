@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dbefbfd_5891d439",
+        "filename": "browser/api/restricted_1.2.0-alpha02.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-03T18:16:28Z",
+      "side": 0,
+      "message": "Undo changes to this file. You are no longer changing alpha02.",
+      "revId": "6bbc43706c1963461972f4e1e14096d3c67a9463",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
