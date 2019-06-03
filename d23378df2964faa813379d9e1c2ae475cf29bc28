@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "2e7caffb_9ae3a91d",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "It\u0027s actually impossible to create a function called size on a list implementation in kotlin.\n\nIn java you can still call .size(), but in kotlin you must call .size. This is extremely confusing, but you can also call getSize() in java.\n\nI think what is happening is .size() is part of the java list interface, and val size is part of the kotlin list interface, and there\u0027s special glue to call into val size from size(), but getSize() is generated as a result. You can see that an int size property was added below as well.",
+      "parentUuid": "935f7e03_90756054",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b371211_a122d204",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -320,6 +338,24 @@
     },
     {
       "key": {
+        "uuid": "9717dfe4_e9423c73",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "Yes - I meant that it\u0027s a parameter in a public method and kotlin compiler complains about that as intended.\n\nOne thing that is interesting is that I marked it @hide and it doesn\u0027t even appear in any of the api files, including the restricted one anymore",
+      "parentUuid": "ea1d70c3_64581e06",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27b4db79_5bba8442",
         "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
         "patchSetId": 17
@@ -367,6 +403,24 @@
       "side": 1,
       "message": "Why is it used in the RX java artifact? That seems strange, though it might be for reasons of pagedlist construction, in a way we can fix in the future?",
       "parentUuid": "18f568b3_67e1c44b",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "704137a0_7e8eefcd",
+        "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "Sorry if I wasn\u0027t clear - I was just replying to the thread, but this ContiguousPagedList.Companion block isn\u0027t needed here.\n\nIt\u0027s DataSource.initExecutor, etc that isn\u0027t getting added here by metalava (I was responding to the overall comment about why there\u0027s any changes in this file at all).\n\ninitExecutor is used in a test to init the rxdatasource tests, but I\u0027m of the opinion we should try to use public APIs in our tests, so I think we could rewrite them in a way that would let us make these properly internal.",
+      "parentUuid": "a23b0c50_2e09581d",
       "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -1831,6 +1885,30 @@
     },
     {
       "key": {
+        "uuid": "6b4e1a37_949c8228",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "I think we need to choose between using \u003cV : Any\u003e in a bunch of places and enforcing nullity vs. keeping full back compat, and regressing the @NonNull from old java source - but I removed it for now.",
+      "parentUuid": "36e1a4f9_a5cf34f6",
+      "range": {
+        "startLine": 392,
+        "startChar": 18,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86f63a7e_9d09a023",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
         "patchSetId": 17
@@ -2037,6 +2115,24 @@
     },
     {
       "key": {
+        "uuid": "cc21fda3_5d5829fa",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/TiledDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "I meant that List(26) { \"\" + a \u0027a\u0027 + it } produces [ a0, a1, a2, ... ] and List(26) { \u0027a\u0027 + it } produces [ a, b, c, ... ].",
+      "parentUuid": "61738291_087b7eaa",
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0c5d46_5fef9516",
         "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
         "patchSetId": 17
@@ -2120,6 +2216,30 @@
       "side": 1,
       "message": "Are we forcing devs to change their kotlin code? If so, that\u0027s a source compatibility breakage and should only be done if we have good reason.\n\nNote - any time you see things like this, where we have to change kotlin tests, we should file a bug to metalava. It\u0027s the tool for preventing this sort of minor api regression",
       "parentUuid": "a11d1d17_65ec3df1",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af9e3fc5_073cf209",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/AsyncPagedListDifferTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:29:43Z",
+      "side": 1,
+      "message": "I think we need to choose between using \u003cV : Any\u003e in a bunch of places and enforcing nullity vs. keeping full back compat.",
+      "parentUuid": "e51a8bf8_99eabad8",
       "range": {
         "startLine": 62,
         "startChar": 18,
