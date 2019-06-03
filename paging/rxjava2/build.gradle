@@ -27,6 +27,11 @@ plugins {
 }
 
 android {
+    buildTypes {
+        debug {
+            testCoverageEnabled = false // Breaks Kotlin compiler.
+        }
+    }
     lintOptions {
         fatal("UnknownNullness")
     }
@@ -41,6 +46,11 @@ dependencies {
     testImplementation project(':internal-testutils-common')
     testImplementation(JUNIT)
     testImplementation(KOTLIN_TEST_COMMON)
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ARCH_CORE_TESTING)
 }
 
 androidx {
