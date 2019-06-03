@@ -36,10 +36,9 @@ function printRunTestUsage() {
   echo ""
   echo "Version combination number:"
   echo "    1. Client-ToT             / Service-ToT"
-# TODO: These will be supported when stable version of media2 is released.
-#  echo "    2. Client-ToT             / Service-Latest release"
-#  echo "    3. Client-Latest release  / Service-ToT"
-#  echo "    4. Run all of the above"
+  echo "    2. Client-ToT             / Service-Latest release"
+  echo "    3. Client-Latest release  / Service-ToT"
+  echo "    4. Run all of the above"
   echo ""
   echo "Option:"
   echo "    -t <class/method>: Only run the specific test class/method."
@@ -90,7 +89,7 @@ then
 fi
 
 case ${1} in
-  1)
+  1|2|3|4)
     VERSION_COMBINATION=${1}
     shift
     ;;
@@ -127,28 +126,27 @@ case ${VERSION_COMBINATION} in
      SERVICE_VERSION="tot"
      runTest
      ;;
-# TODO: These will be supported when stable version of media2 is released.
-#  2)
-#     CLIENT_VERSION="tot"
-#     SERVICE_VERSION="previous"
-#     runTest
-#     ;;
-#  3)
-#     CLIENT_VERSION="previous"
-#     SERVICE_VERSION="tot"
-#     runTest
-#     ;;
-#  4)
-#     CLIENT_VERSION="tot"
-#     SERVICE_VERSION="tot"
-#     runTest
-#
-#     CLIENT_VERSION="tot"
-#     SERVICE_VERSION="previous"
-#     runTest
-#
-#     CLIENT_VERSION="previous"
-#     SERVICE_VERSION="tot"
-#     runTest
-#     ;;
+  2)
+     CLIENT_VERSION="tot"
+     SERVICE_VERSION="previous"
+     runTest
+     ;;
+  3)
+     CLIENT_VERSION="previous"
+     SERVICE_VERSION="tot"
+     runTest
+     ;;
+  4)
+     CLIENT_VERSION="tot"
+     SERVICE_VERSION="tot"
+     runTest
+
+     CLIENT_VERSION="tot"
+     SERVICE_VERSION="previous"
+     runTest
+
+     CLIENT_VERSION="previous"
+     SERVICE_VERSION="tot"
+     runTest
+     ;;
 esac
