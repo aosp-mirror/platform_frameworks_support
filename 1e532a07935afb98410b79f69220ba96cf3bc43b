@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15f15327_b2a948d6",
+        "filename": "room/testing/src/main/java/androidx/room/testing/MigrationTestHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-03T21:03:45Z",
+      "side": 1,
+      "message": "Can we do like Android Studio and get some kind of url shortner that we can re-map when necessary?",
+      "range": {
+        "startLine": 312,
+        "startChar": 27,
+        "endLine": 313,
+        "endChar": 62
+      },
+      "revId": "1e532a07935afb98410b79f69220ba96cf3bc43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
