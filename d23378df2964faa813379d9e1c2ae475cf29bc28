@@ -2027,6 +2027,30 @@
     },
     {
       "key": {
+        "uuid": "1f559fc5_ca68c2d3",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-03T16:44:11Z",
+      "side": 1,
+      "message": "I linked this in the other comment, but it looks like SAM conversions for interfaces are only available for java source and not kotlin source.\n\nhttps://discuss.kotlinlang.org/t/sam-conversion-on-kotlin-interfaces/1433/2\n\nAlso here:\nhttps://kotlinlang.org/docs/reference/java-interop.html#sam-conversions\n\n\"Also note that this feature works only for Java interop; since Kotlin has proper function types, automatic conversion of functions into implementations of Kotlin interfaces is unnecessary and therefore unsupported.\"\n\nSo it looks like we\u0027re supposed to re-implement it using function types but that would be a breaking change for Java users.",
+      "parentUuid": "5e84938c_57ad0b2d",
+      "range": {
+        "startLine": 461,
+        "startChar": 29,
+        "endLine": 461,
+        "endChar": 37
+      },
+      "revId": "d23378df2964faa813379d9e1c2ae475cf29bc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ee1b013_ccb5c414",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PagerTest.kt",
         "patchSetId": 17
