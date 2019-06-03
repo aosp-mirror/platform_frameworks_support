@@ -20,6 +20,7 @@ import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Update
 import androidx.room.vo.UpdateMethod
+import androidx.room.vo.findFieldByColumnName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
@@ -40,7 +41,17 @@ class UpdateMethodProcessor(
                 executableElement, ProcessorErrors.INVALID_ON_CONFLICT_VALUE)
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors.UPDATE_MISSING_PARAMS
+            missingParamError = ProcessorErrors.UPDATE_MISSING_PARAMS,
+            onValidatePartialEntity = { entity, pojo ->
+                val missingPrimaryKeys = entity.primaryKey.fields.any {
+                    pojo.findFieldByColumnName(it.columnName) == null
+                }
+                context.checker.check(!missingPrimaryKeys, executableElement,
+                    ProcessorErrors.missingPrimaryKeysInPartialEntityForUpdate(
+                        partialEntityName = pojo.typeName.toString(),
+                        primaryKeyNames = entity.primaryKey.fields.columnNames)
+                )
+            }
         )
 
         val returnType = delegate.extractReturnType()

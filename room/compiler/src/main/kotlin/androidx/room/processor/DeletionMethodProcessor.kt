@@ -17,6 +17,7 @@ package androidx.room.processor
 
 import androidx.room.Delete
 import androidx.room.vo.DeletionMethod
+import androidx.room.vo.findFieldByColumnName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
@@ -42,7 +43,17 @@ class DeletionMethodProcessor(
         )
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors.DELETION_MISSING_PARAMS
+            missingParamError = ProcessorErrors.DELETION_MISSING_PARAMS,
+            onValidatePartialEntity = { entity, pojo ->
+                val missingPrimaryKeys = entity.primaryKey.fields.any {
+                    pojo.findFieldByColumnName(it.columnName) == null
+                }
+                context.checker.check(!missingPrimaryKeys, executableElement,
+                    ProcessorErrors.missingPrimaryKeysInPartialEntityForDelete(
+                        partialEntityName = pojo.typeName.toString(),
+                        primaryKeyNames = entity.primaryKey.fields.columnNames)
+                )
+            }
         )
 
         return DeletionMethod(

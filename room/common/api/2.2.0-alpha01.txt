@@ -1,6 +1,10 @@
 // Signature format: 3.0
 package androidx.room {
 
+  @java.lang.annotation.Target(java.lang.annotation.ElementType.PARAMETER) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface AsEntity {
+    method public abstract Class value();
+  }
+
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface ColumnInfo {
     method @androidx.room.ColumnInfo.Collate public abstract int collate() default androidx.room.ColumnInfo.UNSPECIFIED;
     method public abstract boolean index() default false;
