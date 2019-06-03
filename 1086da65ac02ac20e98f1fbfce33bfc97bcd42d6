@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "6ea21212_759f15fd",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-03T10:38:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "014a34a1_30795694",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 299,
+        "endChar": 45
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "937d48ed_e8cbbf7d",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -378,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "965b9f15_18544f1e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-03T10:38:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d9db6d55_48d0941f",
+      "range": {
+        "startLine": 467,
+        "startChar": 16,
+        "endLine": 469,
+        "endChar": 17
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d200598_63e64502",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -539,6 +587,30 @@
       "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42a9d4ad_fdde9039",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-03T10:38:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "667a5040_3fc1f2e2",
+      "range": {
+        "startLine": 702,
+        "startChar": 15,
+        "endLine": 702,
+        "endChar": 16
+      },
+      "revId": "1086da65ac02ac20e98f1fbfce33bfc97bcd42d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
