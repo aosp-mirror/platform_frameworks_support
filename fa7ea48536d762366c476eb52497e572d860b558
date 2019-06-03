@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61634914_608e277f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2DeviceSurfaceManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-03T01:38:57Z",
+      "side": 1,
+      "message": "May only need the useCase parameter. cameraId and aspectRatio info can be retrieved from it.",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6c63a49_d43bf926",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-03T01:38:57Z",
+      "side": 1,
+      "message": "May only need useCase parameter. aspectRatio can be retrieved from it.",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8065fc95_f028019e",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-03T01:38:57Z",
+      "side": 1,
+      "message": "Test case in this file seems also need to check the return value from SupportedSurfaceCombination#checkPreviewAspectRatio function. The config return value check can also be here due to we can setup specific test environment via robolectric here but PreviewTest may always run on real device or emulator that we can\u0027t customize the environment we want to test.",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
