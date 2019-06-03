@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a00166b_2563d5c7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2DeviceSurfaceManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T07:40:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61634914_608e277f",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6c63a49_d43bf926",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9d15a830_39bc940c",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T07:40:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6c63a49_d43bf926",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8065fc95_f028019e",
         "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
         "patchSetId": 7
@@ -50,6 +86,24 @@
       "revId": "fa7ea48536d762366c476eb52497e572d860b558",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62bc013_cd78b146",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T07:40:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8065fc95_f028019e",
+      "revId": "fa7ea48536d762366c476eb52497e572d860b558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
