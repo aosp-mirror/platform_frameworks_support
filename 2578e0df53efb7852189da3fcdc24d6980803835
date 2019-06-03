@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "627730bd_359e73c3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T11:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adfbf031_cace55c2",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50e29638_117be727",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "58a536e4_31ad44f4",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T11:29:42Z",
+      "side": 1,
+      "message": "Got it.\n1. I move the exactly match check into isAspectRatioMatch function.\n2. the \u0027s\u0027 has been removed.",
+      "parentUuid": "50e29638_117be727",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8710945_b348dcbd",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb6eb64e_55adcece",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-03T11:29:42Z",
+      "side": 1,
+      "message": "Thanks for reviewing.\n\nModify as below,\n1. Check both width and height of size are a multiple of 16 before these logic.\n2. Check the scale size is exactly match rather than the numbers in the interval.\n3. I will also check nearest smaller mod16, because there are some resolutions like 1600x896 or 2592x1456 which are smaller than regular 16:9 resolution.(1600x900, 2592x1458)\n\nPlease review again, thanks.\nptal",
+      "parentUuid": "a8710945_b348dcbd",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
