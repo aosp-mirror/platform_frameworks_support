@@ -46,6 +46,30 @@
       "revId": "8f14310f96e380f07564273721909ad8343c163d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65aa066_a4993f1f",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-04T14:28:55Z",
+      "side": 1,
+      "message": "Doesn\u0027t the Layout(children) below create a LayoutNode?",
+      "parentUuid": "c65a95fa_990ddc72",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 3
+      },
+      "revId": "8f14310f96e380f07564273721909ad8343c163d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
