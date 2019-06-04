@@ -70,6 +70,30 @@
       "revId": "8f14310f96e380f07564273721909ad8343c163d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeb813bc_8ef6ac5c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-04T16:26:37Z",
+      "side": 1,
+      "message": "It does, yes, but I think one LayoutNode is required.\n\nWith this CL:\nPadding {\n ...\n}\nis using one LayoutNode, the same as before. Padding is a SingleChildLayout, and it will measure+position one Measurable, which under the hood might wrap more than one.\n\nWithout this CL:\nPadding {\n    Stack {\n        ...\n    }\n}\nwould use two LayoutNode in order to offer Padding the same contract (that there is one child Measurable).\n\nWhat is the alternative solution you are thinking of?",
+      "parentUuid": "c65aa066_a4993f1f",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 3
+      },
+      "revId": "8f14310f96e380f07564273721909ad8343c163d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
