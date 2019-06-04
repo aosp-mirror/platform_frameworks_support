@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fb58f2b_ef9ddd4e",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/UseCaseCombinationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-04T05:49:00Z",
+      "side": 1,
+      "message": "mCamera and mCameraId is not used.  should be removed.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 29
+      },
+      "revId": "44d288b526901a7779ba9368b644d493e3738197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6ea15a_c2e96e2b",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/UseCaseCombinationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-04T05:49:00Z",
+      "side": 1,
+      "message": "cameraFactory , mCameraId and mCamera is not used. please remove them.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "44d288b526901a7779ba9368b644d493e3738197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
