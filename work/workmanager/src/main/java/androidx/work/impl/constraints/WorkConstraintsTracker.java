@@ -31,6 +31,7 @@ import androidx.work.impl.constraints.controllers.NetworkNotRoamingController;
 import androidx.work.impl.constraints.controllers.NetworkUnmeteredController;
 import androidx.work.impl.constraints.controllers.StorageNotLowController;
 import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,17 +60,21 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
      *                 to notify you about changes in constraints for the list of  {@link
      *                 WorkSpec}'s that it is tracking.
      */
-    public WorkConstraintsTracker(Context context, @Nullable WorkConstraintsCallback callback) {
+    public WorkConstraintsTracker(
+            @NonNull Context context,
+            @NonNull TaskExecutor taskExecutor,
+            @Nullable WorkConstraintsCallback callback) {
+
         Context appContext = context.getApplicationContext();
         mCallback = callback;
         mConstraintControllers = new ConstraintController[] {
-                new BatteryChargingController(appContext),
-                new BatteryNotLowController(appContext),
-                new StorageNotLowController(appContext),
-                new NetworkConnectedController(appContext),
-                new NetworkUnmeteredController(appContext),
-                new NetworkNotRoamingController(appContext),
-                new NetworkMeteredController(appContext)
+                new BatteryChargingController(appContext, taskExecutor),
+                new BatteryNotLowController(appContext, taskExecutor),
+                new StorageNotLowController(appContext, taskExecutor),
+                new NetworkConnectedController(appContext, taskExecutor),
+                new NetworkUnmeteredController(appContext, taskExecutor),
+                new NetworkNotRoamingController(appContext, taskExecutor),
+                new NetworkMeteredController(appContext, taskExecutor)
         };
         mLock = new Object();
     }
