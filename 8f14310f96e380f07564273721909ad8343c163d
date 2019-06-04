@@ -22,6 +22,30 @@
       "revId": "8f14310f96e380f07564273721909ad8343c163d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65a95fa_990ddc72",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-04T11:53:09Z",
+      "side": 1,
+      "message": "Hm, this is avoiding an extra LayoutNode that would be added by wrapping children in Stack. I am using a Measurable (SingleChildMeasurable) that wraps the measurables coming from Layout. I thought this was what we wanted, sorry if I\u0027m missing something.",
+      "parentUuid": "4b54a7fb_6681be27",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 3
+      },
+      "revId": "8f14310f96e380f07564273721909ad8343c163d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
