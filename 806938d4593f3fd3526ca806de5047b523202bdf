@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd3d8eb4_4c37944d",
+        "filename": "room/integration-tests/incremental-annotation-processing/src/test/kotlin/androidx/room/gradle/RoomIncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-04T12:18:00Z",
+      "side": 1,
+      "message": "Note that this scenario is currently disabled for CI builds but I tested it locally. More details at bug 134470119.",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7af91a60_c9625e40",
+        "filename": "room/integration-tests/incremental-annotation-processing/src/test/kotlin/androidx/room/gradle/RoomIncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-04T12:18:00Z",
+      "side": 1,
+      "message": "This is the impact of Room not using Filer (assuming the users are already using CommandLineArgumentProvider on line 182 above).",
+      "range": {
+        "startLine": 454,
+        "startChar": 16,
+        "endLine": 455,
+        "endChar": 63
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
