@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef06ecb7_04e0bb2d",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/compat/LooperCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-04T23:12:35Z",
+      "side": 1,
+      "message": "Sorry, I think I might have been misunderstood. This should still be a static method. It should follow the \u0027static shim\u0027 compat pattern, which is possible since the getQueue() method is accessible back to API 14 via reflection.\n\nUsage should look like: LooperCompat.getQueue(looper);",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "4d575cd2b2d1fb234fdb69fb328ef09c0c878393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
