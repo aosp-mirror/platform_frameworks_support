@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3256b33d_fa4d58d3",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-04T09:38:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "561d2f73_7f494f6e",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1842c550_8c9a5564",
         "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-03T18:16:28Z",
       "side": 1,
       "message": "how are developers supposed to know if a browser supports the new one or not? Should we have a similar set up like webview library with @RequiresFeature(FOO) and hasFeature(FOO)?",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd5bd75_214c9a81",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-04T09:38:35Z",
+      "side": 1,
+      "message": "So we\u0027re thinking of some sort of feature detection API - the user may have multiple browsers on their system, each of which supports differing features and we want to let the developer specify which features are essential and which are preferable.\n\nI\u0027ll look into what WebView does and see if that would be a nice way of exposing this.\n\nWe\u0027ll add a feature for this - something like TrustedWebUtils.SplashScreenVersion.V1 or CustomTabsService.CATEGORY_NAVBAR_COLOR_CUSTOMIZATION, but there will end up being versions of Chrome that support certain features, but don\u0027t yet advertise them (because we didn\u0027t have the foresight to add the category as we made the feature) and I don\u0027t know what we can do about that without having Chrome specific version checks.",
+      "parentUuid": "1842c550_8c9a5564",
       "range": {
         "startLine": 84,
         "startChar": 11,
@@ -68,6 +116,30 @@
       "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a38df8e8_fa5c7ba1",
+        "filename": "browser/src/test/java/androidx/browser/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-04T09:38:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f014f2e_b9372bb6",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
