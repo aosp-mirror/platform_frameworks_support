@@ -17,6 +17,7 @@
 
 package androidx.recyclerview.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
 import static androidx.core.view.ViewCompat.TYPE_TOUCH;
@@ -1962,9 +1963,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         // Update the last touch co-ords, taking any scroll offset into account
         mLastTouchX -= mScrollOffset[0];
         mLastTouchY -= mScrollOffset[1];
-        if (ev != null) {
-            ev.offsetLocation(mScrollOffset[0], mScrollOffset[1]);
-        }
         mNestedOffsets[0] += mScrollOffset[0];
         mNestedOffsets[1] += mScrollOffset[1];
 
@@ -3238,13 +3236,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         }
         boolean eventAddedToVelocityTracker = false;
 
-        final MotionEvent vtev = MotionEvent.obtain(e);
         final int action = e.getActionMasked();
         final int actionIndex = e.getActionIndex();
 
         if (action == MotionEvent.ACTION_DOWN) {
             mNestedOffsets[0] = mNestedOffsets[1] = 0;
         }
+        final MotionEvent vtev = MotionEvent.obtain(e);
         vtev.offsetLocation(mNestedOffsets[0], mNestedOffsets[1]);
 
         switch (action) {
@@ -3287,7 +3285,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 if (dispatchNestedPreScroll(dx, dy, mReusableIntPair, mScrollOffset, TYPE_TOUCH)) {
                     dx -= mReusableIntPair[0];
                     dy -= mReusableIntPair[1];
-                    vtev.offsetLocation(mScrollOffset[0], mScrollOffset[1]);
                     // Updated the nested offsets
                     mNestedOffsets[0] += mScrollOffset[0];
                     mNestedOffsets[1] += mScrollOffset[1];
@@ -3323,7 +3320,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     if (scrollByInternal(
                             canScrollHorizontally ? dx : 0,
                             canScrollVertically ? dy : 0,
-                            vtev)) {
+                            e)) {
                         getParent().requestDisallowInterceptTouchEvent(true);
                     }
                     if (mGapWorker != null && (dx != 0 || dy != 0)) {
@@ -12218,7 +12215,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * This is public so that the CREATOR can be accessed on cold launch.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static class SavedState extends AbsSavedState {
 
         Parcelable mLayoutState;

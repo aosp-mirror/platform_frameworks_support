@@ -37,7 +37,7 @@ public class HdrPreviewExtender extends PreviewExtender {
         try {
             return new VendorHdrPreviewExtender(builder);
         } catch (NoClassDefFoundError e) {
-            Log.d(TAG, "No HDR view finder extender found. Falling back to default.");
+            Log.d(TAG, "No HDR preview extender found. Falling back to default.");
             return new DefaultHdrPreviewExtender();
         }
     }

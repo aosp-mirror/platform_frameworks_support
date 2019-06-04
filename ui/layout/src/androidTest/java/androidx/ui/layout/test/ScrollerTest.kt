@@ -16,7 +16,9 @@
 package androidx.ui.layout.test
 
 import android.graphics.Bitmap
+import android.os.Build
 import android.view.PixelCopy
+import android.view.ViewTreeObserver
 import androidx.test.filters.SmallTest
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Draw
@@ -41,7 +43,7 @@ import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle
 import androidx.compose.composer
 import androidx.compose.setContent
-import org.junit.Assert
+import androidx.test.filters.SdkSuppress
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
@@ -73,6 +75,7 @@ class ScrollerTest : LayoutTest() {
         drawLatch = CountDownLatch(1)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_SmallContent() {
         composeScroller()
@@ -80,6 +83,7 @@ class ScrollerTest : LayoutTest() {
         validateScroller(0, 40)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_LargeContent_NoScroll() {
         composeScroller(height = 30.ipx)
@@ -87,6 +91,7 @@ class ScrollerTest : LayoutTest() {
         validateScroller(0, 30)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun verticalScroller_LargeContent_ScrollToEnd() {
         val scrollerPosition = ScrollerPosition()
@@ -98,13 +103,24 @@ class ScrollerTest : LayoutTest() {
 
         validateScroller(0, 30)
 
-        drawLatch = CountDownLatch(1)
+        // The 'draw' method will no longer be called because only the position
+        // changes during scrolling. Therefore, we should just wait until the draw stage
+        // completes and the scrolling will be finished by then.
+        val latch = CountDownLatch(1)
+        val onDrawListener = object : ViewTreeObserver.OnDrawListener {
+            override fun onDraw() {
+                latch.countDown()
+            }
+        }
         runOnUiThread {
+            activity.window.decorView.viewTreeObserver.addOnDrawListener(onDrawListener)
             assertEquals(10.px, changeListener.maxPosition)
             scrollerPosition.position = 10.px
         }
-
-        assertTrue(drawLatch.await(1, TimeUnit.SECONDS))
+        assertTrue(latch.await(1, TimeUnit.SECONDS))
+        runOnUiThread {
+            activity.window.decorView.viewTreeObserver.removeOnDrawListener(onDrawListener)
+        }
         validateScroller(10, 30)
     }
 
