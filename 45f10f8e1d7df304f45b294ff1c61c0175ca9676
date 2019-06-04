@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f9780fda_18193080",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/HandlerUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-04T23:13:17Z",
+      "side": 1,
+      "message": "Hmm I guess what I meant was we could use Looper.myQueue() from within the run() method. Alternatively, the Handler reference could be made final and you could use LooperCompat.getQueue(handler.getLooper()) within run(), though that doesn\u0027t really save anything on the scope of the handler reference.",
+      "parentUuid": "200d076b_195c1049",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 90
+      },
+      "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9cd938df_02e2ab10",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
         "patchSetId": 1
