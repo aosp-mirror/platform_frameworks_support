@@ -24,6 +24,8 @@ internal object Clocks {
     private const val TAG = "Benchmark"
 
     val areLocked: Boolean
+    val coreDirs: List<CoreDir>
+    var maxFreqHz: Long = -1
 
     /**
      * Representation of clock info in `/sys/devices/system/cpu/cpu#/`
@@ -41,13 +43,13 @@ internal object Clocks {
 
     init {
         val cpuDir = File("/sys/devices/system/cpu")
-        val coreDirs = cpuDir.list { current, name ->
-            File(
-                current,
-                name
-            ).isDirectory && name.matches(Regex("^cpu[0-9]+"))
+        coreDirs = cpuDir.list { current, name ->
+            File(current, name).isDirectory && name.matches(Regex("^cpu[0-9]+"))
         }.map {
             val path = "${cpuDir.path}/$it"
+
+            val maxFreqKhz = readFileTextOrNull("$path/cpuinfo_max_freq")?.toLong()
+            maxFreqKhz?.let { this.maxFreqHz = this.maxFreqHz.coerceAtLeast(maxFreqKhz * 1000) }
 
             CoreDir(
                 // online, or true if can't access
@@ -62,9 +64,7 @@ internal object Clocks {
                     ?: listOf(-1),
 
                 // scaling_min_freq, or -1 if can't access
-                currentMinFreq = readFileTextOrNull("$path/cpufreq/scaling_min_freq")
-                    ?.let { Integer.parseInt(it) }
-                    ?: -1
+                currentMinFreq = readFileTextOrNull("$path/cpufreq/scaling_min_freq")?.toInt() ?: -1
             )
         }
 
