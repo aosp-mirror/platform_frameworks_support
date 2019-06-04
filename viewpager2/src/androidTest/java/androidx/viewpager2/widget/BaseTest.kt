@@ -21,7 +21,6 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
-import androidx.core.os.BuildCompat.isAtLeastQ
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -64,7 +63,6 @@ import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
 import org.junit.After
 import org.junit.Assert.assertThat
-import org.junit.Assume.assumeThat
 import org.junit.Before
 import org.junit.Rule
 import java.util.concurrent.CountDownLatch
@@ -115,14 +113,6 @@ open class BaseTest {
         return Context(activityTestRule)
     }
 
-    /**
-     * Temporary workaround while we're stabilizing tests on the API 29 emulator.
-     * TODO(b/130160918): remove the workaround
-     */
-    protected fun assumeApiBeforeQ() {
-        assumeThat(isAtLeastQ(), equalTo(false))
-    }
-
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
         fun recreateActivity(
             adapterProvider: AdapterProvider,
@@ -150,10 +140,6 @@ open class BaseTest {
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
-
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
 
         fun peekForward() {
             peek(adjustForRtl(-50f))
@@ -213,14 +199,14 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
-                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
                 SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -566,3 +552,8 @@ fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
         }
     }
 }
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL

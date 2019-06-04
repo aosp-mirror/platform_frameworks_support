@@ -55,10 +55,10 @@ class ParagraphStyleTest {
 
     @Test
     fun `getTextStyle with non-null values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
         val maxLines = 2
         val fontFamily = FontFamily("sans-serif")
         val fontSize = 1.0f
@@ -123,10 +123,10 @@ class ParagraphStyleTest {
 
     @Test
     fun `toString with values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
         val maxLines = 2
         val fontFamily = FontFamily("sans-serif")
         val fontSize = 1.0f
