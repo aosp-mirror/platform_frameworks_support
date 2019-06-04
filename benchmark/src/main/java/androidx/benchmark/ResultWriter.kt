@@ -47,7 +47,7 @@ internal object ResultWriter {
     internal fun writeReport(file: File, reports: List<BenchmarkState.Report>) {
         file.run {
             if (!exists()) {
-                parentFile.mkdirs()
+                parentFile?.mkdirs()
                 createNewFile()
             }
 
@@ -58,7 +58,10 @@ internal object ResultWriter {
 
             writer.name("context").beginObject()
                 .name("build").buildInfoObject()
+                .name("cpuCoreCount").value(Clocks.coreDirs.size)
                 .name("cpuLocked").value(Clocks.areLocked)
+                .name("cpuMaxFreqHz").value(Clocks.maxFreqHz)
+                .name("memTotalBytes").value(Memory.memTotalBytes)
                 .name("sustainedPerformanceModeEnabled")
                 .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
             writer.endObject()
