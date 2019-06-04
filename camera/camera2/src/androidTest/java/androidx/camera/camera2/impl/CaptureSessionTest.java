@@ -29,6 +29,8 @@ import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.CaptureResult;
 import android.media.Image;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
@@ -36,6 +38,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import androidx.annotation.NonNull;
+import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.CaptureSession.State;
 import androidx.camera.core.CameraCaptureCallback;
 import androidx.camera.core.CameraCaptureCallbacks;
@@ -56,6 +59,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.Collections;
@@ -254,6 +258,42 @@ public final class CaptureSessionTest {
     }
 
     @Test
+    public void issueCaptureRequestAppendAndOverrideRepeatingOption()
+            throws CameraAccessException, InterruptedException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        mTestParameters0.waitForData();
+
+        assertThat(captureSession.getState()).isEqualTo(State.OPENED);
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+
+        mTestParameters0.waitForCameraCaptureCallback();
+
+        ArgumentCaptor<CameraCaptureResult> captureResultCaptor = ArgumentCaptor.forClass(
+                CameraCaptureResult.class);
+
+        // CameraCaptureCallback.onCaptureCompleted() should be called to signal a capture attempt.
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(1))
+                .onCaptureCompleted(captureResultCaptor.capture());
+
+        CameraCaptureResult cameraCaptureResult = captureResultCaptor.getValue();
+        assertThat(cameraCaptureResult).isInstanceOf(Camera2CameraCaptureResult.class);
+
+        CaptureResult captureResult =
+                ((Camera2CameraCaptureResult) cameraCaptureResult).getCaptureResult();
+        // should append repeating option
+        assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AE_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_AE_MODE_ON);
+        // should override repeating option
+        assertThat(captureResult.getRequest().get(CaptureRequest.FLASH_MODE)).isEqualTo(
+                CaptureRequest.FLASH_MODE_TORCH);
+    }
+
+    @Test
     public void issueCaptureRequestBeforeCaptureSessionOpened()
             throws CameraAccessException, InterruptedException {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
@@ -380,6 +420,12 @@ public final class CaptureSessionTest {
             builder.addSurface(mDeferrableSurface);
             builder.addSessionStateCallback(mSessionStateCallback);
             builder.addRepeatingCameraCaptureCallback(mSessionCameraCaptureCallback);
+            builder.addImplementationOptions(new Camera2Config.Builder()
+                    .setCaptureRequestOption(
+                            CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON)
+                    .setCaptureRequestOption(
+                            CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_SINGLE)
+                    .build());
 
             mSessionConfig = builder.build();
 
@@ -387,6 +433,10 @@ public final class CaptureSessionTest {
             captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
             captureConfigBuilder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
             captureConfigBuilder.addCameraCaptureCallback(mComboCameraCaptureCallback);
+            captureConfigBuilder.addImplementationOptions(new Camera2Config.Builder()
+                    .setCaptureRequestOption(
+                            CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH)
+                    .build());
 
             mCaptureConfig = captureConfigBuilder.build();
         }
