@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f23a172_71076b21",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-04T08:43:41Z",
+      "side": 1,
+      "message": "nit: What about (!exists1 \u0026\u0026 !exists2)?",
+      "range": {
+        "startLine": 1177,
+        "startChar": 23,
+        "endLine": 1177,
+        "endChar": 44
+      },
+      "revId": "cdc6fc42878ce728370616b1f8dc1f46179e4882",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
