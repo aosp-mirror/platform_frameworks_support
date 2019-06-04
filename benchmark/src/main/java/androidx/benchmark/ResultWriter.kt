@@ -16,6 +16,7 @@
 
 package androidx.benchmark
 
+import android.os.Build
 import android.os.Environment.DIRECTORY_DOWNLOADS
 import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.JsonWriter
@@ -53,26 +54,59 @@ internal object ResultWriter {
             val writer = JsonWriter(bufferedWriter())
             writer.setIndent("    ")
 
-            writer.beginArray()
+            writer.beginObject()
+
+            writer.name("context").beginObject()
+                .name("build").buildInfoObject()
+                .name("cpuLocked").value(Clocks.areLocked)
+                .name("sustainedPerformanceModeEnabled")
+                .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
+            writer.endObject()
+
+            writer.name("benchmarks").beginArray()
             reports.forEach { writer.reportObject(it) }
             writer.endArray()
+
+            writer.endObject()
 
             writer.flush()
             writer.close()
         }
     }
 
+    private fun JsonWriter.buildInfoObject(): JsonWriter {
+        beginObject()
+            .name("device").value(Build.DEVICE)
+            .name("fingerprint").value(Build.FINGERPRINT)
+            .name("model").value(Build.MODEL)
+            .name("version").beginObject().name("sdk").value(Build.VERSION.SDK_INT).endObject()
+        return endObject()
+    }
+
     private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
         beginObject()
             .name("name").value(report.testName)
             .name("className").value(report.className)
-            .name("nanos").value(report.nanos)
+            .name("metrics").metricsObject(report)
             .name("warmupIterations").value(report.warmupIterations)
             .name("repeatIterations").value(report.repeatIterations)
+
+        return endObject()
+    }
+
+    private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
+        beginObject()
+
+        name("timeNs").beginObject()
+            .name("minimum").value(report.stats.min)
+            .name("maximum").value(report.stats.max)
+            .name("median").value(report.stats.median)
 
         name("runs").beginArray()
         report.data.forEach { value(it) }
         endArray()
+
+        endObject() // timeNs
 
         return endObject()
     }

@@ -24,8 +24,6 @@ import androidx.ui.baseui.Clickable
 import androidx.ui.core.Density
 import androidx.ui.core.Dp
 import androidx.ui.core.LayoutCoordinates
-import androidx.ui.core.Px
-import androidx.ui.core.PxBounds
 import androidx.ui.core.PxPosition
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
@@ -34,25 +32,23 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.Padding
 import androidx.ui.layout.Row
 import androidx.ui.layout.Wrap
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
-import androidx.ui.material.ripple.BoundedRipple
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.RippleEffect
 import androidx.ui.material.ripple.RippleEffectFactory
 import androidx.ui.material.ripple.RippleSurfaceOwner
 import androidx.ui.material.ripple.RippleTheme
 import androidx.ui.material.surface.Card
-import androidx.ui.material.surface.DrawColor
 import androidx.ui.painting.Canvas
 import androidx.ui.graphics.Color
-import androidx.ui.test.android.AndroidUiTestRunner
+import androidx.ui.material.ripple.Ripple
+import androidx.ui.test.createComposeRule
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
 import androidx.ui.vectormath64.Matrix4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -61,7 +57,10 @@ import java.util.concurrent.TimeUnit
 
 @MediumTest
 @RunWith(JUnit4::class)
-class RippleEffectTest : AndroidUiTestRunner() {
+class RippleEffectTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
     @Test
     fun rippleEffectMatrixHasOffsetFromSurface() {
@@ -69,7 +68,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         var matrix: Matrix4? = null
 
         val padding = 10.dp
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             RippleCallback(onRippleDrawn = {
                 matrix = it
                 latch.countDown()
@@ -91,7 +90,9 @@ class RippleEffectTest : AndroidUiTestRunner() {
         assertTrue(latch.await(1, TimeUnit.SECONDS))
         // verify matrix contains the expected padding
         assertNotNull(matrix)
-        val paddingFloat = withDensity(density) { padding.toIntPx().value.toFloat() }
+        val paddingFloat = withDensity(composeTestRule.density) {
+            padding.toIntPx().value.toFloat()
+        }
         val expectedMatrix = Matrix4.translationValues(
             paddingFloat,
             paddingFloat,
@@ -106,7 +107,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         var matrix: Matrix4? = null
 
         val size = 10.dp
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             RippleCallback(onRippleDrawn = {
                 matrix = it
                 latch.countDown()
@@ -132,7 +133,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         assertTrue(latch.await(1, TimeUnit.SECONDS))
         // verify matrix contains the expected padding
         assertNotNull(matrix)
-        val offsetFloat = withDensity(density) { size.toIntPx().value.toFloat() }
+        val offsetFloat = withDensity(composeTestRule.density) { size.toIntPx().value.toFloat() }
         val expectedMatrix = Matrix4.translationValues(
             offsetFloat,
             0f,
@@ -142,11 +143,9 @@ class RippleEffectTest : AndroidUiTestRunner() {
     }
 
     private fun RippleButton(size: Dp? = null) {
-        BoundedRipple {
+        Ripple(bounded = false) {
             Clickable(onClick = {}) {
-                Container(width = size, height = size) {
-                    DrawColor(Color(android.graphics.Color.CYAN))
-                }
+                Container(width = size, height = size) {}
             }
         }
     }
@@ -161,18 +160,15 @@ class RippleEffectTest : AndroidUiTestRunner() {
     }
 
     private fun testRippleEffect(onDraw: (Matrix4) -> Unit): RippleEffectFactory =
-        object : RippleEffectFactory() {
+        object : RippleEffectFactory {
             override fun create(
                 rippleSurface: RippleSurfaceOwner,
                 coordinates: LayoutCoordinates,
                 touchPosition: PxPosition,
                 color: Color,
                 density: Density,
-                shape: BoxShape,
-                finalRadius: Px?,
-                containedInkWell: Boolean,
-                boundsCallback: ((LayoutCoordinates) -> PxBounds)?,
-                clippingBorderRadius: BorderRadius?,
+                radius: Dp?,
+                bounded: Boolean,
                 onRemoved: (() -> Unit)?
             ): RippleEffect {
                 return object : RippleEffect(rippleSurface, coordinates, color, onRemoved) {
