@@ -30,10 +30,10 @@ class ClocksTest {
     fun allSimilarCoresSameFreqs() {
         assertTrue(Clocks.isCpuLocked(
             listOf(
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2)
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000)
             )
         ))
     }
@@ -42,10 +42,10 @@ class ClocksTest {
     fun differentMaxFrequencies() {
         assertFalse(Clocks.isCpuLocked(
             listOf(
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2),
-                Clocks.CoreDir(true, listOf(1, 2), 2),
-                Clocks.CoreDir(true, listOf(1, 2), 2)
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2), 2, 1000),
+                Clocks.CoreDir(true, listOf(1, 2), 2, 1000)
             )
         ))
     }
@@ -54,10 +54,10 @@ class ClocksTest {
     fun differentCurrentMinFrequencies() {
         assertFalse(Clocks.isCpuLocked(
             listOf(
-                Clocks.CoreDir(true, listOf(1, 2, 3), 3),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 3),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 3),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 2)
+                Clocks.CoreDir(true, listOf(1, 2, 3), 3, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 3, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 3, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 2, 1000)
             )
         ))
     }
@@ -66,10 +66,10 @@ class ClocksTest {
     fun currentMinEqualsMinAvailable() {
         assertFalse(Clocks.isCpuLocked(
             listOf(
-                Clocks.CoreDir(true, listOf(1, 2, 3), 1),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 1),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 1),
-                Clocks.CoreDir(true, listOf(1, 2, 3), 1)
+                Clocks.CoreDir(true, listOf(1, 2, 3), 1, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 1, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 1, 1000),
+                Clocks.CoreDir(true, listOf(1, 2, 3), 1, 1000)
             )
         ))
     }
