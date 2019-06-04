@@ -131,7 +131,7 @@ public class MediaController implements AutoCloseable {
 
     final Object mLock = new Object();
     @GuardedBy("mLock")
-    MediaControllerImpl mImpl;
+    MediaControllerImpl mControllerImpl;
     @GuardedBy("mLock")
     boolean mClosed;
 
@@ -164,7 +164,7 @@ public class MediaController implements AutoCloseable {
         mCallback = callback;
         mCallbackExecutor = executor;
         synchronized (mLock) {
-            mImpl = createImpl(context, token, connectionHints);
+            mControllerImpl = createImpl(context, token, connectionHints);
         }
     }
 
@@ -194,7 +194,7 @@ public class MediaController implements AutoCloseable {
                             SessionToken token2) {
                         synchronized (mLock) {
                             if (!mClosed) {
-                                mImpl = createImpl(context, token2, connectionHints);
+                                mControllerImpl = createImpl(context, token2, connectionHints);
                             } else {
                                 notifyControllerCallback(new ControllerCallbackRunnable() {
                                     @Override
@@ -217,9 +217,9 @@ public class MediaController implements AutoCloseable {
         }
     }
 
-    MediaControllerImpl getImpl() {
+    MediaControllerImpl getControllerImpl() {
         synchronized (mLock) {
-            return mImpl;
+            return mControllerImpl;
         }
     }
 
@@ -236,7 +236,7 @@ public class MediaController implements AutoCloseable {
                     return;
                 }
                 mClosed = true;
-                impl = mImpl;
+                impl = mControllerImpl;
             }
             if (impl != null) {
                 impl.close();
@@ -258,14 +258,14 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public SessionToken getConnectedToken() {
-        return isConnected() ? getImpl().getConnectedToken() : null;
+        return isConnected() ? getControllerImpl().getConnectedToken() : null;
     }
 
     /**
      * Returns whether this class is connected to active {@link MediaSession} or not.
      */
     public boolean isConnected() {
-        MediaControllerImpl impl = getImpl();
+        MediaControllerImpl impl = getControllerImpl();
         return impl != null && impl.isConnected();
     }
 
@@ -283,7 +283,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> play() {
         if (isConnected()) {
-            return getImpl().play();
+            return getControllerImpl().play();
         }
         return createDisconnectedFuture();
     }
@@ -297,7 +297,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> pause() {
         if (isConnected()) {
-            return getImpl().pause();
+            return getControllerImpl().pause();
         }
         return createDisconnectedFuture();
     }
@@ -316,7 +316,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> prepare() {
         if (isConnected()) {
-            return getImpl().prepare();
+            return getControllerImpl().prepare();
         }
         return createDisconnectedFuture();
     }
@@ -329,7 +329,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> fastForward() {
         if (isConnected()) {
-            return getImpl().fastForward();
+            return getControllerImpl().fastForward();
         }
         return createDisconnectedFuture();
     }
@@ -342,7 +342,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> rewind() {
         if (isConnected()) {
-            return getImpl().rewind();
+            return getControllerImpl().rewind();
         }
         return createDisconnectedFuture();
     }
@@ -356,7 +356,7 @@ public class MediaController implements AutoCloseable {
     public ListenableFuture<SessionResult> skipForward() {
         // To match with KEYCODE_MEDIA_SKIP_FORWARD
         if (isConnected()) {
-            return getImpl().skipForward();
+            return getControllerImpl().skipForward();
         }
         return createDisconnectedFuture();
     }
@@ -370,7 +370,7 @@ public class MediaController implements AutoCloseable {
     public ListenableFuture<SessionResult> skipBackward() {
         // To match with KEYCODE_MEDIA_SKIP_BACKWARD
         if (isConnected()) {
-            return getImpl().skipBackward();
+            return getControllerImpl().skipBackward();
         }
         return createDisconnectedFuture();
     }
@@ -383,7 +383,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> seekTo(long pos) {
         if (isConnected()) {
-            return getImpl().seekTo(pos);
+            return getControllerImpl().seekTo(pos);
         }
         return createDisconnectedFuture();
     }
@@ -404,7 +404,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().playFromMediaId(mediaId, extras);
+            return getControllerImpl().playFromMediaId(mediaId, extras);
         }
         return createDisconnectedFuture();
     }
@@ -424,7 +424,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().playFromSearch(query, extras);
+            return getControllerImpl().playFromSearch(query, extras);
         }
         return createDisconnectedFuture();
     }
@@ -445,7 +445,7 @@ public class MediaController implements AutoCloseable {
             throw new NullPointerException("uri shouldn't be null");
         }
         if (isConnected()) {
-            return getImpl().playFromUri(uri, extras);
+            return getControllerImpl().playFromUri(uri, extras);
         }
         return createDisconnectedFuture();
     }
@@ -472,7 +472,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().prepareFromMediaId(mediaId, extras);
+            return getControllerImpl().prepareFromMediaId(mediaId, extras);
         }
         return createDisconnectedFuture();
     }
@@ -498,7 +498,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().prepareFromSearch(query, extras);
+            return getControllerImpl().prepareFromSearch(query, extras);
         }
         return createDisconnectedFuture();
     }
@@ -525,7 +525,7 @@ public class MediaController implements AutoCloseable {
             throw new NullPointerException("uri shouldn't be null");
         }
         if (isConnected()) {
-            return getImpl().prepareFromUri(uri, extras);
+            return getControllerImpl().prepareFromUri(uri, extras);
         }
         return createDisconnectedFuture();
     }
@@ -548,7 +548,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> setVolumeTo(int value, @VolumeFlags int flags) {
         if (isConnected()) {
-            return getImpl().setVolumeTo(value, flags);
+            return getControllerImpl().setVolumeTo(value, flags);
         }
         return createDisconnectedFuture();
     }
@@ -577,7 +577,7 @@ public class MediaController implements AutoCloseable {
     public ListenableFuture<SessionResult> adjustVolume(@VolumeDirection int direction,
             @VolumeFlags int flags) {
         if (isConnected()) {
-            return getImpl().adjustVolume(direction, flags);
+            return getControllerImpl().adjustVolume(direction, flags);
         }
         return createDisconnectedFuture();
     }
@@ -590,7 +590,7 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public PendingIntent getSessionActivity() {
-        return isConnected() ? getImpl().getSessionActivity() : null;
+        return isConnected() ? getControllerImpl().getSessionActivity() : null;
     }
 
     /**
@@ -601,7 +601,7 @@ public class MediaController implements AutoCloseable {
      * @return player state
      */
     public int getPlayerState() {
-        return isConnected() ? getImpl().getPlayerState() : PLAYER_STATE_IDLE;
+        return isConnected() ? getControllerImpl().getPlayerState() : PLAYER_STATE_IDLE;
     }
 
     /**
@@ -611,7 +611,7 @@ public class MediaController implements AutoCloseable {
      * @return the duration in ms, or {@link SessionPlayer#UNKNOWN_TIME}
      */
     public long getDuration() {
-        return isConnected() ? getImpl().getDuration() : UNKNOWN_TIME;
+        return isConnected() ? getControllerImpl().getDuration() : UNKNOWN_TIME;
     }
 
     /**
@@ -624,7 +624,7 @@ public class MediaController implements AutoCloseable {
      *         if unknown or not connected
      */
     public long getCurrentPosition() {
-        return isConnected() ? getImpl().getCurrentPosition() : UNKNOWN_TIME;
+        return isConnected() ? getControllerImpl().getCurrentPosition() : UNKNOWN_TIME;
     }
 
     /**
@@ -634,7 +634,7 @@ public class MediaController implements AutoCloseable {
      * @return speed the lastly cached playback speed, or 0f if unknown or not connected
      */
     public float getPlaybackSpeed() {
-        return isConnected() ? getImpl().getPlaybackSpeed() : 0f;
+        return isConnected() ? getControllerImpl().getPlaybackSpeed() : 0f;
     }
 
     /**
@@ -649,7 +649,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("speed must not be zero");
         }
         if (isConnected()) {
-            return getImpl().setPlaybackSpeed(speed);
+            return getControllerImpl().setPlaybackSpeed(speed);
         }
         return createDisconnectedFuture();
     }
@@ -664,7 +664,7 @@ public class MediaController implements AutoCloseable {
      */
     @SessionPlayer.BuffState
     public int getBufferingState() {
-        return isConnected() ? getImpl().getBufferingState() : BUFFERING_STATE_UNKNOWN;
+        return isConnected() ? getControllerImpl().getBufferingState() : BUFFERING_STATE_UNKNOWN;
     }
 
     /**
@@ -676,7 +676,7 @@ public class MediaController implements AutoCloseable {
      *         unknown or not connected
      */
     public long getBufferedPosition() {
-        return isConnected() ? getImpl().getBufferedPosition() : UNKNOWN_TIME;
+        return isConnected() ? getControllerImpl().getBufferedPosition() : UNKNOWN_TIME;
     }
 
     /**
@@ -687,7 +687,7 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public PlaybackInfo getPlaybackInfo() {
-        return isConnected() ? getImpl().getPlaybackInfo() : null;
+        return isConnected() ? getControllerImpl().getPlaybackInfo() : null;
     }
 
     /**
@@ -714,7 +714,7 @@ public class MediaController implements AutoCloseable {
             throw new NullPointerException("rating shouldn't be null");
         }
         if (isConnected()) {
-            return getImpl().setRating(mediaId, rating);
+            return getControllerImpl().setRating(mediaId, rating);
         }
         return createDisconnectedFuture();
     }
@@ -743,7 +743,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("command should be a custom command");
         }
         if (isConnected()) {
-            return getImpl().sendCustomCommand(command, args);
+            return getControllerImpl().sendCustomCommand(command, args);
         }
         return createDisconnectedFuture();
     }
@@ -763,7 +763,7 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public List<MediaItem> getPlaylist() {
-        return isConnected() ? getImpl().getPlaylist() : null;
+        return isConnected() ? getControllerImpl().getPlaylist() : null;
     }
 
     /**
@@ -796,7 +796,7 @@ public class MediaController implements AutoCloseable {
             }
         }
         if (isConnected()) {
-            return getImpl().setPlaylist(list, metadata);
+            return getControllerImpl().setPlaylist(list, metadata);
         }
         return createDisconnectedFuture();
     }
@@ -823,7 +823,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            getImpl().setMediaItem(mediaId);
+            getControllerImpl().setMediaItem(mediaId);
         }
         return createDisconnectedFuture();
     }
@@ -837,7 +837,7 @@ public class MediaController implements AutoCloseable {
     public ListenableFuture<SessionResult> updatePlaylistMetadata(
             @Nullable MediaMetadata metadata) {
         if (isConnected()) {
-            return getImpl().updatePlaylistMetadata(metadata);
+            return getControllerImpl().updatePlaylistMetadata(metadata);
         }
         return createDisconnectedFuture();
     }
@@ -852,7 +852,7 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public MediaMetadata getPlaylistMetadata() {
-        return isConnected() ? getImpl().getPlaylistMetadata() : null;
+        return isConnected() ? getControllerImpl().getPlaylistMetadata() : null;
     }
 
     /**
@@ -878,7 +878,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().addPlaylistItem(index, mediaId);
+            return getControllerImpl().addPlaylistItem(index, mediaId);
         }
         return createDisconnectedFuture();
     }
@@ -897,7 +897,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("index shouldn't be negative");
         }
         if (isConnected()) {
-            return getImpl().removePlaylistItem(index);
+            return getControllerImpl().removePlaylistItem(index);
         }
         return createDisconnectedFuture();
     }
@@ -919,7 +919,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().replacePlaylistItem(index, mediaId);
+            return getControllerImpl().replacePlaylistItem(index, mediaId);
         }
         return createDisconnectedFuture();
     }
@@ -934,7 +934,7 @@ public class MediaController implements AutoCloseable {
      */
     @Nullable
     public MediaItem getCurrentMediaItem() {
-        return isConnected() ? getImpl().getCurrentMediaItem() : null;
+        return isConnected() ? getControllerImpl().getCurrentMediaItem() : null;
     }
 
     /**
@@ -946,7 +946,7 @@ public class MediaController implements AutoCloseable {
      * playlist hasn't been set.
      */
     public int getCurrentMediaItemIndex() {
-        return isConnected() ? getImpl().getCurrentMediaItemIndex() : -1;
+        return isConnected() ? getControllerImpl().getCurrentMediaItemIndex() : -1;
     }
 
     /**
@@ -962,7 +962,7 @@ public class MediaController implements AutoCloseable {
      * or playlist hasn't been set.
      */
     public int getPreviousMediaItemIndex() {
-        return isConnected() ? getImpl().getPreviousMediaItemIndex() : -1;
+        return isConnected() ? getControllerImpl().getPreviousMediaItemIndex() : -1;
     }
 
     /**
@@ -978,7 +978,7 @@ public class MediaController implements AutoCloseable {
      * playlist hasn't been set.
      */
     public int getNextMediaItemIndex() {
-        return isConnected() ? getImpl().getNextMediaItemIndex() : -1;
+        return isConnected() ? getControllerImpl().getNextMediaItemIndex() : -1;
     }
 
     /**
@@ -989,7 +989,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> skipToPreviousPlaylistItem() {
         if (isConnected()) {
-            return getImpl().skipToPreviousItem();
+            return getControllerImpl().skipToPreviousItem();
         }
         return createDisconnectedFuture();
     }
@@ -1002,7 +1002,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> skipToNextPlaylistItem() {
         if (isConnected()) {
-            return getImpl().skipToNextItem();
+            return getControllerImpl().skipToNextItem();
         }
         return createDisconnectedFuture();
     }
@@ -1020,7 +1020,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("index shouldn't be negative");
         }
         if (isConnected()) {
-            return getImpl().skipToPlaylistItem(index);
+            return getControllerImpl().skipToPlaylistItem(index);
         }
         return createDisconnectedFuture();
     }
@@ -1037,7 +1037,7 @@ public class MediaController implements AutoCloseable {
      */
     @RepeatMode
     public int getRepeatMode() {
-        return isConnected() ? getImpl().getRepeatMode() : REPEAT_MODE_NONE;
+        return isConnected() ? getControllerImpl().getRepeatMode() : REPEAT_MODE_NONE;
     }
 
     /**
@@ -1052,7 +1052,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> setRepeatMode(@RepeatMode int repeatMode) {
         if (isConnected()) {
-            return getImpl().setRepeatMode(repeatMode);
+            return getControllerImpl().setRepeatMode(repeatMode);
         }
         return createDisconnectedFuture();
     }
@@ -1068,7 +1068,7 @@ public class MediaController implements AutoCloseable {
      */
     @ShuffleMode
     public int getShuffleMode() {
-        return isConnected() ? getImpl().getShuffleMode() : SHUFFLE_MODE_NONE;
+        return isConnected() ? getControllerImpl().getShuffleMode() : SHUFFLE_MODE_NONE;
     }
 
     /**
@@ -1082,7 +1082,7 @@ public class MediaController implements AutoCloseable {
     @NonNull
     public ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode) {
         if (isConnected()) {
-            return getImpl().setShuffleMode(shuffleMode);
+            return getControllerImpl().setShuffleMode(shuffleMode);
         }
         return createDisconnectedFuture();
     }
@@ -1098,7 +1098,7 @@ public class MediaController implements AutoCloseable {
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public VideoSize getVideoSize() {
-        return isConnected() ? getImpl().getVideoSize() : new VideoSize(0, 0);
+        return isConnected() ? getControllerImpl().getVideoSize() : new VideoSize(0, 0);
     }
 
     /**
@@ -1114,7 +1114,7 @@ public class MediaController implements AutoCloseable {
     @RestrictTo(LIBRARY_GROUP)
     public ListenableFuture<SessionResult> setSurface(@Nullable Surface surface) {
         if (isConnected()) {
-            return getImpl().setSurface(surface);
+            return getControllerImpl().setSurface(surface);
         }
         return createDisconnectedFuture();
     }
@@ -1132,7 +1132,7 @@ public class MediaController implements AutoCloseable {
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public List<TrackInfo> getTrackInfo() {
-        return isConnected() ? getImpl().getTrackInfo() : null;
+        return isConnected() ? getControllerImpl().getTrackInfo() : null;
     }
 
     /**
@@ -1149,7 +1149,7 @@ public class MediaController implements AutoCloseable {
         if (trackInfo == null) {
             throw new NullPointerException("TrackInfo shouldn't be null");
         }
-        return isConnected() ? getImpl().selectTrack(trackInfo) : createDisconnectedFuture();
+        return isConnected() ? getControllerImpl().selectTrack(trackInfo) : createDisconnectedFuture();
     }
 
     /**
@@ -1166,7 +1166,7 @@ public class MediaController implements AutoCloseable {
         if (trackInfo == null) {
             throw new NullPointerException("TrackInfo shouldn't be null");
         }
-        return isConnected() ? getImpl().deselectTrack(trackInfo) : createDisconnectedFuture();
+        return isConnected() ? getControllerImpl().deselectTrack(trackInfo) : createDisconnectedFuture();
     }
 
     /**
@@ -1190,7 +1190,7 @@ public class MediaController implements AutoCloseable {
     @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType) {
-        return isConnected() ? getImpl().getSelectedTrack(trackType) : null;
+        return isConnected() ? getControllerImpl().getSelectedTrack(trackType) : null;
     }
 
     /**
@@ -1294,7 +1294,7 @@ public class MediaController implements AutoCloseable {
         if (!isConnected()) {
             return null;
         }
-        return getImpl().getAllowedCommands();
+        return getControllerImpl().getAllowedCommands();
     }
 
     private static ListenableFuture<SessionResult> createDisconnectedFuture() {
