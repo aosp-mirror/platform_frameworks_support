@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "200d076b_195c1049",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/HandlerUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:33:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94043a86_2f26548c",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 90
+      },
+      "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cd938df_02e2ab10",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94eb8f5a_405cca4d",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:33:16Z",
+      "side": 1,
+      "message": "Sure, made it into a LooperCompat class which wraps Looper",
+      "parentUuid": "9cd938df_02e2ab10",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ec7bee04_eb23995a",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:33:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "552f3727_6b616751",
+      "range": {
+        "startLine": 29,
+        "startChar": 31,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b01c6a3_a3f86dc9",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74376c09_1910219b",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/LooperUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:33:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b01c6a3_a3f86dc9",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "45f10f8e1d7df304f45b294ff1c61c0175ca9676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
