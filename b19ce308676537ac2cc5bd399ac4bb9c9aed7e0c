@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62e63d00_a09f934b",
+        "filename": "media2/session/version-compat-tests/previous/service/src/main/res/drawable/big_buck_bunny.jpg",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-04T15:57:25Z",
+      "side": 0,
+      "message": "Do we need an image that large for this? Its 672kb being added to the checkout.",
+      "revId": "b19ce308676537ac2cc5bd399ac4bb9c9aed7e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
