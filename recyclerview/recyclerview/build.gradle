@@ -10,8 +10,13 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (690e32 Merge "Added HandlerUtil and LooperCompat" into androidx-mas)
     api("androidx.annotation:annotation:1.1.0")
     api("androidx.core:core:1.1.0-rc01")
+=======
+    api("androidx.annotation:annotation:1.1.0-rc01")
+    api(project(":core:core"))
+>>>>>>> BRANCH (6f03fc Merge "Fix failing ViewPager2 tests." into androidx-platform)
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.customview:customview:1.0.0")
 
