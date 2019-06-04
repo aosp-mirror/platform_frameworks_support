@@ -59,8 +59,9 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.futures.AbstractResolvableFuture;
-import androidx.concurrent.futures.ResolvableFuture;
+import androidx.concurrent.ListenableFuture;
+import androidx.concurrent.callback.AbstractResolvableFuture;
+import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.MediaBrowserServiceCompat;
@@ -77,8 +78,6 @@ import androidx.media2.session.MediaSession.ControllerCb;
 import androidx.media2.session.MediaSession.ControllerInfo;
 import androidx.media2.session.MediaSession.SessionCallback;
 import androidx.media2.session.SequencedFutureManager.SequencedFuture;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -893,6 +892,16 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         });
     }
 
+    @Override
+    public TrackInfo getSelectedTrack(final int trackType) {
+        return dispatchPlayerTask(new PlayerTask<TrackInfo>() {
+            @Override
+            public TrackInfo run(SessionPlayer player) throws Exception {
+                return player.getSelectedTrackInternal(trackType);
+            }
+        }, null);
+    }
+
     ///////////////////////////////////////////////////
     // package private and private methods
     ///////////////////////////////////////////////////
@@ -1486,11 +1495,17 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
             });
         }
 
+        @Override
         public void onTrackInfoChanged(SessionPlayer player, final List<TrackInfo> trackInfos) {
+            final MediaSessionImplBase session = getSession();
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
-                    callback.onTrackInfoChanged(seq, trackInfos);
+                    callback.onTrackInfoChanged(seq, trackInfos,
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_VIDEO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_METADATA));
                 }
             });
         }

@@ -26,11 +26,11 @@ import android.hardware.camera2.params.OutputConfiguration;
 import android.hardware.camera2.params.SessionConfiguration;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraCaptureCallback;
@@ -42,6 +42,11 @@ import androidx.camera.core.DeferrableSurface;
 import androidx.camera.core.DeferrableSurfaces;
 import androidx.camera.core.ImmediateSurface;
 import androidx.camera.core.SessionConfig;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
+import androidx.camera.core.impl.utils.futures.Futures;
+import androidx.concurrent.ListenableFuture;
+import androidx.concurrent.callback.CallbackToFutureAdapter;
+import androidx.core.util.Preconditions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +54,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
-import java.util.concurrent.RejectedExecutionException;
 
 /**
  * A session for capturing images from the camera which is tied to a specific {@link CameraDevice}.
@@ -64,6 +68,7 @@ final class CaptureSession {
     @Nullable
     private final Handler mHandler;
     /** An adapter to pass the task to the handler. */
+    @Nullable
     private final Executor mExecutor;
     /** The configuration for the currently issued single capture requests. */
     private final List<CaptureConfig> mCaptureConfigs = new ArrayList<>();
@@ -96,6 +101,12 @@ final class CaptureSession {
     /** Tracks the current state of the session. */
     @GuardedBy("mStateLock")
     State mState = State.UNINITIALIZED;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @GuardedBy("mStateLock")
+    ListenableFuture<Void> mReleaseFuture;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @GuardedBy("mStateLock")
+    CallbackToFutureAdapter.Completer<Void> mReleaseCompleter;
 
     /**
      * Constructor for CaptureSession.
@@ -106,9 +117,9 @@ final class CaptureSession {
      *                to use the current thread's looper.
      */
     CaptureSession(@Nullable Handler handler) {
-        this.mHandler = handler;
+        mHandler = handler;
         mState = State.INITIALIZED;
-        mExecutor = new ExecutorHandlerAdapter(handler);
+        mExecutor = (handler != null) ? CameraXExecutors.newHandlerExecutor(handler) : null;
     }
 
     /**
@@ -234,7 +245,7 @@ final class CaptureSession {
                     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P
                             && builder != null && !presetList.isEmpty()) {
                         for (CaptureConfig config : presetList) {
-                            applyImplementationOptionTCaptureBuilder(builder,
+                            applyImplementationOptionToCaptureBuilder(builder,
                                     config.getImplementationOptions());
                         }
 
@@ -245,7 +256,7 @@ final class CaptureSession {
 
                         SessionConfiguration sessionParameterConfiguration =
                                 new SessionConfiguration(SessionConfiguration.SESSION_REGULAR,
-                                        outputConfigList, mExecutor, comboCallback);
+                                        outputConfigList, getExecutor(), comboCallback);
                         sessionParameterConfiguration.setSessionParameters(builder.build());
                         cameraDevice.createCaptureSession(sessionParameterConfiguration);
                     } else {
@@ -311,29 +322,48 @@ final class CaptureSession {
      * <p>Once a session is released it can no longer be opened again. After the session is released
      * all method calls on it do nothing.
      */
-    void release() {
+    ListenableFuture<Void> release() {
         synchronized (mStateLock) {
             switch (mState) {
                 case UNINITIALIZED:
                     throw new IllegalStateException(
                             "release() should not be possible in state: " + mState);
-                case INITIALIZED:
-                    mState = State.RELEASED;
-                    break;
-                case OPENING:
-                    mState = State.RELEASING;
-                    break;
                 case OPENED:
                 case CLOSED:
                     if (mCameraCaptureSession != null) {
                         mCameraCaptureSession.close();
                     }
+                    // Fall through
+                case OPENING:
                     mState = State.RELEASING;
-                    break;
+                    // Fall through
                 case RELEASING:
+                    if (mReleaseFuture == null) {
+                        mReleaseFuture = CallbackToFutureAdapter.getFuture(
+                                new CallbackToFutureAdapter.Resolver<Void>() {
+                                    @Override
+                                    public Object attachCompleter(@NonNull
+                                            CallbackToFutureAdapter.Completer<Void> completer) {
+                                        Preconditions.checkState(Thread.holdsLock(mStateLock));
+                                        Preconditions.checkState(mReleaseCompleter == null,
+                                                "Release completer expected to be null");
+                                        mReleaseCompleter = completer;
+                                        return "Release[session=" + CaptureSession.this + "]";
+                                    }
+                                });
+                    }
+
+                    return mReleaseFuture;
+                case INITIALIZED:
+                    mState = State.RELEASED;
+                    // Fall through
                 case RELEASED:
+                    break;
             }
         }
+
+        // Already released. Return success immediately.
+        return Futures.immediateFuture(null);
     }
 
     // Notify the surface is attached to a new capture session.
@@ -428,11 +458,11 @@ final class CaptureSession {
             List<CaptureConfig> repeatingRequestList =
                     eventCallbacks.createComboCallback().onRepeating();
             for (CaptureConfig config : repeatingRequestList) {
-                applyImplementationOptionTCaptureBuilder(builder,
+                applyImplementationOptionToCaptureBuilder(builder,
                         config.getImplementationOptions());
             }
 
-            applyImplementationOptionTCaptureBuilder(
+            applyImplementationOptionToCaptureBuilder(
                     builder, captureConfig.getImplementationOptions());
 
             CameraCaptureSession.CaptureCallback comboCaptureCallback =
@@ -448,7 +478,7 @@ final class CaptureSession {
         }
     }
 
-    private void applyImplementationOptionTCaptureBuilder(
+    private void applyImplementationOptionToCaptureBuilder(
             CaptureRequest.Builder builder, Config config) {
         Camera2Config camera2Config = new Camera2Config(config);
         for (Option<?> option : camera2Config.getCaptureRequestOptions()) {
@@ -492,7 +522,10 @@ final class CaptureSession {
                 CaptureRequest.Builder builder =
                         captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
 
-                applyImplementationOptionTCaptureBuilder(
+                applyImplementationOptionToCaptureBuilder(builder,
+                        mSessionConfig.getRepeatingCaptureConfig().getImplementationOptions());
+
+                applyImplementationOptionToCaptureBuilder(
                         builder, captureConfig.getImplementationOptions());
 
                 CaptureRequest captureRequest = builder.build();
@@ -631,18 +664,22 @@ final class CaptureSession {
         @Override
         public void onClosed(CameraCaptureSession session) {
             synchronized (mStateLock) {
-                switch (mState) {
-                    case UNINITIALIZED:
-                        throw new IllegalStateException(
-                                "onClosed() should not be possible in state: " + mState);
-                    default:
-                        mState = State.RELEASED;
-                        mCameraCaptureSession = null;
+                if (mState == State.UNINITIALIZED) {
+                    throw new IllegalStateException(
+                            "onClosed() should not be possible in state: " + mState);
                 }
+
                 Log.d(TAG, "CameraCaptureSession.onClosed()");
+
+                mState = State.RELEASED;
+                mCameraCaptureSession = null;
 
                 notifySurfaceDetached();
 
+                if (mReleaseCompleter != null) {
+                    mReleaseCompleter.set(null);
+                    mReleaseCompleter = null;
+                }
             }
         }
 
@@ -689,32 +726,13 @@ final class CaptureSession {
         return ret;
     }
 
-    private static class ExecutorHandlerAdapter implements Executor {
-
-        private final Handler mHandler;
-        ExecutorHandlerAdapter(Handler handler) {
-            mHandler = handler;
+    // TODO: We should enforce that mExecutor is never null.
+    //  We can remove this method once that is the case.
+    private Executor getExecutor() {
+        if (mExecutor == null) {
+            return CameraXExecutors.myLooperExecutor();
         }
 
-        @Override
-        public void execute(Runnable command) {
-            Handler handler;
-
-            if (mHandler == null) {
-                // Run in current thread when handler not exist.
-                Looper looper = Looper.myLooper();
-                if (looper == null) {
-                    throw new IllegalArgumentException(
-                            "No handler given, and current thread has no looper!");
-                }
-                handler = new Handler(looper);
-            } else {
-                handler = mHandler;
-            }
-
-            if (!handler.post(command)) {
-                throw new RejectedExecutionException(handler + " is shutting down");
-            }
-        }
+        return mExecutor;
     }
 }
