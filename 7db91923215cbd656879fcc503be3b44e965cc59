@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f32c26f5_e9611994",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ExtenderVersioning.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T20:51:39Z",
+      "side": 1,
+      "message": "We don\u0027t really need this interface, because the only class that is implementing this interface is ExtenderVersioningImpl.\n\nWe should stay consistent with all the other classes, such as AutoImageCaptureExtenderImpl which just provides a concrete (or stub) implementation. The AutoImageCaptureExtenderImpl only implements an interface because that interface is shared by all of the ImageCaptureExtenderImpls.\n\nThen you can rename the class to ExtensionVersionImpl, that way it is consistent with the extensions package in naming. Because it defines the version for the entire extensions module not Extenders.",
+      "revId": "7db91923215cbd656879fcc503be3b44e965cc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
