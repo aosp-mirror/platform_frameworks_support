@@ -21,7 +21,7 @@
     android:color="?android:attr/colorControlHighlight">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/car_body1"/>
+            <solid android:color="@color/car_grey_900"/>
             <size
                 android:width="@dimen/car_alpha_jump_button_size"
                 android:height="@dimen/car_alpha_jump_button_size"/>
