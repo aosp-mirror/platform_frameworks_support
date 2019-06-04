@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d94e441_580c6b32",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d00d08a4_1aba8d91",
+      "range": {
+        "startLine": 223,
+        "startChar": 9,
+        "endLine": 223,
+        "endChar": 25
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4eabffa_dfad4af0",
         "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "63e2f5bc_6fd558a3",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01e1d8c2_fc9b3982",
+      "range": {
+        "startLine": 232,
+        "startChar": 24,
+        "endLine": 232,
+        "endChar": 42
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2b925cb_d7276797",
         "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e5290a3_1ef21270",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b925cb_d7276797",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 73
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "083539c8_6ea94844",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Fixed. Placed in synchronized block.",
+      "parentUuid": "7d232397_f38b4d76",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "012a1159_4fd26c9c",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageProxy.java",
         "patchSetId": 2
@@ -138,6 +234,30 @@
       "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4997a78_1da1ed0d",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Removed this, so that it just returns the mReleaseFuture",
+      "parentUuid": "012a1159_4fd26c9c",
+      "range": {
+        "startLine": 152,
+        "startChar": 9,
+        "endLine": 154,
+        "endChar": 9
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "e5b99234_55000b32",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageReaderProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a469fc6_0cedbce1",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5b61104_6b4bd64d",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageReaderProxy.java",
         "patchSetId": 2
@@ -184,6 +328,30 @@
       "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88e02c2_908474fe",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeImageReaderProxy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T22:49:45Z",
+      "side": 1,
+      "message": "Removed the Nonblocking. Clarified the javadocs.",
+      "parentUuid": "b5b61104_6b4bd64d",
+      "range": {
+        "startLine": 175,
+        "startChar": 40,
+        "endLine": 175,
+        "endChar": 51
+      },
+      "revId": "927d9e04c397816ded07fde184a254674ea6acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
