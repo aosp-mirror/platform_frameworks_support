@@ -96,6 +96,53 @@
     },
     {
       "key": {
+        "uuid": "a1d18ff3_7b6e7071",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-06-04T10:12:04Z",
+      "side": 1,
+      "message": "I think we can remove this comment as it is indeed not very useful for developers. Since we didn\u0027t have feature detection, there is no perfect solution here. We may add validateRelationship calls into launchActivity(), without asynchronous waiting, and remove them once usage of Chrome 72-73 becomes insignificant.",
+      "parentUuid": "5cd5bd75_214c9a81",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1fe2cb_9acca09a",
+        "filename": "browser/src/test/java/androidx/browser/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-06-04T10:12:04Z",
+      "side": 1,
+      "message": "TwaProviderPicker is not going to be included, right? So the tests shouldn\u0027t be either.",
+      "range": {
+        "startLine": 49,
+        "startChar": 20,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "9d2df9858a8a7ba97e3e40e5ac312bc9799ee43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f014f2e_b9372bb6",
         "filename": "browser/src/test/java/androidx/browser/trusted/TwaProviderPickerTest.java",
         "patchSetId": 8
