@@ -20,10 +20,12 @@ import android.util.Log
 import java.io.File
 import java.io.IOException
 
-internal object Clocks {
+internal object CpuInfo {
     private const val TAG = "Benchmark"
 
-    val areLocked: Boolean
+    val coreDirs: List<CoreDir>
+    val locked: Boolean
+    val maxFreqHz: Long
 
     /**
      * Representation of clock info in `/sys/devices/system/cpu/cpu#/`
@@ -36,19 +38,18 @@ internal object Clocks {
         val availableFreqs: List<Int>,
 
         // scaling_min_freq, or -1 if can't access
-        val currentMinFreq: Int
+        val currentMinFreq: Int,
+
+        // cpuinfo_max_freq, or -1 if can't access
+        val maxFreqKhz: Long
     )
 
     init {
         val cpuDir = File("/sys/devices/system/cpu")
-        val coreDirs = cpuDir.list { current, name ->
-            File(
-                current,
-                name
-            ).isDirectory && name.matches(Regex("^cpu[0-9]+"))
-        }.map {
+        coreDirs = cpuDir.list { current, name ->
+            File(current, name).isDirectory && name.matches(Regex("^cpu[0-9]+"))
+        }?.map {
             val path = "${cpuDir.path}/$it"
-
             CoreDir(
                 // online, or true if can't access
                 online = readFileTextOrNull("$path/online") != "0",
@@ -62,15 +63,16 @@ internal object Clocks {
                     ?: listOf(-1),
 
                 // scaling_min_freq, or -1 if can't access
-                currentMinFreq = readFileTextOrNull("$path/cpufreq/scaling_min_freq")
-                    ?.let { Integer.parseInt(it) }
-                    ?: -1
+                currentMinFreq = readFileTextOrNull("$path/cpufreq/scaling_min_freq")?.toInt()
+                    ?: -1,
+                maxFreqKhz = readFileTextOrNull("$path/cpuinfo_max_freq")?.toLong() ?: -1
             )
-        }
+        } ?: emptyList()
 
-        areLocked = isCpuLocked(coreDirs)
+        maxFreqHz = coreDirs.maxBy { it.maxFreqKhz }?.maxFreqKhz?.times(1000) ?: -1
 
-        if (!areLocked) {
+        locked = isCpuLocked(coreDirs)
+        if (!locked) {
             coreDirs.forEachIndexed { index, coreDir ->
                 Log.d(TAG, "cpu$index $coreDir")
             }
@@ -81,17 +83,17 @@ internal object Clocks {
         val onlineCores = coreDirs.filter { it.online }
 
         if (onlineCores.any { it.availableFreqs.max() != onlineCores[0].availableFreqs.max() }) {
-            Log.d(TAG, "Clocks not locked: cores with different max frequencies")
+            Log.d(TAG, "CpuInfo not locked: cores with different max frequencies")
             return false
         }
 
         if (onlineCores.any { it.currentMinFreq != onlineCores[0].currentMinFreq }) {
-            Log.d(TAG, "Clocks not locked: cores with different current min freq")
+            Log.d(TAG, "CpuInfo not locked: cores with different current min freq")
             return false
         }
 
         if (onlineCores.any { it.availableFreqs.min() == it.currentMinFreq }) {
-            Log.d(TAG, "Clocks not locked: online cores with min freq == min avail freq")
+            Log.d(TAG, "CpuInfo not locked: online cores with min freq == min avail freq")
             return false
         }
 
