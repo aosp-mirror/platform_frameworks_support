@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c77f7de_bcef2155",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/ConstraintsCommandHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-04T23:19:41Z",
+      "side": 1,
+      "message": "Please pass this in.  This is super-ugly.",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 87
+      },
+      "revId": "e1c23c1a4bb984a9a03a942e8c1345ef12a4827c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e70c9f_9af58f68",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/DelayMetCommandHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-04T23:19:41Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 105,
+        "startChar": 35,
+        "endLine": 105,
+        "endChar": 86
+      },
+      "revId": "e1c23c1a4bb984a9a03a942e8c1345ef12a4827c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2bae48_0fbb5b18",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/controllers/NetworkUnmeteredController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-04T23:19:41Z",
+      "side": 1,
+      "message": "@NonNull here and everywhere else for consistency.",
+      "range": {
+        "startLine": 34,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "e1c23c1a4bb984a9a03a942e8c1345ef12a4827c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc3eddf8_19a7117f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/controllers/StorageNotLowController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-04T23:19:41Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be @NonNull too?",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "e1c23c1a4bb984a9a03a942e8c1345ef12a4827c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

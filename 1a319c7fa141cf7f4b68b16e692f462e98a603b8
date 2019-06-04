@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ae51bf3_4cedf7d6",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/constraints/trackers/NetworkStateTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-04T23:19:41Z",
+      "side": 1,
+      "message": "Let\u0027s move this to use WorkTaskExecutor\u0027s main thread method.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "1a319c7fa141cf7f4b68b16e692f462e98a603b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
