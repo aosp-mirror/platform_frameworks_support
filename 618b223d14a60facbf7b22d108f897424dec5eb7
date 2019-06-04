@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19d0f80c_c04f31b9",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/EnumWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-06-04T16:42:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3cc7195_2952a229",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef25bdab_4b5d9c11",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-30T05:51:54Z",
       "side": 1,
       "message": "Woah, do we need this even though the enum isn\u0027t VersionedParcelize?",
+      "range": {
+        "startLine": 302,
+        "startChar": 9,
+        "endLine": 302,
+        "endChar": 23
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0305ac85_f4facdb5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-06-04T16:42:53Z",
+      "side": 1,
+      "message": "That\u0027s correct. Another bug of VersionedParcelable: it doesn\u0027t handle inner classes properly.",
+      "parentUuid": "ef25bdab_4b5d9c11",
       "range": {
         "startLine": 302,
         "startChar": 9,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2b23a767_a35c9ecc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-06-04T16:42:53Z",
+      "side": 1,
+      "message": "No need. Changed.",
+      "parentUuid": "ac3d7d37_04886e9c",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 14
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8aca3ce_1b6b2887",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-30T05:51:54Z",
       "side": 1,
       "message": "I can see the argument for putting the fallback decision in the library, although I can imagine cases where it would be better for the producer to do it, since the producer has a better idea about what maneuver they\u0027re actually trying to represent. Also, presumably when you switch to proto, it\u0027ll become the producer\u0027s responsibility again?",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 52
+      },
+      "revId": "618b223d14a60facbf7b22d108f897424dec5eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18f481c_395b99e6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-06-04T16:42:53Z",
+      "side": 1,
+      "message": "The issue I found is that over time the producer won\u0027t be able to know which values belong to which version of the API. This means that they might not provide enough fallbacks (back to the early versions of the API), or they might not provide fallbacks at all. I think it is a responsibility of the API designer to determine how backwards compatibility would be maintained.",
+      "parentUuid": "a8aca3ce_1b6b2887",
       "range": {
         "startLine": 358,
         "startChar": 0,
