@@ -16,6 +16,7 @@
 package androidx.ui.engine.text
 
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.platform.ParagraphAndroid
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
@@ -165,6 +166,13 @@ class Paragraph internal constructor(
      */
     fun getCaretForTextPosition(textPosition: TextPosition): Pair<Offset, Offset> {
         return paragraphImpl.getCaretForTextPosition(textPosition)
+    }
+
+    /**
+     * Returns the bounding box of the character for given TextPosition.
+     */
+    internal fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        return paragraphImpl.getBoundingBoxForTextPosition(textPosition)
     }
 
     /**
