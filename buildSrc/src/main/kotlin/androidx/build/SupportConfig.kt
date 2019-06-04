@@ -23,6 +23,7 @@ import java.io.File
 object SupportConfig {
     const val DEFAULT_MIN_SDK_VERSION = 14
     const val INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
+    const val BENCHMARK_INSTRUMENTATION_RUNNER = "androidx.benchmark.AndroidBenchmarkRunner"
     const val BUILD_TOOLS_VERSION = "28.0.3"
 
     /**
@@ -42,9 +43,30 @@ object SupportConfig {
      */
     const val TARGET_SDK_VERSION = "28"
 
+    @JvmStatic
     fun getKeystore(project: Project): File {
         val supportRoot = (project.rootProject.property("ext") as ExtraPropertiesExtension)
                 .get("supportRootFolder") as File
         return File(supportRoot, "development/keystore/debug.keystore")
+    }
+
+    @JvmStatic
+    fun getPrebuiltsRootPath(project: Project): String {
+        val reposProperties = (project.rootProject.property("ext") as ExtraPropertiesExtension)
+            .get("repos") as Map<*, *>
+        return reposProperties["prebuiltsRoot"].toString()
+    }
+
+    @JvmStatic
+    fun getSupportRepoPath(project: Project): String {
+        return project.getRepositoryDirectory().absolutePath
+    }
+
+    @JvmStatic
+    fun getAGPVersion(project: Project): String {
+        val studioProperties = (project.rootProject.property("ext") as ExtraPropertiesExtension)
+            .let { it.get("build_versions") as Map<*, *> }
+            .let { it["studio"] as Map<*, *> }
+        return studioProperties["agp"].toString()
     }
 }
