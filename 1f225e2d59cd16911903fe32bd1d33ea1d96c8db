@@ -22,6 +22,30 @@
       "revId": "1f225e2d59cd16911903fe32bd1d33ea1d96c8db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a94e8ec8_ecfae90d",
+        "filename": "room/migration/src/main/java/androidx/room/migration/bundle/FieldBundle.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-04T03:52:34Z",
+      "side": 1,
+      "message": "I don\u0027t think so, we didn\u0027t when Views where added to DatabaseBundle. We will also start enforcing same version across Room artifacts in 2.2 and this is used by the compiler itself and not by generated code, the other usage of this is by GSON, which uses reflection to read and write into the fields, so I think we might be fine.",
+      "parentUuid": "a2175ffa_3e9e7f39",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "1f225e2d59cd16911903fe32bd1d33ea1d96c8db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
