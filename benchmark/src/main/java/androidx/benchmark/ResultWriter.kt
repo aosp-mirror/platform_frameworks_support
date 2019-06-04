@@ -58,7 +58,10 @@ internal object ResultWriter {
 
             writer.name("context").beginObject()
                 .name("build").buildInfoObject()
+                .name("cpuCoreCount").value(Clocks.coreDirs.size)
                 .name("cpuLocked").value(Clocks.areLocked)
+                .name("cpuMaxFreqHz").value(Clocks.maxFreqHz)
+                .name("memTotalBytes").value(MemInfo.memTotalBytes)
                 .name("sustainedPerformanceModeEnabled")
                 .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
             writer.endObject()
