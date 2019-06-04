@@ -22,6 +22,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.GuardedBy;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,9 @@ import java.util.concurrent.Executor;
 public class MediaBrowser extends MediaController {
     static final String TAG = "MediaBrowser";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+
+    @GuardedBy("mLock")
+    MediaBrowserImpl mBrowserImpl;
 
     /**
      * Callback to listen events from {@link MediaLibraryService}.
@@ -86,16 +90,24 @@ public class MediaBrowser extends MediaController {
             @Nullable Bundle connectionHints, @Nullable Executor executor,
             @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
+        synchronized (mLock) {
+            mBrowserImpl = createBrowserImpl(context, token, connectionHints);
+        }
     }
 
     MediaBrowser(@NonNull Context context, @NonNull MediaSessionCompat.Token token,
             @Nullable Bundle connectionHints, @Nullable Executor executor,
             @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
+        synchronized (mLock) {
+            // What if the session is MediaLibrarySession? How can we handle that?
+            // Maybe we want to bring the SessionToken from MediaController constructor,
+            // asynchronously.
+            mBrowserImpl = createBrowserImpl(context, token, connectionHints);
+        }
     }
 
-    @Override
-    MediaBrowserImpl createImpl(@NonNull Context context, @NonNull SessionToken token,
+    MediaBrowserImpl createBrowserImpl(@NonNull Context context, @NonNull SessionToken token,
             @Nullable Bundle connectionHints) {
         if (token.isLegacySession()) {
             return new MediaBrowserImplLegacy(context, this, token);
@@ -104,9 +116,8 @@ public class MediaBrowser extends MediaController {
         }
     }
 
-    @Override
-    MediaBrowserImpl getImpl() {
-        return (MediaBrowserImpl) super.getImpl();
+    MediaBrowserImpl getBrowserImpl() {
+        return mBrowserImpl;
     }
 
     /**
@@ -121,7 +132,7 @@ public class MediaBrowser extends MediaController {
     @NonNull
     public ListenableFuture<LibraryResult> getLibraryRoot(@Nullable final LibraryParams params) {
         if (isConnected()) {
-            return getImpl().getLibraryRoot(params);
+            return getBrowserImpl().getLibraryRoot(params);
         }
         return createDisconnectedFuture();
     }
@@ -143,7 +154,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("parentId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().subscribe(parentId, params);
+            return getBrowserImpl().subscribe(parentId, params);
         }
         return createDisconnectedFuture();
     }
@@ -163,7 +174,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("parentId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().unsubscribe(parentId);
+            return getBrowserImpl().unsubscribe(parentId);
         }
         return createDisconnectedFuture();
     }
@@ -194,7 +205,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("pageSize shouldn't be less than 1");
         }
         if (isConnected()) {
-            return getImpl().getChildren(parentId, page, pageSize, params);
+            return getBrowserImpl().getChildren(parentId, page, pageSize, params);
         }
         return createDisconnectedFuture();
     }
@@ -214,7 +225,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("mediaId shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().getItem(mediaId);
+            return getBrowserImpl().getItem(mediaId);
         }
         return createDisconnectedFuture();
     }
@@ -241,7 +252,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("query shouldn't be empty");
         }
         if (isConnected()) {
-            return getImpl().search(query, params);
+            return getBrowserImpl().search(query, params);
         }
         return createDisconnectedFuture();
     }
@@ -273,7 +284,7 @@ public class MediaBrowser extends MediaController {
             throw new IllegalArgumentException("pageSize shouldn't be less than 1");
         }
         if (isConnected()) {
-            return getImpl().getSearchResult(query, page, pageSize, params);
+            return getBrowserImpl().getSearchResult(query, page, pageSize, params);
         }
         return createDisconnectedFuture();
     }
@@ -364,7 +375,7 @@ public class MediaBrowser extends MediaController {
                 LibraryResult.RESULT_ERROR_SESSION_DISCONNECTED);
     }
 
-    interface MediaBrowserImpl extends MediaControllerImpl {
+    interface MediaBrowserImpl {
         ListenableFuture<LibraryResult> getLibraryRoot(
                 @Nullable LibraryParams rootHints);
         ListenableFuture<LibraryResult> subscribe(@NonNull String parentId,
