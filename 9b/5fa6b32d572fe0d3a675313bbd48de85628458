@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Code-Review+2: Daniel Santiago Rivera <danysantiago@google.com>
+Autosubmit+1: Daniel Santiago Rivera <danysantiago@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Tue, 04 Jun 2019 19:53:42 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/970993
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
