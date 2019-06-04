@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1960d971_3f2bc006",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T21:36:36Z",
+      "side": 1,
+      "message": "If this needs to be replaced with an implementation this should just be replaced with an abstract method.",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d36886af_41cbaeee",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T21:36:36Z",
+      "side": 1,
+      "message": "If this needs to be replaced with an implementation this should just be replaced with an abstract method.",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "569c09fd_69661410",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/Version.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-04T21:36:36Z",
+      "side": 1,
+      "message": "What about backwards compatibility checks?\n\nFor example CameraX 1.4 should be compatible with Vendor 1.3, however the compareTo will only tell us if CameraX or Vendor version is greater or lesser.",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
