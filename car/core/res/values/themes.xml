@@ -30,6 +30,7 @@ limitations under the License.
         </item>
         <item name="android:buttonStyle">@style/Widget.Car.Button.DarkText</item>
         <item name="android:checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
+        <item name="android:radioButtonStyle">@style/Widget.Car.RadioButton.Light</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background_light</item>
         <item name="android:colorControlNormal">@color/car_body2_light</item>
@@ -55,7 +56,6 @@ limitations under the License.
             @drawable/car_button_ripple_background_light
         </item>
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar.Light</item>
-        <item name="android:textColor">@color/car_body1_light</item>
         <item name="android:textColorPrimary">@color/car_display1_light</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
         <item name="android:textColorHint">@color/car_body2_light</item>
@@ -83,7 +83,7 @@ limitations under the License.
         <item name="listItemBackground">@drawable/car_list_item_background</item>
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemForeground">@drawable/car_card_ripple_background_light</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body3.Light</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText.Light</item>
         <item name="listItemPrimaryIconTint">@null</item>
         <item name="listItemSupplementalIconTint">@null</item>
         <item name="listItemSubheaderTextAppearance">@style/TextAppearance.Car.Subheader</item>
@@ -96,7 +96,6 @@ limitations under the License.
             @drawable/car_button_ripple_background_light
         </item>
         <item name="switchStyle">@style/Widget.Car.Switch</item>
-        <item name="checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
         <item name="toolbarNavigationButtonStyle">
             @style/Widget.Car.Toolbar.Button.Navigation.Light
         </item>
@@ -115,6 +114,7 @@ limitations under the License.
         <item name="android:windowBackground">@color/car_card</item>
         <item name="android:alertDialogTheme">@style/Theme.Car.Dialog.Alert</item>
         <item name="android:checkboxStyle">@style/Widget.Car.CheckBox</item>
+        <item name="android:radioButtonStyle">@style/Widget.Car.RadioButton</item>
         <item name="android:colorAccent">@color/car_accent</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background</item>
@@ -143,7 +143,6 @@ limitations under the License.
         <item name="android:spinnerStyle">@style/Widget.Spinner.Car</item>
         <item name="android:spinnerItemStyle">@style/CarSpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/CarSpinnerItem</item>
-        <item name="android:textColor">@color/car_body1</item>
         <item name="android:textColorPrimary">@color/car_display1</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
         <item name="android:textColorHint">@color/car_body2</item>
@@ -171,7 +170,7 @@ limitations under the License.
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemForeground">@drawable/car_card_ripple_background</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body3</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText</item>
         <item name="listItemSubheaderTextAppearance">@style/TextAppearance.Car.Subheader</item>
         <item name="pagedListViewStyle">@style/Widget.Car.List</item>
         <item name="pagedScrollBarViewStyle">@style/Widget.Car.Scrollbar</item>
@@ -180,7 +179,6 @@ limitations under the License.
         <item name="selectableItemBackgroundBorderless">@drawable/car_button_ripple_background
         </item>
         <item name="switchStyle">@style/Widget.Car.Switch</item>
-        <item name="checkboxStyle">@style/Widget.Car.CheckBox</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar</item>
     </style>
@@ -330,7 +328,7 @@ limitations under the License.
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemForeground">@drawable/car_card_ripple_background</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText</item>
     </style>
 
     <!-- A theme for PagedListViews that will have a light scrollbars and light-colored items. The
@@ -346,7 +344,7 @@ limitations under the License.
         <item name="listItemFocusOutlineColor">@color/car_accent_light</item>
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText.Light</item>
     </style>
 
     <!-- ================ -->

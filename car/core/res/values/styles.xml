@@ -273,6 +273,15 @@ limitations under the License.
         <item name="android:textColor">@color/car_red_400</item>
     </style>
 
+    <!-- Style for body text in a list item. -->
+    <style name="TextAppearance.Car.ListItem.BodyText" parent="TextAppearance.Car.Body3">
+        <item name="android:textColor">@color/car_secondary_text</item>
+    </style>
+
+    <style name="TextAppearance.Car.ListItem.BodyText.Light">
+        <item name="android:textColor">@color/car_secondary_text_light</item>
+    </style>
+
     <!-- Style for the Alpha Jump button in the Scrollbar View -->
     <style name="TextAppearance.Car.AlphaJumpButton">
         <item name="android:textStyle">bold</item>
@@ -415,7 +424,7 @@ limitations under the License.
     <!-- The style for the regular buttons. -->
     <style name="Widget.Car.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:fadingEdgeLength">@dimen/car_button_fading_edge_length</item>
-        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Medium</item>>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Medium</item>
         <item name="android:ellipsize">none</item>
         <item name="android:layout_height">@dimen/car_button_height</item>
         <item name="android:maxEms">@integer/car_button_max_ems</item>
@@ -570,7 +579,7 @@ limitations under the License.
         <item name="listItemBackground">@drawable/car_list_item_background</item>
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText</item>
     </style>
 
     <!-- A styling for ListItems that has light text on a dark-colored background. This style
@@ -580,7 +589,7 @@ limitations under the License.
         <item name="listItemForeground">@drawable/car_card_ripple_background_light</item>
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText.Light</item>
     </style>
 
     <!-- =============== -->
@@ -590,19 +599,35 @@ limitations under the License.
 
     <style name="Widget.Car.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="android:textColor">@color/car_body1</item>
         <item name="android:buttonTint">?android:attr/colorAccent</item>
         <item name="buttonTint">?android:attr/colorAccent</item>
     </style>
 
     <style name="Widget.Car.CheckBox.Light">
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Light</item>
-        <item name="android:textColor">@color/car_body1_light</item>
     </style>
 
     <style name="Widget.Car.CheckBox.Dark">
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Dark</item>
-        <item name="android:textColor">@color/car_body1_dark</item>
+    </style>
+
+    <!-- ================== -->
+    <!-- RadioButton Styles -->
+    <!-- ================== -->
+    <eat-comment />
+
+    <style name="Widget.Car.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
+        <item name="android:buttonTint">?android:attr/colorAccent</item>
+        <item name="buttonTint">?android:attr/colorAccent</item>
+    </style>
+
+    <style name="Widget.Car.RadioButton.Light">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Light</item>
+    </style>
+
+    <style name="Widget.Car.RadioButton.Dark">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Dark</item>
     </style>
 
     <!-- ============= -->
@@ -633,6 +658,7 @@ limitations under the License.
 
     <!-- The body text for a dialog. -->
     <style name="Widget.Car.Dialog.Body">
+        <item name="android:textColor">@color/car_secondary_text</item>
         <item name="android:textAppearance">@style/TextAppearance.Car.Body3</item>
     </style>
 
@@ -649,6 +675,7 @@ limitations under the License.
     <!-- The style for dialog buttons. This style removes the horizontal padding from the
          borderless buttons to ensure they are flush to the text. -->
     <style name="Widget.Car.Dialog.Button" parent="Widget.Car.Button.Borderless.Colored">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Medium</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
