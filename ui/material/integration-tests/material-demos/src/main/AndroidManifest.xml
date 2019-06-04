@@ -18,7 +18,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="androidx.ui.material.demos">
 
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}" />
 
     <application>
         <activity
@@ -85,6 +84,15 @@
         <activity android:name=".FloatingActionButtonActivity"
             android:configChanges="orientation|screenSize"
             android:label="Material/Floating Action Button">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AppBarActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Material/App Bar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidx.ui.demos.SAMPLE_CODE" />

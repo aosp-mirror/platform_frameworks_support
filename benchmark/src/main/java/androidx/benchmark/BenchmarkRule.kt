@@ -20,7 +20,6 @@ import android.Manifest
 import android.util.Log
 import androidx.annotation.RestrictTo
 import androidx.test.rule.GrantPermissionRule
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.rules.RuleChain
 import org.junit.rules.TestRule
@@ -172,24 +171,13 @@ class BenchmarkRule : TestRule {
                     invokeMethodName.substring(5)
         }
 
-        val index = invokeMethodName.lastIndexOf('[')
-        if (index > 0) {
-            val allDigits =
-                invokeMethodName.substring(index + 1, invokeMethodName.length - 1)
-                    .all { Character.isDigit(it) }
-            assertFalse(
-                "The name in [] can't contain only digits for $invokeMethodName",
-                allDigits
-            )
-        }
-
         base.evaluate()
 
         val fullTestName = WarningState.WARNING_PREFIX +
                 description.testClass.simpleName + "." + invokeMethodName
         internalState.sendStatus(fullTestName)
 
-        ResultWriter.appendStats(
+        ResultWriter.appendReport(
             internalState.getReport(
                 testName = WarningState.WARNING_PREFIX + invokeMethodName,
                 className = description.className

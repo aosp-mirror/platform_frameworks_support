@@ -20,6 +20,7 @@ import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
+import static androidx.appcompat.testutils.NightModeUtils.isSystemNightThemeEnabled;
 import static androidx.appcompat.testutils.NightModeUtils.setNightModeAndWait;
 import static androidx.appcompat.testutils.NightModeUtils.setNightModeAndWaitForDestroy;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
@@ -27,9 +28,10 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.testutils.LifecycleOwnerUtils.waitUntilState;
+import static androidx.testutils.LifecycleOwnerUtils.waitForRecreation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import android.app.Instrumentation;
 import android.content.res.Configuration;
@@ -38,7 +40,6 @@ import android.webkit.WebView;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.NightModeUtils.NightSetMode;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Lifecycle;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -73,7 +74,7 @@ public class NightModeTestCase {
 
     public NightModeTestCase(NightSetMode setMode) {
         mSetMode = setMode;
-        mActivityTestRule = new ActivityTestRule<>(NightModeActivity.class);
+        mActivityTestRule = new ActivityTestRule<>(NightModeActivity.class, false, false);
     }
 
     @Before
@@ -81,6 +82,8 @@ public class NightModeTestCase {
         // By default we'll set the night mode to NO, which allows us to make better
         // assumptions in the test below
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        // Now launch the test activity
+        mActivityTestRule.launchActivity(null);
     }
 
     @Test
@@ -106,23 +109,38 @@ public class NightModeTestCase {
 
     @Test
     public void testSwitchingYesToFollowSystem() throws Throwable {
-        // Verify first that we're in day mode
-        onView(withId(R.id.text_night_mode))
-                .check(matches(withText(STRING_DAY)));
+        // This test is only useful when the dark system theme is not enabled
+        if (!isSystemNightThemeEnabled(mActivityTestRule.getActivity())) {
+            // Ensure that we're currently running in light theme (from setup above)
+            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
 
-        // Now force the local night mode to be yes (aka night mode)
-        setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+            // Force the night mode to be yes (aka night mode)
+            setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
 
-        // Now check the text has changed, signifying that night resources are being used
-        onView(withId(R.id.text_night_mode))
-                .check(matches(withText(STRING_NIGHT)));
+            // Now check the text has changed, signifying that night resources are being used
+            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)));
 
-        // Now force the local night mode to be FOLLOW_SYSTEM, which should go back to DAY
-        setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_FOLLOW_SYSTEM, mSetMode);
+            // Now force the local night mode to be FOLLOW_SYSTEM (which we know is light)
+            setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_FOLLOW_SYSTEM, mSetMode);
 
-        // Now check the text has changed, signifying that night resources are being used
-        onView(withId(R.id.text_night_mode))
-                .check(matches(withText(STRING_DAY)));
+            // Now check the text matches the system
+            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
+        }
+    }
+
+    @Test
+    public void testSwitchingNoToFollowSystem() throws Throwable {
+        // This test is only useful when the dark system theme is enabled
+        if (isSystemNightThemeEnabled(mActivityTestRule.getActivity())) {
+            // Ensure that we're currently running in light theme (from setup above)
+            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
+
+            // Now force the local night mode to be FOLLOW_SYSTEM (which we know is dark)
+            setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_FOLLOW_SYSTEM, mSetMode);
+
+            // Now check the text matches the system
+            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)));
+        }
     }
 
     @Test
@@ -169,7 +187,7 @@ public class NightModeTestCase {
         });
 
         // Now wait until the Activity is destroyed (thus recreated)
-        waitUntilState(mActivityTestRule, Lifecycle.State.DESTROYED);
+        waitForRecreation(mActivityTestRule);
 
         // Check that the text has changed, signifying that night resources are being used
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)));
@@ -217,10 +235,11 @@ public class NightModeTestCase {
 
     @Test
     public void testOnNightModeChangedCalled() throws Throwable {
+        final NightModeActivity activity = mActivityTestRule.getActivity();
         // Set local night mode to YES
         setNightModeAndWait(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
         // Assert that the Activity received a new value
-        assertEquals(MODE_NIGHT_YES, mActivityTestRule.getActivity().getLastNightModeAndReset());
+        assertEquals(MODE_NIGHT_YES, activity.getLastNightModeAndReset());
     }
 
     @Test
@@ -268,6 +287,27 @@ public class NightModeTestCase {
         assertConfigurationNightModeEquals(
                 Configuration.UI_MODE_NIGHT_YES,
                 mActivityTestRule.getActivity().getResources().getConfiguration());
+    }
+
+    @Test
+    public void testDialogCleansUpAutoMode() throws Throwable {
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppCompatDialog dialog = new AppCompatDialog(mActivityTestRule.getActivity());
+                AppCompatDelegateImpl delegate = (AppCompatDelegateImpl) dialog.getDelegate();
+
+                // Set the local night mode of the Dialog to be an AUTO mode
+                delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+
+                // Now show and dismiss the dialog
+                dialog.show();
+                dialog.dismiss();
+
+                // Assert that the auto manager is destroyed (not listening)
+                assertFalse(delegate.getAutoTimeNightModeManager().isListening());
+            }
+        });
     }
 
     @After
