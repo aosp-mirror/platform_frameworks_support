@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "51c66723_c61e4d32",
+        "filename": "room/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-05T02:35:46Z",
+      "side": 1,
+      "message": "Copy \u0026 Pasting an earlier comment I had:\n\nI\u0027m not suuuper happy with the name, open to suggestions.\n\nThe reason for a parameter annotation is to support multiple parameters in the shortcut methods, something we already do. Alternatively, if this is too awkward we can restrict to only 1 parameter on those methods if they use \u0027entity\u0027 with @Insert, @Update or @Delete, in other words:\n\n// only 1 param allowed in method, because using \u0027entity\u003dUser.class\u0027\n@Update(entity \u003d User.class)\npublic long updateUsername(Username username)",
+      "parentUuid": "c1e0ebb2_96725c3e",
+      "range": {
+        "startLine": 4,
+        "startChar": 169,
+        "endLine": 4,
+        "endChar": 177
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "158c0896_ebfeccca",
         "filename": "room/common/src/main/java/androidx/room/AsEntity.java",
         "patchSetId": 4
@@ -82,6 +106,30 @@
       "writtenOn": "2019-06-05T00:46:32Z",
       "side": 1,
       "message": "TODO?",
+      "range": {
+        "startLine": 64,
+        "startChar": 19,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f1d446_41cb9882",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/InsertionMethodProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-05T02:35:46Z",
+      "side": 1,
+      "message": "Ups, I had a comment here but got left behind in a previous patch. Anyway, I\u0027m waiting on aosp/825803 to impl this, which is what makes supporting Pojos in shortcut methods more appealing, besides of course the end goal of also inserting relations.",
+      "parentUuid": "0e07659b_b7a0c46a",
       "range": {
         "startLine": 64,
         "startChar": 19,

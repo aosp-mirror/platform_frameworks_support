@@ -26,6 +26,30 @@
     },
     {
       "key": {
+        "uuid": "9e438a85_5f84d08a",
+        "filename": "room/common/src/main/java/androidx/room/AsEntity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-05T02:35:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d0df81c_cd346d88",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "1f1d5bbd9a04e0e1c162fe1cd70b0845de0bb6e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b27edd8_4f555059",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/InsertionMethodProcessor.kt",
         "patchSetId": 2
@@ -47,6 +71,30 @@
       "revId": "1f1d5bbd9a04e0e1c162fe1cd70b0845de0bb6e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d05bd2a1_739af913",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/InsertionMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-05T02:35:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b27edd8_4f555059",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 88
+      },
+      "revId": "1f1d5bbd9a04e0e1c162fe1cd70b0845de0bb6e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
