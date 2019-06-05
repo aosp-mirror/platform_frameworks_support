@@ -181,6 +181,19 @@ public final class SpringAnimation extends DynamicAnimation<SpringAnimation> {
         }
     }
 
+    @Override
+    public void cancel() {
+        super.cancel();
+        if (mPendingPosition != UNSET) {
+            if (mSpring == null) {
+                mSpring = new SpringForce(mPendingPosition);
+            } else {
+                mSpring.setFinalPosition(mPendingPosition);
+            }
+            mPendingPosition = UNSET;
+        }
+    }
+
     /**
      * Skips to the end of the animation. If the spring is undamped, an
      * {@link IllegalStateException} will be thrown, as the animation would never reach to an end.
