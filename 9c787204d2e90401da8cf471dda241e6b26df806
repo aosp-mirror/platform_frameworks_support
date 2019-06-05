@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1e0ebb2_96725c3e",
+        "filename": "room/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "hate this name. Don\u0027t know what is better but maybe @TargetEntity ?",
+      "range": {
+        "startLine": 4,
+        "startChar": 169,
+        "endLine": 4,
+        "endChar": 177
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158c0896_ebfeccca",
+        "filename": "room/common/src/main/java/androidx/room/AsEntity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "add documentation on:\nwhen pKey is required\nwhich fields are required\nwhat type of query is generated (e.g. the SET query in UPDATE)",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c02e05a6_8e8a314c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DeletionMethodProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "would be nicer if we reported what is missing.",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e07659b_b7a0c46a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/InsertionMethodProcessor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "TODO?",
+      "range": {
+        "startLine": 64,
+        "startChar": 19,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ce575c_8a6a4de8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "there must be an error in this file that says when parameter is not an entity. maybe enhance it to refer to the new annotation ?",
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de4bac6_1f49006a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "not sure how Ignore is helpful, it is missing.",
+      "range": {
+        "startLine": 631,
+        "startChar": 42,
+        "endLine": 631,
+        "endChar": 48
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5f3cc6_5bb24a3a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/ShortcutEntity.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "partialEntity ?: entity",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 61
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff596a5b_5381df89",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "put a non-java divider here (-) so that a conflict cannot happen.",
+      "range": {
+        "startLine": 470,
+        "startChar": 50,
+        "endLine": 470,
+        "endChar": 53
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a79222a_e0e7361b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T00:46:32Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 490,
+        "startChar": 51,
+        "endLine": 490,
+        "endChar": 52
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
