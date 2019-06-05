@@ -16,6 +16,12 @@
 
 package androidx.ui.painting
 
+import androidx.annotation.VisibleForTesting
+import androidx.ui.core.Constraints
+import androidx.ui.core.IntPxSize
+import androidx.ui.core.constrain
+import androidx.ui.core.px
+import androidx.ui.core.round
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
@@ -27,9 +33,14 @@ import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.window.Locale
+import androidx.ui.graphics.Color
+import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.ui.services.text_editing.TextRange
 import androidx.ui.services.text_editing.TextSelection
 import kotlin.math.ceil
+
+/** The default selection color if none is specified. */
+private val DEFAULT_SELECTION_COLOR = Color(0x6633B5E5)
 
 /**
  * Unfortunately, using full precision floating point here causes bad layouts because floating
@@ -94,18 +105,26 @@ class TextPainter(
     textDirection: TextDirection? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
-    // TODO(Migration/qqd):  We won't be able to use customized ellipsis, but lets leave it here for
-    // now. Maybe remove it later.
-    ellipsis: Boolean? = null,
-    locale: Locale? = null
+    softWrap: Boolean = true,
+    overflow: TextOverflow = TextOverflow.Clip,
+    locale: Locale? = null,
+    var selectionColor: Color = DEFAULT_SELECTION_COLOR
 ) {
     init {
         assert(maxLines == null || maxLines > 0)
     }
 
-    var paragraph: Paragraph? = null
-    var needsLayout = true
+    @VisibleForTesting
+    internal var paragraph: Paragraph? = null
+    @VisibleForTesting
+    internal var needsLayout = true
+    @VisibleForTesting
     var layoutTemplate: Paragraph? = null
+    private var overflowShader: Shader? = null
+    var hasVisualOverflow = false
+
+    private var lastMinWidth: Float = 0.0f
+    private var lastMaxWidth: Float = 0.0f
 
     var text: TextSpan? = text
         set(value) {
@@ -151,7 +170,15 @@ class TextPainter(
             needsLayout = true
         }
 
-    var ellipsis: Boolean? = ellipsis
+    var softWrap: Boolean = softWrap
+        set(value) {
+            if (field == value) return
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    var overflow: TextOverflow? = overflow
         set(value) {
             if (field == value) return
             field = value
@@ -179,14 +206,14 @@ class TextPainter(
             textDirection = textDirection ?: defaultTextDirection,
             textScaleFactor = textScaleFactor,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
 
         ) ?: ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection ?: defaultTextDirection,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
         )
     }
@@ -257,7 +284,7 @@ class TextPainter(
     val width: Float
         get() {
             assertNeedsLayout("width")
-            return applyFloatingPointHack(paragraph!!.width)
+            return applyFloatingPointHack(size.width)
         }
 
     /**
@@ -268,7 +295,7 @@ class TextPainter(
     val height: Float
         get() {
             assertNeedsLayout("height")
-            return applyFloatingPointHack(paragraph!!.height)
+            return applyFloatingPointHack(size.height)
         }
 
     /**
@@ -276,10 +303,10 @@ class TextPainter(
      *
      * Valid only after [layout] has been called.
      */
-    val size: Size
+    var size: Size = Size(0f, 0f)
         get() {
             assertNeedsLayout("size")
-            return Size(width, height)
+            return field
         }
 
     /**
@@ -299,9 +326,6 @@ class TextPainter(
             return paragraph!!.didExceedMaxLines
         }
 
-    private var lastMinWidth: Float = 0.0f
-    private var lastMaxWidth: Float = 0.0f
-
     /**
      * Computes the visual position of the glyphs for painting the text.
      *
@@ -310,7 +334,7 @@ class TextPainter(
      *
      * The [text] and [textDirection] properties must be non-null before this is called.
      */
-    fun layout(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
+    private fun layoutText(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
         assert(text != null) {
             "TextPainter.text must be set to a non-null value before using the TextPainter."
         }
@@ -318,7 +342,11 @@ class TextPainter(
             "TextPainter.textDirection must be set to a non-null value before using the" +
                     " TextPainter."
         }
-        if (!needsLayout && minWidth == lastMinWidth && maxWidth == lastMaxWidth) return
+
+        val widthMatters = softWrap || overflow == TextOverflow.Ellipsis
+        val effectMaxWidth = if (widthMatters) maxWidth else Float.POSITIVE_INFINITY
+
+        if (!needsLayout && minWidth == lastMinWidth && effectMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
             val builder = ParagraphBuilder(createParagraphStyle())
@@ -326,13 +354,63 @@ class TextPainter(
             paragraph = builder.build()
         }
         lastMinWidth = minWidth
-        lastMaxWidth = maxWidth
-        paragraph!!.layout(ParagraphConstraints(width = maxWidth))
-        if (minWidth != maxWidth) {
-            val newWidth = maxIntrinsicWidth.coerceIn(minWidth, maxWidth)
-            if (newWidth != width) {
+        lastMaxWidth = effectMaxWidth
+        paragraph!!.layout(ParagraphConstraints(width = effectMaxWidth))
+        if (minWidth != effectMaxWidth) {
+            val newWidth = maxIntrinsicWidth.coerceIn(minWidth, effectMaxWidth)
+            if (newWidth != paragraph!!.width) {
                 paragraph!!.layout(ParagraphConstraints(width = newWidth))
             }
+        }
+    }
+
+    fun performLayout(constraints: Constraints) {
+        layoutText(constraints.minWidth.value.toFloat(), constraints.maxWidth.value.toFloat())
+
+        val didOverflowHeight = didExceedMaxLines
+        size = constraints.constrain(
+            IntPxSize(paragraph!!.width.px.round(), paragraph!!.height.px.round())
+        ).let {
+            Size(it.width.value.toFloat(), it.height.value.toFloat())
+        }
+        val didOverflowWidth = size.width < paragraph!!.width
+        // TODO(abarth): We're only measuring the sizes of the line boxes here. If
+        // the glyphs draw outside the line boxes, we might think that there isn't
+        // visual overflow when there actually is visual overflow. This can become
+        // a problem if we start having horizontal overflow and introduce a clip
+        // that affects the actual (but undetected) vertical overflow.
+        hasVisualOverflow = didOverflowWidth || didOverflowHeight
+        overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
+            val fadeSizePainter = TextPainter(
+                text = TextSpan(style = text?.style, text = "\u2026"),
+                textDirection = textDirection,
+                textScaleFactor = textScaleFactor
+            )
+            fadeSizePainter.layoutText()
+            val fadeWidth = fadeSizePainter.paragraph!!.width
+            val fadeHeight = fadeSizePainter.paragraph!!.height
+            if (didOverflowWidth) {
+                val (fadeStart, fadeEnd) = if (textDirection == TextDirection.Rtl) {
+                    Pair(fadeWidth, 0.0f)
+                } else {
+                    Pair(size.width - fadeWidth, size.width)
+                }
+                Gradient.linear(
+                    Offset(fadeStart, 0.0f),
+                    Offset(fadeEnd, 0.0f),
+                    listOf(Color(0xFFFFFFFF.toInt()), Color(0x00FFFFFF))
+                )
+            } else {
+                val fadeEnd = size.height
+                val fadeStart = fadeEnd - fadeHeight
+                Gradient.linear(
+                    Offset(0.0f, fadeStart),
+                    Offset(0.0f, fadeEnd),
+                    listOf(Color(0xFFFFFFFF.toInt()), Color(0x00FFFFFF))
+                )
+            }
+        } else {
+            null
         }
     }
 
@@ -354,13 +432,55 @@ class TextPainter(
             "TextPainter.paint called when text geometry was not yet calculated.\n" +
                     "Please call layout() before paint() to position the text before painting it."
         }
+        // Ideally we could compute the min/max intrinsic width/height with a
+        // non-destructive operation. However, currently, computing these values
+        // will destroy state inside the painter. If that happens, we need to
+        // get back the correct state by calling layout again.
+        //
+        // TODO(abarth): Make computing the min/max intrinsic width/height
+        // a non-destructive operation.
+        //
+        // If you remove this call, make sure that changing the textAlign still
+        // works properly.
+        // TODO(Migration/qqd): Need to figure out where this constraints come from and how to make
+        // it non-null. For now Crane Text version does not need to layout text again. Comment it.
+        // layoutTextWithConstraints(constraints!!)
+
+        if (hasVisualOverflow) {
+            val bounds = offset.and(size)
+            if (overflowShader != null) {
+                // This layer limits what the shader below blends with to be just the text
+                // (as opposed to the text and its background).
+                canvas.saveLayer(bounds, Paint())
+            } else {
+                canvas.save()
+            }
+            canvas.clipRect(bounds)
+        }
         paragraph!!.paint(canvas, offset.dx, offset.dy)
+        if (hasVisualOverflow) {
+            if (overflowShader != null) {
+                canvas.translate(offset.dx, offset.dy)
+                val paint = Paint()
+                paint.blendMode = BlendMode.multiply
+                paint.shader = overflowShader
+                canvas.drawRect(Offset.zero.and(size), paint)
+            }
+            canvas.restore()
+        }
     }
 
-    /** Returns path that enclose the given text selection range. */
-    fun getPathForSelection(selection: TextSelection): Path {
+    /**
+     * Paint the text selection highlight of the given [selection] and [offset] on [canvas].
+     *
+     * This function can only be called after [performLayout] is called first.
+     */
+    fun paintSelection(selection: TextSelection, canvas: Canvas, offset: Offset) {
         assert(!needsLayout)
-        return paragraph!!.getPathForRange(selection.start, selection.end)
+        val selectionPath = paragraph!!.getPathForRange(selection.start, selection.end)
+        val selectionPaint = Paint()
+        selectionPaint.color = selectionColor
+        canvas.drawPath(selectionPath.shift(offset), selectionPaint)
     }
 
     /** Returns the position within the text for the given pixel offset. */
