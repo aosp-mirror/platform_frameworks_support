@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcccf927_08be1ccd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T01:07:59Z",
+      "side": 1,
+      "message": "please describe what the CL really adds, so that in future we can know the motivation.\n\nmaybe we should start creating tickets for some of the work since Text Selection ticket that is referred here is too big right now.",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "287b85ee_3b660cea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T01:07:59Z",
+      "side": 1,
+      "message": "as we previously talked, you should check how things work on android. as far as I understand from our talk offline, this probably is a temporary change, am I right?",
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "040d6ba4_058eacf3",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T01:07:59Z",
+      "side": 1,
+      "message": "please add javadoc",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bcd90c_4710fb7b",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T01:07:59Z",
+      "side": 1,
+      "message": "since I saw it here, can you please change the name \"Caret\" \nI don\u0027t remember what this is for (since we dont have a cursor now) but please change the name. \n\nhttps://en.wikipedia.org/wiki/Caret\nhttps://en.wikipedia.org/wiki/Cursor_(user_interface)",
+      "range": {
+        "startLine": 377,
+        "startChar": 8,
+        "endLine": 377,
+        "endChar": 31
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0bb6fa_8a896bee",
+        "filename": "ui/text/src/main/java/androidx/ui/rendering/paragraph/RenderParagraph.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T01:07:59Z",
+      "side": 1,
+      "message": "please define what bounding box is. \nthe implementation returns the line top/bottom but not the bounding box of a character.",
+      "range": {
+        "startLine": 400,
+        "startChar": 18,
+        "endLine": 400,
+        "endChar": 32
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
