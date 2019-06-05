@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b023a654_3baa9306",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "I\u0027m currently thinking about a nice way to expose examples here, we probably don\u0027t want to manually add them to source, but should be able to link to other sample code directly. Will track separately.",
+      "parentUuid": "952cba3b_c9f9ba07",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "246e536d_29e5c0b5",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "41988875_33c025e2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c876967_0211e08b",
+      "range": {
+        "startLine": 189,
+        "startChar": 43,
+        "endLine": 189,
+        "endChar": 47
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5cebe98_88b12d72",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 1
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f83c6fb7_39507ecc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5cebe98_88b12d72",
+      "range": {
+        "startLine": 191,
+        "startChar": 26,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105708e8_32d57419",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 1
@@ -105,6 +177,30 @@
       "writtenOn": "2019-06-05T13:52:17Z",
       "side": 1,
       "message": "You probably want to memo this, but it\u0027s not critical",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 201,
+        "endChar": 52
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8509604_b8ad05e5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "105708e8_32d57419",
       "range": {
         "startLine": 201,
         "startChar": 28,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "ac023e53_46cef983",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "Thanks! I will extract this and clean this up to spec in a future change.",
+      "parentUuid": "45a569c0_6f3385d0",
+      "range": {
+        "startLine": 210,
+        "startChar": 25,
+        "endLine": 210,
+        "endChar": 41
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "613daced_710c7f8e",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 1
@@ -160,6 +280,30 @@
       "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64bcd570_312c856c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T14:32:17Z",
+      "side": 1,
+      "message": "Moved for now, this is all TODO anyway as this should probably be centred with some baseline.",
+      "parentUuid": "613daced_710c7f8e",
+      "range": {
+        "startLine": 393,
+        "startChar": 57,
+        "endLine": 393,
+        "endChar": 62
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
