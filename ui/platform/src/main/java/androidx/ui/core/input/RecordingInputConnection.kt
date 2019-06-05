@@ -94,32 +94,68 @@ internal class RecordingInputConnection(
 
     override fun setComposingRegion(start: Int, end: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "setComposingRegion($start, $end)") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(SetComposingRegionEditOp(start, end))
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun setComposingText(text: CharSequence?, newCursorPosition: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "setComposingText($text, $newCursorPosition)") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(SetComposingTextEditOp(text.toString(), newCursorPosition))
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun deleteSurroundingTextInCodePoints(beforeLength: Int, afterLength: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "deleteSurroundingTextInCodePoints($beforeLength, $afterLength)") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(DeleteSurroundingTextInCodePointsEditOp(beforeLength, afterLength))
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "deleteSurroundingText($beforeLength, $afterLength)") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(DeleteSurroundingTextEditOp(beforeLength, afterLength))
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun setSelection(start: Int, end: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "setSelection($start, $end)") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(SetSelectionEditOp(start, end))
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun finishComposingText(): Boolean {
         if (DEBUG) { Log.d(TAG, "finishComposingText()") }
-        TODO("not implemented")
+        beginBatchEdit()
+        try {
+            editOps.add(FinishComposingTextEditOp())
+        } finally {
+            endBatchEdit()
+        }
+        return true
     }
 
     override fun sendKeyEvent(event: KeyEvent?): Boolean {
