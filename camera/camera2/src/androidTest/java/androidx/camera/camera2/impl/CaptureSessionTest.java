@@ -138,9 +138,28 @@ public final class CaptureSessionTest {
         verify(mTestParameters0.mSessionStateCallback, times(1))
                 .onConfigured(any(CameraCaptureSession.class));
 
+        ArgumentCaptor<CameraCaptureResult> captureResultCaptor = ArgumentCaptor.forClass(
+                CameraCaptureResult.class);
+
         // CameraCaptureCallback.onCaptureCompleted() should be called to signal a capture attempt.
         verify(mTestParameters0.mSessionCameraCaptureCallback, timeout(3000).atLeast(1))
-                .onCaptureCompleted(any(CameraCaptureResult.class));
+                .onCaptureCompleted(captureResultCaptor.capture());
+
+        CameraCaptureResult cameraCaptureResult = captureResultCaptor.getValue();
+        assertThat(cameraCaptureResult).isInstanceOf(Camera2CameraCaptureResult.class);
+
+        CaptureResult captureResult =
+                ((Camera2CameraCaptureResult) cameraCaptureResult).getCaptureResult();
+
+        // from SessionConfig option
+        assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AF_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_AF_MODE_MACRO);
+        assertThat(captureResult.getRequest().get(CaptureRequest.FLASH_MODE)).isEqualTo(
+                CaptureRequest.FLASH_MODE_TORCH);
+
+        // from CameraEventCallbacks option
+        assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AE_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_AE_MODE_ON);
     }
 
     @Test
@@ -293,6 +312,10 @@ public final class CaptureSessionTest {
         // from SessionConfig option
         assertThat(captureResult.getRequest().get(CaptureRequest.FLASH_MODE)).isEqualTo(
                 CaptureRequest.FLASH_MODE_TORCH);
+
+        // from CameraEventCallbacks option
+        assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AE_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_AE_MODE_ON);
     }
 
     @Test
@@ -423,7 +446,42 @@ public final class CaptureSessionTest {
             builder.addSessionStateCallback(mSessionStateCallback);
             builder.addRepeatingCameraCaptureCallback(mSessionCameraCaptureCallback);
 
+            // Set capture request option
+            // ==================================================================================
+            // Priority Component        | AF_MODE       | FLASH_MODE         | AE_MODE
+            // ----------------------------------------------------------------------------------
+            // P3 CameraEventCallbacks   | AF_MODE_AUTO  | FLASH_MODE_SINGLE  | AE_MODE_ON
+            // ----------------------------------------------------------------------------------
+            // P2 SessionConfig          | AF_MODE_MARCO | FLASH_MODE_TORCH   |
+            // ----------------------------------------------------------------------------------
+            // P1 CaptureConfig          | AF_MODE_EDOF  |
+            // ==================================================================================
+
             Camera2Config.Builder camera2ConfigBuilder = new Camera2Config.Builder();
+
+            // add capture request options for CameraEventCallbacks
+            CameraEventCallback cameraEventCallback = new CameraEventCallback() {
+                @Override
+                public CaptureConfig onRepeating() {
+                    CaptureConfig.Builder builder = new CaptureConfig.Builder();
+                    builder.addImplementationOptions(
+                            new Camera2Config.Builder()
+                                    .setCaptureRequestOption(
+                                            CaptureRequest.CONTROL_AF_MODE,
+                                            CaptureRequest.CONTROL_AF_MODE_AUTO)
+                                    .setCaptureRequestOption(
+                                            CaptureRequest.FLASH_MODE,
+                                            CaptureRequest.FLASH_MODE_SINGLE)
+                                    .setCaptureRequestOption(
+                                            CaptureRequest.CONTROL_AE_MODE,
+                                            CaptureRequest.CONTROL_AE_MODE_ON)
+                                    .build());
+                    return builder.build();
+                }
+            };
+            new Camera2Config.Extender(camera2ConfigBuilder)
+                    .setCameraEventCallback(
+                            new CameraEventCallbacks(cameraEventCallback));
 
             // add capture request options for SessionConfig
             camera2ConfigBuilder
