@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79adb14f_b1bfa6a6",
+        "filename": "drawerlayout/src/androidTest/java/androidx/drawerlayout/widget/DrawerCustomThemeActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-05T16:39:31Z",
+      "side": 1,
+      "message": "sjgillbert@ skipped a CL that was merge conflicting. He manually landed it yesterday evening (ag/7903117) before the temporary branch was copied over to AOSP. \n\nThis meant I manually add that CL back as the merge was removing his changes.",
+      "parentUuid": "2b43d836_5708d06a",
+      "revId": "28a61b8c36dd4d665f9b5594bfdfebbd87efcc27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba2f05d0_2d026983",
         "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
         "patchSetId": 4
