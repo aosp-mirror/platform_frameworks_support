@@ -19,6 +19,8 @@ package androidx.camera.core;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 import java.util.Collection;
 
 /**
@@ -51,7 +53,7 @@ public interface BaseCamera extends UseCase.StateChangeListener,
      * <p>Once the camera is released it is permanently closed. A new instance must be created to
      * access the camera.
      */
-    void release();
+    ListenableFuture<Void> release();
 
     /**
      * Sets the use case to be in the state where the capture session will be configured to handle

@@ -19,7 +19,6 @@ package androidx.camera.camera2.impl;
 import android.annotation.SuppressLint;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
@@ -34,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
+import androidx.annotation.WorkerThread;
 import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraDeviceStateCallbacks;
@@ -48,11 +48,20 @@ import androidx.camera.core.SessionConfig.ValidatingBuilder;
 import androidx.camera.core.UseCase;
 import androidx.camera.core.UseCaseAttachState;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
+import androidx.camera.core.impl.utils.futures.FutureCallback;
+import androidx.camera.core.impl.utils.futures.Futures;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
+import androidx.core.util.Preconditions;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -83,7 +92,8 @@ final class Camera implements BaseCamera {
 
     private final Object mCameraInfoLock = new Object();
     /** The handler for camera callbacks and use case state management calls. */
-    private final Handler mHandler;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Handler mHandler;
     /**
      * State variable for tracking state of the camera.
      *
@@ -113,6 +123,16 @@ final class Camera implements BaseCamera {
     @GuardedBy("mClosedCaptureSessions")
     private List<CaptureSession> mClosedCaptureSessions = new ArrayList<>();
 
+    // Used to debug number of requests to release camera
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final AtomicInteger mReleaseRequestCount = new AtomicInteger(0);
+    // Should only be accessed on handler thread
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    ListenableFuture<Void> mUserReleaseFuture;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    CallbackToFutureAdapter.Completer<Void> mUserReleaseNotifier;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Map<CaptureSession, ListenableFuture<Void>> mReleasedCaptureSessions = new HashMap<>();
 
     /**
      * Constructor for a camera.
@@ -184,13 +204,10 @@ final class Camera implements BaseCamera {
         switch (mState.get()) {
             case OPENED:
                 mState.set(State.CLOSING);
-                closeCameraResource();
+                closeCamera(/*abortInFlightCaptures=*/false);
                 break;
             case OPENING:
             case REOPENING:
-                // Though camera and capture session is not opened yet, still need to reset
-                // CaptureSession for clearing pending capture requests.
-                resetCaptureSession();
                 mState.set(State.CLOSING);
                 break;
             default:
@@ -198,90 +215,140 @@ final class Camera implements BaseCamera {
         }
     }
 
+    @WorkerThread
     private void configAndClose() {
-        switch (mState.get()) {
-            case OPENED:
-                mState.set(State.CLOSING);
+        // Configure the camera with a dummy capture session in order to clear the
+        // previous session. This should be released immediately after being configured.
+        final CaptureSession dummySession = new CaptureSession(null);
 
-                resetCaptureSession();
+        final SurfaceTexture surfaceTexture = new SurfaceTexture(0);
+        surfaceTexture.setDefaultBufferSize(640, 480);
+        final Surface surface = new Surface(surfaceTexture);
+        final Runnable closeAndCleanupRunner = new Runnable() {
+            @Override
+            public void run() {
+                surface.release();
+                surfaceTexture.release();
+            }
+        };
 
-                final SurfaceTexture surfaceTexture = new SurfaceTexture(0);
-                surfaceTexture.setDefaultBufferSize(640, 480);
-                final Surface surface = new Surface(surfaceTexture);
-                final Runnable surfaceReleaseRunner = new Runnable() {
-                    @Override
-                    public void run() {
-                        surface.release();
-                        surfaceTexture.release();
-                    }
-                };
+        SessionConfig.Builder builder = new SessionConfig.Builder();
+        builder.addNonRepeatingSurface(new ImmediateSurface(surface));
+        builder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        try {
+            Log.d(TAG, "Start configAndClose.");
+            dummySession.open(builder.build(), mCameraDevice);
 
-                SessionConfig.Builder builder = new SessionConfig.Builder();
-                builder.addNonRepeatingSurface(new ImmediateSurface(surface));
-                builder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
-                builder.addSessionStateCallback(new CameraCaptureSession.StateCallback() {
+            // Don't need to abort captures since there are none submitted for this session.
+            ListenableFuture<Void> releaseFuture = releaseSession(
+                    dummySession, /*abortInFlightCaptures=*/false);
 
-                    @Override
-                    public void onConfigured(@NonNull CameraCaptureSession session) {
-                        session.close();
-                    }
+            // Add a listener to clear the dummy surfaces
+            releaseFuture.addListener(closeAndCleanupRunner,
+                    CameraXExecutors.directExecutor());
 
-                    @Override
-                    public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-                        closeCameraResource();
-                        surfaceReleaseRunner.run();
-                    }
+        } catch (CameraAccessException e) {
+            Log.d(TAG, "Unable to configure camera " + mCameraId + " due to "
+                    + e.getMessage());
+            closeAndCleanupRunner.run();
+        }
+    }
 
-                    @Override
-                    public void onClosed(@NonNull CameraCaptureSession session) {
-                        closeCameraResource();
-                        surfaceReleaseRunner.run();
-                    }
-                });
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    boolean isSessionCloseComplete() {
+        return mReleasedCaptureSessions.isEmpty();
+    }
 
-                try {
-                    Log.d(TAG, "Start configAndClose.");
-                    new CaptureSession(null).open(builder.build(), mCameraDevice);
-                } catch (CameraAccessException e) {
-                    Log.d(TAG, "Unable to configure camera " + mCameraId + " due to "
-                            + e.getMessage());
-                    surfaceReleaseRunner.run();
-                }
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    void finishClose() {
+        Preconditions.checkState(mState.get() == State.RELEASING || mState.get() == State.CLOSING);
+        Preconditions.checkState(mReleasedCaptureSessions.isEmpty());
 
-                break;
-            case OPENING:
-            case REOPENING:
-                mState.set(State.CLOSING);
-                break;
-            default:
-                Log.d(TAG, "configAndClose() ignored due to being in state: " + mState.get());
+        mCameraDevice = null;
+        if (mState.get() == State.CLOSING) {
+            mState.set(State.INITIALIZED);
+        } else {
+            mState.set(State.RELEASED);
+
+            if (mUserReleaseNotifier != null) {
+                mUserReleaseNotifier.set(null);
+                mUserReleaseNotifier = null;
+            }
+        }
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @WorkerThread
+    void closeCamera(boolean abortInFlightCaptures) {
+        Preconditions.checkState(mState.get() == State.CLOSING || mState.get() == State.RELEASING,
+                "closeCamera should only be called in a CLOSING or RELEASING state.");
+
+        boolean isLegacyDevice = false;
+        try {
+            Camera2CameraInfo camera2CameraInfo = (Camera2CameraInfo) getCameraInfo();
+            isLegacyDevice = camera2CameraInfo.getSupportedHardwareLevel()
+                    == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY;
+        } catch (CameraInfoUnavailableException e) {
+            Log.w(TAG, "Check legacy device failed.", e);
         }
 
+        // TODO: Check if any sessions have been previously configured. We can probably skip
+        // configAndClose if there haven't been any sessions configured yet.
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && Build.VERSION.SDK_INT < 29
+                && isLegacyDevice) {
+            // To configure surface again before close camera. This step would
+            // disconnect previous connected surface in some legacy device to prevent exception.
+            configAndClose();
+        }
+
+        // Release the current session and replace with a new uninitialized session in case the
+        // camera enters a REOPENING state during session closing.
+        resetCaptureSession(abortInFlightCaptures);
     }
 
-    void closeCameraResource() {
-        mCaptureSession.close();
-        mCaptureSession.release(/*abortInFlightCaptures=*/true);
-        mCameraDevice.close();
-        notifyCameraDeviceCloseToCaptureSessions();
-        mCameraDevice = null;
-        resetCaptureSession();
-    }
+    @WorkerThread
+    private ListenableFuture<Void> releaseSession(@NonNull final CaptureSession captureSession,
+            boolean abortInFlightCaptures) {
+        ListenableFuture<Void> releaseFuture = captureSession.release(abortInFlightCaptures);
 
-    // Notifies camera device closed event to all CaptureSessions. Not every closed
-    // CaptureSessions's
-    // onClosed will be called when device closed, so we have to notify closed CaptureSession as
-    // well for proper clean up.
-    private void notifyCameraDeviceCloseToCaptureSessions() {
-        synchronized (mClosedCaptureSessions) {
-            for (CaptureSession closedCaptureSession : mClosedCaptureSessions) {
-                closedCaptureSession.notifyCameraDeviceClose();
+        mReleasedCaptureSessions.put(captureSession, releaseFuture);
+
+        // Add a callback to clear the future and notify if the camera and all capture sessions
+        // are released
+        Futures.addCallback(releaseFuture, new FutureCallback<Void>() {
+            @WorkerThread
+            @Override
+            public void onSuccess(@Nullable Void result) {
+                mReleasedCaptureSessions.remove(captureSession);
+                switch (mState.get()) {
+                    case CLOSING:
+                    case RELEASING:
+                        Preconditions.checkState(mCameraDevice != null,
+                                "Camera Device should not be null while in state " + mState.get());
+                        if (isSessionCloseComplete()) {
+                            mCameraDevice.close();
+                        }
+                        break;
+                    case REOPENING:
+                        // Camera should not have yet been closed, so move back to opened state.
+                        Preconditions.checkState(mCameraDevice != null);
+                        mState.set(State.OPENED);
+                        openCaptureSession();
+                        break;
+                    default:
+                        // Ignore all other states
+                }
             }
 
-            mClosedCaptureSessions.clear();
-        }
+            @Override
+            public void onFailure(Throwable t) {
+                // Don't reset the internal release future as we want to keep track of the error
+                // TODO: The camera should be put into an error state at this point
+            }
+            // Should always be called on the same handler thread, so directExecutor is OK here.
+        }, CameraXExecutors.directExecutor());
 
-        mCaptureSession.notifyCameraDeviceClose();
+        return releaseFuture;
     }
 
     /**
@@ -291,34 +358,86 @@ final class Camera implements BaseCamera {
      * access the camera.
      */
     @Override
-    public void release() {
+    public ListenableFuture<Void> release() {
+        ListenableFuture<Void> releaseFuture = CallbackToFutureAdapter.getFuture(
+                new CallbackToFutureAdapter.Resolver<Void>() {
+                    @Override
+                    public Object attachCompleter(
+                            @NonNull final CallbackToFutureAdapter.Completer<Void> completer) {
+
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Futures.propagate(getOrCreateUserReleaseFuture(), completer);
+                            }
+                        });
+                        return "Release[request=" + mReleaseRequestCount.getAndIncrement() + "]";
+                    }
+                });
+
         if (Looper.myLooper() != mHandler.getLooper()) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Camera.this.release();
+                    Camera.this.releaseInternal();
                 }
             });
-            return;
+        } else {
+            releaseInternal();
         }
 
+        return releaseFuture;
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @WorkerThread
+    void releaseInternal() {
         switch (mState.get()) {
             case INITIALIZED:
-                mState.set(State.RELEASED);
+                mState.set(State.RELEASING);
+                Preconditions.checkState(isSessionCloseComplete());
+                finishClose();
                 break;
             case OPENED:
                 mState.set(State.RELEASING);
-                mCameraDevice.close();
-                notifyCameraDeviceCloseToCaptureSessions();
+                closeCamera(/*abortInFlightCaptures=*/true);
                 break;
             case OPENING:
             case CLOSING:
             case REOPENING:
+            case RELEASING:
+                // Wait for the camera async callback to finish releasing
                 mState.set(State.RELEASING);
                 break;
             default:
                 Log.d(TAG, "release() ignored due to being in state: " + mState.get());
         }
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    @WorkerThread
+    ListenableFuture<Void> getOrCreateUserReleaseFuture() {
+        if (mUserReleaseFuture == null) {
+            if (mState.get() != State.RELEASED) {
+                mUserReleaseFuture = CallbackToFutureAdapter.getFuture(
+                        new CallbackToFutureAdapter.Resolver<Void>() {
+                            @Override
+                            public Object attachCompleter(
+                                    @NonNull CallbackToFutureAdapter.Completer<Void> completer) {
+                                Preconditions.checkState(mUserReleaseNotifier == null,
+                                        "Camera can only be released once, so release completer "
+                                                + "should be null on creation.");
+                                mUserReleaseNotifier = completer;
+                                return "Release[camera=" + Camera.this + "]";
+                            }
+                        });
+            } else {
+                // Set to an immediately successful future if already in the released state.
+                mUserReleaseFuture = Futures.immediateFuture(null);
+            }
+        }
+
+        return mUserReleaseFuture;
     }
 
     /**
@@ -408,6 +527,7 @@ final class Camera implements BaseCamera {
             mUseCaseAttachState.updateUseCase(useCase);
         }
 
+        resetCaptureSession(/*abortInFlightCaptures=*/false);
         updateCaptureSessionConfig();
         openCaptureSession();
     }
@@ -511,7 +631,11 @@ final class Camera implements BaseCamera {
 
         open();
         updateCaptureSessionConfig();
-        openCaptureSession();
+        resetCaptureSession(/*abortInFlightCaptures=*/false);
+
+        if (mState.get() == State.OPENED) {
+            openCaptureSession();
+        }
     }
 
     /**
@@ -549,31 +673,18 @@ final class Camera implements BaseCamera {
             }
 
             if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {
-
-                boolean isLegacyDevice = false;
-                try {
-                    Camera2CameraInfo camera2CameraInfo = (Camera2CameraInfo) getCameraInfo();
-                    isLegacyDevice = camera2CameraInfo.getSupportedHardwareLevel()
-                            == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY;
-                } catch (CameraInfoUnavailableException e) {
-                    Log.w(TAG, "Check legacy device failed.", e);
-                }
-
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && Build.VERSION.SDK_INT < 29
-                        && isLegacyDevice) {
-                    // To configure surface again before close camera. This step would
-                    // disconnect
-                    // previous connected surface in some legacy device to prevent exception.
-                    configAndClose();
-                } else {
-                    close();
-                }
+                resetCaptureSession(/*abortInFlightCaptures=*/true);
+                close();
                 return;
             }
         }
 
-        openCaptureSession();
         updateCaptureSessionConfig();
+        resetCaptureSession(/*abortInFlightCaptures=*/false);
+
+        if (mState.get() == State.OPENED) {
+            openCaptureSession();
+        }
 
     }
 
@@ -628,11 +739,9 @@ final class Camera implements BaseCamera {
      *
      * <p>The previously opened session will be safely disposed of before the new session opened.
      */
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     void openCaptureSession() {
-        if (mState.get() != State.OPENED) {
-            Log.d(TAG, "openCaptureSession() ignored due to being in state: " + mState.get());
-            return;
-        }
+        Preconditions.checkState(mState.get() == State.OPENED);
 
         ValidatingBuilder validatingBuilder;
         synchronized (mAttachedUseCaseLock) {
@@ -643,64 +752,32 @@ final class Camera implements BaseCamera {
             return;
         }
 
-        if (mCameraDevice == null) {
-            Log.d(TAG, "CameraDevice is null");
-            return;
-        }
-
-        // When the previous capture session has not reached the open state, the issued single
-        // capture requests will still be in request queue and will need to be passed to the next
-        // capture session.
-        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
-        resetCaptureSession();
-
-        SessionConfig sessionConfig = validatingBuilder.build();
-
-        if (!unissuedCaptureConfigs.isEmpty()) {
-            List<CaptureConfig> reissuedCaptureConfigs = new ArrayList<>();
-            // Filters out requests that has unconfigured surface (probably caused by removeOnline)
-            for (CaptureConfig unissuedCaptureConfig : unissuedCaptureConfigs) {
-                if (sessionConfig.getSurfaces().containsAll(unissuedCaptureConfig.getSurfaces())) {
-                    reissuedCaptureConfigs.add(unissuedCaptureConfig);
-                }
-            }
-
-            if (!reissuedCaptureConfigs.isEmpty()) {
-                Log.d(TAG, "reissuedCaptureConfigs");
-                mCaptureSession.issueCaptureRequests(reissuedCaptureConfigs);
-            }
-        }
-
         try {
-            mCaptureSession.open(sessionConfig, mCameraDevice);
+            mCaptureSession.open(validatingBuilder.build(), mCameraDevice);
         } catch (CameraAccessException e) {
             Log.d(TAG, "Unable to configure camera " + mCameraId + " due to " + e.getMessage());
         }
     }
 
     /**
-     * Closes the currently opened capture session, so it can be safely disposed. Replaces the old
-     * session with a new session initialized with the old session's configuration.
+     * Replaces the old session with a new session initialized with the old session's configuration.
+     *
+     * <p>This does not close the previous session. The previous session should be
+     * explicitly released before calling this method so the camera can track the state of
+     * closing that session.
      */
-    void resetCaptureSession() {
-        Log.d(TAG, "Closing Capture Session: " + mCameraId);
+    @WorkerThread
+    private void resetCaptureSession(boolean abortInFlightCaptures) {
+        Preconditions.checkState(mCaptureSession != null);
+        Log.d(TAG, "Resetting Capture Session");
+        releaseSession(mCaptureSession, /*abortInFlightCaptures=*/abortInFlightCaptures);
 
         // Recreate an initialized (but not opened) capture session from the previous configuration
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
-
-        mCaptureSession.close();
-        mCaptureSession.release(/*abortInFlightCaptures=*/false);
-
-        // Saves the closed CaptureSessions if device is not closed yet.
-        // We need to notify camera device closed event to these CaptureSessions.
-        if (mCameraDevice != null) {
-            synchronized (mClosedCaptureSessions) {
-                mClosedCaptureSessions.add(mCaptureSession);
-            }
-        }
-
+        List<CaptureConfig> unissuedCaptures = mCaptureSession.getCaptureConfigs();
         mCaptureSession = new CaptureSession(mHandler);
         mCaptureSession.setSessionConfig(previousSessionConfig);
+        mCaptureSession.issueCaptureRequests(unissuedCaptures);
     }
 
     private CameraDevice.StateCallback createDeviceStateCallback() {
@@ -876,16 +953,17 @@ final class Camera implements BaseCamera {
         @Override
         public void onOpened(CameraDevice cameraDevice) {
             Log.d(TAG, "CameraDevice.onOpened(): " + cameraDevice.getId());
+            Camera.this.mCameraDevice = cameraDevice;
             switch (mState.get()) {
                 case CLOSING:
                 case RELEASING:
-                    cameraDevice.close();
-                    Camera.this.mCameraDevice = null;
+                    // No session should have yet been opened, so close camera directly here.
+                    Preconditions.checkState(isSessionCloseComplete());
+                    mCameraDevice.close();
                     break;
                 case OPENING:
                 case REOPENING:
                     mState.set(State.OPENED);
-                    Camera.this.mCameraDevice = cameraDevice;
                     openCaptureSession();
                     break;
                 default:
@@ -897,55 +975,49 @@ final class Camera implements BaseCamera {
         @Override
         public void onClosed(CameraDevice cameraDevice) {
             Log.d(TAG, "CameraDevice.onClosed(): " + cameraDevice.getId());
-
-            resetCaptureSession();
+            Preconditions.checkState(mCameraDevice == cameraDevice);
             switch (mState.get()) {
                 case CLOSING:
-                    mState.set(State.INITIALIZED);
-                    Camera.this.mCameraDevice = null;
+                case RELEASING:
+                    Preconditions.checkState(isSessionCloseComplete());
+                    finishClose();
                     break;
                 case REOPENING:
                     mState.set(State.OPENING);
                     openCameraDevice();
-                    break;
-                case RELEASING:
-                    mState.set(State.RELEASED);
-                    Camera.this.mCameraDevice = null;
                     break;
                 default:
                     CameraX.postError(
                             CameraX.ErrorCode.CAMERA_STATE_INCONSISTENT,
                             "Camera closed while in state: " + mState.get());
             }
-
-
         }
 
         @Override
         public void onDisconnected(CameraDevice cameraDevice) {
             Log.d(TAG, "CameraDevice.onDisconnected(): " + cameraDevice.getId());
-            resetCaptureSession();
+
+            // onDisconnected could be called before onOpened if the camera becomes disconnected
+            // during initialization, so keep track of it here.
+            mCameraDevice = cameraDevice;
+
             switch (mState.get()) {
                 case CLOSING:
-                    mState.set(State.INITIALIZED);
-                    Camera.this.mCameraDevice = null;
-                    break;
                 case REOPENING:
                 case OPENED:
                 case OPENING:
-                    mState.set(State.CLOSING);
-                    cameraDevice.close();
-                    Camera.this.mCameraDevice = null;
+                    // TODO: Create a "DISCONNECTED" state so camera can recover once available.
+                    mState.set(State.RELEASING);
                     break;
                 case RELEASING:
-                    mState.set(State.RELEASED);
-                    cameraDevice.close();
-                    Camera.this.mCameraDevice = null;
+                    // State will be set to RELEASED once camera finishes closing.
                     break;
                 default:
                     throw new IllegalStateException(
                             "onDisconnected() should not be possible from state: " + mState.get());
             }
+
+            closeCamera(/*abortInFlightCaptures=*/true);
         }
 
         private String getErrorMessage(int errorCode) {
@@ -973,28 +1045,27 @@ final class Camera implements BaseCamera {
                             + cameraDevice.getId()
                             + " with error: "
                             + getErrorMessage(error));
-            resetCaptureSession();
+
+            // onError could be called before onOpened if there is an error opening the camera
+            // during initialization, so keep track of it here.
+            mCameraDevice = cameraDevice;
+
             switch (mState.get()) {
-                case CLOSING:
-                    mState.set(State.INITIALIZED);
-                    Camera.this.mCameraDevice = null;
+                case RELEASING:
                     break;
+                case CLOSING:
                 case REOPENING:
                 case OPENED:
                 case OPENING:
-                    mState.set(State.CLOSING);
-                    cameraDevice.close();
-                    Camera.this.mCameraDevice = null;
-                    break;
-                case RELEASING:
-                    mState.set(State.RELEASED);
-                    cameraDevice.close();
-                    Camera.this.mCameraDevice = null;
+                    mState.set(State.RELEASING);
                     break;
                 default:
                     throw new IllegalStateException(
                             "onError() should not be possible from state: " + mState.get());
             }
+
+            // TODO: Handle errors or put camera into an "ERROR" state.
+            closeCamera(/*abortInFlightCaptures=*/true);
         }
     }
 }

@@ -521,9 +521,26 @@ final class CaptureSession {
             CameraBurstCaptureCallback callbackAggregator = new CameraBurstCaptureCallback();
             List<CaptureRequest> captureRequests = new ArrayList<>();
             Log.d(TAG, "Issuing capture request.");
+            int numRequestElements = 0;
             for (CaptureConfig captureConfig : mCaptureConfigs) {
                 if (captureConfig.getSurfaces().isEmpty()) {
                     Log.d(TAG, "Skipping issuing empty capture request.");
+                    continue;
+                }
+
+                // Validate all surfaces belong to configured surfaces map
+                boolean surfacesValid = true;
+                for (DeferrableSurface surface : captureConfig.getSurfaces()) {
+                    if (!mConfiguredSurfaceMap.containsKey(surface)) {
+                        Log.d(TAG, "Skipping capture request with invalid surface: " + surface);
+                        surfacesValid = false;
+                        break;
+                    }
+                }
+
+                if (!surfacesValid) {
+                    // An invalid surface was detected in this request. Skip it and go on to the next request.
+                    // TODO: Report this request as an error.
                     continue;
                 }
 
@@ -561,11 +578,16 @@ final class CaptureSession {
                 }
                 callbackAggregator.addCamera2Callbacks(captureRequest, cameraCallbacks);
                 captureRequests.add(captureRequest);
-
+                numRequestElements++;
             }
-            mCameraCaptureSession.captureBurst(captureRequests,
-                    callbackAggregator,
-                    mHandler);
+
+            if (numRequestElements > 0) {
+                mCameraCaptureSession.captureBurst(captureRequests,
+                        callbackAggregator,
+                        mHandler);
+            } else {
+                Log.d(TAG, "Skipping issuing burst request due to no valid request elements");
+            }
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to access camera: " + e.getMessage());
             Thread.dumpStack();

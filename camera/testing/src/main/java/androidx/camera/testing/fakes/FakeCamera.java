@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraControl;
@@ -30,6 +31,9 @@ import androidx.camera.core.DeferrableSurfaces;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.UseCase;
 import androidx.camera.core.UseCaseAttachState;
+import androidx.camera.core.impl.utils.futures.Futures;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,8 +71,8 @@ public class FakeCamera implements BaseCamera {
         this(DEFAULT_CAMERA_ID, cameraInfo, cameraControl);
     }
 
-    public FakeCamera(String cameraId,
-            CameraInfo cameraInfo,
+    public FakeCamera(@NonNull String cameraId,
+            @NonNull CameraInfo cameraInfo,
             @Nullable CameraControl cameraControl) {
         mCameraInfo = cameraInfo;
         mCameraId = cameraId;
@@ -95,13 +99,15 @@ public class FakeCamera implements BaseCamera {
     }
 
     @Override
-    public void release() {
+    @NonNull
+    public ListenableFuture<Void> release() {
         checkNotReleased();
         if (mState == State.OPENED) {
             close();
         }
 
         mState = State.RELEASED;
+        return Futures.immediateFuture(null);
     }
 
     @Override
