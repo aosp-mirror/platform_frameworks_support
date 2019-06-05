@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe9fd51_a8879b98",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-05T22:32:06Z",
+      "side": 0,
+      "message": "Will delete this in the next CL.",
+      "range": {
+        "startLine": 237,
+        "startChar": 39,
+        "endLine": 237,
+        "endChar": 63
+      },
+      "revId": "a2c0afb705d8e4ecbefc8346a312534efe46b021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
