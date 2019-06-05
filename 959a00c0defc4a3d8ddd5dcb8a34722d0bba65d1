@@ -265,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "6a071b3a_8661d56f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T18:16:07Z",
+      "side": 1,
+      "message": "Aren\u0027t the onRepeatingCaptureConfigs from the extensions? And the ones from the mSessionConfigs the ones that are set by CameraX? So isn\u0027t this the reverse of what you want?\n\nBut anyways, we should either comment this behavior, because its not clear from the code why this has to be done. The comment should say why the onRepeatingCaptureConfigs have lower priority. And remember the camera2 module should have no concept of extensions.",
+      "parentUuid": "02f3a6e4_02a52a95",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd6d37e4_304dec06",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -315,6 +333,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c1c9b01_ae06a558",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T18:16:07Z",
+      "side": 1,
+      "message": "Then we should either:\n1) Document why this is the case, because it is not clear from code that addImplementationOptions overrides previous values.\n2) Or have a version of addImplementationOptions that does the override logic the way that we so desire.\n\nThis way, a few months from now there won\u0027t be someone who removes it because they think it is cleaning up the code.",
+      "parentUuid": "b6862a26_21cc39f9",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
