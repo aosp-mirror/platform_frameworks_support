@@ -452,18 +452,13 @@ final class CaptureSession {
                 return;
             }
 
-            CameraEventCallbacks eventCallbacks = new Camera2Config(
-                    mSessionConfig.getImplementationOptions()).getCameraEventCallback(
-                    CameraEventCallbacks.createEmptyCallback());
-            List<CaptureConfig> repeatingRequestList =
-                    eventCallbacks.createComboCallback().onRepeating();
-            for (CaptureConfig config : repeatingRequestList) {
-                applyImplementationOptionToCaptureBuilder(builder,
-                        config.getImplementationOptions());
-            }
-
+            // The override priority for implementation options
+            // P1 CameraEventCallback onRepeating options
+            // P2 SessionConfig options
             applyImplementationOptionToCaptureBuilder(
                     builder, captureConfig.getImplementationOptions());
+
+            applyCameraEventCallbackOnRepeatingOptions(builder);
 
             CameraCaptureSession.CaptureCallback comboCaptureCallback =
                     createCamera2CaptureCallback(
@@ -475,6 +470,21 @@ final class CaptureSession {
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to access camera: " + e.getMessage());
             Thread.dumpStack();
+        }
+    }
+
+    private void applyCameraEventCallbackOnRepeatingOptions(CaptureRequest.Builder builder) {
+        if (mSessionConfig == null) {
+            return;
+        }
+        CameraEventCallbacks eventCallbacks = new Camera2Config(
+                mSessionConfig.getImplementationOptions()).getCameraEventCallback(
+                CameraEventCallbacks.createEmptyCallback());
+        List<CaptureConfig> repeatingRequestList =
+                eventCallbacks.createComboCallback().onRepeating();
+        for (CaptureConfig config : repeatingRequestList) {
+            applyImplementationOptionToCaptureBuilder(builder,
+                    config.getImplementationOptions());
         }
     }
 
@@ -522,8 +532,16 @@ final class CaptureSession {
                 CaptureRequest.Builder builder =
                         captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
 
-                applyImplementationOptionToCaptureBuilder(builder,
-                        mSessionConfig.getRepeatingCaptureConfig().getImplementationOptions());
+                // The override priority for implementation options
+                // P1 Single capture options
+                // P2 CameraEventCallback onRepeating options
+                // P3 SessionConfig options
+                if (mSessionConfig != null) {
+                    applyImplementationOptionToCaptureBuilder(builder,
+                            mSessionConfig.getRepeatingCaptureConfig().getImplementationOptions());
+                }
+
+                applyCameraEventCallbackOnRepeatingOptions(builder);
 
                 applyImplementationOptionToCaptureBuilder(
                         builder, captureConfig.getImplementationOptions());
