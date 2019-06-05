@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ac3ca0a_cdfd9a79",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T14:23:40Z",
+      "side": 1,
+      "message": "Why are we not using \"verify\" here? Isn\u0027t it worth it to assert that we have just one element?",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 17
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86646e0b_60f0ad15",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T14:23:40Z",
+      "side": 1,
+      "message": "find vs findAllMatching seems to be a bit confusing naming here, especially when findAllMatching is being used in the find itself.",
+      "range": {
+        "startLine": 80,
+        "startChar": 17,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee7cf22_ab906a11",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T14:23:40Z",
+      "side": 1,
+      "message": "Please rename the variable to make it more clear what is the semantics of this lambda.",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
