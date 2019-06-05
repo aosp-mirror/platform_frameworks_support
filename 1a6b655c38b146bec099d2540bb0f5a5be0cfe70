@@ -86,6 +86,24 @@
     },
     {
       "key": {
+        "uuid": "2c3b89a0_8242341b",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-05T19:53:02Z",
+      "side": 1,
+      "message": "actually i think it was one of the intiial designs which later got replaced by relying on the column name (which needed to be unique anyways). \npossibly just forgot to update the docs :/",
+      "parentUuid": "8d63ea06_ae5c0103",
+      "revId": "1a6b655c38b146bec099d2540bb0f5a5be0cfe70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1802fb13_9174b601",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
         "patchSetId": 8
