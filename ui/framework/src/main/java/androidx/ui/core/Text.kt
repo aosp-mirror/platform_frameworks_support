@@ -23,7 +23,6 @@ import androidx.ui.engine.text.TextPosition
 import androidx.ui.graphics.Color
 import androidx.ui.painting.TextSpan
 import androidx.ui.painting.TextStyle
-import androidx.ui.rendering.paragraph.RenderParagraph
 import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.ui.services.text_editing.TextSelection
 import androidx.compose.Ambient
@@ -38,6 +37,8 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.painting.Paint
+import androidx.ui.painting.TextPainter
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -47,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
-
 
 @Composable
 fun Text(
@@ -172,15 +172,14 @@ internal fun Text(
     Semantics(
         label = styledText.toPlainText()
     ) {
-        val renderParagraph = RenderParagraph(
+        val textPainter = TextPainter(
             text = styledText,
             textAlign = textAlign,
             textDirection = textDirection,
             softWrap = softWrap,
             overflow = overflow,
             textScaleFactor = textScaleFactor,
-            maxLines = maxLines,
-            selectionColor = selectionColor
+            maxLines = maxLines
         )
         // TODO(Migration/siyamed): This is temporary and should be removed when resource
         // system is resolved.
@@ -191,16 +190,21 @@ internal fun Text(
             // selection.
             OnPositioned(onPositioned = { layoutCoordinates.value = it })
             Draw { canvas, _ ->
-                internalSelection.value?.let { renderParagraph.paintSelection(canvas, it) }
-                renderParagraph.paint(canvas, Offset(0.0f, 0.0f))
+                internalSelection.value?.let {
+                    val selectionPath = textPainter.getPathForSelection(it)
+                    val selectionPaint = Paint()
+                    selectionPaint.color = selectionColor
+                    canvas.drawPath(selectionPath, selectionPaint)
+                }
+                textPainter.paint(canvas, Offset(0.0f, 0.0f))
             }
         }
         Layout(children = children, layoutBlock = { _, constraints ->
-            renderParagraph.performLayout(constraints)
-            layout(renderParagraph.width.px.round(), renderParagraph.height.px.round()) {}
+            textPainter.performLayout(constraints)
+            layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
         })
 
-        +onCommit(renderParagraph) {
+        +onCommit(textPainter) {
             val id = registrar.subscribe(object : TextSelectionHandler {
                 // Get selection for the start and end coordinates pair.
                 override fun getSelection(
@@ -216,11 +220,11 @@ internal fun Text(
                     val start = Offset(startPx.x.value, startPx.y.value)
                     val end = Offset(endPx.x.value, endPx.y.value)
 
-                    var selectionStart = renderParagraph.getPositionForOffset(start)
-                    var selectionEnd = renderParagraph.getPositionForOffset(end)
+                    var selectionStart = textPainter.getPositionForOffset(start)
+                    var selectionEnd = textPainter.getPositionForOffset(end)
 
                     if (selectionStart.offset == selectionEnd.offset) {
-                        val wordBoundary = renderParagraph.getWordBoundary(selectionStart)
+                        val wordBoundary = textPainter.getWordBoundary(selectionStart)
                         selectionStart =
                             TextPosition(wordBoundary.start, selectionStart.affinity)
                         selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
@@ -234,9 +238,9 @@ internal fun Text(
                     // Currently the left bottom corner of a character is returned.
                     return Selection(
                         startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
+                        textPainter.getCaretForTextPosition(selectionStart).second,
                         endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second,
+                        textPainter.getCaretForTextPosition(selectionEnd).second,
                         startLayoutCoordinates = layoutCoordinates.value!!,
                         endLayoutCoordinates = layoutCoordinates.value!!
                     )

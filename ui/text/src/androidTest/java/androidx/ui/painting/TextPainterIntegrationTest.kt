@@ -18,12 +18,17 @@ package androidx.ui.painting
 
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.ui.core.Constraints
+import androidx.ui.core.ipx
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.font.asFontFamily
+import androidx.ui.rendering.paragraph.TextOverflow
+import androidx.ui.services.text_editing.TextSelection
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -50,9 +55,9 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(text = textSpan, textScaleFactor = scaleFactor)
 
-        val prefferedHeight = textPainter.preferredLineHeight
+        val preferredHeight = textPainter.preferredLineHeight
 
-        assertThat(prefferedHeight).isEqualTo(fontSize * scaleFactor)
+        assertThat(preferredHeight).isEqualTo(fontSize * scaleFactor)
     }
 
     // TODO(Migration/qqd): The default font size should be 14.0 but it returns 15.0. Need further
@@ -76,7 +81,7 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         assertThat(textPainter.minIntrinsicWidth).isEqualTo(0.0f)
     }
@@ -89,7 +94,7 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         assertThat(textPainter.maxIntrinsicWidth).isEqualTo(fontSize * text.length)
     }
@@ -102,9 +107,23 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
-        textPainter.layout(0.0f, 200.0f)
+        textPainter.performLayout(Constraints(0.ipx, 200.ipx))
 
         assertThat(textPainter.width).isEqualTo(fontSize * text.length)
+    }
+
+    @Test
+    fun width_getter_with_small_width() {
+        val fontSize = 20.0f
+        val text = "Hello"
+        val width = 80.ipx
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+
+        textPainter.performLayout(Constraints(maxWidth = width))
+
+        assertThat(textPainter.width).isEqualTo(width.value.toFloat())
     }
 
     @Test
@@ -114,7 +133,7 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         assertThat(textPainter.height).isEqualTo(fontSize)
     }
@@ -127,7 +146,7 @@ class TextPainterIntegrationTest {
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         assertThat(textPainter.size)
             .isEqualTo(Size(width = fontSize * text.length, height = fontSize))
@@ -141,7 +160,7 @@ class TextPainterIntegrationTest {
         val textPainter =
             TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
 
-        textPainter.layout(0.0f, 200.0f)
+        textPainter.performLayout(Constraints(0.ipx, 200.ipx))
 
         assertThat(textPainter.didExceedMaxLines).isTrue()
     }
@@ -153,7 +172,7 @@ class TextPainterIntegrationTest {
         val textPainter =
             TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
 
-        textPainter.layout(0.0f, 200.0f)
+        textPainter.performLayout(Constraints(0.ipx, 200.ipx))
 
         assertThat(textPainter.didExceedMaxLines).isFalse()
     }
@@ -163,7 +182,7 @@ class TextPainterIntegrationTest {
         val textPainter =
             TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.Ltr)
 
-        textPainter.layout(0.0f, 20.0f)
+        textPainter.performLayout(Constraints(0.ipx, 20.ipx))
 
         assertThat(textPainter.paragraph).isNotNull()
     }
@@ -178,7 +197,7 @@ class TextPainterIntegrationTest {
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
                 ), textDirection = TextDirection.Ltr
             )
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         val selection = textPainter.getPositionForOffset(Offset(dx = 0f, dy = 0f))
 
@@ -196,11 +215,141 @@ class TextPainterIntegrationTest {
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
                 ), textDirection = TextDirection.Ltr
             )
-        textPainter.layout()
+        textPainter.performLayout(Constraints())
 
         val selection =
             textPainter.getPositionForOffset(Offset(dx = fontSize * characterIndex + 1f, dy = 0f))
 
         assertThat(selection.offset).isEqualTo(characterIndex)
+    }
+
+    @Test
+    fun hasOverflowShaderFalse() {
+        val fontSize = 20.0f
+        val text = "Hello"
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+
+        textPainter.performLayout(Constraints())
+
+        assertThat(textPainter.hasVisualOverflow).isFalse()
+    }
+
+    @Test
+    fun hasOverflowShaderFadeHorizontallyTrue() {
+        val fontSize = 20.0f
+        var text = ""
+        for (i in 1..15) {
+            text = text + "Hello World"
+        }
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val textPainter = TextPainter(
+                text = textSpan,
+                overflow = TextOverflow.Fade,
+                textDirection = TextDirection.Ltr,
+                softWrap = false,
+                maxLines = 1)
+
+        textPainter.performLayout(Constraints(maxWidth = 100.ipx))
+
+        assertThat(textPainter.hasVisualOverflow).isTrue()
+    }
+
+    @Test
+    fun hasOverflowShaderFadeVerticallyTrue() {
+        val fontSize = 20.0f
+        var text = ""
+        for (i in 1..30) {
+            text = text + "Hello World"
+        }
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val textPainter = TextPainter(
+                text = textSpan,
+                overflow = TextOverflow.Fade,
+                textDirection = TextDirection.Ltr,
+                maxLines = 2)
+
+        textPainter.performLayout(Constraints(maxWidth = 100.ipx))
+
+        assertThat(textPainter.hasVisualOverflow).isTrue()
+    }
+
+    @Test
+    fun testGetPathForSelection_wrap_multiLines() {
+        // Setup test.
+        val fontSize = 20.0f
+        val text = "HelloHello"
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        textPainter.performLayout(Constraints(maxWidth = 120.ipx))
+
+        val expectedPath = Path()
+        val firstLineLeft = textPainter.paragraph?.getLineLeft(0)
+        val secondLineLeft = textPainter.paragraph?.getLineLeft(1)
+        val firstLineRight = textPainter.paragraph?.getLineRight(0)
+        val secondLineRight = textPainter.paragraph?.getLineRight(1)
+        expectedPath.addRect(Rect(firstLineLeft!!, 0f, firstLineRight!!, fontSize))
+        expectedPath.addRect(Rect(
+                secondLineLeft!!,
+                fontSize,
+                secondLineRight!! - 2 * fontSize,
+            textPainter.paragraph!!.height))
+
+        // Run.
+        // Select all.
+        val actualPath = textPainter.getPathForSelection(TextSelection(0, text.length))
+
+        // Assert.
+        val diff = Path.combine(PathOperation.difference, expectedPath, actualPath).getBounds()
+        assertThat(diff).isEqualTo(Rect.zero)
+    }
+
+    @Test
+    fun testGetPathForSelection_bidi() {
+        // Setup test.
+        val textLTR = "Hello"
+        // From right to left: שלום
+        val textRTL = "\u05e9\u05dc\u05d5\u05dd"
+        val text = textLTR + textRTL
+        val selectionLTRStart = 2
+        val selectionRTLEnd = 2
+        val fontSize = 20.0f
+        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textSpan = TextSpan(text = text, style = textStyle)
+        val paragraph = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        paragraph.performLayout(Constraints())
+
+        val expectedPath = Path()
+        // Select "llo".
+        expectedPath.addRect(
+            Rect(
+                left = fontSize * selectionLTRStart,
+                top = 0f,
+                right = textLTR.length * fontSize,
+                bottom = fontSize
+            )
+        )
+        // Select "של"
+        expectedPath.addRect(
+            Rect(
+                left = (textLTR.length + textRTL.length - selectionRTLEnd) * fontSize,
+                top = 0f,
+                right = (textLTR.length + textRTL.length) * fontSize,
+                bottom = fontSize
+            )
+        )
+
+        // Run.
+        val actualPath = paragraph.getPathForSelection(
+            TextSelection(selectionLTRStart, textLTR.length + selectionRTLEnd)
+        )
+
+        // Assert.
+        val diff = Path.combine(PathOperation.difference, expectedPath, actualPath).getBounds()
+        assertThat(diff).isEqualTo(Rect.zero)
     }
 }
