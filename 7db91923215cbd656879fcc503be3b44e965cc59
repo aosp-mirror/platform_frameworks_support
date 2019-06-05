@@ -16,6 +16,24 @@
       "revId": "7db91923215cbd656879fcc503be3b44e965cc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df36baf_db74fdc0",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ExtenderVersioning.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-05T02:33:47Z",
+      "side": 1,
+      "message": "Got it!\nRemove the interface file ExtenderVersioning,\nand rename the ExtenderVersioningImpl.java to ExtensionVersionImpl.java",
+      "parentUuid": "f32c26f5_e9611994",
+      "revId": "7db91923215cbd656879fcc503be3b44e965cc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
