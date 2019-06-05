@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb435a1f_6217ca1b",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "nit: Redundant new line",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 16
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b073cd_b7d6bea1",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "nit: Redundant new line",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 0
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f9a1fce_366f6014",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "Reformat the comment",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bcced17_724afe9e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "I think it doesn\u0027t have to check null although getSurfaces() did not specify @NonNull.",
+      "range": {
+        "startLine": 111,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 47
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463f6188_323b06d1",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "nit: can merge to previous line.",
+      "range": {
+        "startLine": 208,
+        "startChar": 36,
+        "endLine": 208,
+        "endChar": 68
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66350f4c_9e573653",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "It is not related to this CL. Just notice that this create a new way to attach repeating request\u0027s options and obviously single capture request doesn\u0027t append these capture options. It may encounter issues as the same root cause of aosp/950081. Some questions might help to think through. Do we need to attach these options to single request too? or is it possible to merge this options into mSessionConfig?",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 71
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

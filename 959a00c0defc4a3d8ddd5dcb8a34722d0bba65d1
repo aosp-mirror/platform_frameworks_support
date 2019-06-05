@@ -297,6 +297,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6862a26_21cc39f9",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-05T07:58:53Z",
+      "side": 1,
+      "message": "Meet the similar situation before, see the comment on patch 1 of aosp/950081 and there is also another implementation idea that doesn\u0027t have to override options again outside the CaptureConfig.Builder.",
+      "parentUuid": "43bc1e2d_6bd71aee",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
