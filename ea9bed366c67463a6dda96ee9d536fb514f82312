@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "ef81ac31_91f73a76",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-06-05T16:47:40Z",
+      "side": 1,
+      "message": "I thought matrix4 was going to be removed entirely anyway? It just shouldn\u0027t exist.",
+      "parentUuid": "3203a3d8_4163cd29",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44176487_8771cb13",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidImage.kt",
         "patchSetId": 3
