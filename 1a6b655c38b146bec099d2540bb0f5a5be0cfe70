@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa662259_1bb90ce1",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T12:15:50Z",
+      "side": 1,
+      "message": "Nits: it would be nice to have a consistency with example in @Relation (so field name here and there would songId?) I\u0027d drop \"m\" prefixes as well",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 38
+      },
+      "revId": "1a6b655c38b146bec099d2540bb0f5a5be0cfe70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5144f92_da30b321",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T12:15:50Z",
+      "side": 1,
+      "message": "I guess it is \"field path\" similarly to @Relation, clearly define it in docs",
+      "revId": "1a6b655c38b146bec099d2540bb0f5a5be0cfe70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1802fb13_9174b601",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/EntityProcessor.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T12:15:50Z",
+      "side": 1,
+      "message": "not sure why it was changed",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "1a6b655c38b146bec099d2540bb0f5a5be0cfe70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f77ea37_970f669f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T12:15:50Z",
+      "side": 1,
+      "message": "nit: I\u0027d probably simply pass entityOrView here, but up to you",
+      "range": {
+        "startLine": 550,
+        "startChar": 23,
+        "endLine": 553,
+        "endChar": 72
+      },
+      "revId": "1a6b655c38b146bec099d2540bb0f5a5be0cfe70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
