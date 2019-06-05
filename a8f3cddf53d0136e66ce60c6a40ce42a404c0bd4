@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "ca8aabc8_94555d31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:16:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6d3cecb3_46f534ea",
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "040d6ba4_058eacf3",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 1
@@ -246,6 +264,30 @@
       "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db1941af_0f05fe96",
+        "filename": "ui/text/src/main/java/androidx/ui/rendering/paragraph/RenderParagraph.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:16:35Z",
+      "side": 1,
+      "message": "nit: sorry for not being clear, I meant describing in the javadoc.",
+      "parentUuid": "317b2ea1_b4d96bee",
+      "range": {
+        "startLine": 400,
+        "startChar": 18,
+        "endLine": 400,
+        "endChar": 32
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
