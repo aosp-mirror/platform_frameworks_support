@@ -288,6 +288,30 @@
       "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3317743_b8e41e92",
+        "filename": "ui/text/src/main/java/androidx/ui/rendering/paragraph/RenderParagraph.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-05T18:42:35Z",
+      "side": 1,
+      "message": "Oh, I modified the description.",
+      "parentUuid": "db1941af_0f05fe96",
+      "range": {
+        "startLine": 400,
+        "startChar": 18,
+        "endLine": 400,
+        "endChar": 32
+      },
+      "revId": "a8f3cddf53d0136e66ce60c6a40ce42a404c0bd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
