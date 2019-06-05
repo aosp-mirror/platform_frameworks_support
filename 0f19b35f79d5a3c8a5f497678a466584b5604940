@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1510aa19_6270b891",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-05T23:53:13Z",
+      "side": 1,
+      "message": "Can you write this directly to the output file rather than to a ByteArray and then to a file?",
+      "range": {
+        "startLine": 369,
+        "startChar": 4,
+        "endLine": 369,
+        "endChar": 47
+      },
+      "revId": "0f19b35f79d5a3c8a5f497678a466584b5604940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
