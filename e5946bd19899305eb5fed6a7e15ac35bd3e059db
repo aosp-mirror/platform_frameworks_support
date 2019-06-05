@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c59c545_86de2bd0",
+        "filename": "car/core/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-05T01:23:44Z",
+      "side": 1,
+      "message": "Seems like we should be adding a primary text color as well. \n\nAnd the car_display*, car_body*, car_subtext* should be removed. Instead, the styles for these should be using one of primary or secondary for its color.\n\nFor example, body3 is using car_grey_300 for its color:\nhttp://cs/aosp-androidx/car/core/res/color/car_body3_light.xml?l\u003d21\u0026rcl\u003d4d859f2aeaf9c3174f274c072bdd89dd693d5204\n\nBut that should probably be the secondary text color now.",
+      "revId": "e5946bd19899305eb5fed6a7e15ac35bd3e059db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
