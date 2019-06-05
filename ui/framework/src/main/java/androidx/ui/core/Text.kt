@@ -48,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
 
-
 @Composable
 fun Text(
     /** How the text should be aligned horizontally. */
@@ -233,10 +232,8 @@ internal fun Text(
                     // Clean up the lower layer's getCaretForTextPosition methods.
                     // Currently the left bottom corner of a character is returned.
                     return Selection(
-                        startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
-                        endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second,
+                        startOffset = Offset.zero,
+                        endOffset = Offset.zero,
                         startLayoutCoordinates = layoutCoordinates.value!!,
                         endLayoutCoordinates = layoutCoordinates.value!!
                     )
