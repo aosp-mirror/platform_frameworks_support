@@ -247,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "02f3a6e4_02a52a95",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-05T07:05:58Z",
+      "side": 1,
+      "message": "Ah, in the previous design, \nI add the implementation options from extension first, \nand then, append the implementation options from the RepeatingCaptureConfig of CameraX.\n\nThe implementation options from CameraX would override the implementation options from extension if they use the same key.\n\nIt seems Scott would like to keep the code have the same behavior like previous did. \nOr we can consider to adjust the override ordering of the keys? (since we didn\u0027t define the case when CameraX and extension have the same key)",
+      "parentUuid": "240e9543_675b577e",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd6d37e4_304dec06",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
