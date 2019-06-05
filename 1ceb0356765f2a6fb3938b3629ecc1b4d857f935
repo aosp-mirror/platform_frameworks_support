@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23d8a39b_f2d03125",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T14:02:51Z",
+      "side": 1,
+      "message": "I don\u0027t understand this API \u003d( What is the difference for me as a developer? How can I affect this as a developer?",
+      "range": {
+        "startLine": 301,
+        "startChar": 19,
+        "endLine": 301,
+        "endChar": 37
+      },
+      "revId": "1ceb0356765f2a6fb3938b3629ecc1b4d857f935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1646baf_2219843b",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T14:02:51Z",
+      "side": 1,
+      "message": "I think it is better to have File as param here, since otherwise it is a bit weird: you don\u0027t know if this path relative to smth etc",
+      "range": {
+        "startLine": 593,
+        "startChar": 26,
+        "endLine": 593,
+        "endChar": 40
+      },
+      "revId": "1ceb0356765f2a6fb3938b3629ecc1b4d857f935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a89f7b0_7b2d4921",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T14:02:51Z",
+      "side": 1,
+      "message": "hmmm does it have any performance implications that you take writable db instead of readable?\n\nLooks like you don\u0027t really need to keep mDatabase object simply a bool mVerified is enough",
+      "range": {
+        "startLine": 86,
+        "startChar": 31,
+        "endLine": 86,
+        "endChar": 50
+      },
+      "revId": "1ceb0356765f2a6fb3938b3629ecc1b4d857f935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
