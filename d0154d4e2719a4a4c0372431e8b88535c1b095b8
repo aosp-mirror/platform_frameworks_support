@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ec579e2d_ae5db188",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-06-05T16:54:18Z",
+      "side": 1,
+      "message": "would recommend sticking with \u0027concat\u0027 or \u0027concatenate\u0027 as ordering matters here and both concat/concatenate will be more familiar to devs using this (matches native platform\u0027s names)",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 17
+      },
+      "revId": "d0154d4e2719a4a4c0372431e8b88535c1b095b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51344654_6cab5e38",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Paint.kt",
         "patchSetId": 5
