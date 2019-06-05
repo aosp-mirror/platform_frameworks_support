@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7e745d4e_59c3af3c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:49:17Z",
+      "side": 1,
+      "message": "1) You can make the constructor of TabData private and provide factory methods that ensure what is null and what not.\n\nThe issue with Pair is not about it\u0027s name (typealias won\u0027t help here). The issue is .first and .second. Basically there is no semantics of what these value represent. Is the string title? Is the image icon for text or does it fill the whole tab? What if I want a mix of tabs with / without icons? That is the benefit of custom class that you can explain individual properties. Also are you sure you don\u0027t need third param in the future? Like disabled or tooltip or testTag for instance?\n\n\"However I think it\u0027s semantically strange to have three options for creating a tab, where you pass String, Image, or TabData \"\nBut pair does not give any semantical benefit there it just stitches the previous two together without explaining how.\n\nFinally I don\u0027t want to block your cl on these discussions and I leave it on you to decide your APIs. I just wanted to share my input here.",
+      "parentUuid": "11efaef7_e86c3bdb",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f780d4a_b704306d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
