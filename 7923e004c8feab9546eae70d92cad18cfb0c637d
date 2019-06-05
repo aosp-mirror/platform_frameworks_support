@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e54e113_ca46b27f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-05T12:56:43Z",
+      "side": 1,
+      "message": "with this component we still have Semantics with testTags emmited in our public api. maybe we should only test TopAppBar with slots then to isolate this testTags to the test code? maybe we should instead of \"Title text label\" testTag use findByText test api? and then we would have something similar for icons",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 13
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b321d67f_6db96898",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-05T12:56:43Z",
+      "side": 1,
+      "message": "nit: this can be nicer if you add \"import androidx.ui.material.MaterialColors\" and then be able to use just MaterialColors.primary. It doesn\u0027t count as unused import",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 39
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
