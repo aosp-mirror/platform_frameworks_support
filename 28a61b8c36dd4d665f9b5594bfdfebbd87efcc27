@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b43d836_5708d06a",
+        "filename": "drawerlayout/src/androidTest/java/androidx/drawerlayout/widget/DrawerCustomThemeActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-05T16:30:45Z",
+      "side": 1,
+      "message": "Hmm it\u0027s interesting that this shows up as a difference in the Gerrit display. Was this something you had to bring back after doing `git merge`? I do see that it exists in parent1",
+      "revId": "28a61b8c36dd4d665f9b5594bfdfebbd87efcc27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba2f05d0_2d026983",
+        "filename": "drawerlayout/src/main/java/androidx/drawerlayout/widget/DrawerLayout.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-05T16:30:45Z",
+      "side": 1,
+      "message": "Hmm I don\u0027t really have any familiarity with DrawerLayout. I wonder if it would help if you could elaborate on the difference between this and the automerge and/or if we want to double-check with someone else.",
+      "revId": "28a61b8c36dd4d665f9b5594bfdfebbd87efcc27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
