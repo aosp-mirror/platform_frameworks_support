@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ae79405_2d0ce9c0",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "Is this the term used in Material?",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4c4243_c51fa7a5",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "This isn\u0027t a Border. This is the beginnings of a much deeper and more interesting class identifying a stroke.\n\n+njawad, please look at this.\n\nMaybe something like \"Stroke\" would be a better name. Generally speaking, I am imagining a class that can adjust the stroke in any way that Paint supports, including using gradients. The constructor here would be the simplest example of this.\n\nWe also need something similar for Fill and maybe other cases. There is probably a lot of cross-over between them.",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a562395_102ba167",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Shape.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "What is the point of a null stroke? I would rather have this non-nullable.",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2893fdf7_2ec1c985",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "I noticed that in the material spec, this was the corner diameter. I prefer the corner radius, but we should consider the spec.\n\nIt isn\u0027t clear what cut length is. It could be the hypotenuse of the cut triangle.",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aceee0af_1da46964",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "be careful of the \"Model\" name. This isn\u0027t an @Model.\n\nIs ShapeModel going to be used more often than Shape? If so, it should have the better name \"Shape.\" If not, it is better to have Shape with the primary name and it is ok to leave this with a worse name.",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "601c6a0c_292d981a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-05T23:53:02Z",
+      "side": 1,
+      "message": "You could use two different classes, both with better names: CutShape and RoundedShape. You also wouldn\u0027t need ShapeFamily.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
