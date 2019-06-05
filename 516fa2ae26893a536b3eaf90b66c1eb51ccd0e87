@@ -70,6 +70,30 @@
       "revId": "516fa2ae26893a536b3eaf90b66c1eb51ccd0e87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1089d7_5caac70b",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:51:55Z",
+      "side": 1,
+      "message": "Yeah, it seems to me like it\u0027s the same as onCheckedChange, where check-ed is in past tense, But not because it\u0027s past, but because it\u0027s the param name (checked:Boolean). Same here. Imagine it\u0027s onSelectedChangeRequested, but without Requested part.",
+      "parentUuid": "ac4ef231_64d019b3",
+      "range": {
+        "startLine": 207,
+        "startChar": 176,
+        "endLine": 207,
+        "endChar": 192
+      },
+      "revId": "516fa2ae26893a536b3eaf90b66c1eb51ccd0e87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
