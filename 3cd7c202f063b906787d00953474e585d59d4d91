@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce03dcb7_466b0e4b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-05T22:41:49Z",
+      "side": 1,
+      "message": "Can you move this to TextPainter?",
+      "range": {
+        "startLine": 194,
+        "startChar": 20,
+        "endLine": 197,
+        "endChar": 66
+      },
+      "revId": "3cd7c202f063b906787d00953474e585d59d4d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
