@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0621a6b_3f9a0a5e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "Q) Why this should be changed?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e1f011_1163180d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "Remove? (This is always true)",
+      "range": {
+        "startLine": 469,
+        "startChar": 12,
+        "endLine": 469,
+        "endChar": 47
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22aeb188_ab84366c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "It looks fishy.\n- Line 471, updatePlayPauseButton : Updates Play/Pause button and might call updateReplayButton, which also update Play/Pause button.\n- Line 476, updateLayoutForSizeChange : Calls updateReplayButton as well.\n\nCan\u0027t we avoid multi times button updates?",
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "882d79e5_e0a0a5c2",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "This has been previously missed, but could you replace it with {@link...}? And apply it to other occurrences, too. Thanks!",
+      "range": {
+        "startLine": 342,
+        "startChar": 12,
+        "endLine": 342,
+        "endChar": 28
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a3dd963_0eeacfe4",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "add \"!\" before this.",
+      "range": {
+        "startLine": 442,
+        "startChar": 16,
+        "endLine": 442,
+        "endChar": 66
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cbc11e8_cf688bb5",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-05T16:57:23Z",
+      "side": 1,
+      "message": "(Missed this in the previous code review.)\nVideoTrackCount and AudioTrackCount should be initialized to zero before this for loop. Or use local variable and assign it to mVideoTrackCount out of for-loop.",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 35
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
