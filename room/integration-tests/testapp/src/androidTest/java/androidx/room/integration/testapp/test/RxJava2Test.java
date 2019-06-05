@@ -26,6 +26,7 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 import androidx.room.EmptyResultSetException;
 import androidx.room.Room;
+import androidx.room.RxRoom;
 import androidx.room.integration.testapp.FtsTestDatabase;
 import androidx.room.integration.testapp.dao.MailDao;
 import androidx.room.integration.testapp.vo.Mail;
@@ -49,6 +50,8 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -611,5 +614,77 @@ public class RxJava2Test extends TestDatabaseTest {
                 return mailList.equals(Lists.newArrayList(mail0, mail1));
             }
         });
+    }
+
+    @Test
+    public void singleFromCallable_emptyResult_disposed() throws InterruptedException {
+        CountDownLatch queryLatch = new CountDownLatch(1);
+        CountDownLatch bgThreadLatch = new CountDownLatch(1);
+        TestObserver<Boolean> testObserver = new TestObserver<>();
+        Disposable disposable = Single.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                bgThreadLatch.countDown();
+                queryLatch.await();
+                throw new EmptyResultSetException("Empty result");
+            }
+        }).subscribeOn(mTestScheduler).subscribeWith(testObserver);
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    drain();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        t.start();
+
+        bgThreadLatch.await();
+        testObserver.assertNotComplete();
+        disposable.dispose();
+        queryLatch.countDown();
+        t.join();
+
+        testObserver.assertError(EmptyResultSetException.class);
+        testObserver.assertNoValues();
+    }
+
+    @Test
+    public void createSingle_emptyResult_disposed() throws InterruptedException {
+        CountDownLatch queryLatch = new CountDownLatch(1);
+        CountDownLatch bgThreadLatch = new CountDownLatch(1);
+        TestObserver<Boolean> testObserver = new TestObserver<>();
+        Disposable disposable = RxRoom.createSingle(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                bgThreadLatch.countDown();
+                queryLatch.await();
+                throw new EmptyResultSetException("Empty result");
+            }
+        }).subscribeOn(mTestScheduler).subscribeWith(testObserver);
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    drain();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        t.start();
+
+        bgThreadLatch.await();
+        testObserver.assertNotComplete();
+        disposable.dispose();
+        queryLatch.countDown();
+        t.join();
+
+        testObserver.assertNoErrors();
+        testObserver.assertNoValues();
     }
 }
