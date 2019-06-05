@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab982617_3d744deb",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/UseCaseAttachStateTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T20:49:15Z",
+      "side": 1,
+      "message": "Is the config supposed to have the camera id stored in it? I thought it is only supposed to have a filter.",
+      "revId": "81db102db8aae44e6a27e74a35495d94d6207278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
