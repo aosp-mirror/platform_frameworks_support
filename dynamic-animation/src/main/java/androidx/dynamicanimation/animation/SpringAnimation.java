@@ -182,6 +182,25 @@ public final class SpringAnimation extends DynamicAnimation<SpringAnimation> {
     }
 
     /**
+     * Cancels the on-going animation. If the animation hasn't started, no op. Note that this method
+     * should only be called on main thread.
+     *
+     * @throws AndroidRuntimeException if this method is not called on the main thread
+     */
+    @Override
+    public void cancel() {
+        super.cancel();
+        if (mPendingPosition != UNSET) {
+            if (mSpring == null) {
+                mSpring = new SpringForce(mPendingPosition);
+            } else {
+                mSpring.setFinalPosition(mPendingPosition);
+            }
+            mPendingPosition = UNSET;
+        }
+    }
+
+    /**
      * Skips to the end of the animation. If the spring is undamped, an
      * {@link IllegalStateException} will be thrown, as the animation would never reach to an end.
      * It is recommended to check {@link #canSkipToEnd()} before calling this method. This method
