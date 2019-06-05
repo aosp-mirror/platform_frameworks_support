@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5ffe650_7b326d35",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "is this necessary given that it overrides the methods?  If it is necessary, we should probably file a bug to make it not necessary.",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1269e3d4_bd4aa1eb",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
         "patchSetId": 3
@@ -46,6 +63,40 @@
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3203a3d8_4163cd29",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "Does \"arbitrary transforms\" have a specific meaning?  If not, this should probably say what it _does_ support rather than what it doesn\u0027t.",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44176487_8771cb13",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidImage.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "Nit: Compose",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -131,6 +182,29 @@
     },
     {
       "key": {
+        "uuid": "11a31e35_548dcf8a",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "For your thoughts: is there a better name for this, since \"save\" isn\u0027t really a great description of what it does (which is more akin to \"save, perform action, and restore\")?  Like maybe doWithSave or doAndRestore or runWithRestore or something?  I don\u0027t have any suggestions that I\u0027m really happy with, and maybe the existing name has enough thoughtshare around it to justify the name.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 12
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54c0261e_fe75f129",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
         "patchSetId": 3
@@ -175,6 +249,69 @@
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1add30d8_71960993",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "nit (somewhat out of scope): \"c\" -\u003e \"center\"?",
+      "range": {
+        "startLine": 319,
+        "startChar": 19,
+        "endLine": 319,
+        "endChar": 20
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7912ebd1_405c33de",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "another slightly out-of-scope nit: maybe \"origin\" or something?",
+      "range": {
+        "startLine": 352,
+        "startChar": 32,
+        "endLine": 352,
+        "endChar": 33
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6a9853_cececaed",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Image.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "Nit: Unclear what comment this refers to, maybe should be on the statement above?",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -236,6 +373,23 @@
       "writtenOn": "2019-06-04T23:12:55Z",
       "side": 1,
       "message": "This seems like it should be placed alongside Image rather than in its own file",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc95ef5d_b2518f97",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/ImageConfig.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:30:34Z",
+      "side": 1,
+      "message": "Probably could use at least a TODO to add some docs for what these mean",
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
