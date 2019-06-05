@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "40fba588_9a02bf98",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Solved the assertDoesNotExist problem.\n\nThe expectations API is still in place though (name still up in the air). I\u0027m open to any alternatives.",
+      "parentUuid": "40b473a1_9c55db7b",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7786c208_2ad8eb8d",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 4
@@ -192,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "d7602902_8d4dc7f9",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Done. The assertions API now has assertNotSelected() and assertSelected().",
+      "parentUuid": "25284dba_f43dc8b5",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3151c72_88af9d0e",
         "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
         "patchSetId": 4
@@ -203,6 +251,30 @@
       "writtenOn": "2019-05-31T14:52:46Z",
       "side": 1,
       "message": "Why is this noThrow?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d7d10e_2eb00e6b",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Because it just invokes a function, it doesn\u0027t do any assertions itself, the function should throw if there is any problem. Currently this is only used for golden semantics. Would you like to refactor this?",
+      "parentUuid": "a3151c72_88af9d0e",
       "range": {
         "startLine": 105,
         "startChar": 4,
@@ -238,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "f36988d2_50d4dd9e",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Expectations.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "I honestly have no idea how to rename it (though I gave it a shot). Feel free to suggest a different name.",
+      "parentUuid": "86de43d2_7c117825",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6876f844_a8893c71",
         "filename": "ui/test/src/main/java/androidx/ui/test/Expectations.kt",
         "patchSetId": 4
@@ -258,6 +354,30 @@
       "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a5a1ac_e1c89d1d",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Expectations.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6876f844_a8893c71",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -284,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "79af8d79_2e924d4f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Finders.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53b6b22a_3b83ef9b",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 53
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee868ccb_54646d09",
         "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
         "patchSetId": 4
@@ -307,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "a84d062d_bfba6038",
+        "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Changed it to multiple and to single so dropped the semantic part of the name. Now that we have only one class again I renamed this back to SemanticsTreeInteraction.",
+      "parentUuid": "ee868ccb_54646d09",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a39f487_d36d720f",
         "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
         "patchSetId": 4
@@ -318,6 +486,30 @@
       "writtenOn": "2019-05-31T14:52:46Z",
       "side": 1,
       "message": "I would recommend doing the following to make the count assertion as much implicit as we can. Since the asserts should not longer care about count.\n\nfind() \u003c- runs the assert on expected count by default\nfindIgnoreExpectedCount() / findNone() \u003c- will be used only by does not exists.",
+      "range": {
+        "startLine": 55,
+        "startChar": 17,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "b72b7e59f31c347afd08a75304e25b68ea096e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558e908e_6a6aca75",
+        "filename": "ui/test/src/main/java/androidx/ui/test/NodeQuery.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T13:36:35Z",
+      "side": 1,
+      "message": "Renamed findAndCheckExpectation to find.\n\nThere is no need to add another find method though, the purpose of having both findAndCheckExpectation and findAllMatching was to make use of the expectations object. So right now we\u0027re just using findAllMatching for assertDoesNotExist. It is a little inconsistent though adding another methods that\u0027s basically findAllMatching + assert strikes me a little as overkill. \n\nwdyt?",
+      "parentUuid": "4a39f487_d36d720f",
       "range": {
         "startLine": 55,
         "startChar": 17,
