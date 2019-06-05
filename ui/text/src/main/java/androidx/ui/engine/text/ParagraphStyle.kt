@@ -65,15 +65,16 @@ import androidx.ui.engine.window.Locale
  */
 data class ParagraphStyle constructor(
     val textAlign: TextAlign? = null,
-    val textDirection: TextDirection? = null,
+
+    /******/val textDirection: TextDirection? = null,
     val fontWeight: FontWeight? = null,
     val fontStyle: FontStyle? = null,
-    val maxLines: Int? = null,
+    /******/val maxLines: Int? = null,
     val fontFamily: FontFamily? = null,
     val fontSize: Float? = null,
     val lineHeight: Float? = null,
     // TODO(Migration/siyamed): pass to TextLayout
-    val ellipsis: Boolean? = null,
+    /******/val ellipsis: Boolean? = null,
     val locale: Locale? = null,
     val fontSynthesis: FontSynthesis? = null
 ) {
