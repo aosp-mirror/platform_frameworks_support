@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "db322601_15a82eba",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T20:43:27Z",
+      "side": 1,
+      "message": "Does this have to be CameraIdFilterSet?\nBecause it could just a CameraIdFilter and then the actual implementation might contain a CameraIdFilterSet.",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e41c75af_a3bcad8f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T20:43:27Z",
+      "side": 1,
+      "message": "Does this have to be CameraIdFilterSet?\nBecause it could just a CameraIdFilter and then the actual implementation might contain a CameraIdFilterSet.",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2251aec0_ff041712",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T20:43:27Z",
+      "side": 1,
+      "message": "Does this have to be CameraIdFilterSet?\nBecause it could just a CameraIdFilter and then the actual implementation might contain a CameraIdFilterSet.",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d08b73d_fdc1a524",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T20:43:27Z",
+      "side": 1,
+      "message": "Does this have to be CameraIdFilterSet?\nBecause it could just a CameraIdFilter and then the actual implementation might contain a CameraIdFilterSet.",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63367021_3c35c2e1",
         "filename": "camera/core/src/main/java/androidx/camera/core/LensFacingCameraIdFilter.java",
         "patchSetId": 5
