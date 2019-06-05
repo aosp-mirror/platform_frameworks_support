@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8fddc135_e2626f19",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T08:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb435a1f_6217ca1b",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 16
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97b073cd_b7d6bea1",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d73a1a_b7d59185",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T08:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97b073cd_b7d6bea1",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 0
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d12bdbb0_7598dbdd",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T08:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f9a1fce_366f6014",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bcced17_724afe9e",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
         "patchSetId": 12
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b03e40fa_f4b206c7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T08:23:46Z",
+      "side": 1,
+      "message": "make sense.   I annotates CaptureConfig#getSurfaces() as @NonNull to make it clear.  Also since getConfiguredSurfaces() will return empty list for empty captureConfig.getSurface() , we can just check the result of getConfiguredSurfaces().",
+      "parentUuid": "8bcced17_724afe9e",
+      "range": {
+        "startLine": 111,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 47
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "463f6188_323b06d1",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 12
@@ -114,6 +210,30 @@
       "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92a9f9f4_582a2329",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T08:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "463f6188_323b06d1",
+      "range": {
+        "startLine": 208,
+        "startChar": 36,
+        "endLine": 208,
+        "endChar": 68
+      },
+      "revId": "6493f9de45593a86315fd35f20021431609cfbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
