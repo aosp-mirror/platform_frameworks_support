@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b3fb6133_c5c37b88",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:19:59Z",
+      "side": 1,
+      "message": "But we still thrown if find finds more elements so it is not fully noThrow method. Can\u0027t you just directly use find() here? Or are there any plans to share the verifyNoThrow with some other code?",
+      "parentUuid": "a11af2ed_ae66edc3",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 17
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86646e0b_60f0ad15",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "e3440dee_bb5006af",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:19:59Z",
+      "side": 1,
+      "message": "That still does not help much. findAllExpected still finds AllMatching, this is getting a bit overloaded space. I would maybe just have one method find(boolean ignoreCountLimit \u003d false), wdyt?",
+      "parentUuid": "be6bc34c_31307108",
+      "range": {
+        "startLine": 80,
+        "startChar": 17,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ee7cf22_ab906a11",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Maybe we can rename to expectedCount ?",
       "parentUuid": "6ee7cf22_ab906a11",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99dd417f_1fee4216",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:19:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d500cbe7_69e9ff33",
       "range": {
         "startLine": 83,
         "startChar": 13,
