@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "be42b902_0b6ee2ef",
+        "filename": "room/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-05T13:23:55Z",
+      "side": 1,
+      "message": "I like the second approach better (@Update(entity \u003d User.class)), even though it is a bit limiting.",
+      "parentUuid": "51c66723_c61e4d32",
+      "range": {
+        "startLine": 4,
+        "startChar": 169,
+        "endLine": 4,
+        "endChar": 177
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "158c0896_ebfeccca",
         "filename": "room/common/src/main/java/androidx/room/AsEntity.java",
         "patchSetId": 4
