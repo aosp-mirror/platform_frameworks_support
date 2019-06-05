@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "755e7972_69252b12",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:13:27Z",
+      "side": 1,
+      "message": "Any reasons some of these can\u0027t be turned into tests? You can click buttons and you can findByText() to assert on content.",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6372692_8601171a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:13:27Z",
+      "side": 1,
+      "message": "Did you consider to provide your own domain specific data class instead of pair? (try googling \"why are tuples bad\"), especially as this is public API.\n\nAlso you wouldn\u0027t have to overload all these methods if you have a wrapper.\n\nExample:\nTabData {\n  string? title\n  Image? icon\n  AnythingElseYouWantInTheFuture :)\n}\n\nYou would use it as:\nTabLayout {\n tabs \u003d listOf(TabData(\"tab1\"), TabData(\"tab2\") )\n\n}\n\nAlso if we would really make the casting work somehow, it would be sweet to autocast string to TabData in context of TabLayout. But this just me dreaming here.",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f780d4a_b704306d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:13:27Z",
+      "side": 1,
+      "message": "Consider asserting here (Precondition) that tabs.Count \u003e selectedIndex. Because I might end up with more contents than headers.",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 147,
+        "endChar": 3
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8c065c_b7688c0a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-05T15:13:27Z",
+      "side": 1,
+      "message": "Is this how it is supposed to be used? How do you know you should be accessing something on index 0?",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
