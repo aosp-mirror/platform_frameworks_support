@@ -25,6 +25,139 @@
     },
     {
       "key": {
+        "uuid": "eaec9ea1_76a64459",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "agree on the tests bit, but also I like having the demo as we will convert this over to a catalog, good to see example usages.",
+      "parentUuid": "755e7972_69252b12",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a82a2e_1fb6b048",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "should this be provided for you? as in does spec say it should be centered?",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2db599_22c63a14",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "move these changes to a separate CL, not related to tabs",
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20c34452_809a4979",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "not sure what this means",
+      "range": {
+        "startLine": 52,
+        "startChar": 39,
+        "endLine": 53,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e77284dd_470d787b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "also add in the docs for everything sample usage if it makes sense (see some of the layout components for examples)",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 13
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d5ae59_d33dc80b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "could we merge all these overloads by having some sort of data class that is TabInfo that takes titles and icons and we just detect what to show from it? would simplify the api with so many overloads",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 107,
+        "endChar": 61
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6372692_8601171a",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -96,6 +229,30 @@
     },
     {
       "key": {
+        "uuid": "ccdda357_11835688",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "I see your points, but I also would like to see this simplified. I know spec says all tabs should be the same type, but this may be something that we can recommend but not impose as imposing is creating a complex api. you can work on helpers such as an extension that creates a List\u003cTabData\u003e from a list of Strings, from a list of Icons, etc to make it easy to do the right thing. thoughts?",
+      "parentUuid": "11efaef7_e86c3bdb",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f780d4a_b704306d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -163,6 +320,98 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43b3a894_c386bc0c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "why not call the composable this :)",
+      "range": {
+        "startLine": 224,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 26
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dac1dfc_bf4fd45a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "what is this for?",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 52
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5c736e_15bd241f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "A base for a Tab that displays ripples and handles click. Use this as a base for a custom tab to inherit Semantics and gestures for basic Tabs.\n\nor something like that?",
+      "range": {
+        "startLine": 318,
+        "startChar": 10,
+        "endLine": 318,
+        "endChar": 73
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82701a90_5664208b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-05T15:49:37Z",
+      "side": 1,
+      "message": "add an @see to the Material spec version",
+      "range": {
+        "startLine": 320,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 17
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
