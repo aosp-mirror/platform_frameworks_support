@@ -234,10 +234,8 @@ internal fun Text(
                     // Clean up the lower layer's getCaretForTextPosition methods.
                     // Currently the left bottom corner of a character is returned.
                     return Selection(
-                        startOffset =
-                        textPainter.getCaretForTextPosition(selectionStart).second,
-                        endOffset =
-                        textPainter.getCaretForTextPosition(selectionEnd).second,
+                        startOffset = Offset.zero,
+                        endOffset = Offset.zero,
                         startLayoutCoordinates = layoutCoordinates.value!!,
                         endLayoutCoordinates = layoutCoordinates.value!!
                     )
