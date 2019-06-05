@@ -22,6 +22,30 @@
       "revId": "38281c02077a7ad77c9a1eeead0f721da38ea60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fbdf18_4270a06e",
+        "filename": "settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T12:40:27Z",
+      "side": 1,
+      "message": "It\u0027s not :) I initially created a different module without realising the folder structure was already there. I thought I deleted the old one but apparently I missed this.",
+      "parentUuid": "fed86f36_4d8c0db0",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "38281c02077a7ad77c9a1eeead0f721da38ea60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
