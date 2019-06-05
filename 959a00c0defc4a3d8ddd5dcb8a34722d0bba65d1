@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5d455295_e94458e6",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "removed the RefreshImageReaderSurface.  The new design regarding how the pending single capture request changes its DeferrableSurface for the new capture session is still unknown. I will change the test if necessary after the new design is merged.",
+      "parentUuid": "c1265da6_dd368585",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90878fb7_4994980c",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
         "patchSetId": 11
@@ -33,6 +51,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0d2bb9_d10e1dab",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90878fb7_4994980c",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a8d45a17_ee25145d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "856251c3_520fae80",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "166ad166_427adf0a",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -67,6 +121,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3eacf7e_bd63e604",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "166ad166_427adf0a",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f1741490_d6097971",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d844329_ed4c2d23",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1da63620_c6f46c36",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -101,6 +191,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5797fa22_0fd1b677",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da63620_c6f46c36",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "240e9543_675b577e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "This is for making captureConfig has higher priority than onReaptingCaptureConfigs.  Discussed with Wenhung,  it is better we override same options in onRepeatingCaptureConfigs to prevent from extension affect our behavior.",
+      "parentUuid": "77e3bfe4_db8b56ba",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd6d37e4_304dec06",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -135,6 +261,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43bc1e2d_6bd71aee",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-05T05:22:22Z",
+      "side": 1,
+      "message": "Discussed with Leo, this is on purpose to make captureConfig\u0027s options has higher priority than repeatingCaptureConfig.",
+      "parentUuid": "dd6d37e4_304dec06",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
