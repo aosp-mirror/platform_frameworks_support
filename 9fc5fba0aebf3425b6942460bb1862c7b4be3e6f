@@ -253,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "38fb7ea2_a2fa2a5a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-05T15:53:21Z",
+      "side": 1,
+      "message": "Also sealed classes were designed for this use case in Kotlin. It is or Image or Text, and it is compile time enforced",
+      "parentUuid": "ccdda357_11835688",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f780d4a_b704306d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
