@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "952cba3b_c9f9ba07",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "It might be a good idea to add some examples here",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246e536d_29e5c0b5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "onSelectedChange will be probably a proper name for this param",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 14
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c876967_0211e08b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "nit: move to constants so it\u0027s easy to change later",
+      "range": {
+        "startLine": 189,
+        "startChar": 43,
+        "endLine": 189,
+        "endChar": 47
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5cebe98_88b12d72",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "nit: 0.ipx",
+      "range": {
+        "startLine": 191,
+        "startChar": 26,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105708e8_32d57419",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "You probably want to memo this, but it\u0027s not critical",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 201,
+        "endChar": 52
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45a569c0_6f3385d0",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "themeColor {primary} will be shorter (here and below few times)",
+      "range": {
+        "startLine": 210,
+        "startChar": 25,
+        "endLine": 210,
+        "endChar": 41
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613daced_710c7f8e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "if this is material spec, let\u0027s move it to constant",
+      "range": {
+        "startLine": 393,
+        "startChar": 57,
+        "endLine": 393,
+        "endChar": 62
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "614152f4_162a4b57",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-05T13:52:17Z",
+      "side": 1,
+      "message": "We have an ongoing discussion with Clara about name of this param. It\u0027s probably something like onSelect, because we want to avoid past tense here.",
+      "range": {
+        "startLine": 420,
+        "startChar": 16,
+        "endLine": 420,
+        "endChar": 26
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
