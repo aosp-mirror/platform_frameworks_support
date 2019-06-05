@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff9580b8_c18ff2cc",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Why is that? It is useful to cmd + click to the source by having it if you needed it",
+      "parentUuid": "a5ffe650_7b326d35",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1269e3d4_bd4aa1eb",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
         "patchSetId": 3
@@ -101,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "41d7264f_28d78910",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "This CL just does a move of the existing Canvas class implementation to AndroidCanvas. Work to remove/abstract the Matrix APIs in a similar fashion is scheduled in a subsequent CL. There are quite a few moving parts already here and wanted to keep the changes smaller. Does that sound reasonable?\n\nThis logic will go away once the Matrix abstraction is in place.",
+      "parentUuid": "ef81ac31_91f73a76",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44176487_8771cb13",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidImage.kt",
         "patchSetId": 3
@@ -115,6 +151,24 @@
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d2a46f_19d18bd7",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidImage.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44176487_8771cb13",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +277,30 @@
     },
     {
       "key": {
+        "uuid": "a9952b7d_3d3fba0c",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "I updated this CL to \"withSave\" which matches the same method with similar functionality within the ktx android x module.",
+      "parentUuid": "11a31e35_548dcf8a",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 12
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54c0261e_fe75f129",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
         "patchSetId": 3
@@ -293,6 +371,30 @@
     },
     {
       "key": {
+        "uuid": "7eb6d863_281bb4af",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1add30d8_71960993",
+      "range": {
+        "startLine": 319,
+        "startChar": 19,
+        "endLine": 319,
+        "endChar": 20
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7912ebd1_405c33de",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
         "patchSetId": 3
@@ -313,6 +415,30 @@
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b3d66a_2d4771e1",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Updated to \"topLeftOffset\"",
+      "parentUuid": "7912ebd1_405c33de",
+      "range": {
+        "startLine": 352,
+        "startChar": 32,
+        "endLine": 352,
+        "endChar": 33
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

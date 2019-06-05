@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "68f894cd_b63b2b5e",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec579e2d_ae5db188",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 17
+      },
+      "revId": "d0154d4e2719a4a4c0372431e8b88535c1b095b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51344654_6cab5e38",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Paint.kt",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "d0154d4e2719a4a4c0372431e8b88535c1b095b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2fe3747_26278582",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Paint.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-05T21:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51344654_6cab5e38",
+      "revId": "d0154d4e2719a4a4c0372431e8b88535c1b095b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
