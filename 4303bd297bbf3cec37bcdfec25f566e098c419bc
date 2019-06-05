@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dba977d8_c7ed9247",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-05T03:14:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1960d971_3f2bc006",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d36886af_41cbaeee",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ca6be602_f95dd24d",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-05T03:14:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d36886af_41cbaeee",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "569c09fd_69661410",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/Version.java",
         "patchSetId": 6
@@ -50,6 +86,24 @@
       "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dbafb29_5b045c6c",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/Version.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-05T03:14:51Z",
+      "side": 1,
+      "message": "Oh, \nI\u0027m thinking that if we going to write some backwards compatibility check...\nwe will \n(1) \nTo use compareTo(int majorVersion) to check if major version is compatible. so I write this in ExtensionVersion.java to always check major vendor version.\n\n\n(2)\nOnce the major version is supported, the extension should be able to run,\nsince the grater/lesser minor vendor version should also works.\n\nVendor would handle the case such like \"CameraX 1.4, vendor 1.5\".\n\nCameraX would need to handle the case like \"CameraX 1.4, vendor 1.3\",\nwe can use the compareTo(int majorVersion, int minorVersion) to check the above case.\n\nFor case \"CameraX 1.4, vendor 1.3\", we might further need to define a new VersionName enum such like\n///////////////////\nVersionName.VERSION_1_3(1,3,0,\"stable\");\n///////////////////\n\nand then, we can use some if-statement in our code. (In our definition, the minor version check would have some functionality change that might have some new call flow in our side.)\n///////////////////\nif (VersionName.VERSION_1_3.getVersion().equals(\n        ExtensionVersion.getInstance().getRuntimeVersion()) {\n    // do some call flow customization for VERSION_1_3\n}\n///////////////////\n\n\nIn the future, we can add some more code in ExtensionVersion.isExtensionVersionSupported()\nlike\n/////////////////\nboolean canFindVersionMapping \u003d false;\nfor (VersionName versionName :VersionName.values()) {\n  if (versionName.getVersion().compareTo(\n          mRuntimeVersion.getMajor(), mRuntimeVersion.getMinor()) \u003d\u003d 0) {\n       canFindVersionMapping \u003d true;\n  }\n}\nreturn canFindVersionMapping;\n/////////////////\n\n\nor create a method in Version.java like\n/////////////////\npublic boolean isSameMajorMinor(@NonNull Version another) {\n        return getMajor() \u003d\u003d another.getMajor() \u0026\u0026 getMinor() \u003d\u003d another.getMinor();\n}\n/////////////////\nto help us to compare the version case by case.\n\nJust because we didn\u0027t have backwards compatible implementation in current stage, \nI have removed the above idea from this review ... \nMaybe we can add the minor version compatibility check code after we have minor version upgrade.",
+      "parentUuid": "569c09fd_69661410",
+      "revId": "4303bd297bbf3cec37bcdfec25f566e098c419bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
