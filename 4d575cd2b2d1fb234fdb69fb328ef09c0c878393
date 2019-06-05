@@ -22,6 +22,30 @@
       "revId": "4d575cd2b2d1fb234fdb69fb328ef09c0c878393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73eaa89f_2467e897",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/compat/LooperCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-05T18:56:52Z",
+      "side": 1,
+      "message": "See aosp/977429 for change to static shim",
+      "parentUuid": "ef06ecb7_04e0bb2d",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "4d575cd2b2d1fb234fdb69fb328ef09c0c878393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
