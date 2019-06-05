@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "11efaef7_e86c3bdb",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T15:24:35Z",
+      "side": 1,
+      "message": "Yeah, we discussed this offline. There are some issues here:\n\n1. It\u0027s possible to pass null for string and image, this really shouldn\u0027t be possible and I don\u0027t like an API like this that doesn\u0027t\u0027 fail at compile time.\n\n2. Because of 1), we would need two data classes, one that contains Image, and one that contains String, Image?. However, semantically this is also confusing, as there aren\u0027t two types of tabs, there are 3, and so it only really makes sense to have one class wrapping all the types, or no wrappers.\n\n3. So given that we can\u0027t have 1, and we don\u0027t want 2 data classes, we still need a tuple to represent string and image. There are three options here:\n\na) use Pair\u003cString, Image\u003e\n\nb) create a data class with String and Image\n\nc) use a typealias to give a name to the Pair\n\nI don\u0027t really like b), because we\u0027re basically reimplementing Pair, just with a different name (we don\u0027t have any other logic / parameters we want here). So we might as well just use a typealias in this case. However I think it\u0027s semantically strange to have three options for creating a tab, where you pass String, Image, or TabData - since there\u0027s now a big distinction between using basic classes, and then a custom class, when they all represent the same thing: a tab just with a different type of data. It also adds another layer of abstraction, as now you have to see what a TabData needs, and then you see that it\u0027s just a Pair of String and Image anyway, so I don\u0027t really see much advantage here.\n\nI think that using Pair\u003cList, Image\u003e directly makes it really clear what this function needs, and also semantically makes sense, as it\u0027s not a custom data class, it\u0027s just a tab that takes a String and Image at the same time.\n\nHappy to iterate on this, but I think using separate overloads here without custom classes helps represent the different types of tab in a really nice way, as well as making it clear that they shouldn\u0027t be mixed in the same row.",
+      "parentUuid": "e6372692_8601171a",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f780d4a_b704306d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -91,6 +115,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f018b0a8_4d42c15c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-05T15:24:35Z",
+      "side": 1,
+      "message": "This is a list created from the two children below, Surface{} and ColoredRect{}, so this will always be Surface.",
+      "parentUuid": "9f8c065c_b7688c0a",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
