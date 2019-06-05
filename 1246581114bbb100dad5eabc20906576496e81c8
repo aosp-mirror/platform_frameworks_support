@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0613690e_df09df0c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42796dca_6a850249",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26d2b6d0_3adf2b23",
         "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1246581114bbb100dad5eabc20906576496e81c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e614c5_4296dfbf",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d2b6d0_3adf2b23",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9d48bcec_83a9d06b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66dc9b6f_dd8f737a",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfbc0a3b_95cee37c",
         "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "087a35e0_db240d8a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfbc0a3b_95cee37c",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41a84935_a9cf4cec",
         "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-05T17:13:29Z",
       "side": 1,
       "message": "would it be better to name this as onEditOperation\u003caction\u003e ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c615bf_516bd2c5",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "It is hard to translate what action it is. For example, just inserting text can be done with single commitText or sequential setCompositionText and clearComposition. And also, inset text + set composition may happen in a single batch. (i.e. partial commit of the composition).\n\nI think, in general, it is impossible to name the sequence of edit operations.",
+      "parentUuid": "41a84935_a9cf4cec",
       "range": {
         "startLine": 25,
         "startChar": 8,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "044ecb10_931f518c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc44b6f6_0cf3b5df",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5fb24a5_f95ccf51",
         "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2019-06-05T17:13:29Z",
       "side": 1,
       "message": "not sure if this is a good practice.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46753cc0_5d641e09",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-05T20:07:14Z",
+      "side": 1,
+      "message": "AFAIK, this is the only way of leaving debug code without any overhead and this is a common practice in framework code. \n\nAre you suggesting alternatives or removing debug code from this class?\nI think this debug code is useful since watching IME events is the most efficient debugging in editor.",
+      "parentUuid": "f5fb24a5_f95ccf51",
       "range": {
         "startLine": 32,
         "startChar": 12,
