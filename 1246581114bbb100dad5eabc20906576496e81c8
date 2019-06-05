@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42796dca_6a850249",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d2b6d0_3adf2b23",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "what are the other possible enums? can you add a note?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66dc9b6f_dd8f737a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "can you add some description about what edit operation is?",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbc0a3b_95cee37c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "maybe you can add a short javadoc describing what the class is used for.\ni am aware it is internal but would be useful for all in future",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a84935_a9cf4cec",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "would it be better to name this as onEditOperation\u003caction\u003e ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc44b6f6_0cf3b5df",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "i did not understand what class does from the description",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5fb24a5_f95ccf51",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-05T17:13:29Z",
+      "side": 1,
+      "message": "not sure if this is a good practice.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "1246581114bbb100dad5eabc20906576496e81c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
