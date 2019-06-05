@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51344654_6cab5e38",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Paint.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-05T01:35:03Z",
+      "side": 1,
+      "message": "this should be \"asFrameworkPaint\", because the returned value is not independent of this object",
+      "revId": "d0154d4e2719a4a4c0372431e8b88535c1b095b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
