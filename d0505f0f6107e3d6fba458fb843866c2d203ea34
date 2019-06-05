@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a11af2ed_ae66edc3",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T14:42:47Z",
+      "side": 1,
+      "message": "verifyNoThrow calls find() which does check the expected count. We are using verifyNoThrow because the function that asserts equality (fun SemanticsConfiguration.assertEquals(expected: SemanticsConfiguration)) builds a nice error message if the objects aren\u0027t equal, so it throws the error instead of verify.",
+      "parentUuid": "8ac3ca0a_cdfd9a79",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 17
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86646e0b_60f0ad15",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "be6bc34c_31307108",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T14:42:47Z",
+      "side": 1,
+      "message": "how about findAllMatching remains findAllMatching, while find becomes findAllExpected or findExpected ? if you prefer find to not change then maybe we can change findAllMAtching to findAll ?",
+      "parentUuid": "86646e0b_60f0ad15",
+      "range": {
+        "startLine": 80,
+        "startChar": 17,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ee7cf22_ab906a11",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-05T14:23:40Z",
       "side": 1,
       "message": "Please rename the variable to make it more clear what is the semantics of this lambda.",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d500cbe7_69e9ff33",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-05T14:42:47Z",
+      "side": 1,
+      "message": "Maybe we can rename to expectedCount ?",
+      "parentUuid": "6ee7cf22_ab906a11",
       "range": {
         "startLine": 83,
         "startChar": 13,
