@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "5e20c115_40ff9419",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-06T06:21:34Z",
+      "side": 1,
+      "message": "yes onRepeatingCaptureConfigs is only from extensions currently. We don\u0027t want onRepeatingCaptureConfigs to modify common options like 3A related, so we want to make mSessionConfigs has higher priority.    \n\nI\u0027ve modified the comments to have more info on it.",
+      "parentUuid": "6a071b3a_8661d56f",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd6d37e4_304dec06",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -351,6 +369,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335e7587_428c301d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-06T06:21:34Z",
+      "side": 1,
+      "message": "add more documents here. Thanks for the reminds .",
+      "parentUuid": "4c1c9b01_ae06a558",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
