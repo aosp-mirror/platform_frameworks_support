@@ -22,6 +22,30 @@
       "revId": "9350e43be9aba026783f30c103df2a3d2d52c206",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef774880_5ec2bb76",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/Adb.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-06T23:53:34Z",
+      "side": 1,
+      "message": "cmw@ mentioned they were probably going to add a new api to access adbExecutable that would return providers, and that we would need to wait until execution time to resolve the adb path. So I used Callable because I was lazy :D\n\nI moved it into a lazy property anyway though since it\u0027s better!",
+      "parentUuid": "6a7ea649_e7b53dc7",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "9350e43be9aba026783f30c103df2a3d2d52c206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
