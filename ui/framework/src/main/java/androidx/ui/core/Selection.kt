@@ -26,9 +26,83 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.engine.geometry.Rect
 
 private val HANDLE_WIDTH = 20.px
 private val HANDLE_HEIGHT = 100.px
+
+/**
+ * The enum class allows user to decide the selection mode.
+ */
+enum class SelectionMode {
+    /**
+     * When selection handles are dragged across widgets, selection extends by row, for example,
+     * when the end selection handle is dragged down, upper rows will be selected first, and the
+     * lower rows.
+     */
+    Vertical {
+        override fun isSelected(
+            box: Rect,
+            start: PxPosition,
+            end: PxPosition
+        ): Boolean {
+            // When the end of the selection is above the top of the widget, the widget is outside
+            // of the selection range.
+            if (end.y < box.top.px) return false
+
+            // When the end of the selection is on the left of the widget, and not below the bottom
+            // of widget, the widget is outside of the selection range.
+            if (end.x < box.left.px && end.y <= box.bottom.px) return false
+
+            // When the start of the selection is below the bottom of the widget, the widget is
+            // outside of the selection range.
+            if (start.y > box.bottom.px) return false
+
+            // When the start of the selection is on the right of the widget, and not above the top
+            // of the widget, the widget is outside of the selection range.
+            if (start.x > box.right.px && start.y >= box.top.px) return false
+
+            return true
+        }
+    },
+
+    /**
+     * When selection handles are dragged across widgets, selection extends by column, for example,
+     * when the end selection handle is dragged to the right, left columns will be selected first,
+     * and the right rows.
+     */
+    Horizontal {
+        override fun isSelected(
+            box: Rect,
+            start: PxPosition,
+            end: PxPosition
+        ): Boolean {
+            // When the end of the selection is on the left of the widget, the widget is outside of
+            // the selection range.
+            if (end.x < box.left.px) return false
+
+            // When the end of the selection is on the top of the widget, and the not on the right
+            // of the widget, the widget is outside of the selection range.
+            if (end.y < box.top.px && end.x <= box.right.px) return false
+
+            // When the start of the selection is on the right of the widget, the widget is outside
+            // of the selection range.
+            if (start.x > box.right.px) return false
+
+            // When the start of the selection is below the widget, and not on the left of the
+            // widget, the widget is outside of the selection range.
+            if (start.y > box.bottom.px && start.x >= box.left.px) return false
+
+            return true
+        }
+    };
+
+    internal abstract fun isSelected(
+        box: Rect,
+        start: PxPosition,
+        end: PxPosition
+    ): Boolean
+}
 
 /**
  * Data class of Selection.
@@ -54,7 +128,30 @@ data class Selection(
      * does not contain the end of the selection, this should be null.
      */
     val endLayoutCoordinates: LayoutCoordinates?
-)
+) {
+    fun merge(other: Selection): Selection {
+        // TODO: combine two selections' contents with styles together.
+        var currentSelection = this.copy()
+        if (other.startLayoutCoordinates != null) {
+            currentSelection = currentSelection.copy(
+                startOffset = other.startOffset,
+                startLayoutCoordinates = other.startLayoutCoordinates
+            )
+        }
+        if (other.endLayoutCoordinates != null) {
+            currentSelection = currentSelection.copy(
+                endOffset = other.endOffset,
+                endLayoutCoordinates = other.endLayoutCoordinates
+            )
+        }
+        return currentSelection
+    }
+}
+operator fun Selection?.plus(rhs: Selection?): Selection? {
+    if (this == null) return rhs
+    if (rhs == null) return this
+    return merge(rhs)
+}
 
 /**
  * An interface handling selection. Get selection from a widget by passing in the start and end of
@@ -64,7 +161,8 @@ data class Selection(
 interface TextSelectionHandler {
     fun getSelection(
         selectionCoordinates: Pair<PxPosition, PxPosition>,
-        containerLayoutCoordinates: LayoutCoordinates
+        containerLayoutCoordinates: LayoutCoordinates,
+        mode: SelectionMode
     ): Selection?
 }
 
@@ -91,6 +189,8 @@ internal class SelectionManager : SelectionRegistrar {
      */
     var containerLayoutCoordinates: LayoutCoordinates? = null
 
+    var mode: SelectionMode = SelectionMode.Vertical
+
     /**
      * Allow a Text composable to "register" itself with the manager
      */
@@ -113,7 +213,10 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position), containerLayoutCoordinates!!)
+            result += handler.getSelection(
+                Pair(position, position),
+                containerLayoutCoordinates!!,
+                mode)
         }
         onSelectionChange(result)
     }
@@ -134,6 +237,7 @@ fun SelectionContainer(
     selection: Selection?,
     /** A function containing customized behaviour when selection changes. */
     onSelectionChange: (Selection?) -> Unit,
+    mode: SelectionMode = SelectionMode.Vertical,
     @Children children: @Composable() () -> Unit
 ) {
     val manager = +memo { SelectionManager() }
@@ -143,6 +247,7 @@ fun SelectionContainer(
     // +memo(onSelectionChange) { manager.onSelectionChange = onSelectionChange }
     manager.selection = selection
     manager.onSelectionChange = onSelectionChange
+    manager.mode = mode
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {

@@ -38,6 +38,10 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.engine.geometry.Rect
+import androidx.ui.engine.text.TextAffinity
+import kotlin.math.max
+import kotlin.math.min
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -47,7 +51,6 @@ private val DefaultMaxLines: Int? = null
 
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
-
 
 @Composable
 fun Text(
@@ -151,6 +154,7 @@ internal fun Text(
     val internalSelection = +state<TextSelection?> { null }
     val registrar = +ambient(SelectionRegistrarAmbient)
     val layoutCoordinates = +state<LayoutCoordinates?> { null }
+    val lastTextPosition = text.toPlainText().length - 1
 
     fun attachContextToFont(
         text: TextSpan,
@@ -205,7 +209,8 @@ internal fun Text(
                 // Get selection for the start and end coordinates pair.
                 override fun getSelection(
                     selectionCoordinates: Pair<PxPosition, PxPosition>,
-                    containerLayoutCoordinates: LayoutCoordinates
+                    containerLayoutCoordinates: LayoutCoordinates,
+                    mode: SelectionMode
                 ): Selection? {
                     val relativePosition = containerLayoutCoordinates.childToLocal(
                         layoutCoordinates.value!!, PxPosition.Origin
@@ -213,33 +218,92 @@ internal fun Text(
                     val startPx = selectionCoordinates.first - relativePosition
                     val endPx = selectionCoordinates.second - relativePosition
 
-                    val start = Offset(startPx.x.value, startPx.y.value)
-                    val end = Offset(endPx.x.value, endPx.y.value)
+                    val textBoundingBox = Rect(
+                        top = 0f,
+                        bottom = renderParagraph.height,
+                        left = 0f,
+                        right = renderParagraph.width)
 
-                    var selectionStart = renderParagraph.getPositionForOffset(start)
-                    var selectionEnd = renderParagraph.getPositionForOffset(end)
+                    if (!mode.isSelected(textBoundingBox, start = startPx, end = endPx)) {
+                        internalSelection.value = null
+                        return null
+                    }
 
-                    if (selectionStart.offset == selectionEnd.offset) {
-                        val wordBoundary = renderParagraph.getWordBoundary(selectionStart)
-                        selectionStart =
-                            TextPosition(wordBoundary.start, selectionStart.affinity)
-                        selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    var textSelectionStart = getSelectionStart(startPx).first
+                    var startLayoutCoordinates = getSelectionStart(startPx).second
+
+                    var textSelectionEnd = getSelectionEnd(endPx).first
+                    var endLayoutCoordinates = getSelectionEnd(endPx).second
+
+                    if (textSelectionStart.offset == textSelectionEnd.offset) {
+                        val wordBoundary = renderParagraph.getWordBoundary(textSelectionStart)
+                        textSelectionStart =
+                            TextPosition(wordBoundary.start, textSelectionStart.affinity)
+                        textSelectionEnd = TextPosition(wordBoundary.end, textSelectionEnd.affinity)
                     }
 
                     internalSelection.value =
-                        TextSelection(selectionStart.offset, selectionEnd.offset)
+                        TextSelection(textSelectionStart.offset, textSelectionEnd.offset)
 
                     // TODO(qqd): Determine a set of coordinates around a character that we need.
                     // Clean up the lower layer's getCaretForTextPosition methods.
                     // Currently the left bottom corner of a character is returned.
                     return Selection(
                         startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
+                        renderParagraph.getCaretForTextPosition(textSelectionStart).second,
                         endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second,
-                        startLayoutCoordinates = layoutCoordinates.value!!,
-                        endLayoutCoordinates = layoutCoordinates.value!!
+                        renderParagraph.getCaretForTextPosition(textSelectionEnd).second,
+                        startLayoutCoordinates = startLayoutCoordinates,
+                        endLayoutCoordinates = endLayoutCoordinates
                     )
+                }
+
+                fun getSelectionStart(start: PxPosition): Pair<TextPosition, LayoutCoordinates?> {
+                    val top = 0.px
+                    val left = 0.px
+
+                    var selectionStart = TextPosition(0, TextAffinity.upstream)
+                    var startLayoutCoordinates: LayoutCoordinates? = null
+
+                    if (start.y >= top && start.x >= left) {
+                        val startOffset = Offset(start.x.value, start.y.value)
+                        selectionStart = TextPosition(
+                            offset =
+                            min(
+                                max(
+                                    renderParagraph.getPositionForOffset(startOffset).offset,
+                                    0
+                                ),
+                                lastTextPosition
+                            ), affinity = TextAffinity.upstream
+                        )
+                        startLayoutCoordinates = layoutCoordinates.value!!
+                    }
+                    return Pair(selectionStart, startLayoutCoordinates)
+                }
+
+                fun getSelectionEnd(end: PxPosition): Pair<TextPosition, LayoutCoordinates?> {
+                    val bottom = renderParagraph.height.px
+                    val right = renderParagraph.width.px
+
+                    var selectionEnd = TextPosition(lastTextPosition, TextAffinity.upstream)
+                    var endLayoutCoordinates: LayoutCoordinates? = null
+
+                    if (end.y <= bottom && end.x <= right) {
+                        val endOffset = Offset(end.x.value, end.y.value)
+                        selectionEnd = TextPosition(
+                            offset =
+                            min(
+                                max(
+                                    renderParagraph.getPositionForOffset(endOffset).offset,
+                                    0
+                                ),
+                                lastTextPosition
+                            ), affinity = TextAffinity.upstream
+                        )
+                        endLayoutCoordinates = layoutCoordinates.value!!
+                    }
+                    return Pair(selectionEnd, endLayoutCoordinates)
                 }
             })
             onDispose {
