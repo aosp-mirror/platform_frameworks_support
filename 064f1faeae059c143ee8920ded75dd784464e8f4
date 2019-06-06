@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e44fcafd_51c5d5a8",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:00:02Z",
+      "side": 1,
+      "message": "to make this code more idiomatic and cleaner:\n\nmake freqHz part of `CoreDir`. (Long)\n\nmake maxFreqHz `val`\n\n(more comments inlined)",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 16
+      },
+      "revId": "064f1faeae059c143ee8920ded75dd784464e8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74acb234_bad18396",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:00:02Z",
+      "side": 1,
+      "message": "Move to below as:\n\nCoreDir (\n ...\n  freqHz \u003d readFileTextOrNull(\"$path/cpuinfo_max_freq\")?.toLong() ?: 0L\n)",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "064f1faeae059c143ee8920ded75dd784464e8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9a50657_f209df2b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:00:02Z",
+      "side": 1,
+      "message": "after this map.\n\n\nmaxFreqHz \u003d coreDirs.maxBy {\n    it.freqHz\n}?.freqHz",
+      "revId": "064f1faeae059c143ee8920ded75dd784464e8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf93ff9f_7167496e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/MemInfo.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:00:02Z",
+      "side": 1,
+      "message": "what happens if it does not match?\nthis code will crash with NoSuchElementException, should we handle null in `first` ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 76
+      },
+      "revId": "064f1faeae059c143ee8920ded75dd784464e8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
