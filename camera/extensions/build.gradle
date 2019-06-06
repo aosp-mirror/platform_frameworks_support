@@ -32,6 +32,17 @@ dependencies {
     implementation(project(":concurrent-listenablefuture"))
 
     compileOnly(project(":camera:camera-extensions-stub"))
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker
+    androidTestImplementation(project(":camera:camera-testing"))
+
+    androidTestCompileOnly(project(":camera:camera-extensions-stub"))
+    androidTestImplementation(project(":camera:integration-tests:camera-testlib-extensions"))
+    // To use the testlib to have the implementation of the extensions-stub interface.
 }
 
 android {
