@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9101b117_ecb87e05",
+        "filename": "navigation/fragment/src/androidTest/java/androidx/navigation/fragment/FragmentNavigatorTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-06T23:44:55Z",
+      "side": 1,
+      "message": "Use .isInstanceOf(EmptyFragment::class.java) and remove the !!::class.java from the \u0027that\u0027 line.",
+      "range": {
+        "startLine": 582,
+        "startChar": 12,
+        "endLine": 582,
+        "endChar": 44
+      },
+      "revId": "4cd0291638b8b25dc0c736bd211fe0d820f01dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
