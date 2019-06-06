@@ -64,6 +64,19 @@ class BenchmarkPlugin : Plugin<Project> {
     }
 
     private fun configureWithAndroidExtension(project: Project, extension: BaseExtension) {
+        var enabledOutput = false
+        project.tasks.whenTaskAdded {
+            if (!enabledOutput) {
+                enabledOutput = true
+
+                // NOTE: This argument is checked by ResultWriter to enable CI reports.
+                extension.defaultConfig.testInstrumentationRunnerArgument(
+                    "androidx.benchmark.output.enable",
+                    "true"
+                )
+            }
+        }
+
         val adb = Adb(project)
         project.tasks.register("lockClocks", LockClocksTask::class.java, adb)
         project.tasks.register("unlockClocks", UnlockClocksTask::class.java, adb)
@@ -83,12 +96,6 @@ class BenchmarkPlugin : Plugin<Project> {
                     build.gradle file.""".trimIndent()
             )
         }
-
-        // NOTE: This argument is checked by ResultWriter to enable CI reports.
-        extension.defaultConfig.testInstrumentationRunnerArgument(
-            "androidx.benchmark.output.enable",
-            "true"
-        )
 
         // NOTE: .all here is a Gradle API, which will run the callback passed to it after the
         // extension variants have been resolved.
