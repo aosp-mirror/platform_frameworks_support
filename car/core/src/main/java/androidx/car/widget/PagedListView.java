@@ -274,6 +274,11 @@ public class PagedListView extends FrameLayout {
                         callback.onReachBottom();
                     }
                 }
+                if (isAtStart() && !isAtEnd()) {
+                    for (Callback callback : mCallbacks) {
+                        callback.onReachTop();
+                    }
+                }
                 updatePaginationButtons(false);
             }
         });
@@ -1374,6 +1379,13 @@ public class PagedListView extends FrameLayout {
          * completely visible.
          */
         default void onReachBottom() {
+        }
+
+        /**
+         * Called when the {@code PagedListView} has been scrolled so that the first item is
+         * completely visible.
+         */
+        default void onReachTop() {
         }
 
         /** Called when scroll up button is clicked */
