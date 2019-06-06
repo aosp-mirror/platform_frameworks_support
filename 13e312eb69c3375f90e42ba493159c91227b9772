@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dcd8114_b2094c80",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-06T16:13:49Z",
+      "side": 1,
+      "message": "the fieldNonNull check can be moved to the end of the method if instead of doing \u0027return if\u0027 you assign the default value to a local val, verify it and then return it.",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4868044_97690695",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-06T16:13:49Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 124,
+        "startChar": 16,
+        "endLine": 126,
+        "endChar": 17
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01fdba8_b7800a31",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-06T16:13:49Z",
+      "side": 1,
+      "message": "catch SQLException, DatabaseVerifier.create() is already wrapped in a `catch(ex Exception)` that points to the DatabaseElement.",
+      "range": {
+        "startLine": 122,
+        "startChar": 24,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5fe0e2_4ca91804",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/verifier/DatabaseVerifierTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-06T16:13:49Z",
+      "side": 1,
+      "message": "Hmm, these are internal javac classes I wouldn\u0027t really rely on, even to just mock them. If you need a random element then use `invocation.typeElement(\"Dummy\")` to get a dummy class javac is invoked on in simpleRun.\n\nSo maybe in the function entity() add the ability to pass a real TypeElement found from the invocation of your defaultValue_exprError()",
+      "range": {
+        "startLine": 309,
+        "startChar": 27,
+        "endLine": 309,
+        "endChar": 46
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
