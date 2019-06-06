@@ -31,7 +31,8 @@ import androidx.ui.engine.geometry.Rect
 internal interface TextSelectionHandler {
     fun getSelection(
         selectionCoordinates: Pair<PxPosition, PxPosition>,
-        containerLayoutCoordinates: LayoutCoordinates
+        containerLayoutCoordinates: LayoutCoordinates,
+        mode: SelectionMode
     ): Selection?
 }
 
@@ -58,6 +59,11 @@ internal class SelectionManager : SelectionRegistrar {
      * called. This is what makes this a "controlled component".
      */
     var onSelectionChange: (Selection?) -> Unit = {}
+
+    /**
+     * The selection mode. The default value is Vertical.
+     */
+    var mode: SelectionMode = SelectionMode.Vertical
 
     /**
      * Layout Coordinates of the selection container.
@@ -100,7 +106,10 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position), containerLayoutCoordinates)
+            result += handler.getSelection(
+                Pair(position, position),
+                containerLayoutCoordinates,
+                mode)
         }
         onSelectionChange(result)
     }
@@ -170,9 +179,10 @@ internal class SelectionManager : SelectionRegistrar {
                     }
 
                 for (handler in handlers) {
-                    result = handler.getSelection(
+                    result += handler.getSelection(
                         Pair(currentStart, currentEnd),
-                        containerLayoutCoordinates)
+                        containerLayoutCoordinates,
+                        mode)
                 }
                 onSelectionChange(result)
                 return dragDistance
