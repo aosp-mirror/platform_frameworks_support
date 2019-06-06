@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0236695d_660abe2c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-06T23:01:38Z",
+      "side": 1,
+      "message": "May be changed to Vertical since we updated styled guide.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "2a11f1f56636ec5e7942e7fe7466275b6ab4bf06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40522db0_9c7b4315",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-06T23:01:38Z",
+      "side": 1,
+      "message": "Does it necessary to be nullable? I\u0027m asking because there isn\u0027t a case where orientation is null.",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "2a11f1f56636ec5e7942e7fe7466275b6ab4bf06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49b1f742_efc23fb7",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-06T23:01:38Z",
+      "side": 1,
+      "message": "maybe it\u0027s good to create a class for this TextSelectionHandler. For me it\u0027s too big as an anonymous object.",
+      "range": {
+        "startLine": 206,
+        "startChar": 41,
+        "endLine": 206,
+        "endChar": 72
+      },
+      "revId": "2a11f1f56636ec5e7942e7fe7466275b6ab4bf06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
