@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "700d873b_2f7a62d7",
+        "filename": "dynamic-animation/src/androidTest/java/androidx/dynamicanimation/tests/SpringTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-06T00:36:12Z",
+      "side": 1,
+      "message": "You can use a lambda here.",
+      "range": {
+        "startLine": 161,
+        "startChar": 67,
+        "endLine": 161,
+        "endChar": 83
+      },
+      "revId": "b1aaf14637352e1fc48c34800f73f738732c26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f39970d7_c537e190",
+        "filename": "dynamic-animation/src/main/java/androidx/dynamicanimation/animation/SpringAnimation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-06T00:36:12Z",
+      "side": 1,
+      "message": "You can add @UiThread if you want this to only be called on UI thread or @MainThread if you want it on main thread. You should add it to the parent class and all children classes, then lint can warn devs if the they are doing it wrong.",
+      "revId": "b1aaf14637352e1fc48c34800f73f738732c26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
