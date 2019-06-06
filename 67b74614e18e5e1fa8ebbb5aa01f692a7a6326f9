@@ -16,6 +16,24 @@
       "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13ca4c5_92f342e0",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-06T18:04:01Z",
+      "side": 1,
+      "message": "copyPomFile is actually used by the Maven ModelBuildingRequest. It\u0027s a one-off step we need to worry about when dealing with POM files with parent POM files.",
+      "parentUuid": "0d242b79_2df3eb64",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
