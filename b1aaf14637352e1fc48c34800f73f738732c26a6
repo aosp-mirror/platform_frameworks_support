@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c7307ea_198c5a48",
+        "filename": "dynamic-animation/src/androidTest/java/androidx/dynamicanimation/tests/SpringTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-06T05:00:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "700d873b_2f7a62d7",
+      "range": {
+        "startLine": 161,
+        "startChar": 67,
+        "endLine": 161,
+        "endChar": 83
+      },
+      "revId": "b1aaf14637352e1fc48c34800f73f738732c26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f39970d7_c537e190",
         "filename": "dynamic-animation/src/main/java/androidx/dynamicanimation/animation/SpringAnimation.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "b1aaf14637352e1fc48c34800f73f738732c26a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6360c8_6dda9fe9",
+        "filename": "dynamic-animation/src/main/java/androidx/dynamicanimation/animation/SpringAnimation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-06T05:00:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f39970d7_c537e190",
+      "revId": "b1aaf14637352e1fc48c34800f73f738732c26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
