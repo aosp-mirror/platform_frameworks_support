@@ -16,6 +16,24 @@
       "revId": "81db102db8aae44e6a27e74a35495d94d6207278",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d85bdf4_72e160dd",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/UseCaseAttachStateTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-06T08:35:35Z",
+      "side": 1,
+      "message": "Right, I missed this one from previous CL. Thanks for the catch.",
+      "parentUuid": "ab982617_3d744deb",
+      "revId": "81db102db8aae44e6a27e74a35495d94d6207278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
