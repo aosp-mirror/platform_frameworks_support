@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c75a1b8a_354a1a4d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-06T20:48:18Z",
+      "side": 1,
+      "message": "maxOf",
+      "range": {
+        "startLine": 256,
+        "startChar": 40,
+        "endLine": 256,
+        "endChar": 49
+      },
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
