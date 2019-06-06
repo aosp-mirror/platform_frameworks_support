@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54b36f2e_3309412a",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:24:31Z",
+      "side": 1,
+      "message": "it is actually a bad idea to call whenTaskAdded because it will break lazy configuration.\n\nhttps://docs.gradle.org/current/userguide/task_configuration_avoidance.html\n\n\nInstead of: TaskCollection.whenTaskAdded(org.gradle.api.Action)\nUse: DomainObjectCollection.configureEach(org.gradle.api.Action)\n\n\nI\u0027m not sure if that verison will help.\nAlso, you are probably better off using `named` (https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskCollection.html#named-java.lang.String-) if you know the target task name.\notherwise, this is being called multiple times.",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "723f262ddface571a342eb756e3f2a04529d5a0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
