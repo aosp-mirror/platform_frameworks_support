@@ -70,6 +70,24 @@
       "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b47a72a7_a9670d0e",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-06T20:12:58Z",
+      "side": 1,
+      "message": "Hmm. The MavenPomArtifact on line 84 provides a File on line 88 . I\u0027m imagining that MavenModuleResolver would just be updated to return whatever data type is most convenient.\n\nI don\u0027t notice anything important that copyPomFile does that copyArtifact doesn\u0027t also do (the fact that copyPomFile updates the digests but copyArtifacts doesn\u0027t update the digests for .pom files looks like a difference to me but I think that would probably be more confusing than making them use the same logic). copyArtifact also has a dedicated clause that says `if file.name.endsWith(\".pom\")` on line 403. I wouldn\u0027t think that we would want the copying behaviors to differ for parent vs non-parent poms either.\n\nIt\u0027ll probably be some time before I feel comfortable approving this myself but I don\u0027t mind if someone else approves it in the meanwhile given that you\u0027ve mentioned that it would be nice to refactor someday.",
+      "parentUuid": "61b1d7e5_4ae92a18",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
