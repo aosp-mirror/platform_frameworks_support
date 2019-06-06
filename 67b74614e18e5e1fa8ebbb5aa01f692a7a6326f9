@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d242b79_2df3eb64",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-06T14:32:47Z",
+      "side": 1,
+      "message": "I notice that this call to transformInternalPomFile exists twice, both here and on line 414.\n\nWould we still need the copyPomFile function to exist if we instead made supportingArtifacts also include the main .pom file in the list of artifacts that it returns?",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
