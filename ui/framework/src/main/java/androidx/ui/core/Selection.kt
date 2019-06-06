@@ -30,6 +30,10 @@ import androidx.compose.unaryPlus
 private val HANDLE_WIDTH = 20.px
 private val HANDLE_HEIGHT = 100.px
 
+enum class SelectionOrientation {
+    Vertical, Horizontal
+}
+
 /**
  * Data class of Selection.
  */
@@ -54,7 +58,30 @@ data class Selection(
      * does not contain the end of the selection, this should be null.
      */
     val endLayoutCoordinates: LayoutCoordinates?
-)
+) {
+    fun merge(other: Selection): Selection {
+        // TODO: combine two selections' contents with styles together.
+        var currentSelection = this.copy()
+        if (other.startLayoutCoordinates != null) {
+            currentSelection = currentSelection.copy(
+                startOffset = other.startOffset,
+                startLayoutCoordinates = other.startLayoutCoordinates
+            )
+        }
+        if (other.endLayoutCoordinates != null) {
+            currentSelection = currentSelection.copy(
+                endOffset = other.endOffset,
+                endLayoutCoordinates = other.endLayoutCoordinates
+            )
+        }
+        return currentSelection
+    }
+}
+operator fun Selection?.plus(rhs: Selection?): Selection? {
+    if (this == null) return rhs
+    if (rhs == null) return this
+    return merge(rhs)
+}
 
 /**
  * An interface handling selection. Get selection from a widget by passing in the start and end of
@@ -64,7 +91,8 @@ data class Selection(
 interface TextSelectionHandler {
     fun getSelection(
         selectionCoordinates: Pair<PxPosition, PxPosition>,
-        containerLayoutCoordinates: LayoutCoordinates
+        containerLayoutCoordinates: LayoutCoordinates,
+        orientation: SelectionOrientation
     ): Selection?
 }
 
@@ -91,6 +119,8 @@ internal class SelectionManager : SelectionRegistrar {
      */
     var containerLayoutCoordinates: LayoutCoordinates? = null
 
+    var orientation: SelectionOrientation = SelectionOrientation.Vertical
+
     /**
      * Allow a Text composable to "register" itself with the manager
      */
@@ -113,7 +143,10 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position), containerLayoutCoordinates!!)
+            result += handler.getSelection(
+                Pair(position, position),
+                containerLayoutCoordinates!!,
+                orientation)
         }
         onSelectionChange(result)
     }
@@ -134,6 +167,7 @@ fun SelectionContainer(
     selection: Selection?,
     /** A function containing customized behaviour when selection changes. */
     onSelectionChange: (Selection?) -> Unit,
+    orientation: SelectionOrientation = SelectionOrientation.Vertical,
     @Children children: @Composable() () -> Unit
 ) {
     val manager = +memo { SelectionManager() }
@@ -143,6 +177,7 @@ fun SelectionContainer(
     // +memo(onSelectionChange) { manager.onSelectionChange = onSelectionChange }
     manager.selection = selection
     manager.onSelectionChange = onSelectionChange
+    manager.orientation = orientation
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {

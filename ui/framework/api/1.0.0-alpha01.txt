@@ -130,12 +130,19 @@ package androidx.ui.core {
     method public androidx.ui.engine.geometry.Offset getEndOffset();
     method public androidx.ui.core.LayoutCoordinates? getStartLayoutCoordinates();
     method public androidx.ui.engine.geometry.Offset getStartOffset();
+    method public androidx.ui.core.Selection merge(androidx.ui.core.Selection other);
   }
 
   public final class SelectionKt {
     ctor public SelectionKt();
-    method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, androidx.ui.core.SelectionOrientation orientation = SelectionOrientation.Vertical, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static androidx.compose.Ambient<androidx.ui.core.SelectionRegistrar> getSelectionRegistrarAmbient();
+    method public static operator androidx.ui.core.Selection? plus(androidx.ui.core.Selection?, androidx.ui.core.Selection? rhs);
+  }
+
+  public enum SelectionOrientation {
+    enum_constant public static final androidx.ui.core.SelectionOrientation Horizontal;
+    enum_constant public static final androidx.ui.core.SelectionOrientation Vertical;
   }
 
   public interface SelectionRegistrar {
@@ -164,7 +171,7 @@ package androidx.ui.core {
   }
 
   public interface TextSelectionHandler {
-    method public androidx.ui.core.Selection? getSelection(kotlin.Pair<androidx.ui.core.PxPosition,androidx.ui.core.PxPosition> selectionCoordinates, androidx.ui.core.LayoutCoordinates containerLayoutCoordinates);
+    method public androidx.ui.core.Selection? getSelection(kotlin.Pair<androidx.ui.core.PxPosition,androidx.ui.core.PxPosition> selectionCoordinates, androidx.ui.core.LayoutCoordinates containerLayoutCoordinates, androidx.ui.core.SelectionOrientation orientation);
   }
 
   public final class TextSpanComposeKt {
