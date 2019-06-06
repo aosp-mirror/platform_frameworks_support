@@ -1,0 +1,379 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65e704c2_86afb2f2",
+        "filename": "ads/ads-identifier-provider/integration-tests/testapp/src/main/java/androidx/ads/identifier/provider/testapp/AdsIdentifierProviderApplication.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "is this guaranteed to run before Service is created? each and every time the Service is needed?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619bf16b_1e862786",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "getSettingsUiIntent()",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ffdeda_25ba3c04",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInterface.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "javadoc",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c91a48c_c1488216",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "why wrap it with Callable?",
+      "range": {
+        "startLine": 47,
+        "startChar": 60,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a3d1134_427a4323",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "Give hint of when this should be called (ex. in Application\u0027s onCreate()) to guarantee that it is always done before Service",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d6671c_ba540ca9",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "on this device",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846b1fcb_bf98878b",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "would it be useful to mark one as the \"default\" that the developer library would use? (in this case you should include self)\nthis *may* be useful for the user. however, it\u0027s also possible that there are ID providers directly referenced by an app, and so default isn\u0027t used in that case",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54bdef11_0988ce16",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "since every call to getAdvertisingIdInfo creates a new AdvertisingIdClient, why do you need to lock?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5f10d4_bcd89072",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "is it possible to put a timeout on this call?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39b7841_193cf46f",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "IOException should wrap e",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc70967_4d5f4dfd",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "add javadoc, in particular we\u0027re using US Locale and UTF-8 charset",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b370631_1ae5deb6",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "how about name it close() and mark this class as Closeable?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6650350b_b198b369",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "disconnect",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1de6d62_12b57653",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "is this indicative of an actual problem? why would a name be passed in but not exist?\nif it\u0027s a problem, let\u0027s not hide it",
+      "range": {
+        "startLine": 200,
+        "startChar": 52,
+        "endLine": 200,
+        "endChar": 57
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f91604_c8373358",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "since you\u0027re using it internally (and not as a Comparable), how about return boolean state? then you can simplify your code\nalso javadoc not exact",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8e71369_29aac8dc",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "why would connecting to a local service take so long? should we set a lower timeout?\nalso {@link #SERVICE_TIMEOUT_SECONDS}",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e270d6_a26fd0a8",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "add AdvertisingIdNotAvailableException and possible reasons",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96bf4d6d_b57e6652",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "why would there be a deadlock?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e208c055_20c63fe7",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "extra line break",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d53a90_13b50a9f",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "if you used CountDownLatch, then you can probably call this function as many times as you like",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 39
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db224295_0dc06767",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-06T17:49:55Z",
+      "side": 1,
+      "message": "just inline this function?",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
