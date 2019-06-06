@@ -22,6 +22,30 @@
       "revId": "bf97a746a405b36ecb4eec1f7dcf3145c15bb799",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82714a17_d8b9957e",
+        "filename": "car/core/res/drawable/car_alpha_jump_button_background.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-06T18:48:03Z",
+      "side": 1,
+      "message": "As disused offline, the button should never be in a disabled state in current implementations. But updated to include a state selector in case this changes in the future.",
+      "parentUuid": "292cc72a_07a9729b",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "bf97a746a405b36ecb4eec1f7dcf3145c15bb799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
