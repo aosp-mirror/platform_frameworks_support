@@ -524,25 +524,21 @@ public class WindowInsetsCompat {
      *
      * @param insets source insets to wrap
      * @return the wrapped instance
-     *
-     * @hide
      */
     @NonNull
     @RequiresApi(20)
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public static WindowInsetsCompat wrap(@NonNull WindowInsets insets) {
+    public static WindowInsetsCompat toWindowInsetsCompat(@NonNull WindowInsets insets) {
         return new WindowInsetsCompat(Objects.requireNonNull(insets));
     }
 
     /**
      * Unwrap the given WindowInsetsCompat and return the source {@link WindowInsets} instance.
      *
-     * @hide
+     * @return the wrapped WindowInsets instance
      */
     @Nullable
     @RequiresApi(20)
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public static WindowInsets unwrap(@NonNull WindowInsetsCompat insets) {
+    public static WindowInsets toWindowInsets(@NonNull WindowInsetsCompat insets) {
         return (WindowInsets) insets.mInsets;
     }
 }
