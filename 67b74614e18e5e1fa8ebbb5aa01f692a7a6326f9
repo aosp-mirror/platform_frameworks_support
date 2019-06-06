@@ -52,6 +52,24 @@
       "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b1d7e5_4ae92a18",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-06T19:36:48Z",
+      "side": 1,
+      "message": "The problem is one happens to be a MavenPomArtifact which needs special handling and the other is a regular File. Also there are subtle differences in the CopySpec itself. \n\nI do want to refactor this script so its more modular, and has well defined classes that can handle all these cases - in the meantime I wanted to eliminate this manual step.",
+      "parentUuid": "3f000f06_a13449ed",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
