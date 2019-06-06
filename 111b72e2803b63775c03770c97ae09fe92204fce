@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "12b262a6_26852ab0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "This API isn\u0027t added",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87299a3a_052cf120",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "mMediaController is always null so the code using it like L173 may throw NPE. Did you intend to change them to mMediaPlayer?",
+      "range": {
+        "startLine": 68,
+        "startChar": 28,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0621a6b_3f9a0a5e",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 4
@@ -19,6 +65,93 @@
         "endLine": 113,
         "endChar": 11
       },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ad94057_53c82a1c",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "I guess that\u0027s because every method is intended to be called on ui thread. Do we need a javadoc to notice the fact to developers explicitly?",
+      "parentUuid": "c0621a6b_3f9a0a5e",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c40640d_ed41ddb9",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "nit) How about same() since MediaItem doesn\u0027t override equals?",
+      "range": {
+        "startLine": 160,
+        "startChar": 42,
+        "endLine": 160,
+        "endChar": 44
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92042c29_d90e7091",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "I just noticed that this method tests solely MediaPlayer not VideoView\u0027s feature. Since it\u0027s not related to VideoView, shall we remove this method? I think we\u0027d better test if subtitle text is actually shown when a subtitle track is selected instead.",
+      "range": {
+        "startLine": 239,
+        "startChar": 16,
+        "endLine": 239,
+        "endChar": 37
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86b69190_d25af0a3",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "If we are doing some refactoring, could you upload a separate CL please?",
       "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -65,6 +198,98 @@
     },
     {
       "key": {
+        "uuid": "2a0dcea4_338bddcd",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "How about returning ListenableFuture and setting the listener from the caller side?",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 74
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21490438_8021826e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "return",
+      "range": {
+        "startLine": 345,
+        "startChar": 11,
+        "endLine": 345,
+        "endChar": 12
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea048ca_0ff89a3e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "return",
+      "range": {
+        "startLine": 347,
+        "startChar": 11,
+        "endLine": 347,
+        "endChar": 12
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b017dc9_ef202649",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "It doesn\u0027t wrap a Player anymore (no built-in player). I think we need to let developers know that they should create a player and set it to VideoView.",
+      "range": {
+        "startLine": 54,
+        "startChar": 72,
+        "endLine": 54,
+        "endChar": 80
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da7e7ad8_f5956821",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -81,6 +306,75 @@
         "startChar": 0,
         "endLine": 55,
         "endChar": 95
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4d873e_a3ce2e43",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "It\u0027s not true if they use setPlayer not setMediaController.",
+      "range": {
+        "startLine": 82,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da835be_291ea55d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "Unlike MediaControlView, VideoView shows media not controlling playback.",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 308,
+        "endChar": 44
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184e2289_e509a9b9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "There is no setMediaController for now.",
+      "range": {
+        "startLine": 309,
+        "startChar": 46,
+        "endLine": 309,
+        "endChar": 61
       },
       "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -134,6 +428,29 @@
     },
     {
       "key": {
+        "uuid": "677312d2_236ef84d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 345,
+        "startChar": 12,
+        "endLine": 345,
+        "endChar": 27
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a3dd963_0eeacfe4",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -173,6 +490,29 @@
         "startChar": 0,
         "endLine": 497,
         "endChar": 35
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2181de51_a3151138",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 15
       },
       "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",

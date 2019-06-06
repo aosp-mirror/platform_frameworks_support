@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d84cf674_7b29edd2",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 0,
+      "message": "Q) Why is it removed?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d16ab230_0f1b8cfb",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-06T12:20:50Z",
+      "side": 0,
+      "message": "I think, `item !\u003d mMediaItem` should be somewhere (maybe PlayerWrapper?) to keep the same behavior (prevent from passing the data of previous media item to onData).",
+      "range": {
+        "startLine": 818,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 13
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
