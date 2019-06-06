@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b22d26d_d42ecd51",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-06T09:37:17Z",
+      "side": 1,
+      "message": "I think being a CameraIdFilterSet makes it easier to modify (append, replace, etc.) filters. We can also add other utilities if needed.",
+      "parentUuid": "db322601_15a82eba",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e41c75af_a3bcad8f",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f0d2b6_0d1dc796",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-06T09:37:17Z",
+      "side": 1,
+      "message": "I think being a CameraIdFilterSet makes it easier to modify (append, replace, etc.) filters. We can also add other utilities if needed.",
+      "parentUuid": "e41c75af_a3bcad8f",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "cf28e618_86290afb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-06T09:37:17Z",
+      "side": 1,
+      "message": "I think being a CameraIdFilterSet makes it easier to modify (append, replace, etc.) filters. We can also add other utilities if needed.",
+      "parentUuid": "2251aec0_ff041712",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d08b73d_fdc1a524",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7017ec41_0752c2db",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-06T09:37:17Z",
+      "side": 1,
+      "message": "I think being a CameraIdFilterSet makes it easier to modify (append, replace, etc.) filters. We can also add other utilities if needed.",
+      "parentUuid": "3d08b73d_fdc1a524",
+      "revId": "5988d3915c344d443f265d1cbb0f98fad1be2ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
