@@ -16,6 +16,24 @@
       "revId": "e5946bd19899305eb5fed6a7e15ac35bd3e059db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17cc529a_eb58f081",
+        "filename": "car/core/res/values/colors.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-06T01:38:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c59c545_86de2bd0",
+      "revId": "e5946bd19899305eb5fed6a7e15ac35bd3e059db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
