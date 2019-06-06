@@ -34,6 +34,24 @@
       "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f000f06_a13449ed",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-06T18:51:02Z",
+      "side": 1,
+      "message": "What if instead of passing copyPomFile to the MavenModuleBuilder on line 202 we instead passed copyArtifact (or updated copyPomFile to invoke copyArtifact) (and updated line 89 to match) so it no longer had to be a one-off step?\n\nI also see some calls to licenseFor in both copyPomFile and copyArtifact too",
+      "parentUuid": "c13ca4c5_92f342e0",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
