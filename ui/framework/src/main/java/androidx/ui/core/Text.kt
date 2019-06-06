@@ -38,6 +38,9 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.engine.text.TextAffinity
+import kotlin.math.max
+import kotlin.math.min
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -47,7 +50,6 @@ private val DefaultMaxLines: Int? = null
 
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
-
 
 @Composable
 fun Text(
@@ -205,19 +207,63 @@ internal fun Text(
                 // Get selection for the start and end coordinates pair.
                 override fun getSelection(
                     selectionCoordinates: Pair<PxPosition, PxPosition>,
-                    containerLayoutCoordinates: LayoutCoordinates
+                    containerLayoutCoordinates: LayoutCoordinates,
+                    orientation: Orientation
                 ): Selection? {
+                    val last = renderParagraph.text.toPlainText().length - 1
                     val relativePosition = containerLayoutCoordinates.childToLocal(
                         layoutCoordinates.value!!, PxPosition.Origin
                     )
                     val startPx = selectionCoordinates.first - relativePosition
                     val endPx = selectionCoordinates.second - relativePosition
 
-                    val start = Offset(startPx.x.value, startPx.y.value)
-                    val end = Offset(endPx.x.value, endPx.y.value)
+                    val top = 0.px
+                    val bottom = renderParagraph.height.px
+                    val left = 0.px
+                    val right = renderParagraph.width.px
 
-                    var selectionStart = renderParagraph.getPositionForOffset(start)
-                    var selectionEnd = renderParagraph.getPositionForOffset(end)
+                    if ((orientation == Orientation.VERTICAL && (
+                                endPx.y < top ||
+                                startPx.y > bottom ||
+                                (endPx.y >= top && endPx.y <= bottom && endPx.x < left) ||
+                                (startPx.y >= top && startPx.y <= bottom && startPx.x > right))) ||
+                        (orientation == Orientation.HORIZONTAL && (
+                                endPx.x < left ||
+                                startPx.x > right ||
+                                (endPx.x >= left && endPx.x <= right && endPx.y < top) ||
+                                (startPx.x >= left && startPx.x <= right && startPx.y > bottom)))
+                    ) {
+                        internalSelection.value = null
+                        return null
+                    }
+
+                    var selectionStart = TextPosition(0, TextAffinity.upstream)
+                    var selectionEnd = TextPosition(last, TextAffinity.upstream)
+                    var startLayoutCoordinates: LayoutCoordinates? = null
+                    var endLayoutCoordinates: LayoutCoordinates? = null
+
+                    if (startPx.y >= top && startPx.x >= left) {
+                        val startOffset = Offset(startPx.x.value, startPx.y.value)
+                        selectionStart = TextPosition(
+                            offset = min(
+                                max(
+                                    renderParagraph.getPositionForOffset(startOffset).offset, 0
+                                ), last
+                            ), affinity = TextAffinity.upstream
+                        )
+                        startLayoutCoordinates = layoutCoordinates.value!!
+                    }
+                    if (endPx.y <= bottom && endPx.x <= right) {
+                        val endOffset = Offset(endPx.x.value, endPx.y.value)
+                        selectionEnd = TextPosition(
+                            offset = min(
+                                max(
+                                    renderParagraph.getPositionForOffset(endOffset).offset, 0
+                                ), last
+                            ), affinity = TextAffinity.upstream
+                        )
+                        endLayoutCoordinates = layoutCoordinates.value!!
+                    }
 
                     if (selectionStart.offset == selectionEnd.offset) {
                         val wordBoundary = renderParagraph.getWordBoundary(selectionStart)
@@ -237,8 +283,8 @@ internal fun Text(
                         renderParagraph.getCaretForTextPosition(selectionStart).second,
                         endOffset =
                         renderParagraph.getCaretForTextPosition(selectionEnd).second,
-                        startLayoutCoordinates = layoutCoordinates.value!!,
-                        endLayoutCoordinates = layoutCoordinates.value!!
+                        startLayoutCoordinates = startLayoutCoordinates,
+                        endLayoutCoordinates = endLayoutCoordinates
                     )
                 }
             })
