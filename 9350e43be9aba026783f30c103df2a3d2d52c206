@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a7ea649_e7b53dc7",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/Adb.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T21:46:24Z",
+      "side": 1,
+      "message": "any reason why this is not a Property?\n\nhttps://docs.gradle.org/current/userguide/lazy_configuration.html#sec:lazy_properties",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "9350e43be9aba026783f30c103df2a3d2d52c206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
