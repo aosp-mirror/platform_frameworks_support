@@ -196,21 +196,21 @@ public final class PagedListViewTest {
 
         // Move one page down.
         onView(withId(R.id.page_down)).perform(click());
-        verify(mockedCallbackOne, times(1)).onScrollDownButtonClicked();
-        verify(mockedCallbackTwo, times(1)).onScrollDownButtonClicked();
-        verify(mockedCallbackThree, times(1)).onScrollDownButtonClicked();
+        verify(mockedCallbackOne, times(1)).onScrollDown();
+        verify(mockedCallbackTwo, times(1)).onScrollDown();
+        verify(mockedCallbackThree, times(1)).onScrollDown();
 
         // Move one page up.
         onView(withId(R.id.page_up)).perform(click());
-        verify(mockedCallbackOne, times(1)).onScrollUpButtonClicked();
-        verify(mockedCallbackTwo, times(1)).onScrollUpButtonClicked();
-        verify(mockedCallbackThree, times(1)).onScrollUpButtonClicked();
+        verify(mockedCallbackOne, times(1)).onScrollUp();
+        verify(mockedCallbackTwo, times(1)).onScrollUp();
+        verify(mockedCallbackThree, times(1)).onScrollUp();
 
         mPagedListView.unregisterCallback(mockedCallbackOne);
         onView(withId(R.id.page_down)).perform(click());
-        verify(mockedCallbackOne, times(1)).onScrollDownButtonClicked();
-        verify(mockedCallbackTwo, times(2)).onScrollDownButtonClicked();
-        verify(mockedCallbackThree, times(2)).onScrollDownButtonClicked();
+        verify(mockedCallbackOne, times(1)).onScrollDown();
+        verify(mockedCallbackTwo, times(2)).onScrollDown();
+        verify(mockedCallbackThree, times(2)).onScrollDown();
     }
 
     @Test
@@ -225,7 +225,7 @@ public final class PagedListViewTest {
         onView(withId(R.id.page_down)).perform(click());
         onView(withId(R.id.page_down)).perform(click());
         onView(withId(R.id.page_down)).perform(click());
-        verify(mockedCallback, times(3)).onScrollDownButtonClicked();
+        verify(mockedCallback, times(3)).onScrollDown();
     }
 
     @Test
@@ -249,6 +249,33 @@ public final class PagedListViewTest {
         // Move to bottom of list again.
         onView(withId(R.id.page_down)).perform(click());
         verify(mockedCallback, times(2)).onReachBottom();
+    }
+
+    @Test
+    public void testReachTopCallback() {
+        int itemCount = ITEMS_PER_PAGE * 3;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Moving up from the top of the list should not result in any onReachTop events as no
+        // scrolling occurs.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving down to bottom of list should not result in any onReachTop events.
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving up once should not result in any onReachTop events.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving up once more to the top of the list should result in a onReachTop event.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(1)).onReachTop();
     }
 
     @Test

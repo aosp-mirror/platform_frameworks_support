@@ -521,8 +521,9 @@ package androidx.car.widget {
 
   public static interface PagedListView.Callback {
     method public default void onReachBottom();
-    method public default void onScrollDownButtonClicked();
-    method public default void onScrollUpButtonClicked();
+    method public default void onReachTop();
+    method public default void onScrollDown();
+    method public default void onScrollUp();
   }
 
   public static interface PagedListView.DividerVisibilityManager {
