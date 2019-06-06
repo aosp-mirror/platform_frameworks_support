@@ -24,18 +24,6 @@ import androidx.ui.core.px
 import androidx.ui.engine.geometry.Rect
 
 /**
- * An interface handling selection. Get selection from a widget by passing in the start and end of
- * selection in a selection container as a pair, and the layout coordinates of the selection
- * container.
- */
-internal interface TextSelectionHandler {
-    fun getSelection(
-        selectionCoordinates: Pair<PxPosition, PxPosition>,
-        containerLayoutCoordinates: LayoutCoordinates
-    ): Selection?
-}
-
-/**
  *  An interface allowing a Text composable to "register" and "unregister" itself with the class
  *  implementing the interface.
  */
@@ -58,6 +46,11 @@ internal class SelectionManager : SelectionRegistrar {
      * called. This is what makes this a "controlled component".
      */
     var onSelectionChange: (Selection?) -> Unit = {}
+
+    /**
+     * The selection mode. The default value is Vertical.
+     */
+    var mode: SelectionMode = SelectionMode.Vertical
 
     /**
      * Layout Coordinates of the selection container.
@@ -100,7 +93,10 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position), containerLayoutCoordinates)
+            result += handler.getSelection(
+                Pair(position, position),
+                containerLayoutCoordinates,
+                mode)
         }
         onSelectionChange(result)
     }
@@ -170,9 +166,10 @@ internal class SelectionManager : SelectionRegistrar {
                     }
 
                 for (handler in handlers) {
-                    result = handler.getSelection(
+                    result += handler.getSelection(
                         Pair(currentStart, currentEnd),
-                        containerLayoutCoordinates)
+                        containerLayoutCoordinates,
+                        mode)
                 }
                 onSelectionChange(result)
                 return dragDistance
