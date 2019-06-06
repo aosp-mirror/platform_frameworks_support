@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87f675cd_03e0ed1e",
+        "filename": "room/common/src/main/java/androidx/room/Junction.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T19:56:55Z",
+      "side": 1,
+      "message": "remove () ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 71,
+        "endLine": 82,
+        "endChar": 72
+      },
+      "revId": "11ef99615456f2c0dd9953d386acc3d861a4d128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d259f4f_1569499a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T19:56:55Z",
+      "side": 1,
+      "message": "can we move this to the Entity.\nI actually think somewehre else in the codebase we had a similar check",
+      "range": {
+        "startLine": 529,
+        "startChar": 41,
+        "endLine": 530,
+        "endChar": 79
+      },
+      "revId": "11ef99615456f2c0dd9953d386acc3d861a4d128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
