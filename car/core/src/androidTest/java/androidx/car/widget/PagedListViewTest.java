@@ -252,6 +252,33 @@ public final class PagedListViewTest {
     }
 
     @Test
+    public void testReachTopCallback() {
+        int itemCount = ITEMS_PER_PAGE * 3;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Moving up from the top of the list should not result in any onReachTop events as no
+        // scrolling occurs.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving down to bottom of list should not result in any onReachTop events.
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving up once should not result in any onReachTop events.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(0)).onReachTop();
+
+        // Moving up once more to the top of the list should result in a onReachTop event.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(1)).onReachTop();
+    }
+
+    @Test
     public void testPageUpButtonDisabledAtTop() {
         int itemCount = ITEMS_PER_PAGE * 3;
         setUpPagedListView(itemCount);
