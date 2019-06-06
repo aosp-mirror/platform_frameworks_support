@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d841380c_72e4d810",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/RxJava2Test.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T19:44:54Z",
+      "side": 1,
+      "message": "assertCompleted ?",
+      "range": {
+        "startLine": 688,
+        "startChar": 21,
+        "endLine": 688,
+        "endChar": 35
+      },
+      "revId": "9dbf38fdbd556f7a7512012fba7af91a7a53e295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
