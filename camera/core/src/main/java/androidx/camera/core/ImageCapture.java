@@ -180,11 +180,6 @@ public class ImageCapture extends UseCase {
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        CaptureBundle captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        if (captureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
-            throw new IllegalArgumentException(
-                    "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
-        }
 
         if (mCaptureMode == CaptureMode.MAX_QUALITY) {
             mEnableCheck3AConverged = true; // check 3A convergence in MAX_QUALITY mode
