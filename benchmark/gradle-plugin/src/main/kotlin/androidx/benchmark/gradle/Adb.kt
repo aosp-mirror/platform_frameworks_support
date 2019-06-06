@@ -21,6 +21,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
+import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,17 +38,17 @@ class Adb {
         val stderr: String
     )
 
-    private val adbPath: String
+    private val adbPath: Callable<String>
     private val logger: Logger
 
     constructor(project: Project) {
         val extension = project.extensions.getByType(BaseExtension::class.java)
-        adbPath = extension.adbExecutable.absolutePath
+        adbPath = Callable { extension.adbExecutable.absolutePath }
         logger = project.logger
     }
 
     constructor(adbPath: String, logger: Logger) {
-        this.adbPath = adbPath
+        this.adbPath = Callable { adbPath }
         this.logger = logger
     }
 
@@ -59,7 +60,7 @@ class Adb {
     ): ProcessResult {
         val subCmd = adbCmd.trim().split(Regex("\\s+")).toTypedArray()
         val adbArgs = if (!deviceId.isNullOrEmpty()) arrayOf("-s", deviceId) else emptyArray()
-        val cmd = arrayOf(adbPath, *adbArgs, *subCmd)
+        val cmd = arrayOf(adbPath.call(), *adbArgs, *subCmd)
 
         if (!silent) {
             logger.log(LogLevel.INFO, cmd.joinToString(" "))
