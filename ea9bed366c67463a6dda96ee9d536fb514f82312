@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "164a6dbd_3ec5f298",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "There\u0027s a \"jump to overridden method\" icon in the gutter next to the method in Studio that does that already - ideally not overwriting docs would cause KDoc/Studio to just show the parent\u0027s documentation.",
+      "parentUuid": "ff9580b8_c18ff2cc",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1269e3d4_bd4aa1eb",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
         "patchSetId": 3
@@ -131,6 +149,24 @@
       "side": 1,
       "message": "This CL just does a move of the existing Canvas class implementation to AndroidCanvas. Work to remove/abstract the Matrix APIs in a similar fashion is scheduled in a subsequent CL. There are quite a few moving parts already here and wanted to keep the changes smaller. Does that sound reasonable?\n\nThis logic will go away once the Matrix abstraction is in place.",
       "parentUuid": "ef81ac31_91f73a76",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "262b2686_935f7399",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "That sounds totally reasonable to me.",
+      "parentUuid": "41d7264f_28d78910",
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -289,6 +325,30 @@
       "side": 1,
       "message": "I updated this CL to \"withSave\" which matches the same method with similar functionality within the ktx android x module.",
       "parentUuid": "11a31e35_548dcf8a",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 12
+      },
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "597bf4e8_9cd2b6dd",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Canvas.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "Sounds good to me",
+      "parentUuid": "a9952b7d_3d3fba0c",
       "range": {
         "startLine": 90,
         "startChar": 8,
@@ -537,6 +597,24 @@
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1870ba2d_c01004c2",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/ImageConfig.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc95ef5d_b2518f97",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

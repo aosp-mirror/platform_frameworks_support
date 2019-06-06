@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cf5790c_3138e3f7",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "nit (here and above): \"its\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 49
+      },
+      "revId": "f0ba904a4cfe8cda0da8a19fc66da4a3cdfbbac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83873bdf_07ba95e5",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Image.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-06T01:25:26Z",
+      "side": 1,
+      "message": "Should this be\n\n ```kotlin\n code here\n ```\n\n?  (also curious for my own example code)",
+      "revId": "f0ba904a4cfe8cda0da8a19fc66da4a3cdfbbac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
