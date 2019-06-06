@@ -88,6 +88,24 @@
       "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b3c6e14_f332f59f",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-06T20:27:20Z",
+      "side": 1,
+      "message": "You are right. I did try and clean this up in my previous CL. \nI made the change to delegate to copyPomFile() consistently, to make things easier to reason about.",
+      "parentUuid": "b47a72a7_a9670d0e",
+      "revId": "67b74614e18e5e1fa8ebbb5aa01f692a7a6326f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
