@@ -95,6 +95,30 @@
       "revId": "11ef99615456f2c0dd9953d386acc3d861a4d128",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300f974e_bf6d151e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/PojoProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T23:21:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1a52a2b2_cfa5b920",
+      "range": {
+        "startLine": 529,
+        "startChar": 41,
+        "endLine": 530,
+        "endChar": 79
+      },
+      "revId": "11ef99615456f2c0dd9953d386acc3d861a4d128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
