@@ -69,9 +69,9 @@ package androidx.ui.core {
 
   public final class LayoutKt {
     ctor public LayoutKt();
-    method public static void ComplexLayout(kotlin.jvm.functions.Function0<kotlin.Unit> children, kotlin.jvm.functions.Function1<? super androidx.ui.core.ComplexLayoutReceiver,kotlin.Unit> block);
-    method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit> children, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
-    method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit>![] childrenArray, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
+    method public static void ComplexLayout(kotlin.jvm.functions.Function0<kotlin.Unit> children, String? name = null, kotlin.jvm.functions.Function1<? super androidx.ui.core.ComplexLayoutReceiver,kotlin.Unit> block);
+    method public static void Layout(kotlin.jvm.functions.Function0<kotlin.Unit> children, String? name = null, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
+    method public static void Layout(String? name = null, kotlin.jvm.functions.Function0<kotlin.Unit>![] childrenArray, kotlin.jvm.functions.Function3<? super androidx.ui.core.LayoutReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.Constraints,kotlin.Unit> layoutBlock);
     method public static void OnChildPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void OnPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned);
     method public static void WithConstraints(kotlin.jvm.functions.Function1<? super androidx.ui.core.Constraints,kotlin.Unit> children);
@@ -134,7 +134,7 @@ package androidx.ui.core {
 
   public final class SelectionKt {
     ctor public SelectionKt();
-    method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, String name = "SelectionContainer", kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static androidx.compose.Ambient<androidx.ui.core.SelectionRegistrar> getSelectionRegistrarAmbient();
   }
 

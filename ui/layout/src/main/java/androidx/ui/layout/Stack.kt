@@ -97,6 +97,7 @@ class StackChildren {
 @Composable
 fun Stack(
     defaultAlignment: Alignment = Alignment.Center,
+    name: String = "Stack",
     @Children(composable = false) block: StackChildren.() -> Unit
 ) {
     val children: @Composable() () -> Unit = with(StackChildren()) {
@@ -108,7 +109,7 @@ fun Stack(
         }
         composable
     }
-    Layout(children = children, layoutBlock = { measurables, constraints ->
+    Layout(name = name, children = children, layoutBlock = { measurables, constraints ->
         val placeables = arrayOfNulls<Placeable>(measurables.size)
         // First measure aligned children to get the size of the layout.
         (0 until measurables.size).filter { i -> !measurables[i].positioned }.forEach { i ->

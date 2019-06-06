@@ -134,6 +134,7 @@ fun SelectionContainer(
     selection: Selection?,
     /** A function containing customized behaviour when selection changes. */
     onSelectionChange: (Selection?) -> Unit,
+    name: String = "SelectionContainer",
     @Children children: @Composable() () -> Unit
 ) {
     val manager = +memo { SelectionManager() }
@@ -154,7 +155,7 @@ fun SelectionContainer(
                     children()
                 }
             }
-            Layout(children = content, layoutBlock = { measurables, constraints ->
+            Layout(name = "Content", children = content, layoutBlock = { measurables, constraints ->
                 val placeable = measurables.firstOrNull()?.measure(constraints)
                 val width = placeable?.width ?: constraints.minWidth
                 val height = placeable?.height ?: constraints.minHeight
@@ -164,17 +165,24 @@ fun SelectionContainer(
             })
         }
         val startHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+            Layout(
+                name = "Start Handle",
+                children = { SelectionHandle() },
+                layoutBlock = { _, constraints ->
                 layout(constraints.minWidth, constraints.minHeight) {}
             })
         }
         val endHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+            Layout(
+                name = "End Handle",
+                children = { SelectionHandle() },
+                layoutBlock = { _, constraints ->
                 layout(constraints.minWidth, constraints.minHeight) {}
             })
         }
         @Suppress("USELESS_CAST")
         Layout(
+            name = name,
             childrenArray = arrayOf(content, startHandle, endHandle),
             layoutBlock = { measurables, constraints ->
                 val placeable = measurables[0].measure(constraints)

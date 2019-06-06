@@ -99,9 +99,11 @@ fun FlexRow(
     mainAxisAlignment: Int = MainAxisAlignment.Start,
     mainAxisSize: Int = MainAxisSize.Max,
     crossAxisAlignment: Int = CrossAxisAlignment.Center,
+    name: String = "FlexRow",
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
     Flex(
+        name = name,
         orientation = FlexOrientation.Horizontal,
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
@@ -143,9 +145,11 @@ fun FlexColumn(
     mainAxisAlignment: Int = MainAxisAlignment.Start,
     mainAxisSize: Int = MainAxisSize.Max,
     crossAxisAlignment: Int = CrossAxisAlignment.Center,
+    name: String = "FlexColumn",
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
     Flex(
+        name = name,
         orientation = FlexOrientation.Vertical,
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
@@ -169,9 +173,11 @@ fun Row(
     mainAxisAlignment: Int = MainAxisAlignment.Start,
     mainAxisSize: Int = MainAxisSize.Max,
     crossAxisAlignment: Int = CrossAxisAlignment.Center,
+    name: String = "Row",
     @Children block: @Composable() () -> Unit
 ) {
     FlexRow(
+        name = name,
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
         crossAxisAlignment = crossAxisAlignment
@@ -197,9 +203,11 @@ fun Column(
     mainAxisAlignment: Int = MainAxisAlignment.Start,
     mainAxisSize: Int = MainAxisSize.Max,
     crossAxisAlignment: Int = CrossAxisAlignment.Center,
+    name: String = "Column",
     @Children block: @Composable() () -> Unit
 ) {
     FlexColumn(
+        name = name,
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
         crossAxisAlignment = crossAxisAlignment
@@ -475,6 +483,7 @@ private fun Flex(
     mainAxisSize: Int /*MainAxisSize*/ = MainAxisSize.Max,
     mainAxisAlignment: Int /*MainAxisAlignment*/ = MainAxisAlignment.Start,
     crossAxisAlignment: Int /*CrossAxisAlignment*/ = CrossAxisAlignment.Center,
+    name: String = "Flex",
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
     fun Placeable.mainAxisSize() = if (orientation == FlexOrientation.Horizontal) width else height
@@ -487,7 +496,7 @@ private fun Flex(
         }
         composable
     }
-    Layout(children = flexChildren, layoutBlock = { children, outerConstraints ->
+    Layout(name = name, children = flexChildren, layoutBlock = { children, outerConstraints ->
 
         val constraints = OrientationIndependentConstraints(outerConstraints, orientation)
 

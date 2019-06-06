@@ -60,9 +60,10 @@ fun Container(
     constraints: DpConstraints = DpConstraints(),
     width: Dp? = null,
     height: Dp? = null,
+    name: String = "Container",
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(children = children, layoutBlock = { measurables, incomingConstraints ->
+    Layout(name = name, children = children, layoutBlock = { measurables, incomingConstraints ->
         val containerConstraints = Constraints(constraints)
             .withTight(width?.toIntPx(), height?.toIntPx())
             .enforce(incomingConstraints)
