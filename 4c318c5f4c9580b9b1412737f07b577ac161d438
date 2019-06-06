@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d59f022_ec6d7c67",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T22:22:00Z",
+      "side": 1,
+      "message": "i think it is better to report this as seconds since it is expected to be a big number right ?\nns does not make much sense in a report (and will make it harder to read)",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 72
+      },
+      "revId": "4c318c5f4c9580b9b1412737f07b577ac161d438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
