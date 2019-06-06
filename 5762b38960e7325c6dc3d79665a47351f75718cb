@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0b47388_232af801",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-06T15:05:30Z",
+      "side": 0,
+      "message": "It\u0027s been access in VideoView.",
+      "parentUuid": "d84cf674_7b29edd2",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d16ab230_0f1b8cfb",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-06T12:20:50Z",
       "side": 0,
       "message": "I think, `item !\u003d mMediaItem` should be somewhere (maybe PlayerWrapper?) to keep the same behavior (prevent from passing the data of previous media item to onData).",
+      "range": {
+        "startLine": 818,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 13
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45fa0c1c_e56e71c5",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-06T15:05:30Z",
+      "side": 0,
+      "message": "agree with doing this somewhere. (either in VideoView \u0026 MediaControlView or in PlayerWrapper). Comparing media item param with getCurrentItem().",
+      "parentUuid": "d16ab230_0f1b8cfb",
       "range": {
         "startLine": 818,
         "startChar": 0,
