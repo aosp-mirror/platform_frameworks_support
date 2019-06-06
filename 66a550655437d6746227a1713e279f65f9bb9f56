@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7547ed3e_723e6cff",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-06T23:39:16Z",
+      "side": 1,
+      "message": "sorry it is going to be nitpicky but i think this is better of being an enum (or IntDef).\n\nJust very hard to read when copyFromAsset \u003d\u003d false means copyFromFile.\n\nso maybe it could be:\n\n```\nenum class CopyFrom {\n   NONE,\n   FILE,\n   ASSET\n}\n```\n\nwe can also just do Ints instead of enum. i\u0027m fine both ways since this is not a public API.",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 33
+      },
+      "revId": "66a550655437d6746227a1713e279f65f9bb9f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
