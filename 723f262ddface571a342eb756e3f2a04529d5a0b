@@ -22,6 +22,30 @@
       "revId": "723f262ddface571a342eb756e3f2a04529d5a0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b37e8d_b082cf39",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-06T22:35:53Z",
+      "side": 1,
+      "message": "Good idea about trying configureEach - I haven\u0027t tried that yet.\n\nOne thing about targeting cAT or cC directly is that when these tasks are added, it\u0027s too late to set the instrumentation argument.\n\nSo for example,\n\ntasks.whenTaskAdded {\n  if (task.name.contains(Regex(\"connected.*AndroidTest\")) {\n    ..testInstrumentationRunnerArgument(...)\n  }\n}\n\n...doesn\u0027t work.\n\nBut it turns out running androidTest in studio directly doesn\u0027t trigger whenTaskAdded for whatever reason.\n\nSo I think named will only work if we can figure out what the task is that parses / populates the instrumentation arguments.",
+      "parentUuid": "54b36f2e_3309412a",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "723f262ddface571a342eb756e3f2a04529d5a0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
