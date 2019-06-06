@@ -48,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
 
-
 @Composable
 fun Text(
     /** How the text should be aligned horizontally. */
@@ -195,7 +194,7 @@ internal fun Text(
                 renderParagraph.paint(canvas, Offset(0.0f, 0.0f))
             }
         }
-        Layout(children = children, layoutBlock = { _, constraints ->
+        Layout(name = "Text", children = children, layoutBlock = { _, constraints ->
             renderParagraph.performLayout(constraints)
             layout(renderParagraph.width.px.round(), renderParagraph.height.px.round()) {}
         })

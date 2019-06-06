@@ -409,7 +409,7 @@ interface MeasurableLayout {
 /**
  * Backing node for Layout component.
  */
-class LayoutNode : ComponentNode() {
+class LayoutNode(val name: String?) : ComponentNode() {
     /**
      * The list of child ComponentNodes that this ComponentNode has. It can contain zero or
      * more entries.
@@ -589,6 +589,10 @@ class LayoutNode : ComponentNode() {
      * Used by [ComplexLayoutState] to request a new measurement + layout pass from the owner.
      */
     fun requestRemeasure() = owner?.onRequestMeasure(this)
+
+    override fun toString(): String {
+        return super.toString() + " " + name
+    }
 }
 
 private class InvalidatingProperty<T>(private var value: T) :

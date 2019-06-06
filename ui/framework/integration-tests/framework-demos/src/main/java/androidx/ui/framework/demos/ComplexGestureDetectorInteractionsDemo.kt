@@ -201,14 +201,14 @@ fun Container(maxHeight: Dp, padding: Dp, @Children children: @Composable() () -
                 children()
             }
         }
-    }, { measurables, constraints ->
+    }) { measurables, constraints ->
         val newConstraints = constraints.copy(maxHeight = maxHeight.toIntPx())
         val placeable =
             measurables.first().measure(newConstraints)
         layout(newConstraints.maxWidth, newConstraints.maxHeight) {
             placeable.place(0.ipx, 0.ipx)
         }
-    })
+    }
 }
 
 /**

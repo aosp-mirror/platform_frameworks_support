@@ -36,9 +36,10 @@ import androidx.compose.composer
 @Composable
 fun ConstrainedBox(
     constraints: DpConstraints,
+    name: String = "ConstrainedBox",
     @Children children: @Composable() () -> Unit
 ) {
-    Layout(layoutBlock = { measurables, incomingConstraints ->
+    Layout(name = name, layoutBlock = { measurables, incomingConstraints ->
         val measurable = measurables.firstOrNull()
         val childConstraints = Constraints(constraints).enforce(incomingConstraints)
         val placeable = measurable?.measure(childConstraints)

@@ -65,8 +65,12 @@ data class Alignment(val verticalBias: Float, val horizontalBias: Float) {
  * For a widget that does alignment and tries to be the same size as its child, see [Wrap].
  */
 @Composable
-fun Align(alignment: Alignment, @Children children: @Composable() () -> Unit) {
-    Layout(layoutBlock ={ measurables, constraints ->
+fun Align(
+    alignment: Alignment,
+    name: String = "Align",
+    @Children children: @Composable() () -> Unit
+) {
+    Layout(name = name, layoutBlock = { measurables, constraints ->
         val measurable = measurables.firstOrNull()
         // The child cannot be larger than our max constraints, but we ignore min constraints.
         val placeable = measurable?.measure(constraints.looseMin())
@@ -109,5 +113,5 @@ fun Align(alignment: Alignment, @Children children: @Composable() () -> Unit) {
  */
 @Composable
 fun Center(@Children children: @Composable() () -> Unit) {
-    Align(alignment = Alignment.Center, children = children)
+    Align(name = "Center", alignment = Alignment.Center, children = children)
 }

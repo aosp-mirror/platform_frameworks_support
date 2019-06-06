@@ -3,7 +3,7 @@ package androidx.ui.layout {
 
   public final class AlignKt {
     ctor public AlignKt();
-    method public static void Align(androidx.ui.layout.Alignment alignment, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Align(androidx.ui.layout.Alignment alignment, String name = "Align", kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void Center(kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
@@ -46,12 +46,12 @@ package androidx.ui.layout {
 
   public final class ConstrainedBoxKt {
     ctor public ConstrainedBoxKt();
-    method public static void ConstrainedBox(androidx.ui.layout.DpConstraints constraints, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void ConstrainedBox(androidx.ui.layout.DpConstraints constraints, String name = "ConstrainedBox", kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class ContainerKt {
     ctor public ContainerKt();
-    method public static void Container(androidx.ui.layout.EdgeInsets padding = androidx.ui.layout.EdgeInsets(0.dp), androidx.ui.layout.Alignment alignment = Alignment.Center, boolean expanded = false, androidx.ui.layout.DpConstraints constraints = androidx.ui.layout.DpConstraints(), androidx.ui.core.Dp? width = null, androidx.ui.core.Dp? height = null, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Container(androidx.ui.layout.EdgeInsets padding = androidx.ui.layout.EdgeInsets(0.dp), androidx.ui.layout.Alignment alignment = Alignment.Center, boolean expanded = false, androidx.ui.layout.DpConstraints constraints = androidx.ui.layout.DpConstraints(), androidx.ui.core.Dp? width = null, androidx.ui.core.Dp? height = null, String name = "Container", kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class CrossAxisAlignment {
@@ -133,10 +133,10 @@ package androidx.ui.layout {
 
   public final class FlexKt {
     ctor public FlexKt();
-    method public static void Column(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, kotlin.jvm.functions.Function0<kotlin.Unit> block);
-    method public static void FlexColumn(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, kotlin.jvm.functions.Function1<? super androidx.ui.layout.FlexChildren,kotlin.Unit> block);
-    method public static void FlexRow(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, kotlin.jvm.functions.Function1<? super androidx.ui.layout.FlexChildren,kotlin.Unit> block);
-    method public static void Row(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static void Column(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, String name = "Column", kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static void FlexColumn(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, String name = "FlexColumn", kotlin.jvm.functions.Function1<? super androidx.ui.layout.FlexChildren,kotlin.Unit> block);
+    method public static void FlexRow(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, String name = "FlexRow", kotlin.jvm.functions.Function1<? super androidx.ui.layout.FlexChildren,kotlin.Unit> block);
+    method public static void Row(int mainAxisAlignment = 1, int mainAxisSize = 1, int crossAxisAlignment = 0, String name = "Row", kotlin.jvm.functions.Function0<kotlin.Unit> block);
   }
 
   public final class MainAxisAlignment {
@@ -173,16 +173,16 @@ package androidx.ui.layout {
 
   public final class PaddingKt {
     ctor public PaddingKt();
-    method public static void Padding(androidx.ui.layout.EdgeInsets padding, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public static void Padding(androidx.ui.core.Dp left = 0.dp, androidx.ui.core.Dp top = 0.dp, androidx.ui.core.Dp right = 0.dp, androidx.ui.core.Dp bottom = 0.dp, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public static void Padding(androidx.ui.core.Dp padding, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Padding(androidx.ui.layout.EdgeInsets padding, String name = "Padding", kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Padding(androidx.ui.core.Dp left = 0.dp, androidx.ui.core.Dp top = 0.dp, androidx.ui.core.Dp right = 0.dp, androidx.ui.core.Dp bottom = 0.dp, String name = "Padding", kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Padding(androidx.ui.core.Dp padding, String name = "Padding", kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class ScrollerKt {
     ctor public ScrollerKt();
     method public static void VerticalScroller(androidx.ui.layout.ScrollerPosition scrollerPosition = +memo({ 
     <init>()
-}), kotlin.jvm.functions.Function2<? super androidx.ui.core.Px,? super androidx.ui.core.Px,kotlin.Unit> onScrollChanged = { position, _ -> scrollerPosition.position = position }, kotlin.jvm.functions.Function0<kotlin.Unit> child);
+}), kotlin.jvm.functions.Function2<? super androidx.ui.core.Px,? super androidx.ui.core.Px,kotlin.Unit> onScrollChanged = { position, _ -> scrollerPosition.position = position }, String name = "VerticalScroller", kotlin.jvm.functions.Function0<kotlin.Unit> child);
   }
 
   public final class ScrollerPosition {
@@ -194,7 +194,7 @@ package androidx.ui.layout {
 
   public final class SpacerKt {
     ctor public SpacerKt();
-    method public static void FixedSpacer(androidx.ui.core.Dp width, androidx.ui.core.Dp height);
+    method public static void FixedSpacer(androidx.ui.core.Dp width, androidx.ui.core.Dp height, String name = "FixedSpacer");
     method public static void HeightSpacer(androidx.ui.core.Dp height);
     method public static void WidthSpacer(androidx.ui.core.Dp width);
   }
@@ -207,12 +207,12 @@ package androidx.ui.layout {
 
   public final class StackKt {
     ctor public StackKt();
-    method public static void Stack(androidx.ui.layout.Alignment defaultAlignment = Alignment.Center, kotlin.jvm.functions.Function1<? super androidx.ui.layout.StackChildren,kotlin.Unit> block);
+    method public static void Stack(androidx.ui.layout.Alignment defaultAlignment = Alignment.Center, String name = "Stack", kotlin.jvm.functions.Function1<? super androidx.ui.layout.StackChildren,kotlin.Unit> block);
   }
 
   public final class WrapKt {
     ctor public WrapKt();
-    method public static void Wrap(androidx.ui.layout.Alignment alignment = Alignment.TopLeft, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Wrap(androidx.ui.layout.Alignment alignment = Alignment.TopLeft, String name = "Wrap", kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
 }

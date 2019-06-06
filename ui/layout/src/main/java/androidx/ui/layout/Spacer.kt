@@ -28,8 +28,8 @@ import androidx.compose.composer
  * @param height height of the empty space
  */
 @Composable
-fun FixedSpacer(width: Dp, height: Dp) {
-    ConstrainedBox(constraints = DpConstraints.tightConstraints(width, height)) {
+fun FixedSpacer(width: Dp, height: Dp, name: String = "FixedSpacer") {
+    ConstrainedBox(name = name, constraints = DpConstraints.tightConstraints(width, height)) {
         // no children as we only need space
     }
 }
@@ -41,7 +41,7 @@ fun FixedSpacer(width: Dp, height: Dp) {
  */
 @Composable
 fun WidthSpacer(width: Dp) {
-    FixedSpacer(width = width, height = 0.dp)
+    FixedSpacer(name = "WidthSpacer", width = width, height = 0.dp)
 }
 
 /**
@@ -51,5 +51,5 @@ fun WidthSpacer(width: Dp) {
  */
 @Composable
 fun HeightSpacer(height: Dp) {
-    FixedSpacer(height = height, width = 0.dp)
+    FixedSpacer(name = "HeightSpacer", height = height, width = 0.dp)
 }

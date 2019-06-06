@@ -42,7 +42,7 @@ import androidx.compose.frames.registerCommitObserver
 class AndroidCraneView constructor(context: Context)
     : ViewGroup(context), Owner, SemanticsTreeProvider {
 
-    val root = LayoutNode()
+    val root = LayoutNode(name = "Root")
     // LayoutNodes that need measure and layout, the value is true when measure is needed
     private val relayoutNodes = mutableSetOf<LayoutNode>()
 

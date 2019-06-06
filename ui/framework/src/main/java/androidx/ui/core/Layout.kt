@@ -202,6 +202,7 @@ class ComplexLayoutReceiver internal constructor(private val layoutState: Comple
 @Composable
 fun ComplexLayout(
     children: @Composable() () -> Unit,
+    name: String? = null,
     @Children(composable = false) block: ComplexLayoutReceiver.() -> Unit
 ) {
     val density = +ambientDensity()
@@ -215,7 +216,11 @@ fun ComplexLayout(
 
     val parentData = +ambient(ParentDataAmbient)
 
-    <LayoutNode ref = layoutState.layoutNodeRef layout = layoutState parentData = parentData>
+    <LayoutNode
+        ref = layoutState.layoutNodeRef
+        layout = layoutState parentData = parentData
+        name = name
+    >
         OnChildPositionedAmbient.Provider(value = emptyList<(LayoutCoordinates) -> Unit>()) {
             OnPositionedAmbient.Provider(value = layoutState.onPositioned) {
                 ParentDataAmbient.Provider(value = null) {
@@ -284,14 +289,17 @@ internal class DummyPlaceable(override val width: IntPx, override val height: In
  * A simpler version of [ComplexLayout], intrinsic dimensions do not need to be defined.
  * If a layout of this [Layout] queries the intrinsics, an exception will be thrown.
  * This [Layout] is built using public API on top of [ComplexLayout].
+ *
+ * @param name An optional String name used for debugging.
  */
 @Composable
 fun Layout(
     children: @Composable() () -> Unit,
+    name: String? = null,
     @Children(composable = false) layoutBlock: LayoutReceiver
         .(measurables: List<Measurable>, constraints: Constraints) -> Unit
 ) {
-    ComplexLayout(children = children, block = {
+    ComplexLayout(name = name, children = children, block = {
         layout { measurables, constraints ->
             val layoutReceiver = LayoutReceiver(
                 layoutState,
@@ -373,13 +381,14 @@ internal data class ChildrenEndParentData(val children: @Composable() () -> Unit
  */
 @Composable
 fun Layout(
+    name: String? = null,
     childrenArray: Array<@Composable() () -> Unit>,
     @Children(composable = false) layoutBlock: LayoutReceiver
         .(measurables: List<Measurable>, constraints: Constraints) -> Unit
 ) {
     val ChildrenEndMarker = @Composable { children: @Composable() () -> Unit ->
         ParentData(data = ChildrenEndParentData(children)) {
-            Layout(layoutBlock={_, _ -> layout(0.ipx, 0.ipx){}}, children = {})
+            Layout(name = name, layoutBlock={_, _ -> layout(0.ipx, 0.ipx){}}, children = {})
         }
     }
     val children = @Composable {
@@ -390,7 +399,7 @@ fun Layout(
         }
     }
 
-    Layout(layoutBlock = layoutBlock, children = children)
+    Layout(name = name, layoutBlock = layoutBlock, children = children)
 }
 
 /**

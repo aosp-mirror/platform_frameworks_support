@@ -41,13 +41,13 @@ open class MyPointerInputHandler : PointerInputHandler {
 }
 
 internal fun LayoutNode(x: Int, y: Int, x2: Int, y2: Int) =
-    androidx.ui.core.LayoutNode().apply {
+    androidx.ui.core.LayoutNode(null).apply {
         moveTo(x.ipx, y.ipx)
         resize(x2.ipx - x.ipx, y2.ipx - y.ipx)
     }
 
 internal fun LayoutNode(position: IntPxPosition) =
-    androidx.ui.core.LayoutNode().apply {
+    androidx.ui.core.LayoutNode(null).apply {
         moveTo(position.x, position.y)
     }
 

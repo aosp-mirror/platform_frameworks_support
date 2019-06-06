@@ -35,8 +35,12 @@ import androidx.compose.composer
  * For a widget that does alignment and tries to be as large as possible, see [Align].
  */
 @Composable
-fun Wrap(alignment: Alignment = Alignment.TopLeft, @Children children: @Composable() () -> Unit) {
-    Layout(layoutBlock = { measurables, constraints ->
+fun Wrap(
+    alignment: Alignment = Alignment.TopLeft,
+    name: String = "Wrap",
+    @Children children: @Composable() () -> Unit
+) {
+    Layout(name = name, children = children, layoutBlock = { measurables, constraints ->
         val measurable = measurables.firstOrNull()
         // The child cannot be larger than our max constraints, but we ignore min constraints.
         val placeable = measurable?.measure(constraints.looseMin())
@@ -53,5 +57,5 @@ fun Wrap(alignment: Alignment = Alignment.TopLeft, @Children children: @Composab
                 placeable.place(position.x, position.y)
             }
         }
-    }, children=children)
+    })
 }

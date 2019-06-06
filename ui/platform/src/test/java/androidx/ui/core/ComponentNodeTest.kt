@@ -43,7 +43,7 @@ class ComponentNodeTest {
     // Ensure that attach and detach work properly
     @Test
     fun componentNodeAttachDetach() {
-        val node = LayoutNode()
+        val node = LayoutNode(null)
         assertNull(node.owner)
 
         val owner = mock(Owner::class.java)
@@ -275,7 +275,7 @@ class ComponentNodeTest {
     // Ensure that depth is as expected
     @Test
     fun depth() {
-        val root = LayoutNode()
+        val root = LayoutNode(null)
         val (child, grand1, grand2) = createSimpleLayout()
         root.emitInsertAt(0, child)
 
@@ -291,8 +291,8 @@ class ComponentNodeTest {
     // layoutNode hierarchy should be set properly when a LayoutNode is a child of a LayoutNode
     @Test
     fun directLayoutNodeHierarchy() {
-        val layoutNode = LayoutNode()
-        val childLayoutNode = LayoutNode()
+        val layoutNode = LayoutNode(null)
+        val childLayoutNode = LayoutNode(null)
         layoutNode.emitInsertAt(0, childLayoutNode)
 
         assertNull(layoutNode.parentLayoutNode)
@@ -306,7 +306,7 @@ class ComponentNodeTest {
     // layoutNode hierarchy should be set properly when a GestureNode is a child of a LayoutNode
     @Test
     fun directLayoutAndGestureNodesHierarchy() {
-        val layoutNode = LayoutNode()
+        val layoutNode = LayoutNode(null)
         val singleChildNode = PointerInputNode()
         layoutNode.emitInsertAt(0, singleChildNode)
 
@@ -321,9 +321,9 @@ class ComponentNodeTest {
     // layoutNode hierarchy should be set properly when a LayoutNode is a grandchild of a LayoutNode
     @Test
     fun indirectLayoutNodeHierarchy() {
-        val layoutNode = LayoutNode()
+        val layoutNode = LayoutNode(null)
         val intermediate = PointerInputNode()
-        val childLayoutNode = LayoutNode()
+        val childLayoutNode = LayoutNode(null)
         layoutNode.emitInsertAt(0, intermediate)
         assertEquals(layoutNode, intermediate.parentLayoutNode)
 
@@ -457,9 +457,9 @@ class ComponentNodeTest {
 
     @Test
     fun testGlobalToLocal() {
-        val node0 = LayoutNode()
+        val node0 = LayoutNode(null)
         node0.attach(mockOwner())
-        val node1 = LayoutNode()
+        val node1 = LayoutNode(null)
         node0.emitInsertAt(0, node1)
 
         val x0 = 100.ipx
@@ -482,9 +482,9 @@ class ComponentNodeTest {
 
     @Test
     fun testLocalToGlobal() {
-        val node0 = LayoutNode()
+        val node0 = LayoutNode(null)
         node0.attach(mockOwner())
-        val node1 = LayoutNode()
+        val node1 = LayoutNode(null)
         node0.emitInsertAt(0, node1)
 
         val x0 = 100.ipx
@@ -507,7 +507,7 @@ class ComponentNodeTest {
 
     @Test
     fun testLocalToGlobalUsesOwnerPosition() {
-        val node = LayoutNode()
+        val node = LayoutNode(null)
         node.attach(mockOwner(PxPosition(20.px, 20.px)))
         node.moveTo(100.ipx, 10.ipx)
 
@@ -518,8 +518,8 @@ class ComponentNodeTest {
 
     @Test
     fun testChildToLocal() {
-        val node0 = LayoutNode()
-        val node1 = LayoutNode()
+        val node0 = LayoutNode(null)
+        val node1 = LayoutNode(null)
         node0.emitInsertAt(0, node1)
 
         val x1 = 50.ipx
@@ -540,9 +540,9 @@ class ComponentNodeTest {
 
     @Test
     fun testChildToLocalFailedWhenNotAncestor() {
-        val node0 = LayoutNode()
-        val node1 = LayoutNode()
-        val node2 = LayoutNode()
+        val node0 = LayoutNode(null)
+        val node1 = LayoutNode(null)
+        val node2 = LayoutNode(null)
         node0.emitInsertAt(0, node1)
         node1.emitInsertAt(0, node2)
 
@@ -553,8 +553,8 @@ class ComponentNodeTest {
 
     @Test
     fun testChildToLocalFailedWhenNotAncestorNoParent() {
-        val node0 = LayoutNode()
-        val node1 = LayoutNode()
+        val node0 = LayoutNode(null)
+        val node1 = LayoutNode(null)
 
         thrown.expect(IllegalStateException::class.java)
 
@@ -563,7 +563,7 @@ class ComponentNodeTest {
 
     @Test
     fun testChildToLocalTheSameNode() {
-        val node = LayoutNode()
+        val node = LayoutNode(null)
         val position = PxPosition(5.px, 15.px)
 
         val result = node.childToLocal(node, position)
@@ -573,8 +573,8 @@ class ComponentNodeTest {
 
     @Test
     fun testPositionRelativeToRoot() {
-        val parent = LayoutNode()
-        val child = LayoutNode()
+        val parent = LayoutNode(null)
+        val child = LayoutNode(null)
         parent.emitInsertAt(0, child)
         parent.moveTo(-100.ipx, 10.ipx)
         child.moveTo(50.ipx, 80.ipx)
@@ -586,9 +586,9 @@ class ComponentNodeTest {
 
     @Test
     fun testPositionRelativeToRootIsNotAffectedByOwnerPosition() {
-        val parent = LayoutNode()
+        val parent = LayoutNode(null)
         parent.attach(mockOwner(PxPosition(20.px, 20.px)))
-        val child = LayoutNode()
+        val child = LayoutNode(null)
         parent.emitInsertAt(0, child)
         child.moveTo(50.ipx, 80.ipx)
 
@@ -599,8 +599,8 @@ class ComponentNodeTest {
 
     @Test
     fun testPositionRelativeToAncestorWithParent() {
-        val parent = LayoutNode()
-        val child = LayoutNode()
+        val parent = LayoutNode(null)
+        val child = LayoutNode(null)
         parent.emitInsertAt(0, child)
         parent.moveTo(-100.ipx, 10.ipx)
         child.moveTo(50.ipx, 80.ipx)
@@ -612,9 +612,9 @@ class ComponentNodeTest {
 
     @Test
     fun testPositionRelativeToAncestorWithGrandParent() {
-        val grandParent = LayoutNode()
-        val parent = LayoutNode()
-        val child = LayoutNode()
+        val grandParent = LayoutNode(null)
+        val parent = LayoutNode(null)
+        val child = LayoutNode(null)
         grandParent.emitInsertAt(0, parent)
         parent.emitInsertAt(0, child)
         grandParent.moveTo(-7.ipx, 17.ipx)
@@ -747,9 +747,9 @@ class ComponentNodeTest {
     }
 
     private fun createSimpleLayout(): Triple<LayoutNode, ComponentNode, ComponentNode> {
-        val layoutNode = LayoutNode()
-        val child1 = LayoutNode()
-        val child2 = LayoutNode()
+        val layoutNode = LayoutNode(null)
+        val child1 = LayoutNode(null)
+        val child2 = LayoutNode(null)
         layoutNode.emitInsertAt(0, child1)
         layoutNode.emitInsertAt(1, child2)
         return Triple(layoutNode, child1, child2)

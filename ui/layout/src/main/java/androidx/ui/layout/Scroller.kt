@@ -101,13 +101,14 @@ fun VerticalScroller(
     onScrollChanged: (position: Px, maxPosition: Px) -> Unit = { position, _ ->
         scrollerPosition.position = position
     },
+    name: String = "VerticalScroller",
     @Children child: @Composable() () -> Unit
 ) {
     val maxPosition = +state { 0.px }
     VerticalDragGestureDetector(
         max = maxPosition.value,
         offsetChange = { newOffset -> onScrollChanged(newOffset, maxPosition.value) }) {
-        Layout(children = {
+        Layout(name = name, children = {
             Draw { canvas, parentSize ->
                 canvas.save()
                 canvas.clipRect(parentSize.toRect())

@@ -56,7 +56,7 @@ class HitPathTrackerTest {
 
     @Before
     fun setup() {
-        compositionRoot = LayoutNode()
+        compositionRoot = LayoutNode(null)
         compositionRoot.attach(mockOwner)
         hitResult = HitPathTracker()
     }
@@ -785,7 +785,7 @@ class HitPathTrackerTest {
 
         val pin7 = PointerInputNode()
         val pin8 = PointerInputNode()
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, pin7)
             emitInsertAt(1, pin8)
         }
@@ -1485,7 +1485,7 @@ class HitPathTrackerTest {
             emitInsertAt(0, leaf3)
         }
 
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, middle1)
             emitInsertAt(1, middle2)
             emitInsertAt(2, middle3)
@@ -1527,7 +1527,7 @@ class HitPathTrackerTest {
             emitInsertAt(0, leaf3)
         }
 
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, middle1)
             emitInsertAt(1, middle2)
         }
@@ -1588,7 +1588,7 @@ class HitPathTrackerTest {
             emitInsertAt(0, leaf3)
         }
 
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, middle3)
         }
 
@@ -1642,7 +1642,7 @@ class HitPathTrackerTest {
             emitInsertAt(0, leaf3)
         }
 
-        val layoutNode = LayoutNode()
+        val layoutNode = LayoutNode(null)
 
         val root = PointerInputNode().apply {
             emitInsertAt(0, layoutNode)
@@ -1677,7 +1677,7 @@ class HitPathTrackerTest {
         val leaf2 = PointerInputNode()
         val leaf3 = PointerInputNode()
 
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, leaf1)
             emitInsertAt(1, leaf3)
         }
@@ -1730,7 +1730,7 @@ class HitPathTrackerTest {
         val leaf2 = PointerInputNode()
         val leaf3 = PointerInputNode()
 
-        val layoutNode = LayoutNode().apply {
+        val layoutNode = LayoutNode(null).apply {
             emitInsertAt(0, leaf2)
         }
 
@@ -1779,7 +1779,7 @@ class HitPathTrackerTest {
         val leaf2 = PointerInputNode()
         val leaf3 = PointerInputNode()
 
-        val layoutNode = LayoutNode()
+        val layoutNode = LayoutNode(null)
 
         val middle = PointerInputNode().apply {
             emitInsertAt(0, layoutNode)

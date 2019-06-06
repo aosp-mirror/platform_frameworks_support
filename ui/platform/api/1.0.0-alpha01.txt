@@ -97,7 +97,7 @@ package androidx.ui.core {
   }
 
   public final class LayoutNode extends androidx.ui.core.ComponentNode {
-    ctor public LayoutNode();
+    ctor public LayoutNode(String? name);
     method public void emitMove(int from, int to, int count);
     method public void endLayout();
     method public void endMeasure();
@@ -109,6 +109,7 @@ package androidx.ui.core {
     method public androidx.ui.core.IntPx getHeight();
     method public androidx.ui.core.MeasurableLayout? getLayout();
     method public androidx.ui.core.LayoutNode getLayoutNode();
+    method public String? getName();
     method public boolean getNeedsRemeasure();
     method public Object? getParentData();
     method public androidx.ui.core.Ref<androidx.ui.core.LayoutNode>? getRef();
