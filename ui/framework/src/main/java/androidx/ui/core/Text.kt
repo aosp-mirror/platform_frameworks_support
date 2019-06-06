@@ -38,10 +38,14 @@ import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
 import androidx.ui.core.selection.Selection
+import androidx.ui.core.selection.SelectionMode
 import androidx.ui.core.selection.SelectionRegistrarAmbient
 import androidx.ui.core.selection.TextSelectionHandler
 import androidx.ui.engine.text.TextAffinity
 import androidx.ui.painting.TextPainter
+import androidx.ui.engine.geometry.Rect
+import kotlin.math.max
+import kotlin.math.min
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -154,6 +158,7 @@ internal fun Text(
     val internalSelection = +state<TextSelection?> { null }
     val registrar = +ambient(SelectionRegistrarAmbient)
     val layoutCoordinates = +state<LayoutCoordinates?> { null }
+    val lastTextPosition = text.toPlainText().length - 1
 
     fun attachContextToFont(
         text: TextSpan,
@@ -210,7 +215,8 @@ internal fun Text(
                 // Get selection for the start and end coordinates pair.
                 override fun getSelection(
                     selectionCoordinates: Pair<PxPosition, PxPosition>,
-                    containerLayoutCoordinates: LayoutCoordinates
+                    containerLayoutCoordinates: LayoutCoordinates,
+                    mode: SelectionMode
                 ): Selection? {
                     val relativePosition = containerLayoutCoordinates.childToLocal(
                         layoutCoordinates.value!!, PxPosition.Origin
@@ -218,40 +224,101 @@ internal fun Text(
                     val startPx = selectionCoordinates.first - relativePosition
                     val endPx = selectionCoordinates.second - relativePosition
 
-                    val startOffset = Offset(startPx.x.value, startPx.y.value)
-                    val endOffset = Offset(endPx.x.value, endPx.y.value)
+                    val textBoundingBox = Rect(
+                        top = 0f,
+                        bottom = textPainter.height,
+                        left = 0f,
+                        right = textPainter.width)
 
-                    var selectionStart = textPainter.getPositionForOffset(startOffset)
-                    var selectionEnd = textPainter.getPositionForOffset(endOffset)
+                    if (!mode.isSelected(textBoundingBox, start = startPx, end = endPx)) {
+                        internalSelection.value = null
+                        return null
+                    }
 
-                    if (selectionStart.offset == selectionEnd.offset) {
-                        val wordBoundary = textPainter.getWordBoundary(selectionStart)
-                        selectionStart =
-                            TextPosition(wordBoundary.start, selectionStart.affinity)
-                        selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    var textSelectionStart = getSelectionStart(startPx).first
+                    var startLayoutCoordinates = getSelectionStart(startPx).second
+
+                    var textSelectionEnd = getSelectionEnd(endPx).first
+                    var endLayoutCoordinates = getSelectionEnd(endPx).second
+
+                    if (textSelectionStart.offset == textSelectionEnd.offset) {
+                        val wordBoundary = textPainter.getWordBoundary(textSelectionStart)
+                        textSelectionStart =
+                            TextPosition(wordBoundary.start, textSelectionStart.affinity)
+                        textSelectionEnd = TextPosition(wordBoundary.end, textSelectionEnd.affinity)
                     } else {
                         // Currently on Android, selection end is the offset after last character.
                         // But when dragging happens, current Crane Text Selection end is the offset
                         // of the last character. Thus before calling drawing selection background,
                         // make the selection end matches Android behaviour.
-                        selectionEnd = TextPosition(selectionEnd.offset + 1, TextAffinity.upstream)
+                        textSelectionEnd =
+                            TextPosition(textSelectionEnd.offset + 1, TextAffinity.upstream)
                     }
 
                     internalSelection.value =
-                        TextSelection(selectionStart.offset, selectionEnd.offset)
+                        TextSelection(textSelectionStart.offset, textSelectionEnd.offset)
 
                     // In Crane Text Selection, the selection end should be the last character, thus
                     // make the selection end matches Crane behaviour.
-                    selectionEnd = TextPosition(selectionEnd.offset - 1, TextAffinity.upstream)
+                    textSelectionEnd =
+                        TextPosition(textSelectionEnd.offset - 1, TextAffinity.upstream)
 
                     return Selection(
                         startOffset =
-                        textPainter.getBoundingBoxForTextPosition(selectionStart),
+                        textPainter.getBoundingBoxForTextPosition(textSelectionStart),
                         endOffset =
-                        textPainter.getBoundingBoxForTextPosition(selectionEnd),
-                        startLayoutCoordinates = layoutCoordinates.value!!,
-                        endLayoutCoordinates = layoutCoordinates.value!!
+                        textPainter.getBoundingBoxForTextPosition(textSelectionEnd),
+                        startLayoutCoordinates = startLayoutCoordinates,
+                        endLayoutCoordinates = endLayoutCoordinates
                     )
+                }
+
+                fun getSelectionStart(start: PxPosition): Pair<TextPosition, LayoutCoordinates?> {
+                    val top = 0.px
+                    val left = 0.px
+
+                    var selectionStart = TextPosition(0, TextAffinity.upstream)
+                    var startLayoutCoordinates: LayoutCoordinates? = null
+
+                    if (start.y >= top && start.x >= left) {
+                        val startOffset = Offset(start.x.value, start.y.value)
+                        selectionStart = TextPosition(
+                            offset =
+                            min(
+                                max(
+                                    textPainter.getPositionForOffset(startOffset).offset,
+                                    0
+                                ),
+                                lastTextPosition
+                            ), affinity = TextAffinity.upstream
+                        )
+                        startLayoutCoordinates = layoutCoordinates.value!!
+                    }
+                    return Pair(selectionStart, startLayoutCoordinates)
+                }
+
+                fun getSelectionEnd(end: PxPosition): Pair<TextPosition, LayoutCoordinates?> {
+                    val bottom = textPainter.height.px
+                    val right = textPainter.width.px
+
+                    var selectionEnd = TextPosition(lastTextPosition, TextAffinity.upstream)
+                    var endLayoutCoordinates: LayoutCoordinates? = null
+
+                    if (end.y <= bottom && end.x <= right) {
+                        val endOffset = Offset(end.x.value, end.y.value)
+                        selectionEnd = TextPosition(
+                            offset =
+                            min(
+                                max(
+                                    textPainter.getPositionForOffset(endOffset).offset,
+                                    0
+                                ),
+                                lastTextPosition
+                            ), affinity = TextAffinity.upstream
+                        )
+                        endLayoutCoordinates = layoutCoordinates.value!!
+                    }
+                    return Pair(selectionEnd, endLayoutCoordinates)
                 }
             })
             onDispose {
