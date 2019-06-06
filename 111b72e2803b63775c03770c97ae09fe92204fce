@@ -65,6 +65,52 @@
     },
     {
       "key": {
+        "uuid": "da7e7ad8_f5956821",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-06T08:58:41Z",
+      "side": 1,
+      "message": "What about this?\n\nA high level view for media playbacks with {@link SessionPlayer}. Developers can easily implement a video rendering application.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 95
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad838081_8c6e2fa1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-06T08:58:41Z",
+      "side": 1,
+      "message": "Developers may don\u0027t know whether they have to call player.setSurface() or other methods.\nWhat would be a good API design for developers? Should we consider to set PlayerFactory instead?",
+      "range": {
+        "startLine": 317,
+        "startChar": 49,
+        "endLine": 317,
+        "endChar": 55
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "882d79e5_e0a0a5c2",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
