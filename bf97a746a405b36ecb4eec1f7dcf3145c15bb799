@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "292cc72a_07a9729b",
+        "filename": "car/core/res/drawable/car_alpha_jump_button_background.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-06T01:43:28Z",
+      "side": 1,
+      "message": "This color won\u0027t have a disabled state color. Either define a custom color XML here or just use primary/secondary color",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "bf97a746a405b36ecb4eec1f7dcf3145c15bb799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
