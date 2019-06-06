@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3351a85c_f5e1dd23",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-06T01:35:42Z",
+      "side": 1,
+      "message": "This file will not be modified at all after the Drag CL is merged.",
+      "range": {
+        "startLine": 235,
+        "startChar": 24,
+        "endLine": 236,
+        "endChar": 48
+      },
+      "revId": "a3d85130e8d4a4cbbf6fcdb284d62f7e263137af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
