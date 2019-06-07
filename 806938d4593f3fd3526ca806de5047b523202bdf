@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e5783df_598692bd",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-07T14:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e57ced_bd80909f",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ce6edb_77b1d13e",
         "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "29f4187d_cfe95172",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-07T14:14:19Z",
+      "side": 1,
+      "message": "Nice, done!",
+      "parentUuid": "b1ce6edb_77b1d13e",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47566d94_ccb8d6ee",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Dao.kt",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da284f8_4f8f792e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/Dao.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-07T14:14:19Z",
+      "side": 1,
+      "message": "Done - removed",
+      "parentUuid": "47566d94_ccb8d6ee",
+      "range": {
+        "startLine": 35,
+        "startChar": 26,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -115,6 +187,30 @@
       "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f6adbd_bcf7f402",
+        "filename": "room/integration-tests/incremental-annotation-processing/src/test/kotlin/androidx/room/gradle/RoomIncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-06-07T14:14:19Z",
+      "side": 1,
+      "message": "Re-enabled now that you have taken care of that issue!",
+      "parentUuid": "367131f6_aa3c6e33",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "806938d4593f3fd3526ca806de5047b523202bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
