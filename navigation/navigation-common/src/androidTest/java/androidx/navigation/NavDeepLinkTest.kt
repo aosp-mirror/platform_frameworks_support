@@ -153,6 +153,47 @@ class NavDeepLinkTest {
     }
 
     @Test
+    fun deepLinkQueryParamDefaultArgumentMatch() {
+        val deepLinkArgument = "$DEEP_LINK_EXACT_HTTPS/users?id={id}"
+        val deepLink = NavDeepLink(deepLinkArgument)
+
+        val id = 2
+        val matchArgs = deepLink.getMatchingArguments(
+            Uri.parse(deepLinkArgument),
+            mapOf("id" to NavArgument.Builder()
+                .setType(NavType.IntType)
+                .setDefaultValue(id)
+                .build())
+        )
+        assertWithMessage("Args should not be null")
+            .that(matchArgs)
+            .isNotNull()
+        assertWithMessage("Args should contain the id")
+            .that(matchArgs?.getInt("id"))
+            .isEqualTo(id)
+    }
+
+    @Test
+    fun deepLinkQueryParamNullableArgumentMatch() {
+        val deepLinkArgument = "$DEEP_LINK_EXACT_HTTPS/users?myarg={myarg}"
+        val deepLink = NavDeepLink(deepLinkArgument)
+
+        val matchArgs = deepLink.getMatchingArguments(
+            Uri.parse(deepLinkArgument),
+            mapOf("myarg" to NavArgument.Builder()
+                .setType(NavType.StringType)
+                .setIsNullable(true)
+                .build())
+        )
+        assertWithMessage("Args should not be null")
+            .that(matchArgs)
+            .isNotNull()
+        assertWithMessage("Args should contain the argument and it should be null")
+            .that(matchArgs?.getString("myarg"))
+            .isEqualTo("@null")
+    }
+
+    @Test
     @Throws(UnsupportedEncodingException::class)
     fun deepLinkArgumentMatchEncoded() {
         val deepLinkArgument = "$DEEP_LINK_EXACT_HTTPS/users/{name}/posts"

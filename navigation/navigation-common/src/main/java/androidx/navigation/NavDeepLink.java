@@ -94,6 +94,13 @@ class NavDeepLink {
             String value = Uri.decode(matcher.group(index + 1));
             NavArgument argument = arguments.get(argumentName);
             if (argument != null) {
+                if (value.replaceAll("[{}]", "").equals(argumentName)) {
+                    if (argument.getDefaultValue() != null) {
+                        value = argument.getDefaultValue().toString();
+                    } else if (argument.isNullable()) {
+                        value = "@null";
+                    }
+                }
                 NavType type = argument.getType();
                 try {
                     type.parseAndPut(bundle, argumentName, value);
