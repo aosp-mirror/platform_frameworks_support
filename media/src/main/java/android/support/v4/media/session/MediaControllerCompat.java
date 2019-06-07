@@ -29,6 +29,7 @@ import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
 import android.net.Uri;
+import android.os.BadParcelableException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -1800,6 +1801,17 @@ public final class MediaControllerCompat {
             } catch (RemoteException e) {
                 Log.d(TAG, "Dead object in getSessionInfo.", e);
             }
+
+            if (mSessionInfo != null) {
+                try {
+                    mSessionInfo.setClassLoader(null);
+                    // Calling Bundle#isEmpty() will trigger Bundle#unparcel().
+                    mSessionInfo.isEmpty();
+                } catch (BadParcelableException e) {
+                    Log.d(TAG, "Custom parcelable in sessionInfo.", e);
+                    mSessionInfo = Bundle.EMPTY;
+                }
+            }
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }
 
@@ -2295,6 +2307,18 @@ public final class MediaControllerCompat {
                     mSessionInfo = Bundle.EMPTY;
                 }
             }
+
+            if (mSessionInfo != null) {
+                try {
+                    mSessionInfo.setClassLoader(null);
+                    // Calling Bundle#isEmpty() will trigger Bundle#unparcel().
+                    mSessionInfo.isEmpty();
+                } catch (BadParcelableException e) {
+                    Log.d(TAG, "Custom parcelable in sessionInfo.", e);
+                    mSessionInfo = Bundle.EMPTY;
+                }
+            }
+
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }
 
