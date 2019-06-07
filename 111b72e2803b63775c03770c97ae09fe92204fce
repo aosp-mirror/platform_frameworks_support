@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "67799192_67ff32f7",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T10:20:59Z",
+      "side": 1,
+      "message": "Looks fine to me not to add javadoc",
+      "parentUuid": "758618a2_9d9537d4",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c40640d_ed41ddb9",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
         "patchSetId": 4
@@ -249,6 +273,30 @@
       "side": 1,
       "message": "eq() will function the same with same() if equals() is not implemented.",
       "parentUuid": "1c40640d_ed41ddb9",
+      "range": {
+        "startLine": 160,
+        "startChar": 42,
+        "endLine": 160,
+        "endChar": 44
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67448822_59bfb061",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T10:20:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2f42fd5_fdfaca75",
       "range": {
         "startLine": 160,
         "startChar": 42,
@@ -634,6 +682,30 @@
       "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db41a74e_6aec0ef6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T10:20:59Z",
+      "side": 1,
+      "message": "LGTM, but I think we need more elaborated doc to deal with API review (b/134673066). Let\u0027s talk about it offline.",
+      "parentUuid": "1ff536a0_96f19a4c",
+      "range": {
+        "startLine": 54,
+        "startChar": 72,
+        "endLine": 54,
+        "endChar": 80
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
