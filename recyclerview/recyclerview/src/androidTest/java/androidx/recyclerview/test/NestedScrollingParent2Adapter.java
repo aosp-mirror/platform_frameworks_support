@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.ViewCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 public class NestedScrollingParent2Adapter implements NestedScrollingParent2 {
 
     @Override
@@ -50,40 +52,40 @@ public class NestedScrollingParent2Adapter implements NestedScrollingParent2 {
     }
 
     @Override
-    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+    public boolean onStartNestedScroll(@NonNull @NotNull View child, @NonNull @NotNull View target, int nestedScrollAxes) {
         return onStartNestedScroll(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedScrollAccepted(View child, View target, int axes) {
+    public void onNestedScrollAccepted(@NonNull @NotNull View child, @NonNull @NotNull View target, int axes) {
         onNestedScrollAccepted(child, target, axes, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+    public void onNestedPreScroll(@NonNull @NotNull View target, int dx, int dy, @NonNull @NotNull int[] consumed) {
         onNestedPreScroll(target, dx, dy, consumed, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
+    public void onNestedScroll(@NonNull @NotNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
             int dyUnconsumed) {
         onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed,
                 ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onStopNestedScroll(View target) {
+    public void onStopNestedScroll(@NonNull @NotNull View target) {
         onStopNestedScroll(target, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY,
+    public boolean onNestedFling(@NotNull @NonNull View target, float velocityX, float velocityY,
             boolean consumed) {
         return false;
     }
 
     @Override
-    public boolean onNestedPreFling(@NonNull View target, float velocityX, float velocityY) {
+    public boolean onNestedPreFling(@NotNull @NonNull View target, float velocityX, float velocityY) {
         return false;
     }
 

@@ -349,41 +349,41 @@ public class RecyclerViewNestedScrollingA11yScrollTest {
         }
 
         @Override
-        public boolean onStartNestedScroll(@NotNull View child, @NotNull View target, int axes) {
+        public boolean onStartNestedScroll(@NonNull @NotNull View child, @NonNull @NotNull View target, int axes) {
             return false;
         }
 
         @Override
-        public void onNestedScrollAccepted(@NotNull View child, @NotNull View target, int axes) {
+        public void onNestedScrollAccepted(@NonNull @NotNull View child, @NonNull @NotNull View target, int axes) {
 
         }
 
         @Override
-        public void onStopNestedScroll(@NotNull View target) {
+        public void onStopNestedScroll(@NonNull @NotNull View target) {
 
         }
 
         @Override
-        public void onNestedScroll(@NotNull View target, int dxConsumed, int dyConsumed,
+        public void onNestedScroll(@NonNull @NotNull View target, int dxConsumed, int dyConsumed,
                 int dxUnconsumed,
                 int dyUnconsumed) {
 
         }
 
         @Override
-        public void onNestedPreScroll(@NotNull View target, int dx, int dy,
-                @NotNull int[] consumed) {
+        public void onNestedPreScroll(@NonNull @NotNull View target, int dx, int dy,
+                @NonNull @NotNull int[] consumed) {
 
         }
 
         @Override
-        public boolean onNestedFling(@NotNull View target, float velocityX, float velocityY,
+        public boolean onNestedFling(@NonNull @NotNull View target, float velocityX, float velocityY,
                 boolean consumed) {
             return false;
         }
 
         @Override
-        public boolean onNestedPreFling(@NotNull View target, float velocityX, float velocityY) {
+        public boolean onNestedPreFling(@NonNull @NotNull View target, float velocityX, float velocityY) {
             return false;
         }
 
