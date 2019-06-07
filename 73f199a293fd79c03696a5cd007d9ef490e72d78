@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "3e46025b_c33c920c",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-07T22:04:03Z",
+      "side": 1,
+      "message": "What do you think about replacing with ?.let { ... } or is that less readable?",
+      "parentUuid": "39bcb2f0_687ab19a",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a78e28f_b5e2af13",
         "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
         "patchSetId": 11
