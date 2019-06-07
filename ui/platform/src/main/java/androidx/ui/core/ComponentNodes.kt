@@ -482,6 +482,13 @@ class LayoutNode : ComponentNode() {
     var needsRemeasure = true
         internal set
 
+    /**
+     * `true` when the layout has been measured or dirtied because the layout
+     * lambda accessed a model that has been dirtied.
+     */
+    var needsRelayout = true
+        internal set
+
     override val layoutNode: LayoutNode get() = this
 
     override val count: Int
@@ -569,6 +576,7 @@ class LayoutNode : ComponentNode() {
     fun endMeasure() {
         owner?.onEndMeasure(this)
         isInMeasure = false
+        needsRelayout = true
     }
 
     /**
@@ -583,6 +591,7 @@ class LayoutNode : ComponentNode() {
      */
     fun endLayout() {
         owner?.onEndLayout(this)
+        needsRelayout = false
     }
 
     /**
