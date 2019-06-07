@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14079c43_813cbc89",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T21:17:01Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 38,
+        "startChar": 39,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "58a50bee7f0aa1813f9d031100fbec205239ea55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "515669d3_98b84c81",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T21:17:01Z",
+      "side": 1,
+      "message": "Whether",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 9
+      },
+      "revId": "58a50bee7f0aa1813f9d031100fbec205239ea55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f946a56_dd2526ba",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T21:17:01Z",
+      "side": 1,
+      "message": "We should add:\nIf set to anything other than NONE, the Path should be set into the copyFromPath parameter.",
+      "range": {
+        "startLine": 241,
+        "startChar": 73,
+        "endLine": 241,
+        "endChar": 75
+      },
+      "revId": "58a50bee7f0aa1813f9d031100fbec205239ea55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d8db2f_e29d2bc9",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelperFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T21:17:01Z",
+      "side": 1,
+      "message": "move tot he next line?",
+      "range": {
+        "startLine": 49,
+        "startChar": 27,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "58a50bee7f0aa1813f9d031100fbec205239ea55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

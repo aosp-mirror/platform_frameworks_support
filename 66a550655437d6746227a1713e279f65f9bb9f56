@@ -47,6 +47,30 @@
       "revId": "66a550655437d6746227a1713e279f65f9bb9f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7742a12_e27c8430",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T21:17:01Z",
+      "side": 1,
+      "message": ":/.",
+      "parentUuid": "f1916855_f809c586",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 33
+      },
+      "revId": "66a550655437d6746227a1713e279f65f9bb9f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
