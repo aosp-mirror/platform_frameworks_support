@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a5099da_63b57d4c",
+        "filename": "room/common/src/main/java/androidx/room/Delete.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T23:20:29Z",
+      "side": 1,
+      "message": "as discussed offline, lets support these two cases:\n\n\n@Delete(entitiy\u003dFoo.class) \nfun deleteBoth(a : Bar, b: Bar)\n\n@Delete(entitiy\u003dFoo.class) \nfun deleteBoth(a : Bar, b: Baz)",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "a579810dd7236255fe06dff81cd8d1d08c2ea823",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07905c56_aa423659",
+        "filename": "room/common/src/main/java/androidx/room/Delete.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T23:20:29Z",
+      "side": 1,
+      "message": "declared,",
+      "range": {
+        "startLine": 62,
+        "startChar": 20,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "a579810dd7236255fe06dff81cd8d1d08c2ea823",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd4f17a_4c568ac9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/InsertionMethodProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T23:20:29Z",
+      "side": 1,
+      "message": "todo ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 65,
+        "endChar": 23
+      },
+      "revId": "a579810dd7236255fe06dff81cd8d1d08c2ea823",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
