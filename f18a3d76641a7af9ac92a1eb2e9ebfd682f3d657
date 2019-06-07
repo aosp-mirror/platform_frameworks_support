@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "721e2f69_c0109a57",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d6ea3fe_99ff9135",
+      "range": {
+        "startLine": 68,
+        "startChar": 28,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "f18a3d76641a7af9ac92a1eb2e9ebfd682f3d657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "780382e0_ee5d9ffb",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "f18a3d76641a7af9ac92a1eb2e9ebfd682f3d657",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccccb3c2_2fef7d4d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T14:52:38Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "780382e0_ee5d9ffb",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 25
+      },
+      "revId": "f18a3d76641a7af9ac92a1eb2e9ebfd682f3d657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
