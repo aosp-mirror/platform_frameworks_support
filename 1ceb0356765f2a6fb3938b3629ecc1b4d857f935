@@ -98,6 +98,30 @@
     },
     {
       "key": {
+        "uuid": "9b840ec3_abb0a77e",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-07T13:26:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fe91329_82f92109",
+      "range": {
+        "startLine": 593,
+        "startChar": 26,
+        "endLine": 593,
+        "endChar": 40
+      },
+      "revId": "1ceb0356765f2a6fb3938b3629ecc1b4d857f935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a89f7b0_7b2d4921",
         "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
         "patchSetId": 7
