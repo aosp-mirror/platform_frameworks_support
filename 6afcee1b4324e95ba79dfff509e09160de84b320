@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72867220_7aae8f2a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-07T17:30:24Z",
+      "side": 1,
+      "message": "\u0027true\u0027 and \u0027false\u0027 are also constants: https://www.sqlite.org/syntax/literal-value.html",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
