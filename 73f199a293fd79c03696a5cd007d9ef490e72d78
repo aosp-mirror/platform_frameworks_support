@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "717e0d8d_4ca70871",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "get() \u003d pagedList?.size ?: snapshot?.size ?: 0\n\nAlso, isn\u0027t this logic different from `currentList` which takes the snapshot over the pagedList?!? Seems like this should really be `currentList?.size ?: 0`",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39bcb2f0_687ab19a",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "Lots of double-bang. Might want to consider reading to local vars first so smart cast works",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a78e28f_b5e2af13",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "Use the factory function?\n\n    PagedList(pageSize \u003d pageSize)",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33bbe3b7_2397a425",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "Use apply trick for all of these return this functions",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "023ea355_03262ee0",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "val?",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b13aef5_ce412976",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "Could make this a top-level extension\n\n    fun \u003cT\u003e PagedStorage\u003cT\u003e.diff(other: PagedStorage\u003cT\u003e, diffCallback: ..): DiffResult\n\nIn fact, this wrapper class is stateless so you probably want top-level functions for everything here",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13c0f35_8515c236",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T21:05:45Z",
+      "side": 1,
+      "message": "there\u0027s a kotlin stdlib functional called coerceIn for clamping to a range",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
