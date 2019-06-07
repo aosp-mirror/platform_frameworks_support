@@ -50,6 +50,30 @@
     },
     {
       "key": {
+        "uuid": "b033f7bb_0acd0fbe",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-07T22:18:45Z",
+      "side": 1,
+      "message": "Removed, no longer needed, logic was updated to validate schema if database is opened and we don\u0027t find a room_master_table.",
+      "parentUuid": "d68c2648_701b1dda",
+      "range": {
+        "startLine": 301,
+        "startChar": 19,
+        "endLine": 301,
+        "endChar": 37
+      },
+      "revId": "1ceb0356765f2a6fb3938b3629ecc1b4d857f935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1646baf_2219843b",
         "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
         "patchSetId": 7
