@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78e33d30_124ede46",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T15:46:00Z",
+      "side": 1,
+      "message": "why was this necessary? (just curious)",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 5
+      },
+      "revId": "520006116b0608ed7e29b63e7ab721c959430872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08ee8e8f_dcb17889",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T15:46:00Z",
+      "side": 1,
+      "message": "use the `named` as well for depends on. it is very likely that cAT is already configured by now but better use the right one anyways.",
+      "range": {
+        "startLine": 75,
+        "startChar": 25,
+        "endLine": 75,
+        "endChar": 48
+      },
+      "revId": "520006116b0608ed7e29b63e7ab721c959430872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
