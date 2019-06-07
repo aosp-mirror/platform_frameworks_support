@@ -141,6 +141,30 @@
       "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5275aec8_03f2eedc",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T15:41:50Z",
+      "side": 0,
+      "message": "Talked offline, L824 (track info equality check) will prevent the problem.",
+      "parentUuid": "b4cbae1c_2df17e46",
+      "range": {
+        "startLine": 818,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 13
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

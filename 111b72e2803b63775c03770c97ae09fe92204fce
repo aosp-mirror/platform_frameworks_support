@@ -544,6 +544,30 @@
     },
     {
       "key": {
+        "uuid": "625f09b8_394b8cf1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T15:41:50Z",
+      "side": 1,
+      "message": "ListenableFuture\u003c? extends BaseResult\u003e would work",
+      "parentUuid": "0d7a9cd4_4f33bc93",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 74
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21490438_8021826e",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
         "patchSetId": 4
