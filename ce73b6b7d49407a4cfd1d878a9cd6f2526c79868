@@ -16,6 +16,24 @@
       "revId": "ce73b6b7d49407a4cfd1d878a9cd6f2526c79868",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fc66a61_f3ce3c28",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-06-07T22:20:14Z",
+      "side": 1,
+      "message": "the best is to respond on the bug filed with your objections. They are supposed to respond the next time they meet.",
+      "parentUuid": "a220dc45_223ff0d3",
+      "revId": "ce73b6b7d49407a4cfd1d878a9cd6f2526c79868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
