@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "f0d87e6c_c2c13654",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-07T13:12:08Z",
+      "side": 1,
+      "message": "Oh ok, I see now. Let\u0027s clarify later as I think the purpose-based name is better than position-based",
+      "parentUuid": "2acca294_677a3e27",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 15
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3de86405_541a2d0d",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 1
@@ -211,6 +235,30 @@
       "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19d6dd7c_54046356",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-07T13:12:08Z",
+      "side": 1,
+      "message": "This is one of ways to do this, yes. I don\u0027t think it matters now as we don\u0027t have a stable strategy that we are agreed on.\n\nThanks for fixing nullability, it seems cool now!",
+      "parentUuid": "3d63e812_3a40376f",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 27
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
