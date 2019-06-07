@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a1dabc55_16f026e6",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-07T10:57:07Z",
+      "side": 1,
+      "message": "No plans for future use (changing the strange name aside), for something so simple I\u0027d rather wait to see what we need instead of assuming at this stage. I just wanted to minimise the number of direct calls to find() as that also means looping through the nodes immediately after (usually).\n\nI don\u0027t have a strong opinion on this though, so I deleted the method and used find() directly in assertSemanticsIsEqualTo().",
+      "parentUuid": "b3fb6133_c5c37b88",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 17
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86646e0b_60f0ad15",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 5
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "That still does not help much. findAllExpected still finds AllMatching, this is getting a bit overloaded space. I would maybe just have one method find(boolean ignoreCountLimit \u003d false), wdyt?",
       "parentUuid": "be6bc34c_31307108",
+      "range": {
+        "startLine": 80,
+        "startChar": 17,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b580079b_56fc0c10",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-07T10:57:07Z",
+      "side": 1,
+      "message": "Sounds good to me. The only problem I found is that it fails at runtime when using the optional parameter. I changed this as suggested and will investigate the optional parameter in a later CL. wdyt?",
+      "parentUuid": "e3440dee_bb5006af",
       "range": {
         "startLine": 80,
         "startChar": 17,
@@ -212,6 +260,30 @@
       "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae4d722c_2524ccf0",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-07T10:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99dd417f_1fee4216",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "d0505f0f6107e3d6fba458fb843866c2d203ea34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
