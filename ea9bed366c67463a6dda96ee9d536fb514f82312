@@ -519,6 +519,24 @@
     },
     {
       "key": {
+        "uuid": "b8a50f7d_5a90ea0c",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Image.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-07T20:37:02Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "4b6a9853_cececaed",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ebcc791_75093b60",
         "filename": "ui/core/src/main/java/androidx/ui/painting/Image.kt",
         "patchSetId": 3
@@ -583,6 +601,24 @@
     },
     {
       "key": {
+        "uuid": "cc98573a_1585c660",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/ImageConfig.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-07T20:37:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3710497c_ae7086db",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc95ef5d_b2518f97",
         "filename": "ui/core/src/main/java/androidx/ui/painting/ImageConfig.kt",
         "patchSetId": 3
@@ -611,6 +647,24 @@
       "writtenOn": "2019-06-06T01:25:26Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "dc95ef5d_b2518f97",
+      "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0709497_c27d2679",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/ImageConfig.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-07T20:37:02Z",
+      "side": 1,
+      "message": "Updated with documentation",
       "parentUuid": "dc95ef5d_b2518f97",
       "revId": "ea9bed366c67463a6dda96ee9d536fb514f82312",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
