@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac93873_1a474eed",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T17:23:55Z",
+      "side": 1,
+      "message": "Is it distinguishable with androidx.media2.widget.VideoView in a text form? If not, how about adding text like \"@link android.widget.VideoView android.widget.VideoView\" to all the occurrences?",
+      "range": {
+        "startLine": 76,
+        "startChar": 29,
+        "endLine": 76,
+        "endChar": 59
+      },
+      "revId": "210b0c58261dd445cd897b94fe472661252f130c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4b54e7_5b33cda1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-07T17:23:55Z",
+      "side": 1,
+      "message": "nit) Instead of \"should not be called\", how about \"setting a surface to player will be automatically handled by VideoView\"?",
+      "range": {
+        "startLine": 363,
+        "startChar": 44,
+        "endLine": 363,
+        "endChar": 75
+      },
+      "revId": "210b0c58261dd445cd897b94fe472661252f130c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
