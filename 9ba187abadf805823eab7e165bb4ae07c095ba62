@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f08045d4_a252acf7",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-07T06:27:10Z",
+      "side": 1,
+      "message": "Nit/optional: This is correct but unnecessary - it\u0027s equivalent to val\n\n checked \u003d false\n\nIf it\u0027s this way deliberately it\u0027s probably worth a comment.",
+      "revId": "9ba187abadf805823eab7e165bb4ae07c095ba62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
