@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "674fc21c_286643a8",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-07T22:18:11Z",
+      "side": 1,
+      "message": "Doesn\u0027t changing to val force existing .kt users to change their code when they update to new version?\n\nI agree that val is better though if the above is not an issue.",
+      "parentUuid": "df53f709_1d8ab40a",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b725dfac_4f22f149",
         "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
         "patchSetId": 41
