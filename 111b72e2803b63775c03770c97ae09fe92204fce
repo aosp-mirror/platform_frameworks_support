@@ -568,6 +568,30 @@
     },
     {
       "key": {
+        "uuid": "437d0a9b_29de8d87",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T16:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "625f09b8_394b8cf1",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 74
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21490438_8021826e",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
         "patchSetId": 4
@@ -1028,6 +1052,30 @@
       "side": 1,
       "message": "Good point.\n\nI think it would help developers if we clarified which player functions are being replaced by each VideoView and MediaControlView.\n\nSo, for VideoView, we can add, \"VideoView handles all surface-related commands, so SessionPlayer#setSurface should not be called.\"\nFor MediaControlView, we can add, \"MediaControlView handles playback controls through its UI components (e.g. play, pause, seek, skip), but calling the SessionPlayer methods for playback controls will work as well.\"\n\nWhat do you think?",
       "parentUuid": "84f8ef92_7f5a26c4",
+      "range": {
+        "startLine": 317,
+        "startChar": 49,
+        "endLine": 317,
+        "endChar": 55
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e25a8ff_ae0fc951",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T16:30:05Z",
+      "side": 1,
+      "message": "Talked offline and added some documentation.\n\nBTW, SessionPlayer#setSurfaceInternal and MediaController#setSurface are not public APIs yet so I added TODOs.\n\nPTAL.",
+      "parentUuid": "a102e6ff_7cd56602",
       "range": {
         "startLine": 317,
         "startChar": 49,
