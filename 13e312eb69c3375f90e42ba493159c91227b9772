@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "25d5a833_c526cff7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-07T05:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dcd8114_b2094c80",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4868044_97690695",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a22a80ef_0fe35956",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-07T05:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4868044_97690695",
+      "range": {
+        "startLine": 124,
+        "startChar": 16,
+        "endLine": 126,
+        "endChar": 17
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fea89067_73e075e8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-07T05:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f01fdba8_b7800a31",
+      "range": {
+        "startLine": 122,
+        "startChar": 24,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5fe0e2_4ca91804",
         "filename": "room/compiler/src/test/kotlin/androidx/room/verifier/DatabaseVerifierTest.kt",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac4d932_6b6edbe3",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/verifier/DatabaseVerifierTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-07T05:50:34Z",
+      "side": 1,
+      "message": "Done. Removed all references to Symbol.",
+      "parentUuid": "ac5fe0e2_4ca91804",
+      "range": {
+        "startLine": 309,
+        "startChar": 27,
+        "endLine": 309,
+        "endChar": 46
+      },
+      "revId": "13e312eb69c3375f90e42ba493159c91227b9772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
