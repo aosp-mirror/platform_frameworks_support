@@ -70,6 +70,30 @@
       "revId": "723f262ddface571a342eb756e3f2a04529d5a0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69a2379f_fda100c3",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-07T02:15:15Z",
+      "side": 1,
+      "message": "Alright - so I switched it over to configureEach using the `android.injected.invoked.from.ide` flag since the plugin does not seem to get re-applied when there are no changes.",
+      "parentUuid": "ca616fba_6dcae388",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "723f262ddface571a342eb756e3f2a04529d5a0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
