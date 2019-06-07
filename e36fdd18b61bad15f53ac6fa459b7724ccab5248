@@ -22,6 +22,414 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df53f709_1d8ab40a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "val?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b725dfac_4f22f149",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "val?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f90e36_5b717535",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "remove annotation",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5be4490_d18ebff5",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "Merge nested ifs",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32dc6b36_f307d085",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: Int not Integer",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2cea66d_83366470",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "Remove annotation here and next function down",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29783ddb_d92a83f7",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "Why is this separate from the `val` above?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "644a8c1f_9a4106e5",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: use MutableList instead of concrete type?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800b14b2_dbe23106",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: both Int not Integer",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63a07704_4b21f457",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "abstract val?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1895b7_e5f4495a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "abstract val?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960f3ac6_5a332d9f",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "val?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acb4cab_90a99ad8",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: minOf",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663839a5_57058acd",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: minOf",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0cb048_fd7c803e",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: minOf",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5109a3f6_7745b848",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "nit: minOf",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ef6a1c_333c3e72",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "maxOf / minOf",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61699112_064d6db3",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "remove `val`, make this `object`",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db2b9aaa_31ed3005",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/DirectExecutor.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "Since this is stateless, you can make it an `object`. Can be a follow-up.",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3181a28_961b4e39",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "This object should disappear and both functions should become extension functions on their first parameter.\n\ne.g., addCallback(ListenableFuture, ..) --\u003e ListenableFuture.addCallback(..)\n\nMaybe you did it this way for Java callers? You can actually retain compatibility with them by specifying `@file:JvmName(\"Futures\")` at the top of the file once you remove the object wrapper.\n\nThis can also be fixed in a follow-up.",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e76da6_d348e41a",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PositionalDataSourceTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "These could be using DirectExecutor, not that it makes much difference.",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a12d1310_d5c3271e",
+        "filename": "paging/runtime/src/androidTest/java/androidx/paging/StringPagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure it makes a difference or not, but this actually has different behavior than the previous code. This is equivalent to\n\n    private val whatever \u003d ListDataSource(list)\n    fun getDataSource() { return whatever }\n\nNote how the instance is created once and the same instance is returned each time. The old code created a new instance each time.\n\nWhile I suspect you want to create this instance only once and return it each time (the current behavior), if you needed the old behavior you would do\n\n    override val dataSource get() \u003d ListDataSource(list)",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f73cbc4f_02079695",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "Seems like we have an IDE setting misconfigured. Horizontal alignment is never required. Don\u0027t bother fixing, but I\u0027ll look into it so we don\u0027t create more of this.",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0baca07_286d3904",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-07T20:54:35Z",
+      "side": 1,
+      "message": "👀",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
