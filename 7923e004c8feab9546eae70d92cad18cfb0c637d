@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a38ad3fc_4545e35f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-07T09:16:51Z",
+      "side": 1,
+      "message": "Moved the title usages to findByText, leaving the icon ones in for now as we don\u0027t have proper icon support and a way to find those elements yet.",
+      "parentUuid": "f351f894_0ec16818",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 13
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b321d67f_6db96898",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "152a9844_75fd83d4",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-07T09:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b321d67f_6db96898",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 39
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "2acca294_677a3e27",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-07T09:16:51Z",
+      "side": 1,
+      "message": "these names came explicitely from go/material-params, I see they disagree with the public spec so we\u0027ll clarify with Farheen",
+      "parentUuid": "c8710ff1_9c8dd906",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 15
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3de86405_541a2d0d",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2019-06-05T16:09:22Z",
       "side": 1,
       "message": "Interesting approach of naming composables. I\u0027m curious how it will be used by developers. Also, what do you think about non-null String here? It seems like the only purpose of this component is to show text, so if there\u0027s no text -- there should be no component",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 27
+      },
+      "revId": "7923e004c8feab9546eae70d92cad18cfb0c637d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d63e812_3a40376f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-07T09:16:51Z",
+      "side": 1,
+      "message": "I was trying to scope without actually restricting it to a scope, this is the default TitleTextLabel that fits into a TopAppBar. Any other ideas on how to namespace this?",
+      "parentUuid": "3de86405_541a2d0d",
       "range": {
         "startLine": 160,
         "startChar": 4,
