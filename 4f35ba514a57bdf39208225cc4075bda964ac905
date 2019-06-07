@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29495322_ae0bba44",
+        "filename": "lifecycle/viewmodel-savedstate/src/androidTest/java/androidx/lifecycle/viewmodel/savedstate/SavedStateFactoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-07T16:37:50Z",
+      "side": 1,
+      "message": "Add a static import to match the style used in other tests.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "4f35ba514a57bdf39208225cc4075bda964ac905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
