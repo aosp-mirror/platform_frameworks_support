@@ -872,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "84f8ef92_7f5a26c4",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-07T07:37:01Z",
+      "side": 1,
+      "message": "Will player.play() be called by MediaControlView?\nWhat happens if developers call player.play() or pause() in anytime?\nWhat happens if developers don\u0027t call player.prepare()?\n\nIf developers don\u0027t use VideoView, they should call player.setSurface(), but not for VV developers. I think it could make developers be confused on which methods they should call when and which methods they don\u0027t need to call.",
+      "parentUuid": "662e4bd7_aa96cf23",
+      "range": {
+        "startLine": 317,
+        "startChar": 49,
+        "endLine": 317,
+        "endChar": 55
+      },
+      "revId": "111b72e2803b63775c03770c97ae09fe92204fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "882d79e5_e0a0a5c2",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
