@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "61d4fd01_18bd9018",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T01:06:07Z",
+      "side": 0,
+      "message": "+1",
+      "parentUuid": "e0b47388_232af801",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d16ab230_0f1b8cfb",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 0,
       "message": "agree with doing this somewhere. (either in VideoView \u0026 MediaControlView or in PlayerWrapper). Comparing media item param with getCurrentItem().",
       "parentUuid": "d16ab230_0f1b8cfb",
+      "range": {
+        "startLine": 818,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 13
+      },
+      "revId": "5762b38960e7325c6dc3d79665a47351f75718cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cbae1c_2df17e46",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-07T01:06:07Z",
+      "side": 0,
+      "message": "Supposing \"item\" comes from onSubtitleData callback and \"mMediaItem\" comes from onCurrentMediaItemChanged callback, wouldn\u0027t \"item !\u003d mMediaItem\" always be true when player and view are in different processes?",
+      "parentUuid": "45fa0c1c_e56e71c5",
       "range": {
         "startLine": 818,
         "startChar": 0,
