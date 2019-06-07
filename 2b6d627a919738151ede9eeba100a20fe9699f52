@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3feb12e_82c6413c",
+        "filename": "navigation/navigation-common/src/androidTest/java/androidx/navigation/NavDeepLinkTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-07T23:17:22Z",
+      "side": 1,
+      "message": "Don\u0027t you need to pass in a URI that doesn\u0027t have the id param at all to test the expected behavior? I.e., just \"$DEEP_LINK_EXACT_HTTPS/users\".\n\nI suspect that because you didn\u0027t change the regex to make any of these optional, it won\u0027t match at all.",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 39
+      },
+      "revId": "2b6d627a919738151ede9eeba100a20fe9699f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
