@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a220dc45_223ff0d3",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-07T22:18:15Z",
+      "side": 1,
+      "message": "Hm I think I\u0027m going to disagree on API council on this one. This callback was specifically if the up/down buttons are clicked and not just generic up/down events. And the code as written is not going to call this method if the user scrolls up/down with their finger, for example. \n\nSo I feel this callback is misnamed right now. Not to mention that your javadoc for this method is still the same.\n\nI think there\u0027s a larger discussion for if you\u0027d like to implement these methods so that they get called for every up/down scroll. But until that happens, I don\u0027t think we should rename these.",
+      "revId": "ce73b6b7d49407a4cfd1d878a9cd6f2526c79868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
