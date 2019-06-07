@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aab8ee8d_73e0a37e",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T22:11:03Z",
+      "side": 1,
+      "message": "pre packaged \"database\"",
+      "range": {
+        "startLine": 241,
+        "startChar": 49,
+        "endLine": 241,
+        "endChar": 57
+      },
+      "revId": "eb24d50639fea1838cf49d2aaae1ce8950ac49d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869e6bf0_67533ea4",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-07T22:11:03Z",
+      "side": 1,
+      "message": "copy",
+      "range": {
+        "startLine": 242,
+        "startChar": 63,
+        "endLine": 242,
+        "endChar": 66
+      },
+      "revId": "eb24d50639fea1838cf49d2aaae1ce8950ac49d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
