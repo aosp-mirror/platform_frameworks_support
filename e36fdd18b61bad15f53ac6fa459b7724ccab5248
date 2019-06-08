@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "495b5954_e6d73579",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c75a1b8a_354a1a4d",
+      "range": {
+        "startLine": 256,
+        "startChar": 40,
+        "endLine": 256,
+        "endChar": 49
+      },
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df53f709_1d8ab40a",
         "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
         "patchSetId": 41
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "1837c5d5_4403a80b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Actually it doesn\u0027t matter in this case since it\u0027s internal - done.\n\nOne weird thing is that it causes Metalava to finally recognize the abstract method, so it must be added as an ignored api change.\n\nI ended up adding an extension function to keep api compatibility with existing .kt users.",
+      "parentUuid": "674fc21c_286643a8",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b725dfac_4f22f149",
         "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
         "patchSetId": 41
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "4be994c4_34713b36",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b725dfac_4f22f149",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80f90e36_5b717535",
         "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
         "patchSetId": 41
@@ -88,6 +148,24 @@
       "writtenOn": "2019-06-07T20:54:35Z",
       "side": 1,
       "message": "remove annotation",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "428ae7d5_a44e3ba9",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "This unfortunately causes metalava to complain:\n\nItemKeyedDataSource.kt:65: error: Attempted to remove @NonNull annotation from parameter key in androidx.paging.ItemKeyedDataSource.LoadParams(Key key, int requestedLoadSize) [InvalidNullConversion]\n\nas Metalava translates it from \u003cT\u003e to \u003cT!\u003e for some reason.",
+      "parentUuid": "80f90e36_5b717535",
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -111,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "d7e7b479_0ddf9d73",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5be4490_d18ebff5",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32dc6b36_f307d085",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
@@ -125,6 +221,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e725ec7e_46ece16d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32dc6b36_f307d085",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +259,24 @@
     },
     {
       "key": {
+        "uuid": "cfb9f8be_2ac008b2",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2cea66d_83366470",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29783ddb_d92a83f7",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
@@ -156,6 +288,24 @@
       "writtenOn": "2019-06-07T20:54:35Z",
       "side": 1,
       "message": "Why is this separate from the `val` above?",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b27900a_cab389de",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "To emulate Java\u0027s protected since protected in kotlin doesn\u0027t allow internal access... although it\u0027s possible that it\u0027s just better to make this public val and @hide it.",
+      "parentUuid": "29783ddb_d92a83f7",
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -179,6 +329,24 @@
     },
     {
       "key": {
+        "uuid": "b5941a34_cd9dfe1d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644a8c1f_9a4106e5",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "800b14b2_dbe23106",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
@@ -193,6 +361,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eeaadba_fb68be68",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800b14b2_dbe23106",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +399,24 @@
     },
     {
       "key": {
+        "uuid": "40d95cae_fd504fdc",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63a07704_4b21f457",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1895b7_e5f4495a",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
@@ -227,6 +431,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "560707f0_13b8c117",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1895b7_e5f4495a",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -247,6 +469,24 @@
     },
     {
       "key": {
+        "uuid": "a4972b1e_323c7c2b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "960f3ac6_5a332d9f",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3acb4cab_90a99ad8",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
         "patchSetId": 41
@@ -261,6 +501,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c73108f_04837a00",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3acb4cab_90a99ad8",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -281,6 +539,24 @@
     },
     {
       "key": {
+        "uuid": "1b4cddc4_adccc76e",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "663839a5_57058acd",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f0cb048_fd7c803e",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
         "patchSetId": 41
@@ -295,6 +571,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbec47e7_f418c47d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f0cb048_fd7c803e",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -315,6 +609,24 @@
     },
     {
       "key": {
+        "uuid": "bf63fa88_5ad9e241",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5109a3f6_7745b848",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2ef6a1c_333c3e72",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
         "patchSetId": 41
@@ -329,6 +641,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b882f06_70dcf88c",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2ef6a1c_333c3e72",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -349,6 +679,24 @@
     },
     {
       "key": {
+        "uuid": "2e2cc982_d4c87451",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61699112_064d6db3",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db2b9aaa_31ed3005",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/DirectExecutor.kt",
         "patchSetId": 41
@@ -366,6 +714,24 @@
     },
     {
       "key": {
+        "uuid": "5ffed6bc_1c6bbf0a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/DirectExecutor.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db2b9aaa_31ed3005",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3181a28_961b4e39",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
         "patchSetId": 41
@@ -380,6 +746,24 @@
       "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18445ce7_82be04c1",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3181a28_961b4e39",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

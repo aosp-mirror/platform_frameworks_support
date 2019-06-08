@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6108ecb4_4aab9295",
+        "filename": "paging/common/api/2.2.0-alpha01.ignore",
+        "patchSetId": 42
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "The changes in this file were added due to a Metalava bug (?) where it failed to add abstract methods in the old java source.",
+      "revId": "89e6642f26930d0a3e1bffe3b8655323a03ee9b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ae46e58_1c57cba8",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 42
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Added for API compatibility with existing .kt users. We shadow properties with extension functions to help existing users migrate with minimal changes.",
+      "revId": "89e6642f26930d0a3e1bffe3b8655323a03ee9b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4b2e39_006a7c15",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 42
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-08T04:06:24Z",
+      "side": 1,
+      "message": "Will be removed once paging-runtime is converted to .kt",
+      "revId": "89e6642f26930d0a3e1bffe3b8655323a03ee9b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
