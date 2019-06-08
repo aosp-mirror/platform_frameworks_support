@@ -2,6 +2,86 @@
   "comments": [
     {
       "key": {
+        "uuid": "0eac2522_434f986a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-08T22:25:56Z",
+      "side": 1,
+      "message": "no need to reuse this variable and make it `var`. Use later simply adapter?.typeAffinity or named it differently",
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b159756c_89c927a0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-08T22:25:56Z",
+      "side": 1,
+      "message": "Can we make defaultValue field val?\n\nyou can get adapter without field object: \ncontext.typeAdapterStore.findColumnTypeAdapter(member, affinity)\n\nfield.nonNull is simple function on element and fieldParent",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0ab960_3dbc0a85",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-08T22:25:56Z",
+      "side": 1,
+      "message": "Previously it was:\nadapter?.typeAffinity ?: field.affinity\n\nis ok to drop \"?: field.affinity\" ?",
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc4ecbe9_d1f6c301",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-08T22:25:56Z",
+      "side": 1,
+      "message": "it is done for \u0027NULL\u0027 case, but looks like it will make defaultValue \u003d \"\u0027bar\u0027\" and defaultValue \u003d \"bar\" the same. is it intentionally?",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72867220_7aae8f2a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 10
