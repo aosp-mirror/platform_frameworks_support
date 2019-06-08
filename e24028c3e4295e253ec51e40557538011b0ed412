@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "065eff39_7ff45938",
+        "filename": "loader/loader-ktx/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-08T22:32:43Z",
+      "side": 1,
+      "message": "Is it simply mistakenly copy-pasted? :) +cc jakew just in case",
+      "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
