@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ef37de6_57ef0958",
+        "filename": "lifecycle/compiler/src/main/kotlin/androidx/lifecycle/input_collector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-09T22:02:43Z",
+      "side": 1,
+      "message": "TBH, I find our deprecation check more annoying than useful. *Every time* we deprecate something, *there will be* some code that still works with newly deprecated classes, because we can\u0027t simply break everyone and delete or anyhow migrate that code.",
+      "revId": "e8d29e901de3cfe3bc87ccd3e8d679e6111e32aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
