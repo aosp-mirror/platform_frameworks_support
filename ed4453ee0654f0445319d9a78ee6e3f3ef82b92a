@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4cbd948_e80a38a0",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T16:04:29Z",
+      "side": 1,
+      "message": "comment",
+      "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f7a29f_537004ac",
+        "filename": "benchmark/src/main/java/androidx/benchmark/MemInfo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T16:04:29Z",
+      "side": 1,
+      "message": "`Memory`, to match naming of `Clocks`",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
