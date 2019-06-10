@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bb24fd4_55b171ba",
+        "filename": "benchmark/src/main/java/androidx/benchmark/CpuInfo.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T22:36:48Z",
+      "side": 1,
+      "message": "Revert string change here.\n\nIn general, if you\u0027re renaming something with a not-obviously-unique name, always see what studio is planning to rewrite in the non-code section, and disable any that are inappropriate.\n\n(I think selecting a class or line and hitting backspace excludes it from the rename)",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 31
+      },
+      "revId": "0efa50db3fbae62b4c5b19c9968f5e0d9a0f86a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a97f2d8_662d490b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T22:36:48Z",
+      "side": 1,
+      "message": "revert string change",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "0efa50db3fbae62b4c5b19c9968f5e0d9a0f86a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
