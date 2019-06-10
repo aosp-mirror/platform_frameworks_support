@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ee45a5cd_622ff6e8",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T13:08:50Z",
+      "side": 1,
+      "message": "Yep that also works provided you shadow the name\n\n    this.pagedList?.let { pagedList -\u003e",
+      "parentUuid": "3e46025b_c33c920c",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a78e28f_b5e2af13",
         "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
         "patchSetId": 11
