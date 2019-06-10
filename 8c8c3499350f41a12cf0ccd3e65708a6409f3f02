@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fcbc517_d3b9c61f",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "what does shortFall mean?",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8a285e_96a179ec",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "I did not understand the logic here. \nmight require some inline comment",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc8fbe2_b5f9dcd6",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "this might be misleading. it looks like you are allocating more than 512kb or sometimes even more than 1MB. Maybe you can mention the approximate max value (you are allocating X (more than Y) ....)",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 90
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f40bba43_f6563a39",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "this sounds weird as (an internal) api. maybe it should be private?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 38
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117e0811_a97c541e",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "shall GapBuffer and PartialGapBuffer implement a common interface?",
+      "range": {
+        "startLine": 195,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 31
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db949b68_034ba568",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 28
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e343263_284128be",
+        "filename": "ui/core/src/test/java/androidx/ui/input/GapBufferTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:16:45Z",
+      "side": 1,
+      "message": "I suggest to make them separate tests. \noverall the tests are too long.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
