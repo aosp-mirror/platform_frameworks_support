@@ -190,6 +190,24 @@
     },
     {
       "key": {
+        "uuid": "570f488e_c86fc6fc",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T13:15:11Z",
+      "side": 1,
+      "message": "Ah. So you\u0027re saying that the generic is nullable but this parameter is not?",
+      "parentUuid": "8e3516f4_0170eaf1",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5be4490_d18ebff5",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
