@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b12096c1_b80b22fa",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/EditOperation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:08:51Z",
+      "side": 1,
+      "message": "nit: not sure if this should be an enum. since it is internal lets just keep that in mind.",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "f95086d83d9a0fe48b446b5ccbfa387d58591e25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b309b1e_58a253b2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:08:51Z",
+      "side": 1,
+      "message": "just an idea: you can push this logic into a function and pass the EditOp into it. that way try/being/finally/end can be scoped into that function.",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 146,
+        "endChar": 9
+      },
+      "revId": "f95086d83d9a0fe48b446b5ccbfa387d58591e25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
