@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9fe08c14_7ca698b1",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "renamed to \"necessarySpace\"",
+      "parentUuid": "3fcbc517_d3b9c61f",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce8a285e_96a179ec",
         "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb7c9c5b_06c46182",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce8a285e_96a179ec",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0786284f_667c9826",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fc8fbe2_b5f9dcd6",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 90
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f40bba43_f6563a39",
         "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-10T20:16:45Z",
       "side": 1,
       "message": "this sounds weird as (an internal) api. maybe it should be private?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 38
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3dd06c3_b62aabd0",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "This is used by PartialGapBuffer, so let me mark internal instead of private.",
+      "parentUuid": "f40bba43_f6563a39",
       "range": {
         "startLine": 170,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6f1081f0_654a8d2f",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "What is the benefit of that?",
+      "parentUuid": "117e0811_a97c541e",
+      "range": {
+        "startLine": 195,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 31
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db949b68_034ba568",
         "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-10T20:16:45Z",
       "side": 1,
       "message": "const?",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 28
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7483d04_0426d1cf",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "Oops, yes, I forgot const modifier in Kotlin. Fixed.",
+      "parentUuid": "db949b68_034ba568",
       "range": {
         "startLine": 196,
         "startChar": 2,
@@ -160,6 +304,30 @@
       "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae2c33a_3e0d952a",
+        "filename": "ui/core/src/test/java/androidx/ui/input/GapBufferTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-10T20:59:47Z",
+      "side": 1,
+      "message": "Done\n\nI believe this is the right amount of test case for the gap buffer.",
+      "parentUuid": "2e343263_284128be",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
