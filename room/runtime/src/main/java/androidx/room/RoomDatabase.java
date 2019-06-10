@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
+import android.util.SparseArray;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -31,8 +32,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.collection.SparseArrayCompat;
-import androidx.core.app.ActivityManagerCompat;
 import androidx.room.DatabaseConfiguration.CopyFrom;
 import androidx.room.migration.Migration;
 import androidx.room.util.SneakyThrow;
@@ -492,11 +491,18 @@ public abstract class RoomDatabase {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityManager manager = (ActivityManager)
                         context.getSystemService(Context.ACTIVITY_SERVICE);
-                if (manager != null && !ActivityManagerCompat.isLowRamDevice(manager)) {
+                if (manager != null && !isLowRamDevice(manager)) {
                     return WRITE_AHEAD_LOGGING;
                 }
             }
             return TRUNCATE;
+        }
+
+        private static boolean isLowRamDevice(@NonNull ActivityManager activityManager) {
+            if (Build.VERSION.SDK_INT >= 19) {
+                return activityManager.isLowRamDevice();
+            }
+            return false;
         }
     }
 
@@ -920,8 +926,7 @@ public abstract class RoomDatabase {
      * between two versions.
      */
     public static class MigrationContainer {
-        private SparseArrayCompat<SparseArrayCompat<Migration>> mMigrations =
-                new SparseArrayCompat<>();
+        private SparseArray<SparseArray<Migration>> mMigrations = new SparseArray<>();
 
         /**
          * Adds the given migrations to the list of available migrations. If 2 migrations have the
@@ -938,9 +943,9 @@ public abstract class RoomDatabase {
         private void addMigration(Migration migration) {
             final int start = migration.startVersion;
             final int end = migration.endVersion;
-            SparseArrayCompat<Migration> targetMap = mMigrations.get(start);
+            SparseArray<Migration> targetMap = mMigrations.get(start);
             if (targetMap == null) {
-                targetMap = new SparseArrayCompat<>();
+                targetMap = new SparseArray<>();
                 mMigrations.put(start, targetMap);
             }
             Migration existing = targetMap.get(end);
@@ -974,7 +979,7 @@ public abstract class RoomDatabase {
                 int start, int end) {
             final int searchDirection = upgrade ? -1 : 1;
             while (upgrade ? start < end : start > end) {
-                SparseArrayCompat<Migration> targetNodes = mMigrations.get(start);
+                SparseArray<Migration> targetNodes = mMigrations.get(start);
                 if (targetNodes == null) {
                     return null;
                 }

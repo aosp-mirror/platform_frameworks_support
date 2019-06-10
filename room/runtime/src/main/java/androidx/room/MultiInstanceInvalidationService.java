@@ -22,10 +22,10 @@ import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.util.Log;
+import android.util.SparseArray;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.collection.SparseArrayCompat;
 
 /**
  * A {@link Service} for remote invalidation among multiple {@link InvalidationTracker} instances.
@@ -43,7 +43,7 @@ public class MultiInstanceInvalidationService extends Service {
 
     // synthetic access
     @SuppressWarnings("WeakerAccess")
-    final SparseArrayCompat<String> mClientNames = new SparseArrayCompat<>();
+    final SparseArray<String> mClientNames = new SparseArray<>();
 
     // synthetic access
     @SuppressWarnings("WeakerAccess")
