@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ae0ac95_8b81824d",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "if you need this for only getter in the test, make the set private",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 45
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a376ef16_c4be660e",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "if you need this for only getter in the test, make the set private",
+      "range": {
+        "startLine": 120,
+        "startChar": 17,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf67099_baa1286a",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "if you need this for only getter in the test, make the set private",
+      "range": {
+        "startLine": 122,
+        "startChar": 24,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1cf8494_0f73e7c9",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "is this public?  when does it get set the final value? (add to javadoc please)\n\nShall we keep the behavior the same and throw an error if you call getter of this and layout is not done yet?",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3caf5cba_75cd6d00",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "can I set this? if not make set private",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 7
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934cd9f2_0c3cc019",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "as we talked offline, something is off here, can you please add a todo for ellipsize and softwrap problem?",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 346,
+        "endChar": 72
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2875dbb_b7508bef",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "what is effectMaxWidth?",
+      "range": {
+        "startLine": 357,
+        "startChar": 23,
+        "endLine": 357,
+        "endChar": 37
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d67ff4_00667dc1",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "shall we call this just layout",
+      "range": {
+        "startLine": 367,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 21
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4964093c_975ddfec",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:03:08Z",
+      "side": 1,
+      "message": "add a TODO that there are various paint objects in TextPainter and also in the lower layers that need to be investigated if they should be memoized (which means the APIs should enable dev to pass (a) Paint object(s) to worker objects (TexPainter, Paragraph)",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 36
+      },
+      "revId": "bcbe4cf2a85573311cc57648d7eaf9e1fa76cc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
