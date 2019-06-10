@@ -16,6 +16,8 @@
 
 package androidx.ui.core.input
 
+import androidx.ui.input.EditOperation
+
 /**
  * An interface of listening IME events.
  */

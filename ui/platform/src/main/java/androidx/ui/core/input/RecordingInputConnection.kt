@@ -28,6 +28,14 @@ import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputContentInfo
 import androidx.ui.core.TextRange
+import androidx.ui.input.CommitTextEditOp
+import androidx.ui.input.DeleteSurroundingTextEditOp
+import androidx.ui.input.DeleteSurroundingTextInCodePointsEditOp
+import androidx.ui.input.EditOperation
+import androidx.ui.input.FinishComposingTextEditOp
+import androidx.ui.input.SetComposingRegionEditOp
+import androidx.ui.input.SetComposingTextEditOp
+import androidx.ui.input.SetSelectionEditOp
 
 private val DEBUG = false
 private val TAG = "RecordingIC"
@@ -105,13 +113,23 @@ internal class RecordingInputConnection(
 
     override fun setComposingText(text: CharSequence?, newCursorPosition: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "setComposingText($text, $newCursorPosition)") }
-        addEditOpWithBatch(SetComposingTextEditOp(text.toString(), newCursorPosition))
+        addEditOpWithBatch(
+            SetComposingTextEditOp(
+                text.toString(),
+                newCursorPosition
+            )
+        )
         return true
     }
 
     override fun deleteSurroundingTextInCodePoints(beforeLength: Int, afterLength: Int): Boolean {
         if (DEBUG) { Log.d(TAG, "deleteSurroundingTextInCodePoints($beforeLength, $afterLength)") }
-        addEditOpWithBatch(DeleteSurroundingTextInCodePointsEditOp(beforeLength, afterLength))
+        addEditOpWithBatch(
+            DeleteSurroundingTextInCodePointsEditOp(
+                beforeLength,
+                afterLength
+            )
+        )
         return true
     }
 
