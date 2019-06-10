@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdb88d4f_b156f27f",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:44:40Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 198,
+        "endChar": 28
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b33fa542_6830a541",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:44:40Z",
+      "side": 1,
+      "message": "Is this id supposed to be unique per application or global to the browser?",
+      "range": {
+        "startLine": 210,
+        "startChar": 57,
+        "endLine": 210,
+        "endChar": 84
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b237801e_200db93c",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:44:40Z",
+      "side": 1,
+      "message": "Are there any invalid ids?",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 18
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
