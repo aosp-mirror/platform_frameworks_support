@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae9ae520_d364ed0b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-10T22:25:48Z",
+      "side": 1,
+      "message": "@link",
+      "range": {
+        "startLine": 628,
+        "startChar": 52,
+        "endLine": 628,
+        "endChar": 53
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fe89e6_cf377adc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-10T22:25:48Z",
+      "side": 1,
+      "message": "Should we also mention that the target could be the saved image when using the takePicture() overload that does not receive an in-memory ImageProxy?",
+      "range": {
+        "startLine": 776,
+        "startChar": 50,
+        "endLine": 776,
+        "endChar": 68
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fedb2ae_24981eae",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-10T22:25:48Z",
+      "side": 1,
+      "message": "I always thought of the target as being more abstract than this. For Preview, for instance, I thought of the target as being the on-screen viewfinder. This would mean the target is more like the final destination, which is why the intermediates that we provide may not exactly match the requested aspect ratio, but we provide all the data needed to make the final output have the target aspect ratio.",
+      "range": {
+        "startLine": 540,
+        "startChar": 14,
+        "endLine": 541,
+        "endChar": 62
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
