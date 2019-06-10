@@ -16,6 +16,24 @@
       "revId": "0d96b3c673df1903556d424f0e18cdd0b7e8e3cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da15e1a5_fd07092e",
+        "filename": "benchmark/gradle-plugin/kotlin-dsl-dependency.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T17:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c644a20e_90c771fa",
+      "revId": "0d96b3c673df1903556d424f0e18cdd0b7e8e3cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
