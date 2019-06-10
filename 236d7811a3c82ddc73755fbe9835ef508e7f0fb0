@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e70acc4_dcb8f0a3",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:32:53Z",
+      "side": 1,
+      "message": "[fontSize]",
+      "range": {
+        "startLine": 49,
+        "startChar": 66,
+        "endLine": 49,
+        "endChar": 74
+      },
+      "revId": "236d7811a3c82ddc73755fbe9835ef508e7f0fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877df6a0_7b4df725",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:32:53Z",
+      "side": 1,
+      "message": "nit: times",
+      "range": {
+        "startLine": 50,
+        "startChar": 83,
+        "endLine": 50,
+        "endChar": 87
+      },
+      "revId": "236d7811a3c82ddc73755fbe9835ef508e7f0fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
