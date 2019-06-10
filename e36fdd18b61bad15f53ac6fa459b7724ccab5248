@@ -244,6 +244,24 @@
     },
     {
       "key": {
+        "uuid": "a41dc16c_bbec166b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T20:44:50Z",
+      "side": 1,
+      "message": "Alright, I just marked all Key / Value generics with Any as the upperbound since that\u0027s what\u0027s intended anyway.",
+      "parentUuid": "146e7033_6c9b9923",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5be4490_d18ebff5",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
