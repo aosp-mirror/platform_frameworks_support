@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "799ba8d1_87fa7d62",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-10T17:48:41Z",
+      "side": 1,
+      "message": "Remove after aosp/980195 is submitted",
+      "range": {
+        "startLine": 183,
+        "startChar": 41,
+        "endLine": 183,
+        "endChar": 68
+      },
+      "revId": "72734f8d74ca1b38a61861b5c90ffc083b1971fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
