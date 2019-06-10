@@ -160,7 +160,7 @@ class ParagraphAndroidTest {
     @Test
     fun testStyle_setTextDecorationOnWholeText_withLineThrough() {
         val text = "abcde"
-        val textStyle = TextStyle(decoration = TextDecoration.lineThrough)
+        val textStyle = TextStyle(decoration = TextDecoration.LineThrough)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -175,7 +175,7 @@ class ParagraphAndroidTest {
     @Test
     fun testStyle_setTextDecorationOnWholeText_withUnderline() {
         val text = "abcde"
-        val textStyle = TextStyle(decoration = TextDecoration.underline)
+        val textStyle = TextStyle(decoration = TextDecoration.Underline)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -190,7 +190,7 @@ class ParagraphAndroidTest {
     @Test
     fun testStyle_setTextDecorationOnPartText_withLineThrough() {
         val text = "abcde"
-        val textStyle = TextStyle(decoration = TextDecoration.lineThrough)
+        val textStyle = TextStyle(decoration = TextDecoration.LineThrough)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -205,7 +205,7 @@ class ParagraphAndroidTest {
     @Test
     fun testStyle_setTextDecorationOnPartText_withUnderline() {
         val text = "abcde"
-        val textStyle = TextStyle(decoration = TextDecoration.underline)
+        val textStyle = TextStyle(decoration = TextDecoration.Underline)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -222,7 +222,7 @@ class ParagraphAndroidTest {
         val text = "abcde"
         val textStyle = TextStyle(
             decoration = TextDecoration.combine(
-                listOf(TextDecoration.lineThrough, TextDecoration.underline)
+                listOf(TextDecoration.LineThrough, TextDecoration.Underline)
             )
         )
 
@@ -565,7 +565,7 @@ class ParagraphAndroidTest {
     @Test
     fun textStyle_setBaselineShiftOnWholeText() {
         val text = "abcde"
-        val textStyle = TextStyle(baselineShift = BaselineShift.SUBSCRIPT)
+        val textStyle = TextStyle(baselineShift = BaselineShift.Subscript)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -580,7 +580,7 @@ class ParagraphAndroidTest {
     @Test
     fun textStyle_setBaselineShiftOnPartText() {
         val text = "abcde"
-        val textStyle = TextStyle(baselineShift = BaselineShift.SUPERSCRIPT)
+        val textStyle = TextStyle(baselineShift = BaselineShift.Superscript)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -595,8 +595,8 @@ class ParagraphAndroidTest {
     @Test
     fun textStyle_setBaselineShiftTwice_LastOneOnTop() {
         val text = "abcde"
-        val textStyle = TextStyle(baselineShift = BaselineShift.SUBSCRIPT)
-        val textStyleOverwrite = TextStyle(baselineShift = BaselineShift.SUPERSCRIPT)
+        val textStyle = TextStyle(baselineShift = BaselineShift.Subscript)
+        val textStyleOverwrite = TextStyle(baselineShift = BaselineShift.Superscript)
 
         val paragraph = simpleParagraph(
             text = text,
@@ -914,12 +914,12 @@ class ParagraphAndroidTest {
         val text = "abcde"
         val textStyle = TextStyle(
             fontFamily = fontFamily,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
         val expectedTypeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
         val expectedStart = 0
@@ -950,13 +950,13 @@ class ParagraphAndroidTest {
         val text = "abcde"
         val textStyle = TextStyle(
             fontFamily = fontFamily,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
             fontSynthesis = FontSynthesis.none
         )
         val expectedTypeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
             fontSynthesis = FontSynthesis.none
         )
@@ -1036,7 +1036,7 @@ class ParagraphAndroidTest {
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.bold),
-            fontStyle = eq(FontStyle.normal),
+            fontStyle = eq(FontStyle.Normal),
             fontSynthesis = eq(FontSynthesis.all)
         )
 
@@ -1052,7 +1052,7 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = "abc",
             fontFamily = null,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             typefaceAdapter = typefaceAdapter
         )
         paragraph.layout(Float.MAX_VALUE)
@@ -1060,7 +1060,7 @@ class ParagraphAndroidTest {
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.normal),
-            fontStyle = eq(FontStyle.italic),
+            fontStyle = eq(FontStyle.Italic),
             fontSynthesis = eq(FontSynthesis.all)
         )
 
@@ -1085,7 +1085,7 @@ class ParagraphAndroidTest {
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
-            fontStyle = eq(FontStyle.normal),
+            fontStyle = eq(FontStyle.Normal),
             fontSynthesis = eq(FontSynthesis.all)
         )
 
@@ -1108,7 +1108,7 @@ class ParagraphAndroidTest {
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
-            fontStyle = eq(FontStyle.normal),
+            fontStyle = eq(FontStyle.Normal),
             fontSynthesis = eq(FontSynthesis.all)
         )
         val typeface = paragraph.textPaint.typeface

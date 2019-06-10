@@ -17,13 +17,13 @@
 package androidx.ui.painting
 
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
 import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
-import androidx.ui.engine.text.TextBaseline
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.window.Locale
@@ -90,7 +90,7 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  */
 class TextPainter(
     text: TextSpan? = null,
-    textAlign: TextAlign = TextAlign.START,
+    textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
@@ -208,7 +208,7 @@ class TextPainter(
             if (layoutTemplate == null) {
                 val builder = ParagraphBuilder(
                     // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.LTR)
+                    createParagraphStyle(TextDirection.Ltr)
                 ) // direction doesn't matter, text is just a space
                 if (text?.style != null) {
                     builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
@@ -281,19 +281,6 @@ class TextPainter(
             assertNeedsLayout("size")
             return Size(width, height)
         }
-
-    /**
-     * Returns the distance from the top of the text to the first baseline of the given type.
-     *
-     * Valid only after [layout] has been called.
-     */
-    fun computeDistanceToActualBaseline(baseline: TextBaseline): Float {
-        assertNeedsLayout("computeDistanceToActualBaseline")
-        return when (baseline) {
-            TextBaseline.alphabetic -> paragraph!!.alphabeticBaseline
-            TextBaseline.ideographic -> paragraph!!.ideographicBaseline
-        }
-    }
 
     /**
      * Whether any text was truncated or ellipsized.
@@ -390,6 +377,17 @@ class TextPainter(
     fun getCaretForTextPosition(position: TextPosition): Pair<Offset, Offset> {
         assert(!needsLayout)
         return paragraph!!.getCaretForTextPosition(position)
+    }
+
+    /**
+     * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
+     * top, bottom, left and right of a character.
+     *
+     * Valid only after [layout] has been called.
+     */
+    internal fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        assert(!needsLayout)
+        return paragraph!!.getBoundingBoxForTextPosition(textPosition)
     }
 
     /**

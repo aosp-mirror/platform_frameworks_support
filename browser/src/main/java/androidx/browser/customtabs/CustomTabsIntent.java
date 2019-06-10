@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -70,6 +71,15 @@ public final class CustomTabsIntent {
      * Null if there is no need to match any service side sessions with the intent.
      */
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
+
+    /**
+     * Extra used to match the session ID. This is PendingIntent which is created with
+     * {@link CustomTabsClient#createSessionId}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String EXTRA_SESSION_ID = "android.support.customtabs.extra.SESSION_ID";
 
     /**
      * @hide
@@ -279,6 +289,13 @@ public final class CustomTabsIntent {
             "androidx.browser.customtabs.extra.COLOR_SCHEME_PARAMS";
 
     /**
+     * Extra that contains the color of the navigation bar.
+     * See {@link Builder#setNavigationBarColor}.
+     */
+    public static final String EXTRA_NAVIGATION_BAR_COLOR =
+            "androidx.browser.customtabs.extra.NAVIGATION_BAR_COLOR";
+
+    /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
      * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its ID.
      */
@@ -339,7 +356,19 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            this(null);
+            initialize(null, null);
+        }
+
+        /**
+         * Creates a {@link CustomTabsIntent.Builder} object associated with a given
+         * {@link CustomTabsSession.PendingSession}.
+         *
+         * {@see Builder(CustomTabsSession)}
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        public Builder(@Nullable CustomTabsSession.PendingSession session) {
+            initialize(null, session.getId());
         }
 
         /**
@@ -352,15 +381,32 @@ public final class CustomTabsIntent {
          * @param session The session to associate this Builder with.
          */
         public Builder(@Nullable CustomTabsSession session) {
-            if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
+            if (session != null) {
+                mIntent.setPackage(session.getComponentName().getPackageName());
+                initialize(session.getBinder(), session.getId());
+            } else {
+                initialize(null, null);
+            }
+        }
+
+        private void initialize(@Nullable IBinder session, @Nullable PendingIntent sessionId) {
             Bundle bundle = new Bundle();
-            BundleCompat.putBinder(
-                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
+            BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
+            if (sessionId != null) {
+                bundle.putParcelable(EXTRA_SESSION_ID, sessionId);
+            }
+
             mIntent.putExtras(bundle);
         }
 
         /**
          * Sets the toolbar color.
+         *
+         * On Android L and above, this color is also applied to the status bar. To ensure good
+         * contrast between status bar icons and the background, Custom Tab implementations may use
+         * {@link View#SYSTEM_UI_FLAG_LIGHT_STATUS_BAR} on Android M and above, and use a darkened
+         * color for the status bar on Android L.
+         *
          * Can be overridden for particular color schemes, see {@link #setColorSchemeParams}.
          *
          * @param color {@link Color}
@@ -438,7 +484,7 @@ public final class CustomTabsIntent {
          * @param icon The icon.
          * @param description The description for the button. To be used for accessibility.
          * @param pendingIntent pending intent delivered when the button is clicked.
-         * @param shouldTint Whether the action button should be tinted.
+         * @param shouldTint Whether the action button should be tinted..
          *
          * @see CustomTabsIntent.Builder#addToolbarItem(int, Bitmap, String, PendingIntent)
          */
@@ -514,6 +560,23 @@ public final class CustomTabsIntent {
         @NonNull
         public Builder setSecondaryToolbarColor(@ColorInt int color) {
             mDefaultColorSchemeBuilder.setSecondaryToolbarColor(color);
+            return this;
+        }
+
+        /**
+         * Sets the navigation bar color. Has no effect on API versions below L.
+         *
+         * To ensure good contrast between navigation bar icons and the background, Custom Tab
+         * implementations may use {@link View#SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR} on Android O and
+         * above, and darken the provided color on Android L-N.
+         *
+         * Can be overridden for particular color schemes, see {@link #setColorSchemeParams}.
+         *
+         * @param color The color for the navigation bar.
+         */
+        @NonNull
+        public Builder setNavigationBarColor(@ColorInt int color) {
+            mDefaultColorSchemeBuilder.setNavigationBarColor(color);
             return this;
         }
 
