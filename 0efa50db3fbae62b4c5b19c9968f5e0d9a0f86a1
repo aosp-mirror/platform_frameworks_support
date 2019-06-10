@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9fa5934d_a6ebd778",
+        "filename": "benchmark/src/main/java/androidx/benchmark/CpuInfo.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T23:04:43Z",
+      "side": 1,
+      "message": "Oops, my mistake - done!",
+      "parentUuid": "3bb24fd4_55b171ba",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 31
+      },
+      "revId": "0efa50db3fbae62b4c5b19c9968f5e0d9a0f86a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a97f2d8_662d490b",
         "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "0efa50db3fbae62b4c5b19c9968f5e0d9a0f86a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fd2afb0_9adea98f",
+        "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T23:04:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a97f2d8_662d490b",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "0efa50db3fbae62b4c5b19c9968f5e0d9a0f86a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
