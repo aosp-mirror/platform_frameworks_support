@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "68ba671c_99452290",
+        "filename": "core/core/src/androidTest/java/androidx/core/view/NestedScrollingHelperIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16e93bbc_34caaefc",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be3119dc_c77322da",
         "filename": "core/core/src/androidTest/java/androidx/core/view/ViewParentCompatTest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cf1c01d_2f688476",
+        "filename": "core/core/src/androidTest/java/androidx/core/view/ViewParentCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be3119dc_c77322da",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3e6da8bb_4c68a45f",
+        "filename": "core/core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingChildTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "330abe03_379e5372",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cac74b4_4352d7bc",
         "filename": "core/core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingParent2Test.java",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddf6b67_9931d305",
+        "filename": "core/core/src/androidTest/java/androidx/core/widget/NestedScrollViewNestedScrollingParent2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cac74b4_4352d7bc",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "4ff09f98_7ee3d96b",
+        "filename": "core/core/src/androidTest/java/androidx/core/widget/NestedScrollViewScrollingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ca0fec1_12f1fab0",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef1cdcf_531f1daa",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/test/NestedScrollingParent2Adapter.java",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39a0d25_631adf6a",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/test/NestedScrollingParent2Adapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ef1cdcf_531f1daa",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "5cb7c330_7190f3c3",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewLayoutTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5650,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85efe150_821d8ddb",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7640806_de2db1f7",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingA11yScrollTest.java",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2200c3dd_df8bb0e6",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingA11yScrollTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7640806_de2db1f7",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "b3c5c63c_e7f43045",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingChildTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3ffd4bf_273bf6eb",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1742eb74_7bd033e5",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingSmoothScrollByTest.java",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b168bae_6e310517",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingSmoothScrollByTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1742eb74_7bd033e5",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "56230949_88325163",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017592da_0cc9ac5b",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e54f41b2_d991a913",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/TestedFrameLayout.java",
         "patchSetId": 1
@@ -203,6 +401,24 @@
       "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71828724_adcdde99",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/TestedFrameLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-10T16:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e54f41b2_d991a913",
+      "revId": "aea3eb6cda0c1c2862e78e2852d91afe83dd38d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
