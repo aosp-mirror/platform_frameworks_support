@@ -1,6 +1,7 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
     id("AndroidXPlugin")
@@ -14,24 +15,33 @@ android {
 }
 
 dependencies {
-    api(project(":core"))
-    api("androidx.annotation:annotation:1.1.0-rc01")
+    api("androidx.core:core:1.1.0-rc01")
+    api("androidx.annotation:annotation:1.1.0")
     api(project(":interpolator"))
-    api("androidx.collection:collection:1.1.0-rc01")
+    api("androidx.collection:collection:1.1.0")
 
-    implementation(project(":concurrent:concurrent-futures"))
+    implementation(project(":concurrent-listenablefuture"))
+    implementation(project(":concurrent-listenablefuture-callback"))
+
+    testImplementation(ANDROIDX_TEST_CORE)
+    testImplementation(ANDROIDX_TEST_RUNNER)
+    testImplementation(JUNIT)
+    testImplementation(ROBOLECTRIC)
+    testImplementation(MOCKITO_CORE)
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
     androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(project(":internal-testutils"))
 }
 
 androidx {
     name = "Android Support Custom Tabs"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.BROWSER
     mavenGroup = LibraryGroups.BROWSER
     inceptionYear = "2015"

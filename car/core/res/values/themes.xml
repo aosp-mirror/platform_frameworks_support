@@ -21,7 +21,7 @@ limitations under the License.
 
     <!-- Base style for the Car that will have dark colors for card backgrounds and light color for
          text. The colors will not change for night mode. -->
-    <style name="Theme.Car" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.Car" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:alertDialogTheme">@style/Theme.Car.Dark.Dialog.Alert</item>
         <item name="android:colorAccent">@color/car_accent</item>
@@ -37,6 +37,7 @@ limitations under the License.
         <item name="android:colorPrimaryDark">@android:color/black</item>
         <item name="android:editTextColor">@color/car_body1_light</item>
         <item name="android:editTextStyle">@style/Widget.Car.EditText</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/car_checkbox</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/car_radio_button</item>
         <item name="android:listPreferredItemHeightSmall">@dimen/car_double_line_list_item_height
@@ -229,7 +230,7 @@ limitations under the License.
     <eat-comment />
 
     <!-- Base style for dialogs provided by the car support library. -->
-    <style name="Theme.Car.Dialog" parent="Theme.AppCompat.Dialog">
+    <style name="Theme.Car.Dialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background</item>
         <item name="android:windowAnimationStyle">@style/Car.Dialog.Animation</item>
@@ -259,9 +260,9 @@ limitations under the License.
     <!-- Framework and AppCompat Dialog Themes -->
     <!-- ===================================== -->
 
-    <!-- Styles for framework and the Appcompat AlertDialog. This style will automatically
+    <!-- Styles for framework and the MaterialComponents AlertDialog. This style will automatically
          change the background color of the dialog based on the day/night mode. -->
-    <style name="Theme.Car.Dialog.Alert" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="Theme.Car.Dialog.Alert" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="android:background">@color/car_card</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored
         </item>
@@ -285,6 +286,7 @@ limitations under the License.
         <item name="buttonBarNegativeButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="listDividerAlertDialog">@drawable/car_preference_divider</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
     </style>
 
     <!-- Style for framework and the Appcompat AlertDialog that is fixed to have a light colored

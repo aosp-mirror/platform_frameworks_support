@@ -15,7 +15,9 @@
  */
 package androidx.ui.core.test
 
+import android.app.Activity
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Handler
 import android.view.PixelCopy
 import android.view.View
@@ -43,9 +45,14 @@ import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Children
 import androidx.compose.Composable
+import androidx.compose.Compose
 import androidx.compose.Model
 import androidx.compose.composer
 import androidx.compose.setContent
+import androidx.test.filters.SdkSuppress
+import androidx.ui.core.ContextAmbient
+import androidx.ui.core.Density
+import androidx.ui.core.DensityAmbient
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -81,6 +88,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Tests that simple drawing works with layered squares
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun simpleDrawTest() {
         val yellow = Color(0xFFFFFF00.toInt())
@@ -92,6 +100,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Tests that simple drawing works with draw with nested children
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun nestedDrawTest() {
         val yellow = Color(0xFFFFFF00.toInt())
@@ -103,6 +112,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Tests that recomposition works with models used within Draw components
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun recomposeDrawTest() {
         val white = Color(0xFFFFFFFF.toInt())
@@ -123,6 +133,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Tests that recomposition works with models used within Layout components
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun recomposeSizeTest() {
         val white = Color(0xFFFFFFFF.toInt())
@@ -137,6 +148,7 @@ class AndroidLayoutDrawTest {
     }
 
     // The size and color are both changed in a simpler single-color square.
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun simpleSquareColorAndSizeTest() {
         val green = Color(0xFF00FF00.toInt())
@@ -176,6 +188,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Components that aren't placed shouldn't be drawn.
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun noPlaceNoDraw() {
         val green = Color(0xFF00FF00.toInt())
@@ -216,6 +229,7 @@ class AndroidLayoutDrawTest {
     }
 
     // Make sure that draws intersperse properly with sub-layouts
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun drawOrderWithChildren() {
         val green = Color(0xFF00FF00.toInt())
@@ -382,8 +396,23 @@ class AndroidLayoutDrawTest {
         }
     }
 
+    // TODO(lmr): refactor to use the globally provided one when it lands
+    private fun Activity.compose(composable: @Composable() () -> Unit) {
+        val root = AndroidCraneView(this)
+
+        setContentView(root)
+        Compose.composeInto(root.root, context = this) {
+            ContextAmbient.Provider(value = this) {
+                DensityAmbient.Provider(value = Density(this)) {
+                    composable()
+                }
+            }
+        }
+    }
+
     // When a child's measure() is done within the layout, it should not affect the parent's
     // size. The parent's layout shouldn't be called when the child's size changes
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     @Test
     fun measureInLayoutDoesNotAffectParentSize() {
         val white = Color(0xFFFFFFFF.toInt())
@@ -394,38 +423,36 @@ class AndroidLayoutDrawTest {
 
         val layoutLatch = CountDownLatch(2)
         runOnUiThread {
-            activity.setContent {
-                CraneWrapper {
-                    Draw { canvas, parentSize ->
-                        val paint = Paint()
-                        paint.color = model.outerColor
-                        canvas.drawRect(parentSize.toRect(), paint)
-                    }
-                    Layout(children = {
-                        AtLeastSize(size = model.size) {
-                            Draw { canvas, parentSize ->
-                                drawLatch.countDown()
-                                val paint = Paint()
-                                paint.color = model.innerColor
-                                canvas.drawRect(parentSize.toRect(), paint)
-                            }
-                        }
-                    }, layoutBlock = { measurables, constraints ->
-                        measureCalls++
-                        layout(30.ipx, 30.ipx) {
-                            layoutCalls++
-                            layoutLatch.countDown()
-                            val placeable = measurables[0].measure(constraints)
-                            placeable.place(
-                                (30.ipx - placeable.width) / 2,
-                                (30.ipx - placeable.height) / 2
-                            )
-                        }
-                    })
+            activity.compose {
+                Draw { canvas, parentSize ->
+                    val paint = Paint()
+                    paint.color = model.outerColor
+                    canvas.drawRect(parentSize.toRect(), paint)
                 }
+                Layout(children = {
+                    AtLeastSize(size = model.size) {
+                        Draw { canvas, parentSize ->
+                            drawLatch.countDown()
+                            val paint = Paint()
+                            paint.color = model.innerColor
+                            canvas.drawRect(parentSize.toRect(), paint)
+                        }
+                    }
+                }, layoutBlock = { measurables, constraints ->
+                    measureCalls++
+                    layout(30.ipx, 30.ipx) {
+                        layoutCalls++
+                        layoutLatch.countDown()
+                        val placeable = measurables[0].measure(constraints)
+                        placeable.place(
+                            (30.ipx - placeable.width) / 2,
+                            (30.ipx - placeable.height) / 2
+                        )
+                    }
+                })
             }
         }
-        assertTrue(layoutLatch.await(1, TimeUnit.SECONDS))
+        assertTrue(layoutLatch.await(10, TimeUnit.SECONDS))
 
         validateSquareColors(outerColor = blue, innerColor = white, size = 10)
 
@@ -679,7 +706,6 @@ class AndroidLayoutDrawTest {
     }
 }
 
-@Suppress("TestFunctionName")
 @Composable
 fun AtLeastSize(size: IntPx, @Children children: @Composable() () -> Unit) {
     Layout(
@@ -703,15 +729,11 @@ fun AtLeastSize(size: IntPx, @Children children: @Composable() () -> Unit) {
                 placeables.forEach { child ->
                     child.place(0.ipx, 0.ipx)
                 }
-                placeables.forEach { child ->
-                    child.place(0.ipx, 0.ipx)
-                }
             }
         }, children = children
     )
 }
 
-@Suppress("TestFunctionName")
 @Composable
 fun Align(@Children children: @Composable() () -> Unit) {
     Layout(
@@ -735,15 +757,11 @@ fun Align(@Children children: @Composable() () -> Unit) {
                 placeables.forEach { child ->
                     child.place(0.ipx, 0.ipx)
                 }
-                placeables.forEach { child ->
-                    child.place(0.ipx, 0.ipx)
-                }
             }
         }, children = children
     )
 }
 
-@Suppress("TestFunctionName")
 @Composable
 fun Padding(size: IntPx, @Children children: @Composable() () -> Unit) {
     Layout(
@@ -765,9 +783,6 @@ fun Padding(size: IntPx, @Children children: @Composable() () -> Unit) {
                 maxWidth = max(child.width + totalDiff, maxWidth)
             }
             layout(maxWidth, maxHeight) {
-                placeables.forEach { child ->
-                    child.place(size, size)
-                }
                 placeables.forEach { child ->
                     child.place(size, size)
                 }

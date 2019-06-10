@@ -19,6 +19,7 @@ package androidx.build
 import androidx.benchmark.gradle.Adb
 import androidx.benchmark.gradle.LockClocksTask
 import androidx.benchmark.gradle.UnlockClocksTask
+import androidx.build.SupportConfig.BENCHMARK_INSTRUMENTATION_RUNNER
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
@@ -49,6 +50,7 @@ import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.api.ApkVariant
 import org.gradle.api.DefaultTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
@@ -91,6 +93,7 @@ class AndroidXPlugin : Plugin<Project> {
 
         val androidXExtension =
             project.extensions.create("androidx", AndroidXExtension::class.java, project)
+
         // This has to be first due to bad behavior by DiffAndDocs. It fails if this configuration
         // is called after DiffAndDocs.configureDiffAndDocs. b/129762955
         project.configureMavenArtifactUpload(androidXExtension)
@@ -105,10 +108,18 @@ class AndroidXPlugin : Plugin<Project> {
                 is JavaLibraryPlugin -> {
                     project.configureErrorProneForJava()
                     project.configureSourceJarForJava()
-                    project.convention.getPlugin<JavaPluginConvention>().apply {
-                        sourceCompatibility = VERSION_1_7
-                        targetCompatibility = VERSION_1_7
+                    val convention = project.convention.getPlugin<JavaPluginConvention>()
+                    convention.apply {
+                        sourceCompatibility = VERSION_1_8
+                        targetCompatibility = VERSION_1_8
                     }
+                    project.afterEvaluate {
+                        verifyJava7Targeting(
+                            project.version as String,
+                            convention.sourceCompatibility
+                        )
+                    }
+
                     project.hideJavadocTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     verifyDependencyVersionsTask.configure { task ->
@@ -264,6 +275,7 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
+                        "jar" == task.name ||
                     "verifyDependencyVersions" == task.name ||
                         ("lintDebug" == task.name &&
                         !project.rootProject.hasProperty("useMaxDepVersions"))) {
@@ -322,8 +334,8 @@ class AndroidXPlugin : Plugin<Project> {
                         // Substitute only for debug configurations/tasks only because we can not
                         // change release dependencies after evaluation. Test hooks, buildOnServer
                         // and buildTestApks use the debug configurations as well.
-                        if (androidXExtension.publish && configuration.name
-                                .toLowerCase().contains("debug")
+                        if (androidXExtension.publish.shouldRelease() &&
+                            configuration.name.toLowerCase().contains("debug")
                         ) {
                             configuration.resolutionStrategy.dependencySubstitution.apply {
                                 for (e in projectModules) {
@@ -341,15 +353,18 @@ class AndroidXPlugin : Plugin<Project> {
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
+        compileOptions.apply {
+            sourceCompatibility = VERSION_1_8
+            targetCompatibility = VERSION_1_8
+        }
+
         // Force AGP to use our version of JaCoCo
         jacoco.version = Jacoco.VERSION
         compileSdkVersion(COMPILE_SDK_VERSION)
         buildToolsVersion = BUILD_TOOLS_VERSION
-        // Expose the compilation SDK for use as the target SDK in test manifests.
-        defaultConfig.addManifestPlaceholders(
-                mapOf("target-sdk-version" to TARGET_SDK_VERSION))
-
-        defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
+        defaultConfig.targetSdkVersion(TARGET_SDK_VERSION)
+        defaultConfig.testInstrumentationRunner =
+            if (project.isBenchmark()) BENCHMARK_INSTRUMENTATION_RUNNER else INSTRUMENTATION_RUNNER
         testOptions.unitTests.isReturnDefaultValues = true
 
         defaultConfig.minSdkVersion(DEFAULT_MIN_SDK_VERSION)
@@ -378,8 +393,13 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+        val debugSigningConfig = signingConfigs.getByName("debug")
         // Use a local debug keystore to avoid build server issues.
-        signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(project)
+        debugSigningConfig.storeFile = SupportConfig.getKeystore(project)
+        buildTypes.all { buildType ->
+            // Sign all the builds (including release) with debug key
+            buildType.signingConfig = debugSigningConfig
+        }
 
         // Disable generating BuildConfig.java
         // TODO remove after https://issuetracker.google.com/72050365
@@ -468,14 +488,20 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
+    private fun verifyJava7Targeting(libraryVersion: String, javaVersion: JavaVersion) {
+        if (javaVersion == VERSION_1_7) {
+            if (libraryVersion.contains("alpha")) {
+                throw IllegalStateException("You moved a library that was targeting " +
+                        "Java 7 to alpha version. Please remove " +
+                        "`sourceCompatibility = VERSION_1_7` from build.gradle")
+            }
+        }
+    }
+
     private fun LibraryExtension.configureAndroidLibraryOptions(
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
-        compileOptions.apply {
-            sourceCompatibility = VERSION_1_7
-            targetCompatibility = VERSION_1_7
-        }
 
         project.configurations.all { config ->
             val isTestConfig = config.name.toLowerCase().contains("test")
@@ -496,15 +522,7 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            // Java 8 is only fully supported on API 24+ and not all Java 8 features are
-            // binary compatible with API < 24
-            val compilesAgainstJava8 = compileOptions.sourceCompatibility > VERSION_1_7 ||
-                    compileOptions.targetCompatibility > VERSION_1_7
-            val minSdkLessThan24 = defaultConfig.minSdkVersion.apiLevel < 24
-            if (compilesAgainstJava8 && minSdkLessThan24) {
-                throw IllegalArgumentException(
-                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
-            }
+            verifyJava7Targeting(project.version as String, compileOptions.sourceCompatibility)
 
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
@@ -523,14 +541,8 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun AppExtension.configureAndroidApplicationOptions(project: Project) {
         defaultConfig.apply {
-            targetSdkVersion(TARGET_SDK_VERSION)
             versionCode = 1
             versionName = "1.0"
-        }
-
-        compileOptions.apply {
-            sourceCompatibility = VERSION_1_8
-            targetCompatibility = VERSION_1_8
         }
 
         lintOptions.apply {
@@ -562,7 +574,8 @@ class AndroidXPlugin : Plugin<Project> {
     // Task that creates a json file of a project's dependencies
     private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
         afterEvaluate {
-            if (extension.publish) { // Only generate build info files for published libraries.
+            if (extension.publish.shouldRelease()) {
+                // Only generate build info files for published libraries.
                 val task = project.tasks.register(
                     "createLibraryBuildInfoFile",
                     CreateLibraryBuildInfoFileTask::class.java
@@ -603,7 +616,8 @@ class AndroidXPlugin : Plugin<Project> {
 
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
-    return name.endsWith("-benchmark")
+    // Note: also match benchmark/src/androidTest, so it gets the BENCHMARK_INSTRUMENTATION_RUNNER
+    return name.endsWith("-benchmark") || name == "benchmark"
 }
 
 fun Project.hideJavadocTask() {
@@ -620,7 +634,7 @@ fun Project.hideJavadocTask() {
 
 fun Project.addToProjectMap(extension: AndroidXExtension) {
     afterEvaluate {
-        if (extension.publish) {
+        if (extension.publish.shouldRelease()) {
             val group = extension.mavenGroup?.group
             if (group != null) {
                 val module = "$group:${project.name}"
@@ -682,7 +696,7 @@ private fun Project.configureResourceApiChecks(extension: LibraryExtension) {
                 }
             }
             tasks.withType(UpdateApiTask::class.java).configureEach { task ->
-                task.dependsOn(checkResourceApiTask)
+                task.dependsOn(updateResourceApiTask)
             }
             rootProject.tasks.named(AndroidXPlugin.BUILD_ON_SERVER_TASK).configure { task ->
                 task.dependsOn(checkResourceApiTask)
