@@ -81,6 +81,30 @@
       "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e91a516_4da97c26",
+        "filename": "benchmark/src/main/java/androidx/benchmark/MemInfo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T19:39:50Z",
+      "side": 1,
+      "message": "CpuInfo works for me - probably clearer than \"clocks\" anyway",
+      "parentUuid": "6bfa4457_2965c059",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
