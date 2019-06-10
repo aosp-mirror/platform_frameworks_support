@@ -22,10 +22,10 @@ plugins {
 }
 
 def generatedResources = "$buildDir/generated/resources"
-def prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../../prebuilts"
-def debugKeystore = "${project.projectDir.getParentFile()}/../../development/keystore/debug.keystore"
-def studio_versions = "${project.projectDir.getParentFile()}/../../buildSrc/studio_versions.properties"
-def supportRepo = "${project.projectDir.getParentFile()}/../../../../out/support/build/support_repo"
+def prebuiltsRoot = SupportConfig.getPrebuiltsRootPath(project)
+def debugKeystore = "${SupportConfig.getKeystore(project)}"
+def agpVersion = SupportConfig.getAGPVersion(project)
+def supportRepo = SupportConfig.getSupportRepoPath(project)
 
 sourceSets {
     test.resources.srcDirs += generatedResources
@@ -45,12 +45,8 @@ task generateSdkResource() {
     inputs.property("minSdkVersion", SupportConfig.DEFAULT_MIN_SDK_VERSION)
     inputs.property("debugKeystore", debugKeystore)
     inputs.property("supportRepo", supportRepo)
-    inputs.file(studio_versions)
     outputs.dir(generatedResources)
     doLast {
-        def properties = new Properties()
-        new File(studio_versions).withInputStream { properties.load(it) }
-        def agpVersion = properties.agp
         def gradleVersion = gradle.getGradleVersion()
         new File(generatedResources, "sdk.prop").withWriter('UTF-8') { writer ->
             writer.write("prebuiltsRepo=$prebuiltsRoot\n")

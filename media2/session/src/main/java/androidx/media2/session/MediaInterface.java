@@ -18,13 +18,12 @@ package androidx.media2.session;
 
 import android.view.Surface;
 
+import androidx.concurrent.ListenableFuture;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.VideoSize;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 
@@ -83,5 +82,6 @@ class MediaInterface {
         List<TrackInfo> getTrackInfo();
         ListenableFuture<PlayerResult> selectTrack(TrackInfo trackInfo);
         ListenableFuture<PlayerResult> deselectTrack(TrackInfo trackInfo);
+        TrackInfo getSelectedTrack(int trackType);
     }
 }

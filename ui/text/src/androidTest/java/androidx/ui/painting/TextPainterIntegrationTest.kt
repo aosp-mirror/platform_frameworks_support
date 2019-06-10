@@ -21,7 +21,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.FontTestData.Companion.BASIC_MEASURE_FONT
-import androidx.ui.engine.text.TextBaseline
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.font.asFontFamily
@@ -75,7 +74,7 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
         textPainter.layout()
 
@@ -88,7 +87,7 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
         textPainter.layout()
 
@@ -101,7 +100,7 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
         textPainter.layout(0.0f, 200.0f)
 
@@ -113,7 +112,7 @@ class TextPainterIntegrationTest {
         val fontSize = 20.0f
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = "Hello", style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
         textPainter.layout()
 
@@ -126,7 +125,7 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
 
         textPainter.layout()
 
@@ -135,36 +134,12 @@ class TextPainterIntegrationTest {
     }
 
     @Test
-    fun computeDistanceToActualBaseline_alphabetic() {
-        val textStyle = TextStyle(fontFamily = fontFamily)
-        val textSpan = TextSpan(style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
-
-        textPainter.layout()
-
-        assertThat(textPainter.computeDistanceToActualBaseline(TextBaseline.alphabetic))
-            .isEqualTo(textPainter.paragraph!!.alphabeticBaseline)
-    }
-
-    @Test
-    fun computeDistanceToActualBaseline_ideographic() {
-        val textStyle = TextStyle(fontFamily = fontFamily)
-        val textSpan = TextSpan(style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.RTL)
-
-        textPainter.layout()
-
-        assertThat(textPainter.computeDistanceToActualBaseline(TextBaseline.ideographic))
-            .isEqualTo(textPainter.paragraph!!.ideographicBaseline)
-    }
-
-    @Test
     fun didExceedMaxLines_exceed() {
         var text = ""
         for (i in 1..50) text += " Hello"
         val textSpan = TextSpan(text = text)
         val textPainter =
-            TextPainter(text = textSpan, textDirection = TextDirection.RTL, maxLines = 2)
+            TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
 
         textPainter.layout(0.0f, 200.0f)
 
@@ -176,7 +151,7 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textSpan = TextSpan(text = text)
         val textPainter =
-            TextPainter(text = textSpan, textDirection = TextDirection.RTL, maxLines = 2)
+            TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
 
         textPainter.layout(0.0f, 200.0f)
 
@@ -186,7 +161,7 @@ class TextPainterIntegrationTest {
     @Test
     fun layout_build_paragraph() {
         val textPainter =
-            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.LTR)
+            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.Ltr)
 
         textPainter.layout(0.0f, 20.0f)
 
@@ -201,7 +176,7 @@ class TextPainterIntegrationTest {
                 text = TextSpan(
                     text = "Hello",
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.LTR
+                ), textDirection = TextDirection.Ltr
             )
         textPainter.layout()
 
@@ -219,7 +194,7 @@ class TextPainterIntegrationTest {
                 text = TextSpan(
                     text = "Hello",
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.LTR
+                ), textDirection = TextDirection.Ltr
             )
         textPainter.layout()
 
