@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8caa6b00_779a3f55",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T16:39:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4cbd948_e80a38a0",
+      "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7f7a29f_537004ac",
         "filename": "benchmark/src/main/java/androidx/benchmark/MemInfo.kt",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfa4457_2965c059",
+        "filename": "benchmark/src/main/java/androidx/benchmark/MemInfo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T16:39:52Z",
+      "side": 1,
+      "message": "I renamed it - but a thought entered.\n\nmeminfo is the name of the file, so what if we renamed it to CpuInfo / Cpu instead? O: !!",
+      "parentUuid": "c7f7a29f_537004ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "ed4453ee0654f0445319d9a78ee6e3f3ef82b92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
