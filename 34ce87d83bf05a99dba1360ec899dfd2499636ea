@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fcf0146_91ef3b70",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-10T13:44:23Z",
+      "side": 1,
+      "message": "nit: ExpectedCount or CountExpectation.",
+      "range": {
+        "startLine": 54,
+        "startChar": 31,
+        "endLine": 54,
+        "endChar": 47
+      },
+      "revId": "34ce87d83bf05a99dba1360ec899dfd2499636ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
