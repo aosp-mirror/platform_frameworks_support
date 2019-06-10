@@ -16,6 +16,24 @@
       "revId": "536b346645a7a94e6e56dfdf683bad66be2502af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f37db912_5bb684a4",
+        "filename": "room/integration-tests/noappcompattestapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-10T23:41:53Z",
+      "side": 1,
+      "message": "You praising yourself that you create this test app with minimal dependencies? xD\nYeah, I\u0027m glad it was already setup, but we still got lucky.",
+      "parentUuid": "3b0c717b_09940e9c",
+      "revId": "536b346645a7a94e6e56dfdf683bad66be2502af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
