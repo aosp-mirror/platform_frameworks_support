@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f0db785_f1d98ce4",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T21:29:11Z",
+      "side": 1,
+      "message": "nit: a buffer that uses GapBuffer for xyz.",
+      "range": {
+        "startLine": 188,
+        "startChar": 3,
+        "endLine": 188,
+        "endChar": 39
+      },
+      "revId": "3729abb37b10f574385f3d806b47119e3d2343f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ce5fd9_69df1fbd",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T21:29:11Z",
+      "side": 1,
+      "message": "nit: move to top?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 9
+      },
+      "revId": "3729abb37b10f574385f3d806b47119e3d2343f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
