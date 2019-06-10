@@ -208,6 +208,24 @@
     },
     {
       "key": {
+        "uuid": "ae60dbea_8b764966",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-10T14:46:36Z",
+      "side": 1,
+      "message": "I think all generics are nullable by default in kotlin, but Metalava gets confused and marks it as api breakage without the @NonNull annotation.\n\nBug here is that T! should never be generated from .kt source.\n\n@NonNull is just to work around this for now, since that\u0027s one way to define generic nullity in Java I guess?",
+      "parentUuid": "570f488e_c86fc6fc",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5be4490_d18ebff5",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
