@@ -60,7 +60,6 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextAlign
@@ -70,6 +69,7 @@ import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.text.hasFontAttributes
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
+import androidx.ui.painting.Span
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -77,9 +77,9 @@ import kotlin.math.roundToInt
 const val LINE_FEED = '\n'
 
 internal class ParagraphAndroid constructor(
-    val text: StringBuilder,
+    val text: String,
     val paragraphStyle: ParagraphStyle,
-    val textStyles: List<ParagraphBuilder.TextStyleIndex>,
+    val textStyles: List<Span>,
     val typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
 ) {
 
@@ -292,7 +292,7 @@ internal class ParagraphAndroid constructor(
      * @return a pair of indices which represent the adjusted position of the paragraph span.
      */
     private fun adjustSpanPositionForParagraph(
-        text: StringBuilder,
+        text: String,
         start: Int,
         end: Int
     ): Pair<Int, Int> {
@@ -335,15 +335,15 @@ internal class ParagraphAndroid constructor(
     }
 
     private fun applyTextStyle(
-        text: StringBuilder,
-        textStyles: List<ParagraphBuilder.TextStyleIndex>
+        text: String,
+        textStyles: List<Span>
     ): CharSequence {
         if (textStyles.isEmpty()) return text
         val spannableString = SpannableString(text)
         for (textStyle in textStyles) {
             val start = textStyle.start
             val end = textStyle.end
-            val style = textStyle.textStyle
+            val style = textStyle.style.getTextStyle(1f)
 
             if (start < 0 || start >= text.length || end <= start || end > text.length) continue
 

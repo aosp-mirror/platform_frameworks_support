@@ -38,6 +38,7 @@ import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
 import androidx.ui.painting.TextPainter
+import androidx.ui.painting.toAnnotatedString
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -172,7 +173,7 @@ internal fun Text(
         label = styledText.toPlainText()
     ) {
         val textPainter = TextPainter(
-            text = styledText,
+            text = styledText.toAnnotatedString(),
             textAlign = textAlign,
             textDirection = textDirection,
             softWrap = softWrap,

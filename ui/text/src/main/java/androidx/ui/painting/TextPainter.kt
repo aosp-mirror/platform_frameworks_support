@@ -26,7 +26,6 @@ import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
@@ -100,7 +99,8 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  * @param locale The locale used to select region-specific glyphs.
  */
 class TextPainter(
-    text: TextSpan? = null,
+    text: AnnotatedString? = null,
+    textStyle: TextStyle? = null,
     textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection? = null,
     textScaleFactor: Float = 1.0f,
@@ -127,15 +127,26 @@ class TextPainter(
         private set
 
     private var overflowShader: Shader? = null
-    private var hasVisualOverflow = false
+
+    @VisibleForTesting
+    internal var hasVisualOverflow = false
+        private set
 
     private var lastMinWidth: Float = 0.0f
     private var lastMaxWidth: Float = 0.0f
 
-    var text: TextSpan? = text
+    var text: AnnotatedString? = text
         set(value) {
             if (field == value) return
-            if (field?.style != value?.style) layoutTemplate = null
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    var textStyle: TextStyle? = textStyle
+        set(value) {
+            if (field == value) return
+            layoutTemplate = null
             field = value
             paragraph = null
             needsLayout = true
@@ -207,7 +218,7 @@ class TextPainter(
             "TextPainter.textDirection must be set to a non-null value before using the " +
                     "TextPainter."
         }
-        return text?.style?.getParagraphStyle(
+        return textStyle?.getParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection ?: defaultTextDirection,
             textScaleFactor = textScaleFactor,
@@ -223,35 +234,35 @@ class TextPainter(
             locale = locale
         )
     }
-
-    /**
-     * The height of a space in [text] in logical pixels.
-     *
-     * Not every line of text in [text] will have this height, but this height is "typical" for
-     * text in [text] and useful for sizing other objects relative a typical line of text.
-     *
-     * Obtaining this value does not require calling [layout].
-     *
-     * The style of the [text] property is used to determine the font settings that contribute to
-     * the [preferredLineHeight]. If [text] is null or if it specifies no styles, the default
-     * [TextStyle] values are used (a 10 pixel sans-serif font).
-     */
-    val preferredLineHeight: Float
-        get() {
-            if (layoutTemplate == null) {
-                val builder = ParagraphBuilder(
-                    // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.Ltr)
-                ) // direction doesn't matter, text is just a space
-                if (text?.style != null) {
-                    builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
-                }
-                builder.addText(" ")
-                layoutTemplate = builder.build()
-                layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
-            }
-            return layoutTemplate!!.height
-        }
+//
+//    /**
+//     * The height of a space in [text] in logical pixels.
+//     *
+//     * Not every line of text in [text] will have this height, but this height is "typical" for
+//     * text in [text] and useful for sizing other objects relative a typical line of text.
+//     *
+//     * Obtaining this value does not require calling [layout].
+//     *
+//     * The style of the [text] property is used to determine the font settings that contribute to
+//     * the [preferredLineHeight]. If [text] is null or if it specifies no styles, the default
+//     * [TextStyle] values are used (a 10 pixel sans-serif font).
+//     */
+//    val preferredLineHeight: Float
+//        get() {
+//            if (layoutTemplate == null) {
+//                val builder = ParagraphBuilder(
+//                    // TODO(Migration/qqd): The textDirection below used to be RTL.
+//                    createParagraphStyle(TextDirection.Ltr)
+//                ) // direction doesn't matter, text is just a space
+//                if (textStyle != null) {
+//                    builder.pushStyle(textStyle!!.getTextStyle(textScaleFactor = textScaleFactor))
+//                }
+//                builder.addText(" ")
+//                layoutTemplate = builder.build()
+//                layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
+//            }
+//            return layoutTemplate!!.height
+//        }
 
     private fun assertNeedsLayout(name: String) {
         assert(!needsLayout) {
@@ -358,9 +369,7 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            val builder = ParagraphBuilder(createParagraphStyle())
-            text!!.build(builder, textScaleFactor = textScaleFactor)
-            paragraph = builder.build()
+            paragraph = Paragraph(text!!.text, createParagraphStyle(), text!!.styles)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -391,7 +400,8 @@ class TextPainter(
         hasVisualOverflow = didOverflowWidth || didOverflowHeight
         overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
             val fadeSizePainter = TextPainter(
-                text = TextSpan(style = text?.style, text = "\u2026"),
+                text = AnnotatedString(text = "\u2026", styles = listOf()),
+                textStyle = textStyle,
                 textDirection = textDirection,
                 textScaleFactor = textScaleFactor
             )

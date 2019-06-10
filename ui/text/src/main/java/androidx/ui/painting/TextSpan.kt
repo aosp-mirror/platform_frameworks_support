@@ -16,7 +16,6 @@
 
 package androidx.ui.painting
 
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.painting.basictypes.RenderComparison
@@ -44,33 +43,6 @@ class TextSpan(
     val children: MutableList<TextSpan> = mutableListOf()/*,
     val recognizer: GestureRecognizer? = null*/
 ) {
-
-    /**
-     * Apply the [style], [text], and [children] of this object to the given [ParagraphBuilder],
-     * from which a [Paragraph] can be obtained.
-     * [Paragraph] objects can be drawn on [Canvas] objects.
-     *
-     * Rather than using this directly, it's simpler to use the [TextPainter] class to paint
-     * [TextSpan] objects onto [Canvas] objects.
-     */
-    fun build(builder: ParagraphBuilder, textScaleFactor: Float = 1.0f) {
-        val hasStyle: Boolean = style != null
-        if (hasStyle) {
-            builder.pushStyle(style!!.getTextStyle(textScaleFactor))
-        }
-
-        text?.let {
-            builder.addText(it)
-        }
-
-        children.forEach {
-            it.build(builder, textScaleFactor)
-        }
-
-        if (hasStyle) {
-            builder.pop()
-        }
-    }
 
     /**
      * Walks this text span and its descendants in pre-order and calls [visitor]

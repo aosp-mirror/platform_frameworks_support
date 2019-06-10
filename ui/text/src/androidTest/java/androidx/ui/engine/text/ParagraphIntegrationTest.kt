@@ -34,6 +34,8 @@ import androidx.ui.graphics.Color
 import androidx.ui.painting.Path
 import androidx.ui.painting.PathOperation
 import androidx.ui.painting.Shadow
+import androidx.ui.painting.Span
+import androidx.ui.painting.TextStyle
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.not
 import org.junit.Assert.assertThat
@@ -75,7 +77,7 @@ class ParagraphIntegrationTest {
     @Test
     fun empty_string() {
         val fontSize = 50.0f
-        val text = StringBuilder("")
+        val text = ""
         val paragraph = simpleParagraph(text = text, fontSize = fontSize)
 
         paragraph.layout(ParagraphConstraints(width = 100.0f))
@@ -482,7 +484,7 @@ class ParagraphIntegrationTest {
 
         val bitmaps = locales.map { locale ->
             val paragraph = Paragraph(
-                text = StringBuilder(text),
+                text = text,
                 textStyles = listOf(),
                 paragraphStyle = ParagraphStyle(
                     fontSize = fontSize,
@@ -507,7 +509,7 @@ class ParagraphIntegrationTest {
     fun locale_isDefaultLocaleIfNotProvided() {
         val text = "abc"
         val paragraph = Paragraph(
-            text = StringBuilder(text),
+            text = text,
             textStyles = listOf(),
             paragraphStyle = ParagraphStyle()
         )
@@ -525,7 +527,7 @@ class ParagraphIntegrationTest {
         val locale = Locale(_languageCode = "en", _countryCode = "US")
         val text = "abc"
         val paragraph = Paragraph(
-            text = StringBuilder(text),
+            text = text,
             textStyles = listOf(),
             paragraphStyle = ParagraphStyle(
                 locale = locale
@@ -542,7 +544,7 @@ class ParagraphIntegrationTest {
         val locale = Locale(_languageCode = "ja", _countryCode = "JP")
         val text = "abc"
         val paragraph = Paragraph(
-            text = StringBuilder(text),
+            text = text,
             textStyles = listOf(),
             paragraphStyle = ParagraphStyle(
                 locale = locale
@@ -559,7 +561,7 @@ class ParagraphIntegrationTest {
         val locale = Locale(_languageCode = "ja")
         val text = "abc"
         val paragraph = Paragraph(
-            text = StringBuilder(text),
+            text = text,
             textStyles = listOf(),
             paragraphStyle = ParagraphStyle(
                 locale = locale
@@ -1021,7 +1023,7 @@ class ParagraphIntegrationTest {
     @Test(expected = IllegalArgumentException::class)
     fun lineHeight_whenNegative_throwsIAE() {
         Paragraph(
-            text = StringBuilder(""),
+            text = "",
             textStyles = listOf(),
             paragraphStyle = ParagraphStyle(
                 lineHeight = -1.0f
@@ -1038,7 +1040,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(Span(textStyle, 0, text.length))
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
         val paragraphImpl = paragraph.paragraphImpl
@@ -1059,7 +1061,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length)),
+            textStyles = listOf(Span(textStyle, 0, "abc".length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1085,8 +1087,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                Span(textStyle, 0, text.length),
+                Span(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1108,7 +1110,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)),
+            textStyles = listOf(Span(textStyle, 0, text.length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
@@ -1133,8 +1135,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleNested, 0, text.length)
+                Span(textStyle, 0, text.length),
+                Span(textStyleNested, 0, text.length)
             ),
             fontSize = fontSize
         )
@@ -1161,8 +1163,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle, 0, text.length)
+                Span(fontSizeStyle, 0, text.length),
+                Span(fontSizeScaleStyle, 0, text.length)
             ),
             fontSize = paragraphFontSize
         )
@@ -1189,8 +1191,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length)
+                Span(fontSizeScaleStyle, 0, text.length),
+                Span(fontSizeStyle, 0, text.length)
             ),
             fontSize = paragraphFontSize
         )
@@ -1220,9 +1222,9 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle1, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle2, 0, text.length)
+                Span(fontSizeScaleStyle1, 0, text.length),
+                Span(fontSizeStyle, 0, text.length),
+                Span(fontSizeScaleStyle2, 0, text.length)
             ),
             fontSize = paragraphFontSize
         )
@@ -1245,7 +1247,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)),
+            textStyles = listOf(Span(textStyle, 0, text.length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1270,7 +1272,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length)),
+            textStyles = listOf(Span(textStyle, 0, "abc".length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1298,8 +1300,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                Span(textStyle, 0, text.length),
+                Span(textStyleOverwrite, 0, "abc".length)
             ),
             fontSize = fontSize
         )
@@ -1325,7 +1327,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)),
+            textStyles = listOf(Span(textStyle, 0, text.length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1351,7 +1353,7 @@ class ParagraphIntegrationTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "a b".length)),
+            textStyles = listOf(Span(textStyle, 0, "a b".length)),
             fontSize = fontSize
         )
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
@@ -1382,8 +1384,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "a b".length)
+                Span(textStyle, 0, text.length),
+                Span(textStyleOverwrite, 0, "a b".length)
             ),
             fontSize = fontSize
         )
@@ -1409,8 +1411,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = textStyle,
+                Span(
+                    style = textStyle,
                     start = 0,
                     end = text.length
                 )
@@ -1439,8 +1441,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = textStyle,
+                Span(
+                    style = textStyle,
                     start = 0,
                     end = text.length
                 )
@@ -1475,8 +1477,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = textStyle,
+                Span(
+                    style = textStyle,
                     start = 0,
                     end = text.length
                 )
@@ -1505,8 +1507,8 @@ class ParagraphIntegrationTest {
             val paragraph = simpleParagraph(
                 text = text,
                 textStyles = listOf(
-                    ParagraphBuilder.TextStyleIndex(
-                        textStyle = TextStyle(textAlign = TextAlign.Left),
+                    Span(
+                        style = TextStyle(textAlign = TextAlign.Left),
                         start = 0,
                         end = text.length
                     )
@@ -1529,8 +1531,8 @@ class ParagraphIntegrationTest {
             val paragraph = simpleParagraph(
                 text = text,
                 textStyles = listOf(
-                    ParagraphBuilder.TextStyleIndex(
-                        textStyle = TextStyle(textAlign = TextAlign.Right),
+                    Span(
+                        style = TextStyle(textAlign = TextAlign.Right),
                         start = 0,
                         end = text.length
                     )
@@ -1553,8 +1555,8 @@ class ParagraphIntegrationTest {
             val paragraph = simpleParagraph(
                 text = text,
                 textStyles = listOf(
-                    ParagraphBuilder.TextStyleIndex(
-                        textStyle = TextStyle(textAlign = TextAlign.Center),
+                    Span(
+                        style = TextStyle(textAlign = TextAlign.Center),
                         start = 0,
                         end = text.length
                     )
@@ -1581,8 +1583,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = TextStyle(textAlign = TextAlign.Start),
+                Span(
+                    style = TextStyle(textAlign = TextAlign.Start),
                     start = 0,
                     end = text.length
                 )
@@ -1603,8 +1605,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = TextStyle(textAlign = TextAlign.End),
+                Span(
+                    style = TextStyle(textAlign = TextAlign.End),
                     start = 0,
                     end = text.length
                 )
@@ -1625,8 +1627,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = TextStyle(textAlign = TextAlign.Start),
+                Span(
+                    style = TextStyle(textAlign = TextAlign.Start),
                     start = 0,
                     end = text.length
                 )
@@ -1647,8 +1649,8 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
-                    textStyle = TextStyle(textAlign = TextAlign.End),
+                Span(
+                    style = TextStyle(textAlign = TextAlign.End),
                     start = 0,
                     end = text.length
                 )
@@ -1674,7 +1676,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, "a".length, text.length)
+                Span(textStyle, "a".length, text.length)
             ),
             fontSize = fontSize,
             fontFamily = fontFamilyCustom100
@@ -1696,7 +1698,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, "aA".length)
+                Span(textStyle, 0, "aA".length)
             ),
             fontSize = fontSize,
             fontFamily = fontFamilyKernFont
@@ -1720,7 +1722,7 @@ class ParagraphIntegrationTest {
         val paragraphShadow = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)
+                Span(textStyle, 0, text.length)
             )
         )
         paragraphShadow.layout(ParagraphConstraints(width = paragraphWidth))
@@ -2059,17 +2061,17 @@ class ParagraphIntegrationTest {
     }
 
     private fun simpleParagraph(
-        text: CharSequence = "",
+        text: String = "",
         textAlign: TextAlign? = null,
         textDirection: TextDirection? = null,
         fontSize: Float? = null,
         maxLines: Int? = null,
         lineHeight: Float? = null,
-        textStyles: List<ParagraphBuilder.TextStyleIndex> = listOf(),
+        textStyles: List<Span> = listOf(),
         fontFamily: FontFamily = fontFamilyMeasureFont
     ): Paragraph {
         return Paragraph(
-            text = StringBuilder(text),
+            text = text,
             textStyles = textStyles,
             paragraphStyle = ParagraphStyle(
                 textAlign = textAlign,

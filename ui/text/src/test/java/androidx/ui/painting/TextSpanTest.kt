@@ -17,7 +17,6 @@
 package androidx.ui.painting
 
 // import androidx.ui.core.Duration
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextPosition
@@ -81,65 +80,6 @@ class TextSpanTest {
 
         assertThat(textSpan.recognizer).isEqualTo(recognizer)
     }*/
-
-    @Test
-    fun `build without style`() {
-        val textSpan = TextSpan()
-        val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
-
-        textSpan.build(mockBuilder)
-
-        verify(mockBuilder, times(0)).pushStyle(androidx.ui.engine.text.TextStyle())
-        verify(mockBuilder, times(0)).pop()
-    }
-
-    @Test
-    fun `build with style`() {
-        val textStyle = TextStyle(fontSize = 10.0f, height = 123.0f)
-        val textSpan = TextSpan(style = textStyle)
-        val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
-
-        textSpan.build(mockBuilder)
-
-        verify(mockBuilder, times(1)).pushStyle(textStyle.getTextStyle())
-        verify(mockBuilder, times(1)).pop()
-    }
-
-    @Test
-    fun `build with neither text nor children`() {
-        val textSpan = TextSpan()
-        val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
-
-        textSpan.build(mockBuilder)
-
-        verify(mockBuilder, times(0)).addText(anyString())
-    }
-
-    @Test
-    fun `build with text`() {
-        val string = "Hello"
-        val textSpan = TextSpan(text = string)
-        val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
-
-        textSpan.build(mockBuilder)
-
-        verify(mockBuilder, times(1)).addText(string)
-    }
-
-    @Test
-    fun `build with children`() {
-        val string1 = "Hello"
-        val string2 = "World"
-        val textSpan1 = TextSpan(text = string1)
-        val textSpan2 = TextSpan(text = string2, children = mutableListOf(TextSpan(text = "abc")))
-        val textSpan = TextSpan(children = mutableListOf(textSpan1, textSpan2))
-        val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
-
-        textSpan.build(mockBuilder)
-
-        verify(mockBuilder, times(1)).addText(string1)
-        verify(mockBuilder, times(1)).addText(string2)
-    }
 
     @Test
     fun `visitTextSpan with neither text nor children should return true`() {

@@ -386,6 +386,10 @@ package androidx.ui.painting {
     method public androidx.ui.engine.text.ParagraphStyle createParagraphStyle(androidx.ui.engine.text.TextDirection? defaultTextDirection = null);
     method public kotlin.Pair<androidx.ui.engine.geometry.Offset,androidx.ui.engine.geometry.Offset> getCaretForTextPosition(androidx.ui.engine.text.TextPosition position);
     method public boolean getDidExceedMaxLines();
+<<<<<<< HEAD
+=======
+    method public boolean getHasVisualOverflow();
+>>>>>>> Add annotatedStirng
     method public float getHeight();
     method public androidx.ui.engine.window.Locale? getLocale();
     method public float getMaxIntrinsicWidth();
@@ -403,19 +407,35 @@ package androidx.ui.painting {
     method public float getTextScaleFactor();
     method public float getWidth();
     method public androidx.ui.services.text_editing.TextRange getWordBoundary(androidx.ui.engine.text.TextPosition position);
+<<<<<<< HEAD
     method public void layout(androidx.ui.core.Constraints constraints);
     method public void paint(androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
     method public void paintSelection(androidx.ui.services.text_editing.TextSelection selection, androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
+=======
+    method public void paint(androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
+    method public void paintSelection(androidx.ui.services.text_editing.TextSelection selection, androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
+    method public void performLayout(androidx.ui.core.Constraints constraints);
+    method public void setHasVisualOverflow(boolean p);
+    method public void setLayoutTemplate(androidx.ui.engine.text.Paragraph? p);
+>>>>>>> Add annotatedStirng
     method public void setLocale(androidx.ui.engine.window.Locale? value);
     method public void setMaxLines(Integer? value);
     method public void setOverflow(androidx.ui.rendering.paragraph.TextOverflow? value);
     method public void setSelectionColor(androidx.ui.graphics.Color p);
+<<<<<<< HEAD
+=======
+    method public void setSize(androidx.ui.engine.geometry.Size p);
+>>>>>>> Add annotatedStirng
     method public void setSoftWrap(boolean value);
     method public void setText(androidx.ui.painting.TextSpan? value);
     method public void setTextAlign(androidx.ui.engine.text.TextAlign value);
     method public void setTextDirection(androidx.ui.engine.text.TextDirection? value);
     method public void setTextScaleFactor(float value);
     property public final boolean didExceedMaxLines;
+<<<<<<< HEAD
+=======
+    property public final boolean hasVisualOverflow;
+>>>>>>> Add annotatedStirng
     property public final float height;
     property public final androidx.ui.engine.window.Locale? locale;
     property public final float maxIntrinsicWidth;
