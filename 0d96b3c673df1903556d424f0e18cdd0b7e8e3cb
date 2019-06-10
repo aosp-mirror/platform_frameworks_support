@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c644a20e_90c771fa",
+        "filename": "benchmark/gradle-plugin/kotlin-dsl-dependency.gradle.kts",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T15:53:54Z",
+      "side": 1,
+      "message": "remove second copyright",
+      "revId": "0d96b3c673df1903556d424f0e18cdd0b7e8e3cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
