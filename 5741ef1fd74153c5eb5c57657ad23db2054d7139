@@ -118,6 +118,30 @@
       "revId": "5741ef1fd74153c5eb5c57657ad23db2054d7139",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95393acb_c697fc2b",
+        "filename": "instrumentation/instrumentation-agent/src/main/java/androidx/instrumentation/agent/Agent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-10T22:28:22Z",
+      "side": 1,
+      "message": "hmm that is bad :/. not sure what to do about it but seems like we have to solve it OR use pure java w/o any dependencies. Or at least we can assume kotlin dependency. But again, if our kotlin dependency is newer, it might be an issue :/.\nI\u0027ll unblock this CL but i don\u0027t think we can write a reasonable infra w/o relying on any 3rd party lib so we need to address that problem sooner or later.\n+1 for solving it in the design doc.",
+      "parentUuid": "fe993638_81e70af1",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "5741ef1fd74153c5eb5c57657ad23db2054d7139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
