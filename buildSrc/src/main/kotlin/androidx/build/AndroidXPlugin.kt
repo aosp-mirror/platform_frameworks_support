@@ -182,13 +182,10 @@ class AndroidXPlugin : Plugin<Project> {
                         project.name == "lifecycle-runtime-ktx" ||
                         project.name == "lifecycle-livedata-ktx" ||
                         project.name == "work-runtime-ktx" || // b/130582237
-                        project.name == "room-compiler" || // b/130580662
-                        project.name == "room-testapp-kotlin" || // b/130643290
                         project.name == "activity" ||
                         project.name == "camera-testapp-timing" ||
                         project.name == "fragment-testing" ||
-                        project.name == "benchmark" ||
-                        project.name == "navigation-safe-args-gradle-plugin") {
+                        project.name == "benchmark") {
                         return@all
                     }
                     project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->

@@ -31,6 +31,7 @@ class EntityWithJavaPojoList {
     var pojoList: List<JavaPojo>? = null
 }
 
+@Suppress("UNUSED_PARAMETER") // params analyzed by annotation processor for a test
 class CategoryListConverter {
 
     @TypeConverter
