@@ -34,6 +34,57 @@
       "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba6e3b5f_b9f4ff54",
+        "filename": "loader/loader-ktx/src/androidTest/java/androidx/loader/app/LoaderManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T13:06:52Z",
+      "side": 1,
+      "message": "InstrumentationRegistry will give you a context if you feel like eliminating Mockito",
+      "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e121082b_834e0ddc",
+        "filename": "loader/loader-ktx/src/main/java/androidx/loader/app/LoaderManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T13:06:52Z",
+      "side": 1,
+      "message": "reified isn\u0027t required for this implementation.\n\n`Any?` is the default upper bound so you could omit it",
+      "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a4291a_2867cf67",
+        "filename": "loader/loader-ktx/src/main/java/androidx/loader/app/LoaderManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T13:06:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
