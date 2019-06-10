@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94e5b14d_0eb3ba5c",
+        "filename": "benchmark/src/main/java/androidx/benchmark/CpuInfo.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T21:21:58Z",
+      "side": 1,
+      "message": "CpuInfo.areLocked doesn\u0027t make as much sense, how about just \u0027locked\u0027?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "4a2f72276c925c9f6bed8f85e068eae722b8a48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
