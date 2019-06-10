@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d1a1fd5_ac9edf54",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-10T06:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eac2522_434f986a",
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b159756c_89c927a0",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 10
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "683de5e9_fdcb88e2",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-10T06:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b159756c_89c927a0",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab0ab960_3dbc0a85",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 10
@@ -56,6 +98,24 @@
       "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61377a0b_a81a8b64",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-10T06:41:37Z",
+      "side": 1,
+      "message": "Done. Fixed.",
+      "parentUuid": "ab0ab960_3dbc0a85",
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "babcde67_008eb25a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-10T06:41:37Z",
+      "side": 1,
+      "message": "Yes, users can say \"bar\" and \"\u0027bar\u0027\" work the same for a TEXT column.",
+      "parentUuid": "fc4ecbe9_d1f6c301",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72867220_7aae8f2a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
         "patchSetId": 10
@@ -102,6 +186,30 @@
       "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c446ce_020e549d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/FieldProcessor.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-10T06:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72867220_7aae8f2a",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "6afcee1b4324e95ba79dfff509e09160de84b320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
