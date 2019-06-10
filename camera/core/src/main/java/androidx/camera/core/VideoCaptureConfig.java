@@ -815,6 +815,12 @@ public final class VideoCaptureConfig
          * the provided {@link Rational} corresponds to the width, and the denominator corresponds
          * to the height.
          *
+         * <p>The aspect ratio is used as a hint and the resulting aspect ratio may differ from the
+         * request, possibly due to device constraints.  Application code should check the resulting
+         * output's resolution.
+         *
+         * <p>For VideoCapture the target is the output video file.
+         *
          * @param aspectRatio A {@link Rational} representing the ratio of the target's width and
          *                    height.
          * @return The current Builder.
