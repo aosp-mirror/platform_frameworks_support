@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "b94eab30_d6dfd7d2",
+        "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T21:17:10Z",
+      "side": 1,
+      "message": "since one of them is called GapBuffer and the Other is called PartialGapBuffer; and since the javadoc says a modified GapBuffer I thought they are related classes doing the same thing in different ways.",
+      "parentUuid": "6f1081f0_654a8d2f",
+      "range": {
+        "startLine": 195,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 31
+      },
+      "revId": "8c8c3499350f41a12cf0ccd3e65708a6409f3f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db949b68_034ba568",
         "filename": "ui/core/src/main/java/androidx/ui/input/GapBuffer.kt",
         "patchSetId": 1
