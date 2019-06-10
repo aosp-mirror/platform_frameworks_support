@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96e2510f_01fa93ab",
+        "filename": "instrumentation/instrumentation-agent/src/main/java/androidx/instrumentation/agent/Agent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-10T20:28:29Z",
+      "side": 1,
+      "message": "i think you can use kotlin here since it will be a separate artifact for projects. also i think this project will need some async work so having support for coroutines would make it easier.",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "5741ef1fd74153c5eb5c57657ad23db2054d7139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
