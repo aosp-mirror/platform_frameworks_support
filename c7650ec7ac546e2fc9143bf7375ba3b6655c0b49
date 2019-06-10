@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94218a5d_155bb774",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "what is startOffset a Rect?",
+      "range": {
+        "startLine": 123,
+        "startChar": 59,
+        "endLine": 123,
+        "endChar": 70
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93778a3_0b43ae20",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "I feel like there are too many classes in the same file. maybe we should create separate files now?",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b875462a_9e7a1301",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "Rect does not feel right. if this is temporary (I do not know why it should be temporary) please  mark it as temporary,\nSince this is public how will the dev create a Selection object, in other words how will they know about the rect?",
+      "range": {
+        "startLine": 43,
+        "startChar": 21,
+        "endLine": 43,
+        "endChar": 25
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bda8e55_ea7ac8ff",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "move to top of the class.",
+      "range": {
+        "startLine": 123,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead8c1bc_1def67f4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "you should read how it is handled in android right now. or add a TODO.",
+      "range": {
+        "startLine": 127,
+        "startChar": 38,
+        "endLine": 127,
+        "endChar": 78
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec48aa62_a865af91",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "can selection be null? if so shall we add an early return that makes sure it is not null after that point?\n(both in here and in the beginCoordinates you call selection? or selection!!)",
+      "range": {
+        "startLine": 137,
+        "startChar": 25,
+        "endLine": 137,
+        "endChar": 34
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80756323_e3a33614",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "what is the difference between beginLayoutCoordinates and beginCoordinates? Shall we rename this one of add some comment?",
+      "range": {
+        "startLine": 141,
+        "startChar": 20,
+        "endLine": 141,
+        "endChar": 36
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d4cda0_f3501735",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "shall we have a check for this one at the begining of the function? \nin what cases can it be null?",
+      "range": {
+        "startLine": 150,
+        "startChar": 36,
+        "endLine": 150,
+        "endChar": 62
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539948a2_11662ede",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "seems like also this function makes assumptions about both selection and containerLayoutCoordinates. \nif we are expecting them not to be null we should add an input validation at this point, and throw an exception or some kind of defined behavior.",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfbc8001_5a9beccf",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 46
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42f0661_42e3b881",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-10T20:27:07Z",
+      "side": 1,
+      "message": "as far as I remember this was problematic. (I forgot if it was related to RTL selection or Bidi selection )",
+      "range": {
+        "startLine": 228,
+        "startChar": 25,
+        "endLine": 228,
+        "endChar": 67
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
