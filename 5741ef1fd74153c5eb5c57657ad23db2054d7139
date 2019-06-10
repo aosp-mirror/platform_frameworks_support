@@ -22,6 +22,30 @@
       "revId": "5741ef1fd74153c5eb5c57657ad23db2054d7139",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af7457ca_3f5af9aa",
+        "filename": "instrumentation/instrumentation-agent/src/main/java/androidx/instrumentation/agent/Agent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-10T20:40:13Z",
+      "side": 1,
+      "message": "Unfortunately deps are huge pain \u003d( My current understanding:\nLet say your app depends on coroutines version X and agent lib on version Y.  Current idea is to inject agent in runtime, so you have to:\nOption A: have a separate classloader with your own version: that will lead to the whole bunch of issue when same class comes from different classloaders. \nOption B: Somehow detect a library in the app and hope it is good enough...\n\nSo I wanted to start with keeping dependencies as slim as possible: you can use only transient dependencies from a library you inspect.",
+      "parentUuid": "96e2510f_01fa93ab",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "5741ef1fd74153c5eb5c57657ad23db2054d7139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
