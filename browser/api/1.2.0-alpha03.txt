@@ -88,7 +88,8 @@ package androidx.browser.customtabs {
     method public android.os.Bundle! extraCommand(String!, android.os.Bundle!);
     method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String!>?);
     method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?, boolean);
-    method public androidx.browser.customtabs.CustomTabsSession! newSession(androidx.browser.customtabs.CustomTabsCallback!);
+    method public androidx.browser.customtabs.CustomTabsSession! newSession(androidx.browser.customtabs.CustomTabsCallback?);
+    method public androidx.browser.customtabs.CustomTabsSession? newSession(androidx.browser.customtabs.CustomTabsCallback?, int);
     method public boolean warmup(long);
   }
 

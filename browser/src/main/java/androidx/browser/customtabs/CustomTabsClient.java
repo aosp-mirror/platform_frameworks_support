@@ -195,7 +195,7 @@ public class CustomTabsClient {
      *         Null on error.
      * TODO(peconn): Mark as @Nullable, prompting API change.
      */
-    public CustomTabsSession newSession(final CustomTabsCallback callback) {
+    public CustomTabsSession newSession(@Nullable final CustomTabsCallback callback) {
         return newSessionInternal(callback, null);
     }
 
@@ -208,15 +208,15 @@ public class CustomTabsClient {
      * @param callback The callback through which the client will receive updates about the created
      *                 session. Can be null. All the callbacks will be received on the UI thread.
      * @param id The session id. If the session with the specified id already exists,
-     *           updates callback.
+     *           the new callback is supplied to that session and further attempts to launch URLs
+     *           using that session will update the existing Custom Tab instead of launching a new
+     *           one.
      * @return The session object that was created as a result of the transaction. The client can
      *         use this to relay session specific calls.
      *         Null on error.
-     *
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public @Nullable CustomTabsSession newSession(final CustomTabsCallback callback, int id) {
+    public @Nullable CustomTabsSession newSession(@Nullable final CustomTabsCallback callback,
+            int id) {
         return newSessionInternal(callback, createSessionId(mApplicationContext, id));
     }
 
