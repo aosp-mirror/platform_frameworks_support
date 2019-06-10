@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "f070b5c1_55f27c82",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T15:39:08Z",
+      "side": 1,
+      "message": "Report member vars should match json naming, so they\u0027re easy to understand",
+      "revId": "4c318c5f4c9580b9b1412737f07b577ac161d438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eb21982_f415a968",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T15:39:08Z",
+      "side": 1,
+      "message": "param name should match json naming",
+      "range": {
+        "startLine": 437,
+        "startChar": 32,
+        "endLine": 437,
+        "endChar": 39
+      },
+      "revId": "4c318c5f4c9580b9b1412737f07b577ac161d438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d59f022_ec6d7c67",
         "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
         "patchSetId": 5
@@ -37,6 +77,30 @@
       "side": 1,
       "message": "I think chris is going to have an opinion on what this is called and whether we want to include this at all, so going to wait for his input here.",
       "parentUuid": "3d59f022_ec6d7c67",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 72
+      },
+      "revId": "4c318c5f4c9580b9b1412737f07b577ac161d438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "446cfbe2_fe171f7a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-10T15:39:08Z",
+      "side": 1,
+      "message": "I like the idea of reporting seconds. While it would be nice to have everything in the same units, sleep time is going to be treated *very differently* from results. If this is in NS, it\u0027s just going to be harder to understand while writing infra around this.\n\nOnly problem is it will look weird with our naming convention:\n\n   \u0027thermalThrottleBackoffSleepS\u0027\n\nhow about (since we don\u0027t want to make it any longer):\n\n    \u0027thermalThrottleSleepSeconds\u0027",
+      "parentUuid": "22610737_47bd8eab",
       "range": {
         "startLine": 93,
         "startChar": 0,
