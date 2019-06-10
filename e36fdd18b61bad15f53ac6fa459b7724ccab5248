@@ -226,6 +226,24 @@
     },
     {
       "key": {
+        "uuid": "146e7033_6c9b9923",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-10T15:12:45Z",
+      "side": 1,
+      "message": "The default upper bound for a generic is Any?, but you can change that to Any if a nullable type isn\u0027t a valid value. This should make all the use-sites non-null, and also allow you to use T? anywhere you do want to accept null.",
+      "parentUuid": "ae60dbea_8b764966",
+      "revId": "e36fdd18b61bad15f53ac6fa459b7724ccab5248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5be4490_d18ebff5",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 41
