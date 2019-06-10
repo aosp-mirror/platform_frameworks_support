@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b0c717b_09940e9c",
+        "filename": "room/integration-tests/noappcompattestapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-10T23:30:40Z",
+      "side": 1,
+      "message": "it is amazing we had this test :)",
+      "revId": "536b346645a7a94e6e56dfdf683bad66be2502af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
