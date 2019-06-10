@@ -16,6 +16,24 @@
       "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf6fe17_aedca018",
+        "filename": "loader/loader-ktx/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-10T04:53:22Z",
+      "side": 1,
+      "message": "I\u0027m okay with Jake having OWNERS for -ktx modules. I\u0027m still owners for the root loader directory, so this is more of an \u0027also-Jake\u0027 than an only owner situation.",
+      "parentUuid": "065eff39_7ff45938",
+      "revId": "e24028c3e4295e253ec51e40557538011b0ed412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
