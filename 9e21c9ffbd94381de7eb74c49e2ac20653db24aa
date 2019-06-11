@@ -164,6 +164,30 @@
       "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aba81ba_24b600b2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-06-11T21:00:25Z",
+      "side": 1,
+      "message": "Reworded for clarity PTAL at new patchset.",
+      "parentUuid": "06fe647b_a20cb598",
+      "range": {
+        "startLine": 540,
+        "startChar": 14,
+        "endLine": 541,
+        "endChar": 62
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
