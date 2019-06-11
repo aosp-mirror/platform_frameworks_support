@@ -27,7 +27,6 @@ import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
@@ -101,7 +100,8 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  * @param locale The locale used to select region-specific glyphs.
  */
 class TextPainter(
-    text: TextSpan? = null,
+    text: AnnotatedString? = null,
+    style: TextStyle? = null,
     textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection? = null,
     textScaleFactor: Float = 1.0f,
@@ -136,10 +136,18 @@ class TextPainter(
     private var lastMinWidth: Float = 0.0f
     private var lastMaxWidth: Float = 0.0f
 
-    var text: TextSpan? = text
+    var text: AnnotatedString? = text
         set(value) {
             if (field == value) return
-            if (field?.style != value?.style) layoutTemplate = null
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    var textStyle: TextStyle? = style
+        set(value) {
+            if (field == value) return
+            layoutTemplate = null
             field = value
             paragraph = null
             needsLayout = true
@@ -211,14 +219,13 @@ class TextPainter(
             "TextPainter.textDirection must be set to a non-null value before using the " +
                     "TextPainter."
         }
-        return text?.style?.getParagraphStyle(
+        return textStyle?.getParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection ?: defaultTextDirection,
             textScaleFactor = textScaleFactor,
             maxLines = maxLines,
             ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
-
         ) ?: ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection ?: defaultTextDirection,
@@ -237,21 +244,19 @@ class TextPainter(
      * Obtaining this value does not require calling [layout].
      *
      * The style of the [text] property is used to determine the font settings that contribute to
-     * the [preferredLineHeight]. If [text] is null or if it specifies no styles, the default
+     * the [preferredLineHeight]. If [text] is null or if it specifies no markUps, the default
      * [TextStyle] values are used (a 10 pixel sans-serif font).
      */
     val preferredLineHeight: Float
         get() {
             if (layoutTemplate == null) {
-                val builder = ParagraphBuilder(
-                    // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.Ltr)
-                ) // direction doesn't matter, text is just a space
-                if (text?.style != null) {
-                    builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
-                }
-                builder.addText(" ")
-                layoutTemplate = builder.build()
+                // TODO(Migration/qqd): The textDirection below used to be RTL.
+                layoutTemplate = Paragraph(
+                    text = " ",
+                    // direction doesn't matter, text is just a space
+                    paragraphStyle = createParagraphStyle(TextDirection.Ltr),
+                    markUps = textStyle?.let { listOf(MarkUp(it, 0, 1)) } ?: listOf<MarkUp>()
+                )
                 layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
             }
             return layoutTemplate!!.height
@@ -362,9 +367,7 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            val builder = ParagraphBuilder(createParagraphStyle())
-            text!!.build(builder, textScaleFactor = textScaleFactor)
-            paragraph = builder.build()
+            paragraph = Paragraph(text!!.text, createParagraphStyle(), text!!.markUps)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -395,7 +398,8 @@ class TextPainter(
         hasVisualOverflow = didOverflowWidth || didOverflowHeight
         overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
             val fadeSizePainter = TextPainter(
-                text = TextSpan(style = text?.style, text = "\u2026"),
+                text = AnnotatedString(text = "\u2026", markUps = listOf()),
+                style = textStyle,
                 textDirection = textDirection,
                 textScaleFactor = textScaleFactor
             )

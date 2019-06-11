@@ -139,9 +139,9 @@ data class TextStyle(
     }
 
     /**
-     * Interpolate between two text styles.
+     * Interpolate between two text markUps.
      *
-     * This will not work well if the styles don't set the same fields.
+     * This will not work well if the markUps don't set the same fields.
      *
      * The `t` argument represents position on the timeline, with 0.0 meaning that the interpolation
      * has not started, returning `a` (or something equivalent to `a`), 1.0 meaning that the
@@ -270,6 +270,7 @@ data class TextStyle(
             baselineShift = baselineShift,
             textGeometricTransform = textGeometricTransform,
             textAlign = textAlign,
+            textIndent = textIndent,
             height = height,
             locale = locale,
             background = background,
