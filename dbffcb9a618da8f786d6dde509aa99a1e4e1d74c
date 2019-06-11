@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "284559c2_a20a2022",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-11T00:27:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c53ce070_af6f15a8",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "dbffcb9a618da8f786d6dde509aa99a1e4e1d74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec0f5759_069a7314",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-10T22:50:21Z",
       "side": 1,
       "message": "If there is not a strong reason to have text related classes in ui-core lets move them into ui-text.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "dbffcb9a618da8f786d6dde509aa99a1e4e1d74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c945cdc2_529d3256",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-11T00:27:31Z",
+      "side": 1,
+      "message": "For recording: We agreed that current code location is not ideal but at the same time we need to reorganize the whole package structure.\nSince this block the editing implementation, I\u0027ll move to ui-core tentatively until we reorganize the package structure.",
+      "parentUuid": "ec0f5759_069a7314",
       "range": {
         "startLine": 9,
         "startChar": 4,
@@ -68,6 +116,30 @@
       "revId": "dbffcb9a618da8f786d6dde509aa99a1e4e1d74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3939c36_9d6709bf",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/InputEventListener.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-11T00:27:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "505883f6_e2bcbf1e",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "dbffcb9a618da8f786d6dde509aa99a1e4e1d74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
