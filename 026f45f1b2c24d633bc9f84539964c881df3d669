@@ -16,6 +16,24 @@
       "revId": "026f45f1b2c24d633bc9f84539964c881df3d669",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e67db9_d4746849",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-11T23:30:42Z",
+      "side": 1,
+      "message": "I left this for Shep to implement. I know your implementation is better than this, but I didn\u0027t copy it because I thought it may be more difficult for Shep to change.",
+      "parentUuid": "aab979a1_ed768d31",
+      "revId": "026f45f1b2c24d633bc9f84539964c881df3d669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
