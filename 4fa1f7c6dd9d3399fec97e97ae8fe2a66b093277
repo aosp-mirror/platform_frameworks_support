@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22588205_03f3faa6",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-11T18:55:01Z",
+      "side": 1,
+      "message": "this fails the build, should be same as needsLayout etc.",
+      "range": {
+        "startLine": 130,
+        "startChar": 3,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "4fa1f7c6dd9d3399fec97e97ae8fe2a66b093277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
