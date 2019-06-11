@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac52fa41_ed30f392",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "You are definitely correct here. Done.\n\nI also switched everything else here that has a similar issue (submitList, getItem, etc.).",
+      "parentUuid": "717e0d8d_4ca70871",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39bcb2f0_687ab19a",
         "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
         "patchSetId": 11
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "3d3f8ff7_4fd47256",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "Out of curiosity, why is it necessary to shadow the name? ktlint actually complains about shadowing the name.",
+      "parentUuid": "ee45a5cd_622ff6e8",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a78e28f_b5e2af13",
         "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
         "patchSetId": 11
@@ -106,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "93ae985d_ae995aee",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33bbe3b7_2397a425",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "023ea355_03262ee0",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
         "patchSetId": 11
@@ -117,6 +171,24 @@
       "writtenOn": "2019-06-07T21:05:45Z",
       "side": 1,
       "message": "val?",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e2bd7d_c79ef38a",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "Do you mean create a backing val? This overrides recyclerView\u0027s getItemCount so it has to be a fun.",
+      "parentUuid": "023ea355_03262ee0",
       "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -140,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "1f40c3f2_5d517e8d",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b13aef5_ce412976",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c13c0f35_8515c236",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
         "patchSetId": 11
@@ -154,6 +244,24 @@
       "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69910258_f938213b",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T03:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13c0f35_8515c236",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
