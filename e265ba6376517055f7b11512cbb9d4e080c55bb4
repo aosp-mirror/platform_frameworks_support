@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b1b003f8_80158055",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T20:54:26Z",
+      "side": 1,
+      "message": "But this means that we will have logic to filter out cameras in 2 places. Either within the CameraFactory class or using CameraFilter.\n\nThis makes it harder to reason about if there are multiple places where a camera selection is made.",
+      "parentUuid": "d3ac6194_cf372464",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7f699e4_783758ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 4
