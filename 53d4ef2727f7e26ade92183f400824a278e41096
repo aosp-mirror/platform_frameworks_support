@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae211fa6_eb625f5a",
+        "filename": "camera/integration-tests/extensionstestapp/src/androidTest/java/androidx/camera/integration/extensions/idlingresource/ElapsedTimeIdlingResource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-11T18:09:44Z",
+      "side": 1,
+      "message": "The IdlingResource documentation says specifically to not call onTransitionToIdle() from isIdleNow(). See: https://developer.android.com/training/testing/espresso/idling-resource#create-own\n\nCan you instead start a timer or post a future message to signal idle with a Handler or ScheduledExecutorService?",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "53d4ef2727f7e26ade92183f400824a278e41096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
