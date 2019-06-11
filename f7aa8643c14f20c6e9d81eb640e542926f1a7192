@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90dc2fe7_7bd3c763",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-11T21:47:53Z",
+      "side": 1,
+      "message": "I recommend \"Setting this property indicates\"",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 79,
+        "endChar": 21
+      },
+      "revId": "f7aa8643c14f20c6e9d81eb640e542926f1a7192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
