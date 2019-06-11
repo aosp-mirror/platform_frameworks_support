@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "557700c5_39464093",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Yes. For now temporarily.",
+      "parentUuid": "94218a5d_155bb774",
+      "range": {
+        "startLine": 123,
+        "startChar": 59,
+        "endLine": 123,
+        "endChar": 70
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b93778a3_0b43ae20",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 27
@@ -45,6 +69,30 @@
       "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312ab6e9_7508e0e8",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b93778a3_0b43ae20",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5f865b9a_783644b8",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b875462a_9e7a1301",
+      "range": {
+        "startLine": 43,
+        "startChar": 21,
+        "endLine": 43,
+        "endChar": 25
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bda8e55_ea7ac8ff",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 27
@@ -91,6 +163,30 @@
       "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eac2237_6653a4b2",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bda8e55_ea7ac8ff",
+      "range": {
+        "startLine": 123,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "21c92494_8fe36413",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ead8c1bc_1def67f4",
+      "range": {
+        "startLine": 127,
+        "startChar": 38,
+        "endLine": 127,
+        "endChar": 78
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec48aa62_a865af91",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 27
@@ -137,6 +257,30 @@
       "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250d566e_95c450ff",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Selection can\u0027t be null here. If selection is null, the selection handle will not show, and the drag gesture on selection handle will not be triggered.",
+      "parentUuid": "ec48aa62_a865af91",
+      "range": {
+        "startLine": 137,
+        "startChar": 25,
+        "endLine": 137,
+        "endChar": 34
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e38f3811_4d145aa9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "This is based on the name -- LayoutCoordinates. \nCoordinates is the position of the handle, LayoutCoordinates is the coordinate of a layout in parent/grandparent layout, which is used for coordinates conversion. I can add comment.",
+      "parentUuid": "80756323_e3a33614",
+      "range": {
+        "startLine": 141,
+        "startChar": 20,
+        "endLine": 141,
+        "endChar": 36
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50d4cda0_f3501735",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 27
@@ -183,6 +351,30 @@
       "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47234b7f_9f2b5756",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "non-null",
+      "parentUuid": "50d4cda0_f3501735",
+      "range": {
+        "startLine": 150,
+        "startChar": 36,
+        "endLine": 150,
+        "endChar": 62
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "a3bd127f_dc7d91c1",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "added !!\n\nThe selection cannot be null here.",
+      "parentUuid": "539948a2_11662ede",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfbc8001_5a9beccf",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 27
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "022e1385_60d11b99",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfbc8001_5a9beccf",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 46
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d42f0661_42e3b881",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 27
@@ -252,6 +492,30 @@
       "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619ac3aa_677f8b4b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T00:08:07Z",
+      "side": 1,
+      "message": "Ack. \nI think\u0027s bidi. The direction of the little flag on the cursor will change when selection move across the ltr/rtl boundary.",
+      "parentUuid": "d42f0661_42e3b881",
+      "range": {
+        "startLine": 228,
+        "startChar": 25,
+        "endLine": 228,
+        "endChar": 67
+      },
+      "revId": "c7650ec7ac546e2fc9143bf7375ba3b6655c0b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
