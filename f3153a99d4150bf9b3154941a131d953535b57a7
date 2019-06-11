@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32041e1e_e6abf99d",
+        "filename": "lifecycle/extensions/src/androidTest/java/androidx/lifecycle/FragmentOperationsLifecycleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-11T18:28:27Z",
+      "side": 1,
+      "message": "Nit: your version history would be a bit cleaner if this was in the same location as the old anyEvent() function.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 9
+      },
+      "revId": "f3153a99d4150bf9b3154941a131d953535b57a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
