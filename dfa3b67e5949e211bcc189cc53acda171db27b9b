@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c23ac27_b2387750",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-11T09:09:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdb88d4f_b156f27f",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 198,
+        "endChar": 28
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b33fa542_6830a541",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "352e03a2_f763b950",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-11T09:09:33Z",
+      "side": 1,
+      "message": "Unique per client application - added to javadoc.",
+      "parentUuid": "b33fa542_6830a541",
+      "range": {
+        "startLine": 210,
+        "startChar": 57,
+        "endLine": 210,
+        "endChar": 84
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b237801e_200db93c",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fa7fbc_0f68f30b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-06-11T09:09:33Z",
+      "side": 1,
+      "message": "No, all id\u0027s are valid, calling the newSession overload that doesn\u0027t provide an id (the one above) is different from calling this method with some default id.",
+      "parentUuid": "b237801e_200db93c",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 18
+      },
+      "revId": "dfa3b67e5949e211bcc189cc53acda171db27b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
