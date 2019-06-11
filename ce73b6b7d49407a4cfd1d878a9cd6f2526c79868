@@ -34,6 +34,24 @@
       "revId": "ce73b6b7d49407a4cfd1d878a9cd6f2526c79868",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef80c9cb_b47aedaa",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-11T00:48:39Z",
+      "side": 1,
+      "message": "Did make this change a little blindly. Will explore if we want to move to generic scroll events and implement in a separate CL if we decide to do so.",
+      "parentUuid": "9fc66a61_f3ce3c28",
+      "revId": "ce73b6b7d49407a4cfd1d878a9cd6f2526c79868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
