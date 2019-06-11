@@ -329,9 +329,7 @@ final class CameraXModule {
             throw new IllegalArgumentException("OnImageSavedListener should not be empty");
         }
 
-        ImageCapture.Metadata metadata = new ImageCapture.Metadata();
-        metadata.isReversedHorizontal = mCameraLensFacing == LensFacing.FRONT;
-        mImageCapture.takePicture(saveLocation, listener, metadata);
+        mImageCapture.takePicture(saveLocation, listener);
     }
 
     public void startRecording(File file, final OnVideoSavedListener listener) {
