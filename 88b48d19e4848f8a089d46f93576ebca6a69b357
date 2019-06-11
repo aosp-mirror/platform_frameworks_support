@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c680761_c3470edf",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:25:16Z",
+      "side": 1,
+      "message": "Java doc might fail,\nyou can test by the following command:\n/////////////\n./gradlew tipOfTreeDocsTask\n/////////////",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704119e1_38740c44",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:25:16Z",
+      "side": 1,
+      "message": "I would suggest not to use the class name to identify the effect target, since Proguard might change the class name.\n\nSome constant would be better to check the extender type, such like ExtensionManager.EffectMode.HDR.name(), \nand maybe we can get the effectMode by:\n//////////////\ninit(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation, EffectMode effectMode) {\n    String enabledEffectName \u003d effectMode.name(); \n}\n///////////////////\n\n\nAnd we can remove some code like \n///////////////////\ngetClass().toString().replace(\"ImageCapture\", \"Preview\");\n///////////////////",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10dd0aa5_a9fc8296",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:25:16Z",
+      "side": 1,
+      "message": "Ah, Sorry, I would suggest this call keep in static.\nA static adapter with clearly functionality would be easier for testing.\n\nMaybe we can change the  void checkPreviewEnabled() to \n\"static checkPreviewEnabled(EffectMode effectMode)\"\n\nImageCaptureAdapter constructor to \n\"ImageCaptureAdapter(ImageCaptureExtenderImpl impl, EffectMode effectMode)\"\n\nand we can keep the ImageCaptureAdapter class independently.",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
