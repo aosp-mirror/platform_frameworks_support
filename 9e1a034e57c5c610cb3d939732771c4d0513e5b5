@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eb22c1b_39e7ad08",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-11T23:57:29Z",
+      "side": 1,
+      "message": "Can this be part of the dialog themes like \"Theme.Car.Dark.Dialog\"?",
+      "revId": "9e1a034e57c5c610cb3d939732771c4d0513e5b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
