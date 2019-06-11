@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88ccd7ed_4072a16b",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T17:52:31Z",
+      "side": 1,
+      "message": "Can you move the verify to here and have timeout for the verify?\n\nThis way you don\u0027t have to make a sleep call. This will minimize the test run time and not have unnecessary waits.",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff015988_4e935f0c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T17:52:31Z",
+      "side": 1,
+      "message": "See above regarding verify \u0026 sleep.",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b800f61d_b0669e3b",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T17:52:31Z",
+      "side": 1,
+      "message": "Can you move the verify to here and have timeout for the verify?\n\nThis way you don\u0027t have to make a sleep call. This will minimize the test run time and not have unnecessary waits.",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

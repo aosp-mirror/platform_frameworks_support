@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee04a3c8_4c6e8a0a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T17:52:31Z",
+      "side": 0,
+      "message": "Instead of removing this, it\u0027d probably be good to check mConfig.getMaxCaptureStages()",
+      "revId": "81f9f549132e86d2829be80048e8fad53b7ed5c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
