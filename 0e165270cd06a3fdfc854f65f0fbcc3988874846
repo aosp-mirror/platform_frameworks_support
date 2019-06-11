@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ce4362_ace5718b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-11T15:58:16Z",
+      "side": 1,
+      "message": "You forgot to run `./gradlew updateApi` as current.txt does not reflect this.",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 20
+      },
+      "revId": "0e165270cd06a3fdfc854f65f0fbcc3988874846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
