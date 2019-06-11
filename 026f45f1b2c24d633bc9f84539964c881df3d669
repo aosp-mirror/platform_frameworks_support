@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aab979a1_ed768d31",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-11T20:21:58Z",
+      "side": 1,
+      "message": "Why just the last one here? Shouldn\u0027t we be looking for the top left bounding box of all layout children?",
+      "revId": "026f45f1b2c24d633bc9f84539964c881df3d669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
