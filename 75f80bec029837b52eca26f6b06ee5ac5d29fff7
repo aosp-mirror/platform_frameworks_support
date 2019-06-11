@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd9a27f5_9bbce0ea",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/SessionConfigTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T21:01:21Z",
+      "side": 1,
+      "message": "Should probably add a test for when combining 2 sessions result in an invalid set.",
+      "revId": "75f80bec029837b52eca26f6b06ee5ac5d29fff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
