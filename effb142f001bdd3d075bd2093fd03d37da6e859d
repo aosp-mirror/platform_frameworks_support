@@ -22,6 +22,30 @@
       "revId": "effb142f001bdd3d075bd2093fd03d37da6e859d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "003ebe95_09c8eb9f",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-11T22:37:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2988fabf_a7195981",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "effb142f001bdd3d075bd2093fd03d37da6e859d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

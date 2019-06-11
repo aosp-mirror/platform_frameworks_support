@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fefaa35f_128574bc",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-11T22:37:20Z",
+      "side": 1,
+      "message": "I don\u0027t feel suuuper great about this setter but without some refactor it is an easy way to get the configuration into the open helper. Its somewhat fair game too since users can @Override init(), get the configuration and also inject it into their custom open helper.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
