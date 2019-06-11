@@ -96,6 +96,7 @@ limitations under the License.
         <item name="selectableItemBackgroundBorderless">
             @drawable/car_button_ripple_background_light
         </item>
+        <item name="selectionDialogButtonStyle">@style/Widget.Car.SelectionDialog.Button</item>
         <item name="switchStyle">@style/Widget.Car.Switch</item>
         <item name="toolbarNavigationButtonStyle">
             @style/Widget.Car.Toolbar.Button.Navigation.Light
