@@ -17,6 +17,7 @@ package androidx.ui.core
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.graphics.RenderNode
 import android.os.Build
 import android.os.Looper
 import android.os.Trace
@@ -220,11 +221,11 @@ class AndroidCraneView constructor(context: Context)
         if (node.ownerData != null) throw IllegalStateException()
 
         if (node is RepaintBoundaryNode) {
-            val ownerData = // if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            val ownerData = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 RepaintBoundaryView(this, node)
-//            } else {
-//                RepaintBoundaryRenderNode(this, node)
-//            }
+            } else {
+                RepaintBoundaryRenderNode(this, node)
+            }
             node.ownerData = ownerData
             ownerData.attach(node.parent?.repaintBoundary?.container)
         }
@@ -751,7 +752,6 @@ private class RepaintBoundaryView(
 /**
  * RenderNode implemenation of RepaintBoundary.
  */
-/* This RenderNode implementation is untested, but the framework is here
 @TargetApi(29)
 private class RepaintBoundaryRenderNode(
     val ownerView: AndroidCraneView,
@@ -793,12 +793,13 @@ private class RepaintBoundaryRenderNode(
     }
 
     override fun callDraw(canvas: Canvas) {
-        if (canvas.isHardwareAccelerated()) {
+        val androidCanvas = canvas.nativeCanvas
+        if (androidCanvas.isHardwareAccelerated) {
             updateDisplayList()
-            canvas.drawRenderNode(renderNode)
+            androidCanvas.drawRenderNode(renderNode)
         } else {
             canvas.save()
-            canvas.translate(renderNode.left, renderNode.top)
+            canvas.translate(renderNode.left.toFloat(), renderNode.top.toFloat())
             drawChildren(canvas)
             canvas.restore()
         }
@@ -807,8 +808,8 @@ private class RepaintBoundaryRenderNode(
     override fun updateDisplayList() {
         if (dirty || !renderNode.hasDisplayList()) {
             val uiCanvas = Canvas(renderNode.beginRecording())
-            uiCanvas.translate(-repaintBoundaryNode.x.value.toFloat(),
-                -repaintBoundaryNode.y.value.toFloat())
+            uiCanvas.translate(-repaintBoundaryNode.layoutX.value.toFloat(),
+                -repaintBoundaryNode.layoutY.value.toFloat())
             drawChildren(uiCanvas)
             renderNode.endRecording()
             dirty = false
@@ -825,6 +826,5 @@ private class RepaintBoundaryRenderNode(
         }
     }
 }
-*/
 
 private val RepaintBoundaryNode.container: RepaintBoundary get() = ownerData as RepaintBoundary
