@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd446da0_0046a23d",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:32:15Z",
+      "side": 1,
+      "message": "If we only need to test bindToLifeCycle()\n\nwe can remove \n///////////////////////////////////\nContext context \u003d ApplicationProvider.getApplicationContext();\n        CameraDeviceSurfaceManager surfaceManager \u003d new FakeCameraDeviceSurfaceManager();\n        ExtendableUseCaseConfigFactory defaultConfigFactory \u003d new ExtendableUseCaseConfigFactory();\n        defaultConfigFactory.installDefaultProvider(FakeUseCaseConfig.class,\n                new ConfigProvider\u003cFakeUseCaseConfig\u003e() {\n                    @Override\n                    public FakeUseCaseConfig getConfig(CameraX.LensFacing lensFacing) {\n                        return new FakeUseCaseConfig.Builder().build();\n                    }\n                });\n        AppConfig.Builder appConfigBuilder \u003d\n                new AppConfig.Builder()\n                        .setCameraFactory(sCameraFactory)\n                        .setDeviceSurfaceManager(surfaceManager)\n                        .setUseCaseConfigFactory(defaultConfigFactory);\n\n        // CameraX.init will actually init just once across all test cases. However we need to get\n        // the real CameraFactory instance being injected into the init process.  So here we store\n        // the CameraFactory instance in static fields.\n        CameraX.init(context, appConfigBuilder.build());\n///////////////////////////////////\n\n\n\nand then remove\n/////////////////////////\nprivate static FakeCameraFactory sCameraFactory \u003d new FakeCameraFactory();\n\n    static {\n        String cameraId \u003d sCameraFactory.cameraIdForLensFacing(LensFacing.BACK);\n        sCameraFactory.insertCamera(cameraId,\n                new FakeCamera(new FakeCameraInfo(), mock(CameraControl.class)));\n    }\n//////////////////////////",
+      "revId": "f0902114dd25dd3d9ee9157ccf000bcd292bd4e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da87f0e_c499c1f2",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:32:15Z",
+      "side": 1,
+      "message": "nit:\nWe can use assertTrue directly.",
+      "revId": "f0902114dd25dd3d9ee9157ccf000bcd292bd4e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd55c209_35381be9",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:32:15Z",
+      "side": 1,
+      "message": "nit:\nWe can use assertTrue directly.",
+      "revId": "f0902114dd25dd3d9ee9157ccf000bcd292bd4e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18aeb305_e7681975",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T12:32:15Z",
+      "side": 1,
+      "message": "nit:\nWe can use assertFalse directly.",
+      "revId": "f0902114dd25dd3d9ee9157ccf000bcd292bd4e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
