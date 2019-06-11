@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e694f5f_a89bac76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-11T18:51:25Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "d3cd3777bea1d46078ed32f2408a3f641c11b1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
