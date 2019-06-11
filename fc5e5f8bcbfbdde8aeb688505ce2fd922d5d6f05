@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5573d6e0_684f5840",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/VerifyDependencyVersionsTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-11T20:30:51Z",
+      "side": 1,
+      "message": "I recommend consolidating this and https://android.googlesource.com/platform/frameworks/support/+/d7e1aa7ff2ab7530f403f6d2741a93160640dd9f/buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt#272 into a method to guard against spelling mistakes (but it also seems reasonable to me to submit this first and consolidate it later)",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 72
+      },
+      "revId": "fc5e5f8bcbfbdde8aeb688505ce2fd922d5d6f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
