@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c46a99b_aaff2a8e",
+        "filename": "paging/rxjava2/api/2.2.0-alpha01.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-11T23:31:10Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1682eb1_d403a49c",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-11T23:31:10Z",
+      "side": 1,
+      "message": "dataSourceFactory.create() should be non-null",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0bb634_200e8566",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-11T23:31:10Z",
+      "side": 1,
+      "message": "look for ways to avoid !! whenever you can :D",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
