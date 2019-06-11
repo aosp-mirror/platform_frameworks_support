@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ce0c28_9eeb407d",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T09:23:40Z",
+      "side": 1,
+      "message": "nit:\nverify(mTestParameters0.mSessionStateCallback)",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "488078e0_cb145da8",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T09:23:40Z",
+      "side": 1,
+      "message": "nit: \nverify(mTestParameters0.mSessionCameraCaptureCallback, timeout(3000).atLeastOnce())",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e49c8a2_3e4feba1",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T09:23:40Z",
+      "side": 1,
+      "message": "nit:\nverify(mTestParameters0.mCameraCaptureCallback, timeout(3000))",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a8f5ff_d461d7f3",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-11T09:23:40Z",
+      "side": 1,
+      "message": "nit:\nFirst word capitalization",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
