@@ -121,11 +121,13 @@ class AndroidXPlugin : Plugin<Project> {
 
                     project.hideJavadocTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    verifyDependencyVersionsTask.configure { task ->
+                    verifyDependencyVersionsTask?.configure { task ->
                         task.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
                     }
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
-                    project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
+                    if (verifyDependencyVersionsTask != null) {
+                        project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
+                    }
                     project.configureNonAndroidProjectForLint(androidXExtension)
                     project.configureJavaProjectForDokka(androidXExtension)
                     project.configureJavaProjectForMetalava(androidXExtension)
@@ -151,10 +153,14 @@ class AndroidXPlugin : Plugin<Project> {
                             it.dependsOn(libraryVariant.javaCompileProvider)
                         }
                     }
-                    project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
-                        checkNoWarningsTask))
+                    val checkReleaseReadyTasks =
+                        mutableListOf<TaskProvider<out Task>>(checkNoWarningsTask)
+                    if (verifyDependencyVersionsTask != null) {
+                        checkReleaseReadyTasks.add(verifyDependencyVersionsTask)
+                    }
+                    project.createCheckReleaseReadyTask(checkReleaseReadyTasks)
                     extension.libraryVariants.all { libraryVariant ->
-                        verifyDependencyVersionsTask.configure { task ->
+                        verifyDependencyVersionsTask?.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
                         project.gradle.taskGraph.whenReady { executionGraph ->
@@ -559,7 +565,15 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.createVerifyDependencyVersionsTask():
-            TaskProvider<VerifyDependencyVersionsTask> {
+            TaskProvider<VerifyDependencyVersionsTask>? {
+        /**
+         * Ignore --PuseMaxDepVersions when verifying dependency versions because it is a
+         * hypothetical build which is only intended to check for forward compatibility.
+         */
+        if (project.hasProperty("useMaxDepVersions")) {
+            return null
+        }
+
         return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
     }
