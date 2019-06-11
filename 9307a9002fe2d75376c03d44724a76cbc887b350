@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80bf4942_a2fc1540",
+        "filename": "core/core/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 2316,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-11T18:55:12Z",
+      "side": 1,
+      "message": "New guideline is toWindowInsets / static toWindowInsetsCompat, see:\nhttps://g3doc.corp.google.com/company/teams/androidx/api_guidelines.md#wrapper",
+      "range": {
+        "startLine": 2316,
+        "startChar": 69,
+        "endLine": 2316,
+        "endChar": 75
+      },
+      "revId": "9307a9002fe2d75376c03d44724a76cbc887b350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
