@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3d9a97_5a61fe4e",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T19:34:11Z",
+      "side": 1,
+      "message": "Why is this named this way?\n\nI\u0027d assume this is testing for the values for a single request, but the test seems to be for the values of the callback.",
+      "revId": "817adc7e4e8207b406e8a2eb1af9a852a284719d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73141c26_9a4f7dc6",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-11T19:34:11Z",
+      "side": 1,
+      "message": "nit: remove extra newline",
+      "revId": "817adc7e4e8207b406e8a2eb1af9a852a284719d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
