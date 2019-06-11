@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c099c7df_8fa4a096",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-11T17:45:04Z",
+      "side": 1,
+      "message": "Should move assertions to the end so that the test follows the \u0027arrange-act-assert\u0027 structure.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "ba1f2b21e6549d1a00e3790c8c5b470ab12bc31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b8ca37_7212f7d3",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/MetadataImageReaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-11T17:45:04Z",
+      "side": 1,
+      "message": "It looks like you have a race here. Since onImageAvailable() is called on a separate thread, the atomic may not have been updated by the time you reach this assertion. You should wait for the looper to idle before asserting.",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 50
+      },
+      "revId": "ba1f2b21e6549d1a00e3790c8c5b470ab12bc31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
