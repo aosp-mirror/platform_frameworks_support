@@ -15,7 +15,6 @@
  */
 package androidx.ui.core
 
-import android.content.Context
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
@@ -41,7 +40,9 @@ import androidx.ui.core.selection.Selection
 import androidx.ui.core.selection.SelectionRegistrarAmbient
 import androidx.ui.core.selection.TextSelectionHandler
 import androidx.ui.engine.text.TextAffinity
+import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.TextPainter
+import androidx.ui.painting.toAnnotatedString
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -90,13 +91,8 @@ fun Text(
     compose(rootTextSpan, ref, child)
     +onDispose { disposeComposition(rootTextSpan, ref) }
 
-    // TODO This is a temporary workaround due to lack of textStyle parameter of Text.
-    val textSpan = if (rootTextSpan.children.size == 1) {
-        rootTextSpan.children[0]
-    } else {
-        rootTextSpan
-    }
     Text(
+        style = rootTextSpan.style,
         textAlign = textAlign,
         textDirection = textDirection,
         softWrap = softWrap,
@@ -104,21 +100,22 @@ fun Text(
         textScaleFactor = textScaleFactor,
         maxLines = maxLines,
         selectionColor = selectionColor,
-        text = textSpan
+        text = rootTextSpan.toAnnotatedString(includeRootStyle = false)
     )
 }
 
 /**
  * Text Widget Crane version.
  *
- * The Text widget displays text that uses multiple different styles. The text to display is
+ * The Text widget displays text that uses multiple different markUps. The text to display is
  * described using a tree of [TextSpan] objects, each of which has an associated style that is used
  * for that subtree. The text might break across multiple lines or might all be displayed on the
  * same line depending on the layout constraints.
  */
 // TODO(migration/qqd): Add tests when text widget system is mature and testable.
 @Composable
-internal fun Text(
+fun Text(
+    style: TextStyle? = null,
     /** How the text should be aligned horizontally. */
     textAlign: TextAlign = DefaultTextAlign,
     /** The directionality of the text. */
@@ -148,35 +145,25 @@ internal fun Text(
     /**
      * Composable TextSpan attached after [text].
      */
-    text: TextSpan
+    text: AnnotatedString
 ) {
-    val context = composer.composer.context
     val internalSelection = +state<TextSelection?> { null }
     val registrar = +ambient(SelectionRegistrarAmbient)
     val layoutCoordinates = +state<LayoutCoordinates?> { null }
 
-    fun attachContextToFont(
-        text: TextSpan,
-        context: Context
-    ) {
-        text.visitTextSpan() {
-            it.style?.fontFamily?.let {
-                it.context = context
-            }
-            true
-        }
-    }
+    val themeStyle = +ambient(CurrentTextStyleAmbient)
+    val mergedStyle = themeStyle.merge(style)
 
-    val style = +ambient(CurrentTextStyleAmbient)
-    val mergedStyle = style.merge(text.style)
-    // Make a wrapper to avoid modifying the style on the original element
-    val styledText = TextSpan(style = mergedStyle, children = mutableListOf(text))
+    // TODO(Migration/siyamed): This is temporary and should be removed when resource
+    //  system is resolved.
+    val context = composer.composer.context
+    mergedStyle.fontFamily?.context = context
+    text.markUps.forEach { it.style.fontFamily?.context = context }
 
-    Semantics(
-        label = styledText.toPlainText()
-    ) {
+    Semantics(label = text.text) {
         val textPainter = TextPainter(
-            text = styledText,
+            text = text,
+            style = mergedStyle,
             textAlign = textAlign,
             textDirection = textDirection,
             softWrap = softWrap,
@@ -185,10 +172,6 @@ internal fun Text(
             maxLines = maxLines,
             selectionColor = selectionColor
         )
-        // TODO(Migration/siyamed): This is temporary and should be removed when resource
-        // system is resolved.
-        attachContextToFont(styledText, context)
-
         val children = @Composable {
             // Get the layout coordinates of the text widget. This is for hit test of cross-widget
             // selection.
@@ -278,6 +261,7 @@ fun Text(
     maxLines: Int? = DefaultMaxLines
 ) {
     Text(
+        style = style,
         textAlign = textAlign,
         textDirection = textDirection,
         softWrap = softWrap,
@@ -285,7 +269,7 @@ fun Text(
         textScaleFactor = 1.0f,
         maxLines = maxLines,
         selectionColor = DefaultSelectionColor,
-        text = TextSpan(text = text, style = style)
+        text = AnnotatedString(text)
     )
 }
 

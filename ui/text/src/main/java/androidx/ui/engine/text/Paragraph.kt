@@ -20,6 +20,7 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.platform.ParagraphAndroid
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
+import androidx.ui.painting.MarkUp
 import androidx.ui.services.text_editing.TextRange
 
 /**
@@ -40,9 +41,9 @@ import androidx.ui.services.text_editing.TextRange
  */
 //
 class Paragraph internal constructor(
-    val text: StringBuilder,
+    val text: String,
     val paragraphStyle: ParagraphStyle,
-    internal val textStyles: List<ParagraphBuilder.TextStyleIndex>
+    internal val markUps: List<MarkUp>
 ) {
     private var needsLayout = true
     /** increased visibility for testing **/
@@ -104,7 +105,7 @@ class Paragraph internal constructor(
         if (paragraphStyle.lineHeight != null && paragraphStyle.lineHeight < 0.0f) {
             throw IllegalArgumentException("lineHeight can't be negative")
         }
-        paragraphImpl = ParagraphAndroid(text, paragraphStyle, textStyles)
+        paragraphImpl = ParagraphAndroid(text, paragraphStyle, markUps)
     }
 
     // void Paragraph::SetFontCollection(

@@ -270,6 +270,7 @@ data class TextStyle(
             baselineShift = baselineShift,
             textGeometricTransform = textGeometricTransform,
             textAlign = textAlign,
+            textIndent = textIndent,
             height = height,
             locale = locale,
             background = background,
