@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2e3d77e2_cc807398",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T22:30:07Z",
+      "side": 1,
+      "message": "Tracking this separately as a follow-up. https://b.corp.google.com/issues/134963731",
+      "parentUuid": "0533b489_fc21679c",
+      "revId": "278920e63a92ad10fd1a007dd06fa2f3e58c6f57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0916b7a9_788436f0",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
         "patchSetId": 14
@@ -70,6 +88,24 @@
       "writtenOn": "2019-06-11T20:11:29Z",
       "side": 1,
       "message": "why is this * instead of `T : Any`? are we going with the simplest way to write it, over duplicating the non-nullability of the generic type in this extension?\n\nsince PagedStorage only makes sense with non-null generics, this may not matter (since it\u0027s enforced at the PagedStorage level), and it may be fine as is",
+      "revId": "278920e63a92ad10fd1a007dd06fa2f3e58c6f57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7d8152e_b2d945f4",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-11T22:30:07Z",
+      "side": 1,
+      "message": "This is from the original implementation which never specified a generic for PagedStorage. I realize that old and new list should probably share the same generic type, but doing so would technically change the API.",
+      "parentUuid": "4270555a_428988a4",
       "revId": "278920e63a92ad10fd1a007dd06fa2f3e58c6f57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
