@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "995928ec_f40719cf",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-06-11T18:39:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae9ae520_d364ed0b",
+      "range": {
+        "startLine": 628,
+        "startChar": 52,
+        "endLine": 628,
+        "endChar": 53
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95fe89e6_cf377adc",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "38613ade_08323be1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-06-11T18:39:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95fe89e6_cf377adc",
+      "range": {
+        "startLine": 776,
+        "startChar": 50,
+        "endLine": 776,
+        "endChar": 68
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fedb2ae_24981eae",
         "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-10T22:25:48Z",
       "side": 1,
       "message": "I always thought of the target as being more abstract than this. For Preview, for instance, I thought of the target as being the on-screen viewfinder. This would mean the target is more like the final destination, which is why the intermediates that we provide may not exactly match the requested aspect ratio, but we provide all the data needed to make the final output have the target aspect ratio.",
+      "range": {
+        "startLine": 540,
+        "startChar": 14,
+        "endLine": 541,
+        "endChar": 62
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "355280e0_745c86bf",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-06-11T18:39:48Z",
+      "side": 1,
+      "message": "If the current code just decides the surface texture resolution,.I\u0027m thinking until we have more functionality we may as well just be specific.",
+      "parentUuid": "1fedb2ae_24981eae",
       "range": {
         "startLine": 540,
         "startChar": 14,
