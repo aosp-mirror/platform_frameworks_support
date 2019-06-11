@@ -140,6 +140,30 @@
       "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06fe647b_a20cb598",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-11T20:30:36Z",
+      "side": 1,
+      "message": "I know we don\u0027t have the functionality yet, but I\u0027m afraid to conflate the concepts of \u0027preview output\u0027 and \u0027target\u0027 as it could cause more confusion if we decide to change it later. I think the distinction needs to exist because we can\u0027t always make the SurfaceTexture (the \u0027output\u0027)  match the exact aspect ratio requested (the \u0027target\u0027). We do choose the SurfaceTexture aspect ratio based on the target aspect ratio, but we are choosing it in a way that it can be adjusted to match the target with minimal effort and loss of quality.\n\nA bad analogy would be making a reservation at a restaurant. If you tell the restaurant you are targeting a table for 7 people, the restaurant will likely give you a table that can seat 8 and they will remove a placesetting so it matches your target of 7. In our code we are just missing the part where we remove the extra placesetting for the user; instead we are asking them to do it themselves. But that doesn\u0027t mean the table we give them is the same thing as their target.\n\nI\u0027m also open to renaming the API if we can think of a clearer way to make this distinction.",
+      "parentUuid": "355280e0_745c86bf",
+      "range": {
+        "startLine": 540,
+        "startChar": 14,
+        "endLine": 541,
+        "endChar": 62
+      },
+      "revId": "9e21c9ffbd94381de7eb74c49e2ac20653db24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
