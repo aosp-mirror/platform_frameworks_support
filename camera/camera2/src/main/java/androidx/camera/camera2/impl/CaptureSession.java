@@ -322,7 +322,7 @@ final class CaptureSession {
      * <p>Once a session is released it can no longer be opened again. After the session is released
      * all method calls on it do nothing.
      */
-    ListenableFuture<Void> release() {
+    ListenableFuture<Void> release(boolean abortInFlightCaptures) {
         synchronized (mStateLock) {
             switch (mState) {
                 case UNINITIALIZED:
@@ -331,6 +331,13 @@ final class CaptureSession {
                 case OPENED:
                 case CLOSED:
                     if (mCameraCaptureSession != null) {
+                        if (abortInFlightCaptures) {
+                            try {
+                                mCameraCaptureSession.abortCaptures();
+                            } catch (CameraAccessException e) {
+                                return Futures.immediateFailedFuture(e);
+                            }
+                        }
                         mCameraCaptureSession.close();
                     }
                     // Fall through
