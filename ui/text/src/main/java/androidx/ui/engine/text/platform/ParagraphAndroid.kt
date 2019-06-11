@@ -60,7 +60,6 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextAlign
@@ -68,6 +67,7 @@ import androidx.ui.engine.text.TextDecoration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.text.hasFontAttributes
+import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
 import java.util.Locale
@@ -77,9 +77,9 @@ import kotlin.math.roundToInt
 const val LINE_FEED = '\n'
 
 internal class ParagraphAndroid constructor(
-    val text: StringBuilder,
+    val text: String,
     val paragraphStyle: ParagraphStyle,
-    val textStyles: List<ParagraphBuilder.TextStyleIndex>,
+    val textStyleRecords: List<AnnotatedString.TextStyleRecord>,
     val typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
 ) {
 
@@ -166,7 +166,7 @@ internal class ParagraphAndroid constructor(
             )
         }
 
-        val charSequence = applyTextStyle(text, textStyles)
+        val charSequence = applyTextStyle(text, textStyleRecords)
         val alignment = toLayoutAlign(paragraphStyle.textAlign)
         // TODO(Migration/haoyuchang): Layout has more settings that flutter,
         //  we may add them in future.
@@ -282,7 +282,7 @@ internal class ParagraphAndroid constructor(
      * @return a pair of indices which represent the adjusted position of the paragraph span.
      */
     private fun adjustSpanPositionForParagraph(
-        text: StringBuilder,
+        text: String,
         start: Int,
         end: Int
     ): Pair<Int, Int> {
@@ -325,19 +325,19 @@ internal class ParagraphAndroid constructor(
     }
 
     private fun applyTextStyle(
-        text: StringBuilder,
-        textStyles: List<ParagraphBuilder.TextStyleIndex>
+        text: String,
+        textStyleRecords: List<AnnotatedString.TextStyleRecord>
     ): CharSequence {
-        if (textStyles.isEmpty()) return text
+        if (textStyleRecords.isEmpty()) return text
         val spannableString = SpannableString(text)
-        for (textStyle in textStyles) {
-            val start = textStyle.start
-            val end = textStyle.end
-            val style = textStyle.textStyle
+        for (textStyleRecord in textStyleRecords) {
+            val start = textStyleRecord.start
+            val end = textStyleRecord.end
+            val style = textStyleRecord.style.getTextStyle()
 
             if (start < 0 || start >= text.length || end <= start || end > text.length) continue
 
-            style.textIndent?. let { indent ->
+            style.textIndent?.let { indent ->
                 if (indent.firstLine == 0.px && indent.restLine == 0.px) return@let
                 val (spanStart, spanEnd) = adjustSpanPositionForParagraph(text, start, end)
                 // Filter out invalid result.
