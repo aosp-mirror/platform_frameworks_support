@@ -263,7 +263,7 @@ class PathParser {
     }
 
     /**
-     * Converts an arc to cubic Bezier segments and records them in p.
+     * Converts an arc to cubic Bezier segments and textStyleRecords them in p.
      *
      * @param p The target for the cubic Bezier segments
      * @param cx The x coordinate center of the ellipse
