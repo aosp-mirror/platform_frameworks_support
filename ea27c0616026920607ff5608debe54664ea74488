@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5b4cbbe_7bb3b4df",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 30
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T22:37:17Z",
+      "side": 1,
+      "message": "This is class is marked as internal, and I ran ./gradlew updateapi. Not sure what\u0027s going on here. \nWill rerun everything.\n\nMade interfaces to internal. But the SelectionManager still shows here.",
+      "parentUuid": "d11a4802_18701d55",
+      "range": {
+        "startLine": 270,
+        "startChar": 21,
+        "endLine": 270,
+        "endChar": 39
+      },
+      "revId": "ea27c0616026920607ff5608debe54664ea74488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "361d4046_424eaffa",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
         "patchSetId": 30
@@ -45,6 +69,30 @@
       "revId": "ea27c0616026920607ff5608debe54664ea74488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f819ac84_82e4a52c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T22:37:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "361d4046_424eaffa",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "ea27c0616026920607ff5608debe54664ea74488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "761c21b1_f4805f40",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T22:37:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8896bcf0_112891f1",
+      "range": {
+        "startLine": 121,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 22
+      },
+      "revId": "ea27c0616026920607ff5608debe54664ea74488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4de698bf_6470fe08",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
         "patchSetId": 30
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f51ec8d5_e0157634",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T22:37:17Z",
+      "side": 1,
+      "message": "The selection will never be null here. But kotlin has this kind of null check.",
+      "parentUuid": "4de698bf_6470fe08",
+      "range": {
+        "startLine": 123,
+        "startChar": 24,
+        "endLine": 123,
+        "endChar": 35
+      },
+      "revId": "ea27c0616026920607ff5608debe54664ea74488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c6c9193_ee7d04be",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
         "patchSetId": 30
@@ -114,6 +210,30 @@
       "revId": "ea27c0616026920607ff5608debe54664ea74488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440e7d02_4b903082",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionManager.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-11T22:37:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c6c9193_ee7d04be",
+      "range": {
+        "startLine": 146,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "ea27c0616026920607ff5608debe54664ea74488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
