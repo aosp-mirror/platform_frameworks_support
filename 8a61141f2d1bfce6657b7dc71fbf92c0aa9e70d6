@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1ee910d_9f645b5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-11T16:32:51Z",
+      "side": 1,
+      "message": "I guess \"change\" might be more accurate here too",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "8a61141f2d1bfce6657b7dc71fbf92c0aa9e70d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
