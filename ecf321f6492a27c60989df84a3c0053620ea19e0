@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1fb303e_d9261225",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-11T17:51:05Z",
+      "side": 1,
+      "message": "This should also include RELEASING and INITIALIZED, correct? In fact, maybe it would just be easier to say:\n\nif (mState.get() !\u003d State.OPENED) {\n   ...\n   return;\n}",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 627,
+        "endChar": 27
+      },
+      "revId": "ecf321f6492a27c60989df84a3c0053620ea19e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
