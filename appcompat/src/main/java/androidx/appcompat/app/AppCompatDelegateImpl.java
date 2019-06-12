@@ -1045,6 +1045,15 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             mActionMode = startSupportActionModeFromWindow(wrappedCallback);
         }
 
+        // Set the window title to the ActionMode title.
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (!mWindowNoTitle && mActionMode != null) {
+                CharSequence actionModeTitle = mActionMode.getTitle();
+                if (mWindow != null && actionModeTitle != null) {
+                    mWindow.setTitle(actionModeTitle);
+                }
+            }
+        }
         return mActionMode;
     }
 
@@ -2442,6 +2451,11 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mAppCompatCallback.onSupportActionModeFinished(mActionMode);
             }
             mActionMode = null;
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                // Set the original title.
+                mWindow.setTitle(mTitle);
+            }
         }
     }
 

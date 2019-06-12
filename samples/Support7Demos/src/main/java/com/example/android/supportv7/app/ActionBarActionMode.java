@@ -50,6 +50,7 @@ public class ActionBarActionMode extends AppCompatActivity {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 mode.getMenuInflater().inflate(R.menu.actions, menu);
+                mode.setTitle("ActionMode Title");
                 return true;
             }
 
