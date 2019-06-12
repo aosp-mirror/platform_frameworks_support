@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e3bcba5_16960b8f",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T09:06:31Z",
+      "side": 1,
+      "message": "Thanks a lot!\nRemove the sleep and use the timeout for testing,\nalso re-order the call sequence to verify the callbacks before/after unbind.",
+      "parentUuid": "88ccd7ed_4072a16b",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff015988_4e935f0c",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1119135c_67ace798",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T09:06:31Z",
+      "side": 1,
+      "message": "Got it, modify the testing implementation.",
+      "parentUuid": "ff015988_4e935f0c",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b800f61d_b0669e3b",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa94e12_8a0a4eda",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T09:06:31Z",
+      "side": 1,
+      "message": "Got it! \nRemove the sleep and use the timeout for testing.",
+      "parentUuid": "b800f61d_b0669e3b",
+      "revId": "31307ea36b1196c0d7af79567b127bd7854c7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

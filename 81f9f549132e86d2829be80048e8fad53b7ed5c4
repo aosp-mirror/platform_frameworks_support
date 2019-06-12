@@ -16,6 +16,24 @@
       "revId": "81f9f549132e86d2829be80048e8fad53b7ed5c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d56979_365682f4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T09:06:31Z",
+      "side": 0,
+      "message": "Okay, add check on mMaxCaptureStages.\nCheck the mMaxCaptureStages should \u003e 0 here.\n\n(Cannot check \"getCaptureStages().size() \u003e mMaxCaptureStages\" here since we cannot invoke getCaptureStage() in constructor)",
+      "parentUuid": "ee04a3c8_4c6e8a0a",
+      "revId": "81f9f549132e86d2829be80048e8fad53b7ed5c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
