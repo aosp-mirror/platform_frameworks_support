@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4f1af47_66e99fa0",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditingBuffer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-12T02:46:32Z",
+      "side": 1,
+      "message": "Please add java doc.",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 44
+      },
+      "revId": "febdf75954268d604f25f9709fbeb8d8daa16e3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
