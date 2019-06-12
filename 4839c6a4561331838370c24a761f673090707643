@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a9438a9f_eedf6ba4",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-12T05:59:34Z",
+      "side": 1,
+      "message": "Makes sense, then should you guarantee that call() is only called once, to avoid initializing multiple instances of AdvertisingIdProviderInterface?",
+      "parentUuid": "1c969d19_3b33a213",
+      "range": {
+        "startLine": 47,
+        "startChar": 60,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a3d1134_427a4323",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
         "patchSetId": 8
@@ -618,6 +642,30 @@
       "side": 1,
       "message": "I think this check is to warn the developer that getServiceWithTimeout should not be called twice instead of implementation limitation.",
       "parentUuid": "f3d53a90_13b50a9f",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 39
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba192dda_e6e534fe",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-12T05:59:34Z",
+      "side": 1,
+      "message": "why limit them to not call them more than once? (also this is an internal function anyways, right?)",
+      "parentUuid": "4a01d836_d661121e",
       "range": {
         "startLine": 68,
         "startChar": 25,
