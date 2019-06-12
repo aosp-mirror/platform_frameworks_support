@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a77a0a70_30bb1787",
+        "filename": "media2/session/api/1.0.0-rc01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-12T22:43:30Z",
+      "side": 0,
+      "message": "This does not seem right. Do we want to delete this txt file?",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 26
+      },
+      "revId": "70a5d56367db342c415ba6e699ec35c909a0b297",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
