@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d33fd8c8_7cbfdefa",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-12T05:57:12Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated the javadoc description to resolve it.",
+      "parentUuid": "8c680761_c3470edf",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "704119e1_38740c44",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a46a17e_7223007a",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-12T05:57:12Z",
+      "side": 1,
+      "message": "Thanks for review and remind me the Proguard case. I have updated the code to use (Extender base class + effect mode) info to check the dependence.",
+      "parentUuid": "704119e1_38740c44",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10dd0aa5_a9fc8296",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 6
@@ -50,6 +86,24 @@
       "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e50e563_446d9f82",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-12T05:57:12Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated the code to keep ImageCaptureAdapter/PreviewExtenderAdapter in static.",
+      "parentUuid": "10dd0aa5_a9fc8296",
+      "revId": "88b48d19e4848f8a089d46f93576ebca6a69b357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
