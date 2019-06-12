@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baea61a3_e8e2ae5a",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T15:49:31Z",
+      "side": 1,
+      "message": "is this actually needed? do other kotlin projects have this?\n\nThis may be cargo culting (and if so, my bad)",
+      "revId": "9b6f76ee22bdefc30d21872213134ef73d39a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab4a731_4ff0de71",
+        "filename": "paging/rxjava2/src/androidTest/java/androidx/paging/RxPagedListTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T15:49:31Z",
+      "side": 1,
+      "message": "?",
+      "revId": "9b6f76ee22bdefc30d21872213134ef73d39a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
