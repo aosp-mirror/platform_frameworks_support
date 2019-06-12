@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
 import androidx.concurrent.ListenableFuture;
-import androidx.media2.session.futures.AbstractResolvableFuture;
+import androidx.concurrent.callback.AbstractResolvableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
