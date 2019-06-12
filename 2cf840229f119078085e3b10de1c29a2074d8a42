@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "6c55d328_ac733aa2",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T16:22:12Z",
+      "side": 1,
+      "message": "```\n@property \u003cname\u003e\nDocuments the property of a class which has the specified name. This tag can be used for documenting properties declared in the primary constructor, where putting a doc comment directly before the property definition would be awkward.\n```\n\nIt looks like it\u0027s optional so we can keep the old style on top of the params if you feel that\u0027s better.\n\nI personally find reading source to be easier than docs, so I moved it up because it puts all the docs in one place, but it looks like they should compile visually to the same thing via dokka, ctrl+q, etc.\n\nOne more thing (partially relevant here, but also elsewhere in this library group) is param doc spacing - it looks like it\u0027s not actually necessary in kotlin and the IDE actually doesn\u0027t space param docs by default. Is this something we should keep doing manually?",
+      "parentUuid": "48632f0d_fb6c3b88",
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73ef7ba6_f586f046",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
@@ -56,6 +74,30 @@
       "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c454ce7f_11cdacbb",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T16:22:12Z",
+      "side": 1,
+      "message": "Ah yeah I keep forgetting internal constructor \u003d\u003d not publicly extendable",
+      "parentUuid": "73ef7ba6_f586f046",
+      "range": {
+        "startLine": 527,
+        "startChar": 4,
+        "endLine": 527,
+        "endChar": 8
+      },
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
