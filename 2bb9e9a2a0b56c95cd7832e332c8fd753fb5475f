@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26e2cfa2_0fdb676c",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T17:06:21Z",
+      "side": 1,
+      "message": "this is a regression vs javadoc - can we somehow link to the new one? KDocs allow you to optionally disambig when two methods have same name, different params",
+      "revId": "2bb9e9a2a0b56c95cd7832e332c8fd753fb5475f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
