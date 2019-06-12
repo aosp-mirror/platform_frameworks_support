@@ -390,11 +390,6 @@ class LayoutNode : ComponentNode() {
         private set
 
     /**
-     * Opaque data provided by the layout parent
-     */
-    var parentData: Any? = null
-
-    /**
      * `true` when the parent's size depends on this LayoutNode's size
      */
     var affectsParentSize: Boolean = false
@@ -712,6 +707,8 @@ class SemanticsComponentNode(
         needsSemanticsUpdate = true
     }
 }
+
+class DataNode(val key: Any, var value: Any) : ComponentNode()
 
 /**
  * Returns [ComponentNode.owner] or throws if it is null.

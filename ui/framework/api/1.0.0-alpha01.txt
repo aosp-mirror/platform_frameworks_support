@@ -75,6 +75,7 @@ package androidx.ui.core {
     method public static void OnChildPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static void OnPositioned(kotlin.jvm.functions.Function1<? super androidx.ui.core.LayoutCoordinates,kotlin.Unit> onPositioned);
     method public static void WithConstraints(kotlin.jvm.functions.Function1<? super androidx.ui.core.Constraints,kotlin.Unit> children);
+    method public static String getParentDataKey();
   }
 
   public final class LayoutReceiver implements androidx.ui.core.DensityReceiver {
