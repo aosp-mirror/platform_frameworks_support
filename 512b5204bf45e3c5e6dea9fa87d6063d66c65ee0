@@ -45,6 +45,30 @@
       "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105aeef3_05f34373",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T22:00:46Z",
+      "side": 1,
+      "message": "Yep, I considered both of those things. I thought that the use of Key\u003cT\u003e may be a bit overkill, but now that I\u0027m thinking about it again it seems fine. I always check for \u003d\u003d\u003d on the key anyway, so Key\u003cT\u003e can be super simple.\n\nI couldn\u0027t come up with any reason for Any? as opposed to Any. Do you have a use case in mind?\n\nI can\u0027t think of how the developer could use this except in layout and then they would use parent data for that.",
+      "parentUuid": "d01d52b9_ffe2e517",
+      "range": {
+        "startLine": 711,
+        "startChar": 40,
+        "endLine": 711,
+        "endChar": 43
+      },
+      "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
