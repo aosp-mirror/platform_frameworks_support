@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "92bd0a4c_cf82ccd6",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "It is longer to type OnFinishedCallback than (Boolean) -\u003e Unit and less understandable. Please remove this typealias.",
+      "range": {
+        "startLine": 24,
+        "startChar": 31,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8ebb969_c4ecb6ce",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -18,6 +41,29 @@
         "startChar": 82,
         "endLine": 28,
         "endChar": 90
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e89bff6f_9d2c43eb",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "I would like the interfaces to be in their own files since they are public and large enough to deserve their own files. It doesn\u0027t appear that they use any file private values, so they should be ok.\n\nThe file name \"AnimatedValueImpl.kt\" would best be used only for that class since it is not the intended public API. You\u0027ll want to hide that implementation as much as possible so people looking at DynamicTargetAnimation don\u0027t accidentally look at your hidden implementation.",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 32
       },
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -117,6 +163,75 @@
     },
     {
       "key": {
+        "uuid": "b19774fc_f6121c42",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "I still don\u0027t like \"toValue()\" as a method that indicates that it should animate to a new target value.\n\nI would prefer to have:\n\nvar target: T\n\nand just set the value",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7390b25_54acd0ef",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "These additional methods look like convenience functions for setting a value on the animation.\n\nI\u0027d rather see:\n\nvar anim: AnimationBuilder\u003cT\u003e\nvar onFinished: (Boolean) -\u003e Unit",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 42
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d19c971_7135a968",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "Does this also stop the animation? It doesn\u0027t seem to, but I\u0027m trying to picture a use case where you wouldn\u0027t also want to stop the animation.",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a0270cb_cfa211a6",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -128,6 +243,29 @@
       "writtenOn": "2019-06-12T19:44:05Z",
       "side": 1,
       "message": "stopAnimating?",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede25dda_66b6b353",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "Is there a way to continue the animation? Will setting the target value start the animation?",
       "range": {
         "startLine": 81,
         "startChar": 8,
@@ -232,6 +370,144 @@
     },
     {
       "key": {
+        "uuid": "17662efd_5468742c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "From a naming perspective, I find that \"animation\" meaning \"how something can move\" is a little confusing. It isn\u0027t the actual movement of something, which is what I would expect it to mean.\n\nI don\u0027t have any help for the naming here, but something like \"AnimationDefinition\" or \"AnimationSpec\" would make more sense to me.\n\nAlso, do you expect many developers to use this class? If so, a primary name like \"Animation\" or \"DecayAnimation\" makes sense. If you think another class is more common, then the API for that should take the better name.",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50de3f2_22261a8d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "all public API should have documentation",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62fe9ab6_a95eaf8d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "can you give these some parameter names? It will help with the auto-complete for naming the parameters of the lambda.",
+      "range": {
+        "startLine": 83,
+        "startChar": 23,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8000ec_6a4caa55",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "it seems strange to me from an API perspective that the interpolator is passed in as a parameter. I would expect the Animation to interpolate the value. I suppose this would make sense when there is a non-Float animation. Is that the though here?",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b67f19b_d678e44b",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "The consts already look public...",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 45
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0c5779_07dfa0cf",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "This feels weird as an interface. It feels like the wrapper shouldn\u0027t be the interface you use, but should result in wrapping something and giving you a different interface. For example, wrapping a decay animation and returning a regular Animation.\n\nIs this the thing people will be using most? Maybe not directly...",
+      "range": {
+        "startLine": 518,
+        "startChar": 10,
+        "endLine": 518,
+        "endChar": 26
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1158db1f_9a82cf5a",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
         "patchSetId": 14
@@ -271,6 +547,52 @@
         "startChar": 20,
         "endLine": 35,
         "endChar": 21
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98808f73_73b97783",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "off",
+      "range": {
+        "startLine": 49,
+        "startChar": 70,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb965c5_4ae0eebd",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T20:10:06Z",
+      "side": 1,
+      "message": "no -the-",
+      "range": {
+        "startLine": 50,
+        "startChar": 62,
+        "endLine": 50,
+        "endChar": 65
       },
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
