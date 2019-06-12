@@ -22,54 +22,9 @@ import com.google.common.util.concurrent.ListenableFuture
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Action
-import io.reactivex.functions.Consumer
 import java.util.concurrent.Executor
 
-private class ListenableFutureDisposeListener internal constructor(
-    private val future: ListenableFuture<*>,
-    private val disposable: Disposable
-) : Runnable {
-    override fun run() {
-        if (future.isCancelled) {
-            disposable.dispose()
-        }
-    }
-}
-
-private class ListenableFutureSubscribeConsumer internal constructor(
-    private val compositeDisposable: CompositeDisposable
-) : Consumer<Disposable> {
-    override fun accept(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
-}
-
-private class ListenableFutureDisposeAction<T> internal constructor(
-    private val future: ResolvableFuture<T>
-) : Action {
-    override fun run() {
-        future.cancel(true)
-    }
-}
-
-private class ListenableFutureSuccessConsumer<T> internal constructor(
-    private val future: ResolvableFuture<T>
-) : Consumer<T> {
-    override fun accept(data: T) {
-        future.set(data)
-    }
-}
-
-private class ListenableFutureErrorConsumer<T>
-internal constructor(private val future: ResolvableFuture<T>) : Consumer<Throwable> {
-    override fun accept(e: Throwable) {
-        future.setException(e)
-    }
-}
-
-@SuppressLint("CheckResult")
+@SuppressLint("CheckResult") // Intentionally ignoring the result of subscribeOn.
 internal fun <T> Single<T>.asListenableFuture(
     executor: Executor,
     scheduler: Scheduler
@@ -77,15 +32,20 @@ internal fun <T> Single<T>.asListenableFuture(
     val compositeDisposable = CompositeDisposable()
     val future = ResolvableFuture.create<T>()
 
-    future.addListener(ListenableFutureDisposeListener(future, compositeDisposable), executor)
+    future.addListener(
+        Runnable {
+            if (future.isCancelled) {
+                compositeDisposable.dispose()
+            }
+        },
+        executor
+    )
 
-    val successConsumer = ListenableFutureSuccessConsumer(future)
-    val errorConsumer = ListenableFutureErrorConsumer(future)
     subscribeOn(scheduler)
         .observeOn(scheduler)
-        .doOnSubscribe(ListenableFutureSubscribeConsumer(compositeDisposable))
-        .doOnDispose(ListenableFutureDisposeAction(future))
-        .subscribe(successConsumer, errorConsumer)
+        .doOnSubscribe { compositeDisposable.add(it) }
+        .doOnDispose { future.cancel(true) }
+        .subscribe({ future.set(it) }, { future.setException(it) })
 
     return future
 }
