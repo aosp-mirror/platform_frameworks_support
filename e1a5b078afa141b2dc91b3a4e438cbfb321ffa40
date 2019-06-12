@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b7e9fb87_be417ffa",
+        "filename": "paging/rxjava2/api/2.2.0-alpha01.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T02:05:54Z",
+      "side": 1,
+      "message": "I\u0027m actually not sure how to remove these - it\u0027s being generated because all the functions in RxDataSourceUtil were changed to extension functions, so even though this class only contains internal / private members it\u0027s still public.",
+      "parentUuid": "6c46a99b_aaff2a8e",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1682eb1_d403a49c",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 12
