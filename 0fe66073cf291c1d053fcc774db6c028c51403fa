@@ -22,6 +22,30 @@
       "revId": "0fe66073cf291c1d053fcc774db6c028c51403fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa428f91_5953fec8",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-12T03:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f7c32ad_203637cc",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 355,
+        "endChar": 36
+      },
+      "revId": "0fe66073cf291c1d053fcc774db6c028c51403fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
