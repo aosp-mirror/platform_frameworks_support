@@ -14,3 +14,12 @@
 
 # Prevent WebViewClientCompat from being renamed, since chromium depends on this name.
 -keepnames public class androidx.webkit.WebViewClientCompat
+
+# Never inline classes or methods with this annotation, but allow shrinking and
+# obfuscation.
+-keepnames,allowobfuscation @androidx.webkit.internal.DoNotInline class ** {
+  *;
+}
+-keepclassmembernames,allowobfuscation class ** {
+  @androidx.webkit.internal.DoNotInline  <methods>;
+}

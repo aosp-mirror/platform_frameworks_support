@@ -23,6 +23,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresFeature;
 import androidx.annotation.RestrictTo;
+import androidx.webkit.internal.ApiHelperForO;
 import androidx.webkit.internal.WebSettingsAdapter;
 import androidx.webkit.internal.WebViewFeatureInternal;
 import androidx.webkit.internal.WebViewGlueCommunicator;
@@ -124,7 +125,7 @@ public class WebSettingsCompat {
         WebViewFeatureInternal webviewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
         if (webviewFeature.isSupportedByFramework()) {
-            settings.setSafeBrowsingEnabled(enabled);
+            ApiHelperForO.setSafeBrowsingEnabled(settings, enabled);
         } else if (webviewFeature.isSupportedByWebView()) {
             getAdapter(settings).setSafeBrowsingEnabled(enabled);
         } else {
@@ -150,7 +151,7 @@ public class WebSettingsCompat {
         WebViewFeatureInternal webviewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
         if (webviewFeature.isSupportedByFramework()) {
-            return settings.getSafeBrowsingEnabled();
+            return ApiHelperForO.getSafeBrowsingEnabled(settings);
         } else if (webviewFeature.isSupportedByWebView()) {
             return getAdapter(settings).getSafeBrowsingEnabled();
         } else {

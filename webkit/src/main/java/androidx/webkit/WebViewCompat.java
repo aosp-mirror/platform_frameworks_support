@@ -32,6 +32,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresFeature;
 import androidx.annotation.RestrictTo;
+import androidx.webkit.internal.ApiHelperForM;
+import androidx.webkit.internal.ApiHelperForO;
+import androidx.webkit.internal.ApiHelperForOMR1;
 import androidx.webkit.internal.WebMessagePortImpl;
 import androidx.webkit.internal.WebViewFeatureInternal;
 import androidx.webkit.internal.WebViewGlueCommunicator;
@@ -133,8 +136,8 @@ public class WebViewCompat {
         WebViewFeatureInternal webViewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
         if (webViewFeature.isSupportedByFramework()) {
-            webview.postVisualStateCallback(requestId,
-                    new android.webkit.WebView.VisualStateCallback() {
+            ApiHelperForM.postVisualStateCallback(webview, requestId,
+                    new androidx.webkit.internal.ApiHelperForM.VisualStateCallback() {
                         @Override
                         public void onComplete(long l) {
                             callback.onComplete(l);
@@ -179,7 +182,7 @@ public class WebViewCompat {
         WebViewFeatureInternal webviewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.START_SAFE_BROWSING);
         if (webviewFeature.isSupportedByFramework()) {
-            WebView.startSafeBrowsing(context, callback);
+            ApiHelperForOMR1.startSafeBrowsing(context, callback);
         } else if (webviewFeature.isSupportedByWebView()) {
             getFactory().getStatics().initSafeBrowsing(context, callback);
         } else {
@@ -223,7 +226,7 @@ public class WebViewCompat {
         WebViewFeatureInternal webviewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
         if (webviewFeature.isSupportedByFramework()) {
-            WebView.setSafeBrowsingWhitelist(hosts, callback);
+            ApiHelperForOMR1.setSafeBrowsingWhitelist(hosts, callback);
         } else if (webviewFeature.isSupportedByWebView()) {
             getFactory().getStatics().setSafeBrowsingWhitelist(hosts, callback);
         } else {
@@ -249,7 +252,7 @@ public class WebViewCompat {
         WebViewFeatureInternal webviewFeature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL);
         if (webviewFeature.isSupportedByFramework()) {
-            return WebView.getSafeBrowsingPrivacyPolicyUrl();
+            return ApiHelperForOMR1.getSafeBrowsingPrivacyPolicyUrl();
         } else if (webviewFeature.isSupportedByWebView()) {
             return getFactory().getStatics().getSafeBrowsingPrivacyPolicyUrl();
         } else {
@@ -279,7 +282,7 @@ public class WebViewCompat {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return WebView.getCurrentWebViewPackage();
+            return ApiHelperForO.getCurrentWebViewPackage();
         } else { // L-N
             try {
                 PackageInfo loadedWebViewPackageInfo = getLoadedWebViewPackageInfo();
@@ -443,7 +446,7 @@ public class WebViewCompat {
         final WebViewFeatureInternal feature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_CLIENT);
         if (feature.isSupportedByFramework()) {
-            return webview.getWebViewClient();
+            return ApiHelperForO.getWebViewClient(webview);
         } else if (feature.isSupportedByWebView()) {
             return getProvider(webview).getWebViewClient();
         } else {
@@ -468,7 +471,7 @@ public class WebViewCompat {
         final WebViewFeatureInternal feature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_CHROME_CLIENT);
         if (feature.isSupportedByFramework()) {
-            return webview.getWebChromeClient();
+            return ApiHelperForO.getWebChromeClient(webview);
         } else if (feature.isSupportedByWebView()) {
             return getProvider(webview).getWebChromeClient();
         } else {
