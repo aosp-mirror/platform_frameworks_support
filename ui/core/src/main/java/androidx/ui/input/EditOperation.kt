@@ -107,7 +107,19 @@ data class SetComposingRegionEditOp(
 ) : EditOperation {
 
     override fun process(buffer: EditingBuffer) {
-        TODO("Not implemented yet")
+        // The API description says, different from SetComposingText, SetComposingRegion must
+        // preserve the ongoing composition text and set new composition.
+        if (buffer.hasComposition()) {
+            buffer.commitComposition()
+        }
+
+        // Reverse if the given range is reversed, since these values are came from IME, we cannot
+        // trust the start is smaller than end.
+        if (start < end) {
+            buffer.setComposition(start, end)
+        } else {
+            buffer.setComposition(end, start)
+        }
     }
 }
 /**
@@ -198,7 +210,13 @@ data class SetSelectionEditOp(
 ) : EditOperation {
 
     override fun process(buffer: EditingBuffer) {
-        TODO("Not implemented yet")
+        // Reverse if the given range is reversed, since these values are came from IME, we cannot
+        // trust the start is smaller than end.
+        if (start < end) {
+            buffer.setSelection(start, end)
+        } else {
+            buffer.setSelection(end, start)
+        }
     }
 }
 /**
@@ -212,7 +230,7 @@ data class SetSelectionEditOp(
 class FinishComposingTextEditOp : EditOperation {
 
     override fun process(buffer: EditingBuffer) {
-        TODO("Not implemented yet")
+        buffer.commitComposition()
     }
 
     // Class with empty arguments default ctor cannot be data class.
