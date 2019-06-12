@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8ebb969_c4ecb6ce",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "delete",
+      "range": {
+        "startLine": 28,
+        "startChar": 82,
+        "endLine": 28,
+        "endChar": 90
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37883835_8b31126d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "currentValue?",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7caa82f_7d760d1b",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "isAnimating?",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448e4f45_e26bba6b",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "targetValue?",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c34de203_771bf7e5",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "\"animateToValue\" so that it is more parallel with \"snaptoValue\".",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a0270cb_cfa211a6",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "stopAnimating?",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "610bd46f_3dcc2970",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "FloatDynamicTargetAnimation sounds like you are animating a float... and that it could (and should) be used more widely then for flinging.  Can we just swap in \"animate\" anywhere \"fling\" is used?",
+      "range": {
+        "startLine": 89,
+        "startChar": 14,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3468c4ac_6bd3e2c9",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "Is there is a reason to delegate?",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d983415c_afea94b7",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "Huh? :)",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 31
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891e11f2_fac880b1",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "Animating a float seems more useful than just for flinging.  Should either \"AnimatedFloatImpl\" or \"fling\" change so that the names are at the same \"abstract\" level?",
+      "range": {
+        "startLine": 300,
+        "startChar": 24,
+        "endLine": 300,
+        "endChar": 29
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1158db1f_9a82cf5a",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "Nothing to do in this CL, but this is where I think there is a problem with the idea that all output from gesture detectors should be input to the animation system, but some things just snap instead of change over time. \"onDrag\" here is expected to return how much of the dragDistance was consumed, and in your demo you can easily say all of it, but if it only consumes half of the distance, how would itemBottom.snapToValue report back that half of the distance was consumed?",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44dc3bba_f223e3a2",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-12T19:44:05Z",
+      "side": 1,
+      "message": "Do you think it might make sense to make this even more abstract and allow for the input type to  be different from the output type, with some way to define the mapping?  So, one could say, animate between 0f and 1f as input and then between PxPosition(0.0, 0.0) and PxPosition(5.0, 10.0).  Then this AnimatedValue could be a specific kind of that more abstract version that doesn\u0027t need to do any mapping?\n\nJust a thought.",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
