@@ -55,7 +55,7 @@ internal abstract class RxPageKeyedDataSource<Key : Any, Value : Any> :
      * [RxPagedListBuilder.setFetchScheduler] or [LivePagedListBuilder.setFetchExecutor].
      *
      * @param params Parameters for initial load, including requested start position, load size, and
-     *               page size.
+     * page size.
      * @return [Single] that receives the loaded data, its size, and any adjacent page keys.
      */
     abstract fun onLoadInitial(params: LoadInitialParams<Key>): Single<InitialResult<Key, Value>>
@@ -79,7 +79,7 @@ internal abstract class RxPageKeyedDataSource<Key : Any, Value : Any> :
      * [LivePagedListBuilder.setFetchExecutor].
      *
      * @param params Parameters for the load, including the key for the new page, and requested load
-     *               size.
+     * size.
      * @return [Single] that receives the loaded data.
      */
     abstract fun onLoadAfter(params: LoadParams<Key>): Single<Result<Key, Value>>
@@ -103,7 +103,7 @@ internal abstract class RxPageKeyedDataSource<Key : Any, Value : Any> :
      * [LivePagedListBuilder.setFetchExecutor].
      *
      * @param params Parameters for the load, including the key for the new page, and requested load
-     *               size.
+     * size.
      * @return [Single] that receives the loaded data.
      */
     abstract fun onLoadBefore(params: LoadParams<Key>): Single<Result<Key, Value>>
