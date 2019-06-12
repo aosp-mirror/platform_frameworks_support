@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa451b0c_fe6cbb57",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditOperation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-12T21:08:54Z",
+      "side": 1,
+      "message": "nit: Kotlin has this util function for the purpose\nfun Int.coerceIn(minimumValue: Int, maximumValue: Int): Int",
+      "range": {
+        "startLine": 117,
+        "startChar": 27,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "8699c3eccc80f2a834a31a517c1933fa159bd18c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
