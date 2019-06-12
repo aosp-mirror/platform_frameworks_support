@@ -70,6 +70,25 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ModalDrawerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Material/Modal Navigation Drawer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".BottomDrawerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Material/Bottom Navigation Drawer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".TextActivity"
