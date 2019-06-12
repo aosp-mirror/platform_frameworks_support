@@ -55,16 +55,13 @@ open class ContiguousPagedList<K : Any, V : Any>(
         ) = index + prefetchDistance + 1 - itemsBeforeTrailingNulls
     }
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var prependItemsRequested = 0
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var appendItemsRequested = 0
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var replacePagesWithNulls = false
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
+    @Suppress("MemberVisibilityCanBePrivate") // Public API
     val shouldTrim: Boolean
 
     private val pager: Pager<K, V>
