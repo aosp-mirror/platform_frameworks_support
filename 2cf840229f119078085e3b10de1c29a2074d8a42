@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db2e7840_c7ff6a48",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T16:32:26Z",
+      "side": 1,
+      "message": "Ah - woops. Keep forgetting to check the class visibility.",
+      "parentUuid": "88574a4f_f4bc44b9",
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48632f0d_fb6c3b88",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
