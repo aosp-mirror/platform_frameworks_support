@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "59c6b899_74b8904d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T16:31:32Z",
+      "side": 1,
+      "message": "I think it was more readable the old way -  if I want to find out what myConfig.enablePlaceholders does, it\u0027s not easy to glance to doc for that specific param when it\u0027s all grouped together.\n\nI slightly prefer lazy param wrapping, since the IDE doesn\u0027t help you, but very weak preference.",
+      "parentUuid": "6c55d328_ac733aa2",
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73ef7ba6_f586f046",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
