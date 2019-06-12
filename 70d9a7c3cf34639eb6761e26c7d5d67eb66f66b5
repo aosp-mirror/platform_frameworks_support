@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f57938d_7a139984",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-12T17:32:05Z",
+      "side": 1,
+      "message": "All of these classes can be lambdas if you want. It\u0027ll produce the same thing but saves you from having to define them all manually.",
+      "revId": "70d9a7c3cf34639eb6761e26c7d5d67eb66f66b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed7e5edf_e787b7dd",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-12T17:32:05Z",
+      "side": 1,
+      "message": "should probably be named `asListenableFuture`. The prefix is redundant, and \u0027as\u0027 means that you are encapsulating the state rather than copying it (like, say, `toList()`).",
+      "revId": "70d9a7c3cf34639eb6761e26c7d5d67eb66f66b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcdc1c62_57d668ff",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-12T17:32:05Z",
+      "side": 1,
+      "message": "This is a suspicious type check and cast. Seems like you want the type check to use ScheduledExecutor as well",
+      "revId": "70d9a7c3cf34639eb6761e26c7d5d67eb66f66b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
