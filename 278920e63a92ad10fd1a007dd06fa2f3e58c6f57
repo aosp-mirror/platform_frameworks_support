@@ -77,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "434379dd_d61bfaac",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T02:05:04Z",
+      "side": 1,
+      "message": "Oops I forgot to address this - I filed a bug so I don\u0027t forget.\n\nhttps://b.corp.google.com/issues/135069767",
+      "parentUuid": "0916b7a9_788436f0",
+      "revId": "278920e63a92ad10fd1a007dd06fa2f3e58c6f57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4270555a_428988a4",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedStorageDiffHelper.kt",
         "patchSetId": 14
