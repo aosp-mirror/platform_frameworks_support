@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8892b95c_2dcf35b1",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T10:45:43Z",
+      "side": 1,
+      "message": "Ah, we can add \n////////////////////////\nassumeTrue(CameraUtil.deviceHasCamera());\n////////////////////////\nin the setup to check if we have camera.",
+      "revId": "7af6ab03f98c2e23f1ddb3ef58f17800b1b5ee80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
