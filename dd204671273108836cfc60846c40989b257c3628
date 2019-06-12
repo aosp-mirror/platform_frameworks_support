@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "caee17bc_776566ba",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AutoImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T06:51:38Z",
+      "side": 1,
+      "message": "Thanks! I have updated the implementation.\nThe getInstance() is now private for inner implementation use, and only expose the isExtensionVersionSupported() and getRuntimeVersion() in static.",
+      "parentUuid": "db184733_2e7b0e8d",
+      "revId": "dd204671273108836cfc60846c40989b257c3628",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d8e591a_4f4057a3",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "dd204671273108836cfc60846c40989b257c3628",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542fa539_c3109474",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionVersion.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T06:51:38Z",
+      "side": 1,
+      "message": "Got it, thanks~",
+      "parentUuid": "7d8e591a_4f4057a3",
+      "revId": "dd204671273108836cfc60846c40989b257c3628",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
