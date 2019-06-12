@@ -16,6 +16,7 @@
 
 package androidx.lifecycle.viewmodel.savedstate
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -110,6 +111,49 @@ class SavedStateHandleTest {
         invalidUpdate = false
         ld.value = 1924
         assertThat(handle.get<Int?>("spb")).isEqualTo(1914)
+    }
+
+    @Test
+    @UiThreadTest
+    fun newLiveData_noInitial() {
+        val handle = SavedStateHandle()
+        val ld: LiveData<String?> = handle.getLiveData("aa", null)
+        assertThat(ld.value).isNull()
+    }
+
+    @Test
+    @UiThreadTest
+    fun newliveData_withInitial() {
+        val handle = SavedStateHandle()
+        val ld: LiveData<String?> = handle.getLiveData("aa", "xx")
+        assertThat(ld.value).isEqualTo("xx")
+    }
+
+    @Test
+    @UiThreadTest
+    fun newLiveData_existingValue_withInitial() {
+        val handle = SavedStateHandle()
+        handle["aa"] = "existing"
+        val ld: LiveData<String?> = handle.getLiveData("aa", "xx")
+        assertThat(ld.value).isEqualTo("existing")
+    }
+
+    @Test
+    @UiThreadTest
+    fun newLiveData_existingValue_withNullInitial() {
+        val handle = SavedStateHandle()
+        handle["aa"] = "existing"
+        val ld: LiveData<String?> = handle.getLiveData("aa", null)
+        assertThat(ld.value).isEqualTo("existing")
+    }
+
+    @Test
+    @UiThreadTest
+    fun newLiveData_existingNullValue_withInitial() {
+        val handle = SavedStateHandle()
+        handle["aa"] = null
+        val ld: LiveData<String?> = handle.getLiveData("aa", "xx")
+        assertThat(ld.value).isEqualTo(null)
     }
 
     @Test
