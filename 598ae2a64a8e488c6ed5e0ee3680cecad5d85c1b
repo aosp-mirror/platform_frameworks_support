@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "214ef29d_c3f3a4f2",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-12T17:40:43Z",
+      "side": 1,
+      "message": "You don\u0027t need `also`.\n\n    weakRef.get()?.onLoadStateChanged(type, state, error) \u003d\u003d null",
+      "revId": "598ae2a64a8e488c6ed5e0ee3680cecad5d85c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
