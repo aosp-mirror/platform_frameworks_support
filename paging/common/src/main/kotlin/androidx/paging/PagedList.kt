@@ -503,46 +503,33 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      *
      * Use [Config.Builder] to construct and define custom loading behavior, such as
      * [Builder.setPageSize], which defines number of items loaded at a time}.
+     *
+     * @property pageSize Size of each page loaded by the [PagedList].
+     * @property prefetchDistance Prefetch distance which defines how far ahead to load.
+     *
+     * If this value is set to 50, the paged list will attempt to load 50
+     * items in advance of data that's already been accessed.
+     *
+     * @see PagedList.loadAround
+     * @property enablePlaceholders Defines whether the PagedList may display null placeholders,
+     * if the DataSource provides them.
+     * @property initialLoadSizeHint Size hint for initial load of PagedList, often larger than a
+     * regular page.
+     * @property maxSize Defines the maximum number of items that may be loaded into this pagedList
+     * before pages should be dropped.
+     *
+     * [PageKeyedDataSource] does not currently support dropping pages - when loading from a
+     * [PageKeyedDataSource], this value is ignored.
+     *
+     * @see MAX_SIZE_UNBOUNDED
+     * @see Builder.setMaxSize
      */
     open class Config internal constructor(
-        /**
-         * Size of each page loaded by the PagedList.
-         */
-        @JvmField
-        val pageSize: Int,
-        /**
-         * Prefetch distance which defines how far ahead to load.
-         *
-         * If this value is set to 50, the paged list will attempt to load 50 items in advance of
-         * data that's already been accessed.
-         *
-         * @see PagedList.loadAround
-         */
-        @JvmField
-        val prefetchDistance: Int,
-        /**
-         * Defines whether the PagedList may display null placeholders, if the DataSource provides
-         * them.
-         */
-        @JvmField
-        val enablePlaceholders: Boolean,
-        /**
-         * Size hint for initial load of PagedList, often larger than a regular page.
-         */
-        @JvmField
-        val initialLoadSizeHint: Int,
-        /**
-         * Defines the maximum number of items that may be loaded into this pagedList before pages
-         * should be dropped.
-         *
-         * [PageKeyedDataSource] does not currently support dropping pages - when loading from a
-         * [PageKeyedDataSource], this value is ignored.
-         *
-         * @see MAX_SIZE_UNBOUNDED
-         * @see Builder.setMaxSize
-         */
-        @JvmField
-        val maxSize: Int
+        @JvmField val pageSize: Int,
+        @JvmField val prefetchDistance: Int,
+        @JvmField val enablePlaceholders: Boolean,
+        @JvmField val initialLoadSizeHint: Int,
+        @JvmField val maxSize: Int
     ) {
         /**
          * Builder class for [Config].
@@ -829,13 +816,13 @@ abstract class PagedList<T : Any> : AbstractList<T> {
     abstract class LoadStateManager {
         var refresh = LoadState.IDLE
             private set
-        private var mRefreshError: Throwable? = null
+        private var refreshError: Throwable? = null
         var start = LoadState.IDLE
             private set
-        private var mStartError: Throwable? = null
+        private var startError: Throwable? = null
         var end = LoadState.IDLE
             private set
-        private var mEndError: Throwable? = null
+        private var endError: Throwable? = null
 
         fun setState(type: LoadType, state: LoadState, error: Throwable?) {
             val expectError = state == LoadState.RETRYABLE_ERROR || state == LoadState.ERROR
@@ -849,19 +836,19 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             // deduplicate signals
             when (type) {
                 LoadType.REFRESH -> {
-                    if (refresh == state && mRefreshError == error) return
+                    if (refresh == state && refreshError == error) return
                     refresh = state
-                    mRefreshError = error
+                    refreshError = error
                 }
                 LoadType.START -> {
-                    if (start == state && mStartError == error) return
+                    if (start == state && startError == error) return
                     start = state
-                    mStartError = error
+                    startError = error
                 }
                 LoadType.END -> {
-                    if (end == state && mEndError == error) return
+                    if (end == state && endError == error) return
                     end = state
-                    mEndError = error
+                    endError = error
                 }
             }
             onStateChanged(type, state, error)
@@ -874,9 +861,9 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         abstract fun onStateChanged(type: LoadType, state: LoadState, error: Throwable?)
 
         fun dispatchCurrentLoadState(listener: LoadStateListener) {
-            listener.onLoadStateChanged(LoadType.REFRESH, refresh, mRefreshError)
-            listener.onLoadStateChanged(LoadType.START, start, mStartError)
-            listener.onLoadStateChanged(LoadType.END, end, mEndError)
+            listener.onLoadStateChanged(LoadType.REFRESH, refresh, refreshError)
+            listener.onLoadStateChanged(LoadType.START, start, startError)
+            listener.onLoadStateChanged(LoadType.END, end, endError)
         }
     }
 
@@ -1094,9 +1081,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
     }
 
     internal fun dispatchStateChange(type: LoadType, state: LoadState, error: Throwable?) {
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            currentListener?.onLoadStateChanged(type, state, error) ?: listeners.removeAt(i)
+        listeners.removeAll { weakRef ->
+            weakRef.get()?.also { it.onLoadStateChanged(type, state, error) } == null
         }
     }
 
@@ -1109,13 +1095,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      *
      * @see size
      */
-    override fun get(index: Int): T? {
-        val item = storage[index]
-        if (item != null) {
-            lastItem = item
-        }
-        return item
-    }
+    override fun get(index: Int) = storage[index]?.also { item -> lastItem = item }
 
     /**
      * Load adjacent items to passed index.
@@ -1197,16 +1177,13 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Call this when lowest/HighestIndexAccessed are changed, or boundaryCallbackBegin/EndDeferred
      * is set.
      */
-    @Suppress("MemberVisibilityCanBePrivate") // synthetic access
-    internal fun tryDispatchBoundaryCallbacks(post: Boolean) {
-        val dispatchBegin =
-            boundaryCallbackBeginDeferred && lowestIndexAccessed <= config.prefetchDistance
+    private fun tryDispatchBoundaryCallbacks(post: Boolean) {
+        val dispatchBegin = boundaryCallbackBeginDeferred &&
+                lowestIndexAccessed <= config.prefetchDistance
         val dispatchEnd = boundaryCallbackEndDeferred &&
                 highestIndexAccessed >= size - 1 - config.prefetchDistance
 
-        if (!dispatchBegin && !dispatchEnd) {
-            return
-        }
+        if (!dispatchBegin && !dispatchEnd) return
 
         if (dispatchBegin) {
             boundaryCallbackBeginDeferred = false
@@ -1221,8 +1198,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         }
     }
 
-    @Suppress("MemberVisibilityCanBePrivate") // synthetic access
-    internal fun dispatchBoundaryCallbacks(begin: Boolean, end: Boolean) {
+    private fun dispatchBoundaryCallbacks(begin: Boolean, end: Boolean) {
         // safe to deref boundaryCallback here, since we only defer if boundaryCallback present
         if (begin) {
             boundaryCallback!!.onItemAtFrontLoaded(storage.firstLoadedItem!!)
@@ -1266,15 +1242,10 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * @see removeWeakLoadStateListener
      */
     open fun addWeakLoadStateListener(listener: LoadStateListener) {
-        // first, clean up any empty weak refs
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            if (currentListener == null) {
-                listeners.removeAt(i)
-            }
-        }
+        // Clean up any empty weak refs.
+        listeners.removeAll { it.get() == null }
 
-        // then add the new one
+        // Add the new one.
         listeners.add(WeakReference(listener))
         dispatchCurrentLoadState(listener)
     }
@@ -1283,16 +1254,11 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Remove a previously registered [LoadStateListener].
      *
      * @param listener Previously registered listener.
+     *
      * @see addWeakLoadStateListener
      */
     open fun removeWeakLoadStateListener(listener: LoadStateListener) {
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            if (currentListener == null || currentListener === listener) {
-                // found Listener, or empty weak ref
-                listeners.removeAt(i)
-            }
-        }
+        listeners.removeAll { it.get() == null || it.get() === listener }
     }
 
     /**
@@ -1318,25 +1284,18 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     open fun addWeakCallback(previousSnapshot: List<T>?, callback: Callback) {
         if (previousSnapshot != null && previousSnapshot !== this) {
-            if (previousSnapshot.isEmpty()) {
-                if (!storage.isEmpty()) {
-                    // If snapshot is empty, diff is trivial - just notify number new items.
-                    // Note: occurs in async init, when snapshot taken before init page arrives
-                    callback.onInserted(0, storage.size)
-                }
-            } else {
+            if (previousSnapshot.isNotEmpty()) {
                 val storageSnapshot = previousSnapshot as PagedList<T>
                 dispatchUpdatesSinceSnapshot(storageSnapshot, callback)
+            } else if (!storage.isEmpty()) {
+                // If snapshot is empty, diff is trivial - just notify number new items.
+                // Note: occurs in async init, when snapshot taken before init page arrives
+                callback.onInserted(0, storage.size)
             }
         }
 
         // first, clean up any empty weak refs
-        for (i in callbacks.indices.reversed()) {
-            val currentCallback = callbacks[i].get()
-            if (currentCallback == null) {
-                callbacks.removeAt(i)
-            }
-        }
+        callbacks.removeAll { it.get() == null }
 
         // then add the new one
         callbacks.add(WeakReference(callback))
@@ -1346,25 +1305,16 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Removes a previously added callback.
      *
      * @param callback Callback, previously added.
+     *
      * @see addWeakCallback
      */
     open fun removeWeakCallback(callback: Callback) {
-        for (i in callbacks.indices.reversed()) {
-            val currentCallback = callbacks[i].get()
-            if (currentCallback == null || currentCallback === callback) {
-                // found callback, or empty weak ref
-                callbacks.removeAt(i)
-            }
-        }
+        callbacks.removeAll { it.get() == null || it.get() === callback }
     }
 
     internal fun notifyInserted(position: Int, count: Int) {
         if (count == 0) return
-
-        for (i in callbacks.indices.reversed()) {
-            val callback = callbacks[i].get()
-            callback?.onInserted(position, count)
-        }
+        callbacks.reversed().forEach { it.get()?.onInserted(position, count) }
     }
 
     /**
@@ -1372,11 +1322,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     fun notifyChanged(position: Int, count: Int) {
-        if (count != 0) {
-            for (i in callbacks.indices.reversed()) {
-                callbacks[i].get()?.onChanged(position, count)
-            }
-        }
+        if (count == 0) return
+        callbacks.reversed().forEach { it.get()?.onChanged(position, count) }
     }
 
     /**
@@ -1384,11 +1331,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     fun notifyRemoved(position: Int, count: Int) {
-        if (count != 0) {
-            for (i in callbacks.indices.reversed()) {
-                callbacks[i].get()?.onRemoved(position, count)
-            }
-        }
+        if (count == 0) return
+        callbacks.reversed().forEach { it.get()?.onRemoved(position, count) }
     }
 }
 
