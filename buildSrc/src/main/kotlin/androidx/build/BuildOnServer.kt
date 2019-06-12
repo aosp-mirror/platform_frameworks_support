@@ -45,7 +45,7 @@ open class BuildOnServer : DefaultTask() {
         // TODO: re-add after merge to compose merge to master
         // "android-support-public-docs-$buildId.zip",
         // "dokkaPublicDocs-$buildId.zip",
-        "android-support-tipOfTree-docs-$buildId.zip",
+//        "android-support-tipOfTree-docs-$buildId.zip",
         "dokkaTipOfTreeDocs-$buildId.zip",
 
         "gmaven-diff-all-$buildId.zip",

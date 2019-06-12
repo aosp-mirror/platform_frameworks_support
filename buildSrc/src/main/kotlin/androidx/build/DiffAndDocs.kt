@@ -254,15 +254,15 @@ class DiffAndDocs private constructor(
                 }
             }
         }
-
-        // Before evaluation, make the docs placeholder project depend on every other project.
-        docsProject?.let { docsProject ->
-            docsProject.beforeEvaluate {
-                docsProject.rootProject.subprojects.asSequence()
-                    .filter { docsProject != it }
-                    .forEach { docsProject.evaluationDependsOn(it.path) }
-            }
-        }
+//
+//        // Before evaluation, make the docs placeholder project depend on every other project.
+//        docsProject?.let { docsProject ->
+//            docsProject.beforeEvaluate {
+//                docsProject.rootProject.subprojects.asSequence()
+//                    .filter { docsProject != it }
+//                    .forEach { docsProject.evaluationDependsOn(it.path) }
+//            }
+//        }
     }
 
     /**
@@ -379,11 +379,11 @@ private fun registerJavaProjectForDocsTask(
 ) {
     docsTaskProvider.configure { docsTask ->
         docsTask.dependsOn(javaCompileTaskProvider)
-        var javaCompileTask = javaCompileTaskProvider.get()
-        docsTask.source(javaCompileTask.source)
-        val project = docsTask.project
-        docsTask.classpath += project.files(javaCompileTask.classpath) +
-                project.files(javaCompileTask.destinationDir)
+        javaCompileTaskProvider.map {
+            docsTask.source(it.source)
+            val project = docsTask.project
+            docsTask.classpath += project.files(it.classpath) + project.files(it.destinationDir)
+        }
     }
 }
 
@@ -400,7 +400,7 @@ private fun registerAndroidProjectForDocsTask(
     // and there's a good chance that this will break in the near future.
     val javaCompileProvider = releaseVariant.javaCompileProvider
     task.configure {
-        it.dependsOn(javaCompileProvider)
+//        it.dependsOn(javaCompileProvider)
         it.include { fileTreeElement ->
             fileTreeElement.name != "R.java" ||
                     fileTreeElement.path.endsWith(releaseVariant.rFile())
@@ -408,8 +408,10 @@ private fun registerAndroidProjectForDocsTask(
         releaseVariant.getSourceFolders(SourceKind.JAVA).forEach { sourceSet ->
             it.source(sourceSet)
         }
-        it.classpath += releaseVariant.getCompileClasspath(null) +
-                it.project.files(javaCompileProvider.get().destinationDir)
+        javaCompileProvider.map { javaCompile ->
+            it.classpath += releaseVariant.getCompileClasspath(null) +
+                    it.project.files(javaCompile.destinationDir)
+        }
     }
 }
 

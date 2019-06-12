@@ -80,7 +80,7 @@ abstract class IgnoreApiChangesTask : MetalavaTask() {
         intermediateExclusions.createNewFile()
 
         var args = listOf("--classpath",
-            (bootClasspath + dependencyClasspath!!.files).joinToString(File.pathSeparator),
+            (bootClasspath + dependencyClasspath).joinToString(File.pathSeparator),
 
             "--source-path",
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),

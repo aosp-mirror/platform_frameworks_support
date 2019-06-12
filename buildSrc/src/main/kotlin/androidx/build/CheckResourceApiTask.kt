@@ -18,35 +18,33 @@ package androidx.build
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.Optional
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /**
  * Task for detecting changes in the public resource surface
  */
-open class CheckResourceApiTask : DefaultTask() {
+abstract class CheckResourceApiTask : DefaultTask() {
 
-    @InputFiles
-    @Optional
-    var oldApiFile: File? = null
+    @get:Input
+    abstract val oldApiFile: Property<File>
 
-    @InputFiles
-    @Optional
-    var newApiFile: File? = null
+    @get:Input
+    abstract val newApiFile: Property<File>
 
     @TaskAction
     fun checkResourceApi() {
 
-        if (oldApiFile == null || !oldApiFile!!.exists()) {
+        if (!oldApiFile.isPresent() || !oldApiFile.get().exists()) {
             throw GradleException("No resource api file for the current version exists, please" +
                     " run updateApi to create one.")
         }
-        var oldResourceApi: HashSet<String> = HashSet<String>(oldApiFile?.readLines())
+        var oldResourceApi: HashSet<String> = HashSet<String>(oldApiFile.get().readLines())
         var newResourceApi: HashSet<String> = HashSet<String>()
-        if (newApiFile != null && newApiFile!!.exists()) {
-            newResourceApi = HashSet<String>(newApiFile?.readLines())
+        if (newApiFile.isPresent() && newApiFile.get().exists()) {
+            newResourceApi = HashSet<String>(newApiFile.get().readLines())
         }
         if (!oldResourceApi.equals(newResourceApi)) {
             throw GradleException("Public resource surface changes detected, please run" +

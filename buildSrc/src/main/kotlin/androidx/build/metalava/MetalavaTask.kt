@@ -19,7 +19,6 @@ package androidx.build.metalava
 import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
-import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.InputFiles
 
@@ -35,7 +34,7 @@ abstract class MetalavaTask : DefaultTask() {
 
     /** Dependencies of [sourcePaths]. */
     @get:InputFiles
-    var dependencyClasspath: FileCollection? = null
+    var dependencyClasspath: Collection<File> = emptyList()
 
     /** Source files against which API signatures will be validated. */
     @get:InputFiles

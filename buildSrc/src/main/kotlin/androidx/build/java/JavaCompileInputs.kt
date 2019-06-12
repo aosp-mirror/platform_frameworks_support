@@ -20,7 +20,6 @@ import androidx.build.androidJarFile
 import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.attributes.Attribute
-import org.gradle.api.file.FileCollection
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSet
 import java.io.File
@@ -32,7 +31,7 @@ data class JavaCompileInputs(
     val sourcePaths: Collection<File>,
 
     // Dependencies of [sourcePaths].
-    val dependencyClasspath: FileCollection,
+    val dependencyClasspath: Collection<File>,
 
     // Android's boot classpath.
     val bootClasspath: Collection<File>
@@ -47,7 +46,7 @@ data class JavaCompileInputs(
                 config.attributes { container ->
                     container.attribute(Attribute.of("artifactType", String::class.java), "jar")
                 }
-            }.artifacts.artifactFiles
+            }.artifacts.artifactFiles.files
             var bootClasspath: Collection<File> = library.bootClasspath
 
             return JavaCompileInputs(sourcePaths, dependencyClasspath, bootClasspath)
@@ -56,7 +55,7 @@ data class JavaCompileInputs(
         // Constructs a JavaCompileInputs from a sourceset
         fun fromSourceSet(sourceSet: SourceSet, project: Project): JavaCompileInputs {
             val sourcePaths: Collection<File> = sourceSet.allSource.srcDirs
-            val dependencyClasspath = sourceSet.compileClasspath
+            val dependencyClasspath = sourceSet.compileClasspath.files
             val bootClasspath: Collection<File> = androidJarFile(project).files
             return JavaCompileInputs(sourcePaths, dependencyClasspath, bootClasspath)
         }

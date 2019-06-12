@@ -57,7 +57,7 @@ abstract class GenerateApiTask : MetalavaTask() {
         // generate public API txt
         runWithArgs(
             "--classpath",
-            (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
+            (bootClasspath + dependencyClasspath).joinToString(File.pathSeparator),
 
             "--source-path",
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
@@ -74,7 +74,7 @@ abstract class GenerateApiTask : MetalavaTask() {
             val metalavaRestrictedOutputFile = File(restrictedApiFile.path + ".tmp")
             runWithArgs(
                 "--classpath",
-                (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
+                (bootClasspath + dependencyClasspath).joinToString(File.pathSeparator),
 
                 "--source-path",
                 sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),

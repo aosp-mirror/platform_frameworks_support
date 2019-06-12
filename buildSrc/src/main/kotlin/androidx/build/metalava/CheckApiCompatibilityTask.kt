@@ -68,7 +68,7 @@ abstract class CheckApiCompatibilityTask : MetalavaTask() {
     // is compatible with <apiFile> except for any exclusions listed in <exclusionsFile>
     fun checkApiFile(apiFile: File, exclusionsFile: File, checkRestrictedAPIs: Boolean) {
         var args = listOf("--classpath",
-                (bootClasspath + dependencyClasspath!!.files).joinToString(File.pathSeparator),
+                (bootClasspath + dependencyClasspath).joinToString(File.pathSeparator),
 
                 "--source-path",
                 sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),

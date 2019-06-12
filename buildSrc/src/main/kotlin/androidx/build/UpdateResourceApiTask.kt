@@ -2,8 +2,8 @@ package androidx.build
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.Optional
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -12,35 +12,34 @@ import java.util.SortedSet
 /**
  * Task for updating the public resource surface
  */
-open class UpdateResourceApiTask : DefaultTask() {
+abstract class UpdateResourceApiTask : DefaultTask() {
+    @get:Input
+    abstract val oldApiFile: Property<File>
 
-    @InputFiles
-    @Optional
-    var oldApiFile: File? = null
+    @get:Input
+    abstract val newApiFile: Property<File>
 
-    @InputFiles
-    @Optional
-    var newApiFile: File? = null
-
-    @OutputFile
-    var destApiFile: File? = null
+    @get:OutputFile
+    abstract val destApiFile: Property<File>
 
     @TaskAction
     fun UpdateResourceApi() {
-        val destApiFile = checkNotNull(destApiFile) { "destApiFile not set" }
-        if (oldApiFile == null || !!oldApiFile!!.exists()) {
-            if (newApiFile != null && newApiFile!!.exists()) {
-                newApiFile?.copyTo(destApiFile, true, 8)
+
+        val destApiFile = checkNotNull(destApiFile.get()) { "destApiFile not set" }
+
+        if (oldApiFile.isPresent && oldApiFile.get().exists()) {
+            if (newApiFile.isPresent && newApiFile.get().exists()) {
+                newApiFile.get().copyTo(destApiFile, true, 8)
                 return
             } else {
                 destApiFile.createNewFile()
                 return
             }
         }
-        var oldResourceApi: HashSet<String> = HashSet<String>(oldApiFile?.readLines())
+        var oldResourceApi: HashSet<String> = HashSet<String>(oldApiFile.get().readLines())
         var newResourceApi: HashSet<String> = HashSet<String>()
-        if (newApiFile != null && newApiFile!!.exists()) {
-            newResourceApi = HashSet<String>(newApiFile?.readLines())
+        if (newApiFile.isPresent && newApiFile.get().exists()) {
+            newResourceApi = HashSet<String>(newApiFile.get().readLines())
         }
         val removedResourceApi = HashSet<String>()
         val addedResourceApi = HashSet<String>(newResourceApi)
@@ -51,7 +50,7 @@ open class UpdateResourceApiTask : DefaultTask() {
                 removedResourceApi.add(e)
             }
         }
-        val oldVersion = Version(oldApiFile!!.name.removePrefix("res-").removeSuffix(".txt"))
+        val oldVersion = Version(oldApiFile.get().name.removePrefix("res-").removeSuffix(".txt"))
         if (oldVersion.major == project.version().major && !removedResourceApi.isEmpty()) {
             var errorMessage = "Cannot remove public resources within the same major version, " +
                     "the following were removed since version $oldVersion:\n"

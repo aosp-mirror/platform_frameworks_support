@@ -48,7 +48,6 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.api.ApkVariant
-import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
@@ -62,6 +61,7 @@ import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.bundling.Zip
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
@@ -590,15 +590,14 @@ class AndroidXPlugin : Plugin<Project> {
 
     // Task that creates a json file of a project's dependencies
     private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
-        afterEvaluate {
-            if (extension.publish.shouldRelease()) {
-                // Only generate build info files for published libraries.
-                val task = project.tasks.register(
-                    "createLibraryBuildInfoFile",
-                    CreateLibraryBuildInfoFileTask::class.java
-                )
-                project.rootProject.tasks.getByName(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-                    .dependsOn(task)
+        if (extension.publish.shouldRelease()) {
+            // Only generate build info files for published libraries.
+            val task = project.tasks.register(
+                "createLibraryBuildInfoFile",
+                CreateLibraryBuildInfoFileTask::class.java
+            )
+            project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
+                it.dependsOn(task)
             }
         }
     }
@@ -669,11 +668,15 @@ private fun isDependencyRange(version: String?): Boolean {
             version.endsWith("+"))
 }
 
-private fun Project.createCheckResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("checkResourceApi",
+private fun Project.createCheckResourceApiTask(taskProviderList: List<TaskProvider<out Task>>):
+        TaskProvider<CheckResourceApiTask> {
+    return project.tasks.register("checkResourceApi",
             CheckResourceApiTask::class.java) {
-        newApiFile = getGenerateResourceApiFile()
-        oldApiFile = project.getCurrentApiLocation().resourceFile
+        it.newApiFile.set(getGenerateResourceApiFile())
+        it.oldApiFile.set(project.getCurrentApiLocation().resourceFile)
+        for (taskProvider in taskProviderList) {
+            it.dependsOn(taskProvider)
+        }
     }
 }
 
@@ -685,12 +688,16 @@ private fun Project.createCheckReleaseReadyTask(taskProviderList: List<TaskProvi
     }
 }
 
-private fun Project.createUpdateResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
-        newApiFile = getGenerateResourceApiFile()
-        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
-                project.version(), true, false, ApiType.RESOURCEAPI)
-        destApiFile = project.getCurrentApiLocation().resourceFile
+private fun Project.createUpdateResourceApiTask(taskProviderList: List<TaskProvider<out Task>>):
+        TaskProvider<UpdateResourceApiTask> {
+    return project.tasks.register("updateResourceApi", UpdateResourceApiTask::class.java) {
+        it.newApiFile.set(getGenerateResourceApiFile())
+        it.oldApiFile.set(getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
+                project.version(), true, false, ApiType.RESOURCEAPI))
+        it.destApiFile.set(project.getCurrentApiLocation().resourceFile)
+        for (taskProvider in taskProviderList) {
+            it.dependsOn(taskProvider)
+        }
     }
 }
 
@@ -702,16 +709,24 @@ fun Project.getProjectsMap(): ConcurrentHashMap<String, String> {
 private fun Project.configureResourceApiChecks(extension: LibraryExtension) {
     afterEvaluate {
         if (project.hasApiFolder()) {
-            val checkResourceApiTask = project.createCheckResourceApiTask()
-            val updateResourceApiTask = project.createUpdateResourceApiTask()
 
+            var debugLibraryJavaCompileProvider: TaskProvider<JavaCompile>? = null
             extension.libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     // Check and update resource api tasks rely compile to generate public.txt
-                    checkResourceApiTask.dependsOn(libraryVariant.javaCompileProvider)
-                    updateResourceApiTask.dependsOn(libraryVariant.javaCompileProvider)
+                    debugLibraryJavaCompileProvider = libraryVariant.javaCompileProvider
                 }
             }
+
+            val taskProviderList = mutableListOf<TaskProvider<JavaCompile>>()
+            if (debugLibraryJavaCompileProvider != null) {
+                taskProviderList.add(debugLibraryJavaCompileProvider!!)
+            } else {
+                return@afterEvaluate
+            }
+            val checkResourceApiTask = project.createCheckResourceApiTask(taskProviderList)
+            val updateResourceApiTask = project.createUpdateResourceApiTask(taskProviderList)
+
             tasks.withType(UpdateApiTask::class.java).configureEach { task ->
                 task.dependsOn(updateResourceApiTask)
             }
