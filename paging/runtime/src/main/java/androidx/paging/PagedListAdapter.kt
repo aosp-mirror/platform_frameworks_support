@@ -108,18 +108,13 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class PagedListAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH> {
     internal val differ: AsyncPagedListDiffer<T>
-    private val listener = object : AsyncPagedListDiffer.PagedListListener<T> {
-        override fun onCurrentListChanged(previousList: PagedList<T>?, currentList: PagedList<T>?) {
-            @Suppress("DEPRECATION")
-            this@PagedListAdapter.onCurrentListChanged(currentList)
-            this@PagedListAdapter.onCurrentListChanged(previousList, currentList)
-        }
+    private val listener = { previousList: PagedList<T>?, currentList: PagedList<T>? ->
+        @Suppress("DEPRECATION")
+        this@PagedListAdapter.onCurrentListChanged(currentList)
+        this@PagedListAdapter.onCurrentListChanged(previousList, currentList)
     }
-    private val loadStateListener = object : PagedList.LoadStateListener {
-        override fun onLoadStateChanged(type: LoadType, state: LoadState, error: Throwable?) {
-            this@PagedListAdapter.onLoadStateChanged(type, state, error)
-        }
-    }
+    private val loadStateChangedCallback
+        get() = this::onLoadStateChanged
 
     /**
      * Returns the PagedList currently being displayed by the Adapter.
@@ -148,13 +143,13 @@ abstract class PagedListAdapter<T : Any, VH : RecyclerView.ViewHolder> : Recycle
     protected constructor(diffCallback: DiffUtil.ItemCallback<T>) {
         differ = AsyncPagedListDiffer(this, diffCallback)
         differ.addPagedListListener(listener)
-        differ.addLoadStateListener(loadStateListener)
+        differ.addLoadStateChangedListener(loadStateChangedCallback)
     }
 
     protected constructor(config: AsyncDifferConfig<T>) {
         differ = AsyncPagedListDiffer(AdapterListUpdateCallback(this), config)
         differ.addPagedListListener(listener)
-        differ.addLoadStateListener(loadStateListener)
+        differ.addLoadStateChangedListener(loadStateChangedCallback)
     }
 
     /**
@@ -246,26 +241,26 @@ abstract class PagedListAdapter<T : Any, VH : RecyclerView.ViewHolder> : Recycle
     }
 
     /**
-     * Add a LoadStateListener to observe the loading state of the current PagedList.
+     * Add a [OnLoadStateChanged] to observe the loading state of the current [PagedList].
      *
-     * As new PagedLists are submitted and displayed, the listener will be notified to reflect
+     * As new PagedLists are submitted and displayed, the callback will be notified to reflect
      * current REFRESH, START, and END states.
      *
-     * @param listener Listener to receive updates.
+     * @param callback [OnLoadStateChanged] to receive updates.
      *
-     * @see removeLoadStateListener
+     * @see removeLoadStateChangedCallback
      */
-    open fun addLoadStateListener(listener: PagedList.LoadStateListener) {
-        differ.addLoadStateListener(listener)
+    open fun addLoadStateChangedCallback(callback: OnLoadStateChanged) {
+        differ.addLoadStateChangedListener(callback)
     }
 
     /**
-     * Remove a previously registered LoadStateListener.
+     * Remove a previously registered [OnLoadStateChanged].
      *
-     * @param listener Previously registered listener.
-     * @see addLoadStateListener
+     * @param callback Previously registered callback.
+     * @see addLoadStateChangedCallback
      */
-    open fun removeLoadStateListener(listener: PagedList.LoadStateListener) {
-        differ.removeLoadStateListListener(listener)
+    open fun removeLoadStateChangedCallback(callback: OnLoadStateChanged) {
+        differ.removeLoadStateListListener(callback)
     }
 }
