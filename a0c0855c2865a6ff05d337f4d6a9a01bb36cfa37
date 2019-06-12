@@ -16,6 +16,24 @@
       "revId": "a0c0855c2865a6ff05d337f4d6a9a01bb36cfa37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbfd7a4_5032e931",
+        "filename": "lifecycle/runtime/ktx/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-12T20:10:53Z",
+      "side": 1,
+      "message": "We are still on coroutines 1.1.1 (https://android.git.corp.google.com/platform/frameworks/support/+/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt#59) and in that version DispatchQueue.kt in runOrEnqueue is using Dispatchers.Main.immediate which is marked as @ExperimentalCoroutinesApi.\n\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/version-1.1.1/common/kotlinx-coroutines-core-common/src/MainCoroutineDispatcher.kt#L24\n\nMaybe time to upgrade dependency?",
+      "parentUuid": "a6a37a40_52c2b0b8",
+      "revId": "a0c0855c2865a6ff05d337f4d6a9a01bb36cfa37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
