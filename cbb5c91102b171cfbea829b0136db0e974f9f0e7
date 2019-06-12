@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e49dbe7d_6c87fd46",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T06:31:57Z",
+      "side": 1,
+      "message": "To use EffectMode.toString() is also okay for this.\nBut I personally prefer to use the .name() method. \nThis is because the .toString() might be overridden by different implementation. The .name() would always return the name of enum constant as it is written.",
+      "revId": "cbb5c91102b171cfbea829b0136db0e974f9f0e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f98b35_8e84dc16",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T06:31:57Z",
+      "side": 1,
+      "message": "Maybe we can remove the \n/////////////\nImageCaptureExtender.class.toString() \n/////////////\nand only use the effect mode as the identify Key, because the type Preview and type ImageCapture is stored in different option value. \nFor example: the checkImageCaptureEnabled() method will get the effectMode value from OPTION_PREVIEW_EXTENDER_TYPE and which is already direct to the Preview effect type.",
+      "revId": "cbb5c91102b171cfbea829b0136db0e974f9f0e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
