@@ -102,7 +102,7 @@ public final class SavedStateHandle {
 
         Map<String, Object> state = new HashMap<>();
         if (defaultState != null) {
-            for (String key: defaultState.keySet()) {
+            for (String key : defaultState.keySet()) {
                 state.put(key, defaultState.get(key));
             }
         }
@@ -141,7 +141,22 @@ public final class SavedStateHandle {
     @SuppressWarnings("unchecked")
     @MainThread
     @NonNull
-    public <T> MutableLiveData<T> getLiveData(@Nullable String key) {
+    public <T> MutableLiveData<T> getLiveData(@NonNull String key) {
+        return getLiveData(key, null);
+    }
+
+    /**
+     * Returns a {@link androidx.lifecycle.LiveData} that access data associated with the given key.
+     *
+     * @param key The identifier for the value
+     * @param initialValue If no value exists with the given {@code key}, a new one is created
+     *                     with the given {@code initialValue}. Note that passing {@code null} will
+     *                     ignore the {@code initialValue}.
+     */
+    @SuppressWarnings("unchecked")
+    @MainThread
+    @NonNull
+    public <T> MutableLiveData<T> getLiveData(@NonNull String key, @Nullable T initialValue) {
         MutableLiveData<T> liveData = (MutableLiveData<T>) mLiveDatas.get(key);
         if (liveData != null) {
             return liveData;
@@ -150,6 +165,8 @@ public final class SavedStateHandle {
         // double hashing but null is valid value
         if (mRegular.containsKey(key)) {
             mutableLd = new SavingStateLiveData<>(this, key, (T) mRegular.get(key));
+        } else if (initialValue != null) { //ignore null initial value
+            mutableLd = new SavingStateLiveData<>(this, key, initialValue);
         } else {
             mutableLd = new SavingStateLiveData<>(this, key);
         }
