@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6a37a40_52c2b0b8",
+        "filename": "lifecycle/runtime/ktx/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-12T10:48:32Z",
+      "side": 1,
+      "message": "This one is a bit surprising, I don\u0027t see any indication that it is experimental: \n\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/common/src/CoroutineDispatcher.kt",
+      "revId": "a0c0855c2865a6ff05d337f4d6a9a01bb36cfa37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
