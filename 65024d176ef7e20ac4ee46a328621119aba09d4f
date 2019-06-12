@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f103a85d_ed0e146d",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1498334
+      },
+      "writtenOn": "2019-06-12T23:06:09Z",
+      "side": 1,
+      "message": "Probably a good idea to break this test into several private methods because it\u0027s hard to read right now. Unsure if this is too low level for the review you want right now, feel free to ignore.",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd4a2198_b8348bf2",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1498334
+      },
+      "writtenOn": "2019-06-12T23:06:09Z",
+      "side": 1,
+      "message": "Worth using builder?",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8150df_94e714a0",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1498334
+      },
+      "writtenOn": "2019-06-12T23:06:09Z",
+      "side": 1,
+      "message": "What\u0027s the reason for only providing the no-arg and message constructors for this class? Shouldn\u0027t we also provide the constructor overrides to supply the cause?",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
