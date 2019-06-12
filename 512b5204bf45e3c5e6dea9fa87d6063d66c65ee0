@@ -69,6 +69,30 @@
       "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af8a13c5_263ce8a2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T22:02:03Z",
+      "side": 1,
+      "message": "I guess if it is type T, then we don\u0027t have to worry about nullability.",
+      "parentUuid": "105aeef3_05f34373",
+      "range": {
+        "startLine": 711,
+        "startChar": 40,
+        "endLine": 711,
+        "endChar": 43
+      },
+      "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
