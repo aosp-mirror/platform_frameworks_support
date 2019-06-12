@@ -27,7 +27,7 @@ import org.gradle.api.tasks.Upload
 import org.gradle.kotlin.dsl.withGroovyBuilder
 
 fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
-    afterEvaluate {
+//    afterEvaluate {
         if (extension.publish.shouldPublish()) {
             val mavenGroup = extension.mavenGroup?.group
             if (mavenGroup == null) {
@@ -42,7 +42,7 @@ fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
             }
             group = mavenGroup
         }
-    }
+//    }
 
     apply(mapOf("plugin" to "maven"))
 

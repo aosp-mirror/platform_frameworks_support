@@ -18,25 +18,31 @@
 // TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from DokkaPublicDocs to just publicDocs
 package androidx.build.dokka
 
-import java.io.File
-import androidx.build.androidJarFile
-import androidx.build.java.JavaCompileInputs
 import androidx.build.AndroidXExtension
 import androidx.build.RELEASE_RULE
 import androidx.build.Strategy.Ignore
 import androidx.build.Strategy.Prebuilts
-import org.gradle.api.artifacts.ResolveException
+import androidx.build.androidJarFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.artifacts.ResolveException
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputFiles
+import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskContainer
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.util.PatternFilterable
-import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.DokkaAndroidTask
+import java.io.File
 
 object DokkaPublicDocs {
     val ARCHIVE_TASK_NAME: String = Dokka.archiveTaskNameForType("Public")
-    private val RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("Public")
+
+    val RUNNER_KOTLIN_TASK_NAME = Dokka.generatorTaskNameForType("Public", "Kotlin")
+    val RUNNER_JAVA_TASK_NAME = Dokka.generatorTaskNameForType("Public", "Java")
+
     private const val UNZIP_DEPS_TASK_NAME = "unzipDokkaPublicDocsDeps"
 
     val hiddenPackages = listOf(
@@ -64,34 +70,41 @@ object DokkaPublicDocs {
         return tryGetRunnerProject(project)!!
     }
 
-    fun getDocsTask(project: Project): DokkaTask {
-        val runnerProject = getRunnerProject(project)
-        return runnerProject.tasks.getOrCreateDocsTask(runnerProject)
-    }
-
-    fun getUnzipDepsTask(project: Project): LocateJarsTask {
-        val runnerProject = getRunnerProject(project)
-        return runnerProject.tasks.getByName(DokkaPublicDocs.UNZIP_DEPS_TASK_NAME) as LocateJarsTask
-    }
-
-    @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): DokkaTask {
+    @Synchronized fun TaskContainer.registerDocsTask(runnerProject: Project) {
         val tasks = this
-        if (tasks.findByName(RUNNER_TASK_NAME) == null) {
-            Dokka.createDocsTask("Public",
-                runnerProject,
-                hiddenPackages)
-            val docsTask = runnerProject.tasks.getByName(RUNNER_TASK_NAME) as DokkaTask
-            tasks.create(UNZIP_DEPS_TASK_NAME, LocateJarsTask::class.java) { unzipTask ->
-                unzipTask.doLast {
-                    for (jar in unzipTask.outputJars) {
-                        docsTask.classpath = docsTask.classpath.plus(runnerProject.file(jar))
-                    }
-                    docsTask.classpath += androidJarFile(runnerProject)
+
+        runnerProject.tasks.findByName(RUNNER_KOTLIN_TASK_NAME)?.let {
+            return
+        }
+
+        Dokka.registerDocsTasks("Public",
+            runnerProject,
+            hiddenPackages)
+        val kotlinDocsTask = runnerProject.tasks.named(RUNNER_KOTLIN_TASK_NAME)
+        val javaDocsTask = runnerProject.tasks.named(RUNNER_JAVA_TASK_NAME)
+        val unzipTask = tasks.register(UNZIP_DEPS_TASK_NAME, LocateJarsTask::class.java)
+
+        javaDocsTask.configure { it as DokkaAndroidTask
+//            it.dependsOn(unzipTask)
+            it.classpath += androidJarFile(runnerProject)
+
+            unzipTask.map { locateJars ->
+                for (jar in locateJars.outputJars) {
+                    it.classpath = it.classpath.plus(runnerProject.file(jar))
                 }
-                docsTask.dependsOn(unzipTask)
             }
         }
-        return runnerProject.tasks.getByName(DokkaPublicDocs.RUNNER_TASK_NAME) as DokkaTask
+
+        kotlinDocsTask.configure { it as DokkaAndroidTask
+//            it.dependsOn(unzipTask)
+            it.classpath += androidJarFile(runnerProject)
+
+            unzipTask.map { locateJars ->
+                for (jar in locateJars.outputJars) {
+                    it.classpath = it.classpath.plus(runnerProject.file(jar))
+                }
+            }
+        }
     }
 
     // specifies that <project> exists and might need us to generate documentation for it
@@ -119,17 +132,35 @@ object DokkaPublicDocs {
     }
 
     // specifies that <dependency> describes an artifact containing sources that we want to include in our generated documentation
-    private fun registerPrebuilt(dependency: String, runnerProject: Project): Copy {
-        val docsTask = getDocsTask(runnerProject)
+    private fun registerPrebuilt(dependency: String, runnerProject: Project): TaskProvider<Copy> {
+
+        runnerProject.tasks.registerDocsTask(runnerProject)
+
+        val kotlinDocsTask = runnerProject.tasks.named(RUNNER_KOTLIN_TASK_NAME)
+        val javaDocsTask = runnerProject.tasks.named(RUNNER_JAVA_TASK_NAME)
 
         // unzip the sources jar
         val unzipTask = getPrebuiltSources(runnerProject, "$dependency:sources")
-        val sourceDir = unzipTask.destinationDir
-        docsTask.dependsOn(unzipTask)
-        docsTask.sourceDirs += sourceDir
+
+        kotlinDocsTask.configure { it as DokkaAndroidTask
+//            it.dependsOn(unzipTask)
+
+            unzipTask.map { copy ->
+                it.sourceDirs += copy.destinationDir
+            }
+        }
+
+        javaDocsTask.configure { it as DokkaAndroidTask
+//            it.dependsOn(unzipTask)
+            unzipTask.map { copy ->
+                it.sourceDirs += copy.destinationDir
+            }
+        }
 
         // also make a note to unzip any dependencies too
-        getUnzipDepsTask(runnerProject).inputDependencies.add(dependency)
+        runnerProject.tasks.named(UNZIP_DEPS_TASK_NAME).configure { it as LocateJarsTask
+            it.inputDependencies.add(dependency)
+        }
 
         return unzipTask
     }
@@ -138,7 +169,7 @@ object DokkaPublicDocs {
     private fun getPrebuiltSources(
         runnerProject: Project,
         mavenId: String
-    ): Copy {
+    ): TaskProvider<Copy> {
         val configuration = runnerProject.configurations.detachedConfiguration(
             runnerProject.dependencies.create(mavenId)
         )
@@ -156,7 +187,7 @@ object DokkaPublicDocs {
         val sanitizedMavenId = mavenId.replace(":", "-")
         val buildDir = runnerProject.buildDir
         val destDir = runnerProject.file("$buildDir/sources-unzipped/$sanitizedMavenId")
-        return runnerProject.tasks.create("unzip$sanitizedMavenId", Copy::class.java) {
+        return runnerProject.tasks.register("unzip$sanitizedMavenId", Copy::class.java) {
             it.from(runnerProject.zipTree(configuration.singleFile)
                 .matching {
                     it.exclude("**/*.MF")
@@ -172,33 +203,30 @@ object DokkaPublicDocs {
             }
         }
     }
-
-    private fun registerInputs(inputs: JavaCompileInputs, project: Project) {
-        val docsTask = getDocsTask(project)
-        docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath = docsTask.classpath.plus(inputs.dependencyClasspath)
-            .plus(inputs.bootClasspath)
-        docsTask.dependsOn(inputs.dependencyClasspath)
-    }
 }
 
 open class LocateJarsTask : DefaultTask() {
     // dependencies to search for .jar files
-    val inputDependencies = mutableListOf<String>()
+    @get:Input
+    var inputDependencies: ListProperty<String> = project.objects.listProperty(String::class.java)
 
     // .jar files found in any dependencies
-    val outputJars = mutableListOf<File>()
+    @OutputFiles
+    var outputJars = mutableListOf<File>()
 
     @TaskAction
     fun Extract() {
         // setup
-        val inputDependencies = checkNotNull(inputDependencies) { "inputDependencies not set" }
+        val inputDependencies = checkNotNull(inputDependencies.get()) {
+            "inputDependencies not set"
+        }
         val project = this.project
 
         // resolve the dependencies
         val dependenciesArray = inputDependencies.map {
             project.dependencies.create(it)
         }.toTypedArray()
+
         val artifacts = project.configurations.detachedConfiguration(*dependenciesArray)
                         .resolvedConfiguration.resolvedArtifacts
 
