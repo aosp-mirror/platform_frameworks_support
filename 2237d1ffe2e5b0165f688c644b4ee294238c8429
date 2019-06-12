@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77627837_647050e9",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-12T07:54:30Z",
+      "side": 1,
+      "message": "I think that specifying number of times can make the intention clear. So keep it.",
+      "parentUuid": "e1ce0c28_9eeb407d",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "488078e0_cb145da8",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8b29b6_f9c25551",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-12T07:54:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "488078e0_cb145da8",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c89ac25a_f2e88cb3",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-12T07:54:30Z",
+      "side": 1,
+      "message": "I think that specifying number of times can make the intention clear. So keep it.",
+      "parentUuid": "3e49c8a2_3e4feba1",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75a8f5ff_d461d7f3",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a61c38f_20296472",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-12T07:54:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a8f5ff_d461d7f3",
+      "revId": "2237d1ffe2e5b0165f688c644b4ee294238c8429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
