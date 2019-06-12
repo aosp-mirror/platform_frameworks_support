@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9fc92250_88449ee6",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T17:40:42Z",
+      "side": 1,
+      "message": "You\u0027re right! It works without this. I think this was required due to a bug that was recently fixed in AGP (so it is not longer required in androidx since we upgraded).",
+      "parentUuid": "baea61a3_e8e2ae5a",
+      "revId": "9b6f76ee22bdefc30d21872213134ef73d39a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ab4a731_4ff0de71",
         "filename": "paging/rxjava2/src/androidTest/java/androidx/paging/RxPagedListTest.kt",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "9b6f76ee22bdefc30d21872213134ef73d39a3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fccdaa2_ef9084fd",
+        "filename": "paging/rxjava2/src/androidTest/java/androidx/paging/RxPagedListTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T17:40:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ab4a731_4ff0de71",
+      "revId": "9b6f76ee22bdefc30d21872213134ef73d39a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
