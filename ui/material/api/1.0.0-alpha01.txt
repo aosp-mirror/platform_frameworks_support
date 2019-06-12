@@ -230,6 +230,21 @@ package androidx.ui.material {
 }), androidx.ui.core.Dp height = 1.dp, androidx.ui.core.Dp indent = 0.dp);
   }
 
+  public final class DrawerKt {
+    ctor public DrawerKt();
+    method public static void BottomDrawer(androidx.ui.material.DrawerState drawerState, kotlin.jvm.functions.Function1<? super androidx.ui.material.DrawerState,kotlin.Unit> onStateChange, kotlin.jvm.functions.Function0<kotlin.Unit> drawerContent, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void DrawerHeader(kotlin.jvm.functions.Function0<kotlin.Unit> title, kotlin.jvm.functions.Function0<kotlin.Unit> subtitle = {});
+    method public static void DrawerSectionLabel(kotlin.jvm.functions.Function0<kotlin.Unit> text);
+    method public static void DrawerVerticalSpace();
+    method public static void ModalDrawer(androidx.ui.material.DrawerState drawerState, kotlin.jvm.functions.Function1<? super androidx.ui.material.DrawerState,kotlin.Unit> onStateChange, kotlin.jvm.functions.Function0<kotlin.Unit> drawerContent, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void NavigationDrawerItem(boolean selected, kotlin.jvm.functions.Function0<kotlin.Unit> onSelect, kotlin.jvm.functions.Function0<kotlin.Unit> text);
+  }
+
+  public enum DrawerState {
+    enum_constant public static final androidx.ui.material.DrawerState Closed;
+    enum_constant public static final androidx.ui.material.DrawerState Opened;
+  }
+
   public final class FloatingActionButtonKt {
     ctor public FloatingActionButtonKt();
     method public static void FloatingActionButton(kotlin.jvm.functions.Function0<kotlin.Unit>? onClick = null, androidx.ui.core.Dp minSize = FabSize, androidx.ui.material.borders.ShapeBorder shape = androidx.ui.material.borders.CircleBorder(), androidx.ui.graphics.Color color = +themeColor({ 
