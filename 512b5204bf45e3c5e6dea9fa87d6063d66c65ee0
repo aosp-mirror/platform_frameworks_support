@@ -93,6 +93,30 @@
       "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948b16d8_9a4cd29f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-12T23:45:36Z",
+      "side": 1,
+      "message": "Done. I don\u0027t think it really helps in terms of compile-time type safety :-/",
+      "parentUuid": "af8a13c5_263ce8a2",
+      "range": {
+        "startLine": 711,
+        "startChar": 40,
+        "endLine": 711,
+        "endChar": 43
+      },
+      "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
