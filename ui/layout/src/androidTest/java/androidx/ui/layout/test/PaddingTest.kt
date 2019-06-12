@@ -37,7 +37,6 @@ import androidx.ui.layout.Padding
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.ui.layout.AspectRatio
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -278,7 +277,6 @@ class PaddingTest : LayoutTest() {
             assertEquals(PxPosition(left.toPx(), top.toPx()), childPosition)
         }
 
-
     @Test
     fun testPadding_hasCorrectIntrinsicMeasurements() = withDensity(density) {
         val layoutLatch = CountDownLatch(1)
@@ -356,5 +354,4 @@ class PaddingTest : LayoutTest() {
         layoutLatch.await(1, TimeUnit.SECONDS)
         Unit
     }
-
 }

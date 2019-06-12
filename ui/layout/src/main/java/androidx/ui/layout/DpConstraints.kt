@@ -23,6 +23,7 @@ import androidx.ui.core.coerceAtLeast
 import androidx.ui.core.coerceIn
 import androidx.ui.core.dp
 import androidx.ui.core.isFinite
+import androidx.ui.core.toPx
 
 /**
  * Similar to [Constraints], but with constraint values expressed in [Dp].
@@ -169,4 +170,14 @@ fun DensityReceiver.Constraints(dpConstraints: DpConstraints) = Constraints(
     maxWidth = dpConstraints.maxWidth.toIntPx(),
     minHeight = dpConstraints.minHeight.toIntPx(),
     maxHeight = dpConstraints.maxHeight.toIntPx()
+)
+
+/**
+ * Creates the [DpConstraints] corresponding to the current [Constraints].
+ */
+fun DensityReceiver.DpConstraints(dpConstraints: Constraints) = DpConstraints(
+    minWidth = dpConstraints.minWidth.toPx().toDp(),
+    maxWidth = dpConstraints.maxWidth.toPx().toDp(),
+    minHeight = dpConstraints.minHeight.toPx().toDp(),
+    maxHeight = dpConstraints.maxHeight.toPx().toDp()
 )
