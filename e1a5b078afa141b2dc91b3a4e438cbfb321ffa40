@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "88ac501b_f5040462",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T15:46:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1682eb1_d403a49c",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee0bb634_200e8566",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 12
@@ -68,6 +86,24 @@
       "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0403ada8_606e5d03",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-12T15:46:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0bb634_200e8566",
+      "revId": "e1a5b078afa141b2dc91b3a4e438cbfb321ffa40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
