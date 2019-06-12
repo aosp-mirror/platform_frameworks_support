@@ -22,6 +22,29 @@
       "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d01d52b9_ffe2e517",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-12T21:50:29Z",
+      "side": 1,
+      "message": "should we allow this to be `Any?`?\n\nAlso, we could make this a little bit more type-safe with something like `class DataNode\u003cT\u003e(val key: Key\u003cT\u003e, var value: T)` or something like that. Not sure if it\u0027s worth it, but throwing it out there.",
+      "range": {
+        "startLine": 711,
+        "startChar": 40,
+        "endLine": 711,
+        "endChar": 43
+      },
+      "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
