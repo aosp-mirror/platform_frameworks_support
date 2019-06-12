@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c6246eb_5a6a093f",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-12T23:20:35Z",
+      "side": 0,
+      "message": "oh so we cannot pass the configuration into the open helper because we need the factory to construct the configuration ?",
+      "range": {
+        "startLine": 899,
+        "startChar": 28,
+        "endLine": 899,
+        "endChar": 36
+      },
+      "revId": "528c01cbd61b40ef1fae60cc34e9acc4274ad413",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

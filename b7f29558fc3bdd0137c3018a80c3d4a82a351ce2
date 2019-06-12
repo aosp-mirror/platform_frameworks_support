@@ -46,6 +46,75 @@
       "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f9039c3_ff8c5d6f",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-12T23:20:35Z",
+      "side": 1,
+      "message": "document why this exists as a setter instead of a constructor parameter etc.",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 33
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5733b87_5ace91af",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-12T23:20:35Z",
+      "side": 1,
+      "message": "hmm i\u0027m not a big fan of this because seems like we are losing some abstraction here. (this code starts checking migrations instead of letting the delegate do the work).\n\nMaybe we need an internal way to delegate destructive migrations ? Is this a problem about \"already opening\" the database?\n\nAlso, we are not locking the file before copying so we might already have some race condition problems here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 9
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc12d9d_9ca6fe64",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-12T23:20:35Z",
+      "side": 1,
+      "message": ":) you really wanted this code in :)",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 33
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
