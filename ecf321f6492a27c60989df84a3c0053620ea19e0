@@ -22,6 +22,30 @@
       "revId": "ecf321f6492a27c60989df84a3c0053620ea19e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c817f354_5ead1729",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-12T14:46:37Z",
+      "side": 1,
+      "message": "Oh yes,\nThanks Trevor!\nIt would be nice to only allow openCaptureSession() in OPENED state. \nThe code would become more clear.\n\n\n////////////////////////////////////////////////////////////\nLet me sort out the camera state and the way to handle openCaptureSession:\n\nUNINITIALIZED  \u003d\u003e Default state, never appear, we can ignore openCaptureSession in this state.\nINITIALIZED \u003d\u003e mCameraDevice should be null by design, we can ignore openCaptureSession in this state.\nOPENING \u003d\u003e We can ignore since openCaptureSession would be invoked when it change to OPENED.\n\nOPENED \u003d\u003e Allow openCaptureSession\n\nREOPENING, CLOSING \u003d\u003e Not allow openCaptureSession to fix this issue.\nRELEASING \u0026 RELEASED \u003d\u003e Not allow openCaptureSession.",
+      "parentUuid": "f1fb303e_d9261225",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 627,
+        "endChar": 27
+      },
+      "revId": "ecf321f6492a27c60989df84a3c0053620ea19e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
