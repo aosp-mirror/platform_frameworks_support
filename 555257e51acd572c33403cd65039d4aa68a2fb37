@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "643eec27_d38376a9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-12T23:16:15Z",
+      "side": 1,
+      "message": "Does this really need to be a parameter?",
+      "revId": "555257e51acd572c33403cd65039d4aa68a2fb37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72e83f6_fc82ccad",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Align.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-12T23:16:15Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "555257e51acd572c33403cd65039d4aa68a2fb37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
