@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88574a4f_f4bc44b9",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T15:57:38Z",
+      "side": 1,
+      "message": "what does this mean? ContiguousPagedList isn\u0027t public API...",
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48632f0d_fb6c3b88",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T15:57:38Z",
+      "side": 1,
+      "message": "Does this make the docs for the properties harder to find? How does it change the IDE lookup, and generated kdocs?\n\nIf I\u0027m looking at the kdoc code itself here, it\u0027s much harder to read than the separate docs-per-member",
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ef7ba6_f586f046",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-12T15:57:38Z",
+      "side": 1,
+      "message": "make this a final class, since it should have been anyway.",
+      "range": {
+        "startLine": 527,
+        "startChar": 4,
+        "endLine": 527,
+        "endChar": 8
+      },
+      "revId": "2cf840229f119078085e3b10de1c29a2074d8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
