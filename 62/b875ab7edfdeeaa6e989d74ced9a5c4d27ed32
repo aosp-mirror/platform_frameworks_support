@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Siyamed Sinir <siyamed@google.com>
+Code-Review+2: Haoyu Zhang <haoyuchang@google.com>
+API-Review+1: Siyamed Sinir <siyamed@google.com>
+Submitted-by: Seigo Nonaka <nona@google.com>
+Submitted-at: Thu, 13 Jun 2019 21:26:48 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/981801
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
