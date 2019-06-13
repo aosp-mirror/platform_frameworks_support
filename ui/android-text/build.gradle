@@ -59,3 +59,9 @@ androidx {
     inceptionYear = "2018"
     description = "Android Specific implementation for Text."
 }
+
+android {
+    lintOptions {
+        baseline file("lint-baseline.xml")
+	}
+	}
