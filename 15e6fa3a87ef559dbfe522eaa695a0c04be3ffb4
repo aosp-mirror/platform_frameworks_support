@@ -16,6 +16,24 @@
       "revId": "15e6fa3a87ef559dbfe522eaa695a0c04be3ffb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772bd425_648ab03a",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/lint-baseline.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T17:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aea71388_4fbafb8c",
+      "revId": "15e6fa3a87ef559dbfe522eaa695a0c04be3ffb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
