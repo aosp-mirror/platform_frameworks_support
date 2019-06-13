@@ -1,0 +1,238 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d0ba804_527d0eac",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "File a bug to metalava about this (and add to doc) - metalava declares a class and ctor for extension classes (both when using an extension function, or when declaring an alias)",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da6b04f_d2d6e2f0",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "Why is this `? super *` ? Those are enum classes - should they be final?",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f6ceb6f_44c467f7",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "LoadStateListener\n\nThe \u0027on\u0027 prefix is used only for the method you override. The interface is typically a `Listener` (which is just as clear as, and shorter than `ChangedCallback`).",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "338505f2_f34b3fd4",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "loadStateListeners",
+      "range": {
+        "startLine": 934,
+        "startChar": 16,
+        "endLine": 934,
+        "endChar": 41
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3d475c_9a00ff02",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "this is sort of hard to read - split up into multiple lines, and separate out the invoke from the removeAll. It\u0027s unintuitive to have removeAll have a side effect (which also is the main purpose of the method).",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73f42a2_9f1875c0",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "note how this phrase got awkward - which is why LoadStateListener is still a fine name\n\nMaybe this was back when you had both the old and the new?",
+      "range": {
+        "startLine": 1243,
+        "startChar": 7,
+        "endLine": 1243,
+        "endChar": 33
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a296ca2a_0162e420",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "why change the name?",
+      "range": {
+        "startLine": 1249,
+        "startChar": 13,
+        "endLine": 1249,
+        "endChar": 44
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1147f696_5ae09e6a",
+        "filename": "paging/integration-tests/testapp/src/main/java/androidx/paging/integration/testapp/custom/PagedListSampleActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "is there a better way to line wrap this?",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50893fc1_4a95aa0c",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "revert name change on this method too",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee11bd8b_2c3bd5f7",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "newlines plz",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aae059db_cb946537",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "wrapping",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd5eaa4b_b923ba38",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T17:53:20Z",
+      "side": 1,
+      "message": "why this change? seems like an extra anon class with not much benefit",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
