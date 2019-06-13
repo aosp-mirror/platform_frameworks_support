@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54c85612_54ef3726",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateHandle.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-13T10:26:33Z",
+      "side": 1,
+      "message": "see comment in the bug (b/129989646), I\u0027d prefer to treat it always as initial value",
+      "revId": "5a2befc831dde58a40aca60a20def500a71669b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
