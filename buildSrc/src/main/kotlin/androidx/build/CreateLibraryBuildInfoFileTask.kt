@@ -27,8 +27,8 @@ import java.io.File
 import java.util.ArrayList
 
 /**
- * This task generates a library build information file containing the version,
- * public androidx dependencies and release checklist of the library for consumption
+ * This task generates a library build information file containing the artifactId, groupId, and
+ * version of public androidx dependencies and release checklist of the library for consumption
  * by the Jetpack Release Service (JetPad).
  */
 open class CreateLibraryBuildInfoFileTask : DefaultTask() {
@@ -66,6 +66,8 @@ open class CreateLibraryBuildInfoFileTask : DefaultTask() {
 
     private fun resolveAndCollectDependencies(): LibraryBuildInfoFile {
         val libraryBuildInfoFile = LibraryBuildInfoFile()
+        libraryBuildInfoFile.artifactId = project.name.toString()
+        libraryBuildInfoFile.groupId = project.group.toString()
         libraryBuildInfoFile.version = project.version.toString()
         val libraryDependencies = ArrayList<LibraryBuildInfoFile.Dependency>()
         val checks = ArrayList<LibraryBuildInfoFile.Check>()
@@ -111,7 +113,7 @@ open class CreateLibraryBuildInfoFileTask : DefaultTask() {
     }
 
     /**
-     * Task: dumpDependencies
+     * Task: createLibraryBuildInfoFile
      * Iterates through each configuration of the project and builds the set of all dependencies.
      * Then adds each dependency to the Artifact class as a project or prebuilt dependency.  Finally,
      * writes these dependencies to a json file as a json object.
