@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e572364_bad0837a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "you are calling it twice for some reasons, here and on line 767. I guess we don\u0027t need to call invalidate if dirty set to false, right?",
+      "range": {
+        "startLine": 763,
+        "startChar": 16,
+        "endLine": 763,
+        "endChar": 38
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b90435c_5b20de31",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "this is the only usage of this field as I see. did we miss the logic to handle this list during the drawing(like with repaintBoundaryChanges)? Or we just don\u0027t need this?",
+      "range": {
+        "startLine": 764,
+        "startChar": 26,
+        "endLine": 764,
+        "endChar": 51
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb5aa6e_4f4df73c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "I don\u0027t know exactly how it works in details but is it necessary to updateDisplayList when we just moved the render node? maybe we just need to call invalidate on parent in this case?",
+      "range": {
+        "startLine": 779,
+        "startChar": 16,
+        "endLine": 779,
+        "endChar": 28
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c27b1eff_03a59945",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "dirty is not cleared to false when the canvas is not hardware accelerated",
+      "range": {
+        "startLine": 800,
+        "startChar": 15,
+        "endLine": 800,
+        "endChar": 16
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67904e11_318dfcf1",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "should we also check for \"|| !renderNode.isValid()\"?",
+      "range": {
+        "startLine": 809,
+        "startChar": 49,
+        "endLine": 809,
+        "endChar": 50
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c3196b_cb921e85",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:48:34Z",
+      "side": 1,
+      "message": "should we have the same implementation as in View based class here? there we have:\n        if (ownerView.currentNode \u003d\u003d null) {\n            // Only this repaint boundary was invalidated and nothing higher in the view hierarchy.\n            // We must observe changes\n            ownerView.watchDraw(canvas, repaintBoundaryNode)\n        } else {\n            // We don\u0027t have to observe changes\n            ownerView.callChildDraw(canvas, repaintBoundaryNode)\n        }\n1) do we need to observe changes?\n2) can we reuse method callChildDraw instead of almost identical implementation(except the fallback to 0.ipx here, I am not sure do we need it and can we have it inside callChildDraw instead?",
+      "range": {
+        "startLine": 820,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 9
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
