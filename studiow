@@ -132,6 +132,11 @@ function updateStudio() {
   else
     unzip "${studioZipPath}" -d "${studioUnzippedPath}"
   fi
+
+  echo "Setting jvm heap size"
+  sed -i 's/-Xmx.*/-Xmx8g/' "${studioUnzippedPath}/android-studio/bin/studio64.vmoptions"
+  sed -i 's/-Xmx.*/-Xmx4g/' "${studioUnzippedPath}/android-studio/bin/studio.vmoptions"
+
 }
 
 function ensureLocalPropertiesUpdated() {
