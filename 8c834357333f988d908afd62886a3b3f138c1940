@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c3f46004_6a3badb9",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T21:54:03Z",
+      "side": 1,
+      "message": "this one wasn\u0027t replied to, but fine as a follow up",
+      "parentUuid": "7da6b04f_d2d6e2f0",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f6ceb6f_44c467f7",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
@@ -458,6 +476,24 @@
       "side": 1,
       "message": "We need to keep reference in order to remove it later.",
       "parentUuid": "bd5eaa4b_b923ba38",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0696868_7e122066",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T21:54:03Z",
+      "side": 1,
+      "message": "Can we not do that with `this`, like before?",
+      "parentUuid": "5313f87a_ebbeca3d",
       "revId": "8c834357333f988d908afd62886a3b3f138c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
