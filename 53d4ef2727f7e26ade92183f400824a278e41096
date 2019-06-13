@@ -22,6 +22,30 @@
       "revId": "53d4ef2727f7e26ade92183f400824a278e41096",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9d10b17_47d2d8d0",
+        "filename": "camera/integration-tests/extensionstestapp/src/androidTest/java/androidx/camera/integration/extensions/idlingresource/ElapsedTimeIdlingResource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-13T12:28:51Z",
+      "side": 1,
+      "message": "Thanks to point this out! \nI didn\u0027t notice this implementation is not recommend.\nUpdate the code to use the handler to post delay message to polling the idle check.\n\nThe idling check period in new handler style is set to 1 sec. (the isIdleNow() polling frequency is 5 sec)\nAnd I post the message to main thread to check the idling state \u0026 callback the onTransitionToIdle().",
+      "parentUuid": "ae211fa6_eb625f5a",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "53d4ef2727f7e26ade92183f400824a278e41096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
