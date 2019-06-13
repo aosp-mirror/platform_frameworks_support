@@ -1,6 +1,13 @@
 // Signature format: 3.0
 package androidx.enterprise.feedback {
 
+  public final class DefaultKeyedAppStatesReporter extends androidx.enterprise.feedback.KeyedAppStatesReporter {
+    ctor public DefaultKeyedAppStatesReporter(android.content.Context, java.util.concurrent.Executor);
+    ctor public DefaultKeyedAppStatesReporter(android.content.Context);
+    method public void setStates(java.util.Collection<androidx.enterprise.feedback.KeyedAppState!>);
+    method public void setStatesImmediate(java.util.Collection<androidx.enterprise.feedback.KeyedAppState!>);
+  }
+
   public abstract class KeyedAppState {
     method public static androidx.enterprise.feedback.KeyedAppState.KeyedAppStateBuilder builder();
     method public abstract String? getData();
@@ -51,13 +58,6 @@ package androidx.enterprise.feedback {
     method public abstract androidx.enterprise.feedback.ReceivedKeyedAppState.ReceivedKeyedAppStateBuilder setPackageName(String);
     method public abstract androidx.enterprise.feedback.ReceivedKeyedAppState.ReceivedKeyedAppStateBuilder setSeverity(int);
     method public abstract androidx.enterprise.feedback.ReceivedKeyedAppState.ReceivedKeyedAppStateBuilder setTimestamp(long);
-  }
-
-  public class SingletonKeyedAppStatesReporter extends androidx.enterprise.feedback.KeyedAppStatesReporter {
-    method public static androidx.enterprise.feedback.KeyedAppStatesReporter getInstance(android.content.Context);
-    method public static void initialize(android.content.Context, java.util.concurrent.Executor);
-    method public void setStates(java.util.Collection<androidx.enterprise.feedback.KeyedAppState!>);
-    method public void setStatesImmediate(java.util.Collection<androidx.enterprise.feedback.KeyedAppState!>);
   }
 
 }
