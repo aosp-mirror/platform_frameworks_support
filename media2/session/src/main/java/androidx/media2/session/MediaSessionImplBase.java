@@ -59,6 +59,8 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.futures.AbstractResolvableFuture;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.MediaBrowserServiceCompat;
@@ -75,8 +77,6 @@ import androidx.media2.session.MediaSession.ControllerCb;
 import androidx.media2.session.MediaSession.ControllerInfo;
 import androidx.media2.session.MediaSession.SessionCallback;
 import androidx.media2.session.SequencedFutureManager.SequencedFuture;
-import androidx.media2.session.futures.ResolvableFuture;
-import androidx.media2.session.futures.AbstractResolvableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
 

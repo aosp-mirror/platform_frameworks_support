@@ -11,8 +11,7 @@ plugins {
 dependencies {
     api(project(":media"))
     api(GUAVA_LISTENABLE_FUTURE)
-    // Temporarily removed to unblock stable release.
-    //implementation(project(":concurrent:concurrent-futures"))
+    implementation(project(":concurrent:concurrent-futures"))
     implementation("androidx.collection:collection:1.0.0")
     compileOnly(CHECKER_FRAMEWORK)
 
