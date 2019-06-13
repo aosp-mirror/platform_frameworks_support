@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18f90a51_0ba7b70a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-13T00:00:41Z",
+      "side": 1,
+      "message": "means* an explicit click on the compound button is required* to toggle...",
+      "range": {
+        "startLine": 217,
+        "startChar": 38,
+        "endLine": 217,
+        "endChar": 46
+      },
+      "revId": "a02287885e0a3c91abc2cdce673807ecf83e3836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842451a7_27184e4e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-13T00:00:41Z",
+      "side": 1,
+      "message": "Should be isEntireItemClickable*\n\nhttp://go/android-api-guidelines#heading\u003dh.irogsdk0s3gl",
+      "range": {
+        "startLine": 220,
+        "startChar": 19,
+        "endLine": 220,
+        "endChar": 41
+      },
+      "revId": "a02287885e0a3c91abc2cdce673807ecf83e3836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
