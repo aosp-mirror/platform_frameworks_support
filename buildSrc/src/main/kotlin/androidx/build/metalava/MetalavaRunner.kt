@@ -16,6 +16,8 @@
 
 package androidx.build.metalava
 
+import androidx.build.checkapi.ApiLocation
+import androidx.build.java.JavaCompileInputs
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -37,11 +39,35 @@ fun Project.runMetalavaWithArgs(configuration: Configuration, args: List<String>
         it.main = "com.android.tools.metalava.Driver"
         it.args = listOf(
             "--no-banner",
-            "--error",
-            "DeprecationMismatch", // Enforce deprecation mismatch
             "--hide",
             "HiddenSuperclass" // We allow having a hidden parent class
         ) + args
+    }
+}
+
+fun Project.generateApi(
+    files: JavaCompileInputs,
+    apiLocation: ApiLocation,
+    treatWarningsAsErrors: Boolean,
+    includeRestrictedApis: Boolean
+) {
+    generateApi(files.bootClasspath, files.dependencyClasspath, files.sourcePaths,
+        apiLocation, treatWarningsAsErrors, includeRestrictedApis)
+}
+
+fun Project.generateApi(
+    bootClasspath: Collection<File>,
+    dependencyClasspath: FileCollection,
+    sourcePaths: Collection<File>,
+    apiLocation: ApiLocation,
+    treatWarningsAsErrors: Boolean,
+    includeRestrictedApis: Boolean
+) {
+    generateApi(bootClasspath, dependencyClasspath, sourcePaths,
+        apiLocation.publicApiFile, apiLocation.tempDir, treatWarningsAsErrors, false)
+    if (includeRestrictedApis) {
+        generateApi(bootClasspath, dependencyClasspath, sourcePaths,
+            apiLocation.restrictedApiFile, apiLocation.tempDir, treatWarningsAsErrors, true)
     }
 }
 
@@ -50,11 +76,12 @@ fun Project.generateApi(
     dependencyClasspath: FileCollection,
     sourcePaths: Collection<File>,
     outputFile: File,
+    tempDir: File,
+    treatWarningsAsErrors: Boolean,
     includeRestrictedApis: Boolean
 ) {
-
     val tempOutputFile = if (includeRestrictedApis) {
-        File(outputFile.path + ".tmp")
+        File(tempDir.path, outputFile.name + ".tmp")
     } else {
         outputFile
     }
@@ -78,6 +105,21 @@ fun Project.generateApi(
     }
 
     val metalavaConfiguration = getMetalavaConfiguration()
+    if (treatWarningsAsErrors) {
+        args = args + listOf(
+            "--error",
+            "DeprecationMismatch" // Enforce deprecation mismatch
+        )
+    } else {
+        args = args + listOf(
+            "--hide",
+            "DeprecationMismatch",
+            "--hide",
+            "UnhiddenSystemApi",
+            "--hide",
+            "ReferencesHidden"
+        )
+    }
 
     runMetalavaWithArgs(metalavaConfiguration, args)
 
