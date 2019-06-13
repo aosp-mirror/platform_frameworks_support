@@ -660,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "d2f55025_14e3188c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "you don\u0027t have to mark AnimationValue with @Model in fact.\nthis will also work:\nopen class AnimatedValue\u003cT\u003e private constructor(private val animValue: AnimatedValueImpl\u003cT\u003e)\n    : DynamicTargetAnimation\u003cT\u003e by animValue {\n\n    constructor(initValue: T, valueInterpolator: (T, T, Float) -\u003e T)\n            : this(AnimatedValueImpl(initValue, valueInterpolator)) {}\n\n    init {\n        animValue.onValueChanged \u003d { holder.value \u003d it }\n    }\n\n    private val holder \u003d AnimatedValueHolder(animValue.value)\n\n    override val value: T get() \u003d holder.value\n}\n\n@Model\nprivate class AnimatedValueHolder\u003cT\u003e (var value: T)\n\nI guess later we should have some more suitable for this use case way to make the value observable then just wrap into a model",
+      "parentUuid": "a53b7d30_d3bc5e2a",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14

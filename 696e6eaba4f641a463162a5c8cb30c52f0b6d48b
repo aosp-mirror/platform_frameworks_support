@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "439df127_1f0859a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "nit: whenever",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574e7938_96249031",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "maybe it should be moved to ui-animation module instead to use the proper \"internal\"? or make it public and call the @Model powered version like \"ObservableAnimatedValue\" or something like this. I don\u0027t think we should have @RestrictTo in Kotlin. It is or something internal to module, or public, I guess",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b74be1_0748ff86",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "It feels inconsistent all other animations in this file are internal, but this one we can create directly.\nMaybe it would be nice to continue the direction we had and to keep this as the details of the implementation?\nso we create DecayAnimationBuilde with internal method \"build\". it would allow us to fix and change an implementation without affecting the public api.\nor if you want to allow the creation of fully custom DecayAnimations by our users let\u0027s at least move this to a separate file",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091267f3_8a634adc",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "please use max and abs functions from kotlin.math instead",
+      "range": {
+        "startLine": 141,
+        "startChar": 47,
+        "endLine": 141,
+        "endChar": 76
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17008db0_90e8a464",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "nit: maybe extract into a constant? would be nice to have a name for the magic value",
+      "range": {
+        "startLine": 142,
+        "startChar": 34,
+        "endLine": 142,
+        "endChar": 39
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f2fbc3_93c6fa98",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimationBuilder.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "I am not sure we should mention build method in public documentation as it is the internal method",
+      "range": {
+        "startLine": 191,
+        "startChar": 25,
+        "endLine": 191,
+        "endChar": 32
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "504de316_12522016",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "that looks confusing. the callback is named onFinished, so I expect the animation to be finished when it fires, but then there is a parameter called finished. why not to name it canceled?",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0702743_f88b802f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "I can think about this class to be useful not only for \"scrolling\". Maybe FlingAnimation?",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b6e6b48_66a46a4f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "would be nice to add a variable name here as Float to Float conversion can in fact mean anything. so maybe ((target: Float) -\u003e Float), or even ((currentTarget: Float) -\u003e Float) to make it easier to understand that you can override the target and the parameter is just a current value",
+      "range": {
+        "startLine": 133,
+        "startChar": 22,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fcb51ae_6fd04a51",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "just from the function declaration it is confusing there are two animation objects. it would be nice to make clearer the second one will be used only when adjustTarget is provided. I guess it can be improved if we create a special entity combining both of them.\nMaybe something like this:\n\nfun fling(\n    startVelocity: Float,\n    decay: DecayAnimation \u003d ExponentialDecay(),\n    flingFinisher: FlingFinisher? \u003d null,\n    onFinished: ((finished: Boolean) -\u003e Unit)? \u003d null\n)\n\nclass FlingFinisher(\n    val adjustTarget: ((Float) -\u003e Float),\n    val animation: AnimationBuilder\u003cFloat\u003e \u003d PhysicsBuilder(),\n}",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b157a80c_01900d9d",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/AnimatableSeekBar.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "I would suggest to not use raw Layout component is samples to make it more readable. I guess here we can replace it with Container(but we need to use size in Dps, not IntPx):\nContainer(height \u003d 60.dp, expanded \u003d true) {\n    DrawSeekBar(animValue.value)\n}",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c611e1bc_429cba8d",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/AnimatableSeekBar.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "if would be a bit more efficient if you use memo here instead as you are not going to update the value of the state with the new paint object. state basically is wrapping your Paint() into a simple @Model class with the only value and calls memo on it.",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 26
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6abda672_4dda45bc",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/FancyScrolling.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "I guess it actually should be \"value\" instead. Try to start fling and while it is still animating start a new drag. It will immediately jump to the target value. With value it works smoothly as you apply a delta to the current value",
+      "range": {
+        "startLine": 69,
+        "startChar": 49,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b0ab6e_ca8578b2",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "A bit nicer way to \"subscribe\" to the size of the layout would be:\nOnChildPositioned({ coordinates -\u003e\n    itemWidth.value \u003d coordinates.size.width.value * 2 / 3f\n}) {\n    Layout(...)\n}",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 69
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a6e453_5811a43a",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T18:48:54Z",
+      "side": 1,
+      "message": "There is a simpler way I think:\n\nfun AnimatedFloat(initValue: Float): DynamicTargetAnimation\u003cFloat\u003e \u003d\n    AnimatedValue(initValue, ::lerp)\n\nfun AnimatedColor(initValue: Color): DynamicTargetAnimation\u003cColor\u003e \u003d\n    AnimatedValue(initValue, ::lerp)",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
