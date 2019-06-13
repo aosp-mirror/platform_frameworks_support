@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d4d53e8_42372039",
+        "filename": "room/common/src/main/java/androidx/room/Relation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T00:06:14Z",
+      "side": 1,
+      "message": ",",
+      "range": {
+        "startLine": 51,
+        "startChar": 48,
+        "endLine": 51,
+        "endChar": 49
+      },
+      "revId": "f4e59da4bda7deb164542878482dbeb082b75703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e65128a_7dca3056",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/RelationCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T00:06:14Z",
+      "side": 1,
+      "message": "extract to a val (nameSuffix) ?",
+      "range": {
+        "startLine": 117,
+        "startChar": 24,
+        "endLine": 117,
+        "endChar": 74
+      },
+      "revId": "f4e59da4bda7deb164542878482dbeb082b75703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
