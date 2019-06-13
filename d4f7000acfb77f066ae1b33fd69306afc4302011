@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b928f26f_f7b7770b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e572364_bad0837a",
+      "range": {
+        "startLine": 763,
+        "startChar": 16,
+        "endLine": 763,
+        "endChar": 38
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b90435c_5b20de31",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a1cfcc3_fe5f4336",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "wow, I\u0027m surprised that this works at all. I must not have enough tests. I will write a new one that should fail.",
+      "parentUuid": "8b90435c_5b20de31",
+      "range": {
+        "startLine": 764,
+        "startChar": 26,
+        "endLine": 764,
+        "endChar": 51
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6c49f30a_788962af",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "Hmm... I had to do more investigation of this. We need to trigger a frame, but we don\u0027t need to update the display list. I\u0027ve adjusted my implementation.",
+      "parentUuid": "ebb5aa6e_4f4df73c",
+      "range": {
+        "startLine": 779,
+        "startChar": 16,
+        "endLine": 779,
+        "endChar": 28
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c27b1eff_03a59945",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "effc3d7c_5ff01766",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c27b1eff_03a59945",
+      "range": {
+        "startLine": 800,
+        "startChar": 15,
+        "endLine": 800,
+        "endChar": 16
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67904e11_318dfcf1",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-13T13:48:34Z",
       "side": 1,
       "message": "should we also check for \"|| !renderNode.isValid()\"?",
+      "range": {
+        "startLine": 809,
+        "startChar": 49,
+        "endLine": 809,
+        "endChar": 50
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f709f567_33ab5a67",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "I don\u0027t see that API",
+      "parentUuid": "67904e11_318dfcf1",
       "range": {
         "startLine": 809,
         "startChar": 49,
@@ -137,6 +257,30 @@
       "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8af960d_2a925c31",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:11:45Z",
+      "side": 1,
+      "message": "RenderNode will never update itself. We must always explicitly update the display list on our own. That means we don\u0027t have to worry about observing changes here -- we\u0027ll always be observing changes through the AndroidCraneView\u0027s dispatchDraw().\n\nBut good call on sharing code. I have removed this function and call AndroidCraneView\u0027s callChildDraw() instead.",
+      "parentUuid": "93c3196b_cb921e85",
+      "range": {
+        "startLine": 820,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 9
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
