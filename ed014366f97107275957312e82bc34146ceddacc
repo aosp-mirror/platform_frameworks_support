@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90071c93_45fbe467",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/GestureSelectionHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-06-13T23:14:53Z",
+      "side": 0,
+      "message": "Can you add something like:\n\n        if (!mStarted) {\n            Log.e(TAG,\n                    \"Unexpected end call to endSelection while mStated is false. Resetting state.\");\n        }",
+      "revId": "ed014366f97107275957312e82bc34146ceddacc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
