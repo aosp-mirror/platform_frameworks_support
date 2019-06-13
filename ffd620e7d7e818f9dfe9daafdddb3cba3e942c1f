@@ -63,6 +63,30 @@
       "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201485b8_24cd855a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-13T17:59:42Z",
+      "side": 1,
+      "message": "Ah ok I missed the part on acquireNextImage() that says it can return null.\n\nBut wouldn\u0027t this log also also happen if there are 3 images available (i.e., a full queue)? This is assuming images aren\u0027t closed in matchImage().",
+      "parentUuid": "8d97db35_e6902cc1",
+      "range": {
+        "startLine": 323,
+        "startChar": 20,
+        "endLine": 323,
+        "endChar": 69
+      },
+      "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
