@@ -17,6 +17,7 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
+import androidx.build.java.JavaCompileInputs
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFiles
@@ -47,22 +48,8 @@ abstract class GenerateApiTask : MetalavaTask() {
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
-        project.generateApi(
-            bootClasspath,
-            dependencyClasspath,
-            sourcePaths,
-            apiLocation.get().publicApiFile,
-            false
-        )
-
-        if (generateRestrictedAPIs) {
-            project.generateApi(
-                bootClasspath,
-                dependencyClasspath,
-                sourcePaths,
-                apiLocation.get().restrictedApiFile,
-                true
-            )
-        }
+        val inputs = JavaCompileInputs.fromSourcesAndDeps(sourcePaths, dependencyClasspath,
+            project)
+        project.generateApi(inputs, apiLocation.get(), true, generateRestrictedAPIs)
     }
 }

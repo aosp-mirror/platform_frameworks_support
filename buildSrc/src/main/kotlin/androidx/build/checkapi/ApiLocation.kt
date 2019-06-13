@@ -28,7 +28,9 @@ data class ApiLocation(
     // file specifying the restricted API (marked by the RestrictTo annotation) of the library
     val restrictedApiFile: File,
     // file specifying the API of the resources
-    val resourceFile: File
+    val resourceFile: File,
+    // dir in which to put temporary files
+    val tempDir: File
 ) : Serializable {
 
     fun files() = listOf(publicApiFile, restrictedApiFile)
@@ -41,12 +43,17 @@ data class ApiLocation(
         return Version(text)
     }
 
+    fun withTempDir(tempDir: File): ApiLocation {
+        return ApiLocation(publicApiFile, restrictedApiFile, resourceFile, tempDir)
+    }
+
     companion object {
         fun fromPublicApiFile(f: File): ApiLocation {
             return ApiLocation(
                 f,
                 File(f.parentFile, "restricted_" + f.name),
-                File(f.parentFile, "res-" + f.name)
+                File(f.parentFile, "res-" + f.name),
+                f.parentFile
             )
         }
     }
