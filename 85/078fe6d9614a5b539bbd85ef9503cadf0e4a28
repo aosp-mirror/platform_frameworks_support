@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Autosubmit+1: Leland Richardson <lelandr@google.com>
+Code-Review+2: Chuck Jazdzewski <chuckj@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 13 Jun 2019 21:39:26 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/982712
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
