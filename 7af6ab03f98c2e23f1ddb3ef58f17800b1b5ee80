@@ -16,6 +16,24 @@
       "revId": "7af6ab03f98c2e23f1ddb3ef58f17800b1b5ee80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367f4fdd_8630f176",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:34:47Z",
+      "side": 1,
+      "message": "Thanks. Done.",
+      "parentUuid": "8892b95c_2dcf35b1",
+      "revId": "7af6ab03f98c2e23f1ddb3ef58f17800b1b5ee80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
