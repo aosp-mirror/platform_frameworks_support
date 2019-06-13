@@ -2091,8 +2091,16 @@ public class Preference implements Comparable<Preference> {
     /**
      * Initializes an {@link android.view.accessibility.AccessibilityNodeInfo} with information
      * about the View for this preference.
+     *
+     * @deprecated In general, developers should not customize the View's AccessibilityNodeInfo
+     * unless they are customizing the View. If the customization is common to a specific
+     * preference class, the preference class should be modified. If there is really a need to
+     * customize the View's AccessibilityNodeInfo, developers can use the onBindViewHolder method
+     * of the Preference to get a reference to the view associated with the Preference and set an
+     * AccessibilityDelegate for the View.
      */
     @CallSuper
+    @Deprecated
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfoCompat info) {}
 
     /**
