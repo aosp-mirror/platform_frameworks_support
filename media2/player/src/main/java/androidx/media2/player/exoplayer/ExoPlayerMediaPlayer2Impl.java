@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
 import androidx.media.AudioAttributesCompat;
@@ -44,6 +43,7 @@ import androidx.media2.player.MediaPlayer2;
 import androidx.media2.player.MediaTimestamp;
 import androidx.media2.player.PlaybackParams;
 import androidx.media2.player.TimedMetaData;
+import androidx.media2.player.futures.ResolvableFuture;
 
 import java.io.IOException;
 import java.util.ArrayDeque;

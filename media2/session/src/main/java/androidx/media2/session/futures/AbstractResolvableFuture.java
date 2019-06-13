@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package androidx.concurrent.callback;
+package androidx.media2.session.futures;
 
 import static java.util.concurrent.atomic.AtomicReferenceFieldUpdater.newUpdater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.ListenableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Locale;
 import java.util.concurrent.CancellationException;
@@ -54,7 +55,7 @@ import java.util.logging.Logger;
  */
 // TODO(b/119308748): Implement InternalFutureFailureAccess
 @SuppressWarnings("ShortCircuitBoolean") // we use non-short circuiting comparisons intentionally
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class AbstractResolvableFuture<V> implements ListenableFuture<V> {
 
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
@@ -65,7 +66,8 @@ public abstract class AbstractResolvableFuture<V> implements ListenableFuture<V>
                     System.getProperty("guava.concurrent.generate_cancellation_cause", "false"));
 
     // Logger to log exceptions caught when running listeners.
-    private static final Logger log = Logger.getLogger(AbstractResolvableFuture.class.getName());
+    private static final Logger log = Logger.getLogger(
+            AbstractResolvableFuture.class.getName());
 
     // A heuristic for timed gets. If the remaining timeout is less than this, spin instead of
     // blocking. This value is what AbstractQueuedSynchronizer uses.
