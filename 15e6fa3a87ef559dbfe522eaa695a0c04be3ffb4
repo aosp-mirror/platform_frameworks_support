@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aea71388_4fbafb8c",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/lint-baseline.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-13T10:32:25Z",
+      "side": 1,
+      "message": "Looks like that didn\u0027t work out properly and presubmit failed with it (my guess is changed linenumbers)\n\n\n\nUnmatched issue types: LambdaLast (2) [LintBaseline]\n/buildbot/src/android/androidx-master-dev/frameworks/support/lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/AbstractSavedStateViewModelFactory.java:53: Error: Functional interface parameters (such as parameter 1, \"owner\", in androidx.lifecycle.AbstractSavedStateViewModelFactory.AbstractSavedStateViewModelFactory) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions [LambdaLast]\n@Nullable Bundle defaultArgs) {\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/buildbot/src/android/androidx-master-dev/frameworks/support/lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateViewModelFactory.java:130: Error: Functional interface parameters (such as parameter 2, \"owner\", in androidx.lifecycle.SavedStateViewModelFactory.SavedStateViewModelFactory) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions [LambdaLast]\n@Nullable Bundle defaultArgs) {\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "revId": "15e6fa3a87ef559dbfe522eaa695a0c04be3ffb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
