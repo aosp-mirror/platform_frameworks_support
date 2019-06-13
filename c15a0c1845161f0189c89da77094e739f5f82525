@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b45ca68_7dd1bd84",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/FeatureNotAvailableTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is actually a good practice. This suggests that activities should abort immediately if the expected feature is unavailable, but we would prefer to suggest real apps to fallback gracefully",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30d8921c_c5ad169c",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/FeatureNotAvailableTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "Can we turn this into a map instead?",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c37b16a_5c3b0b3a",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "I\u0027m concerned this is racy, since activities dynamically populate MenuListViews. Do we have any guarantees about the order of Activity#onCreate vs. the espresso tests?",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d18bb7_03aee0fb",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "This is still not lgtm. This is racy if the app dynamically calls setText(). This is what I talked about on the design doc.\n\nYou should only look up string methods by viewId.",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833aa395_81afbf27",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "@IdRes, here and below",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4ebf2b_65349e9f",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "nit: \"assertViewHasText\" would be better",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 22
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5861029f_2532d86b",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "@StringRes",
+      "range": {
+        "startLine": 112,
+        "startChar": 46,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047e4a4b_5b806676",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/ProxyOverrideTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T00:51:43Z",
+      "side": 1,
+      "message": "Could you please split the file rename into a separate CL?\n\nAndroid supports dependent cls: https://sites.google.com/a/google.com/android/development/repo-gerrit-git-workflow#Working_in_the_same_package_Depe. The workflow is actually even simpler than this doc describes. You may simply make a second git commit on the *same* branch, and `repo upload` will refresh both CLs.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
