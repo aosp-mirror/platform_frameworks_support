@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79138749_ac69b511",
+        "filename": "room/common/api/2.2.0-alpha01.ignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T21:13:12Z",
+      "side": 1,
+      "message": "This is binary compatible (Adding type parameters to an unparameterized method is a compatible change owing to Java\u0027s story for interfacing with non-generic legacy code. - https://wiki.eclipse.org/Evolving_Java-based_APIs_2) but is not source compatible. But the 2nd one is OK since Android has always supported generics (added in Java 1.5) and we have always built with sourceCompatibility as far as I can remember.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 87
+      },
+      "revId": "7905444a605f5fdad33699f4db6590e1768e444a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
