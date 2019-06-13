@@ -16,6 +16,24 @@
       "revId": "d4775c39c361a794afe071036d4accbc783f4384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51555a4e_50e709ed",
+        "filename": "studiow",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-13T22:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640352b2_b10c9313",
+      "revId": "d4775c39c361a794afe071036d4accbc783f4384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
