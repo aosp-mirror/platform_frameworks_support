@@ -489,7 +489,8 @@ public class CarAlertDialog extends Dialog {
         /**
          * Sets the main title of the dialog for be the given string.
          *
-         * @param title The string to be used as the title.
+         * @param title The string to be used as the title. If {@code null}, the title text for
+         *              the dialog will not be rendered.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
@@ -513,7 +514,8 @@ public class CarAlertDialog extends Dialog {
         /**
          * Sets the body text of the dialog to be the given string.
          *
-         * @param body The string to be used as the body text.
+         * @param body The string to be used as the body text. If {@code null}, the body text for
+         *            the dialog will not be rendered.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull

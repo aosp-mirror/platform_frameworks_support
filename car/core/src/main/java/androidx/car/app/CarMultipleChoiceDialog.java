@@ -335,7 +335,8 @@ public final class CarMultipleChoiceDialog extends Dialog {
         /**
          * Sets the title of the dialog for be the given string.
          *
-         * @param title The string to be used as the title.
+         * @param title The string to be used as the title. If {@code null}, the title text for
+         *              the dialog will not be rendered.
          * @return This {@link Builder} object to allow for chaining of calls.
          */
         @NonNull
@@ -360,7 +361,8 @@ public final class CarMultipleChoiceDialog extends Dialog {
         /**
          * Sets the bodyText of the dialog for be the given string.
          *
-         * @param bodyText The string to be used as the body.
+         * @param bodyText The string to be used as the body. If {@code null}, the body text for
+         *                 the dialog will not be rendered.
          * @return This {@link Builder} object to allow for chaining of calls.
          */
         @NonNull

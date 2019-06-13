@@ -220,7 +220,7 @@ public final class CarSingleChoiceDialog extends Dialog {
      * Creates the {@link RadioButtonListItem} that represents an item in the {@code
      * CarSingleChoiceDialog}.
      *
-     * @param {@link Item} to display as a {@code RadioButtonListItem}.
+     * @param {@link   Item} to display as a {@code RadioButtonListItem}.
      * @param position The position of the item in the list.
      */
     private RadioButtonListItem createItem(Item selectionItem, int position) {
@@ -321,7 +321,8 @@ public final class CarSingleChoiceDialog extends Dialog {
         /**
          * Sets the title of the dialog for be the given string.
          *
-         * @param title The string to be used as the title.
+         * @param title The string to be used as the title. If {@code null}, the title text for
+         *              the dialog will not be rendered.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
@@ -346,7 +347,8 @@ public final class CarSingleChoiceDialog extends Dialog {
         /**
          * Sets the bodyText of the dialog for be the given string.
          *
-         * @param bodyText The string to be used as the body.
+         * @param bodyText The string to be used as the body. If {@code null}, the body text for
+         *                 the dialog will not be rendered.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull

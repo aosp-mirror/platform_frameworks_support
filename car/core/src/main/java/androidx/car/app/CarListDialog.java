@@ -217,7 +217,7 @@ public class CarListDialog extends Dialog {
     /**
      * Creates the {@link TextListItem} that represents an item in the {@code CarListDialog}.
      *
-     * @param text The text to display as the title in {@code TextListItem}.
+     * @param text     The text to display as the title in {@code TextListItem}.
      * @param position The position of the item in the list.
      */
     private TextListItem createItem(CharSequence text, int position) {
@@ -338,11 +338,12 @@ public class CarListDialog extends Dialog {
         /**
          * Sets the title of the dialog for be the given string.
          *
-         * @param title The string to be used as the title.
+         * @param title The string to be used as the title. If {@code null}, the title text for
+         *              the dialog will not be rendered.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
-        public Builder setTitle(CharSequence title) {
+        public Builder setTitle(@Nullable CharSequence title) {
             mTitle = title;
             return this;
         }
@@ -364,7 +365,7 @@ public class CarListDialog extends Dialog {
          * called, then the sections will take precedent, and the items set via this method will
          * be ignored.
          *
-         * @param items The items that will appear in the list.
+         * @param items           The items that will appear in the list.
          * @param onClickListener The listener that will be notified of a click.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
@@ -400,7 +401,7 @@ public class CarListDialog extends Dialog {
          * then the sections will take precedent, and the items set via the other method will be
          * ignored.
          *
-         * @param sections The sections that will appear in the list.
+         * @param sections        The sections that will appear in the list.
          * @param onClickListener The listener that will be notified of a click.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
@@ -460,7 +461,6 @@ public class CarListDialog extends Dialog {
          *
          * @param onCancelListener The listener to be invoked when this dialog is canceled.
          * @return This {@code Builder} object to allow for chaining of calls.
-         *
          * @see #setCancelable(boolean)
          * @see #setOnDismissListener(OnDismissListener)
          */
@@ -484,7 +484,7 @@ public class CarListDialog extends Dialog {
         /**
          * Creates an {@link CarListDialog} with the arguments supplied to this {@code Builder}.
          *
-         * <p>If {@link #setItems(CharSequence[],DialogInterface.OnClickListener)} is never called,
+         * <p>If {@link #setItems(CharSequence[], DialogInterface.OnClickListener)} is never called,
          * then calling this method will throw an exception.
          *
          * <p>Calling this method does not display the dialog. Utilize this dialog within a
