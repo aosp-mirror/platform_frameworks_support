@@ -63,19 +63,16 @@ public class WebViewRenderProcessTest {
             final WebView webView) throws Throwable {
         final ResolvableFuture<WebViewRenderProcess> future = ResolvableFuture.create();
 
-        WebkitUtils.onMainThread(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        WebViewRenderProcess result =
-                                WebViewCompat.getWebViewRenderProcess(webView);
-                        future.set(result);
-                    }
-                });
-                webView.loadUrl("about:blank");
-            }
+        WebkitUtils.onMainThread(() -> {
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    WebViewRenderProcess result =
+                            WebViewCompat.getWebViewRenderProcess(webView);
+                    future.set(result);
+                }
+            });
+            webView.loadUrl("about:blank");
         });
 
         return future;
@@ -84,20 +81,17 @@ public class WebViewRenderProcessTest {
     ListenableFuture<Boolean> catchRenderProcessTermination(final WebView webView) {
         final ResolvableFuture<Boolean> future = ResolvableFuture.create();
 
-        WebkitUtils.onMainThread(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean onRenderProcessGone(
-                            WebView view,
-                            RenderProcessGoneDetail detail) {
-                        view.destroy();
-                        future.set(true);
-                        return true;
-                    }
-                });
-            }
+        WebkitUtils.onMainThread(() -> {
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public boolean onRenderProcessGone(
+                        WebView view,
+                        RenderProcessGoneDetail detail) {
+                    view.destroy();
+                    future.set(true);
+                    return true;
+                }
+            });
         });
 
         return future;
