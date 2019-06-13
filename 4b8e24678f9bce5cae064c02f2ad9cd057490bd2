@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dda65289_d14d3547",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/WrapperTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:59:04Z",
+      "side": 1,
+      "message": "Dumb question: will this call recompose() multiple times?",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "4b8e24678f9bce5cae064c02f2ad9cd057490bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
