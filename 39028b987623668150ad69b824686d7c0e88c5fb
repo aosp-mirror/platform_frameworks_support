@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5b92ad4_ec0de973",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T21:33:34Z",
+      "side": 1,
+      "message": "i was thinking about locking the db file since we override it. i dont\u0027 think we need to lock the file we are reading from.",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 32
+      },
+      "revId": "39028b987623668150ad69b824686d7c0e88c5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7de860d_f3b6d6f7",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T21:33:34Z",
+      "side": 1,
+      "message": "we should probably tryLock?\nthe goal here is if two processes tries to do the copy at the same time, they won\u0027t override eachother such that one of them will wait for the other and then skip migration completely ?\n\nwe can probably create a test having 2 sqlitecopyopenhelpers (fine if it is not multi-process test)",
+      "range": {
+        "startLine": 193,
+        "startChar": 19,
+        "endLine": 193,
+        "endChar": 23
+      },
+      "revId": "39028b987623668150ad69b824686d7c0e88c5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

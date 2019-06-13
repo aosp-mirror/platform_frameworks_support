@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "d4c3e241_ee0f0603",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-13T21:33:34Z",
+      "side": 1,
+      "message": "other processes are fine as long as room itself does not fight w/ itself.",
+      "parentUuid": "f3efccd9_994b4838",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 9
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "afc12d9d_9ca6fe64",
         "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
         "patchSetId": 12
