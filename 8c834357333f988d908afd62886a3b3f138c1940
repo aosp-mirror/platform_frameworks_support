@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "34f15639_9d006abb",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Past you actually already filed this! https://b.corp.google.com/issues/128700240\n\nBut I\u0027ve added it to the doc :D",
+      "parentUuid": "5d0ba804_527d0eac",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7da6b04f_d2d6e2f0",
         "filename": "paging/common/api/2.2.0-alpha01.txt",
         "patchSetId": 1
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "cb25634f_1774516d",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done - although it\u0027s not an interface and here you would invoke it directly like `listener(...)`, but I agree it\u0027s much more succinct of a name as a type.",
+      "parentUuid": "4f6ceb6f_44c467f7",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "338505f2_f34b3fd4",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
@@ -82,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "6d4abde3_8457da32",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "338505f2_f34b3fd4",
+      "range": {
+        "startLine": 934,
+        "startChar": 16,
+        "endLine": 934,
+        "endChar": 41
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d3d475c_9a00ff02",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
@@ -96,6 +162,24 @@
       "revId": "8c834357333f988d908afd62886a3b3f138c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3bd11b_bf0901c0",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d3d475c_9a00ff02",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "0bd453a1_39dc3b89",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e73f42a2_9f1875c0",
+      "range": {
+        "startLine": 1243,
+        "startChar": 7,
+        "endLine": 1243,
+        "endChar": 33
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a296ca2a_0162e420",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 1
@@ -145,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "df34b2b3_5af3732e",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a296ca2a_0162e420",
+      "range": {
+        "startLine": 1249,
+        "startChar": 13,
+        "endLine": 1249,
+        "endChar": 44
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1147f696_5ae09e6a",
         "filename": "paging/integration-tests/testapp/src/main/java/androidx/paging/integration/testapp/custom/PagedListSampleActivity.kt",
         "patchSetId": 1
@@ -159,6 +291,24 @@
       "revId": "8c834357333f988d908afd62886a3b3f138c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1a9275_ab292a04",
+        "filename": "paging/integration-tests/testapp/src/main/java/androidx/paging/integration/testapp/custom/PagedListSampleActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "The curly brace has to be on the same line and move all the params to a new line gets auto-formatted back up to the top line (without the break, but exceeds the line length limit)... so no :(",
+      "parentUuid": "1147f696_5ae09e6a",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "477f2fa4_4167cdc6",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50893fc1_4a95aa0c",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee11bd8b_2c3bd5f7",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.kt",
         "patchSetId": 1
@@ -199,6 +373,24 @@
       "revId": "8c834357333f988d908afd62886a3b3f138c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a73362f_ba54ff68",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done - huge BOGO sale here on newlines.",
+      "parentUuid": "ee11bd8b_2c3bd5f7",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +411,24 @@
     },
     {
       "key": {
+        "uuid": "dae6e6c5_7348e719",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aae059db_cb946537",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd5eaa4b_b923ba38",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 1
@@ -233,6 +443,24 @@
       "revId": "8c834357333f988d908afd62886a3b3f138c1940",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5313f87a_ebbeca3d",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-13T21:45:39Z",
+      "side": 1,
+      "message": "We need to keep reference in order to remove it later.",
+      "parentUuid": "bd5eaa4b_b923ba38",
+      "revId": "8c834357333f988d908afd62886a3b3f138c1940",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
