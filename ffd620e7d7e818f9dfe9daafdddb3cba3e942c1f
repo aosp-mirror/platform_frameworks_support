@@ -16,6 +16,29 @@
       "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206a06c0_011b941d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-13T17:38:44Z",
+      "side": 1,
+      "message": "So this will be logged every time imageIncoming() is called? Since that\u0027s the condition to break out of the do/while loop.\n\nIf that\u0027s the case, then we probably shouldn\u0027t be logging at all.",
+      "range": {
+        "startLine": 323,
+        "startChar": 20,
+        "endLine": 323,
+        "endChar": 69
+      },
+      "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
