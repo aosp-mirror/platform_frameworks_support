@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "affa4d7d_668592d2",
+        "filename": "studiow",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T19:43:26Z",
+      "side": 1,
+      "message": "I\u0027d move this into a separate function, partially for a little bit of readability/clarify, and partially because I imagine that we want to do this string replacement on the first run too\n\nI think it\u0027d be slightly preferable to have this be called by runStudio instead",
+      "revId": "10ecfd90044dad8017ff14fd3cb7d2af53ec38df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31736cc6_97f9d0c8",
+        "filename": "studiow",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T19:43:26Z",
+      "side": 1,
+      "message": "Based on the implementation of runStudioMac, I think this would probably fail on a Mac and need a slightly different path",
+      "revId": "10ecfd90044dad8017ff14fd3cb7d2af53ec38df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
