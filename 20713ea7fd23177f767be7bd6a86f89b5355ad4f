@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4213c083_627a285f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-13T23:02:22Z",
+      "side": 1,
+      "message": "Did you mean not to submit this until the play store/suw updates? \n\nOr do you actually mean not to merge this with other branches after it gets submitted?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "20713ea7fd23177f767be7bd6a86f89b5355ad4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
