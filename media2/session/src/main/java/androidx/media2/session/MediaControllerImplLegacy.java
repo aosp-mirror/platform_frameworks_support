@@ -57,8 +57,6 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.app.BundleCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.media2.common.MediaItem;
@@ -76,6 +74,9 @@ import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaController.VolumeDirection;
 import androidx.media2.session.MediaController.VolumeFlags;
 import androidx.media2.session.MediaSession.CommandButton;
+import androidx.media2.session.futures.ResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 

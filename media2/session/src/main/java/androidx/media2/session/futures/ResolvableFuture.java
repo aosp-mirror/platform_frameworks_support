@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package androidx.concurrent.callback;
+package androidx.media2.session.futures;
 
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.ListenableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 /**
  * An AndroidX version of Guava's {@code SettableFuture}.
@@ -34,7 +35,7 @@ import androidx.concurrent.ListenableFuture;
  * @hide
  * @author Sven Mawson
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class ResolvableFuture<V> extends AbstractResolvableFuture<V> {
     /**
      * Creates a new {@code ResolvableFuture} that can be completed or cancelled by a later method
