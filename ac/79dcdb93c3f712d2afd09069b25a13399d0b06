@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Eric Ng <ericng@google.com>
+Code-Review+2: Franklin Wu <nilknarfuw@google.com>
+Autosubmit+1: Trevor McGuire <trevormcguire@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 13 Jun 2019 17:41:19 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/982667
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
