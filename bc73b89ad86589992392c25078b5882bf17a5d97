@@ -22,6 +22,30 @@
       "revId": "bc73b89ad86589992392c25078b5882bf17a5d97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb232f43_ba7a377a",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-06-13T23:34:35Z",
+      "side": 1,
+      "message": "Yes, perhaps make it doubly clear these aren\u0027t views: \"Preference widgets are not views and blah..\" And maybe link to onBindViewHolder.",
+      "parentUuid": "54cc2b25_bbb89eef",
+      "range": {
+        "startLine": 2095,
+        "startChar": 19,
+        "endLine": 2100,
+        "endChar": 41
+      },
+      "revId": "bc73b89ad86589992392c25078b5882bf17a5d97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
