@@ -46,6 +46,30 @@
       "revId": "624a92afcb9670bd061c70e5550abd5bfe5384c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3faddbdf_7b2890d5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-13T14:22:54Z",
+      "side": 1,
+      "message": "Oh you\u0027re right, I assumed line 79 was \"measureIteration++\"",
+      "parentUuid": "a5038733_03940515",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "624a92afcb9670bd061c70e5550abd5bfe5384c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
