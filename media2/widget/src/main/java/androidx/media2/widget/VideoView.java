@@ -685,7 +685,7 @@ public class VideoView extends SelectiveLayout {
         @Override
         void onPlayerStateChanged(@NonNull PlayerWrapper player, int state) {
             if (DEBUG) {
-                Log.d(TAG, "onPlayerStateChanged(): selected track: " + state);
+                Log.d(TAG, "onPlayerStateChanged(): state: " + state);
             }
             if (player != mPlayer) {
                 if (DEBUG) {
