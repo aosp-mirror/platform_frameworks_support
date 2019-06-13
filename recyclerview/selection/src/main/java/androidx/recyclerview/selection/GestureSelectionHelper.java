@@ -176,8 +176,6 @@ final class GestureSelectionHelper implements OnItemTouchListener {
     }
 
     private void endSelection() {
-        checkState(mStarted);
-
         mStarted = false;
         mScroller.reset();
         mLock.stop();
