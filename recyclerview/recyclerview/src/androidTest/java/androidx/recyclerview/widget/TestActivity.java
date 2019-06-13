@@ -20,22 +20,25 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-public class TestActivity extends Activity {
+public class TestActivity extends Activity implements Hacktivity {
     private volatile TestedFrameLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+        reset();
 
+        // disable enter animation.
+        overridePendingTransition(0, 0);
+    }
+
+    public void reset() {
         mContainer = new TestedFrameLayout(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         setContentView(mContainer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        // disable enter animation.
-        overridePendingTransition(0, 0);
     }
 
     public TestedFrameLayout getContainer() {
@@ -44,9 +47,19 @@ public class TestActivity extends Activity {
 
     @Override
     public void finish() {
+        if (!mFinishEnabled) {
+            return;
+        }
         super.finish();
 
         // disable exit animation.
         overridePendingTransition(0, 0);
+    }
+
+    private boolean mFinishEnabled;
+
+    @Override
+    public void setFinishEnabled(boolean finishEnabled) {
+        mFinishEnabled = finishEnabled;
     }
 }
