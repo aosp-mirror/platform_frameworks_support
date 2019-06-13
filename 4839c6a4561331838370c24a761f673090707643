@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "43aecb06_123cd37f",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-13T11:54:15Z",
+      "side": 1,
+      "message": "call() is only called once when the service is keep running. If the service is killed and created again, the call() will be called again.",
+      "parentUuid": "a9438a9f_eedf6ba4",
+      "range": {
+        "startLine": 47,
+        "startChar": 60,
+        "endLine": 47,
+        "endChar": 77
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a3d1134_427a4323",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
         "patchSetId": 8
@@ -192,6 +216,24 @@
       "revId": "4839c6a4561331838370c24a761f673090707643",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23a7171c_aecf3552",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-13T11:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a3d1134_427a4323",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -332,6 +374,24 @@
       "revId": "4839c6a4561331838370c24a761f673090707643",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf451c1_0d2ab93c",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-13T11:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "422cbf5b_c15c3e2f",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -569,6 +629,24 @@
       "revId": "4839c6a4561331838370c24a761f673090707643",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84798a7_ead02b78",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-13T11:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9476885_5dd1a0f0",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
