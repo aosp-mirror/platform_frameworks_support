@@ -87,6 +87,30 @@
       "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e75354_7d60ae18",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T21:58:14Z",
+      "side": 1,
+      "message": "Thats a good question.\n\nJust tested it, by waiting for 3 images to be in the queue before calling this 4 times in a row. This doesn\u0027t throw the exception, so it probably just returns null instead.\n\nBut if we wait for onImageAvailableListener to be called 4 times before acquiring all, then it throws the exception.\n\nLooking through the native code it looks that if it unable acquire a buffer then it won\u0027t throw the exception https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/media/jni/android_media_ImageReader.cpp#551\nIf however, there are more than maxImages buffers that are available in the BufferItemConsumer, then it will attempt to acquire the buffer which causes the issue.\n\nSo there will be a problem when the number of (Images available + Images which aren\u0027t closed) \u003e maxImages. This would require some logic to track when the Images get closed.\n\nIf you are okay with it, I say that is beyond the scope of this change. But we should open up an additional bug to fix this.",
+      "parentUuid": "201485b8_24cd855a",
+      "range": {
+        "startLine": 323,
+        "startChar": 20,
+        "endLine": 323,
+        "endChar": 69
+      },
+      "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
