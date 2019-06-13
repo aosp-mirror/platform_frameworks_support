@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6728d42_59115cb5",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T14:00:28Z",
+      "side": 1,
+      "message": "do you remember why do we need this line? we iterate through relayoutNodes and then check for contains on it? seems like the answer is always true",
+      "range": {
+        "startLine": 244,
+        "startChar": 24,
+        "endLine": 244,
+        "endChar": 65
+      },
+      "revId": "8b527e9287d98e587d44f82257b3cffc98340d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
