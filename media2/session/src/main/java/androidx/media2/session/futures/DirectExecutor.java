@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-package androidx.camera.core;
-
-import android.view.Surface;
+package androidx.media2.session.futures;
 
 import androidx.annotation.RestrictTo;
-import androidx.annotation.RestrictTo.Scope;
-import androidx.camera.core.impl.utils.futures.Futures;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import java.util.concurrent.Executor;
 
 /**
- * A {@link DeferrableSurface} which always returns immediately.
- *
+ * An {@link Executor} that runs each task in the thread that invokes {@link Executor#execute
+ * execute}.
  * @hide
  */
-@RestrictTo(Scope.LIBRARY_GROUP)
-public final class ImmediateSurface extends DeferrableSurface {
-    private final Surface mSurface;
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+enum DirectExecutor implements Executor {
+    INSTANCE;
 
-    public ImmediateSurface(Surface surface) {
-        mSurface = surface;
+    @Override
+    public void execute(Runnable command) {
+        command.run();
     }
 
     @Override
-    public ListenableFuture<Surface> getSurface() {
-        return Futures.immediateFuture(mSurface);
+    public String toString() {
+        return "DirectExecutor";
     }
 }
