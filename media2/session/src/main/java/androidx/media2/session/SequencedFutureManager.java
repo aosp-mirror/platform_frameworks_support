@@ -22,7 +22,7 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
-import androidx.concurrent.futures.AbstractResolvableFuture;
+import androidx.media2.session.futures.AbstractResolvableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
