@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dd22041_e7ee0380",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T07:01:12Z",
+      "side": 1,
+      "message": "Interestingly, I needed to revert back to explicitly using Runnable. I need to disambiguate the type, otherwise runOnMain(Callable) swallows the exception (to re-throw during waitForFuture())",
+      "range": {
+        "startLine": 467,
+        "startChar": 33,
+        "endLine": 471,
+        "endChar": 13
+      },
+      "revId": "49c4a20e8498362894acfb81273d480bcfe2bad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
