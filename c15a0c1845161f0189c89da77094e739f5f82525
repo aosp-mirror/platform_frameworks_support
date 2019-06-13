@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e3ef51b6_17969f6c",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/FeatureNotAvailableTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "I\u0027ve added more comments to clarify the appropriate usage of this test.  It is only intended for those apps that use the api not available message as the fallback.",
+      "parentUuid": "6b45ca68_7dd1bd84",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30d8921c_c5ad169c",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/FeatureNotAvailableTestAppTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f401d84_f52a8b8c",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/FeatureNotAvailableTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d8921c_c5ad169c",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2b9f8744_f9a9040e",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "ActivityTestRule takes care of launching the activity and waiting for onCreate to be complete. \nSee https://cs.corp.google.com/android/frameworks/base/core/java/android/app/Instrumentation.java?q\u003dstartActivitySync\u0026sq\u003dpackage:android\u0026g\u003d0\u0026l\u003d480",
+      "parentUuid": "6c37b16a_5c3b0b3a",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7d18bb7_03aee0fb",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "97286fb0_58816663",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Espresso\u0027s sync behavior waits for UI work to complete before executing actions: https://developer.android.com/training/testing/espresso/index.html#sync\n\nEspresso is designed for UI verification, where dynamic changes are expected.",
+      "parentUuid": "b7d18bb7_03aee0fb",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "833aa395_81afbf27",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f5c2d46_b8a56fec",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "833aa395_81afbf27",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,54 @@
     },
     {
       "key": {
+        "uuid": "2f658ccf_7d020b5d",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5861029f_2532d86b",
+      "range": {
+        "startLine": 112,
+        "startChar": 46,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8dde510_75dbc80f",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d4ebf2b_65349e9f",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 22
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "047e4a4b_5b806676",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/ProxyOverrideTestAppTest.java",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76dcb935_3aea3371",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/ProxyOverrideTestAppTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-13T23:04:24Z",
+      "side": 1,
+      "message": "Cool, will do.",
+      "parentUuid": "047e4a4b_5b806676",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
