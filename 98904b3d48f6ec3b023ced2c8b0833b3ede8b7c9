@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7efaae60_573032b7",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-13T16:51:50Z",
+      "side": 1,
+      "message": "Can you please add javadocs? Also List\u003cString[]\u003e is not a great return type.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
