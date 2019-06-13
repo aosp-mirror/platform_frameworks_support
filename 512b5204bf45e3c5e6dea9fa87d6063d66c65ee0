@@ -117,6 +117,30 @@
       "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ded3b29_4fc5420b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-13T00:00:30Z",
+      "side": 1,
+      "message": "The case for `Any?` is just that it is the true base type, and i assume we want to let people put whatever they want in here.\n\nIf there\u0027s ever a case where someone might need to allow for `null` data here, it would be much preferrable to allow `null`, otherwise they would have to write their code such that it went down a different code path that compose would interpret as an entire mount/unmount of the tree. For this reason, using `Any?` would be my preference, but this is also something we aren\u0027t expecting to be used that much so i dunno.",
+      "parentUuid": "af8a13c5_263ce8a2",
+      "range": {
+        "startLine": 711,
+        "startChar": 40,
+        "endLine": 711,
+        "endChar": 43
+      },
+      "revId": "512b5204bf45e3c5e6dea9fa87d6063d66c65ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
