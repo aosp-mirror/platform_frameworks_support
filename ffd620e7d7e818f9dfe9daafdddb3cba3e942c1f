@@ -39,6 +39,30 @@
       "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d97db35_e6902cc1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T17:53:02Z",
+      "side": 1,
+      "message": "The exception is thrown when more images than maxImages has been acquired without a close. So this will only happen if the Images don\u0027t get closed in time.\n\nSo this is an example of what that log looks like\n2019-06-12 13:31:49.731 32068-32068/androidx.camera.integration.extensions E/MetadataImageReader: Failed to acquire latest image.\n    java.lang.IllegalStateException: maxImages (3) has already been acquired, call #close before acquiring more.",
+      "parentUuid": "206a06c0_011b941d",
+      "range": {
+        "startLine": 323,
+        "startChar": 20,
+        "endLine": 323,
+        "endChar": 69
+      },
+      "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
