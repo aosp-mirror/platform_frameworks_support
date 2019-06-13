@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "686c4093_8dfdaf6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "-\u003e \"Create\"?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d0097f_af28b4f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "-\u003e \"\"",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ea60f5e_875ec6ea",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "If it\u0027s convenient, I\u0027d recommend adding its output file as a file to check in buildOnServer.getRequiredFiles",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2645eb_8c4b97d9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "It looks like you managed to do this without a listener so I\u0027d recommend removing \"Listener\" from the name",
+      "range": {
+        "startLine": 612,
+        "startChar": 24,
+        "endLine": 612,
+        "endChar": 62
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf72e779_f56528a1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "\" \" -\u003e \" a \"",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a84fbfc_655cdd65",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T23:47:40Z",
+      "side": 1,
+      "message": "+\")\"",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
