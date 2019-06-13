@@ -45,7 +45,6 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.test.R;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
 import androidx.testutils.PollingCheck;
 
 import org.hamcrest.CoreMatchers;
@@ -81,9 +80,27 @@ abstract public class BaseRecyclerViewInstrumentationTest {
 
     Thread mInstrumentationThread;
 
+    /*
+    // One activity launch per test class
+    @ClassRule
+    public static HackyActivityScenarioRule<TestActivity> mActivityRule =
+            new HackyActivityScenarioRule<>(TestActivity.class);
     @Rule
-    public ActivityTestRule<TestActivity> mActivityRule =
-            new ActivityTestRule<>(TestActivity.class);
+    public ActivityScenarioResetRule<TestActivity> mActivityResetRule =
+            new ActivityScenarioResetRule<>(mActivityRule.getScenario(), activity -> {
+                activity.reset();
+                return null;
+            });
+
+    /*/
+
+    // Alternately, one activity launch per test (note, we still use subclass here to
+    // avoid touching code dealing with `runOnUiThread()` and `getActivity()` from ActivityTestRule)
+    @Rule
+    public HackyActivityScenarioRule<TestActivity> mActivityRule =
+            new HackyActivityScenarioRule<>(TestActivity.class);
+
+    // */
 
     public BaseRecyclerViewInstrumentationTest() {
         this(false);
