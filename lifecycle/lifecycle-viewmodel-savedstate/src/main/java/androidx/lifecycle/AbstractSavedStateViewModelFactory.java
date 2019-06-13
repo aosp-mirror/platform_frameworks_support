@@ -26,11 +26,12 @@ import androidx.savedstate.SavedStateRegistryOwner;
 
 /**
  * Skeleton of androidx.lifecycle.ViewModelProvider.KeyedFactory
- * that creates {@link SavedStateHandle} for every requested {@link androidx.lifecycle.ViewModel}. The subclasses
+ * that creates {@link SavedStateHandle} for every requested {@link androidx.lifecycle.ViewModel}
+ * . The subclasses
  * implement {@link #create(String, Class, SavedStateHandle)} to actually instantiate
  * {@code androidx.lifecycle.ViewModel}s.
  */
-public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.KeyedFactory {
+public abstract class AbstractSavedStateViewModelFactory extends ViewModelProvider.KeyedFactory {
     static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
 
     private final SavedStateRegistry mSavedStateRegistry;
@@ -40,14 +41,15 @@ public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.Keye
     /**
      * Constructs this factory.
      *
-     * @param owner {@link SavedStateRegistryOwner} that will provide restored state for created
-     * {@link androidx.lifecycle.ViewModel ViewModels}
+     * @param owner       {@link SavedStateRegistryOwner} that will provide restored state for
+     *                                                   created
+     *                    {@link androidx.lifecycle.ViewModel ViewModels}
      * @param defaultArgs values from this {@code Bundle} will be used as defaults by
      *                    {@link SavedStateHandle} passed in {@link ViewModel ViewModels}
      *                    if there is no previously saved state
      *                    or previously saved state misses a value by such key
      */
-    public AbstractSavedStateVMFactory(@NonNull SavedStateRegistryOwner owner,
+    public AbstractSavedStateViewModelFactory(@NonNull SavedStateRegistryOwner owner,
             @Nullable Bundle defaultArgs) {
         mSavedStateRegistry = owner.getSavedStateRegistry();
         mLifecycle = owner.getLifecycle();
@@ -55,6 +57,7 @@ public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.Keye
     }
 
     // TODO: make KeyedFactory#create(String, Class) package private
+
     /**
      * @hide
      */
@@ -89,10 +92,10 @@ public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.Keye
      * Creates a new instance of the given {@code Class}.
      * <p>
      *
-     * @param key a key associated with the requested ViewModel
+     * @param key        a key associated with the requested ViewModel
      * @param modelClass a {@code Class} whose instance is requested
-     * @param handle a handle to saved state associated with the requested ViewModel
-     * @param <T> The type parameter for the ViewModel.
+     * @param handle     a handle to saved state associated with the requested ViewModel
+     * @param <T>        The type parameter for the ViewModel.
      * @return a newly created ViewModels
      */
     @NonNull
