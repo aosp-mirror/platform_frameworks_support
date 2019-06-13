@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ddc58f94_e2ba4eeb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-13T04:48:18Z",
+      "side": 1,
+      "message": "Yeah that makes sense, although there may be places directly query camera id from CameraFactory. I\u0027ve changed LensFacingCameraIdFilter to query camera ids from CameraFactory as well. So that now they share the same logic. PTAL.",
+      "parentUuid": "b1b003f8_80158055",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7f699e4_783758ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 4
