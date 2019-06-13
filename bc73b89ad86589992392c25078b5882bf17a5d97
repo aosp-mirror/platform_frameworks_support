@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54cc2b25_bbb89eef",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-06-13T22:45:47Z",
+      "side": 1,
+      "message": "This should be more concise.\nSomething like \"Preference widgets should not need any accessibility changes, unless the view hierarchy is customized. In this situation, please add Accessibility information in onBindViewHolder.\" I imagine as other people review this, the string will change a couple more times.",
+      "range": {
+        "startLine": 2095,
+        "startChar": 19,
+        "endLine": 2100,
+        "endChar": 41
+      },
+      "revId": "bc73b89ad86589992392c25078b5882bf17a5d97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
