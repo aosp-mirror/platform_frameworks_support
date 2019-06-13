@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e070f14e_0a539a68",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-13T21:47:38Z",
+      "side": 1,
+      "message": "Let\u0027s make this not public to start with. We can make it public later",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "baaa47978bffae8ed555f8c3d0b998642edee817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a21ff5_62e8ad97",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-13T21:47:38Z",
+      "side": 1,
+      "message": "I don\u0027t think our custom layouts use the 4th constructor at all. Take a look at what AppCompat does and mimic that.",
+      "range": {
+        "startLine": 54,
+        "startChar": 11,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "baaa47978bffae8ed555f8c3d0b998642edee817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379f6c98_05c6ba83",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-13T21:47:38Z",
+      "side": 1,
+      "message": "I don\u0027t think most developers know what Layout Transitions are actually, so I\u0027d probably go with \n\n    Layout Transitions or animateLayoutChanges\u003d\"true\"\n\nsince that\u0027s how most developers might get into this case. Those actually using LayoutTransition will understand the stack trace already.",
+      "range": {
+        "startLine": 73,
+        "startChar": 49,
+        "endLine": 73,
+        "endChar": 67
+      },
+      "revId": "baaa47978bffae8ed555f8c3d0b998642edee817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
