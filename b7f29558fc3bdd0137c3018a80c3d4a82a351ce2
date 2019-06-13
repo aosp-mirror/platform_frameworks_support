@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "202f7bdb_e4bf1445",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T16:34:12Z",
+      "side": 1,
+      "message": "\u003e.\u003c",
+      "parentUuid": "d3282fa6_c1bb66f4",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f9039c3_ff8c5d6f",
         "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
         "patchSetId": 12
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "dea3e480_2e6a5100",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T16:34:12Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "9f9039c3_ff8c5d6f",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 33
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5733b87_5ace91af",
         "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
         "patchSetId": 12
@@ -83,6 +131,30 @@
       "writtenOn": "2019-06-12T23:20:35Z",
       "side": 1,
       "message": "hmm i\u0027m not a big fan of this because seems like we are losing some abstraction here. (this code starts checking migrations instead of letting the delegate do the work).\n\nMaybe we need an internal way to delegate destructive migrations ? Is this a problem about \"already opening\" the database?\n\nAlso, we are not locking the file before copying so we might already have some race condition problems here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 9
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6933df82_1e0842cc",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T16:34:12Z",
+      "side": 1,
+      "message": "Yeah the problem of the delegate is that the database is already being opened by then. We could try and let it do so, and throw during the destructive migration path (checking DB was createFromAsset/fromFile), catch it here in the CopyOpenHelper and do the re-copy, but I find that... not great at all. That route would also mean we need some kind of state to avoid the recursion upgrade (i.e. don\u0027t throw a second time because we already copied).\n\nAs for the File Locking, I was playing with that on the side, can\u0027t find a good way to test it, so I\u0027ll be like a best-effort thing, which turns out what JVM file locks are in Linux, advisory. Meaning if another process does check file locks, they\u0027ll wait, but otherwise there is no guarantee, and especially not against other JVM processes (other apps) since their code might not care about the file locks (they might not be using java.nio).",
+      "parentUuid": "c5733b87_5ace91af",
       "range": {
         "startLine": 130,
         "startChar": 8,
@@ -115,6 +187,30 @@
       "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d055fc_b35abacc",
+        "filename": "room/runtime/src/main/java/androidx/room/util/DBUtil.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T16:34:12Z",
+      "side": 1,
+      "message": "I find it a clever way to read DB version without opening it \u003d]",
+      "parentUuid": "afc12d9d_9ca6fe64",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 33
+      },
+      "revId": "b7f29558fc3bdd0137c3018a80c3d4a82a351ce2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

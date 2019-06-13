@@ -22,6 +22,30 @@
       "revId": "528c01cbd61b40ef1fae60cc34e9acc4274ad413",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccac54e3_9532cb66",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-13T16:34:12Z",
+      "side": 0,
+      "message": "Yeah, I don\u0027t feel super great about the setter, but without some decent refactor the setter is an easy way to get the config to the helper. It is also fair game because a user can override init() get the configuration and also inject it into their custom open helper.",
+      "parentUuid": "3c6246eb_5a6a093f",
+      "range": {
+        "startLine": 899,
+        "startChar": 28,
+        "endLine": 899,
+        "endChar": 36
+      },
+      "revId": "528c01cbd61b40ef1fae60cc34e9acc4274ad413",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
