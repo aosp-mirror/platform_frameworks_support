@@ -21,6 +21,11 @@ import com.android.build.gradle.internal.dsl.LintOptions
 import org.gradle.api.Project
 import java.io.File
 
+/**
+ * Setting this property means that lint will fail for UnknownNullness issues.
+ */
+private const val CHECK_UNKNOWN_NULLNESS = "checkUnknownNullness"
+
 fun Project.configureNonAndroidProjectForLint(extension: AndroidXExtension) {
     apply(mapOf("plugin" to "com.android.lint"))
 
@@ -34,7 +39,7 @@ fun Project.configureNonAndroidProjectForLint(extension: AndroidXExtension) {
     }
 
     val lintOptions = extensions.getByType<LintOptions>()
-    project.configureLint(lintOptions, extension)
+    configureLint(lintOptions, extension)
 }
 
 fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension) {
@@ -71,6 +76,7 @@ fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension
                 fatal("KotlinPropertyAccess")
                 fatal("LambdaLast")
                 fatal("NoHardKeywords")
+                fatal("UnknownNullness")
 
                 // Only override if not set explicitly.
                 // Some Kotlin projects may wish to disable this.
@@ -85,13 +91,51 @@ fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension
                 }
             }
 
-            // Set baseline file for all legacy lint warnings.
+            // Baseline file for all legacy lint warnings.
             val baselineFile = lintBaseline
-            if (baselineFile.exists()) {
-                baseline(baselineFile)
+
+            // Special lint baseline that contains suppressed UnknownNullness warnings as well as
+            // the other lint warnings in baselineFile
+            val nullnessBaselineFile = nullnessLintBaseline
+
+            if (!nullnessBaselineFile.exists()) {
+                if (baselineFile.exists()) {
+                    baseline(lintBaseline)
+                }
+                return@afterEvaluate
+            }
+
+            // Whether -PcheckUnknownNullness was set, and we should fail onUnknownNullness warnings
+            val checkUnknownNullness = hasProperty(CHECK_UNKNOWN_NULLNESS)
+            val lintDebugTask = tasks.named("lintDebug")
+            if (checkUnknownNullness) {
+                lintDebugTask.configure {
+                    it.doFirst {
+                        logger.warn(
+                            "-PcheckUnknownNullness set - checking UnknownNullness lint warnings."
+                        )
+                    }
+                }
+                if (baselineFile.exists()) {
+                    baseline(lintBaseline)
+                }
+            } else {
+                lintDebugTask.configure {
+                    it.doLast {
+                        logger.warn(ignoringNullnessMessage)
+                    }
+                }
+                baseline(nullnessBaselineFile)
             }
         }
     }
 }
 
-val Project.lintBaseline get() = File(project.projectDir, "/lint-baseline.xml")
+val Project.lintBaseline get() = File(projectDir, "/lint-baseline.xml")
+private val Project.nullnessLintBaseline get() = File(projectDir, "/nullness-lint-baseline.xml")
+private val Project.ignoringNullnessMessage get() = (
+    "\nThere are UnknownNullness issues currently whitelisted in " +
+    "$projectDir/nullness-lint-baseline.xml - these warnings need to be fixed before " +
+    "this library moves to a stable release. Run " +
+    "'./gradlew $name:lintDebug -PcheckUnknownNullness' to fail on these warnings."
+)
