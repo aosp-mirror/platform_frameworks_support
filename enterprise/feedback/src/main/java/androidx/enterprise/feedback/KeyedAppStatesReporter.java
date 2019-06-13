@@ -28,7 +28,7 @@ import java.util.Collection;
  * A reporter of keyed app states to enable communication between an app and an EMM (enterprise
  * mobility management).
  *
- * For production use {@link SingletonKeyedAppStatesReporter}.
+ * For production use {@link DefaultKeyedAppStatesReporter}.
  * For testing see the {@code FakeKeyedAppStatesReporter} class in
  * the {@code enterprise-feedback-testing} artifact.
  */
