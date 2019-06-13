@@ -58,6 +58,11 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
         fun spec(): List<TestConfig> = createTestSet()
     }
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+    private lateinit var test: Context
+
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     @Test
     fun test() {
         config.apply {

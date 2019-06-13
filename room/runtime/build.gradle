@@ -32,9 +32,15 @@ android {
 
 dependencies {
     api(project(":room:room-common"))
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":sqlite:sqlite-framework"))
     api(project(":sqlite:sqlite"))
     implementation(project(":arch:core-runtime"))
+=======
+    api(ANDROIDX_SQLITE_FRAMEWORK)
+    api(ANDROIDX_SQLITE)
+    implementation(ARCH_CORE_RUNTIME)
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     implementation(ANDROIDX_CORE)
     implementation(ANDROIDX_COLLECTION)
     compileOnly(ARCH_PAGING_COMMON)

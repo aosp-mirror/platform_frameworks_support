@@ -37,15 +37,25 @@ android {
 
 dependencies {
     implementation(project(":slice-core"))
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation(project(":core:core"))
     api(project(":slice-builders"))
     api(KOTLIN_STDLIB)
+
     androidTestImplementation(JUNIT)
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     implementation project(":annotation")
     implementation project(path: ':core')
+=======
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 }
 
 supportLibrary {

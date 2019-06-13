@@ -46,7 +46,14 @@ You can build maven artifacts locally, and test them directly in your app:
 
 And put in your **project** `build.gradle` file:
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     handler.maven { url '/path/to/checkout/out/host/gradle/frameworks/support/build/support_repo' }
+=======
+    handler.maven { url '/path/to/checkout/out/androidx/build/support_repo/' }
+
+### Continuous integration
+[Our continuous integration system](https://ci.android.com/builds/branches/aosp-androidx-master-dev/grid?) builds all in progress (and potentially unstable) libraries as new changes are merged. You can manually download these AARs and JARs for your experimentation.
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 
 ## Running Tests
 

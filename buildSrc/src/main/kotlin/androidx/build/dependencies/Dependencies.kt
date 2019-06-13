@@ -44,6 +44,7 @@ const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:
 const val LEAKCANARY_INSTRUMENTATION =
         "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
+const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
 const val MULTIDEX = "androidx.multidex:multidex:2.0.0"
 const val NULLAWAY = "com.uber.nullaway:nullaway:0.3.7"
 const val OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:3.11.0"
@@ -104,4 +105,16 @@ const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.0.0"
 const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.0.0"
 const val ARCH_ROOM_RXJAVA = "androidx.room:room-rxjava2:2.0.0"
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
+=======
+const val WORK_ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
+const val WORK_ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
+const val WORK_ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.1.0-rc01"
+const val WORK_ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.1.0-rc01"
+const val WORK_ARCH_ROOM_TESTING = "androidx.room:room-testing:2.1.0-rc01"
+
+const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
+
+const val PROTOBUF = "com.google.protobuf:protobuf-java:3.4.0"
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)

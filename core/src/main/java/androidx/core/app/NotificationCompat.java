@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
@@ -5355,3 +5356,5 @@ public class NotificationCompat {
     public NotificationCompat() {
     }
 }
+=======
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)

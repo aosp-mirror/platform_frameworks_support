@@ -75,6 +75,8 @@ public final class Configuration {
     }
 
     /**
+     * Gets the {@link Executor} used by {@link WorkManager} to execute {@link Worker}s.
+     *
      * @return The {@link Executor} used by {@link WorkManager} to execute {@link Worker}s
      */
     public @NonNull Executor getExecutor() {
@@ -82,6 +84,22 @@ public final class Configuration {
     }
 
     /**
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+     * Gets the {@link Executor} used by {@link WorkManager} for all its internal business logic.
+     *
+     * @return The {@link Executor} used by {@link WorkManager} for all its internal business logic
+     */
+    @NonNull
+    public Executor getTaskExecutor() {
+        return mTaskExecutor;
+    }
+
+    /**
+     * Gets the {@link WorkerFactory} used by {@link WorkManager} to create
+     * {@link ListenableWorker}s.
+     *
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
      * @return The {@link WorkerFactory} used by {@link WorkManager} to create
      *         {@link ListenableWorker}s
      */
@@ -90,7 +108,10 @@ public final class Configuration {
     }
 
     /**
-     * @return The minimum logging level.
+     * Gets the minimum logging level for {@link WorkManager}.
+     *
+     * @return The minimum logging level, corresponding to the constants found in
+     * {@link android.util.Log}
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -99,6 +120,8 @@ public final class Configuration {
     }
 
     /**
+     * Gets the first valid id used when scheduling work with {@link android.app.job.JobScheduler}.
+     *
      * @return The first valid id (inclusive) used by {@link WorkManager} when creating new
      *         instances of {@link android.app.job.JobInfo}s.  If the current {@code jobId} goes
      *         beyond the bounds of the defined range of
@@ -111,6 +134,8 @@ public final class Configuration {
     }
 
     /**
+     * Gets the last valid id when scheduling work with {@link android.app.job.JobScheduler}.
+     *
      * @return The last valid id (inclusive) used by {@link WorkManager} when
      *         creating new instances of {@link android.app.job.JobInfo}s.  If the current
      *         {@code jobId} goes beyond the bounds of the defined range of
@@ -123,6 +148,9 @@ public final class Configuration {
     }
 
     /**
+     * Gets the maximum number of system requests that can be made by {@link WorkManager} when using
+     * {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}.
+     *
      * @return The maximum number of system requests which can be enqueued by {@link WorkManager}
      *         when using {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}
      * @hide
@@ -179,6 +207,27 @@ public final class Configuration {
         }
 
         /**
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+         * Specifies a {@link Executor} which will be used by WorkManager for all its
+         * internal book-keeping.
+         *
+         * For best performance this {@link Executor} should be bounded.
+         *
+         * For more information look at
+         * {@link androidx.room.RoomDatabase.Builder#setQueryExecutor(Executor)}.
+         *
+         * @param taskExecutor The {@link Executor} which will be used by WorkManager for
+         *                             all its internal book-keeping
+         * @return This {@link Builder} instance
+         */
+        public @NonNull Builder setTaskExecutor(@NonNull Executor taskExecutor) {
+            mTaskExecutor = taskExecutor;
+            return this;
+        }
+
+        /**
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
          * Specifies the range of {@link android.app.job.JobInfo} IDs that can be used by
          * {@link WorkManager}.  WorkManager needs a range of at least {@code 1000} IDs.
          * <p>

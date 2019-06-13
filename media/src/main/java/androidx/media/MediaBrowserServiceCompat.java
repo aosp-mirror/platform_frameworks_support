@@ -1301,7 +1301,11 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *
      * @hide
      */
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     @RestrictTo(LIBRARY)
+=======
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     public void attachToBaseContext(Context base) {
         attachBaseContext(base);
     }

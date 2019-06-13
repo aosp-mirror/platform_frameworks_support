@@ -20,13 +20,24 @@ import androidx.build.LibraryVersions
 import androidx.build.SupportLibraryExtension;
 
 plugins {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     id("SupportJavaLibraryPlugin")
+=======
+    id("AndroidXPlugin")
+    id("kotlin")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 }
 
 dependencies {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     compile(project(":annotation"))
+=======
+    compile(ANDROIDX_ANNOTATION)
+    testCompile(KOTLIN_STDLIB)
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
+    testCompile(GUAVA)
 }
 
 supportLibrary {

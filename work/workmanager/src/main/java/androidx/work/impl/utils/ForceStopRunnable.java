@@ -32,6 +32,12 @@ import android.support.annotation.VisibleForTesting;
 
 import androidx.work.Logger;
 import androidx.work.impl.WorkManagerImpl;
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+import androidx.work.impl.background.systemjob.SystemJobScheduler;
+import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.model.WorkSpecDao;
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 
 import java.util.concurrent.TimeUnit;
 
@@ -72,6 +78,41 @@ public class ForceStopRunnable implements Runnable {
         } else if (isForceStopped()) {
             Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+        } else {
+            // Mitigation for faulty implementations of JobScheduler (b/134058261
+            if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+                SystemJobScheduler.cancelInvalidJobs(mContext);
+            }
+
+            WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+            workDatabase.beginTransaction();
+            try {
+                List<WorkSpec> workSpecs = workSpecDao.getEnqueuedWork();
+                if (workSpecs != null && !workSpecs.isEmpty()) {
+                    Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+                    // Mark every instance of unfinished work with
+                    // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                    // This is because the application might have crashed previously and we should
+                    // reschedule jobs that may have been running previously.
+                    // Also there is a chance that an application crash, happened during
+                    // onStartJob() and now no corresponding job now exists in JobScheduler.
+                    // To solve this, we simply force-reschedule all unfinished work.
+                    for (WorkSpec workSpec : workSpecs) {
+                        workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                    }
+                    Schedulers.schedule(
+                            mWorkManager.getConfiguration(),
+                            workDatabase,
+                            mWorkManager.getSchedulers());
+                }
+                workDatabase.setTransactionSuccessful();
+            } finally {
+                workDatabase.endTransaction();
+            }
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
         }
         mWorkManager.onForceStopRunnableCompleted();
     }

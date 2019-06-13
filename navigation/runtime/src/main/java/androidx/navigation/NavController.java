@@ -571,6 +571,8 @@ public class NavController {
             taskStackBuilder.startActivities();
             if (mActivity != null) {
                 mActivity.finish();
+                // Disable second animation in case where the Activity is created twice.
+                mActivity.overridePendingTransition(0, 0);
             }
             return true;
         }

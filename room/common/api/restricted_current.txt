@@ -1,0 +1,25 @@
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+// Signature format: 3.0
+package androidx.room {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class RoomMasterTable {
+    method public static String! createInsertQuery(String!);
+    field public static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)";
+    field public static final String DEFAULT_ID = "42";
+    field public static final String NAME = "room_master_table";
+    field public static final String READ_QUERY = "SELECT identity_hash FROM room_master_table WHERE id = 42 LIMIT 1";
+    field public static final String TABLE_NAME = "room_master_table";
+  }
+
+}
+
+package androidx.room.util {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class SneakyThrow {
+    method public static void reThrow(Exception);
+  }
+
+}
+
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)

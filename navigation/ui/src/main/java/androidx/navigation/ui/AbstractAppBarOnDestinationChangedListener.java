@@ -29,6 +29,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.text.TextUtils;
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StringRes;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.FloatingWindow;
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 
@@ -72,6 +82,9 @@ abstract class AbstractAppBarOnDestinationChangedListener
     @Override
     public void onDestinationChanged(@NonNull NavController controller,
             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+        if (destination instanceof FloatingWindow) {
+            return;
+        }
         DrawerLayout drawerLayout = mDrawerLayoutWeakReference != null
                 ? mDrawerLayoutWeakReference.get()
                 : null;

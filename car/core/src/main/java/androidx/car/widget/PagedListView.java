@@ -488,12 +488,35 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+     * Sets whether the scroll bar is enabled.
+     *
+     * If enabled, a scroll bar will appear when the number of items causes the PagedListView to
+     * be scrollable. Otherwise, the scroll bar is hidden regardless of item count.
+     *
+     * @param enabled {@code true} to enable the scroll bar.
+     */
+    public void setScrollBarEnabled(boolean enabled) {
+        mScrollBarEnabled = enabled;
+        mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns {@code true} if the scroll bar is enabled.
+     */
+    public boolean isScrollBarEnabled() {
+        return mScrollBarEnabled;
+    }
+
+    /**
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
      * @param offset The top offset to add in pixels.
      *
-     * {@link R.attr#listContentTopOffset}
+     *               {@link R.attr#listContentTopOffset}
      */
     public void setListContentTopOffset(@Px int offset) {
         TopOffsetDecoration existing = null;
@@ -540,7 +563,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param offset The bottom offset to add in pixels
      *
-     * {@link R.attr#listContentBottomOffset}
+     *               {@link R.attr#listContentBottomOffset}
      */
     public void setListContentBottomOffset(@Px int offset) {
         BottomOffsetDecoration existing = null;
@@ -711,7 +734,7 @@ public class PagedListView extends FrameLayout {
      * PagedListView needs to implement {@link ItemCap}.
      *
      * @param maxPages The maximum number of pages that fit on the screen. Should be positive or
-     * {@link #UNLIMITED_PAGES}.
+     *                 {@link #UNLIMITED_PAGES}.
      */
     public void setMaxPages(int maxPages) {
         mMaxPages = Math.max(UNLIMITED_PAGES, maxPages);

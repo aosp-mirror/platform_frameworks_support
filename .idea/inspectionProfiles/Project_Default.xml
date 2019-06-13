@@ -33,5 +33,27 @@
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
       <option name="myAdditionalJavadocTags" value="hide" />
     </inspection_tool>
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+    <inspection_tool class="MissingDeprecatedAnnotation" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PrivatePropertyName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="_?[A-Za-z\d]+" />
+      </scope>
+    </inspection_tool>
+    <inspection_tool class="PropertyName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="[A-Za-z\d]+" />
+      </scope>
+    </inspection_tool>
+    <inspection_tool class="RemoveEmptyParenthesesFromAnnotationEntry" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="false" />
+    </inspection_tool>
+    <inspection_tool class="TestFunctionName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="[A-Za-z_\d]+" />
+      </scope>
+    </inspection_tool>
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
   </profile>
 </component>

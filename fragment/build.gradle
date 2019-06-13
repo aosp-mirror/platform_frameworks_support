@@ -14,15 +14,28 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
     api(project(":core")) {
+=======
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.1.0-rc01") {
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
         exclude group: 'androidx.annotation'
     }
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":collection"))
+=======
+    api("androidx.collection:collection:1.1.0")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     api("androidx.viewpager:viewpager:1.0.0")
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
+=======
+    api("androidx.annotation:annotation:1.1.0")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     api("androidx.loader:loader:1.0.0")
-    api(project(":activity"))
+    api(project(":activity:activity"))
     api(ARCH_LIFECYCLE_VIEWMODEL, libs.exclude_annotations_transitive)
 
     androidTestImplementation(KOTLIN_STDLIB)
@@ -39,7 +52,18 @@ dependencies {
     }
 }
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 supportLibrary {
+=======
+android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+}
+
+androidx {
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     name = "Android Support Library fragment"
     publish = true
     mavenVersion = LibraryVersions.FRAGMENT

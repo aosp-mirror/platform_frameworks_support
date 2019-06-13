@@ -1,0 +1,20 @@
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+// Signature format: 3.0
+package androidx.recyclerview.widget {
+
+  public final class AsyncDifferConfig<T> {
+  }
+
+  public static final class AsyncDifferConfig.Builder<T> {
+  }
+
+
+  @IntDef({androidx.recyclerview.widget.RecyclerView.HORIZONTAL, androidx.recyclerview.widget.RecyclerView.VERTICAL}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface RecyclerView.Orientation {
+  }
+
+
+
+}
+
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)

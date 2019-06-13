@@ -7,8 +7,13 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
     api(project(":legacy-support-core-ui"))
+=======
+    api("androidx.annotation:annotation:1.1.0")
+    api(project(":swiperefreshlayout"))
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     api(project(":fragment"))
     api(project(":recyclerview"))
     api(CONSTRAINT_LAYOUT, { transitive = true })

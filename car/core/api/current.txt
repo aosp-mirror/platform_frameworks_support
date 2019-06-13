@@ -299,6 +299,40 @@ package androidx.car.widget {
     method public void setColumnSpan(int);
   }
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+  public abstract class CompoundButtonListItem<VH extends androidx.car.widget.CompoundButtonListItem.ViewHolder> extends androidx.car.widget.ListItem<VH> {
+    ctor public CompoundButtonListItem(android.content.Context);
+    method public abstract boolean isCompoundButtonPositionEnd();
+    method public void onBind(VH);
+    method @CallSuper protected void resolveDirtyState();
+    method public void setBody(CharSequence?);
+    method public void setChecked(boolean);
+    method @Deprecated public void setClickable(boolean);
+    method public void setEnabled(boolean);
+    method public void setEntireItemClickable(boolean);
+    method public void setOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener?);
+    method public void setPrimaryActionEmptyIcon();
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
+    method public void setPrimaryActionNoIcon();
+    method public void setShowCompoundButtonDivider(boolean);
+    method public void setTitle(CharSequence?);
+    field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
+    field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
+    field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
+  }
+
+  public abstract static class CompoundButtonListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
+    ctor public CompoundButtonListItem.ViewHolder(android.view.View);
+    method public abstract android.widget.TextView getBody();
+    method public abstract android.widget.CompoundButton getCompoundButton();
+    method public abstract android.view.View getCompoundButtonDivider();
+    method public abstract android.widget.ImageView getPrimaryIcon();
+    method public abstract android.widget.TextView getTitle();
+  }
+
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
   public abstract class ListItem<VH extends androidx.car.widget.ListItem.ViewHolder> {
     ctor public ListItem();
     method public final void addViewBinder(androidx.car.widget.ListItem.ViewBinder<VH>!);

@@ -7,8 +7,13 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
     api(project(":core"))
+=======
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.1.0-rc01")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     api(project(":customview"))
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -27,5 +32,4 @@ supportLibrary {
     mavenGroup = LibraryGroups.VIEWPAGER
     inceptionYear = "2018"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
-    failOnDeprecationWarnings = false
 }

@@ -1,3 +1,5 @@
+rootProject.name = "androidx"
+
 /////////////////////////////
 //
 // Buildscript utils
@@ -33,8 +35,8 @@ def includeProject(name, filePath) {
 //
 /////////////////////////////
 
-includeProject(":activity", "activity")
-includeProject(":activity-ktx", "activity/ktx")
+includeProject(":activity:activity", "activity/activity")
+includeProject(":activity:activity-ktx", "activity/activity-ktx")
 includeProject(":activity:integration-tests:testapp", "activity/integration-tests/testapp")
 includeProject(":annotation", "annotations")
 includeProject(":animation", "animation")
@@ -58,8 +60,14 @@ includeProject(":collection-ktx", "collection/ktx")
 includeProject(":concurrent:concurrent-futures", "concurrent/futures")
 includeProject(":contentpager", "content")
 includeProject(":coordinatorlayout", "coordinatorlayout")
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 includeProject(":core", "core")
 includeProject(":core-ktx", "core/ktx")
+=======
+includeProject(":core:core", "core/core")
+includeProject(":core:core-ktx", "core/core-ktx")
+includeProject(":core-role", "core/core-role")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 includeProject(":cursoradapter", "cursoradapter")
 includeProject(":customview", "customview")
 includeProject(":documentfile", "documentfile")
@@ -170,6 +178,7 @@ includeProject(":sqlite:sqlite", "persistence/db")
 includeProject(":sqlite:sqlite-ktx", "persistence/db/ktx")
 includeProject(":sqlite:sqlite-framework", "persistence/db-framework")
 includeProject(":swiperefreshlayout", "swiperefreshlayout")
+includeProject(":test-screenshot-proto", "test/screenshot/proto")
 includeProject(":textclassifier", "textclassifier")
 includeProject(":textclassifier:integration-tests:testapp", "textclassifier/integration-tests/testapp")
 includeProject(":transition", "transition")
@@ -208,15 +217,17 @@ File samplesRoot = new File(rootDir, "samples")
 // Note: don't add new samples/ apps. Instead, Create
 // <module>/integration-tests/testapp in the "Libraries" section above.
 includeProject(":support-animation-demos", new File(samplesRoot, "SupportAnimationDemos"))
-includeProject(":support-app-navigation", new File(samplesRoot, "SupportAppNavigation"))
 includeProject(":support-biometric-demos", new File(samplesRoot, "BiometricDemos"))
 includeProject(":support-car-demos", new File(samplesRoot, "SupportCarDemos"))
 includeProject(":support-content-demos", new File(samplesRoot, "SupportContentDemos"))
 includeProject(":support-design-demos", new File(samplesRoot, "SupportDesignDemos"))
 includeProject(":support-emoji-demos", new File(samplesRoot, "SupportEmojiDemos"))
 includeProject(":support-leanback-demos", new File(samplesRoot, "SupportLeanbackDemos"))
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 includeProject(":support-media-demos", new File(samplesRoot, "SupportMediaDemos"))
 includeProject(":support-percent-demos", new File(samplesRoot, "SupportPercentDemos"))
+=======
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 includeProject(":support-preference-demos", new File(samplesRoot, "SupportPreferenceDemos"))
 includeProject(":support-remotecallback-demos", new File(samplesRoot, "SupportRemoteCallbackDemos"))
 includeProject(":support-slices-demos", new File(samplesRoot, "SupportSliceDemos"))

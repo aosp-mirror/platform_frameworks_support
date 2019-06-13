@@ -15,7 +15,10 @@
  */
 package android.support.v4.media;
 
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+=======
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
@@ -445,7 +448,11 @@ public final class MediaBrowserCompat {
      *         String, Bundle)}
      * @hide
      */
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     @RestrictTo(LIBRARY)
+=======
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     public @Nullable Bundle getNotifyChildrenChangedOptions() {
         return mImpl.getNotifyChildrenChangedOptions();
     }

@@ -1,0 +1,31 @@
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
+=======
+import androidx.build.AndroidXPlugin
+import androidx.build.SdkHelperKt
+
+buildscript {
+    System.setProperty("DIST_SUBDIR", "/ui")
+    ext.supportRootFolder = file(project.projectDir.parent)
+    apply from: 'buildSrc/repos.gradle'
+    apply from: 'buildSrc/build_dependencies.gradle'
+    repos.addMavenRepositories(repositories)
+    SdkHelperKt.setSdkInLocalPropertiesFile(ext.supportRootFolder, project.projectDir)
+
+    dependencies {
+        classpath build_libs.gradle
+        classpath build_libs.kotlin.gradle_plugin
+        classpath build_libs.dokka_gradle
+        classpath "androidx.benchmark:benchmark-gradle-plugin:1.0.0-alpha01"
+    }
+}
+
+allprojects {
+    repos.addMavenRepositories(repositories)
+}
+
+apply from: "buildSrc/dependencies.gradle"
+apply from: "buildSrc/out.gradle"
+init.chooseOutDir("/ui")
+
+apply plugin: androidx.build.AndroidXPlugin
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)

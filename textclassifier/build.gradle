@@ -8,10 +8,14 @@ plugins {
 
 dependencies {
     api(project(":appcompat"))
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
+=======
+    api("androidx.annotation:annotation:1.1.0")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     implementation("androidx.collection:collection:1.0.0")
     // TODO: change to 1.1.0-alpha04 after release
-    api(project(":core"))
+    api("androidx.core:core:1.1.0-rc01")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

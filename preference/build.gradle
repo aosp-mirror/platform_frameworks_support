@@ -23,9 +23,17 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
     api(project(":annotation"))
     api("androidx.appcompat:appcompat:1.1.0-alpha02")
     api(project(":core"))
+=======
+    // TODO: change to alpha02 after release
+    implementation("androidx.annotation:annotation:1.1.0")
+    api(project(":appcompat"))
+    // TODO: change to alpha05 after release
+    api("androidx.core:core:1.1.0-rc01")
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.fragment:fragment:1.1.0-alpha04")
     api("androidx.recyclerview:recyclerview:1.0.0")
@@ -40,6 +48,10 @@ dependencies {
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
     sourceSets {
         main.res.srcDirs = [
                 'res',

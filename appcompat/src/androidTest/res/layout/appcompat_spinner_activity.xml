@@ -88,11 +88,39 @@
             android:spinnerMode="dialog" />
 
         <androidx.appcompat.widget.AppCompatSpinner
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
                 android:id="@+id/spinner_dropdown_popup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/planets_array"
                 android:spinnerMode="dropdown" />
+=======
+            android:id="@+id/spinner_dropdown_popup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/planets_array"
+            android:focusable="false"
+            android:spinnerMode="dropdown" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_dropdown_popup_with_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/numbers_array"
+            android:focusable="false"
+            android:spinnerMode="dropdown" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_dropdown_popup_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/numbers_array_small"
+            android:popupBackground="@null"
+            android:focusable="false"
+            android:spinnerMode="dropdown"
+            android:popupEnterTransition="@null"
+            android:popupExitTransition="@null" />
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
     </LinearLayout>
 
 </ScrollView>

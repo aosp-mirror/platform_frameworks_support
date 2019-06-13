@@ -104,8 +104,13 @@ public class SwitchListItemActivity extends Activity {
 
             item = new SwitchListItem(mContext);
             item.setTitle("Clicking item toggles switch");
+<<<<<<< HEAD   (9d364e Merge "Merge empty history for sparse-5611434-L1110000032658)
             item.setClickable(true);
             item.setSwitchOnCheckedChangeListener(mListener);
+=======
+            item.setEntireItemClickable(true);
+            item.setOnCheckedChangeListener(mListener);
+>>>>>>> BRANCH (8875d3 Merge "Merge cherrypicks of [982717, 982718] into sparse-564)
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
