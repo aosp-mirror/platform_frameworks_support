@@ -669,7 +669,7 @@ public class VideoView extends SelectiveLayout {
         @Override
         void onPlayerStateChanged(@NonNull PlayerWrapper player, int state) {
             if (DEBUG) {
-                Log.d(TAG, "onPlayerStateChanged(): selected track: " + state);
+                Log.d(TAG, "onPlayerStateChanged(): state: " + state);
             }
             if (player != mPlayer) {
                 if (DEBUG) {
@@ -694,6 +694,12 @@ public class VideoView extends SelectiveLayout {
                 return;
             }
             updateMusicView(item);
+
+            // TODO: Temporary fix for setSurface not working when it is called before setMediaItem
+            //  is called. (b/135265769)
+            if (!mCurrentView.assignSurfaceToPlayerWrapper(mPlayer)) {
+                Log.w(TAG, "failed to assign surface");
+            }
         }
 
         @Override
