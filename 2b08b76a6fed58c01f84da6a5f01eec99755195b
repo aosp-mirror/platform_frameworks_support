@@ -22,6 +22,30 @@
       "revId": "2b08b76a6fed58c01f84da6a5f01eec99755195b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0757573c_5f044740",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SequencedFutureManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-13T15:57:16Z",
+      "side": 0,
+      "message": "Compiler no longer warns about this, I guess its call sites were changed to no longer need a synthetic accessor",
+      "parentUuid": "dcb4c1bb_375812a9",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 64
+      },
+      "revId": "2b08b76a6fed58c01f84da6a5f01eec99755195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
