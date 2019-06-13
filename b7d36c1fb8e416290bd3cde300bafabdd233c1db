@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b8c3c892_1807b20e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-13T15:52:16Z",
+      "side": 1,
+      "message": "I believe that depending on a task doesn\u0027t automatically cause it to be configured unless the dependent task is known to be participating in the execution graph.\n\nI\u0027ll take a closer look if you don\u0027t have a plan that you like (Nick\u0027s comment says he and you talked offline about it)",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "b7d36c1fb8e416290bd3cde300bafabdd233c1db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ad99046_9bd91166",
         "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
         "patchSetId": 1
