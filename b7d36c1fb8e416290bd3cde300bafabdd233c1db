@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad99046_9bd91166",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-13T14:01:17Z",
+      "side": 1,
+      "message": "Remove this println",
+      "revId": "b7d36c1fb8e416290bd3cde300bafabdd233c1db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
