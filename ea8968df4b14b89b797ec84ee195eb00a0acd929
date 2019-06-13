@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57adab99_bd31bb89",
+        "filename": "studiow",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-13T19:26:31Z",
+      "side": 1,
+      "message": "Do we only want it on studio updates? Every checkout right now is not getting the right value",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 55
+      },
+      "revId": "ea8968df4b14b89b797ec84ee195eb00a0acd929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
