@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adb77a3d_3c0b11c0",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-13T13:08:35Z",
+      "side": 1,
+      "message": "I am not sure it is really an issue, but still:\nif you make this inline I guess it would be harder to have really private/internal keys. for example now you defined \"internal val OnPositionedKey\" so this key can be used only inside a module. with inlining everyone can create a new MyOnPositionedKey with the same string and \"child.key \u003d\u003d\u003d OnPositionedKey\" should return true I guess",
+      "range": {
+        "startLine": 713,
+        "startChar": 16,
+        "endLine": 713,
+        "endChar": 32
+      },
+      "revId": "8cafd2f80608bf4a30ab2fae3cadccc3e256b16a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
