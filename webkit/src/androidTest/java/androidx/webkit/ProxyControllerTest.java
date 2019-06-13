@@ -225,11 +225,8 @@ public class ProxyControllerTest {
     private void setProxyOverrideSync(final ProxyConfig proxyRules) {
         final ResolvableFuture<Void> future = ResolvableFuture.create();
         ProxyController.getInstance().setProxyOverride(proxyRules, new SynchronousExecutor(),
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        future.set(null);
-                    }
+                () -> {
+                    future.set(null);
                 });
         // This future is used to ensure that setProxyOverride's callback was called
         WebkitUtils.waitForFuture(future);
@@ -237,11 +234,8 @@ public class ProxyControllerTest {
 
     private void clearProxyOverrideSync() {
         final ResolvableFuture<Void> future = ResolvableFuture.create();
-        ProxyController.getInstance().clearProxyOverride(new SynchronousExecutor(), new Runnable() {
-            @Override
-            public void run() {
-                future.set(null);
-            }
+        ProxyController.getInstance().clearProxyOverride(new SynchronousExecutor(), () -> {
+            future.set(null);
         });
         // This future is used to ensure that clearProxyOverride's callback was called
         WebkitUtils.waitForFuture(future);
