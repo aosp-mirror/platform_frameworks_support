@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aab6e909_6ee4d77e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "Thanks for review. I have modified the code to do related check in main thread.",
+      "parentUuid": "89417c45_7c15d543",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ebdddf7_f1fe4757",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854a8fd2_44a3cc29",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "Thanks for review. Yes, it is possible to be called on multiple threads. Please check the updated version that add synchronized protection for the listener access.",
+      "parentUuid": "1ebdddf7_f1fe4757",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b06c51e1_382ddca8",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "This could be EffectMode.class. Sorry that I should re-check the reasonable type when doing some modifications for GTW internal review.",
+      "parentUuid": "0aea7b49_324be17e",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d6ec062_aa34a441",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94141a38_2fc06108",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated the related wordings as \"MODE\".",
+      "parentUuid": "3d6ec062_aa34a441",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "dfc850ca_01d551ea",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "Thanks for review. This should be mode. I remove this line and directly use input parameter \"effectMode\" to do comparison.",
+      "parentUuid": "bf1e7f0d_479d2c75",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03661c5f_b4adc54b",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51eb5d02_313eaea6",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-13T10:33:38Z",
+      "side": 1,
+      "message": "I should directly use EffectMode to do comparison. Sorry that I should re-check the reasonable type when doing some modifications for GTW internal review.",
+      "parentUuid": "03661c5f_b4adc54b",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
