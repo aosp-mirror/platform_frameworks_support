@@ -22,6 +22,30 @@
       "revId": "8cafd2f80608bf4a30ab2fae3cadccc3e256b16a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675347af_a685a06f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-13T22:34:01Z",
+      "side": 1,
+      "message": "Yeah. I thought about also not having any String at all. Let\u0027s see if the string is useful in any way and if it is, we\u0027ll keep it and MAYBE make the class inline. If not, we\u0027ll remove it.",
+      "parentUuid": "adb77a3d_3c0b11c0",
+      "range": {
+        "startLine": 713,
+        "startChar": 16,
+        "endLine": 713,
+        "endChar": 32
+      },
+      "revId": "8cafd2f80608bf4a30ab2fae3cadccc3e256b16a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
