@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e0833b5_d7331f83",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92bd0a4c_cf82ccd6",
+      "range": {
+        "startLine": 24,
+        "startChar": 31,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8ebb969_c4ecb6ce",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c48ac8e9_7befb469",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8ebb969_c4ecb6ce",
+      "range": {
+        "startLine": 28,
+        "startChar": 82,
+        "endLine": 28,
+        "endChar": 90
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "835d83f7_063b5e75",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e89bff6f_9d2c43eb",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37883835_8b31126d",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-12T19:44:05Z",
       "side": 1,
       "message": "currentValue?",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf119d6f_3625a481",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "I prefer value here, as the design for AnimatedValue is that devs don\u0027t need differentiate whether there\u0027s an animation going on, and they just use the value directly.",
+      "parentUuid": "37883835_8b31126d",
       "range": {
         "startLine": 35,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6e70edd0_3fc157ff",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "isRunning is a classic function name for animation.",
+      "parentUuid": "d7caa82f_7d760d1b",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "448e4f45_e26bba6b",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -137,6 +257,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e56e53_aa705c3e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "448e4f45_e26bba6b",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "01cabaa0_dbc2a99b",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "I initially considered it redundant to have \"animate\" in the function name since this is already an animation class. But I think you are right here in that adding \"animate\" may make it more clear at the call site. Though if we are not to keep consistent with toState(...) on transition animation, \"Value\" becomes unnecessary in the function name. I\u0027m going with animateTo and snapTo.",
+      "parentUuid": "c34de203_771bf7e5",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c1b93e_09306086",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "That wouldn\u0027t allow you to specify the animation used to animate the value change.",
+      "parentUuid": "b19774fc_f6121c42",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7390b25_54acd0ef",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "d6b80447_f29e595e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "per f2f discussion, the design is to allow onFinished to be specified on a per-animation basis. Same for anim.",
+      "parentUuid": "d7390b25_54acd0ef",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 42
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d19c971_7135a968",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -220,6 +436,30 @@
       "writtenOn": "2019-06-12T20:10:06Z",
       "side": 1,
       "message": "Does this also stop the animation? It doesn\u0027t seem to, but I\u0027m trying to picture a use case where you wouldn\u0027t also want to stop the animation.",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "608dc885_6f376d9c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Yes, it stops the animation and sets the value to target value immediately",
+      "parentUuid": "2d19c971_7135a968",
       "range": {
         "startLine": 74,
         "startChar": 8,
@@ -278,6 +518,54 @@
     },
     {
       "key": {
+        "uuid": "7c55e9ae_0108011f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "stop() on Animation interface is sufficiently self-explanatory IMO. Are you concerned that people might be confused as to what stop() does?",
+      "parentUuid": "4a0270cb_cfa211a6",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75f0f41f_17642544",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Setting a target value is the only way to start the animation, in this class.",
+      "parentUuid": "ede25dda_66b6b353",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "610bd46f_3dcc2970",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -289,6 +577,30 @@
       "writtenOn": "2019-06-12T19:44:05Z",
       "side": 1,
       "message": "FloatDynamicTargetAnimation sounds like you are animating a float... and that it could (and should) be used more widely then for flinging.  Can we just swap in \"animate\" anywhere \"fling\" is used?",
+      "range": {
+        "startLine": 89,
+        "startChar": 14,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16169d3_65fcc86f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "animateTo and fling are two distinctly different kinds of animations. One is target based, the other one gets its target (or destination) from the animation.\n\nI agree that fling isn\u0027t the best fitting here. Changed this interface to ScrollAnimation.",
+      "parentUuid": "610bd46f_3dcc2970",
       "range": {
         "startLine": 89,
         "startChar": 14,
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "a53b7d30_d3bc5e2a",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Because model class doesn\u0027t support sub-classing",
+      "parentUuid": "3468c4ac_6bd3e2c9",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "2ebd7f01_597e4c3e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "d983415c_afea94b7",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 31
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "891e11f2_fac880b1",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -358,6 +718,30 @@
       "writtenOn": "2019-06-12T19:44:05Z",
       "side": 1,
       "message": "Animating a float seems more useful than just for flinging.  Should either \"AnimatedFloatImpl\" or \"fling\" change so that the names are at the same \"abstract\" level?",
+      "range": {
+        "startLine": 300,
+        "startChar": 24,
+        "endLine": 300,
+        "endChar": 29
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bdfce11_480577af",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Changed the class to AnimatedScrollImpl. I think it\u0027s more fitting once I bring Scroll to the name.",
+      "parentUuid": "891e11f2_fac880b1",
       "range": {
         "startLine": 300,
         "startChar": 24,
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "b4e58992_50ca693d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "per f2f discussion, we don\u0027t have a better name for this right now. So we\u0027ll leave this as is, and revisit as needed.",
+      "parentUuid": "17662efd_5468742c",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e50de3f2_22261a8d",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 14
@@ -413,6 +821,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90059f90_a8f8f40f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e50de3f2_22261a8d",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -439,6 +871,30 @@
     },
     {
       "key": {
+        "uuid": "a3a254b3_28343746",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Actually the interpolator is not entirely necessary here. Removed.",
+      "parentUuid": "62fe9ab6_a95eaf8d",
+      "range": {
+        "startLine": 83,
+        "startChar": 23,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f8000ec_6a4caa55",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 14
@@ -459,6 +915,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ef1a34_8caadec9",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "This is the side effect from this class initially supporting generic types. Removed.",
+      "parentUuid": "4f8000ec_6a4caa55",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -485,6 +965,30 @@
     },
     {
       "key": {
+        "uuid": "3bd767a0_ca88185c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "But the class isn\u0027t.",
+      "parentUuid": "6b67f19b_d678e44b",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 45
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd0c5779_07dfa0cf",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 14
@@ -508,6 +1012,30 @@
     },
     {
       "key": {
+        "uuid": "8a56e9f3_def5e73e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Actually, this is supposed to be an internal interface. Don\u0027t expect devs to use this directly.",
+      "parentUuid": "bd0c5779_07dfa0cf",
+      "range": {
+        "startLine": 518,
+        "startChar": 10,
+        "endLine": 518,
+        "endChar": 26
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1158db1f_9a82cf5a",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
         "patchSetId": 14
@@ -519,6 +1047,30 @@
       "writtenOn": "2019-06-12T19:44:05Z",
       "side": 1,
       "message": "Nothing to do in this CL, but this is where I think there is a problem with the idea that all output from gesture detectors should be input to the animation system, but some things just snap instead of change over time. \"onDrag\" here is expected to return how much of the dragDistance was consumed, and in your demo you can easily say all of it, but if it only consumes half of the distance, how would itemBottom.snapToValue report back that half of the distance was consumed?",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "316dfef5_ab00a698",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "I think there needs to be dev\u0027s business logic in-between animation and gesture. So here if dev didn\u0027t want to consume all of the drag, they\u0027d need to check for the bounds or some relevant data, and plug the consumed amount into the animation. Animation is only reflecting the logic of how much should be moved/consumed, but not the source of that logic.",
+      "parentUuid": "1158db1f_9a82cf5a",
       "range": {
         "startLine": 91,
         "startChar": 16,
@@ -554,6 +1106,30 @@
     },
     {
       "key": {
+        "uuid": "ac9afba3_541322f1",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "This type of conversion is more convenient to do at call site with a function that converts the animated value output to whatever type devs need, IMO.",
+      "parentUuid": "44dc3bba_f223e3a2",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98808f73_73b97783",
         "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
         "patchSetId": 14
@@ -577,6 +1153,30 @@
     },
     {
       "key": {
+        "uuid": "950f3091_d2663c82",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98808f73_73b97783",
+      "range": {
+        "startLine": 49,
+        "startChar": 70,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccb965c5_4ae0eebd",
         "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
         "patchSetId": 14
@@ -597,6 +1197,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec102f83_d580f545",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-13T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccb965c5_4ae0eebd",
+      "range": {
+        "startLine": 50,
+        "startChar": 62,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
