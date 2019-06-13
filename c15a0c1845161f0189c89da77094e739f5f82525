@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6894fb48_dfe8379a",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T23:14:13Z",
+      "side": 1,
+      "message": "Can you add a note that the MenuList must be populated during Activity#onCreate in order to be compatible?\n\nSafeBrowsingActivity is an example where this is *not* compatible: http://cs/aosp-androidx/webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java?l\u003d46\u0026rcl\u003dc9180cce06bc6461ddbf3e8f66ffd35dfd5ffedd",
+      "parentUuid": "2b9f8744_f9a9040e",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7d18bb7_03aee0fb",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
@@ -187,6 +211,30 @@
       "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2729ed93_61195387",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-13T23:14:13Z",
+      "side": 1,
+      "message": "I\u0027m not sure I believe that\u0027s enough. Does this know about every Thread/Handler/Looper? What about tasks which WebView is running on native threads that don\u0027t have a Looper (but later post to threads which do have a Looper)?\n\nI don\u0027t think it\u0027s generally possible to have a robust solution here, and I don\u0027t understand why this method is necessary. Devs should just use clickViewWithId(), which isn\u0027t as likely to be racy.",
+      "parentUuid": "97286fb0_58816663",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
