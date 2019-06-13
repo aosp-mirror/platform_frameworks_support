@@ -40,6 +40,9 @@ android {
     lintOptions {
         disable 'InvalidPackage' // Lint is unhappy about junit package
     }
+    defaultConfig {
+        testInstrumentationRunner "androidx.testutils.HackyAndroidJunitRunner"
+    }
 }
 
 androidx {
