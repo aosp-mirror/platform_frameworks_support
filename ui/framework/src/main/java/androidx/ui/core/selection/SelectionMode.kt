@@ -84,6 +84,15 @@ enum class SelectionMode {
 
             return true
         }
+    },
+
+    Rectangle {
+        override fun isSelected(box: Rect, start: PxPosition, end: PxPosition): Boolean {
+            if (end.x < box.left.px || end.y < box.top.px) return false
+            if (start.x > box.right.px || start.y > box.bottom.px) return false
+
+            return true
+        }
     };
 
     internal abstract fun isSelected(

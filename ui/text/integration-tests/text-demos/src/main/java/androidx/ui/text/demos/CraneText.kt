@@ -102,6 +102,8 @@ fun TextDemo() {
                 TextDemoSelection2DArrayVertical()
                 TagLine(tag = "selection in 2D Array Horizontal")
                 TextDemoSelection2DArrayHorizontal()
+                TagLine(tag = "selection in 2D Array Rectangle")
+                TextDemoSelection2DArrayRectangle()
                 TagLine(tag = "composable textspan")
                 TextDemoComposableTextSpan()
                 TagLine(tag = "fontSizeScale")
@@ -652,6 +654,50 @@ fun TextDemoSelection2DArrayHorizontal() {
         selection = selection.value,
         onSelectionChange = { selection.value = it },
         mode = SelectionMode.Horizontal) {
+        Column {
+            for (i in 0..2) {
+                Row {
+                    for (j in 0..2) {
+                        Text {
+                            Span(
+                                text = text,
+                                style = TextStyle(
+                                    color = colorList[i * 3 + j],
+                                    fontSize = fontSize6
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TextDemoSelection2DArrayRectangle() {
+    var text = ""
+    for (i in 1..3) {
+        text = "$text$displayText" + "\n"
+    }
+
+    val colorList = listOf(
+        Color(0xFFFF0000.toInt()),
+        Color(0xFF00FF00.toInt()),
+        Color(0xFF0000FF.toInt()),
+        Color(0xFF00FFFF.toInt()),
+        Color(0xFFFF00FF.toInt()),
+        Color(0xFFFFFF00.toInt()),
+        Color(0xFF0000FF.toInt()),
+        Color(0xFF00FF00.toInt()),
+        Color(0xFFFF0000.toInt())
+    )
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it },
+        mode = SelectionMode.Rectangle) {
         Column {
             for (i in 0..2) {
                 Row {
