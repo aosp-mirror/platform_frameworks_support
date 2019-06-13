@@ -111,6 +111,30 @@
       "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6189437a_b8fa5782",
+        "filename": "camera/core/src/main/java/androidx/camera/core/MetadataImageReader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-13T23:17:34Z",
+      "side": 1,
+      "message": "Looks good",
+      "parentUuid": "69e75354_7d60ae18",
+      "range": {
+        "startLine": 323,
+        "startChar": 20,
+        "endLine": 323,
+        "endChar": 69
+      },
+      "revId": "ffd620e7d7e818f9dfe9daafdddb3cba3e942c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
