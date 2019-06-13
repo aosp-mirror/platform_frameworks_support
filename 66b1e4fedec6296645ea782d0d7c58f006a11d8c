@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89417c45_7c15d543",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "This isn\u0027t thread safe.\ngetActiveUseCases() is called on the camera thread since it is being called in CameraEventCallback callbacks.\n\nHowever, the use case repository is called on the main thread when bind/unbind is called.",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ebdddf7_f1fe4757",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "Can this be called on multiple threads?\n\nWhat happens if the listener is set while and an error is occurring?",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aea7b49_324be17e",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "Can this not be saved as a EffectMode.class? Looking down at what is being saved in line 101.",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d6ec062_aa34a441",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "This is slightly confusing, you are calling this the EXTENDER type, but its the effect mode that you are saving.",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1e7f0d_479d2c75",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "dependenceExtenderType -\u003e dependentExtenderType\n\nis this the extender type or the mode?\nBecause the extender type should be ImageCapture but the mode is AUTO, BOKEH, HDR, etc",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03661c5f_b4adc54b",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-13T00:28:31Z",
+      "side": 1,
+      "message": "why use a string comparison instead of an enum comparison?",
+      "revId": "66b1e4fedec6296645ea782d0d7c58f006a11d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
