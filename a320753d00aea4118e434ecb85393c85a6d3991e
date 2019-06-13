@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8de491be_a96e4ca1",
+        "filename": "paging/common/api/2.2.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-13T23:24:54Z",
+      "side": 1,
+      "message": "internal showing up in public? Is this a new metalava bug?",
+      "revId": "a320753d00aea4118e434ecb85393c85a6d3991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
