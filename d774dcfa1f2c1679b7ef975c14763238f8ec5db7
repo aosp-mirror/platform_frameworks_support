@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b48e3c82_1d3c273f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleChoiceDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-13T00:49:15Z",
+      "side": 1,
+      "message": "Nullable in builders doesn\u0027t actually make a lot of sense to me outside making it easier to blindly toss values in here. Open to changing this to non-null (here and everywhere else) as well.",
+      "range": {
+        "startLine": 329,
+        "startChar": 33,
+        "endLine": 329,
+        "endChar": 41
+      },
+      "revId": "d774dcfa1f2c1679b7ef975c14763238f8ec5db7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
