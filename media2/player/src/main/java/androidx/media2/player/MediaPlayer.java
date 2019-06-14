@@ -47,9 +47,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.AbstractResolvableFuture;
-import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.FileMediaItem;
@@ -58,6 +55,10 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SubtitleData;
 import androidx.media2.common.UriMediaItem;
+import androidx.media2.player.futures.AbstractResolvableFuture;
+import androidx.media2.player.futures.ResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

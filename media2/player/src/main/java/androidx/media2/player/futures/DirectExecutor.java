@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package androidx.concurrent.callback;
+package androidx.media2.player.futures;
+
+import androidx.annotation.RestrictTo;
 
 import java.util.concurrent.Executor;
 
 /**
  * An {@link Executor} that runs each task in the thread that invokes {@link Executor#execute
  * execute}.
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 enum DirectExecutor implements Executor {
     INSTANCE;
 
