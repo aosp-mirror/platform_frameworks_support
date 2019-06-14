@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4fe03da7_f7d93157",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85ee0ea_83b153fc",
+      "range": {
+        "startLine": 489,
+        "startChar": 13,
+        "endLine": 489,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "952b7249_393e11e3",
         "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3756dace_7139800b",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "952b7249_393e11e3",
+      "range": {
+        "startLine": 507,
+        "startChar": 13,
+        "endLine": 507,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a55f26c8_88dc6666",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d798f1e_7a7da335",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "123f6ad7_8c15817b",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
         "patchSetId": 4
@@ -126,6 +198,30 @@
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109977ba_c004baf2",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123f6ad7_8c15817b",
+      "range": {
+        "startLine": 263,
+        "startChar": 13,
+        "endLine": 263,
+        "endChar": 43
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
