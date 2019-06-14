@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a571f8_393bd18e",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2097,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-06-14T00:46:38Z",
+      "side": 1,
+      "message": "I don\u0027t think :+\"Preference widgets are not views\" is right. You can instead say get rid of that sentence and have the followup sentence be \"Preferences should not need .... \"",
+      "range": {
+        "startLine": 2095,
+        "startChar": 19,
+        "endLine": 2097,
+        "endChar": 48
+      },
+      "revId": "d2ced502fea910cbec7307b7801e55af8362ec87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
