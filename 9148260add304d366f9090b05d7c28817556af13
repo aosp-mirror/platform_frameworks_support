@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbed28cf_710290a1",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/painting/TextPainterIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-14T02:13:37Z",
+      "side": 0,
+      "message": "Why delete textScaleFactor?",
+      "range": {
+        "startLine": 61,
+        "startChar": 54,
+        "endLine": 61,
+        "endChar": 84
+      },
+      "revId": "9148260add304d366f9090b05d7c28817556af13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
