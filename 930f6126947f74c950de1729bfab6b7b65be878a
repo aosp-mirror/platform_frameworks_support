@@ -38,6 +38,24 @@
     },
     {
       "key": {
+        "uuid": "b96d5e15_7527d4c7",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:15:27Z",
+      "side": 1,
+      "message": "I meant - I think the comment is still useful, because it was explaining that you will never get an empty page (so the second first() will never throw) even though it looks like you can add an empty page from the source unless you follow where the constructors are called.\n\nOr maybe the constructors are just confusing?",
+      "parentUuid": "141b9285_ad28d0f3",
+      "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3be0036_81fb7c47",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
         "patchSetId": 2
@@ -107,6 +125,24 @@
       "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d15c868b_daa9a28a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:15:27Z",
+      "side": 1,
+      "message": ":eyes: sgtm.",
+      "parentUuid": "63dd12d7_ebfcd4dd",
+      "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
