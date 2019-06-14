@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04c9f012_7b5bfa3f",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T20:00:37Z",
+      "side": 1,
+      "message": "instead of saying not valid, lets make it clear as createFromXX is not supported for in memory databases. same for above.",
+      "range": {
+        "startLine": 596,
+        "startChar": 11,
+        "endLine": 596,
+        "endChar": 88
+      },
+      "revId": "ed21460ac6f4ea0c717736c9973041eb18778f85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
