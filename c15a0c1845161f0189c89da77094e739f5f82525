@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "5a490eef_98917c29",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-14T02:25:54Z",
+      "side": 1,
+      "message": "By default, Espresso is only aware of the UI message queue.  But users can extend it for other operations not on the UI thread, see https://developer.android.com/training/testing/espresso/idling-resource.  Using a resource id does not guarantee that the view with the resource id is not being dynamically added to the view hierarchy.",
+      "parentUuid": "2729ed93_61195387",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "833aa395_81afbf27",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
