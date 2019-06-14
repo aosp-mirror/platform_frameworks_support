@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "111c1ded_0a61113e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "This class needs to be visible to AnimatedScroll, which is in a different module (ui-animation vs. ui-animation-core). So this cannot be internal. Let me add a TODO for perhaps a different design that eliminates the need for this @hide",
+      "parentUuid": "2f825406_e1ada13f",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d27fb8aa_6a416035",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411811be_cf2e70ab",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d27fb8aa_6a416035",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b65137ca_d91b25a8",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c9fb522_10d653f5",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71aaab7f_81db9d3c",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5fb578b0_898cba0e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71aaab7f_81db9d3c",
+      "range": {
+        "startLine": 119,
+        "startChar": 43,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95210ae_6202166c",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
@@ -114,6 +210,30 @@
       "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c063ce9e_3dc302f9",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f95210ae_6202166c",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 20
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

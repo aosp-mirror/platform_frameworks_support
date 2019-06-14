@@ -804,6 +804,30 @@
     },
     {
       "key": {
+        "uuid": "1d0530c2_f3f3831e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T18:59:55Z",
+      "side": 1,
+      "message": "Yes, this proposal would work, but unfortunately also feels like a workaround. And it requires the value holder to be public to be passed across modules. I agree that we should come up with a better way to make the value observable.",
+      "parentUuid": "d2f55025_14e3188c",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
