@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "cc927a7c_6ba7776f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-14T11:03:31Z",
+      "side": 1,
+      "message": "oh, hasDisplayList is exactly the method named isValid before renaming. I was checking the sources of View working with RenderNode in P, not in Q.",
+      "parentUuid": "f709f567_33ab5a67",
+      "range": {
+        "startLine": 809,
+        "startChar": 49,
+        "endLine": 809,
+        "endChar": 50
+      },
+      "revId": "d4f7000acfb77f066ae1b33fd69306afc4302011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93c3196b_cb921e85",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 2
