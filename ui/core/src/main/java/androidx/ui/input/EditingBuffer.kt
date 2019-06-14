@@ -175,6 +175,105 @@ class EditingBuffer(
     }
 
     /**
+     * Remove the given range of text.
+     *
+     * Different from replace method, this doesn't move cursor location to the end of modified text.
+     * Instead, preserve the selection with adjusting the deleted text.
+     */
+    fun delete(start: Int, end: Int) {
+        // TODO(nona): Remove TextRange object creation if this is performance critical.
+        val delRange = TextRange(start, end)
+        if (delRange.intersect(TextRange(selectionStart, selectionEnd))) {
+            // Currently only target for deleteSurroundingText/deleteSurroundingTextInCodePoints.
+            TODO("support deletion within selection range.")
+        }
+
+        gapBuffer.replace(start, end, "")
+        if (end <= selectionStart) {
+            selectionStart -= delRange.length
+            selectionEnd -= delRange.length
+        }
+
+        if (!hasComposition()) {
+            return
+        }
+
+        val compRange = TextRange(compositionStart, compositionEnd)
+
+        // Following figure shows the deletion range and composition range.
+        // |---| represents a range to be deleted.
+        // |===| represents a composition range.
+        if (delRange.intersect(compRange)) {
+            if (delRange.contains(compRange)) {
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :      |-------------|
+                //   Composition:          |======|
+                //
+                // Result:
+                //   Buffer     : ABCDETUVWXYZ
+                //   Composition:
+                compositionStart = NOWHERE
+                compositionEnd = NOWHERE
+            } else if (compRange.contains(delRange)) {
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :          |------|
+                //   Composition:        |==========|
+                //
+                // Result:
+                //   Buffer     : ABCDEFGHIQRSTUVWXYZ
+                //   Composition:        |===|
+                compositionEnd -= delRange.length
+            } else if (delRange.contains(compositionStart)) {
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :      |---------|
+                //   Composition:            |========|
+                //
+                // Result:
+                //   Buffer     : ABCDEFPQRSTUVWXYZ
+                //   Composition:       |=====|
+                compositionStart = delRange.start
+                compositionEnd -= delRange.length
+            } else { // delRange contains compositionEnd
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :         |---------|
+                //   Composition:    |=======|
+                //
+                // Result:
+                //   Buffer     : ABCDEFGHSTUVWXYZ
+                //   Composition:    |====|
+                compositionEnd = delRange.start
+            }
+        } else {
+            if (compositionStart <= delRange.start) {
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :            |-------|
+                //   Composition:  |=======|
+                //
+                // Result:
+                //   Buffer     : ABCDEFGHIJKLTUVWXYZ
+                //   Composition:  |=======|
+                // do nothing
+            } else {
+                // Input:
+                //   Buffer     : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                //   Delete     :  |-------|
+                //   Composition:            |=======|
+                //
+                // Result:
+                //   Buffer     : AJKLMNOPQRSTUVWXYZ
+                //   Composition:    |=======|
+                compositionStart -= delRange.length
+                compositionEnd -= delRange.length
+            }
+        }
+    }
+
+    /**
      * Mark the specified area of the text as selected text.
      *
      * You can set cursor by specifying the same value to `start` and `end`.

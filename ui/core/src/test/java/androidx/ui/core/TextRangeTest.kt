@@ -40,4 +40,32 @@ class TextRangeTest {
         assertTrue(TextRange(1, 1).collapsed)
         assertFalse(TextRange(1, 2).collapsed)
     }
+
+    @Test
+    fun intersectTest() {
+        assertTrue(TextRange(0, 2).intersect(TextRange(1, 2)))
+        assertTrue(TextRange(0, 1).intersect(TextRange(0, 1)))
+        assertTrue(TextRange(0, 2).intersect(TextRange(0, 1)))
+        assertTrue(TextRange(0, 1).intersect(TextRange(0, 2)))
+        assertFalse(TextRange(0, 1).intersect(TextRange(1, 2)))
+        assertFalse(TextRange(0, 1).intersect(TextRange(2, 3)))
+        assertFalse(TextRange(1, 2).intersect(TextRange(0, 1)))
+        assertFalse(TextRange(2, 3).intersect(TextRange(0, 1)))
+    }
+
+    @Test
+    fun containsRangeTest() {
+        assertTrue(TextRange(0, 2).contains(TextRange(0, 1)))
+        assertTrue(TextRange(0, 2).contains(TextRange(0, 2)))
+        assertFalse(TextRange(0, 2).contains(TextRange(0, 3)))
+        assertFalse(TextRange(0, 2).contains(TextRange(1, 3)))
+    }
+
+    @Test
+    fun containsOffsetTest() {
+        assertTrue(TextRange(0, 2).contains(0))
+        assertTrue(TextRange(0, 2).contains(1))
+        assertFalse(TextRange(0, 2).contains(2))
+        assertFalse(TextRange(0, 2).contains(3))
+    }
 }
