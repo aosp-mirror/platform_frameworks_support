@@ -113,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "50b1b537_95fbd73c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Good call.  Done",
+      "parentUuid": "4ea60f5e_875ec6ea",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a2645eb_8c4b97d9",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -136,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "d1fce770_9c3d17c3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2645eb_8c4b97d9",
+      "range": {
+        "startLine": 612,
+        "startChar": 24,
+        "endLine": 612,
+        "endChar": 62
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c5d40d0_53d7c68f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -150,6 +192,24 @@
       "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400d5ce4_af1c8cc7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c5d40d0_53d7c68f",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -170,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "5b1ce57a_2876139f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09d22c6_71970053",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a3044c9_41d9bf56",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -187,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "41111e48_8634542f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3044c9_41d9bf56",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0230bc33_56da8b85",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -201,6 +297,24 @@
       "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c14fc03_6cc7e088",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0230bc33_56da8b85",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -227,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "415d8fc8_06d7f3e2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf72e779_f56528a1",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a84fbfc_655cdd65",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -241,6 +379,24 @@
       "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17d795d3_cfb54999",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-14T15:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a84fbfc_655cdd65",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
