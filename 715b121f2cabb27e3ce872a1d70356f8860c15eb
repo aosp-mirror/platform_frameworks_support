@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87d73f21_b9e0fd26",
+        "filename": "ui/core/src/androidTest/java/androidx/ui/core/TextRangeTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-14T18:04:15Z",
+      "side": 0,
+      "message": "FYI, I moved this test from androidTest to test since this don\u0027t have any android dependencies.",
+      "revId": "715b121f2cabb27e3ce872a1d70356f8860c15eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
