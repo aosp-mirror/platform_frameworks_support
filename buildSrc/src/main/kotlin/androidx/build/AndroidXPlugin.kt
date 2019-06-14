@@ -342,9 +342,15 @@ fun Project.addToProjectMap(group: String?) {
 }
 
 private fun isDependencyRange(version: String?): Boolean {
-    return ((version!!.startsWith("[") || version.startsWith("(")) &&
-            (version.endsWith("]") || version.endsWith(")")) ||
-            version.endsWith("+"))
+    if ((version!!.startsWith("[") || version.startsWith("(")) &&
+        version.contains(",") &&
+        (version.endsWith("]") || version.endsWith(")"))) {
+        return true
+    }
+    if (version.endsWith("+")) {
+        return true
+    }
+    return false
 }
 
 private fun Project.createCheckResourceApiTask(): DefaultTask {

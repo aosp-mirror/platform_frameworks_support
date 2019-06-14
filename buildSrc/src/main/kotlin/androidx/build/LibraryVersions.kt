@@ -59,7 +59,12 @@ object LibraryVersions {
     val LEANBACK_PREFERENCE = Version("1.1.0-alpha02")
     val LEGACY = Version("1.1.0-alpha01")
     val LOCALBROADCASTMANAGER = Version("1.1.0-alpha02")
+<<<<<<< HEAD   (fa75e8 Merge "Merge empty history for sparse-5661225-L5460000032870)
     val LIFECYCLE = Version("2.1.0-alpha03")
+=======
+    val LIFECYCLE = Version("2.1.0-rc01")
+    val LIFECYCLES_COROUTINES = Version("1.0.0-alpha01")
+>>>>>>> BRANCH (601cdd Merge "Merge cherrypicks of [984555] into sparse-5661825-L10)
     val LIFECYCLES_SAVEDSTATE = Version("1.0.0-alpha01")
     val LOADER = Version("1.1.0-beta01")
     val MEDIA = Version("1.1.0-alpha02")

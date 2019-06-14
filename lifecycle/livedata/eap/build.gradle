@@ -1,5 +1,7 @@
+<<<<<<< HEAD   (fa75e8 Merge "Merge empty history for sparse-5661225-L5460000032870)
+=======
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +21,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -32,24 +35,24 @@ android {
 }
 
 dependencies {
-    api(project(":lifecycle:lifecycle-livedata-core"))
+    api(project(":lifecycle:lifecycle-livedata"))
+    api(project(":lifecycle:lifecycle-livedata-core-ktx"))
     api(KOTLIN_STDLIB)
+    api(KOTLIN_COROUTINES_CORE)
     testImplementation(project(":lifecycle:lifecycle-runtime"))
     testImplementation("androidx.arch.core:core-testing:2.1.0-rc01")
+    testImplementation(project(":lifecycle:lifecycle-livedata-ktx"))
     testImplementation(JUNIT)
     testImplementation(TRUTH)
-    testImplementation(TEST_EXT_JUNIT)
-    testImplementation(TEST_CORE)
-    testImplementation(TEST_RUNNER)
-    testImplementation(TEST_RULES)
+    testImplementation(KOTLIN_COROUTINES_TEST)
 }
 
-supportLibrary {
-    name = "LiveData Core Kotlin Extensions"
-    publish = true
-    mavenVersion = LibraryVersions.LIFECYCLE
+androidx {
+    name = "LiveData Coroutine Extensions EAP"
+    publish = false
+    mavenVersion = LibraryVersions.LIFECYCLES_COROUTINES
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
-    description = "Kotlin extensions for 'livedata-core' artifact"
-    useMetalava = true
+    description = "Coroutines extensions for 'livedata' artifact"
 }
+>>>>>>> BRANCH (601cdd Merge "Merge cherrypicks of [984555] into sparse-5661825-L10)
