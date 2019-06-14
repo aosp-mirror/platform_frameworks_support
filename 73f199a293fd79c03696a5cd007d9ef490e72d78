@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "3c8f801e_b14b10f0",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T14:40:53Z",
+      "side": 1,
+      "message": "Ugh I don\u0027t like that check. I mean, you don\u0027t have to use the same name, but it seems weird to contrive some new name when it represents the same thing. All you\u0027re doing is performing a local read, it\u0027s still fundamentally representing the same thing.",
+      "parentUuid": "3d3f8ff7_4fd47256",
+      "revId": "73f199a293fd79c03696a5cd007d9ef490e72d78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a78e28f_b5e2af13",
         "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedListBuilder.kt",
         "patchSetId": 11
