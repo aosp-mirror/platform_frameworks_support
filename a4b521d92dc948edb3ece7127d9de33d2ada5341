@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47f9e233_712a8741",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditingBuffer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-14T21:07:13Z",
+      "side": 1,
+      "message": "Please use the full name -- compositionRange",
+      "range": {
+        "startLine": 201,
+        "startChar": 12,
+        "endLine": 201,
+        "endChar": 21
+      },
+      "revId": "a4b521d92dc948edb3ece7127d9de33d2ada5341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66d82d8_a575008b",
+        "filename": "ui/core/src/test/java/androidx/ui/core/TextRangeTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-14T21:07:13Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "a4b521d92dc948edb3ece7127d9de33d2ada5341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bc89b30_11364124",
+        "filename": "ui/core/src/test/java/androidx/ui/input/DeleteSurroundingTextEditOpTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-14T21:07:13Z",
+      "side": 1,
+      "message": "Does this apply to RTL, bidi, surrogate pair too? Or it only applies to LTR for now?\nIf it does apply to RTL, bidi, surrogate pair, please add more tests.",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "a4b521d92dc948edb3ece7127d9de33d2ada5341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

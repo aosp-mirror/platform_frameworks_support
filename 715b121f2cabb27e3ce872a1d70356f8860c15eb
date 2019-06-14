@@ -16,6 +16,24 @@
       "revId": "715b121f2cabb27e3ce872a1d70356f8860c15eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d50556_fe70e469",
+        "filename": "ui/core/src/androidTest/java/androidx/ui/core/TextRangeTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-14T21:07:13Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "87d73f21_b9e0fd26",
+      "revId": "715b121f2cabb27e3ce872a1d70356f8860c15eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
