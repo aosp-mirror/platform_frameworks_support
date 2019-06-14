@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d297f48_0af83b0b",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-14T09:57:04Z",
+      "side": 1,
+      "message": "Can we store the ImageCapture.CaptureMode instead the boolean?",
+      "revId": "8bd7b2e7cfe2b743d6545b358a13f54c516e583c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56262e1c_6e00bb3a",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-14T09:57:04Z",
+      "side": 1,
+      "message": "We can remove the final.\nhttp://go/suzhang-readability-snippets#final",
+      "revId": "8bd7b2e7cfe2b743d6545b358a13f54c516e583c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
