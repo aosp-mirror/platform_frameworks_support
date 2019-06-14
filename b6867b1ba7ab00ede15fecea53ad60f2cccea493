@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ad261b0_6f10b9f0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-14T15:37:56Z",
+      "side": 1,
+      "message": "since you\u0027re registering the task right here you can do the following to avoid splitting it into multiple calls\n\nval task \u003d project.tasks.register(\n                    CREATE_LIBRARY_BUILD_INFO_FILES_TASK,\n                    CreateLibraryBuildInfoFileTask::class.java\n                ) {\nit.outputFile.set(File(project.getDistributionDirectory(),\n                        \"${project.group}_${project.name}_build_info.txt\"))\n}",
+      "revId": "b6867b1ba7ab00ede15fecea53ad60f2cccea493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
