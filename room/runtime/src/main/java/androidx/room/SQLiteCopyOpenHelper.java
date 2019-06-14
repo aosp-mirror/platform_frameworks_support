@@ -33,6 +33,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 
 /**
  * An open helper that will copy & open a pre-populated database if it doesn't exists in internal
@@ -110,45 +113,54 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
 
     private void verifyDatabaseFile() {
         String databaseName = getDatabaseName();
-        File databaseFile = mContext.getDatabasePath(databaseName);
-        if (!databaseFile.exists()) {
-            try {
-                copyDatabaseFile(databaseFile);
-                return;
-            } catch (IOException e) {
-                throw new RuntimeException("Unable to copy database file.", e);
-            }
-        }
-
-        if (mDatabaseConfiguration == null) {
-            return;
-        }
-
-        // A database file is present, check if we need to re-copy it.
-        int currentVersion;
+        CopyLock copyLock = new CopyLock(mContext.getCacheDir(), databaseName);
         try {
-            currentVersion = DBUtil.readVersion(databaseFile);
-        } catch (IOException e) {
-            Log.w(Room.LOG_TAG, "Unable to read database version.", e);
-            return;
-        }
-
-        if (currentVersion == mDatabaseVersion) {
-            return;
-        }
-
-        if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
-            return;
-        }
-
-        if (mContext.deleteDatabase(databaseName)) {
-            try {
-                copyDatabaseFile(databaseFile);
-            } catch (IOException e) {
-                // We are more forgiving copying a database on a destructive migration since there
-                // is already a database file that can be opened.
-                Log.w(Room.LOG_TAG, "Unable to copy database file.", e);
+            if (!copyLock.acquire()) {
+                return;
             }
+
+            File databaseFile = mContext.getDatabasePath(databaseName);
+            if (!databaseFile.exists()) {
+                try {
+                    copyDatabaseFile(databaseFile);
+                    return;
+                } catch (IOException e) {
+                    throw new RuntimeException("Unable to copy database file.", e);
+                }
+            }
+
+            if (mDatabaseConfiguration == null) {
+                return;
+            }
+
+            // A database file is present, check if we need to re-copy it.
+            int currentVersion;
+            try {
+                currentVersion = DBUtil.readVersion(databaseFile);
+            } catch (IOException e) {
+                Log.w(Room.LOG_TAG, "Unable to read database version.", e);
+                return;
+            }
+
+            if (currentVersion == mDatabaseVersion) {
+                return;
+            }
+
+            if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
+                return;
+            }
+
+            if (mContext.deleteDatabase(databaseName)) {
+                try {
+                    copyDatabaseFile(databaseFile);
+                } catch (IOException e) {
+                    // We are more forgiving copying a database on a destructive migration since
+                    // there is already a database file that can be opened.
+                    Log.w(Room.LOG_TAG, "Unable to copy database file.", e);
+                }
+            }
+        } finally {
+            copyLock.release();
         }
     }
 
@@ -159,28 +171,72 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
                     + destinationFile.getAbsolutePath());
         }
 
-        InputStream input;
+        ReadableByteChannel input;
         if (mCopyFromAssetPath != null) {
-            input = mContext.getAssets().open(mCopyFromAssetPath);
+            input = Channels.newChannel(mContext.getAssets().open(mCopyFromAssetPath));
         } else if (mCopyFromFile != null) {
-            input = new FileInputStream(mCopyFromFile);
+            input = new FileInputStream(mCopyFromFile).getChannel();
         } else {
-            throw new IllegalStateException("copyFromAssetPath and copyFromFile = null!");
+            throw new IllegalStateException("copyFromAssetPath and copyFromFile == null!");
         }
-        OutputStream output = new FileOutputStream(destinationFile);
+        FileChannel output = new FileOutputStream(destinationFile).getChannel();
         copy(input, output);
     }
 
-    private void copy(InputStream input, OutputStream output) throws IOException {
+    private void copy(ReadableByteChannel input, FileChannel output) throws IOException {
         try {
-            int length;
-            byte[] buffer = new byte[1024 * 4];
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
+            if (!output.tryLock().isValid()) {
+                throw new IOException("Unable to grab output database file lock.");
+            }
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                output.transferFrom(input, 0, Long.MAX_VALUE);
+            } else {
+                InputStream inputStream = Channels.newInputStream(input);
+                OutputStream outputStream = Channels.newOutputStream(output);
+                int length;
+                byte[] buffer = new byte[1024 * 4];
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
             }
         } finally {
             input.close();
             output.close();
+        }
+    }
+
+    private static class CopyLock {
+
+        private final File mCopyLockFile;
+        private FileChannel mLockChannel;
+
+        CopyLock(File lockDir, String name) {
+            mCopyLockFile = new File(lockDir, name + ".lck");
+        }
+
+        boolean acquire() {
+            try {
+                mLockChannel = new FileOutputStream(mCopyLockFile).getChannel();
+                if (mLockChannel.tryLock().isValid()) {
+                    return true;
+                }
+                mLockChannel.lock();
+            } catch (IOException e) {
+                Log.w(Room.LOG_TAG, "Unable to grab copy lock.", e);
+            }
+
+            return false;
+        }
+
+        void release() {
+            if (mLockChannel != null) {
+                try {
+                    mLockChannel.close();
+                } catch (IOException ignored) { }
+                if (!mCopyLockFile.delete()) {
+                    Log.w(Room.LOG_TAG, "Couldn't cleanup " + mCopyLockFile.getAbsolutePath());
+                }
+            }
         }
     }
 }
