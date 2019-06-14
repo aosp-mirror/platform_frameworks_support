@@ -1035,7 +1035,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * @see size
      */
     open val loadedCount
-        get() = storage.loadedCount
+        get() = storage.storageCount
 
     /**
      * Returns whether the list is immutable.
