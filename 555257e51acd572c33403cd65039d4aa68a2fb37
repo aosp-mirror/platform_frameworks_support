@@ -33,6 +33,24 @@
       "revId": "555257e51acd572c33403cd65039d4aa68a2fb37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6696e48e_d17533bf",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Align.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T14:55:34Z",
+      "side": 1,
+      "message": "This definitely does because of Center below.",
+      "parentUuid": "a72e83f6_fc82ccad",
+      "revId": "555257e51acd572c33403cd65039d4aa68a2fb37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
