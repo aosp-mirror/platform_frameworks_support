@@ -22,6 +22,30 @@
       "revId": "4b8e24678f9bce5cae064c02f2ad9cd057490bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bef0ddb_931b8048",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/WrapperTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-14T23:21:42Z",
+      "side": 1,
+      "message": "onActive will get called once when the component \"mounts\", and never again. It also gets called on the frame *after* the component gets mounted, so pixels have been drawn to screen.",
+      "parentUuid": "dda65289_d14d3547",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "4b8e24678f9bce5cae064c02f2ad9cd057490bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
