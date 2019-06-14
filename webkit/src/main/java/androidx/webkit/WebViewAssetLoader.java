@@ -24,7 +24,8 @@ import android.webkit.WebResourceResponse;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.webkit.internal.AssetHelper;
@@ -97,6 +98,143 @@ public final class WebViewAssetLoader {
     /**
      * A handler that produces responses for the registered paths.
      *
+     * <p>
+     * This class can be extended to handle other cases according to application needs.
+     * <p>
+     * Methods of this handler will be invoked on a background thread and care must be taken to
+     * correctly synchronize access to any shared state.
+     * <p>
+     * On Android KitKat and above these methods may be called on more than one thread. This thread
+     * may be different than the thread on which the shouldInterceptRequest method was invoked.
+     * This means that on Android KitKat and above it is possible to block in this method without
+     * blocking other resources from loading. The number of threads used to parallelize loading
+     * is an internal implementation detail of the WebView and may change between updates which
+     * means that the amount of time spent blocking in this method should be kept to an absolute
+     * minimum.
+     */
+    public abstract static class PathHandler {
+        private final @NonNull String mRegisteredPath;
+
+        /**
+         * Constructor for the PathHandler.
+         *
+         * The path must start and end with {@code "/"}.
+         * <p>
+         * A custom prefix path can be used in conjunction with a custom domain, to
+         * avoid conflicts with real paths which may be hosted at that domain.
+         *
+         * @param registeredPath the registered path prefix that this class handles reguestes to.
+         */
+        public PathHandler(@NonNull String registeredPath) {
+            mRegisteredPath = registeredPath;
+        }
+
+        /**
+         * Handles the requested URL by opening the appropriate file.
+         *
+         * @param url the URL to be handled.
+         * @return {@link WebResourceResponse} for the requested URL or {@code null} if it can't
+         *                                     handle this url.
+         */
+        @Nullable
+        public abstract WebResourceResponse handle(@NonNull Uri url);
+
+        /**
+         * @return the registeredPath where this handler would be called.
+         */
+        @NonNull
+        public String getRegisteredPath() {
+            return mRegisteredPath;
+        }
+    }
+
+    /**
+     * Handler class to open a file from application assets directory.
+     */
+    public static final class AssetsPathHandler extends PathHandler {
+        private AssetHelper mAssetHelper;
+
+        /**
+         * @param registeredPath the registered path prefix where apps assets are hosted.
+         * @param context {@link Context} used to resolve assets.
+         */
+        public AssetsPathHandler(@NonNull String registeredPath, @NonNull Context context) {
+            super(registeredPath);
+            mAssetHelper = new AssetHelper(context);
+        }
+
+        @VisibleForTesting
+        /*package*/ AssetsPathHandler(@NonNull String registeredPath,
+                @NonNull AssetHelper assetHelper) {
+            super(registeredPath);
+            mAssetHelper = assetHelper;
+        }
+
+        /**
+         * Opens the requested file from application's assets directory.
+         *
+         * @param url the URL to be handled.
+         * @return {@link WebResourceResponse} for the requested file, the data {@link InputStream}
+         *                                     will be null if file is not found.
+         */
+        @Override
+        @Nullable
+        public WebResourceResponse handle(Uri url) {
+            String path = url.getPath().replaceFirst(getRegisteredPath(), "");
+            Uri uri = new Uri.Builder()
+                    .path(path)
+                    .build();
+
+            InputStream is = mAssetHelper.openAsset(uri);
+            String mimeType = URLConnection.guessContentTypeFromName(url.getPath());
+            return new WebResourceResponse(mimeType, null, is);
+        }
+    }
+
+    /**
+     * Handler class to open a file from application resources directory.
+     */
+    public static final class ResourcesPathHandler extends PathHandler {
+        private AssetHelper mAssetHelper;
+
+        /**
+         * @param registeredPath the registered path prefix where apps resources are hosted.
+         * @param context {@link Context} used to resolve resources.
+         */
+        public ResourcesPathHandler(@NonNull String registeredPath, @NonNull Context context) {
+            super(registeredPath);
+            mAssetHelper = new AssetHelper(context);
+        }
+
+        @VisibleForTesting
+        /*package*/ ResourcesPathHandler(@NonNull String registeredPath,
+                @NonNull AssetHelper assetHelper) {
+            super(registeredPath);
+            mAssetHelper = assetHelper;
+        }
+
+        /**
+         * Opens the requested file from application's resources directory.
+         *
+         * @param url the URL to be handled.
+         * @return {@link WebResourceResponse} for the requested file, the data {@link InputStream}
+         *                                     will be null if file is not found.
+         */
+        @Override
+        public WebResourceResponse handle(Uri url) {
+            String path = url.getPath().replaceFirst(getRegisteredPath(), "");
+            Uri uri = new Uri.Builder()
+                    .path(path)
+                    .build();
+
+            InputStream is = mAssetHelper.openResource(uri);
+            String mimeType = URLConnection.guessContentTypeFromName(url.getPath());
+            return new WebResourceResponse(mimeType, null, is);
+        }
+
+    }
+
+    /**
      * Matches URIs on the form: {@code "http(s)://authority/path/**"}, HTTPS is always enabled.
      *
      * <p>
@@ -277,25 +415,13 @@ public final class WebViewAssetLoader {
          * {@code "/"}. A custom prefix path can be used in conjunction with a custom domain, to
          * avoid conflicts with real paths which may be hosted at that domain.
          *
-         * @param path the path under which app resources should be hosted.
          * @return {@link Builder} object.
          * @throws IllegalArgumentException if the path is invalid.
          */
         @NonNull
-        public Builder setResourcesHostingPath(@NonNull String path) {
-            mResourcesUri = createUriPrefix(mResourcesUri.getAuthority(), path);
-            return this;
-        }
-
-        /**
-         * Allow using the HTTP scheme in addition to HTTPS.
-         * The default is to not allow HTTP.
-         *
-         * @return {@link Builder} object.
-         */
-        @NonNull
-        public Builder allowHttp() {
-            this.mAllowHttp = true;
+        public Builder register(@NonNull PathHandler handler) {
+            mBuilderMatcherList.add(new PathMatcher(mDomain, handler.getRegisteredPath(),
+                      mAllowHttp, handler));
             return this;
         }
 
@@ -443,89 +569,16 @@ public final class WebViewAssetLoader {
      */
     @WorkerThread
     @Nullable
-    public WebResourceResponse shouldInterceptRequest(@NonNull String url) {
-        PathHandler handler = null;
-        Uri uri = parseAndVerifyUrl(url);
-        if (uri == null) {
-            return null;
-        }
-        return shouldInterceptRequestImpl(uri);
-    }
-
-    @WorkerThread
-    @Nullable
-    private WebResourceResponse shouldInterceptRequestImpl(@NonNull Uri url) {
-        PathHandler handler;
-        if (mAssetsHandler.match(url)) {
-            handler = mAssetsHandler;
-        } else if (mResourcesHandler.match(url)) {
-            handler = mResourcesHandler;
-        } else {
-            return null;
-        }
-
-        InputStream is = handler.handle(url);
-        String mimeType = URLConnection.guessContentTypeFromName(url.getPath());
-
-        return new WebResourceResponse(mimeType, null, is);
-    }
-
-    /**
-     * Get the HTTP URL prefix under which assets are hosted.
-     * <p>
-     * If HTTP is allowed, the prefix will be on the format:
-     * {@code "http://<domain>/<prefix-path>/"}, for example:
-     * {@code "http://appassets.androidplatform.net/assets/"}.
-     *
-     * @return the HTTP URL prefix under which assets are hosted, or {@code null} if HTTP is not
-     *         enabled.
-     */
-    @Nullable
-    public Uri getAssetsHttpPrefix() {
-        if (!mAssetsHandler.mHttpEnabled) {
-            return null;
-        }
-
-        Uri.Builder uriBuilder = new Uri.Builder();
-        uriBuilder.authority(mAssetsHandler.mAuthority);
-        uriBuilder.path(mAssetsHandler.mPath);
-        uriBuilder.scheme(HTTP_SCHEME);
-
-        return uriBuilder.build();
-    }
-
-    /**
-     * Get the HTTPS URL prefix under which assets are hosted.
-     * <p>
-     * The prefix will be on the format: {@code "https://<domain>/<prefix-path>/"}, if the default
-     * values are used then it will be: {@code "https://appassets.androidplatform.net/assets/"}.
-     *
-     * @return the HTTPS URL prefix under which assets are hosted.
-     */
-    @NonNull
-    public Uri getAssetsHttpsPrefix() {
-        Uri.Builder uriBuilder = new Uri.Builder();
-        uriBuilder.authority(mAssetsHandler.mAuthority);
-        uriBuilder.path(mAssetsHandler.mPath);
-        uriBuilder.scheme(HTTPS_SCHEME);
-
-        return uriBuilder.build();
-    }
-
-    /**
-     * Get the HTTP URL prefix under which resources are hosted.
-     * <p>
-     * If HTTP is allowed, the prefix will be on the format:
-     * {@code "http://<domain>/<prefix-path>/"}, for example
-     * {@code "http://appassets.androidplatform.net/res/"}.
-     *
-     * @return the HTTP URL prefix under which resources are hosted, or {@code null} if HTTP is not
-     *         enabled.
-     */
-    @Nullable
-    public Uri getResourcesHttpPrefix() {
-        if (!mResourcesHandler.mHttpEnabled) {
-            return null;
+    public WebResourceResponse shouldInterceptRequest(@NonNull Uri url) {
+        for (PathMatcher matcher : mMatchers) {
+            PathHandler handler = matcher.match(url);
+            // found a match.
+            if (handler != null) {
+                WebResourceResponse response = handler.handle(url);
+                if (response != null) {
+                    return response;
+                }
+            }
         }
 
         Uri.Builder uriBuilder = new Uri.Builder();
