@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "383c399a_be135e24",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-14T23:35:36Z",
+      "side": 1,
+      "message": "ModuleVersionSelector.getVersion() explicitly annotates having @Nullable, so it is probably best to handle it.\n\nval targetVersion \u003d dep.target.version ?: return@eachDependency\nif (isDependencyRange(targetVersion)) {",
+      "range": {
+        "startLine": 382,
+        "startChar": 50,
+        "endLine": 382,
+        "endChar": 64
+      },
+      "revId": "b7a32a68fd9620aec9cf730044f0cae8ab672fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
