@@ -401,6 +401,74 @@ class ParagraphIntegrationTest {
     }
 
     @Test
+    fun getBoundingBoxForTextPosition_ltr_singleLine() {
+        val text = "abc"
+        val fontSize = 50.0f
+        val paragraph = simpleParagraph(text = text, fontSize = fontSize)
+
+        paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
+        // test positions that are 0, 1, 2 ... which maps to chars 0, 1, 2 ...
+        for (i in 0..text.length - 1) {
+            val textPosition = TextPosition(i, TextAffinity.upstream)
+            val box = paragraph.getBoundingBoxForTextPosition(textPosition)
+            assertThat(box.left, equalTo(i * fontSize))
+            assertThat(box.right, equalTo((i + 1) * fontSize))
+            assertThat(box.top, equalTo(0f))
+            assertThat(box.bottom, equalTo(fontSize))
+        }
+    }
+
+    @Test
+    fun getBoundingBoxForTextPosition_ltr_multiLines() {
+        val firstLine = "abc"
+        val secondLine = "def"
+        val text = firstLine + secondLine
+        val fontSize = 50.0f
+        val paragraph = simpleParagraph(text = text, fontSize = fontSize)
+
+        paragraph.layout(ParagraphConstraints(width = firstLine.length * fontSize))
+
+        // test positions are 3, 4, 5 and always on the second line
+        // which maps to chars 3, 4, 5
+        for (i in 0..secondLine.length - 1) {
+            val textPosition = TextPosition(i + firstLine.length, TextAffinity.upstream)
+            val box = paragraph.getBoundingBoxForTextPosition(textPosition)
+            assertThat(box.left, equalTo(i * fontSize))
+            assertThat(box.right, equalTo((i + 1) * fontSize))
+            assertThat(box.top, equalTo(fontSize))
+            assertThat(box.bottom, equalTo((2f + 1 / 5f) * fontSize))
+        }
+    }
+
+    @Test
+    fun getBoundingBoxForTextPosition_ltr_textPosition_negative() {
+        val text = "abc"
+        val fontSize = 50.0f
+        val paragraph = simpleParagraph(text = text, fontSize = fontSize)
+
+        paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
+
+        val textPosition = TextPosition(-1, TextAffinity.upstream)
+        val box = paragraph.getBoundingBoxForTextPosition(textPosition)
+        assertThat(box.left, equalTo(0f))
+        assertThat(box.right, equalTo(0f))
+        assertThat(box.top, equalTo(0f))
+        assertThat(box.bottom, equalTo(fontSize))
+    }
+
+    @Test(expected = java.lang.IndexOutOfBoundsException::class)
+    fun getBoundingBoxForTextPosition_ltr_textPosition_larger_than_length_throw_exception() {
+        val text = "abc"
+        val fontSize = 50.0f
+        val paragraph = simpleParagraph(text = text, fontSize = fontSize)
+
+        paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
+
+        val textPosition = TextPosition(text.length + 1, TextAffinity.upstream)
+        paragraph.getBoundingBoxForTextPosition(textPosition)
+    }
+
+    @Test
     fun locale_withCJK_shouldNotDrawSame() {
         val text = "\u82B1"
         val fontSize = 10.0f
@@ -1029,6 +1097,142 @@ class ParagraphIntegrationTest {
         // Notice that in this test font, the width of character equals to fontSize.
         val expectedWidth = "abc".length * fontSizeOverwrite + "de".length * fontSize
         assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+    }
+
+    @Test
+    fun textStyle_fontSizeScale() {
+        val text = "abcde"
+        val fontSize = 20f
+        val fontSizeScale = 0.5f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)),
+            fontSize = fontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale)
+        )
+    }
+
+    @Test
+    fun textStyle_fontSizeScaleNested() {
+        val text = "abcde"
+        val fontSize = 20f
+        val fontSizeScale = 0.5f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val fontSizeScaleNested = 2f
+        val textStyleNested = TextStyle(fontSizeScale = fontSizeScaleNested)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(
+                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(textStyleNested, 0, text.length)
+            ),
+            fontSize = fontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale * fontSizeScaleNested)
+        )
+    }
+
+    @Test
+    fun textStyle_fontSizeScaleWithFontSizeFirst() {
+        val text = "abcde"
+        val paragraphFontSize = 20f
+
+        val fontSize = 30f
+        val fontSizeStyle = TextStyle(fontSize = fontSize)
+
+        val fontSizeScale = 0.5f
+        val fontSizeScaleStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(
+                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle, 0, text.length)
+            ),
+            fontSize = paragraphFontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale)
+        )
+    }
+
+    @Test
+    fun textStyle_fontSizeScaleWithFontSizeSecond() {
+        val text = "abcde"
+        val paragraphFontSize = 20f
+
+        val fontSize = 30f
+        val fontSizeStyle = TextStyle(fontSize = fontSize)
+
+        val fontSizeScale = 0.5f
+        val fontSizeScaleStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(
+                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length)
+            ),
+            fontSize = paragraphFontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize)
+        )
+    }
+
+    @Test
+    fun textStyle_fontSizeScaleWithFontSizeNested() {
+        val text = "abcde"
+        val paragraphFontSize = 20f
+
+        val fontSize = 30f
+        val fontSizeStyle = TextStyle(fontSize = fontSize)
+
+        val fontSizeScale1 = 0.5f
+        val fontSizeScaleStyle1 = TextStyle(fontSizeScale = fontSizeScale1)
+
+        val fontSizeScale2 = 2f
+        val fontSizeScaleStyle2 = TextStyle(fontSizeScale = fontSizeScale2)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(
+                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle1, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(fontSizeStyle, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(fontSizeScaleStyle2, 0, text.length)
+            ),
+            fontSize = paragraphFontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale2)
+        )
     }
 
     @Test

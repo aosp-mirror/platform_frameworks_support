@@ -1,6 +1,7 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
     id("AndroidXPlugin")
@@ -8,8 +9,8 @@ plugins {
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0-rc01")
-    api(project(":core"))
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.1.0-rc01")
     api(project(":customview"))
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
@@ -23,10 +24,9 @@ dependencies {
 
 androidx {
     name = "Android Support Library View Pager"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.VIEWPAGER
     mavenGroup = LibraryGroups.VIEWPAGER
     inceptionYear = "2018"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
-    failOnDeprecationWarnings = false
 }
