@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f84aaef3_165218e7",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/compat/CameraManagerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-14T18:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "984e51d6_a3988940",
+      "revId": "e84ee2977c0cb570f72ebb58ce909afb7f187011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90e9254_bde667fd",
         "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/compat/CameraManagerCompatTest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "e84ee2977c0cb570f72ebb58ce909afb7f187011",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3143d2_f1ad9bac",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/compat/CameraManagerCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-14T18:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a90e9254_bde667fd",
+      "revId": "e84ee2977c0cb570f72ebb58ce909afb7f187011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
