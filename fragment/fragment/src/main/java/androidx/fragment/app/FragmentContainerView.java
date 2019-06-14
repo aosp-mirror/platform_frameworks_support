@@ -19,15 +19,17 @@ package androidx.fragment.app;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.WindowInsets;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-
 /**
  * FragmentContainerView is a customized Layout designed specifically for Fragments. It extends
  * {@link FrameLayout}, so it can reliably handle Fragment Transactions, and it also has additional
@@ -82,6 +84,23 @@ public class FragmentContainerView extends FrameLayout {
         throw new UnsupportedOperationException(
                 "FragmentContainerView does not support Layout Transitions or "
                         + "animateLayoutChanges=\"true\".");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The sys ui flags must be set to enable extending the layout into the window insets.
+     */
+    @NonNull
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    @Override
+    public WindowInsets onApplyWindowInsets(@NonNull WindowInsets insets) {
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            // Give child views fresh insets.
+            child.dispatchApplyWindowInsets(new WindowInsets(insets));
+        }
+        return insets;
     }
 
     @Override
