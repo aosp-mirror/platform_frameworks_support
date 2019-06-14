@@ -64,12 +64,29 @@ class BenchmarkPlugin : Plugin<Project> {
     }
 
     private fun configureWithAndroidExtension(project: Project, extension: BaseExtension) {
-        val adb = Adb(project)
-        project.tasks.register("lockClocks", LockClocksTask::class.java, adb)
-        project.tasks.register("unlockClocks", UnlockClocksTask::class.java, adb)
-        val benchmarkReportTask =
-            project.tasks.register("benchmarkReport", BenchmarkReportTask::class.java)
-        benchmarkReportTask.configure { it.dependsOn("connectedAndroidTest") }
+        // Registering this block as a configureEach callback is only necessary because Studio skips
+        // Gradle if there are no changes, which stops this plugin from being re-applied.
+        var enabledOutput = false
+        project.tasks.configureEach {
+            if (!enabledOutput &&
+                !project.rootProject.hasProperty("android.injected.invoked.from.ide")
+            ) {
+                enabledOutput = true
+
+                // NOTE: This argument is checked by ResultWriter to enable CI reports.
+                extension.defaultConfig.testInstrumentationRunnerArgument(
+                    "androidx.benchmark.output.enable",
+                    "true"
+                )
+            }
+        }
+
+        project.tasks.register("lockClocks", LockClocksTask::class.java).configure {
+            it.adbPath.set(extension.adbExecutable.absolutePath)
+        }
+        project.tasks.register("unlockClocks", UnlockClocksTask::class.java).configure {
+            it.adbPath.set(extension.adbExecutable.absolutePath)
+        }
 
         val extensionVariants = when (extension) {
             is AppExtension -> extension.applicationVariants
@@ -90,13 +107,14 @@ class BenchmarkPlugin : Plugin<Project> {
         extensionVariants.all {
             if (!applied) {
                 applied = true
-                project.tasks.named("connectedAndroidTest").configure {
-                    // NOTE: This argument is checked by ResultWriter to enable CI reports.
-                    extension.defaultConfig.testInstrumentationRunnerArgument(
-                        "androidx.benchmark.output.enable",
-                        "true"
-                    )
 
+                project.tasks.register("benchmarkReport", BenchmarkReportTask::class.java)
+                    .configure {
+                        it.adbPath.set(extension.adbExecutable.absolutePath)
+                        it.dependsOn(project.tasks.named("connectedAndroidTest"))
+                    }
+
+                project.tasks.named("connectedAndroidTest").configure {
                     configureWithConnectedAndroidTest(project, it)
                 }
             }

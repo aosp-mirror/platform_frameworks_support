@@ -17,6 +17,7 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryVersions
 import androidx.build.LibraryGroups
+import androidx.build.Publish
 
 plugins {
     id("AndroidXPlugin")
@@ -26,7 +27,7 @@ plugins {
 dependencies {
     implementation(project(":slice-core"))
     implementation(project(":recyclerview"))
-    implementation("androidx.collection:collection:1.1.0-rc01")
+    implementation("androidx.collection:collection:1.1.0")
     api(ARCH_LIFECYCLE_LIVEDATA_CORE, libs.exclude_annotations_transitive)
 
     androidTestImplementation(project(":slice-builders"))
@@ -42,7 +43,7 @@ dependencies {
 
 androidx {
     name = "Slice views"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.SLICE
     mavenGroup = LibraryGroups.SLICE
     inceptionYear = "2017"

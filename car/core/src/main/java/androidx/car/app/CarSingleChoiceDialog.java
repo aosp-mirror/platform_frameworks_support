@@ -109,7 +109,7 @@ public final class CarSingleChoiceDialog extends Dialog {
         super.onCreate(savedInstanceState);
 
         Window window = getWindow();
-        window.setContentView(R.layout.car_selction_dialog);
+        window.setContentView(R.layout.car_selection_dialog);
 
         // Ensure that the dialog takes up the entire window. This is needed because the scrollbar
         // needs to be drawn off the dialog.
@@ -467,7 +467,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @see #setOnDismissListener(OnDismissListener)
          */
         @NonNull
-        public Builder setOnCancelListener(@Nullable OnCancelListener onCancelListener) {
+        public Builder setOnCancelListener(@NonNull OnCancelListener onCancelListener) {
             mOnCancelListener = onCancelListener;
             return this;
         }
@@ -478,7 +478,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
-        public Builder setOnDismissListener(@Nullable OnDismissListener onDismissListener) {
+        public Builder setOnDismissListener(@NonNull OnDismissListener onDismissListener) {
             mOnDismissListener = onDismissListener;
             return this;
         }
