@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55b2a714_a937eac0",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T19:17:04Z",
+      "side": 1,
+      "message": "Hmmmm is `get() \u003d ` what you want here? I think that will allocate an instance of the generated class on every call. Whereas just doing `\u003d` would allocate once and store in the field.",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f672c2f_96fe1aa5",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T19:17:04Z",
+      "side": 1,
+      "message": "What motivated this change out of curiosity?",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
