@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26b2d6c1_6a85e3ba",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T00:56:18Z",
+      "side": 1,
+      "message": "can be another CL but looks likewe don\u0027t accept inMemory here, we should throw.\nsame case, if developer provides both of these, we should throw.",
+      "range": {
+        "startLine": 904,
+        "startChar": 13,
+        "endLine": 904,
+        "endChar": 21
+      },
+      "revId": "148c632521154b63c6d39e2d75cd7fbc107585ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4da984d_4db60a79",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T00:56:18Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 152,
+        "startChar": 47,
+        "endLine": 152,
+        "endChar": 54
+      },
+      "revId": "148c632521154b63c6d39e2d75cd7fbc107585ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
