@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e53724d8_7cd4bdf7",
+        "filename": "core/core/api/1.2.0-alpha02.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T19:39:55Z",
+      "side": 1,
+      "message": "Wait why is this empty? Shouldn\u0027t it be complaining the about the JobIntentService thing just like the restricted ignore is?",
+      "revId": "80a31844134d82020d5e07cbd5b5ea584ac37287",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
