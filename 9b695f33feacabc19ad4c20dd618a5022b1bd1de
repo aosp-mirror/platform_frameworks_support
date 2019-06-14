@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b401c1da_c383c253",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T19:52:20Z",
+      "side": 1,
+      "message": "Admittedly, I don\u0027t have a good understanding of this warning - but I did this because Studio was warning me about leaking `this` in a constructor of non-final class.\n\nShould we actually be doing something like by lazy here instead?\n\nI think we just want to be sure that if onLoadStateChanged is overridden we call the overridden version in the constructor\u0027s call to differ.addLoadStateChangedListener, etc.",
+      "parentUuid": "55b2a714_a937eac0",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f672c2f_96fe1aa5",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-06-14T19:17:04Z",
       "side": 1,
       "message": "What motivated this change out of curiosity?",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a760a4f6_819db616",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T19:52:20Z",
+      "side": 1,
+      "message": "I feel like there\u0027s some loss of scope / encapsulation when implementing an interface with no intention of any of the methods you just added to the class being called elsewhere. i.e., we don\u0027t really intend onInvalidated to be part of PagingObservableOnSubscribe\u0027s api (even though it\u0027s an internal class), we just want to call some block of code when the backing datasource is invalidated.\n\nIt\u0027s also sometimes hard to figure out which overridden methods belong to which interface when there\u0027s a lot of implements and it\u0027s a nice way to keep them together and show where it is used / relevant.\n\nIt might also just be me carrying nightmares forward from multiple implementations of setOnClickListener jammed together in one activity though.\n\nI actually would change Cancellable and Runnable too, but didn\u0027t want to make this CL too big.",
+      "parentUuid": "2f672c2f_96fe1aa5",
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
