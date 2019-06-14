@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c063d3f_74ea9fa5",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-14T22:51:33Z",
+      "side": 1,
+      "message": "I think lambdas are a bit more approachable than method references.\n\n---\n\nRemoved curly braces for one-line lambdas in this file, everywhere I think it\u0027s possible to do so and it doesn\u0027t go over the column limit.",
+      "parentUuid": "d24680d2_2fa73738",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 276,
+        "endChar": 30
+      },
+      "revId": "49c4a20e8498362894acfb81273d480bcfe2bad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8dd22041_e7ee0380",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 2
