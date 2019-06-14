@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00619f7a_d8a3eaf1",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T18:32:22Z",
+      "side": 1,
+      "message": "I think you might want to keep the comment here or just remove the part about null pages since first / last throws on empty list.",
+      "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3be0036_81fb7c47",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T18:32:22Z",
+      "side": 1,
+      "message": "Same here with comment about guarantee non-empty pages.",
+      "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2348de3f_c1416afc",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedStorage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T18:32:22Z",
+      "side": 1,
+      "message": "Can we just return this condition directly (inverted of course)?",
+      "revId": "930f6126947f74c950de1729bfab6b7b65be878a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
