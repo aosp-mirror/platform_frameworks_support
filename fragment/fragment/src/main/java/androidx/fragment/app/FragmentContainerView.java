@@ -19,15 +19,16 @@ package androidx.fragment.app;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.WindowInsets;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-
 /**
  * FragmentContainerView is a customized Layout designed specifically for Fragments. It extends
  * {@link FrameLayout}, so it can reliably handle Fragment Transactions, and it also has additional
@@ -50,6 +51,8 @@ public class FragmentContainerView extends FrameLayout {
 
     private ArrayList<View> mTransitioningFragmentViews;
 
+    private OnApplyWindowInsetsListener mApplyWindowInsetsListener;
+
     public FragmentContainerView(@NonNull Context context) {
         this(context, null);
     }
@@ -63,6 +66,7 @@ public class FragmentContainerView extends FrameLayout {
             @Nullable AttributeSet attrs,
             int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setupForInsets();
     }
 
     /**
@@ -82,6 +86,36 @@ public class FragmentContainerView extends FrameLayout {
         throw new UnsupportedOperationException(
                 "FragmentContainerView does not support Layout Transitions or "
                         + "animateLayoutChanges=\"true\".");
+    }
+
+    /**
+     * Setup ApplyWindowInsetsListener to dispatch fresh {@link WindowInsets} to each child view
+     * when activated, and set the View UI flags appropriately.
+     */
+    private void setupForInsets() {
+        if (Build.VERSION.SDK_INT < 21) {
+            return;
+        }
+
+        if (mApplyWindowInsetsListener == null) {
+            mApplyWindowInsetsListener = new OnApplyWindowInsetsListener() {
+                @Override
+                public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                    for (int i = 0; i < getChildCount(); i++) {
+                        View child = getChildAt(i);
+                        // Give child views fresh insets.
+                        child.dispatchApplyWindowInsets(new WindowInsets(insets));
+                    }
+                    return insets;
+                }
+            };
+        }
+        // First apply the insets listener
+        setOnApplyWindowInsetsListener(mApplyWindowInsetsListener);
+
+        // Now set the sys ui flags to enable us to lay out in the window insets
+        setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
     @Override
