@@ -22,6 +22,30 @@
       "revId": "8b527e9287d98e587d44f82257b3cffc98340d92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "820321a2_e927ab04",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T00:11:44Z",
+      "side": 1,
+      "message": "Yes. We do measurments/layout and it may call the child\u0027s measure/layout. If so, the child will remove itself from the list so that measure/layout isn\u0027t called twice.\n\nWe can now avoid this by using the \"needsRelayout\" and \"needsRemeasure\".",
+      "parentUuid": "a6728d42_59115cb5",
+      "range": {
+        "startLine": 244,
+        "startChar": 24,
+        "endLine": 244,
+        "endChar": 65
+      },
+      "revId": "8b527e9287d98e587d44f82257b3cffc98340d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
