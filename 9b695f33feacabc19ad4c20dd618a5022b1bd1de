@@ -161,6 +161,24 @@
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcec4475_724f7b8b",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T20:23:46Z",
+      "side": 1,
+      "message": "I wrote this class originally, or at least I changed it to use this pattern. It is actually meant to save bytes in both the APK and at runtime in terms of RAM. \n\nEach lambda produces a class with at least two methods (constructor and callback) and each class comes with a fixed overhead in terms of the bytes used to represent it. By having the class be separate you\u0027re now paying for its name and declaration in addition to the cost of the two methods.\n\nAdditionally, each instance of those classes occupies 16 bytes of RAM plus 4 bytes for every reference stored in a field. Here you\u0027re capturing the PagingObservableOnSubscribe instance (and referencing its emitter and fromExecutor fields) so the lambda will cost 20 bytes. But then each object is rounded to a multiple of 8 (or 16 depending on the VM) so 4 bytes will be wasted and it will cost 24 bytes. There\u0027s also the 4 bytes you\u0027re adding to the enclosing class so that it can store a reference to the lambda class instance.\n\nCompare this to when you implemented the interface on the existing class. You only pay for the single callback method in bytecode. The class is already paid for and so is its constructor. In terms of bytes in memory, the 16 byte overhead is already paid for and you\u0027re adding no additional fields so the cost is actually 0 additional bytes.\n\nThis is only for use in non-public types, obviously. And it\u0027s a small savings, admittedly. It really only makes sense when you\u0027re creating a lot of classes. In RxJava, for example, the pattern is used in nearly every operator: https://github.com/ReactiveX/RxJava/blob/15e52bbf7221498f37cf563fba1abf38ebbf5b90/src/main/java/io/reactivex/internal/operators/observable/ObservableTake.java#L33. In RxBinding in every source: https://github.com/JakeWharton/RxBinding/blob/404146fc447abeebf829b943817ec2a2d26e9576/rxbinding/src/main/java/com/jakewharton/rxbinding3/widget/TextViewTextChangesObservable.kt#L49. Those libraries have hundreds of these classes. They wind up saving maybe tens kilobytes of APK size and RAM which isn\u0027t a ton, but it was basically free money.\n\nSo it probably doesn\u0027t matter for the single class here, but there was an actual reason for this pattern.",
+      "parentUuid": "a760a4f6_819db616",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
