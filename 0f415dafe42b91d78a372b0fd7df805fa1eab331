@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d27fb8aa_6a416035",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T17:09:46Z",
+      "side": 1,
+      "message": "Do you want to check the range on this and throw if it is a bad value? Or just use max() like you do with absVelocityThreshold?",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c9fb522_10d653f5",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T17:09:46Z",
+      "side": 1,
+      "message": "consider using @FloatRange for these since you clearly want it greater than 0.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71aaab7f_81db9d3c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T17:09:46Z",
+      "side": 1,
+      "message": "This looks like the Java expression. You want just exp(x)",
+      "range": {
+        "startLine": 119,
+        "startChar": 43,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95210ae_6202166c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-14T17:09:46Z",
+      "side": 1,
+      "message": "Java method here, too",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 20
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
