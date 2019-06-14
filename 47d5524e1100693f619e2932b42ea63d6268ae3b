@@ -163,6 +163,29 @@
     },
     {
       "key": {
+        "uuid": "30b37330_9dc0b137",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/Paragraph.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "i believe since the constructor is internal you dont need to add internal?\nis it because you want to prevent get?",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 13
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c8947c0_be7ca964",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 4
@@ -202,6 +225,52 @@
         "startChar": 0,
         "endLine": 19,
         "endChar": 18
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df360bdc_d2eeca38",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "How about \n-- AnnotatedString.Entry (similar to Map.Entry)\n   --\u003e TextStyleEntry\n   --\u003e ParagraphStyleEntry\n\n-- AnnotatedString.Item\n   --\u003e TextStyleItem\n   --\u003e ParagraphStyleItem\n\n-- StyleAnnotation\n   --\u003e TextStyleAnnotation\n   --\u003e ParagraphStyleAnnotation    \n\n\n---\nAnnotatedString.Annotation ( we didnt like the name since it is used every where, java @Annotation, java.text.Annotation, kotlin.annotation ...)\nAnnotatedString.Record",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acaf9e3_b5811097",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "shall this be Range ? \ntradeoff --\u003e Object creation.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 16
       },
       "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -255,6 +324,52 @@
     },
     {
       "key": {
+        "uuid": "9c2866a8_b940322c",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "also add to javadoc, what it the parameter for. and what it means to pass it.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 29
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01dbe7ee_4ccdceab",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "nit: the name starts with \"to\" which means it will return something.",
+      "range": {
+        "startLine": 175,
+        "startChar": 21,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3578bde0_0d6bd19e",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
         "patchSetId": 4
@@ -298,6 +413,53 @@
       "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "230ccaa4_e654675a",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "this is a function scope value. not sure what Qingqing meant by private.",
+      "parentUuid": "d29d3b6e_fc9646b5",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 21
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd9fa9c_f851d848",
+        "filename": "ui/text/src/test/java/androidx/ui/painting/TextSpanTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-14T22:56:07Z",
+      "side": 1,
+      "message": "this is so awesome.",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 437,
+        "endChar": 11
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
