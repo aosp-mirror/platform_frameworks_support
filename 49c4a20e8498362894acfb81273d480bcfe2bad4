@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d24680d2_2fa73738",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-06-14T12:17:04Z",
+      "side": 1,
+      "message": "simplify to () -\u003e isLoaded()? Can it just be this::isLoaded? I\u0027m not sure what the interchangeability of bound method references and lambdas is like.",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 276,
+        "endChar": 30
+      },
+      "revId": "49c4a20e8498362894acfb81273d480bcfe2bad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8dd22041_e7ee0380",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2019-06-13T07:01:12Z",
       "side": 1,
       "message": "Interestingly, I needed to revert back to explicitly using Runnable. I need to disambiguate the type, otherwise runOnMain(Callable) swallows the exception (to re-throw during waitForFuture())",
+      "range": {
+        "startLine": 467,
+        "startChar": 33,
+        "endLine": 471,
+        "endChar": 13
+      },
+      "revId": "49c4a20e8498362894acfb81273d480bcfe2bad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "584267f8_56c9e8cf",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-06-14T12:17:04Z",
+      "side": 1,
+      "message": "That\u0027s an unfortunate behavioural difference, Maybe we need to disambiguate the exception handling behaviour in the WebkitUtils methoods.",
+      "parentUuid": "8dd22041_e7ee0380",
       "range": {
         "startLine": 467,
         "startChar": 33,
