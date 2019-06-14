@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "d90410cd_d61f339e",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-14T19:32:55Z",
+      "side": 1,
+      "message": "I\u0027m still working through this CL, but this class goes against the mental model I have. I would think the \"scroll\" type effect would be thought of as an animation but not a value. Ie, an \"AnimatedValue\" can be \"currently bound\" to a scroll animation, but the scroll animation isn\u0027t itself a value. If we make these the same thing, then it seems hard to have the value be driven by anything else . For instance, if I wanted to have a button that animated the scroll position from its current state to 500.dp with some easing curve, i can\u0027t easily do that if this is the relationship between them.",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d27fb8aa_6a416035",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
@@ -234,6 +251,40 @@
       "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "792ed197_0b17c096",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-14T19:32:55Z",
+      "side": 1,
+      "message": "is this the only thing that keeps the model\u0027s value sync\u0027d with the underlying animValue\u0027s? This feels like some unnecessary indirection to me.",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1daecadf_db66a18e",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-14T19:32:55Z",
+      "side": 1,
+      "message": "is this working how you\u0027d expect? with the override, initializer, and delegate implementation, it\u0027s not entirely clear to me whether setting this will set the animValue\u0027s value, or reading this property will get the current animValue\u0027s value...  or if it\u0027s just initialized to it.",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
