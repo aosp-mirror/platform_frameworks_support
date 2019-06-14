@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "787e6095_e30da356",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-14T19:18:27Z",
+      "side": 1,
+      "message": "Missing \"/\"?",
+      "range": {
+        "startLine": 121,
+        "startChar": 29,
+        "endLine": 121,
+        "endChar": 31
+      },
+      "revId": "cfdb2c569af23012837bfa45cd5b598f70bf7b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
