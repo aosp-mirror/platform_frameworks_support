@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "92e2b7ca_e1ce7e47",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-14T15:21:12Z",
+      "side": 1,
+      "message": "nit: different line",
+      "range": {
+        "startLine": 221,
+        "startChar": 29,
+        "endLine": 221,
+        "endChar": 39
+      },
+      "revId": "555257e51acd572c33403cd65039d4aa68a2fb37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "643eec27_d38376a9",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 2
