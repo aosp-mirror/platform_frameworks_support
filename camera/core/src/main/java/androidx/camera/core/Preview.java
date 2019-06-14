@@ -205,8 +205,6 @@ public class Preview extends UseCase {
         }
     }
 
-    // TODO: Timeout may be exposed as a PreviewConfig(moved to CameraControl)
-
     private CameraControl getCurrentCameraControl() {
         PreviewConfig config = (PreviewConfig) getUseCaseConfig();
         String cameraId = getCameraIdUnchecked(config.getLensFacing());
