@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e293130e_08990acc",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "I see.  That feels funny but I suppose it fits into the compose model. :)",
+      "parentUuid": "bf119d6f_3625a481",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7caa82f_7d760d1b",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -234,6 +258,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e63ffe49_cc2a1b86",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll let you make that call.  However, I don\u0027t think \"classic\" is useful to new developers who haven\u0027t worked with animation yet, and a change that makes something more clear and explicit isn\u0027t as detrimental to developers used to \"classic\".",
+      "parentUuid": "6e70edd0_3fc157ff",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +414,30 @@
       "side": 1,
       "message": "That wouldn\u0027t allow you to specify the animation used to animate the value change.",
       "parentUuid": "b19774fc_f6121c42",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15a43fd2_0e3cb2b9",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "01cabaa0_dbc2a99b",
       "range": {
         "startLine": 48,
         "startChar": 8,
@@ -566,6 +638,30 @@
     },
     {
       "key": {
+        "uuid": "b781e704_366ffac7",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "I just prefer explicit longer names then less explicit short names.  :)  But to each their own in this regard.",
+      "parentUuid": "7c55e9ae_0108011f",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "610bd46f_3dcc2970",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14
@@ -610,6 +706,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f5d58f8_f33e9b43",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f16169d3_65fcc86f",
+      "range": {
+        "startLine": 89,
+        "startChar": 14,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -775,6 +895,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01556aae_c9a0c901",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5bdfce11_480577af",
+      "range": {
+        "startLine": 300,
+        "startChar": 24,
+        "endLine": 300,
+        "endChar": 29
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1107,6 +1251,30 @@
     },
     {
       "key": {
+        "uuid": "77c49ee3_b7a76bff",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "I think I agree.  There may be some implications that mean that animation may often only be used for animation, and otherwise, the scroll position property may need to be controlled not just by animation, but also by user code.\n\nFor example, with a recyclerview (where you don\u0027t know the scroll bounds in advance) a gesture may say, drag 20 pixels, and the rv can only drag 10.  So \"user\" code (the implementation of RV) may see how far RV can scroll (by creating and binding views) discover it can\u0027t go all 20 pixels, and can instead only go 10, and thus say it only consumed 10 pixels.  \n\nThe most relevant element being that the RV has to try to scroll in order to discover how far it can scroll.  That attempt can\u0027t be done through animation because we\u0027d have to wait for a composition to find out how far the rv ended up scrolling.  The logic to create and bind views needs to run before recomp so that the distance that the rv can scroll can be determined synchronously, so feedback can be given to the pointer input system (or at least that is required for my plan with the pointer input system.",
+      "parentUuid": "316dfef5_ab00a698",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44dc3bba_f223e3a2",
         "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
         "patchSetId": 14
@@ -1151,6 +1319,30 @@
       "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e38c251d_80fec952",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Yeah, after our f2f, I see what you mean and believe I agree!",
+      "parentUuid": "ac9afba3_541322f1",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

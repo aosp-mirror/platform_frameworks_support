@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2f825406_e1ada13f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-14T17:34:36Z",
+      "side": 1,
+      "message": "Do you not just want to make the class internal? Internal is per module, and I don\u0027t think we want to make something accessible across modules that isn\u0027t accessible publicly...",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d27fb8aa_6a416035",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
