@@ -46,6 +46,30 @@
       "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e20813_e67f1e35",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-14T17:13:57Z",
+      "side": 1,
+      "message": "Can you explain what will be the content of the List\u003cString[]\u003e?",
+      "parentUuid": "375c71d3_1840967a",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
