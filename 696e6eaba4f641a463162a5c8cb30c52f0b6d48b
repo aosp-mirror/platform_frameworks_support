@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0f9f4a1_82eafa3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "439df127_1f0859a4",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "574e7938_96249031",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-13T18:48:54Z",
       "side": 1,
       "message": "maybe it should be moved to ui-animation module instead to use the proper \"internal\"? or make it public and call the @Model powered version like \"ObservableAnimatedValue\" or something like this. I don\u0027t think we should have @RestrictTo in Kotlin. It is or something internal to module, or public, I guess",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3976fd81_8ddbb7fe",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "The class can\u0027t be in the ui-animation module because it\u0027s currently using internal Animation\u003cT\u003e and AnimationBuilder APIs. I don\u0027t want to confuse people with two versions AnimatedValue (one observable, one not). Hence the compromise.\n\nCould you elaborate on why we shouldn\u0027t have @RestrictTo in Kotlin? It makes sense to me to have a library group with a few different modules that depend on each other in a non-public way. But I would love to hear about your thoughts.",
+      "parentUuid": "574e7938_96249031",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "433bbec8_a1123411",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "This DecayAnimation doesn\u0027t  fit in our intended usage builder pattern, because there isn\u0027t a pre-defined set of parameters to tune, but rather we anticipate devs to implement all these methods to create a fully customized decay animation.\n\nIt\u0027s unclear whether there\u0027s a need to make Animation interface public as well for more flexibility and customization yet. Let\u0027s leave that internal for now.\n\nIt makes sense to move this class out of this file, since it is a distinctly different type of animation than the target based animation.",
+      "parentUuid": "05b74be1_0748ff86",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "091267f3_8a634adc",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 15
@@ -91,6 +163,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f305dd_232c3c95",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091267f3_8a634adc",
+      "range": {
+        "startLine": 141,
+        "startChar": 47,
+        "endLine": 141,
+        "endChar": 76
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9cdceeb8_aaa8a4e6",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17008db0_90e8a464",
+      "range": {
+        "startLine": 142,
+        "startChar": 34,
+        "endLine": 142,
+        "endChar": 39
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f2fbc3_93c6fa98",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimationBuilder.kt",
         "patchSetId": 15
@@ -137,6 +257,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "970e21ac_7262c0e8",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimationBuilder.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "e6f2fbc3_93c6fa98",
+      "range": {
+        "startLine": 191,
+        "startChar": 25,
+        "endLine": 191,
+        "endChar": 32
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1bc22232_d2b2e849",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "504de316_12522016",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0702743_f88b802f",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
         "patchSetId": 15
@@ -174,6 +342,30 @@
       "writtenOn": "2019-06-13T18:48:54Z",
       "side": 1,
       "message": "I can think about this class to be useful not only for \"scrolling\". Maybe FlingAnimation?",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca15046_531f6e4f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "This interface is a mix of fling (i.e. scroll settling) and target-based animation (analogous to scrollTo(...) ), that\u0027s why ScrollAnimation sounds more fitting than FlingAnimation IMO. I\u0027m not too keen on the name ScrollAnimation either. Happy to hear more suggestions. :)",
+      "parentUuid": "f0702743_f88b802f",
       "range": {
         "startLine": 85,
         "startChar": 10,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "840f78f5_7f0ff49f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b6e6b48_66a46a4f",
+      "range": {
+        "startLine": 133,
+        "startChar": 22,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fcb51ae_6fd04a51",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
         "patchSetId": 15
@@ -220,6 +436,30 @@
       "writtenOn": "2019-06-13T18:48:54Z",
       "side": 1,
       "message": "just from the function declaration it is confusing there are two animation objects. it would be nice to make clearer the second one will be used only when adjustTarget is provided. I guess it can be improved if we create a special entity combining both of them.\nMaybe something like this:\n\nfun fling(\n    startVelocity: Float,\n    decay: DecayAnimation \u003d ExponentialDecay(),\n    flingFinisher: FlingFinisher? \u003d null,\n    onFinished: ((finished: Boolean) -\u003e Unit)? \u003d null\n)\n\nclass FlingFinisher(\n    val adjustTarget: ((Float) -\u003e Float),\n    val animation: AnimationBuilder\u003cFloat\u003e \u003d PhysicsBuilder(),\n}",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8029937_1cbcaa4d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "I grouped the new target and an optional target-based animation in one object. I think it\u0027s more clear now. Let me know what you think.",
+      "parentUuid": "0fcb51ae_6fd04a51",
       "range": {
         "startLine": 135,
         "startChar": 8,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "894d56f8_a6598f34",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/AnimatableSeekBar.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b157a80c_01900d9d",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c611e1bc_429cba8d",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/AnimatableSeekBar.kt",
         "patchSetId": 15
@@ -275,6 +539,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e8dd682_171de082",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/AnimatableSeekBar.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c611e1bc_429cba8d",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 26
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "6c6586e2_dabf43db",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/FancyScrolling.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Good catch. Thanks.",
+      "parentUuid": "6abda672_4dda45bc",
+      "range": {
+        "startLine": 69,
+        "startChar": 49,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2b0ab6e_ca8578b2",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
         "patchSetId": 15
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "2b7cafe4_a8943c52",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/SwipeToDismiss.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2b0ab6e_ca8578b2",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 69
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9a6e453_5811a43a",
         "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
         "patchSetId": 15
@@ -344,6 +680,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbe3559_cd2a53bb",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-14T16:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a6e453_5811a43a",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
