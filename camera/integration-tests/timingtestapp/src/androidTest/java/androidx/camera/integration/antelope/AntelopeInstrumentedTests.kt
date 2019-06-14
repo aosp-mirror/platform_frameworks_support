@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package androidx.camera.integration.antelope
 
 import android.content.Intent
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
+import android.hardware.camera2.CameraMetadata
 import android.preference.PreferenceManager
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -31,7 +36,6 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import org.junit.Before
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
-import androidx.test.espresso.Espresso.pressBackUnconditionally
 import androidx.test.espresso.IdlingPolicies
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import java.io.File
@@ -43,13 +47,24 @@ import org.junit.FixMethodOrder
 import org.junit.runners.MethodSorters
 import java.util.concurrent.TimeUnit
 import androidx.camera.integration.antelope.MainActivity.Companion.antelopeIdlingResource
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.FlakyTest
 import org.junit.After
+import org.junit.runner.RunWith
+import com.google.common.truth.Truth.assertThat
+
+const val PREVIEW_BUFFER = "1500"
 
 /**
  * Suite of tests that cover the major use cases for Antelope.
  *
  * Assumes device/emulator has a front and a back camera.
+ *
+ * Note: tests are suppressed for pre/post-submit testing as these tests exercise the camera
+ * device thoroughly - failures that leave the device in a bad state can cause future tests to fail.
  */
+@androidx.test.filters.Suppress
+@RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AntelopeInstrumentedTests {
     @get: Rule
@@ -83,6 +98,15 @@ class AntelopeInstrumentedTests {
         getInstrumentation().getUiAutomation().executeShellCommand(
             "pm grant " + activityRule.activity.applicationContext +
                 " android.permission.WRITE_EXTERNAL_STORAGE")
+    }
+
+    /**
+     * Delete any pre-existing logs
+     */
+    @Before
+    fun deleteLogs() {
+        val activity = activityRule.activity as MainActivity
+        deleteCSVFiles(activity)
     }
 
     /**
@@ -131,15 +155,14 @@ class AntelopeInstrumentedTests {
     @MediumTest
     fun test02WriteandDeleteLogFiles() {
         val activity = activityRule.activity as MainActivity
-        val context = activity.applicationContext
 
         // Write a fake log file
         writeCSV(activity, "fakelogfile", "This is a fake log file")
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
 
         // Delete all logs from the device
         deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isTrue()
     }
 
     /**
@@ -157,10 +180,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -168,12 +187,9 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
-
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
             activity.startSingleTest()
@@ -181,7 +197,7 @@ class AntelopeInstrumentedTests {
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -199,17 +215,13 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
         prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
 
         if (hasCamera("1"))
@@ -219,16 +231,13 @@ class AntelopeInstrumentedTests {
 
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -246,10 +255,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key),
             "MULTI_PHOTO_CHAIN")
@@ -259,12 +264,9 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
-
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
             activity.startSingleTest()
@@ -273,7 +275,7 @@ class AntelopeInstrumentedTests {
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(
             withSubstring("Multiple Captures (Chained)\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -291,10 +293,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -303,12 +301,9 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "30")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "1500")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
-
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
             activity.startSingleTest()
@@ -319,7 +314,7 @@ class AntelopeInstrumentedTests {
 
         // Check if test was aborted successfully and log directory is still empty
         onView(withId(R.id.text_log)).check(matches(withSubstring("ABORTED")))
-        assert(isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isTrue()
     }
 
     /**
@@ -334,12 +329,8 @@ class AntelopeInstrumentedTests {
         val res = context.resources
         val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
 
-        // If device doesn't have both a front and back camera, skip this test
-        assumeTrue(hasFrontAndBackCamera())
-
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
+        // If device doesn't have both camera 0 and 1, skip this test
+        assumeTrue(hasCameraZeroAndOne())
 
         // Set up switch test
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "SWITCH_CAMERA")
@@ -348,12 +339,9 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
-
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
             activity.startSingleTest()
@@ -361,7 +349,7 @@ class AntelopeInstrumentedTests {
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Switch Cameras\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -388,12 +376,9 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), false)
         prefEditor.commit()
-
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
             activity.startSingleTest()
@@ -403,19 +388,17 @@ class AntelopeInstrumentedTests {
         onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture\nCamera")))
 
         // Check photo is on disk
-        assert(!isPhotoDirEmpty())
+        assertThat(isPhotoDirEmpty()).isFalse()
 
         // Delete all photos on the device
         deleteTestPhotos(activity)
-        assert(isPhotoDirEmpty())
-
-        // Close options menu
-        pressBackUnconditionally()
+        assertThat(isPhotoDirEmpty()).isTrue()
     }
 
     /**
      * Performs a multi capture with the camera device 0 using the Camera 1 API
      */
+    @FlakyTest
     @Test
     @LargeTest
     @RepeatRule.Repeat(times = 1)
@@ -428,10 +411,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera1")
@@ -440,20 +419,18 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -471,10 +448,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "CameraX")
@@ -483,20 +456,18 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -514,10 +485,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up maximum test coverage for Camera2
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
             hashSetOf("Camera2"))
@@ -526,7 +493,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_focus_key),
             res.getStringArray(R.array.array_settings_focus).toHashSet())
 
-        if (hasFrontAndBackCamera())
+        if (hasCameraZeroAndOne())
             prefEditor.putBoolean(res.getString(R.string.settings_autotest_switchtest_key), true)
         else
             prefEditor.putBoolean(res.getString(R.string.settings_autotest_switchtest_key), false)
@@ -534,19 +501,17 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -564,10 +529,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up maximum test coverage for CameraX
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
             hashSetOf("CameraX"))
@@ -584,24 +545,23 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
      * Performs a full set of captures for all possible cameras/image sizes/tests for Camera1
      */
+    @FlakyTest
     @Test
     @LargeTest
     @RepeatRule.Repeat(times = 1)
@@ -614,10 +574,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up maximum test coverage for Camera1
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
             hashSetOf("Camera1"))
@@ -626,7 +582,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_focus_key),
             res.getStringArray(R.array.array_settings_focus).toHashSet())
 
-        if (hasFrontAndBackCamera())
+        if (hasCameraZeroAndOne())
             prefEditor.putBoolean(res.getString(R.string.settings_autotest_switchtest_key), true)
         else
             prefEditor.putBoolean(res.getString(R.string.settings_autotest_switchtest_key), false)
@@ -634,19 +590,17 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -656,11 +610,11 @@ class AntelopeInstrumentedTests {
         val csvDir = File(Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DOCUMENTS), MainActivity.LOG_DIR)
 
-        if (csvDir.exists()) {
+        return if (csvDir.exists()) {
             val children = csvDir.listFiles()
-            return (children.isEmpty())
+            (children!!.isEmpty())
         } else {
-            return true
+            true
         }
     }
 
@@ -671,11 +625,11 @@ class AntelopeInstrumentedTests {
         val photoDir = File(Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DCIM), MainActivity.PHOTOS_DIR)
 
-        if (photoDir.exists()) {
+        return if (photoDir.exists()) {
             val children = photoDir.listFiles()
-            return (children.isEmpty())
+            (children!!.isEmpty())
         } else {
-            return true
+            true
         }
     }
 
@@ -689,6 +643,29 @@ class AntelopeInstrumentedTests {
     }
 
     /**
+     * Checks whether the test device has a camera of the given type. Usually
+     * CameraMetadata.LENS_FACING_BACK or CameraMetadata.LENS_FACING_FRONT
+     */
+    private fun hasCameraType(cameraType: Int): Boolean {
+        val activity = activityRule.activity as MainActivity
+        val manager = activity.getSystemService(AppCompatActivity.CAMERA_SERVICE) as CameraManager
+
+        for (cameraId in manager.cameraIdList) {
+            try {
+                val characteristics = manager.getCameraCharacteristics(cameraId)
+                val cameraFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
+
+                if (cameraFacing == cameraType) {
+                    return true
+                }
+            } catch (e: CameraAccessException) {
+                return false
+            }
+        }
+        return false
+    }
+
+    /**
      * Checks if this devices has either a camera with id 0 or id 1
      */
     private fun hasAnyCamera(): Boolean = hasCamera("0") || hasCamera("1")
@@ -696,7 +673,13 @@ class AntelopeInstrumentedTests {
     /**
      * Checks if this devices has both a camera with id 0 and id 1
      */
-    private fun hasFrontAndBackCamera(): Boolean = hasCamera("0") && hasCamera("1")
+    private fun hasCameraZeroAndOne(): Boolean = hasCamera("0") && hasCamera("1")
+
+    /**
+     * Checks if this devices has both a front and back camera
+     */
+    private fun hasFrontAndBackCamera(): Boolean = hasCameraType(CameraMetadata.LENS_FACING_BACK) &&
+            hasCameraType(CameraMetadata.LENS_FACING_FRONT)
 
     /**
      * Determine what the first camera in the system is.

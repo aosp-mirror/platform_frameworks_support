@@ -33,15 +33,14 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.futures.ResolvableFuture;
+import androidx.concurrent.ListenableFuture;
+import androidx.concurrent.callback.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelize;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -1170,7 +1169,13 @@ public abstract class SessionPlayer implements AutoCloseable {
         }
 
         private boolean intEquals(String key, MediaFormat format1, MediaFormat format2) {
-            return format1.getInteger(key) == format2.getInteger(key);
+            boolean exists1 = format1.containsKey(key);
+            boolean exists2 = format2.containsKey(key);
+            if (exists1 && exists2) {
+                return format1.getInteger(key) == format2.getInteger(key);
+            } else {
+                return !exists1 && !exists2;
+            }
         }
 
         private void parcelIntValue(String key) {
