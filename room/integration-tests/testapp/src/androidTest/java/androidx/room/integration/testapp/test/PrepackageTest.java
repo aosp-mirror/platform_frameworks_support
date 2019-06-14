@@ -297,6 +297,41 @@ public class PrepackageTest {
     }
 
     @Test
+    public void createFromAssert_multiInstanceCopy() throws InterruptedException {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+
+        ProductsDatabase database1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_big.db")
+                .build();
+
+        ProductsDatabase database2 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_big.db")
+                .build();
+
+        Thread t1 = new Thread("DB Thread A") {
+            @Override
+            public void run() {
+                database1.getProductDao().countProducts();
+            }
+        };
+        Thread t2 = new Thread("DB Thread B") {
+            @Override
+            public void run() {
+                database2.getProductDao().countProducts();
+            }
+        };
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+    }
+
+    @Test
     public void createFromFile() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
         context.deleteDatabase("products_external.db");
