@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "b85ee0ea_83b153fc",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-14T20:12:58Z",
+      "side": 1,
+      "message": "revert name change",
+      "range": {
+        "startLine": 489,
+        "startChar": 13,
+        "endLine": 489,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "952b7249_393e11e3",
+        "filename": "paging/runtime/src/main/java/androidx/paging/AsyncPagedListDiffer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-14T20:12:58Z",
+      "side": 1,
+      "message": "removeLoadStateListener",
+      "range": {
+        "startLine": 507,
+        "startChar": 13,
+        "endLine": 507,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55b2a714_a937eac0",
         "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
         "patchSetId": 4
@@ -31,6 +77,52 @@
       "side": 1,
       "message": "Admittedly, I don\u0027t have a good understanding of this warning - but I did this because Studio was warning me about leaking `this` in a constructor of non-final class.\n\nShould we actually be doing something like by lazy here instead?\n\nI think we just want to be sure that if onLoadStateChanged is overridden we call the overridden version in the constructor\u0027s call to differ.addLoadStateChangedListener, etc.",
       "parentUuid": "55b2a714_a937eac0",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d798f1e_7a7da335",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-14T20:12:58Z",
+      "side": 1,
+      "message": "revert these name changes",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123f6ad7_8c15817b",
+        "filename": "paging/runtime/src/main/java/androidx/paging/PagedListAdapter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-14T20:12:58Z",
+      "side": 1,
+      "message": "revert name change",
+      "range": {
+        "startLine": 263,
+        "startChar": 13,
+        "endLine": 263,
+        "endChar": 43
+      },
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
