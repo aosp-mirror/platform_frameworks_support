@@ -122,6 +122,10 @@ package androidx.room.util {
     method public static int readVersion(java.io.File) throws java.io.IOException;
   }
 
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class FileUtil {
+    method public static void copy(java.nio.channels.ReadableByteChannel, java.nio.channels.FileChannel) throws java.io.IOException;
+  }
+
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class FtsTableInfo {
     ctor public FtsTableInfo(String!, java.util.Set<java.lang.String!>!, java.util.Set<java.lang.String!>!);
     ctor public FtsTableInfo(String!, java.util.Set<java.lang.String!>!, String!);
@@ -129,6 +133,12 @@ package androidx.room.util {
     field public final java.util.Set<java.lang.String!>! columns;
     field public final String! name;
     field public final java.util.Set<java.lang.String!>! options;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class ProcessLock {
+    ctor public ProcessLock(String, java.io.File);
+    method public void lock();
+    method public void unlock();
   }
 
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class SneakyThrow {
