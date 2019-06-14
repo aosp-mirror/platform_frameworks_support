@@ -63,7 +63,7 @@ public abstract class Keyframe<T> implements Cloneable {
      * The type of the value in this Keyframe. This type is determined at construction time,
      * based on the type of the <code>value</code> object passed into the constructor.
      */
-    Class mValueType;
+    Class<?> mValueType;
 
     /**
      * The optional interpolator for the interval preceding this keyframe. A null interpolator
@@ -261,10 +261,13 @@ public abstract class Keyframe<T> implements Cloneable {
      * {@link TypeEvaluator} to use when calculating values between keyframes. The type is based
      * on the type of Keyframe created.
      *
-     * @return The type of the value stored in the Keyframe.
+     * @return The type of the value stored in the Keyframe, or {@code Class<Object>} if the value
+     * supplied was null.
      */
     @NonNull
-    public Class getType() {
+    public Class<?> getType() {
+        // This cannot be Class<T> because calling ofObject(1, (String) null).getType() produces
+        // Object.class, not String.class, betraying the ObjectAnimator<String> type's generic.
         return mValueType;
     }
 
