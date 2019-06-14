@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12d88685_a21fcb9f",
+        "filename": "room/common/src/main/java/androidx/room/Delete.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T00:52:44Z",
+      "side": 1,
+      "message": "is this just the primary key or anything?\ne.g. can I do:\ndata class FooEntity(@PrimaryKey val id : Int, val name :String)\ndata class FooName(val name : String)\n@Delete(target\u003dFoo.class)\nfun deletebyname(fooName : FooName)\n\nif the code above will delete by name, we should document this because suddenly\n\n@Delete\nfun delete(foo : FooEntity)\nis not equal to\n@Delete(target\u003dFooEntity::class)\nfun deletebyname(foo : FooEntity)\n\nwe should expand the documentation to clarify this (same for update)",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 64,
+        "endChar": 10
+      },
+      "revId": "0076d07d65f699c1e3415884adfeb59257dd6cab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fa6b043_7f4fc3c4",
+        "filename": "room/common/src/main/java/androidx/room/Update.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T00:52:44Z",
+      "side": 1,
+      "message": "we should show user and username classes.",
+      "range": {
+        "startLine": 40,
+        "startChar": 34,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "0076d07d65f699c1e3415884adfeb59257dd6cab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
