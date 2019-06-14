@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5df6a736_1ecc07e3",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-14T14:51:05Z",
+      "side": 1,
+      "message": "you need ownerView.onDescendantInvalidated here as well, right?",
+      "range": {
+        "startLine": 779,
+        "startChar": 59,
+        "endLine": 779,
+        "endChar": 60
+      },
+      "revId": "8a4de44fbca669a525a05c1651c08d3091dec1c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
