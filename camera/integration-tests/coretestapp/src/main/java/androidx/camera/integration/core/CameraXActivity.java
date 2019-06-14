@@ -27,6 +27,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
@@ -104,6 +105,7 @@ public class CameraXActivity extends AppCompatActivity
     private ImageAnalysis mImageAnalysis;
     private ImageCapture mImageCapture;
     private VideoCapture mVideoCapture;
+    private boolean mMaxQualityCapturemode = false;
 
     // Espresso testing variables
     @VisibleForTesting
@@ -288,9 +290,6 @@ public class CameraXActivity extends AppCompatActivity
         int layoutL = centerX - (scaled.getWidth() / 2);
         int layoutT = centerY - (scaled.getHeight() / 2);
 
-        // Do corresponding translation to be center crop
-        matrix.postTranslate(layoutL, layoutT);
-
         textureView.setTransform(matrix);
     }
 
@@ -460,6 +459,9 @@ public class CameraXActivity extends AppCompatActivity
         ImageCaptureConfig config =
                 new ImageCaptureConfig.Builder()
                         .setLensFacing(mCurrentCameraLensFacing)
+                        .setCaptureMode(
+                                mMaxQualityCapturemode ? ImageCapture.CaptureMode.MAX_QUALITY
+                                        : ImageCapture.CaptureMode.MIN_LATENCY)
                         .setTargetName("ImageCapture")
                         .build();
 
@@ -477,10 +479,13 @@ public class CameraXActivity extends AppCompatActivity
         final File dir = this.getExternalFilesDir(null);
         button.setOnClickListener(
                 new View.OnClickListener() {
+                    long mStartCaptureTime = 0;
+
                     @Override
                     public void onClick(View view) {
                         mImageSavedIdlingResource.increment();
 
+                        mStartCaptureTime = SystemClock.elapsedRealtime();
                         mImageCapture.takePicture(
                                 new File(
                                         dir,
@@ -493,6 +498,17 @@ public class CameraXActivity extends AppCompatActivity
                                         if (!mImageSavedIdlingResource.isIdleNow()) {
                                             mImageSavedIdlingResource.decrement();
                                         }
+
+                                        long duration =
+                                                SystemClock.elapsedRealtime() - mStartCaptureTime;
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(CameraXActivity.this,
+                                                        "Image captured in " + duration + " ms",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -510,6 +526,21 @@ public class CameraXActivity extends AppCompatActivity
                 });
 
         refreshFlashButtonIcon();
+
+
+        final Button btnCaptureQuality = this.findViewById(R.id.capture_quality);
+        btnCaptureQuality.setVisibility(View.VISIBLE);
+        btnCaptureQuality.setText(mMaxQualityCapturemode ? "MAX" : "MIN");
+        btnCaptureQuality.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mMaxQualityCapturemode = !mMaxQualityCapturemode;
+                rebindUseCases();
+
+            }
+        });
+
     }
 
     void disableImageCapture() {
@@ -518,6 +549,9 @@ public class CameraXActivity extends AppCompatActivity
         mImageCapture = null;
         Button button = this.findViewById(R.id.Picture);
         button.setOnClickListener(null);
+
+        Button btnCaptureQuality = this.findViewById(R.id.capture_quality);
+        btnCaptureQuality.setVisibility(View.GONE);
 
         refreshFlashButtonIcon();
     }
@@ -720,21 +754,8 @@ public class CameraXActivity extends AppCompatActivity
                                 }
 
                                 Log.d(TAG, "Change camera direction: " + mCurrentCameraLensFacing);
+                                rebindUseCases();
 
-                                // Rebind all use cases.
-                                CameraX.unbindAll();
-                                if (mImageCapture != null) {
-                                    enableImageCapture();
-                                }
-                                if (mPreview != null) {
-                                    enablePreview();
-                                }
-                                if (mImageAnalysis != null) {
-                                    enableImageAnalysis();
-                                }
-                                if (mVideoCapture != null) {
-                                    enableVideoCapture();
-                                }
                             }
                         });
 
@@ -752,6 +773,23 @@ public class CameraXActivity extends AppCompatActivity
                         });
                     }
                 });
+    }
+
+    private void rebindUseCases() {
+        // Rebind all use cases.
+        CameraX.unbindAll();
+        if (mImageCapture != null) {
+            enableImageCapture();
+        }
+        if (mPreview != null) {
+            enablePreview();
+        }
+        if (mImageAnalysis != null) {
+            enableImageAnalysis();
+        }
+        if (mVideoCapture != null) {
+            enableVideoCapture();
+        }
     }
 
     private void setupPermissions() {
