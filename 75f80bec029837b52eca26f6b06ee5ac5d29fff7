@@ -16,6 +16,24 @@
       "revId": "75f80bec029837b52eca26f6b06ee5ac5d29fff7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c9372a_6a8b944f",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/SessionConfigTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-14T02:55:42Z",
+      "side": 1,
+      "message": "For invalid state, there are conflictingTemplate() and conflictingOptions(). For combining \nmultiple MultiValueSet, currently it will not result in invalid state. This test is just to make sure it won\u0027t cause an invalid state, because processing multiValueSet has the opposite result to the general options.\n\nFor the concern of conflict options between multiple CameraEventCallback.onRepeating(), it should be the problem in camera2 package because SessonConfig has no knowledge to CameraEventCallback. For conflict options on CameraEventCallback.onRepeating(), will detect it and print log by aosp/977288.",
+      "parentUuid": "cd9a27f5_9bbce0ea",
+      "revId": "75f80bec029837b52eca26f6b06ee5ac5d29fff7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
