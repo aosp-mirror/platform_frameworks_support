@@ -74,6 +74,30 @@
     },
     {
       "key": {
+        "uuid": "24265227_e7f81971",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-14T20:37:44Z",
+      "side": 1,
+      "message": "there is already a CL for it. resolving.",
+      "parentUuid": "12e3e193_62395c53",
+      "range": {
+        "startLine": 904,
+        "startChar": 13,
+        "endLine": 904,
+        "endChar": 21
+      },
+      "revId": "148c632521154b63c6d39e2d75cd7fbc107585ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4da984d_4db60a79",
         "filename": "room/runtime/src/main/java/androidx/room/RoomOpenHelper.java",
         "patchSetId": 1
