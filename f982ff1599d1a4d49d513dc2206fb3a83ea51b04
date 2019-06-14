@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66a06906_bb181bbc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteActionProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-14T06:39:40Z",
+      "side": 1,
+      "message": "Q) Shouldn\u0027t it be revised as well?",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 68
+      },
+      "revId": "f982ff1599d1a4d49d513dc2206fb3a83ea51b04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
