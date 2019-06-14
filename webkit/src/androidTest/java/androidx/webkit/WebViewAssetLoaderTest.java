@@ -20,9 +20,13 @@ import android.content.ContextWrapper;
 import android.net.Uri;
 import android.webkit.WebResourceResponse;
 
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+import static androidx.webkit.WebViewAssetLoader.PathHandler;
+import static androidx.webkit.WebViewAssetLoader.AssetsPathHandler;
+import static androidx.webkit.WebViewAssetLoader.ResourcesPathHandler;
 import androidx.webkit.internal.AssetHelper;
 
 import org.junit.Assert;
@@ -38,6 +42,9 @@ import java.io.UnsupportedEncodingException;
 @RunWith(AndroidJUnit4.class)
 public class WebViewAssetLoaderTest {
     private static final String TAG = "WebViewAssetLoaderTest";
+
+    private static final String CONTENTS = "Some content for testing";
+    private static final String ENCODING = "utf-8";
 
     private static String readAsString(InputStream is, String encoding) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -71,181 +78,187 @@ public class WebViewAssetLoaderTest {
         }
     }
 
+    private static class TestPathHandler extends PathHandler {
+
+        public TestPathHandler(@NonNull String registeredPath) {
+            super(registeredPath);
+        }
+
+        @Override
+        public WebResourceResponse handle(Uri url) {
+            try {
+                InputStream is = new ByteArrayInputStream(CONTENTS.getBytes(ENCODING));
+                return new WebResourceResponse(null, null, is);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     @Test
     @SmallTest
     public void testCustomPathHandler() throws Throwable {
-        final String contents = "Some content for testing\n";
-        final String encoding = "utf-8";
+        PathHandler pathHandler = new TestPathHandler("/test/");
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                .register(pathHandler)
+                                                .build();
 
-        WebViewAssetLoader.PathHandler assetsHandler =
-                new WebViewAssetLoader.PathHandler("appassets.androidplatform.net", "/notused/",
-                        true) {
-            @Override
-            public InputStream handle(Uri url) {
-                return null;
-            }
-        };
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://appassets.androidplatform.net/test/"));
+        Assert.assertNotNull("didn't match the registered URL", response);
+        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
 
-        WebViewAssetLoader.PathHandler resourcesHandler =
-                new WebViewAssetLoader.PathHandler("appassets.androidplatform.net", "/test/",
-                        true) {
-            @Override
-            public InputStream handle(Uri url) {
-                try {
-                    return new ByteArrayInputStream(contents.getBytes(encoding));
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        WebViewAssetLoader assetLoader = (new WebViewAssetLoader.Builder(new MockContext()))
-                                                .buildForTest(assetsHandler, resourcesHandler);
-
-        WebResourceResponse response =
-                assetLoader.shouldInterceptRequest("http://appassets.androidplatform.net/test/");
-        Assert.assertNotNull("didn't match the exact registered URL", response);
-
-        Assert.assertEquals(contents, readAsString(response.getData(), encoding));
         Assert.assertNull("opened a non-registered URL - should return null",
-                            assetLoader.shouldInterceptRequest("http://foo.bar/"));
+                assetLoader.shouldInterceptRequest(Uri.parse("https://foo.bar/")));
+    }
+
+    @Test
+    @SmallTest
+    public void testCustomDomain() throws Throwable {
+        PathHandler pathHandler = new TestPathHandler("/test/");
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                .onDomain("test.myDomain.net")
+                                                .register(pathHandler)
+                                                .build();
+
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://test.myDomain.net/test/"));
+        Assert.assertNotNull("didn't match the registered URL", response);
+        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+
+        Assert.assertNull("opened a non-registered URL - should return null",
+                assetLoader.shouldInterceptRequest(
+                        Uri.parse("https://appassets.androidplatform.net/test/")));
+    }
+
+    @Test
+    @SmallTest
+    public void testAllowingHttp() throws Throwable {
+        PathHandler pathHandler = new TestPathHandler("/test/");
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                .allowHttp(true)
+                                                .register(pathHandler)
+                                                .build();
+
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://appassets.androidplatform.net/test/"));
+        Assert.assertNotNull("didn't match the registered URL", response);
+        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+
+        Assert.assertNotNull("didn't match HTTP URL despite allowing HTTP",
+                assetLoader.shouldInterceptRequest(
+                        Uri.parse("http://appassets.androidplatform.net/test/")));
+    }
+
+    @Test
+    @SmallTest
+    public void testDisallowingHttp() throws Throwable {
+        PathHandler pathHandler = new TestPathHandler("/test/");
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                .register(pathHandler)
+                                                .build();
+
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://appassets.androidplatform.net/test/"));
+        Assert.assertNotNull("didn't match the registered URL", response);
+        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+
+        Assert.assertNull("matched HTTP URL despite disallowing HTTP",
+                assetLoader.shouldInterceptRequest(
+                        Uri.parse("http://appassets.androidplatform.net/test/")));
     }
 
     @Test
     @SmallTest
     public void testHostAssets() throws Throwable {
-        final String testHtmlContents = "<body><div>hah</div></body>";
+        final String testHtmlContents = "<body><div>test</div></body>";
 
-        WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder(new MockContext());
-        WebViewAssetLoader assetLoader = builder.buildForTest(new MockAssetHelper() {
-            @Override
-            public InputStream openAsset(Uri url) {
-                if (url.getPath().equals("www/test.html")) {
-                    try {
-                        return new ByteArrayInputStream(testHtmlContents.getBytes("utf-8"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+        PathHandler assetsPathHandler = new AssetsPathHandler("/assets/",
+                new MockAssetHelper() {
+                    @Override
+                    public InputStream openAsset(Uri url) {
+                        if (url.getPath().equals("www/test.html")) {
+                            try {
+                                return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        return null;
                     }
-                }
-                return null;
-            }
-        });
+                });
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                      .register(assetsPathHandler)
+                                                      .build();
 
-        Assert.assertNull("HTTP is not allowed - getAssetsHttpPrefix should return null",
-                                assetLoader.getAssetsHttpPrefix());
-        Assert.assertEquals(assetLoader.getAssetsHttpsPrefix(),
-                                    Uri.parse("https://appassets.androidplatform.net/assets/"));
-
-        WebResourceResponse response =
-                assetLoader.shouldInterceptRequest("https://appassets.androidplatform.net/assets/www/test.html");
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://appassets.androidplatform.net/assets/www/test.html"));
         Assert.assertNotNull("failed to match the URL and returned null response", response);
         Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                                    response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), "utf-8"));
+                response.getData());
+        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), ENCODING));
     }
 
     @Test
     @SmallTest
     public void testHostResources() throws Throwable {
-        final String testHtmlContents = "<body><div>hah</div></body>";
+        final String testHtmlContents = "<body><div>test</div></body>";
 
-        WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder(new MockContext());
-        WebViewAssetLoader assetLoader = builder.buildForTest(new MockAssetHelper() {
-            @Override
-            public InputStream openResource(Uri uri) {
-                if (uri.getPath().equals("raw/test.html")) {
-                    try {
-                        return new ByteArrayInputStream(testHtmlContents.getBytes("utf-8"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+        PathHandler resourcesPathHandler = new ResourcesPathHandler("/res/",
+                new MockAssetHelper() {
+                    @Override
+                    public InputStream openResource(Uri uri) {
+                        if (uri.getPath().equals("raw/test.html")) {
+                            try {
+                                return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        return null;
                     }
-                }
-                return null;
-            }
-        });
+                });
+        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                                                      .register(resourcesPathHandler)
+                                                      .build();
 
-        Assert.assertNull("HTTP is not allowed - getResourcesHttpPrefix should return null",
-                                assetLoader.getResourcesHttpPrefix());
-        Assert.assertEquals(assetLoader.getResourcesHttpsPrefix(),
-                                    Uri.parse("https://appassets.androidplatform.net/res/"));
-
-        WebResourceResponse response =
-                 assetLoader.shouldInterceptRequest("https://appassets.androidplatform.net/res/raw/test.html");
+        WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                Uri.parse("https://appassets.androidplatform.net/res/raw/test.html"));
         Assert.assertNotNull("failed to match the URL and returned null response", response);
-        Assert.assertNotNull("matched the prefix URL but not the file",
-                                    response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), "utf-8"));
+        Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
+                response.getData());
+        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), ENCODING));
     }
 
     @Test
     @SmallTest
-    public void testHostAssetsOnCustomUri() throws Throwable {
-        final String testHtmlContents = "<body><div>hah</div></body>";
-
-        WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder(new MockContext());
-        builder.setDomain("example.com")
-                        .setAssetsHostingPath("/android_assets/")
-                        .allowHttp();
-        WebViewAssetLoader assetLoader = builder.buildForTest(new MockAssetHelper() {
-            @Override
-            public InputStream openAsset(Uri url) {
-                if (url.getPath().equals("www/test.html")) {
+    public void testMultiplePathHandlers() throws Throwable {
+        WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder();
+        for (int i = 1; i <= 5; ++i) {
+            final String testContent = CONTENTS + Integer.toString(i);
+            builder.register(new PathHandler("/test_path_" + Integer.toString(i) + "/") {
+                @Override
+                public WebResourceResponse handle(Uri url) {
                     try {
-                        return new ByteArrayInputStream(testHtmlContents.getBytes("utf-8"));
-                    } catch (IOException e) {
+                        InputStream is = new ByteArrayInputStream(testContent.getBytes(ENCODING));
+                        return new WebResourceResponse(null, null, is);
+                    } catch (UnsupportedEncodingException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                return null;
-            }
-        });
+            });
+        }
+        WebViewAssetLoader assetLoader = builder.build();
 
-        Assert.assertEquals(assetLoader.getAssetsHttpPrefix(),
-                                    Uri.parse("http://example.com/android_assets/"));
-        Assert.assertEquals(assetLoader.getAssetsHttpsPrefix(),
-                                    Uri.parse("https://example.com/android_assets/"));
-
-        WebResourceResponse response =
-                assetLoader.shouldInterceptRequest("http://example.com/android_assets/www/test.html");
-        Assert.assertNotNull("failed to match the URL and returned null response", response);
-        Assert.assertNotNull("matched the prefix URL but not the file",
-                                    response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), "utf-8"));
-    }
-
-    @Test
-    @SmallTest
-    public void testHostResourcesOnCustomUri() throws Throwable {
-        final String testHtmlContents = "<body><div>hah</div></body>";
-
-        WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder(new MockContext());
-        builder.setDomain("example.com")
-                        .setResourcesHostingPath("/android_res/")
-                        .allowHttp();
-        WebViewAssetLoader assetLoader = builder.buildForTest(new MockAssetHelper() {
-            @Override
-            public InputStream openResource(Uri uri) {
-                if (uri.getPath().equals("raw/test.html")) {
-                    try {
-                        return new ByteArrayInputStream(testHtmlContents.getBytes("utf-8"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                return null;
-            }
-        });
-
-        Assert.assertEquals(assetLoader.getResourcesHttpPrefix(),
-                                    Uri.parse("http://example.com/android_res/"));
-        Assert.assertEquals(assetLoader.getResourcesHttpsPrefix(),
-                                    Uri.parse("https://example.com/android_res/"));
-
-        WebResourceResponse response =
-                assetLoader.shouldInterceptRequest("http://example.com/android_res/raw/test.html");
-        Assert.assertNotNull("failed to match the URL and returned null response", response);
-        Assert.assertNotNull("matched the prefix URL but not the file",
-                                    response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), "utf-8"));
+        for (int i = 5; i >= 1; --i) {
+            WebResourceResponse response = assetLoader.shouldInterceptRequest(
+                    Uri.parse("https://appassets.androidplatform.net/test_path_"
+                            + Integer.toString(i) + "/"));
+            Assert.assertNotNull("failed to match the URL and returned null response", response);
+            Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
+                    response.getData());
+            Assert.assertEquals(CONTENTS + Integer.toString(i),
+                    readAsString(response.getData(), ENCODING));
+        }
     }
 }
