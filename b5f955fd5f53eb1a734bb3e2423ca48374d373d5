@@ -88,6 +88,74 @@
     },
     {
       "key": {
+        "uuid": "3c5d40d0_53d7c68f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-14T12:52:09Z",
+      "side": 1,
+      "message": "instead of calling .get() on the task, you should be able to do task.flatMap { it.outputFile } here, if you can change outputFile to Property\u003cFile\u003e. See Metalava.kt for an example.",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d09d22c6_71970053",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-14T12:52:09Z",
+      "side": 1,
+      "message": "annotate this with @get:Input",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3044c9_41d9bf56",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-14T12:52:09Z",
+      "side": 1,
+      "message": "remove extra parens",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0230bc33_56da8b85",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-14T12:52:09Z",
+      "side": 1,
+      "message": "remove extra parens after !",
+      "revId": "b5f955fd5f53eb1a734bb3e2423ca48374d373d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf72e779_f56528a1",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateAggregateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
