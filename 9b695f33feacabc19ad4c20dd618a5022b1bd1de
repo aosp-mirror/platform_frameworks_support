@@ -293,6 +293,24 @@
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c3302de_3074dc3d",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-14T20:57:52Z",
+      "side": 1,
+      "message": "I think I understand that there\u0027s some performance cost here, but I also think there\u0027s a difference between performance needs of Rx-operators and a PagedList builder. PagingObservableOnSubscribe is really only used in one place on creation of a PagedList.\n\nI ended up reverting this change anyway, because I agree that this is a useful pattern for non-public types.",
+      "parentUuid": "24678775_c1066d20",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
