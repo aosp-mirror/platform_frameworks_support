@@ -33,6 +33,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * An open helper that will copy & open a pre-populated database if it doesn't exists in internal
@@ -111,76 +118,183 @@ class SQLiteCopyOpenHelper implements SupportSQLiteOpenHelper {
     private void verifyDatabaseFile() {
         String databaseName = getDatabaseName();
         File databaseFile = mContext.getDatabasePath(databaseName);
-        if (!databaseFile.exists()) {
-            try {
-                copyDatabaseFile(databaseFile);
-                return;
-            } catch (IOException e) {
-                throw new RuntimeException("Unable to copy database file.", e);
-            }
-        }
-
-        if (mDatabaseConfiguration == null) {
-            return;
-        }
-
-        // A database file is present, check if we need to re-copy it.
-        int currentVersion;
+        CopyLock copyLock = new CopyLock(mContext.getCacheDir(), databaseName);
         try {
-            currentVersion = DBUtil.readVersion(databaseFile);
-        } catch (IOException e) {
-            Log.w(Room.LOG_TAG, "Unable to read database version.", e);
-            return;
-        }
-
-        if (currentVersion == mDatabaseVersion) {
-            return;
-        }
-
-        if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
-            return;
-        }
-
-        if (mContext.deleteDatabase(databaseName)) {
             try {
-                copyDatabaseFile(databaseFile);
-            } catch (IOException e) {
-                // We are more forgiving copying a database on a destructive migration since there
-                // is already a database file that can be opened.
+                // Acquire a copy lock, this lock works across threads and processes, preventing
+                // concurrent copy attempts from occurring.
+                copyLock.acquire();
+            } catch (CopyLockException e) {
                 Log.w(Room.LOG_TAG, "Unable to copy database file.", e);
+                return;
             }
+
+            if (!databaseFile.exists()) {
+                try {
+                    // No database file found, copy and be done.
+                    copyDatabaseFile(databaseFile);
+                    return;
+                } catch (IOException e) {
+                    throw new RuntimeException("Unable to copy database file.", e);
+                }
+            }
+
+            if (mDatabaseConfiguration == null) {
+                return;
+            }
+
+            // A database file is present, check if we need to re-copy it.
+            int currentVersion;
+            try {
+                currentVersion = DBUtil.readVersion(databaseFile);
+            } catch (IOException e) {
+                Log.w(Room.LOG_TAG, "Unable to read database version.", e);
+                return;
+            }
+
+            if (currentVersion == mDatabaseVersion) {
+                return;
+            }
+
+            if (mDatabaseConfiguration.isMigrationRequired(currentVersion, mDatabaseVersion)) {
+                // From the current version to the desired version a migration is required, i.e.
+                // we won't be performing a copy destructive migration.
+                return;
+            }
+
+            if (mContext.deleteDatabase(databaseName)) {
+                try {
+                    copyDatabaseFile(databaseFile);
+                } catch (IOException e) {
+                    // We are more forgiving copying a database on a destructive migration since
+                    // there is already a database file that can be opened.
+                    Log.w(Room.LOG_TAG, "Unable to copy database file.", e);
+                }
+            } else {
+                Log.w(Room.LOG_TAG, "Failed to delete database file ("
+                        + databaseName + ") for a copy destructive migration.");
+            }
+        } finally {
+            copyLock.release();
         }
     }
 
     private void copyDatabaseFile(File destinationFile) throws IOException {
+        ReadableByteChannel input;
+        if (mCopyFromAssetPath != null) {
+            input = Channels.newChannel(mContext.getAssets().open(mCopyFromAssetPath));
+        } else if (mCopyFromFile != null) {
+            input = new FileInputStream(mCopyFromFile).getChannel();
+        } else {
+            throw new IllegalStateException("copyFromAssetPath and copyFromFile == null!");
+        }
+
+        // An intermediate file is used so that we never end up with a half-copied database file
+        // in the internal directory.
+        File intermediateFile = File.createTempFile(getDatabaseName(), ".tmp");
+        FileChannel output = new FileOutputStream(intermediateFile).getChannel();
+        copy(input, output);
+
         File parent = destinationFile.getParentFile();
         if (parent != null && !parent.exists() && !parent.mkdirs()) {
-            throw new IOException("Unable to create directories for "
+            throw new IOException("Failed to create directories for "
                     + destinationFile.getAbsolutePath());
         }
 
-        InputStream input;
-        if (mCopyFromAssetPath != null) {
-            input = mContext.getAssets().open(mCopyFromAssetPath);
-        } else if (mCopyFromFile != null) {
-            input = new FileInputStream(mCopyFromFile);
-        } else {
-            throw new IllegalStateException("copyFromAssetPath and copyFromFile = null!");
+        if (!intermediateFile.renameTo(destinationFile)) {
+            throw new IOException("Failed to move intermediate file ("
+                    + intermediateFile.getAbsolutePath() + ") to destination ("
+                    + destinationFile.getAbsolutePath() + ").");
         }
-        OutputStream output = new FileOutputStream(destinationFile);
-        copy(input, output);
     }
 
-    private void copy(InputStream input, OutputStream output) throws IOException {
+    private void copy(ReadableByteChannel input, FileChannel output) throws IOException {
         try {
-            int length;
-            byte[] buffer = new byte[1024 * 4];
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
+            output.lock();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                output.transferFrom(input, 0, Long.MAX_VALUE);
+            } else {
+                InputStream inputStream = Channels.newInputStream(input);
+                OutputStream outputStream = Channels.newOutputStream(output);
+                int length;
+                byte[] buffer = new byte[1024 * 4];
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
             }
         } finally {
             input.close();
             output.close();
+        }
+    }
+
+    /**
+     * Utility class for in-process and multi-process lock mechanism.
+     *
+     * There is two levels of locking:
+     * 1. Thread locking within the same JVM process is done via a map of lock file paths to
+     *    ReentrantLock objects.
+     * 2. Processing locking via a dummy file and FileLock.
+     *
+     * Acquiring this lock will be quick if no other thread or process has the lock. But if the
+     * lock is already held then acquiring will block, until the other thread or process releases
+     * the lock.
+     */
+    private static class CopyLock {
+
+        // in-process lock map
+        private static final Map<String, Lock> sThreadLocks = new HashMap<>();
+
+        private final File mCopyLockFile;
+        private final Lock mThreadLock;
+        private FileChannel mLockChannel;
+
+        CopyLock(File lockDir, String name) {
+            mCopyLockFile = new File(lockDir, name + ".lck");
+            mThreadLock = getThreadLock(mCopyLockFile.getAbsolutePath());
+        }
+
+        boolean acquire() throws CopyLockException {
+            if (mThreadLock.tryLock()) {
+                try {
+                    mLockChannel = new FileOutputStream(mCopyLockFile).getChannel();
+                    if (mLockChannel.tryLock().isValid()) {
+                        return true;
+                    }
+                    mLockChannel.lock();
+                } catch (IOException e) {
+                    throw new CopyLockException("Unable to grab copy lock.", e);
+                }
+            } else {
+                mThreadLock.lock();
+            }
+
+            return false;
+        }
+
+        void release() {
+            if (mLockChannel != null) {
+                try {
+                    mLockChannel.close();
+                } catch (IOException ignored) { }
+            }
+            mThreadLock.unlock();
+        }
+
+        private static Lock getThreadLock(String key) {
+            synchronized (sThreadLocks) {
+                final Lock threadLock = sThreadLocks.get(key);
+                if (threadLock == null) {
+                    sThreadLocks.put(key, new ReentrantLock());
+                }
+                return threadLock != null ? threadLock : sThreadLocks.get(key);
+            }
+        }
+    }
+
+    private static class CopyLockException extends Exception {
+        CopyLockException(String message, Throwable cause) {
+            super(message, cause);
         }
     }
 }
