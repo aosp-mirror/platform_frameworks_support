@@ -35,7 +35,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class PrepackageTest {
 
@@ -294,6 +294,41 @@ public class PrepackageTest {
         dao = database_v2.getProductDao();
         assertThat(dao.countProducts(), is(3));
         assertThat(dao.getProductById(3).name, is("Mofongo"));
+    }
+
+    @Test
+    public void createFromAssert_multiInstanceCopy() throws InterruptedException {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+
+        ProductsDatabase database1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_big.db")
+                .build();
+
+        ProductsDatabase database2 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_big.db")
+                .build();
+
+        Thread t1 = new Thread("DB Thread A") {
+            @Override
+            public void run() {
+                database1.getProductDao().countProducts();
+            }
+        };
+        Thread t2 = new Thread("DB Thread B") {
+            @Override
+            public void run() {
+                database2.getProductDao().countProducts();
+            }
+        };
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
     }
 
     @Test
