@@ -20,12 +20,16 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 /**
  * FragmentContainerView is a customized Layout designed specifically for Fragments. It extends
@@ -43,6 +47,8 @@ import androidx.annotation.RestrictTo;
 @RestrictTo(LIBRARY)
 public final class FragmentContainerView extends FrameLayout {
 
+    private androidx.core.view.OnApplyWindowInsetsListener mApplyWindowInsetsListener;
+
     public FragmentContainerView(@NonNull Context context) {
         super(context);
     }
@@ -56,6 +62,7 @@ public final class FragmentContainerView extends FrameLayout {
             @Nullable AttributeSet attrs,
             int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setupForInsets();
     }
 
     /**
@@ -75,5 +82,33 @@ public final class FragmentContainerView extends FrameLayout {
         throw new UnsupportedOperationException(
                 "FragmentContainerView does not support Layout Transitions or "
                         + "animateLayoutChanges=true.");
+    }
+
+    /**
+     * Setup ApplyWindowInsetsListener and set the View UI flags appropriately.
+     */
+    private void setupForInsets() {
+        if (Build.VERSION.SDK_INT < 21) {
+            return;
+        }
+
+        if (ViewCompat.getFitsSystemWindows(this)) {
+            if (mApplyWindowInsetsListener == null) {
+                mApplyWindowInsetsListener =
+                        new androidx.core.view.OnApplyWindowInsetsListener() {
+                            @Override
+                            public WindowInsetsCompat onApplyWindowInsets(View v,
+                                    WindowInsetsCompat insets) {
+                                return insets;
+                            }
+                        };
+            }
+            // First apply the insets listener
+            ViewCompat.setOnApplyWindowInsetsListener(this, mApplyWindowInsetsListener);
+
+            // Now set the sys ui flags to enable us to lay out in the window insets
+            setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
     }
 }
