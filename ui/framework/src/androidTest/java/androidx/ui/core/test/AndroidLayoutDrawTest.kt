@@ -620,7 +620,7 @@ class AndroidLayoutDrawTest {
             latch: CountDownLatch
         ) {
             Layout(children = {
-                Draw(children = { }, onPaint = { _, _ ->
+                Draw(onPaint = { _, _ ->
                     drawn.value = true
                     latch.countDown()
                 })
@@ -790,7 +790,7 @@ class AndroidLayoutDrawTest {
                                     canvas.drawRect(parentSize.toRect(), paint)
                                     drawLatch.countDown()
                                 }
-                            }, onPaint = { canvas, parentSize ->
+                            }, onPaint = { canvas, parentSize, drawChildren ->
                                 val paint = Paint()
                                 paint.color = model.outerColor
                                 canvas.drawRect(parentSize.toRect(), paint)
@@ -798,14 +798,15 @@ class AndroidLayoutDrawTest {
                                 val end = start * 2
                                 canvas.nativeCanvas.save()
                                 canvas.clipRect(Rect(start, start, end, end))
-                                drawChildren()
+                                drawChildren(canvas)
                                 canvas.nativeCanvas.restore()
                             })
                         }
-                    }, onPaint = { canvas, parentSize ->
+                    }, onPaint = { canvas, parentSize, drawChildren ->
                         val paint = Paint()
                         paint.color = Color(0xFF000000.toInt())
                         canvas.drawRect(parentSize.toRect(), paint)
+                        drawChildren(canvas)
                     })
                 }
             }

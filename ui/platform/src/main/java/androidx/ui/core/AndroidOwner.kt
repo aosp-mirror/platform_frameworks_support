@@ -243,8 +243,8 @@ class AndroidCraneView constructor(context: Context)
     override fun onDetach(node: ComponentNode) {
         if (node is RepaintBoundaryNode) {
             node.container.detach()
-            node.ownerData = null
         }
+        node.ownerData = null
     }
 
     /**
@@ -395,12 +395,14 @@ class AndroidCraneView constructor(context: Context)
                 val previousNode = currentNode
                 currentNode = node
                 clearNodeModels(node)
-                val receiver = DrawNodeScopeImpl(node, canvas, parentSize,
-                    densityReceiver.density)
-                receiver.onPaint(canvas, parentSize)
-                if (!receiver.childDrawn) {
-                    receiver.drawChildren()
+                if (node.ownerData == null) {
+                    node.ownerData = { lCanvas: Canvas ->
+                        node.visitChildren { callDraw(lCanvas, it, parentSize, densityReceiver) }
+                    }
                 }
+                @Suppress("UNCHECKED_CAST")
+                val drawChildren = node.ownerData as (Canvas) -> Unit
+                onPaint(densityReceiver, canvas, parentSize, drawChildren)
                 node.needsPaint = false
                 currentNode = previousNode
             }
@@ -569,25 +571,6 @@ class AndroidCraneView constructor(context: Context)
         }
         if (node is LayoutNode) {
             relayoutNodes.remove(node)
-        }
-    }
-
-    private inner class DrawNodeScopeImpl(
-        private val drawNode: DrawNode,
-        private val canvas: Canvas,
-        private val parentSize: PxSize,
-        override val density: Density
-    ) : DensityReceiver, DrawNodeScope {
-        internal var childDrawn = false
-
-        override fun drawChildren() {
-            if (childDrawn) {
-                throw IllegalStateException("Cannot call drawChildren() twice within Draw element")
-            }
-            childDrawn = true
-            drawNode.visitChildren { child ->
-                callDraw(canvas, child, parentSize, this)
-            }
         }
     }
 }

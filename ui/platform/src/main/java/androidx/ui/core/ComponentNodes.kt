@@ -296,15 +296,11 @@ class PointerInputNode : ComponentNode() {
     var pointerInputHandler: PointerInputHandler = { event, _ -> event }
 }
 
-interface DrawNodeScope : DensityReceiver {
-    fun drawChildren()
-}
-
 /**
  * Backing node for the Draw component.
  */
 class DrawNode : ComponentNode() {
-    var onPaint: DrawNodeScope.(canvas: Canvas, parentSize: PxSize) -> Unit = { _, _ -> }
+    var onPaint: (DensityReceiver, Canvas, PxSize, (Canvas) -> Unit) -> Unit = { _, _, _, _ -> }
         set(value) {
             field = value
             invalidate()

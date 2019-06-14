@@ -19,55 +19,49 @@ import androidx.ui.painting.Canvas
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.memo
+import androidx.compose.unaryPlus
 
 /**
- * Use Draw to get a [Canvas] to paint into the parent.
+ * Draw with children is used when the Canvas should be modified children.
  *
- *     Draw { canvas, parentSize ->
- *         val paint = Paint()
- *         paint.color = Color(0xFF000000.toInt())
- *         canvas.drawRect(Rect(0.0f, 0.0f, parentSize.width, parentSize.height, paint)
- *     }
- *
- * Draw also accepts children as an argument. By default the children are drawn
- * after the draw commands. If it is important to order canvas operations in a
- * different way, use [DrawScope.drawChildren]:
- *
- *     Draw(children) { canvas, parentSize ->
+ *     Draw(children) { canvas, parentSize, drawChildren ->
  *         canvas.save()
- *         val circle = Path()
- *         circle.addOval(parentSize.toRect())
- *         canvas.clipPath(circle)
- *         drawChildren()
+ *         canvas.clip(parentSize.toRect())
+ *         drawChildren(canvas)
  *         canvas.restore()
  *     }
+ * If `drawChildren()` is not called, none of the children will be painted.
  */
 @Composable
 fun Draw(
-    children: @Composable() () -> Unit = {},
+    children: @Composable() () -> Unit,
     @Children(composable = false)
-    onPaint: DrawScope.(canvas: Canvas, parentSize: PxSize) -> Unit
+    onPaint: DensityReceiver.(canvas: Canvas,
+                              parentSize: PxSize,
+                              drawChildren: (Canvas) -> Unit) -> Unit
 ) {
     // Hide the internals of DrawNode
-    <DrawNode onPaint={ canvas, parentSize ->
-        DrawScope(this).onPaint(canvas, parentSize)
+    <DrawNode onPaint={ densityReceiver, canvas, parentSize, drawChildren ->
+        densityReceiver.onPaint(canvas, parentSize, drawChildren)
     }>
         children()
     </DrawNode>
 }
 
 /**
- * Receiver scope for [Draw] lamda that allows ordering the child drawing between
- * canvas operations.
+ * Use Draw to get a [Canvas] to paint into the parent.
+ *
+ *     val paint = +memo { Paint() }
+ *     Draw { canvas, parentSize ->
+ *         paint.value.color = Color.Blue
+ *         canvas.drawRect(Rect(0.0f, 0.0f, parentSize.width, parentSize.height, paint.value)
+ *     }
  */
-class DrawScope internal constructor(private val drawNodeScope: DrawNodeScope) : DensityReceiver {
-    /**
-     * Causes child drawing operations to run.
-     */
-    fun drawChildren() {
-        drawNodeScope.drawChildren()
-    }
-
-    override val density: Density
-        get() = drawNodeScope.density
+@Composable
+fun Draw(@Children(composable = false)
+         onPaint: DensityReceiver.(canvas: Canvas, parentSize: PxSize) -> Unit) {
+    <DrawNode onPaint={ densityReceiver, canvas, parentSize, _ ->
+        densityReceiver.onPaint(canvas, parentSize)
+    }/>
 }
