@@ -179,6 +179,24 @@
       "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24678775_c1066d20",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-14T20:34:20Z",
+      "side": 1,
+      "message": "Some more info here: https://youtu.be/Ho-anLsWvJo?t\u003d1017. It doesn\u0027t actually cover this pattern explicitly but you can infer it from the info. Stop when you see \"enums\". That part is all LIES.",
+      "parentUuid": "dcec4475_724f7b8b",
+      "revId": "9b695f33feacabc19ad4c20dd618a5022b1bd1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
