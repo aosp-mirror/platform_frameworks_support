@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "454363d3_63b4bdc0",
+        "filename": "studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-14T00:18:34Z",
+      "side": 0,
+      "message": "Also maybe relevant is that\n\n  https://coderwall.com/p/whmxya/sed-find-and-replace-with-sed\n\nsuggests doing maybe\n\n  $ sed -i \u0027\u0027 \u0027s/old/new/g\u0027 file.txt",
+      "revId": "744e00f13621ca2de7e2ea3e82acc7ce8e8c03fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
