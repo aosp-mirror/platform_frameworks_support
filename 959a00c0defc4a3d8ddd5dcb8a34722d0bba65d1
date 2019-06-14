@@ -301,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "38664b7d_36d9786d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-14T01:26:35Z",
+      "side": 1,
+      "message": "That would be in direct conflict with aosp/977288 which give CameraEventCallbacks onRepeating higher priority that mSessionConfigs.\n\nIf extensions have been added then it should have higher priority. They are meant to override the common options.",
+      "parentUuid": "5e20c115_40ff9419",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd6d37e4_304dec06",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 11
@@ -387,6 +405,24 @@
       "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "021bad87_bcaa244f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-14T01:26:35Z",
+      "side": 1,
+      "message": "The change in aosp/977288 duplicates the concerns that are here.\n\nI would prefer using those changes because just the code itself makes it clearer what is being done instead of requiring options to be added twice.",
+      "parentUuid": "335e7587_428c301d",
+      "revId": "959a00c0defc4a3d8ddd5dcb8a34722d0bba65d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
