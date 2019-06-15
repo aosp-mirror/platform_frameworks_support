@@ -12,8 +12,8 @@ plugins {
 dependencies {
     api(project(":media"))
     api(project(":media2:media2-common"))
-    api(project(":concurrent-listenablefuture"))
-    implementation(project(":concurrent-listenablefuture-callback"))
+    api(GUAVA_LISTENABLE_FUTURE)
+    implementation(project(":concurrent:concurrent-futures"))
     implementation("androidx.collection:collection:1.0.0")
     compileOnly(CHECKER_FRAMEWORK)
     // Depend on media2-exoplayer so that the library groupId is set to match media2.
@@ -47,7 +47,6 @@ androidx {
     inceptionYear = "2018"
     description = "Media2 Player"
     // TODO: Remove these (b/130838274)
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
     trackRestrictedAPIs = false // TODO: Remove it (b/131561173)
 }
