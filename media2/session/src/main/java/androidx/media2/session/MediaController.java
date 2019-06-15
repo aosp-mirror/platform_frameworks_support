@@ -43,7 +43,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
-import androidx.concurrent.ListenableFuture;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
@@ -61,6 +60,8 @@ import androidx.media2.session.MediaSession.CommandButton;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -1555,6 +1556,7 @@ public class MediaController implements AutoCloseable {
          * @see #setConnectionHints(Bundle)
          */
         @NonNull
+        @SuppressWarnings("unchecked")
         public U setSessionToken(@NonNull SessionToken token) {
             if (token == null) {
                 throw new NullPointerException("token shouldn't be null");
@@ -1574,6 +1576,7 @@ public class MediaController implements AutoCloseable {
          * @return The Builder to allow chaining
          */
         @NonNull
+        @SuppressWarnings("unchecked")
         public U setSessionCompatToken(@NonNull MediaSessionCompat.Token compatToken) {
             if (compatToken == null) {
                 throw new NullPointerException("compatToken shouldn't be null");
@@ -1596,6 +1599,7 @@ public class MediaController implements AutoCloseable {
          * @return The Builder to allow chaining
          */
         @NonNull
+        @SuppressWarnings("unchecked")
         public U setConnectionHints(@NonNull Bundle connectionHints) {
             if (connectionHints == null) {
                 throw new NullPointerException("connectionHints shouldn't be null");
@@ -1612,6 +1616,7 @@ public class MediaController implements AutoCloseable {
          * @return The Builder to allow chaining
          */
         @NonNull
+        @SuppressWarnings("unchecked")
         public U setControllerCallback(@NonNull Executor executor, @NonNull C callback) {
             if (executor == null) {
                 throw new NullPointerException("executor shouldn't be null");
