@@ -394,19 +394,6 @@ internal constructor(internal val type: KeyType) {
         val counted: Boolean
     ) {
         init {
-            validate()
-        }
-
-        // only one of leadingNulls / offset may be used
-        private fun position() = leadingNulls + offset
-
-        internal fun totalCount() = when {
-            // only one of leadingNulls / offset may be used
-            counted -> position() + data.size + trailingNulls
-            else -> TOTAL_COUNT_UNKNOWN
-        }
-
-        private fun validate() {
             if (leadingNulls < 0 || offset < 0) {
                 throw IllegalArgumentException("Position must be non-negative")
             }
@@ -422,6 +409,16 @@ internal constructor(internal val type: KeyType) {
             }
         }
 
+        // only one of leadingNulls / offset may be used
+        private fun position() = leadingNulls + offset
+
+        internal fun totalCount() = when {
+            // only one of leadingNulls / offset may be used
+            counted -> position() + data.size + trailingNulls
+            else -> TOTAL_COUNT_UNKNOWN
+        }
+
+        // TODO: Delete now that tiling is gone?
         internal fun validateForInitialTiling(pageSize: Int) {
             if (!counted) {
                 throw IllegalStateException(
