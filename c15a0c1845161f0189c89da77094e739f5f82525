@@ -310,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "3d72a9f3_b8182630",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-15T02:22:49Z",
+      "side": 1,
+      "message": "Re why have both: I\u0027ll remove the clickViewWithText version.  I had added it to provide more flexibility and the original version of clickMenuListItem used it.\n\nRe registering idling resources: The idling resource is a logical concept, does not need to correspond to actual threads.  So in the case of safebrowsing activity, you would simply expose an Idling resouce from the activity to be used by the test, it can be an instance of https://developer.android.com/reference/androidx/test/espresso/idling/CountingIdlingResource.html  increment it in onCreate, decrement it at the end of onReceiveValue callback.",
+      "parentUuid": "1ee16206_0746ad3c",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "833aa395_81afbf27",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
