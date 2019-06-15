@@ -21,7 +21,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -35,15 +39,14 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.media.AudioAttributesCompat;
+import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.UriMediaItem;
+import androidx.media2.player.MediaPlayer;
 import androidx.media2.session.MediaController;
-import androidx.media2.session.SessionToken;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
-
-import java.util.concurrent.Executor;
 
 /**
  * Test application for VideoView/MediaControlView
@@ -57,10 +60,11 @@ public class VideoPlayerActivity extends FragmentActivity {
 
     MyVideoView mVideoView;
     View mResizeHandle;
+    MediaPlayer mMediaPlayer;
+
     private float mSpeed = 1.0f;
 
     private MediaControlView mMediaControlView = null;
-    private MediaController mMediaController = null;
 
     private int mVideoViewDX;
     private int mVideoViewDY;
@@ -83,6 +87,14 @@ public class VideoPlayerActivity extends FragmentActivity {
                 return onTouchVideoView(event);
             }
         });
+
+        mMediaPlayer = new MediaPlayer(VideoPlayerActivity.this);
+        AudioAttributesCompat audioAttributes = new AudioAttributesCompat.Builder()
+                .setUsage(AudioAttributesCompat.USAGE_MEDIA)
+                .setContentType(AudioAttributesCompat.CONTENT_TYPE_MOVIE).build();
+
+        mMediaPlayer.setAudioAttributes(audioAttributes);
+        mVideoView.setPlayer(mMediaPlayer);
 
         mResizeHandle = findViewById(R.id.resize_handle);
         mResizeHandle.setOnTouchListener(new View.OnTouchListener() {
@@ -129,18 +141,12 @@ public class VideoPlayerActivity extends FragmentActivity {
             errorString = "Invalid intent";
         } else {
             UriMediaItem mediaItem = new UriMediaItem.Builder(videoUri).build();
-            mVideoView.setMediaItem(mediaItem);
+            MetadataExtractTask task = new MetadataExtractTask(mediaItem, this);
+            task.execute();
 
             mMediaControlView = new MediaControlView(this);
             mVideoView.setMediaControlView(mMediaControlView, 2000);
             mMediaControlView.setOnFullScreenListener(new FullScreenListener());
-            SessionToken token = mVideoView.getSessionToken();
-
-            Executor executor = ContextCompat.getMainExecutor(this);
-            mMediaController = new MediaController.Builder(this)
-                    .setSessionToken(token)
-                    .setControllerCallback(executor, new ControllerCallback())
-                    .build();
         }
         if (errorString != null) {
             showErrorDialog(errorString);
@@ -151,19 +157,25 @@ public class VideoPlayerActivity extends FragmentActivity {
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
+        try {
+            if (mMediaPlayer != null) {
+                mMediaPlayer.close();
+            }
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             int screenWidth = getResources().getDisplayMetrics().widthPixels;
-            mSpeed = mMediaController.getPlaybackSpeed();
+            mSpeed = mMediaPlayer.getPlaybackSpeed();
             if (ev.getRawX() < (screenWidth / 2.0f)) {
                 mSpeed -= 0.1f;
             } else {
                 mSpeed += 0.1f;
             }
-            mMediaController.setPlaybackSpeed(mSpeed);
+            mMediaPlayer.setPlaybackSpeed(mSpeed);
             Toast.makeText(this, "speed rate: " + String.format("%.2f", mSpeed), Toast.LENGTH_SHORT)
                     .show();
         }
@@ -354,4 +366,61 @@ public class VideoPlayerActivity extends FragmentActivity {
         return "Unknown";
     }
 
+    private class MetadataExtractTask extends AsyncTask<Void, Void, MediaMetadata> {
+        private UriMediaItem mItem;
+        private Context mContext;
+
+        MetadataExtractTask(UriMediaItem mediaItem, Context context) {
+            mItem = mediaItem;
+            mContext = context;
+        }
+
+        @Override
+        protected MediaMetadata doInBackground(Void... params) {
+            return extractMetadata(mItem.getUri());
+        }
+
+        @Override
+        protected void onPostExecute(MediaMetadata metadata) {
+            if (metadata != null) {
+                mItem.setMetadata(metadata);
+                mMediaPlayer.setMediaItem(mItem);
+                mMediaPlayer.prepare();
+            }
+        }
+
+        private MediaMetadata extractMetadata(Uri uri) {
+            MediaMetadataRetriever retriever = null;
+            try {
+                // TODO: Investigate using different API to cover for both content and remote Uris.
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(mContext, uri);
+            } catch (IllegalArgumentException e) {
+                Log.v(TAG, "Cannot retrieve metadata for this media file.");
+                retriever = null;
+            }
+
+            if (retriever != null) {
+                MediaMetadata.Builder builder = new MediaMetadata.Builder();
+                String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+                if (title != null) {
+                    builder.putString(MediaMetadata.METADATA_KEY_TITLE, title);
+                }
+                String artist = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_ARTIST);
+                if (artist != null) {
+                    builder.putString(MediaMetadata.METADATA_KEY_ARTIST, artist);
+                }
+                byte[] album = retriever.getEmbeddedPicture();
+                if (album != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+                    builder.putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, bitmap);
+                }
+
+                MediaMetadata metadata = builder.build();
+                return metadata;
+            }
+            return null;
+        }
+    }
 }

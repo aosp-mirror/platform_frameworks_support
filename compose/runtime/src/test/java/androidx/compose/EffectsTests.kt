@@ -33,8 +33,9 @@ import org.robolectric.annotation.Config
 private class EffectTestActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(LinearLayout(this).apply { id =
-            ComposerComposeTestCase.ROOT_ID
+        setContentView(LinearLayout(this).apply {
+            id =
+                ComposerComposeTestCase.ROOT_ID
         })
     }
 }
@@ -582,13 +583,13 @@ class EffectsTests : TestCase() {
                 {
                     @Suppress("PLUGIN_ERROR")
                     (Observe {
-        val foo = +ambient(Foo)
-        composer.emit(
-            168,
-            { context -> TextView(context).apply { id = tv1Id } },
-            { set(foo) { text = it } }
-        )
-    })
+                        val foo = +ambient(Foo)
+                        composer.emit(
+                            168,
+                            { context -> TextView(context).apply { id = tv1Id } },
+                            { set(foo) { text = it } }
+                        )
+                    })
                 }
             )
         }
@@ -622,11 +623,13 @@ class EffectsTests : TestCase() {
         var buttonCreated = false
 
         fun SimpleComposable2() {
-            with(composer) {
-                val value = +ambient(MyAmbient)
-                emit(534, { context -> TextView(context) }, {
-                    set("$value") { text = it }
-                })
+            Observe {
+                with(composer) {
+                    val value = +ambient(MyAmbient)
+                    emit(534, { context -> TextView(context) }, {
+                        set("$value") { text = it }
+                    })
+                }
             }
         }
 
@@ -701,7 +704,9 @@ class EffectsTests : TestCase() {
         ) {
 
             fun then(block: (activity: Activity) -> Unit): ActiveTest {
-                cc.recompose()
+                cc.composer.runWithCurrent {
+                    cc.compose()
+                }
                 block(activity)
                 return this
             }

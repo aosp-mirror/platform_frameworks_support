@@ -19,9 +19,11 @@ import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
+import android.util.Size;
+import android.view.Surface;
 
 /**
- * Implementation for bokeh view finder use case.
+ * Implementation for bokeh preview use case.
  *
  * <p>This class should be implemented by OEM and deployed to the target devices. 3P developers
  * don't need to implement this, unless this is used for related testing usage.
@@ -83,11 +85,20 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
 
             return null;
         }
+
+        @Override
+        public void onOutputSurface(Surface surface, int imageFormat) {}
+
+        @Override
+        public void onResolutionUpdate(Size size) {}
+
+        @Override
+        public void onImageFormatUpdate(int imageFormat) {}
     };
 
 
     @Override
-    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+    public ProcessorImpl getProcessor() {
         return mRequestUpdateProcessor;
     }
 
