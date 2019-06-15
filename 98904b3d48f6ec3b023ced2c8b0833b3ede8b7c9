@@ -70,6 +70,30 @@
       "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "384023d3_bf364273",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:42:30Z",
+      "side": 1,
+      "message": "This looks like an implementation detail: https://cs.chromium.org/chromium/src/android_webview/java/src/org/chromium/android_webview/AwProxyController.java?l\u003d25-35\u0026rcl\u003d8b74f7b611f4f2a2e858e4581e357d4710d35873\n\nSeems like a Map\u003c\u003e? Or perhaps List\u003cPair\u003e? WDYT Laís?",
+      "parentUuid": "d3e20813_e67f1e35",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
