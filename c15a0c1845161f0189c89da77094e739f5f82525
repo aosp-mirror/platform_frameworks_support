@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "1ee16206_0746ad3c",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T01:31:45Z",
+      "side": 1,
+      "message": "\u003e By default, Espresso is only aware of the UI message queue.  But users can extend it for other operations not on the UI thread, see https://developer.android.com/training/testing/espresso/idling-resource.\n\nCan we register WebView\u0027s native and Java threads as idling resources? I would assume not, since these are implementation details.\n\n\u003e Using a resource id does not guarantee that the view with the resource id is not being dynamically added to the view hierarchy.\n\nAgree in general, but dynamically adding views is less common (vs. updating the text in a TextView) and I think it\u0027s more obviously wrong to call clickViewWithId() when such a view is yet to be created.\n\nIs there a reason we need both clickViewWithId() and clickViewWithText()?",
+      "parentUuid": "5a490eef_98917c29",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "833aa395_81afbf27",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
