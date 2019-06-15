@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "31583dd3_d4808586",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-15T01:29:33Z",
+      "side": 1,
+      "message": "It comes down to async UI updates.  By async, I mean an UI update that is posted to the UI thread from a non-UI thread.  I\u0027ll add a note at the top of this class about async UI updates.",
+      "parentUuid": "6894fb48_dfe8379a",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "c15a0c1845161f0189c89da77094e739f5f82525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7d18bb7_03aee0fb",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/IntegrationAppTestRule.java",
         "patchSetId": 1
