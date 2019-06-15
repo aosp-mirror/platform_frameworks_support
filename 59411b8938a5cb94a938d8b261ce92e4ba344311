@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9112caf5_bb790716",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 1,
+      "message": "Mention this is intended to be extended by apps, to handle other cases",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 66
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452899b3_118a1a6d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 1,
+      "message": "Make this final?",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 23
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333a69d9_ab73755a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 1,
+      "message": "Why are we building a URI?",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 57
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79791bb_574a19bd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 1,
+      "message": "seems weird to have both. Builder pattern should look like:\n\ngetBuilder()\n  .onDomain(\"foo\")\n  .allowHttp(true)\n  .register(/* ... */)\n  .build();",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "412b3d11_9a5ef37f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 1,
+      "message": "comment this?",
+      "range": {
+        "startLine": 342,
+        "startChar": 8,
+        "endLine": 342,
+        "endChar": 41
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

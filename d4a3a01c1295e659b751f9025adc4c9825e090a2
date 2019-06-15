@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aabd77f_6ade1563",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T02:13:42Z",
+      "side": 0,
+      "message": "we still need something like this, so apps know what URLs to use to refer to their own content",
+      "range": {
+        "startLine": 482,
+        "startChar": 15,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
