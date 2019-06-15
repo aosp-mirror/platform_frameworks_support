@@ -27,6 +27,8 @@ import androidx.paging.PagedList.Callback
 import androidx.paging.PagedList.Config
 import androidx.paging.PagedList.Config.Builder
 import androidx.paging.PagedList.Config.Companion.MAX_SIZE_UNBOUNDED
+import androidx.paging.PagedList.LoadState
+import androidx.paging.PagedList.LoadType
 import androidx.paging.futures.DirectExecutor
 import androidx.paging.futures.transform
 import com.google.common.util.concurrent.ListenableFuture
@@ -35,6 +37,31 @@ import java.util.AbstractList
 import java.util.ArrayList
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
+
+/**
+ * Callback for changes to loading state - whether the refresh, prepend, or append is idle, loading,
+ * or has an error.
+ *
+ * Used to observe the [LoadState] of any [LoadType] (REFRESH/START/END). For UI purposes (swipe
+ * refresh, loading spinner, retry button), this is typically done by registering a
+ * [LoadStateListener] with the [PagedListAdapter] or [AsyncPagedListDiffer].
+ *
+ * These calls will be dispatched on the executor defined by [Builder.setNotifyExecutor], which is
+ * generally the main/UI thread.
+ *
+ * Called when the LoadState has changed - whether the refresh, prepend, or append is idle, loading,
+ * or has an error.
+ *
+ * REFRESH events can be used to drive a [androidx.swiperefreshlayout.widget.SwipeRefreshLayout], or
+ * START/END events can be used to drive loading spinner items in your `RecyclerView`.
+ *
+ * @param type [LoadType] - START, END, or REFRESH.
+ * @param state [LoadState] - IDLE, LOADING, DONE, ERROR, or RETRYABLE_ERROR
+ * @param error [Throwable] if in an error state, null otherwise.
+ *
+ * @see [PagedList.retry]
+ */
+typealias LoadStateListener = (type: LoadType, state: LoadState, error: Throwable?) -> Unit
 
 /**
  * Lazy loading list that pages in immutable content from a [DataSource].
@@ -216,9 +243,9 @@ abstract class PagedList<T : Any> : AbstractList<T> {
     /**
      * State of a PagedList load - associated with a `LoadType`
      *
-     * You can use a [LoadStateListener] to observe [LoadState] of any [LoadType]. For UI purposes
-     * (swipe refresh, loading spinner, retry button), this is typically done by registering a
-     * Listener with the `PagedListAdapter` or `AsyncPagedListDiffer`.
+     * You can use a [LoadStateListener] to observe [LoadState] of any [LoadType]. For UI
+     * purposes (swipe refresh, loading spinner, retry button), this is typically done by
+     * registering a callback with the `PagedListAdapter` or `AsyncPagedListDiffer`.
      */
     enum class LoadState {
         /**
@@ -247,39 +274,6 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * @see .retry
          */
         RETRYABLE_ERROR
-    }
-
-    /**
-     * Listener for changes to loading state - whether the refresh, prepend, or append is idle,
-     * loading, or has an error.
-     *
-     * Can be used to observe the [LoadState] of any [LoadType] (REFRESH/START/END). For UI purposes
-     * (swipe refresh, loading spinner, retry button), this is typically done by registering a
-     * Listener with the [PagedListAdapter] or [AsyncPagedListDiffer].
-     *
-     * These calls will be dispatched on the executor defined by [Builder.setNotifyExecutor], which
-     * is generally the main/UI thread.
-     *
-     * @see LoadType
-     *
-     * @see LoadState
-     */
-    interface LoadStateListener {
-        /**
-         * Called when the LoadState has changed - whether the refresh, prepend, or append is idle,
-         * loading, or has an error.
-         *
-         * REFRESH events can be used to drive a
-         * [androidx.swiperefreshlayout.widget.SwipeRefreshLayout], or START/END events can be used
-         * to drive loading spinner items in your `RecyclerView`.
-         *
-         * @param type Type of load - START, END, or REFRESH.
-         * @param state State of load - IDLE, LOADING, DONE, ERROR, or RETRYABLE_ERROR
-         * @param error Error, if in an error state, null otherwise.
-         *
-         * @see [retry]
-         */
-        fun onLoadStateChanged(type: LoadType, state: LoadState, error: Throwable?)
     }
 
     /**
@@ -430,9 +424,9 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         /**
          * Creates a [PagedList] asynchronously with the given parameters.
          *
-         * This call will dispatch the [DataSource]'s loadInitial method immediately, and
-         * return a `ListenableFuture<PagedList<T>>` that will resolve (triggering listeners)
-         * once the initial load is completed (success or failure).
+         * This call will dispatch the [DataSource]'s loadInitial method immediately, and return a
+         * `ListenableFuture<PagedList<T>>` that will resolve (triggering
+         * [loadStateListeners]) once the initial load is completed (success or failure).
          *
          * @return The newly constructed PagedList
          */
@@ -504,7 +498,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Use [Config.Builder] to construct and define custom loading behavior, such as
      * [Builder.setPageSize], which defines number of items loaded at a time}.
      */
-    open class Config internal constructor(
+    class Config internal constructor(
         /**
          * Size of each page loaded by the PagedList.
          */
@@ -829,13 +823,13 @@ abstract class PagedList<T : Any> : AbstractList<T> {
     abstract class LoadStateManager {
         var refresh = LoadState.IDLE
             private set
-        private var mRefreshError: Throwable? = null
+        private var refreshError: Throwable? = null
         var start = LoadState.IDLE
             private set
-        private var mStartError: Throwable? = null
+        private var startError: Throwable? = null
         var end = LoadState.IDLE
             private set
-        private var mEndError: Throwable? = null
+        private var endError: Throwable? = null
 
         fun setState(type: LoadType, state: LoadState, error: Throwable?) {
             val expectError = state == LoadState.RETRYABLE_ERROR || state == LoadState.ERROR
@@ -849,19 +843,19 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             // deduplicate signals
             when (type) {
                 LoadType.REFRESH -> {
-                    if (refresh == state && mRefreshError == error) return
+                    if (refresh == state && refreshError == error) return
                     refresh = state
-                    mRefreshError = error
+                    refreshError = error
                 }
                 LoadType.START -> {
-                    if (start == state && mStartError == error) return
+                    if (start == state && startError == error) return
                     start = state
-                    mStartError = error
+                    startError = error
                 }
                 LoadType.END -> {
-                    if (end == state && mEndError == error) return
+                    if (end == state && endError == error) return
                     end = state
-                    mEndError = error
+                    endError = error
                 }
             }
             onStateChanged(type, state, error)
@@ -873,10 +867,10 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP) // protected otherwise.
         abstract fun onStateChanged(type: LoadType, state: LoadState, error: Throwable?)
 
-        fun dispatchCurrentLoadState(listener: LoadStateListener) {
-            listener.onLoadStateChanged(LoadType.REFRESH, refresh, mRefreshError)
-            listener.onLoadStateChanged(LoadType.START, start, mStartError)
-            listener.onLoadStateChanged(LoadType.END, end, mEndError)
+        fun dispatchCurrentLoadState(callback: LoadStateListener) {
+            callback(LoadType.REFRESH, refresh, refreshError)
+            callback(LoadType.START, start, startError)
+            callback(LoadType.END, end, endError)
         }
     }
 
@@ -897,7 +891,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         this.boundaryCallback = boundaryCallback
         this.config = config
         this.callbacks = ArrayList()
-        this.listeners = ArrayList()
+        this.loadStateListeners = ArrayList()
         requiredRemainder = this.config.prefetchDistance * 2 + this.config.pageSize
     }
 
@@ -937,7 +931,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
 
     private val callbacks: MutableList<WeakReference<Callback>>
 
-    private val listeners: MutableList<WeakReference<LoadStateListener>>
+    private val loadStateListeners: MutableList<WeakReference<LoadStateListener>>
 
     // if set to true, boundaryCallback is non-null, and should
     // be dispatched when nearby load has occurred
@@ -994,7 +988,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    abstract fun dispatchCurrentLoadState(listener: LoadStateListener)
+    abstract fun dispatchCurrentLoadState(callback: LoadStateListener)
 
     /**
      * Dispatch updates since the non-empty snapshot was taken.
@@ -1035,7 +1029,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * @see size
      */
     open val loadedCount
-        get() = storage.loadedCount
+        get() = storage.storageCount
 
     /**
      * Returns whether the list is immutable.
@@ -1094,10 +1088,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
     }
 
     internal fun dispatchStateChange(type: LoadType, state: LoadState, error: Throwable?) {
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            currentListener?.onLoadStateChanged(type, state, error) ?: listeners.removeAt(i)
-        }
+        loadStateListeners.removeAll { it.get() == null }
+        loadStateListeners.forEach { it.get()?.invoke(type, state, error) }
     }
 
     /**
@@ -1109,13 +1101,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      *
      * @see size
      */
-    override fun get(index: Int): T? {
-        val item = storage[index]
-        if (item != null) {
-            lastItem = item
-        }
-        return item
-    }
+    override fun get(index: Int) = storage[index]?.also { item -> lastItem = item }
 
     /**
      * Load adjacent items to passed index.
@@ -1197,16 +1183,13 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Call this when lowest/HighestIndexAccessed are changed, or boundaryCallbackBegin/EndDeferred
      * is set.
      */
-    @Suppress("MemberVisibilityCanBePrivate") // synthetic access
-    internal fun tryDispatchBoundaryCallbacks(post: Boolean) {
-        val dispatchBegin =
-            boundaryCallbackBeginDeferred && lowestIndexAccessed <= config.prefetchDistance
+    private fun tryDispatchBoundaryCallbacks(post: Boolean) {
+        val dispatchBegin = boundaryCallbackBeginDeferred &&
+                lowestIndexAccessed <= config.prefetchDistance
         val dispatchEnd = boundaryCallbackEndDeferred &&
                 highestIndexAccessed >= size - 1 - config.prefetchDistance
 
-        if (!dispatchBegin && !dispatchEnd) {
-            return
-        }
+        if (!dispatchBegin && !dispatchEnd) return
 
         if (dispatchBegin) {
             boundaryCallbackBeginDeferred = false
@@ -1221,14 +1204,13 @@ abstract class PagedList<T : Any> : AbstractList<T> {
         }
     }
 
-    @Suppress("MemberVisibilityCanBePrivate") // synthetic access
-    internal fun dispatchBoundaryCallbacks(begin: Boolean, end: Boolean) {
+    private fun dispatchBoundaryCallbacks(begin: Boolean, end: Boolean) {
         // safe to deref boundaryCallback here, since we only defer if boundaryCallback present
         if (begin) {
-            boundaryCallback!!.onItemAtFrontLoaded(storage.firstLoadedItem!!)
+            boundaryCallback!!.onItemAtFrontLoaded(storage.firstLoadedItem)
         }
         if (end) {
-            boundaryCallback!!.onItemAtEndLoaded(storage.lastLoadedItem!!)
+            boundaryCallback!!.onItemAtEndLoaded(storage.lastLoadedItem)
         }
     }
 
@@ -1266,16 +1248,11 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * @see removeWeakLoadStateListener
      */
     open fun addWeakLoadStateListener(listener: LoadStateListener) {
-        // first, clean up any empty weak refs
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            if (currentListener == null) {
-                listeners.removeAt(i)
-            }
-        }
+        // Clean up any empty weak refs.
+        loadStateListeners.removeAll { it.get() == null }
 
-        // then add the new one
-        listeners.add(WeakReference(listener))
+        // Add the new one.
+        loadStateListeners.add(WeakReference(listener))
         dispatchCurrentLoadState(listener)
     }
 
@@ -1283,16 +1260,11 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Remove a previously registered [LoadStateListener].
      *
      * @param listener Previously registered listener.
+     *
      * @see addWeakLoadStateListener
      */
     open fun removeWeakLoadStateListener(listener: LoadStateListener) {
-        for (i in listeners.indices.reversed()) {
-            val currentListener = listeners[i].get()
-            if (currentListener == null || currentListener === listener) {
-                // found Listener, or empty weak ref
-                listeners.removeAt(i)
-            }
-        }
+        loadStateListeners.removeAll { it.get() == null || it.get() === listener }
     }
 
     /**
@@ -1318,25 +1290,18 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     open fun addWeakCallback(previousSnapshot: List<T>?, callback: Callback) {
         if (previousSnapshot != null && previousSnapshot !== this) {
-            if (previousSnapshot.isEmpty()) {
-                if (!storage.isEmpty()) {
-                    // If snapshot is empty, diff is trivial - just notify number new items.
-                    // Note: occurs in async init, when snapshot taken before init page arrives
-                    callback.onInserted(0, storage.size)
-                }
-            } else {
+            if (previousSnapshot.isNotEmpty()) {
                 val storageSnapshot = previousSnapshot as PagedList<T>
                 dispatchUpdatesSinceSnapshot(storageSnapshot, callback)
+            } else if (!storage.isEmpty()) {
+                // If snapshot is empty, diff is trivial - just notify number new items.
+                // Note: occurs in async init, when snapshot taken before init page arrives
+                callback.onInserted(0, storage.size)
             }
         }
 
         // first, clean up any empty weak refs
-        for (i in callbacks.indices.reversed()) {
-            val currentCallback = callbacks[i].get()
-            if (currentCallback == null) {
-                callbacks.removeAt(i)
-            }
-        }
+        callbacks.removeAll { it.get() == null }
 
         // then add the new one
         callbacks.add(WeakReference(callback))
@@ -1346,25 +1311,16 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      * Removes a previously added callback.
      *
      * @param callback Callback, previously added.
+     *
      * @see addWeakCallback
      */
     open fun removeWeakCallback(callback: Callback) {
-        for (i in callbacks.indices.reversed()) {
-            val currentCallback = callbacks[i].get()
-            if (currentCallback == null || currentCallback === callback) {
-                // found callback, or empty weak ref
-                callbacks.removeAt(i)
-            }
-        }
+        callbacks.removeAll { it.get() == null || it.get() === callback }
     }
 
     internal fun notifyInserted(position: Int, count: Int) {
         if (count == 0) return
-
-        for (i in callbacks.indices.reversed()) {
-            val callback = callbacks[i].get()
-            callback?.onInserted(position, count)
-        }
+        callbacks.reversed().forEach { it.get()?.onInserted(position, count) }
     }
 
     /**
@@ -1372,11 +1328,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     fun notifyChanged(position: Int, count: Int) {
-        if (count != 0) {
-            for (i in callbacks.indices.reversed()) {
-                callbacks[i].get()?.onChanged(position, count)
-            }
-        }
+        if (count == 0) return
+        callbacks.reversed().forEach { it.get()?.onChanged(position, count) }
     }
 
     /**
@@ -1384,11 +1337,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     fun notifyRemoved(position: Int, count: Int) {
-        if (count != 0) {
-            for (i in callbacks.indices.reversed()) {
-                callbacks[i].get()?.onRemoved(position, count)
-            }
-        }
+        if (count == 0) return
+        callbacks.reversed().forEach { it.get()?.onRemoved(position, count) }
     }
 }
 

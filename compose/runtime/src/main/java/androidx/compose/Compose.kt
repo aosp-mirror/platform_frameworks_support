@@ -190,18 +190,20 @@ object Compose {
         context: Context,
         parent: CompositionReference? = null,
         composable: @Composable() () -> Unit
-    ) {
+    ): CompositionContext {
         var root = getRootComponent(container) as? Root
-        if (root == null) {
+        return if (root == null) {
             root = Root()
             root.composable = composable
             setRoot(container, root)
             val cc = CompositionContext.prepare(context, container, root, parent)
             root.composer = cc
             root.update()
+            cc
         } else {
             root.composable = composable
             root.update()
+            root.composer
         }
     }
 
@@ -240,9 +242,15 @@ object Compose {
  * @see Activity.setContentView
  */
 fun Activity.setContent(composable: @Composable() () -> Unit): CompositionContext? {
-    var compositionContext: CompositionContext?
-    setContentView(FrameLayout(this).apply { compositionContext = compose(composable) })
-    return compositionContext
+    // If there is already a FrameLayout in the root, we assume we want to compose
+    // into it instead of create a new one. This allows for `setContent` to be
+    // called multiple times.
+    val root = window
+        .decorView
+        .findViewById<ViewGroup>(android.R.id.content)
+        .getChildAt(0) as? ViewGroup
+    ?: FrameLayout(this).also { setContentView(it) }
+    return root.compose(composable)
 }
 
 /**

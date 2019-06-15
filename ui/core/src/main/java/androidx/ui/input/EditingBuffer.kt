@@ -16,6 +16,8 @@
 
 package androidx.ui.input
 
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope.LIBRARY
 import androidx.ui.core.TextRange
 import java.lang.IllegalArgumentException
 
@@ -23,8 +25,11 @@ import java.lang.IllegalArgumentException
  * The editing buffer
  *
  * This class manages the all editing relate states, editing buffers, selection, styles, etc.
+ *
+ * @hide
  */
-internal class EditingBuffer(
+@RestrictTo(LIBRARY)
+class EditingBuffer(
     /**
      * The initial text of this editing buffer
      *
@@ -76,6 +81,39 @@ internal class EditingBuffer(
      */
     var compositionEnd = NOWHERE
         private set
+
+    /**
+     * Helper function that returns true if the editing buffer has composition text
+     */
+    fun hasComposition(): Boolean = compositionStart != NOWHERE
+
+    /**
+     * Helper accessor for cursor offset
+     */
+    var cursor: Int
+        /**
+         * Return the cursor offset.
+         *
+         * Since selection and cursor cannot exist at the same time, return -1 if there is a
+         * selection.
+         */
+        get() = if (selectionStart == selectionEnd) selectionEnd else -1
+        /**
+         * Set the cursor offset.
+         *
+         * Since selection and cursor cannot exist at the same time, cancel selection if there is.
+         */
+        set(cursor) = setSelection(cursor, cursor)
+
+    /**
+     * [] operator for the character at the index.
+     */
+    operator fun get(index: Int): Char = gapBuffer[index]
+
+    /**
+     * Returns the length of the buffer.
+     */
+    val length: Int get() = gapBuffer.length
 
     init {
         val start = initialSelection.start
@@ -195,9 +233,18 @@ internal class EditingBuffer(
     }
 
     /**
-     * Clears ongoing composition range if there
+     * Removes the ongoing composition text and reset the composition range.
      */
-    fun clearComposition() {
+    fun cancelComposition() {
+        replace(compositionStart, compositionEnd, "")
+        compositionStart = NOWHERE
+        compositionEnd = NOWHERE
+    }
+
+    /**
+     * Commits the ongoing composition text and reset the composition range.
+     */
+    fun commitComposition() {
         compositionStart = NOWHERE
         compositionEnd = NOWHERE
     }
