@@ -47,9 +47,8 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.AbstractResolvableFuture;
-import androidx.concurrent.callback.ResolvableFuture;
+import androidx.concurrent.futures.AbstractResolvableFuture;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.FileMediaItem;
@@ -58,6 +57,8 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SubtitleData;
 import androidx.media2.common.UriMediaItem;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -715,6 +716,7 @@ public final class MediaPlayer extends SessionPlayer {
         }, mExecutor);
     }
 
+    @SuppressWarnings("unchecked")
     private void addPendingFuture(final PendingFuture pendingFuture) {
         synchronized (mPendingFutures) {
             mPendingFutures.add(pendingFuture);
@@ -2924,7 +2926,7 @@ public final class MediaPlayer extends SessionPlayer {
         return (value > maxValue) ? maxValue : value;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "unchecked"}) /* synthetic access */
     void handleCallComplete(MediaPlayer2 mp, final MediaItem item, int what, int status) {
         PendingCommand expected;
         synchronized (mPendingCommands) {

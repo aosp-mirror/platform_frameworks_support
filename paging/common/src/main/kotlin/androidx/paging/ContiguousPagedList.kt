@@ -55,17 +55,13 @@ open class ContiguousPagedList<K : Any, V : Any>(
         ) = index + prefetchDistance + 1 - itemsBeforeTrailingNulls
     }
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var prependItemsRequested = 0
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var appendItemsRequested = 0
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
     var replacePagesWithNulls = false
 
-    @Suppress("MemberVisibilityCanBePrivate") /* synthetic access */
-    val shouldTrim: Boolean
+    private val shouldTrim: Boolean
 
     private val pager: Pager<K, V>
 
@@ -233,8 +229,8 @@ open class ContiguousPagedList<K : Any, V : Any>(
         triggerBoundaryCallback(LoadType.REFRESH, initialResult.data)
     }
 
-    override fun dispatchCurrentLoadState(listener: LoadStateListener) =
-        pager.loadStateManager.dispatchCurrentLoadState(listener)
+    override fun dispatchCurrentLoadState(callback: LoadStateListener) =
+        pager.loadStateManager.dispatchCurrentLoadState(callback)
 
     override fun setInitialLoadState(loadState: LoadState, error: Throwable?) =
         pager.loadStateManager.setState(LoadType.REFRESH, loadState, error)
