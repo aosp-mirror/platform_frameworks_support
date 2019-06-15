@@ -21,17 +21,6 @@ import androidx.annotation.RestrictTo.Scope.LIBRARY
 import java.util.Objects
 
 /**
- * Constants for editing operation types.
- */
-/** @hide */ @RestrictTo(LIBRARY) const val COMMIT_TEXT = 0
-/** @hide */ @RestrictTo(LIBRARY) const val SET_COMPOSING_REGION = 1
-/** @hide */ @RestrictTo(LIBRARY) const val SET_COMPOSING_TEXT = 2
-/** @hide */ @RestrictTo(LIBRARY) const val DELETE_SURROUNDING_TEXT = 3
-/** @hide */ @RestrictTo(LIBRARY) const val DELETE_SURROUNDING_TEXT_IN_CODE_POINTS = 4
-/** @hide */ @RestrictTo(LIBRARY) const val SET_SELECTION = 5
-/** @hide */ @RestrictTo(LIBRARY) const val FINISH_COMPOSING_TEXT = 6
-
-/**
  * A base class of all EditOperations
  *
  * An EditOperation is a representation of platform IME API call. For example, in Android,
@@ -40,10 +29,17 @@ import java.util.Objects
  * @hide
  */
 @RestrictTo(LIBRARY)
-open class EditOperation(val type: Int)
+interface EditOperation {
+
+    /**
+     * Processes editing buffer with this edit operation.
+     */
+    fun process(buffer: EditingBuffer)
+}
 
 /**
  * An edit operation represent commitText callback from InputMethod.
+ *
  * @see https://developer.android.com/reference/android/view/inputmethod/InputConnection.html#commitText(java.lang.CharSequence,%20int)
  *
  * @hide
@@ -59,12 +55,39 @@ data class CommitTextEditOp(
      * The cursor position after inserted text.
      * See original commitText API docs for more details.
      */
-    val newCursorPostion: Int
-) : EditOperation(COMMIT_TEXT)
+    val newCursorPosition: Int
+) : EditOperation {
+
+    override fun process(buffer: EditingBuffer) {
+        // API description says replace ongoing composition text if there. Then, if there is no
+        // composition text, insert text into cursor position or replace selection.
+        if (buffer.hasComposition()) {
+            buffer.replace(buffer.compositionStart, buffer.compositionEnd, text)
+        } else {
+            // In this editing buffer, insert into cursor or replace selection are equivalent.
+            buffer.replace(buffer.selectionStart, buffer.selectionEnd, text)
+        }
+
+        // After replace function is called, the editing buffer places the cursor at the end of the
+        // modified range.
+        val newCursor = buffer.cursor
+
+        // See above API description for the meaning of newCursorPosition.
+        val newCursorInBuffer = if (newCursorPosition > 0) {
+            newCursor + newCursorPosition - 1
+        } else {
+            newCursor + newCursorPosition - text.length
+        }
+
+        buffer.cursor = newCursorInBuffer.coerceIn(0, buffer.length)
+    }
+}
 
 /**
  * An edit operation represents setComposingRegion callback from InputMethod.
  *
+ * @see https://developer.android.com/reference/android/view/inputmethod/InputConnection.html#setComposingRegion(int,%2520int)
+
  * @hide
  */
 @RestrictTo(LIBRARY)
@@ -78,8 +101,27 @@ data class SetComposingRegionEditOp(
      * The exclusive end offset of the composing region
      */
     val end: Int
-) : EditOperation(SET_COMPOSING_REGION)
+) : EditOperation {
 
+    override fun process(buffer: EditingBuffer) {
+        // The API description says, different from SetComposingText, SetComposingRegion must
+        // preserve the ongoing composition text and set new composition.
+        if (buffer.hasComposition()) {
+            buffer.commitComposition()
+        }
+
+        // Sanitize the input: reverse if reversed, clamped into valid range, ignore empty range.
+        val clampedStart = start.coerceIn(0, buffer.length)
+        val clampedEnd = end.coerceIn(0, buffer.length)
+        if (clampedStart == clampedEnd) {
+            // do nothing. empty composition range is not allowed.
+        } else if (clampedStart < clampedEnd) {
+            buffer.setComposition(clampedStart, clampedEnd)
+        } else {
+            buffer.setComposition(clampedEnd, clampedStart)
+        }
+    }
+}
 /**
  * An edit operation represents setComposingText callback from InputMethod
  *
@@ -98,8 +140,40 @@ data class SetComposingTextEditOp(
      * See original setComposingText API docs for more details.
      */
     val newCursorPosition: Int
-) : EditOperation(SET_COMPOSING_TEXT)
+) : EditOperation {
 
+    override fun process(buffer: EditingBuffer) {
+        if (buffer.hasComposition()) {
+            // API doc says, if there is ongoing composing text, replace it with new text.
+            val compositionStart = buffer.compositionStart
+            buffer.replace(buffer.compositionStart, buffer.compositionEnd, text)
+            if (text.isNotEmpty()) {
+                buffer.setComposition(compositionStart, compositionStart + text.length)
+            }
+        } else {
+            // If there is no composing text, insert composing text into cursor position with
+            // removing selected text if any.
+            val selectionStart = buffer.selectionStart
+            buffer.replace(buffer.selectionStart, buffer.selectionEnd, text)
+            if (text.isNotEmpty()) {
+                buffer.setComposition(selectionStart, selectionStart + text.length)
+            }
+        }
+
+        // After replace function is called, the editing buffer places the cursor at the end of the
+        // modified range.
+        val newCursor = buffer.cursor
+
+        // See above API description for the meaning of newCursorPosition.
+        val newCursorInBuffer = if (newCursorPosition > 0) {
+            newCursor + newCursorPosition - 1
+        } else {
+            newCursor + newCursorPosition - text.length
+        }
+
+        buffer.cursor = newCursorInBuffer.coerceIn(0, buffer.length)
+    }
+}
 /**
  * An edit operation represents deleteSurroundingText callback from InputMethod
  *
@@ -117,8 +191,11 @@ data class DeleteSurroundingTextEditOp(
      * The number of characters in UTF-16 after the cursor to be deleted.
      */
     val afterLength: Int
-) : EditOperation(DELETE_SURROUNDING_TEXT)
-
+) : EditOperation {
+    override fun process(buffer: EditingBuffer) {
+        TODO("Not implemented yet")
+    }
+}
 /**
  * An edit operation represents deleteSurroundingTextInCodePoitns callback from InputMethod
  *
@@ -129,15 +206,18 @@ data class DeleteSurroundingTextEditOp(
 @RestrictTo(LIBRARY)
 data class DeleteSurroundingTextInCodePointsEditOp(
     /**
-     * The number oc characters in Unicode code points before the cursor to be deleted.
+     * The number of characters in Unicode code points before the cursor to be deleted.
      */
     val beforeLength: Int,
     /**
-     * The number oc characters in Unicode code points after the cursor to be deleted.
+     * The number of characters in Unicode code points after the cursor to be deleted.
      */
     val afterLength: Int
-) : EditOperation(DELETE_SURROUNDING_TEXT_IN_CODE_POINTS)
-
+) : EditOperation {
+    override fun process(buffer: EditingBuffer) {
+        TODO("Not implemented yet")
+    }
+}
 /**
  * An edit operation represents setSelection callback from InputMethod
  *
@@ -155,8 +235,19 @@ data class SetSelectionEditOp(
      * The exclusive end offset of the selection region.
      */
     val end: Int
-) : EditOperation(SET_SELECTION)
+) : EditOperation {
 
+    override fun process(buffer: EditingBuffer) {
+        // Sanitize the input: reverse if reversed, clamped into valid range.
+        val clampedStart = start.coerceIn(0, buffer.length)
+        val clampedEnd = end.coerceIn(0, buffer.length)
+        if (clampedStart < clampedEnd) {
+            buffer.setSelection(clampedStart, clampedEnd)
+        } else {
+            buffer.setSelection(clampedEnd, clampedStart)
+        }
+    }
+}
 /**
  * An edit operation represents finishComposingText callback from InputMEthod
  *
@@ -165,7 +256,11 @@ data class SetSelectionEditOp(
  * @hide
  */
 @RestrictTo(LIBRARY)
-class FinishComposingTextEditOp : EditOperation(FINISH_COMPOSING_TEXT) {
+class FinishComposingTextEditOp : EditOperation {
+
+    override fun process(buffer: EditingBuffer) {
+        buffer.commitComposition()
+    }
 
     // Class with empty arguments default ctor cannot be data class.
     // Treating all FinishComposingTextEditOp are equal object.

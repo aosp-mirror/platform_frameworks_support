@@ -119,6 +119,7 @@ package androidx.room.util {
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class DBUtil {
     method public static void dropFtsSyncTriggers(androidx.sqlite.db.SupportSQLiteDatabase!);
     method public static android.database.Cursor query(androidx.room.RoomDatabase!, androidx.sqlite.db.SupportSQLiteQuery!, boolean);
+    method public static int readVersion(java.io.File) throws java.io.IOException;
   }
 
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class FtsTableInfo {
@@ -153,9 +154,11 @@ package androidx.room.util {
   }
 
   public static class TableInfo.Column {
-    ctor public TableInfo.Column(String!, String!, boolean, int);
+    ctor @Deprecated public TableInfo.Column(String!, String!, boolean, int);
+    ctor public TableInfo.Column(String!, String!, boolean, int, String!);
     method public boolean isPrimaryKey();
     field public final int affinity;
+    field public final String! defaultValue;
     field public final String! name;
     field public final boolean notNull;
     field public final int primaryKeyPosition;
