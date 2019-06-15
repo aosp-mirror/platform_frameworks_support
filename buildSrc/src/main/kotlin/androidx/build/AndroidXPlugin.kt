@@ -154,31 +154,20 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks(extension)
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
-                        extension.libraryVariants.all { libraryVariant ->
-                            it.dependsOn(libraryVariant.javaCompileProvider)
-                        }
-                    }
                     val checkReleaseReadyTasks = mutableListOf<TaskProvider<out Task>>()
-                    if (!project.hasProperty(USE_MAX_DEP_VERSIONS)) {
-                        checkReleaseReadyTasks.add(checkNoWarningsTask)
-                    }
                     if (verifyDependencyVersionsTask != null) {
                         checkReleaseReadyTasks.add(verifyDependencyVersionsTask)
                     }
-                    if (!checkReleaseReadyTasks.isEmpty()) {
+                    if (checkReleaseReadyTasks.isNotEmpty()) {
                         project.createCheckReleaseReadyTask(checkReleaseReadyTasks)
                     }
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask?.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
-                        project.gradle.taskGraph.whenReady { executionGraph ->
-                            if (executionGraph.hasTask(checkNoWarningsTask.get())) {
-                                libraryVariant.javaCompileProvider.configure { task ->
-                                    task.options.compilerArgs.add("-Werror")
-                                }
-                            }
+                        libraryVariant.javaCompileProvider.configure { task ->
+                            task.options.compilerArgs.add("-Werror")
+                            task.options.compilerArgs.add("-Xlint:unchecked")
                         }
                     }
                     project.configureLint(extension.lintOptions, androidXExtension)
@@ -242,6 +231,9 @@ class AndroidXPlugin : Plugin<Project> {
         if (isRunningOnBuildServer()) {
             gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
         }
+        val createAggregateBuildInfoFilesTask =
+            tasks.register(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK,
+                CreateAggregateLibraryBuildInfoFileTask::class.java)
         val createLibraryBuildInfoFilesTask =
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
 
@@ -250,6 +242,7 @@ class AndroidXPlugin : Plugin<Project> {
 
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
         buildOnServerTask.dependsOn(createArchiveTask)
+        buildOnServerTask.dependsOn(createAggregateBuildInfoFilesTask)
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
 
         val partiallyDejetifyArchiveTask = partiallyDejetifyArchiveTask(
@@ -473,7 +466,7 @@ class AndroidXPlugin : Plugin<Project> {
                 project.copy {
                     it.from(packageTask.outputDirectory)
                     it.include("*.apk")
-                    it.into(project.getDistributionDirectory())
+                    it.into(File(project.getDistributionDirectory(), "apks"))
                     it.rename { fileName ->
                         if (fileName.contains("media-compat-test") ||
                             fileName.contains("media2-test")) {
@@ -536,9 +529,6 @@ class AndroidXPlugin : Plugin<Project> {
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->
-                        if (androidXExtension.failOnUncheckedWarnings) {
-                            javaCompile.options.compilerArgs.add("-Xlint:unchecked")
-                        }
                         if (androidXExtension.failOnDeprecationWarnings) {
                             javaCompile.options.compilerArgs.add("-Xlint:deprecation")
                         }
@@ -594,12 +584,30 @@ class AndroidXPlugin : Plugin<Project> {
             if (extension.publish.shouldRelease()) {
                 // Only generate build info files for published libraries.
                 val task = project.tasks.register(
-                    "createLibraryBuildInfoFile",
+                    CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
                     CreateLibraryBuildInfoFileTask::class.java
-                )
-                project.rootProject.tasks.getByName(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-                    .dependsOn(task)
+                ) {
+                    it.outputFile.set(File(project.getDistributionDirectory(),
+                        "${project.group}_${project.name}_build_info.txt"))
+                }
+                project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
+                    it.dependsOn(task)
+                }
+                addTaskToAggregateBuildInfoFileTask(task)
             }
+        }
+    }
+
+    private fun Project.addTaskToAggregateBuildInfoFileTask(
+        task: TaskProvider<CreateLibraryBuildInfoFileTask>
+    ) {
+        project.rootProject.tasks.named(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK).configure {
+            var aggregateLibraryBuildInfoFileTask: CreateAggregateLibraryBuildInfoFileTask = it
+                    as CreateAggregateLibraryBuildInfoFileTask
+            aggregateLibraryBuildInfoFileTask.dependsOn(task)
+            aggregateLibraryBuildInfoFileTask.libraryBuildInfoFiles.add(
+                task.flatMap { it.outputFile }
+            )
         }
     }
 
@@ -625,9 +633,9 @@ class AndroidXPlugin : Plugin<Project> {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
         const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
-        const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
         const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
         const val CREATE_LIBRARY_BUILD_INFO_FILES_TASK = "createLibraryBuildInfoFiles"
+        const val CREATE_AGGREGATE_BUILD_INFO_FILES_TASK = "createAggregateBuildInfoFiles"
     }
 }
 
@@ -664,9 +672,15 @@ fun Project.addToProjectMap(extension: AndroidXExtension) {
 }
 
 private fun isDependencyRange(version: String?): Boolean {
-    return ((version!!.startsWith("[") || version.startsWith("(")) &&
-            (version.endsWith("]") || version.endsWith(")")) ||
-            version.endsWith("+"))
+    if ((version!!.startsWith("[") || version.startsWith("(")) &&
+        version.contains(",") &&
+        (version.endsWith("]") || version.endsWith(")"))) {
+        return true
+    }
+    if (version.endsWith("+")) {
+        return true
+    }
+    return false
 }
 
 private fun Project.createCheckResourceApiTask(): DefaultTask {

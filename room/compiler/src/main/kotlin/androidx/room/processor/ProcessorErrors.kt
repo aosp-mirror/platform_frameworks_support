@@ -200,6 +200,8 @@ object ProcessorErrors {
 
     val CANNOT_FIND_CURSOR_READER = "Cannot figure out how to read this field from a cursor."
 
+    const val DEFAULT_VALUE_NULLABILITY = "Use of NULL as the default value of a non-null field"
+
     private val MISSING_PARAMETER_FOR_BIND = "Each bind variable in the query must have a" +
             " matching method parameter. Cannot find method parameters for %s."
 
@@ -355,8 +357,6 @@ object ProcessorErrors {
                 "If you want to inherit it, you must re-declare it in $childEntity." +
                 " Alternatively, you can set inheritSuperIndices to true in the @Entity annotation."
     }
-
-    val RELATION_NOT_COLLECTION = "Fields annotated with @Relation must be a List or Set."
 
     val NOT_ENTITY_OR_VIEW = "The class must be either @Entity or @DatabaseView."
 
