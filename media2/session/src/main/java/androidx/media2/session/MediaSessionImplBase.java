@@ -410,6 +410,7 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public @NonNull List<ControllerInfo> getConnectedControllers() {
         List<ControllerInfo> controllers = new ArrayList<>();
         controllers.addAll(mSessionStub.getConnectedControllersManager()
@@ -484,6 +485,7 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ListenableFuture<PlayerResult> play() {
         return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
             @Override
@@ -891,6 +893,16 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
                 return player.deselectTrackInternal(trackInfo);
             }
         });
+    }
+
+    @Override
+    public TrackInfo getSelectedTrack(final int trackType) {
+        return dispatchPlayerTask(new PlayerTask<TrackInfo>() {
+            @Override
+            public TrackInfo run(SessionPlayer player) throws Exception {
+                return player.getSelectedTrackInternal(trackType);
+            }
+        }, null);
     }
 
     ///////////////////////////////////////////////////
@@ -1486,11 +1498,17 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
             });
         }
 
+        @Override
         public void onTrackInfoChanged(SessionPlayer player, final List<TrackInfo> trackInfos) {
+            final MediaSessionImplBase session = getSession();
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
-                    callback.onTrackInfoChanged(seq, trackInfos);
+                    callback.onTrackInfoChanged(seq, trackInfos,
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_VIDEO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_METADATA));
                 }
             });
         }
@@ -1671,6 +1689,7 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         final ListenableFuture<T>[] mFutures;
         AtomicInteger mSuccessCount = new AtomicInteger(0);
 
+        @SuppressWarnings("unchecked")
         public static <U extends BaseResult> CombinedCommandResultFuture create(
                 Executor executor, ListenableFuture<U>... futures) {
             return new CombinedCommandResultFuture<U>(executor, futures);

@@ -51,14 +51,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.customview.view.AbsSavedState;
 import androidx.customview.widget.ViewDragHelper;
+import androidx.drawerlayout.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -248,6 +251,8 @@ public class DrawerLayout extends ViewGroup {
     private Rect mChildHitRect;
     private Matrix mChildInvertedMatrix;
 
+    private static boolean sEdgeSizeUsingSystemGestureInsets = Build.VERSION.SDK_INT >= 29;
+
     /**
      * Listener for monitoring events about drawers.
      */
@@ -310,11 +315,11 @@ public class DrawerLayout extends ViewGroup {
     }
 
     public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, R.attr.drawerLayoutStyle);
     }
 
-    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         final float density = getResources().getDisplayMetrics().density;
         mMinDrawerMargin = (int) (MIN_DRAWER_MARGIN * density + 0.5f);
@@ -364,7 +369,17 @@ public class DrawerLayout extends ViewGroup {
             }
         }
 
-        mDrawerElevation = DRAWER_ELEVATION * density;
+        final TypedArray a = context
+                .obtainStyledAttributes(attrs, R.styleable.DrawerLayout, defStyleAttr, 0);
+        try {
+            if (a.hasValue(R.styleable.DrawerLayout_elevation)) {
+                mDrawerElevation = a.getDimension(R.styleable.DrawerLayout_elevation, 0);
+            } else {
+                mDrawerElevation = getResources().getDimension(R.dimen.def_drawer_elevation);
+            }
+        } finally {
+            a.recycle();
+        }
 
         mNonDrawerViews = new ArrayList<View>();
     }
@@ -1027,6 +1042,8 @@ public class DrawerLayout extends ViewGroup {
     }
 
     @SuppressLint("WrongConstant")
+    // Remove deprecation suppression once b/120984242 is resolved.
+    @SuppressWarnings("deprecation")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -1285,6 +1302,24 @@ public class DrawerLayout extends ViewGroup {
                 }
             }
         }
+
+        if (sEdgeSizeUsingSystemGestureInsets) {
+            // Update the ViewDragHelper edge sizes to match the gesture insets
+            WindowInsets rootInsets = getRootWindowInsets();
+            if (rootInsets != null) {
+                WindowInsetsCompat rootInsetsCompat = WindowInsetsCompat
+                        .toWindowInsetsCompat(rootInsets);
+                Insets gestureInsets = rootInsetsCompat.getSystemGestureInsets();
+
+                // We use Math.max() here since the gesture insets will be 0 if the device
+                // does not have gesture navigation enabled
+                mLeftDragger.setEdgeSize(
+                        Math.max(mLeftDragger.getDefaultEdgeSize(), gestureInsets.left));
+                mRightDragger.setEdgeSize(
+                        Math.max(mRightDragger.getDefaultEdgeSize(), gestureInsets.right));
+            }
+        }
+
         mInLayout = false;
         mFirstLayout = false;
     }
@@ -1313,6 +1348,8 @@ public class DrawerLayout extends ViewGroup {
         }
     }
 
+    // Remove deprecation suppression once b/120984242 is resolved.
+    @SuppressWarnings("deprecation")
     private static boolean hasOpaqueBackground(View v) {
         final Drawable bg = v.getBackground();
         if (bg != null) {

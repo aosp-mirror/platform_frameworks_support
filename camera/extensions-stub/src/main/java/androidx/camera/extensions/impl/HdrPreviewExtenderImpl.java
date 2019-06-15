@@ -20,7 +20,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 
 /**
- * Stub implementation for HDR view finder use case.
+ * Stub implementation for HDR preview use case.
  *
  * <p>This class should be implemented by OEM and deployed to the target devices.
  */
@@ -50,7 +50,7 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
-    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+    public ProcessorImpl getProcessor() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 

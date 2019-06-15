@@ -8,7 +8,7 @@ package androidx.customview.view {
     method public int describeContents();
     method public final android.os.Parcelable? getSuperState();
     method public void writeToParcel(android.os.Parcel!, int);
-    field public static final android.os.Parcelable.Creator<androidx.customview.view.AbsSavedState>! CREATOR;
+    field public static final android.os.Parcelable.Creator<androidx.customview.view.AbsSavedState!>! CREATOR;
     field public static final androidx.customview.view.AbsSavedState! EMPTY_STATE;
   }
 
@@ -25,7 +25,7 @@ package androidx.customview.widget {
     method @Deprecated public int getFocusedVirtualView();
     method public final int getKeyboardFocusedVirtualViewId();
     method protected abstract int getVirtualViewAt(float, float);
-    method protected abstract void getVisibleVirtualViews(java.util.List<java.lang.Integer>!);
+    method protected abstract void getVisibleVirtualViews(java.util.List<java.lang.Integer!>!);
     method public final void invalidateRoot();
     method public final void invalidateVirtualView(int);
     method public final void invalidateVirtualView(int, int);
@@ -56,6 +56,7 @@ package androidx.customview.widget {
     method public void flingCapturedView(int, int, int, int);
     method public int getActivePointerId();
     method public android.view.View? getCapturedView();
+    method @Px public int getDefaultEdgeSize();
     method @Px public int getEdgeSize();
     method public float getMinVelocity();
     method @Px public int getTouchSlop();
@@ -66,6 +67,7 @@ package androidx.customview.widget {
     method public boolean isPointerDown(int);
     method public boolean isViewUnder(android.view.View?, int, int);
     method public void processTouchEvent(android.view.MotionEvent);
+    method public void setEdgeSize(@Px @IntRange(from=0) int);
     method public void setEdgeTrackingEnabled(int);
     method public void setMinVelocity(float);
     method public boolean settleCapturedViewAt(int, int);

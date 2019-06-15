@@ -69,7 +69,8 @@ class PagedListSampleActivity : AppCompatActivity() {
             adapter.currentList?.retry()
         }
 
-        adapter.addLoadStateListener { type, state, _ ->
+        adapter.addLoadStateListener { type: PagedList.LoadType, state: PagedList.LoadState,
+                                       _: Throwable? ->
             val button = when (type) {
                 PagedList.LoadType.REFRESH -> buttonRefresh
                 PagedList.LoadType.START -> buttonStart
