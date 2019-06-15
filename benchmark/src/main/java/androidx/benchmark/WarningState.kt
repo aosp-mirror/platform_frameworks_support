@@ -121,7 +121,7 @@ internal object WarningState {
             """.trimMarginWrapNewlines()
         }
 
-        if (isDeviceRooted && !Clocks.areLocked) {
+        if (isDeviceRooted && !CpuInfo.locked) {
             warningPrefix += "UNLOCKED_"
             warningString += """
                 |WARNING: Unlocked CPU clocks
@@ -130,7 +130,9 @@ internal object WarningState {
                 |    dynamic frequency scaling, and thermal throttling. On a rooted device,
                 |    lock your device clocks to a stable frequency with `./gradlew lockClocks`
             """.trimMarginWrapNewlines()
-        } else if (
+        }
+
+        if (!CpuInfo.locked &&
             AndroidBenchmarkRunner.isSustainedPerformanceModeSupported() &&
             !AndroidBenchmarkRunner.sustainedPerformanceModeInUse
         ) {

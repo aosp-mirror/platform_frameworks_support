@@ -18,6 +18,7 @@ package androidx.viewpager2.widget
 
 import android.os.SystemClock.sleep
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors.newSingleThreadExecutor
-import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToInt
@@ -74,7 +74,6 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
     override fun setUp() {
         super.setUp()
-        assumeApiBeforeQ()
         if (config.rtl) {
             localeUtil.resetLocale()
             localeUtil.setLocale(LocaleTestUtils.RTL_LANGUAGE)
@@ -145,7 +144,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
                 // when
                 swipe(initialPage, targetPage)
-                latch.await(1, SECONDS)
+                latch.await(2, SECONDS)
 
                 // then
                 assertBasicState(targetPage)
@@ -266,7 +265,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
             // when
             peekForward()
-            latch.await(1, SECONDS)
+            latch.await(5, SECONDS)
 
             // then
             callback.apply {
@@ -321,7 +320,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
         setUpTest(config.orientation).apply {
             setAdapterSync(adapterProvider(stringSequence(3)))
 
-            viewPager.setCurrentItemSync(2, false, 200, MILLISECONDS)
+            viewPager.setCurrentItemSync(2, false, 1, SECONDS)
 
             // set up test callbacks
             val callback = viewPager.addNewRecordingCallback()
@@ -329,7 +328,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
             // when
             peekBackward()
-            latch.await(10, SECONDS)
+            latch.await(5, SECONDS)
 
             // then
             callback.apply {
@@ -670,7 +669,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
                 val currentPage = viewPager.currentItem
                 val callback = viewPager.addNewRecordingCallback()
 
-                viewPager.setCurrentItemSync(targetPage, false, 200, MILLISECONDS)
+                viewPager.setCurrentItemSync(targetPage, false, 1, SECONDS)
 
                 // then
                 val pageIxDelta = targetPage - currentPage
@@ -698,8 +697,11 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
         test.setAdapterSync(adapterProvider(stringSequence(3)))
         val currentPage = test.viewPager.currentItem
         val halfPage = test.viewPager.pageSize / 2f
-        val pageSwiper = PageSwiperManual(test.viewPager, config.rtl)
+        val pageSwiper = PageSwiperManual(test.viewPager)
         var recorder = test.viewPager.addNewRecordingCallback()
+
+        val vc = ViewConfiguration.get(test.viewPager.context)
+        val touchSlop = vc.scaledTouchSlop
 
         // when
         tryNTimes(3, resetBlock = {
@@ -712,7 +714,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
             val idleLatch = test.viewPager.addWaitForIdleLatch()
 
             // Swipe towards next page
-            pageSwiper.swipeForward(halfPage + 1, AccelerateInterpolator())
+            pageSwiper.swipeForward(halfPage + 2 * touchSlop, AccelerateInterpolator())
             settleLatch.await(2, SECONDS)
             var scrollLatch: CountDownLatch? = null
             activityTestRule.runOnUiThread {

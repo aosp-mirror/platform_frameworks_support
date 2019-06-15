@@ -17,7 +17,6 @@
 package androidx.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
@@ -1255,6 +1254,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
     }
 
     @RequiresApi(21)
+    @SuppressWarnings("unchecked")
     static class ResultWrapper<T> {
         MediaBrowserService.Result mResultFwk;
 
@@ -1304,7 +1304,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void attachToBaseContext(Context base) {
         attachBaseContext(base);
     }

@@ -15,6 +15,8 @@
  */
 package androidx.ui.material
 
+import androidx.compose.Model
+import androidx.compose.composer
 import androidx.test.filters.MediumTest
 import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.baseui.selection.ToggleableState.Checked
@@ -24,41 +26,35 @@ import androidx.ui.core.OnChildPositioned
 import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
+import androidx.ui.core.round
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.DisableTransitions
-import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsChecked
 import androidx.ui.test.assertIsNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
+import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
 import com.google.common.truth.Truth
-import androidx.compose.Model
 import androidx.compose.composer
+import androidx.compose.state
+import androidx.compose.unaryPlus
 import androidx.ui.core.round
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-@Model
-class CheckboxState(var value: ToggleableState = Checked) {
-    fun toggle() {
-        value = if (value == Checked) Unchecked else Checked
-    }
-}
-
 @MediumTest
 @RunWith(JUnit4::class)
-class CheckboxUiTest : AndroidUiTestRunner() {
+class CheckboxUiTest {
 
     @get:Rule
-    val disableTransitions = DisableTransitions()
+    val composeTestRule = createComposeRule(disableTransitions = true)
 
     // TODO(b/126881459): this should be the default semantic for checkbox
     private val defaultCheckboxCheckedSemantics = createFullSemantics(
@@ -83,13 +79,13 @@ class CheckboxUiTest : AndroidUiTestRunner() {
 
     @Test
     fun checkBoxTest_defaultSemantics() {
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             Column {
                 TestTag(tag = "checkboxUnchecked") {
-                    Checkbox(value = Unchecked)
+                    Checkbox(false, {})
                 }
                 TestTag(tag = "checkboxChecked") {
-                    Checkbox(value = Checked)
+                    Checkbox(true, {})
                 }
             }
         }
@@ -103,15 +99,10 @@ class CheckboxUiTest : AndroidUiTestRunner() {
 
     @Test
     fun checkBoxTest_toggle() {
-        val state = CheckboxState(value = Unchecked)
-
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
+            val (checked, onCheckedChange) = +state { false }
             TestTag(tag = defaultTag) {
-                Checkbox(
-                    value = state.value,
-                    onClick = {
-                        state.toggle()
-                    })
+                Checkbox(checked, onCheckedChange)
             }
         }
 
@@ -123,15 +114,10 @@ class CheckboxUiTest : AndroidUiTestRunner() {
 
     @Test
     fun checkBoxTest_toggle_twice() {
-        val state = CheckboxState(value = Unchecked)
-
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
+            val (checked, onCheckedChange) = +state { false }
             TestTag(tag = defaultTag) {
-                Checkbox(
-                    value = state.value,
-                    onClick = {
-                        state.toggle()
-                    })
+                Checkbox(checked, onCheckedChange)
             }
         }
 
@@ -145,11 +131,11 @@ class CheckboxUiTest : AndroidUiTestRunner() {
 
     @Test
     fun checkBoxTest_untoggleable_whenNoLambda() {
-        val state = CheckboxState(value = Unchecked)
 
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
+            val (checked, _) = +state { false }
             TestTag(tag = defaultTag) {
-                Checkbox(value = state.value)
+                Checkbox(checked, null)
             }
         }
 
@@ -177,16 +163,16 @@ class CheckboxUiTest : AndroidUiTestRunner() {
     private fun materialSizeTestForValue(checkboxValue: ToggleableState) {
         var checkboxSize: PxSize? = null
 
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             Container(constraints = bigConstraints) {
                 OnChildPositioned(onPositioned = { coordinates ->
                     checkboxSize = coordinates.size
                 }) {
-                    Checkbox(value = checkboxValue)
+                    TriStateCheckbox(value = checkboxValue, onClick = null)
                 }
             }
         }
-        withDensity(density) {
+        withDensity(composeTestRule.density) {
             Truth.assertThat(checkboxSize?.width?.round()).isEqualTo(materialCheckboxSize.toIntPx())
             Truth.assertThat(checkboxSize?.height?.round())
                 .isEqualTo(materialCheckboxSize.toIntPx())

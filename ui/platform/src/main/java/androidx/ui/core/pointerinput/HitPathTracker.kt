@@ -16,15 +16,15 @@
 
 package androidx.ui.core.pointerinput
 
+import androidx.ui.core.LayoutNode
 import androidx.ui.core.PointerEventPass
 import androidx.ui.core.PointerInputChange
 import androidx.ui.core.PointerInputNode
 import androidx.ui.core.PxPosition
-import androidx.ui.core.addOffset
 import androidx.ui.core.positionRelativeToAncestor
 import androidx.ui.core.positionRelativeToRoot
 import androidx.ui.core.isAttached
-import androidx.ui.core.subtractOffset
+import androidx.ui.core.visitLayoutChildren
 
 /**
  * Organizes pointers and the [PointerInputNode]s that they hit into a hierarchy such that
@@ -110,9 +110,10 @@ internal class HitPathTracker {
 }
 
 // TODO(shepshapard): This really should be private. Currently some tests inspect the node's
-// directly which is unneccessary and bad practice.
+// directly which is unnecessary and bad practice.
 internal class Node(
-    val pointerInputNode: PointerInputNode? = null
+    val pointerInputNode: PointerInputNode? = null,
+    val layoutNode: LayoutNode? = null
 ) {
     val pointerIds: MutableSet<Int> = mutableSetOf()
     val children: MutableSet<Node> = mutableSetOf()
@@ -140,12 +141,9 @@ internal class Node(
         //  2. dispatch the change on the down pass,
         //  3. update it in relevantChanges.
         if (pointerInputNode != null) {
-            for (entry in relevantChanges) {
-                entry.setValue(
-                    entry.value
-                        .subtractOffset(offset)
-                        .dispatchToPointerInputNode(pointerInputNode, downPass)
-                )
+            relevantChanges.run {
+                subtractOffset(offset)
+                dispatchToPointerInputNode(pointerInputNode, downPass)
             }
         }
 
@@ -157,12 +155,9 @@ internal class Node(
         //  2. add the offset,
         //  3. update it in  relevant changes.
         if (pointerInputNode != null && upPass != null) {
-            for (entry in relevantChanges) {
-                entry.setValue(
-                    entry.value
-                        .dispatchToPointerInputNode(pointerInputNode, upPass)
-                        .addOffset(offset)
-                )
+            relevantChanges.run {
+                dispatchToPointerInputNode(pointerInputNode, upPass)
+                addOffset(offset)
             }
         }
 
@@ -194,14 +189,15 @@ internal class Node(
     fun refreshOffsets() {
         if (pointerInputNode == null) {
             children.forEach { child ->
-                child.offset = child.pointerInputNode?.layoutNode?.positionRelativeToRoot()
-                        ?: PxPosition.Origin
+                child.offset = findLastLayoutNode(child)?.positionRelativeToRoot()
+                    ?: PxPosition.Origin
             }
         } else {
             children.forEach { child ->
-                val layoutNode = child.pointerInputNode?.layoutNode
-                child.offset = layoutNode?.positionRelativeToAncestor(pointerInputNode.layoutNode!!)
-                        ?: PxPosition.Origin
+                val layoutNode = findLastLayoutNode(child)
+                val myLayoutNode = findLastLayoutNode(this)
+                child.offset = layoutNode?.positionRelativeToAncestor(myLayoutNode!!)
+                    ?: PxPosition.Origin
             }
         }
         children.forEach { child ->
@@ -209,13 +205,46 @@ internal class Node(
         }
     }
 
+    private fun findLastLayoutNode(node: Node): LayoutNode? {
+        var layoutNode: LayoutNode? = null
+        node.pointerInputNode?.visitLayoutChildren { child ->
+            layoutNode = child
+        }
+        return layoutNode
+    }
+
     override fun toString(): String {
         return "Node(pointerInputNode=$pointerInputNode, children=$children, " +
                 "pointerIds=$pointerIds)"
     }
 
-    private fun PointerInputChange.dispatchToPointerInputNode(
+    private fun MutableMap<Int, PointerInputChange>.dispatchToPointerInputNode(
         node: PointerInputNode,
         pass: PointerEventPass
-    ) = node.pointerInputHandler.invoke(this, pass)
+    ) {
+        node.pointerInputHandler(values.toList(), pass).forEach {
+            this[it.id] = it
+        }
+    }
+
+    private fun MutableMap<Int, PointerInputChange>.addOffset(pxPosition: PxPosition) {
+        if (pxPosition != PxPosition.Origin) {
+            replaceEverything {
+                it.copy(
+                    current = it.current.copy(position = it.current.position?.plus(pxPosition)),
+                    previous = it.previous.copy(position = it.previous.position?.plus(pxPosition))
+                )
+            }
+        }
+    }
+
+    private fun MutableMap<Int, PointerInputChange>.subtractOffset(pxPosition: PxPosition) {
+        addOffset(-pxPosition)
+    }
+
+    private inline fun <K, V> MutableMap<K, V>.replaceEverything(f: (V) -> V) {
+        for (entry in this) {
+            entry.setValue(f(entry.value))
+        }
+    }
 }
