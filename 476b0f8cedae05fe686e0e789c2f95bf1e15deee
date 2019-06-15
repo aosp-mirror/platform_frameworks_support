@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c31794f_42818d29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T01:46:38Z",
+      "side": 1,
+      "message": "nit: blank line after subject - https://chris.beams.io/posts/git-commit/",
+      "revId": "476b0f8cedae05fe686e0e789c2f95bf1e15deee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34332baa_7820a825",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-15T01:46:38Z",
+      "side": 1,
+      "message": "Footers should not have blank lines between them, they should all be in the final paragraph of the CL",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "476b0f8cedae05fe686e0e789c2f95bf1e15deee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
