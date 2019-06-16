@@ -16,6 +16,24 @@
       "revId": "b19ce308676537ac2cc5bd399ac4bb9c9aed7e0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cfd0d97_ac25ebff",
+        "filename": "media2/session/version-compat-tests/previous/service/src/main/res/drawable/big_buck_bunny.jpg",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-16T23:25:16Z",
+      "side": 0,
+      "message": "Changed to 42kb one.",
+      "parentUuid": "62e63d00_a09f934b",
+      "revId": "b19ce308676537ac2cc5bd399ac4bb9c9aed7e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
