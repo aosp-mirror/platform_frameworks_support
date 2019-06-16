@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.room.migration.Migration;
+import androidx.room.util.TableInfo;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
@@ -163,19 +164,42 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
         db.execSQL(RoomMasterTable.createInsertQuery(mIdentityHash));
     }
 
-    private void createMasterTableIfNotExists(SupportSQLiteDatabase db) {
+    private static void createMasterTableIfNotExists(SupportSQLiteDatabase db) {
         db.execSQL(RoomMasterTable.CREATE_QUERY);
     }
 
     private static boolean hasRoomMasterTable(SupportSQLiteDatabase db) {
-        Cursor cursor = db.query("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name='"
-                + RoomMasterTable.TABLE_NAME + "'");
-        //noinspection TryFinallyCanBeTryWithResources
-        try {
-            return cursor.moveToFirst() && cursor.getInt(0) != 0;
-        } finally {
-            cursor.close();
+        TableInfo masterTableName = TableInfo.read(db, RoomMasterTable.NAME);
+        TableInfo.Column idColumn = masterTableName.columns.get(RoomMasterTable.COLUMN_ID);
+        if (idColumn == null) {
+            return false;
         }
+        // migrate id column to TEXT
+        if (idColumn.affinity == ColumnInfo.INTEGER) {
+            // upgrade it to string
+            try {
+                String tmpTableName = "_tmp_" + RoomMasterTable.TABLE_NAME;
+                db.beginTransaction();
+                db.execSQL(
+                        "ALTER TABLE " + RoomMasterTable.TABLE_NAME + " RENAME TO " + tmpTableName);
+                createMasterTableIfNotExists(db);
+                db.execSQL("INSERT INTO " + RoomMasterTable.TABLE_NAME + " SELECT * FROM "
+                        + tmpTableName);
+                db.execSQL("DROP TABLE " + tmpTableName);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+        }
+        return true;
+    }
+
+    private static void upgradeMasterTable(SupportSQLiteDatabase db) {
+        Cursor cursor = db.query("PRAGMA table_info(room_master_table)");
+        if (!cursor.moveToFirst()) {
+            return;
+        }
+        int nameIndex = cursor.getColumnIndex("name");
     }
 
     private static boolean hasEmptySchema(SupportSQLiteDatabase db) {

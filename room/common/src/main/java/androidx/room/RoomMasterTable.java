@@ -32,12 +32,12 @@ public class RoomMasterTable {
     public static final String TABLE_NAME = "room_master_table";
     // must match the runtime property Room#MASTER_TABLE_NAME
     public static final String NAME = "room_master_table";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_IDENTITY_HASH = "identity_hash";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_IDENTITY_HASH = "identity_hash";
     public static final String DEFAULT_ID = "42";
 
     public static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-            + COLUMN_ID + " INTEGER PRIMARY KEY,"
+            + COLUMN_ID + " TEXT PRIMARY KEY,"
             + COLUMN_IDENTITY_HASH + " TEXT)";
 
     public static final String READ_QUERY = "SELECT " + COLUMN_IDENTITY_HASH
