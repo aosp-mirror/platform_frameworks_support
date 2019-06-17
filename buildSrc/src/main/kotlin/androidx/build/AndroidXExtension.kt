@@ -42,6 +42,9 @@ open class AndroidXExtension(val project: Project) {
 
     var trackRestrictedAPIs = true
 
+    // Whether @Sampled annotations should be enforced for @sample links in KDoc
+    var requireSampledAnnotation = false
+
     /**
      * It disables docs generation and api tracking for tooling modules like annotation processors.
      * We don't expect such modules to be used by developers as libraries, so we don't guarantee
