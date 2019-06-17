@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ceac897_16247202",
+        "filename": "annotation/annotation-experimental-lint/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T19:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37e1cd5c_cd4612b2",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 85
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00b6fe54_f137f631",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "963bec20_48779af7",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T19:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dcd8be1_6822ecf5",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55bdfa8a_f29354dd",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 2
@@ -106,6 +154,30 @@
       "writtenOn": "2019-06-17T16:02:24Z",
       "side": 1,
       "message": "I\u0027d do: \nif (qualifiedName in applicableAnnotations()) {...}",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 30
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d643dd66_219788b5",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T19:56:41Z",
+      "side": 1,
+      "message": "I only care about the annotation that\u0027s being referenced by [usage]. Won\u0027t applicableAnnotations() give me additional annotations that are _not_ being referenced at the current position? Wouldn\u0027t any additional annotations that _are_ being referenced result in another call to visitAnnotationUsage?",
+      "parentUuid": "a58bca1f_0fa63aa6",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -295,6 +367,24 @@
       "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f91a922_3e5b04b4",
+        "filename": "annotation/annotation-experimental/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T19:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa37d51e_9a3f9413",
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
