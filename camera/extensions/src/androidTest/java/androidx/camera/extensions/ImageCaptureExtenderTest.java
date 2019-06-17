@@ -38,6 +38,7 @@ import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureProcessor;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.extensions.ExtensionsManager.EffectMode;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 import androidx.camera.testing.CameraUtil;
@@ -80,7 +81,9 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreGetCaptureStagesBeforeAndAfterInitDeInit() {
-
+        /** Set EffectHelper such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
+        CameraX.setEffectHelper(new AdaptingEffectHelper());
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
         ImageCaptureConfig.Builder configBuilder =
@@ -115,9 +118,13 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreCameraEventCallbacksBeforeAndAfterInitDeInit() {
+        /** Set EffectHelper such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
+        CameraX.setEffectHelper(new AdaptingEffectHelper());
 
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
-                new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
+                new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl,
+                        EffectMode.NORMAL);
         ImageCaptureConfig.Builder configBuilder =
                 new ImageCaptureConfig.Builder().setCaptureBundle(
                         imageCaptureAdapter).setUseCaseEventListener(
