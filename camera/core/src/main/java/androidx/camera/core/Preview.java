@@ -34,6 +34,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.auto.value.AutoValue;
 
@@ -352,6 +353,20 @@ public class Preview extends UseCase {
         }
 
         super.clear();
+    }
+
+    @Override
+    void updateEffectParameters(LifecycleOwner lifecycleOwner) {
+        EffectHelper effectHelper = CameraX.getEffectHelper();
+
+        if (effectHelper == null) {
+            return;
+        }
+
+        // Use the saved builder to apply effect config
+        effectHelper.applyEffectConfig(mUseCaseConfigBuilder, lifecycleOwner);
+        // Update the use case config
+        updateUseCaseConfig(mUseCaseConfigBuilder.build());
     }
 
     /**
