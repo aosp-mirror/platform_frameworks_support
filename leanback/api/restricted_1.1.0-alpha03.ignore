@@ -1,0 +1,77 @@
+// Baseline format: 1.0
+AcronymName: androidx.leanback.media.PlaybackBannerControlGlue.ACTION_:
+    Acronyms should not be capitalized in class names: was `ACTION_`, should this be `Action`?
+
+
+ListenerInterface: androidx.leanback.app.PlaybackFragment.OnFadeCompleteListener:
+    Listeners should be an interface, or otherwise renamed Callback: OnFadeCompleteListener
+ListenerInterface: androidx.leanback.app.PlaybackSupportFragment.OnFadeCompleteListener:
+    Listeners should be an interface, or otherwise renamed Callback: OnFadeCompleteListener
+ListenerInterface: androidx.leanback.transition.TransitionListener:
+    Listeners should be an interface, or otherwise renamed Callback: TransitionListener
+ListenerInterface: androidx.leanback.widget.SeekBar.AccessibilitySeekListener:
+    Listeners should be an interface, or otherwise renamed Callback: AccessibilitySeekListener
+
+
+MethodNameUnits: androidx.leanback.widget.BaseGridView#getExtraLayoutSpace():
+    Expected method name units to be `Bytes`, was `Space` in `getExtraLayoutSpace`
+
+
+NoClone: androidx.leanback.transition.FadeAndShortSlide#clone():
+    Provide an explicit copy constructor instead of implementing `clone()`
+
+
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#mThumbsDownAction:
+    Protected fields not allowed; must be public: field androidx.leanback.media.MediaPlayerGlue.mThumbsDownAction}
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#mThumbsUpAction:
+    Protected fields not allowed; must be public: field androidx.leanback.media.MediaPlayerGlue.mThumbsUpAction}
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#onAttachedToHost(androidx.leanback.media.PlaybackGlueHost):
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerGlue.onAttachedToHost(androidx.leanback.media.PlaybackGlueHost)}
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerGlue.onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#onDetachedFromHost():
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerGlue.onDetachedFromHost()}
+ProtectedMember: androidx.leanback.media.MediaPlayerGlue#seekTo(int):
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerGlue.seekTo(int)}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#createPrimaryActionsAdapter(androidx.leanback.widget.PresenterSelector):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.createPrimaryActionsAdapter(androidx.leanback.widget.PresenterSelector)}
+ProtectedMember: androidx.leanback.transition.TransitionListener#mImpl:
+    Protected fields not allowed; must be public: field androidx.leanback.transition.TransitionListener.mImpl}
+ProtectedMember: androidx.leanback.widget.BrowseRowsFrameLayout#measureChildWithMargins(android.view.View, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BrowseRowsFrameLayout.measureChildWithMargins(android.view.View,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.InvisibleRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.InvisibleRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.MediaNowPlayingView#mLinearInterpolator:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.MediaNowPlayingView.mLinearInterpolator}
+ProtectedMember: androidx.leanback.widget.MediaNowPlayingView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.MediaNowPlayingView.onAttachedToWindow()}
+ProtectedMember: androidx.leanback.widget.MediaNowPlayingView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.MediaNowPlayingView.onDetachedFromWindow()}
+ProtectedMember: androidx.leanback.widget.NonOverlappingLinearLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.NonOverlappingLinearLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.PagingIndicator#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PagingIndicator.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.leanback.widget.PagingIndicator#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PagingIndicator.onMeasure(int,int)}
+ProtectedMember: androidx.leanback.widget.PagingIndicator#onSizeChanged(int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PagingIndicator.onSizeChanged(int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowView#onRequestFocusInDescendants(int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowView.onRequestFocusInDescendants(int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.ScaleFrameLayout#addViewInLayout(android.view.View, int, android.view.ViewGroup.LayoutParams, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ScaleFrameLayout.addViewInLayout(android.view.View,int,android.view.ViewGroup.LayoutParams,boolean)}
+ProtectedMember: androidx.leanback.widget.ScaleFrameLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ScaleFrameLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.ScaleFrameLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ScaleFrameLayout.onMeasure(int,int)}
+ProtectedMember: androidx.leanback.widget.SeekBar#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SeekBar.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.leanback.widget.SeekBar#onFocusChanged(boolean, int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SeekBar.onFocusChanged(boolean,int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.SeekBar#onSizeChanged(int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SeekBar.onSizeChanged(int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.ThumbsBar#createThumbView(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ThumbsBar.createThumbView(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.ThumbsBar#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ThumbsBar.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.ThumbsBar#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ThumbsBar.onMeasure(int,int)}

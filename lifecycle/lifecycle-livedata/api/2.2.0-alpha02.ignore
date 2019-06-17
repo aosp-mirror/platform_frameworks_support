@@ -1,0 +1,5 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.lifecycle.MediatorLiveData#onActive():
+    Protected methods not allowed; must be public: method androidx.lifecycle.MediatorLiveData.onActive()}
+ProtectedMember: androidx.lifecycle.MediatorLiveData#onInactive():
+    Protected methods not allowed; must be public: method androidx.lifecycle.MediatorLiveData.onInactive()}

@@ -51,8 +51,39 @@ abstract class MetalavaTask : DefaultTask() {
             it.main = "com.android.tools.metalava.Driver"
             it.args = listOf(
                 "--no-banner",
+                "--api-lint",
                 "--error",
-                "DeprecationMismatch" // Enforce deprecation mismatch
+                "DeprecationMismatch", // Enforce deprecation mismatch
+                "--hide",
+                listOf(
+                    "Enum",
+                    "HiddenSuperclass",
+                    "MinMaxConstant",
+                    "IntentBuilderName",
+                    "OnNameExpected",
+                    "TopLevelBuilder",
+                    "MissingBuild",
+                    "BuilderSetStyle",
+                    "SetterReturnsThis",
+                    "PackageLayering",
+                    "OverlappingConstants",
+                    "IllegalStateException",
+                    "ListenerLast",
+                    "ExecutorRegistration",
+                    "StreamFiles",
+                    "ParcelableList",
+                    "AbstractInner",
+                    "NotCloseable",
+                    "ArrayReturn",
+                    "UserHandle",
+                    "UserHandleName",
+                    "MethodNameTense",
+                    "UseIcu",
+                    "NoByteOrShort",
+                    "CommonArgsFirst",
+                    "SamShouldBeLast",
+                    "MissingJvmStatic"
+                    ).joinToString { it }
             ) + args
         }
     }

@@ -1,0 +1,13 @@
+// Baseline format: 1.0
+AcronymName: androidx.arch.core.executor.ArchTaskExecutor#executeOnDiskIO(Runnable):
+    Acronyms should not be capitalized in method names: was `executeOnDiskIO`, should this be `executeOnDiskIo`?
+AcronymName: androidx.arch.core.executor.ArchTaskExecutor#getIOThreadExecutor():
+    Acronyms should not be capitalized in method names: was `getIOThreadExecutor`, should this be `getIoThreadExecutor`?
+AcronymName: androidx.arch.core.executor.DefaultTaskExecutor#executeOnDiskIO(Runnable):
+    Acronyms should not be capitalized in method names: was `executeOnDiskIO`, should this be `executeOnDiskIo`?
+AcronymName: androidx.arch.core.executor.TaskExecutor#executeOnDiskIO(Runnable):
+    Acronyms should not be capitalized in method names: was `executeOnDiskIO`, should this be `executeOnDiskIo`?
+
+
+VisiblySynchronized: androidx.arch.core.executor.ArchTaskExecutor#getInstance():
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.arch.core.executor.ArchTaskExecutor.getInstance()

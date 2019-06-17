@@ -1,0 +1,17 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.percentlayout.widget.PercentFrameLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentFrameLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.percentlayout.widget.PercentFrameLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentFrameLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.percentlayout.widget.PercentFrameLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentFrameLayout.onMeasure(int,int)}
+ProtectedMember: androidx.percentlayout.widget.PercentFrameLayout.LayoutParams#setBaseAttributes(android.content.res.TypedArray, int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentFrameLayout.LayoutParams.setBaseAttributes(android.content.res.TypedArray,int,int)}
+ProtectedMember: androidx.percentlayout.widget.PercentRelativeLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentRelativeLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.percentlayout.widget.PercentRelativeLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentRelativeLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.percentlayout.widget.PercentRelativeLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentRelativeLayout.onMeasure(int,int)}
+ProtectedMember: androidx.percentlayout.widget.PercentRelativeLayout.LayoutParams#setBaseAttributes(android.content.res.TypedArray, int, int):
+    Protected methods not allowed; must be public: method androidx.percentlayout.widget.PercentRelativeLayout.LayoutParams.setBaseAttributes(android.content.res.TypedArray,int,int)}

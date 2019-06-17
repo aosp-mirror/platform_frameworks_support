@@ -1,0 +1,25 @@
+// Baseline format: 1.0
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(android.view.Menu, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(androidx.navigation.NavGraph, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(java.util.Set<java.lang.Integer>, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration
+
+
+StaticUtils: androidx.navigation.ui.ActivityKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.AppBarConfigurationKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.BottomNavigationViewKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.CollapsingToolbarLayoutKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.MenuItemKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.NavControllerKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.NavigationViewKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ui.ToolbarKt:
+    Fully-static utility classes must not have constructor

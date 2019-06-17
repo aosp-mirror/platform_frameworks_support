@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+AcronymName: androidx.sqlite.db.SupportSQLiteDatabaseKt:
+    Acronyms should not be capitalized in class names: was `SupportSQLiteDatabaseKt`, should this be `SupportSqLiteDatabaseKt`?
+
+
+StaticUtils: androidx.sqlite.db.SupportSQLiteDatabaseKt:
+    Fully-static utility classes must not have constructor

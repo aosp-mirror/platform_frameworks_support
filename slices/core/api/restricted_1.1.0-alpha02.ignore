@@ -1,4 +1,72 @@
 // Baseline format: 1.0
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_BIND_URI:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.BIND_URI`, was `slice_uri`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_INTENT:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.INTENT`, was `slice_intent`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_PID:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.PID`, was `pid`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_PKG:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.PKG`, was `pkg`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_PROVIDER_PKG:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.PROVIDER_PKG`, was `provider_pkg`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_RESULT:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.RESULT`, was `result`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_SLICE:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.SLICE`, was `slice`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_SLICE_DESCENDANTS:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.SLICE_DESCENDANTS`, was `slice_descendants`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_SUPPORTED_SPECS:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.SUPPORTED_SPECS`, was `specs`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_SUPPORTED_SPECS_REVS:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.SUPPORTED_SPECS_REVS`, was `revs`
+ActionValue: androidx.slice.compat.SliceProviderCompat#EXTRA_UID:
+    Inconsistent extra value; expected `androidx.slice.compat.extra.UID`, was `uid`
+
+
+AllUpper: androidx.slice.SliceItemHolder#sSerializeLock:
+    Constant field names must be named with only upper case characters: `androidx.slice.SliceItemHolder#sSerializeLock`, should be `S_SERIALIZE_LOCK`?
+
+
+ContextFirst: androidx.slice.SliceItem.ActionHandler#onAction(androidx.slice.SliceItem, android.content.Context, android.content.Intent) parameter #1:
+    Context is distinct, so it must be the first argument (method `onAction`)
+ContextFirst: androidx.slice.SliceProviderWithCallbacks#toRemoteCallback(Class<T>, android.content.Context, String, android.os.Bundle, String) parameter #1:
+    Context is distinct, so it must be the first argument (method `toRemoteCallback`)
+ContextFirst: androidx.slice.compat.SliceProviderCompat#SliceProviderCompat(androidx.slice.SliceProvider, androidx.slice.compat.CompatPermissionManager, android.content.Context) parameter #2:
+    Context is distinct, so it must be the first argument (method `SliceProviderCompat`)
+
+
+ContextNameSuffix: androidx.slice.compat.SliceProviderWrapperContainer.SliceProviderWrapper:
+    Inconsistent class name; should be `<Foo>Provider`, was `SliceProviderWrapper`
+
+
+EndsWithImpl: androidx.slice.core.SliceActionImpl:
+    Don't expose your implementation details: `SliceActionImpl` ends with `Impl`
+
+
+ForbiddenSuperClass: androidx.slice.compat.SlicePermissionActivity:
+    SlicePermissionActivity should not extend `Activity`. Activity subclasses are impossible to compose. Expose a composable API instead.
+
+
+GetterSetterNames: androidx.slice.core.SliceActionImpl#isActivity():
+    Symmetric method for `setActivity` must be named `getActivity`; was `isActivity`
+GetterSetterNames: androidx.slice.core.SliceActionImpl#isChecked():
+    Symmetric method for `setChecked` must be named `getChecked`; was `isChecked`
+
+
+ManagerConstructor: androidx.slice.compat.CompatPermissionManager#CompatPermissionManager(android.content.Context, String, int, String[]):
+    Managers must always be obtained from Context; no direct constructors
+
+
+ProtectedMember: androidx.slice.SliceItem#mHints:
+    Protected fields not allowed; must be public: field androidx.slice.SliceItem.mHints}
+ProtectedMember: androidx.slice.SliceProvider#onCreatePermissionManager(String[]):
+    Protected methods not allowed; must be public: method androidx.slice.SliceProvider.onCreatePermissionManager(String[])}
+ProtectedMember: androidx.slice.compat.CompatPinnedList#getBootTime():
+    Protected methods not allowed; must be public: method androidx.slice.compat.CompatPinnedList.getBootTime()}
+ProtectedMember: androidx.slice.compat.SlicePermissionActivity#onCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.slice.compat.SlicePermissionActivity.onCreate(android.os.Bundle)}
+
+
 RemovedClass: androidx.slice.SliceItemHolderParcelizer:
     Removed class androidx.slice.SliceItemHolderParcelizer
 RemovedClass: androidx.slice.SliceItemParcelizer:
@@ -25,3 +93,9 @@ RemovedMethod: androidx.slice.core.SliceQuery#stream(androidx.slice.SliceItem):
     Removed method androidx.slice.core.SliceQuery.stream(androidx.slice.SliceItem)
 
 
+VisiblySynchronized: androidx.slice.compat.CompatPinnedList#addPin(android.net.Uri, String, java.util.Set<androidx.slice.SliceSpec>):
+    Internal locks must not be exposed: method androidx.slice.compat.CompatPinnedList.addPin(android.net.Uri,String,java.util.Set<androidx.slice.SliceSpec>)
+VisiblySynchronized: androidx.slice.compat.CompatPinnedList#getSpecs(android.net.Uri):
+    Internal locks must not be exposed: method androidx.slice.compat.CompatPinnedList.getSpecs(android.net.Uri)
+VisiblySynchronized: androidx.slice.compat.CompatPinnedList#removePin(android.net.Uri, String):
+    Internal locks must not be exposed: method androidx.slice.compat.CompatPinnedList.removePin(android.net.Uri,String)

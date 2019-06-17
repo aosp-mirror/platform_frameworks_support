@@ -1,0 +1,5 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.room.testing.MigrationTestHelper#finished(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.room.testing.MigrationTestHelper.finished(org.junit.runner.Description)}
+ProtectedMember: androidx.room.testing.MigrationTestHelper#starting(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.room.testing.MigrationTestHelper.starting(org.junit.runner.Description)}

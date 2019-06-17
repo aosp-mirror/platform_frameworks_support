@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.navigation.fragment.NavHostFragment#onCreateNavController(androidx.navigation.NavController):
+    Protected methods not allowed; must be public: method androidx.navigation.fragment.NavHostFragment.onCreateNavController(androidx.navigation.NavController)}

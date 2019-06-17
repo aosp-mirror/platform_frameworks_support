@@ -1,0 +1,37 @@
+// Baseline format: 1.0
+ConcreteCollection: androidx.drawerlayout.widget.DrawerLayout#addFocusables(java.util.ArrayList<android.view.View>, int, int) parameter #0:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+ListenerInterface: androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener:
+    Listeners should be an interface, or otherwise renamed Callback: SimpleDrawerListener
+
+
+ParcelCreator: androidx.drawerlayout.widget.DrawerLayout.SavedState:
+    Parcelable requires `public int describeContents()`; missing in androidx.drawerlayout.widget.DrawerLayout.SavedState
+
+
+ParcelNotFinal: androidx.drawerlayout.widget.DrawerLayout.SavedState:
+    Parcelable classes must be final: androidx.drawerlayout.widget.DrawerLayout.SavedState is not final
+
+
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#drawChild(android.graphics.Canvas, android.view.View, long):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.drawChild(android.graphics.Canvas,android.view.View,long)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onAttachedToWindow()}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onDetachedFromWindow()}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onMeasure(int,int)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.drawerlayout.widget.DrawerLayout#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.drawerlayout.widget.DrawerLayout.onSaveInstanceState()}

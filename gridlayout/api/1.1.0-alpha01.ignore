@@ -1,0 +1,19 @@
+// Baseline format: 1.0
+GetterSetterNames: androidx.gridlayout.widget.GridLayout#isColumnOrderPreserved():
+    Symmetric method for `setColumnOrderPreserved` must be named `getColumnOrderPreserved`; was `isColumnOrderPreserved`
+GetterSetterNames: androidx.gridlayout.widget.GridLayout#isRowOrderPreserved():
+    Symmetric method for `setRowOrderPreserved` must be named `getRowOrderPreserved`; was `isRowOrderPreserved`
+
+
+ProtectedMember: androidx.gridlayout.widget.GridLayout#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.gridlayout.widget.GridLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.gridlayout.widget.GridLayout#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.gridlayout.widget.GridLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.gridlayout.widget.GridLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.onMeasure(int,int)}
+ProtectedMember: androidx.gridlayout.widget.GridLayout.LayoutParams#setBaseAttributes(android.content.res.TypedArray, int, int):
+    Protected methods not allowed; must be public: method androidx.gridlayout.widget.GridLayout.LayoutParams.setBaseAttributes(android.content.res.TypedArray,int,int)}

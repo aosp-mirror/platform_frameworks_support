@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+StaticUtils: androidx.lifecycle.CoroutineLiveDataApi26Kt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.lifecycle.CoroutineLiveDataKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.lifecycle.TransformationsKt:
+    Fully-static utility classes must not have constructor
