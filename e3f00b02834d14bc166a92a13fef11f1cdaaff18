@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc8ff35f_d67ddeec",
+        "filename": "lifecycle/lifecycle-viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-17T23:04:06Z",
+      "side": 1,
+      "message": "Can you point to where you think needs to be updated? We updated ComponentActivity to support this constructor in the previous CL, aosp/985146",
+      "parentUuid": "831bc1d6_828a5d77",
+      "range": {
+        "startLine": 102,
+        "startChar": 55,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "e3f00b02834d14bc166a92a13fef11f1cdaaff18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb6f531b_3994acce",
         "filename": "paging/integration-tests/testapp/build.gradle",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2019-06-17T22:22:03Z",
       "side": 1,
       "message": "that broke presubmit because they had @OnLifecycleEvent from prebuilts that wasn\u0027t deprecated",
+      "revId": "e3f00b02834d14bc166a92a13fef11f1cdaaff18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b312b58_a84bb712",
+        "filename": "paging/integration-tests/testapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-17T23:04:06Z",
+      "side": 1,
+      "message": "Were you going to be updating usages of @OnLifecycleEvent throughout the repository to replace them? Or would you like me to do it as part of this CL?",
+      "parentUuid": "fb6f531b_3994acce",
       "revId": "e3f00b02834d14bc166a92a13fef11f1cdaaff18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
