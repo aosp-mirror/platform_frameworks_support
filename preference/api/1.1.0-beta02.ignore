@@ -1,1 +1,189 @@
 // Baseline format: 1.0
+CallbackMethodName: androidx.preference.PreferenceManager.PreferenceComparisonCallback:
+    Callback method names must follow the on<Something> style: arePreferenceItemsTheSame
+CallbackMethodName: androidx.preference.PreferenceManager.SimplePreferenceComparisonCallback:
+    Callback method names must follow the on<Something> style: arePreferenceItemsTheSame
+
+
+GetterSetterNames: androidx.preference.Preference#isCopyingEnabled():
+    Symmetric method for `setCopyingEnabled` must be named `getCopyingEnabled`; was `isCopyingEnabled`
+GetterSetterNames: androidx.preference.Preference#isEnabled():
+    Symmetric method for `setEnabled` must be named `getEnabled`; was `isEnabled`
+GetterSetterNames: androidx.preference.Preference#isIconSpaceReserved():
+    Symmetric method for `setIconSpaceReserved` must be named `getIconSpaceReserved`; was `isIconSpaceReserved`
+GetterSetterNames: androidx.preference.Preference#isPersistent():
+    Symmetric method for `setPersistent` must be named `getPersistent`; was `isPersistent`
+GetterSetterNames: androidx.preference.Preference#isSelectable():
+    Symmetric method for `setSelectable` must be named `getSelectable`; was `isSelectable`
+GetterSetterNames: androidx.preference.Preference#isSingleLineTitle():
+    Symmetric method for `setSingleLineTitle` must be named `getSingleLineTitle`; was `isSingleLineTitle`
+GetterSetterNames: androidx.preference.Preference#isVisible():
+    Symmetric method for `setVisible` must be named `getVisible`; was `isVisible`
+GetterSetterNames: androidx.preference.Preference#setKey(String):
+    Symmetric method for `hasKey` must be named `setHasKey`; was `setKey`
+GetterSetterNames: androidx.preference.PreferenceGroup#isOrderingAsAdded():
+    Symmetric method for `setOrderingAsAdded` must be named `getOrderingAsAdded`; was `isOrderingAsAdded`
+GetterSetterNames: androidx.preference.PreferenceViewHolder#isDividerAllowedAbove():
+    Symmetric method for `setDividerAllowedAbove` must be named `getDividerAllowedAbove`; was `isDividerAllowedAbove`
+GetterSetterNames: androidx.preference.PreferenceViewHolder#isDividerAllowedBelow():
+    Symmetric method for `setDividerAllowedBelow` must be named `getDividerAllowedBelow`; was `isDividerAllowedBelow`
+GetterSetterNames: androidx.preference.SeekBarPreference#isAdjustable():
+    Symmetric method for `setAdjustable` must be named `getAdjustable`; was `isAdjustable`
+GetterSetterNames: androidx.preference.TwoStatePreference#isChecked():
+    Symmetric method for `setChecked` must be named `getChecked`; was `isChecked`
+
+
+ParcelConstructor: androidx.preference.Preference.BaseSavedState#BaseSavedState(android.os.Parcel):
+    Parcelable inflation is exposed through CREATOR, not raw constructors, in androidx.preference.Preference.BaseSavedState
+
+
+ParcelCreator: androidx.preference.Preference.BaseSavedState:
+    Parcelable requires `void writeToParcel(Parcel, int)`; missing in androidx.preference.Preference.BaseSavedState
+
+
+ParcelNotFinal: androidx.preference.Preference.BaseSavedState:
+    Parcelable classes must be final: androidx.preference.Preference.BaseSavedState is not final
+
+
+ProtectedMember: androidx.preference.DialogPreference#onClick():
+    Protected methods not allowed; must be public: method androidx.preference.DialogPreference.onClick()}
+ProtectedMember: androidx.preference.DropDownPreference#createAdapter():
+    Protected methods not allowed; must be public: method androidx.preference.DropDownPreference.createAdapter()}
+ProtectedMember: androidx.preference.DropDownPreference#notifyChanged():
+    Protected methods not allowed; must be public: method androidx.preference.DropDownPreference.notifyChanged()}
+ProtectedMember: androidx.preference.DropDownPreference#onClick():
+    Protected methods not allowed; must be public: method androidx.preference.DropDownPreference.onClick()}
+ProtectedMember: androidx.preference.EditTextPreference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.EditTextPreference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.EditTextPreference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.EditTextPreference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.EditTextPreferenceDialogFragment#onBindDialogView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreferenceDialogFragment.onBindDialogView(android.view.View)}
+ProtectedMember: androidx.preference.EditTextPreferenceDialogFragmentCompat#onBindDialogView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreferenceDialogFragmentCompat.onBindDialogView(android.view.View)}
+ProtectedMember: androidx.preference.ListPreference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.ListPreference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.ListPreference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.ListPreference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.ListPreference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.ListPreference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.ListPreference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.ListPreference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.ListPreferenceDialogFragment#onPrepareDialogBuilder(android.app.AlertDialog.Builder):
+    Protected methods not allowed; must be public: method androidx.preference.ListPreferenceDialogFragment.onPrepareDialogBuilder(android.app.AlertDialog.Builder)}
+ProtectedMember: androidx.preference.ListPreferenceDialogFragmentCompat#onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder):
+    Protected methods not allowed; must be public: method androidx.preference.ListPreferenceDialogFragmentCompat.onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder)}
+ProtectedMember: androidx.preference.MultiSelectListPreference#getSelectedItems():
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreference.getSelectedItems()}
+ProtectedMember: androidx.preference.MultiSelectListPreference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.MultiSelectListPreference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.MultiSelectListPreference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.MultiSelectListPreference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.MultiSelectListPreferenceDialogFragment#onPrepareDialogBuilder(android.app.AlertDialog.Builder):
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreferenceDialogFragment.onPrepareDialogBuilder(android.app.AlertDialog.Builder)}
+ProtectedMember: androidx.preference.MultiSelectListPreferenceDialogFragmentCompat#onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder):
+    Protected methods not allowed; must be public: method androidx.preference.MultiSelectListPreferenceDialogFragmentCompat.onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder)}
+ProtectedMember: androidx.preference.Preference#findPreferenceInHierarchy(String):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.findPreferenceInHierarchy(String)}
+ProtectedMember: androidx.preference.Preference#getPersistedBoolean(boolean):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.getPersistedBoolean(boolean)}
+ProtectedMember: androidx.preference.Preference#getPersistedFloat(float):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.getPersistedFloat(float)}
+ProtectedMember: androidx.preference.Preference#getPersistedInt(int):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.getPersistedInt(int)}
+ProtectedMember: androidx.preference.Preference#getPersistedLong(long):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.getPersistedLong(long)}
+ProtectedMember: androidx.preference.Preference#getPersistedString(String):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.getPersistedString(String)}
+ProtectedMember: androidx.preference.Preference#notifyChanged():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.notifyChanged()}
+ProtectedMember: androidx.preference.Preference#notifyHierarchyChanged():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.notifyHierarchyChanged()}
+ProtectedMember: androidx.preference.Preference#onAttachedToHierarchy(androidx.preference.PreferenceManager):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onAttachedToHierarchy(androidx.preference.PreferenceManager)}
+ProtectedMember: androidx.preference.Preference#onClick():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onClick()}
+ProtectedMember: androidx.preference.Preference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.Preference#onPrepareForRemoval():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onPrepareForRemoval()}
+ProtectedMember: androidx.preference.Preference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.Preference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.Preference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.Preference#persistBoolean(boolean):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.persistBoolean(boolean)}
+ProtectedMember: androidx.preference.Preference#persistFloat(float):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.persistFloat(float)}
+ProtectedMember: androidx.preference.Preference#persistInt(int):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.persistInt(int)}
+ProtectedMember: androidx.preference.Preference#persistLong(long):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.persistLong(long)}
+ProtectedMember: androidx.preference.Preference#persistString(String):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.persistString(String)}
+ProtectedMember: androidx.preference.Preference#shouldPersist():
+    Protected methods not allowed; must be public: method androidx.preference.Preference.shouldPersist()}
+ProtectedMember: androidx.preference.PreferenceDialogFragmentCompat#ARG_KEY:
+    Protected fields not allowed; must be public: field androidx.preference.PreferenceDialogFragmentCompat.ARG_KEY}
+ProtectedMember: androidx.preference.PreferenceDialogFragmentCompat#onBindDialogView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceDialogFragmentCompat.onBindDialogView(android.view.View)}
+ProtectedMember: androidx.preference.PreferenceDialogFragmentCompat#onCreateDialogView(android.content.Context):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceDialogFragmentCompat.onCreateDialogView(android.content.Context)}
+ProtectedMember: androidx.preference.PreferenceDialogFragmentCompat#onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceDialogFragmentCompat.onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder)}
+ProtectedMember: androidx.preference.PreferenceFragmentCompat#onCreateAdapter(androidx.preference.PreferenceScreen):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceFragmentCompat.onCreateAdapter(androidx.preference.PreferenceScreen)}
+ProtectedMember: androidx.preference.PreferenceGroup#dispatchRestoreInstanceState(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.dispatchRestoreInstanceState(android.os.Bundle)}
+ProtectedMember: androidx.preference.PreferenceGroup#dispatchSaveInstanceState(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.dispatchSaveInstanceState(android.os.Bundle)}
+ProtectedMember: androidx.preference.PreferenceGroup#isOnSameScreenAsChildren():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.isOnSameScreenAsChildren()}
+ProtectedMember: androidx.preference.PreferenceGroup#onPrepareAddPreference(androidx.preference.Preference):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.onPrepareAddPreference(androidx.preference.Preference)}
+ProtectedMember: androidx.preference.PreferenceGroup#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.PreferenceGroup#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceGroup.onSaveInstanceState()}
+ProtectedMember: androidx.preference.PreferenceScreen#isOnSameScreenAsChildren():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceScreen.isOnSameScreenAsChildren()}
+ProtectedMember: androidx.preference.PreferenceScreen#onClick():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceScreen.onClick()}
+ProtectedMember: androidx.preference.SeekBarPreference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.SeekBarPreference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.SeekBarPreference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.SeekBarPreference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.SeekBarPreference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.SeekBarPreference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.SeekBarPreference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.SeekBarPreference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.TwoStatePreference#mChecked:
+    Protected fields not allowed; must be public: field androidx.preference.TwoStatePreference.mChecked}
+ProtectedMember: androidx.preference.TwoStatePreference#onClick():
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.onClick()}
+ProtectedMember: androidx.preference.TwoStatePreference#onGetDefaultValue(android.content.res.TypedArray, int):
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.onGetDefaultValue(android.content.res.TypedArray,int)}
+ProtectedMember: androidx.preference.TwoStatePreference#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.preference.TwoStatePreference#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.onSaveInstanceState()}
+ProtectedMember: androidx.preference.TwoStatePreference#onSetInitialValue(Object):
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.onSetInitialValue(Object)}
+ProtectedMember: androidx.preference.TwoStatePreference#syncSummaryView(androidx.preference.PreferenceViewHolder):
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.syncSummaryView(androidx.preference.PreferenceViewHolder)}
+
+
+VisiblySynchronized: androidx.preference.PreferenceGroup#addPreference(androidx.preference.Preference):
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.preference.PreferenceGroup.addPreference(androidx.preference.Preference)
+VisiblySynchronized: androidx.preference.PreferenceGroup#removeAll():
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.preference.PreferenceGroup.removeAll()

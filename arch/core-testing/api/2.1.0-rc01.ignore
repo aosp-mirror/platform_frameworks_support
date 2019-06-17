@@ -1,0 +1,11 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.arch.core.executor.testing.CountingTaskExecutorRule#finished(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.arch.core.executor.testing.CountingTaskExecutorRule.finished(org.junit.runner.Description)}
+ProtectedMember: androidx.arch.core.executor.testing.CountingTaskExecutorRule#onIdle():
+    Protected methods not allowed; must be public: method androidx.arch.core.executor.testing.CountingTaskExecutorRule.onIdle()}
+ProtectedMember: androidx.arch.core.executor.testing.CountingTaskExecutorRule#starting(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.arch.core.executor.testing.CountingTaskExecutorRule.starting(org.junit.runner.Description)}
+ProtectedMember: androidx.arch.core.executor.testing.InstantTaskExecutorRule#finished(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.arch.core.executor.testing.InstantTaskExecutorRule.finished(org.junit.runner.Description)}
+ProtectedMember: androidx.arch.core.executor.testing.InstantTaskExecutorRule#starting(org.junit.runner.Description):
+    Protected methods not allowed; must be public: method androidx.arch.core.executor.testing.InstantTaskExecutorRule.starting(org.junit.runner.Description)}

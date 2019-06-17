@@ -1,0 +1,21 @@
+// Baseline format: 1.0
+StartWithLower: androidx.work.OneTimeWorkRequestKt#OneTimeWorkRequestBuilder():
+    Method name must start with lowercase char: OneTimeWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(java.time.Duration):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(java.time.Duration, java.time.Duration):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(long, java.util.concurrent.TimeUnit):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(long, java.util.concurrent.TimeUnit, long, java.util.concurrent.TimeUnit):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+
+
+StaticUtils: androidx.work.DataKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.work.OneTimeWorkRequestKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.work.OperationKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.work.PeriodicWorkRequestKt:
+    Fully-static utility classes must not have constructor

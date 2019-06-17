@@ -1,0 +1,11 @@
+// Baseline format: 1.0
+StaticUtils: androidx.collection.ArrayMapKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.ArraySetKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.LongSparseArrayKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.LruCacheKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.SparseArrayKt:
+    Fully-static utility classes must not have constructor

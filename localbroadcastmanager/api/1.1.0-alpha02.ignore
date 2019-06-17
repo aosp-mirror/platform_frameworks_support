@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ManagerLookup: androidx.localbroadcastmanager.content.LocalBroadcastManager#getInstance(android.content.Context):
+    Managers must always be obtained from Context (`getInstance`)

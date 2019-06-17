@@ -1,0 +1,219 @@
+// Baseline format: 1.0
+AcronymName: androidx.appcompat.widget.AppCompatImageButton#setImageURI(android.net.Uri):
+    Acronyms should not be capitalized in method names: was `setImageURI`, should this be `setImageUri`?
+AcronymName: androidx.appcompat.widget.AppCompatImageView#setImageURI(android.net.Uri):
+    Acronyms should not be capitalized in method names: was `setImageURI`, should this be `setImageUri`?
+
+
+ContextFirst: androidx.appcompat.app.AppCompatDelegate#createView(android.view.View, String, android.content.Context, android.util.AttributeSet) parameter #2:
+    Context is distinct, so it must be the first argument (method `createView`)
+
+
+ForbiddenSuperClass: androidx.appcompat.app.AppCompatActivity:
+    AppCompatActivity should not extend `Activity`. Activity subclasses are impossible to compose. Expose a composable API instead.
+
+
+GetterSetterNames: androidx.appcompat.app.ActionBar#isHideOnContentScrollEnabled():
+    Symmetric method for `setHideOnContentScrollEnabled` must be named `getHideOnContentScrollEnabled`; was `isHideOnContentScrollEnabled`
+GetterSetterNames: androidx.appcompat.app.ActionBarDrawerToggle#isDrawerIndicatorEnabled():
+    Symmetric method for `setDrawerIndicatorEnabled` must be named `getDrawerIndicatorEnabled`; was `isDrawerIndicatorEnabled`
+GetterSetterNames: androidx.appcompat.app.ActionBarDrawerToggle#isDrawerSlideAnimationEnabled():
+    Symmetric method for `setDrawerSlideAnimationEnabled` must be named `getDrawerSlideAnimationEnabled`; was `isDrawerSlideAnimationEnabled`
+GetterSetterNames: androidx.appcompat.app.AppCompatDelegate#isCompatVectorFromResourcesEnabled():
+    Symmetric method for `setCompatVectorFromResourcesEnabled` must be named `getCompatVectorFromResourcesEnabled`; was `isCompatVectorFromResourcesEnabled`
+GetterSetterNames: androidx.appcompat.app.AppCompatDelegate#isHandleNativeActionModesEnabled():
+    Symmetric method for `setHandleNativeActionModesEnabled` must be named `getHandleNativeActionModesEnabled`; was `isHandleNativeActionModesEnabled`
+GetterSetterNames: androidx.appcompat.graphics.drawable.DrawerArrowDrawable#isSpinEnabled():
+    Symmetric method for `setSpinEnabled` must be named `getSpinEnabled`; was `isSpinEnabled`
+GetterSetterNames: androidx.appcompat.widget.LinearLayoutCompat#isBaselineAligned():
+    Symmetric method for `setBaselineAligned` must be named `getBaselineAligned`; was `isBaselineAligned`
+GetterSetterNames: androidx.appcompat.widget.LinearLayoutCompat#isMeasureWithLargestChildEnabled():
+    Symmetric method for `setMeasureWithLargestChildEnabled` must be named `getMeasureWithLargestChildEnabled`; was `isMeasureWithLargestChildEnabled`
+GetterSetterNames: androidx.appcompat.widget.ListPopupWindow#isModal():
+    Symmetric method for `setModal` must be named `getModal`; was `isModal`
+GetterSetterNames: androidx.appcompat.widget.SearchView#isIconified():
+    Symmetric method for `setIconified` must be named `getIconified`; was `isIconified`
+GetterSetterNames: androidx.appcompat.widget.SearchView#isQueryRefinementEnabled():
+    Symmetric method for `setQueryRefinementEnabled` must be named `getQueryRefinementEnabled`; was `isQueryRefinementEnabled`
+GetterSetterNames: androidx.appcompat.widget.SearchView#isSubmitButtonEnabled():
+    Symmetric method for `setSubmitButtonEnabled` must be named `getSubmitButtonEnabled`; was `isSubmitButtonEnabled`
+
+
+ParcelConstructor: androidx.appcompat.widget.Toolbar.SavedState#SavedState(android.os.Parcel):
+    Parcelable inflation is exposed through CREATOR, not raw constructors, in androidx.appcompat.widget.Toolbar.SavedState
+
+
+ParcelCreator: androidx.appcompat.widget.Toolbar.SavedState:
+    Parcelable requires `public int describeContents()`; missing in androidx.appcompat.widget.Toolbar.SavedState
+
+
+ParcelNotFinal: androidx.appcompat.widget.Toolbar.SavedState:
+    Parcelable classes must be final: androidx.appcompat.widget.Toolbar.SavedState is not final
+
+
+ProtectedMember: androidx.appcompat.app.AlertDialog#onCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AlertDialog.onCreate(android.os.Bundle)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#attachBaseContext(android.content.Context):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.attachBaseContext(android.content.Context)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onCreate(android.os.Bundle)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onDestroy():
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onDestroy()}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onNightModeChanged(int):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onNightModeChanged(int)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onPostCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onPostCreate(android.os.Bundle)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onPostResume():
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onPostResume()}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onSaveInstanceState(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onSaveInstanceState(android.os.Bundle)}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onStart():
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onStart()}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onStop():
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onStop()}
+ProtectedMember: androidx.appcompat.app.AppCompatActivity#onTitleChanged(CharSequence, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatActivity.onTitleChanged(CharSequence,int)}
+ProtectedMember: androidx.appcompat.app.AppCompatDialog#onCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatDialog.onCreate(android.os.Bundle)}
+ProtectedMember: androidx.appcompat.app.AppCompatDialog#onStop():
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatDialog.onStop()}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createAutoCompleteTextView(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createAutoCompleteTextView(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createButton(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createButton(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createCheckBox(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createCheckBox(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createCheckedTextView(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createCheckedTextView(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createEditText(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createEditText(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createImageButton(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createImageButton(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createImageView(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createImageView(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createMultiAutoCompleteTextView(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createMultiAutoCompleteTextView(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createRadioButton(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createRadioButton(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createRatingBar(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createRatingBar(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createSeekBar(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createSeekBar(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createSpinner(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createSpinner(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createTextView(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createTextView(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createToggleButton(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createToggleButton(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.app.AppCompatViewInflater#createView(android.content.Context, String, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.appcompat.app.AppCompatViewInflater.createView(android.content.Context,String,android.util.AttributeSet)}
+ProtectedMember: androidx.appcompat.view.ContextThemeWrapper#attachBaseContext(android.content.Context):
+    Protected methods not allowed; must be public: method androidx.appcompat.view.ContextThemeWrapper.attachBaseContext(android.content.Context)}
+ProtectedMember: androidx.appcompat.view.ContextThemeWrapper#onApplyThemeResource(android.content.res.Resources.Theme, int, boolean):
+    Protected methods not allowed; must be public: method androidx.appcompat.view.ContextThemeWrapper.onApplyThemeResource(android.content.res.Resources.Theme,int,boolean)}
+ProtectedMember: androidx.appcompat.widget.ActionMenuView#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.ActionMenuView.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.ActionMenuView#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.ActionMenuView.generateDefaultLayoutParams()}
+ProtectedMember: androidx.appcompat.widget.ActionMenuView#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.ActionMenuView.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.ActionMenuView#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.ActionMenuView.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.ActionMenuView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.ActionMenuView.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatAutoCompleteTextView#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatAutoCompleteTextView.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatButton#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatButton.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatButton#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatButton.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatButton#onTextChanged(CharSequence, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatButton.onTextChanged(CharSequence,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatCheckBox#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatCheckBox.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatCheckedTextView#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatCheckedTextView.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatEditText#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatEditText.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatImageButton#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatImageButton.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatImageView#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatImageView.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatRadioButton#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatRadioButton.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatRatingBar#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatRatingBar.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatSeekBar#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatSeekBar.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatSeekBar#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatSeekBar.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.appcompat.widget.AppCompatSpinner#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatSpinner.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatSpinner#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatSpinner.onDetachedFromWindow()}
+ProtectedMember: androidx.appcompat.widget.AppCompatSpinner#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatSpinner.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatTextView#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatTextView.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.AppCompatTextView#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatTextView.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatTextView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatTextView.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.AppCompatTextView#onTextChanged(CharSequence, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.AppCompatTextView.onTextChanged(CharSequence,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.generateDefaultLayoutParams()}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.LinearLayoutCompat#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.LinearLayoutCompat.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.SearchView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SearchView.onDetachedFromWindow()}
+ProtectedMember: androidx.appcompat.widget.SearchView#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SearchView.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.SearchView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SearchView.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.SearchView#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SearchView.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.appcompat.widget.SearchView#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SearchView.onSaveInstanceState()}
+ProtectedMember: androidx.appcompat.widget.SwitchCompat#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SwitchCompat.drawableStateChanged()}
+ProtectedMember: androidx.appcompat.widget.SwitchCompat#onCreateDrawableState(int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SwitchCompat.onCreateDrawableState(int)}
+ProtectedMember: androidx.appcompat.widget.SwitchCompat#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SwitchCompat.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.appcompat.widget.SwitchCompat#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SwitchCompat.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.SwitchCompat#verifyDrawable(android.graphics.drawable.Drawable):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.SwitchCompat.verifyDrawable(android.graphics.drawable.Drawable)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.generateDefaultLayoutParams()}
+ProtectedMember: androidx.appcompat.widget.Toolbar#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.onDetachedFromWindow()}
+ProtectedMember: androidx.appcompat.widget.Toolbar#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.onMeasure(int,int)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.appcompat.widget.Toolbar#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.appcompat.widget.Toolbar.onSaveInstanceState()}
+
+
+VisiblySynchronized: androidx.appcompat.widget.AppCompatRatingBar#onMeasure(int, int):
+    Internal locks must not be exposed: method androidx.appcompat.widget.AppCompatRatingBar.onMeasure(int,int)
+VisiblySynchronized: androidx.appcompat.widget.AppCompatSeekBar#onDraw(android.graphics.Canvas):
+    Internal locks must not be exposed: method androidx.appcompat.widget.AppCompatSeekBar.onDraw(android.graphics.Canvas)
