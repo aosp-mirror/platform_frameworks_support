@@ -72,6 +72,9 @@ fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension
             val checkUnknownNullness = hasProperty(CHECK_UNKNOWN_NULLNESS)
 
             if (extension.compilationTarget != CompilationTarget.HOST) {
+                if (!extension.requireSampledAnnotation) {
+                    disable("RequireSampledAnnotation")
+                }
                 // Ignore other errors since we are only interested in nullness here
                 if (checkUnknownNullness) {
                     fatal("UnknownNullness")
