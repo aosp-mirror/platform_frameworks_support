@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44f24318_00c4eedf",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 191,
+        "startChar": 44,
+        "endLine": 191,
+        "endChar": 82
+      },
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1742d784_25a61fba",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "rewrite this, since we\u0027re breaking both of these :D\n\nItems are loaded using their position in the query as a key",
+      "range": {
+        "startLine": 79,
+        "startChar": 52,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef295c9_1d7775cb",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "Suggest: \"Each page loaded has a next/previous page link or token\"\n\nFine saying it\u0027s the standard, but it\u0027s more important to describe how it works",
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bafe44c4_e2994eb4",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "Describe how it works: \"Data in the last item in the page is used to load the next\"",
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895e980e_228cf38a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "define the sealed classes in the PagedSource, but outside the sealed class. That makes it simpler to use them:\n\n\n`override keyProvider \u003d Positional` instead of `override keyProvider \u003d KeyProvider.Positional`",
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "493681d5_e8dcf4ec",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "looks like invalidation isn\u0027t really hooked up yet, since this is only used in Pager for now.\n\nThat\u0027s fine, but before you change this in a follow up, we should chat about what we want invalidation to look like. I think it\u0027s a little awkward how room invalidation hooks up, for instance: https://cs.corp.google.com/aosp-androidx/room/runtime/src/main/java/androidx/room/paging/LimitOffsetDataSource.java?l\u003d101\n\nThis gets weird if we\u0027re trying to use coroutines for everything, since it\u0027s harder for us to simply check if the source is invalid before passing back to the UI.\n\nMaybe we have something there they return an invalid result instead of overriding isInvalid(). That could potentially allow us to move the invalid/invalidate/whatever API surface away from Source, so devs don\u0027t need to care about it.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 29
+      },
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a6c247_8f768d26",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSourceWrapper.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "use an extension function for this",
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9df66e7_340441ff",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/Pager.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-17T21:26:36Z",
+      "side": 1,
+      "message": "Do these missing values not break tests somehow? That may be because all these fields are only used on first load...\n\nIf so, fine as is since we\u0027ll fix.",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 30
+      },
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
