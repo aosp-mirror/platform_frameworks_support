@@ -43,6 +43,7 @@ import android.os.HandlerThread;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.impl.util.FakeRepeatingUseCase;
 import androidx.camera.core.AppConfig;
@@ -52,6 +53,7 @@ import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.CaptureProcessor;
+import androidx.camera.core.EffectHelper;
 import androidx.camera.core.Exif;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCapture.Metadata;
@@ -60,8 +62,11 @@ import androidx.camera.core.ImageCapture.OnImageSavedListener;
 import androidx.camera.core.ImageCapture.UseCaseError;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.ImageProxy;
+import androidx.camera.core.PreviewConfig;
 import androidx.camera.testing.CameraUtil;
+import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
@@ -557,8 +562,23 @@ public final class ImageCaptureTest {
         ImageCaptureConfig config =
                 new ImageCaptureConfig.Builder()
                 .setBufferFormat(ImageFormat.RAW_SENSOR)
-                .setCaptureProcessor(mock(CaptureProcessor.class))
                 .build();
-        new ImageCapture(config);
+        ImageCapture imageCapture = new ImageCapture(config);
+
+        CameraX.setEffectHelper(new EffectHelper() {
+            @Override
+            public void applyEffectConfig(@NonNull ImageCaptureConfig.Builder builder,
+                    @NonNull LifecycleOwner lifecycleOwner) {
+                builder.setCaptureProcessor(mock(CaptureProcessor.class));
+            }
+
+            @Override
+            public void applyEffectConfig(@NonNull PreviewConfig.Builder builder,
+                    @NonNull LifecycleOwner lifecycleOwner) {
+
+            }
+        });
+
+        CameraX.bindToLifecycle(new FakeLifecycleOwner(), imageCapture);
     }
 }

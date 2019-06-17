@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Size;
 
+import androidx.annotation.NonNull;
 import androidx.camera.core.CameraX.ErrorCode;
 import androidx.camera.core.CameraX.ErrorListener;
 import androidx.camera.core.CameraX.LensFacing;
@@ -299,7 +300,7 @@ public final class CameraXTest {
         }
 
         @Override
-        public void onError(ErrorCode errorCode, String message) {
+        public void onError(@NonNull ErrorCode errorCode, String message) {
             mCount.getAndIncrement();
             mLatch.countDown();
         }
