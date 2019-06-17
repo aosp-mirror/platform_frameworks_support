@@ -16,7 +16,6 @@
 
 package androidx.ui.core.selection
 
-import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.PxPosition
 import androidx.ui.core.px
 import androidx.ui.engine.geometry.Offset
@@ -25,55 +24,43 @@ import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.painting.TextPainter
 import androidx.ui.services.text_editing.TextSelection
-import kotlin.math.max
-import kotlin.math.min
 
-/**
- * A class contains all the logic for text selection.
- */
-internal class TextSelectionHandlerImpl(
+internal class TextSelectionLogic(
     val textPainter: TextPainter,
-    val layoutCoordinates: LayoutCoordinates?,
-    var onSelectionChange: (TextSelection?) -> Unit = {}
-) : TextSelectionHandler {
+    var onSelectionChange: (TextSelection?) -> Unit = {},
+    val selectionCoordinates: Pair<PxPosition, PxPosition>,
+    val mode: SelectionMode
+) {
+    internal var startOffset: Rect = Rect.zero
+    internal var endOffset: Rect = Rect.zero
+    internal var containsWholeSelectionStart: Boolean
+    internal var containsWholeSelectionEnd: Boolean
+    internal var isSelected: Boolean
 
     /** Last TextPosition of the text in text widget. */
     private val lastTextPosition: Int
-    /** Bounding box of the text widget. */
-    private val box: Rect
-
     init {
+        containsWholeSelectionStart = false
+        containsWholeSelectionEnd = false
+        isSelected = false
         lastTextPosition = textPainter.text?.let { it.toPlainText().length - 1 } ?: 0
-        box = Rect(
-            top = 0f,
-            bottom = textPainter.height,
-            left = 0f,
-            right = textPainter.width
-        )
+        getSelection()
     }
 
-    // Get selection for the start and end coordinates pair.
-    override fun getSelection(
-        selectionCoordinates: Pair<PxPosition, PxPosition>,
-        containerLayoutCoordinates: LayoutCoordinates,
-        mode: SelectionMode
-    ): Selection? {
-        val relativePosition = containerLayoutCoordinates.childToLocal(
-            layoutCoordinates!!, PxPosition.Origin
-        )
-        val startPx = selectionCoordinates.first - relativePosition
-        val endPx = selectionCoordinates.second - relativePosition
+    private fun getSelection() {
+        val startPx = selectionCoordinates.first
+        val endPx = selectionCoordinates.second
 
-        if (!mode.isSelected(box, start = startPx, end = endPx)) {
+        if (!mode.isSelected(textPainter, start = startPx, end = endPx)) {
             onSelectionChange(null)
-            return null
+            return
         }
 
-        var textSelectionStart = getSelectionBorder(startPx, true).first
-        var startLayoutCoordinates = getSelectionBorder(startPx, true).second
-
-        var textSelectionEnd = getSelectionBorder(endPx, false).first
-        var endLayoutCoordinates = getSelectionBorder(endPx, false).second
+        isSelected = true
+        var (textSelectionStart, containsWholeSelectionStart) =
+            getSelectionBorder(textPainter, startPx, true)
+        var (textSelectionEnd, containsWholeSelectionEnd) =
+            getSelectionBorder(textPainter, endPx, false)
 
         if (textSelectionStart.offset == textSelectionEnd.offset) {
             val wordBoundary = textPainter.getWordBoundary(textSelectionStart)
@@ -96,14 +83,12 @@ internal class TextSelectionHandlerImpl(
         textSelectionEnd =
             TextPosition(textSelectionEnd.offset - 1, TextAffinity.upstream)
 
-        return Selection(
-            startOffset =
-            textPainter.getBoundingBoxForTextPosition(textSelectionStart),
-            endOffset =
-            textPainter.getBoundingBoxForTextPosition(textSelectionEnd),
-            startLayoutCoordinates = startLayoutCoordinates,
-            endLayoutCoordinates = endLayoutCoordinates
-        )
+        // TODO(qqd): Determine a set of coordinates around a character that we need.
+        startOffset = textPainter.getBoundingBoxForTextPosition(textSelectionStart)
+        endOffset = textPainter.getBoundingBoxForTextPosition(textSelectionEnd)
+
+        this.containsWholeSelectionStart = containsWholeSelectionStart
+        this.containsWholeSelectionEnd = containsWholeSelectionEnd
     }
 
     /**
@@ -111,9 +96,10 @@ internal class TextSelectionHandlerImpl(
      * selection.
      */
     private fun getSelectionBorder(
+        textPainter: TextPainter,
         position: PxPosition,
         isStart: Boolean
-    ): Pair<TextPosition, LayoutCoordinates?> {
+    ): Pair<TextPosition, Boolean> {
         // The text position of the border of selection. The default value is set to the beginning
         // of the text widget for the start border, and the very last position of the text widget
         // for the end border. If the widget contains the whole selection's border, this value will
@@ -125,27 +111,34 @@ internal class TextSelectionHandlerImpl(
         // This LayoutCoordinates is for the widget which contains the whole selection's border. If
         // the current widget does not contain the whole selection's border, this default null value
         // will be returned.
-        var selectionBorderLayoutCoordinates: LayoutCoordinates? = null
+        var containsWholeSelectionBorder = false
 
+        val top = 0.px
+        val bottom = textPainter.height.px
+        val left = 0.px
+        val right = textPainter.width.px
         // If the current text widget contains the whole selection's border, then find the exact
         // text position of the border, and the LayoutCoordinates of the current widget will be
         // returned.
-        if (position.x >= box.left.px &&
-            position.x <= box.right.px &&
-            position.y >= box.top.px &&
-            position.y <= box.bottom.px
+        if (position.x >= left &&
+            position.x <= right &&
+            position.y >= top &&
+            position.y <= bottom
         ) {
             val offset = Offset(position.x.value, position.y.value)
             // Constrain the position of the selection border to be within the text range of the
             // current widget.
             val constrainedSelectionBorderPosition =
-                min(max(textPainter.getPositionForOffset(offset).offset, 0), lastTextPosition)
+                kotlin.math.min(
+                    kotlin.math.max(textPainter.getPositionForOffset(offset).offset, 0),
+                    lastTextPosition
+                )
             selectionBorder = TextPosition(
                 offset = constrainedSelectionBorderPosition,
                 affinity = TextAffinity.upstream
             )
-            selectionBorderLayoutCoordinates = layoutCoordinates
+            containsWholeSelectionBorder = true
         }
-        return Pair(selectionBorder, selectionBorderLayoutCoordinates)
+        return Pair(selectionBorder, containsWholeSelectionBorder)
     }
 }
