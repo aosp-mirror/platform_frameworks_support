@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8037f5b6_ab3ce0ec",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2CameraControlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-17T20:32:51Z",
+      "side": 1,
+      "message": "Yep. Changed to that.",
+      "parentUuid": "9e4c32cd_2af7a608",
+      "revId": "b0b25839114ea601527cf86a8d7eb707eb1b648f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "647c2aca_ac30439b",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "b0b25839114ea601527cf86a8d7eb707eb1b648f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8639cfca_449cb5e9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-17T20:32:51Z",
+      "side": 1,
+      "message": "Oops good catch. I changed the focus API between this and the last patchset to no longer take nullable executors since it didn\u0027t make much sense. Just forgot to modify the comment.",
+      "parentUuid": "647c2aca_ac30439b",
+      "revId": "b0b25839114ea601527cf86a8d7eb707eb1b648f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
