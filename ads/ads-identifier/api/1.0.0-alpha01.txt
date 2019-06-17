@@ -1,1 +1,19 @@
 // Signature format: 3.0
+package androidx.ads.identifier {
+
+  public class AdvertisingIdClientCompat {
+    method public static androidx.ads.identifier.AdvertisingIdInfoCompat! getAdvertisingIdInfo(android.content.Context!) throws androidx.ads.identifier.AdvertisingIdServicesNotAvailableException, java.io.IOException, java.lang.IllegalStateException;
+  }
+
+  public abstract class AdvertisingIdInfoCompat {
+    method public abstract String! getId();
+    method public abstract String! getProviderPackageName();
+    method public abstract boolean isLimitAdTrackingEnabled();
+  }
+
+  public class AdvertisingIdServicesNotAvailableException extends java.lang.Exception {
+    ctor public AdvertisingIdServicesNotAvailableException();
+  }
+
+}
+
