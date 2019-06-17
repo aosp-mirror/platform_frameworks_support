@@ -1,0 +1,29 @@
+// Baseline format: 1.0
+AcronymName: androidx.work.Operation.State.FAILURE:
+    Acronyms should not be capitalized in class names: was `FAILURE`, should this be `Failure`?
+AcronymName: androidx.work.Operation.State.IN_PROGRESS:
+    Acronyms should not be capitalized in class names: was `IN_PROGRESS`, should this be `InProgress`?
+AcronymName: androidx.work.Operation.State.SUCCESS:
+    Acronyms should not be capitalized in class names: was `SUCCESS`, should this be `Success`?
+
+
+ManagerLookup: androidx.work.WorkManager#getInstance(android.content.Context):
+    Managers must always be obtained from Context (`getInstance`)
+
+
+MinMaxConstant: androidx.work.Configuration#MIN_SCHEDULER_LIMIT:
+    If min/max could change in future, make them dynamic methods: androidx.work.Configuration#MIN_SCHEDULER_LIMIT
+MinMaxConstant: androidx.work.Data#MAX_DATA_BYTES:
+    If min/max could change in future, make them dynamic methods: androidx.work.Data#MAX_DATA_BYTES
+MinMaxConstant: androidx.work.PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS:
+    If min/max could change in future, make them dynamic methods: androidx.work.PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS
+MinMaxConstant: androidx.work.PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS:
+    If min/max could change in future, make them dynamic methods: androidx.work.PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS
+MinMaxConstant: androidx.work.WorkRequest#MAX_BACKOFF_MILLIS:
+    If min/max could change in future, make them dynamic methods: androidx.work.WorkRequest#MAX_BACKOFF_MILLIS
+MinMaxConstant: androidx.work.WorkRequest#MIN_BACKOFF_MILLIS:
+    If min/max could change in future, make them dynamic methods: androidx.work.WorkRequest#MIN_BACKOFF_MILLIS
+
+
+UserHandleName: androidx.work.WorkerParameters:
+    Classes holding a set of parameters should be called `FooParams`, was `WorkerParameters`

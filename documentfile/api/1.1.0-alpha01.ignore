@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+StreamFiles: androidx.documentfile.provider.DocumentFile#fromFile(java.io.File):
+    Methods accepting `File` should also accept `FileDescriptor` or streams: method androidx.documentfile.provider.DocumentFile.fromFile(java.io.File)

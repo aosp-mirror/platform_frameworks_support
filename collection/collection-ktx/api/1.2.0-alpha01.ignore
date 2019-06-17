@@ -1,0 +1,15 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.collection.LruCacheKt#lruCache(int, kotlin.jvm.functions.Function2<? super K,? super V,java.lang.Integer>, kotlin.jvm.functions.Function1<? super K,? extends V>, kotlin.jvm.functions.Function4<? super java.lang.Boolean,? super K,? super V,? super V,kotlin.Unit>):
+    lambda parameters (such as parameter 3, "create", in androidx.collection.LruCacheKt.lruCache) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+StaticUtils: androidx.collection.ArrayMapKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.ArraySetKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.LongSparseArrayKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.LruCacheKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.collection.SparseArrayKt:
+    Fully-static utility classes must not have constructor

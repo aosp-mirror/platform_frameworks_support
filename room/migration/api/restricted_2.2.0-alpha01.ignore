@@ -1,0 +1,25 @@
+// Baseline format: 1.0
+StreamFiles: androidx.room.migration.bundle.SchemaBundle#serialize(androidx.room.migration.bundle.SchemaBundle, java.io.File):
+    Methods accepting `File` should also accept `FileDescriptor` or streams: method androidx.room.migration.bundle.SchemaBundle.serialize(androidx.room.migration.bundle.SchemaBundle,java.io.File)
+
+
+UserHandleName: androidx.room.migration.bundle.DatabaseBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `DatabaseBundle`
+UserHandleName: androidx.room.migration.bundle.DatabaseViewBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `DatabaseViewBundle`
+UserHandleName: androidx.room.migration.bundle.EntityBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `EntityBundle`
+UserHandleName: androidx.room.migration.bundle.FieldBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `FieldBundle`
+UserHandleName: androidx.room.migration.bundle.ForeignKeyBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `ForeignKeyBundle`
+UserHandleName: androidx.room.migration.bundle.FtsEntityBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `FtsEntityBundle`
+UserHandleName: androidx.room.migration.bundle.FtsOptionsBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `FtsOptionsBundle`
+UserHandleName: androidx.room.migration.bundle.IndexBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `IndexBundle`
+UserHandleName: androidx.room.migration.bundle.PrimaryKeyBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `PrimaryKeyBundle`
+UserHandleName: androidx.room.migration.bundle.SchemaBundle:
+    Classes holding a set of parameters should be called `FooParams`, was `SchemaBundle`

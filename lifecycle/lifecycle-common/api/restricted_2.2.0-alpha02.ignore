@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.lifecycle.GeneratedAdapter#callMethods(androidx.lifecycle.LifecycleOwner, androidx.lifecycle.Lifecycle.Event, boolean, androidx.lifecycle.MethodCallsLogger):
+    SAM-compatible parameters (such as parameter 1, "source", in androidx.lifecycle.GeneratedAdapter.callMethods) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

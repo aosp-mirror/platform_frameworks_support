@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ContextNameSuffix: androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Inconsistent class name; should be `<Foo>Provider`, was `ProcessLifecycleOwnerInitializer`

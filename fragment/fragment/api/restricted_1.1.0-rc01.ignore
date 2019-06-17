@@ -1,0 +1,33 @@
+// Baseline format: 1.0
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#addTargets(Object, java.util.ArrayList<android.view.View>) parameter #1:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#replaceTargets(Object, java.util.ArrayList<android.view.View>, java.util.ArrayList<android.view.View>) parameter #1:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#replaceTargets(Object, java.util.ArrayList<android.view.View>, java.util.ArrayList<android.view.View>) parameter #2:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#scheduleHideFragmentView(Object, android.view.View, java.util.ArrayList<android.view.View>) parameter #2:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#scheduleRemoveTargets(Object, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>) parameter #2:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#scheduleRemoveTargets(Object, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>) parameter #4:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#scheduleRemoveTargets(Object, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>, Object, java.util.ArrayList<android.view.View>) parameter #6:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#setSharedElementTargets(Object, android.view.View, java.util.ArrayList<android.view.View>) parameter #2:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#swapSharedElementTargets(Object, java.util.ArrayList<android.view.View>, java.util.ArrayList<android.view.View>) parameter #1:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.fragment.app.FragmentTransitionImpl#swapSharedElementTargets(Object, java.util.ArrayList<android.view.View>, java.util.ArrayList<android.view.View>) parameter #2:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+EndsWithImpl: androidx.fragment.app.FragmentTransitionImpl:
+    Don't expose your implementation details: `FragmentTransitionImpl` ends with `Impl`
+
+
+ProtectedMember: androidx.fragment.app.FragmentTransitionImpl#bfsAddViewChildren(java.util.List<android.view.View>, android.view.View):
+    Protected methods not allowed; must be public: method androidx.fragment.app.FragmentTransitionImpl.bfsAddViewChildren(java.util.List<android.view.View>,android.view.View)}
+ProtectedMember: androidx.fragment.app.FragmentTransitionImpl#getBoundsOnScreen(android.view.View, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.fragment.app.FragmentTransitionImpl.getBoundsOnScreen(android.view.View,android.graphics.Rect)}
+ProtectedMember: androidx.fragment.app.FragmentTransitionImpl#isNullOrEmpty(java.util.List):
+    Protected methods not allowed; must be public: method androidx.fragment.app.FragmentTransitionImpl.isNullOrEmpty(java.util.List)}

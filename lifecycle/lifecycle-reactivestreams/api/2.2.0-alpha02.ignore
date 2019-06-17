@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.lifecycle.LiveDataReactiveStreams#toPublisher(androidx.lifecycle.LifecycleOwner, androidx.lifecycle.LiveData<T>):
+    SAM-compatible parameters (such as parameter 1, "lifecycle", in androidx.lifecycle.LiveDataReactiveStreams.toPublisher) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

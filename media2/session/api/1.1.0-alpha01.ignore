@@ -1,0 +1,17 @@
+// Baseline format: 1.0
+InterfaceConstant: androidx.media2.session.MediaLibraryService#SERVICE_INTERFACE:
+    Inconsistent interface constant; expected 'MediaLibraryService'`
+InterfaceConstant: androidx.media2.session.MediaSessionService#SERVICE_INTERFACE:
+    Inconsistent interface constant; expected 'MediaSessionService'`
+
+
+ManagerLookup: androidx.media2.session.MediaSessionManager#getInstance(android.content.Context):
+    Managers must always be obtained from Context (`getInstance`)
+
+
+SamShouldBeLast: androidx.media2.session.MediaBrowser.Builder#setControllerCallback(java.util.concurrent.Executor, androidx.media2.session.MediaBrowser.BrowserCallback):
+    SAM-compatible parameters (such as parameter 1, "executor", in androidx.media2.session.MediaBrowser.Builder.setControllerCallback) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.media2.session.MediaController.Builder#setControllerCallback(java.util.concurrent.Executor, androidx.media2.session.MediaController.ControllerCallback):
+    SAM-compatible parameters (such as parameter 1, "executor", in androidx.media2.session.MediaController.Builder.setControllerCallback) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.media2.session.MediaSession.Builder#setSessionCallback(java.util.concurrent.Executor, androidx.media2.session.MediaSession.SessionCallback):
+    SAM-compatible parameters (such as parameter 1, "executor", in androidx.media2.session.MediaSession.Builder.setSessionCallback) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

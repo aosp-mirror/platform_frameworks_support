@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.leanback.preference.internal.OutlineOnlyWithChildrenFrameLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.preference.internal.OutlineOnlyWithChildrenFrameLayout.onLayout(boolean,int,int,int,int)}

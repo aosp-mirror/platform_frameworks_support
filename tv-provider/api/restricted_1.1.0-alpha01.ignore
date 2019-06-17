@@ -1,0 +1,41 @@
+// Baseline format: 1.0
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#ACTION_CHANNEL_BROWSABLE_REQUESTED:
+    Inconsistent action value; expected `androidx.tvprovider.media.tv.action.CHANNEL_BROWSABLE_REQUESTED`, was `android.media.tv.action.CHANNEL_BROWSABLE_REQUESTED`
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#EXTRA_COLUMN_NAME:
+    Inconsistent extra value; expected `androidx.tvprovider.media.tv.extra.COLUMN_NAME`, was `android.media.tv.extra.COLUMN_NAME`
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#EXTRA_DATA_TYPE:
+    Inconsistent extra value; expected `androidx.tvprovider.media.tv.extra.DATA_TYPE`, was `android.media.tv.extra.DATA_TYPE`
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#EXTRA_DEFAULT_VALUE:
+    Inconsistent extra value; expected `androidx.tvprovider.media.tv.extra.DEFAULT_VALUE`, was `android.media.tv.extra.DEFAULT_VALUE`
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#EXTRA_EXISTING_COLUMN_NAMES:
+    Inconsistent extra value; expected `androidx.tvprovider.media.tv.extra.EXISTING_COLUMN_NAMES`, was `android.media.tv.extra.EXISTING_COLUMN_NAMES`
+ActionValue: androidx.tvprovider.media.tv.TvContractCompat#EXTRA_PACKAGE_NAME:
+    Inconsistent extra value; expected `androidx.tvprovider.media.tv.extra.PACKAGE_NAME`, was `android.media.tv.extra.PACKAGE_NAME`
+
+
+AutoBoxing: androidx.tvprovider.media.tv.BaseProgram#getInternalProviderFlag1():
+    Must avoid boxed primitives (`java.lang.Long`)
+AutoBoxing: androidx.tvprovider.media.tv.BaseProgram#getInternalProviderFlag2():
+    Must avoid boxed primitives (`java.lang.Long`)
+AutoBoxing: androidx.tvprovider.media.tv.BaseProgram#getInternalProviderFlag3():
+    Must avoid boxed primitives (`java.lang.Long`)
+AutoBoxing: androidx.tvprovider.media.tv.BaseProgram#getInternalProviderFlag4():
+    Must avoid boxed primitives (`java.lang.Long`)
+
+
+EqualsAndHashCode: androidx.tvprovider.media.tv.BasePreviewProgram#equals(Object):
+    Must override both equals and hashCode; missing one in androidx.tvprovider.media.tv.BasePreviewProgram
+
+
+IntentName: androidx.tvprovider.media.tv.TvContractCompat.PreviewProgramColumns#COLUMN_INTERACTION_COUNT:
+    Intent action constant name must be ACTION_FOO: COLUMN_INTERACTION_COUNT
+IntentName: androidx.tvprovider.media.tv.TvContractCompat.PreviewProgramColumns#COLUMN_INTERACTION_TYPE:
+    Intent action constant name must be ACTION_FOO: COLUMN_INTERACTION_TYPE
+
+
+ProtectedMember: androidx.tvprovider.media.tv.BaseProgram#mValues:
+    Protected fields not allowed; must be public: field androidx.tvprovider.media.tv.BaseProgram.mValues}
+ProtectedMember: androidx.tvprovider.media.tv.BaseProgram.Builder#mValues:
+    Protected fields not allowed; must be public: field androidx.tvprovider.media.tv.BaseProgram.Builder.mValues}
+ProtectedMember: androidx.tvprovider.media.tv.PreviewChannelHelper#updatePreviewChannelInternal(long, androidx.tvprovider.media.tv.PreviewChannel):
+    Protected methods not allowed; must be public: method androidx.tvprovider.media.tv.PreviewChannelHelper.updatePreviewChannelInternal(long,androidx.tvprovider.media.tv.PreviewChannel)}

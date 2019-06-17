@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+MinMaxConstant: androidx.vectordrawable.graphics.drawable.PathInterpolatorCompat#MAX_NUM_POINTS:
+    If min/max could change in future, make them dynamic methods: androidx.vectordrawable.graphics.drawable.PathInterpolatorCompat#MAX_NUM_POINTS
+
+
+SingletonConstructor: androidx.vectordrawable.graphics.drawable.ArgbEvaluator#ArgbEvaluator():
+    Singleton classes should use `getInstance()` methods: `ArgbEvaluator`

@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+HiddenSuperclass: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat:
+    Public class androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat stripped of unavailable superclass androidx.appcompat.graphics.drawable.StateListDrawable
+
+
+ProtectedMember: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat#onStateChange(int[]):
+    Protected methods not allowed; must be public: method androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat.onStateChange(int[])}

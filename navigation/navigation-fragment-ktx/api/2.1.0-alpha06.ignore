@@ -1,0 +1,21 @@
+// Baseline format: 1.0
+DocumentExceptions: androidx.navigation.fragment.FragmentNavArgsLazyKt#navArgs(androidx.fragment.app.Fragment):
+    Method FragmentNavArgsLazyKt.navArgs appears to be throwing java.lang.IllegalStateException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+
+
+StartWithLower: androidx.navigation.fragment.FragmentNavigatorExtrasKt#FragmentNavigatorExtras(kotlin.Pair<? extends android.view.View,java.lang.String>...):
+    Method name must start with lowercase char: FragmentNavigatorExtras
+
+
+StaticUtils: androidx.navigation.NavGraphViewModelLazyKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilderKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.fragment.FragmentKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.fragment.FragmentNavArgsLazyKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.fragment.FragmentNavigatorDestinationBuilderKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.fragment.FragmentNavigatorExtrasKt:
+    Fully-static utility classes must not have constructor

@@ -1,0 +1,15 @@
+// Baseline format: 1.0
+AutoBoxing: androidx.media2.player.PlaybackParams#getAudioFallbackMode():
+    Must avoid boxed primitives (`java.lang.Integer`)
+AutoBoxing: androidx.media2.player.PlaybackParams#getPitch():
+    Must avoid boxed primitives (`java.lang.Float`)
+AutoBoxing: androidx.media2.player.PlaybackParams#getSpeed():
+    Must avoid boxed primitives (`java.lang.Float`)
+
+
+GenericException: androidx.media2.player.MediaPlayer#close():
+    Methods must not throw generic exceptions (`java.lang.Exception`)
+
+
+SamShouldBeLast: androidx.media2.player.MediaPlayer#registerPlayerCallback(java.util.concurrent.Executor, androidx.media2.player.MediaPlayer.PlayerCallback):
+    SAM-compatible parameters (such as parameter 1, "executor", in androidx.media2.player.MediaPlayer.registerPlayerCallback) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

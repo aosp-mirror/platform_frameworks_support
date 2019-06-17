@@ -1,0 +1,9 @@
+// Baseline format: 1.0
+MinMaxConstant: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_ALPHA:
+    If min/max could change in future, make them dynamic methods: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_ALPHA
+MinMaxConstant: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_PIXELS:
+    If min/max could change in future, make them dynamic methods: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_PIXELS
+MinMaxConstant: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_ROTATION_DEGREES:
+    If min/max could change in future, make them dynamic methods: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_ROTATION_DEGREES
+MinMaxConstant: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_SCALE:
+    If min/max could change in future, make them dynamic methods: androidx.dynamicanimation.animation.DynamicAnimation#MIN_VISIBLE_CHANGE_SCALE

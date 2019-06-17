@@ -1,0 +1,13 @@
+// Baseline format: 1.0
+ForbiddenSuperClass: androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity:
+    EmptyFragmentActivity should not extend `Activity`. Activity subclasses are impossible to compose. Expose a composable API instead.
+
+
+IntentName: androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity#THEME_EXTRAS_BUNDLE_KEY:
+    Intent extra constant name must be EXTRA_FOO: THEME_EXTRAS_BUNDLE_KEY
+
+
+ProtectedMember: androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity#onCreate(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.onCreate(android.os.Bundle)}
+ProtectedMember: androidx.fragment.app.testing.FragmentScenario.FragmentFactoryHolderViewModel#onCleared():
+    Protected methods not allowed; must be public: method androidx.fragment.app.testing.FragmentScenario.FragmentFactoryHolderViewModel.onCleared()}

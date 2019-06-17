@@ -1,0 +1,71 @@
+// Baseline format: 1.0
+ConcreteCollection: androidx.viewpager.widget.ViewPager#addFocusables(java.util.ArrayList<android.view.View>, int, int) parameter #0:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.viewpager.widget.ViewPager#addTouchables(java.util.ArrayList<android.view.View>) parameter #0:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+GetterSetterNames: androidx.viewpager.widget.ViewPager#isDragInGutterEnabled():
+    Symmetric method for `setDragInGutterEnabled` must be named `getDragInGutterEnabled`; was `isDragInGutterEnabled`
+
+
+ListenerInterface: androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener:
+    Listeners should be an interface, or otherwise renamed Callback: SimpleOnPageChangeListener
+
+
+ParcelCreator: androidx.viewpager.widget.ViewPager.SavedState:
+    Parcelable requires `public int describeContents()`; missing in androidx.viewpager.widget.ViewPager.SavedState
+
+
+ParcelNotFinal: androidx.viewpager.widget.ViewPager.SavedState:
+    Parcelable classes must be final: androidx.viewpager.widget.ViewPager.SavedState is not final
+
+
+ProtectedMember: androidx.viewpager.widget.PagerTabStrip#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.PagerTabStrip.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.viewpager.widget.PagerTitleStrip#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.PagerTitleStrip.onAttachedToWindow()}
+ProtectedMember: androidx.viewpager.widget.PagerTitleStrip#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.PagerTitleStrip.onDetachedFromWindow()}
+ProtectedMember: androidx.viewpager.widget.PagerTitleStrip#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.PagerTitleStrip.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.viewpager.widget.PagerTitleStrip#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.PagerTitleStrip.onMeasure(int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#canScroll(android.view.View, boolean, int, int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.canScroll(android.view.View,boolean,int,int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.drawableStateChanged()}
+ProtectedMember: androidx.viewpager.widget.ViewPager#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.generateDefaultLayoutParams()}
+ProtectedMember: androidx.viewpager.widget.ViewPager#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#getChildDrawingOrder(int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.getChildDrawingOrder(int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onAttachedToWindow()}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onDetachedFromWindow()}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onDraw(android.graphics.Canvas):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onDraw(android.graphics.Canvas)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onMeasure(int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onPageScrolled(int, float, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onPageScrolled(int,float,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onRequestFocusInDescendants(int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onRequestFocusInDescendants(int,android.graphics.Rect)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#onSizeChanged(int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.onSizeChanged(int,int,int,int)}
+ProtectedMember: androidx.viewpager.widget.ViewPager#verifyDrawable(android.graphics.drawable.Drawable):
+    Protected methods not allowed; must be public: method androidx.viewpager.widget.ViewPager.verifyDrawable(android.graphics.drawable.Drawable)}
+
+
+SamShouldBeLast: androidx.viewpager.widget.ViewPager#setPageTransformer(boolean, androidx.viewpager.widget.ViewPager.PageTransformer, int):
+    SAM-compatible parameters (such as parameter 2, "transformer", in androidx.viewpager.widget.ViewPager.setPageTransformer) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+VisiblySynchronized: androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged():
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.viewpager.widget.PagerAdapter.notifyDataSetChanged()

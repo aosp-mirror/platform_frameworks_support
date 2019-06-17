@@ -3,3 +3,121 @@ ChangedType: androidx.versionedparcelable.VersionedParcel#mParcelizerCache:
     Field androidx.versionedparcelable.VersionedParcel.mParcelizerCache has changed type from androidx.collection.ArrayMap<java.lang.String!,java.lang.Class!> to androidx.collection.ArrayMap<java.lang.String!,java.lang.Class<?>!>
 ChangedType: androidx.versionedparcelable.VersionedParcelize#factory():
     Method androidx.versionedparcelable.VersionedParcelize.factory has changed return type from Class to Class<?>
+
+
+EndsWithImpl: androidx.versionedparcelable.ParcelImpl:
+    Don't expose your implementation details: `ParcelImpl` ends with `Impl`
+
+
+ParcelConstructor: androidx.versionedparcelable.ParcelImpl#ParcelImpl(android.os.Parcel):
+    Parcelable inflation is exposed through CREATOR, not raw constructors, in androidx.versionedparcelable.ParcelImpl
+
+
+ParcelNotFinal: androidx.versionedparcelable.ParcelImpl:
+    Parcelable classes must be final: androidx.versionedparcelable.ParcelImpl is not final
+
+
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#closeField():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.closeField()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#createSubParcel():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.createSubParcel()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#getRootCause(Throwable):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.getRootCause(Throwable)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#mParcelizerCache:
+    Protected fields not allowed; must be public: field androidx.versionedparcelable.VersionedParcel.mParcelizerCache}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#mReadCache:
+    Protected fields not allowed; must be public: field androidx.versionedparcelable.VersionedParcel.mReadCache}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#mWriteCache:
+    Protected fields not allowed; must be public: field androidx.versionedparcelable.VersionedParcel.mWriteCache}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readArray(T[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readArray(T[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readBoolean():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readBoolean()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readBooleanArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readBooleanArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readBundle():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readBundle()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readByteArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readByteArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readCharSequence():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readCharSequence()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readDouble():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readDouble()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readDoubleArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readDoubleArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readField(int):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readField(int)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readFloat():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readFloat()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readFloatArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readFloatArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readFromParcel(String, androidx.versionedparcelable.VersionedParcel):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readFromParcel(String,androidx.versionedparcelable.VersionedParcel)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readInt():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readInt()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readIntArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readIntArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readLong():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readLong()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readLongArray():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readLongArray()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readParcelable():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readParcelable()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readSerializable():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readSerializable()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readString():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readString()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readStrongBinder():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readStrongBinder()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#readVersionedParcelable():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.readVersionedParcelable()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#setOutputField(int):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.setOutputField(int)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeArray(T[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeArray(T[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeBoolean(boolean):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeBoolean(boolean)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeBooleanArray(boolean[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeBooleanArray(boolean[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeBundle(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeBundle(android.os.Bundle)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeByteArray(byte[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeByteArray(byte[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeByteArray(byte[], int, int):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeByteArray(byte[],int,int)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeCharSequence(CharSequence):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeCharSequence(CharSequence)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeDouble(double):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeDouble(double)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeDoubleArray(double[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeDoubleArray(double[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeFloat(float):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeFloat(float)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeFloatArray(float[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeFloatArray(float[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeInt(int):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeInt(int)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeIntArray(int[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeIntArray(int[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeLong(long):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeLong(long)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeLongArray(long[]):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeLongArray(long[])}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeNoException():
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeNoException()}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeParcelable(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeParcelable(android.os.Parcelable)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeString(String):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeString(String)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeStrongBinder(android.os.IBinder):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeStrongBinder(android.os.IBinder)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeStrongInterface(android.os.IInterface):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeStrongInterface(android.os.IInterface)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeToParcel(T, androidx.versionedparcelable.VersionedParcel):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeToParcel(T,androidx.versionedparcelable.VersionedParcel)}
+ProtectedMember: androidx.versionedparcelable.VersionedParcel#writeVersionedParcelable(androidx.versionedparcelable.VersionedParcelable):
+    Protected methods not allowed; must be public: method androidx.versionedparcelable.VersionedParcel.writeVersionedParcelable(androidx.versionedparcelable.VersionedParcelable)}
+
+
+SamShouldBeLast: androidx.versionedparcelable.VersionedParcel#writeStrongInterface(android.os.IInterface, int):
+    SAM-compatible parameters (such as parameter 1, "val", in androidx.versionedparcelable.VersionedParcel.writeStrongInterface) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

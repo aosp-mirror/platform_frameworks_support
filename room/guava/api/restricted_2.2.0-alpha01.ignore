@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.room.guava.GuavaRoom#createListenableFuture(androidx.room.RoomDatabase, boolean, java.util.concurrent.Callable<T>, androidx.room.RoomSQLiteQuery, boolean):
+    SAM-compatible parameters (such as parameter 3, "callable", in androidx.room.guava.GuavaRoom.createListenableFuture) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.room.guava.GuavaRoom#createListenableFuture(androidx.room.RoomDatabase, java.util.concurrent.Callable<T>, androidx.room.RoomSQLiteQuery, boolean):
+    SAM-compatible parameters (such as parameter 2, "callable", in androidx.room.guava.GuavaRoom.createListenableFuture) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.room.guava.GuavaRoom#createListenableFuture(java.util.concurrent.Callable<T>, androidx.room.RoomSQLiteQuery, boolean):
+    SAM-compatible parameters (such as parameter 1, "callable", in androidx.room.guava.GuavaRoom.createListenableFuture) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

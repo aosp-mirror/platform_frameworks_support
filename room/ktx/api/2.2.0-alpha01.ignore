@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.room.RoomDatabaseKt#withTransaction(androidx.room.RoomDatabase, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super R>,?>, kotlin.coroutines.Continuation<? super R>):
+    lambda parameters (such as parameter 2, "block", in androidx.room.RoomDatabaseKt.withTransaction) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+StaticUtils: androidx.room.RoomDatabaseKt:
+    Fully-static utility classes must not have constructor

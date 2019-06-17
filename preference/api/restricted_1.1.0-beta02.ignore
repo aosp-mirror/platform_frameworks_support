@@ -1,1 +1,37 @@
 // Baseline format: 1.0
+ManagerConstructor: androidx.preference.PreferenceManager#PreferenceManager(android.content.Context):
+    Managers must always be obtained from Context; no direct constructors
+
+
+ProtectedMember: androidx.preference.CheckBoxPreference#performClick(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.CheckBoxPreference.performClick(android.view.View)}
+ProtectedMember: androidx.preference.EditTextPreferenceDialogFragment#needInputMethod():
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreferenceDialogFragment.needInputMethod()}
+ProtectedMember: androidx.preference.EditTextPreferenceDialogFragmentCompat#needInputMethod():
+    Protected methods not allowed; must be public: method androidx.preference.EditTextPreferenceDialogFragmentCompat.needInputMethod()}
+ProtectedMember: androidx.preference.Preference#onAttachedToHierarchy(androidx.preference.PreferenceManager, long):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.onAttachedToHierarchy(androidx.preference.PreferenceManager,long)}
+ProtectedMember: androidx.preference.Preference#performClick(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.Preference.performClick(android.view.View)}
+ProtectedMember: androidx.preference.PreferenceDialogFragment#needInputMethod():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceDialogFragment.needInputMethod()}
+ProtectedMember: androidx.preference.PreferenceDialogFragmentCompat#needInputMethod():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceDialogFragmentCompat.needInputMethod()}
+ProtectedMember: androidx.preference.PreferenceFragment#onBindPreferences():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceFragment.onBindPreferences()}
+ProtectedMember: androidx.preference.PreferenceFragment#onUnbindPreferences():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceFragment.onUnbindPreferences()}
+ProtectedMember: androidx.preference.PreferenceFragmentCompat#onBindPreferences():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceFragmentCompat.onBindPreferences()}
+ProtectedMember: androidx.preference.PreferenceFragmentCompat#onUnbindPreferences():
+    Protected methods not allowed; must be public: method androidx.preference.PreferenceFragmentCompat.onUnbindPreferences()}
+ProtectedMember: androidx.preference.SwitchPreference#performClick(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.SwitchPreference.performClick(android.view.View)}
+ProtectedMember: androidx.preference.SwitchPreferenceCompat#performClick(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.SwitchPreferenceCompat.performClick(android.view.View)}
+ProtectedMember: androidx.preference.TwoStatePreference#syncSummaryView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.preference.TwoStatePreference.syncSummaryView(android.view.View)}
+ProtectedMember: androidx.preference.UnPressableLinearLayout#dispatchSetPressed(boolean):
+    Protected methods not allowed; must be public: method androidx.preference.UnPressableLinearLayout.dispatchSetPressed(boolean)}
+ProtectedMember: androidx.preference.internal.PreferenceImageView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.preference.internal.PreferenceImageView.onMeasure(int,int)}

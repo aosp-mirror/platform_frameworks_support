@@ -1,0 +1,9 @@
+// Baseline format: 1.0
+AllUpper: androidx.room.CoroutinesRoom#Companion:
+    Constant field names must be named with only upper case characters: `androidx.room.CoroutinesRoom#Companion`, should be `COMPANION`?
+
+
+SamShouldBeLast: androidx.room.CoroutinesRoom#execute(androidx.room.RoomDatabase, boolean, java.util.concurrent.Callable<R>, kotlin.coroutines.Continuation<? super R>):
+    SAM-compatible parameters (such as parameter 3, "inTransaction", in androidx.room.CoroutinesRoom.execute) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.room.CoroutinesRoom.Companion#execute(androidx.room.RoomDatabase, boolean, java.util.concurrent.Callable<R>, kotlin.coroutines.Continuation<? super R>):
+    SAM-compatible parameters (such as parameter 3, "callable", in androidx.room.CoroutinesRoom.Companion.execute) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

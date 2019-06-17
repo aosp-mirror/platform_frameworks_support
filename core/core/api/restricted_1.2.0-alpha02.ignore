@@ -1,4 +1,14 @@
 // Baseline format: 1.0
+BannedThrow: androidx.core.widget.AutoSizeableTextView#setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int):
+    Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.IllegalArgumentException`)
+BannedThrow: androidx.core.widget.AutoSizeableTextView#setAutoSizeTextTypeUniformWithPresetSizes(int[], int):
+    Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.IllegalArgumentException`)
+
+
+CallbackInterface: androidx.core.provider.SelfDestructiveThread.ReplyCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: ReplyCallback
+
+
 ChangedType: androidx.core.graphics.TypefaceCompatApi26Impl#mFontFamily:
     Field androidx.core.graphics.TypefaceCompatApi26Impl.mFontFamily has changed type from java.lang.Class to java.lang.Class<?>
 ChangedType: androidx.core.graphics.TypefaceCompatApi26Impl#mFontFamilyCtor:
@@ -7,3 +17,97 @@ ChangedType: androidx.core.graphics.TypefaceCompatApi26Impl#obtainFontFamily():
     Method androidx.core.graphics.TypefaceCompatApi26Impl.obtainFontFamily has changed return type from Class to Class<?>
 ChangedType: androidx.core.graphics.TypefaceCompatApi26Impl#obtainFontFamilyCtor(Class<?>):
     Method androidx.core.graphics.TypefaceCompatApi26Impl.obtainFontFamilyCtor has changed return type from java.lang.reflect.Constructor to java.lang.reflect.Constructor<?>
+
+
+CompileTimeConstant: androidx.core.widget.AutoSizeableTextView#PLATFORM_SUPPORTS_AUTOSIZE:
+    All constants must be defined at compile time: androidx.core.widget.AutoSizeableTextView#PLATFORM_SUPPORTS_AUTOSIZE
+
+
+ConcreteCollection: androidx.core.app.NotificationCompat.Builder#mActions:
+    Field type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+ContextFirst: androidx.core.graphics.drawable.IconCompat#addToShortcutIntent(android.content.Intent, android.graphics.drawable.Drawable, android.content.Context) parameter #2:
+    Context is distinct, so it must be the first argument (method `addToShortcutIntent`)
+
+
+EndsWithImpl: androidx.core.content.pm.ShortcutInfoCompatSaver.NoopImpl:
+    Don't expose your implementation details: `NoopImpl` ends with `Impl`
+EndsWithImpl: androidx.core.graphics.TypefaceCompatApi26Impl:
+    Don't expose your implementation details: `TypefaceCompatApi26Impl` ends with `Impl`
+EndsWithImpl: androidx.core.graphics.TypefaceCompatApi28Impl:
+    Don't expose your implementation details: `TypefaceCompatApi28Impl` ends with `Impl`
+EndsWithImpl: androidx.core.graphics.TypefaceCompatApi29Impl:
+    Don't expose your implementation details: `TypefaceCompatApi29Impl` ends with `Impl`
+
+
+ForbiddenSuperClass: androidx.core.app.ComponentActivity:
+    ComponentActivity should not extend `Activity`. Activity subclasses are impossible to compose. Expose a composable API instead.
+
+
+GenericException: androidx.core.content.pm.ShortcutInfoCompatSaver#getShortcuts():
+    Methods must not throw generic exceptions (`java.lang.Exception`)
+
+
+ParcelNotFinal: android.support.v4.os.ResultReceiver:
+    Parcelable classes must be final: android.support.v4.os.ResultReceiver is not final
+
+
+ProtectedMember: android.support.v4.os.ResultReceiver#onReceiveResult(int, android.os.Bundle):
+    Protected methods not allowed; must be public: method android.support.v4.os.ResultReceiver.onReceiveResult(int,android.os.Bundle)}
+ProtectedMember: androidx.core.app.NotificationCompat.MessagingStyle#restoreFromCompatExtras(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.core.app.NotificationCompat.MessagingStyle.restoreFromCompatExtras(android.os.Bundle)}
+ProtectedMember: androidx.core.app.NotificationCompat.Style#mBuilder:
+    Protected fields not allowed; must be public: field androidx.core.app.NotificationCompat.Style.mBuilder}
+ProtectedMember: androidx.core.app.NotificationCompat.Style#restoreFromCompatExtras(android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.core.app.NotificationCompat.Style.restoreFromCompatExtras(android.os.Bundle)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#createFromFamiliesWithDefault(Object):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.createFromFamiliesWithDefault(Object)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mAbortCreation:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mAbortCreation}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mAddFontFromAssetManager:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mAddFontFromAssetManager}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mAddFontFromBuffer:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mAddFontFromBuffer}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mCreateFromFamiliesWithDefault:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mCreateFromFamiliesWithDefault}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mFontFamily:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mFontFamily}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mFontFamilyCtor:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mFontFamilyCtor}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#mFreeze:
+    Protected fields not allowed; must be public: field androidx.core.graphics.TypefaceCompatApi26Impl.mFreeze}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainAbortCreationMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainAbortCreationMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainAddFontFromAssetManagerMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainAddFontFromAssetManagerMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainAddFontFromBufferMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainAddFontFromBufferMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainCreateFromFamiliesWithDefaultMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainCreateFromFamiliesWithDefaultMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainFontFamily():
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainFontFamily()}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainFontFamilyCtor(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainFontFamilyCtor(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi26Impl#obtainFreezeMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi26Impl.obtainFreezeMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi28Impl#createFromFamiliesWithDefault(Object):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi28Impl.createFromFamiliesWithDefault(Object)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi28Impl#obtainCreateFromFamiliesWithDefaultMethod(Class<?>):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi28Impl.obtainCreateFromFamiliesWithDefaultMethod(Class<?>)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi29Impl#createFromInputStream(android.content.Context, java.io.InputStream):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi29Impl.createFromInputStream(android.content.Context,java.io.InputStream)}
+ProtectedMember: androidx.core.graphics.TypefaceCompatApi29Impl#findBestInfo(androidx.core.provider.FontsContractCompat.FontInfo[], int):
+    Protected methods not allowed; must be public: method androidx.core.graphics.TypefaceCompatApi29Impl.findBestInfo(androidx.core.provider.FontsContractCompat.FontInfo[],int)}
+ProtectedMember: androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat#mCommand:
+    Protected fields not allowed; must be public: field androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.mCommand}
+
+
+SamShouldBeLast: androidx.core.provider.SelfDestructiveThread#postAndWait(java.util.concurrent.Callable<T>, int):
+    SAM-compatible parameters (such as parameter 1, "callable", in androidx.core.provider.SelfDestructiveThread.postAndWait) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+SamShouldBeLast: androidx.core.view.KeyEventDispatcher#dispatchKeyEvent(androidx.core.view.KeyEventDispatcher.Component, android.view.View, android.view.Window.Callback, android.view.KeyEvent):
+    SAM-compatible parameters (such as parameter 1, "component", in androidx.core.view.KeyEventDispatcher.dispatchKeyEvent) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+VisiblySynchronized: android.support.v4.os.ResultReceiver#writeToParcel(android.os.Parcel, int):
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method android.support.v4.os.ResultReceiver.writeToParcel(android.os.Parcel,int)

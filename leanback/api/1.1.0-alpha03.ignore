@@ -1,5 +1,723 @@
 // Baseline format: 1.0
+ActionValue: androidx.leanback.app.GuidedStepFragment#EXTRA_UI_STYLE:
+    Inconsistent extra value; expected `androidx.leanback.app.extra.UI_STYLE`, was `uiStyle`
+ActionValue: androidx.leanback.app.GuidedStepSupportFragment#EXTRA_UI_STYLE:
+    Inconsistent extra value; expected `androidx.leanback.app.extra.UI_STYLE`, was `uiStyle`
+
+
+AutoBoxing: androidx.leanback.widget.Parallax.FloatProperty#get(androidx.leanback.widget.Parallax):
+    Must avoid boxed primitives (`java.lang.Float`)
+AutoBoxing: androidx.leanback.widget.Parallax.FloatProperty#set(androidx.leanback.widget.Parallax, Float) parameter #1:
+    Must avoid boxed primitives (`java.lang.Float`)
+AutoBoxing: androidx.leanback.widget.Parallax.IntProperty#get(androidx.leanback.widget.Parallax):
+    Must avoid boxed primitives (`java.lang.Integer`)
+AutoBoxing: androidx.leanback.widget.Parallax.IntProperty#set(androidx.leanback.widget.Parallax, Integer) parameter #1:
+    Must avoid boxed primitives (`java.lang.Integer`)
+AutoBoxing: androidx.leanback.widget.ParallaxTarget#directUpdate(Number) parameter #0:
+    Must avoid boxed primitives (`java.lang.Number`)
+AutoBoxing: androidx.leanback.widget.ParallaxTarget.DirectPropertyTarget#directUpdate(Number) parameter #0:
+    Must avoid boxed primitives (`java.lang.Number`)
+
+
+CallbackMethodName: androidx.leanback.widget.DiffCallback:
+    Callback method names must follow the on<Something> style: areItemsTheSame
+CallbackMethodName: androidx.leanback.widget.GuidedActionDiffCallback:
+    Callback method names must follow the on<Something> style: getInstance
+CallbackMethodName: androidx.leanback.widget.SearchBar.SearchBarPermissionListener:
+    Listener method names must follow the on<Something> style: requestAudioPermission
+
+
+CallbackName: androidx.leanback.widget.ObjectAdapter.DataObserver:
+    Class should be named DataCallback
+
+
 ChangedStatic: androidx.leanback.widget.ItemBridgeAdapter.ViewHolder:
     Class androidx.leanback.widget.ItemBridgeAdapter.ViewHolder changed 'static' qualifier
 
 
+ConcreteCollection: androidx.leanback.widget.ItemBridgeAdapter#getPresenterMapper():
+    Return type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.leanback.widget.ItemBridgeAdapter#setPresenterMapper(java.util.ArrayList<androidx.leanback.widget.Presenter>) parameter #0:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+ContextFirst: androidx.leanback.widget.GuidedAction.BuilderBase#iconResourceId(int, android.content.Context) parameter #1:
+    Context is distinct, so it must be the first argument (method `iconResourceId`)
+ContextFirst: androidx.leanback.widget.PlaybackControlsRow.ThumbsAction#ThumbsAction(int, android.content.Context, int, int) parameter #1:
+    Context is distinct, so it must be the first argument (method `ThumbsAction`)
+
+
+FractionFloat: androidx.leanback.widget.Parallax.FloatProperty#atFraction(float):
+    Fractions must use floats, was `androidx.leanback.widget.Parallax.PropertyMarkerValue` in `atFraction`
+FractionFloat: androidx.leanback.widget.Parallax.IntProperty#atFraction(float):
+    Fractions must use floats, was `androidx.leanback.widget.Parallax.PropertyMarkerValue` in `atFraction`
+
+
+GetterSetterNames: androidx.leanback.app.BackgroundManager#isAutoReleaseOnStop():
+    Symmetric method for `setAutoReleaseOnStop` must be named `getAutoReleaseOnStop`; was `isAutoReleaseOnStop`
+GetterSetterNames: androidx.leanback.app.BrowseFragment#isHeadersTransitionOnBackEnabled():
+    Symmetric method for `setHeadersTransitionOnBackEnabled` must be named `getHeadersTransitionOnBackEnabled`; was `isHeadersTransitionOnBackEnabled`
+GetterSetterNames: androidx.leanback.app.BrowseFragment.MainFragmentAdapter#isScalingEnabled():
+    Symmetric method for `setScalingEnabled` must be named `getScalingEnabled`; was `isScalingEnabled`
+GetterSetterNames: androidx.leanback.app.BrowseSupportFragment#isHeadersTransitionOnBackEnabled():
+    Symmetric method for `setHeadersTransitionOnBackEnabled` must be named `getHeadersTransitionOnBackEnabled`; was `isHeadersTransitionOnBackEnabled`
+GetterSetterNames: androidx.leanback.app.BrowseSupportFragment.MainFragmentAdapter#isScalingEnabled():
+    Symmetric method for `setScalingEnabled` must be named `getScalingEnabled`; was `isScalingEnabled`
+GetterSetterNames: androidx.leanback.app.PlaybackFragment#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.app.PlaybackFragment#isShowOrHideControlsOverlayOnUserInteraction():
+    Symmetric method for `setShowOrHideControlsOverlayOnUserInteraction` must be named `getShowOrHideControlsOverlayOnUserInteraction`; was `isShowOrHideControlsOverlayOnUserInteraction`
+GetterSetterNames: androidx.leanback.app.PlaybackFragmentGlueHost#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.app.PlaybackSupportFragment#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.app.PlaybackSupportFragment#isShowOrHideControlsOverlayOnUserInteraction():
+    Symmetric method for `setShowOrHideControlsOverlayOnUserInteraction` must be named `getShowOrHideControlsOverlayOnUserInteraction`; was `isShowOrHideControlsOverlayOnUserInteraction`
+GetterSetterNames: androidx.leanback.app.PlaybackSupportFragmentGlueHost#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.media.PlaybackBaseControlGlue#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.media.PlaybackControlGlue#isFadingEnabled():
+    Symmetric method for `setFadingEnabled` must be named `getFadingEnabled`; was `isFadingEnabled`
+GetterSetterNames: androidx.leanback.media.PlaybackGlueHost#isControlsOverlayAutoHideEnabled():
+    Symmetric method for `setControlsOverlayAutoHideEnabled` must be named `getControlsOverlayAutoHideEnabled`; was `isControlsOverlayAutoHideEnabled`
+GetterSetterNames: androidx.leanback.media.PlaybackTransportControlGlue#isSeekEnabled():
+    Symmetric method for `setSeekEnabled` must be named `getSeekEnabled`; was `isSeekEnabled`
+GetterSetterNames: androidx.leanback.widget.BaseCardView#isSelectedAnimationDelayed():
+    Symmetric method for `setSelectedAnimationDelayed` must be named `getSelectedAnimationDelayed`; was `isSelectedAnimationDelayed`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isFocusDrawingOrderEnabled():
+    Symmetric method for `setFocusDrawingOrderEnabled` must be named `getFocusDrawingOrderEnabled`; was `isFocusDrawingOrderEnabled`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isFocusSearchDisabled():
+    Symmetric method for `setFocusSearchDisabled` must be named `getFocusSearchDisabled`; was `isFocusSearchDisabled`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isItemAlignmentOffsetWithPadding():
+    Symmetric method for `setItemAlignmentOffsetWithPadding` must be named `getItemAlignmentOffsetWithPadding`; was `isItemAlignmentOffsetWithPadding`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isScrollEnabled():
+    Symmetric method for `setScrollEnabled` must be named `getScrollEnabled`; was `isScrollEnabled`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isWindowAlignmentPreferKeyLineOverHighEdge():
+    Symmetric method for `setWindowAlignmentPreferKeyLineOverHighEdge` must be named `getWindowAlignmentPreferKeyLineOverHighEdge`; was `isWindowAlignmentPreferKeyLineOverHighEdge`
+GetterSetterNames: androidx.leanback.widget.BaseGridView#isWindowAlignmentPreferKeyLineOverLowEdge():
+    Symmetric method for `setWindowAlignmentPreferKeyLineOverLowEdge` must be named `getWindowAlignmentPreferKeyLineOverLowEdge`; was `isWindowAlignmentPreferKeyLineOverLowEdge`
+GetterSetterNames: androidx.leanback.widget.DetailsOverviewLogoPresenter.ViewHolder#isSizeFromDrawableIntrinsic():
+    Symmetric method for `setSizeFromDrawableIntrinsic` must be named `getSizeFromDrawableIntrinsic`; was `isSizeFromDrawableIntrinsic`
+GetterSetterNames: androidx.leanback.widget.DetailsOverviewRow#isImageScaleUpAllowed():
+    Symmetric method for `setImageScaleUpAllowed` must be named `getImageScaleUpAllowed`; was `isImageScaleUpAllowed`
+GetterSetterNames: androidx.leanback.widget.DetailsOverviewRowPresenter#isStyleLarge():
+    Symmetric method for `setStyleLarge` must be named `getStyleLarge`; was `isStyleLarge`
+GetterSetterNames: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#isParticipatingEntranceTransition():
+    Symmetric method for `setParticipatingEntranceTransition` must be named `getParticipatingEntranceTransition`; was `isParticipatingEntranceTransition`
+GetterSetterNames: androidx.leanback.widget.GuidedAction#isChecked():
+    Symmetric method for `setChecked` must be named `getChecked`; was `isChecked`
+GetterSetterNames: androidx.leanback.widget.GuidedAction#isEnabled():
+    Symmetric method for `setEnabled` must be named `getEnabled`; was `isEnabled`
+GetterSetterNames: androidx.leanback.widget.GuidedAction#isFocusable():
+    Symmetric method for `setFocusable` must be named `getFocusable`; was `isFocusable`
+GetterSetterNames: androidx.leanback.widget.GuidedAction#setSubActions(java.util.List<androidx.leanback.widget.GuidedAction>):
+    Symmetric method for `hasSubActions` must be named `setHasSubActions`; was `setSubActions`
+GetterSetterNames: androidx.leanback.widget.GuidedActionsStylist#isBackKeyToCollapseActivatorView():
+    Symmetric method for `setBackKeyToCollapseActivatorView` must be named `getBackKeyToCollapseActivatorView`; was `isBackKeyToCollapseActivatorView`
+GetterSetterNames: androidx.leanback.widget.GuidedActionsStylist#isBackKeyToCollapseSubActions():
+    Symmetric method for `setBackKeyToCollapseSubActions` must be named `getBackKeyToCollapseSubActions`; was `isBackKeyToCollapseSubActions`
+GetterSetterNames: androidx.leanback.widget.ItemAlignmentFacet.ItemAlignmentDef#isItemAlignmentOffsetWithPadding():
+    Symmetric method for `setItemAlignmentOffsetWithPadding` must be named `getItemAlignmentOffsetWithPadding`; was `isItemAlignmentOffsetWithPadding`
+GetterSetterNames: androidx.leanback.widget.ListRowPresenter#isKeepChildForeground():
+    Symmetric method for `setKeepChildForeground` must be named `getKeepChildForeground`; was `isKeepChildForeground`
+GetterSetterNames: androidx.leanback.widget.ListRowPresenter.SelectItemViewHolderTask#isSmoothScroll():
+    Symmetric method for `setSmoothScroll` must be named `getSmoothScroll`; was `isSmoothScroll`
+GetterSetterNames: androidx.leanback.widget.RowHeaderPresenter#isNullItemVisibilityGone():
+    Symmetric method for `setNullItemVisibilityGone` must be named `getNullItemVisibilityGone`; was `isNullItemVisibilityGone`
+
+
+KotlinOperator: androidx.leanback.widget.ArrayObjectAdapter#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.CursorObjectAdapter#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.ObjectAdapter#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.Parallax.FloatProperty#get(androidx.leanback.widget.Parallax):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.Parallax.FloatProperty#set(androidx.leanback.widget.Parallax, Float):
+    Method can be invoked with an indexing operator from Kotlin: `set` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.Parallax.IntProperty#get(androidx.leanback.widget.Parallax):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.Parallax.IntProperty#set(androidx.leanback.widget.Parallax, Integer):
+    Method can be invoked with an indexing operator from Kotlin: `set` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.SparseArrayObjectAdapter#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.leanback.widget.SparseArrayObjectAdapter#set(int, Object):
+    Method can be invoked with an indexing operator from Kotlin: `set` (this is usually desirable; just make sure it makes sense for this type of object)
+
+
+ListenerInterface: androidx.leanback.app.BrowseSupportFragment.BrowseTransitionListener:
+    Listeners should be an interface, or otherwise renamed Callback: BrowseTransitionListener
+ListenerInterface: androidx.leanback.widget.DetailsOverviewRow.Listener:
+    Listeners should be an interface, or otherwise renamed Callback: Listener
+ListenerInterface: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.Listener:
+    Listeners should be an interface, or otherwise renamed Callback: Listener
+ListenerInterface: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder.DetailsOverviewRowListener:
+    Listeners should be an interface, or otherwise renamed Callback: DetailsOverviewRowListener
+ListenerInterface: androidx.leanback.widget.ItemBridgeAdapter.AdapterListener:
+    Listeners should be an interface, or otherwise renamed Callback: AdapterListener
+ListenerInterface: androidx.leanback.widget.OnChildViewHolderSelectedListener:
+    Listeners should be an interface, or otherwise renamed Callback: OnChildViewHolderSelectedListener
+
+
+ManagerConstructor: androidx.leanback.app.ProgressBarManager#ProgressBarManager():
+    Managers must always be obtained from Context; no direct constructors
+
+
+ManagerLookup: androidx.leanback.app.BackgroundManager#getInstance(android.app.Activity):
+    Managers must always be obtained from Context (`getInstance`)
+
+
+ProtectedMember: androidx.leanback.app.BaseFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.BaseFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.BaseFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.BaseFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.BaseFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.BaseSupportFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseSupportFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.BaseSupportFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseSupportFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.BaseSupportFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseSupportFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.BaseSupportFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseSupportFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.BaseSupportFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.BaseSupportFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.BrowseFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.BrowseFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.BrowseFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.BrowseFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.BrowseFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.BrowseSupportFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseSupportFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.BrowseSupportFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseSupportFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.BrowseSupportFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseSupportFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.BrowseSupportFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseSupportFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.BrowseSupportFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.BrowseSupportFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.DetailsFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.DetailsFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.DetailsFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.DetailsFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.DetailsFragment#onSetDetailsOverviewRowStatus(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter, androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.onSetDetailsOverviewRowStatus(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter,androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder,int,int,int)}
+ProtectedMember: androidx.leanback.app.DetailsFragment#onSetRowStatus(androidx.leanback.widget.RowPresenter, androidx.leanback.widget.RowPresenter.ViewHolder, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.onSetRowStatus(androidx.leanback.widget.RowPresenter,androidx.leanback.widget.RowPresenter.ViewHolder,int,int,int)}
+ProtectedMember: androidx.leanback.app.DetailsFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.DetailsFragment#setupDetailsOverviewRowPresenter(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.setupDetailsOverviewRowPresenter(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter)}
+ProtectedMember: androidx.leanback.app.DetailsFragment#setupPresenter(androidx.leanback.widget.Presenter):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsFragment.setupPresenter(androidx.leanback.widget.Presenter)}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#onEntranceTransitionEnd():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.onEntranceTransitionEnd()}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#onEntranceTransitionPrepare():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.onEntranceTransitionPrepare()}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#onEntranceTransitionStart():
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.onEntranceTransitionStart()}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#onSetDetailsOverviewRowStatus(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter, androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.onSetDetailsOverviewRowStatus(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter,androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder,int,int,int)}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#onSetRowStatus(androidx.leanback.widget.RowPresenter, androidx.leanback.widget.RowPresenter.ViewHolder, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.onSetRowStatus(androidx.leanback.widget.RowPresenter,androidx.leanback.widget.RowPresenter.ViewHolder,int,int,int)}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#setupDetailsOverviewRowPresenter(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.setupDetailsOverviewRowPresenter(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter)}
+ProtectedMember: androidx.leanback.app.DetailsSupportFragment#setupPresenter(androidx.leanback.widget.Presenter):
+    Protected methods not allowed; must be public: method androidx.leanback.app.DetailsSupportFragment.setupPresenter(androidx.leanback.widget.Presenter)}
+ProtectedMember: androidx.leanback.app.GuidedStepFragment#onAddSharedElementTransition(android.app.FragmentTransaction, androidx.leanback.app.GuidedStepFragment):
+    Protected methods not allowed; must be public: method androidx.leanback.app.GuidedStepFragment.onAddSharedElementTransition(android.app.FragmentTransaction,androidx.leanback.app.GuidedStepFragment)}
+ProtectedMember: androidx.leanback.app.GuidedStepFragment#onProvideFragmentTransitions():
+    Protected methods not allowed; must be public: method androidx.leanback.app.GuidedStepFragment.onProvideFragmentTransitions()}
+ProtectedMember: androidx.leanback.app.GuidedStepSupportFragment#onAddSharedElementTransition(androidx.fragment.app.FragmentTransaction, androidx.leanback.app.GuidedStepSupportFragment):
+    Protected methods not allowed; must be public: method androidx.leanback.app.GuidedStepSupportFragment.onAddSharedElementTransition(androidx.fragment.app.FragmentTransaction,androidx.leanback.app.GuidedStepSupportFragment)}
+ProtectedMember: androidx.leanback.app.GuidedStepSupportFragment#onProvideFragmentTransitions():
+    Protected methods not allowed; must be public: method androidx.leanback.app.GuidedStepSupportFragment.onProvideFragmentTransitions()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#getCurrentPageIndex():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.getCurrentPageIndex()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#getPageCount():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.getPageCount()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#getPageDescription(int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.getPageDescription(int)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#getPageTitle(int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.getPageTitle(int)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#isLogoAnimationFinished():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.isLogoAnimationFinished()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#moveToNextPage():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.moveToNextPage()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#moveToPreviousPage():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.moveToPreviousPage()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateBackgroundView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateBackgroundView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateContentView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateContentView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateDescriptionAnimator():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateDescriptionAnimator()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateEnterAnimation():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateEnterAnimation()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateForegroundView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateForegroundView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateLogoAnimation():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateLogoAnimation()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onCreateTitleAnimator():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onCreateTitleAnimator()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onFinishFragment():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onFinishFragment()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onLogoAnimationFinished():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onLogoAnimationFinished()}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#onPageChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.onPageChanged(int,int)}
+ProtectedMember: androidx.leanback.app.OnboardingFragment#startEnterAnimation(boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingFragment.startEnterAnimation(boolean)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#getCurrentPageIndex():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.getCurrentPageIndex()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#getPageCount():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.getPageCount()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#getPageDescription(int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.getPageDescription(int)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#getPageTitle(int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.getPageTitle(int)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#isLogoAnimationFinished():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.isLogoAnimationFinished()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#moveToNextPage():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.moveToNextPage()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#moveToPreviousPage():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.moveToPreviousPage()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateBackgroundView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateBackgroundView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateContentView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateContentView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateDescriptionAnimator():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateDescriptionAnimator()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateEnterAnimation():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateEnterAnimation()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateForegroundView(android.view.LayoutInflater, android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateForegroundView(android.view.LayoutInflater,android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateLogoAnimation():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateLogoAnimation()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onCreateTitleAnimator():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onCreateTitleAnimator()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onFinishFragment():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onFinishFragment()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onLogoAnimationFinished():
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onLogoAnimationFinished()}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#onPageChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.onPageChanged(int,int)}
+ProtectedMember: androidx.leanback.app.OnboardingSupportFragment#startEnterAnimation(boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.app.OnboardingSupportFragment.startEnterAnimation(boolean)}
+ProtectedMember: androidx.leanback.app.PlaybackFragment#onBufferingStateChanged(boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackFragment.onBufferingStateChanged(boolean)}
+ProtectedMember: androidx.leanback.app.PlaybackFragment#onError(int, CharSequence):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackFragment.onError(int,CharSequence)}
+ProtectedMember: androidx.leanback.app.PlaybackFragment#onVideoSizeChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackFragment.onVideoSizeChanged(int,int)}
+ProtectedMember: androidx.leanback.app.PlaybackSupportFragment#onBufferingStateChanged(boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackSupportFragment.onBufferingStateChanged(boolean)}
+ProtectedMember: androidx.leanback.app.PlaybackSupportFragment#onError(int, CharSequence):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackSupportFragment.onError(int,CharSequence)}
+ProtectedMember: androidx.leanback.app.PlaybackSupportFragment#onVideoSizeChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.PlaybackSupportFragment.onVideoSizeChanged(int,int)}
+ProtectedMember: androidx.leanback.app.RowsFragment#findGridViewFromRoot(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.app.RowsFragment.findGridViewFromRoot(android.view.View)}
+ProtectedMember: androidx.leanback.app.RowsSupportFragment#findGridViewFromRoot(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.app.RowsSupportFragment.findGridViewFromRoot(android.view.View)}
+ProtectedMember: androidx.leanback.app.VerticalGridFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.VerticalGridFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.VerticalGridFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.VerticalGridFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.VerticalGridSupportFragment#createEntranceTransition():
+    Protected methods not allowed; must be public: method androidx.leanback.app.VerticalGridSupportFragment.createEntranceTransition()}
+ProtectedMember: androidx.leanback.app.VerticalGridSupportFragment#runEntranceTransition(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.app.VerticalGridSupportFragment.runEntranceTransition(Object)}
+ProtectedMember: androidx.leanback.app.VideoFragment#onVideoSizeChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.VideoFragment.onVideoSizeChanged(int,int)}
+ProtectedMember: androidx.leanback.app.VideoSupportFragment#onVideoSizeChanged(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.app.VideoSupportFragment.onVideoSizeChanged(int,int)}
+ProtectedMember: androidx.leanback.database.CursorMapper#bind(android.database.Cursor):
+    Protected methods not allowed; must be public: method androidx.leanback.database.CursorMapper.bind(android.database.Cursor)}
+ProtectedMember: androidx.leanback.database.CursorMapper#bindColumns(android.database.Cursor):
+    Protected methods not allowed; must be public: method androidx.leanback.database.CursorMapper.bindColumns(android.database.Cursor)}
+ProtectedMember: androidx.leanback.graphics.CompositeDrawable#onBoundsChange(android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.graphics.CompositeDrawable.onBoundsChange(android.graphics.Rect)}
+ProtectedMember: androidx.leanback.media.MediaPlayerAdapter#onError(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerAdapter.onError(int,int)}
+ProtectedMember: androidx.leanback.media.MediaPlayerAdapter#onInfo(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerAdapter.onInfo(int,int)}
+ProtectedMember: androidx.leanback.media.MediaPlayerAdapter#onSeekComplete():
+    Protected methods not allowed; must be public: method androidx.leanback.media.MediaPlayerAdapter.onSeekComplete()}
+ProtectedMember: androidx.leanback.media.PlaybackBannerControlGlue#onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBannerControlGlue.onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackBannerControlGlue#onCreateRowPresenter():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBannerControlGlue.onCreateRowPresenter()}
+ProtectedMember: androidx.leanback.media.PlaybackBannerControlGlue#onPlayCompleted():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBannerControlGlue.onPlayCompleted()}
+ProtectedMember: androidx.leanback.media.PlaybackBannerControlGlue#onPlayStateChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBannerControlGlue.onPlayStateChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#notifyItemChanged(androidx.leanback.widget.ArrayObjectAdapter, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.notifyItemChanged(androidx.leanback.widget.ArrayObjectAdapter,Object)}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onAttachedToHost(androidx.leanback.media.PlaybackGlueHost):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onAttachedToHost(androidx.leanback.media.PlaybackGlueHost)}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onCreateRowPresenter():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onCreateRowPresenter()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onDetachedFromHost():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onDetachedFromHost()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onHostStart():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onHostStart()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onHostStop():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onHostStop()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onMetadataChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onMetadataChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onPlayCompleted():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onPlayCompleted()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onPlayStateChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onPlayStateChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onPreparedStateChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onPreparedStateChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onUpdateBufferedProgress():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onUpdateBufferedProgress()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onUpdateDuration():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onUpdateDuration()}
+ProtectedMember: androidx.leanback.media.PlaybackBaseControlGlue#onUpdateProgress():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackBaseControlGlue.onUpdateProgress()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onAttachedToHost(androidx.leanback.media.PlaybackGlueHost):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onAttachedToHost(androidx.leanback.media.PlaybackGlueHost)}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onCreateControlsRowAndPresenter():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onCreateControlsRowAndPresenter()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onCreatePrimaryActions(androidx.leanback.widget.SparseArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onCreatePrimaryActions(androidx.leanback.widget.SparseArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onCreateSecondaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onDetachedFromHost():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onDetachedFromHost()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onHostStart():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onHostStart()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onHostStop():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onHostStop()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onMetadataChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onMetadataChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackControlGlue#onStateChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackControlGlue.onStateChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#getPlayerCallbacks():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.getPlayerCallbacks()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onAttachedToHost(androidx.leanback.media.PlaybackGlueHost):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onAttachedToHost(androidx.leanback.media.PlaybackGlueHost)}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onDetachedFromHost():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onDetachedFromHost()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onHostPause():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onHostPause()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onHostResume():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onHostResume()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onHostStart():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onHostStart()}
+ProtectedMember: androidx.leanback.media.PlaybackGlue#onHostStop():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackGlue.onHostStop()}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onAttachedToHost(androidx.leanback.media.PlaybackGlueHost):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onAttachedToHost(androidx.leanback.media.PlaybackGlueHost)}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter):
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onCreatePrimaryActions(androidx.leanback.widget.ArrayObjectAdapter)}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onCreateRowPresenter():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onCreateRowPresenter()}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onDetachedFromHost():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onDetachedFromHost()}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onPlayStateChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onPlayStateChanged()}
+ProtectedMember: androidx.leanback.media.PlaybackTransportControlGlue#onUpdateProgress():
+    Protected methods not allowed; must be public: method androidx.leanback.media.PlaybackTransportControlGlue.onUpdateProgress()}
+ProtectedMember: androidx.leanback.widget.AbstractDetailsDescriptionPresenter#onBindDescription(androidx.leanback.widget.AbstractDetailsDescriptionPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractDetailsDescriptionPresenter.onBindDescription(androidx.leanback.widget.AbstractDetailsDescriptionPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#getMediaPlayState(Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.getMediaPlayState(Object)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#isClippingChildren():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.isClippingChildren()}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#onBindMediaDetails(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.onBindMediaDetails(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#onBindRowActions(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.onBindRowActions(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaItemPresenter#onUnbindMediaDetails(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaItemPresenter.onUnbindMediaDetails(androidx.leanback.widget.AbstractMediaItemPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaListHeaderPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaListHeaderPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaListHeaderPresenter#onBindMediaListHeaderViewHolder(androidx.leanback.widget.AbstractMediaListHeaderPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaListHeaderPresenter.onBindMediaListHeaderViewHolder(androidx.leanback.widget.AbstractMediaListHeaderPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.AbstractMediaListHeaderPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.AbstractMediaListHeaderPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.BaseCardView#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.leanback.widget.BaseCardView#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.generateDefaultLayoutParams()}
+ProtectedMember: androidx.leanback.widget.BaseCardView#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.leanback.widget.BaseCardView#onCreateDrawableState(int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.onCreateDrawableState(int)}
+ProtectedMember: androidx.leanback.widget.BaseCardView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.onDetachedFromWindow()}
+ProtectedMember: androidx.leanback.widget.BaseCardView#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.BaseCardView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseCardView.onMeasure(int,int)}
+ProtectedMember: androidx.leanback.widget.BaseGridView#dispatchGenericFocusedEvent(android.view.MotionEvent):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseGridView.dispatchGenericFocusedEvent(android.view.MotionEvent)}
+ProtectedMember: androidx.leanback.widget.BaseGridView#onFocusChanged(boolean, int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BaseGridView.onFocusChanged(boolean,int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.BrowseFrameLayout#onRequestFocusInDescendants(int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.BrowseFrameLayout.onRequestFocusInDescendants(int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.CursorObjectAdapter#invalidateCache(int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.CursorObjectAdapter.invalidateCache(int)}
+ProtectedMember: androidx.leanback.widget.CursorObjectAdapter#invalidateCache(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.CursorObjectAdapter.invalidateCache(int,int)}
+ProtectedMember: androidx.leanback.widget.CursorObjectAdapter#onCursorChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.CursorObjectAdapter.onCursorChanged()}
+ProtectedMember: androidx.leanback.widget.CursorObjectAdapter#onMapperChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.CursorObjectAdapter.onMapperChanged()}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewLogoPresenter.ViewHolder#mParentPresenter:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.DetailsOverviewLogoPresenter.ViewHolder.mParentPresenter}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewLogoPresenter.ViewHolder#mParentViewHolder:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.DetailsOverviewLogoPresenter.ViewHolder.mParentViewHolder}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.DetailsOverviewRowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.DetailsOverviewRowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#getLayoutResourceId():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.getLayoutResourceId()}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#isClippingChildren():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.isClippingChildren()}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#mInitialState:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.mInitialState}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onLayoutLogo(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onLayoutLogo(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder,int,boolean)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onLayoutOverviewFrame(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onLayoutOverviewFrame(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder,int,boolean)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onStateChanged(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onStateChanged(androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder,int)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder#createRowListener():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder.createRowListener()}
+ProtectedMember: androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder#mRowListener:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter.ViewHolder.mRowListener}
+ProtectedMember: androidx.leanback.widget.GuidedAction.BuilderBase#applyValues(androidx.leanback.widget.GuidedAction):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.GuidedAction.BuilderBase.applyValues(androidx.leanback.widget.GuidedAction)}
+ProtectedMember: androidx.leanback.widget.GuidedActionEditText#onFocusChanged(boolean, int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.GuidedActionEditText.onFocusChanged(boolean,int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.GuidedActionsStylist#onEditingModeChange(androidx.leanback.widget.GuidedActionsStylist.ViewHolder, boolean, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.GuidedActionsStylist.onEditingModeChange(androidx.leanback.widget.GuidedActionsStylist.ViewHolder,boolean,boolean)}
+ProtectedMember: androidx.leanback.widget.GuidedActionsStylist#setupImeOptions(androidx.leanback.widget.GuidedActionsStylist.ViewHolder, androidx.leanback.widget.GuidedAction):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.GuidedActionsStylist.setupImeOptions(androidx.leanback.widget.GuidedActionsStylist.ViewHolder,androidx.leanback.widget.GuidedAction)}
+ProtectedMember: androidx.leanback.widget.GuidedDatePickerAction.BuilderBase#applyDatePickerValues(androidx.leanback.widget.GuidedDatePickerAction):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.GuidedDatePickerAction.BuilderBase.applyDatePickerValues(androidx.leanback.widget.GuidedDatePickerAction)}
+ProtectedMember: androidx.leanback.widget.HorizontalGridView#initAttributes(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.HorizontalGridView.initAttributes(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.leanback.widget.HorizontalHoverCardSwitcher#insertView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.HorizontalHoverCardSwitcher.insertView(android.view.View)}
+ProtectedMember: androidx.leanback.widget.HorizontalHoverCardSwitcher#onViewSelected(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.HorizontalHoverCardSwitcher.onViewSelected(android.view.View)}
+ProtectedMember: androidx.leanback.widget.ImageCardView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ImageCardView.onAttachedToWindow()}
+ProtectedMember: androidx.leanback.widget.ImageCardView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ImageCardView.onDetachedFromWindow()}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onAddPresenter(androidx.leanback.widget.Presenter, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onAddPresenter(androidx.leanback.widget.Presenter,int)}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onAttachedToWindow(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onAttachedToWindow(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onBind(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onBind(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onCreate(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onCreate(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onDetachedFromWindow(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onDetachedFromWindow(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ItemBridgeAdapter#onUnbind(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ItemBridgeAdapter.onUnbind(androidx.leanback.widget.ItemBridgeAdapter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#applySelectLevelToChild(androidx.leanback.widget.ListRowPresenter.ViewHolder, android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.applySelectLevelToChild(androidx.leanback.widget.ListRowPresenter.ViewHolder,android.view.View)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#createShadowOverlayOptions():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.createShadowOverlayOptions()}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#dispatchItemSelectedListener(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.dispatchItemSelectedListener(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#initializeRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.initializeRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#onRowViewExpanded(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.onRowViewExpanded(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ListRowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ListRowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#notifyChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.notifyChanged()}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#notifyItemMoved(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.notifyItemMoved(int,int)}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#notifyItemRangeInserted(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.notifyItemRangeInserted(int,int)}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#notifyItemRangeRemoved(int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.notifyItemRangeRemoved(int,int)}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#onHasStableIdsChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.onHasStableIdsChanged()}
+ProtectedMember: androidx.leanback.widget.ObjectAdapter#onPresenterSelectorChanged():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ObjectAdapter.onPresenterSelectorChanged()}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.PlaybackControlsRowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackControlsRowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onProgressBarClicked(androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onProgressBarClicked(androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder#onSetCurrentPositionLabel(long):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder.onSetCurrentPositionLabel(long)}
+ProtectedMember: androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder#onSetDurationLabel(long):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PlaybackTransportRowPresenter.ViewHolder.onSetDurationLabel(long)}
+ProtectedMember: androidx.leanback.widget.Presenter#cancelAnimationsRecursive(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.Presenter.cancelAnimationsRecursive(android.view.View)}
+ProtectedMember: androidx.leanback.widget.PresenterSwitcher#insertView(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PresenterSwitcher.insertView(android.view.View)}
+ProtectedMember: androidx.leanback.widget.PresenterSwitcher#onViewSelected(android.view.View):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PresenterSwitcher.onViewSelected(android.view.View)}
+ProtectedMember: androidx.leanback.widget.PresenterSwitcher#showView(android.view.View, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.PresenterSwitcher.showView(android.view.View,boolean)}
+ProtectedMember: androidx.leanback.widget.RowHeaderPresenter#getFontDescent(android.widget.TextView, android.graphics.Paint):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowHeaderPresenter.getFontDescent(android.widget.TextView,android.graphics.Paint)}
+ProtectedMember: androidx.leanback.widget.RowHeaderPresenter#onSelectLevelChanged(androidx.leanback.widget.RowHeaderPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowHeaderPresenter.onSelectLevelChanged(androidx.leanback.widget.RowHeaderPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#createRowViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.createRowViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#dispatchItemSelectedListener(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.dispatchItemSelectedListener(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#initializeRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.initializeRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#isClippingChildren():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.isClippingChildren()}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder, Object):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onBindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder,Object)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onRowViewAttachedToWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onRowViewDetachedFromWindow(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onRowViewExpanded(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onRowViewExpanded(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder, boolean):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onRowViewSelected(androidx.leanback.widget.RowPresenter.ViewHolder,boolean)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onSelectLevelChanged(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter#onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.RowPresenter.onUnbindRowViewHolder(androidx.leanback.widget.RowPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.RowPresenter.ViewHolder#mColorDimmer:
+    Protected fields not allowed; must be public: field androidx.leanback.widget.RowPresenter.ViewHolder.mColorDimmer}
+ProtectedMember: androidx.leanback.widget.SearchBar#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchBar.onAttachedToWindow()}
+ProtectedMember: androidx.leanback.widget.SearchBar#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchBar.onDetachedFromWindow()}
+ProtectedMember: androidx.leanback.widget.SearchBar#onFinishInflate():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchBar.onFinishInflate()}
+ProtectedMember: androidx.leanback.widget.SearchOrbView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchOrbView.onAttachedToWindow()}
+ProtectedMember: androidx.leanback.widget.SearchOrbView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchOrbView.onDetachedFromWindow()}
+ProtectedMember: androidx.leanback.widget.SearchOrbView#onFocusChanged(boolean, int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.SearchOrbView.onFocusChanged(boolean,int,android.graphics.Rect)}
+ProtectedMember: androidx.leanback.widget.ShadowOverlayContainer#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.ShadowOverlayContainer.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.leanback.widget.VerticalGridPresenter#createGridViewHolder(android.view.ViewGroup):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.VerticalGridPresenter.createGridViewHolder(android.view.ViewGroup)}
+ProtectedMember: androidx.leanback.widget.VerticalGridPresenter#createShadowOverlayOptions():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.VerticalGridPresenter.createShadowOverlayOptions()}
+ProtectedMember: androidx.leanback.widget.VerticalGridPresenter#initializeGridViewHolder(androidx.leanback.widget.VerticalGridPresenter.ViewHolder):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.VerticalGridPresenter.initializeGridViewHolder(androidx.leanback.widget.VerticalGridPresenter.ViewHolder)}
+ProtectedMember: androidx.leanback.widget.VerticalGridView#initAttributes(android.content.Context, android.util.AttributeSet):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.VerticalGridView.initAttributes(android.content.Context,android.util.AttributeSet)}
+ProtectedMember: androidx.leanback.widget.picker.Picker#getPickerItemHeightPixels():
+    Protected methods not allowed; must be public: method androidx.leanback.widget.picker.Picker.getPickerItemHeightPixels()}
+ProtectedMember: androidx.leanback.widget.picker.Picker#onRequestFocusInDescendants(int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.leanback.widget.picker.Picker.onRequestFocusInDescendants(int,android.graphics.Rect)}
+
+
+RegistrationName: androidx.leanback.media.PlaybackGlue#addPlayerCallback(androidx.leanback.media.PlaybackGlue.PlayerCallback):
+    Callback methods should be named register/unregister; was addPlayerCallback
+RegistrationName: androidx.leanback.media.PlaybackGlue#removePlayerCallback(androidx.leanback.media.PlaybackGlue.PlayerCallback):
+    Callback methods should be named register/unregister; was removePlayerCallback
+
+
+SamShouldBeLast: androidx.leanback.graphics.CompositeDrawable#scheduleDrawable(android.graphics.drawable.Drawable, Runnable, long):
+    SAM-compatible parameters (such as parameter 2, "what", in androidx.leanback.graphics.CompositeDrawable.scheduleDrawable) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+SingletonConstructor: androidx.leanback.widget.GuidedActionDiffCallback#GuidedActionDiffCallback():
+    Singleton classes should use `getInstance()` methods: `GuidedActionDiffCallback`
+
+
+StaticUtils: androidx.leanback.widget.FocusHighlightHelper:
+    Fully-static utility classes must not have constructor
+
+
+UserHandleName: androidx.leanback.widget.ShadowOverlayHelper.Options:
+    Classes holding a set of parameters should be called `FooParams`, was `Options`

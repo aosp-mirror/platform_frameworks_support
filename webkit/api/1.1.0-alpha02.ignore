@@ -1,0 +1,11 @@
+// Baseline format: 1.0
+CallbackInterface: androidx.webkit.WebViewCompat.VisualStateCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: VisualStateCallback
+
+
+IntentName: androidx.webkit.WebViewFeature#DISABLED_ACTION_MODE_MENU_ITEMS:
+    Intent action constant name must be ACTION_FOO: DISABLED_ACTION_MODE_MENU_ITEMS
+
+
+SamShouldBeLast: androidx.webkit.WebViewCompat#setWebViewRenderProcessClient(android.webkit.WebView, java.util.concurrent.Executor, androidx.webkit.WebViewRenderProcessClient):
+    SAM-compatible parameters (such as parameter 2, "executor", in androidx.webkit.WebViewCompat.setWebViewRenderProcessClient) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

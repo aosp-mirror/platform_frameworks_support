@@ -1,0 +1,15 @@
+// Baseline format: 1.0
+CallbackMethodName: androidx.media2.common.DataSourceCallback:
+    Callback method names must follow the on<Something> style: readAt
+
+
+IntentName: androidx.media2.common.MediaMetadata#METADATA_KEY_EXTRAS:
+    Intent extra constant name must be EXTRA_FOO: METADATA_KEY_EXTRAS
+
+
+ProtectedMember: androidx.media2.common.SessionPlayer#getCallbacks():
+    Protected methods not allowed; must be public: method androidx.media2.common.SessionPlayer.getCallbacks()}
+
+
+SamShouldBeLast: androidx.media2.common.SessionPlayer#registerPlayerCallback(java.util.concurrent.Executor, androidx.media2.common.SessionPlayer.PlayerCallback):
+    SAM-compatible parameters (such as parameter 1, "executor", in androidx.media2.common.SessionPlayer.registerPlayerCallback) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

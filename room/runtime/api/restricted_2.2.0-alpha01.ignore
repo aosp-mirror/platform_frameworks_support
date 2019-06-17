@@ -1,0 +1,51 @@
+// Baseline format: 1.0
+AcronymName: androidx.room.RoomSQLiteQuery:
+    Acronyms should not be capitalized in class names: was `RoomSQLiteQuery`, should this be `RoomSqLiteQuery`?
+AcronymName: androidx.room.SharedSQLiteStatement:
+    Acronyms should not be capitalized in class names: was `SharedSQLiteStatement`, should this be `SharedSqLiteStatement`?
+AcronymName: androidx.room.util.DBUtil:
+    Acronyms should not be capitalized in class names: was `DBUtil`, should this be `DbUtil`?
+
+
+AutoBoxing: androidx.room.EntityInsertionAdapter#insertAndReturnIdsArrayBox(T[]):
+    Must avoid boxed primitives (`java.lang.Long`)
+AutoBoxing: androidx.room.EntityInsertionAdapter#insertAndReturnIdsArrayBox(java.util.Collection<T>):
+    Must avoid boxed primitives (`java.lang.Long`)
+
+
+MinMaxConstant: androidx.room.RoomDatabase#MAX_BIND_PARAMETER_CNT:
+    If min/max could change in future, make them dynamic methods: androidx.room.RoomDatabase#MAX_BIND_PARAMETER_CNT
+
+
+ProtectedMember: androidx.room.EntityDeletionOrUpdateAdapter#bind(androidx.sqlite.db.SupportSQLiteStatement, T):
+    Protected methods not allowed; must be public: method androidx.room.EntityDeletionOrUpdateAdapter.bind(androidx.sqlite.db.SupportSQLiteStatement,T)}
+ProtectedMember: androidx.room.EntityDeletionOrUpdateAdapter#createQuery():
+    Protected methods not allowed; must be public: method androidx.room.EntityDeletionOrUpdateAdapter.createQuery()}
+ProtectedMember: androidx.room.EntityInsertionAdapter#bind(androidx.sqlite.db.SupportSQLiteStatement, T):
+    Protected methods not allowed; must be public: method androidx.room.EntityInsertionAdapter.bind(androidx.sqlite.db.SupportSQLiteStatement,T)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#createAllTables(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.createAllTables(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#dropAllTables(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.dropAllTables(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#onCreate(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.onCreate(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#onOpen(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.onOpen(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#onPostMigrate(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.onPostMigrate(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#onPreMigrate(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.onPreMigrate(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.RoomOpenHelper.Delegate#validateMigration(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomOpenHelper.Delegate.validateMigration(androidx.sqlite.db.SupportSQLiteDatabase)}
+ProtectedMember: androidx.room.SharedSQLiteStatement#assertNotMainThread():
+    Protected methods not allowed; must be public: method androidx.room.SharedSQLiteStatement.assertNotMainThread()}
+ProtectedMember: androidx.room.SharedSQLiteStatement#createQuery():
+    Protected methods not allowed; must be public: method androidx.room.SharedSQLiteStatement.createQuery()}
+ProtectedMember: androidx.room.paging.LimitOffsetDataSource#convertRows(android.database.Cursor):
+    Protected methods not allowed; must be public: method androidx.room.paging.LimitOffsetDataSource.convertRows(android.database.Cursor)}
+
+
+StreamFiles: androidx.room.DatabaseConfiguration#DatabaseConfiguration(android.content.Context, String, androidx.sqlite.db.SupportSQLiteOpenHelper.Factory, androidx.room.RoomDatabase.MigrationContainer, java.util.List<androidx.room.RoomDatabase.Callback>, boolean, androidx.room.RoomDatabase.JournalMode, java.util.concurrent.Executor, java.util.concurrent.Executor, boolean, boolean, boolean, java.util.Set<java.lang.Integer>, String, java.io.File):
+    Methods accepting `File` should also accept `FileDescriptor` or streams: constructor androidx.room.DatabaseConfiguration(android.content.Context,String,androidx.sqlite.db.SupportSQLiteOpenHelper.Factory,androidx.room.RoomDatabase.MigrationContainer,java.util.List<androidx.room.RoomDatabase.Callback>,boolean,androidx.room.RoomDatabase.JournalMode,java.util.concurrent.Executor,java.util.concurrent.Executor,boolean,boolean,boolean,java.util.Set<java.lang.Integer>,String,java.io.File)
+StreamFiles: androidx.room.util.DBUtil#readVersion(java.io.File):
+    Methods accepting `File` should also accept `FileDescriptor` or streams: method androidx.room.util.DBUtil.readVersion(java.io.File)

@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+AcronymName: androidx.arch.core.executor.TaskExecutorWithFakeMainThread#executeOnDiskIO(Runnable):
+    Acronyms should not be capitalized in method names: was `executeOnDiskIO`, should this be `executeOnDiskIo`?

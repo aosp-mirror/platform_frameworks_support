@@ -1,0 +1,15 @@
+// Baseline format: 1.0
+SamShouldBeLast: androidx.work.testing.TestWorkerBuilderKt#TestWorkerBuilder(android.content.Context, java.util.concurrent.Executor, androidx.work.Data, java.util.List<java.lang.String>, int, java.util.List<? extends android.net.Uri>, java.util.List<java.lang.String>):
+    SAM-compatible parameters (such as parameter 2, "executor", in androidx.work.testing.TestWorkerBuilderKt.TestWorkerBuilder) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions
+
+
+StartWithLower: androidx.work.testing.TestListenableWorkerBuilderKt#TestListenableWorkerBuilder(android.content.Context, androidx.work.Data, java.util.List<java.lang.String>, int, java.util.List<? extends android.net.Uri>, java.util.List<java.lang.String>):
+    Method name must start with lowercase char: TestListenableWorkerBuilder
+StartWithLower: androidx.work.testing.TestWorkerBuilderKt#TestWorkerBuilder(android.content.Context, java.util.concurrent.Executor, androidx.work.Data, java.util.List<java.lang.String>, int, java.util.List<? extends android.net.Uri>, java.util.List<java.lang.String>):
+    Method name must start with lowercase char: TestWorkerBuilder
+
+
+StaticUtils: androidx.work.testing.TestListenableWorkerBuilderKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.work.testing.TestWorkerBuilderKt:
+    Fully-static utility classes must not have constructor

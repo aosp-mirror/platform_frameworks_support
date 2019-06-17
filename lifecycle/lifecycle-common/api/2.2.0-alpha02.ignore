@@ -1,0 +1,11 @@
+// Baseline format: 1.0
+CallbackName: androidx.lifecycle.DefaultLifecycleObserver:
+    Class should be named DefaultLifecycleCallback
+CallbackName: androidx.lifecycle.LifecycleEventObserver:
+    Class should be named LifecycleEventCallback
+CallbackName: androidx.lifecycle.LifecycleObserver:
+    Class should be named LifecycleCallback
+
+
+SamShouldBeLast: androidx.lifecycle.LifecycleEventObserver#onStateChanged(androidx.lifecycle.LifecycleOwner, androidx.lifecycle.Lifecycle.Event):
+    SAM-compatible parameters (such as parameter 1, "source", in androidx.lifecycle.LifecycleEventObserver.onStateChanged) should be last to improve Kotlin interoperability; see https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions

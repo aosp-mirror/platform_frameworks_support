@@ -1,4 +1,8 @@
 // Baseline format: 1.0
+AcronymName: androidx.room.ColumnInfo.SQLiteTypeAffinity:
+    Acronyms should not be capitalized in class names: was `SQLiteTypeAffinity`, should this be `SqLiteTypeAffinity`?
+
+
 AddedAbstractMethod: androidx.room.ColumnInfo#defaultValue():
     Added method androidx.room.ColumnInfo.defaultValue()
 AddedAbstractMethod: androidx.room.Relation#associateBy():
@@ -17,3 +21,11 @@ ChangedType: androidx.room.RawQuery#observedEntities():
     Method androidx.room.RawQuery.observedEntities has changed return type from Class[] to Class<?>[]
 ChangedType: androidx.room.Relation#entity():
     Method androidx.room.Relation.entity has changed return type from Class to Class<?>
+
+
+StaticUtils: androidx.room.RoomWarnings:
+    Fully-static utility classes must not have constructor
+
+
+UserHandleName: androidx.room.FtsOptions:
+    Classes holding a set of parameters should be called `FooParams`, was `FtsOptions`
