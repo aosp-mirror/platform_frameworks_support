@@ -21,6 +21,7 @@ import static androidx.security.crypto.MasterKeys.KEYSTORE_PATH_URI;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -62,7 +63,6 @@ import java.security.GeneralSecurityException;
  *  // read the encrypted file
  *  FileInputStream encryptedInputStream = encryptedFile.openFileInput();
  * </pre>
- *
  */
 public final class EncryptedFile {
 
@@ -99,17 +99,27 @@ public final class EncryptedFile {
          * For more information please see the Tink documentation:
          *
          * {@link StreamingAeadKeyTemplates}.AES256_GCM_HKDF_4KB
+         *
+         * For Devices Pre Marshmallow - API Level 23
+         * {@link StreamingAeadKeyTemplates}.AES128_CTR_HMAC_SHA256_4KB
          */
-        AES256_GCM_HKDF_4KB(StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB);
+        AES256_GCM_HKDF_4KB(StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB,
+                StreamingAeadKeyTemplates.AES128_CTR_HMAC_SHA256_4KB);
 
         private KeyTemplate mStreamingAeadKeyTemplate;
+        private KeyTemplate mFallbackStreamingAeadKeyTemplate;
 
-        FileEncryptionScheme(KeyTemplate keyTemplate) {
+        FileEncryptionScheme(KeyTemplate keyTemplate, KeyTemplate fallbackKeyTemplate) {
             mStreamingAeadKeyTemplate = keyTemplate;
+            mFallbackStreamingAeadKeyTemplate = fallbackKeyTemplate;
         }
 
         KeyTemplate getKeyTemplate() {
-            return mStreamingAeadKeyTemplate;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return mStreamingAeadKeyTemplate;
+            } else {
+                return mFallbackStreamingAeadKeyTemplate;
+            }
         }
     }
 
@@ -189,7 +199,7 @@ public final class EncryptedFile {
      *
      * @return The FileOutputStream that encrypts all data.
      * @throws GeneralSecurityException when a bad master key or keyset has been used
-     * @throws IOException when the file already exists or is not available for writing
+     * @throws IOException              when the file already exists or is not available for writing
      */
     @NonNull
     public FileOutputStream openFileOutput()
@@ -212,7 +222,7 @@ public final class EncryptedFile {
      *
      * @return The input stream to read previously encrypted data.
      * @throws GeneralSecurityException when a bad master key or keyset has been used
-     * @throws IOException when the file was not found
+     * @throws IOException              when the file was not found
      */
     @NonNull
     public FileInputStream openFileInput()
@@ -228,7 +238,6 @@ public final class EncryptedFile {
 
     /**
      * Encrypted file output stream
-     *
      */
     private static final class EncryptedFileOutputStream extends FileOutputStream {
 

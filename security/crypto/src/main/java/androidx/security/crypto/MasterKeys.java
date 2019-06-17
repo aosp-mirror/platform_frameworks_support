@@ -16,10 +16,12 @@
 
 package androidx.security.crypto;
 
+import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -33,6 +35,10 @@ import javax.crypto.KeyGenerator;
  *
  * <p>The master keys are used to encrypt data encryption keys for encrypting files and preferences.
  *
+ * For Android M+ (Api 23+).
+ *
+ * Previous versions of Android will store the key in the SharedPreferences along with the encrypted
+ * data.
  */
 public final class MasterKeys {
 
@@ -43,6 +49,7 @@ public final class MasterKeys {
     static final String MASTER_KEY_ALIAS = "_androidx_security_master_key_";
 
     @NonNull
+    @RequiresApi(Build.VERSION_CODES.M)
     public static final KeyGenParameterSpec AES256_GCM_SPEC =
             createAES256GCMKeyGenParameterSpec(MASTER_KEY_ALIAS);
 
@@ -57,6 +64,7 @@ public final class MasterKeys {
      * @return The spec for the master key with the specified keyAlias
      */
     @NonNull
+    @RequiresApi(Build.VERSION_CODES.M)
     private static KeyGenParameterSpec createAES256GCMKeyGenParameterSpec(
             @NonNull String keyAlias) {
         KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec.Builder(
@@ -80,6 +88,7 @@ public final class MasterKeys {
      * @return The spec for the master key with the default key alias
      */
     @NonNull
+    @RequiresApi(Build.VERSION_CODES.M)
     private static KeyGenParameterSpec createAES256GCMKeyGenParameterSpec() {
         return createAES256GCMKeyGenParameterSpec(MASTER_KEY_ALIAS);
     }
@@ -94,6 +103,7 @@ public final class MasterKeys {
      * @return The key alias for the master key
      */
     @NonNull
+    @RequiresApi(Build.VERSION_CODES.M)
     public static String getOrCreate(
             @NonNull KeyGenParameterSpec keyGenParameterSpec)
             throws GeneralSecurityException, IOException {
@@ -104,6 +114,7 @@ public final class MasterKeys {
         return keyGenParameterSpec.getKeystoreAlias();
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private static void validate(KeyGenParameterSpec spec) {
         if (spec.getKeySize() != KEY_SIZE) {
             throw new IllegalArgumentException(
@@ -128,6 +139,7 @@ public final class MasterKeys {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private static void generateKey(@NonNull KeyGenParameterSpec keyGenParameterSpec)
             throws GeneralSecurityException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(

@@ -22,11 +22,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.ArraySet;
+import android.os.Build;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.ArraySet;
 
 import com.google.crypto.tink.Aead;
 import com.google.crypto.tink.DeterministicAead;
@@ -168,17 +169,26 @@ public final class EncryptedSharedPreferences implements SharedPreferences {
          * For more information please see the Tink documentation:
          *
          * {@link AeadKeyTemplates}.AES256_GCM
+         *
+         * Fallback for Pre Marshmallow (< API Level 23) devices:
+         * {@link AeadKeyTemplates}.CHACHA20_POLY1305
          */
-        AES256_GCM(AeadKeyTemplates.AES256_GCM);
+        AES256_GCM(AeadKeyTemplates.AES256_GCM, AeadKeyTemplates.CHACHA20_POLY1305);
 
         private KeyTemplate mAeadKeyTemplate;
+        private KeyTemplate mFallbackAeadKeyTemplate;
 
-        PrefValueEncryptionScheme(KeyTemplate keyTemplates) {
-            mAeadKeyTemplate = keyTemplates;
+        PrefValueEncryptionScheme(KeyTemplate keyTemplate, KeyTemplate fallbackAeadKeyTemplate) {
+            mAeadKeyTemplate = keyTemplate;
+            mFallbackAeadKeyTemplate = fallbackAeadKeyTemplate;
         }
 
         KeyTemplate getKeyTemplate() {
-            return mAeadKeyTemplate;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return mAeadKeyTemplate;
+            } else {
+                return mFallbackAeadKeyTemplate;
+            }
         }
     }
 

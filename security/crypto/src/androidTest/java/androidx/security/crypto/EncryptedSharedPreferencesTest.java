@@ -24,6 +24,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.ArraySet;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -32,7 +33,6 @@ import com.google.crypto.tink.Aead;
 import com.google.crypto.tink.DeterministicAead;
 import com.google.crypto.tink.KeysetHandle;
 import com.google.crypto.tink.aead.AeadFactory;
-import com.google.crypto.tink.aead.AeadKeyTemplates;
 import com.google.crypto.tink.config.TinkConfig;
 import com.google.crypto.tink.daead.DeterministicAeadFactory;
 import com.google.crypto.tink.daead.DeterministicAeadKeyTemplates;
@@ -57,6 +57,7 @@ public class EncryptedSharedPreferencesTest {
 
     private Context mContext;
     private String mKeyAlias;
+    private EncryptedSharedPreferences.PrefValueEncryptionScheme mValueEncryptionScheme;
 
     private static final String PREFS_FILE = "test_shared_prefs";
 
@@ -100,7 +101,12 @@ public class EncryptedSharedPreferencesTest {
         keyStore.load(null);
         keyStore.deleteEntry("_androidx_security_master_key_");
 
-        mKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        }
+
+        mValueEncryptionScheme = EncryptedSharedPreferences.PrefValueEncryptionScheme
+                .AES256_GCM;
     }
 
     @Test
@@ -110,7 +116,7 @@ public class EncryptedSharedPreferencesTest {
                 .create(PREFS_FILE,
                         mKeyAlias, mContext,
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+                        mValueEncryptionScheme);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -257,7 +263,7 @@ public class EncryptedSharedPreferencesTest {
                 sharedPreferences.getString(twiceKey, null));
 
         // Test getAll
-        Map all = sharedPreferences.getAll();
+        Map<String, ?> all = sharedPreferences.getAll();
 
         Assert.assertTrue("Get all should have supplied " + twiceKey,
                 all.containsKey(twiceKey));
@@ -343,7 +349,7 @@ public class EncryptedSharedPreferencesTest {
                 .create(tinkTestPrefs,
                         mKeyAlias, mContext,
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+                        mValueEncryptionScheme);
 
         SharedPreferences.Editor encryptedEditor = encryptedSharedPreferences.edit();
         encryptedEditor.putString(testKey, testValue);
@@ -371,7 +377,7 @@ public class EncryptedSharedPreferencesTest {
         Assert.assertTrue("Key should exist if Tink is compatible.", keyExists);
 
         KeysetHandle aeadKeysetHandle = new AndroidKeysetManager.Builder()
-                .withKeyTemplate(AeadKeyTemplates.AES256_GCM)
+                .withKeyTemplate(mValueEncryptionScheme.getKeyTemplate())
                 .withSharedPref(mContext,
                         "__androidx_security_crypto_encrypted_prefs_value_keyset__", tinkTestPrefs)
                 .withMasterKeyUri(KEYSTORE_PATH_URI + "_androidx_security_master_key_")
