@@ -16,11 +16,10 @@
 
 package androidx.security.crypto;
 
-import static androidx.security.crypto.MasterKeys.KEYSTORE_PATH_URI;
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -62,10 +61,10 @@ import java.security.GeneralSecurityException;
  *  // read the encrypted file
  *  FileInputStream encryptedInputStream = encryptedFile.openFileInput();
  * </pre>
- *
  */
 public final class EncryptedFile {
 
+    private static final String KEYSTORE_PATH_URI = "android-keystore://";
     private static final String KEYSET_PREF_NAME =
             "__androidx_security_crypto_encrypted_file_pref__";
     private static final String KEYSET_ALIAS =
@@ -94,22 +93,35 @@ public final class EncryptedFile {
     public enum FileEncryptionScheme {
         /**
          * The file content is encrypted using {@link StreamingAead} with AES-GCM, with the
-         * file name as associated data.
+         * file name as associated data. For devices running pre Marshmallow or less than api level
+         * 23, AES-CTR-HMAC is utilized.
+         *
+         * Each value contains a fallback for older devices that uses a different algorithm.
          *
          * For more information please see the Tink documentation:
          *
          * {@link StreamingAeadKeyTemplates}.AES256_GCM_HKDF_4KB
+         *
+         * For Devices Pre Marshmallow - API Level 23
+         * {@link StreamingAeadKeyTemplates}.AES128_CTR_HMAC_SHA256_4KB
          */
-        AES256_GCM_HKDF_4KB(StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB);
+        AES256_GCM_HKDF_4KB(StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB,
+                StreamingAeadKeyTemplates.AES128_CTR_HMAC_SHA256_4KB);
 
         private KeyTemplate mStreamingAeadKeyTemplate;
+        private KeyTemplate mFallbackStreamingAeadKeyTemplate;
 
-        FileEncryptionScheme(KeyTemplate keyTemplate) {
+        FileEncryptionScheme(KeyTemplate keyTemplate, KeyTemplate fallbackKeyTemplate) {
             mStreamingAeadKeyTemplate = keyTemplate;
+            mFallbackStreamingAeadKeyTemplate = fallbackKeyTemplate;
         }
 
         KeyTemplate getKeyTemplate() {
-            return mStreamingAeadKeyTemplate;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return mStreamingAeadKeyTemplate;
+            } else {
+                return mFallbackStreamingAeadKeyTemplate;
+            }
         }
     }
 
@@ -228,7 +240,6 @@ public final class EncryptedFile {
 
     /**
      * Encrypted file output stream
-     *
      */
     private static final class EncryptedFileOutputStream extends FileOutputStream {
 

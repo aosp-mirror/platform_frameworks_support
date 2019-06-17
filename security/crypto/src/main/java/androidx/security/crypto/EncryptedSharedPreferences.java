@@ -16,17 +16,16 @@
 
 package androidx.security.crypto;
 
-import static androidx.security.crypto.MasterKeys.KEYSTORE_PATH_URI;
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.ArraySet;
+import android.os.Build;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.ArraySet;
 
 import com.google.crypto.tink.Aead;
 import com.google.crypto.tink.DeterministicAead;
@@ -71,6 +70,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public final class EncryptedSharedPreferences implements SharedPreferences {
 
+    private static final String KEYSTORE_PATH_URI = "android-keystore://";
     private static final String KEY_KEYSET_ALIAS =
             "__androidx_security_crypto_encrypted_prefs_key_keyset__";
     private static final String VALUE_KEYSET_ALIAS =
@@ -164,21 +164,34 @@ public final class EncryptedSharedPreferences implements SharedPreferences {
     public enum PrefValueEncryptionScheme {
         /**
          * Pref values are encrypted with AES256-GCM. The associated data is the encrypted pref key.
+         * For devices running pre Marshmallow or less than api level 23, CHACHA20_POLY1305 is
+         * utilized.
+         *
+         * Each value contains a fallback for older devices that uses a different algorithm.
          *
          * For more information please see the Tink documentation:
          *
          * {@link AeadKeyTemplates}.AES256_GCM
+         *
+         * Fallback for Pre Marshmallow (< API Level 23) devices:
+         * {@link AeadKeyTemplates}.CHACHA20_POLY1305
          */
-        AES256_GCM(AeadKeyTemplates.AES256_GCM);
+        AES256_GCM(AeadKeyTemplates.AES256_GCM, AeadKeyTemplates.CHACHA20_POLY1305);
 
         private KeyTemplate mAeadKeyTemplate;
+        private KeyTemplate mFallbackAeadKeyTemplate;
 
-        PrefValueEncryptionScheme(KeyTemplate keyTemplates) {
-            mAeadKeyTemplate = keyTemplates;
+        PrefValueEncryptionScheme(KeyTemplate keyTemplate, KeyTemplate fallbackAeadKeyTemplate) {
+            mAeadKeyTemplate = keyTemplate;
+            mFallbackAeadKeyTemplate = fallbackAeadKeyTemplate;
         }
 
         KeyTemplate getKeyTemplate() {
-            return mAeadKeyTemplate;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return mAeadKeyTemplate;
+            } else {
+                return mFallbackAeadKeyTemplate;
+            }
         }
     }
 
