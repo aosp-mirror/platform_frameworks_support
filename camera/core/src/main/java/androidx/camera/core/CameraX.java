@@ -315,6 +315,25 @@ public final class CameraX {
         return INSTANCE.getCameraRepository().getCamera(cameraId).getCameraInfo();
     }
 
+
+    /**
+     * Returns the camera control for the camera with the given lens facing.
+     *
+     * @param lensFacing the lens facing of the camera
+     * @return the {@link CameraControl}.
+     * @throws CameraInfoUnavailableException if unable to access cameras, perhaps due to
+     *                                        insufficient permissions.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static CameraControl getCameraControl(LensFacing lensFacing)
+            throws CameraInfoUnavailableException {
+
+        String cameraId = getCameraWithLensFacing(lensFacing);
+        return INSTANCE.getCameraRepository().getCamera(
+                cameraId).getInternalCameraControl().getPublicCameraControl();
+    }
+
     /**
      * Returns the {@link CameraDeviceSurfaceManager} which can be used to query for valid surface
      * configurations.
@@ -422,7 +441,7 @@ public final class CameraX {
         }
 
         useCase.addStateChangeListener(camera);
-        useCase.attachCameraControl(cameraId, camera.getCameraControl());
+        useCase.attachCameraControl(cameraId, camera.getInternalCameraControl());
 
     }
 

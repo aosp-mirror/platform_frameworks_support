@@ -38,6 +38,7 @@ import androidx.camera.core.CameraControl;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
 import androidx.camera.core.FlashMode;
+import androidx.camera.core.InternalCameraControl;
 import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
@@ -53,12 +54,12 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A Camera2 implementation for CameraControl interface
+ * A Camera2 implementation for InternalCameraControl interface
  *
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public final class Camera2CameraControl implements CameraControl {
+public final class Camera2CameraControl implements InternalCameraControl {
     private static final long DEFAULT_FOCUS_TIMEOUT_MS = 5000;
     private static final String TAG = "Camera2CameraControl";
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
@@ -125,6 +126,11 @@ public final class Camera2CameraControl implements CameraControl {
                 updateSessionConfig();
             }
         });
+    }
+
+    @Override
+    public CameraControl getPublicCameraControl() {
+        return CameraControl.DEFAULT_EMPTY_CAMERACONTROL;
     }
 
     /** {@inheritDoc} */

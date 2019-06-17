@@ -231,12 +231,12 @@ public class ImageCapture extends UseCase {
         return null;
     }
 
-    private CameraControl getCurrentCameraControl() {
+    private InternalCameraControl getCurrentCameraControl() {
         String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
         return getCameraControl(cameraId);
     }
 
-    /** Configures flash mode to CameraControl once it is ready. */
+    /** Configures flash mode to InternalCameraControl once it is ready. */
     @Override
     protected void onCameraControlReady(String cameraId) {
         getCameraControl(cameraId).setFlashMode(mFlashMode);
