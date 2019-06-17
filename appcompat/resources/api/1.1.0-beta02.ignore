@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat#onStateChange(int[]):
+    Protected methods not allowed; must be public: method androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat.onStateChange(int[])}

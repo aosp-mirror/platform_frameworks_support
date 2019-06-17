@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+DocumentExceptions: androidx.preference.PreferenceGroupKt#iterator(androidx.preference.PreferenceGroup):
+    Method PreferenceGroupKt.iterator appears to be throwing java.lang.IndexOutOfBoundsException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+
+
+StaticUtils: androidx.preference.PreferenceGroupKt:
+    Fully-static utility classes must not have constructor

@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat#onBoundsChange(android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.onBoundsChange(android.graphics.Rect)}
+ProtectedMember: androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat#onLevelChange(int):
+    Protected methods not allowed; must be public: method androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.onLevelChange(int)}
+ProtectedMember: androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat#onStateChange(int[]):
+    Protected methods not allowed; must be public: method androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.onStateChange(int[])}
