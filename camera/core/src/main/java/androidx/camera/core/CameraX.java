@@ -120,6 +120,7 @@ public final class CameraX {
     private CameraDeviceSurfaceManager mSurfaceManager;
     private UseCaseConfigFactory mDefaultConfigFactory;
     private Context mContext;
+    private volatile EffectEnabler mEffectEnabler = null;
 
     /** Prevents construction. */
     private CameraX() {
@@ -180,6 +181,11 @@ public final class CameraX {
                                     useCase));
                 }
             }
+        }
+
+        // Updates Effect parameters for use cases.
+        for (UseCase useCase : useCases) {
+            useCase.updateEffectParameters(lifecycleOwner);
         }
 
         for (UseCase useCase : useCases) {
@@ -450,6 +456,35 @@ public final class CameraX {
         }
 
         return activeUseCases;
+    }
+
+    /**
+     * Sets the implementation of {@link EffectEnabler}.
+     *
+     * @param effectEnabler the implementation of {@link EffectEnabler}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static void setEffectEnabler(@NonNull EffectEnabler effectEnabler) {
+        INSTANCE.mEffectEnabler = effectEnabler;
+    }
+
+    static EffectEnabler getEffectEnabler() {
+        return INSTANCE.mEffectEnabler;
+    }
+
+    /**
+     * Returns true if the {@link UseCaseGroup} for the {@link LifecycleOwner} is empty.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} associated to the {@link UseCaseGroup}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static boolean isUseCaseGroupEmpty(@NonNull LifecycleOwner lifecycleOwner) {
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+        int size = useCaseGroupLifecycleController.getUseCaseGroup().getUseCases().size();
+        return size == 0;
     }
 
     /**

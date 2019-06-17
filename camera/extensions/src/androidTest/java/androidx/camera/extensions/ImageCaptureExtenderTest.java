@@ -36,6 +36,7 @@ import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureProcessor;
+import androidx.camera.core.EffectEnabler;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.extensions.impl.CaptureStageImpl;
@@ -71,6 +72,7 @@ public class ImageCaptureExtenderTest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+        CameraX.setEffectEnabler(mock(EffectEnabler.class));
         mLifecycleOwner = new FakeLifecycleOwner();
         mMockImageCaptureExtenderImpl = mock(ImageCaptureExtenderImpl.class);
 
@@ -80,7 +82,8 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreGetCaptureStagesBeforeAndAfterInitDeInit() {
-
+        /** Set EffectEnabler such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
         ImageCaptureConfig.Builder configBuilder =
@@ -115,6 +118,8 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreCameraEventCallbacksBeforeAndAfterInitDeInit() {
+        /** Set EffectEnabler such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
 
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
