@@ -202,15 +202,17 @@ internal fun Text(
             layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
         })
 
-        +onCommit(textPainter) {
-            val id = registrar.subscribe(
-                TextSelectionHandlerImpl(
-                    textPainter = textPainter,
-                    layoutCoordinates = layoutCoordinates.value,
-                    onSelectionChange = { internalSelection.value = it })
-            )
-            onDispose {
-                registrar.unsubscribe(id)
+        TextLayoutCoordinatesAmbient.Provider(value = layoutCoordinates.value) {
+            +onCommit(textPainter) {
+                val id = registrar.subscribe(
+                    TextSelectionHandlerImpl(
+                        textPainter = textPainter,
+
+                        onSelectionChange = { internalSelection.value = it })
+                )
+                onDispose {
+                    registrar.unsubscribe(id)
+                }
             }
         }
     }
@@ -248,6 +250,7 @@ internal val CurrentTextStyleAmbient = Ambient.of<TextStyle>("current text style
     TextStyle()
 }
 
+val TextLayoutCoordinatesAmbient = Ambient.of<LayoutCoordinates?> { error("") }
 /**
  * This component is used to set the current value of the Text style ambient. The given style will
  * be merged with the current style values for any missing attributes. Any [Text]

@@ -137,6 +137,7 @@ package androidx.ui.core {
     method public static void Text(androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
     method public static void Text(String text, androidx.ui.painting.TextStyle? style = null, androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines);
     method public static androidx.compose.Effect<androidx.ui.painting.TextStyle> currentTextStyle();
+    method public static androidx.compose.Ambient<androidx.ui.core.LayoutCoordinates> getTextLayoutCoordinatesAmbient();
   }
 
   public final class TextSpanComposeKt {
