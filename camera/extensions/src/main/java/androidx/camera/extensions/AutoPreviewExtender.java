@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.AutoPreviewExtenderImpl;
 /**
  * Load the OEM extension Preview implementation for auto effect type.
  */
-public class AutoPreviewExtender extends PreviewExtender {
+class AutoPreviewExtender extends PreviewExtender {
     private static final String TAG = "AutoPreviewExtender";
 
     /**
@@ -34,7 +34,7 @@ public class AutoPreviewExtender extends PreviewExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.Preview}.
      */
-    public static AutoPreviewExtender create(PreviewConfig.Builder builder) {
+    static AutoPreviewExtender create(PreviewConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorAutoPreviewExtender(builder);
