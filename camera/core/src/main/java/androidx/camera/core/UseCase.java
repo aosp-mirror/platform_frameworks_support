@@ -439,6 +439,8 @@ public abstract class UseCase {
         return cameraControl;
     }
 
+    void updateEffectParameters(LifecycleOwner lifecycleOwner) {}
+
     /**
      * Get image format for the use case.
      *
