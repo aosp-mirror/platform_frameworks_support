@@ -22,6 +22,30 @@
       "revId": "f0333a873702d9df95b134e6783278f167383bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332b0562_40880058",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateHandle.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-17T22:02:44Z",
+      "side": 1,
+      "message": "i\u0027ll try but i don\u0027t think it works. at least for set value, it totally ignores :(\n\ne.g.\nval ld \u003d MutableLiveData\u003cString\u003e()\nld.value \u003d null // compiler totally cool",
+      "parentUuid": "3ce2489f_d9dfbc73",
+      "range": {
+        "startLine": 180,
+        "startChar": 68,
+        "endLine": 180,
+        "endChar": 76
+      },
+      "revId": "f0333a873702d9df95b134e6783278f167383bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
