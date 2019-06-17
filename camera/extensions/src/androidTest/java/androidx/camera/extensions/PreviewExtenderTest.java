@@ -36,6 +36,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.util.Pair;
 
 import androidx.camera.core.CameraX;
+import androidx.camera.core.EffectEnabler;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.extensions.impl.CaptureStageImpl;
@@ -68,6 +69,7 @@ public class PreviewExtenderTest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+        CameraX.setEffectEnabler(mock(EffectEnabler.class));
     }
 
     @Test

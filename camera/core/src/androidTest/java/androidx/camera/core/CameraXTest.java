@@ -292,6 +292,22 @@ public final class CameraXTest {
         assertThat(useCases.contains(fakeOtherUseCase)).isTrue();
     }
 
+    @Test
+    public void canGetUseCasesForLifecycleOwner_afterBindToLifecycle() {
+        FakeUseCaseConfig config0 =
+                new FakeUseCaseConfig.Builder().setTargetName("config0").build();
+        FakeUseCase fakeUseCase = new FakeUseCase(config0);
+        FakeOtherUseCaseConfig config1 =
+                new FakeOtherUseCaseConfig.Builder().setTargetName("config1").build();
+        FakeOtherUseCase fakeOtherUseCase = new FakeOtherUseCase(config1);
+
+        Collection<UseCase> useCases = CameraX.getUseCasesForLifecycleOwner(mLifecycle);
+        assertThat(useCases).isEmpty();
+        CameraX.bindToLifecycle(mLifecycle, fakeUseCase, fakeOtherUseCase);
+        useCases = CameraX.getUseCasesForLifecycleOwner(mLifecycle);
+        assertThat(useCases).isNotEmpty();
+    }
+
     private static class CountingErrorListener implements ErrorListener {
         CountDownLatch mLatch;
         AtomicInteger mCount = new AtomicInteger(0);

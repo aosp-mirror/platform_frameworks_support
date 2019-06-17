@@ -45,13 +45,26 @@ public final class ImageCaptureConfig
                     "camerax.core.imageCapture.captureMode", CaptureMode.class);
     static final Option<FlashMode> OPTION_FLASH_MODE =
             Option.create("camerax.core.imageCapture.flashMode", FlashMode.class);
-    static final Option<CaptureBundle> OPTION_CAPTURE_BUNDLE =
-            Option.create("camerax.core.imageCapture.captureBundle", CaptureBundle.class);
-    static final Option<CaptureProcessor> OPTION_CAPTURE_PROCESSOR =
-            Option.create("camerax.core.imageCapture.captureProcessor", CaptureProcessor.class);
     static final Option<Integer> OPTION_BUFFER_FORMAT =
             Option.create("camerax.core.imageCapture.bufferFormat", Integer.class);
-    static final Option<Integer> OPTION_MAX_CAPTURE_STAGES =
+
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static final Option<CaptureBundle> OPTION_CAPTURE_BUNDLE =
+            Option.create("camerax.core.imageCapture.captureBundle", CaptureBundle.class);
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static final Option<CaptureProcessor> OPTION_CAPTURE_PROCESSOR =
+            Option.create("camerax.core.imageCapture.captureProcessor", CaptureProcessor.class);
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static final Option<Integer> OPTION_MAX_CAPTURE_STAGES =
             Option.create("camerax.core.imageCapture.maxCaptureStages", Integer.class);
 
     // *********************************************************************************************

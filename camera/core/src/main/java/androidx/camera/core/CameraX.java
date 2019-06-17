@@ -29,6 +29,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -120,6 +121,7 @@ public final class CameraX {
     private CameraDeviceSurfaceManager mSurfaceManager;
     private UseCaseConfigFactory mDefaultConfigFactory;
     private Context mContext;
+    private volatile EffectEnabler mEffectEnabler = null;
 
     /** Prevents construction. */
     private CameraX() {
@@ -180,6 +182,11 @@ public final class CameraX {
                                     useCase));
                 }
             }
+        }
+
+        // Updates Effect parameters for use cases.
+        for (UseCase useCase : useCases) {
+            useCase.updateEffectParameters(lifecycleOwner);
         }
 
         for (UseCase useCase : useCases) {
@@ -453,6 +460,96 @@ public final class CameraX {
     }
 
     /**
+     * Returns {@link UseCase} collection bound to specific {@link LifecycleOwner}
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} associated to the {@link UseCase} collection
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @NonNull
+    public static Collection<UseCase> getUseCasesForLifecycleOwner(
+            @NonNull LifecycleOwner lifecycleOwner) {
+        Collection<UseCase> useCases = null;
+
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+
+        useCases = useCaseGroupLifecycleController.getUseCaseGroup().getUseCases();
+
+        return useCases;
+    }
+
+    /**
+     * Sets the implementation of {@link EffectEnabler}.
+     *
+     * @param effectEnabler the implementation of {@link EffectEnabler}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static void setEffectEnabler(@NonNull EffectEnabler effectEnabler) {
+        INSTANCE.mEffectEnabler = effectEnabler;
+    }
+
+    static EffectEnabler getEffectEnabler() {
+        return INSTANCE.mEffectEnabler;
+    }
+
+    /**
+     * Refreshes use cases of specific {@link LifecycleOwner} to update effect parameters.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} associated to the {@link UseCaseGroup}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static void refreshUseCases(@NonNull LifecycleOwner lifecycleOwner) {
+        Collection<UseCase> useCasesCollection = null;
+        List<UseCase> useCasesList = null;
+
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+
+        useCasesCollection = useCaseGroupLifecycleController.getUseCaseGroup().getUseCases();
+        useCasesList = Arrays.asList(
+                useCasesCollection.toArray(new UseCase[useCasesCollection.size()]));
+
+        if (useCasesList.isEmpty()) {
+            return;
+        }
+
+        boolean isActive = useCaseGroupLifecycleController.getUseCaseGroup().isActive();
+
+        // Stops {@link UseCaseGroup} if it is in active state.
+        if (isActive) {
+            useCaseGroupLifecycleController.getUseCaseGroup().stop();
+        }
+
+        // Calls onUnbind to make sure it is correctly paired with onBind.
+        for (UseCase useCase : useCasesList) {
+            UseCase.EventListener eventListener =
+                    useCase.getUseCaseConfig().getUseCaseEventListener(null);
+            if (eventListener != null) {
+                eventListener.onUnbind();
+            }
+        }
+
+        // Updates Effect parameters for use cases.
+        for (UseCase useCase : useCasesList) {
+            useCase.updateEffectParameters(lifecycleOwner);
+        }
+
+        for (UseCase useCase : useCasesList) {
+            useCase.onBind();
+        }
+
+        recalculateSuggestedResolutions(lifecycleOwner);
+
+        // Restarts {@link UseCaseGroup} if it is originally in active state.
+        if (isActive) {
+            useCaseGroupLifecycleController.getUseCaseGroup().start();
+        }
+    }
+
+    /**
      * Registers the callbacks for the {@link BaseCamera} to the {@link UseCase}.
      *
      * @param cameraId the id for the {@link BaseCamera}
@@ -540,6 +637,45 @@ public final class CameraX {
                                     newCameraIdUseCaseMap.get(cameraId));
 
             for (UseCase useCase : useCases) {
+                Size resolution = suggestResolutionsMap.get(useCase);
+                Map<String, Size> suggestedCameraSurfaceResolutionMap = new HashMap<>();
+                suggestedCameraSurfaceResolutionMap.put(cameraId, resolution);
+                useCase.updateSuggestedResolution(suggestedCameraSurfaceResolutionMap);
+            }
+        }
+    }
+
+    private static void recalculateSuggestedResolutions(LifecycleOwner lifecycleOwner) {
+        // There will only one lifecycleOwner active. Therefore, only collect use cases belong to
+        // same lifecycleOwner and calculate the suggested resolutions.
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+        UseCaseGroup useCaseGroupToBind = useCaseGroupLifecycleController.getUseCaseGroup();
+        Map<String, List<UseCase>> originalCameraIdUseCaseMap = new HashMap<>();
+        Map<String, List<UseCase>> newCameraIdUseCaseMap = new HashMap<>();
+
+        // Collect original use cases for different camera devices
+        for (UseCase useCase : useCaseGroupToBind.getUseCases()) {
+            for (String cameraId : useCase.getAttachedCameraIds()) {
+                List<UseCase> useCaseList = newCameraIdUseCaseMap.get(cameraId);
+                if (useCaseList == null) {
+                    useCaseList = new ArrayList<>();
+                    newCameraIdUseCaseMap.put(cameraId, useCaseList);
+                }
+                useCaseList.add(useCase);
+            }
+        }
+
+        // Get suggested resolutions and update the use case session configuration
+        for (String cameraId : newCameraIdUseCaseMap.keySet()) {
+            Map<UseCase, Size> suggestResolutionsMap =
+                    getSurfaceManager()
+                            .getSuggestedResolutions(
+                                    cameraId,
+                                    originalCameraIdUseCaseMap.get(cameraId),
+                                    newCameraIdUseCaseMap.get(cameraId));
+
+            for (UseCase useCase : newCameraIdUseCaseMap.get(cameraId)) {
                 Size resolution = suggestResolutionsMap.get(useCase);
                 Map<String, Size> suggestedCameraSurfaceResolutionMap = new HashMap<>();
                 suggestedCameraSurfaceResolutionMap.put(cameraId, resolution);
