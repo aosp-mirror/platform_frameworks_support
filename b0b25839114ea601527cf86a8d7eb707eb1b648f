@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e4c32cd_2af7a608",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2CameraControlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-17T18:17:27Z",
+      "side": 1,
+      "message": "Are you able to use HandlerUtil.waitForLooperToIdle()?",
+      "revId": "b0b25839114ea601527cf86a8d7eb707eb1b648f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "647c2aca_ac30439b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-17T18:17:27Z",
+      "side": 1,
+      "message": "Whats a null executor? I see the mainThreadExecutor and a null listener, but not null executor.",
+      "revId": "b0b25839114ea601527cf86a8d7eb707eb1b648f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
