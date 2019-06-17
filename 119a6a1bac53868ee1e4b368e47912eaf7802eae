@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "add042ac_5a8b81b9",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "nit: \"stream\" might be a better name",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 30
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643e859b_b815f502",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "suggestion: \"non-registered URL should return null response\" (makes it clearer that \"opening\" should not be possible)",
+      "range": {
+        "startLine": 126,
+        "startChar": 27,
+        "endLine": 126,
+        "endChar": 75
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99f2360d_f5257887",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "suggestion: move this out to a static inner class, and call it FakeZipPathHandler (since it doesn\u0027t really unzip files)\n\nYou could also expose call count, and then make assertions over which handlers were called",
+      "range": {
+        "startLine": 254,
+        "startChar": 25,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a90f9d02_932b443c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "Please don\u0027t shuffle in tests. Randomness makes it very hard to debug flakes. If there\u0027s only 2, why not just try them in both orders?",
+      "range": {
+        "startLine": 284,
+        "startChar": 7,
+        "endLine": 284,
+        "endChar": 42
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd003f7_7846117d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "curly braces don\u0027t do anything here, right? You can just re-assign to the same WebResourceResponse",
+      "range": {
+        "startLine": 289,
+        "startChar": 7,
+        "endLine": 289,
+        "endChar": 9
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b013cead_98ea6428",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "Maybe we should rename this to \"appcontent\" and the class to \"ContentLoader\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 57,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "329b47c6_ca9c8ca5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "nit: interface",
+      "range": {
+        "startLine": 101,
+        "startChar": 22,
+        "endLine": 101,
+        "endChar": 27
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58b878f_4c3bc252",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "nit: \"app\u0027s\"",
+      "range": {
+        "startLine": 101,
+        "startChar": 72,
+        "endLine": 101,
+        "endChar": 83
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8b60ce_4e9dd045",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "please annotate as @WorkerThread",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 69
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83cba5fe_821fd3f7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "Actually, I think this should accept a full URI, since there\u0027s nothing stopping apps from hosting on multiple domains.\n\nI think apps may want to condition their behavior based on the requested scheme, domain, path-prefix, query, etc.\n\nMaybe this could be 2 args: requestedUri \u0026 pathSuffix",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 62
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a4a3c11_68a5cd72",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "nit: \"the application\u0027s\"",
+      "range": {
+        "startLine": 146,
+        "startChar": 41,
+        "endLine": 146,
+        "endChar": 54
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcdd961a_a17d5a14",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "This should go in a paragraph above.",
+      "range": {
+        "startLine": 149,
+        "startChar": 69,
+        "endLine": 150,
+        "endChar": 81
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a19fad_3e689f43",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "In this model, the order of .register() calls matters, even if they all precede the first loadUrl() call. This may not be super intuitive to apps.\n\nMaybe we could call this \"appendPathHandler\", to make it clear newer PathHandlers have lower precedence. Or, accept a Map\u003cString,PathHandler\u003e, which would imply PathHandlers can do multiple things, and its up to each PathHandler to implement its own precedence.",
+      "range": {
+        "startLine": 343,
+        "startChar": 23,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495424b2_320eeb6d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 1,
+      "message": "optional: readability might benefit by adding some comments and flattening the code, wdyt?\n\nfor (PathMatcher matcher : mMatchers) {\n    PathHandler handler \u003d matcher.match(url);\n    // This Handler doesn\u0027t match this URL, try the next one:\n    if (handler \u003d\u003d null) continue;\n    String suffixPath \u003d matcher.getSuffixPath(url.getPath());\n    WebResourceResponse response \u003d handler.handle(suffixPath);\n    // This Handler doesn\u0027t want to intercept the request, try the next Handler:\n    if (response \u003d\u003d null) continue;\n    // Use the injected response:\n    return response;\n}",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 385,
+        "endChar": 47
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

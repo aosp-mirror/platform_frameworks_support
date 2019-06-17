@@ -46,6 +46,30 @@
       "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff140ac_d048a035",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-17T23:02:10Z",
+      "side": 0,
+      "message": "What if we just have getDomain() and ask developers to build URLs with android.net.Uri?\n\nUri.Builder()\n  .scheme(\"https:\")\n  .domain(pathHandler.getDomain())\n  .addPathSegment(APP_RES_PATH_PREFIX)",
+      "parentUuid": "1f4830d6_5f6f34c2",
+      "range": {
+        "startLine": 482,
+        "startChar": 15,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
