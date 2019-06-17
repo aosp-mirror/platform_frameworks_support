@@ -58,7 +58,7 @@ public final class Camera2Config implements Config {
             Option.create("camera2.cameraCaptureSession.captureCallback", CaptureCallback.class);
 
     /** @hide */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public static final Option<CameraEventCallbacks> CAMERA_EVENT_CALLBACK_OPTION =
             Option.create("camera2.cameraEvent.callback", CameraEventCallbacks.class);
     // *********************************************************************************************
@@ -391,6 +391,11 @@ public final class Camera2Config implements Config {
             return this;
         }
 
+        /**
+         * Builds an immutable {@link Camera2Config} from the current state.
+         *
+         * @return A {@link Camera2Config} populated with the current state.
+         */
         public Camera2Config build() {
             return new Camera2Config(OptionsBundle.from(mMutableOptionsBundle));
         }

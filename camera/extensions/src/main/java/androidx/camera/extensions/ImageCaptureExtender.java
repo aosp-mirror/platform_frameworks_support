@@ -16,6 +16,8 @@
 
 package androidx.camera.extensions;
 
+import static androidx.camera.camera2.Camera2Config.CAMERA_EVENT_CALLBACK_OPTION;
+
 import android.hardware.camera2.CameraCharacteristics;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,6 +32,7 @@ import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
 import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.core.MutableConfig;
 import androidx.camera.core.UseCase;
 import androidx.camera.extensions.ExtensionsErrorListener.ExtensionsErrorCode;
 import androidx.camera.extensions.ExtensionsManager.EffectMode;
@@ -100,6 +103,23 @@ abstract class ImageCaptureExtender {
         mBuilder.setUseCaseEventListener(imageCaptureAdapter);
         mBuilder.setCaptureBundle(imageCaptureAdapter);
         mBuilder.getMutableConfig().insertOption(OPTION_IMAGE_CAPTURE_EXTENDER_MODE, mEffectMode);
+    }
+
+    /**
+     * Removes all configs that were set in {@link ImageCaptureExtender#enableExtension()}
+     */
+    static void removeEffectConfigs(ImageCaptureConfig.Builder builder) {
+        MutableConfig config = builder.getMutableConfig();
+        EffectMode effectMode = config.retrieveOption(OPTION_IMAGE_CAPTURE_EXTENDER_MODE, null);
+
+        if (effectMode != null) {
+            config.removeOption(ImageCaptureConfig.OPTION_CAPTURE_PROCESSOR);
+            config.removeOption(ImageCaptureConfig.OPTION_MAX_CAPTURE_STAGES);
+            config.removeOption(CAMERA_EVENT_CALLBACK_OPTION);
+            config.removeOption(ImageCaptureConfig.OPTION_USE_CASE_EVENT_LISTENER);
+            config.removeOption(ImageCaptureConfig.OPTION_CAPTURE_BUNDLE);
+            config.removeOption(OPTION_IMAGE_CAPTURE_EXTENDER_MODE);
+        }
     }
 
     static void checkPreviewEnabled(EffectMode effectMode, Collection<UseCase> activeUseCases) {

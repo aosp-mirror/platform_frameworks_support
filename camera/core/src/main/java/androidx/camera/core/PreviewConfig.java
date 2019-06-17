@@ -42,9 +42,13 @@ public final class PreviewConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    static final Option<ImageInfoProcessor> IMAGE_INFO_PROCESSOR = Option.create(
+    public static final Option<ImageInfoProcessor> IMAGE_INFO_PROCESSOR = Option.create(
             "camerax.core.preview.imageInfoProcessor", ImageInfoProcessor.class);
-    static final Option<CaptureProcessor> OPTION_PREVIEW_CAPTURE_PROCESSOR =
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static final Option<CaptureProcessor> OPTION_PREVIEW_CAPTURE_PROCESSOR =
             Option.create("camerax.core.preview.captureProcessor", CaptureProcessor.class);
     private final OptionsBundle mConfig;
 

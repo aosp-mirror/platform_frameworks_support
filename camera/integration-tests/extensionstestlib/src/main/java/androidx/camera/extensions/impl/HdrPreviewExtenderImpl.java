@@ -85,7 +85,9 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
 
         @Override
         public void process(Image image, TotalCaptureResult result) {
-            mRenderer.renderTexture(image);
+            if (mRenderer != null) {
+                mRenderer.renderTexture(image);
+            }
         }
 
         @Override

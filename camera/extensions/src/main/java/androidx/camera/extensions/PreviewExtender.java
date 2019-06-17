@@ -16,6 +16,8 @@
 
 package androidx.camera.extensions;
 
+import static androidx.camera.camera2.Camera2Config.CAMERA_EVENT_CALLBACK_OPTION;
+
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
@@ -35,6 +37,7 @@ import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
 import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageInfoProcessor;
+import androidx.camera.core.MutableConfig;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.UseCase;
 import androidx.camera.extensions.ExtensionsErrorListener.ExtensionsErrorCode;
@@ -141,6 +144,22 @@ public abstract class PreviewExtender {
         mBuilder.getMutableConfig().insertOption(OPTION_PREVIEW_EXTENDER_MODE, mEffectMode);
     }
 
+    /**
+     * Removes all configs that were set in {@link PreviewExtender#enableExtension()}
+     */
+    static void removeEffectConfigs(PreviewConfig.Builder builder) {
+        MutableConfig config = builder.getMutableConfig();
+        EffectMode effectMode = config.retrieveOption(OPTION_PREVIEW_EXTENDER_MODE, null);
+
+        if (effectMode != null) {
+            config.removeOption(PreviewConfig.IMAGE_INFO_PROCESSOR);
+            config.removeOption(PreviewConfig.OPTION_PREVIEW_CAPTURE_PROCESSOR);
+            config.removeOption(CAMERA_EVENT_CALLBACK_OPTION);
+            config.removeOption(PreviewConfig.OPTION_USE_CASE_EVENT_LISTENER);
+            config.removeOption(OPTION_PREVIEW_EXTENDER_MODE);
+        }
+    }
+
     static void checkImageCaptureEnabled(EffectMode effectMode,
             Collection<UseCase> activeUseCases) {
         boolean isImageCaptureExtenderEnabled = false;
@@ -182,6 +201,8 @@ public abstract class PreviewExtender {
         @Override
         public void onBind(String cameraId) {
             if (mActive.get()) {
+                mActive.set(true);
+                mUnbind = false;
                 CameraCharacteristics cameraCharacteristics =
                         CameraUtil.getCameraCharacteristics(cameraId);
                 mImpl.onInit(cameraId, cameraCharacteristics, CameraX.getContext());
