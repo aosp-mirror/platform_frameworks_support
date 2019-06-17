@@ -21,7 +21,7 @@ import android.graphics.Rect;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraControlInternal;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.OnFocusListener;
@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
- * A fake implementation for the CameraControl interface.
+ * A fake implementation for the CameraControlInternal interface.
  */
-public final class FakeCameraControl implements CameraControl {
+public final class FakeCameraControl implements CameraControlInternal {
     private static final String TAG = "FakeCameraControl";
     private final ControlUpdateListener mControlUpdateListener;
     private final SessionConfig.Builder mSessionConfigBuilder = new SessionConfig.Builder();

@@ -34,7 +34,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.camera.camera2.Camera2Config;
-import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraControlInternal;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
 import androidx.camera.core.FlashMode;
@@ -53,12 +53,12 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A Camera2 implementation for CameraControl interface
+ * A Camera2 implementation for CameraControlInternal interface
  *
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public final class Camera2CameraControl implements CameraControl {
+public final class Camera2CameraControl implements CameraControlInternal {
     private static final long DEFAULT_FOCUS_TIMEOUT_MS = 5000;
     private static final String TAG = "Camera2CameraControl";
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
