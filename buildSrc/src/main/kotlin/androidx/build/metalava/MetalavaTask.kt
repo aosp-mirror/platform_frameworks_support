@@ -52,7 +52,45 @@ abstract class MetalavaTask : DefaultTask() {
             it.args = listOf(
                 "--no-banner",
                 "--error",
-                "DeprecationMismatch" // Enforce deprecation mismatch
+                "DeprecationMismatch", // Enforce deprecation mismatch
+                "--hide",
+                listOf(
+                    // The list of checks that are hidden as they are not useful in androidx
+                    "Enum", // Enums are allowed to be use in androidx
+                    "CallbackInterface", // With target Java 8, we have default methods
+                    "HiddenSuperclass", // We allow having a hidden parent class
+
+                    // List of checks that have bugs, but should be enabled once fixed.
+                    "GetterSetterNames", // b/135498039
+                    "StaticUtils", // b/135489083
+
+                    // The list of checks that are API lint warnings and are yet to be enabled
+                    "MinMaxConstant",
+                    "IntentBuilderName",
+                    "OnNameExpected",
+                    "TopLevelBuilder",
+                    "MissingBuild",
+                    "BuilderSetStyle",
+                    "SetterReturnsThis",
+                    "PackageLayering",
+                    "OverlappingConstants",
+                    "IllegalStateException",
+                    "ListenerLast",
+                    "ExecutorRegistration",
+                    "StreamFiles",
+                    "ParcelableList",
+                    "AbstractInner",
+                    "NotCloseable",
+                    "ArrayReturn",
+                    "UserHandle",
+                    "UserHandleName",
+                    "MethodNameTense",
+                    "UseIcu",
+                    "NoByteOrShort",
+                    "CommonArgsFirst",
+                    "SamShouldBeLast",
+                    "MissingJvmStatic"
+                ).joinToString()
             ) + args
         }
     }

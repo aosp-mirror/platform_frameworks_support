@@ -1,0 +1,33 @@
+// Baseline format: 1.0
+ParcelCreator: androidx.coordinatorlayout.widget.CoordinatorLayout.SavedState:
+    Parcelable requires `public int describeContents()`; missing in androidx.coordinatorlayout.widget.CoordinatorLayout.SavedState
+
+
+ParcelNotFinal: androidx.coordinatorlayout.widget.CoordinatorLayout.SavedState:
+    Parcelable classes must be final: androidx.coordinatorlayout.widget.CoordinatorLayout.SavedState is not final
+
+
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#drawChild(android.graphics.Canvas, android.view.View, long):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.drawChild(android.graphics.Canvas,android.view.View,long)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#drawableStateChanged():
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.drawableStateChanged()}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#getSuggestedMinimumHeight():
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.getSuggestedMinimumHeight()}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#getSuggestedMinimumWidth():
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.getSuggestedMinimumWidth()}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.onMeasure(int,int)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.onSaveInstanceState()}
+ProtectedMember: androidx.coordinatorlayout.widget.CoordinatorLayout#verifyDrawable(android.graphics.drawable.Drawable):
+    Protected methods not allowed; must be public: method androidx.coordinatorlayout.widget.CoordinatorLayout.verifyDrawable(android.graphics.drawable.Drawable)}

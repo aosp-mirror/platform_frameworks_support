@@ -1,4 +1,8 @@
 // Baseline format: 1.0
+AcronymName: androidx.room.ColumnInfo.SQLiteTypeAffinity:
+    Acronyms should not be capitalized in class names: was `SQLiteTypeAffinity`, should this be `SqLiteTypeAffinity`?
+
+
 AddedAbstractMethod: androidx.room.ColumnInfo#defaultValue():
     Added method androidx.room.ColumnInfo.defaultValue()
 AddedAbstractMethod: androidx.room.Relation#associateBy():

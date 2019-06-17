@@ -1,0 +1,31 @@
+// Baseline format: 1.0
+CallbackMethodName: androidx.customview.widget.ViewDragHelper.Callback:
+    Callback method names must follow the on<Something> style: getOrderedChildIndex
+
+
+ParcelConstructor: androidx.customview.view.AbsSavedState#AbsSavedState(android.os.Parcel):
+    Parcelable inflation is exposed through CREATOR, not raw constructors, in androidx.customview.view.AbsSavedState
+
+
+ParcelNotFinal: androidx.customview.view.AbsSavedState:
+    Parcelable classes must be final: androidx.customview.view.AbsSavedState is not final
+
+
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#getVirtualViewAt(float, float):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.getVirtualViewAt(float,float)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#getVisibleVirtualViews(java.util.List<java.lang.Integer>):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.getVisibleVirtualViews(java.util.List<java.lang.Integer>)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onPerformActionForVirtualView(int, int, android.os.Bundle):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onPerformActionForVirtualView(int,int,android.os.Bundle)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onPopulateEventForHost(android.view.accessibility.AccessibilityEvent):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onPopulateEventForHost(android.view.accessibility.AccessibilityEvent)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onPopulateEventForVirtualView(int, android.view.accessibility.AccessibilityEvent):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onPopulateEventForVirtualView(int,android.view.accessibility.AccessibilityEvent)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onPopulateNodeForHost(androidx.core.view.accessibility.AccessibilityNodeInfoCompat):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onPopulateNodeForHost(androidx.core.view.accessibility.AccessibilityNodeInfoCompat)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onPopulateNodeForVirtualView(int, androidx.core.view.accessibility.AccessibilityNodeInfoCompat):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onPopulateNodeForVirtualView(int,androidx.core.view.accessibility.AccessibilityNodeInfoCompat)}
+ProtectedMember: androidx.customview.widget.ExploreByTouchHelper#onVirtualViewKeyboardFocusChanged(int, boolean):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ExploreByTouchHelper.onVirtualViewKeyboardFocusChanged(int,boolean)}
+ProtectedMember: androidx.customview.widget.ViewDragHelper#canScroll(android.view.View, boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.customview.widget.ViewDragHelper.canScroll(android.view.View,boolean,int,int,int,int)}

@@ -1,0 +1,13 @@
+// Baseline format: 1.0
+CallbackName: androidx.lifecycle.Observer:
+    Class should be named Callback
+
+
+ProtectedMember: androidx.lifecycle.LiveData#onActive():
+    Protected methods not allowed; must be public: method androidx.lifecycle.LiveData.onActive()}
+ProtectedMember: androidx.lifecycle.LiveData#onInactive():
+    Protected methods not allowed; must be public: method androidx.lifecycle.LiveData.onInactive()}
+ProtectedMember: androidx.lifecycle.LiveData#postValue(T):
+    Protected methods not allowed; must be public: method androidx.lifecycle.LiveData.postValue(T)}
+ProtectedMember: androidx.lifecycle.LiveData#setValue(T):
+    Protected methods not allowed; must be public: method androidx.lifecycle.LiveData.setValue(T)}

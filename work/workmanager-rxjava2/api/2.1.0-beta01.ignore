@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.work.RxWorker#getBackgroundScheduler():
+    Protected methods not allowed; must be public: method androidx.work.RxWorker.getBackgroundScheduler()}

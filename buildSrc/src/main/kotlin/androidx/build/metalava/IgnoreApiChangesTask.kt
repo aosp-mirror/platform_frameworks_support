@@ -98,10 +98,20 @@ abstract class IgnoreApiChangesTask : MetalavaTask() {
         )
         if (processRestrictedAPIs) {
             args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
+        } else {
+            // Only enable API lint for public APIs
+            args = args + listOf("--api-lint")
         }
         runWithArgs(args)
 
-        if (intermediateExclusions.length() > 0) {
+        var moreThanHeader = false
+        intermediateExclusions.forEachLine {
+            if (!it.startsWith("// Baseline format: ")) {
+                moreThanHeader = true
+                return@forEachLine
+            }
+        }
+        if (moreThanHeader) {
             Files.copy(intermediateExclusions, exclusionsFile)
         } else {
             if (exclusionsFile.exists()) {
