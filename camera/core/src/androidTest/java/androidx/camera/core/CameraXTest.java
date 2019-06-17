@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Size;
 
+import androidx.annotation.NonNull;
 import androidx.camera.core.CameraX.ErrorCode;
 import androidx.camera.core.CameraX.ErrorListener;
 import androidx.camera.core.CameraX.LensFacing;
@@ -290,6 +291,20 @@ public final class CameraXTest {
         assertThat(useCases.contains(fakeOtherUseCase)).isTrue();
     }
 
+    @Test
+    public void isUseCaseGroupNotEmpty_afterBindToLifecycle() {
+        FakeUseCaseConfig config0 =
+                new FakeUseCaseConfig.Builder().setTargetName("config0").build();
+        FakeUseCase fakeUseCase = new FakeUseCase(config0);
+        FakeOtherUseCaseConfig config1 =
+                new FakeOtherUseCaseConfig.Builder().setTargetName("config1").build();
+        FakeOtherUseCase fakeOtherUseCase = new FakeOtherUseCase(config1);
+
+        assertThat(CameraX.isUseCaseGroupEmpty(mLifecycle)).isTrue();
+        CameraX.bindToLifecycle(mLifecycle, fakeUseCase, fakeOtherUseCase);
+        assertThat(CameraX.isUseCaseGroupEmpty(mLifecycle)).isFalse();
+    }
+
     private static class CountingErrorListener implements ErrorListener {
         CountDownLatch mLatch;
         AtomicInteger mCount = new AtomicInteger(0);
@@ -299,7 +314,7 @@ public final class CameraXTest {
         }
 
         @Override
-        public void onError(ErrorCode errorCode, String message) {
+        public void onError(@NonNull ErrorCode errorCode, String message) {
             mCount.getAndIncrement();
             mLatch.countDown();
         }

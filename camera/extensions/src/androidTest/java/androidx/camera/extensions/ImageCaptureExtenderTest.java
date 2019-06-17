@@ -80,7 +80,9 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreGetCaptureStagesBeforeAndAfterInitDeInit() {
-
+        /** Set EffectHelper such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
+        CameraX.setEffectHelper(new AdaptingEffectHelper());
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
         ImageCaptureConfig.Builder configBuilder =
@@ -115,6 +117,9 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreCameraEventCallbacksBeforeAndAfterInitDeInit() {
+        /** Set EffectHelper such that {@link ImageCapture#updateEffectParameters} will be called
+         *  to retrieve the set {@link CaptureBundle} or {@link CaptureProcessor}. */
+        CameraX.setEffectHelper(new AdaptingEffectHelper());
 
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);

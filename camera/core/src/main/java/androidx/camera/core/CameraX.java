@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.util.Size;
 
 import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -119,6 +120,7 @@ public final class CameraX {
     private CameraDeviceSurfaceManager mSurfaceManager;
     private UseCaseConfigFactory mDefaultConfigFactory;
     private Context mContext;
+    private volatile EffectHelper mEffectHelper = null;
 
     /** Prevents construction. */
     private CameraX() {
@@ -178,6 +180,13 @@ public final class CameraX {
                                     "Use case %s already bound to a different lifecycle.",
                                     useCase));
                 }
+            }
+        }
+
+        // Updates Effect parameters for use cases if there is EffectHelper set.
+        if (INSTANCE.mEffectHelper != null) {
+            for (UseCase useCase : useCases) {
+                useCase.updateEffectParameters(lifecycleOwner);
             }
         }
 
@@ -433,6 +442,35 @@ public final class CameraX {
     }
 
     /**
+     * Sets the implementation of {@link EffectHelper}.
+     *
+     * @param effectHelper the implementation of {@link EffectHelper}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static void setEffectHelper(EffectHelper effectHelper) {
+        INSTANCE.mEffectHelper = effectHelper;
+    }
+
+    static EffectHelper getEffectHelper() {
+        return INSTANCE.mEffectHelper;
+    }
+
+    /**
+     * Returns true if the {@link UseCaseGroup} for the {@link LifecycleOwner} is empty.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} associated to the {@link UseCaseGroup}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static boolean isUseCaseGroupEmpty(LifecycleOwner lifecycleOwner) {
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+        int size = useCaseGroupLifecycleController.getUseCaseGroup().getUseCases().size();
+        return size == 0;
+    }
+
+    /**
      * Registers the callbacks for the {@link BaseCamera} to the {@link UseCase}.
      *
      * @param cameraId the id for the {@link BaseCamera}
@@ -630,6 +668,6 @@ public final class CameraX {
          * @param error   the type of error that occurred
          * @param message detailed message of the error condition
          */
-        void onError(ErrorCode error, String message);
+        void onError(@NonNull ErrorCode error, @Nullable String message);
     }
 }
