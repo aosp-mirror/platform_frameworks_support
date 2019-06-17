@@ -94,14 +94,24 @@ abstract class IgnoreApiChangesTask : MetalavaTask() {
             "--pass-baseline-updates",
 
             "--format=v3",
-            "--omit-common-packages=yes"
+            "--omit-common-packages=yes",
+
+            "--api-lint"
         )
         if (processRestrictedAPIs) {
             args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
         }
+        args = args + listOf("--api-lint")
         runWithArgs(args)
 
-        if (intermediateExclusions.length() > 0) {
+        var moreThanHeader = false
+        intermediateExclusions.forEachLine {
+            if (!it.startsWith("// Baseline format: ")) {
+                moreThanHeader = true
+                return@forEachLine
+            }
+        }
+        if (moreThanHeader) {
             Files.copy(intermediateExclusions, exclusionsFile)
         } else {
             if (exclusionsFile.exists()) {

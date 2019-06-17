@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+GetterSetterNames: androidx.slice.builders.SliceAction#isChecked():
+    Symmetric method for `setChecked` must be named `getChecked`; was `isChecked`

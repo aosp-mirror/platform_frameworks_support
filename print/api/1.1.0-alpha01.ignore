@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+CallbackInterface: androidx.print.PrintHelper.OnPrintFinishCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: OnPrintFinishCallback

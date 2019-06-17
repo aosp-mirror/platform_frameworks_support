@@ -1,1 +1,197 @@
 // Baseline format: 1.0
+AcronymName: androidx.recyclerview.widget.ItemTouchHelper.Callback#getDefaultUIUtil():
+    Acronyms should not be capitalized in method names: was `getDefaultUIUtil`, should this be `getDefaultUiUtil`?
+AcronymName: androidx.recyclerview.widget.ItemTouchUIUtil:
+    Acronyms should not be capitalized in class names: was `ItemTouchUIUtil`, should this be `ItemTouchUiUtil`?
+AcronymName: androidx.recyclerview.widget.LinearLayoutManager#isLayoutRTL():
+    Acronyms should not be capitalized in method names: was `isLayoutRTL`, should this be `isLayoutRtl`?
+
+
+BannedThrow: androidx.recyclerview.widget.SnapHelper#attachToRecyclerView(androidx.recyclerview.widget.RecyclerView):
+    Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.IllegalStateException`)
+BannedThrow: androidx.recyclerview.widget.SortedList#get(int):
+    Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.IndexOutOfBoundsException`)
+
+
+CallbackInterface: androidx.recyclerview.widget.ListUpdateCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: ListUpdateCallback
+CallbackInterface: androidx.recyclerview.widget.RecyclerView.ChildDrawingOrderCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: ChildDrawingOrderCallback
+
+
+CallbackMethodName: androidx.recyclerview.widget.AsyncListUtil.DataCallback:
+    Callback method names must follow the on<Something> style: refreshData
+CallbackMethodName: androidx.recyclerview.widget.AsyncListUtil.ViewCallback:
+    Callback method names must follow the on<Something> style: getItemRangeInto
+CallbackMethodName: androidx.recyclerview.widget.BatchingListUpdateCallback:
+    Callback method names must follow the on<Something> style: dispatchLastEvent
+CallbackMethodName: androidx.recyclerview.widget.DiffUtil.Callback:
+    Callback method names must follow the on<Something> style: getOldListSize
+CallbackMethodName: androidx.recyclerview.widget.DiffUtil.ItemCallback:
+    Callback method names must follow the on<Something> style: areItemsTheSame
+CallbackMethodName: androidx.recyclerview.widget.ItemTouchHelper.Callback:
+    Callback method names must follow the on<Something> style: getDefaultUIUtil
+CallbackMethodName: androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback:
+    Callback method names must follow the on<Something> style: setDefaultSwipeDirs
+CallbackMethodName: androidx.recyclerview.widget.SortedList.BatchedCallback:
+    Callback method names must follow the on<Something> style: compare
+CallbackMethodName: androidx.recyclerview.widget.SortedList.Callback:
+    Callback method names must follow the on<Something> style: compare
+
+
+CallbackName: androidx.recyclerview.widget.RecyclerView.AdapterDataObserver:
+    Class should be named AdapterDataCallback
+
+
+ConcreteCollection: androidx.recyclerview.widget.RecyclerView#addFocusables(java.util.ArrayList<android.view.View>, int, int) parameter #0:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+ConcreteCollection: androidx.recyclerview.widget.RecyclerView.LayoutManager#onAddFocusables(androidx.recyclerview.widget.RecyclerView, java.util.ArrayList<android.view.View>, int, int) parameter #1:
+    Parameter type is concrete collection (`java.util.ArrayList`); must be higher-level interface
+
+
+GetterSetterNames: androidx.recyclerview.widget.GridLayoutManager#isUsingSpansToEstimateScrollbarDimensions():
+    Symmetric method for `setUsingSpansToEstimateScrollbarDimensions` must be named `getUsingSpansToEstimateScrollbarDimensions`; was `isUsingSpansToEstimateScrollbarDimensions`
+GetterSetterNames: androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup#isSpanGroupIndexCacheEnabled():
+    Symmetric method for `setSpanGroupIndexCacheEnabled` must be named `getSpanGroupIndexCacheEnabled`; was `isSpanGroupIndexCacheEnabled`
+GetterSetterNames: androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup#isSpanIndexCacheEnabled():
+    Symmetric method for `setSpanIndexCacheEnabled` must be named `getSpanIndexCacheEnabled`; was `isSpanIndexCacheEnabled`
+GetterSetterNames: androidx.recyclerview.widget.LinearLayoutManager#isSmoothScrollbarEnabled():
+    Symmetric method for `setSmoothScrollbarEnabled` must be named `getSmoothScrollbarEnabled`; was `isSmoothScrollbarEnabled`
+GetterSetterNames: androidx.recyclerview.widget.RecyclerView#isNestedScrollingEnabled():
+    Symmetric method for `setNestedScrollingEnabled` must be named `getNestedScrollingEnabled`; was `isNestedScrollingEnabled`
+GetterSetterNames: androidx.recyclerview.widget.RecyclerView.LayoutManager#isAutoMeasureEnabled():
+    Symmetric method for `setAutoMeasureEnabled` must be named `getAutoMeasureEnabled`; was `isAutoMeasureEnabled`
+GetterSetterNames: androidx.recyclerview.widget.RecyclerView.LayoutManager#isItemPrefetchEnabled():
+    Symmetric method for `setItemPrefetchEnabled` must be named `getItemPrefetchEnabled`; was `isItemPrefetchEnabled`
+GetterSetterNames: androidx.recyclerview.widget.RecyclerView.LayoutManager#isMeasurementCacheEnabled():
+    Symmetric method for `setMeasurementCacheEnabled` must be named `getMeasurementCacheEnabled`; was `isMeasurementCacheEnabled`
+GetterSetterNames: androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams#isFullSpan():
+    Symmetric method for `setFullSpan` must be named `getFullSpan`; was `isFullSpan`
+
+
+KotlinOperator: androidx.recyclerview.widget.RecyclerView.State#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+KotlinOperator: androidx.recyclerview.widget.SortedList#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+
+
+ListenerInterface: androidx.recyclerview.widget.RecyclerView.OnFlingListener:
+    Listeners should be an interface, or otherwise renamed Callback: OnFlingListener
+ListenerInterface: androidx.recyclerview.widget.RecyclerView.OnScrollListener:
+    Listeners should be an interface, or otherwise renamed Callback: OnScrollListener
+ListenerInterface: androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener:
+    Listeners should be an interface, or otherwise renamed Callback: SimpleOnItemTouchListener
+
+
+ManagerConstructor: androidx.recyclerview.widget.GridLayoutManager#GridLayoutManager(android.content.Context, android.util.AttributeSet, int, int):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.GridLayoutManager#GridLayoutManager(android.content.Context, int):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.GridLayoutManager#GridLayoutManager(android.content.Context, int, int, boolean):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.LinearLayoutManager#LinearLayoutManager(android.content.Context):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.LinearLayoutManager#LinearLayoutManager(android.content.Context, android.util.AttributeSet, int, int):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.LinearLayoutManager#LinearLayoutManager(android.content.Context, int, boolean):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.RecyclerView.LayoutManager#LayoutManager():
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.StaggeredGridLayoutManager#StaggeredGridLayoutManager(android.content.Context, android.util.AttributeSet, int, int):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.recyclerview.widget.StaggeredGridLayoutManager#StaggeredGridLayoutManager(int, int):
+    Managers must always be obtained from Context; no direct constructors
+
+
+MethodNameUnits: androidx.recyclerview.widget.OrientationHelper#getTotalSpace():
+    Expected method name units to be `Bytes`, was `Space` in `getTotalSpace`
+
+
+ProtectedMember: androidx.recyclerview.widget.LinearLayoutManager#calculateExtraLayoutSpace(androidx.recyclerview.widget.RecyclerView.State, int[]):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearLayoutManager.calculateExtraLayoutSpace(androidx.recyclerview.widget.RecyclerView.State,int[])}
+ProtectedMember: androidx.recyclerview.widget.LinearLayoutManager#isLayoutRTL():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearLayoutManager.isLayoutRTL()}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#calculateSpeedPerPixel(android.util.DisplayMetrics):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.calculateSpeedPerPixel(android.util.DisplayMetrics)}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#calculateTimeForDeceleration(int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.calculateTimeForDeceleration(int)}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#calculateTimeForScrolling(int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.calculateTimeForScrolling(int)}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#getHorizontalSnapPreference():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.getHorizontalSnapPreference()}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#getVerticalSnapPreference():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.getVerticalSnapPreference()}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#mDecelerateInterpolator:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.LinearSmoothScroller.mDecelerateInterpolator}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#mInterimTargetDx:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.LinearSmoothScroller.mInterimTargetDx}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#mInterimTargetDy:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.LinearSmoothScroller.mInterimTargetDy}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#mLinearInterpolator:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.LinearSmoothScroller.mLinearInterpolator}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#mTargetVector:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.LinearSmoothScroller.mTargetVector}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#onSeekTargetStep(int, int, androidx.recyclerview.widget.RecyclerView.State, androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.onSeekTargetStep(int,int,androidx.recyclerview.widget.RecyclerView.State,androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action)}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#onStart():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.onStart()}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#onStop():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.onStop()}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#onTargetFound(android.view.View, androidx.recyclerview.widget.RecyclerView.State, androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.onTargetFound(android.view.View,androidx.recyclerview.widget.RecyclerView.State,androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action)}
+ProtectedMember: androidx.recyclerview.widget.LinearSmoothScroller#updateActionForInterimTarget(androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.LinearSmoothScroller.updateActionForInterimTarget(androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action)}
+ProtectedMember: androidx.recyclerview.widget.ListAdapter#getItem(int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.ListAdapter.getItem(int)}
+ProtectedMember: androidx.recyclerview.widget.OrientationHelper#mLayoutManager:
+    Protected fields not allowed; must be public: field androidx.recyclerview.widget.OrientationHelper.mLayoutManager}
+ProtectedMember: androidx.recyclerview.widget.PagerSnapHelper#createSnapScroller(androidx.recyclerview.widget.RecyclerView.LayoutManager):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.PagerSnapHelper.createSnapScroller(androidx.recyclerview.widget.RecyclerView.LayoutManager)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#dispatchRestoreInstanceState(android.util.SparseArray<android.os.Parcelable>):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.dispatchRestoreInstanceState(android.util.SparseArray<android.os.Parcelable>)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#dispatchSaveInstanceState(android.util.SparseArray<android.os.Parcelable>):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.dispatchSaveInstanceState(android.util.SparseArray<android.os.Parcelable>)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.generateDefaultLayoutParams()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#getChildDrawingOrder(int, int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.getChildDrawingOrder(int,int)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onAttachedToWindow()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onDetachedFromWindow()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onMeasure(int,int)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onRequestFocusInDescendants(int, android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onRequestFocusInDescendants(int,android.graphics.Rect)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onSaveInstanceState()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#onSizeChanged(int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.onSizeChanged(int,int,int,int)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView#removeDetachedView(android.view.View, boolean):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.removeDetachedView(android.view.View,boolean)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory#createEdgeEffect(androidx.recyclerview.widget.RecyclerView, int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory.createEdgeEffect(androidx.recyclerview.widget.RecyclerView,int)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#normalize(android.graphics.PointF):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.normalize(android.graphics.PointF)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#onChildAttachedToWindow(android.view.View):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.onChildAttachedToWindow(android.view.View)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#onSeekTargetStep(int, int, androidx.recyclerview.widget.RecyclerView.State, androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.onSeekTargetStep(int,int,androidx.recyclerview.widget.RecyclerView.State,androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#onStart():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.onStart()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#onStop():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.onStop()}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#onTargetFound(android.view.View, androidx.recyclerview.widget.RecyclerView.State, androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.onTargetFound(android.view.View,androidx.recyclerview.widget.RecyclerView.State,androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action)}
+ProtectedMember: androidx.recyclerview.widget.RecyclerView.SmoothScroller#stop():
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.RecyclerView.SmoothScroller.stop()}
+ProtectedMember: androidx.recyclerview.widget.SnapHelper#createScroller(androidx.recyclerview.widget.RecyclerView.LayoutManager):
+    Protected methods not allowed; must be public: method androidx.recyclerview.widget.SnapHelper.createScroller(androidx.recyclerview.widget.RecyclerView.LayoutManager)}

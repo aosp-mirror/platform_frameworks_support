@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+AllUpper: androidx.room.CoroutinesRoom#Companion:
+    Constant field names must be named with only upper case characters: `androidx.room.CoroutinesRoom#Companion`, should be `COMPANION`?

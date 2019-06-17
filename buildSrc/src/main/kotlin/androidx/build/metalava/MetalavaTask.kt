@@ -52,7 +52,37 @@ abstract class MetalavaTask : DefaultTask() {
             it.args = listOf(
                 "--no-banner",
                 "--error",
-                "DeprecationMismatch" // Enforce deprecation mismatch
+                "DeprecationMismatch", // Enforce deprecation mismatch
+                "--hide",
+                listOf(
+                    "Enum",
+                    "HiddenSuperclass",
+                    "MinMaxConstant",
+                    "IntentBuilderName",
+                    "OnNameExpected",
+                    "TopLevelBuilder",
+                    "MissingBuild",
+                    "BuilderSetStyle",
+                    "SetterReturnsThis",
+                    "PackageLayering",
+                    "OverlappingConstants",
+                    "IllegalStateException",
+                    "ListenerLast",
+                    "ExecutorRegistration",
+                    "StreamFiles",
+                    "ParcelableList",
+                    "AbstractInner",
+                    "NotCloseable",
+                    "ArrayReturn",
+                    "UserHandle",
+                    "UserHandleName",
+                    "MethodNameTense",
+                    "UseIcu",
+                    "NoByteOrShort",
+                    "CommonArgsFirst",
+                    "SamShouldBeLast",
+                    "MissingJvmStatic"
+                ).joinToString()
             ) + args
         }
     }

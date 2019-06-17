@@ -1,0 +1,23 @@
+// Baseline format: 1.0
+KotlinOperator: androidx.concurrent.futures.AbstractResolvableFuture#get(long, java.util.concurrent.TimeUnit):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+
+
+PairedRegistration: androidx.concurrent.futures.AbstractResolvableFuture#addListener(Runnable, java.util.concurrent.Executor):
+    Found addListener but not removeListener in androidx.concurrent.futures.AbstractResolvableFuture
+
+
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#afterDone():
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.afterDone()}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#interruptTask():
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.interruptTask()}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#pendingToString():
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.pendingToString()}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#set(V):
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.set(V)}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#setException(Throwable):
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.setException(Throwable)}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#setFuture(com.google.common.util.concurrent.ListenableFuture<? extends V>):
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.setFuture(com.google.common.util.concurrent.ListenableFuture<? extends V>)}
+ProtectedMember: androidx.concurrent.futures.AbstractResolvableFuture#wasInterrupted():
+    Protected methods not allowed; must be public: method androidx.concurrent.futures.AbstractResolvableFuture.wasInterrupted()}

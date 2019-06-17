@@ -1,3 +1,39 @@
 // Baseline format: 1.0
+AutoBoxing: androidx.paging.ListenablePositionalDataSource#getKeyInternal$lintWithKotlin(T):
+    Must avoid boxed primitives (`java.lang.Integer`)
+
+
+CallbackInterface: androidx.paging.PagedStorage.Callback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: Callback
+CallbackInterface: androidx.paging.futures.FutureCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: FutureCallback
+
+
+DocumentExceptions: androidx.paging.ContiguousPagedList#dispatchUpdatesSinceSnapshot(androidx.paging.PagedList<V>, androidx.paging.PagedList.Callback):
+    Method ContiguousPagedList.dispatchUpdatesSinceSnapshot appears to be throwing java.lang.IllegalArgumentException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.ContiguousPagedList#onPageInserted(int, int):
+    Method ContiguousPagedList.onPageInserted appears to be throwing java.lang.IllegalStateException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.ContiguousPagedList#onPagePlaceholderInserted(int):
+    Method ContiguousPagedList.onPagePlaceholderInserted appears to be throwing java.lang.IllegalStateException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.ContiguousPagedList#onPageResult(androidx.paging.PagedList.LoadType, androidx.paging.DataSource.BaseResult<V>):
+    Method ContiguousPagedList.onPageResult appears to be throwing java.lang.IllegalArgumentException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.ListenablePageKeyedDataSource#getKeyInternal$lintWithKotlin(Value):
+    Method ListenablePageKeyedDataSource.getKeyInternal$lintWithKotlin appears to be throwing java.lang.IllegalStateException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.ListenablePositionalDataSource#getKeyInternal$lintWithKotlin(T):
+    Method ListenablePositionalDataSource.getKeyInternal$lintWithKotlin appears to be throwing java.lang.IllegalStateException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.PagedList.LoadStateManager#setState(androidx.paging.PagedList.LoadType, androidx.paging.PagedList.LoadState, Throwable):
+    Method LoadStateManager.setState appears to be throwing java.lang.IllegalArgumentException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.PagedStorage#get(int):
+    Method PagedStorage.get appears to be throwing java.lang.IndexOutOfBoundsException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+
+
+KotlinOperator: androidx.paging.PagedStorage#get(int):
+    Method can be invoked with an indexing operator from Kotlin: `get` (this is usually desirable; just make sure it makes sense for this type of object)
+
+
+RegistrationName: androidx.paging.futures.Futures#addCallback(com.google.common.util.concurrent.ListenableFuture<? extends V>, androidx.paging.futures.FutureCallback<? super V>, java.util.concurrent.Executor):
+    Callback methods should be named register/unregister; was addCallback
+
+
 RemovedDeprecatedClass: androidx.paging.TiledDataSource:
     Removed deprecated class androidx.paging.TiledDataSource

@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+SingletonConstructor: androidx.vectordrawable.graphics.drawable.ArgbEvaluator#ArgbEvaluator():
+    Singleton classes should use `getInstance()` methods: `ArgbEvaluator`

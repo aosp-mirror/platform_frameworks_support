@@ -1,0 +1,29 @@
+// Baseline format: 1.0
+ListenerInterface: androidx.slidingpanelayout.widget.SlidingPaneLayout.SimplePanelSlideListener:
+    Listeners should be an interface, or otherwise renamed Callback: SimplePanelSlideListener
+
+
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#canScroll(android.view.View, boolean, int, int, int):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.canScroll(android.view.View,boolean,int,int,int)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#drawChild(android.graphics.Canvas, android.view.View, long):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.drawChild(android.graphics.Canvas,android.view.View,long)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#generateDefaultLayoutParams():
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.generateDefaultLayoutParams()}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onAttachedToWindow()}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onDetachedFromWindow()}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onMeasure(int,int)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onSaveInstanceState()}
+ProtectedMember: androidx.slidingpanelayout.widget.SlidingPaneLayout#onSizeChanged(int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.slidingpanelayout.widget.SlidingPaneLayout.onSizeChanged(int,int,int,int)}

@@ -1,4 +1,22 @@
 // Baseline format: 1.0
+ProtectedMember: androidx.recyclerview.selection.DefaultSelectionTracker#getAdapterDataObserver():
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.DefaultSelectionTracker.getAdapterDataObserver()}
+ProtectedMember: androidx.recyclerview.selection.DefaultSelectionTracker#restoreSelection(androidx.recyclerview.selection.Selection):
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.DefaultSelectionTracker.restoreSelection(androidx.recyclerview.selection.Selection)}
+ProtectedMember: androidx.recyclerview.selection.ItemDetailsLookup#overItemWithSelectionKey(android.view.MotionEvent):
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.ItemDetailsLookup.overItemWithSelectionKey(android.view.MotionEvent)}
+ProtectedMember: androidx.recyclerview.selection.SelectionTracker#clearProvisionalSelection():
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.SelectionTracker.clearProvisionalSelection()}
+ProtectedMember: androidx.recyclerview.selection.SelectionTracker#extendProvisionalRange(int):
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.SelectionTracker.extendProvisionalRange(int)}
+ProtectedMember: androidx.recyclerview.selection.SelectionTracker#getAdapterDataObserver():
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.SelectionTracker.getAdapterDataObserver()}
+ProtectedMember: androidx.recyclerview.selection.SelectionTracker#mergeProvisionalSelection():
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.SelectionTracker.mergeProvisionalSelection()}
+ProtectedMember: androidx.recyclerview.selection.SelectionTracker#setProvisionalSelection(java.util.Set<K>):
+    Protected methods not allowed; must be public: method androidx.recyclerview.selection.SelectionTracker.setProvisionalSelection(java.util.Set<K>)}
+
+
 RemovedClass: androidx.recyclerview.selection.AutoScroller:
     Removed class androidx.recyclerview.selection.AutoScroller
 RemovedClass: androidx.recyclerview.selection.EventBridge:

@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.lifecycle.ComputableLiveData#compute():
+    Protected methods not allowed; must be public: method androidx.lifecycle.ComputableLiveData.compute()}

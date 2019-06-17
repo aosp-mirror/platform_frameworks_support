@@ -3,6 +3,80 @@ AddedAbstractMethod: androidx.slice.builders.impl.ListBuilder#addSelection(andro
     Added method androidx.slice.builders.impl.ListBuilder.addSelection(androidx.slice.builders.SelectionBuilder)
 
 
+EndsWithImpl: androidx.slice.builders.impl.GridRowBuilderListV1Impl:
+    Don't expose your implementation details: `GridRowBuilderListV1Impl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.GridRowBuilderListV1Impl.CellBuilderImpl:
+    Don't expose your implementation details: `CellBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderBasicImpl:
+    Don't expose your implementation details: `ListBuilderBasicImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderImpl:
+    Don't expose your implementation details: `ListBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderImpl.HeaderBuilderImpl:
+    Don't expose your implementation details: `HeaderBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderImpl.InputRangeBuilderImpl:
+    Don't expose your implementation details: `InputRangeBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl:
+    Don't expose your implementation details: `RangeBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl:
+    Don't expose your implementation details: `RowBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.MessagingBasicImpl:
+    Don't expose your implementation details: `MessagingBasicImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.MessagingListV1Impl:
+    Don't expose your implementation details: `MessagingListV1Impl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.MessagingV1Impl:
+    Don't expose your implementation details: `MessagingV1Impl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.SelectionBuilderBasicImpl:
+    Don't expose your implementation details: `SelectionBuilderBasicImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.SelectionBuilderImpl:
+    Don't expose your implementation details: `SelectionBuilderImpl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.SelectionBuilderListV2Impl:
+    Don't expose your implementation details: `SelectionBuilderListV2Impl` ends with `Impl`
+EndsWithImpl: androidx.slice.builders.impl.TemplateBuilderImpl:
+    Don't expose your implementation details: `TemplateBuilderImpl` ends with `Impl`
+
+
+ProtectedMember: androidx.slice.builders.ListBuilder#selectImpl():
+    Protected methods not allowed; must be public: method androidx.slice.builders.ListBuilder.selectImpl()}
+ProtectedMember: androidx.slice.builders.MessagingSliceBuilder#selectImpl():
+    Protected methods not allowed; must be public: method androidx.slice.builders.MessagingSliceBuilder.selectImpl()}
+ProtectedMember: androidx.slice.builders.TemplateSliceBuilder#checkCompatible(androidx.slice.SliceSpec):
+    Protected methods not allowed; must be public: method androidx.slice.builders.TemplateSliceBuilder.checkCompatible(androidx.slice.SliceSpec)}
+ProtectedMember: androidx.slice.builders.TemplateSliceBuilder#getBuilder():
+    Protected methods not allowed; must be public: method androidx.slice.builders.TemplateSliceBuilder.getBuilder()}
+ProtectedMember: androidx.slice.builders.TemplateSliceBuilder#getClock():
+    Protected methods not allowed; must be public: method androidx.slice.builders.TemplateSliceBuilder.getClock()}
+ProtectedMember: androidx.slice.builders.TemplateSliceBuilder#selectImpl():
+    Protected methods not allowed; must be public: method androidx.slice.builders.TemplateSliceBuilder.selectImpl()}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mContentDescr:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mContentDescr}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mLayoutDir:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mLayoutDir}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mMax:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mMax}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mMin:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mMin}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mPrimaryAction:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mPrimaryAction}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mSubtitle:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mSubtitle}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mTitle:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mTitle}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mValue:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mValue}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl#mValueSet:
+    Protected fields not allowed; must be public: field androidx.slice.builders.impl.ListBuilderImpl.RangeBuilderImpl.mValueSet}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl#addEndItem(long):
+    Protected methods not allowed; must be public: method androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl.addEndItem(long)}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl#setSubtitle(CharSequence):
+    Protected methods not allowed; must be public: method androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl.setSubtitle(CharSequence)}
+ProtectedMember: androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl#setTitleItem(androidx.core.graphics.drawable.IconCompat, int):
+    Protected methods not allowed; must be public: method androidx.slice.builders.impl.ListBuilderImpl.RowBuilderImpl.setTitleItem(androidx.core.graphics.drawable.IconCompat,int)}
+ProtectedMember: androidx.slice.builders.impl.SelectionBuilderImpl#getSelectionBuilder():
+    Protected methods not allowed; must be public: method androidx.slice.builders.impl.SelectionBuilderImpl.getSelectionBuilder()}
+ProtectedMember: androidx.slice.builders.impl.TemplateBuilderImpl#setBuilder(androidx.slice.Slice.Builder):
+    Protected methods not allowed; must be public: method androidx.slice.builders.impl.TemplateBuilderImpl.setBuilder(androidx.slice.Slice.Builder)}
+
+
 RemovedClass: androidx.slice.builders.impl.ListBuilderV1Impl:
     Removed class androidx.slice.builders.impl.ListBuilderV1Impl
 
@@ -55,5 +129,3 @@ RemovedMethod: androidx.slice.builders.TemplateSliceBuilder#selectImpl(android.n
     Removed method androidx.slice.builders.TemplateSliceBuilder.selectImpl(android.net.Uri)
 RemovedMethod: androidx.slice.builders.impl.GridRowBuilderListV1Impl#GridRowBuilderListV1Impl(androidx.slice.builders.impl.ListBuilderV1Impl, androidx.slice.builders.GridRowBuilder):
     Removed constructor androidx.slice.builders.impl.GridRowBuilderListV1Impl(androidx.slice.builders.impl.ListBuilderV1Impl,androidx.slice.builders.GridRowBuilder)
-
-

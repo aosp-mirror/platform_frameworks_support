@@ -1,5 +1,85 @@
 // Baseline format: 1.0
-HiddenSuperclass: androidx.wear.widget.SwipeDismissFrameLayout:
-    Public class androidx.wear.widget.SwipeDismissFrameLayout stripped of unavailable superclass androidx.wear.widget.SwipeDismissLayout
+AcronymName: androidx.wear.widget.CurvingLayoutCallback#adjustAnchorOffsetXY(android.view.View, float[]):
+    Acronyms should not be capitalized in method names: was `adjustAnchorOffsetXY`, should this be `adjustAnchorOffsetXy`?
 
 
+ActionValue: androidx.wear.ambient.AmbientMode#EXTRA_BURN_IN_PROTECTION:
+    Inconsistent extra value; expected `androidx.wear.ambient.extra.BURN_IN_PROTECTION`, was `com.google.android.wearable.compat.extra.BURN_IN_PROTECTION`
+ActionValue: androidx.wear.ambient.AmbientMode#EXTRA_LOWBIT_AMBIENT:
+    Inconsistent extra value; expected `androidx.wear.ambient.extra.LOWBIT_AMBIENT`, was `com.google.android.wearable.compat.extra.LOWBIT_AMBIENT`
+ActionValue: androidx.wear.ambient.AmbientModeSupport#EXTRA_BURN_IN_PROTECTION:
+    Inconsistent extra value; expected `androidx.wear.ambient.extra.BURN_IN_PROTECTION`, was `com.google.android.wearable.compat.extra.BURN_IN_PROTECTION`
+ActionValue: androidx.wear.ambient.AmbientModeSupport#EXTRA_LOWBIT_AMBIENT:
+    Inconsistent extra value; expected `androidx.wear.ambient.extra.LOWBIT_AMBIENT`, was `com.google.android.wearable.compat.extra.LOWBIT_AMBIENT`
+
+
+CallbackMethodName: androidx.wear.widget.CurvingLayoutCallback:
+    Callback method names must follow the on<Something> style: adjustAnchorOffsetXY
+
+
+ForbiddenSuperClass: androidx.wear.activity.ConfirmationActivity:
+    ConfirmationActivity should not extend `Activity`. Activity subclasses are impossible to compose. Expose a composable API instead.
+
+
+GetterSetterNames: androidx.wear.widget.CircularProgressLayout#isIndeterminate():
+    Symmetric method for `setIndeterminate` must be named `getIndeterminate`; was `isIndeterminate`
+GetterSetterNames: androidx.wear.widget.RoundedDrawable#isClipEnabled():
+    Symmetric method for `setClipEnabled` must be named `getClipEnabled`; was `isClipEnabled`
+GetterSetterNames: androidx.wear.widget.WearableRecyclerView#isCircularScrollingGestureEnabled():
+    Symmetric method for `setCircularScrollingGestureEnabled` must be named `getCircularScrollingGestureEnabled`; was `isCircularScrollingGestureEnabled`
+GetterSetterNames: androidx.wear.widget.WearableRecyclerView#isEdgeItemsCenteringEnabled():
+    Symmetric method for `setEdgeItemsCenteringEnabled` must be named `getEdgeItemsCenteringEnabled`; was `isEdgeItemsCenteringEnabled`
+GetterSetterNames: androidx.wear.widget.drawer.WearableDrawerView#isLockedWhenClosed():
+    Symmetric method for `setLockedWhenClosed` must be named `getLockedWhenClosed`; was `isLockedWhenClosed`
+GetterSetterNames: androidx.wear.widget.drawer.WearableDrawerView#isOpenOnlyAtTopEnabled():
+    Symmetric method for `setOpenOnlyAtTopEnabled` must be named `getOpenOnlyAtTopEnabled`; was `isOpenOnlyAtTopEnabled`
+GetterSetterNames: androidx.wear.widget.drawer.WearableDrawerView#isPeekOnScrollDownEnabled():
+    Symmetric method for `setPeekOnScrollDownEnabled` must be named `getPeekOnScrollDownEnabled`; was `isPeekOnScrollDownEnabled`
+
+
+ManagerConstructor: androidx.wear.widget.WearableLinearLayoutManager#WearableLinearLayoutManager(android.content.Context):
+    Managers must always be obtained from Context; no direct constructors
+ManagerConstructor: androidx.wear.widget.WearableLinearLayoutManager#WearableLinearLayoutManager(android.content.Context, androidx.wear.widget.WearableLinearLayoutManager.LayoutCallback):
+    Managers must always be obtained from Context; no direct constructors
+
+
+NoClone: androidx.wear.ambient.AmbientMode#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.wear.ambient.AmbientMode.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+NoClone: androidx.wear.ambient.AmbientModeSupport#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.wear.ambient.AmbientModeSupport.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+
+
+ProtectedMember: androidx.wear.activity.ConfirmationActivity#onAnimationFinished():
+    Protected methods not allowed; must be public: method androidx.wear.activity.ConfirmationActivity.onAnimationFinished()}
+ProtectedMember: androidx.wear.widget.BoxInsetLayout#checkLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.wear.widget.BoxInsetLayout.checkLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.wear.widget.BoxInsetLayout#generateLayoutParams(android.view.ViewGroup.LayoutParams):
+    Protected methods not allowed; must be public: method androidx.wear.widget.BoxInsetLayout.generateLayoutParams(android.view.ViewGroup.LayoutParams)}
+ProtectedMember: androidx.wear.widget.BoxInsetLayout#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.wear.widget.BoxInsetLayout.onAttachedToWindow()}
+ProtectedMember: androidx.wear.widget.BoxInsetLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.wear.widget.BoxInsetLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.wear.widget.BoxInsetLayout#onMeasure(int, int):
+    Protected methods not allowed; must be public: method androidx.wear.widget.BoxInsetLayout.onMeasure(int,int)}
+ProtectedMember: androidx.wear.widget.CircularProgressLayout#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.wear.widget.CircularProgressLayout.onDetachedFromWindow()}
+ProtectedMember: androidx.wear.widget.CircularProgressLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.wear.widget.CircularProgressLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.wear.widget.RoundedDrawable#onBoundsChange(android.graphics.Rect):
+    Protected methods not allowed; must be public: method androidx.wear.widget.RoundedDrawable.onBoundsChange(android.graphics.Rect)}
+ProtectedMember: androidx.wear.widget.WearableRecyclerView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.wear.widget.WearableRecyclerView.onAttachedToWindow()}
+ProtectedMember: androidx.wear.widget.WearableRecyclerView#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.wear.widget.WearableRecyclerView.onDetachedFromWindow()}
+ProtectedMember: androidx.wear.widget.drawer.WearableDrawerLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.wear.widget.drawer.WearableDrawerLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.wear.widget.drawer.WearableDrawerView#onAttachedToWindow():
+    Protected methods not allowed; must be public: method androidx.wear.widget.drawer.WearableDrawerView.onAttachedToWindow()}
+ProtectedMember: androidx.wear.widget.drawer.WearableDrawerView#onFinishInflate():
+    Protected methods not allowed; must be public: method androidx.wear.widget.drawer.WearableDrawerView.onFinishInflate()}
+
+
+RegistrationName: androidx.wear.widget.SwipeDismissFrameLayout#addCallback(androidx.wear.widget.SwipeDismissFrameLayout.Callback):
+    Callback methods should be named register/unregister; was addCallback
+RegistrationName: androidx.wear.widget.SwipeDismissFrameLayout#removeCallback(androidx.wear.widget.SwipeDismissFrameLayout.Callback):
+    Callback methods should be named register/unregister; was removeCallback

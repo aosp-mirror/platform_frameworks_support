@@ -1,0 +1,25 @@
+// Baseline format: 1.0
+CallbackInterface: androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnChildScrollUpCallback:
+    Callbacks must be abstract class instead of interface to enable extension in future API levels: OnChildScrollUpCallback
+
+
+GetterSetterNames: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#isNestedScrollingEnabled():
+    Symmetric method for `setNestedScrollingEnabled` must be named `getNestedScrollingEnabled`; was `isNestedScrollingEnabled`
+GetterSetterNames: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#isRefreshing():
+    Symmetric method for `setRefreshing` must be named `getRefreshing`; was `isRefreshing`
+
+
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#getChildDrawingOrder(int, int):
+    Protected methods not allowed; must be public: method androidx.swiperefreshlayout.widget.SwipeRefreshLayout.getChildDrawingOrder(int,int)}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#mFrom:
+    Protected fields not allowed; must be public: field androidx.swiperefreshlayout.widget.SwipeRefreshLayout.mFrom}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#mOriginalOffsetTop:
+    Protected fields not allowed; must be public: field androidx.swiperefreshlayout.widget.SwipeRefreshLayout.mOriginalOffsetTop}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#onDetachedFromWindow():
+    Protected methods not allowed; must be public: method androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onDetachedFromWindow()}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#onLayout(boolean, int, int, int, int):
+    Protected methods not allowed; must be public: method androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onLayout(boolean,int,int,int,int)}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#onRestoreInstanceState(android.os.Parcelable):
+    Protected methods not allowed; must be public: method androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onRestoreInstanceState(android.os.Parcelable)}
+ProtectedMember: androidx.swiperefreshlayout.widget.SwipeRefreshLayout#onSaveInstanceState():
+    Protected methods not allowed; must be public: method androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onSaveInstanceState()}
