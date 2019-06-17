@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "48a276b5_ffbd4417",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9112caf5_bb790716",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 66
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "452899b3_118a1a6d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad959799_2b8c6642",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "452899b3_118a1a6d",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 23
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7fda4356_b2dc6b7f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 1,
+      "message": "AssetHelper methods accept Uri. I agree that this is not needed since the path string should be already canonicalized from WebView.\n\nI think this should be changed in a following cleanup CL.",
+      "parentUuid": "333a69d9_ab73755a",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 57
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b79791bb_574a19bd",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "0f5594c5_cf977815",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b79791bb_574a19bd",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "412b3d11_9a5ef37f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47621d90_b415813c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "412b3d11_9a5ef37f",
+      "range": {
+        "startLine": 342,
+        "startChar": 8,
+        "endLine": 342,
+        "endChar": 41
+      },
+      "revId": "59411b8938a5cb94a938d8b261ce92e4ba344311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

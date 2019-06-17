@@ -22,6 +22,30 @@
       "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f4830d6_5f6f34c2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-17T01:44:33Z",
+      "side": 0,
+      "message": "Since we are allowing the developers to register any arbitrary number of PathHandlers, the best way to return the Uri from the register method. This will lead to change the returning type from Builder to Uri as result we would give up chaining methods scheme (new Builder().onDomain(...).register(...).register(...).build()). In addition to this, we need to decide what scheme that Uri would have? (empty?, https?, http?).\n\nAnother solution would be adding a method getHttpsUri(String registeredPath) and getHttpUri(String registeredPath) (which throws an exception if http is not allowed). These two methods search the registered paths and return the appropriate Uri object.\n\nThat being said, I\u0027d argue that it is not that important here, since there are no default values anymore. So the users should construct these objects if they need them.",
+      "parentUuid": "0aabd77f_6ade1563",
+      "range": {
+        "startLine": 482,
+        "startChar": 15,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
