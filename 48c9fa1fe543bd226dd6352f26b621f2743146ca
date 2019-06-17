@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63f203cb_e4dd9081",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/AlignTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-17T17:14:29Z",
+      "side": 1,
+      "message": "nit: I think for assertions we are trying to use Truth across all the modules.",
+      "range": {
+        "startLine": 166,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "48c9fa1fe543bd226dd6352f26b621f2743146ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
