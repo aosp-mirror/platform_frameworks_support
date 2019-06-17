@@ -35,12 +35,12 @@ import android.view.Surface;
 
 import androidx.camera.camera2.impl.Camera2CameraControl;
 import androidx.camera.core.AppConfig;
-import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraFactory;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.DeferrableSurfaces;
+import androidx.camera.core.InternalCameraControl;
 import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.Preview;
 import androidx.camera.core.Preview.OnPreviewOutputUpdateListener;
@@ -142,7 +142,7 @@ public final class PreviewTest {
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
-        CameraControl cameraControl = mock(CameraControl.class);
+        InternalCameraControl cameraControl = mock(InternalCameraControl.class);
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         Rect rect = new Rect(/*left=*/ 200, /*top=*/ 200, /*right=*/ 800, /*bottom=*/ 800);
@@ -162,7 +162,7 @@ public final class PreviewTest {
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
-        CameraControl cameraControl = mock(CameraControl.class);
+        InternalCameraControl cameraControl = mock(InternalCameraControl.class);
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         Rect rect = new Rect(/*left=*/ 200, /*top=*/ 200, /*right=*/ 800, /*bottom=*/ 800);
@@ -177,7 +177,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void torchModeCanBeSet() {
         Preview useCase = new Preview(mDefaultConfig);
-        CameraControl cameraControl = getFakeCameraControl();
+        InternalCameraControl cameraControl = getFakeCameraControl();
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         useCase.enableTorch(true);
@@ -488,9 +488,9 @@ public final class PreviewTest {
         assertThat(surfaceTexture0).isNotNull();
     }
 
-    private CameraControl getFakeCameraControl() {
+    private InternalCameraControl getFakeCameraControl() {
         return new Camera2CameraControl(
-                new CameraControl.ControlUpdateListener() {
+                new InternalCameraControl.ControlUpdateListener() {
                     @Override
                     public void onCameraControlUpdateSessionConfig(SessionConfig sessionConfig) {
                     }
