@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e9b21d2_5d5a3cb3",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ContiguousPagedList.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-17T23:59:08Z",
+      "side": 1,
+      "message": "val dataSource isn\u0027t final so I think we\u0027re supposed to declare it separately so that the right thing is passed in, when instantiating subclasses of ContiguousPagedList, but I\u0027m not sure how much that matters since this is internal.",
+      "parentUuid": "44f24318_00c4eedf",
+      "range": {
+        "startLine": 191,
+        "startChar": 44,
+        "endLine": 191,
+        "endChar": 82
+      },
+      "revId": "71e30124cc2f43d736dd48510f74be0e1472e5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1742d784_25a61fba",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
         "patchSetId": 6
