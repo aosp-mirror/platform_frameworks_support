@@ -22,6 +22,30 @@
       "revId": "7905444a605f5fdad33699f4db6590e1768e444a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5465abd7_94466d2f",
+        "filename": "room/common/api/2.2.0-alpha01.ignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-17T15:52:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "79138749_ac69b511",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 87
+      },
+      "revId": "7905444a605f5fdad33699f4db6590e1768e444a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
