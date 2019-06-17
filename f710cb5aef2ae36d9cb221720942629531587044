@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7dcd24f_26258d6e",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "no. and I decided to rename it to Rectangle",
+      "parentUuid": "9ae79405_2d0ce9c0",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee4c4243_c51fa7a5",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-05T23:53:02Z",
       "side": 1,
       "message": "This isn\u0027t a Border. This is the beginnings of a much deeper and more interesting class identifying a stroke.\n\n+njawad, please look at this.\n\nMaybe something like \"Stroke\" would be a better name. Generally speaking, I am imagining a class that can adjust the stroke in any way that Paint supports, including using gradients. The constructor here would be the simplest example of this.\n\nWe also need something similar for Fill and maybe other cases. There is probably a lot of cross-over between them.",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4a9b87_84c8ee65",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "Technically it is an inner stroke. Currently I like the name Border as it is connected to the shape. If we call it a Stroke it can be confused with the stoke used in Paint. And in Paint there is the centered stroke, not an inner one.\nI also updated it to work with Brush instead of a color. So now we can have not only solid colors, but also gradients and a lot of other possibilities.",
+      "parentUuid": "ee4c4243_c51fa7a5",
       "range": {
         "startLine": 29,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7eeaad3f_62f86cdf",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Shape.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "to make Borders optional. It is hard to make an EmptyBorder as if it will 0.dp size it means Hairline. The second param is Brush(was Color), and there is no way to say the Brush will not draw anything",
+      "parentUuid": "4a562395_102ba167",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2893fdf7_2ec1c985",
         "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-05T23:53:02Z",
       "side": 1,
       "message": "I noticed that in the material spec, this was the corner diameter. I prefer the corner radius, but we should consider the spec.\n\nIt isn\u0027t clear what cut length is. It could be the hypotenuse of the cut triangle.",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee48fce7_bc5b80dd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "I removed mentioning of cut length from this class docs. Now it has more neutral: Defines size of a corner. For example for rounded shape it can be a corner radius.\nAnd in CutCornerShape I described what is the size: \"Corner size is representing the cut length - the size of both legs of the cut\u0027s right triangle.\"",
+      "parentUuid": "2893fdf7_2ec1c985",
       "range": {
         "startLine": 27,
         "startChar": 41,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "bcf7fa0f_d322603d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "Model is removed",
+      "parentUuid": "aceee0af_1da46964",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "601c6a0c_292d981a",
         "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-05T23:53:02Z",
       "side": 1,
       "message": "You could use two different classes, both with better names: CutShape and RoundedShape. You also wouldn\u0027t need ShapeFamily.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c81a169_e571e1a9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T18:51:50Z",
+      "side": 1,
+      "message": "I refactored it. Not it is almost like you suggested, thanks.",
+      "parentUuid": "601c6a0c_292d981a",
       "range": {
         "startLine": 50,
         "startChar": 8,
