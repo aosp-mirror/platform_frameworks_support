@@ -36,8 +36,11 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.core.selection.Selection
+import androidx.ui.core.selection.SelectionMode
 import androidx.ui.core.selection.SelectionRegistrarAmbient
-import androidx.ui.core.selection.TextSelectionHandlerImpl
+import androidx.ui.core.selection.TextSelectionHandler
+import androidx.ui.core.selection.TextSelectionLogic
 import androidx.ui.painting.TextPainter
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
@@ -204,10 +207,42 @@ internal fun Text(
 
         +onCommit(textPainter) {
             val id = registrar.subscribe(
-                TextSelectionHandlerImpl(
-                    textPainter = textPainter,
-                    layoutCoordinates = layoutCoordinates.value,
-                    onSelectionChange = { internalSelection.value = it })
+                object : TextSelectionHandler {
+                    override fun getSelection(
+                        selectionCoordinates: Pair<PxPosition, PxPosition>,
+                        containerLayoutCoordinates: LayoutCoordinates,
+                        mode: SelectionMode
+                    ): Selection? {
+                        val relativePosition = containerLayoutCoordinates.childToLocal(
+                            layoutCoordinates.value!!, PxPosition.Origin
+                        )
+                        val startPx = selectionCoordinates.first - relativePosition
+                        val endPx = selectionCoordinates.second - relativePosition
+
+                        val textSelectionLogic = TextSelectionLogic(
+                            selectionCoordinates = Pair(startPx, endPx),
+                            mode = mode,
+                            onSelectionChange = { internalSelection.value = it },
+                            textPainter = textPainter
+                        )
+
+                        if (!textSelectionLogic.isSelected) return null
+
+                        // TODO(qqd): Determine a set of coordinates around a character that we need.
+                        return Selection(
+                            startOffset = textSelectionLogic.startOffset,
+                            endOffset = textSelectionLogic.endOffset,
+                            startLayoutCoordinates =
+                            if (textSelectionLogic.containsWholeSelectionStart) {
+                                layoutCoordinates.value!!
+                            } else null,
+                            endLayoutCoordinates =
+                            if (textSelectionLogic.containsWholeSelectionEnd) {
+                                layoutCoordinates.value!!
+                            } else null
+                        )
+                    }
+                }
             )
             onDispose {
                 registrar.unsubscribe(id)
