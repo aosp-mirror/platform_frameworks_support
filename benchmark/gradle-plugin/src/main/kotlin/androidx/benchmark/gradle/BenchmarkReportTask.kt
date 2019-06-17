@@ -67,16 +67,21 @@ open class BenchmarkReportTask : DefaultTask() {
             .filter { !it.isBlank() }
 
         for (deviceId in deviceIds) {
-            val dataDir = getReportDirForDevice(adb, deviceId)
-            if (dataDir.isBlank()) {
-                throw StopExecutionException(
-                    "Failed to find benchmark reports on device: $deviceId"
-                )
+            val filesDir = getExternalFilesDirForDevice(adb, deviceId)
+            if (filesDir.isBlank()) {
+                throw StopExecutionException("Failed to find benchmark data on device: $deviceId")
+            }
+
+            val reportDirs = getReportDirsForDevice(adb, deviceId, filesDir)
+            if (reportDirs.isEmpty()) {
+                throw StopExecutionException("Failed to find benchmark data on device: $deviceId")
             }
 
             val outDir = File(benchmarkReportDir, deviceId)
             outDir.mkdirs()
-            getReportsForDevice(adb, outDir, dataDir, deviceId)
+            for (reportDir in reportDirs) {
+                getReportsForDevice(adb, outDir, reportDir, deviceId)
+            }
             Log.logAndDisplay(
                 Log.LogLevel.INFO,
                 "Benchmark",
@@ -104,15 +109,15 @@ open class BenchmarkReportTask : DefaultTask() {
     }
 
     /**
-     * Query for test runner user's Download dir on shared public external storage via content
-     * provider APIs.
+     * Query for test runner user's external Download dir on shared public external storage via
+     * content provider APIs.
      *
      * This folder is typically accessed in Android code via
-     * Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+     * `Context.getExternalFilesDir(Environment.DIRECTORY_ALARMS)`
      */
-    private fun getReportDirForDevice(adb: Adb, deviceId: String): String {
+    private fun getExternalFilesDirForDevice(adb: Adb, deviceId: String): String {
         val cmd = "shell content query --uri content://media/external/file --projection _data" +
-                " --where \"_data LIKE '%Download'\""
+                " --where \"_data LIKE '%Android/data'\""
 
         // NOTE: stdout of the above command is of the form:
         // Row: 0 _data=/storage/emulated/0/Download
@@ -125,5 +130,25 @@ open class BenchmarkReportTask : DefaultTask() {
             .split("=")
             .last()
             .trim()
+    }
+
+    /**
+     * Recursively find all app-scoped external storage for Alarms, where benchmark reports are
+     * saved.
+     */
+    private fun getReportDirsForDevice(
+        adb: Adb,
+        deviceId: String,
+        externalFilesDir: String
+    ): List<String> {
+        val cmd = "shell ls -1p $externalFilesDir"
+
+        // NOTE: stdout of the above command is of the form:
+        // Row: 0 _data=/storage/emulated/0/Download
+        return adb.execSync(cmd, deviceId).stdout
+            .split("\n")
+            .filter { it.endsWith('/') }
+            .flatMap { adb.execSync("ls $it", deviceId).stdout.split("\n") }
+            .filter { it.endsWith("Alarm") }
     }
 }
