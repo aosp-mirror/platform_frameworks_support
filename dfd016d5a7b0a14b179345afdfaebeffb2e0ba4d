@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8a159bb_33d3691e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceSurfaceManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-17T08:35:57Z",
+      "side": 1,
+      "message": "Thanks for reviewing.\nI have broken it to two APIs.",
+      "parentUuid": "523a412c_7e819e17",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 54
+      },
+      "revId": "dfd016d5a7b0a14b179345afdfaebeffb2e0ba4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88422ff4_fe0cdcc3",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "dfd016d5a7b0a14b179345afdfaebeffb2e0ba4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0ab5d0_a67de48c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-06-17T08:35:57Z",
+      "side": 1,
+      "message": "Thanks for reviewing.\nI have updated to call it once at the end of the method.\n\nThe first updateUseCaseConfig() is called in order to get the default use case configuration.\nIt look like we don\u0027t need to get the default configuration before check whether the aspect ratio need to be corrected.\n\nptal",
+      "parentUuid": "88422ff4_fe0cdcc3",
+      "range": {
+        "startLine": 342,
+        "startChar": 8,
+        "endLine": 342,
+        "endChar": 49
+      },
+      "revId": "dfd016d5a7b0a14b179345afdfaebeffb2e0ba4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
