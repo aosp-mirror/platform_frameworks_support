@@ -119,6 +119,7 @@ public final class CameraX {
     private CameraDeviceSurfaceManager mSurfaceManager;
     private UseCaseConfigFactory mDefaultConfigFactory;
     private Context mContext;
+    private volatile EffectHelper mEffectHelper = null;
 
     /** Prevents construction. */
     private CameraX() {
@@ -178,6 +179,13 @@ public final class CameraX {
                                     "Use case %s already bound to a different lifecycle.",
                                     useCase));
                 }
+            }
+        }
+
+        // Updates Effect parameters for use cases if there is EffectHelper set.
+        if (INSTANCE.mEffectHelper != null) {
+            for (UseCase useCase : useCases) {
+                useCase.updateEffectParameters(lifecycleOwner);
             }
         }
 
@@ -430,6 +438,35 @@ public final class CameraX {
         }
 
         return activeUseCases;
+    }
+
+    /**
+     * Sets the implementation of {@link EffectHelper}.
+     *
+     * @param effectHelper the implementation of {@link EffectHelper}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static void setEffectHelper(EffectHelper effectHelper) {
+        INSTANCE.mEffectHelper = effectHelper;
+    }
+
+    static EffectHelper getEffectHelper() {
+        return INSTANCE.mEffectHelper;
+    }
+
+    /**
+     * Returns true if the {@link UseCaseGroup} for the {@link LifecycleOwner} is empty.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} associated to the {@link UseCaseGroup}
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public static boolean isUseCaseGroupEmpty(LifecycleOwner lifecycleOwner) {
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+        int size = useCaseGroupLifecycleController.getUseCaseGroup().getUseCases().size();
+        return size == 0;
     }
 
     /**

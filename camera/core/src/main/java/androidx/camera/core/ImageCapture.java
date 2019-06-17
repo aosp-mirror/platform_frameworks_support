@@ -48,6 +48,7 @@ import androidx.camera.core.impl.utils.futures.FluentFuture;
 import androidx.camera.core.impl.utils.futures.FutureCallback;
 import androidx.camera.core.impl.utils.futures.Futures;
 import androidx.concurrent.futures.CallbackToFutureAdapter;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -121,14 +122,14 @@ public class ImageCapture extends UseCase {
     private final CaptureMode mCaptureMode;
 
     /** The set of requests that will be sent to the camera for the final captured image. */
-    private final CaptureBundle mCaptureBundle;
-    private final int mMaxCaptureStages;
+    private CaptureBundle mCaptureBundle;
+    private int mMaxCaptureStages;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
      * by {@link #takePicture(OnImageCapturedListener)}
      */
-    private final CaptureProcessor mCaptureProcessor;
+    private CaptureProcessor mCaptureProcessor;
     private final ImageCaptureConfig.Builder mUseCaseConfigBuilder;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
             ImageReaderProxy mImageReader;
@@ -161,30 +162,11 @@ public class ImageCapture extends UseCase {
         mCaptureMode = mConfig.getCaptureMode();
         mFlashMode = mConfig.getFlashMode();
 
-        mCaptureProcessor = mConfig.getCaptureProcessor(null);
-        mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
-
         Integer bufferFormat = mConfig.getBufferFormat(null);
         if (bufferFormat != null) {
-            if (mCaptureProcessor != null) {
-                throw new IllegalArgumentException(
-                        "Cannot set buffer format with CaptureProcessor defined.");
-            } else {
-                setImageFormat(bufferFormat);
-            }
+            setImageFormat(bufferFormat);
         } else {
-            if (mCaptureProcessor != null) {
-                setImageFormat(ImageFormat.YUV_420_888);
-            } else {
-                setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
-            }
-        }
-
-        mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        CaptureBundle captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        if (captureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
-            throw new IllegalArgumentException(
-                    "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
+            setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
         }
 
         if (mCaptureMode == CaptureMode.MAX_QUALITY) {
@@ -241,6 +223,41 @@ public class ImageCapture extends UseCase {
     @Override
     protected void onCameraControlReady(String cameraId) {
         getCameraControl(cameraId).setFlashMode(mFlashMode);
+    }
+
+    @Override
+    void updateEffectParameters(LifecycleOwner lifecycleOwner) {
+        EffectHelper effectHelper = CameraX.getEffectHelper();
+
+        if (effectHelper == null) {
+            return;
+        }
+
+        // Use the saved builder to apply effect config
+        effectHelper.applyEffectConfig(mUseCaseConfigBuilder, lifecycleOwner);
+        // Update the use case config
+        updateUseCaseConfig(mUseCaseConfigBuilder.build());
+        mConfig = (ImageCaptureConfig) getUseCaseConfig();
+
+        mCaptureProcessor = mConfig.getCaptureProcessor(null);
+        mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
+
+        Integer bufferFormat = mConfig.getBufferFormat(null);
+        if (bufferFormat != null && mCaptureProcessor != null) {
+            throw new IllegalArgumentException(
+                    "Cannot set buffer format with CaptureProcessor defined.");
+        } else {
+            if (mCaptureProcessor != null) {
+                setImageFormat(ImageFormat.YUV_420_888);
+            }
+        }
+
+        mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+        CaptureBundle captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+        if (captureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
+        }
     }
 
     /**
