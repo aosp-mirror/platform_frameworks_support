@@ -40,7 +40,7 @@ package androidx.security.crypto {
     enum_constant public static final androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionScheme AES256_GCM;
   }
 
-  public final class MasterKeys {
+  @RequiresApi(android.os.Build.VERSION_CODES.M) public final class MasterKeys {
     ctor public MasterKeys();
     method public static String getOrCreate(android.security.keystore.KeyGenParameterSpec) throws java.security.GeneralSecurityException, java.io.IOException;
     field public static final android.security.keystore.KeyGenParameterSpec AES256_GCM_SPEC;

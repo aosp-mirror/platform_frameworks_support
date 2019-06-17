@@ -16,10 +16,12 @@
 
 package androidx.security.crypto;
 
+import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -33,7 +35,12 @@ import javax.crypto.KeyGenerator;
  *
  * <p>The master keys are used to encrypt data encryption keys for encrypting files and preferences.
  *
+ * For Android M+ (Api 23+).
+ *
+ * Previous versions of Android will store the key in the SharedPreferences along with the encrypted
+ * data.
  */
+@RequiresApi(Build.VERSION_CODES.M)
 public final class MasterKeys {
 
     private static final int KEY_SIZE = 256;

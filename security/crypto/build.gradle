@@ -27,6 +27,7 @@ plugins {
 
 dependencies {
     api("androidx.annotation:annotation:1.0.0") { transitive = true}
+    implementation("androidx.collection:collection:1.0.0") { transitive = true}
     api("androidx.core:core:1.0.0") { transitive = true}
     api("androidx.fragment:fragment:1.0.0") { transitive = true}
 
@@ -43,7 +44,7 @@ dependencies {
 
 android {
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 19
     }
 }
 
