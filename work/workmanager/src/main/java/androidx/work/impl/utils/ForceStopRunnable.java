@@ -20,6 +20,7 @@ import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+import static androidx.work.WorkInfo.State.ENQUEUED;
 import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
 
 import android.app.AlarmManager;
@@ -81,37 +82,8 @@ public class ForceStopRunnable implements Runnable {
             Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
         } else {
-            // Mitigation for faulty implementations of JobScheduler (b/134058261
-            if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
-                SystemJobScheduler.cancelInvalidJobs(mContext);
-            }
-
-            WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
-            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-            workDatabase.beginTransaction();
-            try {
-                List<WorkSpec> workSpecs = workSpecDao.getEnqueuedWork();
-                if (workSpecs != null && !workSpecs.isEmpty()) {
-                    Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
-                    // Mark every instance of unfinished work with
-                    // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
-                    // This is because the application might have crashed previously and we should
-                    // reschedule jobs that may have been running previously.
-                    // Also there is a chance that an application crash, happened during
-                    // onStartJob() and now no corresponding job now exists in JobScheduler.
-                    // To solve this, we simply force-reschedule all unfinished work.
-                    for (WorkSpec workSpec : workSpecs) {
-                        workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
-                    }
-                    Schedulers.schedule(
-                            mWorkManager.getConfiguration(),
-                            workDatabase,
-                            mWorkManager.getSchedulers());
-                }
-                workDatabase.setTransactionSuccessful();
-            } finally {
-                workDatabase.endTransaction();
-            }
+            Logger.get().debug(TAG, "Performing cleanup operations.");
+            cleanUp();
         }
         mWorkManager.onForceStopRunnableCompleted();
     }
@@ -131,6 +103,49 @@ public class ForceStopRunnable implements Runnable {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Performs cleanup operations like
+     *
+     * * Cancel invalid JobScheduler jobs.
+     * * Reschedule previously RUNNING jobs.
+     */
+    @VisibleForTesting
+    public void cleanUp() {
+        // Mitigation for faulty implementations of JobScheduler (b/134058261
+        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            SystemJobScheduler.cancelInvalidJobs(mContext);
+        }
+
+        // Reset previously unfinished work.
+        WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+        workDatabase.beginTransaction();
+        try {
+            List<WorkSpec> workSpecs = workSpecDao.getRunningWork();
+            if (workSpecs != null && !workSpecs.isEmpty()) {
+                Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+                // Mark every instance of unfinished work with state = ENQUEUED and
+                // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                // This is because the application might have crashed previously and we should
+                // reschedule jobs that may have been running previously.
+                // Also there is a chance that an application crash, happened during
+                // onStartJob() and now no corresponding job now exists in JobScheduler.
+                // To solve this, we simply force-reschedule all unfinished work.
+                for (WorkSpec workSpec : workSpecs) {
+                    workSpecDao.setState(ENQUEUED, workSpec.id);
+                    workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                }
+                Schedulers.schedule(
+                        mWorkManager.getConfiguration(),
+                        workDatabase,
+                        mWorkManager.getSchedulers());
+            }
+            workDatabase.setTransactionSuccessful();
+        } finally {
+            workDatabase.endTransaction();
         }
     }
 

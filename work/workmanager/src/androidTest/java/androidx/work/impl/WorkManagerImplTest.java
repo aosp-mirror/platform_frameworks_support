@@ -27,7 +27,6 @@ import static androidx.work.WorkInfo.State.ENQUEUED;
 import static androidx.work.WorkInfo.State.FAILED;
 import static androidx.work.WorkInfo.State.RUNNING;
 import static androidx.work.WorkInfo.State.SUCCEEDED;
-import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -1457,26 +1456,6 @@ public class WorkManagerImplTest {
 
         mWorkManagerImpl.cancelWorkById(work.getId()).getResult().get();
         assertThat(mWorkManagerImpl.getWorkInfoById(work.getId()).get().getState(), is(CANCELLED));
-    }
-
-    @Test
-    @MediumTest
-    public void testGenerateCleanupCallback_resetsRunningWorkStatuses() {
-        WorkSpecDao workSpecDao = mDatabase.workSpecDao();
-
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
-                .setInitialState(RUNNING)
-                .build();
-        workSpecDao.insertWorkSpec(work.getWorkSpec());
-
-        assertThat(workSpecDao.getState(work.getStringId()), is(RUNNING));
-
-        SupportSQLiteOpenHelper openHelper = mDatabase.getOpenHelper();
-        SupportSQLiteDatabase db = openHelper.getWritableDatabase();
-        WorkDatabase.generateCleanupCallback().onOpen(db);
-
-        assertThat(workSpecDao.getState(work.getStringId()), is(ENQUEUED));
-        assertThat(work.getWorkSpec().scheduleRequestedAt, is(SCHEDULE_NOT_REQUESTED_YET));
     }
 
     @Test

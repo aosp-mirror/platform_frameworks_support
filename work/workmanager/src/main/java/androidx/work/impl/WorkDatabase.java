@@ -130,12 +130,9 @@ public abstract class WorkDatabase extends RoomDatabase {
                 super.onOpen(db);
                 db.beginTransaction();
                 try {
-                    db.execSQL(CLEANUP_SQL);
-
                     // Prune everything that is completed, has an expired retention time, and has no
                     // active dependents:
                     db.execSQL(getPruneSQL());
-
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
