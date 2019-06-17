@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "831bc1d6_828a5d77",
+        "filename": "lifecycle/lifecycle-viewmodel/src/main/java/androidx/lifecycle/ViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T22:22:03Z",
+      "side": 1,
+      "message": "need to update ComponentActivity as well (probably as separate cl)",
+      "range": {
+        "startLine": 102,
+        "startChar": 55,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "e3f00b02834d14bc166a92a13fef11f1cdaaff18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb6f531b_3994acce",
+        "filename": "paging/integration-tests/testapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T22:22:03Z",
+      "side": 1,
+      "message": "that broke presubmit because they had @OnLifecycleEvent from prebuilts that wasn\u0027t deprecated",
+      "revId": "e3f00b02834d14bc166a92a13fef11f1cdaaff18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
