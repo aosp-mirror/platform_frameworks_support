@@ -58,8 +58,9 @@ internal class TextSelectionHandlerImpl(
         containerLayoutCoordinates: LayoutCoordinates,
         mode: SelectionMode
     ): Selection? {
+        if (layoutCoordinates == null) return null
         val relativePosition = containerLayoutCoordinates.childToLocal(
-            layoutCoordinates!!, PxPosition.Origin
+            layoutCoordinates, PxPosition.Origin
         )
         val startPx = selectionCoordinates.first - relativePosition
         val endPx = selectionCoordinates.second - relativePosition
