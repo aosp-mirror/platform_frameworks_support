@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ce2489f_d9dfbc73",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateHandle.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T09:49:27Z",
+      "side": 1,
+      "message": "Let\u0027s drop @Nullable here, if someone wants \"MutableLiveData\u003cString\u003e\" in kotlin then we shouldn\u0027t allow initialValue that equals to null.",
+      "range": {
+        "startLine": 180,
+        "startChar": 68,
+        "endLine": 180,
+        "endChar": 76
+      },
+      "revId": "f0333a873702d9df95b134e6783278f167383bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
