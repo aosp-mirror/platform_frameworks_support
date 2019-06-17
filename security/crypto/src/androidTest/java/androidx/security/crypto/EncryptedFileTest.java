@@ -22,6 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -30,7 +31,6 @@ import com.google.crypto.tink.StreamingAead;
 import com.google.crypto.tink.config.TinkConfig;
 import com.google.crypto.tink.integration.android.AndroidKeysetManager;
 import com.google.crypto.tink.streamingaead.StreamingAeadFactory;
-import com.google.crypto.tink.streamingaead.StreamingAeadKeyTemplates;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,6 +53,7 @@ public class EncryptedFileTest {
 
     private Context mContext;
     private String mMasterKeyAlias;
+    private EncryptedFile.FileEncryptionScheme mEncryptionScheme;
 
     @Before
     public void setup() throws Exception {
@@ -68,6 +69,15 @@ public class EncryptedFileTest {
                 + "__androidx_security_crypto_encrypted_file_pref__";
         File deletePrefFile = new File(filePath);
         deletePrefFile.delete();
+
+        SharedPreferences customSharedPreferences = mContext.getSharedPreferences(
+                "CUSTOMPREFNAME", Context.MODE_PRIVATE);
+        customSharedPreferences.edit().clear().commit();
+
+        String customFilePath = mContext.getFilesDir().getParent() + "/shared_prefs/"
+                + "CUSTOMPREFNAME";
+        File customPrefFile = new File(customFilePath);
+        customPrefFile.delete();
 
         filePath = mContext.getFilesDir().getParent() + "nothing_to_see_here";
         deletePrefFile = new File(filePath);
@@ -87,7 +97,11 @@ public class EncryptedFileTest {
         keyStore.load(null);
         keyStore.deleteEntry(MasterKeys.MASTER_KEY_ALIAS);
 
-        mMasterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mMasterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        }
+        mEncryptionScheme = EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB;
+
     }
 
     @Test
@@ -99,7 +113,7 @@ public class EncryptedFileTest {
 
         EncryptedFile encryptedFile = new EncryptedFile.Builder(new File(mContext.getFilesDir(),
                 fileName), mContext, mMasterKeyAlias,
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+                mEncryptionScheme)
                 .build();
 
         OutputStream outputStream = encryptedFile.openFileOutput();
@@ -140,7 +154,7 @@ public class EncryptedFileTest {
 
         EncryptedFile existingFileInputCheck = new EncryptedFile.Builder(
                 new File(mContext.getFilesDir(), "FAKE_FILE"), mContext, mMasterKeyAlias,
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+                mEncryptionScheme)
                 .build();
         boolean inputFailed = false;
         try {
@@ -152,7 +166,7 @@ public class EncryptedFileTest {
 
         EncryptedFile existingFileOutputCheck = new EncryptedFile.Builder(
                 new File(mContext.getFilesDir(), fileName), mContext, mMasterKeyAlias,
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+                mEncryptionScheme)
                 .build();
         boolean outputFailed = false;
         try {
@@ -172,7 +186,7 @@ public class EncryptedFileTest {
         // Write
         EncryptedFile encryptedFile = new EncryptedFile.Builder(new File(mContext.getFilesDir(),
                 fileName), mContext, mMasterKeyAlias,
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+                mEncryptionScheme)
                 .setKeysetAlias("CustomKEYALIAS")
                 .setKeysetPrefName("CUSTOMPREFNAME")
                 .build();
@@ -226,7 +240,7 @@ public class EncryptedFileTest {
 
         // Write
         EncryptedFile encryptedFile = new EncryptedFile.Builder(file, mContext, mMasterKeyAlias,
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+                mEncryptionScheme)
                 .build();
 
         OutputStream outputStream = encryptedFile.openFileOutput();
@@ -236,7 +250,7 @@ public class EncryptedFileTest {
 
         TinkConfig.register();
         KeysetHandle streadmingAeadKeysetHandle = new AndroidKeysetManager.Builder()
-                .withKeyTemplate(StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB)
+                .withKeyTemplate(mEncryptionScheme.getKeyTemplate())
                 .withSharedPref(mContext,
                         "__androidx_security_crypto_encrypted_file_keyset__",
                         "__androidx_security_crypto_encrypted_file_pref__")
