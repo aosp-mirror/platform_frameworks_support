@@ -94,6 +94,30 @@
       "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b0f323_08c972be",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-06-17T16:54:43Z",
+      "side": 1,
+      "message": "Added javadoc and changed this to a List\u003cPair\u003e. Let me know what you think",
+      "parentUuid": "384023d3_bf364273",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "98904b3d48f6ec3b023ced2c8b0833b3ede8b7c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
