@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b6fe54_f137f631",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "Using a list here because the ExoPlayer team has requested a @Stable annotation with the opposite functionality. That\u0027ll probably have to land in this detector as well.",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55bdfa8a_f29354dd",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "I\u0027m not 100% how this API works, so this may be wrong.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a70c680_909280e9",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "The attribute keys are all `null` when running tests, so I have to reference by index. No idea why.",
+      "range": {
+        "startLine": 101,
+        "startChar": 42,
+        "endLine": 101,
+        "endChar": 71
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3109c8a9_93bdb964",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "Unused, will remove.",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a7900b2_9cae0a3a",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "Possibly unnecessary, but I saw this in some of Lint\u0027s checks.",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 17
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd348e1b_a994c74b",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "Likely splitting this into UnsafeExperimentalUsageWarning and UnsafeExperimentalUsageError to allow library developers to distinguish like they can in Kotlin. The default severity levels will be adjusted accordingly.",
+      "range": {
+        "startLine": 171,
+        "startChar": 17,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa48eae_bae55f3e",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "TODO",
+      "range": {
+        "startLine": 174,
+        "startChar": 16,
+        "endLine": 174,
+        "endChar": 20
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "364d329a_af684c1a",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "Kotlin uses BINARY (equivalent to Java CLASS) retention, but I think SOURCE is adequate for Lint functionality. We do need to make the Experimental-type annotations defined in libraries visible, however, so that might require CLASS?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac2a8b77_6e02b1bd",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-17T15:01:12Z",
+      "side": 1,
+      "message": "The Kotlin annotation uses this, but it conflicts with Lint\u0027s notion of user-controlled issue levels. I\u0027m considering splitting this into two Lint issues, ex. ExperimentalError/Warning, and letting the user further configure via Lint issue reporting levels.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
