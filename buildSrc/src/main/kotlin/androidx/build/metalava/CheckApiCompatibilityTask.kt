@@ -84,7 +84,11 @@ abstract class CheckApiCompatibilityTask : MetalavaTask() {
         }
         if (checkRestrictedAPIs) {
             args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
+        } else {
+            // Only enable API lint for public APIs
+            args = args + listOf("--api-lint")
         }
+
         runWithArgs(args)
     }
 }

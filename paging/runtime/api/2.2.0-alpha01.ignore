@@ -1,3 +1,17 @@
 // Baseline format: 1.0
+DocumentExceptions: androidx.paging.AsyncPagedListDiffer#getItem(int):
+    Method AsyncPagedListDiffer.getItem appears to be throwing java.lang.IndexOutOfBoundsException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+DocumentExceptions: androidx.paging.AsyncPagedListDiffer#submitList(androidx.paging.PagedList<T>, Runnable):
+    Method AsyncPagedListDiffer.submitList appears to be throwing java.lang.IllegalArgumentException; this should be listed in the documentation; see https://android.github.io/kotlin-guides/interop.html#document-exceptions
+
+
+ProtectedMember: androidx.paging.PagedListAdapter#getItem(int):
+    Protected methods not allowed; must be public: method androidx.paging.PagedListAdapter.getItem(int)}
+
+
 RemovedMethod: androidx.paging.AsyncPagedListDiffer#AsyncPagedListDiffer(androidx.recyclerview.widget.RecyclerView.Adapter, androidx.recyclerview.widget.DiffUtil.ItemCallback<T>):
     Removed constructor androidx.paging.AsyncPagedListDiffer(androidx.recyclerview.widget.RecyclerView.Adapter,androidx.recyclerview.widget.DiffUtil.ItemCallback<T>)
+
+
+StaticUtils: androidx.paging.LivePagedListKt:
+    Fully-static utility classes must not have constructor

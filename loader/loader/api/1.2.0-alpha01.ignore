@@ -1,0 +1,73 @@
+// Baseline format: 1.0
+CallbackName: androidx.loader.content.Loader.ForceLoadContentObserver:
+    Class should be named ForceLoadContentCallback
+
+
+ManagerConstructor: androidx.loader.app.LoaderManager#LoaderManager():
+    Managers must always be obtained from Context; no direct constructors
+
+
+ManagerLookup: androidx.loader.app.LoaderManager#getInstance(T):
+    Managers must always be obtained from Context (`getInstance`)
+
+
+NoClone: androidx.loader.app.LoaderManager#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.loader.app.LoaderManager.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+NoClone: androidx.loader.content.AsyncTaskLoader#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.loader.content.AsyncTaskLoader.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+NoClone: androidx.loader.content.CursorLoader#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.loader.content.CursorLoader.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+NoClone: androidx.loader.content.Loader#dump(String, java.io.FileDescriptor, java.io.PrintWriter, String[]) parameter #1:
+    Must use ParcelFileDescriptor instead of FileDescriptor in parameter fd in androidx.loader.content.Loader.dump(String prefix, java.io.FileDescriptor fd, java.io.PrintWriter writer, String[] args)
+
+
+ProtectedMember: androidx.loader.content.AsyncTaskLoader#getExecutor():
+    Protected methods not allowed; must be public: method androidx.loader.content.AsyncTaskLoader.getExecutor()}
+ProtectedMember: androidx.loader.content.AsyncTaskLoader#onCancelLoad():
+    Protected methods not allowed; must be public: method androidx.loader.content.AsyncTaskLoader.onCancelLoad()}
+ProtectedMember: androidx.loader.content.AsyncTaskLoader#onForceLoad():
+    Protected methods not allowed; must be public: method androidx.loader.content.AsyncTaskLoader.onForceLoad()}
+ProtectedMember: androidx.loader.content.AsyncTaskLoader#onLoadInBackground():
+    Protected methods not allowed; must be public: method androidx.loader.content.AsyncTaskLoader.onLoadInBackground()}
+ProtectedMember: androidx.loader.content.CursorLoader#onReset():
+    Protected methods not allowed; must be public: method androidx.loader.content.CursorLoader.onReset()}
+ProtectedMember: androidx.loader.content.CursorLoader#onStartLoading():
+    Protected methods not allowed; must be public: method androidx.loader.content.CursorLoader.onStartLoading()}
+ProtectedMember: androidx.loader.content.CursorLoader#onStopLoading():
+    Protected methods not allowed; must be public: method androidx.loader.content.CursorLoader.onStopLoading()}
+ProtectedMember: androidx.loader.content.Loader#onAbandon():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onAbandon()}
+ProtectedMember: androidx.loader.content.Loader#onCancelLoad():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onCancelLoad()}
+ProtectedMember: androidx.loader.content.Loader#onForceLoad():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onForceLoad()}
+ProtectedMember: androidx.loader.content.Loader#onReset():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onReset()}
+ProtectedMember: androidx.loader.content.Loader#onStartLoading():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onStartLoading()}
+ProtectedMember: androidx.loader.content.Loader#onStopLoading():
+    Protected methods not allowed; must be public: method androidx.loader.content.Loader.onStopLoading()}
+
+
+RegistrationName: androidx.loader.content.Loader#registerListener(int, androidx.loader.content.Loader.OnLoadCompleteListener<D>):
+    Listener methods should be named add/remove; was registerListener
+RegistrationName: androidx.loader.content.Loader#registerOnLoadCanceledListener(androidx.loader.content.Loader.OnLoadCanceledListener<D>):
+    Listener methods should be named add/remove; was registerOnLoadCanceledListener
+RegistrationName: androidx.loader.content.Loader#unregisterListener(androidx.loader.content.Loader.OnLoadCompleteListener<D>):
+    Listener methods should be named add/remove; was unregisterListener
+RegistrationName: androidx.loader.content.Loader#unregisterOnLoadCanceledListener(androidx.loader.content.Loader.OnLoadCanceledListener<D>):
+    Listener methods should be named add/remove; was unregisterOnLoadCanceledListener
+
+
+SingletonConstructor: androidx.loader.app.LoaderManager#LoaderManager():
+    Singleton classes should use `getInstance()` methods: `LoaderManager`
+
+
+SingularCallback: androidx.loader.app.LoaderManager.LoaderCallbacks:
+    Callback class names should be singular: LoaderCallbacks
+
+
+VisiblySynchronized: androidx.loader.content.CursorLoader#cancelLoadInBackground():
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.loader.content.CursorLoader.cancelLoadInBackground()
+VisiblySynchronized: androidx.loader.content.CursorLoader#loadInBackground():
+    Internal locks must not be exposed (synchronizing on this or class is still externally observable): method androidx.loader.content.CursorLoader.loadInBackground()

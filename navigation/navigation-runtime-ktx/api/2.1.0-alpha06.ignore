@@ -1,0 +1,19 @@
+// Baseline format: 1.0
+StartWithLower: androidx.navigation.ActivityNavigatorExtrasKt#ActivityNavigatorExtras(androidx.core.app.ActivityOptionsCompat, int):
+    Method name must start with lowercase char: ActivityNavigatorExtras
+
+
+StaticUtils: androidx.navigation.ActivityKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ActivityNavArgsLazyKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ActivityNavigatorDestinationBuilderKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ActivityNavigatorExtrasKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.NavControllerKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.NavHostKt:
+    Fully-static utility classes must not have constructor
+StaticUtils: androidx.navigation.ViewKt:
+    Fully-static utility classes must not have constructor

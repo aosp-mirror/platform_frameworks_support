@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+ProtectedMember: androidx.emoji.text.EmojiCompat.Config#getMetadataRepoLoader():
+    Protected methods not allowed; must be public: method androidx.emoji.text.EmojiCompat.Config.getMetadataRepoLoader()}

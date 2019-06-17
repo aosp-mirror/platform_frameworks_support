@@ -1,0 +1,19 @@
+// Baseline format: 1.0
+CallbackName: androidx.room.InvalidationTracker.Observer:
+    Class should be named Callback
+
+
+ProtectedMember: androidx.room.RoomDatabase#createInvalidationTracker():
+    Protected methods not allowed; must be public: method androidx.room.RoomDatabase.createInvalidationTracker()}
+ProtectedMember: androidx.room.RoomDatabase#createOpenHelper(androidx.room.DatabaseConfiguration):
+    Protected methods not allowed; must be public: method androidx.room.RoomDatabase.createOpenHelper(androidx.room.DatabaseConfiguration)}
+ProtectedMember: androidx.room.RoomDatabase#internalInitInvalidationTracker(androidx.sqlite.db.SupportSQLiteDatabase):
+    Protected methods not allowed; must be public: method androidx.room.RoomDatabase.internalInitInvalidationTracker(androidx.sqlite.db.SupportSQLiteDatabase)}
+
+
+RegistrationName: androidx.room.RoomDatabase.Builder#addCallback(androidx.room.RoomDatabase.Callback):
+    Callback methods should be named register/unregister; was addCallback
+
+
+StaticUtils: androidx.room.Room:
+    Fully-static utility classes must not have constructor

@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+GetterSetterNames: androidx.recommendation.app.ContentRecommendation#isAutoDismiss():
+    Symmetric method for `setAutoDismiss` must be named `getAutoDismiss`; was `isAutoDismiss`

@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+StaticUtils: androidx.fragment.app.testing.FragmentScenarioKt:
+    Fully-static utility classes must not have constructor
