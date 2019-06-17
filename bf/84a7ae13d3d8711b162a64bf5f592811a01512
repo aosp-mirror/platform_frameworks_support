@@ -1,0 +1,10 @@
+Code-Review+2: Svetoslav Ganov <svetoslavganov@google.com>
+Code-Review+1: Nick Anthony <nickanthony@google.com>
+Code-Review+2: jcivelli <jcivelli@google.com>
+API-Review+1: Svetoslav Ganov <svetoslavganov@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Arvind Kumar Sugumar <asugumar@google.com>
+Submitted-at: Mon, 17 Jun 2019 18:23:27 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/962932
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
