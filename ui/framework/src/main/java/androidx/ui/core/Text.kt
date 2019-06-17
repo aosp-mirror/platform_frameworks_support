@@ -202,7 +202,7 @@ internal fun Text(
             layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
         })
 
-        +onCommit(textPainter) {
+        +onCommit(textPainter, layoutCoordinates.value) {
             val id = registrar.subscribe(
                 TextSelectionHandlerImpl(
                     textPainter = textPainter,
