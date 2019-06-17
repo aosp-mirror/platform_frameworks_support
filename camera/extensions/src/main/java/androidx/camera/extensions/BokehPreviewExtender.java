@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.BokehPreviewExtenderImpl;
 /**
  * Load the OEM extension Preview implementation for bokeh effect type.
  */
-public class BokehPreviewExtender extends PreviewExtender {
+class BokehPreviewExtender extends PreviewExtender {
     private static final String TAG = "BokehPreviewExtender";
 
     /**
@@ -34,7 +34,7 @@ public class BokehPreviewExtender extends PreviewExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.Preview}.
      */
-    public static BokehPreviewExtender create(PreviewConfig.Builder builder) {
+    static BokehPreviewExtender create(PreviewConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorBokehPreviewExtender(builder);
