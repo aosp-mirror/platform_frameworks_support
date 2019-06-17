@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "37e1cd5c_cd4612b2",
+        "filename": "annotation/annotation-experimental-lint/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "I think once we migrated to 3.5 we can use lintPublish that allows other types of deps",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 85
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00b6fe54_f137f631",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 2
@@ -25,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8dcd8be1_6822ecf5",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "00b6fe54_f137f631",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55bdfa8a_f29354dd",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 2
@@ -41,6 +88,29 @@
         "startChar": 4,
         "endLine": 42,
         "endChar": 70
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58bca1f_0fa63aa6",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "I\u0027d do: \nif (qualifiedName in applicableAnnotations()) {...}",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 30
       },
       "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -117,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "7735241a_58ecc31e",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "no need to use it, because you\u0027re the only one who use it",
+      "parentUuid": "4a7900b2_9cae0a3a",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 17
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd348e1b_a994c74b",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 2
@@ -137,6 +231,30 @@
       "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1efb9166_c8b21d67",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fd348e1b_a994c74b",
+      "range": {
+        "startLine": 171,
+        "startChar": 17,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +281,40 @@
     },
     {
       "key": {
+        "uuid": "fa37d51e_9a3f9413",
+        "filename": "annotation/annotation-experimental/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "dependencies {\n  lintPublish(project(\u003clint project name\u003e))\n}  \n\n?",
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ce0891_fcbefec9",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "should we suggest people to mark it @Inherited ?",
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "364d329a_af684c1a",
         "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
         "patchSetId": 2
@@ -174,6 +326,30 @@
       "writtenOn": "2019-06-17T15:01:12Z",
       "side": 1,
       "message": "Kotlin uses BINARY (equivalent to Java CLASS) retention, but I think SOURCE is adequate for Lint functionality. We do need to make the Experimental-type annotations defined in libraries visible, however, so that might require CLASS?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e360250_c90aa650",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "Yep, I think you\u0027re right about library-case, so we\u0027ll need a CLASS here.",
+      "parentUuid": "364d329a_af684c1a",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -206,6 +382,30 @@
       "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc4fb942_a06899d1",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-17T16:02:24Z",
+      "side": 1,
+      "message": "Sounds good",
+      "parentUuid": "ac2a8b77_6e02b1bd",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "c6d7ab86b7b6a0b062efec418e081127149c41df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
