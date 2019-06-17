@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "98794b91_ee1f0b40",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "My main idea is there are only two real api visibility. or it is public, or private for this module for the details of implementation. And Kotlin made it even more natural with introducing \"internal\". That feels bad to have something in between. Our modules are final ready to use libraries. And if our first library/module wants to use something from the second our library/module it should be in fact public. As there is no real difference between our androidx library or any different third party library. Jake Wharton was advocating about this a lot. If we want to build something on top of the implementation details of other module that means someone else also could want to do so. \nIf we take this specific example as far as I remember idea was to have two separate modules to have animations-core and be able to use it without Compose. With this restriction there will be no way to use AnimatedValue without Compose. Maybe to make it work with and without Compose we have to split this entities better. As a raw idea maybe we should split an animating engine and the value holding concepts here. So it doesn\u0027t store the value, but only provide a callback when the value has been changed. Then the Compose implementation is storing the value in @Model. And for sure I don\u0027t want to block this CL from merging",
+      "parentUuid": "3976fd81_8ddbb7fe",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05b74be1_0748ff86",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 15
@@ -140,6 +164,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d52f120_af8829bc",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "moving this into a separate file works for me for now, thanks",
+      "parentUuid": "433bbec8_a1123411",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -378,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "942fb458_ea6c0c07",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "Looks like just AnimatedFloatValue works here. Just the fact of having floats allows us to add flings functionality.\nIt is already quite strange to use AnimatedScroll for implementing SeekBar",
+      "parentUuid": "7ca15046_531f6e4f",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b6e6b48_66a46a4f",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
         "patchSetId": 15
@@ -460,6 +532,30 @@
       "side": 1,
       "message": "I grouped the new target and an optional target-based animation in one object. I think it\u0027s more clear now. Let me know what you think.",
       "parentUuid": "0fcb51ae_6fd04a51",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f834a1b4_62cabed3",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "yes, I like the new implementation. thanks!",
+      "parentUuid": "e8029937_1cbcaa4d",
       "range": {
         "startLine": 135,
         "startChar": 8,

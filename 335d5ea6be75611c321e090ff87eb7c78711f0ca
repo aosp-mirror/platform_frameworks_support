@@ -828,6 +828,30 @@
     },
     {
       "key": {
+        "uuid": "0d8e5994_897e4a67",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "I am not sure why do you want to pass a value holder across modules. It is just private for AnimatedValue as I see. Can you elaborate please? I also don\u0027t like this at all. Maybe splitting of the value holding from the \"animating engine\" I proposed in the other comment will help with this.",
+      "parentUuid": "1d0530c2_f3f3831e",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14

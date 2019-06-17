@@ -285,6 +285,24 @@
       "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d08134b_760b22d7",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "here value is initialized with animValue.value. and then kept in sync with the value in animValue by animValue.onValueChanged. it in fact adds an observability from @Model to the value holder inside AnimatedValueImpl.",
+      "parentUuid": "1daecadf_db66a18e",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

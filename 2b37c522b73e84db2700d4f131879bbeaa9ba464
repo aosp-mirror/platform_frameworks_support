@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03a2d583_61a0fabd",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "nit: PascalCase is used for constants",
+      "range": {
+        "startLine": 92,
+        "startChar": 18,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "2b37c522b73e84db2700d4f131879bbeaa9ba464",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a53dd70_21a1bba5",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-17T14:07:55Z",
+      "side": 1,
+      "message": "it is not in fact optional. we need an animation to animate to the new target. the fact we have a default animation implementation is not important for this documentation I guess. maybe remove this word?",
+      "range": {
+        "startLine": 124,
+        "startChar": 50,
+        "endLine": 124,
+        "endChar": 58
+      },
+      "revId": "2b37c522b73e84db2700d4f131879bbeaa9ba464",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
