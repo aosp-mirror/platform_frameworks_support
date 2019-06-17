@@ -38,7 +38,7 @@ import androidx.ui.input.SetComposingRegionEditOp
 import androidx.ui.input.SetComposingTextEditOp
 import androidx.ui.input.SetSelectionEditOp
 
-private val DEBUG = false
+private val DEBUG = true
 private val TAG = "RecordingIC"
 
 internal class RecordingInputConnection(
@@ -93,7 +93,6 @@ internal class RecordingInputConnection(
 
     override fun closeConnection() {
         if (DEBUG) { Log.d(TAG, "closeConnection()") }
-        TODO("not implemented")
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////

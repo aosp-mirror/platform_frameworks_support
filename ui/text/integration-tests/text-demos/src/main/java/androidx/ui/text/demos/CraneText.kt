@@ -16,8 +16,10 @@
 
 package androidx.ui.text.demos
 
+import androidx.compose.Composable
+import androidx.compose.state
+import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
-import androidx.ui.core.EditableText
 import androidx.ui.core.EditorStyle
 import androidx.ui.core.Span
 import androidx.ui.core.Text
@@ -34,9 +36,9 @@ import androidx.ui.engine.text.TextDecoration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.window.Locale
-import androidx.ui.input.EditorState
 import androidx.ui.graphics.Color
 import androidx.ui.graphics.lerp
+import androidx.ui.input.EditorState
 import androidx.ui.layout.Column
 import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.Row
@@ -44,10 +46,7 @@ import androidx.ui.layout.VerticalScroller
 import androidx.ui.painting.Shadow
 import androidx.ui.painting.TextStyle
 import androidx.ui.rendering.paragraph.TextOverflow
-import androidx.compose.Composable
-import androidx.compose.composer
-import androidx.compose.state
-import androidx.compose.unaryPlus
+import kotlin.Boolean.InputField
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
@@ -538,8 +537,8 @@ fun TextDemoShadowEffect() {
 
 @Composable
 fun EditLine() {
-    val state = +state { EditorState() }
-    EditableText(
+    val state = +state { EditorState(text="Hello, World") }
+    InputField(
         value = state.value,
         onValueChange = { state.value = it },
         editorStyle = EditorStyle(textStyle = TextStyle(fontSize = fontSize8))
