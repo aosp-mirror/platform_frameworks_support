@@ -43,6 +43,7 @@ import android.os.HandlerThread;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.impl.util.FakeRepeatingUseCase;
 import androidx.camera.core.AppConfig;
@@ -52,6 +53,7 @@ import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.CaptureProcessor;
+import androidx.camera.core.EffectEnabler;
 import androidx.camera.core.Exif;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCapture.Metadata;
@@ -60,8 +62,11 @@ import androidx.camera.core.ImageCapture.OnImageSavedListener;
 import androidx.camera.core.ImageCapture.UseCaseError;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.ImageProxy;
+import androidx.camera.core.PreviewConfig;
 import androidx.camera.testing.CameraUtil;
+import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
@@ -111,6 +116,18 @@ public final class ImageCaptureTest {
     private FakeRepeatingUseCase mRepeatingUseCase;
     private FakeUseCaseConfig mFakeUseCaseConfig;
     private String mCameraId;
+    private EffectEnabler mEffectEnabler = new EffectEnabler() {
+        @Override
+        public void applyEffectConfig(@NonNull ImageCaptureConfig.Builder builder,
+                @NonNull LifecycleOwner lifecycleOwner) {
+            builder.setCaptureProcessor(mock(CaptureProcessor.class));
+        }
+
+        @Override
+        public void applyEffectConfig(@NonNull PreviewConfig.Builder builder,
+                @NonNull LifecycleOwner lifecycleOwner) {
+        }
+    };
 
     private ImageCaptureConfig createNonRotatedConfiguration()
             throws CameraInfoUnavailableException {
@@ -556,9 +573,24 @@ public final class ImageCaptureTest {
     public void constructor_withBufferFormatAndCaptureProcessor_throwsException() {
         ImageCaptureConfig config =
                 new ImageCaptureConfig.Builder()
-                .setBufferFormat(ImageFormat.RAW_SENSOR)
-                .setCaptureProcessor(mock(CaptureProcessor.class))
-                .build();
-        new ImageCapture(config);
+                        .setBufferFormat(ImageFormat.RAW_SENSOR)
+                        .build();
+        ImageCapture imageCapture = new ImageCapture(config);
+
+        CameraX.setEffectEnabler(mEffectEnabler);
+        CameraX.bindToLifecycle(new FakeLifecycleOwner(), imageCapture);
+    }
+
+    @Test
+    public void updateEffectParameters_afterBindToLifecycle() {
+        ImageCaptureConfig config = new ImageCaptureConfig.Builder().build();
+        ImageCapture imageCapture = new ImageCapture(config);
+
+        CameraX.setEffectEnabler(mEffectEnabler);
+        CameraX.bindToLifecycle(new FakeLifecycleOwner(), imageCapture);
+
+        CaptureProcessor captureProcessor =
+                ((ImageCaptureConfig) imageCapture.getUseCaseConfig()).getCaptureProcessor(null);
+        assertThat(captureProcessor).isNotNull();
     }
 }

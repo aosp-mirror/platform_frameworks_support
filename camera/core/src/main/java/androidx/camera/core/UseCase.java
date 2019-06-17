@@ -443,6 +443,11 @@ public abstract class UseCase {
     }
 
     /**
+     * Updates use case config for the effect mode of the {@link LifecycleOwner}
+     */
+    void updateEffectParameters(LifecycleOwner lifecycleOwner) {}
+
+    /**
      * Get image format for the use case.
      *
      * @return image format for the use case

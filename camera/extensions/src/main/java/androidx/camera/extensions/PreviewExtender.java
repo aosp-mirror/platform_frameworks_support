@@ -35,6 +35,7 @@ import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
 import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageInfoProcessor;
+import androidx.camera.core.MutableConfig;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.UseCase;
 import androidx.camera.extensions.ExtensionsErrorListener.ExtensionsErrorCode;
@@ -139,6 +140,17 @@ public abstract class PreviewExtender {
                 new CameraEventCallbacks(previewExtenderAdapter));
         mBuilder.setUseCaseEventListener(previewExtenderAdapter);
         mBuilder.getMutableConfig().insertOption(OPTION_PREVIEW_EXTENDER_MODE, mEffectMode);
+    }
+
+    /**
+     * Removes all configs that were set in {@link PreviewExtender#enableExtension()}
+     */
+    static void removeEffectConfigs(PreviewConfig.Builder builder) {
+        MutableConfig config = builder.getMutableConfig();
+        config.removeOption(PreviewConfig.IMAGE_INFO_PROCESSOR);
+        config.removeOption(PreviewConfig.OPTION_PREVIEW_CAPTURE_PROCESSOR);
+        config.removeOption(PreviewConfig.OPTION_USE_CASE_EVENT_LISTENER);
+        config.removeOption(OPTION_PREVIEW_EXTENDER_MODE);
     }
 
     static void checkImageCaptureEnabled(EffectMode effectMode,
