@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package androidx.build.lint
+package androidx.annotation;
 
-import com.android.tools.lint.client.api.IssueRegistry
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
-class AndroidXIssueRegistry : IssueRegistry() {
-    override val issues get() = listOf(
-            BanParcelableUsage.ISSUE,
-            BanKeepAnnotation.ISSUE,
-            BanTargetApiAnnotation.ISSUE,
-            MissingTestSizeAnnotation.ISSUE,
-            RequireSampledAnnotation.MISSING_ANNOTATION,
-            RequireSampledAnnotation.OBSOLETE_ANNOTATION,
-            ObsoleteBuildCompatUsageDetector.ISSUE
-    )
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+@Retention(SOURCE)
+@Target(METHOD)
+public @interface Sampled {
 }

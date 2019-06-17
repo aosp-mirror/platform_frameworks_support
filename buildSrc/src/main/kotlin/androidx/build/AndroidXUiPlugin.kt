@@ -34,6 +34,10 @@ class AndroidXUiPlugin : Plugin<Project> {
                     val library = project.extensions.findByType(LibraryExtension::class.java)
                         ?: throw Exception("Failed to find Android extension")
 
+                    // Require @Sampled annotations for @sample links in KDoc
+                    project.extensions.findByType(AndroidXExtension::class.java)
+                        ?.requireSampledAnnotation = true
+
                     library.defaultConfig.apply {
                         minSdkVersion(21)
                         targetSdkVersion(29)
