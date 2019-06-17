@@ -35,7 +35,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.BaseCamera;
-import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraDeviceStateCallbacks;
 import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraInfoUnavailableException;
@@ -43,6 +42,7 @@ import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.DeferrableSurface;
 import androidx.camera.core.ImmediateSurface;
+import androidx.camera.core.InternalCameraControl;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.SessionConfig.ValidatingBuilder;
 import androidx.camera.core.UseCase;
@@ -92,7 +92,7 @@ final class Camera implements BaseCamera {
      */
     final AtomicReference<State> mState = new AtomicReference<>(State.UNINITIALIZED);
     /** The camera control shared across all use cases bound to this Camera. */
-    private final CameraControl mCameraControl;
+    private final InternalCameraControl mInternalCameraControl;
     private final StateCallback mStateCallback = new StateCallback();
     /** Information about the characteristics of this camera */
     // Nullable because this is lazily instantiated
@@ -128,7 +128,8 @@ final class Camera implements BaseCamera {
         ScheduledExecutorService executorScheduler = CameraXExecutors.newHandlerExecutor(mHandler);
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
-        mCameraControl = new Camera2CameraControl(this, executorScheduler, executorScheduler);
+        mInternalCameraControl = new Camera2CameraControl(this, executorScheduler,
+                executorScheduler);
         mCaptureSession = new CaptureSession(mHandler);
     }
 
@@ -614,8 +615,8 @@ final class Camera implements BaseCamera {
         }
 
         if (validatingBuilder.isValid()) {
-            // Apply CameraControl's SessionConfig to let CameraControl be able to control
-            // Repeating Request and process results.
+            // Apply InternalCameraControl's SessionConfig to let InternalCameraControl be able
+            // to control Repeating Request and process results.
             validatingBuilder.add(mCameraControlSessionConfig);
 
             SessionConfig sessionConfig = validatingBuilder.build();
@@ -756,8 +757,8 @@ final class Camera implements BaseCamera {
 
     /** Returns the Camera2CameraControl attached to Camera */
     @Override
-    public CameraControl getCameraControl() {
-        return mCameraControl;
+    public InternalCameraControl getInternalCameraControl() {
+        return mInternalCameraControl;
     }
 
     /**

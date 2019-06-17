@@ -61,7 +61,7 @@ public final class CameraXTest {
     static {
         String cameraId = sCameraFactory.cameraIdForLensFacing(LensFacing.BACK);
         sCameraFactory.insertCamera(cameraId,
-                new FakeCamera(new FakeCameraInfo(), mock(CameraControl.class)));
+                new FakeCamera(new FakeCameraInfo(), mock(InternalCameraControl.class)));
     }
 
     private String mCameraId;
@@ -212,7 +212,8 @@ public final class CameraXTest {
 
         CameraX.bindToLifecycle(mLifecycle, fakeUseCase);
 
-        assertThat(fakeUseCase.getCameraControl(mCameraId)).isEqualTo(mCamera.getCameraControl());
+        assertThat(fakeUseCase.getCameraControl(mCameraId)).isEqualTo(
+                mCamera.getInternalCameraControl());
     }
 
     @Test
@@ -235,12 +236,12 @@ public final class CameraXTest {
 
         CameraX.unbind(fakeUseCase);
 
-        // after unbind, Camera's CameraControl should be detached from Usecase
+        // after unbind, Camera's InternalCameraControl should be detached from Usecase
         assertThat(fakeUseCase.getCameraControl(mCameraId)).isNotEqualTo(
-                mCamera.getCameraControl());
-        // UseCase still gets a non-null default CameraControl that does nothing.
+                mCamera.getInternalCameraControl());
+        // UseCase still gets a non-null default InternalCameraControl that does nothing.
         assertThat(fakeUseCase.getCameraControl(mCameraId)).isEqualTo(
-                CameraControl.DEFAULT_EMPTY_INSTANCE);
+                InternalCameraControl.DEFAULT_EMPTY_INSTANCE);
     }
 
     @Test
