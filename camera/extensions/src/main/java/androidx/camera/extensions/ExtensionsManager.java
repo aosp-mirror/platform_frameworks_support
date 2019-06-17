@@ -19,12 +19,20 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
+import androidx.camera.core.EffectHelper;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
+import androidx.lifecycle.LifecycleOwner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides interfaces for third party app developers to get capabilities info of extension
@@ -60,11 +68,15 @@ public final class ExtensionsManager {
     }
 
     private static final Object ERROR_LOCK = new Object();
+    private static final Object EFFECT_LOCK = new Object();
 
     @GuardedBy("ERROR_LOCK")
     private static final Handler DEFAULT_HANDLER = new Handler(Looper.getMainLooper());
     @GuardedBy("ERROR_LOCK")
     private static volatile ExtensionsErrorListener sExtensionsErrorListener = null;
+    private static final EffectHelper EFFECT_HELPER = new AdaptingEffectHelper();
+    private static final Map<LifecycleOwner, EffectMode> LIFECYCLE_OWNER_EFFECT_MODE_MAP =
+            new HashMap<>();
 
     /**
      * Indicates whether the camera device with the {@link LensFacing} can support the specific
@@ -99,6 +111,43 @@ public final class ExtensionsManager {
         }
 
         return isAvailable;
+    }
+
+    /**
+     * Sets {@link LifecycleOwner} in specific {@link EffectMode}.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} to apply the {@link EffectMode}
+     * @param effectMode     the {@link EffectMode} to be applied
+     */
+    @MainThread
+    public static void enableExtension(@NonNull EffectMode effectMode,
+            @NonNull LifecycleOwner lifecycleOwner) {
+        synchronized (EFFECT_LOCK) {
+            if (!CameraX.isUseCaseGroupEmpty(lifecycleOwner)) {
+                throw new IllegalStateException(
+                        "Needs to set effect mode before binding use cases to lifecycle owner.");
+            }
+
+            CameraX.setEffectHelper(EFFECT_HELPER);
+            LIFECYCLE_OWNER_EFFECT_MODE_MAP.put(lifecycleOwner, effectMode);
+        }
+    }
+
+    /**
+     * Returns {@link EffectMode} of specific {@link LifecycleOwner}.
+     *
+     * @param lifecycleOwner the {@link LifecycleOwner} to query for the {@link EffectMode}
+     */
+    @MainThread
+    @NonNull
+    public static EffectMode getEffectMode(@NonNull LifecycleOwner lifecycleOwner) {
+        synchronized (EFFECT_LOCK) {
+            EffectMode effectMode = LIFECYCLE_OWNER_EFFECT_MODE_MAP.get(lifecycleOwner);
+            if (effectMode == null) {
+                effectMode = EffectMode.NORMAL;
+            }
+            return effectMode;
+        }
     }
 
     private static boolean checkImageCaptureExtensionCapability(EffectMode effectMode,
