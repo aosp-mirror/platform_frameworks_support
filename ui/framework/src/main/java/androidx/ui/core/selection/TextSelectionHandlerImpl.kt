@@ -16,8 +16,11 @@
 
 package androidx.ui.core.selection
 
+import androidx.compose.ambient
+import androidx.compose.unaryPlus
 import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.PxPosition
+import androidx.ui.core.TextLayoutCoordinatesAmbient
 import androidx.ui.core.px
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
@@ -33,7 +36,6 @@ import kotlin.math.min
  */
 internal class TextSelectionHandlerImpl(
     val textPainter: TextPainter,
-    val layoutCoordinates: LayoutCoordinates?,
     var onSelectionChange: (TextSelection?) -> Unit = {}
 ) : TextSelectionHandler {
 
@@ -41,6 +43,8 @@ internal class TextSelectionHandlerImpl(
     private val lastTextPosition: Int
     /** Bounding box of the text widget. */
     private val box: Rect
+
+    val layoutCoordinates = +ambient(TextLayoutCoordinatesAmbient)
 
     init {
         lastTextPosition = textPainter.text?.let { it.toPlainText().length - 1 } ?: 0
