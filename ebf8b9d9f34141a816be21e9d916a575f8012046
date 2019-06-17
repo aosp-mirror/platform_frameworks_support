@@ -46,6 +46,30 @@
       "revId": "ebf8b9d9f34141a816be21e9d916a575f8012046",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b35c22f_98971282",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-17T21:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087d8cac_4d7020c3",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 68
+      },
+      "revId": "ebf8b9d9f34141a816be21e9d916a575f8012046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
