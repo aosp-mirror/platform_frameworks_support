@@ -52,7 +52,9 @@ abstract class MetalavaTask : DefaultTask() {
             it.args = listOf(
                 "--no-banner",
                 "--error",
-                "DeprecationMismatch" // Enforce deprecation mismatch
+                "DeprecationMismatch", // Enforce deprecation mismatch
+                "--hide",
+                "Enum"
             ) + args
         }
     }

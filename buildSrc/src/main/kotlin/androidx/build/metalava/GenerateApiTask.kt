@@ -66,7 +66,8 @@ abstract class GenerateApiTask : MetalavaTask() {
             publicApiFile.toString(),
 
             "--format=v3",
-            "--output-kotlin-nulls=yes"
+            "--output-kotlin-nulls=yes",
+            "--api-lint"
         )
 
         if (generateRestrictedAPIs) {
