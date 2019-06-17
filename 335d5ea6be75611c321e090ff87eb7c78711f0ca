@@ -852,6 +852,30 @@
     },
     {
       "key": {
+        "uuid": "dd3a9624_7fec5930",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "I meant that the ValueHolder interface/class would need to be public so that AnimatedValue in the core module can update it. Though, taking another look at your suggestion, I\u0027ve porbably misunderstood it.\n\nI have incorporated your suggestion and Leland\u0027s, and changed the implementation around updating the animation value using model quite a bit. PTAL.",
+      "parentUuid": "0d8e5994_897e4a67",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14

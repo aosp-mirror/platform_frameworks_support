@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3071ba1e_30984285",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "Renamed this class to AnimatedFloat for clarity and moved the lovely fling functions out of the class as extension functions now.",
+      "parentUuid": "d90410cd_d61f339e",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d27fb8aa_6a416035",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DecayAnimation.kt",
         "patchSetId": 16
@@ -271,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "17792225_7b248c8c",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "Impl changed in the last patchset. See comment below.",
+      "parentUuid": "792ed197_0b17c096",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1daecadf_db66a18e",
         "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
         "patchSetId": 16
@@ -300,6 +336,24 @@
       "side": 1,
       "message": "here value is initialized with animValue.value. and then kept in sync with the value in animValue by animValue.onValueChanged. it in fact adds an observability from @Model to the value holder inside AnimatedValueImpl.",
       "parentUuid": "1daecadf_db66a18e",
+      "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd3046d_6011d692",
+        "filename": "ui/animation/src/main/java/androidx/ui/animation/AnimatedValue.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "Andrey has explained it well. :)\n\nIn the last patchset, I have eliminated the need to use class delegation, and use an @model ValueHolder for triggering re-composition instead.",
+      "parentUuid": "0d08134b_760b22d7",
       "revId": "0f415dafe42b91d78a372b0fd7df805fa1eab331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4f1985d1_1db6eb5d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "I think you are spot on in that making the AnimatedValueImpl public but hidden will hinder its usage as a standalone lib. I think you\u0027ll like my improved design that made AnimatedValue in core public. :)",
+      "parentUuid": "98794b91_ee1f0b40",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05b74be1_0748ff86",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 15
@@ -450,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "adc0fc40_1cea91eb",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "See the new patchset for yet another drastic change. ;)\n\nScrollAnimation is removed altogether. AnimatedFloat is a AnimateValue\u003cFloat\u003e with bounds, and extension functions for flinging.",
+      "parentUuid": "942fb458_ea6c0c07",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b6e6b48_66a46a4f",
         "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
         "patchSetId": 15
@@ -565,6 +613,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb848ce4_6f3a5e0d",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-17T23:48:28Z",
+      "side": 1,
+      "message": "Great!",
+      "parentUuid": "f834a1b4_62cabed3",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
