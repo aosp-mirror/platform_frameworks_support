@@ -85,7 +85,6 @@ public final class ErrorHandler {
 
     /** An error listener which logs the error message and returns. */
     static final class PrintingErrorListener implements ErrorListener {
-        @Override
         public void onError(@NonNull ErrorCode error, @NonNull String message) {
             Log.e(TAG, "ErrorHandler occurred: " + error + " with message: " + message);
         }

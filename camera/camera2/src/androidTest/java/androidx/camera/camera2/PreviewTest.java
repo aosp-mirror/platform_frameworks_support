@@ -42,6 +42,9 @@ import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.DeferrableSurfaces;
+import androidx.camera.core.EffectHelper;
+import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.core.ImageOutputConfig;
 import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.Preview;
 import androidx.camera.core.Preview.OnPreviewOutputUpdateListener;
@@ -50,6 +53,8 @@ import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.testing.CameraUtil;
+import androidx.camera.testing.fakes.FakeLifecycleOwner;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -487,6 +492,30 @@ public final class PreviewTest {
         SurfaceTexture surfaceTexture0 = future0.get();
 
         assertThat(surfaceTexture0).isNotNull();
+    }
+
+    @Test
+    public void updateEffectParameters_afterBindToLifecycle() {
+        PreviewConfig config = new PreviewConfig.Builder().setLensFacing(LensFacing.BACK).build();
+        Preview preview = new Preview(config);
+        Size targetResolution = new Size(1, 1);
+
+        CameraX.setEffectHelper(new EffectHelper() {
+            @Override
+            public void applyEffectConfig(@NonNull ImageCaptureConfig.Builder builder,
+                    @NonNull LifecycleOwner lifecycleOwner) {
+            }
+
+            @Override
+            public void applyEffectConfig(@NonNull PreviewConfig.Builder builder,
+                    @NonNull LifecycleOwner lifecycleOwner) {
+                builder.setTargetResolution(targetResolution);
+            }
+        });
+        CameraX.bindToLifecycle(new FakeLifecycleOwner(), preview);
+        Size resultResolution =
+                ((ImageOutputConfig) preview.getUseCaseConfig()).getTargetResolution();
+        assertThat(resultResolution).isEqualTo(targetResolution);
     }
 
     private CameraControlInternal getFakeCameraControl() {
