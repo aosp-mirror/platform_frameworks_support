@@ -24,6 +24,8 @@ class AndroidXIssueRegistry : IssueRegistry() {
             BanKeepAnnotation.ISSUE,
             BanTargetApiAnnotation.ISSUE,
             MissingTestSizeAnnotation.ISSUE,
+            SampledAnnotationEnforcer.MISSING_SAMPLED_ANNOTATION,
+            SampledAnnotationEnforcer.OBSOLETE_SAMPLED_ANNOTATION,
             ObsoleteBuildCompatUsageDetector.ISSUE
     )
 }
