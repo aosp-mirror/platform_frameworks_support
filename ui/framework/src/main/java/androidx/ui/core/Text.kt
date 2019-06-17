@@ -36,8 +36,12 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.core.selection.Selection
+import androidx.ui.core.selection.SelectionMode
 import androidx.ui.core.selection.SelectionRegistrarAmbient
-import androidx.ui.core.selection.TextSelectionHandlerImpl
+import androidx.ui.core.selection.TextSelectionHandler
+import androidx.ui.core.selection.getTextSelection
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.painting.TextPainter
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
@@ -182,6 +186,13 @@ internal fun Text(
             maxLines = maxLines,
             selectionColor = selectionColor
         )
+        val lastTextPosition = textPainter.text?.let { it.toPlainText().length - 1 } ?: 0
+        val box = Rect(
+            top = 0f,
+            bottom = textPainter.height,
+            left = 0f,
+            right = textPainter.width
+        )
         // TODO(Migration/siyamed): This is temporary and should be removed when resource
         // system is resolved.
         attachContextToFont(styledText, context)
@@ -204,10 +215,24 @@ internal fun Text(
 
         +onCommit(textPainter) {
             val id = registrar.subscribe(
-                TextSelectionHandlerImpl(
-                    textPainter = textPainter,
-                    layoutCoordinates = layoutCoordinates.value,
-                    onSelectionChange = { internalSelection.value = it })
+                object : TextSelectionHandler {
+                    override fun getSelection(
+                        selectionCoordinates: Pair<PxPosition, PxPosition>,
+                        containerLayoutCoordinates: LayoutCoordinates,
+                        mode: SelectionMode
+                    ): Selection? {
+                        return getTextSelection(
+                            textPainter,
+                            selectionCoordinates,
+                            containerLayoutCoordinates,
+                            layoutCoordinates.value,
+                            onSelectionChange = { internalSelection.value = it },
+                            mode = mode,
+                            lastTextPosition = lastTextPosition,
+                            box = box
+                        )
+                    }
+                }
             )
             onDispose {
                 registrar.unsubscribe(id)
