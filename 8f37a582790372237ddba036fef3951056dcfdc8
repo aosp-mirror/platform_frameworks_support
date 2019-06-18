@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99c07901_ff90bbca",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/FontWeight.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T20:05:54Z",
+      "side": 1,
+      "message": "Why you commented out the \"inline\"? little bit confusing since \"inline data class\" is not allowed. (AFAIK)\n\nIf you are waiting Kotlin 1.3 features, let\u0027s leave TODO and remove this comment.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "8f37a582790372237ddba036fef3951056dcfdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdbf363_978e8c9e",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/FontWeight.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T20:05:54Z",
+      "side": 1,
+      "message": "\"private val index: Int get() \u003d weight / 100 - 1\" would be more useful?\nAlso please give what index means here. (assuming index of values)",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "8f37a582790372237ddba036fef3951056dcfdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
