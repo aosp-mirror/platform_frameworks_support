@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1fdcfe2_c899a8a9",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-18T16:43:33Z",
+      "side": 1,
+      "message": "\u003d\\\"true\\\"",
+      "range": {
+        "startLine": 77,
+        "startChar": 47,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "4b12eafcaf2eddc181104b32ddc64d8a9a0bcfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
