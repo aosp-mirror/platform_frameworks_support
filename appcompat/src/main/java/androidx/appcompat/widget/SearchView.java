@@ -19,6 +19,7 @@ package androidx.appcompat.widget;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.appcompat.widget.SuggestionsAdapter.getColumnString;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -2026,6 +2027,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         private Method doBeforeTextChanged, doAfterTextChanged;
         private Method ensureImeVisible;
 
+        @SuppressLint("SoonBlockedPrivateApi") // b/137095369
         AutoCompleteTextViewReflector() {
             try {
                 doBeforeTextChanged = AutoCompleteTextView.class
