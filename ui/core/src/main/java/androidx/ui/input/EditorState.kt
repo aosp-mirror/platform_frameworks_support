@@ -25,7 +25,7 @@ import androidx.ui.core.TextRange
  * state. TextInputService sends the latest editing state to TextInputClient when the platform input
  * service sends some input events.
  */
-data class EditorState(
+class EditorState internal constructor(
     /**
      * The text
      *
@@ -55,6 +55,10 @@ data class EditorState(
      *
      * This composition can be null if there is no composition string in the text.
      * @see android.view.inputmethod.InputConnection.setComposingRegion
+     *
      */
     val composition: TextRange? = null
-)
+) {
+    constructor(text: String = String(), selection: TextRange = TextRange(0, 0))
+            : this(text, selection, null)
+}
