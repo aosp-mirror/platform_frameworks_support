@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f7a8e63_b5c0cebc",
+        "filename": "appcompat/api/1.1.0-beta02.ignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-18T01:48:05Z",
+      "side": 1,
+      "message": "These boolean accessors look fine, should these be flagged?",
+      "revId": "16bcee31218e7412a1797927c6cd06bbea805a02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
