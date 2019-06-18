@@ -177,7 +177,7 @@ internal constructor(internal val type: KeyType) {
          * Same as [mapByPage], but operates on individual items.
          *
          * @param function Function that runs on each loaded item, returning items of a potentially
-         *                 new type.
+         * new type.
          * @param ToValue Type of items produced by the new DataSource, from the passed function.
          * @return A new [DataSource.Factory], which transforms items using the given function.
          *
@@ -191,10 +191,29 @@ internal constructor(internal val type: KeyType) {
         /**
          * Applies the given function to each value emitted by DataSources produced by this Factory.
          *
+         * An overload of [map] that accepts a kotlin function type.
+         *
+         * Same as [mapByPage], but operates on individual items.
+         *
+         * @param function Function that runs on each loaded item, returning items of a potentially
+         * new type.
+         * @param ToValue Type of items produced by the new DataSource, from the passed function.
+         * @return A new [DataSource.Factory], which transforms items using the given function.
+         *
+         * @see mapByPage
+         * @see DataSource.map
+         * @see DataSource.mapByPage
+         */
+        inline fun <ToValue : Any> map(crossinline function: (Value) -> ToValue) =
+            mapByPage(Function { list -> list.map { function(it) } })
+
+        /**
+         * Applies the given function to each value emitted by DataSources produced by this Factory.
+         *
          * Same as [map], but allows for batch conversions.
          *
          * @param function Function that runs on each loaded page, returning items of a potentially
-         *                 new type.
+         * new type.
          * @param ToValue Type of items produced by the new DataSource, from the passed function.
          * @return A new [DataSource.Factory], which transforms items using the given function.
          *
@@ -208,6 +227,25 @@ internal constructor(internal val type: KeyType) {
             override fun create(): DataSource<Key, ToValue> =
                 this@Factory.create().mapByPage(function)
         }
+
+        /**
+         * Applies the given function to each value emitted by DataSources produced by this Factory.
+         *
+         * An overload of [mapByPage] that accepts a kotlin function type.
+         *
+         * Same as [map], but allows for batch conversions.
+         *
+         * @param function Function that runs on each loaded page, returning items of a potentially
+         * new type.
+         * @param ToValue Type of items produced by the new DataSource, from the passed function.
+         * @return A new [DataSource.Factory], which transforms items using the given function.
+         *
+         * @see map
+         * @see DataSource.map
+         * @see DataSource.mapByPage
+         */
+        inline fun <ToValue : Any> mapByPage(crossinline function: (List<Value>) -> List<ToValue>) =
+            mapByPage(Function { function(it) })
     }
 
     /**
@@ -216,7 +254,7 @@ internal constructor(internal val type: KeyType) {
      * Same as [map], but allows for batch conversions.
      *
      * @param function Function that runs on each loaded page, returning items of a potentially
-     *                 new type.
+     * new type.
      * @param ToValue Type of items produced by the new DataSource, from the passed function.
      * @return A new DataSource, which transforms items using the given function.
      *
@@ -231,10 +269,29 @@ internal constructor(internal val type: KeyType) {
     /**
      * Applies the given function to each value emitted by the DataSource.
      *
+     * An overload of [mapByPage] that accepts a kotlin function type.
+     *
+     * Same as [map], but allows for batch conversions.
+     *
+     * @param function Function that runs on each loaded page, returning items of a potentially
+     * new type.
+     * @param ToValue Type of items produced by the new DataSource, from the passed function.
+     * @return A new DataSource, which transforms items using the given function.
+     *
+     * @see map
+     * @see DataSource.Factory.map
+     * @see DataSource.Factory.mapByPage
+     */
+    inline fun <ToValue : Any> mapByPage(crossinline function: (List<Value>) -> List<ToValue>) =
+        mapByPage(Function { function(it) })
+
+    /**
+     * Applies the given function to each value emitted by the DataSource.
+     *
      * Same as [mapByPage], but operates on individual items.
      *
      * @param function Function that runs on each loaded item, returning items of a potentially
-     *                 new type.
+     * new type.
      * @param ToValue Type of items produced by the new DataSource, from the passed function.
      * @return A new DataSource, which transforms items using the given function.
      *
@@ -244,6 +301,25 @@ internal constructor(internal val type: KeyType) {
      */
     open fun <ToValue : Any> map(function: Function<Value, ToValue>): DataSource<Key, ToValue> =
         mapByPage(Function { list -> list.map { function.apply(it) } })
+
+    /**
+     * Applies the given function to each value emitted by the DataSource.
+     *
+     * An overload of [map] that accepts a kotlin function type.
+     *
+     * Same as [mapByPage], but operates on individual items.
+     *
+     * @param function Function that runs on each loaded item, returning items of a potentially
+     * new type.
+     * @param ToValue Type of items produced by the new DataSource, from the passed function.
+     * @return A new DataSource, which transforms items using the given function.
+     *
+     * @see mapByPage
+     * @see DataSource.Factory.map
+     *
+     */
+    inline fun <ToValue : Any> map(crossinline function: (Value) -> ToValue) =
+        map(Function { function(it) })
 
     /**
      * Returns true if the data source guaranteed to produce a contiguous set of items, never
