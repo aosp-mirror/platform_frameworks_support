@@ -41,6 +41,7 @@ import androidx.camera.core.CameraCaptureMetaData.AfState;
 import androidx.camera.core.CameraCaptureMetaData.AwbState;
 import androidx.camera.core.CameraCaptureResult.EmptyCameraCaptureResult;
 import androidx.camera.core.CameraX.LensFacing;
+import androidx.camera.core.ForwardingImageProxy.OnImageCloseListener;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.core.impl.utils.futures.AsyncFunction;
@@ -82,7 +83,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * via an {@link ImageCapture.OnImageCapturedListener}.
  *
  */
-public class ImageCapture extends UseCase {
+public class ImageCapture extends UseCase implements OnImageCloseListener {
     /**
      * Provides a static configuration with implementation-agnostic options.
      *
@@ -491,6 +492,36 @@ public class ImageCapture extends UseCase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Issues next image capture request when dispatched image is closed, which can ensure the
+     * image buffer in ImageReader is always available.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public void onImageClose(final ImageProxy image) {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    onImageClose(image);
+                }
+            });
+            return;
+        }
+        ImageCapture.this.popAndIssueNextCaptureRequest();
+    }
+
+    /** Pops one image request from queue and issues next one. **/
+    @UiThread
+    void popAndIssueNextCaptureRequest() {
+        mImageCaptureRequests.poll();
+        issueImageCaptureRequests();
+    }
+
     /** Issues saved ImageCaptureRequest. */
     @UiThread
     void issueImageCaptureRequests() {
@@ -536,7 +567,22 @@ public class ImageCapture extends UseCase {
 
                             @Override
                             public void onFailure(Throwable t) {
-                                Log.e(TAG, "takePictureInternal onFailure", t);
+                                final String message = "Failed to take picture.";
+                                final Throwable cause = t;
+                                Log.e(TAG, message, t);
+
+                                mMainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ImageCaptureRequest imageCaptureRequest =
+                                                mImageCaptureRequests.peek();
+                                        if (imageCaptureRequest != null) {
+                                            imageCaptureRequest.callbackError(
+                                                    UseCaseError.UNKNOWN_ERROR, message, cause);
+                                            ImageCapture.this.popAndIssueNextCaptureRequest();
+                                        }
+                                    }
+                                });
                             }
                         },
                         mExecutor);
@@ -623,19 +669,24 @@ public class ImageCapture extends UseCase {
                         ImageCaptureRequest imageCaptureRequest = mImageCaptureRequests.peek();
                         if (imageCaptureRequest != null) {
                             ImageProxy image = null;
+                            String message = null;
+                            Throwable cause = null;
                             try {
                                 image = imageReader.acquireLatestImage();
                             } catch (IllegalStateException e) {
-                                Log.e(TAG, "Failed to acquire latest image.", e);
+                                message = "Failed to acquire latest image.";
+                                cause = e;
+                                Log.e(TAG, message, e);
                             } finally {
                                 if (image != null) {
-                                    // Remove the first listener from the queue
-                                    mImageCaptureRequests.poll();
-
-                                    // Inform the listener
-                                    imageCaptureRequest.dispatchImage(image);
-
-                                    ImageCapture.this.issueImageCaptureRequests();
+                                    SingleCloseImageProxy wrappedImage = new SingleCloseImageProxy(
+                                            image);
+                                    wrappedImage.addOnImageCloseListener(ImageCapture.this);
+                                    imageCaptureRequest.dispatchImage(wrappedImage);
+                                } else {
+                                    imageCaptureRequest.callbackError(
+                                            UseCaseError.UNKNOWN_ERROR, message, cause);
+                                    ImageCapture.this.popAndIssueNextCaptureRequest();
                                 }
                             }
                         } else {
@@ -1213,6 +1264,7 @@ public class ImageCapture extends UseCase {
              * @param captureResult the camera capture result.
              * @return the check result, return null to continue checking.
              */
+            @Nullable
             T check(@NonNull CameraCaptureResult captureResult);
         }
 
@@ -1273,6 +1325,24 @@ public class ImageCapture extends UseCase {
             }
 
             mListener.onCaptureSuccess(image, mRotationDegrees);
+        }
+
+        void callbackError(final UseCaseError useCaseError, final String message,
+                final Throwable cause) {
+            if (mHandler != null && Looper.myLooper() != mHandler.getLooper()) {
+                boolean posted = mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageCaptureRequest.this.callbackError(useCaseError, message, cause);
+                    }
+                });
+                if (!posted) {
+                    Log.e(TAG, "Unable to post to the supplied handler.");
+                }
+                return;
+            }
+
+            mListener.onError(useCaseError, message, cause);
         }
     }
 }
