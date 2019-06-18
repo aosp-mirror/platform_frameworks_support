@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51523f8c_7f4435ff",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-18T08:21:37Z",
+      "side": 1,
+      "message": "I suspect that current implementation would have a bug in such case that setPlayer/setMediaController() is called following setViewType(), and before onSurfaceTakeOverDone().\n\n(Need to revisit line 345, line 382, line 493 as well.)",
+      "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
