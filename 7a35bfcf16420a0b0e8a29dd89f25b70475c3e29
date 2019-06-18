@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "148e276d_1cee2f0d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T21:49:06Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "d12ad4a1_89b124f2",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "7a35bfcf16420a0b0e8a29dd89f25b70475c3e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9b6da74_3511b118",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7a35bfcf16420a0b0e8a29dd89f25b70475c3e29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdbeb643_64b8b845",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T21:49:06Z",
+      "side": 1,
+      "message": "Hmm, now that you mention that \"project.\" is not required, I still think it\u0027s clearer to keep the \"project.\" in because it makes it extra obvious that this is defined on the project rather than just being a normal function.\n\nAlthough I guess that keeping the instance reference would be different than what other people usually write so I\u0027ll just change it anyway.",
+      "parentUuid": "b9b6da74_3511b118",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "7a35bfcf16420a0b0e8a29dd89f25b70475c3e29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
