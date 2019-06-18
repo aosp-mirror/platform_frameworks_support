@@ -64,7 +64,7 @@ import java.util.List;
  * a {@link MediaRouteChooserDialog} to allow the user to select a route.
  * If no non-default routes match the selector and it is not possible for an active
  * scan to discover any matching routes, then the button is disabled and cannot
- * be clicked.
+ * be clicked unless {@link #setAlwaysVisible} is called.
  * </p><p>
  * When a non-default route is selected that matches the selector, the button will
  * appear in an active state indicating that the application is connected
@@ -429,7 +429,7 @@ public class MediaRouteButton extends View {
      * The default is false.
      * It doesn't overrides the {@link View#getVisibility visibility} status of the button.
      *
-     * @param alwaysVisible true to show button always.
+     * @param alwaysVisible true to show the button even if no routes are available.
      */
     public void setAlwaysVisible(boolean alwaysVisible) {
         if (alwaysVisible != mAlwaysVisible) {
