@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "736cc96c_42868e09",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-18T23:41:08Z",
+      "side": 1,
+      "message": "Can we have a test for a non-prefixed @Embedded along with a JOIN ?",
+      "range": {
+        "startLine": 288,
+        "startChar": 39,
+        "endLine": 288,
+        "endChar": 46
+      },
+      "revId": "1b56d46e632686ccc32d291f18489994bbf06c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
