@@ -46,6 +46,30 @@
       "revId": "48c9fa1fe543bd226dd6352f26b621f2743146ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1385a65_a9b7d427",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/AlignTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:24:50Z",
+      "side": 1,
+      "message": "Yeah, we\u0027re not using truth everywhere. We are accepting truth everywhere, though. You\u0027re welcome to give us a presentation on how to use truth, but not all of us use it (or see the need for it)",
+      "parentUuid": "d5216a9e_0383e122",
+      "range": {
+        "startLine": 166,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "48c9fa1fe543bd226dd6352f26b621f2743146ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
