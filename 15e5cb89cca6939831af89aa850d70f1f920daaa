@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "282cb14d_715bbbb5",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/utils/ForceStopRunnableTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-18T17:11:19Z",
+      "side": 1,
+      "message": "Let\u0027s add some more tests for this.  It can be here or in WorkManagerImplTest or wherever it is appropriate.",
+      "range": {
+        "startLine": 127,
+        "startChar": 26,
+        "endLine": 127,
+        "endChar": 40
+      },
+      "revId": "15e5cb89cca6939831af89aa850d70f1f920daaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faa22488_6542788d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-18T17:11:19Z",
+      "side": 1,
+      "message": "Call this unconditionally first in this run() method.",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "15e5cb89cca6939831af89aa850d70f1f920daaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45909b3a_7d11700d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-18T17:11:19Z",
+      "side": 0,
+      "message": "Remove unused variables (and any unused Dao methods).",
+      "range": {
+        "startLine": 133,
+        "startChar": 31,
+        "endLine": 133,
+        "endChar": 42
+      },
+      "revId": "4b32a64aa669e814ca6c6690c03d225b26c43c3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
