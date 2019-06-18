@@ -31,6 +31,8 @@ import android.content.Context;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.StringRes;
+import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.webkit.WebViewFeature;
@@ -120,5 +122,15 @@ public class IntegrationAppTestRule extends ActivityTestRule<MainActivity> {
                         )
                 )
         );
+    }
+
+    /**
+     * Registers {@link IdlingResource}s for the test cases.
+     *
+     * @param idlingResources one or more {@link IdlingResource}s.
+     */
+    public void registerIdlingResources(IdlingResource... idlingResources) {
+        IdlingRegistry registry = IdlingRegistry.getInstance();
+        registry.register(idlingResources);
     }
 }

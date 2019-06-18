@@ -23,6 +23,8 @@ plugins {
 dependencies {
     implementation(project(":appcompat"))
     implementation(project(":webkit"))
+    implementation(ESPRESSO_IDLING_RESOURCE, libs.exclude_for_espresso)
+
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
     androidTestImplementation(ANDROIDX_TEST_RUNNER)
