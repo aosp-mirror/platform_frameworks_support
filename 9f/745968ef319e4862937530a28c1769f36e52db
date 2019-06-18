@@ -1,0 +1,9 @@
+Autosubmit+1: Ian Lake <ilake@google.com>
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+Code-Review+2: Jeremy Woods <jbwoods@google.com>
+Submitted-by: Ian Lake <ilake@google.com>
+Submitted-at: Tue, 18 Jun 2019 19:40:42 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/985146
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
