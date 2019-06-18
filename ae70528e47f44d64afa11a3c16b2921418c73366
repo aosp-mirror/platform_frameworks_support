@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d8905cc_2777a7b0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-18T10:02:37Z",
+      "side": 0,
+      "message": "Q) Just in case.. when getDurationMs() returns negative value? doesn\u0027t it imply special case?",
+      "range": {
+        "startLine": 1335,
+        "startChar": 21,
+        "endLine": 1335,
+        "endChar": 25
+      },
+      "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
