@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5594399_1d156bd0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T22:09:39Z",
+      "side": 1,
+      "message": "If we find that developers either prefer or don\u0027t mind using the same baseline file for updateApi and api-lint, then I\u0027d vote to rename this task to something like IgnoreApiErrors or IgnoreApiProblems or something like that",
+      "revId": "3c96191d5daa231e8a5aaed134608c1b7c0b3fcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
