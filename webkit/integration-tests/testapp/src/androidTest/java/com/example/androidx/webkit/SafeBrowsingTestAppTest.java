@@ -16,10 +16,19 @@
 
 package com.example.androidx.webkit;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+
+import static org.hamcrest.core.Is.is;
+
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.webkit.WebViewFeature;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,20 +36,27 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ProxyOverrideTestAppTest {
+public class SafeBrowsingTestAppTest {
     @Rule
     public IntegrationAppTestRule mRule = new IntegrationAppTestRule();
 
     @Before
     public void setUp() {
         mRule.getActivity();
-        mRule.clickMenuListItem(R.string.proxy_override_activity_title);
-        mRule.assumeFeature(WebViewFeature.PROXY_OVERRIDE);
+        mRule.clickMenuListItem(R.string.safebrowsing_activity_title);
+        IdlingRegistry.getInstance().register(SafeBrowsingActivity.getIdlingResources());
+        // Skip features after registering IdlingResources, so that resources are registered before
+        // we hit tearDown().
+        mRule.assumeFeatureNotAvailable(WebViewFeature.START_SAFE_BROWSING);
+    }
+
+    @After
+    public void tearDown() {
+        IdlingRegistry.getInstance().unregister(SafeBrowsingActivity.getIdlingResources());
     }
 
     @Test
-    public void testProxyOverride() {
-        mRule.assertViewHasText(R.id.proxy_override_textview,
-                                R.string.proxy_override_requests_served, 1);
+    public void testStartSafeBrowsing() {
+        onView(withClassName(is(MenuListView.class.getName()))).check(matches(isDisplayed()));
     }
 }
