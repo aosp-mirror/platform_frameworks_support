@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "504d505c_c383cf30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-18T00:02:39Z",
+      "side": 1,
+      "message": "Please check the use bundle in frameworks media2 are safe.\n(ex, Session2Token.getExtras(), connection hints of MediaController2)",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "ed10485b90061cdf58d570034dcfa4457604e1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1334989_60309d1e",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1805,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-18T00:02:39Z",
+      "side": 1,
+      "message": "Consider to create a method for this.",
+      "range": {
+        "startLine": 1805,
+        "startChar": 12,
+        "endLine": 1805,
+        "endChar": 39
+      },
+      "revId": "ed10485b90061cdf58d570034dcfa4457604e1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1699534b_383272f7",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-18T00:02:39Z",
+      "side": 1,
+      "message": "Do we need to reset the class loader?",
+      "range": {
+        "startLine": 1807,
+        "startChar": 33,
+        "endLine": 1807,
+        "endChar": 54
+      },
+      "revId": "ed10485b90061cdf58d570034dcfa4457604e1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a66eca6_2a8dd2f7",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-18T00:02:39Z",
+      "side": 1,
+      "message": "Can\u0027t we reuse this method for both MediaSessionCompat and MediaControllerCompat?\n(You may need to add an argument for class loader)",
+      "range": {
+        "startLine": 1037,
+        "startChar": 26,
+        "endLine": 1037,
+        "endChar": 56
+      },
+      "revId": "ed10485b90061cdf58d570034dcfa4457604e1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
