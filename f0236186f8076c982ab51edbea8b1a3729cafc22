@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6a3b40ef_8808b084",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T18:33:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d15af03f_46ae5375",
+      "range": {
+        "startLine": 667,
+        "startChar": 26,
+        "endLine": 667,
+        "endChar": 35
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02dd5ff0_6cec3b45",
         "filename": "ui/core/src/main/java/androidx/ui/input/EditingBuffer.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-18T18:08:43Z",
       "side": 1,
       "message": "nit: :) we will get confused by Editing Composition \u0026 Compose Composition (no action needed)",
+      "range": {
+        "startLine": 197,
+        "startChar": 13,
+        "endLine": 197,
+        "endChar": 27
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fca5d1f_c62079aa",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditingBuffer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T18:33:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "02dd5ff0_6cec3b45",
       "range": {
         "startLine": 197,
         "startChar": 13,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "25d03e53_4aeee6dd",
+        "filename": "ui/core/src/test/java/androidx/ui/core/TextRangeTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T18:33:16Z",
+      "side": 1,
+      "message": "As we talked offline, let\u0027s use \"underscore\" connected case or string case with back quote.\nDone",
+      "parentUuid": "93394a3a_82b64b77",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 21
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3b54818_1e378253",
         "filename": "ui/core/src/test/java/androidx/ui/input/DeleteSurroundingTextEditOpTest.kt",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9588f2_7c2ddeea",
+        "filename": "ui/core/src/test/java/androidx/ui/input/DeleteSurroundingTextEditOpTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T18:33:16Z",
+      "side": 1,
+      "message": "I\u0027ll keep this test case name as this is. As we talked offline, we use underscore or backquote string style.",
+      "parentUuid": "e3b54818_1e378253",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
