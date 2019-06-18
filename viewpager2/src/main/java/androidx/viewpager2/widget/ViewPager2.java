@@ -522,13 +522,17 @@ public final class ViewPager2 extends ViewGroup {
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
-
-        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
-
         if (isFakeDragging()) {
             throw new IllegalStateException("Cannot change current item when ViewPager2 is fake "
                     + "dragging");
         }
+        setCurrentItemInternal(item, smoothScroll);
+    }
+
+    void setCurrentItemInternal(int item, boolean smoothScroll) {
+
+        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
+
         Adapter<?> adapter = getAdapter();
         if (adapter == null) {
             // Update the pending current item if we're still waiting for the adapter
@@ -1096,7 +1100,7 @@ public final class ViewPager2 extends ViewGroup {
                     public boolean perform(@NonNull View view,
                             @Nullable CommandArguments arguments) {
                         ViewPager2 viewPager = (ViewPager2) view;
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+                        setCurrentItemFromAccessibilityCommand(viewPager.getCurrentItem() + 1);
                         return true;
                     }
                 };
@@ -1107,7 +1111,7 @@ public final class ViewPager2 extends ViewGroup {
                     public boolean perform(@NonNull View view,
                             @Nullable CommandArguments arguments) {
                         ViewPager2 viewPager = (ViewPager2) view;
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+                        setCurrentItemFromAccessibilityCommand(viewPager.getCurrentItem() - 1);
                         return true;
                     }
                 };
@@ -1213,6 +1217,17 @@ public final class ViewPager2 extends ViewGroup {
         public void onRvInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
             event.setSource(ViewPager2.this);
             event.setClassName(ViewPager2.this.getAccessibilityClassName());
+        }
+
+        /**
+         * Sets the current item without checking if a fake drag is ongoing. Only call this method
+         * from within an accessibility command or other forms of user input. Call is ignored if
+         * {@link #isUserInputEnabled() user input is disabled}.
+         */
+        void setCurrentItemFromAccessibilityCommand(int item) {
+            if (isUserInputEnabled()) {
+                setCurrentItemInternal(item, true);
+            }
         }
 
         /**
