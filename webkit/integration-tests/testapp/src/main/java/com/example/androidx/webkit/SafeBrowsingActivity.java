@@ -25,6 +25,8 @@ import android.webkit.ValueCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.test.espresso.IdlingResource;
+import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
 
@@ -32,21 +34,31 @@ import androidx.webkit.WebViewFeature;
  * An {@link Activity} to exercise Safe Browsing functionality.
  */
 public class SafeBrowsingActivity extends AppCompatActivity {
+    private static final CountingIdlingResource sMenuListIdlingResource =
+            new CountingIdlingResource("StartSafeBrowsingCall");
+
+    public static IdlingResource getIdlingResource() {
+        return sMenuListIdlingResource;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        sMenuListIdlingResource.increment();
         if (WebViewFeature.isFeatureSupported(WebViewFeature.START_SAFE_BROWSING)) {
             WebViewCompat.startSafeBrowsing(this.getApplicationContext(),
                     new ValueCallback<Boolean>() {
                         @Override
                         public void onReceiveValue(@NonNull Boolean value) {
-                            if (value) {
-                                setupLayout();
-                            } else {
-                                WebkitHelpers.showMessageInActivity(SafeBrowsingActivity.this,
-                                        R.string.cannot_start_safe_browsing);
+                            try {
+                                if (value) {
+                                    setupLayout();
+                                } else {
+                                    WebkitHelpers.showMessageInActivity(SafeBrowsingActivity.this,
+                                            R.string.cannot_start_safe_browsing);
+                                }
+                            } finally {
+                                sMenuListIdlingResource.decrement();
                             }
                         }
                     });
