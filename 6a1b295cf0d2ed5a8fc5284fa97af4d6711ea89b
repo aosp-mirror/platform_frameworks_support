@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ca7ddbe_c5d6a4e9",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-18T18:35:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these module names reflect the directory? I.e :compose-runtime should be :compose:runtime\n\nGranted, the entire ui project\u0027s module naming is also wrong, but would be good to fix these sooner rather than later",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 91
+      },
+      "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
