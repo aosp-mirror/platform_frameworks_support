@@ -22,6 +22,30 @@
       "revId": "5209284532a4f61b30ad2eea64ab6b9c464ee3e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6786fa_7429d4d9",
+        "filename": "ui/android-text/src/main/java/androidx/text/style/WordSpacingSpan.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-18T23:34:00Z",
+      "side": 1,
+      "message": "Yes, it\u0027s the main reason we need to step back on this feature. Actually I catch the exception, but this ends up that WordSpacing works on API 26 - 27 versions, but not work on API 28, then it works again on API 29 and above. That\u0027s kind of wried, so we only support it after API 29 instead.",
+      "parentUuid": "9d05d640_1b90fe98",
+      "range": {
+        "startLine": 58,
+        "startChar": 18,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "5209284532a4f61b30ad2eea64ab6b9c464ee3e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
