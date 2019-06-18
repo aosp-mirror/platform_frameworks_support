@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ffeb53e_70e76a58",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/PrepackageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "this test doesn\u0027t really do anything to create the race condition.\n\nis it possible to provide a context that has overridden getResporces (maybe a mock?) so that we can try to introduce failures there? I\u0027m not sure where else but we need some stuff here to make it test different failure cases.\n\n\nAlso, we should add assertions by catching errors in threads and asserting that there are no errors. otherwise, failure in these thread will fail the whole test run.",
+      "range": {
+        "startLine": 324,
+        "startChar": 16,
+        "endLine": 324,
+        "endChar": 50
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa34145_40e05383",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "should we use files dir instead?",
+      "range": {
+        "startLine": 122,
+        "startChar": 50,
+        "endLine": 122,
+        "endChar": 61
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3205df15_80a215cd",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "we should append db name here to avoid conflicts.",
+      "range": {
+        "startLine": 190,
+        "startChar": 54,
+        "endLine": 190,
+        "endChar": 70
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db41738_8656aa10",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "lets move file processing code to a file util",
+      "range": {
+        "startLine": 207,
+        "startChar": 17,
+        "endLine": 207,
+        "endChar": 21
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8c8e733_8fff0717",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "lets move this out. preferably to another module but for now, can be just a different package. or same package different file",
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d04d8c6_657768ed",
+        "filename": "room/runtime/src/main/java/androidx/room/SQLiteCopyOpenHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "why is this bound to thread not process?",
+      "range": {
+        "startLine": 289,
+        "startChar": 26,
+        "endLine": 289,
+        "endChar": 38
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c3db99_8da34c2f",
+        "filename": "room/runtime/src/test/java/androidx/room/SQLiteCopyOpenHelperTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3434baa_f7db630d",
+        "filename": "room/runtime/src/test/java/androidx/room/SQLiteCopyOpenHelperTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:31:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 83,
+        "startChar": 35,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "611c6143a6af0ddffe864f2eea286cedaf9a76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
