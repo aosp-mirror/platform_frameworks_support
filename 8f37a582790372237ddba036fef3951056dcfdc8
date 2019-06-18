@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2451f1d2_71ae825b",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/FontWeight.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T20:17:30Z",
+      "side": 1,
+      "message": "as we talked offline I marked classes that either can be or should be inline with the comment. Right now we cannot use inline afaik, therefore when in the future we enable them I want these to be visible.",
+      "parentUuid": "99c07901_ff90bbca",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "8f37a582790372237ddba036fef3951056dcfdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fdbf363_978e8c9e",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/FontWeight.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8f37a582790372237ddba036fef3951056dcfdc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81176554_6f9212a9",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/FontWeight.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T20:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fdbf363_978e8c9e",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "8f37a582790372237ddba036fef3951056dcfdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
