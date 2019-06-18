@@ -19,7 +19,6 @@ package androidx.text.style;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import android.os.Build;
 import android.text.TextPaint;
 
 import androidx.test.filters.SdkSuppress;
@@ -39,6 +38,7 @@ public class WordSpacingSpanTest {
         assertThat(span.getWordSpacing(), equalTo(wordSpacing));
     }
 
+    @SdkSuppress(minSdkVersion = 29)
     @Test
     public void updateDrawState_doesNotThrowException() {
         final WordSpacingSpan span = new WordSpacingSpan(2.0f);
@@ -47,11 +47,9 @@ public class WordSpacingSpanTest {
         span.updateDrawState(paint);
     }
 
-    @SdkSuppress(minSdkVersion = 26)
+    @SdkSuppress(minSdkVersion = 29)
     @Test
     public void updateDrawState_increaseWordSpacing() {
-        // WordSpacing is public on Q and on P(API 28) reflection won't work.
-        if (Build.VERSION.SDK_INT == 28) return;
         final float wordSpacing = 2.0f;
         final WordSpacingSpan span = new WordSpacingSpan(wordSpacing);
         final TextPaint paint = new TextPaint();
@@ -63,11 +61,9 @@ public class WordSpacingSpanTest {
         assertThat(widthAfter - widthBefore, equalTo(wordSpacing));
     }
 
-    @SdkSuppress(minSdkVersion = 26)
+    @SdkSuppress(minSdkVersion = 29)
     @Test
     public void updateDrawState_decreaseWordSpacing() {
-        // WordSpacing is public on Q and on P(API 28) reflection won't work.
-        if (Build.VERSION.SDK_INT == 28) return;
         final float wordSpacing = -2.0f;
         final WordSpacingSpan span = new WordSpacingSpan(wordSpacing);
         final TextPaint paint = new TextPaint();
@@ -87,11 +83,9 @@ public class WordSpacingSpanTest {
         span.updateMeasureState(paint);
     }
 
-    @SdkSuppress(minSdkVersion = 26)
+    @SdkSuppress(minSdkVersion = 29)
     @Test
     public void updateMeasureState_increaseWordSpacing() {
-        // WordSpacing is public on Q and on P(API 28) reflection won't work.
-        if (Build.VERSION.SDK_INT == 28) return;
         final float wordSpacing = 2.0f;
         final WordSpacingSpan span = new WordSpacingSpan(wordSpacing);
         final TextPaint paint = new TextPaint();
@@ -103,11 +97,9 @@ public class WordSpacingSpanTest {
         assertThat(widthAfter - widthBefore, equalTo(wordSpacing));
     }
 
-    @SdkSuppress(minSdkVersion = 26)
+    @SdkSuppress(minSdkVersion = 29)
     @Test
     public void updateMeasureState_decreaseWordSpacing() {
-        // WordSpacing is public on Q and on P(API 28) reflection won't work.
-        if (Build.VERSION.SDK_INT == 28) return;
         final float wordSpacing = -2.0f;
         final WordSpacingSpan span = new WordSpacingSpan(wordSpacing);
         final TextPaint paint = new TextPaint();
