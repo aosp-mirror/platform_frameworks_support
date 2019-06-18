@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be8380e7_feec9827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c88cb340_0476c7fa",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df1cb247_ff0ffa6b",
         "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369194eb_777f3529",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "Done\n\nI just did:\nvar interpreted \u003d original",
+      "parentUuid": "df1cb247_ff0ffa6b",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "14a12b78_7a1f1a74",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "I inverted true/false and named it \"queryIsValid\"",
+      "parentUuid": "363bb1f2_18e060e4",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 303,
+        "endChar": 23
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b045181e_5f2566dc",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acac55d7_06441cb7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "I need \"if\" because \"error\" is nullable. I revised the logic to make it clearer.",
+      "parentUuid": "b045181e_5f2566dc",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "850ac15c_fe61dece",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryInterpreter.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c5569f_e1f4c169",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dc3b6d7_6e862056",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryInterpreter.kt",
         "patchSetId": 9
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fb24df1a_b6a7e8de",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryInterpreter.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "Done. Inlined.",
+      "parentUuid": "6dc3b6d7_6e862056",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70dcf7cd_8b57a782",
         "filename": "room/compiler/src/test/kotlin/androidx/room/writer/DaoWriterTest.kt",
         "patchSetId": 9
@@ -160,6 +304,30 @@
       "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd66e257_5af94475",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/writer/DaoWriterTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-18T06:24:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70dcf7cd_8b57a782",
+      "range": {
+        "startLine": 95,
+        "startChar": 62,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "7f205c7699378d870b54a4cb0a15fb18d218f8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
