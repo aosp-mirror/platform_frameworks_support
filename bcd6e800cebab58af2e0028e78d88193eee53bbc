@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c8a9356_3c3c790a",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-18T18:08:45Z",
+      "side": 1,
+      "message": "Let me double check this, we may have to do the refactoring and launch straight into the leaf activity in the test.  My worry is that the operation to launch the safebrowsing activity from the main activity is itself an async operation with respect to the UI thread.",
+      "parentUuid": "509ed012_fa94afb0",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 89
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22d5e5a2_b2ae2fb8",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
         "patchSetId": 2
