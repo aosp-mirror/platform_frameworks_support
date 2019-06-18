@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "626f20a4_dd355cbd",
+        "filename": "room/common/src/main/java/androidx/room/Insert.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:21:24Z",
+      "side": 1,
+      "message": "all",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 29
+      },
+      "revId": "c6e2b60234bb4eddaa022d5fd09808e44fa5f56f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bace513_201aa788",
+        "filename": "room/common/src/main/java/androidx/room/Insert.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:21:24Z",
+      "side": 1,
+      "message": "(except the primary key if it is auto-generated)",
+      "range": {
+        "startLine": 63,
+        "startChar": 70,
+        "endLine": 63,
+        "endChar": 72
+      },
+      "revId": "c6e2b60234bb4eddaa022d5fd09808e44fa5f56f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ef054b_3ef3edd1",
+        "filename": "room/common/src/main/java/androidx/room/Update.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:21:24Z",
+      "side": 1,
+      "message": "i guess we are NOT requiring the pkey here?\n\ni think we definitely need to extend samples here now since they are not straightforward. can be a separate CL.",
+      "range": {
+        "startLine": 55,
+        "startChar": 79,
+        "endLine": 55,
+        "endChar": 92
+      },
+      "revId": "c6e2b60234bb4eddaa022d5fd09808e44fa5f56f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

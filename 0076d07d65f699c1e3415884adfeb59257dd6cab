@@ -95,6 +95,30 @@
       "revId": "0076d07d65f699c1e3415884adfeb59257dd6cab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf2a610_a007c80f",
+        "filename": "room/common/src/main/java/androidx/room/Update.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-18T00:21:24Z",
+      "side": 1,
+      "message": "sgtm. can be a followup CL.\nI think it is more important to show these after this change since they are partial.",
+      "parentUuid": "fc497cc5_5b7fa334",
+      "range": {
+        "startLine": 40,
+        "startChar": 34,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "0076d07d65f699c1e3415884adfeb59257dd6cab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
