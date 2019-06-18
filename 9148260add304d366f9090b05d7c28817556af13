@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "190d82b8_042eacea",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/painting/TextPainterIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-18T23:56:26Z",
+      "side": 0,
+      "message": "This one is actually testing preferredLineHeigh, having textScaleFactor involved will fail this test if textScaleFactor break. I think it would better to test in another test case. So I removed it. Does it make sense for you?",
+      "parentUuid": "fbed28cf_710290a1",
+      "range": {
+        "startLine": 61,
+        "startChar": 54,
+        "endLine": 61,
+        "endChar": 84
+      },
+      "revId": "9148260add304d366f9090b05d7c28817556af13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "214a6bc1_b883ba04",
         "filename": "ui/text/src/test/java/androidx/ui/engine/text/ParagraphBuilderTest.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "9148260add304d366f9090b05d7c28817556af13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3acbc2_d2e3235f",
+        "filename": "ui/text/src/test/java/androidx/ui/engine/text/ParagraphBuilderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-18T23:56:26Z",
+      "side": 0,
+      "message": "Actually checked them, non of them are still valid :( But some cases were adopted to be TextSpan.toAnnotatedString text.",
+      "parentUuid": "214a6bc1_b883ba04",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "9148260add304d366f9090b05d7c28817556af13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
