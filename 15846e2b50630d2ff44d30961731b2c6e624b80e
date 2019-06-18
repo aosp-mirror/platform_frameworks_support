@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d93b155a_567c809b",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T19:04:41Z",
+      "side": 1,
+      "message": "Nona\u0027san I just found this:\n\nhttps://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-range/index.html\n\n\nIf this is the same thing, lets use that class instead of TextRange.",
+      "range": {
+        "startLine": 656,
+        "startChar": 21,
+        "endLine": 656,
+        "endChar": 30
+      },
+      "revId": "15846e2b50630d2ff44d30961731b2c6e624b80e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "229eb666_20f60530",
         "filename": "ui/core/api/current.txt",
         "patchSetId": 4
