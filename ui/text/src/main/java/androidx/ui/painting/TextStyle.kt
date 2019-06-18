@@ -50,7 +50,7 @@ private const val _defaultFontSize: Float = 14.0f
  *  Otherwise, the final fontSize will be the current fontSize times this value.
  * @param fontWeight The typeface thickness to use when painting the text (e.g., bold).
  * @param fontStyle The typeface variant to use when drawing the letters (e.g., italics).
- * @param fontSynthesis Whether to synthesize font weight and/or style when the requested weight or
+ * @param fontSynthesis Whether to synthesize font Weight and/or style when the requested Weight or
  *  style cannot be found in the provided custom font family.
  * @param fontFeatureSettings The advanced typography settings provided by font. The format is the same as the CSS font-feature-settings attribute:
  *  https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
