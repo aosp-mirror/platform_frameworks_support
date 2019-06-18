@@ -41,6 +41,7 @@ import androidx.camera.core.CameraCaptureMetaData.AfState;
 import androidx.camera.core.CameraCaptureMetaData.AwbState;
 import androidx.camera.core.CameraCaptureResult.EmptyCameraCaptureResult;
 import androidx.camera.core.CameraX.LensFacing;
+import androidx.camera.core.ForwardingImageProxy.OnImageCloseListener;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.core.impl.utils.futures.AsyncFunction;
@@ -82,7 +83,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * via an {@link ImageCapture.OnImageCapturedListener}.
  *
  */
-public class ImageCapture extends UseCase {
+public class ImageCapture extends UseCase implements OnImageCloseListener {
     /**
      * Provides a static configuration with implementation-agnostic options.
      *
@@ -490,6 +491,30 @@ public class ImageCapture extends UseCase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Issues next image capture request when dispatched image is closed, which can ensure the
+     * image buffer in ImageReader is always available.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public void onImageClose(final ImageProxy image) {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    onImageClose(image);
+                }
+            });
+            return;
+        }
+        mImageCaptureRequests.poll();
+        issueImageCaptureRequests();
+    }
+
     /** Issues saved ImageCaptureRequest. */
     @UiThread
     void issueImageCaptureRequests() {
@@ -627,9 +652,11 @@ public class ImageCapture extends UseCase {
                             if (image != null) {
                                 // Call the head request listener to process the captured image.
                                 ImageCaptureRequest imageCaptureRequest;
-                                if ((imageCaptureRequest = mImageCaptureRequests.poll()) != null) {
-                                    imageCaptureRequest.dispatchImage(image);
-                                    ImageCapture.this.issueImageCaptureRequests();
+                                if ((imageCaptureRequest = mImageCaptureRequests.peek()) != null) {
+                                    SingleCloseImageProxy wrappedImage = new SingleCloseImageProxy(
+                                            image);
+                                    wrappedImage.addOnImageCloseListener(ImageCapture.this);
+                                    imageCaptureRequest.dispatchImage(wrappedImage);
                                 } else {
                                     // Discard the image if we have no requests.
                                     image.close();
@@ -1198,6 +1225,7 @@ public class ImageCapture extends UseCase {
              * @param captureResult the camera capture result.
              * @return the check result, return null to continue checking.
              */
+            @Nullable
             T check(@NonNull CameraCaptureResult captureResult);
         }
 
