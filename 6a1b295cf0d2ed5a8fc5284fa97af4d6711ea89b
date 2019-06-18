@@ -22,6 +22,30 @@
       "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92150c64_1f75d2d5",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-06-18T23:21:38Z",
+      "side": 1,
+      "message": "How about,\n\n  \":compose:runtime\"\n  \":compose:compiler-plugin\"\n  \":compose:compiler-plugin:integration-tests\"\n  \":compose:compiler-plugin:embedded\"\n  \":compose:ide-plugin\"\n  \":compose:gradle-plugin\" // coming soon\n\nThe directory structure would then be,\n\n  /compose\n    /runtime\n    /compiler-plugin\n      /integration-tests\n      /embedded\n    /ide-plugin\n    /gradle-plugin",
+      "parentUuid": "9ca7ddbe_c5d6a4e9",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 91
+      },
+      "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
