@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "229eb666_20f60530",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T19:03:04Z",
+      "side": 1,
+      "message": "I believe you will have to update the api.",
+      "range": {
+        "startLine": 667,
+        "startChar": 26,
+        "endLine": 667,
+        "endChar": 35
+      },
+      "revId": "15846e2b50630d2ff44d30961731b2c6e624b80e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
