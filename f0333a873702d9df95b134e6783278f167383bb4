@@ -46,6 +46,30 @@
       "revId": "f0333a873702d9df95b134e6783278f167383bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3081cbe8_6cbd565d",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateHandle.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T16:00:44Z",
+      "side": 1,
+      "message": "It works badly with \".value\" because getter is marked as \"Nullable\", so kotlin to enable property syntax decides to allow nullable.",
+      "parentUuid": "332b0562_40880058",
+      "range": {
+        "startLine": 180,
+        "startChar": 68,
+        "endLine": 180,
+        "endChar": 76
+      },
+      "revId": "f0333a873702d9df95b134e6783278f167383bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
