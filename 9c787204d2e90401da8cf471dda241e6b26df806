@@ -350,6 +350,30 @@
     },
     {
       "key": {
+        "uuid": "eb5856d8_3e0ed98b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-18T19:54:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "604c1ed4_847c9ca6",
+      "range": {
+        "startLine": 631,
+        "startChar": 42,
+        "endLine": 631,
+        "endChar": 48
+      },
+      "revId": "9c787204d2e90401da8cf471dda241e6b26df806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d5f3cc6_5bb24a3a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/ShortcutEntity.kt",
         "patchSetId": 4
