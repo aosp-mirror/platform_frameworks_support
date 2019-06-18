@@ -22,6 +22,30 @@
       "revId": "48c9fa1fe543bd226dd6352f26b621f2743146ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5216a9e_0383e122",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/AlignTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-18T09:39:29Z",
+      "side": 1,
+      "message": "Oh I did not know this, I\u0027ve created b/135507008 to change all ui-layout tests to use it. Will probably leave this CL as is to keep consistency across module until I update everywhere.",
+      "parentUuid": "63f203cb_e4dd9081",
+      "range": {
+        "startLine": 166,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "48c9fa1fe543bd226dd6352f26b621f2743146ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
