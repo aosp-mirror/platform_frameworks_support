@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d15af03f_46ae5375",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T18:08:43Z",
+      "side": 1,
+      "message": "this sounds like an action more than a query. sounds like it should be \"intersects\"",
+      "range": {
+        "startLine": 667,
+        "startChar": 26,
+        "endLine": 667,
+        "endChar": 35
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02dd5ff0_6cec3b45",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditingBuffer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T18:08:43Z",
+      "side": 1,
+      "message": "nit: :) we will get confused by Editing Composition \u0026 Compose Composition (no action needed)",
+      "range": {
+        "startLine": 197,
+        "startChar": 13,
+        "endLine": 197,
+        "endChar": 27
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93394a3a_82b64b77",
+        "filename": "ui/core/src/test/java/androidx/ui/core/TextRangeTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T18:08:43Z",
+      "side": 1,
+      "message": "I vaguely remember that we used \u0027\u0027 style test names for junit test\neven if that is not the case, the style here is not the same as the style on the other test file.",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 21
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b54818_1e378253",
+        "filename": "ui/core/src/test/java/androidx/ui/input/DeleteSurroundingTextEditOpTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-18T18:08:43Z",
+      "side": 1,
+      "message": "ditto test name",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "f0236186f8076c982ab51edbea8b1a3729cafc22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
