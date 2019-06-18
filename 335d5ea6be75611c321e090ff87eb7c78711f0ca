@@ -876,6 +876,30 @@
     },
     {
       "key": {
+        "uuid": "c6b3c409_8c392e66",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T13:11:32Z",
+      "side": 1,
+      "message": "I like this implementation!",
+      "parentUuid": "dd3a9624_7fec5930",
+      "range": {
+        "startLine": 152,
+        "startChar": 31,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "335d5ea6be75611c321e090ff87eb7c78711f0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d983415c_afea94b7",
         "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
         "patchSetId": 14

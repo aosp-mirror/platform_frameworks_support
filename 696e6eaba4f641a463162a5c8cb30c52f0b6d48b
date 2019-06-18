@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "3dbf0f86_7e5cd0ad",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValueImpl.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T13:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f1985d1_1db6eb5d",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05b74be1_0748ff86",
         "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
         "patchSetId": 15
@@ -495,6 +519,30 @@
       "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae1ee8a_be80a488",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/DynamicTargetAnimation.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T13:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc0fc40_1cea91eb",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "696e6eaba4f641a463162a5c8cb30c52f0b6d48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
