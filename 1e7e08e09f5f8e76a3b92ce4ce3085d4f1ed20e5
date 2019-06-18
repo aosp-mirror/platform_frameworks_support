@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbda1026_a52b20de",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiCompatibilityTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T17:37:43Z",
+      "side": 1,
+      "message": "Hmm it occurs to me that this task doesn\u0027t run if there is no previous version of the library yet, or if the version is of the form *.*.0-alpha*. Maybe move this into GenerateApiTask?",
+      "revId": "1e7e08e09f5f8e76a3b92ce4ce3085d4f1ed20e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b291f5b8_eb711008",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T17:37:43Z",
+      "side": 1,
+      "message": "Hmm if we make the api lint baseline file be the same as the checkApi baseline file then that might make it harder to notice whether an error applies to one or to the other (and an api lint error would probably mean that the api is confusing whereas a checkApi error would mean that the tooling thinks there\u0027s a binary incompatibility). Is that a property that we care about?",
+      "revId": "1e7e08e09f5f8e76a3b92ce4ce3085d4f1ed20e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
