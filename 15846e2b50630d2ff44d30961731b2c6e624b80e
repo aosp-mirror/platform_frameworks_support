@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "722941be_029011a9",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T19:50:31Z",
+      "side": 1,
+      "message": "Sorry, forgot putting the URL of DOM selection API.\nhttps://developer.mozilla.org/en-US/docs/Web/API/Selection",
+      "parentUuid": "dc2bb41c_b46c79bd",
+      "range": {
+        "startLine": 656,
+        "startChar": 21,
+        "endLine": 656,
+        "endChar": 30
+      },
+      "revId": "15846e2b50630d2ff44d30961731b2c6e624b80e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "229eb666_20f60530",
         "filename": "ui/core/api/current.txt",
         "patchSetId": 4
