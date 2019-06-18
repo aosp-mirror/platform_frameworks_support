@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ec6907b_1f61808b",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/AnimatedValue.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:34:59Z",
+      "side": 1,
+      "message": "Should this be the second parameter? It is required, whereas decay is optional.",
+      "range": {
+        "startLine": 286,
+        "startChar": 4,
+        "endLine": 286,
+        "endChar": 42
+      },
+      "revId": "10bd18bf090e7a0aa4f7a0868db71b3df5946bf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
