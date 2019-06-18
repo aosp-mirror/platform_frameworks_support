@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc2bb41c_b46c79bd",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T19:36:13Z",
+      "side": 1,
+      "message": "I do not want to use CharRange or IntRange for text since\n- It is inclusive-inclusive range.\n  It is unnatural to text. For example, we frequently uses collapsed range, e.g. cursor. The collapsed range is represented as (2, 2) in TextRange, this is natural, but in CharRange or IntRange, it is (2, 1). This is wired. \n- It is undirected range.\n  Usually, selection has direction. For example, here is a selection API in DOM which distinguish the start (anchor) and end (focus).",
+      "parentUuid": "d93b155a_567c809b",
+      "range": {
+        "startLine": 656,
+        "startChar": 21,
+        "endLine": 656,
+        "endChar": 30
+      },
+      "revId": "15846e2b50630d2ff44d30961731b2c6e624b80e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "229eb666_20f60530",
         "filename": "ui/core/api/current.txt",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-18T19:03:04Z",
       "side": 1,
       "message": "I believe you will have to update the api.",
+      "range": {
+        "startLine": 667,
+        "startChar": 26,
+        "endLine": 667,
+        "endChar": 35
+      },
+      "revId": "15846e2b50630d2ff44d30961731b2c6e624b80e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f409dccd_351a8dec",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-18T19:36:13Z",
+      "side": 1,
+      "message": "Oops, you are right. will upload soon.",
+      "parentUuid": "229eb666_20f60530",
       "range": {
         "startLine": 667,
         "startChar": 26,
