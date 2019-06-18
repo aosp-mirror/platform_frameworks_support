@@ -2,6 +2,103 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb9c7d23_60cf929c",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "I\u0027d better use:\nval useAnnotation \u003d ...  ?: throw IllegalStateException(\"Failed to extract level from annotation\")\n\ninstead of \"!!\"",
+      "range": {
+        "startLine": 80,
+        "startChar": 82,
+        "endLine": 80,
+        "endChar": 84
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f644999_c3421eab",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "will UElement.getParentOfType help you?",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cfb8806_839b5e11",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "again style thing, I\u0027d write: \n\nval matchName \u003d annotations.any { annotation.qualifiedName \u003d\u003d annotationName } \nval matchUseAnnotaion \u003d annotations\n    .filter { annotation.qualifiedName \u003d\u003d USE_EXPERIMENTAL_ANNOTATION }\n    .mapNotNull { annotation.attributeValues.getOrNull(0) }\n    .any { markerClass -\u003e getQualifiedNameFromExpression(context, markerClass) \u003d\u003d annotationName} \nif (matchName || matchUseAnnotation) return true",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 17
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06109bcb_f880e27d",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "nit: I personally like to move functions like this to file level, so it would be obvious that they are \"pure\"\n\nalso I\u0027d make it extension property, to improve readability on caller side. Impl\u0027d look like:\n\nprivate val UNamedExpression?.simpleName : String?\n    get() \u003d this?.let { (expression as? USimpleNameReferenceExpression)?.identifier }",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d9e6bef_0527589d",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "here I\u0027d go with extension method:\nexpression.resolveQualifiedName(context)",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff1f7246_1e9284ef",
         "filename": "annotation/annotation-experimental-lint/src/sample/java/sample/UseExperimentalClassChecked.java",
         "patchSetId": 3
@@ -25,6 +122,30 @@
     },
     {
       "key": {
+        "uuid": "17e199a6_2dbba579",
+        "filename": "annotation/annotation-experimental-lint/src/sample/java/sample/UseExperimentalClassChecked.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff1f7246_1e9284ef",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 31
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e0ee297_6c911cbc",
         "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
         "patchSetId": 3
@@ -45,6 +166,30 @@
       "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a0301b_ad5e21ff",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-18T23:04:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e0ee297_6c911cbc",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
