@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "570f0f38_c3bde959",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:28:44Z",
+      "side": 1,
+      "message": "dumb question: why is this only for the 3-param constructor?",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "f247000d7fffcdc7babea2d72f80625ef82d9b3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be128ae3_08ff76db",
         "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
         "patchSetId": 1
