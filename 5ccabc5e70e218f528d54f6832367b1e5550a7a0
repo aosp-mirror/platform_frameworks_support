@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7183fe8a_4344e2f7",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:54:22Z",
+      "side": 1,
+      "message": "This method is pretty long. Can you break it up in a meaningful way?",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dccc2ec8_cfd47d44",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:54:22Z",
+      "side": 1,
+      "message": "I think you need to take into account the offset (x \u0026 y) of the layoutNode",
+      "range": {
+        "startLine": 100,
+        "startChar": 20,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aeea665_a16ad680",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T21:54:22Z",
+      "side": 1,
+      "message": "It feels like we\u0027ve made a mistake in our architecture here and elsewhere. I don\u0027t like that we have to do these instance checks. In the future let\u0027s consider multiple trees. In one tree, we\u0027ll have something that supports hitTest, just for PointerInput. In another, we have draw(). In another, we have layout(). etc.",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
