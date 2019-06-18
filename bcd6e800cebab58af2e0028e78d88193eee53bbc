@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "509ed012_fa94afb0",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-18T02:00:15Z",
+      "side": 1,
+      "message": "Is this the right order? https://developer.android.com/reference/androidx/test/espresso/idling/CountingIdlingResource.html puts this at the end. Note: https://developer.android.com/reference/android/support/test/espresso/Espresso#registeridlingresources is deprecated",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 89
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d5e5a2_b2ae2fb8",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-18T02:00:15Z",
+      "side": 1,
+      "message": "Is there an elegant way to make this non-static?",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
