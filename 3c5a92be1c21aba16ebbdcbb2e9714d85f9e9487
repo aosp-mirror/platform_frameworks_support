@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74cd7a1f_e5e931c2",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-18T08:29:34Z",
+      "side": 1,
+      "message": "Jaewan, shouldn\u0027t we allow developers to set the executor?",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 48
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
