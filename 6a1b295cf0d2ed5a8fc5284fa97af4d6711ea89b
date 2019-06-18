@@ -46,6 +46,30 @@
       "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af4d600a_e6bb5f1e",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-18T23:33:09Z",
+      "side": 1,
+      "message": "LGTM personally",
+      "parentUuid": "92150c64_1f75d2d5",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 91
+      },
+      "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
