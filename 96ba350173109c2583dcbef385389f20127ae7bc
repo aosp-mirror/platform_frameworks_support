@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a6e450_8191c97e",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T20:46:08Z",
+      "side": 1,
+      "message": "I wish I was better at naming. Generic is probably a bad one, though. Maybe PathOutline?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16329b95_cf5e943b",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-18T20:46:08Z",
+      "side": 1,
+      "message": "One reason we may want to use a different name is that this reserves a pretty common \"Border\" name for something that doesn\u0027t feel as necessary. For example, I can imagine having a composable function:\n\n@Composable\nfun Border(stroke: Stroke, strokeThickness: Dp, shape: Shape) {\n...\n}\n\nPerhaps this class is important enough to give it such a primary name? I\u0027ll let it go for now, but I reserve the right to ask for a rename later when we go over all of our needs :-)",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
