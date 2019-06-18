@@ -17,6 +17,7 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
+import androidx.build.checkapi.ApiViolationBaselines
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFiles
@@ -28,6 +29,9 @@ abstract class GenerateApiTask : MetalavaTask() {
     /** Text file to which API signatures will be written. */
     @get:Input
     abstract val apiLocation: Property<ApiLocation>
+
+    @get:Input
+    abstract val baselines: Property<ApiViolationBaselines>
 
     @get:Input
     var generateRestrictedAPIs = false
@@ -52,7 +56,7 @@ abstract class GenerateApiTask : MetalavaTask() {
             dependencyClasspath,
             sourcePaths,
             apiLocation.get().publicApiFile,
-            false
+            GenerateApiMode.PublicApi(baselines.get().apiLintFile)
         )
 
         if (generateRestrictedAPIs) {
@@ -61,7 +65,7 @@ abstract class GenerateApiTask : MetalavaTask() {
                 dependencyClasspath,
                 sourcePaths,
                 apiLocation.get().restrictedApiFile,
-                true
+                GenerateApiMode.RestrictedApi
             )
         }
     }
