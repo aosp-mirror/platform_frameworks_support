@@ -1,0 +1,11 @@
+// Baseline format: 1.0
+StartWithLower: androidx.work.OneTimeWorkRequestKt#OneTimeWorkRequestBuilder():
+    Method name must start with lowercase char: OneTimeWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(java.time.Duration):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(java.time.Duration, java.time.Duration):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(long, java.util.concurrent.TimeUnit):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
+StartWithLower: androidx.work.PeriodicWorkRequestKt#PeriodicWorkRequestBuilder(long, java.util.concurrent.TimeUnit, long, java.util.concurrent.TimeUnit):
+    Method name must start with lowercase char: PeriodicWorkRequestBuilder
