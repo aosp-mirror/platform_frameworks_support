@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff1f7246_1e9284ef",
+        "filename": "annotation/annotation-experimental-lint/src/sample/java/sample/UseExperimentalClassChecked.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-18T22:21:31Z",
+      "side": 1,
+      "message": "For some reason I have to use the full \"level \u003d ERROR\" here rather than just \"ERROR\" or it will give me a mysterious redline error about value(). Unclear where that\u0027s coming from.",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 31
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e0ee297_6c911cbc",
+        "filename": "annotation/annotation-experimental/src/main/java/androidx/annotation/Experimental.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-18T22:21:31Z",
+      "side": 1,
+      "message": "I will file a separate bug to handle linting that these annotations are always CLASS (or Kotlin BINARY) retention.",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
