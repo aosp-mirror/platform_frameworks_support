@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5fcdfb94_a93837fb",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-18T23:49:00Z",
+      "side": 1,
+      "message": "3 things:\n\n1. Actually, I think my comments are long.  Algorithms are hard and I spent a while making sure that the code was as simple as I could make it (and didn\u0027t have any weird, harder than necessary to follow, code) but I still wanted to back it up with comments to explain why things were happening the way they were.. so there are a lot of long comments.\n\n2. I actually think that breaking long methods into sub methods may do more harm than good because it may make code paths harder to reason about.  If I look at a class with 3 long methods, it doesn\u0027t take long at all to determine the enumeration of possible code paths, but if I see a class with 9 methods, the only way to really reason about code paths is to do the research to see which methods are calling which ones where (which is a complexity that I hate running into when I read code).  I think methods should only be broken out when it actually makes sense to reuse the method (in which case the complexity of doing so is called for).\n\n3. I added more comments, haha, with Step 1, 2, and 3, titles to make it clear how one can conceptually think of the algorithm.",
+      "parentUuid": "7183fe8a_4344e2f7",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dccc2ec8_cfd47d44",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "46294973_7c53293f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-18T23:49:00Z",
+      "side": 1,
+      "message": "It is actually taken care of at the next level up in the recursion.  I made the decision that when this method is called, I want it to be able to assume it\u0027s point of origin is 0, 0 (because the source of truth for it\u0027s position is in the parent and it should never assume it knows it\u0027s actual position relative to it\u0027s parent).  So, in the next level up, if a child is a layout node, before calling hitTest on the layout node, the positions are offset.",
+      "parentUuid": "dccc2ec8_cfd47d44",
+      "range": {
+        "startLine": 100,
+        "startChar": 20,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0aeea665_a16ad680",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-18T21:54:22Z",
       "side": 1,
       "message": "It feels like we\u0027ve made a mistake in our architecture here and elsewhere. I don\u0027t like that we have to do these instance checks. In the future let\u0027s consider multiple trees. In one tree, we\u0027ll have something that supports hitTest, just for PointerInput. In another, we have draw(). In another, we have layout(). etc.",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9baa4e2_1cebf67b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-18T23:49:00Z",
+      "side": 1,
+      "message": "Yeah, I think I agree.  However, in this case, I need LayoutNodes and PointerInputNodes to do hit testing.  That being said, it seems that SemanticsNode, DrawNode, and PointerInputNode all need layout information such that maybe they could be given that information during the layout phase, such that they then wouldn\u0027t need to query LayoutNodes any any following pass (such as this hit testing pass).",
+      "parentUuid": "0aeea665_a16ad680",
       "range": {
         "startLine": 134,
         "startChar": 24,
