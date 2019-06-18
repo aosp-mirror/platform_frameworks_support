@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be128ae3_08ff76db",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-18T18:11:01Z",
+      "side": 1,
+      "message": "Do we actually want this check or do we want passing down any insets we receive to be unconditional?",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 49
+      },
+      "revId": "f247000d7fffcdc7babea2d72f80625ef82d9b3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
