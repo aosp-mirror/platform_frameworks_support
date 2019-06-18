@@ -30,7 +30,7 @@ plugins {
 
 dependencies {
     implementation(KOTLIN_STDLIB)
-    implementation project(":compose-plugin-cli")
+    implementation project(":compose-compiler-plugin")
 
     implementation("org.jetbrains.kotlin:kotlin-compiler")
     implementation("org.jetbrains.kotlin:kotlin-plugin")
