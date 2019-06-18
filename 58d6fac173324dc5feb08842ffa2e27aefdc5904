@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e5e935a_1b25b9f1",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceRecyclerViewAccessibilityDelegate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-06-18T04:03:36Z",
+      "side": 1,
+      "message": "Do we need to deprecate this? It has the @Hide, and the @RestrictTo(LIBRARY_GROUP_PREFIX) annotation, which means it\u0027s not publicly visible. That being said, I am perfectly fine putting a deprecated tag on it for internal developers though.",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "58d6fac173324dc5feb08842ffa2e27aefdc5904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
