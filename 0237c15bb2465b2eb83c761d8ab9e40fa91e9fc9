@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e557d30_07034d8e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-18T07:59:49Z",
+      "side": 1,
+      "message": "Q) Why should it wait until being prepared()?",
+      "revId": "0237c15bb2465b2eb83c761d8ab9e40fa91e9fc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
