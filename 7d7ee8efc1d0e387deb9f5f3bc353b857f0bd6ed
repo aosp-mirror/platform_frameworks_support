@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08ca7ea8_99d3c889",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteActionProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-18T02:35:05Z",
+      "side": 1,
+      "message": "\"even when\" sounds more natural in this context.",
+      "range": {
+        "startLine": 223,
+        "startChar": 58,
+        "endLine": 223,
+        "endChar": 65
+      },
+      "revId": "7d7ee8efc1d0e387deb9f5f3bc353b857f0bd6ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
