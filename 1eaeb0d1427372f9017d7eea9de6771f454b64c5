@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3db9f408_8cd6d4be",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38aa8eed_02fa39a4",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19b54171_43366527",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d1971fb_3a282466",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b54171_43366527",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0d9c636f_f5429ad5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d99d4513_61faf18c",
+      "range": {
+        "startLine": 40,
+        "startChar": 7,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f97ebd6_35f20a1c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9c16ae_befbb8d6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f97ebd6_35f20a1c",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ca39d79a_1860268a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4841a9aa_eb7677be",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4562d7f2_6b8f1818",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaTasks.kt",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-18T15:57:55Z",
       "side": 1,
       "message": "getOrCreate is probably a more accurate name now.",
+      "range": {
+        "startLine": 96,
+        "startChar": 44,
+        "endLine": 96,
+        "endChar": 68
+      },
+      "revId": "1eaeb0d1427372f9017d7eea9de6771f454b64c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3ffe4c1_447fd0e8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaTasks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-18T18:12:37Z",
+      "side": 1,
+      "message": "Hmm, I think that the caller doesn\u0027t really want to think about whether it\u0027s possible that this function might create the configuration; from the caller\u0027s point of view I think it\u0027s the same as a lazily (or even eagerly) initialized variable.",
+      "parentUuid": "4562d7f2_6b8f1818",
       "range": {
         "startLine": 96,
         "startChar": 44,
