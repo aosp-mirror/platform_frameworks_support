@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "c63f652d_61cb8931",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Shape.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T21:00:51Z",
+      "side": 1,
+      "message": "Shape defines a shape not only for drawing the border on top of it. The other purposes are filling it with the color, clipping and drawing the shadows",
+      "parentUuid": "91f2f85c_b333b9f4",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2893fdf7_2ec1c985",
         "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
         "patchSetId": 1

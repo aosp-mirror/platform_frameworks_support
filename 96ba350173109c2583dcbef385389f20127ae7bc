@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6acf3baf_89c3332e",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T21:00:51Z",
+      "side": 1,
+      "message": "Yeah. I didn\u0027t want to use exact Path as it will became Path(val path: androidx.ui.painting.Path). And Outline.PathOutline contains two Outlines in it. Not sure what is the best way to go",
+      "parentUuid": "f9a6e450_8191c97e",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16329b95_cf5e943b",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-18T20:46:08Z",
       "side": 1,
       "message": "One reason we may want to use a different name is that this reserves a pretty common \"Border\" name for something that doesn\u0027t feel as necessary. For example, I can imagine having a composable function:\n\n@Composable\nfun Border(stroke: Stroke, strokeThickness: Dp, shape: Shape) {\n...\n}\n\nPerhaps this class is important enough to give it such a primary name? I\u0027ll let it go for now, but I reserve the right to ask for a rename later when we go over all of our needs :-)",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "014d32ec_1d5dc08a",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-18T21:00:51Z",
+      "side": 1,
+      "message": "I a going to add DrawShape composable in the next CL which will solve your exact use-case.\nDrawShape(CirlceShape(border \u003d Border(Color.Gray, MyStrokeThickness))) \nDrawShape will not fill the shape as you didn\u0027t pass the second optional fillBrush param, but will draw the border for this shape",
+      "parentUuid": "16329b95_cf5e943b",
       "range": {
         "startLine": 32,
         "startChar": 11,
