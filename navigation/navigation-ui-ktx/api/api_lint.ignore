@@ -1,0 +1,7 @@
+// Baseline format: 1.0
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(android.view.Menu, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(androidx.navigation.NavGraph, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration
+StartWithLower: androidx.navigation.ui.AppBarConfigurationKt#AppBarConfiguration(java.util.Set<java.lang.Integer>, androidx.drawerlayout.widget.DrawerLayout, kotlin.jvm.functions.Function0<java.lang.Boolean>):
+    Method name must start with lowercase char: AppBarConfiguration

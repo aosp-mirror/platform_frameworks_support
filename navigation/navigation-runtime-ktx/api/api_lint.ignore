@@ -1,0 +1,3 @@
+// Baseline format: 1.0
+StartWithLower: androidx.navigation.ActivityNavigatorExtrasKt#ActivityNavigatorExtras(androidx.core.app.ActivityOptionsCompat, int):
+    Method name must start with lowercase char: ActivityNavigatorExtras

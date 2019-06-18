@@ -40,7 +40,45 @@ fun Project.runMetalavaWithArgs(configuration: Configuration, args: List<String>
             "--error",
             "DeprecationMismatch", // Enforce deprecation mismatch
             "--hide",
-            "HiddenSuperclass" // We allow having a hidden parent class
+            listOf(
+                // The list of checks that are hidden as they are not useful in androidx
+                "Enum", // Enums are allowed to be use in androidx
+                "CallbackInterface", // With target Java 8, we have default methods
+                "HiddenSuperclass", // We allow having a hidden parent class
+                "ProtectedMember", // We allow using protected members in androidx
+
+                // List of checks that have bugs, but should be enabled once fixed.
+                "GetterSetterNames", // b/135498039
+                "StaticUtils", // b/135489083
+                "AllUpper", // b/135708486
+
+                // The list of checks that are API lint warnings and are yet to be enabled
+                "MinMaxConstant",
+                "IntentBuilderName",
+                "OnNameExpected",
+                "TopLevelBuilder",
+                "MissingBuild",
+                "BuilderSetStyle",
+                "SetterReturnsThis",
+                "PackageLayering",
+                "OverlappingConstants",
+                "IllegalStateException",
+                "ListenerLast",
+                "ExecutorRegistration",
+                "StreamFiles",
+                "ParcelableList",
+                "AbstractInner",
+                "NotCloseable",
+                "ArrayReturn",
+                "UserHandle",
+                "UserHandleName",
+                "MethodNameTense",
+                "UseIcu",
+                "NoByteOrShort",
+                "CommonArgsFirst",
+                "SamShouldBeLast",
+                "MissingJvmStatic"
+            ).joinToString()
         ) + args
     }
 }
@@ -50,7 +88,8 @@ fun Project.generateApi(
     dependencyClasspath: FileCollection,
     sourcePaths: Collection<File>,
     outputFile: File,
-    includeRestrictedApis: Boolean
+    includeRestrictedApis: Boolean,
+    apiLintBaseline: File
 ) {
 
     val tempOutputFile = if (includeRestrictedApis) {
@@ -75,9 +114,21 @@ fun Project.generateApi(
 
     if (includeRestrictedApis) {
         args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
+    } else {
+        args = args + listOf(
+            "--api-lint"
+        )
+        if (apiLintBaseline.exists()) {
+            args = args + listOf(
+                "--baseline",
+                apiLintBaseline.toString()
+            )
+        }
     }
 
     val metalavaConfiguration = getMetalavaConfiguration()
+
+    println(args)
 
     runMetalavaWithArgs(metalavaConfiguration, args)
 
