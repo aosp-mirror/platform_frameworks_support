@@ -284,8 +284,8 @@ public abstract class MediaLibraryService extends MediaSessionService {
                 return super.setId(id);
             }
 
-            @NonNull
             @Override
+            @NonNull
             public Builder setExtras(@NonNull Bundle extras) {
                 return super.setExtras(extras);
             }
@@ -398,6 +398,7 @@ public abstract class MediaLibraryService extends MediaSessionService {
         }
 
         @Override
+        @NonNull
         MediaLibrarySessionCallback getCallback() {
             return (MediaLibrarySessionCallback) super.getCallback();
         }
@@ -443,7 +444,7 @@ public abstract class MediaLibraryService extends MediaSessionService {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(@NonNull Intent intent) {
         return super.onBind(intent);
     }
 

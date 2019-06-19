@@ -1108,7 +1108,9 @@ public class BrowseFragment extends BaseFragment {
             if (mCanShowHeaders && isInHeadersTransition()) {
                 return focused;
             }
-            if (DEBUG) Log.v(TAG, "onFocusSearch focused " + focused + " + direction " + direction);
+            if (DEBUG) {
+                Log.v(TAG, "onFocusSearch focused " + focused + " + direction " + direction);
+            }
 
             if (getTitleView() != null && focused != getTitleView()
                     && direction == View.FOCUS_UP) {
@@ -1351,7 +1353,8 @@ public class BrowseFragment extends BaseFragment {
     }
 
     void createHeadersTransition() {
-        mHeadersTransition = TransitionHelper.loadTransition(FragmentUtil.getContext(BrowseFragment.this),
+        mHeadersTransition = TransitionHelper.loadTransition(
+                FragmentUtil.getContext(BrowseFragment.this),
                 mShowingHeaders
                         ? R.transition.lb_browse_headers_in : R.transition.lb_browse_headers_out);
 

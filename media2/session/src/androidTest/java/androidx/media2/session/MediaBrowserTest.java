@@ -70,8 +70,8 @@ public class MediaBrowserTest extends MediaControllerTest {
     private static final String TAG = "MediaBrowserTest";
 
     @Override
-    MediaController onCreateController(final @NonNull SessionToken token,
-            final @Nullable Bundle connectionHints, final @Nullable TestBrowserCallback callback)
+    MediaController onCreateController(@NonNull final SessionToken token,
+            @Nullable final Bundle connectionHints, @Nullable final TestBrowserCallback callback)
             throws InterruptedException {
         final AtomicReference<MediaController> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {

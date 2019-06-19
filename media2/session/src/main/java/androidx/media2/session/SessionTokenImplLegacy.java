@@ -163,8 +163,8 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
         return TYPE_SESSION;
     }
 
-    @NonNull
     @Override
+    @NonNull
     public Bundle getExtras() {
         return mExtras == null ? Bundle.EMPTY : new Bundle(mExtras);
     }

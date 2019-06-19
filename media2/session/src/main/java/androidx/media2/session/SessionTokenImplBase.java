@@ -152,8 +152,8 @@ final class SessionTokenImplBase implements SessionToken.SessionTokenImpl {
         return mType;
     }
 
-    @NonNull
     @Override
+    @NonNull
     public Bundle getExtras() {
         return mExtras == null ? Bundle.EMPTY : new Bundle(mExtras);
     }

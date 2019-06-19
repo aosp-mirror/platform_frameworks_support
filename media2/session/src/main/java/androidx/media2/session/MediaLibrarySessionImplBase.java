@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.media2.common.MediaItem;
@@ -63,6 +64,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements
     }
 
     @Override
+    @NonNull
     public MediaLibrarySession getInstance() {
         return (MediaLibrarySession) super.getInstance();
     }
@@ -78,6 +80,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements
     }
 
     @Override
+    @NonNull
     public List<ControllerInfo> getConnectedControllers() {
         List<ControllerInfo> list = super.getConnectedControllers();
         MediaLibraryServiceLegacyStub legacyStub = getLegacyBrowserService();
@@ -89,7 +92,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements
     }
 
     @Override
-    public boolean isConnected(ControllerInfo controller) {
+    public boolean isConnected(@NonNull ControllerInfo controller) {
         if (super.isConnected(controller)) {
             return true;
         }
@@ -285,7 +288,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements
     }
 
     @Override
-    void dispatchRemoteControllerTaskWithoutReturn(RemoteControllerTask task) {
+    void dispatchRemoteControllerTaskWithoutReturn(@NonNull RemoteControllerTask task) {
         super.dispatchRemoteControllerTaskWithoutReturn(task);
         MediaLibraryServiceLegacyStub legacyStub = getLegacyBrowserService();
         if (legacyStub != null) {

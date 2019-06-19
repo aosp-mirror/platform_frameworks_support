@@ -64,6 +64,7 @@ import android.os.HandlerThread;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.session.LibraryResult;
@@ -137,7 +138,7 @@ public class MockMediaLibraryService extends MediaLibraryService {
     }
 
     @Override
-    public MediaLibrarySession onGetSession(ControllerInfo controllerInfo) {
+    public MediaLibrarySession onGetSession(@NonNull ControllerInfo controllerInfo) {
         TestServiceRegistry registry = TestServiceRegistry.getInstance();
         TestServiceRegistry.OnGetSessionHandler onGetSessionHandler =
                 registry.getOnGetSessionHandler();
@@ -180,8 +181,8 @@ public class MockMediaLibraryService extends MediaLibraryService {
     private class TestLibrarySessionCallback extends MediaLibrarySessionCallback {
 
         @Override
-        public SessionCommandGroup onConnect(MediaSession session,
-                ControllerInfo controller) {
+        public SessionCommandGroup onConnect(@NonNull MediaSession session,
+                @NonNull ControllerInfo controller) {
             if (!CLIENT_PACKAGE_NAME.equals(controller.getPackageName())) {
                 return null;
             }
@@ -334,9 +335,11 @@ public class MockMediaLibraryService extends MediaLibraryService {
             return RESULT_ERROR_BAD_VALUE;
         }
 
+        @NonNull
         @Override
-        public SessionResult onCustomCommand(MediaSession session,
-                ControllerInfo controller, SessionCommand sessionCommand, Bundle args) {
+        public SessionResult onCustomCommand(@NonNull MediaSession session,
+                @NonNull ControllerInfo controller, @NonNull SessionCommand sessionCommand,
+                Bundle args) {
             switch (sessionCommand.getCustomAction()) {
                 case CUSTOM_ACTION:
                     return new SessionResult(

@@ -236,7 +236,7 @@ public abstract class MediaSessionService extends Service {
      *
      * @return sessions
      */
-    public final @NonNull List<MediaSession> getSessions() {
+    public @NonNull final List<MediaSession> getSessions() {
         return mImpl.getSessions();
     }
 
@@ -253,8 +253,8 @@ public abstract class MediaSessionService extends Service {
      * @return Binder
      */
     @CallSuper
-    @Nullable
     @Override
+    @Nullable
     public IBinder onBind(@NonNull Intent intent) {
         return mImpl.onBind(intent);
     }

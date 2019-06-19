@@ -161,22 +161,22 @@ public class UriMediaItem extends MediaItem {
         }
 
         // Override just to change return type.
-        @NonNull
         @Override
+        @NonNull
         public Builder setMetadata(@Nullable MediaMetadata metadata) {
             return (Builder) super.setMetadata(metadata);
         }
 
         // Override just to change return type.
-        @NonNull
         @Override
+        @NonNull
         public Builder setStartPosition(long position) {
             return (Builder) super.setStartPosition(position);
         }
 
         // Override just to change return type.
-        @NonNull
         @Override
+        @NonNull
         public Builder setEndPosition(long position) {
             return (Builder) super.setEndPosition(position);
         }
@@ -184,8 +184,8 @@ public class UriMediaItem extends MediaItem {
         /**
          * @return A new UriMediaItem with values supplied by the Builder.
          */
-        @NonNull
         @Override
+        @NonNull
         public UriMediaItem build() {
             return new UriMediaItem(this);
         }
