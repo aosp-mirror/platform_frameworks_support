@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2b8c189_04779c89",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:06:15Z",
+      "side": 1,
+      "message": "This is the style that should be used for dark text. If we\u0027re making the default button style have black text, then this DarkText style is redundant. Can it be removed?",
+      "range": {
+        "startLine": 392,
+        "startChar": 17,
+        "endLine": 392,
+        "endChar": 43
+      },
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6053c0f0_bcd5bce7",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:06:15Z",
+      "side": 1,
+      "message": "Why not controlled by colorButtonNormal anymore? This seems like a significant departure from the old style. \n\nIn effect, this style should no longer be named \"Colored\" if this change goes in.",
+      "range": {
+        "startLine": 408,
+        "startChar": 46,
+        "endLine": 408,
+        "endChar": 62
+      },
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
