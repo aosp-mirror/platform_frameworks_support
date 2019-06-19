@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f798ed57_2ce75239",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Px.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6079cf87_f1b4a937",
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9a6e450_8191c97e",
         "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
         "patchSetId": 2
@@ -90,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "4c6fe1a9_408556dc",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "I didn\u0027t want to limit it with only Convex paths. We still can use concave shapes for drawing or clipping. The real limitation is shadows, so I guess if the user will try to provide concave shape for drawing the shadow it would case an exception. \nWe can for sure have two of them separately \ndata class Convex(val path: Path) : Outline()\ndata class Concave(val path: Path) : Outline()\nBut I am not sure what is the benefit of it against the combined Generic(val path: Path)",
+      "parentUuid": "d95bace7_ff169c5a",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ff0fe70_ba8566e6",
         "filename": "ui/material/api/1.0.0-alpha01.txt",
         "patchSetId": 2
@@ -104,6 +146,24 @@
       "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd34b198_cf895cc0",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1ff0fe70_ba8566e6",
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "34ff041c_bbd3d021",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7dcd24f_26258d6e",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee4c4243_c51fa7a5",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "f710cb5aef2ae36d9cb221720942629531587044",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47178058_1ec9e74d",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "db4a9b87_84c8ee65",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "5ad0a776_7419cb63",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Shape.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c63f652d_61cb8931",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2893fdf7_2ec1c985",
         "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
         "patchSetId": 1
@@ -235,6 +307,30 @@
       "revId": "f710cb5aef2ae36d9cb221720942629531587044",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e56868_b694ae50",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/Corner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee48fce7_bc5b80dd",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -329,6 +425,30 @@
       "revId": "f710cb5aef2ae36d9cb221720942629531587044",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7529fa62_87283bbd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/shape/ShapeModel.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T10:59:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c81a169_e571e1a9",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "f710cb5aef2ae36d9cb221720942629531587044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
