@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0568f48_c807ae55",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "Please refactor this to a helper method. Consider simply copying https://cs.chromium.org/chromium/src/base/android/java/src/org/chromium/base/FileUtils.java?l\u003d36\u0026rcl\u003dc1b63f34dcaf88a7ee112d7a3a833ff80897ae79",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 9
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7edcfa9_bb1295c0",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "I\u0027d suggest using the testPath var here",
+      "range": {
+        "startLine": 153,
+        "startChar": 55,
+        "endLine": 153,
+        "endChar": 64
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31011208_4d6bfc5b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "Please also link bug numbers in TODOs (general tips at http://go/tott-486)",
+      "range": {
+        "startLine": 230,
+        "startChar": 7,
+        "endLine": 230,
+        "endChar": 11
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821e8885_8f14446b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "Need more docs to explain what this value should be. Ex. should this be a sub-path under the files dir, or should this be a full path the app has permission to read?",
+      "range": {
+        "startLine": 236,
+        "startChar": 18,
+        "endLine": 236,
+        "endChar": 65
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e67222c4_1aa7d2f2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "delete this or actually use this param",
+      "range": {
+        "startLine": 237,
+        "startChar": 18,
+        "endLine": 237,
+        "endChar": 25
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c2ccc7b_8e7ad091",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "I think we know this is \"utf-8\", right?",
+      "range": {
+        "startLine": 264,
+        "startChar": 57,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328c550c_4b3afbbf",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "I think, at this layer, we should throw exceptions. The next layer should catch them and do the logging. Right now, you\u0027re mixing both forms of error handling, and I think we should choose one or the other.",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 76
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea9937e_86d9b431",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T21:22:36Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right. Why would we turn \"foo/bar.txt\" into \"foo/bar.txt/\"?",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 73
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
