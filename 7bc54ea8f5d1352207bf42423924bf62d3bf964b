@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03a77554_496facf9",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-19T21:18:57Z",
+      "side": 1,
+      "message": "Why internal only though ?",
+      "revId": "7bc54ea8f5d1352207bf42423924bf62d3bf964b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
