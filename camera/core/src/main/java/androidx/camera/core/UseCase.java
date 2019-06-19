@@ -426,6 +426,24 @@ public abstract class UseCase {
     }
 
     /**
+     * Called when use case is attached to camera.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void onAttachToCamera() {
+    }
+
+    /**
+     * Called when use case is detached from camera.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void onDetachFromCamera() {
+    }
+
+    /**
      * Retrieves a previously attached {@link CameraControl}.
      *
      * @hide

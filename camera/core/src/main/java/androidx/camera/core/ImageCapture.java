@@ -55,6 +55,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,8 @@ public class ImageCapture extends UseCase {
     final Handler mMainHandler = new Handler(Looper.getMainLooper());
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final ArrayDeque<ImageCaptureRequest> mImageCaptureRequests = new ArrayDeque<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Map<ImageProxy, ImageCaptureRequest> mImageDispatchedRequests = new HashMap<>();
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
     private final SessionConfig.Builder mSessionConfigBuilder;
@@ -241,6 +244,17 @@ public class ImageCapture extends UseCase {
     @Override
     protected void onCameraControlReady(String cameraId) {
         getCameraControl(cameraId).setFlashMode(mFlashMode);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected void onDetachFromCamera() {
+        while (!mImageCaptureRequests.isEmpty()) {
+            ImageCaptureRequest request = mImageCaptureRequests.poll();
+            final String message = "Take picture is canceled.";
+            request.callbackError(UseCaseError.UNKNOWN_ERROR, message,
+                    new IllegalStateException(message));
+        }
     }
 
     /**
@@ -494,7 +508,8 @@ public class ImageCapture extends UseCase {
     /** Issues saved ImageCaptureRequest. */
     @UiThread
     void issueImageCaptureRequests() {
-        if (mImageCaptureRequests.isEmpty()) {
+        // If there are dispatched images, it will wait until images are closed.
+        if (mImageCaptureRequests.isEmpty() || !mImageDispatchedRequests.isEmpty()) {
             return;
         }
         takePictureInternal();
@@ -632,6 +647,7 @@ public class ImageCapture extends UseCase {
                                     SingleCloseImageProxy wrappedImage = new SingleCloseImageProxy(
                                             image);
                                     wrappedImage.addOnImageCloseListener(mOnImageCloseListener);
+                                    mImageDispatchedRequests.put(wrappedImage, imageCaptureRequest);
                                     imageCaptureRequest.dispatchImage(wrappedImage);
                                 } else {
                                     // Discard the image if we have no requests.
@@ -1285,6 +1301,24 @@ public class ImageCapture extends UseCase {
             }
 
             mListener.onCaptureSuccess(image, mRotationDegrees);
+        }
+
+        void callbackError(final UseCaseError useCaseError, final String message,
+                final Throwable cause) {
+            if (mHandler != null && Looper.myLooper() != mHandler.getLooper()) {
+                boolean posted = mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageCaptureRequest.this.callbackError(useCaseError, message, cause);
+                    }
+                });
+                if (!posted) {
+                    Log.e(TAG, "Unable to post to the supplied handler.");
+                }
+                return;
+            }
+
+            mListener.onError(useCaseError, message, cause);
         }
     }
 }
