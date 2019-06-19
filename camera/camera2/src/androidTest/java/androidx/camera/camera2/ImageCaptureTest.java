@@ -43,6 +43,7 @@ import android.os.HandlerThread;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.impl.util.FakeRepeatingUseCase;
 import androidx.camera.core.AppConfig;
@@ -62,6 +63,7 @@ import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
+import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
@@ -292,6 +294,40 @@ public final class ImageCaptureTest {
 
         verify(mMockImageCapturedListener, times(numImages)).onCaptureSuccess(any(ImageProxy.class),
                 anyInt());
+    }
+
+    @Test
+    @UiThreadTest
+    public void captureImagesAndDetachFromCamera() throws InterruptedException {
+        TestImageCapture useCase = new TestImageCapture(mDefaultConfig);
+        Map<String, Size> suggestedResolutionMap = new HashMap<>();
+        suggestedResolutionMap.put(mCameraId, DEFAULT_RESOLUTION);
+        useCase.updateSuggestedResolution(suggestedResolutionMap);
+        // Don't open camera to cause take picture not proceed.
+        useCase.onAttachToCamera(mCameraId);
+
+        int numImages = 5;
+        for (int i = 0; i < numImages; ++i) {
+            useCase.takePicture(
+                    new ImageCapture.OnImageCapturedListener() {
+                        @Override
+                        public void onError(UseCaseError useCaseError, String message,
+                                @Nullable Throwable cause) {
+                            mMockImageCapturedListener.onError(useCaseError, message, cause);
+
+                            // Signal that an image has been captured.
+                            mSemaphore.release();
+                        }
+                    });
+        }
+
+        useCase.onDetachFromCamera(mCameraId);
+
+        // Wait for the signal that all images have been captured.
+        mSemaphore.acquire(numImages);
+
+        verify(mMockImageCapturedListener, times(numImages)).onError(any(UseCaseError.class),
+                anyString(), any(Throwable.class));
     }
 
     @Test
@@ -560,5 +596,21 @@ public final class ImageCaptureTest {
                 .setCaptureProcessor(mock(CaptureProcessor.class))
                 .build();
         new ImageCapture(config);
+    }
+
+    private static class TestImageCapture extends ImageCapture {
+        TestImageCapture(ImageCaptureConfig userConfig) {
+            super(userConfig);
+        }
+
+        @Override
+        public void onAttachToCamera(@NonNull String cameraId) {
+            super.onAttachToCamera(cameraId);
+        }
+
+        @Override
+        public void onDetachFromCamera(@NonNull String cameraId) {
+            super.onDetachFromCamera(cameraId);
+        }
     }
 }
