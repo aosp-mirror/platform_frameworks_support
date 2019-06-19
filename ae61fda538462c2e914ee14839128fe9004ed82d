@@ -22,6 +22,30 @@
       "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "006ffe27_baa5007a",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:16:44Z",
+      "side": 1,
+      "message": "We didn\u0027t discuss this topic directly, but he saw this changes. My current intuition is this is a part of any design system foundation - our ui base module. I moved Outline into a graphic package as I see it is a graphic layer. this is the next level of abstraction, so probably is not a part of graphic anymore. Also I want us to own this, as this will be an important building block for our material components. Maybe later we will see clearer where it belongs",
+      "parentUuid": "048d3598_3743711d",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 1
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
