@@ -23,8 +23,13 @@ plugins {
 
 dependencies {
     api(project(":car"))
+<<<<<<< HEAD   (d67e0a Merge "Merge empty history for sparse-5626175-L8190000033069)
     api(project(":versionedparcelable"))
     api(project(":annotation"))
+=======
+    api("androidx.versionedparcelable:versionedparcelable:1.1.0-rc01")
+    api("androidx.annotation:annotation:1.1.0-rc01")
+>>>>>>> BRANCH (8a0779 Merge "Merge cherrypicks of [986544] into sparse-5674006-L07)
 
     annotationProcessor(project(":versionedparcelable-annotation"))
 

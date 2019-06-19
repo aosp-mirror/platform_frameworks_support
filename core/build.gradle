@@ -10,9 +10,13 @@ dependencies {
     api(project(":annotation"))
     implementation("androidx.collection:collection:1.0.0")
     api(ARCH_LIFECYCLE_RUNTIME, libs.exclude_annotations_transitive)
+<<<<<<< HEAD   (d67e0a Merge "Merge empty history for sparse-5626175-L8190000033069)
     api(project(":versionedparcelable"))
     api(GUAVA_LISTENABLE_FUTURE)
     implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
+=======
+    api("androidx.versionedparcelable:versionedparcelable:1.1.0-rc01")
+>>>>>>> BRANCH (8a0779 Merge "Merge cherrypicks of [986544] into sparse-5674006-L07)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
