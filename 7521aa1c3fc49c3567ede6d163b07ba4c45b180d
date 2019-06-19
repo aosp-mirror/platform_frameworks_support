@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02bb9da6_b820d1de",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-06-19T13:52:22Z",
+      "side": 0,
+      "message": "Reasoning for LGTM:\n\n- BasicAccessibilityProvider is removed\n- Default implementation of handlesRvGetAccessibilityClassName returns false\n- if condition will thus never be true\n- Method degenerates to a super call and can be removed",
+      "range": {
+        "startLine": 866,
+        "startChar": 39,
+        "endLine": 866,
+        "endChar": 73
+      },
+      "revId": "7521aa1c3fc49c3567ede6d163b07ba4c45b180d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caeabfbc_c2a8aa66",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-06-19T13:52:22Z",
+      "side": 0,
+      "message": "Reasoning for LGTM:\n\n- BasicAccessibilityProvider is removed\n- Default implementation of handlesLmPerformAccessibilityAction returns false\n- if condition will thus never be true\n- Method degenerates to a super call and can be removed",
+      "range": {
+        "startLine": 900,
+        "startChar": 39,
+        "endLine": 900,
+        "endChar": 74
+      },
+      "revId": "7521aa1c3fc49c3567ede6d163b07ba4c45b180d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7efe7806_e5c07058",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-06-19T13:52:22Z",
+      "side": 0,
+      "message": "Reasoning for LGTM:\n\n- BasicAccessibilityProvider is removed\n- Default implementation of onLmInitializeAccessibilityNodeInfo is empty\n- Method degenerates to a super call and can be removed",
+      "range": {
+        "startLine": 910,
+        "startChar": 35,
+        "endLine": 910,
+        "endChar": 70
+      },
+      "revId": "7521aa1c3fc49c3567ede6d163b07ba4c45b180d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
