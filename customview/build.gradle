@@ -9,9 +9,15 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (890306 Merge "Snap for 5616525 from a023a703df845672c5b71518bc86bda)
     api("androidx.annotation:annotation:1.1.0-rc01")
     api(project(":core"))
     implementation("androidx.collection:collection:1.1.0-rc01")
+=======
+    api("androidx.annotation:annotation:1.1.0")
+    api(project(":core:core"))
+    implementation("androidx.collection:collection:1.1.0")
+>>>>>>> CHANGE (9087b5 Fix equality comparison in AccessibilityNodeInfoCompat)
 
     androidTestImplementation(JUNIT)
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
