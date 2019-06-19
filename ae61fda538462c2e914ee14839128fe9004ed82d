@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "048d3598_3743711d",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-19T16:55:25Z",
+      "side": 1,
+      "message": "ave you had the conversation with Nader on whether this belongs in the graphics package? mostly seems independent of any design system and quite low level, so I can see it living here (sorry I know we haven\u0027t split foundation out yet) or with graphics",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 1
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
