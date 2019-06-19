@@ -1209,7 +1209,7 @@ public final class ViewPager2 extends ViewGroup {
             int nextItem = (action == AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD)
                     ? getCurrentItem() - 1
                     : getCurrentItem() + 1;
-            setCurrentItem(nextItem, true);
+            setCurrentItemFromAccessibilityCommand(nextItem);
             return true;
         }
 
