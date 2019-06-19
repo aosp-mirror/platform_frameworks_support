@@ -1473,6 +1473,34 @@ class FlexTest : LayoutTest() {
                 ConstrainedBox(
                     constraints = DpConstraints.tightConstraints(sizeDp, sizeDp)
                 ) {
+                    Row {
+                        OnChildPositioned(onPositioned = { coordinates ->
+                            containerSize.value = coordinates.size
+                        }) {
+                            FixedSpacer(width = childSizeDp, height = childSizeDp)
+                        }
+                    }
+                }
+            }
+        }
+        drawLatch.await(1, TimeUnit.SECONDS)
+
+        assertEquals(PxSize(childSize, childSize), containerSize.value)
+    }
+
+    @Test
+    fun testColumn_doesNotUseMinConstraintsOnChildren() = withDensity(density) {
+        val sizeDp = 50.dp
+        val childSizeDp = 30.dp
+        val childSize = childSizeDp.toIntPx()
+
+        val drawLatch = CountDownLatch(4)
+        val containerSize = Ref<PxSize>()
+        show {
+            Center {
+                ConstrainedBox(
+                    constraints = DpConstraints.tightConstraints(sizeDp, sizeDp)
+                ) {
                     Column {
                         OnChildPositioned(onPositioned = { coordinates ->
                             containerSize.value = coordinates.size
