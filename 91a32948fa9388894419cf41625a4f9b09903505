@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "ef121469_3bbe4022",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:27:13Z",
+      "side": 1,
+      "message": "Should you still be using _light? Otherwise, the comment for this style isn\u0027t correct.\n\nIf you want to remove _light, then update the comment.",
+      "range": {
+        "startLine": 388,
+        "startChar": 46,
+        "endLine": 388,
+        "endChar": 62
+      },
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d9e98a_dbbfdbfc",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:27:13Z",
+      "side": 1,
+      "message": "Update this comment to reflect it\u0027s deprecated.",
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2b8c189_04779c89",
         "filename": "car/core/res/values/styles.xml",
         "patchSetId": 1
@@ -37,6 +77,30 @@
       "side": 1,
       "message": "There\u0027s usage in google3 that needs to be moved over.",
       "parentUuid": "d2b8c189_04779c89",
+      "range": {
+        "startLine": 392,
+        "startChar": 17,
+        "endLine": 392,
+        "endChar": 43
+      },
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174cab58_f0f4e1f7",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:27:13Z",
+      "side": 1,
+      "message": "You can make this style empty then, and it\u0027ll act as a passthrough\n\n \u003cstyle name\u003d\"Widget.Car.Button.DarkText\" /\u003e\n\nAs long as you\u0027re sure that the default usage won\u0027t break anything, then overall, the change LGTM.",
+      "parentUuid": "15066959_be95a8f1",
       "range": {
         "startLine": 392,
         "startChar": 17,
