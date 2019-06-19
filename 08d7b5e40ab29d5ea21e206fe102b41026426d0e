@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc54ca68_5d7d56f0",
+        "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-19T07:31:32Z",
+      "side": 0,
+      "message": "These calls were supposed to happen during animation, but it was not reliable.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "08d7b5e40ab29d5ea21e206fe102b41026426d0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
