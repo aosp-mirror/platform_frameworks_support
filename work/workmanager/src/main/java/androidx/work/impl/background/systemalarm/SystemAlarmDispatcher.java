@@ -21,19 +21,18 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.support.annotation.MainThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Processor;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.utils.WakeLocks;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +46,13 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SystemAlarmDispatcher implements ExecutionListener {
 
-    // Synthetic accessor
-    static final String TAG = Logger.tagWithPrefix("SystemAlarmDispatcher");
-
+    private static final String TAG = "SystemAlarmDispatcher";
     private static final String PROCESS_COMMAND_TAG = "ProcessCommand";
     private static final String KEY_START_ID = "KEY_START_ID";
     private static final int DEFAULT_START_ID = 0;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Context mContext;
-    private final TaskExecutor mTaskExecutor;
     private final WorkTimer mWorkTimer;
     private final Processor mProcessor;
     private final WorkManagerImpl mWorkManager;
@@ -83,9 +79,8 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         mContext = context.getApplicationContext();
         mCommandHandler = new CommandHandler(mContext);
         mWorkTimer = new WorkTimer();
-        mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance(context);
+        mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance();
         mProcessor = processor != null ? processor : mWorkManager.getProcessor();
-        mTaskExecutor = mWorkManager.getWorkTaskExecutor();
         mProcessor.addExecutionListener(this);
         // a list of pending intents which need to be processed
         mIntents = new ArrayList<>();
@@ -94,14 +89,8 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         mMainHandler = new Handler(Looper.getMainLooper());
     }
 
-    /**
-     * This method needs to be idempotent. This could be called more than once, and therefore,
-     * this method should only perform cleanup when necessary.
-     */
     void onDestroy() {
-        Logger.get().debug(TAG, "Destroying SystemAlarmDispatcher");
         mProcessor.removeExecutionListener(this);
-        mWorkTimer.onDestroy();
         mCompletedListener = null;
     }
 
@@ -131,11 +120,11 @@ public class SystemAlarmDispatcher implements ExecutionListener {
      */
     @MainThread
     public boolean add(@NonNull final Intent intent, final int startId) {
-        Logger.get().debug(TAG, String.format("Adding command %s (%s)", intent, startId));
+        Logger.debug(TAG, String.format("Adding command %s (%s)", intent, startId));
         assertMainThread();
         String action = intent.getAction();
         if (TextUtils.isEmpty(action)) {
-            Logger.get().warning(TAG, "Unknown command. Ignoring");
+            Logger.warning(TAG, "Unknown command. Ignoring");
             return false;
         }
 
@@ -163,9 +152,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
 
     void setCompletedListener(@NonNull CommandsCompletedListener listener) {
         if (mCompletedListener != null) {
-            Logger.get().error(
-                    TAG,
-                    "A completion listener for SystemAlarmDispatcher already exists.");
+            Logger.error(TAG, "A completion listener for SystemAlarmDispatcher already exists.");
             return;
         }
         mCompletedListener = listener;
@@ -183,10 +170,6 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         return mWorkManager;
     }
 
-    TaskExecutor getTaskExecutor() {
-        return mTaskExecutor;
-    }
-
     void postOnMainThread(@NonNull Runnable runnable) {
         mMainHandler.post(runnable);
     }
@@ -194,7 +177,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
     @MainThread
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void dequeueAndCheckForCompletion() {
-        Logger.get().debug(TAG, "Checking if commands are complete.");
+        Logger.debug(TAG, "Checking if commands are complete.");
         assertMainThread();
 
         synchronized (mIntents) {
@@ -215,7 +198,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
             // ReentrantLock, and lock the queue while command processor processes
             // an intent. Synchronized to prevent ConcurrentModificationExceptions.
             if (mCurrentIntent != null) {
-                Logger.get().debug(TAG, String.format("Removing command %s", mCurrentIntent));
+                Logger.debug(TAG, String.format("Removing command %s", mCurrentIntent));
                 if (!mIntents.remove(0).equals(mCurrentIntent)) {
                     throw new IllegalStateException("Dequeue-d command is not the first.");
                 }
@@ -225,7 +208,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
             if (!mCommandHandler.hasPendingCommands() && mIntents.isEmpty()) {
                 // If there are no more intents to process, and the command handler
                 // has no more pending commands, stop the service.
-                Logger.get().debug(TAG, "No more commands & intents.");
+                Logger.debug(TAG, "No more commands & intents.");
                 if (mCompletedListener != null) {
                     mCompletedListener.onAllCommandsCompleted();
                 }
@@ -256,14 +239,14 @@ public class SystemAlarmDispatcher implements ExecutionListener {
                         final String action = mCurrentIntent.getAction();
                         final int startId = mCurrentIntent.getIntExtra(KEY_START_ID,
                                 DEFAULT_START_ID);
-                        Logger.get().debug(TAG,
+                        Logger.debug(TAG,
                                 String.format("Processing command %s, %s", mCurrentIntent,
                                         startId));
                         final PowerManager.WakeLock wakeLock = WakeLocks.newWakeLock(
                                 mContext,
                                 String.format("%s (%s)", action, startId));
                         try {
-                            Logger.get().debug(TAG, String.format(
+                            Logger.debug(TAG, String.format(
                                     "Acquiring operation wake lock (%s) %s",
                                     action,
                                     wakeLock));
@@ -272,17 +255,12 @@ public class SystemAlarmDispatcher implements ExecutionListener {
                             mCommandHandler.onHandleIntent(mCurrentIntent, startId,
                                     SystemAlarmDispatcher.this);
                         } catch (Throwable throwable) {
-                            Logger.get().error(
-                                    TAG,
-                                    "Unexpected error in onHandleIntent",
-                                    throwable);
+                            Logger.error(TAG, "Unexpected error in onHandleIntent", throwable);
                         }  finally {
-                            Logger.get().debug(
-                                    TAG,
-                                    String.format(
-                                            "Releasing operation wake lock (%s) %s",
-                                            action,
-                                            wakeLock));
+                            Logger.debug(TAG, String.format(
+                                    "Releasing operation wake lock (%s) %s",
+                                    action,
+                                    wakeLock));
                             wakeLock.release();
                             // Check if we have processed all commands
                             postOnMainThread(

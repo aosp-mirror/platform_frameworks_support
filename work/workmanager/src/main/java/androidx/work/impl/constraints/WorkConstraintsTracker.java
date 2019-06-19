@@ -16,10 +16,10 @@
 package androidx.work.impl.constraints;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.work.Constraints;
 import androidx.work.Logger;
 import androidx.work.impl.constraints.controllers.BatteryChargingController;
@@ -31,7 +31,6 @@ import androidx.work.impl.constraints.controllers.NetworkNotRoamingController;
 import androidx.work.impl.constraints.controllers.NetworkUnmeteredController;
 import androidx.work.impl.constraints.controllers.StorageNotLowController;
 import androidx.work.impl.model.WorkSpec;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ import java.util.List;
 
 public class WorkConstraintsTracker implements ConstraintController.OnConstraintUpdatedCallback {
 
-    private static final String TAG = Logger.tagWithPrefix("WorkConstraintsTracker");
+    private static final String TAG = "WorkConstraintsTracker";
 
     @Nullable private final WorkConstraintsCallback mCallback;
     private final ConstraintController[] mConstraintControllers;
@@ -55,27 +54,22 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
     private final Object mLock;
 
     /**
-     * @param context      The application {@link Context}
-     * @param taskExecutor The {@link TaskExecutor} being used by WorkManager.
-     * @param callback     The callback is only necessary when you need
-     *                     {@link WorkConstraintsTracker} to notify you about changes in
-     *                     constraints for the list of {@link WorkSpec}'s that it is tracking.
+     * @param context  The application {@link Context}
+     * @param callback The callback is only necessary when you need {@link WorkConstraintsTracker}
+     *                 to notify you about changes in constraints for the list of  {@link
+     *                 WorkSpec}'s that it is tracking.
      */
-    public WorkConstraintsTracker(
-            @NonNull Context context,
-            @NonNull TaskExecutor taskExecutor,
-            @Nullable WorkConstraintsCallback callback) {
-
+    public WorkConstraintsTracker(Context context, @Nullable WorkConstraintsCallback callback) {
         Context appContext = context.getApplicationContext();
         mCallback = callback;
         mConstraintControllers = new ConstraintController[] {
-                new BatteryChargingController(appContext, taskExecutor),
-                new BatteryNotLowController(appContext, taskExecutor),
-                new StorageNotLowController(appContext, taskExecutor),
-                new NetworkConnectedController(appContext, taskExecutor),
-                new NetworkUnmeteredController(appContext, taskExecutor),
-                new NetworkNotRoamingController(appContext, taskExecutor),
-                new NetworkMeteredController(appContext, taskExecutor)
+                new BatteryChargingController(appContext),
+                new BatteryNotLowController(appContext),
+                new StorageNotLowController(appContext),
+                new NetworkConnectedController(appContext),
+                new NetworkUnmeteredController(appContext),
+                new NetworkNotRoamingController(appContext),
+                new NetworkMeteredController(appContext)
         };
         mLock = new Object();
     }
@@ -133,7 +127,7 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
         synchronized (mLock) {
             for (ConstraintController constraintController : mConstraintControllers) {
                 if (constraintController.isWorkSpecConstrained(workSpecId)) {
-                    Logger.get().debug(TAG, String.format("Work %s constrained by %s", workSpecId,
+                    Logger.debug(TAG, String.format("Work %s constrained by %s", workSpecId,
                             constraintController.getClass().getSimpleName()));
                     return false;
                 }
@@ -148,7 +142,7 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
             List<String> unconstrainedWorkSpecIds = new ArrayList<>();
             for (String workSpecId : workSpecIds) {
                 if (areAllConstraintsMet(workSpecId)) {
-                    Logger.get().debug(TAG, String.format("Constraints met for %s", workSpecId));
+                    Logger.debug(TAG, String.format("Constraints met for %s", workSpecId));
                     unconstrainedWorkSpecIds.add(workSpecId);
                 }
             }

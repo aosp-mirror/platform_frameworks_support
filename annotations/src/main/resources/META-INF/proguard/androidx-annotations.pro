@@ -1,14 +1,13 @@
--keep,allowobfuscation @interface androidx.annotation.Keep
--keep @androidx.annotation.Keep class * {*;}
+-keep @android.support.annotation.Keep class * {*;}
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <methods>;
+    @android.support.annotation.Keep <methods>;
 }
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <fields>;
+    @android.support.annotation.Keep <fields>;
 }
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <init>(...);
+    @android.support.annotation.Keep <init>(...);
 }

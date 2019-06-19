@@ -47,7 +47,6 @@
             style="?android:attr/windowTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:ellipsize="end"
             android:singleLine="true"
             android:textAlignment="viewStart"/>

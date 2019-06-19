@@ -21,7 +21,6 @@ import androidx.room.preconditions.Checks
 import androidx.room.processor.cache.Cache
 import androidx.room.solver.TypeAdapterStore
 import androidx.room.verifier.DatabaseVerifier
-import androidx.room.vo.Warning
 import java.io.File
 import java.util.LinkedHashSet
 import javax.annotation.processing.ProcessingEnvironment
@@ -29,12 +28,11 @@ import javax.lang.model.element.Element
 import javax.lang.model.type.TypeMirror
 
 class Context private constructor(
-    val processingEnv: ProcessingEnvironment,
-    val logger: RLog,
-    private val typeConverters: CustomConverterProcessor.ProcessResult,
-    private val inheritedAdapterStore: TypeAdapterStore?,
-    val cache: Cache
-) {
+        val processingEnv: ProcessingEnvironment,
+        val logger: RLog,
+        private val typeConverters: CustomConverterProcessor.ProcessResult,
+        private val inheritedAdapterStore: TypeAdapterStore?,
+        val cache: Cache) {
     val checker: Checks = Checks(logger)
     val COMMON_TYPES: Context.CommonTypes = Context.CommonTypes(processingEnv)
 
@@ -51,8 +49,7 @@ class Context private constructor(
 
     companion object {
         val ARG_OPTIONS by lazy {
-            ProcessorOptions.values().map { it.argName } +
-                    BooleanProcessorOptions.values().map { it.argName }
+            ProcessorOptions.values().map { it.argName }
         }
     }
 
@@ -64,14 +61,8 @@ class Context private constructor(
             cache = Cache(null, LinkedHashSet(), emptySet()))
 
     class CommonTypes(val processingEnv: ProcessingEnvironment) {
-        val VOID: TypeMirror by lazy {
-            processingEnv.elementUtils.getTypeElement("java.lang.Void").asType()
-        }
         val STRING: TypeMirror by lazy {
             processingEnv.elementUtils.getTypeElement("java.lang.String").asType()
-        }
-        val COLLECTION: TypeMirror by lazy {
-            processingEnv.elementUtils.getTypeElement("java.util.Collection").asType()
         }
     }
 
@@ -96,7 +87,7 @@ class Context private constructor(
         return Pair(result, collector)
     }
 
-    fun fork(element: Element, forceSuppressedWarnings: Set<Warning> = emptySet()): Context {
+    fun fork(element: Element): Context {
         val suppressedWarnings = SuppressWarningProcessor.getSuppressedWarnings(element)
         val processConvertersResult = CustomConverterProcessor.findConverters(this, element)
         val canReUseAdapterStore = processConvertersResult.classes.isEmpty()
@@ -106,8 +97,7 @@ class Context private constructor(
         } else {
             processConvertersResult + this.typeConverters
         }
-        val subSuppressedWarnings =
-            forceSuppressedWarnings + suppressedWarnings + logger.suppressedWarnings
+        val subSuppressedWarnings = suppressedWarnings + logger.suppressedWarnings
         val subCache = Cache(cache, subTypeConverters.classes, subSuppressedWarnings)
         val subContext = Context(
                 processingEnv = processingEnv,
@@ -121,22 +111,5 @@ class Context private constructor(
 
     enum class ProcessorOptions(val argName: String) {
         OPTION_SCHEMA_FOLDER("room.schemaLocation")
-    }
-
-    enum class BooleanProcessorOptions(val argName: String, private val defaultValue: Boolean) {
-        INCREMENTAL("room.incremental", false);
-
-        /**
-         * Returns the value of this option passed through the [ProcessingEnvironment]. If the value
-         * is null or blank, it returns the default value instead.
-         */
-        fun getValue(processingEnv: ProcessingEnvironment): Boolean {
-            val value = processingEnv.options[argName]
-            return if (value.isNullOrBlank()) {
-                defaultValue
-            } else {
-                value.toBoolean()
-            }
-        }
     }
 }

@@ -15,18 +15,9 @@
  */
 package androidx.room.integration.kotlintestapp.test
 
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.RoomWarnings
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.room.*
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
@@ -35,13 +26,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@SmallTest
 class ItemWithNullableConstructor {
     lateinit var db: Db
     @Before
     fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
+        db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getTargetContext(),
                 Db::class.java).build()
     }
 
@@ -58,9 +47,9 @@ class ItemWithNullableConstructor {
 
     @Entity
     data class TestItem(
-        @PrimaryKey(autoGenerate = true)
-        val id: Long? = null,
-        val nullable: Boolean?
+            @PrimaryKey(autoGenerate = true)
+            val id: Long? = null,
+            val nullable: Boolean?
     )
 
     @Dao

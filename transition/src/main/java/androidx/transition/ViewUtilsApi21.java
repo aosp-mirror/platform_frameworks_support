@@ -16,69 +16,106 @@
 
 package androidx.transition;
 
-import android.annotation.SuppressLint;
 import android.graphics.Matrix;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 @RequiresApi(21)
 class ViewUtilsApi21 extends ViewUtilsApi19 {
 
-    /**
-     * False when linking of the hidden setAnimationMatrix method has previously failed.
-     */
-    private static boolean sTryHiddenSetAnimationMatrix = true;
-    /**
-     * False when linking of the hidden transformMatrixToGlobal method has previously failed.
-     */
-    private static boolean sTryHiddenTransformMatrixToGlobal = true;
-    /**
-     * False when linking of the hidden transformMatrixToLocal method has previously failed.
-     */
-    private static boolean sTryHiddenTransformMatrixToLocal = true;
+    private static final String TAG = "ViewUtilsApi21";
+
+    private static Method sTransformMatrixToGlobalMethod;
+    private static boolean sTransformMatrixToGlobalMethodFetched;
+    private static Method sTransformMatrixToLocalMethod;
+    private static boolean sTransformMatrixToLocalMethodFetched;
+    private static Method sSetAnimationMatrixMethod;
+    private static boolean sSetAnimationMatrixMethodFetched;
 
     @Override
-    @SuppressLint("NewApi") // Lint doesn't know about the hidden method.
     public void transformMatrixToGlobal(@NonNull View view, @NonNull Matrix matrix) {
-        if (sTryHiddenTransformMatrixToGlobal) {
-            // Since this was an @hide method made public, we can link directly against it with
-            // a try/catch for its absence instead of doing the same through reflection.
+        fetchTransformMatrixToGlobalMethod();
+        if (sTransformMatrixToGlobalMethod != null) {
             try {
-                view.transformMatrixToGlobal(matrix);
-            } catch (NoSuchMethodError e) {
-                sTryHiddenTransformMatrixToGlobal = false;
+                sTransformMatrixToGlobalMethod.invoke(view, matrix);
+            } catch (IllegalAccessException e) {
+                // Do nothing
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e.getCause());
             }
         }
     }
 
     @Override
-    @SuppressLint("NewApi") // Lint doesn't know about the hidden method.
     public void transformMatrixToLocal(@NonNull View view, @NonNull Matrix matrix) {
-        if (sTryHiddenTransformMatrixToLocal) {
-            // Since this was an @hide method made public, we can link directly against it with
-            // a try/catch for its absence instead of doing the same through reflection.
+        fetchTransformMatrixToLocalMethod();
+        if (sTransformMatrixToLocalMethod != null) {
             try {
-                view.transformMatrixToLocal(matrix);
-            } catch (NoSuchMethodError e) {
-                sTryHiddenTransformMatrixToLocal = false;
+                sTransformMatrixToLocalMethod.invoke(view, matrix);
+            } catch (IllegalAccessException e) {
+                // Do nothing
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e.getCause());
             }
         }
     }
 
     @Override
-    @SuppressLint("NewApi") // Lint doesn't know about the hidden method.
-    public void setAnimationMatrix(@NonNull View view, @Nullable Matrix matrix) {
-        if (sTryHiddenSetAnimationMatrix) {
-            // Since this was an @hide method made public, we can link directly against it with
-            // a try/catch for its absence instead of doing the same through reflection.
+    public void setAnimationMatrix(@NonNull View view, Matrix matrix) {
+        fetchSetAnimationMatrix();
+        if (sSetAnimationMatrixMethod != null) {
             try {
-                view.setAnimationMatrix(matrix);
-            } catch (NoSuchMethodError e) {
-                sTryHiddenSetAnimationMatrix = false;
+                sSetAnimationMatrixMethod.invoke(view, matrix);
+            } catch (InvocationTargetException e) {
+                // Do nothing
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e.getCause());
             }
+        }
+    }
+
+    private void fetchTransformMatrixToGlobalMethod() {
+        if (!sTransformMatrixToGlobalMethodFetched) {
+            try {
+                sTransformMatrixToGlobalMethod = View.class.getDeclaredMethod(
+                        "transformMatrixToGlobal", Matrix.class);
+                sTransformMatrixToGlobalMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                Log.i(TAG, "Failed to retrieve transformMatrixToGlobal method", e);
+            }
+            sTransformMatrixToGlobalMethodFetched = true;
+        }
+    }
+
+    private void fetchTransformMatrixToLocalMethod() {
+        if (!sTransformMatrixToLocalMethodFetched) {
+            try {
+                sTransformMatrixToLocalMethod = View.class.getDeclaredMethod(
+                        "transformMatrixToLocal", Matrix.class);
+                sTransformMatrixToLocalMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                Log.i(TAG, "Failed to retrieve transformMatrixToLocal method", e);
+            }
+            sTransformMatrixToLocalMethodFetched = true;
+        }
+    }
+
+    private void fetchSetAnimationMatrix() {
+        if (!sSetAnimationMatrixMethodFetched) {
+            try {
+                sSetAnimationMatrixMethod = View.class.getDeclaredMethod(
+                        "setAnimationMatrix", Matrix.class);
+                sSetAnimationMatrixMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                Log.i(TAG, "Failed to retrieve setAnimationMatrix method", e);
+            }
+            sSetAnimationMatrixMethodFetched = true;
         }
     }
 

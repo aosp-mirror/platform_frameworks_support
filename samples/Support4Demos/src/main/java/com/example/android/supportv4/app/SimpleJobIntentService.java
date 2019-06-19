@@ -25,7 +25,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
 /**
@@ -45,7 +44,7 @@ public class SimpleJobIntentService extends JobIntentService {
     }
 
     @Override
-    protected void onHandleWork(@NonNull Intent intent) {
+    protected void onHandleWork(Intent intent) {
         // We have received work to do.  The system or framework is already
         // holding a wake lock for us at this point, so we can just go.
         Log.i("SimpleJobIntentService", "Executing work: " + intent);

@@ -20,10 +20,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.Worker;
@@ -56,14 +56,14 @@ public class ImageProcessingWorker extends Worker {
         String uriString = getInputData().getString(URI_KEY);
         if (TextUtils.isEmpty(uriString)) {
             Log.e(TAG, "Invalid URI!");
-            return Result.failure();
+            return Result.FAILURE;
         }
 
         Bitmap image = retrieveImage(uriString);
 
         if (image == null) {
             Log.e(TAG, "Could not retrieve image!");
-            return Result.failure();
+            return Result.FAILURE;
         }
 
         invertColors(image);
@@ -71,7 +71,7 @@ public class ImageProcessingWorker extends Worker {
 
         if (TextUtils.isEmpty(filePath)) {
             Log.e(TAG, "Could not compress image!");
-            return Result.failure();
+            return Result.FAILURE;
         }
 
         int processed = TestDatabase.getInstance(getApplicationContext())
@@ -80,11 +80,11 @@ public class ImageProcessingWorker extends Worker {
 
         if (processed != 1) {
             Log.e(TAG, "Database was not updated!");
-            return Result.failure();
+            return Result.FAILURE;
         }
 
         Log.d(TAG, "Image Processing Complete!");
-        return Result.success();
+        return Result.SUCCESS;
     }
 
     private Bitmap retrieveImage(String uriString) {

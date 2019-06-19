@@ -174,7 +174,6 @@ class AnnotationsTransformationTest {
                 .toList()
         )
 
-        @Suppress("deprecation")
         Processor
             .createProcessor(config = config, reversedMode = reversedMode)
             .visit(archive)

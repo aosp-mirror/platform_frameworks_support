@@ -25,8 +25,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-
-import java.util.HashMap;
+import androidx.collection.SparseArrayCompat;
 
 /**
  * A {@link Service} for remote invalidation among multiple {@link InvalidationTracker} instances.
@@ -35,7 +34,7 @@ import java.util.HashMap;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class MultiInstanceInvalidationService extends Service {
 
     // synthetic access
@@ -44,7 +43,7 @@ public class MultiInstanceInvalidationService extends Service {
 
     // synthetic access
     @SuppressWarnings("WeakerAccess")
-    final HashMap<Integer, String> mClientNames = new HashMap<>();
+    final SparseArrayCompat<String> mClientNames = new SparseArrayCompat<>();
 
     // synthetic access
     @SuppressWarnings("WeakerAccess")
@@ -71,7 +70,7 @@ public class MultiInstanceInvalidationService extends Service {
                         int clientId = ++mMaxClientId;
                         // Use the client ID as the RemoteCallbackList cookie.
                         if (mCallbackList.register(callback, clientId)) {
-                            mClientNames.put(clientId, name);
+                            mClientNames.append(clientId, name);
                             return clientId;
                         } else {
                             --mMaxClientId;

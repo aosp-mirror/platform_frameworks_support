@@ -19,11 +19,9 @@ package androidx.work;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.work.impl.model.WorkSpec;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.worker.InfiniteTestWorker;
 
 import org.junit.Test;
@@ -54,105 +52,17 @@ public class WorkSpecTest extends WorkManagerTest {
 
     @Test
     @SmallTest
-    public void testCalculateNextRunTime_firstRun_periodic_withFlexApplicable() {
+    public void testCalculateNextRunTime_firstRunAttempt_periodic() {
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 InfiniteTestWorker.class,
                 DEFAULT_INTERVAL_TIME_MS,
                 TimeUnit.MILLISECONDS,
                 DEFAULT_FLEX_TIME_MS,
                 TimeUnit.MILLISECONDS)
-                .build();
-
-        long now = System.currentTimeMillis();
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long nextRunTime = workSpec.calculateNextRunTime();
-        assertThat(nextRunTime, greaterThan(now));
-    }
-
-    @Test
-    @SmallTest
-    public void testCalculateNextRunTime_firstRun_periodic_withFlexNotApplicable() {
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                InfiniteTestWorker.class,
-                DEFAULT_INTERVAL_TIME_MS,
-                TimeUnit.MILLISECONDS,
-                DEFAULT_INTERVAL_TIME_MS,
-                TimeUnit.MILLISECONDS)
-                .build();
-
-        long now = System.currentTimeMillis();
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long nextRunTime = workSpec.calculateNextRunTime();
-        assertCloseValues(nextRunTime, now);
-    }
-
-    @Test
-    @SmallTest
-    public void testCalculateNextRunTime_nextRun_periodic_withFlexApplicable() {
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                InfiniteTestWorker.class,
-                DEFAULT_INTERVAL_TIME_MS, TimeUnit.MILLISECONDS,
-                DEFAULT_FLEX_TIME_MS, TimeUnit.MILLISECONDS)
                 .setPeriodStartTime(DEFAULT_PERIOD_START_TIME, TimeUnit.MILLISECONDS)
                 .build();
-
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long nextRunTime = workSpec.calculateNextRunTime();
-        assertThat(nextRunTime,
-                is(DEFAULT_PERIOD_START_TIME + DEFAULT_INTERVAL_TIME_MS));
-    }
-
-    @Test
-    @SmallTest
-    public void testCalculateNextRunTime_nextRun_periodic_withFlexNotApplicable() {
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                InfiniteTestWorker.class,
-                DEFAULT_INTERVAL_TIME_MS,
-                TimeUnit.MILLISECONDS,
-                DEFAULT_INTERVAL_TIME_MS,
-                TimeUnit.MILLISECONDS)
-                .setPeriodStartTime(DEFAULT_PERIOD_START_TIME, TimeUnit.MILLISECONDS)
-                .build();
-
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long nextRunTime = workSpec.calculateNextRunTime();
-        assertThat(nextRunTime, is(DEFAULT_PERIOD_START_TIME + DEFAULT_INTERVAL_TIME_MS));
-    }
-
-    @Test
-    @SmallTest
-    public void testCalculateNextRunTime_nextRun_periodic_withInitialDelay() {
-        long delay = 10000L;
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                InfiniteTestWorker.class,
-                DEFAULT_INTERVAL_TIME_MS, TimeUnit.MILLISECONDS,
-                DEFAULT_INTERVAL_TIME_MS, TimeUnit.MILLISECONDS)
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .build();
-
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long now = System.currentTimeMillis();
-        long nextRunTime = workSpec.calculateNextRunTime();
-        long delta = nextRunTime - now;
-        assertCloseValues(delta, delay);
-    }
-
-    @Test
-    @SmallTest
-    public void testCalculateNextRunTime_nextRun_periodic_withInitialDelay_flex_firstRun() {
-        long delay = 10000L;
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                InfiniteTestWorker.class,
-                DEFAULT_INTERVAL_TIME_MS, TimeUnit.MILLISECONDS,
-                DEFAULT_FLEX_TIME_MS, TimeUnit.MILLISECONDS)
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .build();
-
-        WorkSpec workSpec = getWorkSpec(periodicWork);
-        long now = System.currentTimeMillis();
-        long nextRunTime = workSpec.calculateNextRunTime();
-        long delta = nextRunTime - now;
-        assertCloseValues(delta, delay + DEFAULT_INTERVAL_TIME_MS - DEFAULT_FLEX_TIME_MS);
+        assertThat(getWorkSpec(periodicWork).calculateNextRunTime(),
+                is(DEFAULT_PERIOD_START_TIME + DEFAULT_INTERVAL_TIME_MS - DEFAULT_FLEX_TIME_MS));
     }
 
     @Test
@@ -258,15 +168,7 @@ public class WorkSpecTest extends WorkManagerTest {
                 .setInitialRunAttemptCount(1)
                 .setPeriodStartTime(DEFAULT_PERIOD_START_TIME, TimeUnit.MILLISECONDS)
                 .build();
-
         assertThat(getWorkSpec(work).calculateNextRunTime(),
                 is(DEFAULT_PERIOD_START_TIME + WorkRequest.MAX_BACKOFF_MILLIS));
-    }
-
-    private void assertCloseValues(long value, long target) {
-        double min = Math.min(value, target);
-        double max = Math.max(value, target);
-        double ratio = min / max;
-        assertThat(ratio, greaterThanOrEqualTo(0.999d));
     }
 }

@@ -17,7 +17,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -109,13 +108,13 @@ import androidx.leanback.R;
     </style>}
  * </pre>
  *
- * {@link androidx.leanback.R.attr#imageCardViewStyle}
- * {@link androidx.leanback.R.attr#lbImageCardViewType}
- * {@link androidx.leanback.R.attr#imageCardViewTitleStyle}
- * {@link androidx.leanback.R.attr#imageCardViewContentStyle}
- * {@link androidx.leanback.R.attr#imageCardViewBadgeStyle}
- * {@link androidx.leanback.R.attr#imageCardViewImageStyle}
- * {@link androidx.leanback.R.attr#imageCardViewInfoAreaStyle}
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewStyle
+ * @attr ref androidx.leanback.R.styleable#lbImageCardView_lbImageCardViewType
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewTitleStyle
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewContentStyle
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewBadgeStyle
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewImageStyle
+ * @attr ref androidx.leanback.R.styleable#LeanbackTheme_imageCardViewInfoAreaStyle
  */
 public class ImageCardView extends BaseCardView {
 
@@ -171,11 +170,6 @@ public class ImageCardView extends BaseCardView {
         inflater.inflate(R.layout.lb_image_card_view, this);
         TypedArray cardAttrs = getContext().obtainStyledAttributes(attrs,
                 R.styleable.lbImageCardView, defStyleAttr, defStyle);
-        if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(
-                    getContext(), R.styleable.lbImageCardView, attrs, cardAttrs, defStyleAttr,
-                    defStyle);
-        }
         int cardType = cardAttrs
                 .getInt(R.styleable.lbImageCardView_lbImageCardViewType, CARD_TYPE_FLAG_IMAGE_ONLY);
 

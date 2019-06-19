@@ -19,7 +19,7 @@ package androidx.heifwriter;
 import static androidx.heifwriter.HeifWriter.INPUT_MODE_BITMAP;
 import static androidx.heifwriter.HeifWriter.INPUT_MODE_BUFFER;
 import static androidx.heifwriter.HeifWriter.INPUT_MODE_SURFACE;
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static androidx.test.InstrumentationRegistry.getContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -30,8 +30,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
-import android.media.MediaCodecInfo;
-import android.media.MediaCodecList;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
@@ -45,9 +43,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.heifwriter.test.R;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.GrantPermissionRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -70,8 +68,6 @@ import java.util.Arrays;
 @RunWith(AndroidJUnit4.class)
 public class HeifWriterTest {
     private static final String TAG = HeifWriterTest.class.getSimpleName();
-
-    private static final MediaCodecList sMCL = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
 
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 =
@@ -126,8 +122,7 @@ public class HeifWriterTest {
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
             try {
-                inputStream = getApplicationContext()
-                        .getResources().openRawResource(IMAGE_RESOURCES[i]);
+                inputStream = getContext().getResources().openRawResource(IMAGE_RESOURCES[i]);
                 outputStream = new FileOutputStream(outputPath);
                 copy(inputStream, outputStream);
             } finally {
@@ -158,8 +153,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_NoGrid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, false, false);
         doTestForVariousNumberImages(builder);
     }
@@ -167,8 +160,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_Grid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, true, false);
         doTestForVariousNumberImages(builder);
     }
@@ -176,8 +167,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_NoGrid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, false, true);
         doTestForVariousNumberImages(builder);
     }
@@ -185,8 +174,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_Grid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, true, true);
         doTestForVariousNumberImages(builder);
     }
@@ -194,8 +181,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_NoGrid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, false, false);
         doTestForVariousNumberImages(builder);
     }
@@ -203,8 +188,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_Grid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, true, false);
         doTestForVariousNumberImages(builder);
     }
@@ -212,8 +195,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_NoGrid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, false, true);
         doTestForVariousNumberImages(builder);
     }
@@ -221,8 +202,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_Grid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, true, true);
         doTestForVariousNumberImages(builder);
     }
@@ -230,8 +209,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_NoGrid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, false, false);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -243,8 +220,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_Grid_NoHandler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, true, false);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -256,8 +231,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_NoGrid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, false, true);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -269,8 +242,6 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_Grid_Handler() throws Throwable {
-        if (shouldSkip()) return;
-
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, true, true);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -309,25 +280,6 @@ public class HeifWriterTest {
             out.write(buffer, 0, c);
         }
         return total;
-    }
-
-    private boolean shouldSkip() {
-        return !hasEncoderForMime(MediaFormat.MIMETYPE_VIDEO_HEVC)
-            && !hasEncoderForMime(MediaFormat.MIMETYPE_IMAGE_ANDROID_HEIC);
-    }
-
-    private boolean hasEncoderForMime(String mime) {
-        for (MediaCodecInfo info : sMCL.getCodecInfos()) {
-            if (info.isEncoder()) {
-                for (String type : info.getSupportedTypes()) {
-                    if (type.equalsIgnoreCase(mime)) {
-                        Log.i(TAG, "found codec " + info.getName() + " for mime " + mime);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     private static class TestConfig {
@@ -536,7 +488,7 @@ public class HeifWriterTest {
                 }
             }
 
-            heifWriter.stop(10000);
+            heifWriter.stop(3000);
             // The test sets the primary index to the last image.
             // However, if we're testing early abort, the last image will not be
             // present and the muxer is supposed to set it to 0 by default.

@@ -35,9 +35,9 @@ import androidx.room.integration.testapp.dao.UserPetDao;
 import androidx.room.integration.testapp.dao.WithClauseDao;
 import androidx.room.integration.testapp.vo.BlobEntity;
 import androidx.room.integration.testapp.vo.Day;
-import androidx.room.integration.testapp.vo.FriendsJunction;
 import androidx.room.integration.testapp.vo.FunnyNamedEntity;
 import androidx.room.integration.testapp.vo.House;
+import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.PetCouple;
 import androidx.room.integration.testapp.vo.PetWithUser;
@@ -51,8 +51,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Database(entities = {User.class, Pet.class, School.class, PetCouple.class, Toy.class,
-        BlobEntity.class, Product.class, FunnyNamedEntity.class, House.class,
-        FriendsJunction.class},
+        BlobEntity.class, Product.class, FunnyNamedEntity.class, House.class, Mail.class},
         views = {PetWithUser.class},
         version = 1, exportSchema = false)
 @TypeConverters(TestDatabase.Converters.class)

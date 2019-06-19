@@ -13,7 +13,7 @@
  */
 package androidx.leanback.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Fragment;
 
@@ -23,7 +23,7 @@ import androidx.annotation.RestrictTo;
  * Fragment used by the background manager.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public final class BackgroundFragment extends Fragment {
     private BackgroundManager mBackgroundManager;
 

@@ -55,10 +55,6 @@ public class PagedScrollBarView extends ViewGroup {
          * Called when the 'alpha jump' button is clicked and the linked view should switch into
          * alpha jump mode, where we display a list of buttons to allow the user to quickly scroll
          * to a certain point in the list, bypassing a lot of manual scrolling.
-         *
-         * <p>AlphaJump buckets only support characters from the {@code en} language. Characters
-         * from other languages not supported and bucketing behavior is undefined. AlphaJump overlay
-         * is still displayed if all buckets are empty.
          */
         void onAlphaJump();
     }
@@ -75,8 +71,6 @@ public class PagedScrollBarView extends ViewGroup {
     private final int mScrollBarThumbWidth;
 
     private boolean mShowScrollBarThumb;
-    private boolean mAlphaJumpButtonEnabled;
-
     /** The amount of space that the scroll thumb is allowed to roam over. */
     private int mScrollThumbTrackHeight;
 
@@ -122,7 +116,7 @@ public class PagedScrollBarView extends ViewGroup {
                 defStyleAttrs, defStyleRes);
 
         mShowScrollBarThumb = a.getBoolean(R.styleable.PagedScrollBarView_showScrollBarThumb, true);
-        setScrollbarThumbEnabled(mShowScrollBarThumb);
+        setShowScrollBarThumb(mShowScrollBarThumb);
         Drawable upButtonIcon = a.getDrawable(R.styleable.PagedScrollBarView_upButtonIcon);
         if (upButtonIcon != null) {
             setUpButtonIcon(upButtonIcon);
@@ -184,12 +178,11 @@ public class PagedScrollBarView extends ViewGroup {
     }
 
     void setShowAlphaJump(boolean show) {
-        mAlphaJumpButtonEnabled = show;
-        mAlphaJumpButton.setVisibility(show ? VISIBLE : GONE);
+        mAlphaJumpButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /** Returns {@code true} if the scroll bar thumb is visible */
-    public boolean isScrollbarThumbEnabled() {
+    public boolean getShowScrollBarThumb() {
         return mShowScrollBarThumb;
     }
     /**
@@ -197,9 +190,9 @@ public class PagedScrollBarView extends ViewGroup {
      *
      * @param show {@code true} if the scroll bar thumb is visible.
      */
-    public void setScrollbarThumbEnabled(boolean show) {
+    public void setShowScrollBarThumb(boolean show) {
         mShowScrollBarThumb = show;
-        mScrollThumb.setVisibility(mShowScrollBarThumb ? VISIBLE : GONE);
+        mScrollThumb.setVisibility(mShowScrollBarThumb ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -224,12 +217,13 @@ public class PagedScrollBarView extends ViewGroup {
             @IntRange(from = 0) int range,
             @IntRange(from = 0) int offset,
             @IntRange(from = 0) int extent, boolean animate) {
-        // Not laid out yet or not during layout process, so values cannot be calculated.
-        if (!isLaidOut() || isInLayout()) {
+        // Not laid out yet, so values cannot be calculated.
+        if (!isLaidOut()) {
             return;
         }
+
         // If the scroll bars aren't visible, then no need to update.
-        if (getVisibility() == GONE || range == 0) {
+        if (getVisibility() == View.GONE || range == 0) {
             return;
         }
 
@@ -242,6 +236,7 @@ public class PagedScrollBarView extends ViewGroup {
             lp.height = thumbLength;
             mScrollThumb.requestLayout();
         }
+
         int thumbOffset = calculateScrollThumbOffset(range, offset, thumbLength);
         moveTranslationY(mScrollThumb, thumbOffset, animate);
     }
@@ -262,7 +257,7 @@ public class PagedScrollBarView extends ViewGroup {
      */
     void setParametersInLayout(int range, int offset, int extent) {
         // If the scroll bars aren't visible, then no need to update.
-        if (getVisibility() == GONE || range == 0) {
+        if (getVisibility() == View.GONE || range == 0) {
             return;
         }
 
@@ -351,31 +346,10 @@ public class PagedScrollBarView extends ViewGroup {
         mUpButton.measure(wrapMeasureSpec, wrapMeasureSpec);
         mDownButton.measure(wrapMeasureSpec, wrapMeasureSpec);
 
-        // A seperating margin is needed between up and down button.
-        int currentHeight = getPaddingTop() + mUpButton.getMeasuredHeight() + mSeparatingMargin
-                + mDownButton.getMeasuredHeight() +  getPaddingBottom();
+        measureScrollThumb();
 
-        // Check if there is enough room to draw buttons
-        if (currentHeight > requestedHeight) {
-            mUpButton.setVisibility(GONE);
-            mDownButton.setVisibility(GONE);
-        } else {
-            mUpButton.setVisibility(VISIBLE);
-            mDownButton.setVisibility(VISIBLE);
-        }
-
-        if (mShowScrollBarThumb) {
-            measureScrollThumb();
-            currentHeight += mScrollThumb.getMeasuredHeight() + mSeparatingMargin;
-            // Check if there is enough room to draw thumb
-            mScrollThumb.setVisibility(currentHeight > requestedHeight ? GONE : VISIBLE);
-        }
-
-        if (mAlphaJumpButtonEnabled) {
+        if (mAlphaJumpButton.getVisibility() != GONE) {
             mAlphaJumpButton.measure(wrapMeasureSpec, wrapMeasureSpec);
-            currentHeight += mAlphaJumpButton.getMeasuredHeight() + mSeparatingMargin;
-            // Check if there is enough room to draw alpha jump button
-            mAlphaJumpButton.setVisibility(currentHeight > requestedHeight ? GONE : VISIBLE);
         }
 
         setMeasuredDimension(requestedWidth, requestedHeight);
@@ -383,11 +357,6 @@ public class PagedScrollBarView extends ViewGroup {
 
     @Override
     public void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        // When up and down button are GONE, this implies there is not enough room to layout the
-        // rest of the views.
-        if (mUpButton.getVisibility() == GONE) {
-            return;
-        }
         int width = right - left;
         int height = bottom - top;
 
@@ -398,8 +367,8 @@ public class PagedScrollBarView extends ViewGroup {
         layoutViewCenteredFromTop(mUpButton, layoutTop, width);
         layoutTop = mUpButton.getBottom();
 
+        // Lay out the alpha jump button if it exists. This button goes below the up button.
         if (mAlphaJumpButton.getVisibility() != GONE) {
-            // Lay out the alpha jump button if it exists. This button goes below the up button.
             layoutTop += mSeparatingMargin;
 
             layoutViewCenteredFromTop(mAlphaJumpButton, layoutTop, width);
@@ -407,11 +376,9 @@ public class PagedScrollBarView extends ViewGroup {
             layoutTop = mAlphaJumpButton.getBottom();
         }
 
-        if (mScrollThumb.getVisibility() != GONE) {
-            // Lay out the scroll thumb
-            layoutTop += mSeparatingMargin;
-            layoutViewCenteredFromTop(mScrollThumb, layoutTop, width);
-        }
+        // Lay out the scroll thumb
+        layoutTop += mSeparatingMargin;
+        layoutViewCenteredFromTop(mScrollThumb, layoutTop, width);
 
         // Lay out the bottom button at the bottom of the view.
         int downBottom = height - getPaddingBottom();
@@ -436,7 +403,6 @@ public class PagedScrollBarView extends ViewGroup {
         } else {
             mScrollThumbTrackHeight -= mUpButton.getBottom();
         }
-        mScrollThumbTrackHeight = Math.max(0, mScrollThumbTrackHeight);
     }
 
     private void measureScrollThumb() {

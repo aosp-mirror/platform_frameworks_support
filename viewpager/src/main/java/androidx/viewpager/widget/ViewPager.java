@@ -53,6 +53,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.view.AbsSavedState;
 
@@ -108,6 +109,8 @@ public class ViewPager extends ViewGroup {
     private static final String TAG = "ViewPager";
     private static final boolean DEBUG = false;
 
+    private static final boolean USE_CACHE = false;
+
     private static final int DEFAULT_OFFSCREEN_PAGES = 1;
     private static final int MAX_SETTLE_DURATION = 600; // ms
     private static final int MIN_DISTANCE_FOR_FLING = 25; // dips
@@ -115,10 +118,6 @@ public class ViewPager extends ViewGroup {
     private static final int DEFAULT_GUTTER_SIZE = 16; // dips
 
     private static final int MIN_FLING_VELOCITY = 400; // dips
-
-    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
-    private static final String ACCESSIBILITY_CLASS_NAME =
-            "androidx.viewpager.widget.ViewPager";
 
     static final int[] LAYOUT_ATTRS = new int[] {
         android.R.attr.layout_gravity
@@ -192,9 +191,6 @@ public class ViewPager extends ViewGroup {
     private int mDefaultGutterSize;
     private int mGutterSize;
     private int mTouchSlop;
-
-    private boolean mDragInGutterEnabled = true;
-
     /**
      * Position of the last motion event.
      */
@@ -1473,6 +1469,14 @@ public class ViewPager extends ViewGroup {
         } else {
             super.addView(child, index, params);
         }
+
+        if (USE_CACHE) {
+            if (child.getVisibility() != GONE) {
+                child.setDrawingCacheEnabled(mScrollingCacheEnabled);
+            } else {
+                child.setDrawingCacheEnabled(false);
+            }
+        }
     }
 
     private static boolean isDecorView(@NonNull View view) {
@@ -1990,26 +1994,7 @@ public class ViewPager extends ViewGroup {
         }
     }
 
-    /**
-     * @return Whether dragging in the gutter (left and right edges) of the ViewPager is enabled.
-     */
-    public boolean isDragInGutterEnabled() {
-        return mDragInGutterEnabled;
-    }
-
-    /**
-     * Set whether ViewPager should consume drag events if they are within the gutter
-     * (left and right edges) of the ViewPager. The default value {@code false}.
-     * @param enabled true if ViewPager should allow drag in gutter, false otherwise
-     */
-    public void setDragInGutterEnabled(boolean enabled) {
-        mDragInGutterEnabled = enabled;
-    }
-
     private boolean isGutterDrag(float x, float dx) {
-        if (mDragInGutterEnabled) {
-            return false;
-        }
         return (x < mGutterSize && dx > 0) || (x > getWidth() - mGutterSize && dx < 0);
     }
 
@@ -2670,6 +2655,15 @@ public class ViewPager extends ViewGroup {
     private void setScrollingCacheEnabled(boolean enabled) {
         if (mScrollingCacheEnabled != enabled) {
             mScrollingCacheEnabled = enabled;
+            if (USE_CACHE) {
+                final int size = getChildCount();
+                for (int i = 0; i < size; ++i) {
+                    final View child = getChildAt(i);
+                    if (child.getVisibility() != GONE) {
+                        child.setDrawingCacheEnabled(enabled);
+                    }
+                }
+            }
         }
     }
 
@@ -2987,7 +2981,7 @@ public class ViewPager extends ViewGroup {
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         // Dispatch scroll events from this ViewPager.
-        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
+        if (event.getEventType() == AccessibilityEventCompat.TYPE_VIEW_SCROLLED) {
             return super.dispatchPopulateAccessibilityEvent(event);
         }
 
@@ -3032,7 +3026,7 @@ public class ViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
-            event.setClassName(ACCESSIBILITY_CLASS_NAME);
+            event.setClassName(ViewPager.class.getName());
             event.setScrollable(canScroll());
             if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED && mAdapter != null) {
                 event.setItemCount(mAdapter.getCount());
@@ -3044,7 +3038,7 @@ public class ViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            info.setClassName(ACCESSIBILITY_CLASS_NAME);
+            info.setClassName(ViewPager.class.getName());
             info.setScrollable(canScroll());
             if (canScrollHorizontally(1)) {
                 info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);

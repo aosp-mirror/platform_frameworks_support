@@ -17,7 +17,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -42,7 +42,7 @@ import androidx.core.view.ViewPropertyAnimatorCompat;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface DecorToolbar {
     ViewGroup getViewGroup();
     Context getContext();

@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -34,7 +34,7 @@ import androidx.appcompat.R;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class ActionBarPolicy {
 
     private Context mContext;

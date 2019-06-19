@@ -159,12 +159,11 @@ class BaseDaoTest {
         """.toJFO("foo.bar.MyDao")
         simpleRun(baseClass, extension, COMMON.USER) { invocation ->
             val daoElm = invocation.processingEnv.elementUtils.getTypeElement("foo.bar.MyDao")
-            val dbElm = invocation.context.processingEnv.elementUtils
-                .getTypeElement(RoomTypeNames.ROOM_DB.toString())
-            val dbType = MoreTypes.asDeclared(dbElm.asType())
+            val dbType = MoreTypes.asDeclared(invocation.context.processingEnv.elementUtils
+                    .getTypeElement(RoomTypeNames.ROOM_DB.toString()).asType())
             val processedDao = DaoProcessor(invocation.context, daoElm, dbType, null).process()
             handler(processedDao)
-            DaoWriter(processedDao, dbElm, invocation.processingEnv).write(invocation.processingEnv)
+            DaoWriter(processedDao, invocation.processingEnv).write(invocation.processingEnv)
         }.compilesWithoutError()
     }
 }

@@ -16,7 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -46,29 +47,30 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
- * The basic building block that represents an individual setting displayed to a user in the
- * preference hierarchy. This class provides the data that will be displayed to the user and has
- * a reference to the {@link SharedPreferences} or {@link PreferenceDataStore} instance that
- * persists the preference's values.
+ * Represents the basic {@link Preference} UI building block displayed by a
+ * {@link PreferenceFragmentCompat} in the form of a {@link RecyclerView}. This class provides
+ * data for the {@link android.view.View} to be displayed in the list and associates with a
+ * {@link SharedPreferences} or {@link PreferenceDataStore} to store/retrieve the preference data.
  *
  * <p>When specifying a preference hierarchy in XML, each element can point to a subclass of
  * {@link Preference}, similar to the view hierarchy and layouts.
  *
- * <p>This class contains a {@code key} that that represents the key that is used to persist the
- * value to the device. It is up to the subclass to decide how to store the value.
+ * <p>This class contains a {@code key} that will be used as the key into the
+ * {@link SharedPreferences}. It is up to the subclass to decide how to store the value.
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
- * <p>For information about building a settings screen using the AndroidX Preference library, see
- * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
+ * <p>For information about building a settings UI with Preferences,
+ * read the <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>
+ * guide.</p>
  * </div>
  *
  * @attr name android:icon
@@ -499,23 +501,8 @@ public class Preference implements Comparable<Preference> {
      *               returns.
      */
     public void onBindViewHolder(PreferenceViewHolder holder) {
-        View itemView = holder.itemView;
-        Integer summaryTextColor = null;
-
-        itemView.setOnClickListener(mClickListener);
-        itemView.setId(mViewId);
-
-        final TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
-        if (summaryView != null) {
-            final CharSequence summary = getSummary();
-            if (!TextUtils.isEmpty(summary)) {
-                summaryView.setText(summary);
-                summaryView.setVisibility(View.VISIBLE);
-                summaryTextColor = summaryView.getCurrentTextColor();
-            } else {
-                summaryView.setVisibility(View.GONE);
-            }
-        }
+        holder.itemView.setOnClickListener(mClickListener);
+        holder.itemView.setId(mViewId);
 
         final TextView titleView = (TextView) holder.findViewById(android.R.id.title);
         if (titleView != null) {
@@ -526,13 +513,19 @@ public class Preference implements Comparable<Preference> {
                 if (mHasSingleLineTitleAttr) {
                     titleView.setSingleLine(mSingleLineTitle);
                 }
-                // If this Preference is not selectable, but still enabled, we should set the
-                // title text colour to the same colour used for the summary text
-                if (!isSelectable() && isEnabled() && summaryTextColor != null) {
-                    titleView.setTextColor(summaryTextColor);
-                }
             } else {
                 titleView.setVisibility(View.GONE);
+            }
+        }
+
+        final TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
+        if (summaryView != null) {
+            final CharSequence summary = getSummary();
+            if (!TextUtils.isEmpty(summary)) {
+                summaryView.setText(summary);
+                summaryView.setVisibility(View.VISIBLE);
+            } else {
+                summaryView.setVisibility(View.GONE);
             }
         }
 
@@ -566,29 +559,23 @@ public class Preference implements Comparable<Preference> {
         }
 
         if (mShouldDisableView) {
-            setEnabledStateOnViews(itemView, isEnabled());
+            setEnabledStateOnViews(holder.itemView, isEnabled());
         } else {
-            setEnabledStateOnViews(itemView, true);
+            setEnabledStateOnViews(holder.itemView, true);
         }
 
         final boolean selectable = isSelectable();
-        itemView.setFocusable(selectable);
-        itemView.setClickable(selectable);
+        holder.itemView.setFocusable(selectable);
+        holder.itemView.setClickable(selectable);
 
         holder.setDividerAllowedAbove(mAllowDividerAbove);
         holder.setDividerAllowedBelow(mAllowDividerBelow);
 
-        final boolean copyingEnabled = isCopyingEnabled();
-
-        if (copyingEnabled && mOnCopyListener == null) {
-            mOnCopyListener = new OnPreferenceCopyListener(this);
-        }
-        itemView.setOnCreateContextMenuListener(copyingEnabled ? mOnCopyListener : null);
-        itemView.setLongClickable(copyingEnabled);
-
-        // Remove touch ripple if the view isn't selectable
-        if (copyingEnabled && !selectable) {
-            ViewCompat.setBackground(itemView, null);
+        if (isCopyingEnabled()) {
+            if (mOnCopyListener == null) {
+                mOnCopyListener = new OnPreferenceCopyListener(this);
+            }
+            holder.itemView.setOnCreateContextMenuListener(mOnCopyListener);
         }
     }
 
@@ -688,7 +675,7 @@ public class Preference implements Comparable<Preference> {
      * @param icon The optional icon for this preference
      */
     public void setIcon(Drawable icon) {
-        if (mIcon != icon) {
+        if ((icon == null && mIcon != null) || (icon != null && mIcon != icon)) {
             mIcon = icon;
             mIconResId = 0;
             notifyChanged();
@@ -727,7 +714,6 @@ public class Preference implements Comparable<Preference> {
      * @see #setSummary(CharSequence)
      * @see #setSummaryProvider(SummaryProvider)
      */
-    @SuppressWarnings("unchecked")
     public CharSequence getSummary() {
         if (getSummaryProvider() != null) {
             return getSummaryProvider().provideSummary(this);
@@ -749,7 +735,8 @@ public class Preference implements Comparable<Preference> {
         if (getSummaryProvider() != null) {
             throw new IllegalStateException("Preference already has a SummaryProvider set.");
         }
-        if (!TextUtils.equals(mSummary, summary)) {
+        if ((summary == null && mSummary != null)
+                || (summary != null && !summary.equals(mSummary))) {
             mSummary = summary;
             notifyChanged();
         }
@@ -852,7 +839,7 @@ public class Preference implements Comparable<Preference> {
      * the group is visible.
      *
      * @param visible Set false if this preference should be hidden from the user
-     *                {@link androidx.preference.R.attr#isPreferenceVisible}
+     * @attr ref R.styleable#Preference_isPreferenceVisible
      * @see #isShown()
      */
     public final void setVisible(boolean visible) {
@@ -1014,7 +1001,7 @@ public class Preference implements Comparable<Preference> {
      * letting it wrap onto multiple lines.
      *
      * @param singleLineTitle Set {@code true} if the title should be constrained to one line
-     *                        {@link android.R.attr#singleLineTitle}
+     * @attr ref R.styleable#Preference_android_singleLineTitle
      */
     public void setSingleLineTitle(boolean singleLineTitle) {
         mHasSingleLineTitleAttr = true;
@@ -1025,7 +1012,7 @@ public class Preference implements Comparable<Preference> {
      * Gets whether the title of this preference is constrained to a single line.
      *
      * @return {@code true} if the title of this preference is constrained to a single line
-     * {@link android.R.attr#singleLineTitle}
+     * @attr ref R.styleable#Preference_android_singleLineTitle
      * @see #setSingleLineTitle(boolean)
      */
     public boolean isSingleLineTitle() {
@@ -1038,7 +1025,7 @@ public class Preference implements Comparable<Preference> {
      * other preferences having icons.
      *
      * @param iconSpaceReserved Set {@code true} if the space for the icon view should be reserved
-     *                          {@link android.R.attr#iconSpaceReserved}
+     * @attr ref R.styleable#Preference_android_iconSpaceReserved
      */
     public void setIconSpaceReserved(boolean iconSpaceReserved) {
         if (mIconSpaceReserved != iconSpaceReserved) {
@@ -1051,7 +1038,7 @@ public class Preference implements Comparable<Preference> {
      * Returns whether the space of this preference icon view is reserved.
      *
      * @return {@code true} if the space of this preference icon view is reserved
-     * {@link android.R.attr#iconSpaceReserved}
+     * @attr ref R.styleable#Preference_android_iconSpaceReserved
      * @see #setIconSpaceReserved(boolean)
      */
     public boolean isIconSpaceReserved() {
@@ -1063,7 +1050,10 @@ public class Preference implements Comparable<Preference> {
      * long pressing on the preference.
      *
      * @param enabled Set true to enable copying the summary of this preference
+     * @hide
+     * @pending
      */
+    @RestrictTo(LIBRARY_GROUP)
     public void setCopyingEnabled(boolean enabled) {
         if (mCopyingEnabled != enabled) {
             mCopyingEnabled = enabled;
@@ -1076,7 +1066,10 @@ public class Preference implements Comparable<Preference> {
      * long pressing on the preference.
      *
      * @return {@code true} if copying is enabled, false otherwise
+     * @hide
+     * @pending
      */
+    @RestrictTo(LIBRARY_GROUP)
     public boolean isCopyingEnabled() {
         return mCopyingEnabled;
     }
@@ -1086,7 +1079,7 @@ public class Preference implements Comparable<Preference> {
      * is requested. Set {@code null} to remove the existing SummaryProvider.
      *
      * @param summaryProvider The {@link SummaryProvider} that will be invoked whenever the
-     *                        summary of this preference is requested
+     *                         summary of this preference is requested
      * @see SummaryProvider
      */
     public final void setSummaryProvider(@Nullable SummaryProvider summaryProvider) {
@@ -1158,10 +1151,9 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
-     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     protected void performClick(View view) {
         performClick();
     }
@@ -1169,13 +1161,12 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called when a click should be performed.
      *
-     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void performClick() {
 
-        if (!isEnabled() || !isSelectable()) {
+        if (!isEnabled()) {
             return;
         }
 
@@ -1314,11 +1305,9 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called from {@link PreferenceGroup} to pass in an ID for reuse.
      *
-     * Used by Settings.
-     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     protected void onAttachedToHierarchy(PreferenceManager preferenceManager, long id) {
         mId = id;
         mHasId = true;
@@ -1370,15 +1359,21 @@ public class Preference implements Comparable<Preference> {
     /**
      * Returns true if {@link #onDetached()} was called. Used for handling the case when a
      * preference was removed, modified, and re-added to a {@link PreferenceGroup}.
+     *
+     * @hide
      */
-    final boolean wasDetached() {
+    @RestrictTo(LIBRARY)
+    public final boolean wasDetached() {
         return mWasDetached;
     }
 
     /**
      * Clears the {@link #wasDetached()} status.
+     *
+     * @hide
      */
-    final void clearWasDetached() {
+    @RestrictTo(LIBRARY)
+    public final void clearWasDetached() {
         mWasDetached = false;
     }
 
@@ -1405,19 +1400,16 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
-     * Finds a preference in the entire hierarchy (above or below this preference) with the given
-     * key. Returns {@code null} if no preference could be found with the given key.
+     * Finds a preference in this hierarchy (the whole thing, even above/below your
+     * {@link PreferenceScreen} screen break) with the given key.
      *
-     * <p>This only works after this preference has been attached to a hierarchy.
+     * <p>This only functions after we have been attached to a hierarchy.
      *
-     * @param key The key of the preference to retrieve
-     * @return The preference with the key, or {@code null}
-     * @see PreferenceGroup#findPreference(CharSequence)
+     * @param key The key of the preference to find
+     * @return The preference that uses the given key
      */
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    @Nullable
-    protected <T extends Preference> T findPreferenceInHierarchy(@NonNull String key) {
-        if (mPreferenceManager == null) {
+    protected Preference findPreferenceInHierarchy(String key) {
+        if (TextUtils.isEmpty(key) || mPreferenceManager == null) {
             return null;
         }
 
@@ -2163,11 +2155,11 @@ public class Preference implements Comparable<Preference> {
      * the SummaryProvider will be used instead whenever {@link #getSummary()} is called on this
      * preference.
      *
-     * <p> Simple implementations are provided for {@link EditTextPreference} and
-     * {@link ListPreference}. To enable these implementations, use
+     * <p> Default implementations are provided for {@link EditTextPreference} and
+     * {@link ListPreference}. To enable these default implementations, use
      * {@link #setSummaryProvider(SummaryProvider)} with
-     * {@link EditTextPreference.SimpleSummaryProvider#getInstance()} or
-     * {@link ListPreference.SimpleSummaryProvider#getInstance()}.
+     * {@link EditTextPreference.DefaultProvider#getInstance()} or
+     * {@link ListPreference.DefaultProvider#getInstance()}.
      *
      * @param <T> The Preference class that a summary is being requested for
      */

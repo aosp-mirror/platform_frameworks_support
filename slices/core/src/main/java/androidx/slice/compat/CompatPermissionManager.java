@@ -19,7 +19,6 @@ package androidx.slice.compat;
 import static androidx.core.content.PermissionChecker.PERMISSION_DENIED;
 import static androidx.core.content.PermissionChecker.PERMISSION_GRANTED;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -62,7 +61,6 @@ public class CompatPermissionManager {
         return mContext.getSharedPreferences(mPrefsName, Context.MODE_PRIVATE);
     }
 
-    @SuppressLint("WrongConstant")
     public int checkSlicePermission(Uri uri, int pid, int uid) {
         if (uid == mMyUid) {
             return PERMISSION_GRANTED;

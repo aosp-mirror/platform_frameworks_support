@@ -16,96 +16,92 @@
 
 package androidx.transition;
 
-import android.annotation.SuppressLint;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 class ImageViewUtils {
+    private static final String TAG = "ImageViewUtils";
+
+    private static Method sAnimateTransformMethod;
+    private static boolean sAnimateTransformMethodFetched;
 
     /**
-     * False when linking of the hidden animateTransform method has previously failed.
+     * Starts animating the transformation of the image view. This has to be called before calling
+     * {@link #animateTransform(ImageView, Matrix)}.
      */
-    private static boolean sTryHiddenAnimateTransform = true;
-
-    private static Field sDrawMatrixField;
-    private static boolean sDrawMatrixFieldFetched;
+    static void startAnimateTransform(ImageView view) {
+        if (Build.VERSION.SDK_INT < 21) {
+            final ImageView.ScaleType scaleType = view.getScaleType();
+            view.setTag(R.id.save_scale_type, scaleType);
+            if (scaleType == ImageView.ScaleType.MATRIX) {
+                view.setTag(R.id.save_image_matrix, view.getImageMatrix());
+            } else {
+                view.setScaleType(ImageView.ScaleType.MATRIX);
+            }
+            view.setImageMatrix(MatrixUtils.IDENTITY_MATRIX);
+        }
+    }
 
     /**
      * Sets the matrix to animate the content of the image view.
      */
-    @SuppressLint("NewApi") // TODO: Remove this suppression once Q SDK is released.
-    static void animateTransform(@NonNull ImageView view, @Nullable Matrix matrix) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            view.animateTransform(matrix);
-        } else if (matrix == null) {
-            // There is a bug in ImageView.animateTransform() prior to Q so paddings are
-            // ignored when matrix is null.
-            Drawable drawable = view.getDrawable();
-            if (drawable != null) {
-                int vwidth = view.getWidth() - view.getPaddingLeft() - view.getPaddingRight();
-                int vheight = view.getHeight() - view.getPaddingTop() - view.getPaddingBottom();
-                drawable.setBounds(0, 0, vwidth, vheight);
-                view.invalidate();
-            }
-        } else if (Build.VERSION.SDK_INT >= 21) {
-            hiddenAnimateTransform(view, matrix);
+    static void animateTransform(ImageView view, Matrix matrix) {
+        if (Build.VERSION.SDK_INT < 21) {
+            view.setImageMatrix(matrix);
         } else {
-            Drawable drawable = view.getDrawable();
-            if (drawable != null) {
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                        drawable.getIntrinsicHeight());
-                Matrix drawMatrix = null;
-                fetchDrawMatrixField();
-                if (sDrawMatrixField != null) {
-                    try {
-                        drawMatrix = (Matrix) sDrawMatrixField.get(view);
-                        if (drawMatrix == null) {
-                            drawMatrix = new Matrix();
-                            sDrawMatrixField.set(view, drawMatrix);
-                        }
-                    } catch (IllegalAccessException ignore) {
-                        // Do nothing
+            fetchAnimateTransformMethod();
+            if (sAnimateTransformMethod != null) {
+                try {
+                    sAnimateTransformMethod.invoke(view, matrix);
+                } catch (IllegalAccessException e) {
+                    // Do nothing
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e.getCause());
+                }
+            }
+        }
+    }
+
+    private static void fetchAnimateTransformMethod() {
+        if (!sAnimateTransformMethodFetched) {
+            try {
+                sAnimateTransformMethod = ImageView.class.getDeclaredMethod("animateTransform",
+                        Matrix.class);
+                sAnimateTransformMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                Log.i(TAG, "Failed to retrieve animateTransform method", e);
+            }
+            sAnimateTransformMethodFetched = true;
+        }
+    }
+
+    /**
+     * Reserves that the caller will stop calling {@link #animateTransform(ImageView, Matrix)} when
+     * the specified animator ends.
+     */
+    static void reserveEndAnimateTransform(final ImageView view, Animator animator) {
+        if (Build.VERSION.SDK_INT < 21) {
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    final ImageView.ScaleType scaleType = (ImageView.ScaleType)
+                            view.getTag(R.id.save_scale_type);
+                    view.setScaleType(scaleType);
+                    view.setTag(R.id.save_scale_type, null);
+                    if (scaleType == ImageView.ScaleType.MATRIX) {
+                        view.setImageMatrix((Matrix) view.getTag(R.id.save_image_matrix));
+                        view.setTag(R.id.save_image_matrix, null);
                     }
+                    animation.removeListener(this);
                 }
-                if (drawMatrix != null) {
-                    drawMatrix.set(matrix);
-                }
-                view.invalidate();
-            }
-        }
-    }
-
-    @RequiresApi(21)
-    @SuppressLint("NewApi") // Lint doesn't know about the hidden method.
-    private static void hiddenAnimateTransform(@NonNull ImageView view, @Nullable Matrix matrix) {
-        if (sTryHiddenAnimateTransform) {
-            // Since this was an @hide method made public, we can link directly against it with
-            // a try/catch for its absence instead of doing the same through reflection.
-            try {
-                view.animateTransform(matrix);
-            } catch (NoSuchMethodError e) {
-                sTryHiddenAnimateTransform = false;
-            }
-        }
-    }
-
-    private static void fetchDrawMatrixField() {
-        if (!sDrawMatrixFieldFetched) {
-            try {
-                sDrawMatrixField = ImageView.class.getDeclaredField("mDrawMatrix");
-                sDrawMatrixField.setAccessible(true);
-            } catch (NoSuchFieldException ignore) {
-                // Do nothing
-            }
-            sDrawMatrixFieldFetched = true;
+            });
         }
     }
 

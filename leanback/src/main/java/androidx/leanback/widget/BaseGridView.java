@@ -13,7 +13,7 @@
  */
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -23,9 +23,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Interpolator;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.leanback.R;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,14 +45,14 @@ public abstract class BaseGridView extends RecyclerView {
      * is back to the view.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public final static int FOCUS_SCROLL_ALIGNED = 0;
 
     /**
      * Scroll to make the focused item inside client area.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public final static int FOCUS_SCROLL_ITEM = 1;
 
     /**
@@ -62,7 +60,7 @@ public abstract class BaseGridView extends RecyclerView {
      * The page size matches the client area size of RecyclerView.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public final static int FOCUS_SCROLL_PAGE = 2;
 
     /**
@@ -156,30 +154,6 @@ public abstract class BaseGridView extends RecyclerView {
      */
     public static final int SAVE_ALL_CHILD = 3;
 
-    private static final int PFLAG_RETAIN_FOCUS_FOR_CHILD = 1 << 0;
-
-    /**
-     * Defines behavior of duration and interpolator for smoothScrollBy().
-     */
-    public interface SmoothScrollByBehavior {
-        /**
-         * Defines duration in milliseconds of smoothScrollBy().
-         * @param dx x distance in pixels.
-         * @param dy y distance in pixels.
-         * @return Duration in milliseconds or UNDEFINED_DURATION for default value.
-         */
-        int configSmoothScrollByDuration(int dx, int dy);
-
-        /**
-         * Defines interpolator of smoothScrollBy().
-         * @param dx x distance in pixels.
-         * @param dy y distance in pixels.
-         * @return Interpolator to be used or null for default interpolator.
-         */
-        @Nullable
-        Interpolator configSmoothScrollByInterpolator(int dx, int dy);
-    }
-
     /**
      * Listener for intercepting touch dispatch events.
      */
@@ -219,8 +193,6 @@ public abstract class BaseGridView extends RecyclerView {
 
     final GridLayoutManager mLayoutManager;
 
-    private SmoothScrollByBehavior mSmoothScrollByBehavior;
-
     /**
      * Animate layout changes from a child resizing or adding/removing a child.
      */
@@ -240,8 +212,6 @@ public abstract class BaseGridView extends RecyclerView {
      * Number of items to prefetch when first coming on screen with new data.
      */
     int mInitialPrefetchItemCount = 4;
-
-    private int mPrivateFlag;
 
     BaseGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -298,7 +268,7 @@ public abstract class BaseGridView extends RecyclerView {
      * </ul>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setFocusScrollStrategy(int scrollStrategy) {
         if (scrollStrategy != FOCUS_SCROLL_ALIGNED && scrollStrategy != FOCUS_SCROLL_ITEM
             && scrollStrategy != FOCUS_SCROLL_PAGE) {
@@ -317,7 +287,7 @@ public abstract class BaseGridView extends RecyclerView {
      * </ul>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public int getFocusScrollStrategy() {
         return mLayoutManager.getFocusScrollStrategy();
     }
@@ -711,7 +681,7 @@ public abstract class BaseGridView extends RecyclerView {
      * Changes the selected item and/or subposition immediately without animation.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setSelectedPositionWithSub(int position, int subposition) {
         mLayoutManager.setSelectionWithSub(position, subposition, 0);
     }
@@ -731,7 +701,7 @@ public abstract class BaseGridView extends RecyclerView {
      * another {@link #setSelectedPosition} or {@link #setSelectedPositionSmooth} call.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setSelectedPositionWithSub(int position, int subposition, int scrollExtra) {
         mLayoutManager.setSelectionWithSub(position, subposition, scrollExtra);
     }
@@ -750,7 +720,7 @@ public abstract class BaseGridView extends RecyclerView {
      * position.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setSelectedPositionSmoothWithSub(int position, int subposition) {
         mLayoutManager.setSelectionSmoothWithSub(position, subposition);
     }
@@ -822,7 +792,7 @@ public abstract class BaseGridView extends RecyclerView {
      * is defined.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public int getSelectedSubPosition() {
         return mLayoutManager.getSubSelection();
     }
@@ -866,10 +836,6 @@ public abstract class BaseGridView extends RecyclerView {
 
     @Override
     public boolean onRequestFocusInDescendants(int direction, Rect previouslyFocusedRect) {
-        if ((mPrivateFlag & PFLAG_RETAIN_FOCUS_FOR_CHILD) == PFLAG_RETAIN_FOCUS_FOR_CHILD) {
-            // dont focus to child if GridView itself retains focus for child
-            return false;
-        }
         return mLayoutManager.gridOnRequestFocusInDescendants(this, direction,
                 previouslyFocusedRect);
     }
@@ -1135,7 +1101,7 @@ public abstract class BaseGridView extends RecyclerView {
      *                          Must be bigger or equals to 0.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setExtraLayoutSpace(int extraLayoutSpace) {
         mLayoutManager.setExtraLayoutSpace(extraLayoutSpace);
     }
@@ -1145,7 +1111,7 @@ public abstract class BaseGridView extends RecyclerView {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public int getExtraLayoutSpace() {
         return mLayoutManager.getExtraLayoutSpace();
     }
@@ -1184,88 +1150,6 @@ public abstract class BaseGridView extends RecyclerView {
             return;
         }
         super.smoothScrollToPosition(position);
-    }
-
-    /**
-     * Set custom behavior for smoothScrollBy().
-     * @param behavior Custom behavior of SmoothScrollBy(). Null for default behavior.
-     */
-    public final void setSmoothScrollByBehavior(@Nullable SmoothScrollByBehavior behavior) {
-        mSmoothScrollByBehavior = behavior;
-    }
-
-    /**
-     * Returns custom behavior for smoothScrollBy().
-     * @return Custom behavior for SmoothScrollBy(). Null for default behavior.
-     */
-    @Nullable
-    public SmoothScrollByBehavior getSmoothScrollByBehavior() {
-        return mSmoothScrollByBehavior;
-    }
-
-    @Override
-    public void smoothScrollBy(int dx, int dy) {
-        if (mSmoothScrollByBehavior != null) {
-            smoothScrollBy(dx, dy,
-                    mSmoothScrollByBehavior.configSmoothScrollByInterpolator(dx, dy),
-                    mSmoothScrollByBehavior.configSmoothScrollByDuration(dx, dy));
-        } else {
-            smoothScrollBy(dx, dy, null, UNDEFINED_DURATION);
-        }
-    }
-
-    @Override
-    public void smoothScrollBy(int dx, int dy, @Nullable Interpolator interpolator) {
-        if (mSmoothScrollByBehavior != null) {
-            smoothScrollBy(dx, dy,
-                    interpolator,
-                    mSmoothScrollByBehavior.configSmoothScrollByDuration(dx, dy));
-        } else {
-            smoothScrollBy(dx, dy, interpolator, UNDEFINED_DURATION);
-        }
-    }
-
-    /**
-     * Set factor of how slow the smoothScroller should run. For example when set to 2f, the smooth
-     * scroller is twice slower. The value is 1f by default.
-     * @param smoothScrollSpeedFactor Factor of how slow the smooth scroll is.
-     */
-    public final void setSmoothScrollSpeedFactor(float smoothScrollSpeedFactor) {
-        mLayoutManager.mSmoothScrollSpeedFactor = smoothScrollSpeedFactor;
-    }
-
-    /**
-     * @return Factor of how slow the smoothScroller runs. Default value is 1f.
-     */
-    public final float getSmoothScrollSpeedFactor() {
-        return mLayoutManager.mSmoothScrollSpeedFactor;
-    }
-
-    /**
-     * When holding DPAD, DPAD events are generated faster than the grid view can scroll. The
-     * grid view counts unhandled DPAD events and completes the movement after user release DPAD.
-     * If the value is set too high, the scrolling will last very long after DPAD is released. If
-     * the value is set too low, it may miss many DPAD events. The default value is 10. If app
-     * increases {@link #setSmoothScrollSpeedFactor(float)}, it may need decrease the max pending
-     * DPAD events to avoid scrolling too long after DPAD release.
-     * @param maxPendingMoves Maximum number of pending DPAD events to be remembered.
-     */
-    public final void setSmoothScrollMaxPendingMoves(int maxPendingMoves) {
-        mLayoutManager.mMaxPendingMoves = maxPendingMoves;
-    }
-
-    /**
-     * When holding DPAD, DPAD events are generated faster than the grid view can scroll. The
-     * grid view counts unhandled DPAD events and complete the movement after user release DPAD.
-     * If the value is set too high, the scrolling will last very long after DPAD is released. If
-     * the value is set too low, it may miss many DPAD events. The default value is 10. If app
-     * increases {@link #setSmoothScrollSpeedFactor(float)}, it may need decrease the max pending
-     * DPAD events to avoid scrolling too long after DPAD release.
-     * @return Maximum number of pending DPAD events to be remembered when smooth scroll cannot
-     *         catch up speed of DPAD events being sent.
-     */
-    public final int getSmoothScrollMaxPendingMoves() {
-        return mLayoutManager.mMaxPendingMoves;
     }
 
     /**
@@ -1315,35 +1199,5 @@ public abstract class BaseGridView extends RecyclerView {
      */
     public int getInitialPrefetchItemCount() {
         return mInitialPrefetchItemCount;
-    }
-
-    @Override
-    public void removeView(View view) {
-        boolean retainFocusForChild = view.hasFocus() && isFocusable();
-        if (retainFocusForChild) {
-            // When animation or scrolling removes a focused child, focus to GridView itself to
-            // avoid losing focus.
-            mPrivateFlag |= PFLAG_RETAIN_FOCUS_FOR_CHILD;
-            requestFocus();
-        }
-        super.removeView(view);
-        if (retainFocusForChild) {
-            mPrivateFlag ^= (~PFLAG_RETAIN_FOCUS_FOR_CHILD);
-        }
-    }
-
-    @Override
-    public void removeViewAt(int index) {
-        boolean retainFocusForChild = getChildAt(index).hasFocus();
-        if (retainFocusForChild) {
-            // When animation or scrolling removes a focused child, focus to GridView itself to
-            // avoid losing focus.
-            mPrivateFlag |= PFLAG_RETAIN_FOCUS_FOR_CHILD;
-            requestFocus();
-        }
-        super.removeViewAt(index);
-        if (retainFocusForChild) {
-            mPrivateFlag ^= (~PFLAG_RETAIN_FOCUS_FOR_CHILD);
-        }
     }
 }

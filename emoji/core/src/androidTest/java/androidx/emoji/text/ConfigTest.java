@@ -34,17 +34,16 @@ import android.content.Context;
 import android.graphics.Color;
 
 import androidx.emoji.util.TestString;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ConfigTest {
 
@@ -52,7 +51,7 @@ public class ConfigTest {
 
     @Before
     public void setup() {
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getTargetContext();
     }
 
     @Test(expected = NullPointerException.class)

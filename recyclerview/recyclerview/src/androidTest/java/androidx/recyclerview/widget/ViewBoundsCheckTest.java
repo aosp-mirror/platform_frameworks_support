@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import android.content.Context;
 import android.view.View;
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
@@ -89,7 +89,7 @@ public class ViewBoundsCheckTest {
 
     @Before
     public void setUp() throws Exception {
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getContext();
     }
 
     private void setUpViews(int[] parentBound, int[][] childrenBound) {

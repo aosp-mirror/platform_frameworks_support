@@ -37,11 +37,10 @@ import androidx.benchmark.BenchmarkState;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.benchmark.test.R;
 import androidx.slice.core.SliceHints;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,7 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@MediumTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceSerializeMetrics {
 
@@ -66,13 +65,13 @@ public class SliceSerializeMetrics {
     @Rule
     public BenchmarkRule mBenchmarkRule = new BenchmarkRule();
 
-    private final Context mContext = ApplicationProvider.getApplicationContext();
+    private final Context mContext = InstrumentationRegistry.getContext();
 
     @Test
     public void testSerialization() throws Exception {
         final BenchmarkState state = mBenchmarkRule.getState();
         // Create a slice containing all the types in a hierarchy.
-        Slice before = createSlice(mContext, Uri.parse("context://pkg/slice"), 3, 3, 6);
+        Slice before = createSlice(Uri.parse("context://pkg/slice"), 3, 3, 6);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024 * 1024);
 
         if (WRITE_SAMPLE_FILE) {
@@ -132,7 +131,7 @@ public class SliceSerializeMetrics {
             after = SliceUtils.parseSlice(mContext, inputStream, "UTF-8", listener);
         }
 
-        Slice before = createSlice(mContext, Uri.parse("context://pkg/slice"), 3, 3, 6);
+        Slice before = createSlice(Uri.parse("context://pkg/slice"), 3, 3, 6);
         assertEquivalentRoot(before, after);
     }
 
@@ -177,11 +176,11 @@ public class SliceSerializeMetrics {
         }
     }
 
-    public static Slice createSlice(Context context, Uri uri, int width, int depth, int items) {
+    private Slice createSlice(Uri uri, int width, int depth, int items) {
         Slice.Builder builder = new Slice.Builder(uri);
         if (depth > 0) {
             for (int i = 0; i < width; i++) {
-                builder.addSubSlice(createSlice(context, uri.buildUpon()
+                builder.addSubSlice(createSlice(uri.buildUpon()
                         .appendPath(String.valueOf(width))
                         .appendPath(String.valueOf(depth))
                         .appendPath(String.valueOf(items))
@@ -198,7 +197,7 @@ public class SliceSerializeMetrics {
             builder.addText("Some text", null);
         }
         if (items > 3) {
-            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(), 0);
+            PendingIntent pi = PendingIntent.getActivity(mContext, 0, new Intent(), 0);
             builder.addAction(pi,
                     new Slice.Builder(Uri.parse("content://pkg/slice/action"))
                             .addText("Action text", null)
@@ -208,7 +207,7 @@ public class SliceSerializeMetrics {
             builder.addInt(0xff00ff00, "subtype");
         }
         if (items > 5) {
-            builder.addIcon(IconCompat.createWithResource(context,
+            builder.addIcon(IconCompat.createWithResource(mContext,
                     R.drawable.abc_slice_see_more_bg), null);
         }
         return builder.addHints("Hint 1", "Hint 2")

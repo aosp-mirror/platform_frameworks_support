@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view.menu;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,7 @@ import androidx.core.view.ActionProvider;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class ActionMenuItem implements SupportMenuItem {
 
     private final int mId;

@@ -15,138 +15,144 @@
      limitations under the License.
 -->
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="16dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="SwitchCompat"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:enabled="false"
+                android:text="SwitchCompat disabled"/>
+
+        <Switch
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Switch"/>
+
+        <Switch
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:enabled="false"
+                android:text="Switch disabled"/>
 
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CheckBox" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CheckBox"/>
 
         <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radiobutton_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                    android:id="@+id/radiobutton_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton"/>
 
             <RadioButton
-                android:id="@+id/radiobutton_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                    android:id="@+id/radiobutton_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton"/>
 
         </RadioGroup>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Button"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="Button disabled" />
+            android:text="Button disabled"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button (small)" />
+            android:text="Button (small)"
+            style="@style/Widget.AppCompat.Button.Small"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Button (small) disabled" />
-
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button (borderless)" />
-
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="Button (borderless) disabled" />
+            android:text="Button (small) disabled"
+            style="@style/Widget.AppCompat.Button.Small"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button (borderless + colored)" />
+            android:text="Button (borderless)"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Button (borderless + colored) disabled" />
-
-        <Button
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button (tinted)"
-            app:backgroundTint="@color/background_tint" />
-
-        <Button
-            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="Button (tinted) disabled"
-            app:backgroundTint="@color/background_tint" />
+            android:text="Button (borderless) disabled"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button (colored)" />
+            android:text="Button (borderless + colored)"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="Button (colored) disabled" />
+            android:text="Button (borderless + colored) disabled"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button (colored)"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Button (colored) disabled"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button (colored + tinted)"
-            app:backgroundTint="@color/background_tint" />
+            app:backgroundTint="#00FF00"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="Button (colored + tinted) disabled"
-            app:backgroundTint="@color/background_tint" />
+            app:backgroundTint="#00FF00"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
         <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

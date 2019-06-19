@@ -32,7 +32,7 @@ import androidx.emoji.text.EmojiCompat;
  * When used on devices running API 18 or below, this widget acts as a regular
  * {@link AppCompatEditText}.
  *
- * {@link androidx.emoji.R.attr#maxEmojiCount}
+ * @attr ref androidx.emoji.R.styleable#EmojiEditText_maxEmojiCount
  */
 public class EmojiAppCompatEditText extends AppCompatEditText {
     private EmojiEditTextHelper mEmojiEditTextHelper;
@@ -92,7 +92,7 @@ public class EmojiAppCompatEditText extends AppCompatEditText {
      *
      * @see EmojiCompat#process(CharSequence, int, int, int)
      *
-     * {@link androidx.emoji.R.attr#maxEmojiCount}
+     * @attr ref androidx.emoji.R.styleable#EmojiEditText_maxEmojiCount
      */
     public void setMaxEmojiCount(@IntRange(from = 0) int maxEmojiCount) {
         getEmojiEditTextHelper().setMaxEmojiCount(maxEmojiCount);
@@ -104,7 +104,7 @@ public class EmojiAppCompatEditText extends AppCompatEditText {
      * @see #setMaxEmojiCount(int)
      * @see EmojiCompat#process(CharSequence, int, int, int)
      *
-     * {@link androidx.emoji.R.attr#maxEmojiCount}
+     * @attr ref androidx.emoji.R.styleable#EmojiEditText_maxEmojiCount
      */
     public int getMaxEmojiCount() {
         return getEmojiEditTextHelper().getMaxEmojiCount();

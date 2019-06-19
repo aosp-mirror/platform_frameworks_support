@@ -21,6 +21,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +105,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
 
     @PrimaryActionType private int mPrimaryActionType = PRIMARY_ACTION_TYPE_NO_ICON;
+    private Icon mPrimaryActionIcon;
     private Drawable mPrimaryActionIconDrawable;
     private View.OnClickListener mPrimaryActionIconOnClickListener;
 
@@ -116,6 +120,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     private final int mSupplementalGuidelineBegin;
 
     @SupplementalActionType private int mSupplementalActionType = SUPPLEMENTAL_ACTION_NO_ACTION;
+    private Icon mSupplementalIcon;
     private Drawable mSupplementalIconDrawable;
     private View.OnClickListener mSupplementalIconOnClickListener;
     private boolean mShowSupplementalIconDivider;
@@ -123,7 +128,6 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     /**
      * Creates a {@link SeekbarListItem.ViewHolder}.
      */
-    @NonNull
     public static ViewHolder createViewHolder(View itemView) {
         return new ViewHolder(itemView);
     }
@@ -291,7 +295,13 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
                 mBinders.add(vh -> {
                     vh.getPrimaryIcon().setVisibility(View.VISIBLE);
 
-                    vh.getPrimaryIcon().setImageDrawable(mPrimaryActionIconDrawable);
+                    if (mPrimaryActionIcon != null) {
+                        mPrimaryActionIcon.loadDrawableAsync(getContext(),
+                                drawable -> vh.getPrimaryIcon().setImageDrawable(drawable),
+                                new Handler(Looper.getMainLooper()));
+                    } else {
+                        vh.getPrimaryIcon().setImageDrawable(mPrimaryActionIconDrawable);
+                    }
                     vh.getPrimaryIcon().setOnClickListener(
                             mPrimaryActionIconOnClickListener);
                     vh.getPrimaryIcon().setClickable(
@@ -424,6 +434,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
                     if (mShowSupplementalIconDivider) {
                         vh.getSupplementalIconDivider().setVisibility(View.VISIBLE);
                     }
+
                     vh.getSupplementalIcon().setImageDrawable(mSupplementalIconDrawable);
 
                     vh.getSupplementalIcon().setOnClickListener(
@@ -440,18 +451,35 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     /**
      * Sets {@code Primary Action} to be represented by an icon.
      *
-     * @param iconResId the resource identifier of the drawable.
+     * @param icon An icon to set as primary action.
      */
-    public void setPrimaryActionIcon(@DrawableRes int iconResId) {
-        setPrimaryActionIcon(getContext().getDrawable(iconResId));
+    public void setPrimaryActionIcon(@NonNull Icon icon) {
+        mPrimaryActionType = PRIMARY_ACTION_TYPE_SMALL_ICON;
+        mPrimaryActionIcon = icon;
+        markDirty();
     }
 
     /**
      * Sets {@code Primary Action} to be represented by an icon.
      *
-     * @param drawable the Drawable to set.
+     * @param iconResId the resource identifier of the drawable.
+     *
+     * @deprecated Use {@link #setPrimaryActionIcon(Icon)}.
      */
-    public void setPrimaryActionIcon(@NonNull Drawable drawable) {
+    @Deprecated
+    public void setPrimaryActionIcon(@DrawableRes int iconResId) {
+        setPrimaryActionIcon(Icon.createWithResource(getContext(), iconResId));
+    }
+
+    /**
+     * Sets {@code Primary Action} to be represented by an icon.
+     *
+     * @param drawable the Drawable to set, or null to clear the content.
+     *
+     * @deprecated Use {@link #setPrimaryActionIcon(Icon)}.
+     */
+    @Deprecated
+    public void setPrimaryActionIcon(Drawable drawable) {
         mPrimaryActionType = PRIMARY_ACTION_TYPE_SMALL_ICON;
         mPrimaryActionIconDrawable = drawable;
         markDirty();
@@ -481,15 +509,31 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     /**
      * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
      */
+    public void setSupplementalIcon(@NonNull Icon icon, boolean showSupplementalIconDivider) {
+        mSupplementalActionType = SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON;
+        mSupplementalIcon = icon;
+        mShowSupplementalIconDivider = showSupplementalIconDivider;
+        markDirty();
+    }
+
+    /**
+     * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
+     *
+     * @deprecated Use {@link #setSupplementalIcon(Icon, boolean)}.
+     */
+    @Deprecated
     public void setSupplementalIcon(@DrawableRes int iconResId,
             boolean showSupplementalIconDivider) {
-        setSupplementalIcon(getContext().getDrawable(iconResId),
+        setSupplementalIcon(Icon.createWithResource(getContext(), iconResId),
                 showSupplementalIconDivider);
     }
 
     /**
      * Sets {@code Supplemental Action} to be represented by an {@code Supplemental Icon}.
+     *
+     * @deprecated Use {@link #setSupplementalIcon(Icon, boolean)}.
      */
+    @Deprecated
     public void setSupplementalIcon(@NonNull Drawable drawable,
             boolean showSupplementalIconDivider) {
         mSupplementalActionType = SUPPLEMENTAL_ACTION_SUPPLEMENTAL_ICON;
@@ -522,7 +566,7 @@ public class SeekbarListItem extends ListItem<SeekbarListItem.ViewHolder> {
     /**
      * Holds views of SeekbarListItem.
      */
-    public static final class ViewHolder extends ListItem.ViewHolder implements
+    public static class ViewHolder extends ListItem.ViewHolder implements
             OnUxRestrictionsChangedListener {
 
         private final View[] mWidgetViews;

@@ -30,11 +30,8 @@ class DatabaseView(
     fields: List<Field>,
     embeddedFields: List<EmbeddedField>,
     constructor: Constructor?
-) : Pojo(element, type, fields, embeddedFields, emptyList(), constructor),
-    HasSchemaIdentity,
-    EntityOrView {
-
-    override val tableName = viewName
+)
+    : Pojo(element, type, fields, embeddedFields, emptyList(), constructor), HasSchemaIdentity {
 
     val createViewQuery by lazy {
         createViewQuery(viewName)

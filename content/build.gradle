@@ -17,30 +17,25 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
-    api("androidx.core:core:1.1.0-rc01")
-    implementation("androidx.collection:collection:1.1.0")
+    api(project(":annotation"))
+    api(project(":core"))
 
     androidTestImplementation(JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
-    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
 }
 
-androidx {
+supportLibrary {
     name = "Android Support Content"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.CONTENTPAGER
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.CONTENTPAGER
     inceptionYear = "2017"
     description = "Library providing support for paging across content exposed via a ContentProvider. Use of this library allows a client to avoid expensive interprocess \"cursor window swaps\" on the UI thread."

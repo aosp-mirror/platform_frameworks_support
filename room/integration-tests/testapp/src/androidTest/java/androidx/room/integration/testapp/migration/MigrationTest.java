@@ -37,10 +37,9 @@ import androidx.room.util.TableInfo;
 import androidx.room.util.ViewInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
@@ -56,7 +55,7 @@ import java.util.List;
  * Test custom database migrations.
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class MigrationTest {
     private static final String TEST_DB = "migration-test";
     @Rule
@@ -116,7 +115,6 @@ public class MigrationTest {
         assertThat(entity2s.size(), is(2));
     }
 
-    @SuppressWarnings("deprecation")
     private MigrationDb getLatestDb() {
         MigrationDb db = Room.databaseBuilder(
                 InstrumentationRegistry.getInstrumentation().getTargetContext(),
@@ -258,7 +256,7 @@ public class MigrationTest {
         SupportSQLiteDatabase database = helper.createDatabase(TEST_DB, 1);
         database.close();
         try {
-            Context targetContext = ApplicationProvider.getApplicationContext();
+            Context targetContext = InstrumentationRegistry.getTargetContext();
             MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                     .build();
             helper.closeWhenFinished(db);
@@ -273,7 +271,7 @@ public class MigrationTest {
         SupportSQLiteDatabase database = helper.createDatabase(TEST_DB, MigrationDb.MAX_VERSION);
         database.close();
         try {
-            Context targetContext = ApplicationProvider.getApplicationContext();
+            Context targetContext = InstrumentationRegistry.getTargetContext();
             MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                     .build();
             helper.closeWhenFinished(db);
@@ -289,7 +287,7 @@ public class MigrationTest {
         SupportSQLiteDatabase database = helper.createDatabase(TEST_DB, 1);
         database.close();
         try {
-            Context targetContext = ApplicationProvider.getApplicationContext();
+            Context targetContext = InstrumentationRegistry.getTargetContext();
             MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                     .fallbackToDestructiveMigrationOnDowngrade()
                     .build();
@@ -308,7 +306,7 @@ public class MigrationTest {
         dao.insertIntoEntity1(3, "bar");
         database.close();
 
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
         MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                 .fallbackToDestructiveMigration()
                 .build();
@@ -349,7 +347,7 @@ public class MigrationTest {
         dao.insertIntoEntity1(2, "foo");
         dao.insertIntoEntity1(3, "bar");
         database.close();
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
 
         MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                 .fallbackToDestructiveMigrationFrom(6)
@@ -363,7 +361,7 @@ public class MigrationTest {
             throws IOException {
         SupportSQLiteDatabase database = helper.createDatabase(TEST_DB, 6);
         database.close();
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
 
         Throwable throwable = null;
         try {
@@ -387,7 +385,7 @@ public class MigrationTest {
             throws IOException {
         SupportSQLiteDatabase database = helper.createDatabase(TEST_DB, 5);
         database.close();
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
 
         Throwable throwable = null;
         try {
@@ -415,7 +413,7 @@ public class MigrationTest {
         dao.insertIntoEntity1(3, "bar");
         database.close();
 
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
         MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                 .fallbackToDestructiveMigrationOnDowngrade()
                 .build();
@@ -432,7 +430,7 @@ public class MigrationTest {
         dao.insertIntoEntity1(3, "bar");
         database.close();
 
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
         MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                 .fallbackToDestructiveMigration()
                 .build();
@@ -449,7 +447,7 @@ public class MigrationTest {
         dao.insertIntoEntity1(3, "bar");
         database.close();
 
-        Context targetContext = ApplicationProvider.getApplicationContext();
+        Context targetContext = InstrumentationRegistry.getTargetContext();
         MigrationDb db = Room.databaseBuilder(targetContext, MigrationDb.class, TEST_DB)
                 .fallbackToDestructiveMigrationOnDowngrade()
                 .addMigrations(MIGRATION_MAX_LATEST)
@@ -560,8 +558,8 @@ public class MigrationTest {
             database.execSQL("DROP TABLE IF EXISTS " + MigrationDb.Entity1.TABLE_NAME);
 
             try {
-                Context testContext = InstrumentationRegistry.getInstrumentation().getContext();
-                InputStream input = testContext.getAssets().open(MigrationDb.class.getCanonicalName()
+                Context context = InstrumentationRegistry.getContext();
+                InputStream input = context.getAssets().open(MigrationDb.class.getCanonicalName()
                         + "/" + MigrationDb.LATEST_VERSION + ".json");
                 SchemaBundle schemaBundle = SchemaBundle.deserialize(input);
                 for (String query : schemaBundle.getDatabase().buildCreateQueries()) {

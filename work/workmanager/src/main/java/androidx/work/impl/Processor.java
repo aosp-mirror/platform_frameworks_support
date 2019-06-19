@@ -16,9 +16,9 @@
 package androidx.work.impl;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.work.Configuration;
 import androidx.work.Logger;
 import androidx.work.WorkerParameters;
@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutionException;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Processor implements ExecutionListener {
-    private static final String TAG = Logger.tagWithPrefix("Processor");
+    private static final String TAG = "Processor";
 
     private Context mAppContext;
     private Configuration mConfiguration;
@@ -95,9 +95,7 @@ public class Processor implements ExecutionListener {
             // Work may get triggered multiple times if they have passing constraints
             // and new work with those constraints are added.
             if (mEnqueuedWorkMap.containsKey(id)) {
-                Logger.get().debug(
-                        TAG,
-                        String.format("Work %s is already enqueued for processing", id));
+                Logger.debug(TAG, String.format("Work %s is already enqueued for processing", id));
                 return false;
             }
 
@@ -118,7 +116,7 @@ public class Processor implements ExecutionListener {
             mEnqueuedWorkMap.put(id, workWrapper);
         }
         mWorkTaskExecutor.getBackgroundExecutor().execute(workWrapper);
-        Logger.get().debug(TAG, String.format("%s: processing %s", getClass().getSimpleName(), id));
+        Logger.debug(TAG, String.format("%s: processing %s", getClass().getSimpleName(), id));
         return true;
     }
 
@@ -130,14 +128,14 @@ public class Processor implements ExecutionListener {
      */
     public boolean stopWork(String id) {
         synchronized (mLock) {
-            Logger.get().debug(TAG, String.format("Processor stopping %s", id));
+            Logger.debug(TAG, String.format("Processor stopping %s", id));
             WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
             if (wrapper != null) {
                 wrapper.interrupt(false);
-                Logger.get().debug(TAG, String.format("WorkerWrapper stopped for %s", id));
+                Logger.debug(TAG, String.format("WorkerWrapper stopped for %s", id));
                 return true;
             }
-            Logger.get().debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
+            Logger.debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
             return false;
         }
     }
@@ -150,15 +148,15 @@ public class Processor implements ExecutionListener {
      */
     public boolean stopAndCancelWork(String id) {
         synchronized (mLock) {
-            Logger.get().debug(TAG, String.format("Processor cancelling %s", id));
+            Logger.debug(TAG, String.format("Processor cancelling %s", id));
             mCancelledIds.add(id);
             WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
             if (wrapper != null) {
                 wrapper.interrupt(true);
-                Logger.get().debug(TAG, String.format("WorkerWrapper cancelled for %s", id));
+                Logger.debug(TAG, String.format("WorkerWrapper cancelled for %s", id));
                 return true;
             }
-            Logger.get().debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
+            Logger.debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
             return false;
         }
     }
@@ -223,7 +221,7 @@ public class Processor implements ExecutionListener {
 
         synchronized (mLock) {
             mEnqueuedWorkMap.remove(workSpecId);
-            Logger.get().debug(TAG, String.format("%s %s executed; reschedule = %s",
+            Logger.debug(TAG, String.format("%s %s executed; reschedule = %s",
                     getClass().getSimpleName(), workSpecId, needsReschedule));
 
             for (ExecutionListener executionListener : mOuterListeners) {
@@ -232,10 +230,7 @@ public class Processor implements ExecutionListener {
         }
     }
 
-    /**
-     * An {@link ExecutionListener} for the {@link ListenableFuture} returned by
-     * {@link WorkerWrapper}.
-     */
+    // TODO: Clean this up some more.
     private static class FutureListener implements Runnable {
 
         private @NonNull ExecutionListener mExecutionListener;

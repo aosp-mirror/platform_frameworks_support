@@ -16,9 +16,6 @@
 
 package androidx.recyclerview.widget;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.ContextThemeWrapper;
@@ -27,9 +24,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.test.R;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +41,7 @@ public class DividerItemDecorationTest {
 
     @Test
     public void testNullListDivider() {
-        final Context context = ApplicationProvider.getApplicationContext();
+        final Context context = InstrumentationRegistry.getContext();
         RecyclerView rv = new RecyclerView(context);
         rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setAdapter(new MyAdapter(STRINGS));
@@ -53,21 +50,6 @@ public class DividerItemDecorationTest {
                 DividerItemDecoration.HORIZONTAL);
         rv.addItemDecoration(decoration);
         rv.layout(0, 0, 1000, 1000);
-        assertNull(decoration.getDrawable());
-        decoration.onDraw(new Canvas(), rv, null);
-    }
-
-    @Test
-    public void testNonNullListDivider() {
-        final Context context = ApplicationProvider.getApplicationContext();
-        RecyclerView rv = new RecyclerView(context);
-        rv.setLayoutManager(new LinearLayoutManager(context));
-        rv.setAdapter(new MyAdapter(STRINGS));
-        DividerItemDecoration decoration = new DividerItemDecoration(
-                context, DividerItemDecoration.HORIZONTAL);
-        rv.addItemDecoration(decoration);
-        rv.layout(0, 0, 1000, 1000);
-        assertNotNull(decoration.getDrawable());
         decoration.onDraw(new Canvas(), rv, null);
     }
 

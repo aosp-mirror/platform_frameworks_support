@@ -118,7 +118,7 @@ public class RoundedDrawable extends Drawable {
      * Sets the drawable to be rendered.
      *
      * @param drawable {@link Drawable} to be rendered
-     * {@link android.R.attr#src}
+     * @attr ref androidx.wear.R.styleable#RoundedDrawable_android_src
      */
     public void setDrawable(@Nullable Drawable drawable) {
         if (Objects.equals(mDrawable, drawable)) {
@@ -143,7 +143,7 @@ public class RoundedDrawable extends Drawable {
      * Sets the background color of the rounded drawable.
      *
      * @param color an ARGB color
-     * {@link androidx.wear.R.attr#backgroundColor}
+     * @attr ref androidx.wear.R.styleable#RoundedDrawable_backgroundColor
      */
     public void setBackgroundColor(@ColorInt int color) {
         mBackgroundPaint.setColor(color);
@@ -167,7 +167,7 @@ public class RoundedDrawable extends Drawable {
      *
      * @param clipEnabled {@code true} if the drawable should be clipped, {@code false} if it
      *                    should be resized.
-     * {@link androidx.wear.R.attr#clipEnabled}
+     * @attr ref androidx.wear.R.styleable#RoundedDrawable_clipEnabled
      */
     public void setClipEnabled(boolean clipEnabled) {
         mIsClipEnabled = clipEnabled;
@@ -252,7 +252,7 @@ public class RoundedDrawable extends Drawable {
      * Sets the border radius to be applied when rendering the drawable in pixels.
      *
      * @param radius radius in pixels
-     * {@link androidx.wear.R.attr#radius}
+     * @attr ref androidx.wear.R.styleable#RoundedDrawable_radius
      */
     public void setRadius(int radius) {
         mRadius = radius;

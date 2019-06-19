@@ -16,9 +16,9 @@
 
 package androidx.work;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LifecycleRegistry;
 
 /**
  * Test Lifecycle Owner that begins in ON_START state.

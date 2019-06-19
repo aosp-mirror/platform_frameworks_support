@@ -62,12 +62,11 @@ import androidx.test.espresso.action.CoordinatesProvider;
 import androidx.test.espresso.action.GeneralClickAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.textclassifier.R;
-import androidx.textclassifier.TestUtils;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -83,7 +82,7 @@ import java.util.Locale;
 /**
  * Tests for {@link FloatingToolbar}.
  */
-@LargeTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.M)
 public final class FloatingToolbarTest {
@@ -97,9 +96,8 @@ public final class FloatingToolbarTest {
     private View mWidget;
 
     @Before
-    public void setUp() throws Throwable {
+    public void setUp() {
         final Activity activity = mActivityTestRule.getActivity();
-        TestUtils.keepScreenOn(mActivityTestRule, activity);
         mContext = activity;
         final SupportMenu menu = new MenuBuilder(mContext);
         menu.add("One");

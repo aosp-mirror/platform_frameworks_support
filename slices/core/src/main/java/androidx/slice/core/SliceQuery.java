@@ -27,17 +27,15 @@ import androidx.annotation.RestrictTo;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Utilities for finding content within a Slice.
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(19)
 public class SliceQuery {
 
@@ -45,8 +43,9 @@ public class SliceQuery {
      */
     public static boolean hasAnyHints(SliceItem item, String... hints) {
         if (hints == null) return false;
+        List<String> itemHints = item.getHints();
         for (String hint : hints) {
-            if (item.hasHint(hint)) {
+            if (itemHints.contains(hint)) {
                 return true;
             }
         }
@@ -57,8 +56,9 @@ public class SliceQuery {
      */
     public static boolean hasHints(SliceItem item, String... hints) {
         if (hints == null) return true;
+        List<String> itemHints = item.getHints();
         for (String hint : hints) {
-            if (!TextUtils.isEmpty(hint) && !item.hasHint(hint)) {
+            if (!TextUtils.isEmpty(hint) && !itemHints.contains(hint)) {
                 return false;
             }
         }
@@ -69,8 +69,9 @@ public class SliceQuery {
      */
     public static boolean hasHints(Slice item, String... hints) {
         if (hints == null) return true;
+        List<String> itemHints = item.getHints();
         for (String hint : hints) {
-            if (!TextUtils.isEmpty(hint) && !item.hasHint(hint)) {
+            if (!TextUtils.isEmpty(hint) && !itemHints.contains(hint)) {
                 return false;
             }
         }
@@ -94,12 +95,12 @@ public class SliceQuery {
      */
     private static boolean contains(SliceItem container, final SliceItem item) {
         if (container == null || item == null) return false;
-        return findSliceItem(toQueue(container), new Filter<SliceItem>() {
+        return findFirst(filter(stream(container), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem s) {
                 return s == item;
             }
-        }) != null;
+        }), null) != null;
     }
 
     /**
@@ -125,30 +126,26 @@ public class SliceQuery {
      */
     public static List<SliceItem> findAll(Slice s, final String format, final String[] hints,
             final String[] nonHints) {
-        ArrayList<SliceItem> ret = new ArrayList();
-        findAll(toQueue(s), new Filter<SliceItem>() {
+        return collect(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)
                         && (hasHints(item, hints) && !hasAnyHints(item, nonHints));
             }
-        }, ret);
-        return ret;
+        }));
     }
 
     /**
      */
     public static List<SliceItem> findAll(SliceItem s, final String format, final String[] hints,
             final String[] nonHints) {
-        ArrayList<SliceItem> ret = new ArrayList();
-        findAll(toQueue(s), new Filter<SliceItem>() {
+        return collect(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)
                         && (hasHints(item, hints) && !hasAnyHints(item, nonHints));
             }
-        }, ret);
-        return ret;
+        }));
     }
 
     /**
@@ -179,52 +176,48 @@ public class SliceQuery {
      */
     public static SliceItem find(Slice s, final String format, final String[] hints,
             final String[] nonHints) {
-        if (s == null) return null;
-        return findSliceItem(toQueue(s), new Filter<SliceItem>() {
+        return findFirst(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)
                         && (hasHints(item, hints) && !hasAnyHints(item, nonHints));
             }
-        });
+        }), null);
     }
 
     /**
      */
     public static SliceItem findSubtype(Slice s, final String format, final String subtype) {
-        if (s == null) return null;
-        return findSliceItem(toQueue(s), new Filter<SliceItem>() {
+        return findFirst(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format) && checkSubtype(item, subtype);
             }
-        });
+        }), null);
     }
 
     /**
      */
     public static SliceItem findSubtype(SliceItem s, final String format, final String subtype) {
-        if (s == null) return null;
-        return findSliceItem(toQueue(s), new Filter<SliceItem>() {
+        return findFirst(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format) && checkSubtype(item, subtype);
             }
-        });
+        }), null);
     }
 
     /**
      */
     public static SliceItem find(SliceItem s, final String format, final String[] hints,
             final String[] nonHints) {
-        if (s == null) return null;
-        return findSliceItem(toQueue(s), new Filter<SliceItem>() {
+        return findFirst(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)
                         && (hasHints(item, hints) && !hasAnyHints(item, nonHints));
             }
-        });
+        }), null);
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -237,44 +230,43 @@ public class SliceQuery {
         return subtype == null || subtype.equals(item.getSubType());
     }
 
-    private static Deque<SliceItem> toQueue(Slice item) {
-        Deque<SliceItem> q = new ArrayDeque<>();
-        Collections.addAll(q, item.getItemArray());
-        return q;
+    /**
+     */
+    public static Iterator<SliceItem> stream(SliceItem slice) {
+        ArrayList<SliceItem> items = new ArrayList<>();
+        items.add(slice);
+        return getSliceItemStream(items);
     }
 
-    private static Deque<SliceItem> toQueue(SliceItem item) {
-        Deque<SliceItem> q = new ArrayDeque<>();
-        q.add(item);
-        return q;
+    /**
+     */
+    public static Iterator<SliceItem> stream(Slice slice) {
+        ArrayList<SliceItem> items = new ArrayList<>();
+        if (slice != null) {
+            items.addAll(slice.getItems());
+        }
+        return getSliceItemStream(items);
     }
 
-    private static SliceItem findSliceItem(final Deque<SliceItem> items, Filter<SliceItem> f) {
-        while (!items.isEmpty()) {
-            SliceItem item = items.poll();
-            if (f.filter(item)) {
+    /**
+     */
+    private static Iterator<SliceItem> getSliceItemStream(final ArrayList<SliceItem> items) {
+        return new Iterator<SliceItem>() {
+            @Override
+            public boolean hasNext() {
+                return items.size() != 0;
+            }
+
+            @Override
+            public SliceItem next() {
+                SliceItem item = items.remove(0);
+                if (FORMAT_SLICE.equals(item.getFormat())
+                        || FORMAT_ACTION.equals(item.getFormat())) {
+                    items.addAll(item.getSlice().getItems());
+                }
                 return item;
             }
-            if (FORMAT_SLICE.equals(item.getFormat())
-                    || FORMAT_ACTION.equals(item.getFormat())) {
-                Collections.addAll(items, item.getSlice().getItemArray());
-            }
-        }
-        return null;
-    }
-
-    private static void findAll(final Deque<SliceItem> items, Filter<SliceItem> f,
-            List<SliceItem> out) {
-        while (!items.isEmpty()) {
-            SliceItem item = items.poll();
-            if (f.filter(item)) {
-                out.add(item);
-            }
-            if (FORMAT_SLICE.equals(item.getFormat())
-                    || FORMAT_ACTION.equals(item.getFormat())) {
-                Collections.addAll(items, item.getSlice().getItemArray());
-            }
-        }
+        };
     }
 
     /**
@@ -282,9 +274,9 @@ public class SliceQuery {
      */
     public static SliceItem findTopLevelItem(Slice s, final String format, final String subtype,
             final String[] hints, final String[] nonHints) {
-        SliceItem[] items = s.getItemArray();
-        for (int i = 0; i < items.length; i++) {
-            SliceItem item = items[i];
+        List<SliceItem> items = s.getItems();
+        for (int i = 0; i < items.size(); i++) {
+            SliceItem item = items.get(i);
             if (checkFormat(item, format)
                     && checkSubtype(item, subtype)
                     && hasHints(item, hints)
@@ -295,12 +287,54 @@ public class SliceQuery {
         return null;
     }
 
+    private static <T> List<T> collect(Iterator<T> iter) {
+        List<T> list = new ArrayList<>();
+        while (iter.hasNext()) list.add(iter.next());
+        return list;
+    }
+
+    private static <T> Iterator<T> filter(final Iterator<T> input, final Filter<T> f) {
+        return new Iterator<T>() {
+            T mNext = findNext();
+
+            private T findNext() {
+                while (input.hasNext()) {
+                    T i = input.next();
+                    if (f.filter(i)) {
+                        return i;
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public boolean hasNext() {
+                return mNext != null;
+            }
+
+            @Override
+            public T next() {
+                T ret = mNext;
+                mNext = findNext();
+                return ret;
+            }
+        };
+    }
+
+    private static <T> T findFirst(Iterator<T> filter, T def) {
+        while (filter.hasNext()) {
+            T r = filter.next();
+            if (r != null) return r;
+        }
+        return def;
+    }
+
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static SliceItem findItem(Slice s, final Uri uri) {
-        return findSliceItem(toQueue(s), new Filter<SliceItem>() {
+        return findFirst(filter(stream(s), new Filter<SliceItem>() {
             @Override
             public boolean filter(SliceItem input) {
                 if (FORMAT_ACTION.equals(input.getFormat()) || FORMAT_SLICE.equals(
@@ -309,7 +343,7 @@ public class SliceQuery {
                 }
                 return false;
             }
-        });
+        }), null);
     }
 
     private interface Filter<T> {

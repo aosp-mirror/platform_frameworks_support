@@ -16,33 +16,29 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    androidTestImplementation(project(":core:core"))
+    androidTestImplementation(project(":core"))
     androidTestImplementation(project(":slice-view"))
     androidTestImplementation(project(":slice-core"))
     androidTestImplementation(project(":slice-builders"))
     androidTestImplementation(project(":benchmark"))
     androidTestImplementation(JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
-    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
 }
 
-androidx {
+supportLibrary {
     name = "Slices Benchmarks"
-    publish = Publish.NONE
-    mavenVersion = LibraryVersions.SLICE_BENCHMARK
+    publish = false
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.SLICE
     inceptionYear = "2018"
     description = "RecyclerView Benchmarks"

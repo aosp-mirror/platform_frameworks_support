@@ -17,13 +17,12 @@
 package androidx.car.widget;
 
 import android.content.Context;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Custom {@link LinearSmoothScroller} that has:
@@ -33,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * <li>Scrolling that snaps to start of a child view.
  * </ul>
  */
-final class PagedSmoothScroller extends LinearSmoothScroller {
+public final class PagedSmoothScroller extends LinearSmoothScroller {
     private static final float MILLISECONDS_PER_INCH = 150f;
     private static final float DECELERATION_TIME_DIVISOR = 0.45f;
 

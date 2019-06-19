@@ -1,27 +1,20 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
-    // TODO: change to 1.1.0-alpha04 after release
-    api("androidx.core:core:1.1.0-rc01")
-    implementation("androidx.collection:collection:1.0.0")
-    api("androidx.customview:customview:1.0.0")
+    api(project(":annotation"))
+    api(project(":core"))
+    api(project(":customview"))
 
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
-    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(ESPRESSO_CONTRIB, libs.exclude_for_espresso)
-    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.coordinatorlayout', module: 'coordinatorlayout'
@@ -29,10 +22,6 @@ dependencies {
 }
 
 android {
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_7
-        targetCompatibility = JavaVersion.VERSION_1_7
-    }
     sourceSets {
         main.res.srcDirs = [
                 'src/main/res',
@@ -44,9 +33,9 @@ android {
     }
 }
 
-androidx {
+supportLibrary {
     name = "Android Support Library Coordinator Layout"
-    publish = Publish.SNAPSHOT_AND_RELEASE
+    publish = true
     mavenVersion = LibraryVersions.COORDINATORLAYOUT
     mavenGroup = LibraryGroups.COORDINATORLAYOUT
     inceptionYear = "2011"

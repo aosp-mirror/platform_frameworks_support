@@ -16,7 +16,7 @@
 
 package androidx.mediarouter.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import androidx.annotation.GuardedBy;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,9 +32,6 @@ import androidx.annotation.RestrictTo;
 import androidx.core.util.ObjectsCompat;
 import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -57,12 +53,6 @@ import java.util.concurrent.Executor;
  * as volume changes or {@link MediaControlIntent media control intents}
  * by implementing {@link #onCreateRouteController} to return a {@link RouteController}
  * for a particular route.
- * </p><p>
- * A media route provider can support
- * {@link MediaRouteProviderDescriptor#supportsDynamicGroupRoute dynamic group} that
- * allows the user to add or remove a route from the selected route dynamically.
- * To control dynamic group, {@link DynamicGroupRouteController} returned by
- * {@link #onCreateDynamicGroupRouteController} is used instead of {@link RouteController}.
  * </p><p>
  * A media route provider may be used privately within the scope of a single
  * application process by calling {@link MediaRouter#addProvider MediaRouter.addProvider}
@@ -291,7 +281,7 @@ public abstract class MediaRouteProvider {
      * cannot be controlled using the route controller interface.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public RouteController onCreateRouteController(@NonNull String routeId,
             @NonNull String routeGroupId) {
@@ -455,22 +445,20 @@ public abstract class MediaRouteProvider {
 
     /**
      * Provides control over a dynamic group route.
-     * A dynamic group route is a group of routes such that a route can be added or removed
-     * from the group by the user dynamically.
      */
     public abstract static class DynamicGroupRouteController extends RouteController {
-        private final Object mLock = new Object();
-
-        @GuardedBy("mLock")
-        Executor mExecutor;
-        @GuardedBy("mLock")
-        OnDynamicRoutesChangedListener mListener;
-        @GuardedBy("mLock")
-        Collection<DynamicRouteDescriptor> mPendingRoutes;
-
         /**
-         * Gets the title of the groupable routes section which will be shown to the user.
-         * It is provided by {@link MediaRouteProvider}.
+         * Gets the ID of the dynamic group route. Note that the route may have not been
+         * published yet by the time the {@link DynamicGroupRouteController} is created.
+         */
+        @NonNull
+        public abstract String getDynamicGroupRouteId();
+
+        // TODO add @link annotation in front of MediaRouteCastDialog.
+        /**
+         * Gets the title of the groupable routes section on the UX such as
+         * androidx.mediarouter.app.MediaRouteCastDialog, which is proposed by
+         * {@link MediaRouteProvider}.
          * e.g. "Add a device."
          */
         @Nullable
@@ -478,9 +466,10 @@ public abstract class MediaRouteProvider {
             return null;
         }
 
+        // TODO add @link annotation in front of MediaRouteCastDialog.
         /**
-         * Gets the title of the transferable routes section which will be shown to the user.
-         * It is provided by {@link MediaRouteProvider}.
+         * Gets the title of the transferable routes section on the UX such as
+         * androidx.mediarouter.app.MediaRouteCastDialog, which is proposed by
          * {@link MediaRouteProvider}.
          * e.g. "Play on group."
          */
@@ -507,57 +496,9 @@ public abstract class MediaRouteProvider {
         /**
          * Called by {@link MediaRouter} to set the listener.
          */
-        void setOnDynamicRoutesChangedListener(
+        public abstract void setOnDynamicRoutesChangedListener(
                 @NonNull Executor executor,
-                @NonNull OnDynamicRoutesChangedListener listener) {
-            synchronized (mLock) {
-                if (executor == null) {
-                    throw new NullPointerException("Executor shouldn't be null");
-                }
-                if (listener == null) {
-                    throw new NullPointerException("Listener shouldn't be null");
-                }
-                mExecutor = executor;
-                mListener = listener;
-
-                if (mPendingRoutes != null && !mPendingRoutes.isEmpty()) {
-                    final Collection<DynamicRouteDescriptor> routes = mPendingRoutes;
-                    mPendingRoutes = null;
-                    mExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            mListener.onRoutesChanged(DynamicGroupRouteController.this,
-                                    routes);
-                        }
-                    });
-                }
-            }
-        }
-
-        /**
-         * Sets the dynamic route descriptors for routes.
-         * <p>
-         * The dynamic group controller must call this method to notify the current
-         * dynamic group state of routes.
-         * </p>
-         * @param routes The dynamic route descriptors for published routes.
-         */
-        public final void notifyDynamicRoutesChanged(
-                final Collection<DynamicRouteDescriptor> routes) {
-            synchronized (mLock) {
-                if (mExecutor != null) {
-                    mExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            mListener.onRoutesChanged(
-                                    DynamicGroupRouteController.this, routes);
-                        }
-                    });
-                } else {
-                    mPendingRoutes = new ArrayList<>(routes);
-                }
-            }
-        }
+                @NonNull OnDynamicRoutesChangedListener listener);
 
         /**
          * Used to notify media router each route's property changes regarding this
@@ -574,11 +515,8 @@ public abstract class MediaRouteProvider {
          * </ul>
          * </p>
          */
-        interface OnDynamicRoutesChangedListener {
+        public interface OnDynamicRoutesChangedListener {
             /**
-             * The provider should call this method when routes' properties change.
-             * (e.g. when a route becomes ungroupable)
-             *
              * @param controller the {@link DynamicGroupRouteController} which keeps this listener.
              * @param routes the collection of routes contains selected routes
              *               (can be unselectable or not)
@@ -591,6 +529,7 @@ public abstract class MediaRouteProvider {
 
         /**
          * Contains a route, its selection state and its capabilities.
+         * This is used in {@link OnDynamicRoutesChangedListener}.
          */
         public static final class DynamicRouteDescriptor {
             static final String KEY_MEDIA_ROUTE_DESCRIPTOR = "mrDescriptor";
@@ -602,14 +541,13 @@ public abstract class MediaRouteProvider {
             /**
              * @hide
              */
-            @RestrictTo(LIBRARY_GROUP_PREFIX)
+            @RestrictTo(LIBRARY_GROUP)
             @IntDef({
                     UNSELECTING,
                     UNSELECTED,
                     SELECTING,
                     SELECTED
             })
-            @Retention(RetentionPolicy.SOURCE)
             public @interface SelectionState {}
             /**
              * After a user unselects a route, it might take some time for a provider to complete

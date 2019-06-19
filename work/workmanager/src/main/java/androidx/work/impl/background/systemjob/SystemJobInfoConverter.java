@@ -16,18 +16,18 @@
 
 package androidx.work.impl.background.systemjob;
 
-import static androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE;
+import static android.support.annotation.VisibleForTesting.PACKAGE_PRIVATE;
 
 import android.app.job.JobInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.ContentUriTriggers;
@@ -44,7 +44,7 @@ import androidx.work.impl.model.WorkSpec;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(api = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 class SystemJobInfoConverter {
-    private static final String TAG = Logger.tagWithPrefix("SystemJobInfoConverter");
+    private static final String TAG = "SystemJobInfoConverter";
 
     static final String EXTRA_WORK_SPEC_ID = "EXTRA_WORK_SPEC_ID";
     static final String EXTRA_IS_PERIODIC = "EXTRA_IS_PERIODIC";
@@ -86,22 +86,25 @@ class SystemJobInfoConverter {
             builder.setBackoffCriteria(workSpec.backoffDelayDuration, backoffPolicy);
         }
 
-        long nextRunTime = workSpec.calculateNextRunTime();
-        long now = System.currentTimeMillis();
-        long offset = Math.max(nextRunTime - now, 0);
-
-        // Even if a WorkRequest has no constraints, setMinimumLatency(0) still needs to be
-        // called due to an issue in JobInfo.Builder#build and JobInfo with no constraints. See
-        // b/67716867.
-        builder.setMinimumLatency(offset);
+        if (workSpec.isPeriodic()) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                builder.setPeriodic(workSpec.intervalDuration, workSpec.flexDuration);
+            } else {
+                Logger.debug(TAG,
+                        "Flex duration is currently not supported before API 24. Ignoring.");
+                builder.setPeriodic(workSpec.intervalDuration);
+            }
+        } else {
+            // Even if a WorkRequest has no constraints, setMinimumLatency(0) still needs to be
+            // called due to an issue in JobInfo.Builder#build and JobInfo with no constraints. See
+            // b/67716867.
+            builder.setMinimumLatency(workSpec.initialDelay);
+        }
 
         if (Build.VERSION.SDK_INT >= 24 && constraints.hasContentUriTriggers()) {
-            ContentUriTriggers contentUriTriggers = constraints.getContentUriTriggers();
-            for (ContentUriTriggers.Trigger trigger : contentUriTriggers.getTriggers()) {
+            for (ContentUriTriggers.Trigger trigger : constraints.getContentUriTriggers()) {
                 builder.addTriggerContentUri(convertContentUriTrigger(trigger));
             }
-            builder.setTriggerContentUpdateDelay(constraints.getTriggerContentUpdateDelay());
-            builder.setTriggerContentMaxDelay(constraints.getTriggerMaxContentDelay());
         }
 
         // We don't want to persist these jobs because we reschedule these jobs on BOOT_COMPLETED.
@@ -147,7 +150,7 @@ class SystemJobInfoConverter {
                 }
                 break;
         }
-        Logger.get().debug(TAG, String.format(
+        Logger.debug(TAG, String.format(
                 "API version too low. Cannot convert network type value %s", networkType));
         return JobInfo.NETWORK_TYPE_ANY;
     }

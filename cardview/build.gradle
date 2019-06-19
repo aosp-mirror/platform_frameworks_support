@@ -1,15 +1,12 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
-    implementation(project(":core:core"))
+    api(project(":annotation"))
 }
 
 android {
@@ -18,10 +15,10 @@ android {
     }
 }
 
-androidx {
+supportLibrary {
     name = "Android Support CardView v7"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.CARDVIEW
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.CARDVIEW
     inceptionYear = "2011"
     description = "Android Support CardView v7"

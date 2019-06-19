@@ -18,22 +18,22 @@ package androidx.webkit;
 
 import android.webkit.WebSettings;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ServiceWorkerWebSettingsCompatTest {
     private ServiceWorkerWebSettingsCompat mSettings;
 
     @Before
     public void setUp() throws Exception {
-        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+        AssumptionUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BASIC_USAGE);
         mSettings = ServiceWorkerControllerCompat.getInstance().getServiceWorkerWebSettings();
     }
 
@@ -44,7 +44,7 @@ public class ServiceWorkerWebSettingsCompatTest {
      */
     @Test
     public void testCacheMode() {
-        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CACHE_MODE);
+        AssumptionUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CACHE_MODE);
 
         int i = WebSettings.LOAD_DEFAULT;
         Assert.assertEquals(i, mSettings.getCacheMode());
@@ -61,7 +61,7 @@ public class ServiceWorkerWebSettingsCompatTest {
      */
     @Test
     public void testAllowContentAccess() {
-        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CONTENT_ACCESS);
+        AssumptionUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CONTENT_ACCESS);
 
         Assert.assertEquals(mSettings.getAllowContentAccess(), true);
         for (boolean b : new boolean[]{false, true}) {
@@ -77,7 +77,7 @@ public class ServiceWorkerWebSettingsCompatTest {
      */
     @Test
     public void testAllowFileAccess() {
-        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_FILE_ACCESS);
+        AssumptionUtils.checkFeature(WebViewFeature.SERVICE_WORKER_FILE_ACCESS);
 
         Assert.assertEquals(mSettings.getAllowFileAccess(), true);
         for (boolean b : new boolean[]{false, true}) {
@@ -93,7 +93,7 @@ public class ServiceWorkerWebSettingsCompatTest {
      */
     @Test
     public void testBlockNetworkLoads() {
-        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BLOCK_NETWORK_LOADS);
+        AssumptionUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BLOCK_NETWORK_LOADS);
 
         // Note: we cannot test this setter unless we provide the INTERNET permission, otherwise we
         // get a SecurityException when we pass 'false'.

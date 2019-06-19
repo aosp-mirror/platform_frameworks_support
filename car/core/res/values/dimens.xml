@@ -19,11 +19,7 @@ limitations under the License.
     <dimen name="car_margin">20dp</dimen>
 
     <!-- Gutters -->
-    <dimen name="car_gutter_width">16dp</dimen>
-
-    <!-- Focus -->
-    <dimen name="car_focus_outline_stroke_width_hovered">4dp</dimen>
-    <dimen name="car_focus_outline_stroke_width_focused">6dp</dimen>
+    <dimen name="car_gutter_size">16dp</dimen>
 
     <!-- Keylines -->
     <dimen name="car_keyline_1">24dp</dimen>
@@ -39,7 +35,7 @@ limitations under the License.
 
     <!-- Paddings -->
     <dimen name="car_padding_0">4dp</dimen>
-    <dimen name="car_padding_1">8dp</dimen>
+    <dimen name="car_padding_1">10dp</dimen>
     <dimen name="car_padding_2">12dp</dimen>
     <dimen name="car_padding_3">16dp</dimen>
     <dimen name="car_padding_4">20dp</dimen>
@@ -50,31 +46,23 @@ limitations under the License.
     <dimen name="car_radius_1">4dp</dimen>
     <dimen name="car_radius_2">8dp</dimen>
     <dimen name="car_radius_3">16dp</dimen>
-    <dimen name="car_radius_4">100dp</dimen>
+    <dimen name="car_radius_5">100dp</dimen>
 
     <!-- Car Component Dimensions -->
     <!-- Type Sizings -->
-    <dimen name="car_display1_size">56sp</dimen>
-    <dimen name="car_display2_size">44sp</dimen>
-    <dimen name="car_display3_size">36sp</dimen>
+    <dimen name="car_display1_size">64sp</dimen>
+    <dimen name="car_display2_size">56sp</dimen>
+    <dimen name="car_display3_size">44sp</dimen>
+    <dimen name="car_display4_size">36sp</dimen>
     <dimen name="car_body1_size">32sp</dimen>
     <dimen name="car_body2_size">28sp</dimen>
-    <dimen name="car_body3_size">24sp</dimen>
-
-    <!-- Deprecated. Mapping to Subtext1 until removal -->
-    <dimen name="car_body4_size">@dimen/car_subtext1_size</dimen>
-
-    <dimen name="car_subtext1_size">22sp</dimen>
-    <dimen name="car_subtext2_size">20sp</dimen>
-    <dimen name="car_subtext3_size">18sp</dimen>
-
-    <!-- Deprecated. Mapping to Subtext3 until removal -->
-    <dimen name="car_subtext4_size">@dimen/car_subtext3_size</dimen>
-
-    <!-- Line spacing -->
-    <dimen name="car_display_text_line_spacing_extra_size">8sp</dimen>
-    <dimen name="car_body_text_line_spacing_extra_size">8sp</dimen>
-    <dimen name="car_subtext_line_spacing_extra_size">6sp</dimen>
+    <dimen name="car_body3_size">26sp</dimen>
+    <dimen name="car_body4_size">24sp</dimen>
+    <dimen name="car_subtext1_size">20sp</dimen>
+    <dimen name="car_subtext2_size">18sp</dimen>
+    <dimen name="car_subtext3_size">16sp</dimen>
+    <dimen name="car_subtext4_size">14sp</dimen>
+    <dimen name="car_subtext5_size">12sp</dimen>
 
     <!-- Icons and Buttons -->
     <!-- Icons -->
@@ -86,6 +74,7 @@ limitations under the License.
     <dimen name="car_spinner_dropdown_arrow_size">48dp</dimen>
 
     <!-- Avatars -->
+    <dimen name="car_avatar_size">56dp</dimen>
     <dimen name="car_large_avatar_size">96dp</dimen>
 
     <!-- Minimum touch target size. -->
@@ -94,10 +83,10 @@ limitations under the License.
     <!-- Buttons -->
     <dimen name="car_button_height">56dp</dimen>
     <dimen name="car_button_min_width">158dp</dimen>
-    <dimen name="car_dialog_button_min_width">76dp</dimen>
+    <dimen name="car_button_horizontal_padding">@dimen/car_padding_4</dimen>
+    <dimen name="car_borderless_button_horizontal_padding">0dp</dimen>
     <dimen name="car_button_radius">@dimen/car_radius_1</dimen>
     <dimen name="car_pill_button_size">56dp</dimen>
-    <dimen name="car_button_fading_edge_length">40dp</dimen>
 
     <!-- Status Bar -->
     <dimen name="car_status_bar_height">36dp</dimen>
@@ -110,9 +99,21 @@ limitations under the License.
     <dimen name="car_app_bar_height">80dp</dimen>
     <dimen name="car_app_bar_default_elevation">8dp</dimen>
     <dimen name="car_application_icon_size">44dp</dimen>
-    <!-- Factor used to scale switches in the CarToolbar -->
-    <item name="car_app_bar_switch_scale" format="float" type="dimen">1.4</item>
-    <dimen name="car_app_bar_action_icon_bound">40dp</dimen>
+
+    <!-- Action Bar -->
+    <dimen name="car_action_bar_height">96dp</dimen>
+    <dimen name="car_action_bar_buttons_space">@dimen/car_padding_4</dimen>
+    <dimen name="car_action_bar_button_width">128dp</dimen>
+    <dimen name="car_action_bar_button_height">128dp</dimen>
+    <dimen name="car_action_bar_activation_ring_stroke_width">3dp</dimen>
+    <dimen name="car_action_bar_activation_ring_radius">64dp</dimen>
+    <dimen name="car_action_bar_touch_ripple_size">38dp</dimen>
+    <dimen name="car_action_bar_button_ripple_radius">48dp</dimen>
+    <dimen name="car_action_bar_elevation">2dp</dimen>
+
+    <!-- Action Buttons -->
+    <dimen name="car_action_button_icon_inset">24dp</dimen>
+    <dimen name="car_action_button_ripple_inset">16dp</dimen>
 
     <!-- Lists -->
     <dimen name="car_single_line_list_item_height">96dp</dimen>
@@ -136,7 +137,7 @@ limitations under the License.
     <dimen name="car_dialog_action_bar_height">@dimen/car_card_action_bar_height</dimen>
     <dimen name="car_dialog_elevation">16dp</dimen>
     <dimen name="car_list_dialog_title_elevation">16dp</dimen>
-    <item name="car_dialog_background_dim" format="float" type="dimen">0.78</item>
+    <item name="car_dialog_background_dim" format="float" type="dimen">0.8</item>
     <item name="car_dialog_anim_enter_scale_small" format="float" type="dimen">0.7</item>
     <item name="car_dialog_anim_enter_scale_big" format="float" type="dimen">1.05</item>
     <item name="car_dialog_anim_exit_scale_small" format="float" type="dimen">0.95</item>
@@ -216,6 +217,4 @@ limitations under the License.
     <!-- list margin won't be necessary after PagedListView is brought in -->
     <dimen name="car_preference_list_margin">8dp</dimen>
 
-    <!-- Tabs -->
-    <dimen name="car_tab_min_width">140dp</dimen>
 </resources>

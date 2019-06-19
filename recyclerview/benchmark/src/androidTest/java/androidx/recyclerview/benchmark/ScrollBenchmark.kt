@@ -21,13 +21,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.benchmark.BenchmarkRule
-import androidx.benchmark.measureRepeated
 import androidx.recyclerview.benchmark.test.R
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.annotation.UiThreadTest
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -64,9 +63,11 @@ class ScrollBenchmark {
     @UiThreadTest
     @Test
     fun offset() {
+        val state = benchmarkRule.state
+
         val rv = activityRule.activity.recyclerView
         var offset = 10
-        benchmarkRule.measureRepeated {
+        while (state.keepRunning()) {
             // keep scrolling up and down - no new item should be revealed
             rv.scrollBy(0, offset)
             offset *= -1
@@ -76,8 +77,10 @@ class ScrollBenchmark {
     @UiThreadTest
     @Test
     fun bindOffset() {
+        val state = benchmarkRule.state
+
         val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
+        while (state.keepRunning()) {
             // each scroll should reveal a new item
             rv.scrollBy(0, 100)
         }
@@ -86,6 +89,7 @@ class ScrollBenchmark {
     @UiThreadTest
     @Test
     fun createBindOffset() {
+        val state = benchmarkRule.state
         trivialAdapter.disableReuse = true
         trivialAdapter.inflater = {
             val view = View(it.context)
@@ -94,7 +98,7 @@ class ScrollBenchmark {
         }
 
         val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
+        while (state.keepRunning()) {
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }
@@ -103,10 +107,11 @@ class ScrollBenchmark {
     @UiThreadTest
     @Test
     fun inflateBindOffset() {
+        val state = benchmarkRule.state
         trivialAdapter.disableReuse = true
 
         val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
+        while (state.keepRunning()) {
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }
@@ -130,7 +135,7 @@ private class TrivialAdapter : RecyclerView.Adapter<TrivialViewHolder>() {
 
     var inflater: (ViewGroup) -> View = {
         LayoutInflater.from(it.context).inflate(
-            R.layout.item_view, it, false)
+                R.layout.item_view, it, false)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrivialViewHolder {

@@ -15,10 +15,8 @@
  */
 package android.support.v4.media.session;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.SuppressLint;
-import android.media.session.PlaybackState;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -42,13 +40,12 @@ import java.util.List;
  * {@link PlaybackStateCompat#STATE_PLAYING}, the current playback position,
  * and the current control capabilities.
  */
-@SuppressLint("BanParcelableUsage")
 public final class PlaybackStateCompat implements Parcelable {
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @LongDef(flag=true, value={ACTION_STOP, ACTION_PAUSE, ACTION_PLAY, ACTION_REWIND,
             ACTION_SKIP_TO_PREVIOUS, ACTION_SKIP_TO_NEXT, ACTION_FAST_FORWARD, ACTION_SET_RATING,
             ACTION_SEEK_TO, ACTION_PLAY_PAUSE, ACTION_PLAY_FROM_MEDIA_ID, ACTION_PLAY_FROM_SEARCH,
@@ -61,7 +58,7 @@ public final class PlaybackStateCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @LongDef({ACTION_STOP, ACTION_PAUSE, ACTION_PLAY, ACTION_REWIND, ACTION_SKIP_TO_PREVIOUS,
             ACTION_SKIP_TO_NEXT, ACTION_FAST_FORWARD, ACTION_PLAY_PAUSE})
     @Retention(RetentionPolicy.SOURCE)
@@ -226,7 +223,7 @@ public final class PlaybackStateCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({STATE_NONE, STATE_STOPPED, STATE_PAUSED, STATE_PLAYING, STATE_FAST_FORWARDING,
             STATE_REWINDING, STATE_BUFFERING, STATE_ERROR, STATE_CONNECTING,
             STATE_SKIPPING_TO_PREVIOUS, STATE_SKIPPING_TO_NEXT, STATE_SKIPPING_TO_QUEUE_ITEM})
@@ -339,7 +336,7 @@ public final class PlaybackStateCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({REPEAT_MODE_INVALID, REPEAT_MODE_NONE, REPEAT_MODE_ONE, REPEAT_MODE_ALL,
             REPEAT_MODE_GROUP})
     @Retention(RetentionPolicy.SOURCE)
@@ -380,7 +377,7 @@ public final class PlaybackStateCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({SHUFFLE_MODE_INVALID, SHUFFLE_MODE_NONE, SHUFFLE_MODE_ALL, SHUFFLE_MODE_GROUP})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ShuffleMode {}
@@ -414,7 +411,7 @@ public final class PlaybackStateCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({ERROR_CODE_UNKNOWN_ERROR, ERROR_CODE_APP_ERROR, ERROR_CODE_NOT_SUPPORTED,
             ERROR_CODE_AUTHENTICATION_EXPIRED, ERROR_CODE_PREMIUM_ACCOUNT_REQUIRED,
             ERROR_CODE_CONCURRENT_STREAM_LIMIT, ERROR_CODE_PARENTAL_CONTROL_RESTRICTED,
@@ -551,7 +548,7 @@ public final class PlaybackStateCompat implements Parcelable {
     final long mActiveItemId;
     final Bundle mExtras;
 
-    private PlaybackState mStateFwk;
+    private Object mStateObj;
 
     PlaybackStateCompat(int state, long position, long bufferedPosition,
             float rate, long actions, int errorCode, CharSequence errorMessage, long updateTime,
@@ -668,7 +665,7 @@ public final class PlaybackStateCompat implements Parcelable {
      * @return The current playback position in ms
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public long getCurrentPosition(Long timeDiff) {
         long expectedPosition = mPosition + (long) (mSpeed * (
                 (timeDiff != null) ? timeDiff : SystemClock.elapsedRealtime() - mUpdateTime));
@@ -799,35 +796,34 @@ public final class PlaybackStateCompat implements Parcelable {
      */
     public static PlaybackStateCompat fromPlaybackState(Object stateObj) {
         if (stateObj != null && Build.VERSION.SDK_INT >= 21) {
-            PlaybackState stateFwk = (PlaybackState) stateObj;
-            List<PlaybackState.CustomAction> customActionFwks = stateFwk.getCustomActions();
+            List<Object> customActionObjs = PlaybackStateCompatApi21.getCustomActions(stateObj);
             List<PlaybackStateCompat.CustomAction> customActions = null;
-            if (customActionFwks != null) {
-                customActions = new ArrayList<>(customActionFwks.size());
-                for (Object customActionFwk : customActionFwks) {
-                    customActions.add(CustomAction.fromCustomAction(customActionFwk));
+            if (customActionObjs != null) {
+                customActions = new ArrayList<>(customActionObjs.size());
+                for (Object customActionObj : customActionObjs) {
+                    customActions.add(CustomAction.fromCustomAction(customActionObj));
                 }
             }
             Bundle extras;
             if (Build.VERSION.SDK_INT >= 22) {
-                extras = stateFwk.getExtras();
+                extras = PlaybackStateCompatApi22.getExtras(stateObj);
             } else {
                 extras = null;
             }
-            PlaybackStateCompat stateCompat = new PlaybackStateCompat(
-                    stateFwk.getState(),
-                    stateFwk.getPosition(),
-                    stateFwk.getBufferedPosition(),
-                    stateFwk.getPlaybackSpeed(),
-                    stateFwk.getActions(),
+            PlaybackStateCompat state = new PlaybackStateCompat(
+                    PlaybackStateCompatApi21.getState(stateObj),
+                    PlaybackStateCompatApi21.getPosition(stateObj),
+                    PlaybackStateCompatApi21.getBufferedPosition(stateObj),
+                    PlaybackStateCompatApi21.getPlaybackSpeed(stateObj),
+                    PlaybackStateCompatApi21.getActions(stateObj),
                     ERROR_CODE_UNKNOWN_ERROR,
-                    stateFwk.getErrorMessage(),
-                    stateFwk.getLastPositionUpdateTime(),
+                    PlaybackStateCompatApi21.getErrorMessage(stateObj),
+                    PlaybackStateCompatApi21.getLastPositionUpdateTime(stateObj),
                     customActions,
-                    stateFwk.getActiveQueueItemId(),
+                    PlaybackStateCompatApi21.getActiveQueueItemId(stateObj),
                     extras);
-            stateCompat.mStateFwk = stateFwk;
-            return stateCompat;
+            state.mStateObj = stateObj;
+            return state;
         } else {
             return null;
         }
@@ -842,23 +838,27 @@ public final class PlaybackStateCompat implements Parcelable {
      * @return An equivalent {@link android.media.session.PlaybackState} object, or null if none.
      */
     public Object getPlaybackState() {
-        if (mStateFwk == null && Build.VERSION.SDK_INT >= 21) {
-            PlaybackState.Builder builder = new PlaybackState.Builder();
-            builder.setState(mState, mPosition, mSpeed, mUpdateTime);
-            builder.setBufferedPosition(mBufferedPosition);
-            builder.setActions(mActions);
-            builder.setErrorMessage(mErrorMessage);
-            for (PlaybackStateCompat.CustomAction customAction : mCustomActions) {
-                builder.addCustomAction(
-                        (PlaybackState.CustomAction) customAction.getCustomAction());
+        if (mStateObj == null && Build.VERSION.SDK_INT >= 21) {
+            List<Object> customActions = null;
+            if (mCustomActions != null) {
+                customActions = new ArrayList<>(mCustomActions.size());
+                for (PlaybackStateCompat.CustomAction customAction : mCustomActions) {
+                    customActions.add(customAction.getCustomAction());
+                }
             }
-            builder.setActiveQueueItemId(mActiveItemId);
             if (Build.VERSION.SDK_INT >= 22) {
-                builder.setExtras(mExtras);
+                mStateObj = PlaybackStateCompatApi22.newInstance(mState, mPosition,
+                        mBufferedPosition,
+                        mSpeed, mActions, mErrorMessage, mUpdateTime,
+                        customActions, mActiveItemId, mExtras);
+            } else {
+                //noinspection AndroidLintNewApi - NewApi lint fails to handle nested checks.
+                mStateObj = PlaybackStateCompatApi21.newInstance(mState, mPosition,
+                        mBufferedPosition, mSpeed, mActions, mErrorMessage, mUpdateTime,
+                        customActions, mActiveItemId);
             }
-            mStateFwk = builder.build();
         }
-        return mStateFwk;
+        return mStateObj;
     }
 
     public static final Parcelable.Creator<PlaybackStateCompat> CREATOR =
@@ -885,7 +885,7 @@ public final class PlaybackStateCompat implements Parcelable {
         private final int mIcon;
         private final Bundle mExtras;
 
-        private PlaybackState.CustomAction mCustomActionFwk;
+        private Object mCustomActionObj;
 
         /**
          * Use {@link PlaybackStateCompat.CustomAction.Builder#build()}.
@@ -933,16 +933,13 @@ public final class PlaybackStateCompat implements Parcelable {
                 return null;
             }
 
-            PlaybackState.CustomAction customActionFwk =
-                    (PlaybackState.CustomAction) customActionObj;
-            PlaybackStateCompat.CustomAction customActionCompat =
-                    new PlaybackStateCompat.CustomAction(
-                            customActionFwk.getAction(),
-                            customActionFwk.getName(),
-                            customActionFwk.getIcon(),
-                            customActionFwk.getExtras());
-            customActionCompat.mCustomActionFwk = customActionFwk;
-            return customActionCompat;
+            PlaybackStateCompat.CustomAction customAction = new PlaybackStateCompat.CustomAction(
+                    PlaybackStateCompatApi21.CustomAction.getAction(customActionObj),
+                    PlaybackStateCompatApi21.CustomAction.getName(customActionObj),
+                    PlaybackStateCompatApi21.CustomAction.getIcon(customActionObj),
+                    PlaybackStateCompatApi21.CustomAction.getExtras(customActionObj));
+            customAction.mCustomActionObj = customActionObj;
+            return customAction;
         }
 
         /**
@@ -956,14 +953,13 @@ public final class PlaybackStateCompat implements Parcelable {
          * or null if none.
          */
         public Object getCustomAction() {
-            if (mCustomActionFwk != null || Build.VERSION.SDK_INT < 21) {
-                return mCustomActionFwk;
+            if (mCustomActionObj != null || Build.VERSION.SDK_INT < 21) {
+                return mCustomActionObj;
             }
 
-            PlaybackState.CustomAction.Builder builder = new PlaybackState.CustomAction.Builder(
-                    mAction, mName, mIcon);
-            builder.setExtras(mExtras);
-            return builder.build();
+            mCustomActionObj = PlaybackStateCompatApi21.CustomAction.newInstance(mAction,
+                    mName, mIcon, mExtras);
+            return mCustomActionObj;
         }
 
         public static final Parcelable.Creator<PlaybackStateCompat.CustomAction> CREATOR
@@ -1054,15 +1050,15 @@ public final class PlaybackStateCompat implements Parcelable {
             public Builder(String action, CharSequence name, int icon) {
                 if (TextUtils.isEmpty(action)) {
                     throw new IllegalArgumentException(
-                            "You must specify an action to build a CustomAction");
+                            "You must specify an action to build a CustomAction.");
                 }
                 if (TextUtils.isEmpty(name)) {
                     throw new IllegalArgumentException(
-                            "You must specify a name to build a CustomAction");
+                            "You must specify a name to build a CustomAction.");
                 }
                 if (icon == 0) {
                     throw new IllegalArgumentException(
-                            "You must specify an icon resource id to build a CustomAction");
+                            "You must specify an icon resource id to build a CustomAction.");
                 }
                 mAction = action;
                 mName = name;
@@ -1302,7 +1298,7 @@ public final class PlaybackStateCompat implements Parcelable {
         public Builder addCustomAction(PlaybackStateCompat.CustomAction customAction) {
             if (customAction == null) {
                 throw new IllegalArgumentException(
-                        "You may not add a null CustomAction to PlaybackStateCompat");
+                        "You may not add a null CustomAction to PlaybackStateCompat.");
             }
             mCustomActions.add(customAction);
             return this;

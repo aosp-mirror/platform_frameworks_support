@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +27,7 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,46 +44,37 @@ public final class Step implements VersionedParcelable {
     Maneuver mManeuver;
     @ParcelField(3)
     List<Lane> mLanes;
-    @ParcelField(4)
-    ImageReference mLanesImage;
-    @ParcelField(5)
-    RichText mCue;
 
     /**
      * Used by {@link VersionedParcelable}
 
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     Step() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes,
-            @Nullable ImageReference lanesImage, @Nullable RichText cue) {
+    @RestrictTo(LIBRARY_GROUP)
+    Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes) {
         mDistance = distance;
         mManeuver = maneuver;
-        mLanes = new ArrayList<>(lanes);
-        mLanesImage = lanesImage;
-        mCue = cue;
+        mLanes = Collections.unmodifiableList(new ArrayList<>(lanes));
     }
 
     /**
      * Builder for creating a {@link Step}
      */
     public static final class Builder {
-        private Distance mDistance;
-        private Maneuver mManeuver;
-        private List<Lane> mLanes = new ArrayList<>();
-        private ImageReference mLanesImage;
-        private RichText mCue;
+        Distance mDistance;
+        Maneuver mManeuver;
+        List<Lane> mLanes = new ArrayList<>();
 
         /**
-         * Sets the maneuver to be performed on this step, or null if this step doesn't involve a
-         * maneuver.
+         * Sets the distance from the current position to the point where this navigation step
+         * should be executed, or null if this step doesn't involve a maneuver.
          *
          * @return this object for chaining
          */
@@ -93,8 +85,8 @@ public final class Step implements VersionedParcelable {
         }
 
         /**
-         * Sets the distance from the current position to the point where this navigation step
-         * should be executed, or null if distance to this step is not provided.
+         * Sets the maneuver to be performed on this step, or null if distance to this step is not
+         * provided.
          *
          * @return this object for chaining
          */
@@ -106,11 +98,6 @@ public final class Step implements VersionedParcelable {
 
         /**
          * Adds a road lane configuration to this step. Lanes should be added from left to right.
-         * <p>
-         * If lanes configuration information is available, third-party navigation apps should
-         * provide both image (see {@link #setLanesImage(ImageReference)}) and metadata (through
-         * this method) for maximum interoperability, as some OEM cluster rendering services might
-         * use images while others might use metadata, or both.
          *
          * @return this object for chaining
          */
@@ -121,59 +108,11 @@ public final class Step implements VersionedParcelable {
         }
 
         /**
-         * Sets a reference to an image that represents a complete lanes configuration at this point
-         * in the navigation. The image, if provided, is expected to contain:
-         *
-         * <ul>
-         * <li>A representation of all lanes, one next to the other in a single row.
-         * <li>For each lane, a set of arrows, representing each possible driving direction
-         * (e.g.: straight, left turn, right turn, etc.) within that lane.
-         * <li>Each of the driving directions that will keep the driver within the navigation
-         * route should be highlighted.
-         * </ul>
-         *
-         * Lane configuration images are expected to be displayed in a canvas with fixed height and
-         * variable width.
-         * <p>
-         * If lanes configuration information is available, third-party navigation apps should
-         * provide both metadata (see {@link #addLane(Lane)}) and image (through this method) for
-         * maximum interoperability, as some OEM cluster rendering services might use images while
-         * others might use metadata, or both.
-         *
-         * @return this object for chaining
-         */
-        @NonNull
-        public Builder setLanesImage(@Nullable ImageReference lanesImage) {
-            mLanesImage = lanesImage;
-            return this;
-        }
-
-        /**
-         * Sets auxiliary instructions on how complete this navigation step, described as a
-         * {@link RichText} object containing a sequence of texts (e.g.: "towards", "Wallaby way")
-         * and images (e.g.: road badge of a highway).
-         * <p>
-         * If OEM cluster rendering services don't have enough space to display the complete content
-         * of this {@link RichText} instance, it is expected they will truncate these instructions
-         * by cutting its end.
-         * <p>
-         * Because of this, it is expected the most important part of these instructions to be
-         * located at the beginning of the sequence.
-         *
-         * @return this object for chaining
-         */
-        @NonNull
-        public Builder setCue(@Nullable RichText cue) {
-            mCue = cue;
-            return this;
-        }
-
-        /**
          * Returns a {@link Step} built with the provided information.
          */
         @NonNull
         public Step build() {
-            return new Step(mDistance, mManeuver, mLanes, mLanesImage, mCue);
+            return new Step(mDistance, mManeuver, mLanes);
         }
     }
 
@@ -197,47 +136,11 @@ public final class Step implements VersionedParcelable {
 
     /**
      * Returns an unmodifiable list containing the configuration of road lanes at the point where
-     * the driver should execute this step, or an empty list if lane configuration metadata is not
-     * available. Lane configurations are listed from left to right.
+     * the driver should execute this step. Lane configurations are listed from left to right.
      */
     @NonNull
     public List<Lane> getLanes() {
-        return Common.immutableOrEmpty(mLanes);
-    }
-
-    /**
-     * Returns an image representing the lanes configuration at this point in the navigation, or
-     * null if the lanes configuration image was not provided. The image, if provided, is expected
-     * to contain:
-     *
-     * <ul>
-     * <li>A representation of all lanes, one next to the other in a single row.
-     * <li>For each lane, a set of arrows, representing each possible driving directions
-     * (e.g.: straight, left turn, right turn, etc.) within such lane.
-     * <li>Each of the driving directions that would keep the driver within the navigation
-     * route should be highlighted.
-     * </ul>
-     *
-     * Lane configuration images are expected to be displayed in a canvas with fixed height and
-     * variable width.
-     */
-    @Nullable
-    public ImageReference getLanesImage() {
-        return mLanesImage;
-    }
-
-    /**
-     * Returns auxiliary instructions on how complete this navigation step, described as a
-     * {@link RichText} object containing a sequence of texts (e.g.: "towards", "Wallaby way")
-     * and images (e.g.: road badge of a highway).
-     * <p>
-     * If space is not enough to display the complete content of this {@link RichText} instance,
-     * OEM cluster rendering services must display the beginning of these instructions, cutting as
-     * much from the end as needed.
-     */
-    @Nullable
-    public RichText getCue() {
-        return mCue;
+        return Common.nonNullOrEmpty(mLanes);
     }
 
     @Override
@@ -251,19 +154,17 @@ public final class Step implements VersionedParcelable {
         Step step = (Step) o;
         return Objects.equals(getManeuver(), step.getManeuver())
                 && Objects.equals(getDistance(), step.getDistance())
-                && Objects.equals(getLanes(), step.getLanes())
-                && Objects.equals(getLanesImage(), step.getLanesImage())
-                && Objects.equals(getCue(), step.getCue());
+                && Objects.equals(getLanes(), step.getLanes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getManeuver(), getDistance(), getLanes(), getLanesImage(), getCue());
+        return Objects.hash(getManeuver(), getDistance(), getLanes());
     }
 
     @Override
     public String toString() {
-        return String.format("{maneuver: %s, distance: %s, lanes: %s, lanesImage: %s, cue: %s}",
-                mManeuver, mDistance, mLanes, mLanesImage, mCue);
+        return String.format("{maneuver: %s, distance: %s, lanes: %s}", mManeuver, mDistance,
+                mLanes);
     }
 }

@@ -23,43 +23,29 @@ import javax.lang.model.type.TypeMirror
  * Value object created from processing a @Relation annotation.
  */
 class Relation(
-    val entity: EntityOrView,
-    // return type. e..g. String in @Relation List<String>
-    val pojoType: TypeMirror,
-    // field in Pojo that holds these relations (e.g. List<Pet> pets)
-    val field: Field,
-    // the parent field referenced for matching
-    val parentField: Field,
-    // the field referenced for querying. does not need to be in the response but the query
-    // we generate always has it in the response.
-    val entityField: Field,
-    // Used for joining on a many-to-many relation
-    val junction: Junction?,
-    // the projection for the query
-    val projection: List<String>
-) {
+        val entity: Entity,
+        // return type. e..g. String in @Relation List<String>
+        val pojoType: TypeMirror,
+        // field in Pojo that holds these relations (e.g. List<Pet> pets)
+        val field: Field,
+        // the parent field referenced for matching
+        val parentField: Field,
+        // the field referenced for querying. does not need to be in the response but the query
+        // we generate always has it in the response.
+        val entityField: Field,
+        // the projection for the query
+        val projection: List<String>) {
+
     val pojoTypeName by lazy { pojoType.typeName() }
 
     fun createLoadAllSql(): String {
-        val resultFields = projection.toSet()
+        val resultFields = projection.toSet() + entityField.columnName
         return createSelect(resultFields)
     }
 
-    private fun createSelect(resultFields: Set<String>) = buildString {
-        if (junction != null) {
-            val resultColumns = resultFields.map { "`${entity.tableName}`.`$it` AS `$it`" } +
-                    "_junction.`${junction.parentField.columnName}`"
-            append("SELECT ${resultColumns.joinToString(",")}")
-            append(" FROM `${junction.entity.tableName}` AS _junction")
-            append(" INNER JOIN `${entity.tableName}` ON" +
-                    " (_junction.`${junction.entityField.columnName}`" +
-                    " = `${entity.tableName}`.`${entityField.columnName}`)")
-            append(" WHERE _junction.`${junction.parentField.columnName}` IN (:args)")
-        } else {
-            val resultColumns = resultFields.map { "`$it`" }.toSet() + "`${entityField.columnName}`"
-            append("SELECT ${resultColumns.joinToString(",")}")
-            append(" FROM `${entity.tableName}`")
-            append(" WHERE `${entityField.columnName}` IN (:args)")
-        }
+    private fun createSelect(resultFields: Set<String>): String {
+        return "SELECT ${resultFields.joinToString(",") {"`$it`"}}" +
+                " FROM `${entity.tableName}`" +
+                " WHERE `${entityField.columnName}` IN (:args)"
     }
 }

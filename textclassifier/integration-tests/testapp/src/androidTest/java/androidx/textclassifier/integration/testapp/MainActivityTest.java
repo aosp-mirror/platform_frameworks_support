@@ -25,11 +25,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,15 +36,9 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MainActivityTest {
-
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
             new ActivityTestRule<>(MainActivity.class);
-
-    @Before
-    public void setUp() throws Throwable {
-        mActivityRule.getActivity();
-    }
 
     @Test
     public void linkify_defaultTextClassifier() {

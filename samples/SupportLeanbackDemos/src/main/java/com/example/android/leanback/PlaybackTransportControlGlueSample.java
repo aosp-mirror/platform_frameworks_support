@@ -143,6 +143,8 @@ class PlaybackTransportControlGlueSample<T extends PlayerAdapter> extends
      */
     public void connectToMediaSession(MediaSessionCompat mediaSessionCompat) {
         mMediaSessionCompat = mediaSessionCompat;
+        mMediaSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS
+                | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mMediaSessionCompat.setActive(true);
         mMediaSessionCompat.setCallback(new MediaSessionCallback());
         onMediaSessionMetaDataChanged();

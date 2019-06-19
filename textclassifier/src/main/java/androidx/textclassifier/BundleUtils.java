@@ -16,7 +16,6 @@
 
 package androidx.textclassifier;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
 import androidx.core.app.RemoteActionCompat;
 import androidx.core.os.LocaleListCompat;
-import androidx.versionedparcelable.ParcelUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,16 +37,6 @@ import java.util.Map;
 /* package */ final class BundleUtils {
 
     private BundleUtils() {}
-
-    /** Compat wrapper for deepCopy. */
-    static Bundle deepCopy(Bundle bundle) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return bundle.deepCopy();
-        } else {
-            // TODO: actually perform a deep copy.
-            return (Bundle) bundle.clone();
-        }
-    }
 
     /** Serializes a string keyed map to a bundle, or clears it if null is passed. */
     static void putMap(
@@ -81,13 +69,30 @@ import java.util.Map;
     /** Serializes a list of actions to a bundle, or clears it if null is passed. */
     static void putRemoteActionList(
             @NonNull Bundle bundle, @NonNull String key,
-            @NonNull List<RemoteActionCompat> actions) {
-        ParcelUtils.putVersionedParcelableList(bundle, key, actions);
+            @Nullable List<RemoteActionCompat> actions) {
+        if (actions == null) {
+            bundle.remove(key);
+            return;
+        }
+        final ArrayList<Bundle> actionBundles = new ArrayList<>(actions.size());
+        for (RemoteActionCompat action : actions) {
+            actionBundles.add(action.toBundle());
+        }
+        bundle.putParcelableArrayList(key, actionBundles);
     }
 
+    /** @throws IllegalArgumentException if key can't be found in the bundle */
     static List<RemoteActionCompat> getRemoteActionListOrThrow(
             @NonNull Bundle bundle, @NonNull String key) {
-        return ParcelUtils.getVersionedParcelableList(bundle, key);
+        final List<Bundle> actionBundles = bundle.getParcelableArrayList(key);
+        if (actionBundles == null) {
+            throw new IllegalArgumentException("Missing " + key);
+        }
+        final List<RemoteActionCompat> actions = new ArrayList<>(actionBundles.size());
+        for (Bundle actionBundle : actionBundles) {
+            actions.add(RemoteActionCompat.createFromBundle(actionBundle));
+        }
+        return actions;
     }
 
     /** Serializes a list of TextLinks to a bundle, or clears it if null is passed. */
@@ -150,50 +155,5 @@ import java.util.Map;
             return null;
         }
         return bundle.getLong(key);
-    }
-
-    static void putConversationActionsList(
-            @NonNull Bundle container, @NonNull String key,
-            @NonNull List<ConversationAction> actions) {
-        ArrayList<Bundle> bundles = new ArrayList<>(actions.size());
-        for (ConversationAction action : actions) {
-            bundles.add(action.toBundle());
-        }
-        container.putParcelableArrayList(key, bundles);
-    }
-
-    @NonNull
-    static List<ConversationAction> getConversationActionsList(
-            @NonNull Bundle container, @NonNull String key) {
-        ArrayList<Bundle> bundles = container.getParcelableArrayList(key);
-        ArrayList<ConversationAction> conversationActions = new ArrayList<>(bundles.size());
-        for (Bundle bundle : bundles) {
-            ConversationAction conversationAction = ConversationAction.createFromBundle(bundle);
-            conversationActions.add(conversationAction);
-        }
-        return conversationActions;
-    }
-
-    static void putConversationActionsMessageList(
-            @NonNull Bundle container, @NonNull String key,
-            @NonNull List<ConversationActions.Message> messages) {
-        ArrayList<Bundle> bundles = new ArrayList<>(messages.size());
-        for (ConversationActions.Message message : messages) {
-            bundles.add(message.toBundle());
-        }
-        container.putParcelableArrayList(key, bundles);
-    }
-
-    @NonNull
-    static List<ConversationActions.Message> getConversationActionsMessageList(
-            @NonNull Bundle container, @NonNull String key) {
-        ArrayList<Bundle> bundles = container.getParcelableArrayList(key);
-        ArrayList<ConversationActions.Message> messages = new ArrayList<>(bundles.size());
-        for (Bundle bundle : bundles) {
-            ConversationActions.Message message =
-                    ConversationActions.Message.createFromBundle(bundle);
-            messages.add(message);
-        }
-        return messages;
     }
 }

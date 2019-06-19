@@ -17,17 +17,16 @@
 package androidx.preference;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.os.Parcelable;
 
+import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
     @UiThreadTest
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getTargetContext();
         mPreferenceManager = new PreferenceManager(mContext);
         mScreen = mPreferenceManager.createPreferenceScreen(mContext);
         mScreen.setKey(PREFERENCE_KEY);
@@ -96,7 +95,8 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         for (int i = 0; i < INITIAL_EXPANDED_COUNT; i++) {
             assertEquals(mPreferenceList.get(i), preferenceGroupAdapter.getItem(i));
         }
-        assertTrue(preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT) instanceof ExpandButton);
+        assertEquals(CollapsiblePreferenceGroupController.ExpandButton.class,
+                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT).getClass());
     }
 
     /**
@@ -137,8 +137,8 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         for (int i = 0; i <= INITIAL_EXPANDED_COUNT; i++) {
             assertEquals(preferenceList.get(i), preferenceGroupAdapter.getItem(i));
         }
-        assertTrue(
-                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT + 1) instanceof ExpandButton);
+        assertEquals(CollapsiblePreferenceGroupController.ExpandButton.class,
+                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT + 1).getClass());
     }
 
     /**

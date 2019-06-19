@@ -17,9 +17,8 @@
 package androidx.work;
 
 /**
- * An enumeration of various network types that can be used as {@link Constraints} for work.
+ * The type of network required by a unit of work.
  */
-
 public enum NetworkType {
 
     /**

@@ -18,22 +18,19 @@ package androidx.work.integration.testapp;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import java.util.Date;
-
 /**
  *  A {@link Worker} that shows a given Toast.
  */
 public class ToastWorker extends Worker {
-    private static final String TAG = "WM-ToastWorker";
     static final String ARG_MESSAGE = "message";
 
     /**
@@ -58,8 +55,6 @@ public class ToastWorker extends Worker {
         if (message == null) {
             message = "completed!";
         }
-        final Date now = new Date(System.currentTimeMillis());
-        Log.i(TAG, String.format("Run time [%s]: %s", message, now));
         final String displayMessage = message;
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
@@ -68,6 +63,6 @@ public class ToastWorker extends Worker {
                 Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show();
             }
         });
-        return Result.success();
+        return Result.SUCCESS;
     }
 }

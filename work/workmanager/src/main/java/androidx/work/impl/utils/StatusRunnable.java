@@ -16,10 +16,11 @@
 
 package androidx.work.impl.utils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.WorkerThread;
-import androidx.work.WorkInfo;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.WorkerThread;
+
+import androidx.work.WorkStatus;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpec;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * A {@link Runnable} to get {@link WorkInfo}es.
+ * A {@link Runnable} to get {@link WorkStatus}es.
  *
  * @param <T> The expected return type for the {@link ListenableFuture}.
  * @hide
@@ -65,18 +66,18 @@ public abstract class StatusRunnable<T> implements Runnable {
      * @param ids         The {@link List} of {@link String} ids
      * @return an instance of {@link StatusRunnable}
      */
-    public static StatusRunnable<List<WorkInfo>> forStringIds(
+    public static StatusRunnable<List<WorkStatus>> forStringIds(
             @NonNull final WorkManagerImpl workManager,
             @NonNull final List<String> ids) {
 
-        return new StatusRunnable<List<WorkInfo>>() {
+        return new StatusRunnable<List<WorkStatus>>() {
             @Override
-            public List<WorkInfo> runInternal() {
+            public List<WorkStatus> runInternal() {
                 WorkDatabase workDatabase = workManager.getWorkDatabase();
-                List<WorkSpec.WorkInfoPojo> workInfoPojos =
+                List<WorkSpec.WorkStatusPojo> workStatusPojos =
                         workDatabase.workSpecDao().getWorkStatusPojoForIds(ids);
 
-                return WorkSpec.WORK_INFO_MAPPER.apply(workInfoPojos);
+                return WorkSpec.WORK_STATUS_MAPPER.apply(workStatusPojos);
             }
         };
     }
@@ -89,18 +90,18 @@ public abstract class StatusRunnable<T> implements Runnable {
      * @param id          The workSpec {@link UUID}
      * @return an instance of {@link StatusRunnable}
      */
-    public static StatusRunnable<WorkInfo> forUUID(
+    public static StatusRunnable<WorkStatus> forUUID(
             @NonNull final WorkManagerImpl workManager,
             @NonNull final UUID id) {
 
-        return new StatusRunnable<WorkInfo>() {
+        return new StatusRunnable<WorkStatus>() {
             @Override
-            WorkInfo runInternal() {
+            WorkStatus runInternal() {
                 WorkDatabase workDatabase = workManager.getWorkDatabase();
-                WorkSpec.WorkInfoPojo workInfoPojo =
+                WorkSpec.WorkStatusPojo workStatusPojo =
                         workDatabase.workSpecDao().getWorkStatusPojoForId(id.toString());
 
-                return workInfoPojo != null ? workInfoPojo.toWorkInfo() : null;
+                return workStatusPojo != null ? workStatusPojo.toWorkStatus() : null;
             }
         };
     }
@@ -113,18 +114,18 @@ public abstract class StatusRunnable<T> implements Runnable {
      * @param tag The {@link String} tag
      * @return an instance of {@link StatusRunnable}
      */
-    public static StatusRunnable<List<WorkInfo>> forTag(
+    public static StatusRunnable<List<WorkStatus>> forTag(
             @NonNull final WorkManagerImpl workManager,
             @NonNull final String tag) {
 
-        return new StatusRunnable<List<WorkInfo>>() {
+        return new StatusRunnable<List<WorkStatus>>() {
             @Override
-            List<WorkInfo> runInternal() {
+            List<WorkStatus> runInternal() {
                 WorkDatabase workDatabase = workManager.getWorkDatabase();
-                List<WorkSpec.WorkInfoPojo> workInfoPojos =
+                List<WorkSpec.WorkStatusPojo> workStatusPojos =
                         workDatabase.workSpecDao().getWorkStatusPojoForTag(tag);
 
-                return WorkSpec.WORK_INFO_MAPPER.apply(workInfoPojos);
+                return WorkSpec.WORK_STATUS_MAPPER.apply(workStatusPojos);
             }
         };
     }
@@ -137,18 +138,18 @@ public abstract class StatusRunnable<T> implements Runnable {
      * @param name The {@link String} unique name
      * @return an instance of {@link StatusRunnable}
      */
-    public static StatusRunnable<List<WorkInfo>> forUniqueWork(
+    public static StatusRunnable<List<WorkStatus>> forUniqueWork(
             @NonNull final WorkManagerImpl workManager,
             @NonNull final String name) {
 
-        return new StatusRunnable<List<WorkInfo>>() {
+        return new StatusRunnable<List<WorkStatus>>() {
             @Override
-            List<WorkInfo> runInternal() {
+            List<WorkStatus> runInternal() {
                 WorkDatabase workDatabase = workManager.getWorkDatabase();
-                List<WorkSpec.WorkInfoPojo> workInfoPojos =
+                List<WorkSpec.WorkStatusPojo> workStatusPojos =
                         workDatabase.workSpecDao().getWorkStatusPojoForName(name);
 
-                return WorkSpec.WORK_INFO_MAPPER.apply(workInfoPojos);
+                return WorkSpec.WORK_STATUS_MAPPER.apply(workStatusPojos);
             }
         };
     }

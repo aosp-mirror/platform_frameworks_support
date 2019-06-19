@@ -16,7 +16,7 @@
 
 package androidx.vectordrawable.graphics.drawable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import static java.lang.Math.min;
 
@@ -65,7 +65,7 @@ import java.util.ArrayList;
  * <em>something</em> file.)
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class AnimatorInflaterCompat {
     private static final String TAG = "AnimatorInflater";
     /**

@@ -16,9 +16,10 @@
 
 package androidx.room.vo
 
+import androidx.room.ext.typeName
 import androidx.room.parser.ParsedQuery
-import androidx.room.solver.prepared.binder.PreparedQueryResultBinder
 import androidx.room.solver.query.result.QueryResultBinder
+import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
@@ -26,13 +27,10 @@ import javax.lang.model.type.TypeMirror
  * A class that holds information about a QueryMethod.
  * It is self sufficient and must have all generics etc resolved once created.
  */
-sealed class QueryMethod(
-    val element: ExecutableElement,
-    val query: ParsedQuery,
-    val name: String,
-    val returnType: TypeMirror,
-    val parameters: List<QueryParameter>
-) {
+data class QueryMethod(val element: ExecutableElement, val query: ParsedQuery, val name: String,
+                       val returnType: TypeMirror, val parameters: List<QueryParameter>,
+                       val inTransaction: Boolean,
+                       val queryResultBinder: QueryResultBinder) {
     val sectionToParamMapping by lazy {
         query.bindSections.map {
             if (it.text.trim() == "?") {
@@ -47,29 +45,8 @@ sealed class QueryMethod(
             }
         }
     }
+
+    val returnsValue by lazy {
+        returnType.typeName() != TypeName.VOID
+    }
 }
-
-/**
- * A query method who's query is a SELECT statement.
- */
-class ReadQueryMethod(
-    element: ExecutableElement,
-    query: ParsedQuery,
-    name: String,
-    returnType: TypeMirror,
-    parameters: List<QueryParameter>,
-    val inTransaction: Boolean,
-    val queryResultBinder: QueryResultBinder
-) : QueryMethod(element, query, name, returnType, parameters)
-
-/**
- * A query method who's query is a INSERT, UPDATE or DELETE statement.
- */
-class WriteQueryMethod(
-    element: ExecutableElement,
-    query: ParsedQuery,
-    name: String,
-    returnType: TypeMirror,
-    parameters: List<QueryParameter>,
-    val preparedQueryResultBinder: PreparedQueryResultBinder
-) : QueryMethod(element, query, name, returnType, parameters)

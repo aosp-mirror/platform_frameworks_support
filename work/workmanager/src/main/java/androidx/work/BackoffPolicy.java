@@ -16,25 +16,18 @@
 
 package androidx.work;
 
-import java.util.concurrent.TimeUnit;
-
 /**
- * An enumeration of backoff policies when retrying work.  These policies are used when you have a
- * return {@link ListenableWorker.Result#retry()} from a worker to determine the correct backoff
- * time.  Backoff policies are set in
- * {@link WorkRequest.Builder#setBackoffCriteria(BackoffPolicy, long, TimeUnit)} or one of its
- * variants.
+ * The backoff policy to use when rescheduling work.
  */
-
 public enum BackoffPolicy {
 
     /**
-     * Used to indicate that {@link WorkManager} should increase the backoff time exponentially
+     * An exponentially-increasing backoff policy
      */
     EXPONENTIAL,
 
     /**
-     * Used to indicate that {@link WorkManager} should increase the backoff time linearly
+     * A linearly-increasing backoff policy
      */
     LINEAR
 }

@@ -92,7 +92,7 @@ public class Explode extends Visibility {
         float startY = endY + mTempLoc[1];
 
         return TranslationAnimationCreator.createAnimation(view, endValues, bounds.left, bounds.top,
-                startX, startY, endX, endY, sDecelerate, this);
+                startX, startY, endX, endY, sDecelerate);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class Explode extends Visibility {
         endY += mTempLoc[1];
 
         return TranslationAnimationCreator.createAnimation(view, startValues,
-                viewPosX, viewPosY, startX, startY, endX, endY, sAccelerate, this);
+                viewPosX, viewPosY, startX, startY, endX, endY, sAccelerate);
     }
 
     private void calculateOut(View sceneRoot, Rect bounds, int[] outVector) {

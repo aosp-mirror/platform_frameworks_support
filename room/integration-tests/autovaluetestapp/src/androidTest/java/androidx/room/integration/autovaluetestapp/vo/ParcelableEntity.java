@@ -16,7 +16,6 @@
 
 package androidx.room.integration.autovaluetestapp.vo;
 
-import android.annotation.SuppressLint;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,6 @@ import com.google.auto.value.AutoValue.CopyAnnotations;
 
 @AutoValue
 @Entity(tableName = "parcelable_entity")
-@SuppressLint("BanParcelableUsage")
 public abstract class ParcelableEntity implements Parcelable {
     @CopyAnnotations
     @NonNull

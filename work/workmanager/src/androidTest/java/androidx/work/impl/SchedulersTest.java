@@ -26,10 +26,10 @@ import static org.mockito.Mockito.mock;
 import android.content.Context;
 import android.os.Build;
 
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.background.systemalarm.SystemAlarmScheduler;
 import androidx.work.impl.background.systemalarm.SystemAlarmService;
 import androidx.work.impl.background.systemjob.SystemJobScheduler;
@@ -39,7 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class SchedulersTest {
 
@@ -49,7 +49,7 @@ public class SchedulersTest {
     @Before
     public void setUp() {
         mWorkManager = mock(WorkManagerImpl.class);
-        mAppContext = ApplicationProvider.getApplicationContext();
+        mAppContext = InstrumentationRegistry.getTargetContext();
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SchedulersTest {
         Scheduler scheduler =
                 Schedulers.createBestAvailableBackgroundScheduler(mAppContext, mWorkManager);
         assertThat(scheduler, is(instanceOf(SystemJobScheduler.class)));
-        assertServicesEnabled(true, false);
+        assertServicesEnabled(true, false, false);
     }
 
     @Test
@@ -67,15 +67,20 @@ public class SchedulersTest {
         Scheduler scheduler =
                 Schedulers.createBestAvailableBackgroundScheduler(mAppContext, mWorkManager);
         assertThat(scheduler, is(instanceOf(SystemAlarmScheduler.class)));
-        assertServicesEnabled(false, true);
+        assertServicesEnabled(false, false, true);
     }
 
     // Only one service should really be enabled at one time.
-    private void assertServicesEnabled(boolean systemJobEnabled, boolean systemAlarmEnabled) {
+    private void assertServicesEnabled(
+            boolean systemJobEnabled, boolean firebaseJobEnabled, boolean systemAlarmEnabled) {
         if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
             assertThat(isComponentExplicitlyEnabled(mAppContext, SystemJobService.class),
                     is(systemJobEnabled));
         }
+        assertThat(isComponentExplicitlyEnabled(
+                mAppContext,
+                Schedulers.FIREBASE_JOB_SERVICE_CLASSNAME),
+                is(firebaseJobEnabled));
         assertThat(isComponentExplicitlyEnabled(mAppContext, SystemAlarmService.class),
                 is(systemAlarmEnabled));
     }

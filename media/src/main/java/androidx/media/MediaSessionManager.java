@@ -16,10 +16,11 @@
 
 package androidx.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
@@ -50,8 +51,7 @@ public final class MediaSessionManager {
      *
      * @return The MediaSessionManager instance for this context.
      */
-    @NonNull
-    public static MediaSessionManager getSessionManager(@NonNull Context context) {
+    public static @NonNull MediaSessionManager getSessionManager(@NonNull Context context) {
         if (context == null) {
             throw new IllegalArgumentException("context cannot be null");
         }
@@ -128,14 +128,14 @@ public final class MediaSessionManager {
          * Represents an unknown pid of an application.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public static final int UNKNOWN_PID = -1;
 
         /**
          * Represents an unknown uid of an application.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public static final int UNKNOWN_UID = -1;
 
         RemoteUserInfoImpl mImpl;
@@ -169,7 +169,7 @@ public final class MediaSessionManager {
          * @param remoteUserInfo Framework RemoteUserInfo
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @RequiresApi(28)
         public RemoteUserInfo(
                 android.media.session.MediaSessionManager.RemoteUserInfo remoteUserInfo) {
@@ -199,15 +199,18 @@ public final class MediaSessionManager {
         }
 
         /**
-         * Returns equality of two RemoteUserInfo by comparing their package name, UID, and PID.
+         * Returns equality of two RemoteUserInfo.
          * <p>
-         * On P and before (API <= 28), two RemoteUserInfo objects equal if following conditions are
-         * met:
-         * <ol>
-         * <li>UID and package name are the same</li>
-         * <li>One of the RemoteUserInfo's PID is UNKNOWN_PID or both of RemoteUserInfo's
-         *     PID are the same</li>
-         * </ol>
+         * Prior to P (API < 28), two RemoteUserInfo objects are equal only if
+         * they are from same package and from same process.
+         * <p>
+         * On P and beyond (API >= 28), two RemoteUserInfo objects are equal only if they're sent
+         * from the same controller (either {@link MediaControllerCompat} or
+         * {@link MediaBrowserCompat}. If it's not nor one of them is triggered by the key presses,
+         * they would be considered as different one.
+         * <p>
+         * If you only want to compare the caller's package, compare them with the
+         * {@link #getPackageName()}, {@link #getPid()}, and/or {@link #getUid()} directly.
          *
          * @param obj the reference object with which to compare.
          * @return {@code true} if equals, {@code false} otherwise

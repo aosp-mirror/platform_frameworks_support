@@ -18,16 +18,16 @@ package androidx.textclassifier;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
+
 import androidx.textclassifier.TextClassifier.EntityConfig.Builder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /** Instrumentation unit tests for {@link TextClassifier}. */
 @SmallTest
@@ -43,8 +43,8 @@ public class TextClassifierTest {
                 TextClassifier.EntityConfig.createFromBundle(entityConfig.toBundle());
 
         assertThat(entityConfig.getHints()).containsExactly("a", "b");
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfigFromBundle.resolveTypes(Arrays.asList("default")))
+        assertThat(entityConfig.shouldIncludeDefaultEntityTypes()).isTrue();
+        assertThat(entityConfigFromBundle.resolveEntityTypes(Arrays.asList("default")))
                 .containsExactly("default");
     }
 
@@ -52,32 +52,32 @@ public class TextClassifierTest {
     public void testEntityConfig_withIncludedExcludedAndHints() {
         TextClassifier.EntityConfig entityConfig = new Builder()
                 .setHints(Arrays.asList("hints"))
-                .setIncludedTypes(Arrays.asList("included", "overlap"))
-                .setExcludedTypes(Arrays.asList("excluded", "overlap"))
+                .setIncludedEntityTypes(Arrays.asList("included", "overlap"))
+                .setExcludedEntityTypes(Arrays.asList("excluded", "overlap"))
                 .build();
 
         TextClassifier.EntityConfig entityConfigFromBundle =
                 TextClassifier.EntityConfig.createFromBundle(entityConfig.toBundle());
 
         assertThat(entityConfigFromBundle.getHints()).containsExactly("hints");
-        assertThat(entityConfigFromBundle.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfigFromBundle.resolveTypes(Arrays.asList("default", "excluded")))
+        assertThat(entityConfigFromBundle.shouldIncludeDefaultEntityTypes()).isTrue();
+        assertThat(entityConfigFromBundle.resolveEntityTypes(Arrays.asList("default", "excluded")))
                 .containsExactly("default", "included");
     }
 
     @Test
     public void testEntityConfig_setUseDefaultEntityTypes() {
         TextClassifier.EntityConfig entityConfig = new Builder()
-                .includeTypesFromTextClassifier(false)
-                .setIncludedTypes(Arrays.asList("included"))
+                .setIncludeDefaultEntityTypes(false)
+                .setIncludedEntityTypes(Arrays.asList("included"))
                 .build();
 
         TextClassifier.EntityConfig entityConfigFromBundle =
                 TextClassifier.EntityConfig.createFromBundle(entityConfig.toBundle());
 
         assertThat(entityConfig.getHints()).isEmpty();
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isFalse();
-        assertThat(entityConfigFromBundle.resolveTypes(
+        assertThat(entityConfig.shouldIncludeDefaultEntityTypes()).isFalse();
+        assertThat(entityConfigFromBundle.resolveEntityTypes(
                 Arrays.asList("default"))).containsExactly("included");
     }
 
@@ -85,9 +85,9 @@ public class TextClassifierTest {
     @SdkSuppress(minSdkVersion = 28)
     public void testEntityConfig_toPlatform_explicit() {
         TextClassifier.EntityConfig entityConfig = new Builder()
-                .includeTypesFromTextClassifier(false)
-                .setIncludedTypes(Arrays.asList("included", "excluded"))
-                .setExcludedTypes(Arrays.asList("excluded"))
+                .setIncludeDefaultEntityTypes(false)
+                .setIncludedEntityTypes(Arrays.asList("included", "excluded"))
+                .setExcludedEntityTypes(Arrays.asList("excluded"))
                 .build();
 
         android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
@@ -102,8 +102,8 @@ public class TextClassifierTest {
     @SdkSuppress(minSdkVersion = 28)
     public void testEntityConfig_toPlatform_withDefault() {
         TextClassifier.EntityConfig entityConfig = new Builder()
-                .setIncludedTypes(Arrays.asList("included", "excluded"))
-                .setExcludedTypes(Arrays.asList("excluded"))
+                .setIncludedEntityTypes(Arrays.asList("included", "excluded"))
+                .setExcludedEntityTypes(Arrays.asList("excluded"))
                 .setHints(Arrays.asList("hint"))
                 .build();
 
@@ -113,96 +113,5 @@ public class TextClassifierTest {
         assertThat(platformEntityConfig.getHints()).containsExactly("hint");
         assertThat(platformEntityConfig.resolveEntityListModifications(Arrays.asList("extra")))
                 .containsExactly("included", "extra");
-    }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 28)
-    public void testEntityConfig_fromPlatform_createWithHints() {
-        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
-                android.view.textclassifier.TextClassifier.EntityConfig.createWithHints(
-                        Collections.singletonList("hints"));
-
-        TextClassifier.EntityConfig entityConfig =
-                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
-
-
-        assertThat(entityConfig.getHints()).containsExactly("hints");
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfig.resolveTypes(Collections.singleton("default")))
-                .containsExactly("default");
-    }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 28)
-    public void testEntityConfig_fromPlatform_createWithExplicitEntityList() {
-        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
-                android.view.textclassifier.TextClassifier.EntityConfig
-                        .createWithExplicitEntityList(
-                                Collections.singletonList("explicit"));
-
-        TextClassifier.EntityConfig entityConfig =
-                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
-
-
-        assertThat(entityConfig.getHints()).isEmpty();
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isFalse();
-        assertThat(entityConfig.resolveTypes(Collections.singleton("default")))
-                .containsExactly("explicit");
-    }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 28)
-    public void testEntityConfig_fromPlatform_create() {
-        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
-                android.view.textclassifier.TextClassifier.EntityConfig.create(
-                        Collections.singleton("hints"),
-                        Collections.singleton("included"),
-                        Collections.singleton("excluded"));
-
-        TextClassifier.EntityConfig entityConfig =
-                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
-
-        assertThat(entityConfig.getHints()).containsExactly("hints");
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfig.resolveTypes(Arrays.asList("default", "excluded")))
-                .containsExactly("default", "included");
-    }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 29)
-    public void testEntityConfig_fromPlatform_builder() {
-        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
-                new android.view.textclassifier.TextClassifier.EntityConfig.Builder()
-                .setIncludedTypes(Collections.singleton("included"))
-                .setExcludedTypes(Collections.singleton("excluded"))
-                .setHints(Collections.singleton("hints"))
-                .build();
-
-        TextClassifier.EntityConfig entityConfig =
-                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
-
-        assertThat(entityConfig.getHints()).containsExactly("hints");
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfig.resolveTypes(Arrays.asList("default", "excluded")))
-                .containsExactly("default", "included");
-    }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 28)
-    public void testEntityConfig_fromPlatform_bundle() {
-        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
-                android.view.textclassifier.TextClassifier.EntityConfig.create(
-                        Collections.singleton("hints"),
-                        Collections.singleton("included"),
-                        Collections.singleton("excluded"));
-
-        TextClassifier.EntityConfig entityConfig =
-                TextClassifier.EntityConfig.createFromBundle(
-                        TextClassifier.EntityConfig.fromPlatform(platformEntityConfig).toBundle());
-
-        assertThat(entityConfig.getHints()).containsExactly("hints");
-        assertThat(entityConfig.shouldIncludeTypesFromTextClassifier()).isTrue();
-        assertThat(entityConfig.resolveTypes(Arrays.asList("default", "excluded")))
-                .containsExactly("default", "included");
     }
 }

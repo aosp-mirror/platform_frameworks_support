@@ -28,6 +28,7 @@ if (currentBuildIsRootBuild) {
   File externalRoot = new File(buildScriptDir, '../../external')
 
   includeBuild(new File(externalRoot, 'doclava'))
+  includeBuild(new File(externalRoot, 'jdiff'))
 }
 
 

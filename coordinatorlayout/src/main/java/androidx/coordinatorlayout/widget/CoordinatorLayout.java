@@ -16,7 +16,7 @@
 
 package androidx.coordinatorlayout.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -143,7 +143,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     static final int EVENT_VIEW_REMOVED = 2;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({EVENT_PRE_DRAW, EVENT_NESTED_SCROLL, EVENT_VIEW_REMOVED})
     public @interface DispatchChangeEvent {}
@@ -220,17 +220,6 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                 0, R.style.Widget_Support_CoordinatorLayout)
                 : context.obtainStyledAttributes(attrs, R.styleable.CoordinatorLayout,
                         defStyleAttr, 0);
-        if (Build.VERSION.SDK_INT >= 29) {
-            if (defStyleAttr == 0) {
-                saveAttributeDataForStyleable(
-                        context, R.styleable.CoordinatorLayout, attrs, a, 0,
-                        R.style.Widget_Support_CoordinatorLayout);
-            } else {
-                saveAttributeDataForStyleable(
-                        context, R.styleable.CoordinatorLayout, attrs, a, defStyleAttr, 0);
-            }
-        }
-
         final int keylineArrayRes = a.getResourceId(R.styleable.CoordinatorLayout_keylines, 0);
         if (keylineArrayRes != 0) {
             final Resources res = context.getResources();
@@ -390,7 +379,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public final WindowInsetsCompat getLastWindowInsets() {
         return mLastInsets;
     }
@@ -632,8 +621,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             }
             Constructor<Behavior> c = constructors.get(fullName);
             if (c == null) {
-                final Class<Behavior> clazz =
-                        (Class<Behavior>) Class.forName(fullName, false, context.getClassLoader());
+                final Class<Behavior> clazz = (Class<Behavior>) context.getClassLoader()
+                        .loadClass(fullName);
                 c = clazz.getConstructor(CONSTRUCTOR_PARAMS);
                 c.setAccessible(true);
                 constructors.put(fullName, c);

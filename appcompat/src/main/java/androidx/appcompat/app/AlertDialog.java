@@ -16,7 +16,7 @@
 
 package androidx.appcompat.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -191,7 +191,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
      * Internal api to allow hinting for the best button panel layout.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setButtonPanelLayoutHint(int layoutHint) {
         mAlert.setButtonPanelLayoutHint(layoutHint);
     }
@@ -926,9 +926,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
          * This is currently hidden because it seems like people should just
          * be able to put padding around the view.
          * @hide
-         * @deprecated This method has been deprecated.
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Deprecated
         public Builder setView(View view, int viewSpacingLeft, int viewSpacingTop,
                 int viewSpacingRight, int viewSpacingBottom) {
@@ -961,7 +960,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public Builder setRecycleOnMeasureEnabled(boolean enabled) {
             P.mRecycleOnMeasure = enabled;
             return this;

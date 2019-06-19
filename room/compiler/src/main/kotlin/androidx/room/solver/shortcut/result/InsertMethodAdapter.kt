@@ -16,26 +16,19 @@
 
 package androidx.room.solver.shortcut.result
 
-import androidx.room.ext.KotlinTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.ShortcutQueryParameter
+import androidx.room.writer.DaoWriter
 import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
-import isKotlinUnit
-import isList
-import isBoxedLong
-import isPrimitiveLong
-import isLong
-import isVoid
-import isVoidObject
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 
@@ -63,15 +56,13 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
                 return false
             }
             if (params.isEmpty() || params.size > 1) {
-                return insertionType == InsertionType.INSERT_VOID ||
-                        insertionType == InsertionType.INSERT_UNIT
+                return insertionType == InsertionType.INSERT_VOID
             }
             return if (params.first().isMultiple) {
                 insertionType in MULTIPLE_ITEM_SET
             } else {
                 insertionType == InsertionType.INSERT_VOID ||
                         insertionType == InsertionType.INSERT_VOID_OBJECT ||
-                        insertionType == InsertionType.INSERT_UNIT ||
                         insertionType == InsertionType.INSERT_SINGLE_ID
             }
         }
@@ -79,7 +70,6 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
         private val MULTIPLE_ITEM_SET by lazy {
             setOf(InsertionType.INSERT_VOID,
                     InsertionType.INSERT_VOID_OBJECT,
-                    InsertionType.INSERT_UNIT,
                     InsertionType.INSERT_ID_ARRAY,
                     InsertionType.INSERT_ID_ARRAY_BOX,
                     InsertionType.INSERT_ID_LIST)
@@ -88,29 +78,42 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
         @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
         private fun getInsertionType(returnType: TypeMirror): InsertionType? {
 
-            return if (returnType.isVoid()) {
+            fun isLongPrimitiveType(typeMirror: TypeMirror) = typeMirror.kind == TypeKind.LONG
+
+            fun isLongBoxType(typeMirror: TypeMirror) =
+                    MoreTypes.isType(typeMirror) &&
+                            MoreTypes.isTypeOf(java.lang.Long::class.java, typeMirror)
+
+            fun isLongType(typeMirror: TypeMirror) =
+                    isLongPrimitiveType(typeMirror) || isLongBoxType(typeMirror)
+
+            fun isList(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
+                    MoreTypes.isTypeOf(List::class.java, typeMirror)
+
+            fun isVoidObject(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
+                    MoreTypes.isTypeOf(Void::class.java, typeMirror)
+
+            return if (returnType.kind == TypeKind.VOID) {
                 InsertionType.INSERT_VOID
-            } else if (returnType.isVoidObject()) {
+            } else if (isVoidObject(returnType)) {
                 InsertionType.INSERT_VOID_OBJECT
-            } else if (returnType.isKotlinUnit()) {
-                InsertionType.INSERT_UNIT
             } else if (returnType.kind == TypeKind.ARRAY) {
                 val arrayType = MoreTypes.asArray(returnType)
                 val param = arrayType.componentType
                 when {
-                    param.isPrimitiveLong() -> InsertionType.INSERT_ID_ARRAY
-                    param.isBoxedLong() -> InsertionType.INSERT_ID_ARRAY_BOX
+                    isLongPrimitiveType(param) -> InsertionType.INSERT_ID_ARRAY
+                    isLongBoxType(param) -> InsertionType.INSERT_ID_ARRAY_BOX
                     else -> null
                 }
-            } else if (returnType.isList()) {
+            } else if (isList(returnType)) {
                 val declared = MoreTypes.asDeclared(returnType)
                 val param = declared.typeArguments.first()
-                if (param.isBoxedLong()) {
+                if (isLongBoxType(param)) {
                     InsertionType.INSERT_ID_LIST
                 } else {
                     null
                 }
-            } else if (returnType.isLong()) {
+            } else if (isLongType(returnType)) {
                 InsertionType.INSERT_SINGLE_ID
             } else {
                 null
@@ -121,16 +124,14 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
     fun createInsertionMethodBody(
         parameters: List<ShortcutQueryParameter>,
         insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>,
-        dbField: FieldSpec,
         scope: CodeGenScope
     ) {
         scope.builder().apply {
             // TODO assert thread
             // TODO collect results
-            addStatement("$N.beginTransaction()", dbField)
+            addStatement("$N.beginTransaction()", DaoWriter.dbField)
             val needsResultVar = insertionType != InsertionType.INSERT_VOID &&
-                    insertionType != InsertionType.INSERT_VOID_OBJECT &&
-                    insertionType != InsertionType.INSERT_UNIT
+                    insertionType != InsertionType.INSERT_VOID_OBJECT
             val resultVar = if (needsResultVar) {
                 scope.getTmpVar("_result")
             } else {
@@ -152,17 +153,17 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
                                 param.name)
                     }
                 }
-                addStatement("$N.setTransactionSuccessful()", dbField)
+                addStatement("$N.setTransactionSuccessful()",
+                        DaoWriter.dbField)
                 if (needsResultVar) {
                     addStatement("return $L", resultVar)
                 } else if (insertionType == InsertionType.INSERT_VOID_OBJECT) {
                     addStatement("return null")
-                } else if (insertionType == InsertionType.INSERT_UNIT) {
-                    addStatement("return $T.INSTANCE", KotlinTypeNames.UNIT)
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
+                addStatement("$N.endTransaction()",
+                        DaoWriter.dbField)
             }
             endControlFlow()
         }
@@ -175,13 +176,12 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
     ) {
         INSERT_VOID("insert", TypeName.VOID), // return void
         INSERT_VOID_OBJECT("insert", TypeName.VOID), // return void
-        INSERT_UNIT("insert", KotlinTypeNames.UNIT), // return kotlin.Unit.INSTANCE
         INSERT_SINGLE_ID("insertAndReturnId", TypeName.LONG), // return long
         INSERT_ID_ARRAY("insertAndReturnIdsArray",
                 ArrayTypeName.of(TypeName.LONG)), // return long[]
         INSERT_ID_ARRAY_BOX("insertAndReturnIdsArrayBox",
                 ArrayTypeName.of(TypeName.LONG.box())), // return Long[]
         INSERT_ID_LIST("insertAndReturnIdsList", // return List<Long>
-                ParameterizedTypeName.get(List::class.typeName(), TypeName.LONG.box())),
+                ParameterizedTypeName.get(List::class.typeName(), TypeName.LONG.box()))
     }
 }

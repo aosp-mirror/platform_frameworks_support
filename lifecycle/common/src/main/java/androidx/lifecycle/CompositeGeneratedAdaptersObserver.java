@@ -17,9 +17,13 @@
 package androidx.lifecycle;
 
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
-class CompositeGeneratedAdaptersObserver implements LifecycleEventObserver {
+/**
+ * @hide
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public class CompositeGeneratedAdaptersObserver implements GenericLifecycleObserver {
 
     private final GeneratedAdapter[] mGeneratedAdapters;
 
@@ -28,7 +32,7 @@ class CompositeGeneratedAdaptersObserver implements LifecycleEventObserver {
     }
 
     @Override
-    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+    public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
         MethodCallsLogger logger = new MethodCallsLogger();
         for (GeneratedAdapter mGenerated: mGeneratedAdapters) {
             mGenerated.callMethods(source, event, false, logger);

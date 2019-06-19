@@ -50,10 +50,7 @@ import java.lang.annotation.Target;
 public @interface Insert {
     /**
      * What to do if a conflict happens.
-     * <p>
-     * Use {@link OnConflictStrategy#ABORT} (default) to roll back the transaction on conflict.
-     * Use {@link OnConflictStrategy#REPLACE} to replace the existing rows with the new rows.
-     * Use {@link OnConflictStrategy#IGNORE} to keep the existing rows.
+     * @see <a href="https://sqlite.org/lang_conflict.html">SQLite conflict documentation</a>
      *
      * @return How to handle conflicts. Defaults to {@link OnConflictStrategy#ABORT}.
      */

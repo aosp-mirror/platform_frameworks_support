@@ -22,7 +22,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
@@ -38,7 +37,6 @@ import androidx.core.content.res.TypedArrayUtils;
  * @attr name android:entryValues
  */
 public class ListPreference extends DialogPreference {
-    private static final String TAG = "ListPreference";
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
     private String mValue;
@@ -57,9 +55,9 @@ public class ListPreference extends DialogPreference {
         mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.ListPreference_entryValues,
                 R.styleable.ListPreference_android_entryValues);
 
-        if (TypedArrayUtils.getBoolean(a, R.styleable.ListPreference_useSimpleSummaryProvider,
-                R.styleable.ListPreference_useSimpleSummaryProvider, false)) {
-            setSummaryProvider(SimpleSummaryProvider.getInstance());
+        if (TypedArrayUtils.getBoolean(a, R.styleable.ListPreference_setDefaultSummaryProvider,
+                R.styleable.ListPreference_setDefaultSummaryProvider, false)) {
+            setSummaryProvider(DefaultProvider.getInstance());
         }
 
         a.recycle();
@@ -155,25 +153,17 @@ public class ListPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public CharSequence getSummary() {
         if (getSummaryProvider() != null) {
             return getSummaryProvider().provideSummary(this);
         }
         final CharSequence entry = getEntry();
-        CharSequence summary = super.getSummary();
         if (mSummary == null) {
-            return summary;
+            return super.getSummary();
+        } else {
+            return String.format(mSummary, entry == null ? "" : entry);
         }
-        String formattedString = String.format(mSummary, entry == null ? "" : entry);
-        if (TextUtils.equals(formattedString, summary)) {
-            return summary;
-        }
-        Log.w(TAG,
-                "Setting a summary with a String formatting marker is no longer supported."
-                        + " You should use a SummaryProvider instead.");
-        return formattedString;
     }
 
     /**
@@ -314,28 +304,29 @@ public class ListPreference extends DialogPreference {
     }
 
     /**
-     * A simple {@link androidx.preference.Preference.SummaryProvider} implementation for a
+     * A default {@link androidx.preference.Preference.SummaryProvider} implementation for a
      * {@link ListPreference}. If no value has been set, the summary displayed will be 'Not set',
      * otherwise the summary displayed will be the entry set for this preference.
      */
-    public static final class SimpleSummaryProvider implements SummaryProvider<ListPreference> {
+    public static final class DefaultProvider implements SummaryProvider<ListPreference> {
 
-        private static SimpleSummaryProvider sSimpleSummaryProvider;
+        private static DefaultProvider sDefaultProvider;
 
-        private SimpleSummaryProvider() {}
+        private DefaultProvider(){}
 
         /**
-         * Retrieve a singleton instance of this simple
-         * {@link androidx.preference.Preference.SummaryProvider} implementation.
+         * Retrieve a singleton instance of the default
+         * {@link androidx.preference.Preference.SummaryProvider} for a {@link ListPreference}.
          *
-         * @return a singleton instance of this simple
-         * {@link androidx.preference.Preference.SummaryProvider} implementation
+         * @return a singleton instance of the default
+         * {@link androidx.preference.Preference.SummaryProvider} for a
+         * {@link ListPreference}
          */
-        public static SimpleSummaryProvider getInstance() {
-            if (sSimpleSummaryProvider == null) {
-                sSimpleSummaryProvider = new SimpleSummaryProvider();
+        public static DefaultProvider getInstance() {
+            if (sDefaultProvider == null) {
+                sDefaultProvider = new DefaultProvider();
             }
-            return sSimpleSummaryProvider;
+            return sDefaultProvider;
         }
 
         @Override

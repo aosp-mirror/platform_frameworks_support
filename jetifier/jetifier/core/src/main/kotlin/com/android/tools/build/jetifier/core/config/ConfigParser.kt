@@ -49,10 +49,9 @@ object ConfigParser {
 
     fun loadDefaultConfig(): Config? {
         Log.v(TAG, "Using the default config '%s'", Config.DEFAULT_CONFIG_RES_PATH)
+
         val inputStream = javaClass.getResourceAsStream(Config.DEFAULT_CONFIG_RES_PATH)
-        inputStream.reader().use {
-            return parseFromString(it.readText())
-        }
+        return parseFromString(inputStream.reader().readText())
     }
 
     fun loadConfigOrFail(configPath: Path?): Config {

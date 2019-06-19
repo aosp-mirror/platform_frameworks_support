@@ -28,10 +28,10 @@ import android.media.tv.TvContentRating;
 import android.net.Uri;
 import android.os.Build;
 
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.tvprovider.media.tv.TvContractCompat.Channels;
 import androidx.tvprovider.media.tv.TvContractCompat.Programs;
 
@@ -52,10 +52,10 @@ import java.util.Objects;
 public class ProgramTest {
     @After
     public void tearDown() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         resolver.delete(Channels.CONTENT_URI, null, null);
     }
 
@@ -103,14 +103,14 @@ public class ProgramTest {
 
     @Test
     public void testChannelWithSystemContentProvider() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
         Channel channel = new Channel.Builder()
                 .setInputId("TestInputService")
                 .setType(TvContractCompat.Channels.TYPE_OTHER)
                 .build();
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         Uri channelUri = resolver.insert(Channels.CONTENT_URI, channel.toContentValues());
         assertNotNull(channelUri);
 
@@ -125,14 +125,14 @@ public class ProgramTest {
 
     @Test
     public void testProgramUpdateWithContentProvider() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
         Channel channel = new Channel.Builder()
                 .setInputId("TestInputService")
                 .setType(TvContractCompat.Channels.TYPE_OTHER)
                 .build();
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         Uri channelUri = resolver.insert(Channels.CONTENT_URI, channel.toContentValues());
         assertNotNull(channelUri);
 

@@ -21,7 +21,6 @@ import android.util.AndroidRuntimeException;
 import android.view.View;
 
 import androidx.annotation.FloatRange;
-import androidx.annotation.MainThread;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 
@@ -573,7 +572,6 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      *
      * @throws AndroidRuntimeException if this method is not called on the main thread
      */
-    @MainThread
     public void start() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw new AndroidRuntimeException("Animations may only be started on the main thread");
@@ -589,7 +587,6 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      *
      * @throws AndroidRuntimeException if this method is not called on the main thread
      */
-    @MainThread
     public void cancel() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw new AndroidRuntimeException("Animations may only be canceled on the main thread");

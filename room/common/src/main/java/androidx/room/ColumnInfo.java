@@ -114,7 +114,6 @@ public @interface ColumnInfo {
      * The SQLite column type constants that can be used in {@link #typeAffinity()}
      */
     @IntDef({UNDEFINED, TEXT, INTEGER, REAL, BLOB})
-    @Retention(RetentionPolicy.CLASS)
     @interface SQLiteTypeAffinity {
     }
 
@@ -159,7 +158,6 @@ public @interface ColumnInfo {
     int UNICODE = 6;
 
     @IntDef({UNSPECIFIED, BINARY, NOCASE, RTRIM, LOCALIZED, UNICODE})
-    @Retention(RetentionPolicy.CLASS)
     @interface Collate {
     }
 }

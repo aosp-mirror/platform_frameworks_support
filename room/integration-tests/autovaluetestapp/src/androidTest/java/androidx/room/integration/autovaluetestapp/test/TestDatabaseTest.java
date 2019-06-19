@@ -24,7 +24,7 @@ import androidx.room.integration.autovaluetestapp.TestDatabase;
 import androidx.room.integration.autovaluetestapp.dao.ParcelableEntityDao;
 import androidx.room.integration.autovaluetestapp.dao.PersonDao;
 import androidx.room.integration.autovaluetestapp.dao.PetDao;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -42,7 +42,7 @@ public abstract class TestDatabaseTest {
 
     @Before
     public void createDb() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         mDatabase = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         mPersonDao = mDatabase.getPersonDao();
         mPetDao = mDatabase.getPetDao();

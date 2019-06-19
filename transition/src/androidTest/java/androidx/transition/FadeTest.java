@@ -40,16 +40,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
 import org.junit.Before;
 import org.junit.Test;
 
 
-@LargeTest
+@MediumTest
 public class FadeTest extends BaseTest {
 
     private View mView;

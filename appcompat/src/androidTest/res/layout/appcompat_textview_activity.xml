@@ -354,25 +354,6 @@
                 android:drawableRight="@drawable/ic_raster"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textview_textLocale_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:textLocale="ja-JP,zh-CN" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textview_textLocale_textAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextView_TextLocale"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textview_textLocale_textView_and_textAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:textLocale="ja-JP,zh-CN"
-            android:textAppearance="@style/TextView_TextLocale"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textview_fontVariation_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -390,29 +371,6 @@
             android:layout_height="wrap_content"
             app:fontVariationSettings="'wdth' 30"
             android:textAppearance="@style/TextView_FontVariation"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_compound_drawable_tint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:drawableLeftCompat="@drawable/white_square"
-            app:drawableTint="#f0f"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_compound_drawable_tint_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:drawableLeftCompat="@drawable/white_square"
-            app:drawableTint="@color/color_state_list_lilac"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_compound_drawable_tint_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:drawableLeftCompat="@drawable/red_square"
-            app:drawableTint="#800000ff"
-            app:drawableTintMode="src_over"/>
-
     </LinearLayout>
 
 </ScrollView>

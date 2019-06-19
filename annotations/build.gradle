@@ -1,10 +1,8 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("java")
+    id("SupportJavaLibraryPlugin")
 }
 
 jar {
@@ -17,23 +15,45 @@ jar {
     // below by the annotationsZip task.
     exclude('androidx/annotation/ProductionVisibility.class')
     exclude('androidx/annotation/DimensionUnit.class')
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+// configuration for the javadoc to include all source sets.
+javadoc {
+    source    sourceSets.main.allJava
+}
+
+// Disable strict javadoc lint checks with javadoc v8 builds on Mac. http://b/26744780
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        if (options.doclet == null) {
+            options.addBooleanOption('Xdoclint:none', true)
+        }
+    }
+}
+
+task javadocJar(type: Jar, dependsOn:javadoc) {
+    classifier         'javadoc'
+    from               javadoc.destinationDir
 }
 
 task annotationsZip(type: Zip) {
-    archiveClassifier.set("annotations")
-    from("external-annotations")
+    classifier         'annotations'
+    from               'external-annotations'
 }
 
-// add annotations jar task as artifacts
+// add javadoc/source/annotations jar tasks as artifacts
 artifacts {
     archives jar
+    archives javadocJar
     archives annotationsZip
 }
 
-androidx {
+supportLibrary {
     name = "Android Support Library Annotations"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.ANNOTATION
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.ANNOTATION
     inceptionYear = "2013"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs."

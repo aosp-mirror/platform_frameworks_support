@@ -32,9 +32,8 @@ class ImageLoader {
     /**
      * A LruCache used to store images which has a maximum size of 10% of the maximum heap size.
      */
-    private static final long CACHE_SIZE = Runtime.getRuntime().maxMemory() / 10;
     private static final BitmapCache CACHE = new BitmapCache(
-            CACHE_SIZE > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) CACHE_SIZE);
+            Math.round(Runtime.getRuntime().maxMemory() / 10));
 
     private ImageLoader() {
     }

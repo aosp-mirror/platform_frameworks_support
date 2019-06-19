@@ -1,26 +1,21 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
+    api(project(":annotation"))
 
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
-    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TEST_RUNNER)
 }
 
-androidx {
+supportLibrary {
     name = "Android Support ExifInterface"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.EXIFINTERFACE
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.EXIFINTERFACE
     inceptionYear = "2016"
     description = "Android Support ExifInterface"

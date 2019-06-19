@@ -36,13 +36,13 @@ import androidx.leanback.widget.PlaybackControlsRow;
 import androidx.leanback.widget.PlaybackRowPresenter;
 import androidx.leanback.widget.PlaybackTransportRowPresenter;
 import androidx.leanback.widget.RowPresenter;
-import androidx.test.filters.MediumTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-@MediumTest
+@SmallTest
 public class PlaybackTransportControlGlueTest {
 
     public static class PlayerAdapterSample extends PlayerAdapter {

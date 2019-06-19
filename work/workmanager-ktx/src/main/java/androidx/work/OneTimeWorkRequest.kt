@@ -19,13 +19,13 @@
 
 package androidx.work
 
-import androidx.annotation.NonNull
+import android.support.annotation.NonNull
 import kotlin.reflect.KClass
 
 /**
- * Creates a [OneTimeWorkRequest] with the given [ListenableWorker].
+ * Creates a [OneTimeWorkRequest] with the given [Worker].
  */
-inline fun <reified W : ListenableWorker> OneTimeWorkRequestBuilder() =
+inline fun <reified W : Worker> OneTimeWorkRequestBuilder() =
         OneTimeWorkRequest.Builder(W::class.java)
 
 /**

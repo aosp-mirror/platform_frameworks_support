@@ -19,7 +19,6 @@ import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -28,7 +27,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.FocusFinder;
@@ -244,11 +242,6 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         }
 
         @Override
-        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-            return super.calculateSpeedPerPixel(displayMetrics) * mSmoothScrollSpeedFactor;
-        }
-
-        @Override
         protected int calculateTimeForScrolling(int dx) {
             int ms = super.calculateTimeForScrolling(dx);
             if (mWindowAlignment.mainAxis().getSize() > 0) {
@@ -403,7 +396,6 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
 
     // maximum pending movement in one direction.
     static final int DEFAULT_MAX_PENDING_MOVES = 10;
-    float mSmoothScrollSpeedFactor = 1f;
     int mMaxPendingMoves = DEFAULT_MAX_PENDING_MOVES;
     // minimal milliseconds to scroll window size in major direction,  we put a cap to prevent the
     // effect smooth scrolling too over to bind an item view then drag the item view back.
@@ -2270,7 +2262,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             mFlag &= ~PF_FAST_RELAYOUT;
             // layoutInit() has detached all views, so start from scratch
             mFlag = (mFlag & ~PF_IN_LAYOUT_SEARCH_FOCUS)
-                    | (scrollToFocus ? PF_IN_LAYOUT_SEARCH_FOCUS : 0);
+                    | (hadFocus ? PF_IN_LAYOUT_SEARCH_FOCUS : 0);
             int startFromPosition, endPos;
             if (scrollToFocus && (firstVisibleIndex < 0 || mFocusPosition > lastVisibleIndex
                     || mFocusPosition < firstVisibleIndex)) {
@@ -3604,7 +3596,6 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
-    @SuppressLint("BanParcelableUsage")
     final static class SavedState implements Parcelable {
 
         int index; // index inside adapter of the current view

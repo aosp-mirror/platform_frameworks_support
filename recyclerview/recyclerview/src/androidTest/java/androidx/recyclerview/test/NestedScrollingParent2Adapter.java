@@ -50,30 +50,29 @@ public class NestedScrollingParent2Adapter implements NestedScrollingParent2 {
     }
 
     @Override
-    public boolean onStartNestedScroll(
-            @NonNull View child, @NonNull View target, int nestedScrollAxes) {
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
         return onStartNestedScroll(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes) {
+    public void onNestedScrollAccepted(View child, View target, int axes) {
         onNestedScrollAccepted(child, target, axes, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
         onNestedPreScroll(target, dx, dy, consumed, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed,
-            int dxUnconsumed, int dyUnconsumed) {
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
+            int dyUnconsumed) {
         onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed,
                 ViewCompat.TYPE_TOUCH);
     }
 
     @Override
-    public void onStopNestedScroll(@NonNull View target) {
+    public void onStopNestedScroll(View target) {
         onStopNestedScroll(target, ViewCompat.TYPE_TOUCH);
     }
 

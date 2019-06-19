@@ -33,9 +33,9 @@ import android.os.Bundle;
 import android.os.UserManager;
 
 import androidx.core.app.RemoteActionCompat;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.textclassifier.LegacyTextClassifier.MatchMakerImpl;
 import androidx.textclassifier.LegacyTextClassifier.MatchMakerImpl.PermissionsChecker;
 
@@ -48,7 +48,7 @@ import java.util.List;
 /**
  * Unit tests for {@link MatchMakerImpl}.
  */
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class MatchMakerImplTest {
 
@@ -75,7 +75,7 @@ public final class MatchMakerImplTest {
 
     @Before
     public void setUp() {
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getTargetContext();
         mPackageManager = mock(PackageManager.class);
         when(mPackageManager.resolveActivity(any(Intent.class), anyInt())).thenReturn(RESOLVE_INFO);
         mUserRestrictions = new Bundle();

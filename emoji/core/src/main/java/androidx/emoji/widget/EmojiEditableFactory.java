@@ -50,7 +50,7 @@ final class EmojiEditableFactory extends Editable.Factory {
     private EmojiEditableFactory() {
         try {
             String className = "android.text.DynamicLayout$ChangeWatcher";
-            sWatcherClass = Class.forName(className, false, getClass().getClassLoader());
+            sWatcherClass = getClass().getClassLoader().loadClass(className);
         } catch (Throwable t) {
             // ignore
         }

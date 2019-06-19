@@ -1,14 +1,12 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
+    api(project(":annotation"))
 }
 
 android {
@@ -17,10 +15,10 @@ android {
     }
 }
 
-androidx {
+supportLibrary {
     name = "Android Support Recommendation"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.RECOMMENDATION
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.RECOMMENDATION
     inceptionYear = "2015"
     description = "Android Support Recommendation"

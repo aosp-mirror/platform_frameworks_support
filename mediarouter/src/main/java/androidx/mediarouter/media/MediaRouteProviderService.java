@@ -719,7 +719,7 @@ public abstract class MediaRouteProviderService extends Service {
                 if (controller != null) {
                     mControllers.put(controllerId, controller);
                     Bundle bundle = new Bundle();
-                    bundle.putString(CLIENT_DATA_ROUTE_ID, initialMemberRouteId);
+                    bundle.putString(CLIENT_DATA_ROUTE_ID, controller.getDynamicGroupRouteId());
                     bundle.putString(DATA_KEY_GROUPABLE_SECION_TITLE,
                             controller.getGroupableSelectionTitle());
                     bundle.putString(DATA_KEY_TRANSFERABLE_SECTION_TITLE,
@@ -839,8 +839,7 @@ public abstract class MediaRouteProviderService extends Service {
 
                     case CLIENT_MSG_CREATE_ROUTE_CONTROLLER: {
                         String routeId = data.getString(CLIENT_DATA_ROUTE_ID);
-                        String routeGroupId =
-                                data.getString(CLIENT_DATA_ROUTE_LIBRARY_GROUP);
+                        String routeGroupId = data.getString(CLIENT_DATA_ROUTE_LIBRARY_GROUP);
                         if (routeId != null) {
                             return service.onCreateRouteController(
                                     messenger, requestId, arg, routeId, routeGroupId);

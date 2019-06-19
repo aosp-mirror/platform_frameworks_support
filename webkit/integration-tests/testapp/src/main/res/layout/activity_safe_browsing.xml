@@ -18,14 +18,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_safe_browsing"
+    android:id="@+id/activity_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.androidx.webkit.MenuListView
+    <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/safe_browsing_list"
+        android:id="@+id/top_level_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

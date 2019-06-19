@@ -88,12 +88,4 @@ public abstract class TemplateBuilderImpl {
     public Clock getClock() {
         return mClock;
     }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(LIBRARY)
-    public SliceSpec getSpec() {
-        return mSpec;
-    }
 }

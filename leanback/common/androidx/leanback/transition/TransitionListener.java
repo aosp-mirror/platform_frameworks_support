@@ -13,7 +13,7 @@
  */
 package androidx.leanback.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.RestrictTo;
 
@@ -21,7 +21,7 @@ import androidx.annotation.RestrictTo;
  * Listeners for transition start and stop.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class TransitionListener {
 
     protected Object mImpl;

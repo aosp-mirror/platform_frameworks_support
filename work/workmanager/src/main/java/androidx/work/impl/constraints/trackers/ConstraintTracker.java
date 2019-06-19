@@ -16,12 +16,10 @@
 package androidx.work.impl.constraints.trackers;
 
 import android.content.Context;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.impl.constraints.ConstraintListener;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -37,20 +35,15 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class ConstraintTracker<T> {
 
-    private static final String TAG = Logger.tagWithPrefix("ConstraintTracker");
+    private static final String TAG = "ConstraintTracker";
 
-    protected final TaskExecutor mTaskExecutor;
     protected final Context mAppContext;
-
     private final Object mLock = new Object();
     private final Set<ConstraintListener<T>> mListeners = new LinkedHashSet<>();
+    private T mCurrentState;
 
-    // Synthetic access
-    T mCurrentState;
-
-    ConstraintTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
+    ConstraintTracker(Context context) {
         mAppContext = context.getApplicationContext();
-        mTaskExecutor = taskExecutor;
     }
 
     /**
@@ -65,7 +58,7 @@ public abstract class ConstraintTracker<T> {
             if (mListeners.add(listener)) {
                 if (mListeners.size() == 1) {
                     mCurrentState = getInitialState();
-                    Logger.get().debug(TAG, String.format("%s: initial state = %s",
+                    Logger.debug(TAG, String.format("%s: initial state = %s",
                             getClass().getSimpleName(),
                             mCurrentState));
                     startTracking();
@@ -102,19 +95,13 @@ public abstract class ConstraintTracker<T> {
             }
             mCurrentState = newState;
 
-            // onConstraintChanged may lead to calls to addListener or removeListener.
-            // This can potentially result in a modification to the set while it is being
-            // iterated over, so we handle this by creating a copy and using that for
-            // iteration.
-            final List<ConstraintListener<T>> listenersList = new ArrayList<>(mListeners);
-            mTaskExecutor.getMainThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    for (ConstraintListener<T> listener : listenersList) {
-                        listener.onConstraintChanged(mCurrentState);
-                    }
-                }
-            });
+            // onConstraintChanged may lead to calls to addListener or removeListener.  This can
+            // potentially result in a modification to the set while it is being iterated over, so
+            // we handle this by creating a copy and using that for iteration.
+            List<ConstraintListener<T>> listenersList = new ArrayList<>(mListeners);
+            for (ConstraintListener<T> listener : listenersList) {
+                listener.onConstraintChanged(mCurrentState);
+            }
         }
     }
 

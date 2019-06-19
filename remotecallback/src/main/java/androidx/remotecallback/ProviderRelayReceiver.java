@@ -29,16 +29,15 @@ import androidx.annotation.RestrictTo;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class ProviderRelayReceiver extends BroadcastReceiver {
 
     public static final String ACTION_PROVIDER_RELAY =
             "androidx.remotecallback.action.PROVIDER_RELAY";
 
-    public static final String EXTRA_AUTHORITY =
+    static final String EXTRA_AUTHORITY =
             "androidx.remotecallback.extra.AUTHORITY";
-
-    public static final String METHOD_PROVIDER_CALLBACK =
+    static final String METHOD_PROVIDER_CALLBACK =
             "androidx.remotecallback.method.PROVIDER_CALLBACK";
 
     @Override

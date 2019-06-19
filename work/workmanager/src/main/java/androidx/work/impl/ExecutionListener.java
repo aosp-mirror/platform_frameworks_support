@@ -16,8 +16,9 @@
 
 package androidx.work.impl;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+
 import androidx.work.Worker;
 
 /**

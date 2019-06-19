@@ -16,12 +16,11 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
@@ -32,16 +31,12 @@ import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
  * The accessibility delegate used by the {@link RecyclerView} that displays views for
  * {@link Preference}s.
  *
- * Used by Leanback.
- *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class PreferenceRecyclerViewAccessibilityDelegate
         extends RecyclerViewAccessibilityDelegate {
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     final RecyclerView mRecyclerView;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     final AccessibilityDelegateCompat mDefaultItemDelegate = super.getItemDelegate();
 
     public PreferenceRecyclerViewAccessibilityDelegate(RecyclerView recyclerView) {
@@ -49,12 +44,11 @@ public class PreferenceRecyclerViewAccessibilityDelegate
         mRecyclerView = recyclerView;
     }
 
-    @NonNull
     @Override
     public AccessibilityDelegateCompat getItemDelegate() {
         return mItemDelegate;
     }
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+
     final AccessibilityDelegateCompat mItemDelegate = new AccessibilityDelegateCompat() {
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {

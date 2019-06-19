@@ -17,7 +17,6 @@
 package androidx.slice.builders;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
 
 import android.app.PendingIntent;
@@ -29,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.drawable.IconCompat;
-import androidx.remotecallback.RemoteCallback;
 import androidx.slice.Slice;
 import androidx.slice.core.SliceActionImpl;
 
@@ -104,7 +102,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @see ListBuilder#LARGE_IMAGE
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @ListBuilder.ImageMode int imageMode, @NonNull CharSequence actionTitle) {
         mSliceAction = new SliceActionImpl(action, actionIcon, imageMode, actionTitle);
@@ -121,7 +119,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @param isChecked the state of the toggle.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @NonNull CharSequence actionTitle, boolean isChecked) {
         mSliceAction = new SliceActionImpl(action, actionIcon, actionTitle, isChecked);
@@ -136,7 +134,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @param isChecked the state of the toggle.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull CharSequence actionTitle,
             boolean isChecked) {
         mSliceAction = new SliceActionImpl(action, actionTitle, isChecked);
@@ -162,25 +160,6 @@ public class SliceAction implements androidx.slice.core.SliceAction {
     }
 
     /**
-     * Construct a SliceAction representing a tappable icon.
-     *
-     * @param action the remote callback to invoke for this action.
-     * @param actionIcon the icon to display for this action.
-     * @param imageMode the mode this icon should be displayed in.
-     * @param actionTitle the title for this action, also used for content description if one hasn't
-     *                    been set via {@link #setContentDescription(CharSequence)}.
-     *
-     * @see ListBuilder#ICON_IMAGE
-     * @see ListBuilder#SMALL_IMAGE
-     * @see ListBuilder#LARGE_IMAGE
-     */
-    public static SliceAction create(@NonNull RemoteCallback action,
-            @NonNull IconCompat actionIcon, @ListBuilder.ImageMode int imageMode,
-            @NonNull CharSequence actionTitle) {
-        return new SliceAction(action.toPendingIntent(), actionIcon, imageMode, actionTitle);
-    }
-
-    /**
      * Construct a SliceAction representing a tappable icon that launches an
      * activity when clicked.
      *
@@ -203,29 +182,6 @@ public class SliceAction implements androidx.slice.core.SliceAction {
     }
 
     /**
-     * Construct a SliceAction representing a tappable icon that launches an
-     * activity when clicked.
-     *
-     * @param action the remote callback to invoke for this action.
-     * @param actionIcon the icon to display for this action.
-     * @param imageMode the mode this icon should be displayed in.
-     * @param actionTitle the title for this action, also used for content description if one hasn't
-     *                    been set via {@link #setContentDescription(CharSequence)}.
-     *
-     * @see ListBuilder#ICON_IMAGE
-     * @see ListBuilder#SMALL_IMAGE
-     * @see ListBuilder#LARGE_IMAGE
-     */
-    public static SliceAction createDeeplink(@NonNull RemoteCallback action,
-            @NonNull IconCompat actionIcon, @ListBuilder.ImageMode int imageMode,
-            @NonNull CharSequence actionTitle) {
-        SliceAction sliceAction = new SliceAction(action.toPendingIntent(), actionIcon, imageMode,
-                actionTitle);
-        sliceAction.mSliceAction.setActivity(true);
-        return sliceAction;
-    }
-
-    /**
      * Construct a SliceAction representing a default toggle.
      *
      * @param action the pending intent to invoke for this toggle.
@@ -236,19 +192,6 @@ public class SliceAction implements androidx.slice.core.SliceAction {
     public static SliceAction createToggle(@NonNull PendingIntent action,
             @NonNull CharSequence actionTitle, boolean isChecked) {
         return new SliceAction(action, actionTitle, isChecked);
-    }
-
-    /**
-     * Construct a SliceAction representing a default toggle.
-     *
-     * @param action the remote callback to invoke for this toggle.
-     * @param actionTitle the title for this toggle, also used for content description if one hasn't
-     *                    been set via {@link #setContentDescription(CharSequence)}.
-     * @param isChecked the state of the toggle.
-     */
-    public static SliceAction createToggle(@NonNull RemoteCallback action,
-            @NonNull CharSequence actionTitle, boolean isChecked) {
-        return new SliceAction(action.toPendingIntent(), actionTitle, isChecked);
     }
 
     /**
@@ -264,21 +207,6 @@ public class SliceAction implements androidx.slice.core.SliceAction {
     public static SliceAction createToggle(@NonNull PendingIntent action,
             @NonNull IconCompat actionIcon, @NonNull CharSequence actionTitle, boolean isChecked) {
         return new SliceAction(action, actionIcon, actionTitle, isChecked);
-    }
-
-    /**
-     * Construct a SliceAction representing a custom toggle icon.
-     *
-     * @param action the remote callback to invoke for this toggle.
-     * @param actionIcon the icon to display for this toggle, should have a checked and unchecked
-     *                   state.
-     * @param actionTitle the title for this toggle, also used for content description if one hasn't
-     *                    been set via {@link #setContentDescription(CharSequence)}.
-     * @param isChecked the state of the toggle.
-     */
-    public static SliceAction createToggle(@NonNull RemoteCallback action,
-            @NonNull IconCompat actionIcon, @NonNull CharSequence actionTitle, boolean isChecked) {
-        return new SliceAction(action.toPendingIntent(), actionIcon, actionTitle, isChecked);
     }
 
     /**

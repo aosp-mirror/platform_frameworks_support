@@ -16,14 +16,13 @@
 
 package androidx.lifecycle;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ClassesInfoCache.CallbackInfo;
 import androidx.lifecycle.Lifecycle.Event;
 
 /**
- * An internal implementation of {@link LifecycleObserver} that relies on reflection.
+ * An internal implementation of {@link GenericLifecycleObserver} that relies on reflection.
  */
-class ReflectiveGenericLifecycleObserver implements LifecycleEventObserver {
+class ReflectiveGenericLifecycleObserver implements GenericLifecycleObserver {
     private final Object mWrapped;
     private final CallbackInfo mInfo;
 
@@ -33,7 +32,7 @@ class ReflectiveGenericLifecycleObserver implements LifecycleEventObserver {
     }
 
     @Override
-    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Event event) {
+    public void onStateChanged(LifecycleOwner source, Event event) {
         mInfo.invokeCallbacks(source, event, mWrapped);
     }
 }

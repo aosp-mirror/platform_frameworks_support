@@ -51,11 +51,8 @@ public class AlphaJumpOverlayView extends GridLayout {
 
         // Get the background color from the theme and set it.
         TypedValue typedValue = new TypedValue();
-        boolean hasAttribute = context.getTheme().resolveAttribute(
-                R.attr.alphaJumpPickerBackground, typedValue, true);
-        setBackgroundColor(hasAttribute
-                ? typedValue.data
-                : context.getColor(R.color.car_card_dark));
+        context.getTheme().resolveAttribute(R.attr.alphaJumpPickerBackground, typedValue, true);
+        setBackgroundColor(typedValue.data);
 
         setColumnCount(res.getInteger(R.integer.car_alpha_jump_button_columns));
 
@@ -112,7 +109,7 @@ public class AlphaJumpOverlayView extends GridLayout {
      */
     public void show() {
         mAdapter.onAlphaJumpEnter();
-        setVisibility(VISIBLE);
+        setVisibility(View.VISIBLE);
         startAnimation(mOpenAnimation);
     }
 
@@ -121,6 +118,6 @@ public class AlphaJumpOverlayView extends GridLayout {
      */
     public void hide() {
         startAnimation(mCloseAnimation);
-        setVisibility(GONE);
+        setVisibility(View.GONE);
     }
 }

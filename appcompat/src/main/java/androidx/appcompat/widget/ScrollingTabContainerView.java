@@ -15,7 +15,7 @@
  */
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -54,7 +54,7 @@ import androidx.core.view.GravityCompat;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class ScrollingTabContainerView extends HorizontalScrollView
         implements AdapterView.OnItemSelectedListener {
 
@@ -387,10 +387,6 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         private ImageView mIconView;
         private View mCustomView;
 
-        // Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage.
-        private static final String ACCESSIBILITY_CLASS_NAME =
-                "androidx.appcompat.app.ActionBar$Tab";
-
         public TabView(Context context, ActionBar.Tab tab, boolean forList) {
             super(context, null, R.attr.actionBarTabStyle);
             mTab = tab;
@@ -427,7 +423,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(event);
             // This view masquerades as an action bar tab.
-            event.setClassName(ACCESSIBILITY_CLASS_NAME);
+            event.setClassName(ActionBar.Tab.class.getName());
         }
 
         @Override
@@ -435,7 +431,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
             super.onInitializeAccessibilityNodeInfo(info);
 
             // This view masquerades as an action bar tab.
-            info.setClassName(ACCESSIBILITY_CLASS_NAME);
+            info.setClassName(ActionBar.Tab.class.getName());
         }
 
         @Override

@@ -15,7 +15,7 @@
  */
 package androidx.emoji.text;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -38,7 +38,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @AnyThread
 @RequiresApi(19)
 public class EmojiMetadata {

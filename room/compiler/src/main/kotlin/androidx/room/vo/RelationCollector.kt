@@ -16,7 +16,7 @@
 
 package androidx.room.vo
 
-import androidx.room.ext.CollectionTypeNames
+import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
@@ -26,10 +26,8 @@ import androidx.room.parser.ParsedQuery
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.parser.SqlParser
 import androidx.room.processor.Context
-import androidx.room.processor.ProcessorErrors.cannotFindQueryResultAdapter
+import androidx.room.processor.ProcessorErrors.CANNOT_FIND_QUERY_RESULT_ADAPTER
 import androidx.room.processor.ProcessorErrors.relationAffinityMismatch
-import androidx.room.processor.ProcessorErrors.relationJunctionChildAffinityMismatch
-import androidx.room.processor.ProcessorErrors.relationJunctionParentAffinityMismatch
 import androidx.room.solver.CodeGenScope
 import androidx.room.solver.query.parameter.QueryParameterAdapter
 import androidx.room.solver.query.result.RowAdapter
@@ -146,7 +144,7 @@ data class RelationCollector(
             }
         }
         scope.builder().apply {
-            val keyType = if (mapTypeName.rawType == CollectionTypeNames.LONG_SPARSE_ARRAY) {
+            val keyType = if (mapTypeName.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY) {
                 keyTypeName.unbox()
             } else {
                 keyTypeName
@@ -212,53 +210,19 @@ data class RelationCollector(
         ): List<RelationCollector> {
             return relations.map { relation ->
                 // decide on the affinity
-                val context = baseContext.fork(
-                    element = relation.field.element,
-                    forceSuppressedWarnings = setOf(Warning.CURSOR_MISMATCH))
-
-                fun checkAffinity(
-                    first: SQLTypeAffinity?,
-                    second: SQLTypeAffinity?,
-                    onAffinityMismatch: () -> Unit
-                ) = if (first != null && first == second) {
-                    first
-                } else {
-                    onAffinityMismatch()
-                    SQLTypeAffinity.TEXT
-                }
-
+                val context = baseContext.fork(relation.field.element)
                 val parentAffinity = relation.parentField.cursorValueReader?.affinity()
                 val childAffinity = relation.entityField.cursorValueReader?.affinity()
-                val junctionParentAffinity =
-                    relation.junction?.parentField?.cursorValueReader?.affinity()
-                val junctionChildAffinity =
-                    relation.junction?.entityField?.cursorValueReader?.affinity()
-                val affinity = if (relation.junction != null) {
-                    checkAffinity(childAffinity, junctionChildAffinity) {
-                        context.logger.w(Warning.RELATION_TYPE_MISMATCH, relation.field.element,
-                            relationJunctionChildAffinityMismatch(
-                                childColumn = relation.entityField.columnName,
-                                junctionChildColumn = relation.junction.entityField.columnName,
-                                childAffinity = childAffinity,
-                                junctionChildAffinity = junctionChildAffinity))
-                    }
-                    checkAffinity(parentAffinity, junctionParentAffinity) {
-                        context.logger.w(Warning.RELATION_TYPE_MISMATCH, relation.field.element,
-                            relationJunctionParentAffinityMismatch(
-                                parentColumn = relation.parentField.columnName,
-                                junctionParentColumn = relation.junction.parentField.columnName,
-                                parentAffinity = parentAffinity,
-                                junctionParentAffinity = junctionParentAffinity))
-                    }
+                val affinity = if (parentAffinity != null && parentAffinity == childAffinity) {
+                    parentAffinity
                 } else {
-                    checkAffinity(parentAffinity, childAffinity) {
-                        context.logger.w(Warning.RELATION_TYPE_MISMATCH, relation.field.element,
+                    context.logger.w(Warning.RELATION_TYPE_MISMATCH, relation.field.element,
                             relationAffinityMismatch(
-                                parentColumn = relation.parentField.columnName,
-                                childColumn = relation.entityField.columnName,
-                                parentAffinity = parentAffinity,
-                                childAffinity = childAffinity))
-                    }
+                                    parentColumn = relation.parentField.columnName,
+                                    childColumn = relation.entityField.columnName,
+                                    parentAffinity = parentAffinity,
+                                    childAffinity = childAffinity))
+                    SQLTypeAffinity.TEXT
                 }
                 val keyType = keyTypeFor(context, affinity)
                 val collectionTypeName = if (relation.field.typeName is ParameterizedTypeName) {
@@ -279,16 +243,16 @@ data class RelationCollector(
                 }
 
                 val canUseLongSparseArray = context.processingEnv.elementUtils
-                        .getTypeElement(CollectionTypeNames.LONG_SPARSE_ARRAY.toString()) != null
+                        .getTypeElement(AndroidTypeNames.LONG_SPARSE_ARRAY.toString()) != null
                 val canUseArrayMap = context.processingEnv.elementUtils
-                        .getTypeElement(CollectionTypeNames.ARRAY_MAP.toString()) != null
+                        .getTypeElement(AndroidTypeNames.ARRAY_MAP.toString()) != null
                 val tmpMapType = when {
                     canUseLongSparseArray && affinity == SQLTypeAffinity.INTEGER -> {
-                        ParameterizedTypeName.get(CollectionTypeNames.LONG_SPARSE_ARRAY,
+                        ParameterizedTypeName.get(AndroidTypeNames.LONG_SPARSE_ARRAY,
                                 collectionTypeName)
                     }
                     canUseArrayMap -> {
-                        ParameterizedTypeName.get(CollectionTypeNames.ARRAY_MAP,
+                        ParameterizedTypeName.get(AndroidTypeNames.ARRAY_MAP,
                                 keyType, collectionTypeName)
                     }
                     else -> {
@@ -311,11 +275,10 @@ data class RelationCollector(
                 }
                 val resultInfo = parsedQuery.resultInfo
 
-                val usingLongSparseArray =
-                    tmpMapType.rawType == CollectionTypeNames.LONG_SPARSE_ARRAY
+                val usingLongSparseArray = tmpMapType.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY
                 val queryParam = if (usingLongSparseArray) {
                     val longSparseArrayElement = context.processingEnv.elementUtils
-                            .getTypeElement(CollectionTypeNames.LONG_SPARSE_ARRAY.toString())
+                            .getTypeElement(AndroidTypeNames.LONG_SPARSE_ARRAY.toString())
                     QueryParameter(
                             name = RelationCollectorMethodWriter.PARAM_MAP_VARIABLE,
                             sqlName = RelationCollectorMethodWriter.PARAM_MAP_VARIABLE,
@@ -354,9 +317,9 @@ data class RelationCollector(
                     if (cursorReader == null) {
                         getDefaultRowAdapter()
                     } else {
-                        context.logger.d(relation.field.element, "Choosing cursor adapter for" +
-                                " the return value since the query returns only 1 or 2 columns" +
-                                " and there is a cursor adapter for the return type.")
+                        context.logger.d("Choosing cursor adapter for the return value since" +
+                                " the query returns only 1 or 2 columns and there is a cursor" +
+                                " adapter for the return type.")
                         SingleColumnRowAdapter(cursorReader)
                     }
                 } else {
@@ -364,8 +327,7 @@ data class RelationCollector(
                 }
 
                 if (rowAdapter == null) {
-                    context.logger.e(relation.field.element,
-                        cannotFindQueryResultAdapter(relation.pojoType.toString()))
+                    context.logger.e(relation.field.element, CANNOT_FIND_QUERY_RESULT_ADAPTER)
                     null
                 } else {
                     RelationCollector(

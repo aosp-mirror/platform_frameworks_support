@@ -24,12 +24,13 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.RxJava2TypeNames
 import androidx.room.ext.S
 import androidx.room.ext.T
-import androidx.room.ext.CallableTypeSpecBuilder
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.MethodSpec
+import com.squareup.javapoet.ParameterizedTypeName
+import com.squareup.javapoet.TypeSpec
 import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror
 
@@ -48,69 +49,73 @@ class RxCallableQueryResultBinder(
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
-        val callable = CallableTypeSpecBuilder(typeArg.typeName()) {
-            fillInCallMethod(
-                roomSQLiteQueryVar = roomSQLiteQueryVar,
-                dbField = dbField,
-                inTransaction = inTransaction,
-                scope = scope)
-        }.apply {
+        val callable = TypeSpec.anonymousClassBuilder("").apply {
+            val typeName = typeArg.typeName()
+            superclass(ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
+                    typeName))
+            addMethod(createCallMethod(
+                    roomSQLiteQueryVar = roomSQLiteQueryVar,
+                    dbField = dbField,
+                    inTransaction = inTransaction,
+                    scope = scope))
             if (canReleaseQuery) {
                 addMethod(createFinalizeMethod(roomSQLiteQueryVar))
             }
         }.build()
         scope.builder().apply {
-            if (rxType == RxType.SINGLE) {
-                addStatement("return $T.createSingle($L)", RoomRxJava2TypeNames.RX_ROOM, callable)
-            } else {
-                addStatement("return $T.fromCallable($L)", rxType.className, callable)
-            }
+            addStatement("return $T.fromCallable($L)", rxType.className, callable)
         }
     }
 
-    private fun MethodSpec.Builder.fillInCallMethod(
+    private fun createCallMethod(
         roomSQLiteQueryVar: String,
         dbField: FieldSpec,
         inTransaction: Boolean,
         scope: CodeGenScope
-    ) {
+    ): MethodSpec {
         val adapterScope = scope.fork()
-        val transactionWrapper = if (inTransaction) {
-            transactionWrapper(dbField)
-        } else {
-            null
-        }
-        transactionWrapper?.beginTransactionWithControlFlow()
-        val shouldCopyCursor = adapter?.shouldCopyCursor() == true
-        val outVar = scope.getTmpVar("_result")
-        val cursorVar = scope.getTmpVar("_cursor")
-        addStatement("final $T $L = $T.query($N, $L, $L)",
-                AndroidTypeNames.CURSOR,
-                cursorVar,
-                RoomTypeNames.DB_UTIL,
-                dbField,
-                roomSQLiteQueryVar,
-                if (shouldCopyCursor) "true" else "false")
-        beginControlFlow("try").apply {
-            adapter?.convert(outVar, cursorVar, adapterScope)
-            addCode(adapterScope.generate())
-            if (!rxType.canBeNull) {
-                beginControlFlow("if($L == null)", outVar).apply {
-                    addStatement("throw new $T($S + $L.getSql())",
-                            RoomRxJava2TypeNames.RX_EMPTY_RESULT_SET_EXCEPTION,
-                            "Query returned empty result set: ",
-                            roomSQLiteQueryVar)
-                }
-                endControlFlow()
+        return MethodSpec.methodBuilder("call").apply {
+            returns(typeArg.typeName())
+            addException(Exception::class.typeName())
+            addModifiers(Modifier.PUBLIC)
+            addAnnotation(Override::class.java)
+            val transactionWrapper = if (inTransaction) {
+                transactionWrapper(dbField)
+            } else {
+                null
             }
-            transactionWrapper?.commitTransaction()
-            addStatement("return $L", outVar)
-        }
-        nextControlFlow("finally").apply {
-            addStatement("$L.close()", cursorVar)
-        }
-        endControlFlow()
-        transactionWrapper?.endTransactionWithControlFlow()
+            transactionWrapper?.beginTransactionWithControlFlow()
+            val shouldCopyCursor = adapter?.shouldCopyCursor() == true
+            val outVar = scope.getTmpVar("_result")
+            val cursorVar = scope.getTmpVar("_cursor")
+            addStatement("final $T $L = $T.query($N, $L, $L)",
+                    AndroidTypeNames.CURSOR,
+                    cursorVar,
+                    RoomTypeNames.DB_UTIL,
+                    dbField,
+                    roomSQLiteQueryVar,
+                    if (shouldCopyCursor) "true" else "false")
+            beginControlFlow("try").apply {
+                adapter?.convert(outVar, cursorVar, adapterScope)
+                addCode(adapterScope.generate())
+                if (!rxType.canBeNull) {
+                    beginControlFlow("if($L == null)", outVar).apply {
+                        addStatement("throw new $T($S + $L.getSql())",
+                                RoomRxJava2TypeNames.RX_EMPTY_RESULT_SET_EXCEPTION,
+                                "Query returned empty result set: ",
+                                roomSQLiteQueryVar)
+                    }
+                    endControlFlow()
+                }
+                transactionWrapper?.commitTransaction()
+                addStatement("return $L", outVar)
+            }
+            nextControlFlow("finally").apply {
+                addStatement("$L.close()", cursorVar)
+            }
+            endControlFlow()
+            transactionWrapper?.endTransactionWithControlFlow()
+        }.build()
     }
 
     private fun createFinalizeMethod(roomSQLiteQueryVar: String): MethodSpec {

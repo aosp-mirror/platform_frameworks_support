@@ -18,7 +18,6 @@ package androidx.leanback.widget.picker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -49,8 +48,8 @@ import java.util.Locale;
  * time by calling {@link #setIs24Hour(boolean)}, and the AM/PM picker column will be activated or
  * deactivated accordingly.
  *
- * {@link R.attr#is24HourFormat}
- * {@link R.attr#useCurrentTime}
+ * @attr ref R.styleable#lbTimePicker_is24HourFormat
+ * @attr ref R.styleable#lbTimePicker_useCurrentTime
  */
 public class TimePicker extends Picker {
 
@@ -108,10 +107,6 @@ public class TimePicker extends Picker {
 
         final TypedArray attributesArray = context.obtainStyledAttributes(attrs,
                 R.styleable.lbTimePicker);
-        if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(
-                    context, R.styleable.lbTimePicker, attrs, attributesArray, 0, 0);
-        }
         boolean useCurrentTime;
 
         try {

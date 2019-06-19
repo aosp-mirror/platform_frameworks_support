@@ -31,10 +31,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.constraints.ConstraintListener;
-import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ public class StorageNotLowTrackerTest {
         mMockContext = mock(Context.class);
         when(mMockContext.getApplicationContext()).thenReturn(mMockContext);
 
-        mTracker = new StorageNotLowTracker(mMockContext, new InstantWorkTaskExecutor());
+        mTracker = new StorageNotLowTracker(mMockContext);
         mListener = mock(ConstraintListener.class);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutParams
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import androidx.test.runner.AndroidJUnit4
+import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
 import org.hamcrest.Matchers.containsString
 import org.junit.Assert.assertThat
 import org.junit.Assert.fail
@@ -65,7 +65,7 @@ class PageFillTest : BaseTest() {
             override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
         }
 
-        setUpTest(ORIENTATION_HORIZONTAL).apply {
+        setUpTest(HORIZONTAL).apply {
             runOnUiThread {
                 viewPager.adapter = fixedViewSizeAdapter
                 try {

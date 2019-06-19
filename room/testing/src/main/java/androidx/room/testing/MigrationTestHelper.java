@@ -16,7 +16,6 @@
 
 package androidx.room.testing;
 
-import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.database.Cursor;
@@ -135,7 +134,6 @@ public class MigrationTestHelper extends TestWatcher {
      * @return A database connection which has the schema in the requested version.
      * @throws IOException If it cannot find the schema description in the assets folder.
      */
-    @SuppressLint("RestrictedApi")
     @SuppressWarnings("SameParameterValue")
     public SupportSQLiteDatabase createDatabase(String name, int version) throws IOException {
         File dbPath = mInstrumentation.getTargetContext().getDatabasePath(name);
@@ -158,13 +156,10 @@ public class MigrationTestHelper extends TestWatcher {
                 true,
                 RoomDatabase.JournalMode.TRUNCATE,
                 ArchTaskExecutor.getIOThreadExecutor(),
-                ArchTaskExecutor.getIOThreadExecutor(),
                 false,
                 true,
                 false,
-                Collections.<Integer>emptySet(),
-                DatabaseConfiguration.COPY_FROM_NONE,
-                null);
+                Collections.<Integer>emptySet());
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
@@ -197,7 +192,6 @@ public class MigrationTestHelper extends TestWatcher {
      * @throws IOException           If it cannot find the schema for {@code toVersion}.
      * @throws IllegalStateException If the schema validation fails.
      */
-    @SuppressLint("RestrictedApi")
     public SupportSQLiteDatabase runMigrationsAndValidate(String name, int version,
             boolean validateDroppedTables, Migration... migrations) throws IOException {
         File dbPath = mInstrumentation.getTargetContext().getDatabasePath(name);
@@ -218,13 +212,10 @@ public class MigrationTestHelper extends TestWatcher {
                 true,
                 RoomDatabase.JournalMode.TRUNCATE,
                 ArchTaskExecutor.getIOThreadExecutor(),
-                ArchTaskExecutor.getIOThreadExecutor(),
                 false,
                 true,
                 false,
-                Collections.<Integer>emptySet(),
-                DatabaseConfiguration.COPY_FROM_NONE,
-                null);
+                Collections.<Integer>emptySet());
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
                 // we pass the same hash twice since an old schema does not necessarily have
@@ -313,8 +304,8 @@ public class MigrationTestHelper extends TestWatcher {
                 throw new FileNotFoundException("Cannot find the schema file in the assets folder. "
                         + "Make sure to include the exported json schemas in your test assert "
                         + "inputs. See "
-                        + "https://developer.android.com/training/data-storage/room/"
-                        + "migrating-db-versions#export-schema for details. Missing file: "
+                        + "https://developer.android.com/topic/libraries/architecture/"
+                        + "room.html#db-migration-testing for details. Missing file: "
                         + testAssetsIOExceptions.getMessage());
             }
         }

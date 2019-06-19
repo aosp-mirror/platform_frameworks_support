@@ -48,14 +48,6 @@
         android:text="@string/alert_dialog_checkbox_body" />
 
     <CheckBox
-        android:id="@+id/has_clickable_body_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/car_padding_4"
-        android:checked="false"
-        android:text="@string/alert_dialog_checkbox_clickable_body" />
-
-    <CheckBox
         android:id="@+id/has_single_line_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,24 +71,10 @@
         android:checked="true"
         android:text="@string/alert_dialog_checkbox_action2" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <Button
+        android:id="@+id/create_dialog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-      <Button
-          android:id="@+id/create_car_dialog"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/car_padding_4"
-          android:checked="true"
-          android:text="@string/create_car_alert_dialog_button" />
-
-      <Button
-          android:id="@+id/create_support_dialog"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:checked="true"
-          android:text="@string/create_support_alert_dialog_button" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/create_alert_dialog_button" />
 </LinearLayout>

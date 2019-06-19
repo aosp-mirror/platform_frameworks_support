@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * DividerItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
@@ -98,14 +97,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             throw new IllegalArgumentException("Drawable cannot be null.");
         }
         mDivider = drawable;
-    }
-
-    /**
-     * @return the {@link Drawable} for this divider.
-     */
-    @Nullable
-    public Drawable getDrawable() {
-        return mDivider;
     }
 
     @Override

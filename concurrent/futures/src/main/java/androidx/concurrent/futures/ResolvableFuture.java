@@ -18,7 +18,6 @@ package androidx.concurrent.futures;
 
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -32,10 +31,8 @@ import com.google.common.util.concurrent.ListenableFuture;
  * If your needs are more complex than {@code ResolvableFuture} supports, use {@link
  * AbstractResolvableFuture}, which offers an extensible version of the API.
  *
- * @hide
  * @author Sven Mawson
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public final class ResolvableFuture<V> extends AbstractResolvableFuture<V> {
     /**
      * Creates a new {@code ResolvableFuture} that can be completed or cancelled by a later method

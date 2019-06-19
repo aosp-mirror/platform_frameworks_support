@@ -35,9 +35,10 @@ import androidx.lifecycle.testapp.CollectingLifecycleOwner;
 import androidx.lifecycle.testapp.CollectingSupportActivity;
 import androidx.lifecycle.testapp.FrameworkLifecycleRegistryActivity;
 import androidx.lifecycle.testapp.TestEvent;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -47,7 +48,8 @@ import java.util.List;
 @LargeTest
 @RunWith(Parameterized.class)
 public class ActivityFullLifecycleTest {
-    private final Class<? extends Activity> activityClass;
+    @Rule
+    public final ActivityTestRule<? extends CollectingLifecycleOwner> activityTestRule;
 
     @Parameterized.Parameters
     public static Class[] params() {
@@ -56,20 +58,19 @@ public class ActivityFullLifecycleTest {
     }
 
     public ActivityFullLifecycleTest(Class<? extends Activity> activityClass) {
-        this.activityClass = activityClass;
+        //noinspection unchecked
+        activityTestRule = new ActivityTestRule(activityClass);
     }
 
 
     @Test
-    public void testFullLifecycle() {
-        final CollectingLifecycleOwner[] owner = new CollectingLifecycleOwner[1];
-        try (ActivityScenario<? extends Activity> scenario =
-                     ActivityScenario.launch(activityClass)) {
-            scenario.onActivity(activity ->
-                    owner[0] = (CollectingLifecycleOwner) activity);
-        }
+    public void testFullLifecycle() throws Throwable {
+        CollectingLifecycleOwner owner = activityTestRule.getActivity();
+        TestUtils.waitTillResumed(owner, activityTestRule);
+        activityTestRule.finishActivity();
 
-        List<Pair<TestEvent, Event>> results = owner[0].copyCollectedEvents();
+        TestUtils.waitTillDestroyed(owner, activityTestRule);
+        List<Pair<TestEvent, Event>> results = owner.copyCollectedEvents();
         assertThat(results, is(flatMap(CREATE, START, RESUME, PAUSE, STOP, DESTROY)));
     }
 }

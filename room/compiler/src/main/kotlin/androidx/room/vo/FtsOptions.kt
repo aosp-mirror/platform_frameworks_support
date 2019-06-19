@@ -18,10 +18,11 @@ package androidx.room.vo
 
 import androidx.room.FtsOptions.MatchInfo
 import androidx.room.FtsOptions.Order
+import androidx.room.FtsOptions.Tokenizer
 import androidx.room.migration.bundle.FtsOptionsBundle
 
 data class FtsOptions(
-    val tokenizer: String,
+    val tokenizer: Tokenizer,
     val tokenizerArgs: List<String>,
     val contentEntity: Entity?,
     val languageIdColumnName: String,
@@ -33,7 +34,7 @@ data class FtsOptions(
 
     override fun getIdKey(): String {
         val identityKey = SchemaIdentityKey()
-        identityKey.append(tokenizer)
+        identityKey.append(tokenizer.name)
         identityKey.append(tokenizerArgs.joinToString())
         identityKey.append(contentEntity?.tableName ?: "")
         identityKey.append(languageIdColumnName)
@@ -44,11 +45,10 @@ data class FtsOptions(
         return identityKey.hash()
     }
 
-    fun databaseDefinition(includeTokenizer: Boolean = true): List<String> {
+    fun databaseDefinition(): List<String> {
         return mutableListOf<String>().apply {
-            if (includeTokenizer && (tokenizer != androidx.room.FtsOptions.TOKENIZER_SIMPLE ||
-                        tokenizerArgs.isNotEmpty())) {
-                val tokenizeAndArgs = listOf("tokenize=$tokenizer") +
+            if (tokenizer != Tokenizer.SIMPLE) {
+                val tokenizeAndArgs = listOf("tokenize=${tokenizer.name.toLowerCase()}") +
                         tokenizerArgs.map { "`$it`" }
                 add(tokenizeAndArgs.joinToString(separator = " "))
             }
@@ -80,7 +80,7 @@ data class FtsOptions(
     }
 
     fun toBundle() = FtsOptionsBundle(
-            tokenizer,
+            tokenizer.name,
             tokenizerArgs,
             contentEntity?.tableName ?: "",
             languageIdColumnName,
@@ -88,12 +88,4 @@ data class FtsOptions(
             notIndexedColumns,
             prefixSizes,
             preferredOrder.name)
-
-    companion object {
-        val defaultTokenizers = listOf(
-            androidx.room.FtsOptions.TOKENIZER_SIMPLE,
-            androidx.room.FtsOptions.TOKENIZER_PORTER,
-            androidx.room.FtsOptions.TOKENIZER_ICU,
-            androidx.room.FtsOptions.TOKENIZER_UNICODE61)
-    }
 }

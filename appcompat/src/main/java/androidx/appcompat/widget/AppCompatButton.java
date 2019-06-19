@@ -16,9 +16,8 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
@@ -101,7 +100,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
         if (mBackgroundTintHelper != null) {
@@ -115,7 +114,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     @Nullable
     public ColorStateList getSupportBackgroundTintList() {
@@ -129,7 +128,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
         if (mBackgroundTintHelper != null) {
@@ -143,7 +142,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     @Nullable
     public PorterDuff.Mode getSupportBackgroundTintMode() {
@@ -212,7 +211,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setAutoSizeTextTypeWithDefaults(
             @TextViewCompat.AutoSizeTextType int autoSizeTextType) {
@@ -228,7 +227,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setAutoSizeTextTypeUniformWithConfiguration(
             int autoSizeMinTextSize,
@@ -249,7 +248,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit)
             throws IllegalArgumentException {
@@ -265,11 +264,9 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     @TextViewCompat.AutoSizeTextType
-    // Suppress lint error for TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM [WrongConstant]
-    @SuppressLint("WrongConstant")
     public int getAutoSizeTextType() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
             return super.getAutoSizeTextType() == TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM
@@ -286,7 +283,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int getAutoSizeStepGranularity() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -302,7 +299,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int getAutoSizeMinTextSize() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -318,7 +315,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int getAutoSizeMaxTextSize() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -334,7 +331,7 @@ public class AppCompatButton extends Button implements TintableBackgroundView,
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public int[] getAutoSizeTextAvailableSizes() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {

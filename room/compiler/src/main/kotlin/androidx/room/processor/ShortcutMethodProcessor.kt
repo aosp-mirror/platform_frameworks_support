@@ -18,7 +18,7 @@ package androidx.room.processor
 import androidx.room.ext.toAnnotationBox
 import androidx.room.vo.Entity
 import androidx.room.vo.ShortcutQueryParameter
-import asTypeElement
+import com.google.auto.common.MoreTypes
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
@@ -33,7 +33,8 @@ class ShortcutMethodProcessor(
     val executableElement: ExecutableElement
 ) {
     val context = baseContext.fork(executableElement)
-    private val delegate = MethodProcessorDelegate.createFor(context, containing, executableElement)
+    private val asMember = context.processingEnv.typeUtils.asMemberOf(containing, executableElement)
+    private val executableType = MoreTypes.asExecutable(asMember)
 
     fun <T : Annotation> extractAnnotation(klass: KClass<T>, errorMsg: String): T? {
         val annotation = executableElement.toAnnotationBox(klass)
@@ -41,12 +42,14 @@ class ShortcutMethodProcessor(
         return annotation?.value
     }
 
-    fun extractReturnType() = delegate.extractReturnType()
+    fun extractReturnType(): TypeMirror {
+        return executableType.returnType
+    }
 
     fun extractParams(
         missingParamError: String
     ): Pair<Map<String, Entity>, List<ShortcutQueryParameter>> {
-        val params = delegate.extractParams()
+        val params = executableElement.parameters
                 .map { ShortcutParameterProcessor(
                         baseContext = context,
                         containing = containing,
@@ -57,16 +60,8 @@ class ShortcutMethodProcessor(
                 .associateBy({ it.name }, {
                     EntityProcessor(
                             context = context,
-                            element = it.entityType!!.asTypeElement()).process()
+                            element = MoreTypes.asTypeElement(it.entityType)).process()
                 })
         return Pair(entities, params)
     }
-
-    fun findInsertMethodBinder(
-        returnType: TypeMirror,
-        params: List<ShortcutQueryParameter>
-    ) = delegate.findInsertMethodBinder(returnType, params)
-
-    fun findDeleteOrUpdateMethodBinder(returnType: TypeMirror) =
-        delegate.findDeleteOrUpdateMethodBinder(returnType)
 }

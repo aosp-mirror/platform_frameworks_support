@@ -84,16 +84,14 @@ public class RowsFragment extends BaseRowFragment implements
      * Internal helper class that manages row select animation and apply a default
      * dim to each row.
      */
-    static final class RowViewHolderExtra implements TimeListener {
-        static final Interpolator sSelectAnimatorInterpolator = new DecelerateInterpolator(2);
-
+    final class RowViewHolderExtra implements TimeListener {
         final RowPresenter mRowPresenter;
         final Presenter.ViewHolder mRowViewHolder;
 
         final TimeAnimator mSelectAnimator = new TimeAnimator();
 
-        final int mSelectAnimatorDurationInUse;
-        final Interpolator mSelectAnimatorInterpolatorInUse;
+        int mSelectAnimatorDurationInUse;
+        Interpolator mSelectAnimatorInterpolatorInUse;
         float mSelectLevelAnimStart;
         float mSelectLevelAnimDelta;
 
@@ -101,12 +99,6 @@ public class RowsFragment extends BaseRowFragment implements
             mRowPresenter = (RowPresenter) ibvh.getPresenter();
             mRowViewHolder = ibvh.getViewHolder();
             mSelectAnimator.setTimeListener(this);
-            // Select animation and interpolator are not intended to be
-            // exposed at this moment. They might be synced with vertical scroll
-            // animation later.
-            mSelectAnimatorDurationInUse = ibvh.itemView.getResources().getInteger(
-                    R.integer.lb_browse_rows_anim_duration);
-            mSelectAnimatorInterpolatorInUse = sSelectAnimatorInterpolator;
         }
 
         @Override
@@ -137,6 +129,8 @@ public class RowsFragment extends BaseRowFragment implements
             if (immediate) {
                 mRowPresenter.setSelectLevel(mRowViewHolder, end);
             } else if (mRowPresenter.getSelectLevel(mRowViewHolder) != end) {
+                mSelectAnimatorDurationInUse = mSelectAnimatorDuration;
+                mSelectAnimatorInterpolatorInUse = mSelectAnimatorInterpolator;
                 mSelectLevelAnimStart = mRowPresenter.getSelectLevel(mRowViewHolder);
                 mSelectLevelAnimDelta = end - mSelectLevelAnimStart;
                 mSelectAnimator.start();
@@ -159,6 +153,12 @@ public class RowsFragment extends BaseRowFragment implements
 
     BaseOnItemViewSelectedListener mOnItemViewSelectedListener;
     BaseOnItemViewClickedListener mOnItemViewClickedListener;
+
+    // Select animation and interpolator are not intended to be
+    // exposed at this moment. They might be synced with vertical scroll
+    // animation later.
+    int mSelectAnimatorDuration;
+    Interpolator mSelectAnimatorInterpolator = new DecelerateInterpolator(2);
 
     private RecyclerView.RecycledViewPool mRecycledViewPool;
     private ArrayList<Presenter> mPresenterMapper;
@@ -286,6 +286,13 @@ public class RowsFragment extends BaseRowFragment implements
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSelectAnimatorDuration = getResources().getInteger(
+                R.integer.lb_browse_rows_anim_duration);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (DEBUG) Log.v(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
@@ -351,6 +358,10 @@ public class RowsFragment extends BaseRowFragment implements
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onCreate(vh);
             }
+            RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
+            RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
+            rowVh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
+            rowVh.setOnItemViewClickedListener(mOnItemViewClickedListener);
         }
 
         @Override
@@ -365,8 +376,6 @@ public class RowsFragment extends BaseRowFragment implements
             RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
             RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
             rowPresenter.setEntranceTransitionState(rowVh, mAfterEntranceTransition);
-            rowVh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
-            rowVh.setOnItemViewClickedListener(mOnItemViewClickedListener);
 
             // freeze the rows attached after RowsFragment#freezeRows() is called
             rowPresenter.freeze(rowVh, mFreezeRows);
@@ -382,10 +391,6 @@ public class RowsFragment extends BaseRowFragment implements
                 setRowViewSelected(mSelectedViewHolder, false, true);
                 mSelectedViewHolder = null;
             }
-            RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
-            RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
-            rowVh.setOnItemViewSelectedListener(null);
-            rowVh.setOnItemViewClickedListener(null);
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onDetachedFromWindow(vh);
             }

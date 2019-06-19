@@ -22,6 +22,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.core.util.Preconditions;
@@ -29,9 +30,12 @@ import androidx.core.util.Preconditions;
 /**
  * Provides a {@link androidx.textclassifier.TextClassifier} interface for a
  * {@link android.view.textclassifier.TextClassifier} object.
+ *
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(Build.VERSION_CODES.O)
-final class PlatformTextClassifierWrapper extends TextClassifier {
+public class PlatformTextClassifierWrapper extends TextClassifier {
     private final android.view.textclassifier.TextClassifier mPlatformTextClassifier;
     private final Context mContext;
     private final TextClassifier mFallback;
@@ -49,7 +53,7 @@ final class PlatformTextClassifierWrapper extends TextClassifier {
      * Returns a newly create instance of PlatformTextClassifierWrapper.
      */
     @NonNull
-    static PlatformTextClassifierWrapper create(@NonNull Context context) {
+    public static PlatformTextClassifierWrapper create(@NonNull Context context) {
         android.view.textclassifier.TextClassificationManager textClassificationManager =
                 (android.view.textclassifier.TextClassificationManager)
                         context.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE);
@@ -63,7 +67,7 @@ final class PlatformTextClassifierWrapper extends TextClassifier {
     @NonNull
     @WorkerThread
     @Override
-    // TODO https://issuetracker.google.com/issues/116776070
+    @SuppressLint("WrongThread") // TODO https://issuetracker.google.com/issues/116776070
     public TextSelection suggestSelection(@NonNull TextSelection.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();
@@ -108,6 +112,7 @@ final class PlatformTextClassifierWrapper extends TextClassifier {
     @NonNull
     @WorkerThread
     @Override
+    @SuppressLint("WrongThread") // TODO https://issuetracker.google.com/issues/116776070
     public TextLinks generateLinks(@NonNull TextLinks.Request request) {
         Preconditions.checkNotNull(request);
         ensureNotOnMainThread();

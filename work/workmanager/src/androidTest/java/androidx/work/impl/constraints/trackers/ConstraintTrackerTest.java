@@ -24,11 +24,9 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.constraints.ConstraintListener;
-import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,9 +43,8 @@ public class ConstraintTrackerTest {
     @Before
     public void setUp() {
         mMockContext = mock(Context.class);
-        TaskExecutor taskExecutor = new InstantWorkTaskExecutor();
         when(mMockContext.getApplicationContext()).thenReturn(mMockContext);
-        mTracker = new TestConstraintTracker(mMockContext, taskExecutor);
+        mTracker = new TestConstraintTracker(mMockContext);
     }
 
     @After
@@ -181,8 +178,8 @@ public class ConstraintTrackerTest {
         int mStopTrackingCount;
         Boolean mInitialState = null;
 
-        TestConstraintTracker(Context context, TaskExecutor taskExecutor) {
-            super(context, taskExecutor);
+        TestConstraintTracker(Context context) {
+            super(context);
         }
 
         @Override

@@ -16,11 +16,13 @@
 
 package androidx.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import androidx.annotation.IntDef;
@@ -147,7 +149,7 @@ public class AudioAttributesCompat implements VersionedParcelable {
     public static final int USAGE_GAME = AudioAttributes.USAGE_GAME;
 
     // usage not available to clients
-    static final int USAGE_VIRTUAL_SOURCE = 15; // AudioAttributes.USAGE_VIRTUAL_SOURCE;
+    private static final int USAGE_VIRTUAL_SOURCE = 15; // AudioAttributes.USAGE_VIRTUAL_SOURCE;
     /**
      * Usage value to use for audio responses to user queries, audio instructions or help
      * utterances.
@@ -234,10 +236,20 @@ public class AudioAttributesCompat implements VersionedParcelable {
 
     static final int INVALID_STREAM_TYPE = -1;  // AudioSystem.STREAM_DEFAULT
 
+    /** Keys to convert to (or create from) Bundle. */
+    static final String AUDIO_ATTRIBUTES_FRAMEWORKS =
+            "androidx.media.audio_attrs.FRAMEWORKS";
+    static final String AUDIO_ATTRIBUTES_USAGE = "androidx.media.audio_attrs.USAGE";
+    static final String AUDIO_ATTRIBUTES_CONTENT_TYPE =
+            "androidx.media.audio_attrs.CONTENT_TYPE";
+    static final String AUDIO_ATTRIBUTES_FLAGS = "androidx.media.audio_attrs.FLAGS";
+    static final String AUDIO_ATTRIBUTES_LEGACY_STREAM_TYPE =
+            "androidx.media.audio_attrs.LEGACY_STREAM_TYPE";
+
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @ParcelField(1)
     public AudioAttributesImpl mImpl;
 
@@ -296,13 +308,12 @@ public class AudioAttributesCompat implements VersionedParcelable {
      */
     @Nullable
     public static AudioAttributesCompat wrap(@NonNull final Object aa) {
-        if (sForceLegacyBehavior) {
-            return null;
-        }
-        if (Build.VERSION.SDK_INT >= 26) {
-            return new AudioAttributesCompat(new AudioAttributesImplApi26((AudioAttributes) aa));
-        } else if (Build.VERSION.SDK_INT >= 21) {
-            return new AudioAttributesCompat(new AudioAttributesImplApi21((AudioAttributes) aa));
+        if (Build.VERSION.SDK_INT >= 21 && !sForceLegacyBehavior) {
+            AudioAttributesImpl impl =
+                    new AudioAttributesImplApi21((AudioAttributes) aa);
+            final AudioAttributesCompat aac = new AudioAttributesCompat();
+            aac.mImpl = impl;
+            return aac;
         }
         return null;
     }
@@ -337,6 +348,28 @@ public class AudioAttributesCompat implements VersionedParcelable {
     }
 
     /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public @NonNull Bundle toBundle() {
+        return mImpl.toBundle();
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static AudioAttributesCompat fromBundle(Bundle bundle) {
+        AudioAttributesImpl impl;
+        if (Build.VERSION.SDK_INT >= 21) {
+            impl = AudioAttributesImplApi21.fromBundle(bundle);
+        } else {
+            impl = AudioAttributesImplBase.fromBundle(bundle);
+        }
+        return impl == null ? null : new AudioAttributesCompat(impl);
+    }
+
+    /**
      * Builder class for {@link AudioAttributesCompat} objects.
      *
      * <p>example:
@@ -355,7 +388,11 @@ public class AudioAttributesCompat implements VersionedParcelable {
      * {@link AudioAttributesCompat#USAGE_MEDIA}. See also {@link AudioAttributes.Builder}.
      */
     public static class Builder {
-        final AudioAttributesImpl.Builder mBuilderImpl;
+        private int mUsage = USAGE_UNKNOWN;
+        private int mContentType = CONTENT_TYPE_UNKNOWN;
+        private int mFlags = 0x0;
+        private int mLegacyStream = INVALID_STREAM_TYPE;
+
         /**
          * Constructs a new Builder with the defaults. By default, usage and content type are
          * respectively {@link AudioAttributesCompat#USAGE_UNKNOWN} and {@link
@@ -365,15 +402,6 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * override any default playback behavior in terms of routing and volume management.
          */
         public Builder() {
-            if (sForceLegacyBehavior) {
-                mBuilderImpl = new AudioAttributesImplBase.Builder();
-            } else if (Build.VERSION.SDK_INT >= 26) {
-                mBuilderImpl = new AudioAttributesImplApi26.Builder();
-            } else if (Build.VERSION.SDK_INT >= 21) {
-                mBuilderImpl = new AudioAttributesImplApi21.Builder();
-            } else {
-                mBuilderImpl = new AudioAttributesImplBase.Builder();
-            }
         }
 
         /**
@@ -382,15 +410,10 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @param aa the AudioAttributesCompat object whose data will be reused in the new Builder.
          */
         public Builder(AudioAttributesCompat aa) {
-            if (sForceLegacyBehavior) {
-                mBuilderImpl = new AudioAttributesImplBase.Builder(aa);
-            } else if (Build.VERSION.SDK_INT >= 26) {
-                mBuilderImpl = new AudioAttributesImplApi26.Builder(aa.unwrap());
-            } else if (Build.VERSION.SDK_INT >= 21) {
-                mBuilderImpl = new AudioAttributesImplApi21.Builder(aa.unwrap());
-            } else {
-                mBuilderImpl = new AudioAttributesImplBase.Builder(aa);
-            }
+            mUsage = aa.getUsage();
+            mContentType = aa.getContentType();
+            mFlags = aa.getFlags();
+            mLegacyStream = aa.getRawLegacyStreamType();
         }
 
         /**
@@ -400,7 +423,23 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @return a new {@link AudioAttributesCompat} object
          */
         public AudioAttributesCompat build() {
-            return new AudioAttributesCompat(mBuilderImpl.build());
+            final AudioAttributesImpl impl;
+            if (!sForceLegacyBehavior && Build.VERSION.SDK_INT >= 21) {
+                AudioAttributes.Builder api21Builder =
+                        new AudioAttributes.Builder()
+                                .setContentType(mContentType)
+                                .setFlags(mFlags)
+                                .setUsage(mUsage);
+                if (mLegacyStream != INVALID_STREAM_TYPE) {
+                    // if a legacy stream was specified, throw that in
+                    api21Builder.setLegacyStreamType(mLegacyStream);
+                }
+                impl = new AudioAttributesImplApi21(api21Builder.build(), mLegacyStream);
+            } else {
+                impl = new AudioAttributesImplBase(
+                        mContentType, mFlags, mUsage, mLegacyStream);
+            }
+            return new AudioAttributesCompat(impl);
         }
 
         /**
@@ -426,7 +465,35 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @return the same Builder instance.
          */
         public Builder setUsage(@AttributeUsage int usage) {
-            mBuilderImpl.setUsage(usage);
+            switch (usage) {
+                case USAGE_UNKNOWN:
+                case USAGE_MEDIA:
+                case USAGE_VOICE_COMMUNICATION:
+                case USAGE_VOICE_COMMUNICATION_SIGNALLING:
+                case USAGE_ALARM:
+                case USAGE_NOTIFICATION:
+                case USAGE_NOTIFICATION_RINGTONE:
+                case USAGE_NOTIFICATION_COMMUNICATION_REQUEST:
+                case USAGE_NOTIFICATION_COMMUNICATION_INSTANT:
+                case USAGE_NOTIFICATION_COMMUNICATION_DELAYED:
+                case USAGE_NOTIFICATION_EVENT:
+                case USAGE_ASSISTANCE_ACCESSIBILITY:
+                case USAGE_ASSISTANCE_NAVIGATION_GUIDANCE:
+                case USAGE_ASSISTANCE_SONIFICATION:
+                case USAGE_GAME:
+                case USAGE_VIRTUAL_SOURCE:
+                    mUsage = usage;
+                    break;
+                case USAGE_ASSISTANT:
+                    if (!sForceLegacyBehavior && Build.VERSION.SDK_INT > 25) {
+                        mUsage = usage;
+                    } else {
+                        mUsage = USAGE_ASSISTANCE_NAVIGATION_GUIDANCE;
+                    }
+                    break;
+                default:
+                    mUsage = USAGE_UNKNOWN;
+            }
             return this;
         }
 
@@ -443,7 +510,17 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @return the same Builder instance.
          */
         public Builder setContentType(@AttributeContentType int contentType) {
-            mBuilderImpl.setContentType(contentType);
+            switch (contentType) {
+                case CONTENT_TYPE_UNKNOWN:
+                case CONTENT_TYPE_MOVIE:
+                case CONTENT_TYPE_MUSIC:
+                case CONTENT_TYPE_SONIFICATION:
+                case CONTENT_TYPE_SPEECH:
+                    mContentType = contentType;
+                    break;
+                default:
+                    mUsage = CONTENT_TYPE_UNKNOWN;
+            }
             return this;
         }
 
@@ -457,7 +534,8 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @return the same Builder instance.
          */
         public Builder setFlags(int flags) {
-            mBuilderImpl.setFlags(flags);
+            flags &= AudioAttributesCompat.FLAG_ALL;
+            mFlags |= flags;
             return this;
         }
 
@@ -469,7 +547,60 @@ public class AudioAttributesCompat implements VersionedParcelable {
          * @return this same Builder
          */
         public Builder setLegacyStreamType(int streamType) {
-            mBuilderImpl.setLegacyStreamType(streamType);
+            if (streamType == AudioManagerHidden.STREAM_ACCESSIBILITY) {
+                throw new IllegalArgumentException(
+                        "STREAM_ACCESSIBILITY is not a legacy stream "
+                                + "type that was used for audio playback");
+            }
+            mLegacyStream = streamType;
+            if (Build.VERSION.SDK_INT >= 21) {
+                return setInternalLegacyStreamType(streamType);
+            } else {
+                // Do nothing here. It will be handled in build() phase.
+                return this;
+            }
+        }
+
+        Builder setInternalLegacyStreamType(int streamType) {
+            switch (streamType) {
+                case AudioManager.STREAM_VOICE_CALL:
+                    mContentType = CONTENT_TYPE_SPEECH;
+                    break;
+                case AudioManagerHidden.STREAM_SYSTEM_ENFORCED:
+                    mFlags |= FLAG_AUDIBILITY_ENFORCED;
+                    // intended fall through, attributes in common with STREAM_SYSTEM
+                case AudioManager.STREAM_SYSTEM:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManager.STREAM_RING:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManager.STREAM_MUSIC:
+                    mContentType = CONTENT_TYPE_MUSIC;
+                    break;
+                case AudioManager.STREAM_ALARM:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManager.STREAM_NOTIFICATION:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManagerHidden.STREAM_BLUETOOTH_SCO:
+                    mContentType = CONTENT_TYPE_SPEECH;
+                    mFlags |= FLAG_SCO;
+                    break;
+                case AudioManager.STREAM_DTMF:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManagerHidden.STREAM_TTS:
+                    mContentType = CONTENT_TYPE_SONIFICATION;
+                    break;
+                case AudioManagerHidden.STREAM_ACCESSIBILITY:
+                    mContentType = CONTENT_TYPE_SPEECH;
+                    break;
+                default:
+                    Log.e(TAG, "Invalid stream type " + streamType + " for AudioAttributesCompat");
+            }
+            mUsage = usageForStreamType(streamType);
             return this;
         }
     }
@@ -533,14 +664,46 @@ public class AudioAttributesCompat implements VersionedParcelable {
         }
     }
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static int usageForStreamType(int streamType) {
+        switch (streamType) {
+            case AudioManager.STREAM_VOICE_CALL:
+                return USAGE_VOICE_COMMUNICATION;
+            case AudioManagerHidden.STREAM_SYSTEM_ENFORCED:
+            case AudioManager.STREAM_SYSTEM:
+                return USAGE_ASSISTANCE_SONIFICATION;
+            case AudioManager.STREAM_RING:
+                return USAGE_NOTIFICATION_RINGTONE;
+            case AudioManager.STREAM_MUSIC:
+                return USAGE_MEDIA;
+            case AudioManager.STREAM_ALARM:
+                return USAGE_ALARM;
+            case AudioManager.STREAM_NOTIFICATION:
+                return USAGE_NOTIFICATION;
+            case AudioManagerHidden.STREAM_BLUETOOTH_SCO:
+                return USAGE_VOICE_COMMUNICATION;
+            case AudioManager.STREAM_DTMF:
+                return USAGE_VOICE_COMMUNICATION_SIGNALLING;
+            case AudioManagerHidden.STREAM_ACCESSIBILITY:
+                return USAGE_ASSISTANCE_ACCESSIBILITY;
+            case AudioManagerHidden.STREAM_TTS:
+            default:
+                return USAGE_UNKNOWN;
+        }
+    }
+
     /**
      * Prevent AudioAttributes from being used even on platforms that support it.
      *
      * @hide For testing only.
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static void setForceLegacyBehavior(boolean force) {
         sForceLegacyBehavior = force;
+    }
+
+    static int toVolumeStreamType(boolean fromGetVolumeControlStream, AudioAttributesCompat aa) {
+        return toVolumeStreamType(fromGetVolumeControlStream, aa.getFlags(), aa.getUsage());
     }
 
     int getRawLegacyStreamType() {
@@ -589,7 +752,9 @@ public class AudioAttributesCompat implements VersionedParcelable {
             case USAGE_ASSISTANCE_ACCESSIBILITY:
                 return AudioManagerHidden.STREAM_ACCESSIBILITY;
             case USAGE_UNKNOWN:
-                return AudioManager.STREAM_MUSIC;
+                return fromGetVolumeControlStream
+                        ? AudioManager.USE_DEFAULT_STREAM_TYPE
+                        : AudioManager.STREAM_MUSIC;
             default:
                 if (fromGetVolumeControlStream) {
                     throw new IllegalArgumentException(
@@ -631,7 +796,7 @@ public class AudioAttributesCompat implements VersionedParcelable {
             USAGE_GAME,
             USAGE_ASSISTANT,
     })
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
     public @interface AttributeUsage {
     }
@@ -645,7 +810,7 @@ public class AudioAttributesCompat implements VersionedParcelable {
             CONTENT_TYPE_SONIFICATION
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public @interface AttributeContentType {
     }
 }

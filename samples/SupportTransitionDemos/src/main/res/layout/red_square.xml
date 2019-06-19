@@ -20,5 +20,4 @@
     android:layout_width="64dp"
     android:layout_height="64dp"
     android:layout_gravity="center"
-    android:background="#f00"
-    android:elevation="16dp"/>
+    android:background="#f00"/>

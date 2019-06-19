@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,7 +31,7 @@ import java.util.Objects;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 final class Common {
     /**
      * This is a utility class
@@ -48,22 +48,14 @@ final class Common {
     }
 
     /**
-     * Returns the given char sequence, or an empty char sequence if the value is null.
+     * Returns the given list, or an empty one if the list is null, or if any of its elements
+     * is null. The returned list should not be mutated.
      */
     @NonNull
-    public static CharSequence nonNullOrEmpty(@Nullable CharSequence value) {
-        return value != null ? value : "";
-    }
-
-    /**
-     * Returns an immutable view of the given list, or an empty one if the list is null, or if any
-     * of its elements is null.
-     */
-    @NonNull
-    public static <T> List<T> immutableOrEmpty(@Nullable List<T> list) {
+    public static <T> List<T> nonNullOrEmpty(@Nullable List<T> list) {
         if (list == null || list.stream().anyMatch(Objects::isNull)) {
             return Collections.emptyList();
         }
-        return Collections.unmodifiableList(list);
+        return list;
     }
 }

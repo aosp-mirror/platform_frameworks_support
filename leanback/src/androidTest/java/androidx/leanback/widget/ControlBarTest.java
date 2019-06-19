@@ -26,10 +26,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +42,7 @@ public class ControlBarTest {
 
     @Test
     public void defaultFocus() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         final ControlBar bar = new ControlBar(context, null);
         final TextView v1 = new Button(context);
         bar.addView(v1, 100, 100);
@@ -64,7 +63,7 @@ public class ControlBarTest {
 
     @Test
     public void persistFocus() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         final LinearLayout rootView = new LinearLayout(context);
         final ControlBar bar = new ControlBar(context, null);
         rootView.addView(bar, 800, 100);
@@ -106,7 +105,7 @@ public class ControlBarTest {
 
     @Test
     public void getFocusables() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         final LinearLayout rootView = new LinearLayout(context);
         final ControlBar bar = new ControlBar(context, null);
         rootView.addView(bar, 800, 100);

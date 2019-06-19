@@ -26,19 +26,19 @@ import static org.mockito.Mockito.when;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 
-import androidx.annotation.NonNull;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.DatabaseTest;
 import androidx.work.ListenableWorker;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
+import androidx.work.State;
 import androidx.work.WorkerFactory;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.Scheduler;
@@ -93,7 +93,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
     @Before
     public void setUp() {
-        mContext = ApplicationProvider.getApplicationContext().getApplicationContext();
+        mContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
         mHandler = new Handler(Looper.getMainLooper());
         mConfiguration = new Configuration.Builder()
                 .setExecutor(new SynchronousExecutor())
@@ -103,14 +103,13 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkManagerImpl = mock(WorkManagerImpl.class);
         mScheduler = mock(Scheduler.class);
         when(mWorkManagerImpl.getWorkDatabase()).thenReturn(mDatabase);
-        when(mWorkManagerImpl.getWorkTaskExecutor()).thenReturn(mWorkTaskExecutor);
         when(mWorkManagerImpl.getConfiguration()).thenReturn(mConfiguration);
 
-        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext, mWorkTaskExecutor));
-        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext, mWorkTaskExecutor));
+        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext));
+        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext));
         // Requires API 24+ types.
         mNetworkStateTracker = mock(NetworkStateTracker.class);
-        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext, mWorkTaskExecutor));
+        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext));
         mTracker = mock(Trackers.class);
 
         when(mTracker.getBatteryChargingTracker()).thenReturn(mBatteryChargingTracker);
@@ -135,7 +134,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkTaskExecutor.getBackgroundExecutor().execute(mWorkerWrapper);
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(WorkInfo.State.SUCCEEDED));
+        assertThat(workSpec.state, is(State.SUCCEEDED));
         Data output = workSpec.output;
         assertThat(output.getBoolean(TEST_ARGUMENT_NAME, false), is(true));
     }
@@ -152,7 +151,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkTaskExecutor.getBackgroundExecutor().execute(mWorkerWrapper);
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
+        assertThat(workSpec.state, is(State.ENQUEUED));
     }
 
     @Test
@@ -175,7 +174,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
         Thread.sleep(TEST_TIMEOUT_IN_MS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
+        assertThat(workSpec.state, is(State.ENQUEUED));
     }
 
     @Test
@@ -208,7 +207,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
         Thread.sleep(TEST_TIMEOUT_IN_MS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
+        assertThat(workSpec.state, is(State.ENQUEUED));
     }
 
     @Test
@@ -228,8 +227,11 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkerWrapper.interrupt(true);
 
         assertThat(mWorker.isStopped(), is(true));
+        assertThat(mWorker.isCancelled(), is(true));
         assertThat(mWorker.getDelegate(), is(notNullValue()));
         assertThat(mWorker.getDelegate().isStopped(), is(true));
+        assertThat(mWorker.getDelegate().isCancelled(), is(true));
+
     }
 
     private void setupDelegateForExecution(@NonNull String delegateName, Executor executor) {

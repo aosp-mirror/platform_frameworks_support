@@ -19,11 +19,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * Tracks whether or not the device's battery level is low.
@@ -32,7 +31,7 @@ import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class BatteryNotLowTracker extends BroadcastReceiverConstraintTracker<Boolean> {
 
-    private static final String TAG = Logger.tagWithPrefix("BatteryNotLowTracker");
+    private static final String TAG = "BatteryNotLowTracker";
 
     /**
      * {@see https://android.googlesource.com/platform/frameworks/base/+/oreo-release/services/core/java/com/android/server/BatteryService.java#111}
@@ -47,10 +46,9 @@ public class BatteryNotLowTracker extends BroadcastReceiverConstraintTracker<Boo
     /**
      * Create an instance of {@link BatteryNotLowTracker}.
      * @param context The application {@link Context}
-     * @param taskExecutor The internal {@link TaskExecutor} being used by WorkManager.
      */
-    public BatteryNotLowTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
-        super(context, taskExecutor);
+    public BatteryNotLowTracker(Context context) {
+        super(context);
     }
 
     /**
@@ -64,7 +62,7 @@ public class BatteryNotLowTracker extends BroadcastReceiverConstraintTracker<Boo
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent intent = mAppContext.registerReceiver(null, intentFilter);
         if (intent == null) {
-            Logger.get().error(TAG, "getInitialState - null intent received");
+            Logger.error(TAG, "getInitialState - null intent received");
             return null;
         }
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, BATTERY_PLUGGED_NONE);
@@ -92,7 +90,7 @@ public class BatteryNotLowTracker extends BroadcastReceiverConstraintTracker<Boo
             return;
         }
 
-        Logger.get().debug(TAG, String.format("Received %s", intent.getAction()));
+        Logger.debug(TAG, String.format("Received %s", intent.getAction()));
 
         switch (intent.getAction()) {
             case Intent.ACTION_BATTERY_OKAY:

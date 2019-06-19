@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -39,11 +39,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.core.widget.TextViewCompat;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,10 +68,6 @@ class AppCompatTextViewAutoSizeHelper {
     // Cache of TextView methods used via reflection; the key is the method name and the value is
     // the method itself or null if it can not be found.
     private static ConcurrentHashMap<String, Method> sTextViewMethodByNameCache =
-            new ConcurrentHashMap<>();
-    // Cache of TextView fields used via reflection; the key is the field name and the value is
-    // the field itself or null if it can not be found.
-    private static ConcurrentHashMap<String, Field> sTextViewFieldByNameCache =
             new ConcurrentHashMap<>();
     // Use this to specify that any of the auto-size configuration int values have not been set.
     static final float UNSET_AUTO_SIZE_UNIFORM_CONFIGURATION_VALUE = -1f;
@@ -193,13 +187,13 @@ class AppCompatTextViewAutoSizeHelper {
      *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
      *        {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      *
-     * {@link R.attr#autoSizeTextType}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
      *
      * @see #getAutoSizeTextType()
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeWithDefaults(@TextViewCompat.AutoSizeTextType int autoSizeTextType) {
         if (supportsAutoSizeText()) {
             switch (autoSizeTextType) {
@@ -248,10 +242,10 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @throws IllegalArgumentException if any of the configuration params are invalid.
      *
-     * {@link R.attr#autoSizeTextType}
-     * {@link R.attr#autoSizeMinTextSize}
-     * {@link R.attr#autoSizeMaxTextSize}
-     * {@link R.attr#autoSizeStepGranularity}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
+     * @attr ref R.styleable#AppCompatTextView_autoSizeMinTextSize
+     * @attr ref R.styleable#AppCompatTextView_autoSizeMaxTextSize
+     * @attr ref R.styleable#AppCompatTextView_autoSizeStepGranularity
      *
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
@@ -262,7 +256,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithConfiguration(
             int autoSizeMinTextSize,
             int autoSizeMaxTextSize,
@@ -297,8 +291,8 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @throws IllegalArgumentException if all of the <code>presetSizes</code> are invalid.
      *_
-     * {@link R.attr#autoSizeTextType}
-     * {@link R.attr#autoSizePresetSizes}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
+     * @attr ref R.styleable#AppCompatTextView_autoSizePresetSizes
      *
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
@@ -308,7 +302,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit)
             throws IllegalArgumentException {
         if (supportsAutoSizeText()) {
@@ -350,7 +344,7 @@ class AppCompatTextViewAutoSizeHelper {
      *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_NONE} or
      *         {@link TextViewCompat#AUTO_SIZE_TEXT_TYPE_UNIFORM}
      *
-     * {@link R.attr#autoSizeTextType}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeTextType
      *
      * @see #setAutoSizeTextTypeWithDefaults(int)
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
@@ -358,7 +352,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @TextViewCompat.AutoSizeTextType
     int getAutoSizeTextType() {
         return mAutoSizeTextType;
@@ -367,13 +361,13 @@ class AppCompatTextViewAutoSizeHelper {
     /**
      * @return the current auto-size step granularity in pixels.
      *
-     * {@link R.attr#autoSizeStepGranularity}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeStepGranularity
      *
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeStepGranularity() {
         return Math.round(mAutoSizeStepGranularityInPx);
     }
@@ -382,14 +376,14 @@ class AppCompatTextViewAutoSizeHelper {
      * @return the current auto-size minimum text size in pixels (the default is 12sp). Note that
      *         if auto-size has not been configured this function returns {@code -1}.
      *
-     * {@link R.attr#autoSizeMinTextSize}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeMinTextSize
      *
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMinTextSize() {
         return Math.round(mAutoSizeMinTextSizeInPx);
     }
@@ -398,14 +392,14 @@ class AppCompatTextViewAutoSizeHelper {
      * @return the current auto-size maximum text size in pixels (the default is 112sp). Note that
      *         if auto-size has not been configured this function returns {@code -1}.
      *
-     * {@link R.attr#autoSizeMaxTextSize}
+     * @attr ref R.styleable#AppCompatTextView_autoSizeMaxTextSize
      *
      * @see #setAutoSizeTextTypeUniformWithConfiguration(int, int, int, int)
      * @see #setAutoSizeTextTypeUniformWithPresetSizes(int[], int)
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMaxTextSize() {
         return Math.round(mAutoSizeMaxTextSizeInPx);
     }
@@ -418,7 +412,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int[] getAutoSizeTextAvailableSizes() {
         return mAutoSizeTextSizesInPx;
     }
@@ -541,7 +535,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void autoSizeText() {
         if (!isAutoSizeEnabled()) {
             return;
@@ -552,9 +546,8 @@ class AppCompatTextViewAutoSizeHelper {
                 return;
             }
 
-            final boolean horizontallyScrolling = Build.VERSION.SDK_INT >= 29
-                    ? mTextView.isHorizontallyScrollable()
-                    : invokeAndReturnWithDefault(mTextView, "getHorizontallyScrolling", false);
+            final boolean horizontallyScrolling = invokeAndReturnWithDefault(
+                    mTextView, "getHorizontallyScrolling", false);
             final int availableWidth = horizontallyScrolling
                     ? VERY_WIDE
                     : mTextView.getMeasuredWidth() - mTextView.getTotalPaddingLeft()
@@ -591,7 +584,7 @@ class AppCompatTextViewAutoSizeHelper {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setTextSizeInternal(int unit, float size) {
         Resources res = mContext == null
                 ? Resources.getSystem()
@@ -662,29 +655,6 @@ class AppCompatTextViewAutoSizeHelper {
         return mAutoSizeTextSizesInPx[bestSizeIndex];
     }
 
-    @VisibleForTesting
-    void initTempTextPaint(final int suggestedSizeInPx) {
-        if (mTempTextPaint == null) {
-            mTempTextPaint = new TextPaint();
-        } else {
-            mTempTextPaint.reset();
-        }
-        mTempTextPaint.set(mTextView.getPaint());
-        mTempTextPaint.setTextSize(suggestedSizeInPx);
-    }
-
-    @VisibleForTesting
-    StaticLayout createLayout(CharSequence text, Layout.Alignment alignment, int availableWidth,
-            int maxLines) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return createStaticLayoutForMeasuring(text, alignment, availableWidth, maxLines);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return createStaticLayoutForMeasuringPre23(text, alignment, availableWidth);
-        } else {
-            return createStaticLayoutForMeasuringPre16(text, alignment, availableWidth);
-        }
-    }
-
     private boolean suggestedSizeFitsInSpace(int suggestedSizeInPx, RectF availableSpace) {
         CharSequence text = mTextView.getText();
         TransformationMethod transformationMethod = mTextView.getTransformationMethod();
@@ -696,13 +666,22 @@ class AppCompatTextViewAutoSizeHelper {
         }
 
         final int maxLines = Build.VERSION.SDK_INT >= 16 ? mTextView.getMaxLines() : -1;
-        initTempTextPaint(suggestedSizeInPx);
+        if (mTempTextPaint == null) {
+            mTempTextPaint = new TextPaint();
+        } else {
+            mTempTextPaint.reset();
+        }
+        mTempTextPaint.set(mTextView.getPaint());
+        mTempTextPaint.setTextSize(suggestedSizeInPx);
 
         // Needs reflection call due to being private.
         Layout.Alignment alignment = invokeAndReturnWithDefault(
                 mTextView, "getLayoutAlignment", Layout.Alignment.ALIGN_NORMAL);
-        final StaticLayout layout = createLayout(text, alignment, Math.round(availableSpace.right),
-                maxLines);
+        final StaticLayout layout = Build.VERSION.SDK_INT >= 23
+                ? createStaticLayoutForMeasuring(
+                        text, alignment, Math.round(availableSpace.right), maxLines)
+                : createStaticLayoutForMeasuringPre23(
+                        text, alignment, Math.round(availableSpace.right));
         // Lines overflow.
         if (maxLines != -1 && (layout.getLineCount() > maxLines
                 || (layout.getLineEnd(layout.getLineCount() - 1)) != text.length())) {
@@ -720,40 +699,49 @@ class AppCompatTextViewAutoSizeHelper {
     @RequiresApi(23)
     private StaticLayout createStaticLayoutForMeasuring(CharSequence text,
             Layout.Alignment alignment, int availableWidth, int maxLines) {
+        // Can use the StaticLayout.Builder (along with TextView params added in or after
+        // API 23) to construct the layout.
+        final TextDirectionHeuristic textDirectionHeuristic = invokeAndReturnWithDefault(
+                mTextView, "getTextDirectionHeuristic",
+                TextDirectionHeuristics.FIRSTSTRONG_LTR);
 
         final StaticLayout.Builder layoutBuilder = StaticLayout.Builder.obtain(
                 text, 0, text.length(),  mTempTextPaint, availableWidth);
 
-        layoutBuilder.setAlignment(alignment)
+        return layoutBuilder.setAlignment(alignment)
                 .setLineSpacing(
                         mTextView.getLineSpacingExtra(),
                         mTextView.getLineSpacingMultiplier())
                 .setIncludePad(mTextView.getIncludeFontPadding())
                 .setBreakStrategy(mTextView.getBreakStrategy())
                 .setHyphenationFrequency(mTextView.getHyphenationFrequency())
-                .setMaxLines(maxLines == -1 ? Integer.MAX_VALUE : maxLines);
-
-        try {
-            // Can use the StaticLayout.Builder (along with TextView params added in or after
-            // API 23) to construct the layout.
-            final TextDirectionHeuristic textDirectionHeuristic = Build.VERSION.SDK_INT >= 29
-                    ? mTextView.getTextDirectionHeuristic()
-                    : invokeAndReturnWithDefault(mTextView, "getTextDirectionHeuristic",
-                            TextDirectionHeuristics.FIRSTSTRONG_LTR);
-            layoutBuilder.setTextDirection(textDirectionHeuristic);
-        } catch (ClassCastException e) {
-            // On some devices this exception happens, details: b/127137059.
-            Log.w(TAG, "Failed to obtain TextDirectionHeuristic, auto size may be incorrect");
-        }
-        return layoutBuilder.build();
+                .setMaxLines(maxLines == -1 ? Integer.MAX_VALUE : maxLines)
+                .setTextDirection(textDirectionHeuristic)
+                .build();
     }
 
-    @RequiresApi(16)
     private StaticLayout createStaticLayoutForMeasuringPre23(CharSequence text,
             Layout.Alignment alignment, int availableWidth) {
-        final float lineSpacingMultiplier = mTextView.getLineSpacingMultiplier();
-        final float lineSpacingAdd = mTextView.getLineSpacingExtra();
-        final boolean includePad = mTextView.getIncludeFontPadding();
+        // Setup defaults.
+        float lineSpacingMultiplier = 1.0f;
+        float lineSpacingAdd = 0.0f;
+        boolean includePad = true;
+
+        if (Build.VERSION.SDK_INT >= 16) {
+            // Call public methods.
+            lineSpacingMultiplier = mTextView.getLineSpacingMultiplier();
+            lineSpacingAdd = mTextView.getLineSpacingExtra();
+            includePad = mTextView.getIncludeFontPadding();
+        } else {
+            // Call private methods and make sure to provide fallback defaults in case something
+            // goes wrong. The default values have been inlined with the StaticLayout defaults.
+            lineSpacingMultiplier = invokeAndReturnWithDefault(mTextView,
+                    "getLineSpacingMultiplier", lineSpacingMultiplier);
+            lineSpacingAdd = invokeAndReturnWithDefault(mTextView,
+                    "getLineSpacingExtra", lineSpacingAdd);
+            includePad = invokeAndReturnWithDefault(mTextView,
+                    "getIncludeFontPadding", includePad);
+        }
 
         // The layout could not be constructed using the builder so fall back to the
         // most broad constructor.
@@ -764,25 +752,7 @@ class AppCompatTextViewAutoSizeHelper {
                 includePad);
     }
 
-    private StaticLayout createStaticLayoutForMeasuringPre16(CharSequence text,
-            Layout.Alignment alignment, int availableWidth) {
-        // The default values have been inlined with the StaticLayout defaults.
-
-        final float lineSpacingMultiplier = accessAndReturnWithDefault(mTextView,
-                "mSpacingMult", 1.0f);
-        final float lineSpacingAdd = accessAndReturnWithDefault(mTextView,
-                "mSpacingAdd", 0.0f);
-        final boolean includePad = accessAndReturnWithDefault(mTextView,
-                "mIncludePad", true);
-
-        return new StaticLayout(text, mTempTextPaint, availableWidth,
-                alignment,
-                lineSpacingMultiplier,
-                lineSpacingAdd,
-                includePad);
-    }
-
-    private static <T> T invokeAndReturnWithDefault(@NonNull Object object,
+    private <T> T invokeAndReturnWithDefault(@NonNull Object object,
             @NonNull final String methodName, @NonNull final T defaultValue) {
         T result = null;
         boolean exceptionThrown = false;
@@ -803,23 +773,8 @@ class AppCompatTextViewAutoSizeHelper {
         return result;
     }
 
-    private static <T> T accessAndReturnWithDefault(@NonNull Object object,
-            @NonNull final String fieldName, @NonNull final T defaultValue) {
-        try {
-            final Field field = getTextViewField(fieldName);
-            if (field == null) {
-                return defaultValue;
-            }
-
-            return (T) field.get(object);
-        }  catch (IllegalAccessException e) {
-            Log.w(TAG, "Failed to access TextView#" + fieldName + " member", e);
-            return defaultValue;
-        }
-    }
-
     @Nullable
-    private static Method getTextViewMethod(@NonNull final String methodName) {
+    private Method getTextViewMethod(@NonNull final String methodName) {
         try {
             Method method = sTextViewMethodByNameCache.get(methodName);
             if (method == null) {
@@ -838,32 +793,13 @@ class AppCompatTextViewAutoSizeHelper {
         }
     }
 
-    @Nullable
-    private static Field getTextViewField(@NonNull final String fieldName) {
-        try {
-            Field field = sTextViewFieldByNameCache.get(fieldName);
-            if (field == null) {
-                field = TextView.class.getDeclaredField(fieldName);
-                if (field != null) {
-                    field.setAccessible(true);
-                    sTextViewFieldByNameCache.put(fieldName, field);
-                }
-            }
-
-            return field;
-        } catch (NoSuchFieldException e) {
-            Log.w(TAG, "Failed to access TextView#" + fieldName + " member", e);
-            return null;
-        }
-    }
-
     /**
      * @return {@code true} if this widget supports auto-sizing text and has been configured to
      * auto-size.
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     boolean isAutoSizeEnabled() {
         return supportsAutoSizeText()
                 && mAutoSizeTextType != TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE;

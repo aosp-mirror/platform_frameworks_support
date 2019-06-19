@@ -16,14 +16,14 @@
 
 package androidx.work.impl.utils;
 
+import android.arch.core.util.Function;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
+import android.arch.lifecycle.Observer;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
@@ -52,27 +52,20 @@ public class LiveDataUtils {
             @NonNull LiveData<In> inputLiveData,
             @NonNull final Function<In, Out> mappingMethod,
             @NonNull final TaskExecutor workTaskExecutor) {
-
-        final Object lock = new Object();
         final MediatorLiveData<Out> outputLiveData = new MediatorLiveData<>();
-
         outputLiveData.addSource(inputLiveData, new Observer<In>() {
-
-            Out mCurrentOutput = null;
-
             @Override
             public void onChanged(@Nullable final In input) {
+                final Out previousOutput = outputLiveData.getValue();
                 workTaskExecutor.executeOnBackgroundThread(new Runnable() {
                     @Override
                     public void run() {
-                        synchronized (lock) {
+                        synchronized (outputLiveData) {
                             Out newOutput = mappingMethod.apply(input);
-                            if (mCurrentOutput == null && newOutput != null) {
-                                mCurrentOutput = newOutput;
+                            if (previousOutput == null && newOutput != null) {
                                 outputLiveData.postValue(newOutput);
-                            } else if (mCurrentOutput != null
-                                    && !mCurrentOutput.equals(newOutput)) {
-                                mCurrentOutput = newOutput;
+                            } else if (
+                                    previousOutput != null && !previousOutput.equals(newOutput)) {
                                 outputLiveData.postValue(newOutput);
                             }
                         }

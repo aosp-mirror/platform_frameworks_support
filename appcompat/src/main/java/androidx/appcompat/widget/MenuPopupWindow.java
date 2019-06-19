@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -49,7 +49,7 @@ import java.lang.reflect.Method;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class MenuPopupWindow extends ListPopupWindow implements MenuItemHoverListener {
     private static final String TAG = "MenuPopupWindow";
 
@@ -57,10 +57,8 @@ public class MenuPopupWindow extends ListPopupWindow implements MenuItemHoverLis
 
     static {
         try {
-            if (Build.VERSION.SDK_INT <= 28) {
-                sSetTouchModalMethod = PopupWindow.class.getDeclaredMethod(
-                        "setTouchModal", boolean.class);
-            }
+            sSetTouchModalMethod = PopupWindow.class.getDeclaredMethod(
+                    "setTouchModal", boolean.class);
         } catch (NoSuchMethodException e) {
             Log.i(TAG, "Could not find method setTouchModal() on PopupWindow. Oh well.");
         }
@@ -100,16 +98,12 @@ public class MenuPopupWindow extends ListPopupWindow implements MenuItemHoverLis
      * other windows behind it.
      */
     public void setTouchModal(final boolean touchModal) {
-        if (Build.VERSION.SDK_INT <= 28) {
-            if (sSetTouchModalMethod != null) {
-                try {
-                    sSetTouchModalMethod.invoke(mPopup, touchModal);
-                } catch (Exception e) {
-                    Log.i(TAG, "Could not invoke setTouchModal() on PopupWindow. Oh well.");
-                }
+        if (sSetTouchModalMethod != null) {
+            try {
+                sSetTouchModalMethod.invoke(mPopup, touchModal);
+            } catch (Exception e) {
+                Log.i(TAG, "Could not invoke setTouchModal() on PopupWindow. Oh well.");
             }
-        } else {
-            mPopup.setTouchModal(touchModal);
         }
     }
 
@@ -132,7 +126,7 @@ public class MenuPopupWindow extends ListPopupWindow implements MenuItemHoverLis
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static class MenuDropDownListView extends DropDownListView {
         final int mAdvanceKey;
         final int mRetreatKey;

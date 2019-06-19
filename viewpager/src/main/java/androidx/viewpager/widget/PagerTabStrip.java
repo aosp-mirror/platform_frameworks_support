@@ -170,7 +170,6 @@ public class PagerTabStrip extends PagerTitleStrip {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void setBackgroundDrawable(Drawable d) {
         super.setBackgroundDrawable(d);
         if (!mDrawFullUnderlineSet) {
@@ -281,9 +280,21 @@ public class PagerTabStrip extends PagerTitleStrip {
 
     @Override
     void updateTextPositions(int position, float positionOffset, boolean force) {
+        final Rect r = mTempRect;
+        int bottom = getHeight();
+        int left = mCurrText.getLeft() - mTabPadding;
+        int right = mCurrText.getRight() + mTabPadding;
+        int top = bottom - mIndicatorHeight;
+
+        r.set(left, top, right, bottom);
+
         super.updateTextPositions(position, positionOffset, force);
         mTabAlpha = (int) (Math.abs(positionOffset - 0.5f) * 2 * 0xFF);
 
-        invalidate();
+        left = mCurrText.getLeft() - mTabPadding;
+        right = mCurrText.getRight() + mTabPadding;
+        r.union(left, top, right, bottom);
+
+        invalidate(r);
     }
 }

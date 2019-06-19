@@ -20,8 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.filters.MediumTest
-import androidx.testutils.TestExecutor
+import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Test
@@ -32,30 +31,34 @@ import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.Mockito.verifyZeroInteractions
+import java.lang.IllegalStateException
 
-@MediumTest
+@SmallTest
 @RunWith(JUnit4::class)
 class PagedListAdapterTest {
     private val mainThread = TestExecutor()
     private val diffThread = TestExecutor()
 
     private val differConfig = AsyncDifferConfig.Builder(STRING_DIFF_CALLBACK)
-        .setBackgroundThreadExecutor(diffThread)
-        .build()
+            .setBackgroundThreadExecutor(diffThread)
+            .build()
 
     inner class Adapter(
         private val onChangedLegacy: AsyncPagedListDiffer.PagedListListener<String>? = null,
         private val onChanged: AsyncPagedListDiffer.PagedListListener<String>? = null
+
     ) : PagedListAdapter<String, RecyclerView.ViewHolder>(differConfig) {
         init {
-            differ.mainThreadExecutor = mainThread
+            mDiffer.mMainThreadExecutor = mainThread
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             throw IllegalStateException("not supported")
+        }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             throw IllegalStateException("not supported")
+        }
 
         override fun onCurrentListChanged(currentList: PagedList<String>?) {
             onChangedLegacy?.onCurrentListChanged(null, currentList)

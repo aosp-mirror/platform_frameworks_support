@@ -31,7 +31,7 @@ import androidx.room.integration.testapp.dao.UserDao;
 import androidx.room.integration.testapp.dao.UserHouseDao;
 import androidx.room.integration.testapp.dao.UserPetDao;
 import androidx.room.integration.testapp.dao.WithClauseDao;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 
 import org.junit.Before;
 
@@ -52,7 +52,7 @@ public abstract class TestDatabaseTest {
 
     @Before
     public void createDb() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         mDatabase = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         mUserDao = mDatabase.getUserDao();
         mPetDao = mDatabase.getPetDao();

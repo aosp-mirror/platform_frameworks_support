@@ -16,11 +16,30 @@
 
 package androidx.appcompat.app;
 
+import android.content.res.Configuration;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
 public class NightModeActivity extends BaseTestActivity {
-    private int mLastNightModeChange = Integer.MIN_VALUE;
+
+    /**
+     * Warning, gross hack here. Since night mode uses recreate(), we need a way to be able to
+     * grab the top activity. The test runner only keeps reference to the original Activity which
+     * is no good for these tests. Fixed by keeping a static reference to the 'top' instance, and
+     * updating it in onResume and onPause. I said it was gross.
+     */
+    static NightModeActivity TOP_ACTIVITY = null;
+
+    Configuration lastChangeConfiguration = null;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        lastChangeConfiguration = newConfig;
+    }
 
     @Override
     protected int getContentViewLayoutResId() {
@@ -28,13 +47,23 @@ public class NightModeActivity extends BaseTestActivity {
     }
 
     @Override
-    public void onNightModeChanged(int mode) {
-        mLastNightModeChange = mode;
+    protected void onResume() {
+        super.onResume();
+        TOP_ACTIVITY = this;
     }
 
-    int getLastNightModeAndReset() {
-        final int mode = mLastNightModeChange;
-        mLastNightModeChange = Integer.MIN_VALUE;
-        return mode;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (TOP_ACTIVITY == this) {
+            TOP_ACTIVITY = null;
+        }
+    }
+
+    /**
+     * This is referenced from an android:onClick in the layout
+     */
+    public void onButtonClicked(View view) {
+        ((Button) view).setText(R.string.clicked);
     }
 }

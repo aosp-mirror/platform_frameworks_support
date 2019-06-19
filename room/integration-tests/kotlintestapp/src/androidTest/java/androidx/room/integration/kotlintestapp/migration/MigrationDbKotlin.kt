@@ -18,16 +18,7 @@ package androidx.room.integration.kotlintestapp.migration
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import androidx.room.Entity
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.Index
-import androidx.room.PrimaryKey
-import androidx.room.ForeignKey
-import androidx.room.Query
-import androidx.room.Insert
-import androidx.room.Ignore
-import androidx.room.Dao
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(version = MigrationDbKotlin.LATEST_VERSION,
@@ -37,7 +28,7 @@ abstract class MigrationDbKotlin : RoomDatabase() {
 
     internal abstract fun dao(): MigrationDao
 
-    @Entity(indices = arrayOf(Index(value = ["name"], unique = true)))
+    @Entity(indices = arrayOf(Index(value = "name", unique = true)))
     data class Entity1(@PrimaryKey var id: Int = 0, var name: String?) {
 
         companion object {
@@ -53,11 +44,8 @@ abstract class MigrationDbKotlin : RoomDatabase() {
     }
 
     @Entity
-    data class Entity3(
-        @PrimaryKey var id: Int = 0,
-        @Ignore var removedInV5: String?,
-        var name: String?
-    ) { // added in version 4, removed at 6
+    data class Entity3(@PrimaryKey var id: Int = 0, @Ignore var removedInV5: String?,
+                       var name: String?) { // added in version 4, removed at 6
         companion object {
             val TABLE_NAME = "Entity3"
         }

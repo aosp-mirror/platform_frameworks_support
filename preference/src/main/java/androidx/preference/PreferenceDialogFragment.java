@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -217,7 +217,7 @@ public abstract class PreferenceDialogFragment extends DialogFragment implements
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected boolean needInputMethod() {
         return false;
     }

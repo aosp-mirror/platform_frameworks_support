@@ -20,7 +20,7 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -51,7 +51,7 @@ public class WakeLockRule implements TestRule {
     }
 
     private WakeLock createWakeLock() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         PowerManager power = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         return power.newWakeLock(WAKELOCK_FLAGS, context.getPackageName());
     }

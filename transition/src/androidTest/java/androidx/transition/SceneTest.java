@@ -25,13 +25,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
 import org.junit.Test;
 
-@SmallTest
-public class SceneTest extends BaseTransitionTest {
+@MediumTest
+public class SceneTest extends BaseTest {
 
     @Test
     public void testGetSceneRoot() {
@@ -123,13 +123,6 @@ public class SceneTest extends BaseTransitionTest {
         assertThat("getSceneForLayout should return the same instance for subsequent calls",
                 Scene.getSceneForLayout(root, R.layout.support_scene0, activity),
                 is(sameInstance(scene)));
-    }
-
-    @Test
-    public void testGetCurrentScene() throws Throwable {
-        Scene scene = Scene.getSceneForLayout(mRoot, R.layout.support_scene0, rule.getActivity());
-        enterScene(scene);
-        assertThat(Scene.getCurrentScene(mRoot), is(scene));
     }
 
 }

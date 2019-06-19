@@ -16,7 +16,6 @@
 
 package com.example.android.supportv7.widget;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,6 @@ public class ListPopupWindowActivity extends AppCompatActivity {
     private ViewGroup mContainer;
 
     private CheckBox mIsModal;
-    private CheckBox mUseEpicenter;
 
     private TextView mLog;
 
@@ -62,7 +60,6 @@ public class ListPopupWindowActivity extends AppCompatActivity {
 
         mContainer = findViewById(R.id.container);
         mIsModal = (CheckBox) mContainer.findViewById(R.id.is_modal);
-        mUseEpicenter = (CheckBox) mContainer.findViewById(R.id.use_custom_epicenter);
         mLog = (TextView) mContainer.findViewById(R.id.log);
         mButton = (Button) mContainer.findViewById(R.id.test_button);
 
@@ -115,11 +112,6 @@ public class ListPopupWindowActivity extends AppCompatActivity {
 
                 mListPopupWindow.setAdapter(mListPopupAdapter);
                 mListPopupWindow.setAnchorView(mButton);
-
-                final int hOffset = getResources().getDisplayMetrics().heightPixels / 3;
-                final Rect epicenter = mUseEpicenter.isChecked()
-                        ? new Rect(0, hOffset, 0, hOffset) : null;
-                mListPopupWindow.setEpicenterBounds(epicenter);
 
                 // Register a listener to be notified when an item in our popup window has
                 // been clicked.

@@ -16,7 +16,7 @@
 
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -34,13 +34,13 @@ import androidx.leanback.R;
  * View for PlaybackTransportRowPresenter that has a custom focusSearch.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class PlaybackTransportRowView extends LinearLayout {
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public interface OnUnhandledKeyListener {
         /**
          * Returns true if the key event should be consumed.

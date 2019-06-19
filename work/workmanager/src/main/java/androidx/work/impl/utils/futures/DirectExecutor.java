@@ -16,7 +16,7 @@
 
 package androidx.work.impl.utils.futures;
 
-import androidx.annotation.RestrictTo;
+import android.support.annotation.RestrictTo;
 
 import java.util.concurrent.Executor;
 

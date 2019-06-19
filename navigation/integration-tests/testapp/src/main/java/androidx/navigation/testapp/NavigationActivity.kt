@@ -18,35 +18,33 @@ package androidx.navigation.testapp
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.NavigationView
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityOptionsCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ActivityNavigatorExtras
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
 /**
  * A simple activity demonstrating use of a NavHostFragment with a navigation drawer.
  */
-class NavigationActivity : AppCompatActivity(R.layout.navigation_activity) {
+class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.navigation_activity)
 
         val navController = findNavController(R.id.my_nav_host_fragment)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        toolbar.setupWithNavController(navController,
-            AppBarConfiguration(setOf(R.id.main, R.id.android), drawerLayout,
-                ::onSupportNavigateUp))
+        toolbar.setupWithNavController(navController, drawerLayout)
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         if (navigationView != null) {
@@ -59,8 +57,7 @@ class NavigationActivity : AppCompatActivity(R.layout.navigation_activity) {
                 when (item.itemId) {
                     R.id.help_activity -> {
                         navController.navigate(R.id.help_activity, null, null,
-                                ActivityNavigatorExtras(
-                                    ActivityOptionsCompat
+                                ActivityNavigator.Extras(ActivityOptionsCompat
                                         .makeSceneTransitionAnimation(this,
                                                 toolbar, "toolbar")))
                         true
@@ -72,7 +69,7 @@ class NavigationActivity : AppCompatActivity(R.layout.navigation_activity) {
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavView?.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnNavigatedListener { _, destination ->
             val dest: String = try {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {

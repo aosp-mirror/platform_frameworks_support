@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -87,7 +87,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
 
         final String key = getArguments().getString(ARG_KEY);
         if (savedInstanceState == null) {
-            mPreference = fragment.findPreference(key);
+            mPreference = (DialogPreference) fragment.findPreference(key);
             mDialogTitle = mPreference.getDialogTitle();
             mPositiveButtonText = mPreference.getPositiveButtonText();
             mNegativeButtonText = mPreference.getNegativeButtonText();
@@ -174,7 +174,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
             final String key = getArguments().getString(ARG_KEY);
             final DialogPreference.TargetFragment fragment =
                     (DialogPreference.TargetFragment) getTargetFragment();
-            mPreference = fragment.findPreference(key);
+            mPreference = (DialogPreference) fragment.findPreference(key);
         }
         return mPreference;
     }
@@ -198,7 +198,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected boolean needInputMethod() {
         return false;
     }

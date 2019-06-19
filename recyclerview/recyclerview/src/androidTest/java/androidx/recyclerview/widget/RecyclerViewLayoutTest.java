@@ -70,11 +70,11 @@ import androidx.annotation.Nullable;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.test.NestedScrollingParent2Adapter;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.Suppress;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -1188,7 +1188,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         setRecyclerView(recyclerView);
         tlm.waitForLayout(2);
 
-        suppressLayout(true);
+        freezeLayout(true);
 
         if (fling) {
             assertFalse("fling should be blocked", fling(horizontalVelocity, verticalVelocity));
@@ -1202,7 +1202,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         assertEquals("rv's vertical scroll cb must not run", verticalScrollCount,
                 verticalCounter.get());
 
-        suppressLayout(false);
+        freezeLayout(false);
 
         if (fling) {
             assertTrue("fling should be started", fling(horizontalVelocity, verticalVelocity));
@@ -1334,11 +1334,11 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         final View c = recyclerView.getChildAt(recyclerView.getChildCount() - 1);
         assertTrue("test sanity", requestFocus(c, true));
         assertTrue("test sanity", c.hasFocus());
-        suppressLayout(true);
+        freezeLayout(true);
         focusSearch(recyclerView, c, View.FOCUS_DOWN);
-        assertEquals("onFocusSearchFailed should not be called when layout is suppressed",
+        assertEquals("onFocusSearchFailed should not be called when layout is frozen",
                 0, focusSearchCalled.get());
-        suppressLayout(false);
+        freezeLayout(false);
         focusSearch(c, View.FOCUS_DOWN);
         assertTrue(focusLatch.await(2, TimeUnit.SECONDS));
         assertEquals(1, focusSearchCalled.get());
@@ -1357,7 +1357,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
     }
 
     @Test
-    public void suppressedAndChangeAdapter() throws Throwable {
+    public void frozenAndChangeAdapter() throws Throwable {
         RecyclerView recyclerView = new RecyclerView(getActivity());
 
         final AtomicInteger focusSearchCalled = new AtomicInteger(0);
@@ -1392,13 +1392,13 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         setRecyclerView(recyclerView);
         tlm.waitForLayout(2);
 
-        suppressLayout(true);
+        freezeLayout(true);
         TestAdapter adapter2 = new TestAdapter(1000);
         setAdapter(adapter2);
         assertFalse(recyclerView.isLayoutFrozen());
         assertSame(adapter2, recyclerView.getAdapter());
 
-        suppressLayout(true);
+        freezeLayout(true);
         TestAdapter adapter3 = new TestAdapter(1000);
         swapAdapter(adapter3, true);
         assertFalse(recyclerView.isLayoutFrozen());
@@ -1621,10 +1621,10 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
 
         recyclerView.expectDraws(1);
         tlm.expectLayouts(1);
-        suppressLayout(true);
+        freezeLayout(true);
         scrollToPosition(3);
         tlm.assertNoLayout("scrollToPosition should be ignored", 2);
-        suppressLayout(false);
+        freezeLayout(false);
         scrollToPosition(3);
         tlm.waitForLayout(2);
         recyclerView.waitForDraw(2);
@@ -2630,189 +2630,6 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
             }
         });
         checkForMainThreadException();
-    }
-
-    @Test
-    public void smoothScrollBy_negativeDuration_completesSynchronously() throws Throwable {
-        smoothScrollBy_completesSynchronously(-1);
-    }
-
-    @Test
-    public void smoothScrollBy_durationOf0_completesSynchronously() throws Throwable {
-        smoothScrollBy_completesSynchronously(0);
-    }
-
-    private void smoothScrollBy_completesSynchronously(final int duration) throws Throwable {
-        // Arrange
-
-        RecyclerView recyclerView = new RecyclerView(getActivity());
-        recyclerView.setAdapter(new TestAdapter(1000));
-        recyclerView.setLayoutManager(new TestLayoutManager());
-        setRecyclerView(recyclerView);
-        getInstrumentation().waitForIdleSync();
-
-        final int[] onScrolledCallCount = new int[1];
-        final int[] onScrolledTotalScrolled = new int[1];
-        final boolean[] stateChangeCalled = new boolean[1];
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                stateChangeCalled[0] = true;
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                onScrolledCallCount[0]++;
-                onScrolledTotalScrolled[0] += dy;
-            }
-        });
-
-
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                // Act
-                mRecyclerView.smoothScrollBy(0, 100, null, duration);
-
-                // Assert
-                assertEquals(1, onScrolledCallCount[0]);
-                assertEquals(100, onScrolledTotalScrolled[0]);
-                assertFalse(stateChangeCalled[0]);
-            }
-        });
-    }
-
-    @Test
-    public void smoothScrollBy_durationOf1_completesAsynchronously() throws Throwable {
-        smoothScrollBy_completesAsynchronously(1);
-    }
-
-    @Test
-    public void smoothScrollBy_durationOfUndefined_completesAsynchronously() throws Throwable {
-        smoothScrollBy_completesAsynchronously(RecyclerView.UNDEFINED_DURATION);
-    }
-
-    private void smoothScrollBy_completesAsynchronously(final int duration) throws Throwable {
-
-        // Arrange
-
-        RecyclerView recyclerView = new RecyclerView(getActivity());
-        recyclerView.setAdapter(new TestAdapter(1000));
-        recyclerView.setLayoutManager(new TestLayoutManager());
-        setRecyclerView(recyclerView);
-        getInstrumentation().waitForIdleSync();
-
-        final int[] onScrolledCallCount = new int[1];
-        final int[] onScrolledTotalScrolled = new int[1];
-        final ArrayList<Integer> onScrollStateChangedStates = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                onScrollStateChangedStates.add(newState);
-                if (newState == SCROLL_STATE_IDLE) {
-                    latch.countDown();
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                onScrolledTotalScrolled[0] += dy;
-                onScrolledCallCount[0]++;
-            }
-        });
-
-        // Act
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                // Act
-                mRecyclerView.smoothScrollBy(0, 100, null, duration);
-
-                // Assert that only onScrollStateChange has been called with settling.
-                assertEquals(0, onScrolledCallCount[0]);
-                assertEquals(1, onScrollStateChangedStates.size());
-                assertEquals(SCROLL_STATE_SETTLING, (int) onScrollStateChangedStates.get(0));
-            }
-        });
-        latch.await(5, TimeUnit.SECONDS);
-
-        // Assert that we did indeed finish
-        assertEquals(100, onScrolledTotalScrolled[0]);
-        assertEquals(2, onScrollStateChangedStates.size());
-        assertEquals(SCROLL_STATE_IDLE, (int) onScrollStateChangedStates.get(1));
-    }
-
-    @Test
-    public void smoothScrollBy_fastDurationIsFasterThanSlowDuration() throws Throwable {
-
-        // Arrange
-
-        final RecyclerView recyclerView0 = new RecyclerView(getActivity());
-        recyclerView0.setAdapter(new TestAdapter(1000));
-        recyclerView0.setLayoutManager(new TestLayoutManager());
-
-        final RecyclerView recyclerView1 = new RecyclerView(getActivity());
-        recyclerView1.setAdapter(new TestAdapter(1000));
-        recyclerView1.setLayoutManager(new TestLayoutManager());
-
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                getActivity().getContainer().addView(recyclerView0);
-                getActivity().getContainer().addView(recyclerView1);
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-
-        final int[] totalScrolled = new int[]{0, 0};
-        final ArrayList<Integer> completionOrder = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(2);
-
-        recyclerView0.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                totalScrolled[0] += dy;
-                if (totalScrolled[0] == 100) {
-                    completionOrder.add(0);
-                    latch.countDown();
-                }
-            }
-        });
-
-        recyclerView1.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                totalScrolled[1] += dy;
-                if (totalScrolled[1] == 100) {
-                    completionOrder.add(1);
-                    latch.countDown();
-                }
-            }
-        });
-
-        // Act
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView0.smoothScrollBy(0, 100, null, 100);
-                recyclerView1.smoothScrollBy(0, 100, null, 1000);
-            }
-        });
-        latch.await(5, TimeUnit.SECONDS);
-
-        // Assert
-        assertEquals(0, (int) completionOrder.get(0));
-        assertEquals(1, (int) completionOrder.get(1));
     }
 
     @Test
@@ -5351,16 +5168,26 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         tlm.expectLayouts(1);
         setRecyclerView(rv);
         tlm.waitForLayout(2);
-        suppressLayout(true);
+        freezeLayout(true);
         smoothScrollToPosition(35, false);
-        assertEquals("smoothScrollToPosition should be ignored when layout is suppressed",
+        assertEquals("smoothScrollToPosition should be ignored when frozen",
                 -1, receivedSmoothScrollToPosition.get());
-        suppressLayout(false);
+        freezeLayout(false);
         smoothScrollToPosition(35, false);
         assertTrue("both scrolls should be called", cbLatch.await(3, TimeUnit.SECONDS));
         checkForMainThreadException();
         assertEquals(35, receivedSmoothScrollToPosition.get());
         assertEquals(35, receivedScrollToPosition.get());
+    }
+
+    @Test
+    public void jumpingJackSmoothScroller() throws Throwable {
+        jumpingJackSmoothScrollerTest(true);
+    }
+
+    @Test
+    public void jumpingJackSmoothScrollerGoesIdle() throws Throwable {
+        jumpingJackSmoothScrollerTest(false);
     }
 
     @Test
@@ -5405,20 +5232,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         checkForMainThreadException();
     }
 
-    @Test
-    public void smoothScrollToPosition_scrollerOnlyJumpsTargetFindable_targetFound()
-            throws Throwable {
-        smoothScrollToPosition_scrollerOnlyJumps(true);
-    }
-
-    @Test
-    public void smoothScrollToPosition_scrollerOnlyJumpsTargetNotFindable_goesIdle()
-            throws Throwable {
-        smoothScrollToPosition_scrollerOnlyJumps(false);
-    }
-
-    private void smoothScrollToPosition_scrollerOnlyJumps(final boolean canFindTarget)
-            throws Throwable {
+    private void jumpingJackSmoothScrollerTest(final boolean succeed) throws Throwable {
         final List<Integer> receivedScrollToPositions = new ArrayList<>();
         final TestAdapter testAdapter = new TestAdapter(200);
         final AtomicBoolean mTargetFound = new AtomicBoolean(false);
@@ -5453,7 +5267,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
 
                             @Override
                             protected void updateActionForInterimTarget(Action action) {
-                                int limit = canFindTarget ? getTargetPosition() : 100;
+                                int limit = succeed ? getTargetPosition() : 100;
                                 if (pendingScrollPosition + 2 < limit) {
                                     if (pendingScrollPosition != NO_POSITION) {
                                         assertEquals(pendingScrollPosition,
@@ -5483,14 +5297,6 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         setRecyclerView(rv);
         tlm.waitForLayout(2);
 
-        final ArrayList<Integer> scrollStates = new ArrayList<>();
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                scrollStates.add(newState);
-            }
-        });
-
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -5508,9 +5314,8 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
             assertTrue("scroll positions must include " + i, receivedScrollToPositions.contains(i));
         }
 
-        assertThat(scrollStates.toArray(),
-                is(equalTo(new Object[]{SCROLL_STATE_SETTLING, SCROLL_STATE_IDLE})));
-        assertEquals(canFindTarget, mTargetFound.get());
+        assertEquals(succeed, mTargetFound.get());
+
     }
 
     private static class TestViewHolder2 extends RecyclerView.ViewHolder {
@@ -5646,7 +5451,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         }
 
         @Override
-        public void onStopNestedScroll(@NonNull View target) {
+        public void onStopNestedScroll(View target) {
             super.onStopNestedScroll(target);
         }
 

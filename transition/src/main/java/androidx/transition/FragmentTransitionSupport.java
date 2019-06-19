@@ -16,9 +16,8 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +35,7 @@ import java.util.List;
  */
 // This is instantiated in androidx.fragment.app.FragmentTransition
 @SuppressWarnings("unused")
-@RestrictTo(LIBRARY_GROUP_PREFIX)
-@SuppressLint("RestrictedApi") // remove once fragment lib would be released with the new
-// LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
+@RestrictTo(LIBRARY_GROUP)
 public class FragmentTransitionSupport extends FragmentTransitionImpl {
 
     @Override
@@ -219,7 +216,7 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
             final Object exitTransition, final ArrayList<View> exitingViews,
             final Object sharedElementTransition, final ArrayList<View> sharedElementsIn) {
         final Transition overallTransition = (Transition) overallTransitionObj;
-        overallTransition.addListener(new TransitionListenerAdapter() {
+        overallTransition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(@NonNull Transition transition) {
                 if (enterTransition != null) {
@@ -235,7 +232,18 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
 
             @Override
             public void onTransitionEnd(@NonNull Transition transition) {
-                transition.removeListener(this);
+            }
+
+            @Override
+            public void onTransitionCancel(@NonNull Transition transition) {
+            }
+
+            @Override
+            public void onTransitionPause(@NonNull Transition transition) {
+            }
+
+            @Override
+            public void onTransitionResume(@NonNull Transition transition) {
             }
         });
     }

@@ -397,8 +397,6 @@ public class AnimatedVectorDrawableCompat extends VectorDrawableCommon
         return mAnimatedVectorState.mVectorDrawable.isStateful();
     }
 
-    // Remove deprecation suppression once b/120984759 is resolved
-    @SuppressWarnings("deprecation")
     @Override
     public int getOpacity() {
         if (mDelegateDrawable != null) {

@@ -41,11 +41,10 @@ import androidx.room.integration.testapp.TestDatabase;
 import androidx.room.integration.testapp.dao.UserDao;
 import androidx.room.integration.testapp.vo.User;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -72,7 +71,7 @@ public class WriteAheadLoggingTest {
 
     @Before
     public void openDatabase() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         context.deleteDatabase(DATABASE_NAME);
         mDatabase = Room.databaseBuilder(context, TestDatabase.class, DATABASE_NAME)
                 .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING)
@@ -82,7 +81,7 @@ public class WriteAheadLoggingTest {
     @After
     public void closeDatabase() {
         mDatabase.close();
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         context.deleteDatabase(DATABASE_NAME);
     }
 
@@ -104,7 +103,7 @@ public class WriteAheadLoggingTest {
 
     @Test
     public void disableWal() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         mDatabase.close();
         mDatabase = Room.databaseBuilder(context, TestDatabase.class, DATABASE_NAME)
                 .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
@@ -169,7 +168,6 @@ public class WriteAheadLoggingTest {
         stopObserver(usersList, observer);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void readInBackground() throws InterruptedException, ExecutionException {
         final UserDao dao = mDatabase.getUserDao();
@@ -189,7 +187,6 @@ public class WriteAheadLoggingTest {
         assertThat(dao.count(), is(0));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     @LargeTest
     public void observeInvalidationInBackground() throws InterruptedException, ExecutionException {

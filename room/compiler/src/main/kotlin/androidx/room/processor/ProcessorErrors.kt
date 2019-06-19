@@ -23,12 +23,10 @@ import androidx.room.RawQuery
 import androidx.room.Update
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
-import androidx.room.parser.QueryType
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.CustomTypeConverter
 import androidx.room.vo.Field
 import com.squareup.javapoet.TypeName
-import java.lang.StringBuilder
 import javax.lang.model.element.ElementKind
 
 object ProcessorErrors {
@@ -126,8 +124,8 @@ object ProcessorErrors {
     val QUERY_PARAMETERS_CANNOT_START_WITH_UNDERSCORE = "Query/Insert method parameters cannot " +
             "start with underscore (_)."
 
-    fun cannotFindQueryResultAdapter(returnTypeName: String) = "Not sure how to convert a " +
-            "Cursor to this method's return type ($returnTypeName)."
+    val CANNOT_FIND_QUERY_RESULT_ADAPTER = "Not sure how to convert a Cursor to this method's " +
+            "return type"
 
     val INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT = "Method annotated with" +
             " @Insert but does not have any parameters to insert."
@@ -150,15 +148,6 @@ object ProcessorErrors {
             "private, final, or abstract. It can be abstract only if the method is also" +
             " annotated with @Query."
 
-    fun transactionMethodAsync(returnTypeName: String) = "Method annotated with @Transaction must" +
-            " not return deferred/async return type $returnTypeName. Since transactions are" +
-            " thread confined and Room cannot guarantee that all queries in the method" +
-            " implementation are performed on the same thread, only synchronous @Transaction" +
-            " implemented methods are allowed. If a transaction is started and a change of thread" +
-            " is done and waited upon then a database deadlock can occur if the additional thread" +
-            " attempts to perform a query. This restrictions prevents such situation from" +
-            " occurring."
-
     val TRANSACTION_MISSING_ON_RELATION = "The return value includes a Pojo with a @Relation." +
             " It is usually desired to annotate this method with @Transaction to avoid" +
             " possibility of inconsistent results between the Pojo and its relations. See " +
@@ -169,6 +158,9 @@ object ProcessorErrors {
 
     val DB_MUST_EXTEND_ROOM_DB = "Classes annotated with @Database should extend " +
             RoomTypeNames.ROOM_DB
+
+    val LIVE_DATA_QUERY_WITHOUT_SELECT = "LiveData return type can only be used with SELECT" +
+            " queries."
 
     val OBSERVABLE_QUERY_NOTHING_TO_OBSERVE = "Observable query return type (LiveData, Flowable" +
             ", DataSource, DataSourceFactory etc) can only be used with SELECT queries that" +
@@ -220,6 +212,9 @@ object ProcessorErrors {
         return DUPLICATE_TABLES_OR_VIEWS.format(tableName, entityNames.joinToString(", "))
     }
 
+    val DELETION_METHODS_MUST_RETURN_VOID_OR_INT = "Deletion methods must either return void or" +
+            " return int (the number of deleted rows)."
+
     val DAO_METHOD_CONFLICTS_WITH_OTHERS = "Dao method has conflicts."
 
     fun duplicateDao(dao: TypeName, methodNames: List<String>): String {
@@ -256,7 +251,7 @@ object ProcessorErrors {
         val unusedColumnsWarning = if (unusedColumns.isNotEmpty()) {
             """
                 The query returns some columns [${unusedColumns.joinToString(", ")}] which are not
-                used by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
+                use by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
                 the mapping.
             """.trim()
         } else {
@@ -358,8 +353,6 @@ object ProcessorErrors {
 
     val RELATION_NOT_COLLECTION = "Fields annotated with @Relation must be a List or Set."
 
-    val NOT_ENTITY_OR_VIEW = "The class must be either @Entity or @DatabaseView."
-
     fun relationCannotFindEntityField(
         entityName: String,
         columnName: String,
@@ -378,30 +371,6 @@ object ProcessorErrors {
                 " Options: ${availableColumns.joinToString(", ")}"
     }
 
-    fun relationCannotFindJunctionEntityField(
-        entityName: String,
-        columnName: String,
-        availableColumns: List<String>
-    ): String {
-        return "Cannot find the child entity referencing column `$columnName` in the junction " +
-                "$entityName. Options: ${availableColumns.joinToString(", ")}"
-    }
-
-    fun relationCannotFindJunctionParentField(
-        entityName: String,
-        columnName: String,
-        availableColumns: List<String>
-    ): String {
-        return "Cannot find the parent entity referencing column `$columnName` in the junction " +
-                "$entityName. Options: ${availableColumns.joinToString(", ")}"
-    }
-
-    fun junctionColumnWithoutIndex(entityName: String, columnName: String) =
-            "The column $columnName in the junction entity $entityName is being used to resolve " +
-                    "a relationship but it is not covered by any index. This might cause a " +
-                    "full table scan when resolving the relationship, it is highly advised to " +
-                    "create an index that covers this column."
-
     val RELATION_IN_ENTITY = "Entities cannot have relations."
 
     val CANNOT_FIND_TYPE = "Cannot find type."
@@ -415,30 +384,6 @@ object ProcessorErrors {
         return """
         The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
         affinity of the child column ($childColumn : $childAffinity).
-        """.trim()
-    }
-
-    fun relationJunctionParentAffinityMismatch(
-        parentColumn: String,
-        junctionParentColumn: String,
-        parentAffinity: SQLTypeAffinity?,
-        junctionParentAffinity: SQLTypeAffinity?
-    ): String {
-        return """
-        The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
-        affinity of the junction parent column ($junctionParentColumn : $junctionParentAffinity).
-        """.trim()
-    }
-
-    fun relationJunctionChildAffinityMismatch(
-        childColumn: String,
-        junctionChildColumn: String,
-        childAffinity: SQLTypeAffinity?,
-        junctionChildAffinity: SQLTypeAffinity?
-    ): String {
-        return """
-        The affinity of child column ($childColumn : $childAffinity) does not match the type
-        affinity of the junction child column ($junctionChildColumn : $junctionChildAffinity).
         """.trim()
     }
 
@@ -556,13 +501,10 @@ object ProcessorErrors {
     }
 
     val MISSING_ROOM_GUAVA_ARTIFACT = "To use Guava features, you must add `guava`" +
-            " artifact from Room as a dependency. androidx.room:room-guava:<version>"
+            " artifact from Room as a dependency. androidx.room:guava:<version>"
 
     val MISSING_ROOM_RXJAVA2_ARTIFACT = "To use RxJava2 features, you must add `rxjava2`" +
-            " artifact from Room as a dependency. androidx.room:room-rxjava2:<version>"
-
-    val MISSING_ROOM_COROUTINE_ARTIFACT = "To use Coroutine features, you must add `ktx`" +
-            " artifact from Room as a dependency. androidx.room:room-ktx:<version>"
+            " artifact from Room as a dependency. androidx.room:rxjava2:<version>"
 
     fun ambigiousConstructor(
         pojo: String,
@@ -623,6 +565,9 @@ object ProcessorErrors {
     val RAW_QUERY_STRING_PARAMETER_REMOVED = "RawQuery does not allow passing a string anymore." +
             " Please use ${SupportDbTypeNames.QUERY}."
 
+    val PREPARED_INSERT_METHOD_INVALID_RETURN_TYPE = "Insert methods must either return void or " +
+            "long (the rowid of the inserted row)."
+
     val MISSING_COPY_ANNOTATIONS = "Annotated property getter is missing " +
             "@AutoValue.CopyAnnotations."
 
@@ -673,27 +618,4 @@ object ProcessorErrors {
             "External Content FTS Entity '$ftsClassName' has a declared content entity " +
                     "'$contentClassName' that is not present in the same @Database. Maybe you " +
                     "forgot to add it to the entities section of the @Database?"
-
-    fun cannotFindPreparedQueryResultAdapter(
-        returnType: String,
-        type: QueryType
-    ) = StringBuilder().apply {
-        append("Not sure how to handle query method's return type ($returnType). ")
-        if (type == QueryType.INSERT) {
-            append("INSERT query methods must either return void " +
-                    "or long (the rowid of the inserted row).")
-        } else if (type == QueryType.UPDATE) {
-            append("UPDATE query methods must either return void " +
-                    "or int (the number of updated rows).")
-        } else if (type == QueryType.DELETE) {
-            append("DELETE query methods must either return void " +
-                    "or int (the number of deleted rows).")
-        }
-    }.toString()
-
-    val JDK_VERSION_HAS_BUG =
-        "Current JDK version ${System.getProperty("java.runtime.version") ?: ""} has a bug" +
-                " (https://bugs.openjdk.java.net/browse/JDK-8007720)" +
-                " that prevents Room from being incremental." +
-                " Consider using JDK 11+ or the embedded JDK shipped with Android Studio 3.5+."
 }

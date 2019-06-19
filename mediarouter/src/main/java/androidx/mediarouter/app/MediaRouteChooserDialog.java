@@ -348,7 +348,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
             }
 
             // Otherwise, make the best guess based on other route information.
-            if (route.isGroup()) {
+            if (route instanceof MediaRouter.RouteGroup) {
                 // Only speakers can be grouped for now.
                 return mSpeakerGroupIcon;
             }

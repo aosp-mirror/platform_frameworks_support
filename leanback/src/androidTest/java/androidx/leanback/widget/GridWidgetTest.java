@@ -53,11 +53,11 @@ import androidx.leanback.testutils.PollingCheck;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -183,7 +183,7 @@ public class GridWidgetTest {
             if (verify != null) {
                 mActivityTestRule.runOnUiThread(verify);
             }
-            sendRepeatedKeys(100, key);
+            sendRepeatedKeys(10, key);
             try {
                 Thread.sleep(300);
             } catch (InterruptedException ex) {
@@ -2483,123 +2483,6 @@ public class GridWidgetTest {
                 mGridView.getLayoutManager().findViewByPosition(focusToIndex).getLeft());
     }
 
-    void testRemoveVisibleItemsInSmoothScrollingForward(final boolean focusOnGridView)
-            throws Throwable {
-        final int numItems = 200;
-        Intent intent = new Intent();
-        intent.putExtra(GridActivity.EXTRA_LAYOUT_RESOURCE_ID,
-                R.layout.vertical_linear_with_button_onleft);
-        intent.putExtra(GridActivity.EXTRA_NUM_ITEMS, numItems);
-        initActivity(intent);
-        mOrientation = BaseGridView.HORIZONTAL;
-        mNumRows = 1;
-        final View button = mActivity.findViewById(R.id.button);
-
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (focusOnGridView) {
-                    mGridView.requestFocus();
-                } else {
-                    button.requestFocus();
-                }
-                mGridView.setSelectedPositionSmooth(numItems - 1);
-            }
-        });
-        waitOneUiCycle();
-        final int numRemoved = 4;
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                int position = mGridView.getChildAdapterPosition(mGridView.getChildAt(0));
-                mActivity.removeItems(position, numRemoved);
-            }
-        });
-
-        waitOneUiCycle();
-        waitForScrollIdle();
-        assertTrue("Should not keep lots of views", mGridView.getChildCount() < numItems / 2);
-        assertEquals(mGridView.getSelectedPosition(), numItems - 1 - numRemoved);
-        if (focusOnGridView) {
-            assertTrue("GridView should retain focus", mGridView.hasFocus());
-            assertFalse("Gridview should pass focus to its child", mGridView.isFocused());
-        } else {
-            assertTrue("button should has focus", button.hasFocus());
-        }
-    }
-
-    void testRemoveVisibleItemsInSmoothScrollingBackward(final boolean focusOnGridView)
-            throws Throwable {
-        final int numItems = 200;
-        Intent intent = new Intent();
-        intent.putExtra(GridActivity.EXTRA_LAYOUT_RESOURCE_ID,
-                R.layout.vertical_linear_with_button_onleft);
-        intent.putExtra(GridActivity.EXTRA_NUM_ITEMS, numItems);
-        initActivity(intent);
-        mOrientation = BaseGridView.HORIZONTAL;
-        mNumRows = 1;
-        final View button = mActivity.findViewById(R.id.button);
-
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mGridView.setSelectedPosition(numItems - 1);
-            }
-        });
-        waitOneUiCycle();
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (focusOnGridView) {
-                    mGridView.requestFocus();
-                } else {
-                    button.requestFocus();
-                }
-                mGridView.setSelectedPositionSmooth(0);
-            }
-        });
-        waitOneUiCycle();
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                int position = mGridView.getChildAdapterPosition(mGridView.getChildAt(0));
-                int numRemoved = numItems - 1 - position;
-                mActivity.removeItems(position, numRemoved);
-            }
-        });
-
-        waitOneUiCycle();
-        waitForScrollIdle();
-        assertTrue("Should not keep lots of views", mGridView.getChildCount() < numItems / 2);
-        assertEquals(mGridView.getSelectedPosition(), 0);
-        if (focusOnGridView) {
-            assertTrue("GridView should retain focus", mGridView.hasFocus());
-            assertFalse("Gridview should pass focus to its child", mGridView.isFocused());
-        } else {
-            assertTrue("button should has focus", button.hasFocus());
-        }
-    }
-
-    @Test
-    public void testRemoveVisibleItemsInSmoothScrollingForwardWithFocus() throws Throwable {
-        testRemoveVisibleItemsInSmoothScrollingForward(/*focusOnGridView=*/ true);
-    }
-
-    @Test
-    public void testRemoveVisibleItemsInSmoothScrollingForwardWithoutFocus() throws Throwable {
-        testRemoveVisibleItemsInSmoothScrollingForward(/*focusOnGridView=*/ false);
-    }
-
-    @Test
-    public void testRemoveVisibleItemsInSmoothScrollingBackwardWithFocus() throws Throwable {
-        testRemoveVisibleItemsInSmoothScrollingBackward(/*focusOnGridView=*/ true);
-    }
-
-    @Test
-    public void testRemoveVisibleItemsInSmoothScrollingBackwardWithoutFocus() throws Throwable {
-        testRemoveVisibleItemsInSmoothScrollingBackward(/*focusOnGridView=*/ false);
-    }
-
     @Test
     public void testPendingSmoothScrollAndRemove() throws Throwable {
         Intent intent = new Intent();
@@ -3462,7 +3345,7 @@ public class GridWidgetTest {
             }
         });
 
-        sendRepeatedKeys(100, KeyEvent.KEYCODE_DPAD_UP);
+        sendRepeatedKeys(10, KeyEvent.KEYCODE_DPAD_UP);
         humanDelay(500);
         waitForScrollIdle(mVerifyLayout);
         // should only get childselected event for item 0 once
@@ -3502,7 +3385,7 @@ public class GridWidgetTest {
             }
         });
 
-        sendRepeatedKeys(100, KeyEvent.KEYCODE_DPAD_UP);
+        sendRepeatedKeys(10, KeyEvent.KEYCODE_DPAD_UP);
         humanDelay(500);
         waitForScrollIdle(mVerifyLayout);
         // should only get childselected event for item 0 once
@@ -4789,8 +4672,7 @@ public class GridWidgetTest {
         assertEquals(1, mGridView.getSelectedPosition());
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityBug77292190() throws Throwable {
         Intent intent = new Intent();
         final int numItems = 1000;
@@ -5026,8 +4908,7 @@ public class GridWidgetTest {
         assertEquals(1, mGridView.getSelectedPosition());
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToLeftRightInvisible() throws Throwable {
         boolean isRTL = false;
         boolean isHorizontal = true;
@@ -5036,8 +4917,7 @@ public class GridWidgetTest {
         testScrollingAction(isRTL, isHorizontal);
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToLeftRightPartiallyVisible() throws Throwable {
         boolean isRTL = false;
         boolean isHorizontal = true;
@@ -5046,8 +4926,7 @@ public class GridWidgetTest {
         testScrollingAction(isRTL, isHorizontal);
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToLeftRightRtlInvisible()
             throws Throwable {
         boolean isRTL = true;
@@ -5057,8 +4936,7 @@ public class GridWidgetTest {
         testScrollingAction(isRTL, isHorizontal);
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToLeftRightRtlPartiallyVisible() throws Throwable {
         boolean isRTL = true;
         boolean isHorizontal = true;
@@ -5067,8 +4945,7 @@ public class GridWidgetTest {
         testScrollingAction(isRTL, isHorizontal);
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToScrollUpDownActionInvisible() throws Throwable {
         boolean isRTL = false;
         boolean isHorizontal = false;
@@ -5077,8 +4954,7 @@ public class GridWidgetTest {
         testScrollingAction(isRTL, isHorizontal);
     }
 
-    // Temporarily disabled due to b/110377468
-    // @Test
+    @Test
     public void testAccessibilityRespondToScrollUpDownActionPartiallyVisible() throws Throwable {
         boolean isRTL = false;
         boolean isHorizontal = false;

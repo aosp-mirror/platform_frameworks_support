@@ -149,8 +149,7 @@ public class GridRowView extends SliceChildView implements View.OnClickListener,
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = mGridContent.getHeight(mSliceStyle, mViewPolicy)
-                + mInsetTop + mInsetBottom;
+        int height = mGridContent.getHeight(mSliceStyle, mViewPolicy);
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         mViewContainer.getLayoutParams().height = height;
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

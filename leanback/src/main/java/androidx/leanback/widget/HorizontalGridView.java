@@ -24,7 +24,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Shader;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -82,10 +81,6 @@ public class HorizontalGridView extends BaseGridView {
     protected void initAttributes(Context context, AttributeSet attrs) {
         initBaseGridViewAttributes(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.lbHorizontalGridView);
-        if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(
-                    context, R.styleable.lbHorizontalGridView, attrs, a, 0, 0);
-        }
         setRowHeight(a);
         setNumRows(a.getInt(R.styleable.lbHorizontalGridView_numberOfRows, 1));
         a.recycle();
@@ -298,15 +293,15 @@ public class HorizontalGridView extends BaseGridView {
                 || mTempBitmapHigh.getWidth() != mHighFadeShaderLength
                 || mTempBitmapHigh.getHeight() != getHeight()) {
             // TODO: fix logic for sharing mTempBitmapLow
-            //if (mTempBitmapLow != null
-            //        && mTempBitmapLow.getWidth() == mHighFadeShaderLength
-            //        && mTempBitmapLow.getHeight() == getHeight()) {
-            //    // share same bitmap for low edge fading and high edge fading.
-            //    mTempBitmapHigh = mTempBitmapLow;
-            //} else {
-            mTempBitmapHigh = Bitmap.createBitmap(mHighFadeShaderLength, getHeight(),
-                    Bitmap.Config.ARGB_8888);
-            //}
+            if (false && mTempBitmapLow != null
+                    && mTempBitmapLow.getWidth() == mHighFadeShaderLength
+                    && mTempBitmapLow.getHeight() == getHeight()) {
+                // share same bitmap for low edge fading and high edge fading.
+                mTempBitmapHigh = mTempBitmapLow;
+            } else {
+                mTempBitmapHigh = Bitmap.createBitmap(mHighFadeShaderLength, getHeight(),
+                        Bitmap.Config.ARGB_8888);
+            }
         }
         return mTempBitmapHigh;
     }

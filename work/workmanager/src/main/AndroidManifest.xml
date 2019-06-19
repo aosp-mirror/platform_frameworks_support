@@ -52,7 +52,6 @@
         <receiver
             android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
             android:enabled="false"
-            android:exported="false"
             android:directBootAware="false"
             tools:targetApi="n">
             <intent-filter>
@@ -63,7 +62,6 @@
         <receiver
             android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
             android:enabled="false"
-            android:exported="false"
             android:directBootAware="false"
             tools:targetApi="n">
             <intent-filter>
@@ -74,7 +72,6 @@
         <receiver
             android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
             android:enabled="false"
-            android:exported="false"
             android:directBootAware="false"
             tools:targetApi="n">
             <intent-filter>
@@ -85,7 +82,6 @@
         <receiver
             android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
             android:enabled="false"
-            android:exported="false"
             android:directBootAware="false"
             tools:targetApi="n">
             <intent-filter>
@@ -95,7 +91,6 @@
         <receiver
             android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
             android:enabled="false"
-            android:exported="false"
             android:directBootAware="false"
             tools:targetApi="n">
             <intent-filter>

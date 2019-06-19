@@ -26,7 +26,7 @@ import java.util.List;
  * Provides statistics such as mean, median, min, max, and percentiles, given a list of input
  * values.
  */
-final class Stats {
+public class Stats {
     private long mMedian, mMin, mMax, mPercentile90, mPercentile95;
     private double mMean, mStandardDeviation;
 
@@ -35,10 +35,9 @@ final class Stats {
         // make a copy since we're modifying it
         values = new ArrayList<>(values);
         final int size = values.size();
-        if (size < 1) {
-            throw new IllegalArgumentException("At least one result is necessary.");
+        if (size < 2) {
+            throw new IllegalArgumentException("At least two results are necessary.");
         }
-
 
         Collections.sort(values);
 
@@ -61,8 +60,7 @@ final class Stats {
             final double tmp = values.get(i) - mMean;
             mStandardDeviation += tmp * tmp;
         }
-        mStandardDeviation = size == 1 ? Double.NaN :
-                Math.sqrt(mStandardDeviation / (double) (size - 1));
+        mStandardDeviation = Math.sqrt(mStandardDeviation / (double) (size - 1));
     }
 
     public double getMean() {

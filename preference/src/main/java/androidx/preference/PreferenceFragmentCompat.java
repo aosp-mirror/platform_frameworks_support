@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,47 +41,64 @@ import androidx.annotation.XmlRes;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.internal.AbstractMultiSelectListPreference;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * A PreferenceFragmentCompat is the entry point to using the Preference library. This
- * {@link Fragment} displays a hierarchy of {@link Preference} objects to the user. It also
- * handles persisting values to the device. To retrieve an instance of
- * {@link android.content.SharedPreferences} that the preference hierarchy in this fragment will
- * use by default, call
+ * Shows a hierarchy of {@link Preference} objects as lists. These preferences will automatically
+ * save to {@link android.content.SharedPreferences} as the user interacts with them. To retrieve
+ * an instance of {@link android.content.SharedPreferences} that the preference hierarchy in this
+ * fragment will use, call
  * {@link PreferenceManager#getDefaultSharedPreferences(android.content.Context)} with a context
  * in the same package as this fragment.
  *
- * <p>You can define a preference hierarchy as an XML resource, or you can build a hierarchy in
- * code. In both cases you need to use a {@link PreferenceScreen} as the root component in your
- * hierarchy.
+ * <p>Furthermore, the preferences shown will follow the visual style of system preferences. It
+ * is easy to create a hierarchy of preferences (that can be shown on multiple screens) via XML.
+ * For these reasons, it is recommended to use this fragment (as a superclass) to deal with
+ * preferences in applications.
  *
- * <p>To inflate from XML, use the {@link #setPreferencesFromResource(int, String)}. An example
- * example XML resource is shown further down.
+ * <p>A {@link PreferenceScreen} object should be at the top of the preference hierarchy.
+ * Furthermore, subsequent {@link PreferenceScreen} in the hierarchy denote a screen break--that
+ * is the preferences contained within subsequent {@link PreferenceScreen} should be shown on
+ * another screen. The preference framework handles this by calling
+ * {@link #onNavigateToScreen(PreferenceScreen)}.
  *
- * <p>To build a hierarchy from code, use
- * {@link PreferenceManager#createPreferenceScreen(Context)} to create the root
- * {@link PreferenceScreen}. Once you have added other {@link Preference}s to this root scree
- * with {@link PreferenceScreen#addPreference(Preference)}, you then need to set the screen as
- * the root screen in your hierarchy with {@link #setPreferenceScreen(PreferenceScreen)}.
+ * <p>The preference hierarchy can be formed in multiple ways:
+ *
+ * <li> From an XML file specifying the hierarchy
+ * <li> From different {@link android.app.Activity Activities} that each specify its own
+ * preferences in an XML file via {@link android.app.Activity} meta-data
+ * <li> From an object hierarchy rooted with {@link PreferenceScreen}
+ *
+ * <p>To inflate from XML, use the {@link #addPreferencesFromResource(int)}. The root element
+ * should be a {@link PreferenceScreen}. Subsequent elements can point to actual
+ * {@link Preference} subclasses. As mentioned above, subsequent {@link PreferenceScreen} in the
+ * hierarchy will result in the screen break.
+ *
+ * <p>To specify an object hierarchy rooted with {@link PreferenceScreen}, use
+ * {@link #setPreferenceScreen(PreferenceScreen)}.
  *
  * <p>As a convenience, this fragment implements a click listener for any preference in the
  * current hierarchy, see {@link #onPreferenceTreeClick(Preference)}.
  *
- * <div class="special reference"> <h3>Developer Guides</h3> <p>For more information about
- * building a settings screen using the AndroidX Preference library, see
- * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p> </div>
+ * <div class="special reference">
+ * <h3>Developer Guides</h3>
+ * <p>For information about using {@link PreferenceFragmentCompat}, read the
+ * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a> guide.</p>
+ * </div>
  *
  * <a name="SampleCode"></a>
  * <h3>Sample Code</h3>
  *
- * <p>The following sample code shows a simple settings screen using an XML resource. The XML
- * resource is as follows:</p>
+ * <p>The following sample code shows a simple preference fragment that is
+ * populated from a resource.  The resource it loads is:</p>
  *
  * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/res/xml/preferences.xml preferences}
  *
- * <p>The fragment that loads the XML resource is as follows:</p>
+ * <p>The fragment implementation itself simply populates the preferences
+ * when created.  Note that the preferences framework takes care of loading
+ * the current values out of the app preferences and writing them when changed:</p>
  *
  * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/androidx/preference/Preferences.java preferences}
  *
@@ -115,6 +133,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     RecyclerView mList;
     private boolean mHavePrefs;
     private boolean mInitDone;
+    private Context mStyledContext;
     private int mLayoutResId = R.layout.preference_list_fragment;
     private Runnable mSelectPreferenceRunnable;
 
@@ -137,7 +156,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     };
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
@@ -146,9 +165,9 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
             // Fallback to default theme.
             theme = R.style.PreferenceThemeOverlay;
         }
-        getActivity().getTheme().applyStyle(theme, false);
+        mStyledContext = new ContextThemeWrapper(getActivity(), theme);
 
-        mPreferenceManager = new PreferenceManager(getContext());
+        mPreferenceManager = new PreferenceManager(mStyledContext);
         mPreferenceManager.setOnNavigateToScreenListener(this);
         final Bundle args = getArguments();
         final String rootKey;
@@ -173,10 +192,10 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
-        TypedArray a = getContext().obtainStyledAttributes(null,
+        TypedArray a = mStyledContext.obtainStyledAttributes(null,
                 R.styleable.PreferenceFragmentCompat,
                 R.attr.preferenceFragmentCompatStyle,
                 0);
@@ -193,13 +212,13 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
         a.recycle();
 
-        final LayoutInflater themedInflater = inflater.cloneInContext(getContext());
+        final LayoutInflater themedInflater = inflater.cloneInContext(mStyledContext);
 
         final View view = themedInflater.inflate(mLayoutResId, container, false);
 
         final View rawListContainer = view.findViewById(AndroidResources.ANDROID_R_LIST_CONTAINER);
         if (!(rawListContainer instanceof ViewGroup)) {
-            throw new IllegalStateException("Content has view with id attribute "
+            throw new RuntimeException("Content has view with id attribute "
                     + "'android.R.id.list_container' that is not a ViewGroup class");
         }
 
@@ -237,7 +256,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * call {@link #setDividerHeight(int)}.
      *
      * @param divider The drawable to use
-     * {@link android.R.attr#divider}
+     * @attr ref R.styleable#PreferenceFragmentCompat_android_divider
      */
     public void setDivider(Drawable divider) {
         mDividerDecoration.setDivider(divider);
@@ -248,7 +267,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * this will override the intrinsic height as set by {@link #setDivider(Drawable)}.
      *
      * @param height The new height of the divider in pixels
-     * {@link android.R.attr#dividerHeight}
+     * @attr ref R.styleable#PreferenceFragmentCompat_android_dividerHeight
      */
     public void setDividerHeight(int height) {
         mDividerDecoration.setDividerHeight(height);
@@ -358,7 +377,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     public void addPreferencesFromResource(@XmlRes int preferencesResId) {
         requirePreferenceManager();
 
-        setPreferenceScreen(mPreferenceManager.inflateFromResource(getContext(),
+        setPreferenceScreen(mPreferenceManager.inflateFromResource(mStyledContext,
                 preferencesResId, getPreferenceScreen()));
     }
 
@@ -374,7 +393,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     public void setPreferencesFromResource(@XmlRes int preferencesResId, @Nullable String key) {
         requirePreferenceManager();
 
-        final PreferenceScreen xmlRoot = mPreferenceManager.inflateFromResource(getContext(),
+        final PreferenceScreen xmlRoot = mPreferenceManager.inflateFromResource(mStyledContext,
                 preferencesResId, null);
 
         final Preference root;
@@ -417,7 +436,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                         .getSupportFragmentManager();
                 final Bundle args = preference.getExtras();
                 final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
-                        requireActivity().getClassLoader(), preference.getFragment());
+                        requireActivity().getClassLoader(), preference.getFragment(), args);
                 fragment.setArguments(args);
                 fragment.setTargetFragment(this, 0);
                 fragmentManager.beginTransaction()
@@ -456,9 +475,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     }
 
     @Override
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    @Nullable
-    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+    public Preference findPreference(CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }
@@ -487,7 +504,6 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     }
 
     private void unbindPreferences() {
-        getListView().setAdapter(null);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         if (preferenceScreen != null) {
             preferenceScreen.onDetached();
@@ -495,18 +511,12 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         onUnbindPreferences();
     }
 
-    /**
-     * Used by Settings.
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     protected void onBindPreferences() {}
 
-    /**
-     * Used by Settings.
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     protected void onUnbindPreferences() {}
 
     public final RecyclerView getListView() {
@@ -530,7 +540,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
             Bundle savedInstanceState) {
         // If device detected is Auto, use Auto's custom layout that contains a custom ViewGroup
         // wrapping a RecyclerView
-        if (getContext().getPackageManager().hasSystemFeature(PackageManager
+        if (mStyledContext.getPackageManager().hasSystemFeature(PackageManager
                 .FEATURE_AUTOMOTIVE)) {
             RecyclerView recyclerView = parent.findViewById(R.id.recycler_view);
             if (recyclerView != null) {
@@ -554,7 +564,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * @return A new {@link RecyclerView.LayoutManager} instance
      */
     public RecyclerView.LayoutManager onCreateLayoutManager() {
-        return new LinearLayoutManager(getContext());
+        return new LinearLayoutManager(getActivity());
     }
 
     /**
@@ -601,14 +611,11 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
             f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
         } else if (preference instanceof ListPreference) {
             f = ListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-        } else if (preference instanceof MultiSelectListPreference) {
+        } else if (preference instanceof AbstractMultiSelectListPreference) {
             f = MultiSelectListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
         } else {
-            throw new IllegalArgumentException(
-                    "Cannot display dialog for an unknown Preference type: "
-                            + preference.getClass().getSimpleName()
-                            + ". Make sure to implement onPreferenceDisplayDialog() to handle "
-                            + "displaying a custom dialog for this Preference.");
+            throw new IllegalArgumentException("Tried to display dialog for unknown " +
+                    "preference type. Did you forget to override onDisplayPreferenceDialog()?");
         }
         f.setTargetFragment(this, 0);
         f.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
@@ -620,7 +627,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public Fragment getCallbackFragment() {
         return null;
     }

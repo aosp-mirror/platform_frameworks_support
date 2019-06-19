@@ -47,9 +47,6 @@
     <public type="attr" name="showScrollBarThumb"/>
 
     <!-- ListItem -->
-    <public type="attr" name="listItemFocusOutlineColor" />
-    <public type="attr" name="listItemForeground" />
-    <public type="attr" name="listItemBackground" />
     <public type="attr" name="listItemBackgroundColor" />
     <public type="attr" name="listItemTitleTextAppearance" />
     <public type="attr" name="listItemBodyTextAppearance" />
@@ -65,6 +62,9 @@
     <public type="attr" name="carArrowThickness" />
     <public type="attr" name="carMenuBarSpacing" />
     <public type="attr" name="carMenuBarThickness" />
+
+    <!-- ActionBar -->
+    <public type="attr" name="columns" />
 
     <!-- CarTheme -->
     <public type="attr" name="carDialogTheme" />
@@ -96,15 +96,8 @@
 
     <!-- CarToolbar attributes -->
     <public type="attr" name="navigationIcon" />
-    <public type="attr" name="navigationIconTint" />
+    <public type="attr" name="navigationIconBackground" />
     <public type="attr" name="navigationIconContainerWidth" />
-    <public type="attr" name="titleIcon"/>
-    <public type="attr" name="titleIconStartMargin"/>
-    <public type="attr" name="titleIconEndMargin"/>
-    <public type="attr" name="titleIconSize"/>
     <public type="attr" name="title" />
     <public type="attr" name="titleTextAppearance" />
-    <public type="attr" name="subtitle" />
-    <public type="attr" name="subtitleTextAppearance"/>
-    <public type="attr" name="overflowIcon"/>
 </resources>

@@ -17,7 +17,7 @@
 
 package androidx.drawerlayout.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -51,17 +51,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.customview.view.AbsSavedState;
 import androidx.customview.widget.ViewDragHelper;
-import androidx.drawerlayout.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -154,8 +151,8 @@ public class DrawerLayout extends ViewGroup {
      */
     public static final int LOCK_MODE_UNDEFINED = 3;
 
-    @IntDef(value = {Gravity.LEFT, Gravity.RIGHT, GravityCompat.START, GravityCompat.END,
-            Gravity.NO_GRAVITY}, flag = true)
+    @IntDef(value = {Gravity.LEFT, Gravity.RIGHT, GravityCompat.START, GravityCompat.END},
+            flag = true)
     @Retention(RetentionPolicy.SOURCE)
     private @interface EdgeGravity {}
 
@@ -194,10 +191,6 @@ public class DrawerLayout extends ViewGroup {
     /** Whether the drawer shadow comes from setting elevation on the drawer. */
     private static final boolean SET_DRAWER_SHADOW_FROM_ELEVATION =
             Build.VERSION.SDK_INT >= 21;
-
-    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
-    private static final String ACCESSIBILITY_CLASS_NAME =
-            "androidx.drawerlayout.widget.DrawerLayout";
 
     private final ChildAccessibilityDelegate mChildAccessibilityDelegate =
             new ChildAccessibilityDelegate();
@@ -250,8 +243,6 @@ public class DrawerLayout extends ViewGroup {
 
     private Rect mChildHitRect;
     private Matrix mChildInvertedMatrix;
-
-    private static boolean sEdgeSizeUsingSystemGestureInsets = Build.VERSION.SDK_INT >= 29;
 
     /**
      * Listener for monitoring events about drawers.
@@ -315,11 +306,11 @@ public class DrawerLayout extends ViewGroup {
     }
 
     public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, R.attr.drawerLayoutStyle);
+        this(context, attrs, 0);
     }
 
-    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public DrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         final float density = getResources().getDisplayMetrics().density;
         mMinDrawerMargin = (int) (MIN_DRAWER_MARGIN * density + 0.5f);
@@ -369,17 +360,7 @@ public class DrawerLayout extends ViewGroup {
             }
         }
 
-        final TypedArray a = context
-                .obtainStyledAttributes(attrs, R.styleable.DrawerLayout, defStyleAttr, 0);
-        try {
-            if (a.hasValue(R.styleable.DrawerLayout_elevation)) {
-                mDrawerElevation = a.getDimension(R.styleable.DrawerLayout_elevation, 0);
-            } else {
-                mDrawerElevation = getResources().getDimension(R.dimen.def_drawer_elevation);
-            }
-        } finally {
-            a.recycle();
-        }
+        mDrawerElevation = DRAWER_ELEVATION * density;
 
         mNonDrawerViews = new ArrayList<View>();
     }
@@ -418,7 +399,7 @@ public class DrawerLayout extends ViewGroup {
      * @hide Internal use only; called to apply window insets when configured
      * with fitsSystemWindows="true"
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void setChildInsets(Object insets, boolean draw) {
         mLastInsets = insets;
         mDrawStatusBarBackground = draw;
@@ -1042,8 +1023,6 @@ public class DrawerLayout extends ViewGroup {
     }
 
     @SuppressLint("WrongConstant")
-    // Remove deprecation suppression once b/120984242 is resolved.
-    @SuppressWarnings("deprecation")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -1302,23 +1281,6 @@ public class DrawerLayout extends ViewGroup {
                 }
             }
         }
-
-        if (sEdgeSizeUsingSystemGestureInsets) {
-            // Update the ViewDragHelper edge sizes to match the gesture insets
-            WindowInsets rootInsets = getRootWindowInsets();
-            if (rootInsets != null) {
-                WindowInsetsCompat rootInsetsCompat = WindowInsetsCompat.wrap(rootInsets);
-                Insets gestureInsets = rootInsetsCompat.getSystemGestureInsets();
-
-                // We use Math.max() here since the gesture insets will be 0 if the device
-                // does not have gesture navigation enabled
-                mLeftDragger.setEdgeSize(
-                        Math.max(mLeftDragger.getDefaultEdgeSize(), gestureInsets.left));
-                mRightDragger.setEdgeSize(
-                        Math.max(mRightDragger.getDefaultEdgeSize(), gestureInsets.right));
-            }
-        }
-
         mInLayout = false;
         mFirstLayout = false;
     }
@@ -1347,8 +1309,6 @@ public class DrawerLayout extends ViewGroup {
         }
     }
 
-    // Remove deprecation suppression once b/120984242 is resolved.
-    @SuppressWarnings("deprecation")
     private static boolean hasOpaqueBackground(View v) {
         final Drawable bg = v.getBackground();
         if (bg != null) {
@@ -2331,7 +2291,6 @@ public class DrawerLayout extends ViewGroup {
         private static final int FLAG_IS_OPENING = 0x2;
         private static final int FLAG_IS_CLOSING = 0x4;
 
-        @EdgeGravity
         public int gravity = Gravity.NO_GRAVITY;
         float onScreen;
         boolean isPeeking;
@@ -2393,12 +2352,11 @@ public class DrawerLayout extends ViewGroup {
                 addChildrenForAccessibility(info, (ViewGroup) host);
             }
 
-            info.setClassName(ACCESSIBILITY_CLASS_NAME);
+            info.setClassName(DrawerLayout.class.getName());
 
             // This view reports itself as focusable so that it can intercept
             // the back button, but we should prevent this view from reporting
             // itself as focusable to accessibility services.
-            info.setFocusable(false);
             info.setFocused(false);
             info.removeAction(AccessibilityActionCompat.ACTION_FOCUS);
             info.removeAction(AccessibilityActionCompat.ACTION_CLEAR_FOCUS);
@@ -2408,7 +2366,7 @@ public class DrawerLayout extends ViewGroup {
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
 
-            event.setClassName(ACCESSIBILITY_CLASS_NAME);
+            event.setClassName(DrawerLayout.class.getName());
         }
 
         @Override

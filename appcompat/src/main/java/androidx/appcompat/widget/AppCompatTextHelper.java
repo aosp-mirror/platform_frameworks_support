@@ -16,37 +16,30 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.core.widget.AutoSizeableTextView.PLATFORM_SUPPORTS_AUTOSIZE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.LocaleList;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.TextViewCompat;
 
 import java.lang.ref.WeakReference;
-import java.util.Locale;
 
 class AppCompatTextHelper {
-
-    private static final int TEXT_FONT_WEIGHT_UNSPECIFIED = -1;
 
     // Enum for the "typeface" XML parameter.
     private static final int SANS = 1;
@@ -61,13 +54,11 @@ class AppCompatTextHelper {
     private TintInfo mDrawableBottomTint;
     private TintInfo mDrawableStartTint;
     private TintInfo mDrawableEndTint;
-    private TintInfo mDrawableTint; // Tint used for all compound drawables
 
     @NonNull
     private final AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
 
     private int mStyle = Typeface.NORMAL;
-    private int mFontWeight = TEXT_FONT_WEIGHT_UNSPECIFIED;
     private Typeface mFontTypeface;
     private boolean mAsyncFontPending;
 
@@ -127,7 +118,6 @@ class AppCompatTextHelper {
         ColorStateList textColorHint = null;
         ColorStateList textColorLink = null;
         String fontVariation = null;
-        String localeListString = null;
 
         // First check TextAppearance's textAllCaps value
         if (ap != -1) {
@@ -152,9 +142,6 @@ class AppCompatTextHelper {
                     textColorLink = a.getColorStateList(
                             R.styleable.TextAppearance_android_textColorLink);
                 }
-            }
-            if (a.hasValue(R.styleable.TextAppearance_textLocale)) {
-                localeListString = a.getString(R.styleable.TextAppearance_textLocale);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                     && a.hasValue(R.styleable.TextAppearance_fontVariationSettings)) {
@@ -185,10 +172,6 @@ class AppCompatTextHelper {
                         R.styleable.TextAppearance_android_textColorLink);
             }
         }
-        if (a.hasValue(R.styleable.TextAppearance_textLocale)) {
-            localeListString = a.getString(R.styleable.TextAppearance_textLocale);
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && a.hasValue(R.styleable.TextAppearance_fontVariationSettings)) {
             fontVariation = a.getString(R.styleable.TextAppearance_fontVariationSettings);
@@ -217,23 +200,10 @@ class AppCompatTextHelper {
             setAllCaps(allCaps);
         }
         if (mFontTypeface != null) {
-            if (mFontWeight == TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                mView.setTypeface(mFontTypeface, mStyle);
-            } else {
-                mView.setTypeface(mFontTypeface);
-            }
+            mView.setTypeface(mFontTypeface, mStyle);
         }
         if (fontVariation != null) {
             mView.setFontVariationSettings(fontVariation);
-        }
-        if (localeListString != null) {
-            if (Build.VERSION.SDK_INT >= 24) {
-                mView.setTextLocales(LocaleList.forLanguageTags(localeListString));
-            } else if (Build.VERSION.SDK_INT >= 21) {
-                final String firstLanTag =
-                        localeListString.substring(0, localeListString.indexOf(','));
-                mView.setTextLocale(Locale.forLanguageTag(firstLanTag));
-            }
         }
 
         mAutoSizeTextHelper.loadFromAttributes(attrs, defStyleAttr);
@@ -300,17 +270,6 @@ class AppCompatTextHelper {
         setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom,
                 drawableStart, drawableEnd);
 
-        if (a.hasValue(R.styleable.AppCompatTextView_drawableTint)) {
-            final ColorStateList tintList = a.getColorStateList(
-                    R.styleable.AppCompatTextView_drawableTint);
-            TextViewCompat.setCompoundDrawableTintList(mView, tintList);
-        }
-        if (a.hasValue(R.styleable.AppCompatTextView_drawableTintMode)) {
-            final PorterDuff.Mode tintMode = DrawableUtils.parseTintMode(
-                    a.getInt(R.styleable.AppCompatTextView_drawableTintMode, -1), null);
-            TextViewCompat.setCompoundDrawableTintMode(mView, tintMode);
-        }
-
         final int firstBaselineToTopHeight = a.getDimensionPixelSize(
                 R.styleable.AppCompatTextView_firstBaselineToTopHeight, -1);
         final int lastBaselineToBottomHeight = a.getDimensionPixelSize(
@@ -330,89 +289,8 @@ class AppCompatTextHelper {
         }
     }
 
-    // To accessible from callback */
-    /** @hide */
-    @RestrictTo(LIBRARY)
-    public void setTypefaceByCallback(@NonNull Typeface typeface) {
-        if (mAsyncFontPending) {
-            mView.setTypeface(typeface);
-            mFontTypeface = typeface;
-        }
-    }
-
-    // To accessible from callback */
-    /** @hide */
-    @RestrictTo(LIBRARY)
-    public void runOnUiThread(@NonNull Runnable runnable) {
-        mView.post(runnable);
-    }
-
-    /**
-     * Helper class for applying Typeface on UI thread.
-     */
-    private static class ApplyTextViewCallback extends ResourcesCompat.FontCallback {
-        private class TypefaceApplyCallback implements Runnable {
-            private final WeakReference<AppCompatTextHelper> mParent;
-            private final Typeface mTypeface;
-
-            TypefaceApplyCallback(@NonNull WeakReference<AppCompatTextHelper> parent,
-                    @NonNull Typeface tf) {
-                mParent = parent;
-                mTypeface = tf;
-            }
-
-            @Override
-            public void run() {
-                final AppCompatTextHelper parent = mParent.get();
-                if (parent == null) {
-                    return;  // The view has gone. Do nothing.
-                }
-                parent.setTypefaceByCallback(mTypeface);
-            }
-        }
-
-        private final WeakReference<AppCompatTextHelper> mParent;
-        private final int mFontWeight;
-        private final int mStyle;
-
-        ApplyTextViewCallback(@NonNull AppCompatTextHelper parent, int fontWeight,
-                int style) {
-            mParent = new WeakReference<>(parent);
-            mFontWeight = fontWeight;
-            mStyle = style;
-        }
-
-        @Override
-        public void onFontRetrieved(@NonNull Typeface typeface) {
-            final AppCompatTextHelper parent = mParent.get();
-            if (parent == null) {
-                return;  // The view has gone. Do nothing
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                if (mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                    typeface = Typeface.create(typeface, mFontWeight,
-                            (mStyle & Typeface.ITALIC) != 0);
-                }
-            }
-            parent.runOnUiThread(new TypefaceApplyCallback(mParent, typeface));
-        }
-
-        @Override
-        public void onFontRetrievalFailed(int reason) {
-            // Do nothing.
-        }
-    }
-
     private void updateTypefaceAndStyle(Context context, TintTypedArray a) {
         mStyle = a.getInt(R.styleable.TextAppearance_android_textStyle, mStyle);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            mFontWeight = a.getInt(R.styleable.TextAppearance_android_textFontWeight,
-                    TEXT_FONT_WEIGHT_UNSPECIFIED);
-            if (mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                mStyle = Typeface.NORMAL | (mStyle & Typeface.ITALIC);
-            }
-        }
 
         if (a.hasValue(R.styleable.TextAppearance_android_fontFamily)
                 || a.hasValue(R.styleable.TextAppearance_fontFamily)) {
@@ -420,24 +298,22 @@ class AppCompatTextHelper {
             int fontFamilyId = a.hasValue(R.styleable.TextAppearance_fontFamily)
                     ? R.styleable.TextAppearance_fontFamily
                     : R.styleable.TextAppearance_android_fontFamily;
-            final int fontWeight = mFontWeight;
-            final int style = mStyle;
             if (!context.isRestricted()) {
-                ResourcesCompat.FontCallback replyCallback = new ApplyTextViewCallback(
-                        this, fontWeight, style);
+                final WeakReference<TextView> textViewWeak = new WeakReference<>(mView);
+                ResourcesCompat.FontCallback replyCallback = new ResourcesCompat.FontCallback() {
+                    @Override
+                    public void onFontRetrieved(@NonNull Typeface typeface) {
+                        onAsyncTypefaceReceived(textViewWeak, typeface);
+                    }
+
+                    @Override
+                    public void onFontRetrievalFailed(int reason) {
+                        // Do nothing.
+                    }
+                };
                 try {
                     // Note the callback will be triggered on the UI thread.
-                    final Typeface typeface = a.getFont(fontFamilyId, mStyle, replyCallback);
-                    if (typeface != null) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                                && mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                            mFontTypeface = Typeface.create(
-                                    Typeface.create(typeface, Typeface.NORMAL), mFontWeight,
-                                    (mStyle & Typeface.ITALIC) != 0);
-                        } else {
-                            mFontTypeface = typeface;
-                        }
-                    }
+                    mFontTypeface = a.getFont(fontFamilyId, mStyle, replyCallback);
                     // If this call gave us an immediate result, ignore any pending callbacks.
                     mAsyncFontPending = mFontTypeface == null;
                 } catch (UnsupportedOperationException | Resources.NotFoundException e) {
@@ -448,14 +324,7 @@ class AppCompatTextHelper {
                 // Try with String. This is done by TextView JB+, but fails in ICS
                 String fontFamilyName = a.getString(fontFamilyId);
                 if (fontFamilyName != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                            && mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                        mFontTypeface = Typeface.create(
-                                Typeface.create(fontFamilyName, Typeface.NORMAL), mFontWeight,
-                                (mStyle & Typeface.ITALIC) != 0);
-                    } else {
-                        mFontTypeface = Typeface.create(fontFamilyName, mStyle);
-                    }
+                    mFontTypeface = Typeface.create(fontFamilyName, mStyle);
                 }
             }
             return;
@@ -477,6 +346,17 @@ class AppCompatTextHelper {
                 case MONOSPACE:
                     mFontTypeface = Typeface.MONOSPACE;
                     break;
+            }
+        }
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void onAsyncTypefaceReceived(WeakReference<TextView> textViewWeak, Typeface typeface) {
+        if (mAsyncFontPending) {
+            mFontTypeface = typeface;
+            final TextView textView = textViewWeak.get();
+            if (textView != null) {
+                textView.setTypeface(typeface, mStyle);
             }
         }
     }
@@ -528,10 +408,6 @@ class AppCompatTextHelper {
         mView.setAllCaps(allCaps);
     }
 
-    void onSetCompoundDrawables() {
-        applyCompoundDrawablesTints();
-    }
-
     void applyCompoundDrawablesTints() {
         if (mDrawableLeftTint != null || mDrawableTopTint != null ||
                 mDrawableRightTint != null || mDrawableBottomTint != null) {
@@ -569,7 +445,7 @@ class AppCompatTextHelper {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void onLayout(boolean changed, int left, int top, int right, int bottom) {
         if (!PLATFORM_SUPPORTS_AUTOSIZE) {
             autoSizeText();
@@ -577,7 +453,7 @@ class AppCompatTextHelper {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setTextSize(int unit, float size) {
         if (!PLATFORM_SUPPORTS_AUTOSIZE) {
             if (!isAutoSizeEnabled()) {
@@ -587,13 +463,13 @@ class AppCompatTextHelper {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void autoSizeText() {
         mAutoSizeTextHelper.autoSizeText();
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     boolean isAutoSizeEnabled() {
         return mAutoSizeTextHelper.isAutoSizeEnabled();
     }
@@ -639,43 +515,6 @@ class AppCompatTextHelper {
 
     int[] getAutoSizeTextAvailableSizes() {
         return mAutoSizeTextHelper.getAutoSizeTextAvailableSizes();
-    }
-
-    @Nullable
-    ColorStateList getCompoundDrawableTintList() {
-        return mDrawableTint != null ? mDrawableTint.mTintList : null;
-    }
-
-    void setCompoundDrawableTintList(@Nullable ColorStateList tintList) {
-        if (mDrawableTint == null) {
-            mDrawableTint = new TintInfo();
-        }
-        mDrawableTint.mTintList = tintList;
-        mDrawableTint.mHasTintList = tintList != null;
-        setCompoundTints();
-    }
-
-    @Nullable
-    PorterDuff.Mode getCompoundDrawableTintMode() {
-        return mDrawableTint != null ? mDrawableTint.mTintMode : null;
-    }
-
-    void setCompoundDrawableTintMode(@Nullable PorterDuff.Mode tintMode) {
-        if (mDrawableTint == null) {
-            mDrawableTint = new TintInfo();
-        }
-        mDrawableTint.mTintMode = tintMode;
-        mDrawableTint.mHasTintMode = tintMode != null;
-        setCompoundTints();
-    }
-
-    private void setCompoundTints() {
-        mDrawableLeftTint = mDrawableTint;
-        mDrawableTopTint = mDrawableTint;
-        mDrawableRightTint = mDrawableTint;
-        mDrawableBottomTint = mDrawableTint;
-        mDrawableStartTint = mDrawableTint;
-        mDrawableEndTint = mDrawableTint;
     }
 
     private void setCompoundDrawables(Drawable drawableLeft, Drawable drawableTop,

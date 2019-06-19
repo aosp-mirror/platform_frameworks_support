@@ -22,30 +22,31 @@ import androidx.room.migration.bundle.IndexBundle
 /**
  * Represents a processed index.
  */
-data class Index(val name: String, val unique: Boolean, override val fields: Fields) :
-        HasSchemaIdentity, HasFields {
+data class Index(val name: String, val unique: Boolean, val fields: List<Field>) :
+        HasSchemaIdentity {
     companion object {
         // should match the value in TableInfo.Index.DEFAULT_PREFIX
         const val DEFAULT_PREFIX = "index_"
     }
 
-    constructor(name: String, unique: Boolean, fields: List<Field>)
-            : this(name, unique, Fields(fields))
-
-    override fun getIdKey() = "$unique-$name-${columnNames.joinToString(",")}"
+    override fun getIdKey(): String {
+        return "$unique-$name-${fields.joinToString(",") { it.columnName }}"
+    }
 
     fun createQuery(tableName: String): String {
-        val indexSQL = if (unique) {
-            "UNIQUE INDEX"
+        val uniqueSQL = if (unique) {
+            "UNIQUE"
         } else {
-            "INDEX"
+            ""
         }
         return """
-            CREATE $indexSQL IF NOT EXISTS `$name`
-            ON `$tableName` (${columnNames.joinToString(", ") { "`$it`" }})
+            CREATE $uniqueSQL INDEX `$name`
+            ON `$tableName` (${fields.map { it.columnName }.joinToString(", ") { "`$it`" }})
             """.trimIndent().replace("\n", " ")
     }
 
-    fun toBundle(): IndexBundle = IndexBundle(name, unique, columnNames,
-        createQuery(BundleUtil.TABLE_NAME_PLACEHOLDER))
+    val columnNames by lazy { fields.map { it.columnName } }
+
+    fun toBundle(): IndexBundle = IndexBundle(name, unique, fields.map { it.columnName },
+            createQuery(BundleUtil.TABLE_NAME_PLACEHOLDER))
 }

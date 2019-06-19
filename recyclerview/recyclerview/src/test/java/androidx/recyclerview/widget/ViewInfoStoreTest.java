@@ -35,6 +35,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,7 @@ import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
 @RunWith(JUnit4.class)
+@SmallTest
 public class ViewInfoStoreTest {
     ViewInfoStore mStore;
     LoggingProcessCallback mCallback;
