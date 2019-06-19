@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5e6d65c_b41ce82f",
+        "filename": "media2/session/version-compat-tests/previous/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-19T04:23:57Z",
+      "side": 0,
+      "message": "Why was this removed?",
+      "range": {
+        "startLine": 946,
+        "startChar": 16,
+        "endLine": 946,
+        "endChar": 34
+      },
+      "revId": "827dd78012521ad7e77966ae37b3abcfa55e6113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
