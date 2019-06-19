@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fe75547_78f19fdb",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-19T18:29:44Z",
+      "side": 1,
+      "message": "seems like this should be `Key : Any`",
+      "revId": "f1a84895d5e914277ce1238bd37e329d02ffaf57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc553ef0_d4a68a3b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedSource.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-19T18:29:44Z",
+      "side": 1,
+      "message": "Lower bounds of Any needed?",
+      "revId": "f1a84895d5e914277ce1238bd37e329d02ffaf57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
