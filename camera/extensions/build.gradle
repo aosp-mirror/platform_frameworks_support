@@ -34,10 +34,13 @@ dependencies {
 
     compileOnly(project(":camera:camera-extensions-stub"))
 
-
+    testImplementation(ANDROIDX_TEST_CORE)
+    testImplementation(ANDROIDX_TEST_RUNNER)
     testImplementation(JUNIT)
+    testImplementation(TRUTH)
     testImplementation(MOCKITO_CORE)
     testImplementation(ROBOLECTRIC)
+    testImplementation project(":camera:camera-testing")
 
     testCompileOnly(project(":camera:camera-extensions-stub"))
 }
