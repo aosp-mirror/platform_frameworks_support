@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad6042f8_60938065",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-19T23:21:09Z",
+      "side": 1,
+      "message": "Maybe?\n\ndata class AnnotatedString(\n    val text: String,\n    val textStyles: List\u003cItem\u003cTextStyle\u003e\u003e,\n    val paragraphStyles: List\u003cItem\u003cParagraphStyle\u003e\u003e\n) {\n\n\n    data class Item\u003cT\u003e(\n        val start: Int, val end: Int, val style: T\n    )\n}\n\nfun test() {\n    val str \u003d AnnotatedString(\n        \"bla bla\",\n        textStyles \u003d  listOf(AnnotatedString.Item(0, 1, TextStyle(fontSize \u003d 12f))),\n        paragraphStyles\u003d listOf(AnnotatedString.Item(0, 1, ParagraphStyle(fontSize \u003d 12f)))\n    )\n}",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "8ea912a740081278ad8c7a0f41cade874b0b65c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93dd489c_fc1c8c19",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-19T23:21:09Z",
+      "side": 1,
+      "message": "nit: lets think now/later the amount of objects created.\nmaybe it is not an issue since they are very small.",
+      "range": {
+        "startLine": 182,
+        "startChar": 23,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "8ea912a740081278ad8c7a0f41cade874b0b65c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

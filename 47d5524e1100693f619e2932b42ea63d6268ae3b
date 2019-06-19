@@ -471,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "915da22b_eb1c0352",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-19T23:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df360bdc_d2eeca38",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3acaf9e3_b5811097",
         "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
         "patchSetId": 4
@@ -515,6 +539,30 @@
       "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2c18085_a31d1c8e",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-19T23:21:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f39c9f64_6118d823",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
