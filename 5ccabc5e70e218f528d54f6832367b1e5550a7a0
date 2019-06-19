@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "752c1f44_e0417a38",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-19T18:21:49Z",
+      "side": 1,
+      "message": "At the same time... what is actually bad about using instance checks, especially done in code that is only accessible to us anyway?  I understand the general OOP notion of breaking some of the flexibility of polymorphism... but I\u0027m not positive it applies in this case?\n\nThough, I am still in favor of the idea that a bunch of component nodes need sizing information, and it would be cool if they just got that for free. :)",
+      "parentUuid": "97e3324b_71abb24d",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7438358_48242d2d",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "97a26e31_79df2ebc",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-19T18:21:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure how I would cache this outside of recursion. I can cache it locally such that I\u0027m doing the operation once instead of twice, however, it feels like it will complicate the code (1 of a potential 1000 cuts?) where it is already somewhat necessarily complicated.  I\u0027d prefer to hold of on optimizations until their benefit is measurable.",
+      "parentUuid": "e7438358_48242d2d",
+      "range": {
+        "startLine": 168,
+        "startChar": 20,
+        "endLine": 168,
+        "endChar": 39
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b3e34cf_d2d905c7",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
@@ -201,6 +249,30 @@
       "writtenOn": "2019-06-19T01:06:49Z",
       "side": 1,
       "message": "This should probably be extracted into a separate function that does a union of two nullable rects.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6db5d6b_a2913e65",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-19T18:21:49Z",
+      "side": 1,
+      "message": "Hmm, I chatted with the Android Toolkit room and tried a few things myself, and I\u0027m not sure an extracted method will actually be helpful outside of this class and extracting the functionality out feels like it kind of just confuses things...?\n\nI do feel like the code here is verbose for the purpose of just doing 2 null checks... \n\nIt basically felt like whatever I did, the fact that 2 null checks were happening was most clear when it was inline.\n\nHappy to discuss. :)",
+      "parentUuid": "3b3e34cf_d2d905c7",
       "range": {
         "startLine": 170,
         "startChar": 0,
