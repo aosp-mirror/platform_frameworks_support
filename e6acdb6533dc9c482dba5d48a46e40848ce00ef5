@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b366f7db_a7e6befa",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2DeviceSurfaceManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-19T23:49:22Z",
+      "side": 1,
+      "message": "nit: FromConfig",
+      "range": {
+        "startLine": 300,
+        "startChar": 30,
+        "endLine": 300,
+        "endChar": 41
+      },
+      "revId": "e6acdb6533dc9c482dba5d48a46e40848ce00ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5971ace_cd27c34e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-19T23:49:22Z",
+      "side": 1,
+      "message": "nit: This could just be\n\nreturn mHardwareLevel \u003d\u003d CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY \u0026\u0026 Build.VERSION.SDK_INT \u003d\u003d 21;",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 44
+      },
+      "revId": "e6acdb6533dc9c482dba5d48a46e40848ce00ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11050517_bf8628b8",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-19T23:49:22Z",
+      "side": 1,
+      "message": "Talking about preview here is probably not the right place.",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 32
+      },
+      "revId": "e6acdb6533dc9c482dba5d48a46e40848ce00ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
