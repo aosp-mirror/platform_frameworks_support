@@ -16,6 +16,24 @@
       "revId": "6e90c16d27be06d5b281ee5bbe233cede77e39d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53279b5_e344899c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-19T23:08:57Z",
+      "side": 1,
+      "message": "This does have google3 usage so will need a 3 cls (or 2).",
+      "parentUuid": "cdf7c52e_cfdc57db",
+      "revId": "6e90c16d27be06d5b281ee5bbe233cede77e39d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
