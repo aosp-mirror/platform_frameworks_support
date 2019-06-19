@@ -25,6 +25,7 @@ includeProject(":compose:compose-compiler-hosted", "../compose/compose-compiler-
 includeProject(":compose:compose-compiler-hosted:integration-tests", "../compose/compose-compiler-hosted/integration-tests")
 includeProject(":compose:compose-compiler", "../compose/compose-compiler")
 includeProject(":compose:compose-ide-plugin", "../compose/compose-ide-plugin")
+includeProject(":compose:compose-gradle-plugin", "../compose/compose-gradle-plugin")
 includeProject(":ui-android-text", "android-text")
 includeProject(":ui-text", "text")
 includeProject(":ui-text:integration-tests:ui-text-demos", "text/integration-tests/text-demos")
