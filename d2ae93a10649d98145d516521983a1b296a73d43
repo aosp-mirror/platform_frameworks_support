@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e25f04e_64e22a76",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T15:42:01Z",
+      "side": 1,
+      "message": "Add a comment why you are doing this.",
+      "revId": "d2ae93a10649d98145d516521983a1b296a73d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
