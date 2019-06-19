@@ -39,7 +39,12 @@ object LibraryVersions {
     val COLLECTION = Version("1.1.0-alpha03")
     val CONTENTPAGER = Version("1.1.0-alpha01")
     val COORDINATORLAYOUT = Version("1.1.0-alpha02")
+<<<<<<< HEAD   (f8e8cb Merge "Merge empty history for sparse-5661825-L1000000032877)
     val CORE = Version("1.1.0-alpha05")
+=======
+    val CORE = Version("1.1.0-rc02")
+    val CORE_ROLE = Version("1.0.0-alpha01")
+>>>>>>> BRANCH (29cb0b Merge "Merge cherrypicks of [985687, 985688] into sparse-562)
     val CURSORADAPTER = Version("1.1.0-alpha01")
     val CUSTOMVIEW = Version("1.1.0-alpha01")
     val DOCUMENTFILE = Version("1.1.0-alpha01")
