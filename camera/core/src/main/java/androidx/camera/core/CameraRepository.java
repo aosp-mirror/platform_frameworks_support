@@ -118,6 +118,10 @@ public final class CameraRepository implements UseCaseGroup.StateChangeListener 
     @GuardedBy("mCamerasLock")
     private void attachUseCasesToCamera(BaseCamera camera, Set<UseCase> useCases) {
         camera.addOnlineUseCase(useCases);
+
+        for (UseCase useCase : useCases) {
+            useCase.onAttachToCamera();
+        }
     }
 
     /**
@@ -140,5 +144,9 @@ public final class CameraRepository implements UseCaseGroup.StateChangeListener 
     @GuardedBy("mCamerasLock")
     private void detachUseCasesFromCamera(BaseCamera camera, Set<UseCase> useCases) {
         camera.removeOnlineUseCase(useCases);
+
+        for (UseCase useCase : useCases) {
+            useCase.onDetachFromCamera();
+        }
     }
 }

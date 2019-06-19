@@ -55,6 +55,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,8 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
     final Handler mMainHandler = new Handler(Looper.getMainLooper());
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final ArrayDeque<ImageCaptureRequest> mImageCaptureRequests = new ArrayDeque<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Map<ImageProxy, ImageCaptureRequest> mImageDispatchedRequests = new HashMap<>();
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
     private final SessionConfig.Builder mSessionConfigBuilder;
@@ -242,6 +245,17 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
     @Override
     protected void onCameraControlReady(String cameraId) {
         getCameraControl(cameraId).setFlashMode(mFlashMode);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected void onDetachFromCamera() {
+        while (!mImageCaptureRequests.isEmpty()) {
+            ImageCaptureRequest request = mImageCaptureRequests.poll();
+            final String message = "Take picture is canceled.";
+            request.callbackError(UseCaseError.UNKNOWN_ERROR, message,
+                    new IllegalStateException(message));
+        }
     }
 
     /**
@@ -512,14 +526,15 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
             });
             return;
         }
-        mImageCaptureRequests.poll();
+        mImageDispatchedRequests.remove(image);
         issueImageCaptureRequests();
     }
 
     /** Issues saved ImageCaptureRequest. */
     @UiThread
     void issueImageCaptureRequests() {
-        if (mImageCaptureRequests.isEmpty()) {
+        // If there are dispatched images, it will wait until images are closed.
+        if (mImageCaptureRequests.isEmpty() || !mImageDispatchedRequests.isEmpty()) {
             return;
         }
         takePictureInternal();
@@ -569,11 +584,10 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
                                     @Override
                                     public void run() {
                                         ImageCaptureRequest imageCaptureRequest =
-                                                mImageCaptureRequests.peek();
+                                                mImageCaptureRequests.poll();
                                         if (imageCaptureRequest != null) {
                                             imageCaptureRequest.callbackError(
                                                     UseCaseError.UNKNOWN_ERROR, message, cause);
-                                            mImageCaptureRequests.poll();
                                             ImageCapture.this.issueImageCaptureRequests();
                                         }
                                     }
@@ -661,7 +675,7 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
                     @Override
                     public void onImageAvailable(ImageReaderProxy imageReader) {
                         // Call the listener so that the captured image can be processed.
-                        ImageCaptureRequest imageCaptureRequest = mImageCaptureRequests.peek();
+                        ImageCaptureRequest imageCaptureRequest = mImageCaptureRequests.poll();
                         if (imageCaptureRequest != null) {
                             ImageProxy image = null;
                             String message = null;
@@ -677,11 +691,11 @@ public class ImageCapture extends UseCase implements OnImageCloseListener {
                                     SingleCloseImageProxy wrappedImage = new SingleCloseImageProxy(
                                             image);
                                     wrappedImage.addOnImageCloseListener(ImageCapture.this);
+                                    mImageDispatchedRequests.put(wrappedImage, imageCaptureRequest);
                                     imageCaptureRequest.dispatchImage(wrappedImage);
                                 } else {
                                     imageCaptureRequest.callbackError(
                                             UseCaseError.UNKNOWN_ERROR, message, cause);
-                                    mImageCaptureRequests.poll();
                                     ImageCapture.this.issueImageCaptureRequests();
                                 }
                             }
