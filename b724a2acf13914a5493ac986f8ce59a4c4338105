@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ef04a4a7_a762222e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-19T17:38:46Z",
+      "side": 1,
+      "message": "The current implementation allows opening any file anywhere as long as the app has the permission to open it, so this class now can be used for external storage as well if it happens that the app has permission to access it.\n\nNot sure if we should do any checks and what kind of checks should be done.",
+      "parentUuid": "176cbd46_48eaa6b5",
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e89ed18_f0aea85f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 6
