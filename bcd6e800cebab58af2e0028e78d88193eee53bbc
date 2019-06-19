@@ -49,6 +49,47 @@
     },
     {
       "key": {
+        "uuid": "1a4afad8_00e9cfdb",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T00:28:56Z",
+      "side": 1,
+      "message": "I think we\u0027re good, espresso waits for the onCreate of SafeBRowsingActivity.\n\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat com.example.androidx.webkit.SafeBrowsingActivity.onCreate(SafeBrowsingActivity.java:48)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.Activity.performCreate(Activity.java:6975)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1213)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.runner.MonitoringInstrumentation.callActivityOnCreate(MonitoringInstrumentation.java:674)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2770)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2892)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.ActivityThread.-wrap11(null:0)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1593)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat android.os.Handler.dispatchMessage(Handler.java:105)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.base.Interrogator.loopAndInterrogate(Interrogator.java:148)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.base.UiControllerImpl.loopUntil(UiControllerImpl.java:519)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.base.UiControllerImpl.loopUntil(UiControllerImpl.java:478)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.base.UiControllerImpl.loopMainThreadForAtLeast(UiControllerImpl.java:462)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.action.Tap$1.sendTap(Tap.java:51)\n06-18 23:13:57.649  5551  5551 I System.out: DEBUG:\tat androidx.test.espresso.action.GeneralClickAction.perform(GeneralClickAction.java:136)\n\nOrder is ok, is there a reason assumeFeature is not the first line?",
+      "parentUuid": "2c8a9356_3c3c790a",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 89
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a48106d_08252d30",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T00:28:56Z",
+      "side": 1,
+      "message": "Need to unregister idling resource in teardown.",
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22d5e5a2_b2ae2fb8",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
         "patchSetId": 2
@@ -69,6 +110,30 @@
       "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be4077e7_ff0b51ec",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T00:28:56Z",
+      "side": 1,
+      "message": "Don\u0027t know of any, that will probably have to wait for the refactoring to launch directly into the leaf activity, then the test rule can be used to get the instance of the SafeBrowsingActivity.",
+      "parentUuid": "22d5e5a2_b2ae2fb8",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
