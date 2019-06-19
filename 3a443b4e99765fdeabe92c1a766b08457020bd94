@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1c206fc8_fbdfa9ff",
+        "filename": "security/crypto/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-19T20:09:25Z",
+      "side": 1,
+      "message": "Core, probably yes implementation. Do you use core?\n\nDo you even use fragment?\n\nAnnotation is good as API.\n\ntink should probably be implementation.\n\nThe rule is does it show up in current.txt (i.e., your public API). If yes, it\u0027s api. If no, implementation.\n\nI can audit this separately once this lands.",
+      "parentUuid": "dbfcb5da_ff2730b6",
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38799e81_d9d257d7",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 4
