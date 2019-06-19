@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d078dbbe_5f401577",
+        "filename": "transition/api/1.2.0-alpha02.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T16:43:14Z",
+      "side": 1,
+      "message": "Is this change always safe? Can you file a bug to metalava?",
+      "range": {
+        "startLine": 3,
+        "startChar": 100,
+        "endLine": 3,
+        "endChar": 155
+      },
+      "revId": "9acb80ef71fa19fdb3de32c48e78082defc8f412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
