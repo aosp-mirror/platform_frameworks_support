@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdf7c52e_cfdc57db",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-19T23:03:17Z",
+      "side": 1,
+      "message": "You know.. looking at this method again, I feel it\u0027s slightly redundant. If someone has the ability to pass the context and the res id, they might as well just call getDrawable(). \n\nYou can remove it in a follow-up CL if you\u0027d like. Just pointing it out.",
+      "revId": "6e90c16d27be06d5b281ee5bbe233cede77e39d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
