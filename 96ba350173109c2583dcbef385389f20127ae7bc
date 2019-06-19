@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "d95bace7_ff169c5a",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-19T04:40:36Z",
+      "side": 1,
+      "message": "Maybe ConvexOutline? I also find naming difficult",
+      "parentUuid": "6acf3baf_89c3332e",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ff0fe70_ba8566e6",
         "filename": "ui/material/api/1.0.0-alpha01.txt",
         "patchSetId": 2
