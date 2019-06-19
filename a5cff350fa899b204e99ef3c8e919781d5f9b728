@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47ed8ab2_ce9f2c66",
+        "filename": "transition/src/androidTest/java/androidx/transition/ExplodeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-19T14:19:58Z",
+      "side": 1,
+      "message": "I like this better than the previous implementation.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 0
+      },
+      "revId": "a5cff350fa899b204e99ef3c8e919781d5f9b728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
