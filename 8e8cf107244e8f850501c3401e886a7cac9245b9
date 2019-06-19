@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c60a0d5_cd11f79b",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-19T01:49:35Z",
+      "side": 1,
+      "message": "@hide and leave a TODO comment to unhide it once 1.2.0-alpha is ready.",
+      "revId": "8e8cf107244e8f850501c3401e886a7cac9245b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
