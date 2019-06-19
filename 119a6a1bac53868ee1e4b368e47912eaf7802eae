@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "00eac2c4_e0fd3cd6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-19T12:42:21Z",
+      "side": 1,
+      "message": "Done, moved it out to static inner class as suggested earlier.",
+      "parentUuid": "d4c9aa39_0f661b05",
+      "range": {
+        "startLine": 254,
+        "startChar": 25,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90f9d02_932b443c",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
         "patchSetId": 9
@@ -272,6 +296,30 @@
       "writtenOn": "2019-06-17T23:02:10Z",
       "side": 1,
       "message": "Maybe we should rename this to \"appcontent\" and the class to \"ContentLoader\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 57,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2f3d44_dbbfdc51",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-19T12:42:21Z",
+      "side": 1,
+      "message": "Well I was advocating for changing the class name but I can\u0027t think of a good name to describe it.\n\nI\u0027m quoting Toby from the alpha release feedback email thread \"It already loads resources that are not assets, and files are \"assets\" in the english sense of the word, if not the Android sense\". \n\nContentLoader sounds like a good suggestion though. Is there is a possibility that it would be confused with Android\u0027s ContentProvider?",
+      "parentUuid": "b013cead_98ea6428",
       "range": {
         "startLine": 93,
         "startChar": 57,
@@ -601,6 +649,30 @@
       "writtenOn": "2019-06-17T23:02:10Z",
       "side": 1,
       "message": "In this model, the order of .register() calls matters, even if they all precede the first loadUrl() call. This may not be super intuitive to apps.\n\nMaybe we could call this \"appendPathHandler\", to make it clear newer PathHandlers have lower precedence. Or, accept a Map\u003cString,PathHandler\u003e, which would imply PathHandlers can do multiple things, and its up to each PathHandler to implement its own precedence.",
+      "range": {
+        "startLine": 343,
+        "startChar": 23,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9beea088_47f9b7a2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-19T12:42:21Z",
+      "side": 1,
+      "message": "sounds reasonable to me. but I think this will limit future implementation changes to always keep this behaviour (I\u0027m thinking of having a tree of path segments where we keep a list of handlers in each match node, then we match the longest path) which may still be affected by the order of registering paths but not similar to having a single list.",
+      "parentUuid": "47a19fad_3e689f43",
       "range": {
         "startLine": 343,
         "startChar": 23,

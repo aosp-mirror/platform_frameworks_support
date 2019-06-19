@@ -70,6 +70,30 @@
       "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02d7ccac_2a361fc9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-06-19T12:42:21Z",
+      "side": 0,
+      "message": "Yes! developers should do something like this, do you think it should be added to docs somewhere?\n\nHowever, I think there is no need for a domain getter method. If developers don\u0027t set the domain themselves, they can use the constant KNOWN_UNUSED_AUTHORITY directly, other than that they should know what domain is used.",
+      "parentUuid": "eff140ac_d048a035",
+      "range": {
+        "startLine": 482,
+        "startChar": 15,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
