@@ -17,9 +17,14 @@ package androidx.ui.core
 
 import androidx.compose.composer
 import androidx.compose.Composable
+import androidx.compose.ambient
+import androidx.compose.unaryPlus
 import androidx.ui.core.input.TextInputClient
+import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
 import androidx.ui.input.EditorState
+import androidx.ui.painting.TextPainter
+import androidx.ui.painting.TextSpan
 import androidx.ui.painting.TextStyle
 
 /**
@@ -62,11 +67,11 @@ fun InputField(
     /** Initial editor state value */
     value: EditorState,
 
-    /** The editor style */
-    editorStyle: EditorStyle,
-
     /** Called when the InputMethodService update the editor state */
     onValueChange: (EditorState) -> Unit = {},
+
+    /** The editor style */
+    editorStyle: EditorStyle,
 
     /** Called when the InputMethod requested an editor action */
     onEditorActionPerformed: (Any) -> Unit = {}, // TODO(nona): Define argument type
@@ -74,28 +79,32 @@ fun InputField(
     /** Called when the InputMethod forwarded a key event */
     onKeyEventForwarded: (Any) -> Unit = {} // TODO(nona): Define argument type
 ) {
+    val style = +ambient(CurrentTextStyleAmbient)
+    val mergedStyle = style.merge(editorStyle.textStyle)
+
     TextInputClient(
         editorState = value,
         onEditorStateChange = onValueChange,
         onEditorActionPerformed = onEditorActionPerformed,
         onKeyEventForwarded = onKeyEventForwarded
     ) {
-        val text = value.text
-        val composition = value.composition
-        Text {
-            Span(style = editorStyle.textStyle) {
-                // TODO(nona): Implement selection highlight
-                if (composition != null) {
-                    Span(text = text.substring(TextRange(0, composition.start)))
-                    Span(
-                        text = text.substring(composition),
-                        style = TextStyle(background = editorStyle.compositionColor)
-                    )
-                    Span(text = text.substring(composition.end))
-                } else {
-                    Span(text = text)
+        val textPainter = TextPainter(
+            text = TextSpan(style = mergedStyle, text = value.text)
+        )
+
+        Layout(
+            children = @Composable {
+                Draw { canvas, _ ->
+                    // TODO(nona): Draw Selection
+                    // TODO(nona): Draw Composition
+                    // TODO(nona): Draw and blink cursor
+                    textPainter.paint(canvas, Offset.zero)
                 }
+            },
+            layoutBlock = { _, constraints ->
+                textPainter.layout(constraints)
+                layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
             }
-        }
+        )
     }
 }
