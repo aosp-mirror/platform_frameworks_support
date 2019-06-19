@@ -140,6 +140,76 @@
       "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97e3324b_71abb24d",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-19T01:06:49Z",
+      "side": 1,
+      "message": "I\u0027m not a huge fan of this frequent type check either. It\u0027d be great to eliminate the need to do this from an architecture perspective.",
+      "parentUuid": "c9baa4e2_1cebf67b",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7438358_48242d2d",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-19T01:06:49Z",
+      "side": 1,
+      "message": "I\u0027d cache this outside of the recursion. Type checking is expensive.",
+      "range": {
+        "startLine": 168,
+        "startChar": 20,
+        "endLine": 168,
+        "endChar": 39
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3e34cf_d2d905c7",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-19T01:06:49Z",
+      "side": 1,
+      "message": "This should probably be extracted into a separate function that does a union of two nullable rects.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
