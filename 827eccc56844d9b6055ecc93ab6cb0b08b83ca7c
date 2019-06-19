@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "df0ef90a_8cc7838e",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T03:54:56Z",
+      "side": 1,
+      "message": "Thanks, forgot to revert a local experiment",
+      "parentUuid": "6f39537d_57f0e6b4",
+      "revId": "827eccc56844d9b6055ecc93ab6cb0b08b83ca7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d15d939_6a844878",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "827eccc56844d9b6055ecc93ab6cb0b08b83ca7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708a80f6_5b47278e",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T03:54:56Z",
+      "side": 1,
+      "message": "I think this one will only have a single idlingresource, although I figured other activities might need more. Reverted to a single one for now, since varargs makes it pretty convenient to switch in the future.",
+      "parentUuid": "8d15d939_6a844878",
+      "revId": "827eccc56844d9b6055ecc93ab6cb0b08b83ca7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
