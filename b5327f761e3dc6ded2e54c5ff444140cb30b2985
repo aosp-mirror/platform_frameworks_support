@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c88f22f_b3fa3666",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-19T17:41:26Z",
+      "side": 1,
+      "message": "nit: Lets move the utility methods back down to the bottom. There isn\u0027t a reason to move it up.",
+      "revId": "b5327f761e3dc6ded2e54c5ff444140cb30b2985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
