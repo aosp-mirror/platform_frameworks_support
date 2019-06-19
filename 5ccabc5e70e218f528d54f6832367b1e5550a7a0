@@ -306,6 +306,30 @@
       "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb5eb637_be60876e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-06-19T21:28:07Z",
+      "side": 1,
+      "message": "It would help clarify what\u0027s going on in the code that I highlighted. I\u0027d do a utility function:\n\nprivate fun union(a: Rect?, b: Rect?) : Rect? {// null checks can happen in here...}\n\nIt would make this block of code easier to read for me. But of course that\u0027s up to you.",
+      "parentUuid": "c6db5d6b_a2913e65",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
