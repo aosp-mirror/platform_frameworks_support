@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f8f8663_7fc276f9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-19T18:02:33Z",
+      "side": 1,
+      "message": "On a related note, if someone makes a change only to projects that are in neither of the ui/ or buildSrc/ directories, does AffectedModuleDetector report that we want to build (and run) all of the tests in the ui/ directory? Is that something we want it to be doing? (My guess would be that it probably does and that we probably don\u0027t want it to)",
+      "revId": "e6b8850291ca9fdac88a129e9f9924bc59dde27c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
