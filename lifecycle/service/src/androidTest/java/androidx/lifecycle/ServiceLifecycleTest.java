@@ -35,10 +35,9 @@ import android.os.IBinder;
 import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.service.TestService;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -66,7 +65,7 @@ public class ServiceLifecycleTest {
 
     @Before
     public void setUp() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         mServiceIntent = new Intent(context, TestService.class);
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
         IntentFilter intentFilter = new IntentFilter();
@@ -82,7 +81,7 @@ public class ServiceLifecycleTest {
 
     @After
     public void tearDown() {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.unregisterReceiver(mLogger);
         mLogger = null;
@@ -91,7 +90,7 @@ public class ServiceLifecycleTest {
 
     @Test
     public void testUnboundedService() throws TimeoutException, InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         context.startService(mServiceIntent);
         awaitAndAssertEvents(ON_CREATE, ON_START);
         context.stopService(mServiceIntent);
@@ -102,13 +101,13 @@ public class ServiceLifecycleTest {
     public void testBoundedService() throws TimeoutException, InterruptedException {
         ServiceConnection connection = bindToService();
         awaitAndAssertEvents(ON_CREATE, ON_START);
-        ApplicationProvider.getApplicationContext().unbindService(connection);
+        InstrumentationRegistry.getTargetContext().unbindService(connection);
         awaitAndAssertEvents(ON_CREATE, ON_START, ON_STOP, ON_DESTROY);
     }
 
     @Test
     public void testStartBindUnbindStop() throws InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         context.startService(mServiceIntent);
         awaitAndAssertEvents(ON_CREATE, ON_START);
 
@@ -130,7 +129,7 @@ public class ServiceLifecycleTest {
 
     @Test
     public void testStartBindStopUnbind() throws InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         context.startService(mServiceIntent);
         awaitAndAssertEvents(ON_CREATE, ON_START);
 
@@ -153,7 +152,7 @@ public class ServiceLifecycleTest {
 
     @Test
     public void testBindStartUnbindStop() throws InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         ServiceConnection connection = bindToService();
         awaitAndAssertEvents(ON_CREATE, ON_START);
 
@@ -177,7 +176,7 @@ public class ServiceLifecycleTest {
 
     @Test
     public void testBindStartStopUnbind() throws InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         ServiceConnection connection = bindToService();
         awaitAndAssertEvents(ON_CREATE, ON_START);
 
@@ -200,7 +199,7 @@ public class ServiceLifecycleTest {
 
     // can't use ServiceTestRule because it proxies connection, so we can't use unbindService method
     private ServiceConnection bindToService() throws InterruptedException {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         final CountDownLatch latch = new CountDownLatch(1);
         ServiceConnection connection = new ServiceConnection() {
             @Override

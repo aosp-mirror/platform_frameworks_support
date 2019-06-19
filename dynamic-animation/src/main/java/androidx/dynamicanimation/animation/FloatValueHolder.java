@@ -36,7 +36,7 @@ package androidx.dynamicanimation.animation;
  * @see FlingAnimation#FlingAnimation(FloatValueHolder)
  */
 
-public class FloatValueHolder {
+public final class FloatValueHolder {
     private float mValue = 0.0f;
 
     /**

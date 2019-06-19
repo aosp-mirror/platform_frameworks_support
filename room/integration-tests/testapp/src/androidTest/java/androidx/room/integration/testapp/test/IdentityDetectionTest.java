@@ -19,6 +19,7 @@ package androidx.room.integration.testapp.test;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 import android.util.Log;
 
@@ -26,9 +27,9 @@ import androidx.room.Room;
 import androidx.room.integration.testapp.TestDatabase;
 import androidx.room.integration.testapp.vo.User;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +39,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class IdentityDetectionTest {
     static final String TAG = "IdentityDetectionTest";
     static final String DB_FILE_NAME = "identity_test_db";
@@ -86,9 +87,12 @@ public class IdentityDetectionTest {
         SupportSQLiteDatabase db = mTestDatabase.getOpenHelper().getWritableDatabase();
         db.execSQL("DROP TABLE " + Room.MASTER_TABLE_NAME);
         closeDb();
-
-        openDb();
-        mTestDatabase.getUserDao().loadByIds(3);
+        try {
+            openDb();
+            mTestDatabase.getUserDao().loadByIds(3);
+            fail("Was expecting an exception.");
+        } catch (IllegalStateException expected) {
+        }
     }
 
     private void closeDb() {
@@ -96,7 +100,7 @@ public class IdentityDetectionTest {
     }
 
     private void openDb() {
-        mTestDatabase = Room.databaseBuilder(ApplicationProvider.getApplicationContext(),
+        mTestDatabase = Room.databaseBuilder(InstrumentationRegistry.getTargetContext(),
                 TestDatabase.class, DB_FILE_NAME).build();
     }
 
@@ -114,7 +118,7 @@ public class IdentityDetectionTest {
     }
 
     private void deleteDbFile() {
-        File testDb = ApplicationProvider.getApplicationContext().getDatabasePath(DB_FILE_NAME);
+        File testDb = InstrumentationRegistry.getTargetContext().getDatabasePath(DB_FILE_NAME);
         testDb.delete();
     }
 }

@@ -84,10 +84,10 @@ public class CarDrawerController {
      * @param drawerLayout The top-level container for the window content that shows the
      *                     interactive drawer.
      * @param drawerToggle The {@link ActionBarDrawerToggle} that will open the drawer.
-     * {@link R.attr#drawerBackButtonId}
-     * {@link R.attr#drawerListId}
-     * {@link R.attr#drawerProgressId}
-     * {@link R.attr#drawerTitleId}
+     * @attr ref R.styleable#CarTheme_drawerBackButtonId
+     * @attr ref R.styleable#CarTheme_drawerListId
+     * @attr ref R.styleable#CarTheme_drawerProgressId
+     * @attr ref R.styleable#CarTheme_drawerTitleId
      */
     public CarDrawerController(@NonNull DrawerLayout drawerLayout,
             @NonNull ActionBarDrawerToggle drawerToggle) {
@@ -111,13 +111,13 @@ public class CarDrawerController {
                 theme.resolveAttribute(R.attr.drawerListId, outValue, true)
                         ? outValue.resourceId
                         : R.id.car_drawer_list);
-        mDrawerList.setMaxPages(PagedListView.UNLIMITED_PAGES);
+        mDrawerList.setMaxPages(PagedListView.ItemCap.UNLIMITED);
 
         View toolbar = drawerLayout.findViewById(
                 theme.resolveAttribute(R.attr.drawerToolbarId, outValue, true)
                         ? outValue.resourceId
                         : R.id.drawer_toolbar);
-        mDrawerList.addOnScrollListener(new DropShadowScrollListener(toolbar));
+        mDrawerList.setOnScrollListener(new DropShadowScrollListener(toolbar));
 
         @IdRes int backButtonId = theme.resolveAttribute(R.attr.drawerBackButtonId, outValue, true)
                 ? outValue.resourceId

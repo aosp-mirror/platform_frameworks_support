@@ -78,7 +78,7 @@ class XmlUtils {
                 val variableName = matcher.group(1)
                 val varValue = properties[variableName]
                 if (varValue == null) {
-                    Log.i("TAG", "Failed to resolve variable '%s'. Ignoring.", value)
+                    Log.e("TAG", "Failed to resolve variable '%s'", value)
                     return value
                 }
                 return varValue

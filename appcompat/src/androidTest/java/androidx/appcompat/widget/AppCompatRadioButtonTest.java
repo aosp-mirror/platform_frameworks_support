@@ -23,33 +23,38 @@ import static org.junit.Assert.assertTrue;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.ViewGroup;
 
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
 import androidx.appcompat.test.R;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.widget.CompoundButtonCompat;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Provides tests specific to {@link AppCompatRadioButton} class.
  */
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
-public class AppCompatRadioButtonTest extends AppCompatBaseViewTest<AppCompatRadioButtonActivity,
-        AppCompatRadioButton> {
+public class AppCompatRadioButtonTest {
 
-    public AppCompatRadioButtonTest() {
-        super(AppCompatRadioButtonActivity.class);
-    }
+    @Rule
+    public final ActivityTestRule<AppCompatRadioButtonActivity> mActivityTestRule =
+            new ActivityTestRule(AppCompatRadioButtonActivity.class);
+    private AppCompatRadioButtonActivity mActivity;
+    private ViewGroup mContainer;
 
-    @Override
-    protected boolean hasBackgroundByDefault() {
-        return true;
+    @Before
+    public void setUp() {
+        mActivity = mActivityTestRule.getActivity();
+        mContainer = mActivity.findViewById(R.id.container);
     }
 
     @Test
@@ -63,9 +68,9 @@ public class AppCompatRadioButtonTest extends AppCompatBaseViewTest<AppCompatRad
     @Test
     public void testDefaultButton_isAnimated() {
         // Given an ACRB with the theme's button drawable
-        final AppCompatRadioButton radio = mContainer.findViewById(
+        final AppCompatRadioButtonSpy radio = mContainer.findViewById(
                 R.id.radiobutton_button_compat);
-        final Drawable button = CompoundButtonCompat.getButtonDrawable(radio);
+        final Drawable button = radio.mButton;
 
         // Then this drawable should be an animated-selector
         assertTrue(button instanceof AnimatedStateListDrawableCompat
@@ -78,9 +83,9 @@ public class AppCompatRadioButtonTest extends AppCompatBaseViewTest<AppCompatRad
     @Test
     public void testNullCompatButton() {
         // Given an ACRB which specifies a null app:buttonCompat
-        final AppCompatRadioButton radio = mContainer.findViewById(
+        final AppCompatRadioButtonSpy radio = mContainer.findViewById(
                 R.id.radiobutton_null_button_compat);
-        final Drawable button = CompoundButtonCompat.getButtonDrawable(radio);
+        final Drawable button = radio.mButton;
         boolean isAnimated = button instanceof AnimatedStateListDrawableCompat;
 
         // Then the drawable should be present but not animated

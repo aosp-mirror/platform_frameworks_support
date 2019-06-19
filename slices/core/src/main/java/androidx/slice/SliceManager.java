@@ -64,7 +64,7 @@ public abstract class SliceManager {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public abstract @NonNull Set<SliceSpec> getPinnedSpecs(@NonNull Uri uri);
 
     /**

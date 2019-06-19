@@ -36,11 +36,10 @@ import androidx.lifecycle.testapp.NavigationDialogActivity;
 import androidx.lifecycle.testapp.NavigationTestActivityFirst;
 import androidx.lifecycle.testapp.NavigationTestActivitySecond;
 import androidx.lifecycle.testapp.NonSupportActivity;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -53,7 +52,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ProcessOwnerTest {
 
@@ -185,7 +184,7 @@ public class ProcessOwnerTest {
         };
         addProcessObserver(collectingObserver);
         events.clear();
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getContext();
         context.startActivity(new Intent(activity, NavigationDialogActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         waitTillResumed(dialogActivity, activityTestRule);

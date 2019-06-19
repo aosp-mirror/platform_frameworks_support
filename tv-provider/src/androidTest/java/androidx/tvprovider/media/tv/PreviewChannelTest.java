@@ -25,7 +25,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.tvprovider.media.tv.TvContractCompat.Channels;
@@ -61,12 +61,12 @@ public class PreviewChannelTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getContext();
     }
 
     @After
     public void tearDown() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
         ContentResolver resolver = mContext.getContentResolver();

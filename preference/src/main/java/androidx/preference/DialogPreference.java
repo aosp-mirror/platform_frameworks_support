@@ -22,8 +22,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
 
@@ -263,15 +261,12 @@ public abstract class DialogPreference extends Preference {
      */
     public interface TargetFragment {
         /**
-         * Finds a {@link Preference} with the given key. Returns {@code null} if no
-         * {@link Preference} could be found with the given key.
+         * Finds a {@link Preference} based on its key.
          *
-         * @param key The key of the {@link Preference} to retrieve
+         * @param key The key of the preference to retrieve
          * @return The {@link Preference} with the key, or {@code null}
          * @see PreferenceGroup#findPreference(CharSequence)
          */
-        @SuppressWarnings("TypeParameterUnusedInFormals")
-        @Nullable
-        <T extends Preference> T findPreference(@NonNull CharSequence key);
+        Preference findPreference(CharSequence key);
     }
 }

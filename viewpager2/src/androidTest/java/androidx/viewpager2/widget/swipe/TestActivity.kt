@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,33 +17,25 @@
 package androidx.viewpager2.widget.swipe
 
 import android.os.Bundle
-import androidx.testutils.LocaleTestUtils
-import androidx.testutils.RecreatedAppCompatActivity
+import androidx.testutils.RecreatedActivity
 import androidx.viewpager2.test.R
+import androidx.viewpager2.widget.AdapterProvider
+import androidx.viewpager2.widget.ViewPager2
 
-class TestActivity : RecreatedAppCompatActivity(R.layout.activity_test_layout) {
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        if (intent?.hasExtra(EXTRA_LANGUAGE) == true) {
-            LocaleTestUtils(this).setLocale(intent.getStringExtra(EXTRA_LANGUAGE)!!)
+class TestActivity : RecreatedActivity() {
+    public override fun onCreate(bundle: Bundle?) {
+        super.onCreate(bundle)
+
+        setContentView(R.layout.activity_test_layout)
+
+        /** hacky way of setting an adapter before [TestActivity.onRestoreInstanceState] fires */
+        if (adapterProvider != null) {
+            findViewById<ViewPager2>(R.id.view_pager).adapter = adapterProvider!!(this)
         }
-        super.onCreate(savedInstanceState)
-
-        /** hacky way of configuring this instance from test code */
-        onCreateCallback(this)
-
-        // disable enter animation.
-        overridePendingTransition(0, 0)
-    }
-
-    override fun finish() {
-        super.finish()
-
-        // disable exit animation
-        overridePendingTransition(0, 0)
     }
 
     companion object {
-        var onCreateCallback: ((TestActivity) -> Unit) = { }
-        const val EXTRA_LANGUAGE = "language"
+        @JvmStatic
+        var adapterProvider: AdapterProvider? = null
     }
 }

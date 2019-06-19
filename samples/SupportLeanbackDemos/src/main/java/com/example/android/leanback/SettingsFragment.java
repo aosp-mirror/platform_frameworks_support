@@ -19,18 +19,17 @@ package com.example.android.leanback;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.leanback.preference.LeanbackPreferenceFragmentCompat;
-import androidx.leanback.preference.LeanbackSettingsFragmentCompat;
+import androidx.leanback.preference.LeanbackPreferenceFragment;
+import androidx.leanback.preference.LeanbackSettingsFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import java.util.Arrays;
 
 
 
-public class SettingsFragment extends LeanbackSettingsFragmentCompat {
+public class SettingsFragment extends LeanbackSettingsFragment {
 
 
     private static final int sPreferenceResId = R.xml.prefs;
@@ -41,30 +40,30 @@ public class SettingsFragment extends LeanbackSettingsFragmentCompat {
     }
 
     @Override
-    public boolean onPreferenceStartFragment(PreferenceFragmentCompat preferenceFragment,
+    public boolean onPreferenceStartFragment(PreferenceFragment preferenceFragment,
                                              Preference preference) {
         return false;
     }
 
     @Override
-    public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragment,
+    public boolean onPreferenceStartScreen(PreferenceFragment preferenceFragment,
                                            PreferenceScreen preferenceScreen) {
-        PreferenceFragmentCompat frag = buildPreferenceFragment(preferenceScreen.getKey());
+        PreferenceFragment frag = buildPreferenceFragment(preferenceScreen.getKey());
         frag.setTargetFragment(preferenceFragment, 0);
         startPreferenceFragment(frag);
         return true;
     }
 
 
-    private PreferenceFragmentCompat buildPreferenceFragment(String rootKey) {
-        PreferenceFragmentCompat fragment = new PrefFragment();
+    private PreferenceFragment buildPreferenceFragment(String rootKey) {
+        PreferenceFragment fragment = new PrefFragment();
         Bundle args = new Bundle();
         args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, rootKey);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static class PrefFragment extends LeanbackPreferenceFragmentCompat {
+    public static class PrefFragment extends LeanbackPreferenceFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

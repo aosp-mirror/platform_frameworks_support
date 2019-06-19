@@ -16,13 +16,13 @@
 
 package androidx.work.impl.model;
 
-import static androidx.room.OnConflictStrategy.REPLACE;
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * A Data Access Object for {@link SystemIdInfo}.

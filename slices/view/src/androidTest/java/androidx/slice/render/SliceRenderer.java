@@ -19,11 +19,13 @@ package androidx.slice.render;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -47,7 +49,6 @@ import java.io.FileOutputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @RequiresApi(19)
 public class SliceRenderer {
@@ -67,8 +68,10 @@ public class SliceRenderer {
     private final SliceView mSV2;
     private final SliceView mSV3;
     private final ViewGroup mParent;
+    private final Handler mHandler;
     private final SampleSliceProvider mSliceCreator;
     private CountDownLatch mDoneLatch;
+    private ProgressDialog mDialog;
 
     public SliceRenderer(Activity context) {
         mContext = context;
@@ -97,6 +100,7 @@ public class SliceRenderer {
         mSV3 = mLayout.findViewById(R.id.sv3);
         mSV3.setMode(SliceView.MODE_LARGE);
         disableAnims(mLayout);
+        mHandler = new Handler();
         ((ViewGroup) mContext.getWindow().getDecorView()).addView(mParent);
         mParent.addView(mLayout);
         mSliceCreator = new SampleSliceProvider();
@@ -115,7 +119,8 @@ public class SliceRenderer {
         }
     }
 
-    public File getScreenshotDirectory() {
+
+    private File getScreenshotDirectory() {
         if (sScreenshotDirectory == null) {
             File storage = mContext.getFilesDir();
             sScreenshotDirectory = new File(storage, SCREENSHOT_DIR);
@@ -130,14 +135,14 @@ public class SliceRenderer {
     }
 
 
-    public boolean doRender(long timeout, TimeUnit unit) {
+    private void doRender() {
         final File output = getScreenshotDirectory();
         if (!output.exists()) {
             output.mkdir();
         }
         mDoneLatch = new CountDownLatch(SampleSliceProvider.URI_PATHS.length * 4 + 1);
 
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_CONCURRENT);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
         for (final String slice : SampleSliceProvider.URI_PATHS) {
             SliceProvider.setSpecs(SliceLiveData.SUPPORTED_SPECS);
             final Slice s = mSliceCreator.onBindSlice(SampleSliceProvider.getUri(slice, mContext));
@@ -197,10 +202,8 @@ public class SliceRenderer {
                 });
             }
         }
-
-        boolean result = false;
         try {
-            result = mDoneLatch.await(timeout, unit);
+            mDoneLatch.await();
         } catch (InterruptedException e) {
         }
         Log.d(TAG, "Wrote render to " + output.getAbsolutePath());
@@ -210,7 +213,6 @@ public class SliceRenderer {
                 ((ViewGroup) mParent.getParent()).removeView(mParent);
             }
         });
-        return result;
     }
 
     private Slice serAndUnSer(Slice s) {
@@ -309,5 +311,28 @@ public class SliceRenderer {
         b.recycle();
         mDoneLatch.countDown();
         Log.d(TAG, "Done " + slice);
+    }
+
+    public void renderAll(final Runnable runnable) {
+        mDialog = ProgressDialog.show(mContext, null, "Rendering...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                doRender();
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDialog.dismiss();
+                        runnable.run();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void dismissDialog() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.cancel();
+        }
     }
 }

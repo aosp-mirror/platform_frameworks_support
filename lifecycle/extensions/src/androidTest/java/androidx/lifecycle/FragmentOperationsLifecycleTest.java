@@ -28,15 +28,14 @@ import static org.hamcrest.Matchers.is;
 
 import static java.util.Arrays.asList;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.activity.EmptyActivity;
 import androidx.lifecycle.extensions.test.R;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,7 +44,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class FragmentOperationsLifecycleTest {
 
@@ -103,11 +102,11 @@ public class FragmentOperationsLifecycleTest {
         return observer;
     }
 
-    private static class CollectingObserver implements LifecycleEventObserver {
+    private static class CollectingObserver implements LifecycleObserver {
         final List<Lifecycle.Event> mCollectedEvents = new ArrayList<>();
 
-        @Override
-        public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+        @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+        public void anyEvent(LifecycleOwner owner, Lifecycle.Event event) {
             mCollectedEvents.add(event);
         }
 

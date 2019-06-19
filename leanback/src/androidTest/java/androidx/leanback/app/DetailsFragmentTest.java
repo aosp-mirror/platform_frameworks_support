@@ -50,9 +50,9 @@ import androidx.leanback.widget.DetailsParallaxDrawable;
 import androidx.leanback.widget.ParallaxTarget;
 import androidx.leanback.widget.RecyclerViewParallax;
 import androidx.leanback.widget.VerticalGridView;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -1034,7 +1034,7 @@ public class DetailsFragmentTest extends SingleFragmentTestBase {
 
         // before any details row is presented, pressing BACK will quit the activity
         sendKeys(KeyEvent.KEYCODE_BACK);
-        PollingCheck.waitFor(4000, new PollingCheck.ActivityStop(activity));
+        PollingCheck.waitFor(4000, new PollingCheck.ActivityDestroy(activity));
     }
 
     public static class DetailsFragmentSwitchToVideoAndPrepareEntranceTransition
@@ -1209,7 +1209,7 @@ public class DetailsFragmentTest extends SingleFragmentTestBase {
         });
         SystemClock.sleep(100);
         activity.finish();
-        PollingCheck.waitFor(new PollingCheck.ActivityStop(activity));
+        PollingCheck.waitFor(new PollingCheck.ActivityDestroy(activity));
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {

@@ -70,13 +70,11 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaControllerCompat.TransportControls;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.media.test.lib.CustomParcelable;
 
 public class ClientBroadcastReceiver extends BroadcastReceiver {
-    private static final String TAG = "ClientBroadcastReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -90,7 +88,6 @@ public class ClientBroadcastReceiver extends BroadcastReceiver {
             return;
         }
         int method = extras.getInt(KEY_METHOD_ID, 0);
-        Log.d(TAG, "action=" + intent.getAction() + ", method=" + method);
 
         if (ACTION_CALL_MEDIA_CONTROLLER_METHOD.equals(intent.getAction()) && extras != null) {
             Bundle arguments;

@@ -6,8 +6,6 @@ plugins {
 dependencies {
     implementation(project(":transition"))
     implementation(project(":appcompat"))
-    implementation(project(":recyclerview"))
-    implementation(project(":interpolator"))
 }
 
 android {

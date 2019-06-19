@@ -90,9 +90,8 @@ class TileList<T> {
         Tile<T> mNext;  // Used only for pooling recycled tiles.
 
         public Tile(Class<T> klass, int size) {
-            @SuppressWarnings("unchecked")
-            T[] items = (T[]) Array.newInstance(klass, size);
-            mItems = items;
+            //noinspection unchecked
+            mItems = (T[]) Array.newInstance(klass, size);
         }
 
         boolean containsPosition(int pos) {

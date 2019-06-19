@@ -16,13 +16,11 @@
 
 package androidx.work;
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 import androidx.work.impl.WorkDatabase;
 
 import org.junit.After;
 import org.junit.Before;
-
-import java.util.concurrent.Executors;
 
 /**
  * An abstract class for getting an in-memory instance of the {@link WorkDatabase}.
@@ -32,10 +30,7 @@ public abstract class DatabaseTest extends WorkManagerTest {
 
     @Before
     public void initializeDb() {
-        mDatabase = WorkDatabase.create(
-                ApplicationProvider.getApplicationContext(),
-                Executors.newCachedThreadPool(),
-                true);
+        mDatabase = WorkDatabase.create(InstrumentationRegistry.getTargetContext(), true);
     }
 
     @After

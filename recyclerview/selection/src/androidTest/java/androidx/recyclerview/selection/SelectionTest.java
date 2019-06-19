@@ -20,18 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
@@ -61,49 +58,6 @@ public class SelectionTest {
         assertContains(mIds[0]);
         assertContains(mIds[1]);
         assertContains(mIds[2]);
-    }
-
-    @Test
-    public void testSelectionOrder_Primary() {
-        // We added in setUp.
-        mSelection.clear();
-        mSelection.add("a");
-        mSelection.add("b");
-        mSelection.add("c");
-
-        List<String> elements = new ArrayList<>();
-        for (String key : mSelection) {
-            elements.add(key);
-        }
-        assertEquals("a", elements.get(0));
-        assertEquals("b", elements.get(1));
-        assertEquals("c", elements.get(2));
-    }
-
-    @Test
-    public void testSelectionOrder_Provisional() {
-        // We added in setUp.
-        mSelection.clear();
-        mSelection.add("a");
-        mSelection.add("b");
-        mSelection.add("c");
-
-        Set<String> provisionalSelection = new LinkedHashSet<>();
-        provisionalSelection.add("z");
-        provisionalSelection.add("y");
-        provisionalSelection.add("a");
-        mSelection.setProvisionalSelection(provisionalSelection);
-        mSelection.mergeProvisionalSelection();
-
-        List<String> elements = new ArrayList<>();
-        for (String key : mSelection) {
-            elements.add(key);
-        }
-        assertEquals("a", elements.get(0));
-        assertEquals("b", elements.get(1));
-        assertEquals("c", elements.get(2));
-        assertEquals("z", elements.get(3));
-        assertEquals("y", elements.get(4));
     }
 
     @Test

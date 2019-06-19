@@ -41,7 +41,6 @@ import static android.support.mediacompat.testlib.MediaControllerConstants.SEND_
 import static android.support.mediacompat.testlib.MediaControllerConstants
         .SEND_CUSTOM_ACTION_PARCELABLE;
 import static android.support.mediacompat.testlib.MediaControllerConstants.SET_CAPTIONING_ENABLED;
-import static android.support.mediacompat.testlib.MediaControllerConstants.SET_PLAYBACK_SPEED;
 import static android.support.mediacompat.testlib.MediaControllerConstants.SET_RATING;
 import static android.support.mediacompat.testlib.MediaControllerConstants.SET_REPEAT_MODE;
 import static android.support.mediacompat.testlib.MediaControllerConstants.SET_SHUFFLE_MODE;
@@ -71,13 +70,11 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaControllerCompat.TransportControls;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.media.test.lib.CustomParcelable;
 
 public class ClientBroadcastReceiver extends BroadcastReceiver {
-    private static final String TAG = "ClientBroadcastReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -91,7 +88,6 @@ public class ClientBroadcastReceiver extends BroadcastReceiver {
             return;
         }
         int method = extras.getInt(KEY_METHOD_ID, 0);
-        Log.d(TAG, "action=" + intent.getAction() + ", method=" + method);
 
         if (ACTION_CALL_MEDIA_CONTROLLER_METHOD.equals(intent.getAction()) && extras != null) {
             Bundle arguments;
@@ -234,9 +230,6 @@ public class ClientBroadcastReceiver extends BroadcastReceiver {
                     break;
                 case SET_SHUFFLE_MODE:
                     controls.setShuffleMode(extras.getInt(KEY_ARGUMENT));
-                    break;
-                case SET_PLAYBACK_SPEED:
-                    controls.setPlaybackSpeed(extras.getFloat(KEY_ARGUMENT));
                     break;
             }
         }

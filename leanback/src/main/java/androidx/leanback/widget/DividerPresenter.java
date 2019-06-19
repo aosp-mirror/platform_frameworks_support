@@ -13,7 +13,7 @@
  */
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +36,7 @@ public class DividerPresenter extends Presenter {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public DividerPresenter(int layoutResourceId) {
         mLayoutResourceId = layoutResourceId;
     }

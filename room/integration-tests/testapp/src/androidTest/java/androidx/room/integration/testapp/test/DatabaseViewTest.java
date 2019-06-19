@@ -19,7 +19,6 @@ package androidx.room.integration.testapp.test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.mock;
@@ -29,7 +28,6 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
-import androidx.arch.core.executor.testing.CountingTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Dao;
@@ -42,23 +40,17 @@ import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
-import androidx.room.Relation;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.Transaction;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseViewTest {
@@ -129,13 +121,6 @@ public class DatabaseViewTest {
         public Employee manager;
         @Embedded(prefix = "team_")
         public TeamDetail team;
-    }
-
-    static class TeamWithMembers {
-        @Embedded
-        public TeamDetail teamDetail;
-        @Relation(parentColumn = "id", entityColumn = "teamId")
-        public List<EmployeeWithManager> members;
     }
 
     @Entity(
@@ -209,10 +194,6 @@ public class DatabaseViewTest {
 
         @Query("SELECT * FROM TeamDetail")
         LiveData<List<TeamDetail>> liveDetail();
-
-        @Transaction
-        @Query("SELECT * FROM TeamDetail WHERE id = :id")
-        TeamWithMembers withMembers(long id);
     }
 
     @Dao
@@ -246,11 +227,8 @@ public class DatabaseViewTest {
         abstract EmployeeDao employee();
     }
 
-    @Rule
-    public CountingTaskExecutorRule executorRule = new CountingTaskExecutorRule();
-
     private CompanyDatabase getDatabase() {
-        final Context context = ApplicationProvider.getApplicationContext();
+        final Context context = InstrumentationRegistry.getTargetContext();
         return Room.inMemoryDatabaseBuilder(context, CompanyDatabase.class).build();
     }
 
@@ -286,7 +264,7 @@ public class DatabaseViewTest {
 
     @Test
     @MediumTest
-    public void liveData() throws TimeoutException, InterruptedException {
+    public void liveData() {
         final CompanyDatabase db = getDatabase();
         db.department().insert(new Department(1L, "Shop"));
         final LiveData<List<TeamDetail>> teams = db.team().liveDetail();
@@ -295,14 +273,13 @@ public class DatabaseViewTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() ->
                 teams.observeForever(observer));
         db.team().insert(new Team(1L, 1L, "Books"));
-        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat((list) ->
                 list.size() == 1
                         && list.get(0).departmentName.equals("Shop")
                         && list.get(0).name.equals("Books")));
-        resetMock(observer);
+        //noinspection unchecked
+        reset(observer);
         db.department().rename(1L, "Sales");
-        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat((list) ->
                 list.size() == 1
                         && list.get(0).departmentName.equals("Sales")
@@ -329,7 +306,7 @@ public class DatabaseViewTest {
 
     @Test
     @MediumTest
-    public void nestedLive() throws TimeoutException, InterruptedException {
+    public void nestedLive() {
         final CompanyDatabase db = getDatabase();
         final LiveData<EmployeeDetail> employee = db.employee().liveDetailById(2L);
         @SuppressWarnings("unchecked") final Observer<EmployeeDetail> observer =
@@ -341,7 +318,6 @@ public class DatabaseViewTest {
         db.team().insert(new Team(1L, 1L, "Books"));
         db.employee().insert(new Employee(1L, "CEO", null, 1L));
         db.employee().insert(new Employee(2L, "Jane", 1L, 1L));
-        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
 
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat(e ->
                 e != null
@@ -350,14 +326,14 @@ public class DatabaseViewTest {
                         && e.team.name.equals("Books")
                         && e.team.departmentName.equals("Shop")));
 
-        resetMock(observer);
+        //noinspection unchecked
+        reset(observer);
         db.runInTransaction(() -> {
             db.department().rename(1L, "Sales");
             db.employee().insert(new Employee(3L, "John", 1L, 1L));
             db.employee().updateReport(2L, 3L);
         });
 
-        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat(e ->
                 e != null
                         && e.name.equals("Jane")
@@ -367,28 +343,5 @@ public class DatabaseViewTest {
 
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() ->
                 employee.removeObserver(observer));
-    }
-
-    @Test
-    @MediumTest
-    public void viewInRelation() {
-        final CompanyDatabase db = getDatabase();
-        db.department().insert(new Department(1L, "Shop"));
-        db.team().insert(new Team(1L, 1L, "Books"));
-        db.employee().insert(new Employee(1L, "CEO", null, 1L));
-        db.employee().insert(new Employee(2L, "John", 1L, 1L));
-
-        TeamWithMembers teamWithMembers = db.team().withMembers(1L);
-        assertThat(teamWithMembers.teamDetail.name, is(equalTo("Books")));
-        assertThat(teamWithMembers.teamDetail.departmentName, is(equalTo("Shop")));
-        assertThat(teamWithMembers.members, hasSize(2));
-        assertThat(teamWithMembers.members.get(0).name, is(equalTo("CEO")));
-        assertThat(teamWithMembers.members.get(1).name, is(equalTo("John")));
-        assertThat(teamWithMembers.members.get(1).manager.name, is(equalTo("CEO")));
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T> void resetMock(T mock) {
-        reset(mock);
     }
 }

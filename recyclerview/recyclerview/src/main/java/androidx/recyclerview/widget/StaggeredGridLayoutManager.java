@@ -17,8 +17,8 @@
 package androidx.recyclerview.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -1289,11 +1289,13 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         if (mOrientation == HORIZONTAL) {
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1,
-                    -1, -1, false, false));
+                    -1, -1,
+                    sglp.mFullSpan, false));
         } else { // VERTICAL
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     -1, -1,
-                    sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1, false, false));
+                    sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1,
+                    sglp.mFullSpan, false));
         }
     }
 
@@ -3069,7 +3071,6 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         /**
          * We keep information about full span items because they may create gaps in the UI.
          */
-        @SuppressLint("BanParcelableUsage")
         static class FullSpanItem implements Parcelable {
 
             int mPosition;
@@ -3144,8 +3145,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY)
-    @SuppressLint("BanParcelableUsage")
+    @RestrictTo(LIBRARY_GROUP)
     public static class SavedState implements Parcelable {
 
         int mAnchorPosition;
@@ -3179,10 +3179,9 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
             mReverseLayout = in.readInt() == 1;
             mAnchorLayoutFromEnd = in.readInt() == 1;
             mLastLayoutRTL = in.readInt() == 1;
-            @SuppressWarnings("unchecked")
-            List<LazySpanLookup.FullSpanItem> fullSpanItems =
-                    in.readArrayList(LazySpanLookup.FullSpanItem.class.getClassLoader());
-            mFullSpanItems = fullSpanItems;
+            //noinspection unchecked
+            mFullSpanItems = in.readArrayList(
+                    LazySpanLookup.FullSpanItem.class.getClassLoader());
         }
 
         public SavedState(SavedState other) {

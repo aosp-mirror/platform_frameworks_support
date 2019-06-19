@@ -16,7 +16,6 @@
 
 package androidx.textclassifier;
 
-
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;

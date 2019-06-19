@@ -44,9 +44,9 @@ import androidx.appcompat.testutils.BaseTestActivity;
 import androidx.appcompat.testutils.TestUtils;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -60,7 +60,6 @@ import org.junit.runner.RunWith;
  * base view class (such as <code>AppCompatTextView</code>'s all-caps support).
  */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
 public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extends View> {
     @Rule
     public final ActivityTestRule<A> mActivityTestRule;
@@ -102,6 +101,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * tintable view has no background.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingWithNoBackground() {
         if (hasBackgroundByDefault()) {
             return;
@@ -145,6 +145,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * tintable view has no background.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingViewCompatWithNoBackground() {
         if (hasBackgroundByDefault()) {
             return;
@@ -188,6 +189,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * background tint lists on the same background.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingAcrossStateChange() {
         final @IdRes int viewId = R.id.view_tinted_background;
         final T view = (T) mContainer.findViewById(viewId);
@@ -268,6 +270,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * background tint lists on the same background.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingViewCompatAcrossStateChange() {
         final @IdRes int viewId = R.id.view_tinted_background;
         final T view = (T) mContainer.findViewById(viewId);
@@ -349,6 +352,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * background tinting mode.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingAcrossModeChange() {
         final @IdRes int viewId = R.id.view_untinted_background;
         final T view = (T) mContainer.findViewById(viewId);
@@ -417,6 +421,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * background tinting mode.
      */
     @Test
+    @SmallTest
     public void testBackgroundTintingViewCompatAcrossModeChange() {
         final @IdRes int viewId = R.id.view_untinted_background;
         final T view = (T) mContainer.findViewById(viewId);
@@ -484,6 +489,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * is applied correctly after changing the background itself of the view.
      */
     @Test
+    @SmallTest
     public void testBackgroundOpaqueTintingAcrossBackgroundChange() {
         final @IdRes int viewId = R.id.view_tinted_no_background;
         final T view = (T) mContainer.findViewById(viewId);
@@ -542,6 +548,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
      * is applied correctly after changing the background itself of the view.
      */
     @Test
+    @SmallTest
     public void testBackgroundTranslucentTintingAcrossBackgroundChange() {
         final @IdRes int viewId = R.id.view_untinted_no_background;
         final T view = (T) mContainer.findViewById(viewId);

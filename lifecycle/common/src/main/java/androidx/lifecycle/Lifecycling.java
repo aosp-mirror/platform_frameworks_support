@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Lifecycling {
 
     private static final int REFLECTIVE_CALLBACK = 1;
@@ -43,40 +43,14 @@ public class Lifecycling {
     private static Map<Class, List<Constructor<? extends GeneratedAdapter>>> sClassToAdapters =
             new HashMap<>();
 
-    // Left for binary compatibility when lifecycle-common goes up 2.1 as transitive dep
-    // but lifecycle-runtime stays 2.0
-
-    /**
-     * @deprecated Left for compatibility with lifecycle-runtime:2.0
-     */
-    @SuppressWarnings("deprecation")
-    @Deprecated
     @NonNull
-    static GenericLifecycleObserver getCallback(final Object object) {
-        final LifecycleEventObserver observer = lifecycleEventObserver(object);
-        return new GenericLifecycleObserver() {
-            @Override
-            public void onStateChanged(@NonNull LifecycleOwner source,
-                    @NonNull Lifecycle.Event event) {
-                observer.onStateChanged(source, event);
-            }
-        };
-    }
-
-    @NonNull
-    static LifecycleEventObserver lifecycleEventObserver(Object object) {
-        boolean isLifecycleEventObserver = object instanceof LifecycleEventObserver;
-        boolean isDefaultLifecycleObserver = object instanceof DefaultLifecycleObserver;
-        if (isLifecycleEventObserver && isDefaultLifecycleObserver) {
-            return new DefaultLifecycleObserverAdapter((DefaultLifecycleObserver) object,
-                    (LifecycleEventObserver) object);
-        }
-        if (isDefaultLifecycleObserver) {
-            return new DefaultLifecycleObserverAdapter((DefaultLifecycleObserver) object, null);
+    static GenericLifecycleObserver getCallback(Object object) {
+        if (object instanceof FullLifecycleObserver) {
+            return new FullLifecycleObserverAdapter((FullLifecycleObserver) object);
         }
 
-        if (isLifecycleEventObserver) {
-            return (LifecycleEventObserver) object;
+        if (object instanceof GenericLifecycleObserver) {
+            return (GenericLifecycleObserver) object;
         }
 
         final Class<?> klass = object.getClass();

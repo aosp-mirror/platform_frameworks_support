@@ -20,7 +20,6 @@ import COMMON
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
 import androidx.room.Entity
-import androidx.room.ext.GuavaUtilConcurrentTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.PagingTypeNames
@@ -37,8 +36,6 @@ import androidx.room.solver.binderprovider.DataSourceQueryResultBinderProvider
 import androidx.room.solver.binderprovider.LiveDataQueryResultBinderProvider
 import androidx.room.solver.binderprovider.RxFlowableQueryResultBinderProvider
 import androidx.room.solver.binderprovider.RxObservableQueryResultBinderProvider
-import androidx.room.solver.shortcut.binderprovider.GuavaListenableFutureDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.GuavaListenableFutureInsertMethodBinderProvider
 import androidx.room.solver.shortcut.binderprovider.RxCompletableDeleteOrUpdateMethodBinderProvider
 import androidx.room.solver.shortcut.binderprovider.RxCompletableInsertMethodBinderProvider
 import androidx.room.solver.shortcut.binderprovider.RxMaybeDeleteOrUpdateMethodBinderProvider
@@ -116,7 +113,7 @@ class TypeAdapterStoreTest {
             assertThat(adapter, instanceOf(CompositeAdapter::class.java))
             val bindScope = testCodeGenScope()
             adapter!!.bindToStmt("stmt", "41", "fooVar", bindScope)
-            assertThat(bindScope.generate().toString().trim(), `is`("""
+            assertThat(bindScope.generate().trim(), `is`("""
                     final int ${tmp(0)};
                     ${tmp(0)} = fooVar ? 1 : 0;
                     stmt.bindLong(41, ${tmp(0)});
@@ -124,7 +121,7 @@ class TypeAdapterStoreTest {
 
             val cursorScope = testCodeGenScope()
             adapter.readFromCursor("res", "curs", "7", cursorScope)
-            assertThat(cursorScope.generate().toString().trim(), `is`("""
+            assertThat(cursorScope.generate().trim(), `is`("""
                     final int ${tmp(0)};
                     ${tmp(0)} = curs.getInt(7);
                     res = ${tmp(0)} != 0;
@@ -145,7 +142,7 @@ class TypeAdapterStoreTest {
 
             val bindScope = testCodeGenScope()
             adapter!!.bindToStmt("stmt", "41", "fooVar", bindScope)
-            assertThat(bindScope.generate().toString().trim(), `is`("""
+            assertThat(bindScope.generate().trim(), `is`("""
                     final int ${tmp(0)};
                     final boolean ${tmp(1)};
                     ${tmp(1)} = foo.bar.Point.toBoolean(fooVar);
@@ -155,7 +152,7 @@ class TypeAdapterStoreTest {
 
             val cursorScope = testCodeGenScope()
             adapter.readFromCursor("res", "curs", "11", cursorScope).toString()
-            assertThat(cursorScope.generate().toString().trim(), `is`("""
+            assertThat(cursorScope.generate().trim(), `is`("""
                     final int ${tmp(0)};
                     ${tmp(0)} = curs.getInt(11);
                     final boolean ${tmp(1)};
@@ -176,7 +173,7 @@ class TypeAdapterStoreTest {
             assertThat(adapter?.typeMirror(), `is`(tDate))
             val bindScope = testCodeGenScope()
             adapter!!.readFromCursor("outDate", "curs", "0", bindScope)
-            assertThat(bindScope.generate().toString().trim(), `is`("""
+            assertThat(bindScope.generate().trim(), `is`("""
                 final java.lang.Long _tmp;
                 if (curs.isNull(0)) {
                   _tmp = null;
@@ -200,7 +197,7 @@ class TypeAdapterStoreTest {
 
             val bindScope = testCodeGenScope()
             adapter!!.bindToStmt("stmt", "41", "fooVar", bindScope)
-            assertThat(bindScope.generate().toString().trim(), `is`("""
+            assertThat(bindScope.generate().trim(), `is`("""
                 final java.lang.String ${tmp(0)};
                 ${tmp(0)} = androidx.room.util.StringUtil.joinIntoString(fooVar);
                 if (${tmp(0)} == null) {
@@ -319,18 +316,6 @@ class TypeAdapterStoreTest {
     }
 
     @Test
-    fun testFindInsertListenableFuture() {
-        simpleRun(jfos = *arrayOf(COMMON.LISTENABLE_FUTURE)) {
-                invocation ->
-            val future = invocation.processingEnv.elementUtils
-                .getTypeElement(GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
-            assertThat(future, notNullValue())
-            assertThat(GuavaListenableFutureInsertMethodBinderProvider(invocation.context).matches(
-                MoreTypes.asDeclared(future.asType())), `is`(true))
-        }.compilesWithoutError()
-    }
-
-    @Test
     fun testFindDeleteOrUpdateSingle() {
         simpleRun(jfos = *arrayOf(COMMON.SINGLE)) {
             invocation ->
@@ -363,18 +348,6 @@ class TypeAdapterStoreTest {
             assertThat(completable, notNullValue())
             assertThat(RxCompletableDeleteOrUpdateMethodBinderProvider(invocation.context).matches(
                     MoreTypes.asDeclared(completable.asType())), `is`(true))
-        }.compilesWithoutError()
-    }
-
-    @Test
-    fun testFindDeleteOrUpdateListenableFuture() {
-        simpleRun(jfos = *arrayOf(COMMON.LISTENABLE_FUTURE)) {
-                invocation ->
-            val future = invocation.processingEnv.elementUtils
-                .getTypeElement(GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
-            assertThat(future, notNullValue())
-            assertThat(GuavaListenableFutureDeleteOrUpdateMethodBinderProvider(invocation.context)
-                .matches(MoreTypes.asDeclared(future.asType())), `is`(true))
         }.compilesWithoutError()
     }
 

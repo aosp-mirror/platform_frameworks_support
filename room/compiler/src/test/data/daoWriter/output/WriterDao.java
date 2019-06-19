@@ -19,6 +19,7 @@ package foo.bar;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteStatement;
+
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -26,7 +27,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings({"unchecked", "deprecation"})
+@SuppressWarnings("unchecked")
 public final class WriterDao_Impl implements WriterDao {
     private final RoomDatabase __db;
 
@@ -99,8 +100,7 @@ public final class WriterDao_Impl implements WriterDao {
     }
 
     @Override
-    public void insertUser(final User user) {
-        __db.assertNotSuspendingTransaction();
+    public void insertUser(User user) {
         __db.beginTransaction();
         try {
             __insertionAdapterOfUser.insert(user);
@@ -111,8 +111,7 @@ public final class WriterDao_Impl implements WriterDao {
     }
 
     @Override
-    public void insertUsers(final User user1, final List<User> others) {
-        __db.assertNotSuspendingTransaction();
+    public void insertUsers(User user1, List<User> others) {
         __db.beginTransaction();
         try {
             __insertionAdapterOfUser.insert(user1);
@@ -124,8 +123,7 @@ public final class WriterDao_Impl implements WriterDao {
     }
 
     @Override
-    public void insertUsers(final User[] users) {
-        __db.assertNotSuspendingTransaction();
+    public void insertUsers(User[] users) {
         __db.beginTransaction();
         try {
             __insertionAdapterOfUser_1.insert(users);
@@ -136,8 +134,7 @@ public final class WriterDao_Impl implements WriterDao {
     }
 
     @Override
-    public void insertUserAndBook(final User user, final Book book) {
-        __db.assertNotSuspendingTransaction();
+    public void insertUserAndBook(User user, Book book) {
         __db.beginTransaction();
         try {
             __insertionAdapterOfUser.insert(user);

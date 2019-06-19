@@ -15,132 +15,120 @@
  */
 package androidx.work;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * A class that allows you to chain together {@link OneTimeWorkRequest}s.  WorkContinuations allow
- * the user to create arbitrary acyclic graphs of work dependencies.  You can add dependent work to
- * a WorkContinuation by invoking {@link #then(OneTimeWorkRequest)} or its variants.  This returns a
- * new WorkContinuation.
- * <p>
- * To construct more complex graphs, {@link WorkContinuation#combine(List)} or its
- * variants can be used to return a WorkContinuation with the input WorkContinuations as
- * prerequisites.  To create a graph like this:
- *
- * <pre>
- *     A       C
- *     |       |
- *     B       D
- *     |       |
- *     +-------+
- *         |
- *         E    </pre>
- *
- * you would write the following:
- *
- * <pre>
- * {@code
- *  WorkContinuation left = workManager.beginWith(A).then(B);
- *  WorkContinuation right = workManager.beginWith(C).then(D);
- *  WorkContinuation final = WorkContinuation.combine(Arrays.asList(left, right)).then(E);
- *  final.enqueue();}</pre>
- *
- * Not that enqueuing a WorkContinuation enqueues all previously-unenqueued prerequisites.  You must
- * call {@link #enqueue()} to inform WorkManager to actually enqueue the work graph.  As usual,
- * enqueues are asynchronous - you can observe or block on the returned {@link Operation} if you
- * need to be informed about its completion.
- * <p>
- * Because of the fluent nature of this class, its existence should be invisible in most cases.
+ * An opaque class that allows you to chain together {@link OneTimeWorkRequest}.
  */
-
 public abstract class WorkContinuation {
 
     /**
      * Adds new {@link OneTimeWorkRequest} items that depend on the successful completion of
-     * all previously added {@link OneTimeWorkRequest}s.
+     * all previously added {@link OneTimeWorkRequest}.
      *
-     * @param work One or more {@link OneTimeWorkRequest}s to add as dependents
+     * @param work One or more {@link OneTimeWorkRequest} to add to the {@link WorkContinuation}
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
-     *         {@link OneTimeWorkRequest}s
+     *         {@link OneTimeWorkRequest}
      */
-    public final @NonNull WorkContinuation then(@NonNull OneTimeWorkRequest work) {
-        return then(Collections.singletonList(work));
+    public final @NonNull WorkContinuation then(@NonNull OneTimeWorkRequest... work) {
+        return then(Arrays.asList(work));
     }
 
     /**
      * Adds new {@link OneTimeWorkRequest} items that depend on the successful completion
-     * of all previously added {@link OneTimeWorkRequest}s.
+     * of all previously added {@link OneTimeWorkRequest}.
      *
-     * @param work One or more {@link OneTimeWorkRequest} to add as dependents
+     * @param work One or more {@link OneTimeWorkRequest} to add to the {@link WorkContinuation}
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
-     *         {@link OneTimeWorkRequest}s
+     *         {@link OneTimeWorkRequest}
      */
     public abstract @NonNull WorkContinuation then(@NonNull List<OneTimeWorkRequest> work);
 
     /**
-     * Returns a {@link LiveData} list of {@link WorkInfo}s that provide information about the
-     * status of each {@link OneTimeWorkRequest} in this {@link WorkContinuation}, as well as their
-     * prerequisites.  If the state or outputs of any of the work changes, any attached
-     * {@link Observer}s will trigger.
+     * Returns a {@link LiveData} list of {@link WorkStatus} that provides information about work,
+     * their progress, and any resulting output.  If state or outputs of any of the jobs in this
+     * chain changes, any attached {@link android.arch.lifecycle.Observer}s will trigger.
      *
-     * @return A {@link LiveData} containing a list of {@link WorkInfo}s; you must use
-     *         {@link LiveData#observe(LifecycleOwner, Observer)} to receive updates
+     * @return A {@link LiveData} containing a list of {@link WorkStatus}es
      */
-    public abstract @NonNull LiveData<List<WorkInfo>> getWorkInfosLiveData();
+    public abstract @NonNull LiveData<List<WorkStatus>> getStatusesLiveData();
 
     /**
-     * Returns a {@link ListenableFuture} of a {@link List} of {@link WorkInfo}s that provides
-     * information about the status of each {@link OneTimeWorkRequest} in this
-     * {@link WorkContinuation}, as well as their prerequisites.
+     * Returns a {@link ListenableFuture} of a {@link List} of {@link WorkStatus} that provides
+     * information about work, their progress, and any resulting output in the
+     * {@link WorkContinuation}.
      *
-     * @return A {@link  ListenableFuture} of a {@link List} of {@link WorkInfo}s
+     * @return A {@link  ListenableFuture} of a {@link List} of {@link WorkStatus}es
      */
-    public abstract @NonNull ListenableFuture<List<WorkInfo>> getWorkInfos();
+    public abstract @NonNull ListenableFuture<List<WorkStatus>> getStatuses();
 
     /**
      * Enqueues the instance of {@link WorkContinuation} on the background thread.
      *
-     * @return An {@link Operation} that can be used to determine when the enqueue has completed
+     * @return A {@link ListenableFuture} that completes when the enqueue operation is completed
      */
-    public abstract @NonNull Operation enqueue();
+    public abstract @NonNull ListenableFuture<Void> enqueue();
 
     /**
-     * Combines multiple {@link WorkContinuation}s as prerequisites for a new WorkContinuation to
-     * allow for complex chaining.  For example, to create a graph like this:
+     * Combines multiple {@link WorkContinuation}s to allow for complex chaining.
      *
-     * <pre>
-     *     A       C
-     *     |       |
-     *     B       D
-     *     |       |
-     *     +-------+
-     *         |
-     *         E    </pre>
-     *
-     * you would write the following:
-     *
-     * <pre>
-     * {@code
-     *  WorkContinuation left = workManager.beginWith(A).then(B);
-     *  WorkContinuation right = workManager.beginWith(C).then(D);
-     *  WorkContinuation final = WorkContinuation.combine(Arrays.asList(left, right)).then(E);
-     *  final.enqueue();}</pre>
+     * @param continuations Two or more {@link WorkContinuation}s that are prerequisites for the
+     *                      return value
+     * @return A {@link WorkContinuation} that allows further chaining
+     */
+    public static @NonNull WorkContinuation combine(@NonNull WorkContinuation... continuations) {
+        return combine(Arrays.asList(continuations));
+    }
+
+    /**
+     * Combines multiple {@link WorkContinuation}s to allow for complex chaining.
      *
      * @param continuations One or more {@link WorkContinuation}s that are prerequisites for the
      *                      return value
      * @return A {@link WorkContinuation} that allows further chaining
      */
     public static @NonNull WorkContinuation combine(@NonNull List<WorkContinuation> continuations) {
-        return continuations.get(0).combineInternal(continuations);
+        return continuations.get(0).combineInternal(null, continuations);
+    }
+
+    /**
+     * Combines multiple {@link WorkContinuation}s to allow for complex chaining using the
+     * {@link OneTimeWorkRequest} provided.
+     *
+     * @param work The {@link OneTimeWorkRequest} which depends on the successful completion of the
+     *             provided {@link WorkContinuation}s
+     * @param continuations Two or more {@link WorkContinuation}s that are prerequisites for the
+     *                      {@link OneTimeWorkRequest} provided.
+     * @return A {@link WorkContinuation} that allows further chaining
+     */
+    public static @NonNull WorkContinuation combine(
+            @NonNull OneTimeWorkRequest work,
+            @NonNull WorkContinuation... continuations) {
+        return combine(work, Arrays.asList(continuations));
+    }
+
+    /**
+     * Combines multiple {@link WorkContinuation}s to allow for complex chaining using the
+     * {@link OneTimeWorkRequest} provided.
+     *
+     * @param work The {@link OneTimeWorkRequest} which depends on the successful completion of the
+     *             provided {@link WorkContinuation}s
+     * @param continuations Two or more {@link WorkContinuation}s that are prerequisites for the
+     *                      {@link OneTimeWorkRequest} provided.
+     * @return A {@link WorkContinuation} that allows further chaining
+     */
+    public static @NonNull WorkContinuation combine(
+            @NonNull OneTimeWorkRequest work,
+            @NonNull List<WorkContinuation> continuations) {
+        return continuations.get(0).combineInternal(work, continuations);
     }
 
     /**
@@ -148,5 +136,6 @@ public abstract class WorkContinuation {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     protected abstract @NonNull WorkContinuation combineInternal(
+            @Nullable OneTimeWorkRequest work,
             @NonNull List<WorkContinuation> continuations);
 }

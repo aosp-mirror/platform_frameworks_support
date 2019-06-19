@@ -16,6 +16,8 @@
 
 package androidx.preference;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -25,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 /**
  * A {@link ListPreference} that presents the options in a drop down menu rather than a dialog.
@@ -98,7 +101,6 @@ public class DropDownPreference extends ListPreference {
         return new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item);
     }
 
-    @SuppressWarnings("unchecked")
     private void updateEntries() {
         mAdapter.clear();
         if (getEntries() != null) {
@@ -113,11 +115,27 @@ public class DropDownPreference extends ListPreference {
         setValue(getEntryValues()[index].toString());
     }
 
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public int findSpinnerIndexOfValue(String value) {
+        CharSequence[] entryValues = getEntryValues();
+        if (value != null && entryValues != null) {
+            for (int i = entryValues.length - 1; i >= 0; i--) {
+                if (entryValues[i].equals(value)) {
+                    return i;
+                }
+            }
+        }
+        return Spinner.INVALID_POSITION;
+    }
+
     @Override
     protected void notifyChanged() {
         super.notifyChanged();
-        // When setting a SummaryProvider for this Preference, this method may be called before
-        // mAdapter has been set in ListPreference's constructor.
+        // When setting a default SummaryProvider for this Preference, this method will be called
+        // once before mAdapter has been set in ListPreference's constructor.
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
         }
@@ -130,18 +148,6 @@ public class DropDownPreference extends ListPreference {
         mSpinner.setOnItemSelectedListener(mItemSelectedListener);
         mSpinner.setSelection(findSpinnerIndexOfValue(getValue()));
         super.onBindViewHolder(view);
-    }
-
-    private int findSpinnerIndexOfValue(String value) {
-        CharSequence[] entryValues = getEntryValues();
-        if (value != null && entryValues != null) {
-            for (int i = entryValues.length - 1; i >= 0; i--) {
-                if (entryValues[i].equals(value)) {
-                    return i;
-                }
-            }
-        }
-        return Spinner.INVALID_POSITION;
     }
 }
 

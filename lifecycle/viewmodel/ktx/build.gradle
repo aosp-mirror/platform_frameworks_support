@@ -17,11 +17,9 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -36,22 +34,17 @@ android {
 dependencies {
     api(project(":lifecycle:lifecycle-viewmodel"))
     api(KOTLIN_STDLIB)
-    api(KOTLIN_COROUTINES)
 
     testImplementation(JUNIT)
-    testImplementation(TRUTH)
-
-    androidTestImplementation(TRUTH)
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    testImplementation(TEST_RUNNER)
 }
 
-androidx {
+supportLibrary {
     name = "Android Lifecycle ViewModel Kotlin Extensions"
-    publish = Publish.SNAPSHOT_AND_RELEASE
+    publish = true
     mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
     description = "Kotlin extensions for 'viewmodel' artifact"
+    useMetalava = true
 }

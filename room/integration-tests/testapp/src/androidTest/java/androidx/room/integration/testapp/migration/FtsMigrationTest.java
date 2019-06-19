@@ -38,11 +38,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.room.testing.MigrationTestHelper;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,7 +50,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 public class FtsMigrationTest {
     private static final String TEST_DB = "migration-test";
@@ -143,7 +142,7 @@ public class FtsMigrationTest {
         supportSQLiteDatabase.close();
 
         try {
-            Context targetContext = ApplicationProvider.getApplicationContext();
+            Context targetContext = InstrumentationRegistry.getTargetContext();
             FtsMigrationDb db = Room.databaseBuilder(targetContext, FtsMigrationDb.class, TEST_DB)
                     .addMigrations(BAD_MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build();
@@ -170,7 +169,6 @@ public class FtsMigrationTest {
         assertThat(addresses.get(0).line1, is("Ruth Ave"));
     }
 
-    @SuppressWarnings("deprecation")
     private FtsMigrationDb getLatestDb() {
         FtsMigrationDb db = Room.databaseBuilder(
                 InstrumentationRegistry.getInstrumentation().getTargetContext(),

@@ -16,6 +16,7 @@
 
 import androidx.build.AndroidXPlugin
 import androidx.build.SdkHelperKt
+import androidx.build.jacoco.Jacoco
 
 def currentJvmVersion = org.gradle.api.JavaVersion.current()
 if (currentJvmVersion.getMajorVersion() != "8") {
@@ -24,9 +25,11 @@ if (currentJvmVersion.getMajorVersion() != "8") {
 "If you have already installed java 8, you can instruct Gradle to use it by setting the environment variable JAVA_HOME equal to its file path.")
 }
 
+
 buildscript {
     ext.supportRootFolder = project.projectDir
     apply from: 'buildSrc/repos.gradle'
+    apply from: 'buildSrc/init.gradle'
     apply from: 'buildSrc/build_dependencies.gradle'
     repos.addMavenRepositories(repositories)
     SdkHelperKt.setSdkInLocalPropertiesFile(ext.supportRootFolder)
@@ -34,17 +37,20 @@ buildscript {
     dependencies {
         classpath build_libs.gradle
         classpath build_libs.kotlin.gradle_plugin
-        classpath build_libs.dokka_gradle
+
+        // AGP only declares a compileOnly dependency on Jacoco. This forces an explicit version.
+        classpath Jacoco.CORE_DEPENDENCY
     }
 }
 
-allprojects {
-    repos.addMavenRepositories(repositories)
-}
+repos.addMavenRepositories(repositories)
 
-apply from: "buildSrc/dependencies.gradle"
-apply from: "buildSrc/out.gradle"
-init.chooseOutDir()
+init.setupRepoOutAndBuildNumber()
+
+init.configureSubProjects()
 
 apply plugin: AndroidXPlugin
+
+// AndroidX needed before jetify since it accesses the createArchive task name directly.
+apply from: 'buildSrc/jetify.gradle'
 

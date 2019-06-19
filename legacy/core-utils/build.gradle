@@ -1,25 +1,23 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
-    api("androidx.core:core:1.1.0-rc01")
+    api(project(":annotation"))
+    api(project(":core"))
     api(project(":documentfile"))
-    api(project(":loader:loader"))
+    api(project(":loader"))
     api(project(":localbroadcastmanager"))
     api(project(":print"))
 }
 
-androidx {
+supportLibrary {
     name = "Android Support Library core utils"
-    publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.LEGACY
+    publish = true
+    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
     mavenGroup = LibraryGroups.LEGACY
     inceptionYear = "2011"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."

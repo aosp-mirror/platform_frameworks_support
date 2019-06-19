@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,11 @@ import android.widget.FrameLayout;
 
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * {@link ViewHolder} implementation for handling {@link Fragment}s. Used in
- * {@link FragmentStateAdapter}.
- */
-public final class FragmentViewHolder extends ViewHolder {
+class FragmentViewHolder extends RecyclerView.ViewHolder {
+    Fragment mFragment;
+
     private FragmentViewHolder(FrameLayout container) {
         super(container);
     }
@@ -38,7 +36,6 @@ public final class FragmentViewHolder extends ViewHolder {
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
         container.setId(ViewCompat.generateViewId());
-        container.setSaveEnabled(false);
         return new FragmentViewHolder(container);
     }
 

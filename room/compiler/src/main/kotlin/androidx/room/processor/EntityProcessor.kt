@@ -28,8 +28,8 @@ import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.TypeMirror
 
-interface EntityProcessor : EntityOrViewProcessor {
-    override fun process(): androidx.room.vo.Entity
+interface EntityProcessor {
+    fun process(): androidx.room.vo.Entity
 
     companion object {
         fun extractTableName(element: TypeElement, annotation: Entity): String {
@@ -41,7 +41,7 @@ interface EntityProcessor : EntityOrViewProcessor {
         }
 
         fun extractIndices(annotation: AnnotationBox<Entity>, tableName: String): List<IndexInput> {
-            return annotation.getAsAnnotationBoxArray<androidx.room.Index>("indices").map {
+            return annotation.getAsAnnotationBox<androidx.room.Index>("indices").map {
                 val indexAnnotation = it.value
                 val nameValue = indexAnnotation.name
                 val name = if (nameValue == "") {
@@ -58,7 +58,7 @@ interface EntityProcessor : EntityOrViewProcessor {
         }
 
         fun extractForeignKeys(annotation: AnnotationBox<Entity>): List<ForeignKeyInput> {
-            return annotation.getAsAnnotationBoxArray<ForeignKey>("foreignKeys")
+            return annotation.getAsAnnotationBox<ForeignKey>("foreignKeys")
                     .mapNotNull { annotationBox ->
                 val foreignKey = annotationBox.value
                 val parent = annotationBox.getAsTypeMirror("entity")

@@ -38,10 +38,10 @@ import android.os.Bundle;
 import androidx.slice.Slice;
 import androidx.slice.SliceProvider;
 import androidx.slice.SliceSpec;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,11 +49,11 @@ import org.junit.runner.RunWith;
 import java.util.Collections;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceProviderCompatTest {
 
-    private final Context mContext = ApplicationProvider.getApplicationContext();
+    private final Context mContext = InstrumentationRegistry.getContext();
 
     @Test
     public void testBindWithPermission() {
@@ -67,7 +67,6 @@ public class SliceProviderCompatTest {
                 .build();
 
         SliceProvider provider = spy(new SliceProviderImpl());
-        provider.attachInfo(mContext, null);
         CompatPermissionManager permissions = mock(CompatPermissionManager.class);
         when(permissions.checkSlicePermission(any(Uri.class), anyInt(), anyInt()))
                 .thenReturn(PERMISSION_GRANTED);
@@ -101,7 +100,6 @@ public class SliceProviderCompatTest {
                 .build();
 
         SliceProvider provider = spy(new SliceProviderImpl());
-        provider.attachInfo(mContext, null);
         CompatPermissionManager permissions = mock(CompatPermissionManager.class);
         when(permissions.checkSlicePermission(any(Uri.class), anyInt(), anyInt()))
                 .thenReturn(PERMISSION_DENIED);

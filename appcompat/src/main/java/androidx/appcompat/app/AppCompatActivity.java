@@ -31,13 +31,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.ContentView;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AppCompatDelegate.NightMode;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.VectorEnabledTintResources;
@@ -69,53 +67,44 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     private Resources mResources;
 
     /**
-     * Default constructor for AppCompatActivity. All Activities must have a default constructor
-     * for API 27 and lower devices or when using the default
-     * {@link android.app.AppComponentFactory}.
-     */
-    public AppCompatActivity() {
-        super();
-    }
-
-    /**
-     * Alternate constructor that can be used to provide a default layout
-     * that will be inflated as part of <code>super.onCreate(savedInstanceState)</code>.
+     * {@inheritDoc}
      *
-     * <p>This should generally be called from your constructor that takes no parameters,
-     * as is required for API 27 and lower or when using the default
-     * {@link android.app.AppComponentFactory}.
-     *
-     * @see #AppCompatActivity()
+     * When inflating any resources, make sure to use this Activity's themed context from {@link #getThemedContext()}.
+     * The returned context is setup with the correct theme, and is especially important when using this library's
+     * DayNight functionality.
+     * <p>
+     * This context is automatically used when you call {@link #setContentView(int)}, {@link #setContentView(View)},
+     * {@link #setContentView(View, ViewGroup.LayoutParams)}, and is automatically used by
+     * {@link androidx.fragment.app.Fragment}'s layout inflater.
+     * <p>
+     * Please note: make sure that you call {@code super.onCreate()} before using this Activity's {@link Resources}
+     * or its {@link Configuration}.
      */
-    @ContentView
-    public AppCompatActivity(@LayoutRes int contentLayoutId) {
-        super(contentLayoutId);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(newBase);
-        getDelegate().attachBaseContext(newBase);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         final AppCompatDelegate delegate = getDelegate();
         delegate.installViewFactory();
         delegate.onCreate(savedInstanceState);
+        delegate.applyDayNight();
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public void setTheme(@StyleRes final int resId) {
         super.setTheme(resId);
-        getDelegate().setTheme(resId);
+        getDelegate().onSetTheme(resId);
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
+    }
+
+    @NonNull
+    @Override
+    public Context getThemedContext() {
+        return getDelegate().getThemedContext();
     }
 
     /**
@@ -179,15 +168,13 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
+        getDelegate().onConfigurationChanged(newConfig);
         if (mResources != null) {
             // The real (and thus managed) resources object was already updated
             // by ResourcesManager, so pull the current metrics from there.
             final DisplayMetrics newMetrics = super.getResources().getDisplayMetrics();
             mResources.updateConfiguration(newConfig, newMetrics);
         }
-
-        getDelegate().onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -611,14 +598,5 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
                 && (actionBar == null || !actionBar.closeOptionsMenu())) {
             super.closeOptionsMenu();
         }
-    }
-
-    /**
-     * Called when the night mode has changed. See {@link AppCompatDelegate#applyDayNight()} for
-     * more information.
-     *
-     * @param mode the night mode which has been applied
-     */
-    protected void onNightModeChanged(@NightMode int mode) {
     }
 }

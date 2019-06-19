@@ -24,6 +24,8 @@ import static org.junit.Assert.assertSame;
 
 import android.view.View;
 
+import androidx.test.filters.SmallTest;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +43,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(JUnit4.class)
+@SmallTest
 public class AdapterHelperTest {
 
     private static final boolean DEBUG = false;

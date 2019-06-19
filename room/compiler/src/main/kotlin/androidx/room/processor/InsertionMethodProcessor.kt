@@ -21,8 +21,8 @@ package androidx.room.processor
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.ext.typeName
 import androidx.room.vo.InsertionMethod
+import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
@@ -42,7 +42,7 @@ class InsertionMethodProcessor(
                 executableElement, ProcessorErrors.INVALID_ON_CONFLICT_VALUE)
 
         val returnType = delegate.extractReturnType()
-        val returnTypeName = returnType.typeName()
+        val returnTypeName = TypeName.get(returnType)
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_INSERTION_METHODS)
 
@@ -50,7 +50,8 @@ class InsertionMethodProcessor(
                 missingParamError = ProcessorErrors.INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT
         )
 
-        val methodBinder = delegate.findInsertMethodBinder(returnType, params)
+        val methodBinder = context.typeAdapterStore
+                .findInsertMethodBinder(returnType, params)
 
         context.checker.check(
                 methodBinder.adapter != null,

@@ -20,11 +20,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * A {@link ConstraintTracker} with a {@link BroadcastReceiver} for monitoring constraint changes.
@@ -34,7 +33,7 @@ import androidx.work.impl.utils.taskexecutor.TaskExecutor;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class BroadcastReceiverConstraintTracker<T> extends ConstraintTracker<T> {
-    private static final String TAG = Logger.tagWithPrefix("BrdcstRcvrCnstrntTrckr");
+    private static final String TAG = "BrdcstRcvrCnstrntTrckr";
 
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -45,10 +44,8 @@ public abstract class BroadcastReceiverConstraintTracker<T> extends ConstraintTr
         }
     };
 
-    public BroadcastReceiverConstraintTracker(
-            @NonNull Context context,
-            @NonNull TaskExecutor taskExecutor) {
-        super(context, taskExecutor);
+    public BroadcastReceiverConstraintTracker(Context context) {
+        super(context);
     }
 
     /**
@@ -67,17 +64,13 @@ public abstract class BroadcastReceiverConstraintTracker<T> extends ConstraintTr
 
     @Override
     public void startTracking() {
-        Logger.get().debug(
-                TAG,
-                String.format("%s: registering receiver", getClass().getSimpleName()));
+        Logger.debug(TAG, String.format("%s: registering receiver", getClass().getSimpleName()));
         mAppContext.registerReceiver(mBroadcastReceiver, getIntentFilter());
     }
 
     @Override
     public void stopTracking() {
-        Logger.get().debug(
-                TAG,
-                String.format("%s: unregistering receiver", getClass().getSimpleName()));
+        Logger.debug(TAG, String.format("%s: unregistering receiver", getClass().getSimpleName()));
         mAppContext.unregisterReceiver(mBroadcastReceiver);
     }
 }

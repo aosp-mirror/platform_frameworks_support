@@ -16,7 +16,6 @@
 
 package androidx.appcompat.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -74,6 +73,8 @@ class ActionMenuPresenter extends BaseMenuPresenter
     // Group IDs that have been added as actions - used temporarily, allocated here for reuse.
     private final SparseBooleanArray mActionButtonGroups = new SparseBooleanArray();
 
+    private View mScrapActionButtonView;
+
     OverflowPopup mOverflowPopup;
     ActionButtonSubmenu mActionButtonPopup;
 
@@ -127,6 +128,9 @@ class ActionMenuPresenter extends BaseMenuPresenter
         mActionItemWidthLimit = width;
 
         mMinCellSize = (int) (ActionMenuView.MIN_CELL_SIZE * res.getDisplayMetrics().density);
+
+        // Drop a scrap view as it may no longer reflect the proper context/config.
+        mScrapActionButtonView = null;
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -470,7 +474,10 @@ class ActionMenuPresenter extends BaseMenuPresenter
             MenuItemImpl item = visibleItems.get(i);
 
             if (item.requiresActionButton()) {
-                View v = getItemView(item, null, parent);
+                View v = getItemView(item, mScrapActionButtonView, parent);
+                if (mScrapActionButtonView == null) {
+                    mScrapActionButtonView = v;
+                }
                 if (mStrictWidthLimit) {
                     cellsRemaining -= ActionMenuView.measureChildForCells(v,
                             cellSize, cellsRemaining, querySpec, 0);
@@ -496,7 +503,10 @@ class ActionMenuPresenter extends BaseMenuPresenter
                         (!mStrictWidthLimit || cellsRemaining > 0);
 
                 if (isAction) {
-                    View v = getItemView(item, null, parent);
+                    View v = getItemView(item, mScrapActionButtonView, parent);
+                    if (mScrapActionButtonView == null) {
+                        mScrapActionButtonView = v;
+                    }
                     if (mStrictWidthLimit) {
                         final int cells = ActionMenuView.measureChildForCells(v,
                                 cellSize, cellsRemaining, querySpec, 0);
@@ -591,7 +601,6 @@ class ActionMenuPresenter extends BaseMenuPresenter
         menuView.initialize(mMenu);
     }
 
-    @SuppressLint("BanParcelableUsage")
     private static class SavedState implements Parcelable {
         public int openSubMenuId;
 

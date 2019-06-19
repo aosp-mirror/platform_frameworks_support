@@ -18,9 +18,9 @@ package androidx.work.impl.background.systemalarm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.model.WorkSpec;
@@ -33,7 +33,7 @@ import androidx.work.impl.model.WorkSpec;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SystemAlarmScheduler implements Scheduler {
 
-    private static final String TAG = Logger.tagWithPrefix("SystemAlarmScheduler");
+    private static final String TAG = "SystemAlarmScheduler";
 
     private final Context mContext;
 
@@ -42,7 +42,7 @@ public class SystemAlarmScheduler implements Scheduler {
     }
 
     @Override
-    public void schedule(@NonNull WorkSpec... workSpecs) {
+    public void schedule(WorkSpec... workSpecs) {
         for (WorkSpec workSpec : workSpecs) {
             scheduleWorkSpec(workSpec);
         }
@@ -59,7 +59,7 @@ public class SystemAlarmScheduler implements Scheduler {
      * times to drift to guarantee that the interval duration always elapses between alarms.
      */
     private void scheduleWorkSpec(@NonNull WorkSpec workSpec) {
-        Logger.get().debug(TAG, String.format("Scheduling work with workSpecId %s", workSpec.id));
+        Logger.debug(TAG, String.format("Scheduling work with workSpecId %s", workSpec.id));
         Intent scheduleIntent = CommandHandler.createScheduleWorkIntent(mContext, workSpec.id);
         mContext.startService(scheduleIntent);
     }

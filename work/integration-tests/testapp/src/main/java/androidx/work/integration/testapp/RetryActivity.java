@@ -16,25 +16,25 @@
 
 package androidx.work.integration.testapp;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
+import androidx.work.WorkStatus;
 import androidx.work.WorkerParameters;
 
 import java.util.List;
@@ -65,14 +65,14 @@ public class RetryActivity extends AppCompatActivity {
             }
         });
 
-        WorkManager.getInstance(RetryActivity.this).getWorkInfosByTagLiveData("test")
-                .observe(this, new Observer<List<WorkInfo>>() {
+        WorkManager.getInstance().getStatusesByTagLiveData("test")
+                .observe(this, new Observer<List<WorkStatus>>() {
                     @Override
-                    public void onChanged(@Nullable List<WorkInfo> workInfos) {
+                    public void onChanged(@Nullable List<WorkStatus> workStatuses) {
                         String text = "";
-                        for (WorkInfo workInfo : workInfos) {
-                            text = text + "id: " + workInfo.getId().toString().substring(0, 4)
-                                    + " (" + workInfo.getState() + ")\n";
+                        for (WorkStatus workStatus : workStatuses) {
+                            text = text + "id: " + workStatus.getId().toString().substring(0, 4)
+                                    + " (" + workStatus.getState() + ")\n";
                         }
 
                         if (text.equals("")) {
@@ -102,7 +102,7 @@ public class RetryActivity extends AppCompatActivity {
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
                 .build();
 
-        WorkManager.getInstance(RetryActivity.this)
+        WorkManager.getInstance()
                 .beginUniqueWork(name, ExistingWorkPolicy.KEEP, workRequest)
                 .enqueue();
     }
@@ -141,10 +141,10 @@ public class RetryActivity extends AppCompatActivity {
                     throw new RuntimeException("random failure");
                 }
                 Log.i(TAG, String.format("[%s] %s successful", name, getId()));
-                return Result.success();
+                return Result.SUCCESS;
             } catch (Exception e) {
                 Log.e(TAG, String.format("[%s] %s failed: %s", name, getId(), e.getMessage()));
-                return Result.retry();
+                return Result.RETRY;
             }
         }
     }

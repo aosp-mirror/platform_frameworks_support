@@ -18,14 +18,13 @@ package androidx.work.impl.background.systemalarm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.WorkerThread;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.WorkerThread;
 import androidx.work.Logger;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class ConstraintsCommandHandler {
 
-    private static final String TAG = Logger.tagWithPrefix("ConstraintsCmdHandler");
+    private static final String TAG = "ConstraintsCmdHandler";
 
     private final Context mContext;
     private final int mStartId;
@@ -54,15 +53,19 @@ class ConstraintsCommandHandler {
         mContext = context;
         mStartId = startId;
         mDispatcher = dispatcher;
-        TaskExecutor taskExecutor = mDispatcher.getTaskExecutor();
-        mWorkConstraintsTracker = new WorkConstraintsTracker(mContext, taskExecutor, null);
+        mWorkConstraintsTracker = new WorkConstraintsTracker(mContext, null);
     }
 
     @WorkerThread
     void handleConstraintsChanged() {
+        int schedulerLimit = mDispatcher
+                .getWorkManager()
+                .getConfiguration()
+                .getMaxSchedulerLimit();
+
         List<WorkSpec> candidates = mDispatcher.getWorkManager().getWorkDatabase()
                 .workSpecDao()
-                .getScheduledWork();
+                .getEligibleWorkForScheduling(schedulerLimit);
 
         // Update constraint proxy to potentially disable proxies for previously
         // completed WorkSpecs.
@@ -86,7 +89,7 @@ class ConstraintsCommandHandler {
         for (WorkSpec workSpec : eligibleWorkSpecs) {
             String workSpecId = workSpec.id;
             Intent intent = CommandHandler.createDelayMetIntent(mContext, workSpecId);
-            Logger.get().debug(TAG, String.format(
+            Logger.debug(TAG, String.format(
                     "Creating a delay_met command for workSpec with id (%s)", workSpecId));
             mDispatcher.postOnMainThread(
                     new SystemAlarmDispatcher.AddRunnable(mDispatcher, intent, mStartId));

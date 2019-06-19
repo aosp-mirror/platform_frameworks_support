@@ -162,7 +162,6 @@ class MetaInfTransformerTest {
 
         val file = ArchiveFile(filePath, given.toByteArray())
 
-        @Suppress("deprecation")
         Processor
             .createProcessor(
                 config = config,

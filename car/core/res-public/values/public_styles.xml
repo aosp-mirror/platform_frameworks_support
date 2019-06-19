@@ -20,41 +20,30 @@
     <!-- TextAppearances -->
     <public type="style" name="TextAppearance.Car" />
     <public type="style" name="TextAppearance.Car.Display1" />
-    <public type="style" name="TextAppearance.Car.Display1.Light" />
     <public type="style" name="TextAppearance.Car.Display2" />
-    <public type="style" name="TextAppearance.Car.Display2.Light" />
     <public type="style" name="TextAppearance.Car.Display3" />
-    <public type="style" name="TextAppearance.Car.Display3.Light" />
+    <public type="style" name="TextAppearance.Car.Display4" />
     <public type="style" name="TextAppearance.Car.Body1" />
     <public type="style" name="TextAppearance.Car.Body1.Medium" />
     <public type="style" name="TextAppearance.Car.Body1.Light" />
     <public type="style" name="TextAppearance.Car.Body1.Medium.Light" />
+    <public type="style" name="TextAppearance.Car.Body1.Dark" />
+    <public type="style" name="TextAppearance.Car.Body1.Medium.Dark" />
     <public type="style" name="TextAppearance.Car.Body2" />
     <public type="style" name="TextAppearance.Car.Body2.Light" />
+    <public type="style" name="TextAppearance.Car.Body2.Dark" />
     <public type="style" name="TextAppearance.Car.Body3" />
     <public type="style" name="TextAppearance.Car.Body3.Medium" />
     <public type="style" name="TextAppearance.Car.Body3.Light" />
     <public type="style" name="TextAppearance.Car.Body3.Medium.Light" />
+    <public type="style" name="TextAppearance.Car.Body3.Dark" />
+    <public type="style" name="TextAppearance.Car.Body3.Medium.Dark" />
     <public type="style" name="TextAppearance.Car.Body4" />
-    <public type="style" name="TextAppearance.Car.Body4.Medium" />
-    <public type="style" name="TextAppearance.Car.Body4.Light" />
-    <public type="style" name="TextAppearance.Car.Body4.Medium.Light" />
     <public type="style" name="TextAppearance.Car.SubText1" />
-    <public type="style" name="TextAppearance.Car.SubText1.Medium" />
-    <public type="style" name="TextAppearance.Car.SubText1.Light" />
-    <public type="style" name="TextAppearance.Car.SubText1.Medium.Light" />
-    <public type="style" name="TextAppearance.Car.SubText1.Medium.Accent" />
     <public type="style" name="TextAppearance.Car.SubText2" />
-    <public type="style" name="TextAppearance.Car.SubText2.Medium" />
-    <public type="style" name="TextAppearance.Car.SubText2.Light" />
-    <public type="style" name="TextAppearance.Car.SubText2.Medium.Light" />
-    <public type="style" name="TextAppearance.Car.SubText2.Medium.Accent" />
     <public type="style" name="TextAppearance.Car.SubText3" />
-    <public type="style" name="TextAppearance.Car.SubText3.Medium" />
-    <public type="style" name="TextAppearance.Car.SubText3.Light" />
-    <public type="style" name="TextAppearance.Car.SubText3.Medium.Light" />
-    <public type="style" name="TextAppearance.Car.SubText3.Medium.Accent" />
     <public type="style" name="TextAppearance.Car.SubText4" />
+    <public type="style" name="TextAppearance.Car.SubText5" />
     <public type="style" name="TextAppearance.Car.Subheader" />
     <public type="style" name="TextAppearance.Car.HintActionBar.Menu" />
     <public type="style" name="TextAppearance.Car.Hint" />
@@ -62,12 +51,9 @@
     <public type="style" name="TextAppearance.Car.Error" />
 
     <!-- Widgets -->
-    <public type="style" name="Widget.Car.TabLayout" />
-    <public type="style" name="Widget.Car.CarToolbar" />
     <public type="style" name="Widget.Car.Toolbar" />
     <public type="style" name="Widget.Car.Toolbar.Light" />
     <public type="style" name="Widget.Car.Toolbar.Button.Navigation" />
-    <public type="style" name="Widget.Car.Toolbar.Button.Navigation.Light" />
     <public type="style" name="Widget.Car.ActionButton" />
     <public type="style" name="Widget.Car.ActionButton.Light" />
     <public type="style" name="Widget.Car.DrawerArrowToggle" />
@@ -80,17 +66,6 @@
     <public type="style" name="Widget.Car.SeekBar.Dark" />
     <public type="style" name="Widget.Car.SeekBar.Light" />
     <public type="style" name="CarListVerticalDivider" />
-
-    <!-- TextView Styles -->
-    <public type="style" name="Widget.Car.TextView.Display1" />
-    <public type="style" name="Widget.Car.TextView.Display2" />
-    <public type="style" name="Widget.Car.TextView.Display3" />
-    <public type="style" name="Widget.Car.TextView.Body1" />
-    <public type="style" name="Widget.Car.TextView.Body2" />
-    <public type="style" name="Widget.Car.TextView.Body3" />
-    <public type="style" name="Widget.Car.TextView.SubText1" />
-    <public type="style" name="Widget.Car.TextView.SubText2" />
-    <public type="style" name="Widget.Car.TextView.SubText3" />
 
     <!-- List Styles -->
     <public type="style" name="Widget.Car.List" />
@@ -107,10 +82,7 @@
     <!-- Checkbox Styles -->
     <public type="style" name="Widget.Car.Checkbox" />
     <public type="style" name="Widget.Car.Checkbox.Light" />
-
-    <!-- RadioButton Styles -->
-    <public type="style" name="Widget.Car.RadioButton" />
-    <public type="style" name="Widget.Car.RadioButton.Light" />
+    <public type="style" name="Widget.Car.Checkbox.Dark" />
 
     <!-- Dialog Styles -->
     <public type="style" name="Widget.Car.Dialog" />
@@ -120,7 +92,9 @@
     <public type="style" name="Widget.Car.Dialog.Body" />
     <public type="style" name="Widget.Car.Dialog.Body.Light" />
     <public type="style" name="Widget.Car.Dialog.Body.Dark" />
-    <public type="style" name="Widget.Car.Dialog.Button" />
+
+    <!-- ActionBar Styles -->
+    <public type="style" name="Widget.Car.Button.ActionBar" />
 
     <!-- Preference Styles -->
     <public type="style" name="CarPreference" />

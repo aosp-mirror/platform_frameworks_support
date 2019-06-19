@@ -16,8 +16,6 @@
 
 package androidx.media;
 
-import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_PID;
-
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -57,15 +55,21 @@ class MediaSessionManagerImplBase implements MediaSessionManager.MediaSessionMan
     @Override
     public boolean isTrustedForMediaControl(
             @NonNull MediaSessionManager.RemoteUserInfoImpl userInfo) {
+        ApplicationInfo applicationInfo;
         try {
-            ApplicationInfo applicationInfo = mContext.getPackageManager().getApplicationInfo(
+            applicationInfo = mContext.getPackageManager().getApplicationInfo(
                     userInfo.getPackageName(), 0);
-            if (applicationInfo == null) {
-                return false;
-            }
         } catch (PackageManager.NameNotFoundException e) {
             if (DEBUG) {
                 Log.d(TAG, "Package " + userInfo.getPackageName() + " doesn't exist");
+            }
+            return false;
+        }
+
+        if (applicationInfo.uid != userInfo.getUid()) {
+            if (DEBUG) {
+                Log.d(TAG, "Package name " + userInfo.getPackageName()
+                        + " doesn't match with the uid " + userInfo.getUid());
             }
             return false;
         }
@@ -148,11 +152,6 @@ class MediaSessionManagerImplBase implements MediaSessionManager.MediaSessionMan
                 return false;
             }
             RemoteUserInfoImplBase otherUserInfo = (RemoteUserInfoImplBase) obj;
-            if (mPid == UNKNOWN_PID || otherUserInfo.mPid == UNKNOWN_PID) {
-                // Only compare package name and UID when PID is unknown.
-                return TextUtils.equals(mPackageName, otherUserInfo.mPackageName)
-                        && mUid == otherUserInfo.mUid;
-            }
             return TextUtils.equals(mPackageName, otherUserInfo.mPackageName)
                     && mPid == otherUserInfo.mPid
                     && mUid == otherUserInfo.mUid;
@@ -160,7 +159,8 @@ class MediaSessionManagerImplBase implements MediaSessionManager.MediaSessionMan
 
         @Override
         public int hashCode() {
-            return ObjectsCompat.hash(mPackageName, mUid);
+            return ObjectsCompat.hash(mPackageName, mPid, mUid);
         }
     }
 }
+

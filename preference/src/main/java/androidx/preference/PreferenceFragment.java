@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -82,8 +82,8 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
- * <p>For information about building a settings screen using the AndroidX Preference library, see
- * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
+ * <p>For information about using {@code PreferenceFragment}, read the
+ * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a> guide.</p>
  * </div>
  *
  * @see Preference
@@ -91,7 +91,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @deprecated Use {@link PreferenceFragmentCompat} instead
  */
-@SuppressWarnings("deprecation")
 @Deprecated
 public abstract class PreferenceFragment extends Fragment implements
         PreferenceManager.OnPreferenceTreeClickListener,
@@ -244,7 +243,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * call {@link #setDividerHeight(int)}.
      *
      * @param divider The drawable to use
-     * {@link android.R.attr#divider}
+     * @attr ref R.styleable#PreferenceFragment_android_divider
      *
      * @deprecated Use {@link PreferenceFragmentCompat} instead
      */
@@ -258,7 +257,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * this will override the intrinsic height as set by {@link #setDivider(Drawable)}.
      *
      * @param height The new height of the divider in pixels
-     * {@link android.R.attr#dividerHeight}
+     * @attr ref R.styleable#PreferenceFragment_android_dividerHeight
      *
      * @deprecated Use {@link PreferenceFragmentCompat} instead
      */
@@ -477,8 +476,7 @@ public abstract class PreferenceFragment extends Fragment implements
      */
     @Deprecated
     @Override
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    public <T extends Preference> T findPreference(CharSequence key) {
+    public Preference findPreference(CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }
@@ -514,11 +512,11 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected void onBindPreferences() {}
 
     /** @hide */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected void onUnbindPreferences() {}
 
     /**
@@ -645,7 +643,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public Fragment getCallbackFragment() {
         return null;
     }

@@ -16,6 +16,7 @@
 
 package androidx.textclassifier;
 
+import android.content.Context;
 import android.text.Spannable;
 import android.text.style.ClickableSpan;
 
@@ -30,27 +31,25 @@ import androidx.textclassifier.TextLinks.TextLinkSpan;
 
 /**
  * Used to specify how to apply links when using
- * {@link TextLinks#apply(Spannable, TextClassifier, TextLinksParams)} APIs.
+ * {@link TextLinks#apply(Context, Spannable, TextLinksParams)} APIs.
  */
 public final class TextLinksParams {
 
     /**
-     * A factory to create spans from TextLinks.
-     *
-     * @see Builder#setSpanFactory(SpanFactory)
+     * A function to create spans from TextLinks.
      */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static final SpanFactory DEFAULT_SPAN_FACTORY = new SpanFactory() {
         @Override
         public TextLinkSpan createSpan(@NonNull TextLinks.TextLinkSpanData textLinkSpan) {
-            return new TextLinks.DefaultTextLinkSpan(textLinkSpan);
+            return new TextLinkSpan(textLinkSpan);
         }
     };
 
     /**
      * Default configuration of applying a TextLinks to a spannable or a TextView.
      *
-     * @see TextLinks#apply(Spannable, TextClassifier, TextLinksParams)
+     * @see TextLinks#apply(Context, Spannable, TextLinksParams)
      */
     public static final TextLinksParams DEFAULT_PARAMS = new TextLinksParams.Builder().build();
 
@@ -119,7 +118,7 @@ public final class TextLinksParams {
         for (TextLink link : textLinks.getLinks()) {
             TextLinks.TextLinkSpanData textLinkSpanData =
                     new TextLinks.TextLinkSpanData(link, textClassifier, mReferenceTime);
-            final TextLinks.TextLinkSpan span = mSpanFactory.createSpan(textLinkSpanData);
+            final TextLinkSpan span = mSpanFactory.createSpan(textLinkSpanData);
             if (span != null) {
                 final ClickableSpan[] existingSpans = text.getSpans(
                         link.getStart(), link.getEnd(), ClickableSpan.class);
@@ -183,19 +182,20 @@ public final class TextLinksParams {
          *
          * @return this builder
          */
-        @NonNull
         public Builder setApplyStrategy(@TextLinks.ApplyStrategy int applyStrategy) {
             mApplyStrategy = checkApplyStrategy(applyStrategy);
             return this;
         }
 
         /**
-         * Sets a custom span factory for converting TextLinks to {@link TextLinkSpan}.
+         * Sets a custom span factory for converting TextLinks to TextLinkSpans.
          * Set to {@code null} to use the default span factory.
          *
          * @return this builder
+         *
+         * @hide
          */
-        @NonNull
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
         public Builder setSpanFactory(@Nullable SpanFactory spanFactory) {
             mSpanFactory = spanFactory == null ? DEFAULT_SPAN_FACTORY : spanFactory;
             return this;
@@ -247,7 +247,6 @@ public final class TextLinksParams {
         /**
          * Builds and returns a TextLinksParams object.
          */
-        @NonNull
         public TextLinksParams build() {
             return new TextLinksParams(
                     mApplyStrategy, mSpanFactory, mEntityConfig, mDefaultLocales, mReferenceTime);

@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class IndexBundle implements SchemaEquality<IndexBundle> {
     // should match Index.kt
     public static final String DEFAULT_PREFIX = "index_";
@@ -63,7 +63,7 @@ public class IndexBundle implements SchemaEquality<IndexBundle> {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public String create(String tableName) {
         return BundleUtil.replaceTableName(mCreateSql, tableName);
     }

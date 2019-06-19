@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,7 +25,6 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
@@ -96,11 +95,9 @@ public class PreferenceManager {
     private OnNavigateToScreenListener mOnNavigateToScreenListener;
 
     /**
-     * Used by Settings.
-     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public PreferenceManager(Context context) {
         mContext = context;
 
@@ -197,8 +194,6 @@ public class PreferenceManager {
      * Inflates a preference hierarchy from XML. If a preference hierarchy is given, the new
      * preference hierarchies will be merged in.
      *
-     * Used by Settings.
-     *
      * @param context         The context of the resource
      * @param resId           The resource ID of the XML to inflate
      * @param rootPreferences Optional existing hierarchy to merge the new
@@ -206,7 +201,7 @@ public class PreferenceManager {
      * @return The root hierarchy (if one was not provided, the new hierarchy's root)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public PreferenceScreen inflateFromResource(Context context, int resId,
             PreferenceScreen rootPreferences) {
         // Block commits
@@ -438,16 +433,13 @@ public class PreferenceManager {
     }
 
     /**
-     * Finds a {@link Preference} with the given key. Returns {@code null} if no
-     * {@link Preference} could be found with the given key.
+     * Finds a {@link Preference} based on its key.
      *
-     * @param key The key of the {@link Preference} to retrieve
+     * @param key The key of the preference to retrieve
      * @return The {@link Preference} with the key, or {@code null}
      * @see PreferenceGroup#findPreference(CharSequence)
      */
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    @Nullable
-    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+    public Preference findPreference(CharSequence key) {
         if (mPreferenceScreen == null) {
             return null;
         }

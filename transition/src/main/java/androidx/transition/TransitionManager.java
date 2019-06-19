@@ -289,7 +289,6 @@ public class TransitionManager {
                 public void onTransitionEnd(@NonNull Transition transition) {
                     ArrayList<Transition> currentTransitions = runningTransitions.get(mSceneRoot);
                     currentTransitions.remove(transition);
-                    transition.removeListener(this);
                 }
             });
             mTransition.captureValues(mSceneRoot, false);

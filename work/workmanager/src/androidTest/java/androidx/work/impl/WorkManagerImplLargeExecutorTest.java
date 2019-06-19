@@ -25,25 +25,25 @@ import static org.mockito.Mockito.when;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import android.arch.core.executor.ArchTaskExecutor;
+import android.arch.core.executor.TaskExecutor;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.lifecycle.Observer;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.TestLifecycleOwner;
 import androidx.work.WorkContinuation;
-import androidx.work.WorkInfo;
+import androidx.work.WorkStatus;
 import androidx.work.impl.background.greedy.GreedyScheduler;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 import androidx.work.worker.RandomSleepTestWorker;
 
 import org.junit.After;
@@ -84,7 +84,7 @@ public class WorkManagerImplLargeExecutorTest {
 
     @Before
     public void setUp() {
-        ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+        ArchTaskExecutor.getInstance().setDelegate(new TaskExecutor() {
             @Override
             public void executeOnDiskIO(@NonNull Runnable runnable) {
                 runnable.run();
@@ -101,7 +101,7 @@ public class WorkManagerImplLargeExecutorTest {
             }
         });
 
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getTargetContext();
         BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
         Executor executor = new ThreadPoolExecutor(
                 MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIME, SECONDS, queue);
@@ -109,13 +109,10 @@ public class WorkManagerImplLargeExecutorTest {
                 .setExecutor(executor)
                 .setMaxSchedulerLimit(TEST_SCHEDULER_LIMIT)
                 .build();
-        TaskExecutor taskExecutor = new InstantWorkTaskExecutor();
         mWorkManagerImplSpy = spy(
-                new WorkManagerImpl(context, configuration, taskExecutor, true));
+                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor(), true));
 
-        TrackingScheduler trackingScheduler =
-                new TrackingScheduler(context, taskExecutor, mWorkManagerImplSpy);
-
+        TrackingScheduler trackingScheduler = new TrackingScheduler(context, mWorkManagerImplSpy);
         Processor processor = new Processor(context,
                 configuration,
                 mWorkManagerImplSpy.getWorkTaskExecutor(),
@@ -153,18 +150,18 @@ public class WorkManagerImplLargeExecutorTest {
         final CountDownLatch latch = new CountDownLatch(NUM_WORKERS);
         WorkContinuation continuation = mWorkManagerImplSpy.beginWith(workRequests);
 
-        continuation.getWorkInfosLiveData()
-                .observe(mLifecycleOwner, new Observer<List<WorkInfo>>() {
+        continuation.getStatusesLiveData()
+                .observe(mLifecycleOwner, new Observer<List<WorkStatus>>() {
                     @Override
-                    public void onChanged(@Nullable List<WorkInfo> workInfos) {
-                        if (workInfos == null || workInfos.isEmpty()) {
+                    public void onChanged(@Nullable List<WorkStatus> workStatuses) {
+                        if (workStatuses == null || workStatuses.isEmpty()) {
                             return;
                         }
 
-                        for (WorkInfo workInfo : workInfos) {
-                            if (workInfo.getState().isFinished()) {
-                                if (!completed.contains(workInfo.getId())) {
-                                    completed.add(workInfo.getId());
+                        for (WorkStatus workStatus: workStatuses) {
+                            if (workStatus.getState().isFinished()) {
+                                if (!completed.contains(workStatus.getId())) {
+                                    completed.add(workStatus.getId());
                                     latch.countDown();
                                 }
                             }
@@ -182,35 +179,27 @@ public class WorkManagerImplLargeExecutorTest {
      */
     private static class TrackingScheduler extends GreedyScheduler {
 
-        private static final Object sLock = new Object();
-
         private Set<String> mScheduledWorkSpecIds;
 
-        TrackingScheduler(Context context,
-                TaskExecutor taskExecutor,
-                WorkManagerImpl workManagerImpl) {
-            super(context, taskExecutor, workManagerImpl);
+        TrackingScheduler(Context context, WorkManagerImpl workManagerImpl) {
+            super(context, workManagerImpl);
             mScheduledWorkSpecIds = new HashSet<>();
         }
 
         @Override
-        public void schedule(WorkSpec... workSpecs) {
-            synchronized (sLock) {
-                for (WorkSpec workSpec : workSpecs) {
-                    assertThat(mScheduledWorkSpecIds.contains(workSpec.id), is(false));
-                    mScheduledWorkSpecIds.add(workSpec.id);
-                    assertThat(mScheduledWorkSpecIds.size() <= TEST_SCHEDULER_LIMIT, is(true));
-                }
+        public synchronized void schedule(WorkSpec... workSpecs) {
+            for (WorkSpec workSpec : workSpecs) {
+                assertThat(mScheduledWorkSpecIds.contains(workSpec.id), is(false));
+                mScheduledWorkSpecIds.add(workSpec.id);
+                assertThat(mScheduledWorkSpecIds.size() <= TEST_SCHEDULER_LIMIT, is(true));
             }
             super.schedule(workSpecs);
         }
 
         @Override
-        public void onExecuted(@NonNull String workSpecId, boolean needsReschedule) {
-            synchronized (sLock) {
-                assertThat(mScheduledWorkSpecIds.contains(workSpecId), is(true));
-                mScheduledWorkSpecIds.remove(workSpecId);
-            }
+        public synchronized void onExecuted(@NonNull String workSpecId, boolean needsReschedule) {
+            assertThat(mScheduledWorkSpecIds.contains(workSpecId), is(true));
+            mScheduledWorkSpecIds.remove(workSpecId);
             super.onExecuted(workSpecId, needsReschedule);
         }
     }

@@ -16,22 +16,19 @@
 
 package androidx.recyclerview.selection;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.Point;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
 
 /**
  * Provides support for auto-scrolling a view.
  *
  * @hide
  */
-@RestrictTo(LIBRARY)
-@VisibleForTesting(otherwise = PACKAGE_PRIVATE)
+@RestrictTo(LIBRARY_GROUP)
 public abstract class AutoScroller {
 
     /**

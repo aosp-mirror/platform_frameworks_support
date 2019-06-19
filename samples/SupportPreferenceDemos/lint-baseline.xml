@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint 3.5.0-beta04" client="gradle" variant="debug" version="3.5.0-beta04">
+<issues format="4" by="lint 3.3 Canary 1">
 
     <issue
         id="MissingTvBanner"
-        message="Expecting `android:banner` with the `&lt;application>` tag or each Leanback launcher activity."
-        errorLine1="    &lt;application"
-        errorLine2="     ~~~~~~~~~~~">
+        message="Expecting `android:banner` with the `&lt;application>` tag or each Leanback launcher activity.">
         <location
             file="src/main/AndroidManifest.xml"
-            line="28"
-            column="6"/>
+            line="28"/>
     </issue>
 
     <issue

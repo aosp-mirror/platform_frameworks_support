@@ -15,7 +15,8 @@
  */
 package androidx.work.impl.constraints;
 
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
+
 import androidx.work.impl.model.WorkSpec;
 
 import java.util.List;

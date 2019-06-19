@@ -156,15 +156,16 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
             }
             val variableNames = constructor.params.map { param ->
                 when (param) {
-                    is Constructor.Param.FieldParam -> localVariableNames.entries.firstOrNull {
+                    is Constructor.FieldParam -> localVariableNames.entries.firstOrNull {
                         it.value.field === param.field
                     }?.key
-                    is Constructor.Param.EmbeddedParam -> localEmbeddeds.firstOrNull {
-                        it.fieldParent == param.embedded
+                    is Constructor.EmbeddedParam -> localEmbeddeds.firstOrNull {
+                        it.fieldParent === param.embedded
                     }?.varName
-                    is Constructor.Param.RelationParam -> localRelations.entries.firstOrNull {
+                    is Constructor.RelationParam -> localRelations.entries.firstOrNull {
                         it.value === param.relation.field
                     }?.key
+                    else -> null
                 }
             }
             val args = variableNames.joinToString(",") { it ?: "null" }

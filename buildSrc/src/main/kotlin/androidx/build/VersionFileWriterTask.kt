@@ -55,29 +55,25 @@ private val VERSION_FILE_PATH = "$RESOURCE_DIRECTORY/META-INF/%s_%s.version"
  * @param project an Android Library project.
  */
 fun Project.configureVersionFileWriter(library: LibraryExtension) {
-    val writeVersionFile = tasks.register("writeVersionFile",
+    val writeVersionFile = tasks.create("writeVersionFile",
             VersionFileWriterTask::class.java)
 
     afterEvaluate {
-        writeVersionFile.configure {
-            val group = properties["group"] as String
-            val artifactId = properties["name"] as String
-            val version = properties["version"] as String
+        val group = properties["group"] as String
+        val artifactId = properties["name"] as String
+        val version = properties["version"] as String
 
-            // Add a java resource file to the library jar for version tracking purposes.
-            val artifactName = File(
+        // Add a java resource file to the library jar for version tracking purposes.
+        val artifactName = File(
                 buildDir,
                 String.format(VERSION_FILE_PATH, group, artifactId))
 
-            it.version = version
-            it.outputFile = artifactName
-        }
+        writeVersionFile.version = version
+        writeVersionFile.outputFile = artifactName
     }
 
     library.libraryVariants.all {
-        it.processJavaResourcesProvider.configure {
-            it.dependsOn(writeVersionFile)
-        }
+        it.processJavaResources.dependsOn(writeVersionFile)
     }
 
     val resources = library.sourceSets.getByName("main").resources

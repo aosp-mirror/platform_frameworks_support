@@ -15,7 +15,6 @@
  */
 package androidx.textclassifier.integration.testapp;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -68,8 +67,9 @@ public class SimpleTextClassifier extends TextClassifier {
 
     @Override
     public TextLinks generateLinks(TextLinks.Request request) {
-        String text = request.getText().toString();
-        TextLinks.Builder builder = new TextLinks.Builder(text);
+        TextLinks.Builder builder = new TextLinks.Builder(request.getText().toString());
+        CharSequence text = request.getText();
+
         final Spannable spannable = new SpannableString(text);
         if (LinkifyCompat.addLinks(spannable, Pattern.compile("android", Pattern.CASE_INSENSITIVE),
                 null, null, (matcher, s) -> "https://www.android.com")) {
@@ -78,14 +78,14 @@ public class SimpleTextClassifier extends TextClassifier {
                 builder.addLink(
                         spannable.getSpanStart(urlSpan),
                         spannable.getSpanEnd(urlSpan),
-                        Collections.singletonMap(TextClassifier.TYPE_URL, 1.0f));
+                        Collections.singletonMap(TextClassifier.TYPE_URL, 1.0f),
+                        urlSpan);
             }
         }
         return builder.build();
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public void onSelectionEvent(SelectionEvent event) {
         super.onSelectionEvent(event);
     }

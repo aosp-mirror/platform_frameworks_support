@@ -17,15 +17,13 @@
 package androidx.textclassifier;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.RemoteAction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -73,13 +71,10 @@ import java.util.Map;
  */
 public final class TextClassification {
 
-    private static final String LOG_TAG = "TextClassification";
-
     private static final String EXTRA_TEXT = "text";
     private static final String EXTRA_ACTIONS = "actions";
     private static final String EXTRA_ENTITY_CONFIDENCE = "entity_conf";
     private static final String EXTRA_ID = "id";
-    private static final String EXTRA_EXTRAS = "extras";
     private static final IconCompat NO_ICON =
             IconCompat.createWithData(new byte[0], 0, 0);
 
@@ -93,19 +88,16 @@ public final class TextClassification {
     @NonNull private final List<RemoteActionCompat> mActions;
     @NonNull private final EntityConfidence mEntityConfidence;
     @Nullable private final String mId;
-    @NonNull private final Bundle mExtras;
 
     TextClassification(
             @Nullable String text,
             @NonNull List<RemoteActionCompat> actions,
             @NonNull EntityConfidence entityConfidence,
-            @Nullable String id,
-            @NonNull Bundle extras) {
+            @Nullable String id) {
         mText = text;
         mActions = actions;
         mEntityConfidence = entityConfidence;
         mId = id;
-        mExtras = extras;
     }
 
     /**
@@ -163,19 +155,6 @@ public final class TextClassification {
         return mId;
     }
 
-    /**
-     * Returns the extended, vendor specific data.
-     *
-     * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
-     * prefer to hold a reference to the returned bundle rather than frequently calling this
-     * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
-     * Bundle are not deep copied.
-     */
-    @NonNull
-    public Bundle getExtras() {
-        return BundleUtils.deepCopy(mExtras);
-    }
-
     @Override
     public String toString() {
         return String.format(Locale.US,
@@ -194,7 +173,6 @@ public final class TextClassification {
         BundleUtils.putRemoteActionList(bundle, EXTRA_ACTIONS, mActions);
         BundleUtils.putMap(bundle, EXTRA_ENTITY_CONFIDENCE, mEntityConfidence.getConfidenceMap());
         bundle.putString(EXTRA_ID, mId);
-        bundle.putBundle(EXTRA_EXTRAS, mExtras);
         return bundle;
     }
 
@@ -206,8 +184,7 @@ public final class TextClassification {
     public static TextClassification createFromBundle(@NonNull Bundle bundle) {
         final Builder builder = new Builder()
                 .setText(bundle.getString(EXTRA_TEXT))
-                .setId(bundle.getString(EXTRA_ID))
-                .setExtras(bundle.getBundle(EXTRA_EXTRAS));
+                .setId(bundle.getString(EXTRA_ID));
         for (Map.Entry<String, Float> entityConfidence : BundleUtils.getFloatStringMapOrThrow(
                 bundle, EXTRA_ENTITY_CONFIDENCE).entrySet()) {
             builder.setEntityType(entityConfidence.getKey(), entityConfidence.getValue());
@@ -263,7 +240,7 @@ public final class TextClassification {
      * Converts a given {@link TextClassification} object to a {@link RemoteActionCompat} object.
      * It is assumed that the intent and the label in the textclassification object are not null.
      */
-    @RequiresApi(26)
+    @TargetApi(26)
     @SuppressWarnings("deprecation") //To support O
     @NonNull
     private static RemoteActionCompat createRemoteActionCompat(
@@ -293,10 +270,9 @@ public final class TextClassification {
     /**
      * @hide
      */
-    // Lint does not know @EntityType in platform and here are same.
+    @SuppressLint("WrongConstant") // Lint does not know @EntityType in platform and here are same.
     @SuppressWarnings("deprecation") // To support O
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @SuppressLint("WrongConstant")
     @RequiresApi(26)
     @NonNull
     Object toPlatform(@NonNull Context context) {
@@ -363,7 +339,6 @@ public final class TextClassification {
         @NonNull private List<RemoteActionCompat> mActions = new ArrayList<>();
         @NonNull private final Map<String, Float> mEntityConfidence = new ArrayMap<>();
         @Nullable private String mId;
-        @Nullable private Bundle mExtras;
 
         /**
          * Sets the classified text.
@@ -411,22 +386,12 @@ public final class TextClassification {
         }
 
         /**
-         * Sets the extended, vendor specific data.
-         */
-        @NonNull
-        public Builder setExtras(@Nullable Bundle extras) {
-            mExtras = extras;
-            return this;
-        }
-
-        /**
          * Builds and returns a {@link TextClassification} object.
          */
         @NonNull
         public TextClassification build() {
             return new TextClassification(
-                    mText, mActions, new EntityConfidence(mEntityConfidence), mId,
-                    mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
+                    mText, mActions, new EntityConfidence(mEntityConfidence), mId);
         }
     }
 
@@ -446,21 +411,18 @@ public final class TextClassification {
         private final int mEndIndex;
         @Nullable private final LocaleListCompat mDefaultLocales;
         @Nullable private final Long mReferenceTime;
-        @NonNull private final Bundle mExtras;
 
         Request(
                 CharSequence text,
                 int startIndex,
                 int endIndex,
                 LocaleListCompat defaultLocales,
-                Long referenceTime,
-                Bundle extras) {
+                Long referenceTime) {
             mText = text;
             mStartIndex = startIndex;
             mEndIndex = endIndex;
             mDefaultLocales = defaultLocales;
             mReferenceTime = referenceTime;
-            mExtras = extras;
         }
 
         /**
@@ -508,19 +470,6 @@ public final class TextClassification {
         }
 
         /**
-         * Returns the extended, vendor specific data.
-         *
-         * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
-         * prefer to hold a reference to the returned bundle rather than frequently calling this
-         * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
-         * Bundle are not deep copied.
-         */
-        @NonNull
-        public Bundle getExtras() {
-            return BundleUtils.deepCopy(mExtras);
-        }
-
-        /**
          * @hide
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -557,7 +506,6 @@ public final class TextClassification {
             private final CharSequence mText;
             private final int mStartIndex;
             private final int mEndIndex;
-            private Bundle mExtras;
 
             @Nullable private LocaleListCompat mDefaultLocales;
             @Nullable private Long mReferenceTime = null;
@@ -612,50 +560,11 @@ public final class TextClassification {
             }
 
             /**
-             * Sets the extended, vendor specific data.
-             *
-             * @return this builder
-             */
-            @NonNull
-            public Builder setExtras(@Nullable Bundle extras) {
-                mExtras = extras;
-                return this;
-            }
-
-            /**
              * Builds and returns the request object.
              */
             @NonNull
             public Request build() {
-                return new Request(
-                        normalizeIfUri(mText, mStartIndex, mEndIndex),
-                        mStartIndex, mEndIndex, mDefaultLocales, mReferenceTime,
-                        mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
-            }
-
-            // Ensures the package manager can recognize a url scheme that is not all lowercase.
-            // b/123640937
-            @Nullable
-            private static CharSequence normalizeIfUri(
-                    CharSequence text, int startIndex, int endIndex) {
-                try {
-                    // TODO: Skip if running Android Q.
-                    final Uri uri = Uri.parse(text.subSequence(startIndex, endIndex).toString());
-                    final String scheme = uri.getScheme();
-                    final String lower = scheme == null ? null : scheme.toLowerCase(Locale.ROOT);
-                    if (lower != null && !scheme.equals(lower)) {
-                        final String normalized = uri.buildUpon().scheme(lower).build().toString();
-                        if (normalized.length() == (endIndex - startIndex)) {
-                            return new SpannableString(
-                                    new SpannableStringBuilder(text)
-                                            .replace(startIndex, endIndex, normalized));
-                        }
-                    }
-                } catch (Exception e) {
-                    // Catching to ensure no crashes from this method.
-                    Log.e(LOG_TAG, "Error fixing uri scheme", e);
-                }
-                return text;
+                return new Request(mText, mStartIndex, mEndIndex, mDefaultLocales, mReferenceTime);
             }
         }
 
@@ -671,7 +580,6 @@ public final class TextClassification {
             bundle.putInt(EXTRA_END_INDEX, mEndIndex);
             BundleUtils.putLocaleList(bundle, EXTRA_DEFAULT_LOCALES, mDefaultLocales);
             BundleUtils.putLong(bundle, EXTRA_REFERENCE_TIME, mReferenceTime);
-            bundle.putBundle(EXTRA_EXTRAS, mExtras);
             return bundle;
         }
 
@@ -684,8 +592,7 @@ public final class TextClassification {
                     bundle.getInt(EXTRA_START_INDEX),
                     bundle.getInt(EXTRA_END_INDEX))
                     .setDefaultLocales(BundleUtils.getLocaleList(bundle, EXTRA_DEFAULT_LOCALES))
-                    .setReferenceTime(BundleUtils.getLong(bundle, EXTRA_REFERENCE_TIME))
-                    .setExtras(bundle.getBundle(EXTRA_EXTRAS));
+                    .setReferenceTime(BundleUtils.getLong(bundle, EXTRA_REFERENCE_TIME));
             return builder.build();
         }
     }

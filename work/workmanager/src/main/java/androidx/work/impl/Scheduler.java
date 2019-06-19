@@ -15,8 +15,9 @@
  */
 package androidx.work.impl;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+
 import androidx.work.impl.model.WorkSpec;
 
 /**
@@ -38,7 +39,7 @@ public interface Scheduler {
      *
      * @param workSpecs The array of {@link WorkSpec}s to schedule
      */
-    void schedule(@NonNull WorkSpec... workSpecs);
+    void schedule(WorkSpec... workSpecs);
 
     /**
      * Cancel the work identified by the given {@link WorkSpec} id.

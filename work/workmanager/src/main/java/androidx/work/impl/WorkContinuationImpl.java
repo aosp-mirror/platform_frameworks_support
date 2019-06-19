@@ -16,20 +16,19 @@
 
 package androidx.work.impl;
 
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.lifecycle.LiveData;
 import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.Operation;
 import androidx.work.WorkContinuation;
-import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
+import androidx.work.WorkStatus;
 import androidx.work.impl.utils.EnqueueRunnable;
 import androidx.work.impl.utils.StatusRunnable;
 import androidx.work.impl.workers.CombineContinuationsWorker;
@@ -50,7 +49,7 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WorkContinuationImpl extends WorkContinuation {
 
-    private static final String TAG = Logger.tagWithPrefix("WorkContinuationImpl");
+    private static final String TAG = "WorkContinuationImpl";
 
     private final WorkManagerImpl mWorkManagerImpl;
     private final String mName;
@@ -61,7 +60,7 @@ public class WorkContinuationImpl extends WorkContinuation {
     private final List<WorkContinuationImpl> mParents;
 
     private boolean mEnqueued;
-    private Operation mOperation;
+    private ListenableFuture<Void> mFuture;
 
     @NonNull
     public WorkManagerImpl getWorkManagerImpl() {
@@ -161,14 +160,14 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     @Override
-    public @NonNull LiveData<List<WorkInfo>> getWorkInfosLiveData() {
-        return mWorkManagerImpl.getWorkInfosById(mAllIds);
+    public @NonNull LiveData<List<WorkStatus>> getStatusesLiveData() {
+        return mWorkManagerImpl.getStatusesById(mAllIds);
     }
 
     @NonNull
     @Override
-    public ListenableFuture<List<WorkInfo>> getWorkInfos() {
-        StatusRunnable<List<WorkInfo>> runnable =
+    public ListenableFuture<List<WorkStatus>> getStatuses() {
+        StatusRunnable<List<WorkStatus>> runnable =
                 StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds);
 
         mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
@@ -176,28 +175,31 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     @Override
-    public @NonNull Operation enqueue() {
+    public ListenableFuture<Void> enqueue() {
         // Only enqueue if not already enqueued.
         if (!mEnqueued) {
             // The runnable walks the hierarchy of the continuations
             // and marks them enqueued using the markEnqueued() method, parent first.
             EnqueueRunnable runnable = new EnqueueRunnable(this);
             mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
-            mOperation = runnable.getOperation();
+            mFuture = runnable.getFuture();
         } else {
-            Logger.get().warning(TAG,
+            Logger.warning(TAG,
                     String.format("Already enqueued work ids (%s)", TextUtils.join(", ", mIds)));
         }
-        return mOperation;
+        return mFuture;
     }
 
     @Override
     protected @NonNull WorkContinuation combineInternal(
+            @Nullable OneTimeWorkRequest work,
             @NonNull List<WorkContinuation> continuations) {
-        OneTimeWorkRequest combinedWork =
-                new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
-                        .setInputMerger(ArrayCreatingInputMerger.class)
-                        .build();
+
+        if (work == null) {
+            work = new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
+                    .setInputMerger(ArrayCreatingInputMerger.class)
+                    .build();
+        }
 
         List<WorkContinuationImpl> parents = new ArrayList<>(continuations.size());
         for (WorkContinuation continuation : continuations) {
@@ -207,7 +209,7 @@ public class WorkContinuationImpl extends WorkContinuation {
         return new WorkContinuationImpl(mWorkManagerImpl,
                 null,
                 ExistingWorkPolicy.KEEP,
-                Collections.singletonList(combinedWork),
+                Collections.singletonList(work),
                 parents);
     }
 

@@ -23,8 +23,6 @@ import com.android.tools.build.jetifier.core.utils.Log
 import com.android.tools.build.jetifier.processor.archive.Archive
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
 import com.android.tools.build.jetifier.processor.archive.ArchiveItemVisitor
-import com.android.tools.build.jetifier.processor.archive.FileSearchResult
-import com.android.tools.build.jetifier.processor.com.android.tools.build.jetifier.processor.transform.java.JavaTransformer
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
 import com.android.tools.build.jetifier.processor.transform.bytecode.ByteCodeTransformer
@@ -35,7 +33,6 @@ import com.android.tools.build.jetifier.processor.transform.proguard.ProGuardTra
 import com.android.tools.build.jetifier.processor.transform.resource.XmlResourcesTransformer
 import java.io.File
 import java.io.FileNotFoundException
-import java.lang.StringBuilder
 
 /**
  * The main entry point to the library. Extracts any given archive recursively and runs all
@@ -44,8 +41,7 @@ import java.lang.StringBuilder
  */
 class Processor private constructor(
     private val context: TransformationContext,
-    private val transformers: List<Transformer>,
-    private val stripSignatureFiles: Boolean = false
+    private val transformers: List<Transformer>
 ) : ArchiveItemVisitor {
 
     companion object {
@@ -58,8 +54,7 @@ class Processor private constructor(
             // Register your transformers here
             ByteCodeTransformer(context),
             XmlResourcesTransformer(context),
-            ProGuardTransformer(context),
-            JavaTransformer(context)
+            ProGuardTransformer(context)
         )
 
         /**
@@ -80,19 +75,14 @@ class Processor private constructor(
          * @param reversedMode Whether the processor should run in reversed mode
          * @param rewritingSupportLib Whether we are rewriting the support library itself
          * @param useFallbackIfTypeIsMissing Use fallback for types resolving instead of crashing
-         * @param allowAmbiguousPackages Whether Jetifier should not crash when it attempts to
-         * rewrite ambiguous package reference such as android.support.v4.
-         * @param stripSignatures Don't throw an error when jetifying a signed library and strip
-         * the signature files instead.
+         * @param versionsMap Versions map for dependencies rewriting
          * @param dataBindingVersion The versions to be used for data binding otherwise undefined.
          */
-        fun createProcessor3(
+        fun createProcessor(
             config: Config,
             reversedMode: Boolean = false,
             rewritingSupportLib: Boolean = false,
             useFallbackIfTypeIsMissing: Boolean = true,
-            allowAmbiguousPackages: Boolean = false,
-            stripSignatures: Boolean = false,
             dataBindingVersion: String? = null
         ): Processor {
             var newConfig = config
@@ -112,16 +102,11 @@ class Processor private constructor(
                     reversedRestrictToPackagePrefixes = config.restrictToPackagePrefixes,
                     rulesMap = config.rulesMap.reverse().appendRules(config.slRules),
                     slRules = config.slRules,
-                    pomRewriteRules = config.pomRewriteRules
-                        // Remove uiautomator-v18 from the reversed version
-                        .filterNot { it.from.artifactId == "uiautomator-v18" }
-                        .map { it.getReversed() }
-                        .toSet(),
+                    pomRewriteRules = config.pomRewriteRules.map { it.getReversed() }.toSet(),
                     typesMap = config.typesMap.reverseMapOrDie(),
                     proGuardMap = config.proGuardMap.reverseMap(),
                     versionsMap = config.versionsMap,
-                    packageMap = config.packageMap.reverse(),
-                    stringsMap = config.stringsMap.reverseMapOrDie()
+                    packageMap = config.packageMap.reverse()
                 )
             }
 
@@ -130,7 +115,6 @@ class Processor private constructor(
                 rewritingSupportLib = rewritingSupportLib,
                 isInReversedMode = reversedMode,
                 useFallbackIfTypeIsMissing = useFallbackIfTypeIsMissing,
-                allowAmbiguousPackages = allowAmbiguousPackages,
                 versions = versionsMap)
             val transformers = if (rewritingSupportLib) {
                 createSLTransformers(context)
@@ -138,76 +122,7 @@ class Processor private constructor(
                 createTransformers(context)
             }
 
-            return Processor(
-                context = context,
-                transformers = transformers,
-                stripSignatureFiles = stripSignatures)
-        }
-
-        /**
-         * Creates a new instance of the [Processor].
-         *
-         * @param config Transformation configuration
-         * @param reversedMode Whether the processor should run in reversed mode
-         * @param rewritingSupportLib Whether we are rewriting the support library itself
-         * @param useFallbackIfTypeIsMissing Use fallback for types resolving instead of crashing
-         * @param allowAmbiguousPackages Whether Jetifier should not crash when it attempts to
-         * rewrite ambiguous package reference such as android.support.v4.
-         * @param dataBindingVersion The versions to be used for data binding otherwise undefined.
-         */
-        @Deprecated(
-            message = "Legacy method that is missing 'throwErrorIsSignatureDetected' attribute",
-            replaceWith = ReplaceWith(expression = "Processor.createProcessor3"))
-        fun createProcessor2(
-            config: Config,
-            reversedMode: Boolean = false,
-            rewritingSupportLib: Boolean = false,
-            useFallbackIfTypeIsMissing: Boolean = true,
-            allowAmbiguousPackages: Boolean = false,
-            dataBindingVersion: String? = null
-        ): Processor {
-            return createProcessor3(
-                config = config,
-                reversedMode = reversedMode,
-                rewritingSupportLib = rewritingSupportLib,
-                useFallbackIfTypeIsMissing = useFallbackIfTypeIsMissing,
-                allowAmbiguousPackages = allowAmbiguousPackages,
-                stripSignatures = false,
-                dataBindingVersion = dataBindingVersion
-            )
-        }
-
-        /**
-         * Creates a new instance of the [Processor].
-         *
-         * @param config Transformation configuration
-         * @param reversedMode Whether the processor should run in reversed mode
-         * @param rewritingSupportLib Whether we are rewriting the support library itself
-         * @param useFallbackIfTypeIsMissing Use fallback for types resolving instead of crashing
-         * @param versionSetName Versions map for dependencies rewriting
-         * @param dataBindingVersion The versions to be used for data binding otherwise undefined.
-         */
-        @Deprecated(
-            message = "Legacy method that is missing 'allowAmbiguousPackages' attribute and " +
-                    "'versionSetName' attribute is not used anymore.",
-            replaceWith = ReplaceWith(expression = "Processor.createProcessor3"))
-        fun createProcessor(
-            config: Config,
-            reversedMode: Boolean = false,
-            rewritingSupportLib: Boolean = false,
-            useFallbackIfTypeIsMissing: Boolean = true,
-            @Suppress("UNUSED_PARAMETER") versionSetName: String? = null,
-            dataBindingVersion: String? = null
-        ): Processor {
-            @Suppress("deprecation")
-            return createProcessor2(
-                config = config,
-                reversedMode = reversedMode,
-                rewritingSupportLib = rewritingSupportLib,
-                useFallbackIfTypeIsMissing = useFallbackIfTypeIsMissing,
-                allowAmbiguousPackages = false,
-                dataBindingVersion = dataBindingVersion
-            )
+            return Processor(context, transformers)
         }
     }
 
@@ -230,72 +145,39 @@ class Processor private constructor(
     /**
      * Transforms the input libraries given in [inputLibraries] using all the registered
      * [Transformer]s and returns a list of replacement libraries (the newly created libraries are
-     * get stored into [outputPath]). Also supports transforming single source files (java and xml.)
+     * get stored into [outputPath]).
      *
      * Currently we have the following transformers:
      * - [ByteCodeTransformer] for java native code
-     * - [XmlResourcesTransformer] for java native code and xml resource files
+     * - [XmlResourcesTransformer] for java native code
      * - [ProGuardTransformer] for PorGuard files
-     * - [JavaTransformer] for java source code
      *
      * @param input Files to process together with a path where they should be saved to.
      * @param copyUnmodifiedLibsAlso Whether archives that were not modified should be also copied
      * to their target path.
-     * @param skipLibsWithAndroidXReferences If true, jetifier will skip any archive that contains
-     * any androidX reference in its bytecode. This attribute does not apply for reversed mode.
      * @return list of files (existing and generated) that should replace the given [input] files.
      */
-    fun transform2(
-        input: Set<FileMapping>,
-        copyUnmodifiedLibsAlso: Boolean = true,
-        skipLibsWithAndroidXReferences: Boolean = false
-    ): TransformationResult {
-        val nonSingleFiles = HashSet<FileMapping>(input)
-        for (fileMapping in nonSingleFiles) {
-            // Treat all files as single files and check if they are transformable.
-            val file = ArchiveFile(fileMapping.from.toPath(), fileMapping.from.readBytes())
-            file.setIsSingleFile(true)
-            val transformer = transformers.firstOrNull { it.canTransform(file) }
-            if (transformer != null) {
-                // Single file is transformable, set relativePath to the output path.
-                file.updateRelativePath(fileMapping.to.toPath())
-                transformer.runTransform(file)
-                nonSingleFiles.remove(fileMapping)
-            }
-        }
-        if (nonSingleFiles.isEmpty()) {
-            // all files were single files, we're done.
-            return TransformationResult(librariesMap = emptyMap(), numberOfLibsModified = 0)
-        }
-
-        val inputLibraries = nonSingleFiles.map { it.from }.toSet()
+    fun transform(input: Set<FileMapping>, copyUnmodifiedLibsAlso: Boolean = true): Set<File> {
+        val inputLibraries = input.map { it.from }.toSet()
         if (inputLibraries.size != input.size) {
             throw IllegalArgumentException("Input files are duplicated!")
         }
 
         // 1) Extract and load all libraries
-        val allLibraries = loadLibraries(input)
+        val libraries = loadLibraries(input)
 
-        // 2) Filter out libraries with AndroidX references
-        val librariesToProcess =
-            if (skipLibsWithAndroidXReferences) {
-                filterOutLibrariesWithAndroidX(allLibraries)
-            } else {
-                allLibraries
-            }
+        // 2) Search for POM files
+        val pomFiles = scanPomFiles(libraries)
 
-        // 3) Search for POM files
-        val pomFiles = scanPomFiles(librariesToProcess)
-
-        // 4) Transform all the libraries
-        librariesToProcess.forEach { transformLibrary(it) }
+        // 3) Transform all the libraries
+        libraries.forEach { transformLibrary(it) }
 
         if (context.errorsTotal() > 0) {
             if (context.isInReversedMode && context.rewritingSupportLib) {
                 throw IllegalArgumentException("There were ${context.errorsTotal()} errors found " +
                     "during the de-jetification. You have probably added new androidx types " +
                     "into support library and dejetifier doesn't know where to move them. " +
-                    "Please update default.config and regenerate default.generated.config via " +
+                    "Please update default.config and regenerate default.generated.config via" +
                     "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh")
             }
 
@@ -306,117 +188,28 @@ class Processor private constructor(
         // TODO: Here we might need to modify the POM files if they point at a library that we have
         // just refactored.
 
-        // 5) Transform the previously discovered POM files
+        // 4) Transform the previously discovered POM files
         transformPomFiles(pomFiles)
 
-        // 6) Find signature files and report them if needed
-        runSignatureDetectionFor(librariesToProcess)
-
-        val numberOfLibsModified = librariesToProcess.count { it.wasChanged }
-
-        // 7) Repackage the libraries back to archive files
-        var result = allLibraries
+        // 5) Repackage the libraries back to archive files
+        val generatedLibraries = libraries
+            .filter { copyUnmodifiedLibsAlso || it.wasChanged }
             .map {
-                if (it.wasChanged || copyUnmodifiedLibsAlso) {
-                    it.relativePath.toFile() to it.writeSelf()
-                } else {
-                    it.relativePath.toFile() to null
-                }
-            }.toMap()
-
-        return TransformationResult(
-            librariesMap = result,
-            numberOfLibsModified = numberOfLibsModified)
-    }
-
-    /**
-     * Transforms the input libraries given in [inputLibraries] using all the registered
-     * [Transformer]s and returns a list of replacement libraries (the newly created libraries are
-     * get stored into [outputPath]). Also supports transforming single source files (java and xml.)
-     *
-     * Currently we have the following transformers:
-     * - [ByteCodeTransformer] for java native code
-     * - [XmlResourcesTransformer] for java native code and xml resource files
-     * - [ProGuardTransformer] for PorGuard files
-     * - [JavaTransformer] for java source code
-     *
-     * @param input Files to process together with a path where they should be saved to.
-     * @param copyUnmodifiedLibsAlso Whether archives that were not modified should be also copied
-     * to their target path.
-     * @return list of files (existing and generated) that should replace the given [input] files.
-     */
-    @Deprecated(
-        message = "Legacy method that is missing 'skipLibsWithAndroidXReferences' attribute",
-        replaceWith = ReplaceWith(expression = "Processor.transform2"))
-    fun transform(input: Set<FileMapping>, copyUnmodifiedLibsAlso: Boolean = true): Set<File> {
-        return transform2(
-            input = input,
-            copyUnmodifiedLibsAlso = copyUnmodifiedLibsAlso
-        ).librariesMap.map {
-            if (it.value != null) {
-                it.value!!
-            } else {
-                it.key
+                it.writeSelf()
             }
-        }.toSet()
-    }
+            .toSet()
 
-    /**
-     * When jetifying, skip processing any libs that already contain references to AndroidX (they
-     * don't need to be re-jetified). This feature does not work for reversed mode.
-     */
-    private fun filterOutLibrariesWithAndroidX(libraries: Set<Archive>): Set<Archive> {
-        if (context.isInReversedMode) {
-            // AndroidX detection does not work in reversed move.
-            return libraries
+        if (copyUnmodifiedLibsAlso) {
+            return generatedLibraries
         }
 
-        val newLibraries = mutableSetOf<Archive>()
-        libraries.forEach {
-            val androidXScanner = AndroidXRefScanner(it).scan()
-            if (androidXScanner.androidXDetected) {
-                Log.i(TAG, "Library '${it.relativePath}' contains AndroidX reference and will be " +
-                        "skipped.")
-            } else {
-                newLibraries.add(it)
-            }
-        }
-
-        return newLibraries
-    }
-
-    private fun runSignatureDetectionFor(libraries: Set<Archive>) {
-        var wereSignaturesDetected = false
-        val sb = StringBuilder()
-
-        libraries
+        // 6) Create a set of files that should be removed (because they've been changed).
+        val filesToRemove = libraries
             .filter { it.wasChanged }
-            .forEach { library ->
-                val foundSignatures = FileSearchResult()
-                library.findAllFiles({ isSignatureFile(it) }, foundSignatures)
-                if (foundSignatures.all.isNotEmpty()) {
-                    wereSignaturesDetected = true
-                    sb.appendln()
-                    sb.appendln("Found following signature files for '${library.relativePath}':")
-                    foundSignatures.all
-                        .sortedBy { it.relativePath.toString() }
-                        .forEach { file ->
-                            sb.appendln("- ${file.relativePath}")
-                            file.markedForRemoval = true
-                    }
-                }
-            }
+            .map { it.relativePath.toFile() }
+            .toSet()
 
-        if (wereSignaturesDetected && !stripSignatureFiles) {
-            throw SignatureFilesFoundJetifierException(
-                "Jetifier found signature in at least one of the archives that need to be " +
-                "modified. However doing so would break the signatures. Please ask the library " +
-                "owner to provide jetpack compatible signed library. If you don't need " +
-                "the signatures you can re-run jetifier with 'stripSignatures' option on. " +
-                "Jetifier will then remove all affected signature files. Below is a list of all " +
-                "the signatures that were discovered: $sb}"
-            )
-        }
+        return inputLibraries.minus(filesToRemove).plus(generatedLibraries)
     }
 
     /**
@@ -477,7 +270,7 @@ class Processor private constructor(
         return newDependenciesRegex.any { it.matches(aarOrJarFile.absolutePath) }
     }
 
-    private fun loadLibraries(inputLibraries: Iterable<FileMapping>): Set<Archive> {
+    private fun loadLibraries(inputLibraries: Iterable<FileMapping>): List<Archive> {
         val libraries = mutableListOf<Archive>()
         for (library in inputLibraries) {
             if (!library.from.canRead()) {
@@ -488,10 +281,10 @@ class Processor private constructor(
             archive.setTargetPath(library.to.toPath())
             libraries.add(archive)
         }
-        return libraries.toSet()
+        return libraries.toList()
     }
 
-    private fun scanPomFiles(libraries: Set<Archive>): List<PomDocument> {
+    private fun scanPomFiles(libraries: List<Archive>): List<PomDocument> {
         val scanner = PomScanner(context)
 
         libraries.forEach { scanner.scanArchiveForPomFile(it) }
@@ -521,7 +314,7 @@ class Processor private constructor(
         archive.files.forEach { it.accept(this) }
 
         // This is an ugly workaround to merge annotations files due to having old and new
-        // namespaces at the same time
+        // namespaces  at the same time
         if (context.isInReversedMode) {
             AnnotationFilesMerger.tryMergeFilesInArchive(archive)
         }

@@ -16,10 +16,9 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.animation.TimeInterpolator;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
@@ -110,8 +109,6 @@ public class TransitionSet extends Transition {
     public TransitionSet() {
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
-    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public TransitionSet(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, Styleable.TRANSITION_SET);
@@ -176,7 +173,8 @@ public class TransitionSet extends Transition {
      */
     @NonNull
     public TransitionSet addTransition(@NonNull Transition transition) {
-        addTransitionInternal(transition);
+        mTransitions.add(transition);
+        transition.mParent = this;
         if (mDuration >= 0) {
             transition.setDuration(mDuration);
         }
@@ -193,11 +191,6 @@ public class TransitionSet extends Transition {
             transition.setEpicenterCallback(getEpicenterCallback());
         }
         return this;
-    }
-
-    private void addTransitionInternal(@NonNull Transition transition) {
-        mTransitions.add(transition);
-        transition.mParent = this;
     }
 
     /**
@@ -218,7 +211,6 @@ public class TransitionSet extends Transition {
      * @see #addTransition(Transition)
      * @see #getTransitionCount()
      */
-    @Nullable
     public Transition getTransitionAt(int index) {
         if (index < 0 || index >= mTransitions.size()) {
             return null;
@@ -237,7 +229,7 @@ public class TransitionSet extends Transition {
     @Override
     public TransitionSet setDuration(long duration) {
         super.setDuration(duration);
-        if (mDuration >= 0 && mTransitions != null) {
+        if (mDuration >= 0) {
             int numTransitions = mTransitions.size();
             for (int i = 0; i < numTransitions; ++i) {
                 mTransitions.get(i).setDuration(duration);
@@ -389,10 +381,8 @@ public class TransitionSet extends Transition {
     public void setPathMotion(PathMotion pathMotion) {
         super.setPathMotion(pathMotion);
         mChangeFlags |= FLAG_CHANGE_PATH_MOTION;
-        if (mTransitions != null) {
-            for (int i = 0; i < mTransitions.size(); i++) {
-                mTransitions.get(i).setPathMotion(pathMotion);
-            }
+        for (int i = 0; i < mTransitions.size(); i++) {
+            mTransitions.get(i).setPathMotion(pathMotion);
         }
     }
 
@@ -458,7 +448,7 @@ public class TransitionSet extends Transition {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     protected void createAnimators(ViewGroup sceneRoot, TransitionValuesMaps startValues,
             TransitionValuesMaps endValues, ArrayList<TransitionValues> startValuesList,
@@ -485,7 +475,7 @@ public class TransitionSet extends Transition {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     protected void runAnimators() {
         if (mTransitions.isEmpty()) {
@@ -553,7 +543,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void pause(View sceneRoot) {
         super.pause(sceneRoot);
@@ -564,7 +554,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void resume(View sceneRoot) {
         super.resume(sceneRoot);
@@ -575,7 +565,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     protected void cancel() {
         super.cancel();
@@ -586,7 +576,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     void forceToEnd(ViewGroup sceneRoot) {
         super.forceToEnd(sceneRoot);
@@ -650,7 +640,7 @@ public class TransitionSet extends Transition {
         clone.mTransitions = new ArrayList<>();
         int numTransitions = mTransitions.size();
         for (int i = 0; i < numTransitions; ++i) {
-            clone.addTransitionInternal(mTransitions.get(i).clone());
+            clone.addTransition(mTransitions.get(i).clone());
         }
         return clone;
     }

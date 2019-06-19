@@ -16,9 +16,7 @@
 
 package androidx.preference
 
-import androidx.preference.ktx.test.R
-import androidx.test.annotation.UiThreadTest
-import androidx.test.core.app.ApplicationProvider
+import androidx.test.InstrumentationRegistry
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.assertThrows
@@ -37,20 +35,19 @@ class PreferenceGroupTest {
 
     @JvmField
     @Rule
-    val rule = ActivityTestRule(PreferenceTestHelperActivity::class.java)
-    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
+    val rule = ActivityTestRule(TestPreferenceActivity::class.java)
+    private val context = InstrumentationRegistry.getContext()
     private lateinit var preferenceGroup: PreferenceGroup
 
-    @Before
-    @UiThreadTest
-    fun setup() {
-        preferenceGroup =
-                rule.activity.setupPreferenceHierarchy(R.xml.test_preferencegroup).preferenceScreen
+    @Before fun setup() {
+        preferenceGroup = (rule
+                .activity
+                .supportFragmentManager
+                .findFragmentByTag(
+                        TestPreferenceActivity.TAG) as PreferenceFragmentCompat).preferenceScreen
     }
 
-    @UiThreadTest
-    @Test
-    fun get() {
+    @Test fun get() {
         val key = "key"
         val preference = Preference(context)
         preference.key = key
@@ -59,9 +56,7 @@ class PreferenceGroupTest {
         assertSame(preference, preferenceGroup[0])
     }
 
-    @UiThreadTest
-    @Test
-    fun contains() {
+    @Test fun contains() {
         val preference = Preference(context)
         assertFalse(preference in preferenceGroup)
         assertTrue(preference !in preferenceGroup)
@@ -73,9 +68,7 @@ class PreferenceGroupTest {
         assertTrue(preference !in preferenceGroup)
     }
 
-    @UiThreadTest
-    @Test
-    fun plusAssign() {
+    @Test fun plusAssign() {
         assertEquals(0, preferenceGroup.preferenceCount)
 
         val preference1 = Preference(context)
@@ -89,9 +82,7 @@ class PreferenceGroupTest {
         assertSame(preference2, preferenceGroup.getPreference(1))
     }
 
-    @UiThreadTest
-    @Test
-    fun minusAssign() {
+    @Test fun minusAssign() {
         val preference1 = Preference(context)
         preferenceGroup.addPreference(preference1)
         val preference2 = Preference(context)
@@ -107,9 +98,7 @@ class PreferenceGroupTest {
         assertEquals(0, preferenceGroup.preferenceCount)
     }
 
-    @UiThreadTest
-    @Test
-    fun size() {
+    @Test fun size() {
         assertEquals(0, preferenceGroup.size)
 
         val preference = Preference(context)
@@ -120,25 +109,19 @@ class PreferenceGroupTest {
         assertEquals(0, preferenceGroup.size)
     }
 
-    @UiThreadTest
-    @Test
-    fun isEmpty() {
+    @Test fun isEmpty() {
         assertTrue(preferenceGroup.isEmpty())
         preferenceGroup.addPreference(Preference(context))
         assertFalse(preferenceGroup.isEmpty())
     }
 
-    @UiThreadTest
-    @Test
-    fun isNotEmpty() {
+    @Test fun isNotEmpty() {
         assertFalse(preferenceGroup.isNotEmpty())
         preferenceGroup.addPreference(Preference(context))
         assertTrue(preferenceGroup.isNotEmpty())
     }
 
-    @UiThreadTest
-    @Test
-    fun forEach() {
+    @Test fun forEach() {
         preferenceGroup.forEach {
             fail("Empty preference group should not invoke lambda")
         }
@@ -155,9 +138,7 @@ class PreferenceGroupTest {
         assertThat(preferences).containsExactly(preference1, preference2)
     }
 
-    @UiThreadTest
-    @Test
-    fun forEachIndexed() {
+    @Test fun forEachIndexed() {
         preferenceGroup.forEach {
             fail("Empty preference group should not invoke lambda")
         }
@@ -175,9 +156,7 @@ class PreferenceGroupTest {
         assertThat(preferences).containsExactly(preference1, preference2)
     }
 
-    @UiThreadTest
-    @Test
-    fun iterator() {
+    @Test fun iterator() {
         val preference1 = Preference(context)
         preferenceGroup.addPreference(preference1)
         val preference2 = Preference(context)
@@ -194,9 +173,7 @@ class PreferenceGroupTest {
         }
     }
 
-    @UiThreadTest
-    @Test
-    fun children() {
+    @Test fun children() {
         val preferences = listOf(Preference(context), Preference(context), Preference(context))
         preferences.forEach { preferenceGroup.addPreference(it) }
 

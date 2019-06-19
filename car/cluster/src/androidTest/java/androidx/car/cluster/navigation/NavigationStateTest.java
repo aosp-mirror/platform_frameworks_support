@@ -16,17 +16,14 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.car.cluster.navigation.utils.Assertions.assertImmutable;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -147,78 +144,21 @@ public class NavigationStateTest {
     }
 
     /**
-     * Tests that {@link NavigationState} is immutable.
+     * Tests that {@link NavigationState#mDestinations} is immutable.
      */
-    @Test
-    public void immutability() {
-        assertImmutable(createEmptyState().getDestinations());
-        assertImmutable(createEmptyState().getSteps());
+    @Test(expected = UnsupportedOperationException.class)
+    public void immutableDestionationsLists() {
+        NavigationState state = createEmptyState();
+        state.getDestinations().add(new Destination.Builder().build());
     }
 
     /**
-     * Test a few equality conditions
+     * Tests that {@link NavigationState#mSteps} is immutable.
      */
-    @Test
-    public void equality() {
-        // Testing empty nav state cases
-        assertEquals(new NavigationState(), new NavigationState.Builder().build());
-        assertEquals(new NavigationState(), new NavigationState.Builder()
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL).build());
-
-        Destination destination = new Destination.Builder().build();
-        Step step = new Step.Builder().build();
-        NavigationState navState = new NavigationState.Builder()
-                .addDestination(destination)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build();
-
-        // Testing a few equality/inequality cases
-        assertEquals(navState, new NavigationState.Builder()
-                .addDestination(destination)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build());
-        assertNotEquals(navState, new NavigationState.Builder()
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build());
-        assertNotEquals(navState, new NavigationState.Builder()
-                .addDestination(destination)
-                .addDestination(destination)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build());
-        assertNotEquals(navState, new NavigationState.Builder()
-                .addDestination(destination)
-                .addStep(step)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build());
-        assertNotEquals(navState, new NavigationState.Builder()
-                .addDestination(destination)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.REROUTING)
-                .build());
-        assertEquals(
-                new NavigationState.Builder().setCurrentSegment(new Segment()).build(),
-                new NavigationState.Builder().setCurrentSegment(new Segment()).build());
-        assertNotEquals(
-                new NavigationState.Builder().build(),
-                new NavigationState.Builder().setCurrentSegment(new Segment()).build());
-        assertNotEquals(
-                new NavigationState.Builder().setCurrentSegment(new Segment("TEST")).build(),
-                new NavigationState.Builder().setCurrentSegment(new Segment()).build());
-
-        // Testing hashcode
-        assertEquals(new NavigationState().hashCode(), new NavigationState.Builder()
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL).build().hashCode());
-        assertEquals(navState.hashCode(), new NavigationState.Builder()
-                .addDestination(destination)
-                .addStep(step)
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
-                .build()
-                .hashCode());
+    @Test(expected = UnsupportedOperationException.class)
+    public void immutableStepsLists() {
+        NavigationState state = createEmptyState();
+        state.getSteps().add(new Step.Builder().build());
     }
 
     private NavigationState createEmptyState() {
@@ -227,14 +167,41 @@ public class NavigationStateTest {
 
     private NavigationState createSampleState() {
         return new NavigationState.Builder()
-                .addStep(StepTest.createSampleStep())
+                .addStep(new Step.Builder()
+                        .setManeuver(new Maneuver.Builder()
+                                .setType(Maneuver.Type.DEPART).build())
+                        .setDistance(new Distance(10, "10", Distance.Unit.METERS))
+                        .addLane(new Lane.Builder()
+                                .addDirection(new LaneDirection.Builder()
+                                        .setShape(LaneDirection.Shape.NORMAL_LEFT)
+                                        .setHighlighted(true)
+                                        .build())
+                                .addDirection(new LaneDirection.Builder()
+                                        .setShape(LaneDirection.Shape.STRAIGHT)
+                                        .setHighlighted(true)
+                                        .build())
+                                .build())
+                        .addLane(new Lane.Builder()
+                                .addDirection(new LaneDirection.Builder()
+                                        .setShape(LaneDirection.Shape.SHARP_LEFT)
+                                        .build())
+                                .addDirection(new LaneDirection.Builder()
+                                        .setShape(LaneDirection.Shape.NORMAL_LEFT)
+                                        .build())
+                                .build())
+                        .build())
+                .addStep(new Step.Builder()
+                        .setManeuver(new Maneuver.Builder()
+                                .setType(Maneuver.Type.ROUNDABOUT_EXIT)
+                                .setRoundaboutExitNumber(2)
+                                .build())
+                        .setDistance(new Distance(15, "15", Distance.Unit.METERS))
+                        .build())
                 .addDestination(new Destination.Builder()
                         .setTitle("Home")
                         .setDistance(new Distance(1230, "1.2", Distance.Unit.KILOMETERS))
                         .setLocation(new LatLng(37.4219999, -122.0840575))
                         .build())
-                .setCurrentSegment(new Segment("Main St."))
-                .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
                 .build();
     }
 

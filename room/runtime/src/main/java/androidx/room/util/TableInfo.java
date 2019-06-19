@@ -46,7 +46,7 @@ import java.util.TreeMap;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @SuppressWarnings({"WeakerAccess", "unused", "TryFinallyCanBeTryWithResources",
         "SimplifiableIfStatement"})
 // if you change this class, you must change TableInfoWriter.kt
@@ -438,7 +438,7 @@ public class TableInfo {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static class ForeignKey {
         @NonNull
         public final String referenceTable;
@@ -504,7 +504,7 @@ public class TableInfo {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     static class ForeignKeyWithSequence implements Comparable<ForeignKeyWithSequence> {
         final int mId;
         final int mSequence;
@@ -534,7 +534,7 @@ public class TableInfo {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static class Index {
         // should match the value in Index.kt
         public static final String DEFAULT_PREFIX = "index_";

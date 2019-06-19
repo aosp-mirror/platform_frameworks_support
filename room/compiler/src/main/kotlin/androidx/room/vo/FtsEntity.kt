@@ -82,11 +82,9 @@ class FtsEntity(
         return identityKey.hash()
     }
 
-    fun getCreateTableQueryWithoutTokenizer() = createTableQuery(tableName, false)
-
-    private fun createTableQuery(tableName: String, includeTokenizer: Boolean = true): String {
+    private fun createTableQuery(tableName: String): String {
         val definitions = nonHiddenFields.map { it.databaseDefinition(false) } +
-                ftsOptions.databaseDefinition(includeTokenizer)
+                ftsOptions.databaseDefinition()
         return "CREATE VIRTUAL TABLE IF NOT EXISTS `$tableName` " +
                 "USING ${ftsVersion.name}(${definitions.joinToString(", ")})"
     }

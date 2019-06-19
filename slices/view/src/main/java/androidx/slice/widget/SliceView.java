@@ -18,9 +18,6 @@ package androidx.slice.widget;
 
 import static android.app.slice.Slice.SUBTYPE_COLOR;
 import static android.app.slice.SliceItem.FORMAT_INT;
-import static android.view.View.MeasureSpec.EXACTLY;
-import static android.view.View.MeasureSpec.UNSPECIFIED;
-import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -40,7 +37,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.Observer;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
@@ -163,9 +159,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     private boolean mShowActions = false;
     private boolean mShowLastUpdated = true;
     private boolean mCurrentSliceLoggedVisible = false;
-    private boolean mShowTitleItems = false;
-    private boolean mShowHeaderDivider = false;
-    private boolean mShowActionDividers = false;
 
     private int mShortcutSize;
     private int mMinTemplateHeight;
@@ -215,7 +208,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mActionRowHeight = getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_action_row_height);
         mViewPolicy = new SliceViewPolicy();
-        mCurrentView = new TemplateView(getContext());
+        mCurrentView = new LargeTemplateView(getContext());
         mCurrentView.setPolicy(mViewPolicy);
         addView(mCurrentView, getChildLp(mCurrentView));
         applyConfigurations();
@@ -230,13 +223,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mTouchSlopSquared = slop * slop;
         mHandler = new Handler();
 
+        mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
+                getPaddingBottom());
         setClipToPadding(false);
-        super.setOnClickListener(this);
-    }
 
-    @VisibleForTesting
-    void setSliceViewPolicy(SliceViewPolicy policy) {
-        mViewPolicy = policy;
+        super.setOnClickListener(this);
     }
 
     /**
@@ -297,14 +288,20 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return (mLongClickListener != null && handleTouchForLongpress(ev))
-                || super.onInterceptTouchEvent(ev);
+        boolean ret = super.onInterceptTouchEvent(ev);
+        if (mLongClickListener != null) {
+            return handleTouchForLongpress(ev);
+        }
+        return ret;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return (mLongClickListener != null && handleTouchForLongpress(ev))
-                || super.onTouchEvent(ev);
+        boolean ret = super.onTouchEvent(ev);
+        if (mLongClickListener != null) {
+            return handleTouchForLongpress(ev);
+        }
+        return ret;
     }
 
     private boolean handleTouchForLongpress(MotionEvent ev) {
@@ -317,7 +314,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 mPressing = true;
                 mInLongpress = false;
                 mHandler.postDelayed(mLongpressCheck, ViewConfiguration.getLongPressTimeout());
-                return false;
+                break;
 
             case MotionEvent.ACTION_MOVE:
                 final int deltaX = (int) ev.getRawX() - mDownX;
@@ -327,42 +324,43 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     mPressing = false;
                     mHandler.removeCallbacks(mLongpressCheck);
                 }
-                // If a long press has already happened, consume further movement.
-                return mInLongpress;
+                break;
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                boolean wasInLongpress = mInLongpress;
                 mPressing = false;
                 mInLongpress = false;
                 mHandler.removeCallbacks(mLongpressCheck);
-                // If a long press just happened, consume up event to avoid a duplicate short click.
-                return wasInLongpress;
-
-            default:
-                return false;
+                break;
         }
+        return mInLongpress;
     }
 
-    private void configureViewPolicy(int maxHeight) {
-        if (mListContent != null && mListContent.isValid() && getMode() != MODE_SHORTCUT) {
-            if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
-                if (maxHeight <= mMinTemplateHeight) {
-                    maxHeight = mMinTemplateHeight;
-                }
-                mViewPolicy.setMaxSmallHeight(maxHeight);
-            } else {
-                mViewPolicy.setMaxSmallHeight(0);
-            }
-            mViewPolicy.setMaxHeight(maxHeight);
+    private int getHeightForMode(int maxHeight) {
+        if (mListContent == null || !mListContent.isValid()) {
+            return 0;
         }
+        int mode = getMode();
+        if (mode == MODE_SHORTCUT) {
+            return mShortcutSize;
+        }
+        if (maxHeight > 0 && maxHeight <= mMinTemplateHeight) {
+            maxHeight = mMinTemplateHeight;
+            mViewPolicy.setMaxSmallHeight(mMinTemplateHeight);
+        } else {
+            mViewPolicy.setMaxSmallHeight(0);
+        }
+        mViewPolicy.setMaxHeight(maxHeight);
+        return mListContent.getHeight(mSliceStyle, mViewPolicy);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
+        int childWidth = MeasureSpec.getSize(widthMeasureSpec);
         if (MODE_SHORTCUT == getMode()) {
             // TODO: consider scaling the shortcut to fit if too small
+            childWidth = mShortcutSize;
             width = mShortcutSize + getPaddingLeft() + getPaddingRight();
         }
         final int actionHeight = mActionRow.getVisibility() != View.GONE
@@ -372,60 +370,60 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         LayoutParams lp = getLayoutParams();
         final int maxHeight = (lp != null && lp.height == LayoutParams.WRAP_CONTENT)
-                || heightMode == UNSPECIFIED
+                || heightMode == MeasureSpec.UNSPECIFIED
                 ? -1 // no max, be default sizes
                 : heightAvailable;
-        configureViewPolicy(maxHeight);
+        final int sliceHeight = getHeightForMode(maxHeight);
         // Remove the padding from our available height
-        int childrenHeight = heightAvailable - getPaddingTop() - getPaddingBottom();
-
-        // never change the height if set to exactly
-        if (heightMode != EXACTLY) {
-            if (mListContent == null || !mListContent.isValid()) {
-                childrenHeight = actionHeight;
-            } else if (getMode() == MODE_SHORTCUT) {
-                // No compromise in case of shortcut
-                childrenHeight = mShortcutSize + actionHeight;
+        int height = heightAvailable - getPaddingTop() - getPaddingBottom();
+        if (heightAvailable >= sliceHeight + actionHeight
+                || heightMode == MeasureSpec.UNSPECIFIED) {
+            // Available space is larger than the slice or we be what we want
+            if (heightMode == MeasureSpec.EXACTLY) {
+                height = Math.min(sliceHeight, height);
             } else {
-                int requiredHeight =
-                        mListContent.getHeight(mSliceStyle, mViewPolicy) + actionHeight;
-                if (childrenHeight > requiredHeight || heightMode == UNSPECIFIED) {
-                    // Available space is larger than what the slice wants
-                    childrenHeight = requiredHeight;
-                } else {
-                    // Not enough space available for slice in current mode
-                    if (getMode() == MODE_LARGE
-                            && childrenHeight >= mLargeHeight + actionHeight) {
-                        childrenHeight = mLargeHeight + actionHeight;
-                    } else if (childrenHeight <= mMinTemplateHeight) {
-                        childrenHeight = mMinTemplateHeight;
-                    }
-                }
+                height = sliceHeight;
+            }
+        } else {
+            // Not enough space available for slice in current mode
+            if (getMode() == MODE_LARGE
+                    && heightAvailable >= mLargeHeight + actionHeight) {
+                height = sliceHeight;
+            } else if (getMode() == MODE_SHORTCUT) {
+                // TODO: consider scaling the shortcut to fit if too small
+                height = mShortcutSize;
+            } else if (height <= mMinTemplateHeight) {
+                height = sliceHeight;
             }
         }
 
-        // Measure directly instead of calling measureChild as the later substracts padding
-        // from the provided size
-        int childWidthSpec = makeMeasureSpec(width, EXACTLY);
-        int actionRowHeight = actionHeight > 0 ? (actionHeight + getPaddingBottom()) : 0;
-        mActionRow.measure(childWidthSpec, makeMeasureSpec(actionRowHeight, EXACTLY));
+        int childHeight = height + getPaddingTop() + getPaddingBottom();
+        childWidth = childWidth + getPaddingLeft() + getPaddingRight();
+        int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
+        int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY);
+        measureChild(mCurrentView, childWidthMeasureSpec, childHeightMeasureSpec);
 
-        // Include the bottom padding for currentView only if action row is invisible
-        int currentViewHeight = childrenHeight + getPaddingTop()
-                + (actionHeight > 0 ? 0 : getPaddingBottom());
-        mCurrentView.measure(childWidthSpec, makeMeasureSpec(currentViewHeight, EXACTLY));
-        setMeasuredDimension(width,
-                mCurrentView.getMeasuredHeight() + mActionRow.getMeasuredHeight());
+        int actionPaddedHeight = actionHeight + getPaddingTop() + getPaddingBottom();
+        int actionHeightSpec = MeasureSpec.makeMeasureSpec(actionPaddedHeight, MeasureSpec.EXACTLY);
+        measureChild(mActionRow, childWidthMeasureSpec, actionHeightSpec);
+
+        // Total height should include action row and our padding
+        height += actionHeight + getPaddingTop() + getPaddingBottom();
+        setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         View v = mCurrentView;
-        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        final int left = 0;
+        final int top = 0;
+        v.layout(left, top, left + v.getMeasuredWidth() + getPaddingRight() + getPaddingLeft(),
+                top + v.getMeasuredHeight());
         if (mActionRow.getVisibility() != View.GONE) {
-            int top = v.getMeasuredHeight();
-            mActionRow.layout(0, top, mActionRow.getMeasuredWidth(),
-                    mActionRow.getMeasuredHeight() + top);
+            mActionRow.layout(left,
+                    top + v.getMeasuredHeight(),
+                    left + mActionRow.getMeasuredWidth(),
+                    top + v.getMeasuredHeight() + mActionRow.getMeasuredHeight());
         }
     }
 
@@ -441,18 +439,13 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * content see {@link SliceLiveData}.
      */
     public void setSlice(@Nullable Slice slice) {
-        LocationBasedViewTracker.trackInputFocused(this);
-        LocationBasedViewTracker.trackA11yFocus(this);
         initSliceMetrics(slice);
         boolean isUpdate = slice != null && mCurrentSlice != null
                 && slice.getUri().equals(mCurrentSlice.getUri());
-        SliceMetadata oldSliceData = mSliceMetadata;
-        mCurrentSlice = slice;
-        mSliceMetadata = mCurrentSlice != null ? SliceMetadata.from(getContext(), mCurrentSlice)
-                : null;
         if (isUpdate) {
             // If its an update check the loading state
-            SliceMetadata newSliceData = mSliceMetadata;
+            SliceMetadata oldSliceData = SliceMetadata.from(getContext(), mCurrentSlice);
+            SliceMetadata newSliceData = SliceMetadata.from(getContext(), slice);
             if (oldSliceData.getLoadingState() == SliceMetadata.LOADED_ALL
                     && newSliceData.getLoadingState() == SliceMetadata.LOADED_NONE) {
                 // If it's the same slice going from "loaded all" to "loaded none"... let's
@@ -462,17 +455,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         } else {
             mCurrentView.resetView();
         }
-        mListContent = mSliceMetadata != null ? mSliceMetadata.getListContent() : null;
-        if (mShowTitleItems) {
-            showTitleItems(true);
-        }
-        if (mShowHeaderDivider) {
-            showHeaderDivider(true);
-        }
-        if (mShowActionDividers) {
-            showActionDividers(true);
-        }
-        if (mListContent == null || !mListContent.isValid()) {
+        mCurrentSlice = slice;
+        mListContent = new ListContent(getContext(), mCurrentSlice);
+        if (!mListContent.isValid()) {
             mActions = null;
             mCurrentView.resetView();
             updateActions();
@@ -482,6 +467,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mCurrentView.setLoadingActions(null);
 
         // Check if the slice content is expired and show when it was last updated
+        mSliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
         mActions = mSliceMetadata.getSliceActions();
         mCurrentView.setLastUpdated(mSliceMetadata.getLastUpdatedTime());
         mCurrentView.setShowLastUpdated(mShowLastUpdated && mSliceMetadata.isExpired());
@@ -631,64 +617,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     }
 
     /**
-     * Whether this view should show title items on the first row of the slice.
-     * Title items appear at the start of the row.
-     */
-    public void setShowTitleItems(boolean enabled) {
-        mShowTitleItems = enabled;
-        if (mListContent != null) {
-            mListContent.showTitleItems(enabled);
-        }
-    }
-
-    /**
-     * @deprecated TO BE REMOVED
-     * @removed
-     */
-    @Deprecated
-    public void showTitleItems(boolean enabled) {
-        setShowTitleItems(enabled);
-    }
-
-    /**
-     * Whether this view should show the header divider.
-     */
-    public void setShowHeaderDivider(boolean enabled) {
-        mShowHeaderDivider = enabled;
-        if (mListContent != null) {
-            mListContent.showHeaderDivider(enabled);
-        }
-    }
-
-    /**
-     * @deprecated TO BE REMOVED
-     * @removed
-     */
-    @Deprecated
-    public void showHeaderDivider(boolean enabled) {
-        setShowHeaderDivider(enabled);
-    }
-
-    /**
-     * Whether this view should show action dividers for rows.
-     */
-    public void setShowActionDividers(boolean enabled) {
-        mShowActionDividers = enabled;
-        if (mListContent != null) {
-            mListContent.showActionDividers(enabled);
-        }
-    }
-
-    /**
-     * @deprecated TO BE REMOVED
-     * @removed
-     */
-    @Deprecated
-    public void showActionDividers(boolean enabled) {
-        setShowActionDividers(enabled);
-    }
-
-    /**
      * @hide
      *
      * Whether this view should show a row of actions with it.
@@ -726,7 +654,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             newView = true;
         } else if (mode != MODE_SHORTCUT && isCurrentViewShortcut) {
             removeView(mCurrentView);
-            mCurrentView = new TemplateView(getContext());
+            mCurrentView = new LargeTemplateView(getContext());
             addView(mCurrentView, getChildLp(mCurrentView));
             newView = true;
         }
@@ -734,6 +662,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         // If the view changes we should apply any configurations to it
         if (newView) {
             mCurrentView.setPolicy(mViewPolicy);
+            mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
+                    getPaddingBottom());
             applyConfigurations();
             if (mListContent != null && mListContent.isValid()) {
                 mCurrentView.setSliceContent(mListContent);
@@ -760,8 +690,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             // No actions, hide the row, clear out the view
             mActionRow.setVisibility(View.GONE);
             mCurrentView.setSliceActions(null);
-            mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
-                    getPaddingBottom());
             return;
         }
         // Sort actions based on priority and set them in action rows.
@@ -771,20 +699,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             // Show in action row if available
             mActionRow.setActions(sortedActions, getTintColor());
             mActionRow.setVisibility(View.VISIBLE);
-
             // Hide them on the template
             mCurrentView.setSliceActions(null);
-
-            mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(), 0);
-            mActionRow.setPaddingRelative(getPaddingStart(), 0, getPaddingEnd(),
-                    getPaddingBottom());
-
         } else {
             // Otherwise set them on the template
             mCurrentView.setSliceActions(sortedActions);
-            mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
-                    getPaddingBottom());
-
             mActionRow.setVisibility(View.GONE);
         }
     }

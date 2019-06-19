@@ -42,12 +42,11 @@ import androidx.slice.SliceItem;
 import androidx.slice.SliceUtils;
 import androidx.slice.SliceViewManager;
 import androidx.slice.SliceViewManager.SliceCallback;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,7 +61,7 @@ import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceLiveDataTest {
 
@@ -71,7 +70,7 @@ public class SliceLiveDataTest {
     private static final Intent INTENT_TWO = new Intent("intent2");
     private static final Intent INTENT_THREE = new Intent("intent3");
 
-    private final Context mContext = ApplicationProvider.getApplicationContext();
+    private final Context mContext = InstrumentationRegistry.getContext();
     private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
 
     private SliceViewManager mManager = mock(SliceViewManager.class);
@@ -85,22 +84,20 @@ public class SliceLiveDataTest {
                         new Slice.Builder(Uri.parse("content://test/something/other")).build(),
                         null)
                 .build();
-    private SliceLiveData.CachedSliceLiveData mLiveData;
+    private LiveData<Slice> mLiveData;
     private ArgumentCaptor<Slice> mSlice;
 
     @Before
     public void setUp() throws InterruptedException {
         InputStream input = createInput(mBaseSlice);
 
-        mLiveData = SliceLiveData.fromStream(mContext, mManager, input, mErrorListener);
+        mLiveData = SliceLiveData.fromStream(mContext, mManager, input, mErrorListener, false);
         mInstrumentation.runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mLiveData.observeForever(mObserver);
             }
         });
-        waitForAsync();
-        // The second one executes the loading initial slice code.
         waitForAsync();
         mInstrumentation.waitForIdleSync();
     }
@@ -267,8 +264,7 @@ public class SliceLiveDataTest {
     @Test
     public void testInvalidInput() throws PendingIntent.CanceledException, InterruptedException {
         mLiveData = SliceLiveData.fromStream(mContext, mManager,
-                new ByteArrayInputStream(new byte[0]), mErrorListener);
-        mLiveData.parseStream();
+                new ByteArrayInputStream(new byte[0]), mErrorListener, false);
         waitForAsync();
         mInstrumentation.waitForIdleSync();
         verify(mErrorListener).onSliceError(

@@ -33,13 +33,7 @@ public class AppCompatNightModeAlertDialog extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appcompat_night_mode);
-    }
-
-    public void setModeNightFollowSystem(View view) {
-        AlertDialog dialog = createAlertDialog();
-        dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        dialog.show();
+        setContentView(R.layout.appcompat_night_mode_dialog);
     }
 
     public void setModeNightNo(View view) {
@@ -54,15 +48,9 @@ public class AppCompatNightModeAlertDialog extends AppCompatActivity {
         dialog.show();
     }
 
-    public void setModeNightAutoTime(View view) {
+    public void setModeNightAuto(View view) {
         AlertDialog dialog = createAlertDialog();
-        dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
-        dialog.show();
-    }
-
-    public void setModeNightAutoBattery(View view) {
-        AlertDialog dialog = createAlertDialog();
-        dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+        dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         dialog.show();
     }
 

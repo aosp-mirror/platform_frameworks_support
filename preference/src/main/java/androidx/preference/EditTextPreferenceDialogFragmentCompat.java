@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Bundle;
 import android.view.View;
@@ -63,19 +63,16 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
         super.onBindDialogView(view);
 
         mEditText = view.findViewById(android.R.id.edit);
+        mEditText.requestFocus();
 
         if (mEditText == null) {
             throw new IllegalStateException("Dialog view must contain an EditText with id" +
                     " @android:id/edit");
         }
 
-        mEditText.requestFocus();
         mEditText.setText(mText);
         // Place cursor at the end
         mEditText.setSelection(mEditText.getText().length());
-        if (getEditTextPreference().getOnBindEditTextListener() != null) {
-            getEditTextPreference().getOnBindEditTextListener().onBindEditText(mEditText);
-        }
     }
 
     private EditTextPreference getEditTextPreference() {
@@ -83,7 +80,7 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     protected boolean needInputMethod() {
         // We want the input method to show, if possible, when dialog is displayed
@@ -92,11 +89,11 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+
         if (positiveResult) {
             String value = mEditText.getText().toString();
-            final EditTextPreference preference = getEditTextPreference();
-            if (preference.callChangeListener(value)) {
-                preference.setText(value);
+            if (getEditTextPreference().callChangeListener(value)) {
+                getEditTextPreference().setText(value);
             }
         }
     }

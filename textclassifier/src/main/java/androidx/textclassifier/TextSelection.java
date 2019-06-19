@@ -43,25 +43,21 @@ public final class TextSelection {
     private static final String EXTRA_END_INDEX = "end";
     private static final String EXTRA_ENTITY_CONFIDENCE = "entity_conf";
     private static final String EXTRA_ID = "id";
-    private static final String EXTRA_EXTRAS = "extras";
 
     private final int mStartIndex;
     private final int mEndIndex;
     @NonNull private final EntityConfidence mEntityConfidence;
     @Nullable private final String mId;
-    @NonNull private final Bundle mExtras;
 
     TextSelection(
             int startIndex,
             int endIndex,
             @NonNull EntityConfidence entityConfidence,
-            @Nullable String id,
-            @NonNull Bundle extras) {
+            @Nullable String id) {
         mStartIndex = startIndex;
         mEndIndex = endIndex;
         mEntityConfidence = entityConfidence;
         mId = id;
-        mExtras = extras;
     }
 
     /**
@@ -79,22 +75,22 @@ public final class TextSelection {
     }
 
     /**
-     * Returns the number of entity types found in the classified text.
+     * Returns the number of entities found in the classified text.
      */
     @IntRange(from = 0)
-    public int getEntityTypeCount() {
+    public int getEntityCount() {
         return mEntityConfidence.getEntities().size();
     }
 
     /**
-     * Returns the entity type at the specified index. Entities are ordered from high confidence
+     * Returns the entity at the specified index. Entities are ordered from high confidence
      * to low confidence.
      *
      * @throws IndexOutOfBoundsException if the specified index is out of range.
-     * @see #getEntityTypeCount() for the number of entities available.
+     * @see #getEntityCount() for the number of entities available.
      */
     @NonNull
-    public @EntityType String getEntityType(int index) {
+    public @EntityType String getEntity(int index) {
         return mEntityConfidence.getEntities().get(index);
     }
 
@@ -116,19 +112,6 @@ public final class TextSelection {
         return mId;
     }
 
-    /**
-     * Returns the extended, vendor specific data.
-     *
-     * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
-     * prefer to hold a reference to the returned bundle rather than frequently calling this
-     * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
-     * Bundle are not deep copied.
-     */
-    @NonNull
-    public Bundle getExtras() {
-        return BundleUtils.deepCopy(mExtras);
-    }
-
     @Override
     public String toString() {
         return String.format(
@@ -148,7 +131,6 @@ public final class TextSelection {
         bundle.putInt(EXTRA_END_INDEX, mEndIndex);
         BundleUtils.putMap(bundle, EXTRA_ENTITY_CONFIDENCE, mEntityConfidence.getConfidenceMap());
         bundle.putString(EXTRA_ID, mId);
-        bundle.putBundle(EXTRA_EXTRAS, mExtras);
         return bundle;
     }
 
@@ -160,8 +142,7 @@ public final class TextSelection {
         final Builder builder = new Builder(
                 bundle.getInt(EXTRA_START_INDEX),
                 bundle.getInt(EXTRA_END_INDEX))
-                .setId(bundle.getString(EXTRA_ID))
-                .setExtras(bundle.getBundle(EXTRA_EXTRAS));
+                .setId(bundle.getString(EXTRA_ID));
         for (Map.Entry<String, Float> entityConfidence : BundleUtils.getFloatStringMapOrThrow(
                 bundle, EXTRA_ENTITY_CONFIDENCE).entrySet()) {
             builder.setEntityType(entityConfidence.getKey(), entityConfidence.getValue());
@@ -211,9 +192,9 @@ public final class TextSelection {
             builder.setId(getId());
         }
 
-        final int entityCount = getEntityTypeCount();
+        final int entityCount = getEntityCount();
         for (int i = 0; i < entityCount; i++) {
-            String entity = getEntityType(i);
+            String entity = getEntity(i);
             builder.setEntityType(entity, getConfidenceScore(entity));
         }
         return builder.build();
@@ -228,7 +209,6 @@ public final class TextSelection {
         private final int mEndIndex;
         @NonNull private final Map<String, Float> mEntityConfidence = new ArrayMap<>();
         @Nullable private String mId;
-        @Nullable private Bundle mExtras;
 
         /**
          * Creates a builder used to build {@link TextSelection} objects.
@@ -268,22 +248,12 @@ public final class TextSelection {
         }
 
         /**
-         * Sets the extended, vendor specific data.
-         */
-        @NonNull
-        public Builder setExtras(@Nullable Bundle extras) {
-            mExtras = extras;
-            return this;
-        }
-
-        /**
          * Builds and returns {@link TextSelection} object.
          */
         @NonNull
         public TextSelection build() {
             return new TextSelection(
-                    mStartIndex, mEndIndex, new EntityConfidence(mEntityConfidence), mId,
-                    mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
+                    mStartIndex, mEndIndex, new EntityConfidence(mEntityConfidence), mId);
         }
     }
 
@@ -302,19 +272,16 @@ public final class TextSelection {
         private final int mStartIndex;
         private final int mEndIndex;
         @Nullable private final LocaleListCompat mDefaultLocales;
-        @NonNull private final Bundle mExtras;
 
         Request(
                 CharSequence text,
                 int startIndex,
                 int endIndex,
-                LocaleListCompat defaultLocales,
-                Bundle extras) {
+                LocaleListCompat defaultLocales) {
             mText = text;
             mStartIndex = startIndex;
             mEndIndex = endIndex;
             mDefaultLocales = defaultLocales;
-            mExtras = extras;
         }
 
         /**
@@ -352,19 +319,6 @@ public final class TextSelection {
         }
 
         /**
-         * Returns the extended, vendor specific data.
-         *
-         * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
-         * prefer to hold a reference to the returned bundle rather than frequently calling this
-         * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
-         * Bundle are not deep copied.
-         */
-        @NonNull
-        public Bundle getExtras() {
-            return BundleUtils.deepCopy(mExtras);
-        }
-
-        /**
          * @hide
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -399,7 +353,6 @@ public final class TextSelection {
             private final CharSequence mText;
             private final int mStartIndex;
             private final int mEndIndex;
-            private Bundle mExtras;
 
             @Nullable private LocaleListCompat mDefaultLocales;
 
@@ -436,23 +389,11 @@ public final class TextSelection {
             }
 
             /**
-             * Sets the extended, vendor specific data.
-             *
-             * @return this builder
-             */
-            @NonNull
-            public Builder setExtras(@Nullable Bundle extras) {
-                mExtras = extras;
-                return this;
-            }
-
-            /**
              * Builds and returns the request object.
              */
             @NonNull
             public Request build() {
-                return new Request(mText, mStartIndex, mEndIndex, mDefaultLocales,
-                        mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
+                return new Request(mText, mStartIndex, mEndIndex, mDefaultLocales);
             }
         }
 
@@ -467,7 +408,6 @@ public final class TextSelection {
             bundle.putInt(EXTRA_START_INDEX, mStartIndex);
             bundle.putInt(EXTRA_END_INDEX, mEndIndex);
             BundleUtils.putLocaleList(bundle, EXTRA_DEFAULT_LOCALES, mDefaultLocales);
-            bundle.putBundle(EXTRA_EXTRAS, mExtras);
             return bundle;
         }
 
@@ -480,8 +420,7 @@ public final class TextSelection {
                     bundle.getString(EXTRA_TEXT),
                     bundle.getInt(EXTRA_START_INDEX),
                     bundle.getInt(EXTRA_END_INDEX))
-                    .setDefaultLocales(BundleUtils.getLocaleList(bundle, EXTRA_DEFAULT_LOCALES))
-                    .setExtras(bundle.getBundle(EXTRA_EXTRAS));
+                    .setDefaultLocales(BundleUtils.getLocaleList(bundle, EXTRA_DEFAULT_LOCALES));
             final Request request = builder.build();
             return request;
         }

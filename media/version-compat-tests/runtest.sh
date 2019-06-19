@@ -25,11 +25,11 @@
 
 CLIENT_MODULE_NAME_BASE="support-media-compat-test-client"
 SERVICE_MODULE_NAME_BASE="support-media-compat-test-service"
+MEDIA_COMPAT_CLIENT_TEST_JAVA_PACKAGE="android.support.mediacompat.client"
+MEDIA_COMPAT_SERVICE_TEST_JAVA_PACKAGE="android.support.mediacompat.service"
 CLIENT_VERSION=""
 SERVICE_VERSION=""
 OPTION_TEST_TARGET=""
-VERSION_COMBINATION=""
-DEVICE_SERIAL=""
 
 function printRunTestUsage() {
   echo "Usage: ./runtest.sh <version_combination_number> [option]"
@@ -42,7 +42,6 @@ function printRunTestUsage() {
   echo ""
   echo "Option:"
   echo "    -t <class/method>: Only run the specific test class/method."
-  echo "    -s <serial>: Use device with the serial. Required if multiple devices are connected."
 }
 
 function runTest() {
@@ -51,16 +50,16 @@ function runTest() {
   local CLIENT_MODULE_NAME="$CLIENT_MODULE_NAME_BASE$([ "$CLIENT_VERSION" = "tot" ] || echo "-previous")"
   local SERVICE_MODULE_NAME="$SERVICE_MODULE_NAME_BASE$([ "$SERVICE_VERSION" = "tot" ] || echo "-previous")"
 
-  echo "Building the test apks"
+  # Build test apks
   ./gradlew $CLIENT_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
   ./gradlew $SERVICE_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
 
-  echo "Installing the test apks"
-  adb $DEVICE_SERIAL install -r "../../out/dist/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
-  adb $DEVICE_SERIAL install -r "../../out/dist/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+  # Install the apks
+  adb install -r "../../out/dist/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+  adb install -r "../../out/dist/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
 
-  echo "Running the tests"
-  local test_command="adb $DEVICE_SERIAL shell am instrument -w -e debug false -e client_version $CLIENT_VERSION -e service_version $SERVICE_VERSION"
+  # Run the tests
+  local test_command="adb shell am instrument -w -e debug false -e client_version $CLIENT_VERSION -e service_version $SERVICE_VERSION"
   local client_test_runner="android.support.mediacompat.client.test/androidx.test.runner.AndroidJUnitRunner"
   local service_test_runner="android.support.mediacompat.service.test/androidx.test.runner.AndroidJUnitRunner"
 
@@ -71,8 +70,15 @@ function runTest() {
   elif [[ $OPTION_TEST_TARGET == *"service"* ]]; then
     ${test_command} $OPTION_TEST_TARGET ${service_test_runner}
   else
-    ${test_command} ${client_test_runner}
-    ${test_command} ${service_test_runner}
+    # Since there is no MediaSession2 APIs in previous support library, don't run the test.
+    # Instead, only run mediacompat tests.
+    if [[ $CLIENT_VERSION != "tot" || $SERVICE_VERSION != "tot" ]]; then
+      ${test_command} "-e package $MEDIA_COMPAT_CLIENT_TEST_JAVA_PACKAGE" ${client_test_runner}
+      ${test_command} "-e package $MEDIA_COMPAT_SERVICE_TEST_JAVA_PACKAGE" ${service_test_runner}
+    else
+      ${test_command} ${client_test_runner}
+      ${test_command} ${service_test_runner}
+    fi
   fi
 
   echo ">>>>>>>>>>>>>>>>>>>>>>>> Test Ended: Client-$CLIENT_VERSION & Service-$SERVICE_VERSION <<<<<<<<<<<<<<<<<<<<<<<<<<"
@@ -88,39 +94,23 @@ then
   exit 1;
 fi
 
-case ${1} in
-  1|2|3|4)
-    VERSION_COMBINATION=${1}
-    shift
-    ;;
-  *)
-    printRunTestUsage
+if [[ $# -eq 0 || $1 -le 0 || $1 -gt 4 ]]
+then
+  printRunTestUsage
+  exit 1;
+fi
+
+if [[ ${2} == "-t" ]]; then
+  if [[ ${3} == *"client"* || ${3} == *"service"* ]]; then
+    OPTION_TEST_TARGET="-e class ${3}"
+  else
+    echo "Wrong test class/method name. Aborting."
+    echo "It should be in the form of \"<FULL_CLASS_NAME>[#METHOD_NAME]\"."
     exit 1;
-esac
+  fi
+fi
 
-while (( "$#" )); do
-  case ${1} in
-    -t)
-      if [[ ${2} == *"client"* || ${2} == *"service"* ]]; then
-        OPTION_TEST_TARGET="-e class ${2}"
-      else
-        echo "Wrong test class/method name. Aborting."
-        echo "It should be in the form of \"<FULL_CLASS_NAME>[#METHOD_NAME]\"."
-        exit 1;
-      fi
-      shift 2
-      ;;
-    -s)
-      DEVICE_SERIAL="-s ${2}"
-      shift 2
-      ;;
-    *)
-      printRunTestUsage
-      exit 1;
-  esac
-done
-
-case ${VERSION_COMBINATION} in
+case ${1} in
   1)
      CLIENT_VERSION="tot"
      SERVICE_VERSION="tot"

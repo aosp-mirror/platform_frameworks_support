@@ -16,9 +16,10 @@
 
 package androidx.work.impl.background.systemalarm;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
+
 import androidx.work.Logger;
 import androidx.work.WorkRequest;
 
@@ -26,7 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,21 +39,7 @@ import java.util.concurrent.TimeUnit;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class WorkTimer {
 
-    private static final String TAG = Logger.tagWithPrefix("WorkTimer");
-
-    private final ThreadFactory mBackgroundThreadFactory = new ThreadFactory() {
-
-        private int mThreadsCreated = 0;
-
-        @Override
-        public Thread newThread(@NonNull Runnable r) {
-            // Delegate to the default factory, but keep track of the current thread being used.
-            Thread thread = Executors.defaultThreadFactory().newThread(r);
-            thread.setName("WorkManager-WorkTimer-thread-" + mThreadsCreated);
-            mThreadsCreated++;
-            return thread;
-        }
-    };
+    private static final String TAG = "WorkTimer";
 
     private final ScheduledExecutorService mExecutorService;
     final Map<String, WorkTimerRunnable> mTimerMap;
@@ -64,7 +50,7 @@ class WorkTimer {
         mTimerMap = new HashMap<>();
         mListeners = new HashMap<>();
         mLock = new Object();
-        mExecutorService = Executors.newSingleThreadScheduledExecutor(mBackgroundThreadFactory);
+        mExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
 
     @SuppressWarnings("FutureReturnValueIgnored")
@@ -73,7 +59,7 @@ class WorkTimer {
             @NonNull TimeLimitExceededListener listener) {
 
         synchronized (mLock) {
-            Logger.get().debug(TAG, String.format("Starting timer for %s", workSpecId));
+            Logger.debug(TAG, String.format("Starting timer for %s", workSpecId));
             // clear existing timer's first
             stopTimer(workSpecId);
             WorkTimerRunnable runnable = new WorkTimerRunnable(this, workSpecId);
@@ -87,21 +73,9 @@ class WorkTimer {
         synchronized (mLock) {
             WorkTimerRunnable removed = mTimerMap.remove(workSpecId);
             if (removed != null) {
-                Logger.get().debug(TAG, String.format("Stopping timer for %s", workSpecId));
+                Logger.debug(TAG, String.format("Stopping timer for %s", workSpecId));
                 mListeners.remove(workSpecId);
             }
-        }
-    }
-
-    /**
-     * This method needs to be idempotent. This could be called more than once, and therefore,
-     * this method should only perform cleanup when necessary.
-     */
-    void onDestroy() {
-        if (!mExecutorService.isShutdown()) {
-            // Calling shutdown() waits for pending scheduled WorkTimerRunnable's which is not
-            // something we care about. Hence call shutdownNow().
-            mExecutorService.shutdownNow();
         }
     }
 
@@ -113,11 +87,6 @@ class WorkTimer {
     @VisibleForTesting
     synchronized Map<String, TimeLimitExceededListener> getListeners() {
         return mListeners;
-    }
-
-    @VisibleForTesting
-    ScheduledExecutorService getExecutorService() {
-        return mExecutorService;
     }
 
     /**
@@ -145,7 +114,7 @@ class WorkTimer {
                         listener.onTimeLimitExceeded(mWorkSpecId);
                     }
                 } else {
-                    Logger.get().debug(TAG, String.format(
+                    Logger.debug(TAG, String.format(
                             "Timer with %s is already marked as complete.", mWorkSpecId));
                 }
             }

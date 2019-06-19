@@ -17,23 +17,23 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.Publish
 
 plugins {
-    id("AndroidXPlugin")
-    id("com.android.library")
+    id("SupportAndroidLibraryPlugin")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0")
-    api("androidx.core:core:1.1.0-rc01")
+    api(project(":annotation"))
+    api(project(":core"))
 
-    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
-    androidTestImplementation(ANDROIDX_TEST_CORE)
-    androidTestImplementation(ANDROIDX_TEST_RUNNER)
-    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
+
+    testImplementation(JUNIT)
+    testImplementation(TEST_RUNNER)
+    testImplementation(MOCKITO_CORE)
 
     compileOnly fileTree(dir: '../stubs', include: ['android.car.jar'])
     androidTestCompileOnly fileTree(dir: '../stubs', include: ['android.car.jar'])
@@ -43,14 +43,18 @@ android {
     defaultConfig {
         minSdkVersion 26
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
     }
 }
 
-androidx {
+supportLibrary {
     name = "Android Car Support Moderator"
-    publish = Publish.SNAPSHOT_AND_RELEASE
+    publish = true
     mavenVersion = LibraryVersions.CAR_MODERATOR
     mavenGroup = LibraryGroups.CAR
     inceptionYear = "2018"

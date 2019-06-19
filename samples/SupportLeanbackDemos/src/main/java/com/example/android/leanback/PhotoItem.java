@@ -13,14 +13,9 @@
  */
 package com.example.android.leanback;
 
-import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * PhotoItem.
- */
-@SuppressLint("BanParcelableUsage")
 public class PhotoItem implements Parcelable {
     private int mId;
     private String mTitle;

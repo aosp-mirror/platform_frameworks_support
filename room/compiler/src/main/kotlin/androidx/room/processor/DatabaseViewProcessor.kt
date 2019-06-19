@@ -21,18 +21,16 @@ import androidx.room.parser.ParsedQuery
 import androidx.room.parser.QueryType
 import androidx.room.parser.SqlParser
 import androidx.room.vo.DatabaseView
-import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
 
 class DatabaseViewProcessor(
     baseContext: Context,
-    val element: TypeElement,
-    private val referenceStack: LinkedHashSet<Name> = LinkedHashSet()
-) : EntityOrViewProcessor {
+    val element: TypeElement
+) {
 
     val context = baseContext.fork(element)
 
-    override fun process(): DatabaseView {
+    fun process(): DatabaseView {
         context.checker.hasAnnotation(element, androidx.room.DatabaseView::class,
                 ProcessorErrors.VIEW_MUST_BE_ANNOTATED_WITH_DATABASE_VIEW)
         val annotationBox = element.toAnnotationBox(androidx.room.DatabaseView::class)
@@ -64,8 +62,7 @@ class DatabaseViewProcessor(
                 context = context,
                 element = element,
                 bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
-                parent = null,
-                referenceStack = referenceStack).process()
+                parent = null).process()
 
         return DatabaseView(
                 element = element,
@@ -78,7 +75,7 @@ class DatabaseViewProcessor(
     }
 
     companion object {
-        fun extractViewName(
+        private fun extractViewName(
             element: TypeElement,
             annotation: androidx.room.DatabaseView
         ): String {

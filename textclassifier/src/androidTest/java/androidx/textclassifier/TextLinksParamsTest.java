@@ -28,7 +28,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +37,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Map;
 
-@MediumTest
+@SmallTest
 public class TextLinksParamsTest {
 
     private Map<String, Float> mDummyEntityScores;
@@ -60,7 +60,7 @@ public class TextLinksParamsTest {
         }
     }
 
-    private static class CustomTextLinkSpan extends TextLinks.DefaultTextLinkSpan {
+    private static class CustomTextLinkSpan extends TextLinks.TextLinkSpan {
         CustomTextLinkSpan(@Nullable TextLinks.TextLinkSpanData textLinkSpanData) {
             super(textLinkSpanData);
         }

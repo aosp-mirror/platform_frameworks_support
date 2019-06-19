@@ -35,10 +35,9 @@ import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
-import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION;
-import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_KEY;
-import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_VALUE;
+import static androidx.slice.widget.SliceView.MODE_LARGE;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -50,6 +49,7 @@ import androidx.slice.SliceItem;
 import androidx.slice.core.SliceAction;
 import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
+import androidx.slice.view.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ import java.util.List;
  * Extracts information required to present content in a row format from a slice.
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(19)
 public class RowContent extends SliceContent {
     private static final String TAG = "RowContent";
@@ -71,16 +71,29 @@ public class RowContent extends SliceContent {
     private ArrayList<SliceItem> mEndItems = new ArrayList<>();
     private ArrayList<SliceAction> mToggleItems = new ArrayList<>();
     private SliceItem mRange;
-    private SliceItem mSelection;
     private boolean mIsHeader;
     private int mLineCount = 0;
-    private boolean mShowTitleItems;
-    private boolean mShowBottomDivider;
-    private boolean mShowActionDivider;
+    private int mMaxHeight;
+    private int mTextWithRangeHeight;
+    private int mSingleTextWithRangeHeight;
+    private int mMinHeight;
+    private int mRangeHeight;
 
-    public RowContent(SliceItem rowSlice, int position) {
+    public RowContent(Context context, SliceItem rowSlice, int position) {
         super(rowSlice, position);
         populate(rowSlice, position == 0);
+        if (context != null) {
+            mMaxHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_max_height);
+            mTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_multi_text_height);
+            mSingleTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_single_text_height);
+            mMinHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_min_height);
+            mRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_height);
+        }
     }
 
     /**
@@ -107,9 +120,6 @@ public class RowContent extends SliceContent {
         }
         if (SUBTYPE_RANGE.equals(rowSlice.getSubType())) {
             mRange = rowSlice;
-        }
-        if (SUBTYPE_SELECTION.equals(rowSlice.getSubType())) {
-            mSelection = rowSlice;
         }
         if (rowItems.size() > 0) {
             // Remove the things we already know about
@@ -215,14 +225,8 @@ public class RowContent extends SliceContent {
                 || mSubtitleItem != null
                 || mEndItems.size() > 0
                 || mRange != null
-                || mSelection != null
                 || isDefaultSeeMore());
     }
-
-    /**
-     * @return whether this row represents a header or not.
-     */
-    public boolean getIsHeader() { return mIsHeader; }
 
     /**
      * Sets whether this row represents a header or not.
@@ -237,14 +241,6 @@ public class RowContent extends SliceContent {
     @Nullable
     public SliceItem getRange() {
         return mRange;
-    }
-
-    /**
-     * @return the {@link SliceItem} representing the selection in the row; can be null.
-     */
-    @Nullable
-    public SliceItem getSelection() {
-        return mSelection;
     }
 
     /**
@@ -276,7 +272,7 @@ public class RowContent extends SliceContent {
      */
     @Nullable
     public SliceItem getStartItem() {
-        return mIsHeader && !mShowTitleItems ? null : mStartItem;
+        return mIsHeader ? null : mStartItem;
     }
 
     /**
@@ -323,7 +319,20 @@ public class RowContent extends SliceContent {
 
     @Override
     public int getHeight(SliceStyle style, SliceViewPolicy policy) {
-        return style.getRowHeight(this, policy);
+        int maxHeight = policy.getMaxSmallHeight() > 0 ? policy.getMaxSmallHeight() : mMaxHeight;
+        if (getRange() != null || policy.getMode() == MODE_LARGE) {
+            if (getRange() != null) {
+                // Range element always has set height and then the height of the text
+                // area on the row will vary depending on if 1 or 2 lines of text.
+                int textAreaHeight = getLineCount() > 1 ? mTextWithRangeHeight
+                        : mSingleTextWithRangeHeight;
+                return textAreaHeight + mRangeHeight;
+            } else {
+                return (getLineCount() > 1 || mIsHeader) ? maxHeight : mMinHeight;
+            }
+        } else {
+            return maxHeight;
+        }
     }
 
     /**
@@ -333,48 +342,6 @@ public class RowContent extends SliceContent {
         return FORMAT_ACTION.equals(mSliceItem.getFormat())
                 && mSliceItem.getSlice().hasHint(HINT_SEE_MORE)
                 && mSliceItem.getSlice().getItems().isEmpty();
-    }
-
-    /**
-     * Set whether this row content needs to show the title items on the start.
-     */
-    public void showTitleItems(boolean enabled) {
-        mShowTitleItems = enabled;
-    }
-
-    /**
-     * @return whether this row content needs to show the title items on the start.
-     */
-    public boolean hasTitleItems() {
-        return mShowTitleItems;
-    }
-
-    /**
-     * Set whether this row content needs to show the bottom divider.
-     */
-    public void showBottomDivider(boolean enabled) {
-        mShowBottomDivider = enabled;
-    }
-
-    /**
-     * @return whether this row content needs to show the bottom divider.
-     */
-    public boolean hasBottomDivider() {
-        return mShowBottomDivider;
-    }
-
-    /**
-     * Set whether this row content needs to show the action divider.
-     */
-    public void showActionDivider(boolean enabled) {
-        mShowActionDivider = enabled;
-    }
-
-    /**
-     * @return whether this row content needs to show the action divider.
-     */
-    public boolean hasActionDivider() {
-        return mShowActionDivider;
     }
 
     /**
@@ -429,18 +396,11 @@ public class RowContent extends SliceContent {
      * @return whether this item is valid content to visibly appear in a row.
      */
     private static boolean isValidRowContent(SliceItem slice, SliceItem item) {
-        // XXX: This is fragile -- new subtypes may be erroneously displayed by old clients, since
-        // this is effectively a blocklist, not an allowlist. I'm not sure if SELECTION_OPTION_KEY
-        // needs to be here, but better safe than sorry.
         if (item.hasAnyHints(HINT_KEYWORDS, HINT_TTL, HINT_LAST_UPDATED, HINT_HORIZONTAL)
-                || SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())
-                || SUBTYPE_SELECTION_OPTION_KEY.equals(item.getSubType())
-                || SUBTYPE_SELECTION_OPTION_VALUE.equals(item.getSubType())) {
+                || SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
             return false;
         }
         final String itemFormat = item.getFormat();
-        // XXX: This is confusing -- the FORMAT_INTs in a SUBTYPE_RANGE Slice aren't visible
-        // themselves, they're just used to inform rendering.
         return FORMAT_IMAGE.equals(itemFormat)
                 || FORMAT_TEXT.equals(itemFormat)
                 || FORMAT_LONG.equals(itemFormat)

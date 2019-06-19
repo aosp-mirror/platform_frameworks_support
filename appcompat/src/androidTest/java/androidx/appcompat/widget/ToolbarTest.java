@@ -16,26 +16,20 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.appcompat.testutils.TestUtils.assertCenterPixelOfColor;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,7 +39,7 @@ import org.junit.runner.RunWith;
 /**
  * Test {@link Toolbar}.
  */
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ToolbarTest {
 
@@ -121,53 +115,5 @@ public class ToolbarTest {
             }
         });
         assertEquals("Collapse legend", mToolbar.getCollapseContentDescription());
-    }
-
-    @Test
-    public void testTitlesTextColorSetHex() {
-        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_textcolor_hex);
-
-        final int expectedColor = 0xFFFF00FF;
-
-        assertEquals(expectedColor, toolbar.getTitleTextView().getCurrentTextColor());
-        assertEquals(expectedColor, toolbar.getSubtitleTextView().getCurrentTextColor());
-    }
-
-    @Test
-    public void testTitlesTextColorSetColorStateList() {
-        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_textcolor_csl);
-
-        final int expectedColor = AppCompatResources.getColorStateList(toolbar.getContext(),
-                R.color.color_state_lilac_alpha).getDefaultColor();
-
-        assertEquals(expectedColor, toolbar.getTitleTextView().getCurrentTextColor());
-        assertEquals(expectedColor, toolbar.getSubtitleTextView().getCurrentTextColor());
-    }
-
-    @Test
-    public void testToolbarMenuFromXml() {
-        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_menu);
-        final Menu menu = toolbar.getMenu();
-
-        assertNotEquals(0, menu.size());
-        assertNotNull(menu.findItem(R.id.action_search));
-    }
-
-    @Test
-    public void testToolbarOverflowIconWithThemedCSL() {
-        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_themedcsl_colorcontrolnormal);
-
-        // Assert that the overflow icon is tinted magenta, as per the theme
-        final Drawable icon = toolbar.getOverflowIcon();
-        assertNotNull(icon);
-        assertCenterPixelOfColor(
-                "Overflow icon is not tinted",
-                icon,
-                icon.getIntrinsicWidth(),
-                icon.getIntrinsicHeight(),
-                false,
-                0xFFFF00FF,
-                10,
-                false);
     }
 }

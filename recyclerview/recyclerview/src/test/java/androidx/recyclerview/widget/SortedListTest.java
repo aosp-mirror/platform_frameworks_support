@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import androidx.annotation.Nullable;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(JUnit4.class)
+@SmallTest
 public class SortedListTest {
 
     SortedList<Item> mList;

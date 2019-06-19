@@ -19,22 +19,20 @@ package androidx.slice.builders
 import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
+import androidx.test.InstrumentationRegistry
+import androidx.test.filters.SdkSuppress
 import androidx.core.graphics.drawable.IconCompat
 import androidx.slice.SliceProvider
 import androidx.slice.SliceSpecs
 import androidx.slice.builders.ListBuilder.ICON_IMAGE
 import androidx.slice.builders.ktx.test.R
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.filters.MediumTest
-import androidx.test.filters.SdkSuppress
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @SdkSuppress(minSdkVersion = 19)
-@MediumTest
 class SliceBuildersKtxTest {
     private val testUri = Uri.parse("content://com.example.android.sliceuri")
-    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
+    private val context = InstrumentationRegistry.getContext()
 
     init {
         SliceProvider.setSpecs(setOf(SliceSpecs.LIST))
@@ -69,8 +67,7 @@ class SliceBuildersKtxTest {
         assertEquals(sliceKtx.toString(), slice.toString())
     }
 
-    // Temporarily disabled due to b/116146018.
-    // @Test
+    @Test
     fun allBuildersTogether() {
         val pendingIntent = pendingIntentToTestActivity()
         val tapAction = tapSliceAction(
@@ -97,8 +94,7 @@ class SliceBuildersKtxTest {
         assertEquals(slice.toString(), sliceKtx.toString())
     }
 
-    // Temporarily disabled due to b/116146018.
-    // @Test
+    @Test
     fun sanity_withGridRow() {
         val tapAction = tapSliceAction(
                 pendingIntentToTestActivity(),

@@ -27,11 +27,9 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.OverScroller;
 
-import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
-import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 
 import java.util.Arrays;
@@ -133,7 +131,6 @@ public class ViewDragHelper {
     private float mMinVelocity;
 
     private int mEdgeSize;
-    private final int mDefaultEdgeSize;
     private int mTrackingEdges;
 
     private OverScroller mScroller;
@@ -396,8 +393,7 @@ public class ViewDragHelper {
 
         final ViewConfiguration vc = ViewConfiguration.get(context);
         final float density = context.getResources().getDisplayMetrics().density;
-        mDefaultEdgeSize = (int) (EDGE_SIZE * density + 0.5f);
-        mEdgeSize = mDefaultEdgeSize;
+        mEdgeSize = (int) (EDGE_SIZE * density + 0.5f);
 
         mTouchSlop = vc.getScaledTouchSlop();
         mMaxVelocity = vc.getScaledMaximumFlingVelocity();
@@ -461,38 +457,6 @@ public class ViewDragHelper {
     @Px
     public int getEdgeSize() {
         return mEdgeSize;
-    }
-
-    /**
-     * Set the range in pixels along the edges of this view that will actively
-     * detect edge touches or drags if edge tracking is enabled.
-     *
-     * @param size Edge size in pixels
-     *
-     * @see #setEdgeTrackingEnabled(int)
-     * @see #getEdgeSize()
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public void setEdgeSize(@Px @IntRange(from = 0) int size) {
-        mEdgeSize = size;
-    }
-
-    /**
-     * Return the default size used for edge tracking.
-     *
-     * @return The default edge size
-     *
-     * @see #setEdgeTrackingEnabled(int)
-     * @see #getEdgeSize()
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    @Px
-    public int getDefaultEdgeSize() {
-        return mDefaultEdgeSize;
     }
 
     /**

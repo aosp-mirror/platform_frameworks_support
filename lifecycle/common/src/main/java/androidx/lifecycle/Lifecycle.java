@@ -18,9 +18,6 @@ package androidx.lifecycle;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Defines an object that has an Android Lifecycle. {@link androidx.fragment.app.Fragment Fragment}
@@ -38,9 +35,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * before {@link android.app.Activity#onStop onStop} is called.
  * This gives you certain guarantees on which state the owner is in.
  * <p>
- * Your observer should implement either {@link DefaultLifecycleObserver}
- * or {@link LifecycleEventObserver} interfaces, for example, with {@link DefaultLifecycleObserver}
- * it would look like:
+ * If you use <b>Java 8 Language</b>, then observe events with {@link DefaultLifecycleObserver}.
+ * To include it you should add {@code "androidx.lifecycle:common-java8:<version>"} to your
+ * build.gradle file.
  * <pre>
  * class TestObserver implements DefaultLifecycleObserver {
  *     {@literal @}Override
@@ -49,18 +46,33 @@ import java.util.concurrent.atomic.AtomicReference;
  *     }
  * }
  * </pre>
+ * If you use <b>Java 7 Language</b>, Lifecycle events are observed using annotations.
+ * Once Java 8 Language becomes mainstream on Android, annotations will be deprecated, so between
+ * {@link DefaultLifecycleObserver} and annotations,
+ * you must always prefer {@code DefaultLifecycleObserver}.
+ * <pre>
+ * class TestObserver implements LifecycleObserver {
+ *   {@literal @}OnLifecycleEvent(ON_STOP)
+ *   void onStopped() {}
+ * }
+ * </pre>
+ * <p>
+ * Observer methods can receive zero or one argument.
+ * If used, the first argument must be of type {@link LifecycleOwner}.
+ * Methods annotated with {@link Event#ON_ANY} can receive the second argument, which must be
+ * of type {@link Event}.
+ * <pre>
+ * class TestObserver implements LifecycleObserver {
+ *   {@literal @}OnLifecycleEvent(ON_CREATE)
+ *   void onCreated(LifecycleOwner source) {}
+ *   {@literal @}OnLifecycleEvent(ON_ANY)
+ *   void onAny(LifecycleOwner source, Event event) {}
+ * }
+ * </pre>
+ * These additional parameters are provided to allow you to conveniently observe multiple providers
+ * and events without tracking them manually.
  */
 public abstract class Lifecycle {
-
-    /**
-     * Lifecycle coroutines extensions stashes the CoroutineScope into this field.
-     *
-     * @hide used by lifecycle-common-ktx
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    @NonNull
-    AtomicReference<Object> mInternalScopeRef = new AtomicReference<>();
-
     /**
      * Adds a LifecycleObserver that will be notified when the LifecycleOwner changes
      * state.

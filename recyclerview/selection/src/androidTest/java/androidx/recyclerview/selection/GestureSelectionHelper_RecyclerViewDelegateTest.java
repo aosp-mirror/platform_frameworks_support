@@ -24,14 +24,14 @@ import android.view.View;
 
 import androidx.recyclerview.selection.GestureSelectionHelper.RecyclerViewDelegate;
 import androidx.recyclerview.selection.testing.TestEvents;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class GestureSelectionHelper_RecyclerViewDelegateTest {
 
     // Simulate a (20, 20) box locating at (20, 20)

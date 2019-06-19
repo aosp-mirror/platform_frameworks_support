@@ -17,8 +17,6 @@ package androidx.room.guava;
 
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
-import android.annotation.SuppressLint;
-
 import androidx.annotation.RestrictTo;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.room.RoomDatabase;
@@ -37,9 +35,8 @@ import java.util.concurrent.Executor;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @SuppressWarnings("unused") // Used in GuavaListenableFutureQueryResultBinder code generation.
-@SuppressLint("RestrictedAPI") // ArchTaskExecutor can only be called from androidx.arch.core
 public class GuavaRoom {
 
     private GuavaRoom() {}
@@ -48,8 +45,8 @@ public class GuavaRoom {
      * Returns a {@link ListenableFuture<T>} created by submitting the input {@code callable} to
      * {@link ArchTaskExecutor}'s background-threaded Executor.
      *
-     * @deprecated Use {@link #createListenableFuture(RoomDatabase, boolean, Callable,
-     *             RoomSQLiteQuery, boolean)}
+     * @deprecated
+     *      Use {@link #createListenableFuture(RoomDatabase, Callable, RoomSQLiteQuery, boolean)}
      */
     @Deprecated
     public static <T> ListenableFuture<T> createListenableFuture(
@@ -63,11 +60,7 @@ public class GuavaRoom {
     /**
      * Returns a {@link ListenableFuture<T>} created by submitting the input {@code callable} to
      * {@link RoomDatabase}'s {@link java.util.concurrent.Executor}.
-     *
-     * @deprecated Use {@link #createListenableFuture(RoomDatabase, boolean, Callable,
-     *             RoomSQLiteQuery, boolean)}
      */
-    @Deprecated
     public static <T> ListenableFuture<T> createListenableFuture(
             final RoomDatabase roomDatabase,
             final Callable<T> callable,
@@ -75,20 +68,6 @@ public class GuavaRoom {
             final boolean releaseQuery) {
         return createListenableFuture(
                 roomDatabase.getQueryExecutor(), callable, query, releaseQuery);
-    }
-
-    /**
-     * Returns a {@link ListenableFuture<T>} created by submitting the input {@code callable} to
-     * {@link RoomDatabase}'s {@link java.util.concurrent.Executor}.
-     */
-    public static <T> ListenableFuture<T> createListenableFuture(
-            final RoomDatabase roomDatabase,
-            final boolean inTransaction,
-            final Callable<T> callable,
-            final RoomSQLiteQuery query,
-            final boolean releaseQuery) {
-        return createListenableFuture(
-                getExecutor(roomDatabase, inTransaction), callable, query, releaseQuery);
     }
 
     private static <T> ListenableFuture<T> createListenableFuture(
@@ -117,39 +96,5 @@ public class GuavaRoom {
         }
 
         return listenableFutureTask;
-    }
-
-    /**
-     * Returns a {@link ListenableFuture<T>} created by submitting the input {@code callable} to
-     * {@link RoomDatabase}'s {@link java.util.concurrent.Executor}.
-     *
-     * @deprecated Use {@link #createListenableFuture(RoomDatabase, boolean, Callable)}
-     */
-    @Deprecated
-    public static <T> ListenableFuture<T> createListenableFuture(
-            final RoomDatabase roomDatabase,
-            final Callable<T> callable) {
-        return createListenableFuture(roomDatabase, false, callable);
-    }
-
-    /**
-     * Returns a {@link ListenableFuture<T>} created by submitting the input {@code callable} to
-     * {@link RoomDatabase}'s {@link java.util.concurrent.Executor}.
-     */
-    public static <T> ListenableFuture<T> createListenableFuture(
-            final RoomDatabase roomDatabase,
-            final boolean inTransaction,
-            final Callable<T> callable) {
-        ListenableFutureTask<T> listenableFutureTask = ListenableFutureTask.create(callable);
-        getExecutor(roomDatabase, inTransaction).execute(listenableFutureTask);
-        return listenableFutureTask;
-    }
-
-    private static Executor getExecutor(RoomDatabase database, boolean inTransaction) {
-        if (inTransaction) {
-            return database.getTransactionExecutor();
-        } else {
-            return database.getQueryExecutor();
-        }
     }
 }

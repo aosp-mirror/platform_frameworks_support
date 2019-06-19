@@ -40,7 +40,7 @@ import java.util.Locale;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class SelectionEvent {
     private static final String EXTRA_ABSOLUTE_START = "extra_absolute_start";
     private static final String EXTRA_ABSOLUTE_END = "extra_absolute_end";
@@ -358,8 +358,8 @@ public final class SelectionEvent {
             int start, int end, @NonNull TextSelection selection) {
         Preconditions.checkArgument(end >= start, "end cannot be less than start");
         Preconditions.checkNotNull(selection);
-        final String entityType = selection.getEntityTypeCount() > 0
-                ? selection.getEntityType(0)
+        final String entityType = selection.getEntityCount() > 0
+                ? selection.getEntity(0)
                 : TextClassifier.TYPE_UNKNOWN;
         SelectionEvent selectionEvent = new SelectionEvent(
                 start, end, SelectionEvent.EVENT_AUTO_SELECTION,
@@ -738,10 +738,9 @@ public final class SelectionEvent {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @SuppressLint("WrongConstant")
     @RequiresApi(28)
     @NonNull
-    // Lint does not know the constants in platform and here are same
+    @SuppressLint("WrongConstant") // Lint does not know the constants in platform and here are same
     Object toPlatform(@NonNull Context context) {
         Preconditions.checkNotNull(context);
 
@@ -785,8 +784,7 @@ public final class SelectionEvent {
 
     @NonNull
     @RequiresApi(28)
-    @SuppressLint("WrongConstant")
-    // Lint does not know the constants in platform and here are same
+    @SuppressLint("WrongConstant") // Lint does not know the constants in platform and here are same
     private android.view.textclassifier.SelectionEvent toPlatformSelectionActionEvent(
             @NonNull Context context) {
         Preconditions.checkNotNull(context);

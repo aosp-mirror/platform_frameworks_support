@@ -26,15 +26,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.textclassifier.widget.FloatingToolbarEspressoUtils.onFloatingToolbar;
 import static androidx.textclassifier.widget.FloatingToolbarEspressoUtils.onFloatingToolbarItem;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,9 +40,9 @@ import androidx.core.app.RemoteActionCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.textclassifier.TextLinks.TextLink;
 import androidx.textclassifier.TextLinks.TextLinkSpan;
 import androidx.textclassifier.test.R;
@@ -59,12 +55,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /** Unit tests for {@link TextLinkSpan}. */
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class TextLinkSpanTest {
 
@@ -85,10 +78,8 @@ public final class TextLinkSpanTest {
     private TextClassifier mTextClassifier;
 
     @Before
-    public void setUp() throws Throwable {
-        Activity activity = mActivityTestRule.getActivity();
-        TestUtils.keepScreenOn(mActivityTestRule, activity);
-        mContext = activity;
+    public void setUp() {
+        mContext = mActivityTestRule.getActivity();
         mReceiver = BlockingReceiver.registerForPendingIntent(mContext);
         final PendingIntent intent = mReceiver.getPendingIntent();
         mTextClassifier = new TextClassifier() {
@@ -105,12 +96,12 @@ public final class TextLinkSpanTest {
 
         final Map<String, Float> scores = new ArrayMap<>();
         scores.put(TextClassifier.TYPE_EMAIL, 1f);
-        mTextLink = new TextLink(0, ENTITY.length(), scores);
+        mTextLink = new TextLink(0, ENTITY.length(), scores, null);
     }
 
     @Test
     public void onClick() throws Exception {
-        final TextLinkSpan span = createDefaultTextLinkSpan(mTextLink);
+        final TextLinkSpan span = createTextLinkSpan(mTextLink);
         final TextView textView = createTextViewWithSpan(span);
 
         performSpanClick(span, textView);
@@ -120,14 +111,14 @@ public final class TextLinkSpanTest {
 
     @Test
     public void onClick_unsupportedWidget() throws Exception {
-        performSpanClick(createDefaultTextLinkSpan(mTextLink), null);
-        performSpanClick(createDefaultTextLinkSpan(mTextLink), new View(mContext));
+        performSpanClick(createTextLinkSpan(mTextLink), null);
+        performSpanClick(createTextLinkSpan(mTextLink), new View(mContext));
         mReceiver.assertIntentNotReceived();
     }
 
     @Test
     public void onClick_nonSpannedText() throws Exception {
-        final TextLinkSpan span = createDefaultTextLinkSpan(mTextLink);
+        final TextLinkSpan span = createTextLinkSpan(mTextLink);
         final TextView textView = new TextView(mContext);
         textView.setText(TEXT);
 
@@ -138,50 +129,12 @@ public final class TextLinkSpanTest {
     @Test
     public void onClick_noActions() throws Exception {
         mTextClassifier = TextClassifier.NO_OP;
-        final TextLinkSpan span = createDefaultTextLinkSpan(mTextLink);
+        final TextLinkSpan span = createTextLinkSpan(mTextLink);
         final TextView textView = createTextViewWithSpan(span);
 
         performSpanClick(span, textView);
         maybeCheckMenuIsDisplayed();
         mReceiver.assertIntentNotReceived();
-    }
-
-    @Test
-    public void overrideOnTextClassificationResult() throws Exception {
-        final AtomicBoolean callbackIsInvoked = new AtomicBoolean(false);
-        final TextLinkSpan span = new TextLinks.DefaultTextLinkSpan(
-                new TextLinks.TextLinkSpanData(mTextLink, mTextClassifier, null)) {
-            @Override
-            public void onTextClassificationResult(
-                    TextView textView, TextClassification textClassification) {
-                callbackIsInvoked.set(true);
-                RemoteActionCompat action = textClassification.getActions().get(0);
-                try {
-                    action.getActionIntent().send();
-                } catch (PendingIntent.CanceledException e) {
-                    Log.e("TextLinkSpanTest", "onTextClassificationResult: ", e);
-                }
-            }
-        };
-        final TextView textView = createTextViewWithSpan(span);
-        performSpanClick(span, textView);
-        mReceiver.assertIntentReceived();
-        assertThat(callbackIsInvoked.get()).isTrue();
-    }
-
-    @Test
-    public void customTextLinkSpan() throws Exception {
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
-        final TextLinkSpan span = new TextLinks.TextLinkSpan(
-                new TextLinks.TextLinkSpanData(mTextLink, mTextClassifier, null)) {
-            @Override
-            public void onClick(View widget) {
-                countDownLatch.countDown();
-            }
-        };
-        final TextView textView = createTextViewWithSpan(span);
-        performSpanClick(span, textView);
-        assertThat(countDownLatch.await(5, TimeUnit.SECONDS)).isTrue();
     }
 
     @Test
@@ -202,8 +155,8 @@ public final class TextLinkSpanTest {
         return textView;
     }
 
-    private TextLinks.TextLinkSpan createDefaultTextLinkSpan(TextLinks.TextLink textLink) {
-        return new TextLinks.DefaultTextLinkSpan(
+    private TextLinks.TextLinkSpan createTextLinkSpan(TextLinks.TextLink textLink) {
+        return new TextLinks.TextLinkSpan(
                 new TextLinks.TextLinkSpanData(textLink, mTextClassifier, null));
     }
 

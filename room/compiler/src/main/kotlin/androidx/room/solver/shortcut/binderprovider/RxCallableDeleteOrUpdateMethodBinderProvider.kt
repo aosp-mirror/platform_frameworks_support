@@ -16,14 +16,14 @@
 
 package androidx.room.solver.shortcut.binderprovider
 
-import androidx.room.ext.L
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.processor.Context
-import androidx.room.solver.shortcut.binder.CallableDeleteOrUpdateMethodBinder.Companion.createDeleteOrUpdateBinder
 import androidx.room.solver.shortcut.binder.DeleteOrUpdateMethodBinder
-import com.squareup.javapoet.ClassName
+import androidx.room.solver.shortcut.binder.RxCallableDeleteOrUpdateMethodBinder
+import androidx.room.solver.shortcut.binder.RxCallableDeleteOrUpdateMethodBinder.RxType.COMPLETABLE
+import androidx.room.solver.shortcut.binder.RxCallableDeleteOrUpdateMethodBinder.RxType.MAYBE
+import androidx.room.solver.shortcut.binder.RxCallableDeleteOrUpdateMethodBinder.RxType.SINGLE
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 
@@ -32,7 +32,7 @@ import javax.lang.model.type.TypeMirror
  */
 sealed class RxCallableDeleteOrUpdateMethodBinderProvider(
     val context: Context,
-    private val rxType: RxType
+    private val rxType: RxCallableDeleteOrUpdateMethodBinder.RxType
 ) : DeleteOrUpdateMethodBinderProvider {
 
     /**
@@ -52,35 +52,24 @@ sealed class RxCallableDeleteOrUpdateMethodBinderProvider(
     override fun provide(declared: DeclaredType): DeleteOrUpdateMethodBinder {
         val typeArg = extractTypeArg(declared)
         val adapter = context.typeAdapterStore.findDeleteOrUpdateAdapter(typeArg)
-        return createDeleteOrUpdateBinder(typeArg, adapter) { callableImpl, _ ->
-            addStatement("return $T.fromCallable($L)", rxType.className, callableImpl)
-        }
-    }
-
-    /**
-     * Supported types for delete and update
-     */
-    enum class RxType(val className: ClassName) {
-        SINGLE(RxJava2TypeNames.SINGLE),
-        MAYBE(RxJava2TypeNames.MAYBE),
-        COMPLETABLE(RxJava2TypeNames.COMPLETABLE)
+        return RxCallableDeleteOrUpdateMethodBinder(rxType, typeArg, adapter)
     }
 }
 
 class RxSingleDeleteOrUpdateMethodBinderProvider(context: Context)
-    : RxCallableDeleteOrUpdateMethodBinderProvider(context, RxType.SINGLE) {
+    : RxCallableDeleteOrUpdateMethodBinderProvider(context, SINGLE) {
 
     override fun extractTypeArg(declared: DeclaredType): TypeMirror = declared.typeArguments.first()
 }
 
 class RxMaybeDeleteOrUpdateMethodBinderProvider(context: Context)
-    : RxCallableDeleteOrUpdateMethodBinderProvider(context, RxType.MAYBE) {
+    : RxCallableDeleteOrUpdateMethodBinderProvider(context, MAYBE) {
 
     override fun extractTypeArg(declared: DeclaredType): TypeMirror = declared.typeArguments.first()
 }
 
 class RxCompletableDeleteOrUpdateMethodBinderProvider(context: Context)
-    : RxCallableDeleteOrUpdateMethodBinderProvider(context, RxType.COMPLETABLE) {
+    : RxCallableDeleteOrUpdateMethodBinderProvider(context, COMPLETABLE) {
 
     private val completableTypeMirror: TypeMirror? by lazy {
         context.processingEnv.elementUtils
@@ -92,7 +81,8 @@ class RxCompletableDeleteOrUpdateMethodBinderProvider(context: Context)
      * Like this, the generated Callable.call method will return Void.
      */
     override fun extractTypeArg(declared: DeclaredType): TypeMirror =
-            context.COMMON_TYPES.VOID
+            context.processingEnv.elementUtils.getTypeElement(Void::class.java.canonicalName)
+                    .asType()
 
     override fun matches(declared: DeclaredType): Boolean = isCompletable(declared)
 

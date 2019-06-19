@@ -33,9 +33,10 @@ data class Constructor(val element: ExecutableElement, val params: List<Param>) 
     fun hasField(field: Field): Boolean {
         return params.any {
             when (it) {
-                is Param.FieldParam -> it.field === field
-                is Param.EmbeddedParam -> it.embedded.field === field
-                is Param.RelationParam -> it.relation.field === field
+                is FieldParam -> it.field === field
+                is EmbeddedParam -> it.embedded.field === field
+                is RelationParam -> it.relation.field === field
+                else -> false
             }
         }
     }
@@ -55,20 +56,25 @@ data class Constructor(val element: ExecutableElement, val params: List<Param>) 
         }
     }
 
-    sealed class Param {
+    class FieldParam(val field: Field) : Param(ParamType.FIELD) {
+        override fun log(): String = field.getPath()
+    }
 
+    class EmbeddedParam(val embedded: EmbeddedField) : Param(ParamType.EMBEDDED) {
+        override fun log(): String = embedded.field.getPath()
+    }
+
+    class RelationParam(val relation: Relation) : Param(ParamType.RELATION) {
+        override fun log(): String = relation.field.getPath()
+    }
+
+    abstract class Param(val type: ParamType) {
         abstract fun log(): String
+    }
 
-        class FieldParam(val field: Field) : Param() {
-            override fun log(): String = field.getPath()
-        }
-
-        class EmbeddedParam(val embedded: EmbeddedField) : Param() {
-            override fun log(): String = embedded.field.getPath()
-        }
-
-        class RelationParam(val relation: Relation) : Param() {
-            override fun log(): String = relation.field.getPath()
-        }
+    enum class ParamType {
+        FIELD,
+        EMBEDDED,
+        RELATION
     }
 }

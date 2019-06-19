@@ -17,174 +17,126 @@
 package androidx.build.metalava
 
 import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
-import androidx.build.AndroidXExtension
-import androidx.build.checkapi.ApiLocation
-import androidx.build.checkapi.ApiViolationExclusions
-import androidx.build.checkapi.getCurrentApiLocation
-import androidx.build.checkapi.getRequiredCompatibilityApiLocation
+import androidx.build.SupportLibraryExtension
+import androidx.build.androidJarFile
+import androidx.build.checkapi.getCurrentApiFile
+import androidx.build.checkapi.getRequiredCompatibilityApiFile
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
-import androidx.build.docsDir
-import androidx.build.java.JavaCompileInputs
-import androidx.build.Release
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
-import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.getPlugin
-import java.io.File
 
 object Metalava {
     private fun Project.createMetalavaConfiguration(): Configuration {
         return configurations.create("metalava") {
-            val dependency = dependencies.create("com.android:metalava:1.3.0:shadow@jar")
+            val dependency = dependencies.create("com.android:metalava:1.1.2-SNAPSHOT:shadow@jar")
             it.dependencies.add(dependency)
         }
     }
 
-    fun Project.configureAndroidProjectForMetalava(
-        library: LibraryExtension,
-        extension: AndroidXExtension
-    ) {
-        afterEvaluate {
-            if (!hasApiTasks(this, extension)) {
-                return@afterEvaluate
-            }
-
-            library.libraryVariants.all { variant ->
-                if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
-                    if (!hasApiFolder()) {
-                        logger.info(
-                            "Project $name doesn't have an api folder, ignoring API tasks."
-                        )
-                        return@all
-                    }
-
-                    val javaInputs = JavaCompileInputs.fromLibraryVariant(library, variant)
-                    setupProject(this, javaInputs, extension)
-                }
-            }
-        }
-    }
-
-    fun Project.configureJavaProjectForMetalava(
-        extension: AndroidXExtension
-    ) {
-        afterEvaluate {
-            if (!hasApiTasks(this, extension)) {
-                return@afterEvaluate
-            }
-            if (!hasApiFolder()) {
-                logger.info(
-                    "Project $name doesn't have an api folder, ignoring API tasks."
-                )
-                return@afterEvaluate
-            }
-
-            val javaPluginConvention = convention.getPlugin<JavaPluginConvention>()
-            val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
-            val javaInputs = JavaCompileInputs.fromSourceSet(mainSourceSet, this)
-            setupProject(this, javaInputs, extension)
-        }
-    }
-
-    fun applyInputs(inputs: JavaCompileInputs, task: MetalavaTask) {
-        task.sourcePaths = inputs.sourcePaths
-        task.dependencyClasspath = inputs.dependencyClasspath
-        task.bootClasspath = inputs.bootClasspath
-    }
-
-    fun setupProject(
+    fun registerAndroidProject(
         project: Project,
-        javaCompileInputs: JavaCompileInputs,
-        extension: AndroidXExtension
+        library: LibraryExtension,
+        extension: SupportLibraryExtension
     ) {
+        if (!hasApiTasks(project, extension)) {
+            return
+        }
+
         val metalavaConfiguration = project.createMetalavaConfiguration()
 
-        // the api files whose file names contain the version of the library
-        val libraryVersionApi = project.getCurrentApiLocation()
-        // the api files whose file names contain "current.txt"
-        val currentTxtApi = ApiLocation.fromPublicApiFile(File(
-            libraryVersionApi.publicApiFile.parentFile, "current.txt"))
+        library.libraryVariants.all { variant ->
+            if (variant.name == "release") {
+                if (!project.hasApiFolder()) {
+                    project.logger.info(
+                        "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
+                    return@all
+                }
 
-        // make sure to update current.txt if it wasn't previously planned to be updated
-        val outputApiLocations =
-            if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
-                listOf(libraryVersionApi)
-            } else {
-                listOf(libraryVersionApi, currentTxtApi)
-            }
+                val apiTxt = project.getCurrentApiFile()
 
-        val builtApiLocation = ApiLocation.fromPublicApiFile(
-            File(project.docsDir(), "release/${project.name}/current.txt"))
+                val checkApi = project.tasks.create("checkApi", CheckApiTask::class.java) { task ->
+                    task.configuration = metalavaConfiguration
+                    task.bootClasspath = library.bootClasspath
+                    task.setVariant(variant)
+                    task.apiTxtFile = apiTxt
 
-        val generateApi = project.tasks.register("generateApi", GenerateApiTask::class.java) {
-                task ->
-            task.group = "API"
-            task.description = "Generates API files from source"
-            task.apiLocation.set(builtApiLocation)
-            task.configuration = metalavaConfiguration
-            task.generateRestrictedAPIs = extension.trackRestrictedAPIs
-            task.dependsOn(metalavaConfiguration)
-            applyInputs(javaCompileInputs, task)
-        }
+                    task.dependsOn(metalavaConfiguration)
+                }
+                project.tasks.getByName("check").dependsOn(checkApi)
+                project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
 
-        var checkApiRelease: TaskProvider<CheckApiCompatibilityTask>? = null
-        val exclusions = ApiViolationExclusions.fromApiLocation(libraryVersionApi)
+                project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
+                    task.configuration = metalavaConfiguration
+                    task.bootClasspath = library.bootClasspath
+                    task.setVariant(variant)
+                    task.apiTxtFile = apiTxt
 
-        project.getRequiredCompatibilityApiLocation()?.let { lastReleasedApiFile ->
-            checkApiRelease = project.tasks.register(
-                "checkApiRelease",
-                CheckApiCompatibilityTask::class.java
-            ) { task ->
-                task.configuration = metalavaConfiguration
-                task.referenceApi.set(lastReleasedApiFile)
-                task.exclusions.set(exclusions)
-                task.dependsOn(metalavaConfiguration)
-                task.checkRestrictedAPIs = extension.trackRestrictedAPIs
-                applyInputs(javaCompileInputs, task)
-            }
-
-            project.tasks.register("ignoreApiChanges", IgnoreApiChangesTask::class.java) { task ->
-                task.configuration = metalavaConfiguration
-                task.referenceApi.set(checkApiRelease!!.flatMap { it.referenceApi })
-                task.exclusions.set(checkApiRelease!!.flatMap { it.exclusions })
-                task.processRestrictedAPIs = extension.trackRestrictedAPIs
-                task.intermediateExclusionsFile.set(
-                    File(project.docsDir(), "release/${project.name}/api-changes.ignore"))
-                applyInputs(javaCompileInputs, task)
-            }
-        }
-
-        val checkApi =
-            project.tasks.register("checkApi", CheckApiEquivalenceTask::class.java) { task ->
-                task.group = "API"
-                task.description = "Checks that the API generated from source code matches the " +
-                        "checked in API file"
-                task.builtApi.set(generateApi.flatMap { it.apiLocation })
-                task.checkedInApis.set(outputApiLocations)
-                task.checkRestrictedAPIs = extension.trackRestrictedAPIs
-                task.dependsOn(generateApi)
-                checkApiRelease?.let {
-                    task.dependsOn(checkApiRelease)
+                    task.dependsOn(metalavaConfiguration)
                 }
             }
+        }
+    }
 
-        project.tasks.register("updateApi", UpdateApiTask::class.java) { task ->
-            task.group = "API"
-            task.description = "Updates the checked in API files to match source code API"
-            task.inputApiLocation.set(generateApi.flatMap { it.apiLocation })
-            task.outputApiLocations.set(checkApi.flatMap { it.checkedInApis })
-            task.updateRestrictedAPIs = extension.trackRestrictedAPIs
-            task.dependsOn(generateApi)
+    fun registerJavaProject(
+        project: Project,
+        extension: SupportLibraryExtension
+    ) {
+        if (!hasApiTasks(project, extension)) {
+            return
+        }
+        if (!project.hasApiFolder()) {
+            project.logger.info(
+                    "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
+            return
         }
 
-        project.tasks.named("check").configure {
-            it.dependsOn(checkApi)
+        val metalavaConfiguration = project.createMetalavaConfiguration()
+
+        val javaPluginConvention = project.convention.getPlugin<JavaPluginConvention>()
+        val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
+
+        val currentApiFile = project.getCurrentApiFile()
+
+        val checkApi = project.tasks.create("checkApi", CheckApiTask::class.java) { task ->
+            task.configuration = metalavaConfiguration
+            task.bootClasspath = androidJarFile(project).files
+            task.sourcePaths = mainSourceSet.allSource.srcDirs
+            task.dependencyClasspath = mainSourceSet.compileClasspath
+            task.apiTxtFile = currentApiFile
+
+            task.dependsOn(metalavaConfiguration)
         }
-        project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).configure {
-            it.dependsOn(checkApi)
+
+       val lastReleasedApiFile = project.getRequiredCompatibilityApiFile()
+       if (lastReleasedApiFile != null) {
+           val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiTask::class.java) { task ->
+                task.configuration = metalavaConfiguration
+                task.bootClasspath = androidJarFile(project).files
+                task.sourcePaths = mainSourceSet.allSource.srcDirs
+                task.dependencyClasspath = mainSourceSet.compileClasspath
+                task.apiTxtFile = lastReleasedApiFile
+                task.allowApiAdditions = true
+    
+                task.dependsOn(metalavaConfiguration)
+            }
+            checkApi.dependsOn(checkApiRelease)
         }
+
+        project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
+            task.configuration = metalavaConfiguration
+            task.bootClasspath = androidJarFile(project).files
+            task.sourcePaths = mainSourceSet.allSource.srcDirs
+            task.dependencyClasspath = mainSourceSet.compileClasspath
+            task.apiTxtFile = currentApiFile
+
+            task.dependsOn(metalavaConfiguration)
+        }
+
+        project.tasks.getByName("check").dependsOn(checkApi)
+        project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
     }
 }

@@ -20,8 +20,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import androidx.annotation.RestrictTo;
+import android.support.annotation.RestrictTo;
 
 /**
  * Generates unique IDs that are persisted in {@link SharedPreferences}.
@@ -31,11 +30,12 @@ import androidx.annotation.RestrictTo;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class IdGenerator {
 
-    /** The initial id used for JobInfos and Alarms. */
+    /** The initial id used for JobInfos, Firebase Jobs & and Alarms. */
     public static final int INITIAL_ID = 0;
 
     static final String PREFERENCE_FILE_KEY = "androidx.work.util.id";
     static final String NEXT_JOB_SCHEDULER_ID_KEY = "next_job_scheduler_id";
+    static final String NEXT_FIREBASE_ALARM_ID_KEY = "next_firebase_alarm_id";
     static final String NEXT_ALARM_MANAGER_ID_KEY = "next_alarm_manager_id";
 
     private final Context mContext;
@@ -64,6 +64,16 @@ public class IdGenerator {
                 update(NEXT_JOB_SCHEDULER_ID_KEY, id + 1);
             }
             return id;
+        }
+    }
+
+    /**
+     * Generates IDs for Firebase Delayed Alarm Receiver jobs.
+     */
+    public int nextFirebaseAlarmId() {
+        synchronized (IdGenerator.class) {
+            loadPreferencesIfNecessary();
+            return nextId(NEXT_FIREBASE_ALARM_ID_KEY);
         }
     }
 

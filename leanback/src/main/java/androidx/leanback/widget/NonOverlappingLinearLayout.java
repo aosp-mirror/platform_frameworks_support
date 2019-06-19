@@ -13,7 +13,7 @@
  */
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class NonOverlappingLinearLayout extends LinearLayout {
 
     boolean mFocusableViewAvailableFixEnabled = false;

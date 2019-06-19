@@ -36,11 +36,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class RemoteCallback {
 
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public static final String EXTRA_METHOD = "remotecallback.method";
+    static final String EXTRA_METHOD = "remotecallback.method";
 
     /**
      * Constant indicating this callback will be triggered on a {@link BroadcastReceiver}.
@@ -70,7 +66,7 @@ public class RemoteCallback {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public RemoteCallback(@NonNull Context context,
             @RemoteCallbackType int type,
             @NonNull Intent intent,
@@ -142,6 +138,7 @@ public class RemoteCallback {
      * Static version of {@link CallbackReceiver#createRemoteCallback(Context)}.
      */
     public static <T extends CallbackReceiver> T create(Class<T> cls, Context context) {
+        CallbackHandlerRegistry.sInstance.ensureInitialized(cls);
         return CallbackHandlerRegistry.sInstance.getAndResetStub(cls, context, null);
     }
 

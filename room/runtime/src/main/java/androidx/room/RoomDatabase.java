@@ -31,9 +31,9 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.room.DatabaseConfiguration.CopyFrom;
+import androidx.collection.SparseArrayCompat;
+import androidx.core.app.ActivityManagerCompat;
 import androidx.room.migration.Migration;
-import androidx.room.util.SneakyThrow;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
@@ -43,17 +43,13 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Base class for all Room databases. All classes that are annotated with {@link Database} must
@@ -64,6 +60,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * @see Database
  */
+//@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class RoomDatabase {
     private static final String DB_IMPL_SUFFIX = "_Impl";
     /**
@@ -71,7 +68,7 @@ public abstract class RoomDatabase {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final int MAX_BIND_PARAMETER_CNT = 999;
     /**
      * Set by the generated open helper.
@@ -81,7 +78,6 @@ public abstract class RoomDatabase {
     @Deprecated
     protected volatile SupportSQLiteDatabase mDatabase;
     private Executor mQueryExecutor;
-    private Executor mTransactionExecutor;
     private SupportSQLiteOpenHelper mOpenHelper;
     private final InvalidationTracker mInvalidationTracker;
     private boolean mAllowMainThreadQueries;
@@ -94,49 +90,16 @@ public abstract class RoomDatabase {
     @Deprecated
     protected List<Callback> mCallbacks;
 
-    private final ReentrantReadWriteLock mCloseLock = new ReentrantReadWriteLock();
+    private final ReentrantLock mCloseLock = new ReentrantLock();
 
     /**
      * {@link InvalidationTracker} uses this lock to prevent the database from closing while it is
      * querying database updates.
-     * <p>
-     * The returned lock is reentrant and will allow multiple threads to acquire the lock
-     * simultaneously until {@link #close()} is invoked in which the lock becomes exclusive as
-     * a way to let the InvalidationTracker finish its work before closing the database.
      *
      * @return The lock for {@link #close()}.
      */
     Lock getCloseLock() {
-        return mCloseLock.readLock();
-    }
-
-    /**
-     * This id is only set on threads that are used to dispatch coroutines within a suspending
-     * database transaction.
-     */
-    private final ThreadLocal<Integer> mSuspendingTransactionId = new ThreadLocal<>();
-
-    /**
-     * Gets the suspending transaction id of the current thread.
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    ThreadLocal<Integer> getSuspendingTransactionId() {
-        return mSuspendingTransactionId;
-    }
-
-
-    private final Map<String, Object> mBackingFieldMap = new ConcurrentHashMap<>();
-
-    /**
-     * Gets the map for storing extension properties of Kotlin type.
-     *
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    Map<String, Object> getBackingFieldMap() {
-        return mBackingFieldMap;
+        return mCloseLock;
     }
 
     /**
@@ -165,7 +128,6 @@ public abstract class RoomDatabase {
         }
         mCallbacks = configuration.callbacks;
         mQueryExecutor = configuration.queryExecutor;
-        mTransactionExecutor = new TransactionExecutor(configuration.transactionExecutor);
         mAllowMainThreadQueries = configuration.allowMainThreadQueries;
         mWriteAheadLoggingEnabled = wal;
         if (configuration.multiInstanceInvalidation) {
@@ -235,13 +197,12 @@ public abstract class RoomDatabase {
      */
     public void close() {
         if (isOpen()) {
-            final Lock closeLock = mCloseLock.writeLock();
             try {
-                closeLock.lock();
+                mCloseLock.lock();
                 mInvalidationTracker.stopMultiInstanceInvalidation();
                 mOpenHelper.close();
             } finally {
-                closeLock.unlock();
+                mCloseLock.unlock();
             }
         }
     }
@@ -252,7 +213,7 @@ public abstract class RoomDatabase {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     // used in generated code
     public void assertNotMainThread() {
         if (mAllowMainThreadQueries) {
@@ -261,21 +222,6 @@ public abstract class RoomDatabase {
         if (isMainThread()) {
             throw new IllegalStateException("Cannot access database on the main thread since"
                     + " it may potentially lock the UI for a long period of time.");
-        }
-    }
-
-    /**
-     * Asserts that we are not on a suspending transaction.
-     *
-     * @hide
-     */
-    @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    // used in generated code
-    public void assertNotSuspendingTransaction() {
-        if (!inTransaction() && mSuspendingTransactionId.get() != null) {
-            throw new IllegalStateException("Cannot access database on a different coroutine"
-                    + " context inherited from a suspending transaction.");
         }
     }
 
@@ -302,7 +248,6 @@ public abstract class RoomDatabase {
      */
     public Cursor query(SupportSQLiteQuery query) {
         assertNotMainThread();
-        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().query(query);
     }
 
@@ -314,16 +259,12 @@ public abstract class RoomDatabase {
      */
     public SupportSQLiteStatement compileStatement(@NonNull String sql) {
         assertNotMainThread();
-        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().compileStatement(sql);
     }
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#beginTransaction()}.
-     *
-     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
-    @Deprecated
     public void beginTransaction() {
         assertNotMainThread();
         SupportSQLiteDatabase database = mOpenHelper.getWritableDatabase();
@@ -333,10 +274,7 @@ public abstract class RoomDatabase {
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#endTransaction()}.
-     *
-     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
-    @Deprecated
     public void endTransaction() {
         mOpenHelper.getWritableDatabase().endTransaction();
         if (!inTransaction()) {
@@ -355,19 +293,8 @@ public abstract class RoomDatabase {
     }
 
     /**
-     * @return The Executor in use by this database for async transactions.
-     */
-    @NonNull
-    public Executor getTransactionExecutor() {
-        return mTransactionExecutor;
-    }
-
-    /**
      * Wrapper for {@link SupportSQLiteDatabase#setTransactionSuccessful()}.
-     *
-     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
-    @Deprecated
     public void setTransactionSuccessful() {
         mOpenHelper.getWritableDatabase().setTransactionSuccessful();
     }
@@ -375,12 +302,9 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Runnable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Runnable}.
-     * <p>
-     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      */
-    @SuppressWarnings("deprecation")
     public void runInTransaction(@NonNull Runnable body) {
         beginTransaction();
         try {
@@ -394,14 +318,11 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Callable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Callable}.
-     * <p>
-     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      * @param <V>  The type of the return value.
      * @return The value returned from the {@link Callable}.
      */
-    @SuppressWarnings("deprecation")
     public <V> V runInTransaction(@NonNull Callable<V> body) {
         beginTransaction();
         try {
@@ -411,8 +332,7 @@ public abstract class RoomDatabase {
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            SneakyThrow.reThrow(e);
-            return null; // Unreachable code, but compiler doesn't know it.
+            throw new RuntimeException("Exception in transaction", e);
         } finally {
             endTransaction();
         }
@@ -492,18 +412,11 @@ public abstract class RoomDatabase {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityManager manager = (ActivityManager)
                         context.getSystemService(Context.ACTIVITY_SERVICE);
-                if (manager != null && !isLowRamDevice(manager)) {
+                if (manager != null && !ActivityManagerCompat.isLowRamDevice(manager)) {
                     return WRITE_AHEAD_LOGGING;
                 }
             }
             return TRUNCATE;
-        }
-
-        private static boolean isLowRamDevice(@NonNull ActivityManager activityManager) {
-            if (Build.VERSION.SDK_INT >= 19) {
-                return activityManager.isLowRamDevice();
-            }
-            return false;
         }
     }
 
@@ -520,8 +433,6 @@ public abstract class RoomDatabase {
 
         /** The Executor used to run database queries. This should be background-threaded. */
         private Executor mQueryExecutor;
-        /** The Executor used to run database transactions. This should be background-threaded. */
-        private Executor mTransactionExecutor;
         private SupportSQLiteOpenHelper.Factory mFactory;
         private boolean mAllowMainThreadQueries;
         private JournalMode mJournalMode;
@@ -540,9 +451,6 @@ public abstract class RoomDatabase {
          */
         private Set<Integer> mMigrationStartAndEndVersions;
 
-        private @CopyFrom int mCopyFrom = DatabaseConfiguration.COPY_FROM_NONE;
-        private String mCopyFromPath;
-
         Builder(@NonNull Context context, @NonNull Class<T> klass, @Nullable String name) {
             mContext = context;
             mDatabaseClass = klass;
@@ -550,58 +458,6 @@ public abstract class RoomDatabase {
             mJournalMode = JournalMode.AUTOMATIC;
             mRequireMigration = true;
             mMigrationContainer = new MigrationContainer();
-        }
-
-        /**
-         * Configures Room to create and open the database using a pre-packaged database located in
-         * the application 'assets/' folder.
-         * <p>
-         * Room does not open the pre-packaged database, instead it copies it into the internal
-         * app database folder and then opens it. The pre-packaged database file must be located in
-         * the "assets/" folder of your application. For example, the path for a file located in
-         * "assets/databases/products.db" would be "databases/products.db".
-         * <p>
-         * The pre-packaged database schema will be validated. It might be best to create your
-         * pre-packaged database schema utilizing the exported schema files generated when
-         * {@link Database#exportSchema()} is enabled.
-         * <p>
-         * This method has no effect if this {@link Builder} is for an in memory database.
-         *
-         * @param databaseFilePath The file path within the 'assets/' directory of where the
-         *                         database file is located.
-         *
-         * @return this
-         */
-        @NonNull
-        public Builder<T> createFromAsset(@NonNull String databaseFilePath) {
-            mCopyFrom = DatabaseConfiguration.COPY_FROM_ASSET;
-            mCopyFromPath = databaseFilePath;
-            return this;
-        }
-
-        /**
-         * Configures Room to create and open the database using a pre-packaged database from the
-         * given file path.
-         * <p>
-         * Room does not open the pre-packaged database, instead it copies it into the internal
-         * app database folder and then opens it. The given path must be accessible and the right
-         * permissions must be granted for Room to copy the file.
-         * <p>
-         * The pre-packaged database schema will be validated. It might be best to create your
-         * pre-packaged database schema utilizing the exported schema files generated when
-         * {@link Database#exportSchema()} is enabled.
-         * <p>
-         * This method has no effect if this {@link Builder} is for an in memory database.
-         *
-         * @param databaseFilePath The file path of where the database file is located.
-         *
-         * @return this
-         */
-        @NonNull
-        public Builder<T> createFromFile(@NonNull String databaseFilePath) {
-            mCopyFrom = DatabaseConfiguration.COPY_FROM_FILE;
-            mCopyFromPath = databaseFilePath;
-            return this;
         }
 
         /**
@@ -694,50 +550,16 @@ public abstract class RoomDatabase {
          * queries and tasks, including {@code LiveData} invalidation, {@code Flowable} scheduling
          * and {@code ListenableFuture} tasks.
          * <p>
-         * When both the query executor and transaction executor are unset, then a default
-         * {@code Executor} will be used. The default {@code Executor} allocates and shares threads
-         * amongst Architecture Components libraries. If the query executor is unset but a
-         * transaction executor was set, then the same {@code Executor} will be used for queries.
-         * <p>
-         * For best performance the given {@code Executor} should be bounded (max number of threads
-         * is limited).
+         * When unset, a default {@code Executor} will be used. The default {@code Executor}
+         * allocates and shares threads amongst Architecture Components libraries.
          * <p>
          * The input {@code Executor} cannot run tasks on the UI thread.
-         **
-         * @return this
          *
-         * @see #setTransactionExecutor(Executor)
+         * @return this
          */
         @NonNull
         public Builder<T> setQueryExecutor(@NonNull Executor executor) {
             mQueryExecutor = executor;
-            return this;
-        }
-
-        /**
-         * Sets the {@link Executor} that will be used to execute all non-blocking asynchronous
-         * transaction queries and tasks, including {@code LiveData} invalidation, {@code Flowable}
-         * scheduling and {@code ListenableFuture} tasks.
-         * <p>
-         * When both the transaction executor and query executor are unset, then a default
-         * {@code Executor} will be used. The default {@code Executor} allocates and shares threads
-         * amongst Architecture Components libraries. If the transaction executor is unset but a
-         * query executor was set, then the same {@code Executor} will be used for transactions.
-         * <p>
-         * If the given {@code Executor} is shared then it should be unbounded to avoid the
-         * possibility of a deadlock. Room will not use more than one thread at a time from this
-         * executor since only one transaction at a time can be executed, other transactions will
-         * be queued on a first come, first serve order.
-         * <p>
-         * The input {@code Executor} cannot run tasks on the UI thread.
-         *
-         * @return this
-         *
-         * @see #setQueryExecutor(Executor)
-         */
-        @NonNull
-        public Builder<T> setTransactionExecutor(@NonNull Executor executor) {
-            mTransactionExecutor = executor;
             return this;
         }
 
@@ -859,7 +681,6 @@ public abstract class RoomDatabase {
          *
          * @return A new database instance.
          */
-        @SuppressLint("RestrictedApi")
         @NonNull
         public T build() {
             //noinspection ConstantConditions
@@ -871,12 +692,8 @@ public abstract class RoomDatabase {
                 throw new IllegalArgumentException("Must provide an abstract class that"
                         + " extends RoomDatabase");
             }
-            if (mQueryExecutor == null && mTransactionExecutor == null) {
-                mQueryExecutor = mTransactionExecutor = ArchTaskExecutor.getIOThreadExecutor();
-            } else if (mQueryExecutor != null && mTransactionExecutor == null) {
-                mTransactionExecutor = mQueryExecutor;
-            } else if (mQueryExecutor == null && mTransactionExecutor != null) {
-                mQueryExecutor = mTransactionExecutor;
+            if (mQueryExecutor == null) {
+                mQueryExecutor = ArchTaskExecutor.getIOThreadExecutor();
             }
 
             if (mMigrationStartAndEndVersions != null && mMigrationsNotRequiredFrom != null) {
@@ -896,26 +713,13 @@ public abstract class RoomDatabase {
             if (mFactory == null) {
                 mFactory = new FrameworkSQLiteOpenHelperFactory();
             }
-            if (mName != null && mCopyFrom != DatabaseConfiguration.COPY_FROM_NONE) {
-                mFactory = new SQLiteCopyOpenHelperFactory(mCopyFrom, mCopyFromPath, mFactory);
-            }
             DatabaseConfiguration configuration =
-                    new DatabaseConfiguration(
-                            mContext,
-                            mName,
-                            mFactory,
-                            mMigrationContainer,
-                            mCallbacks,
-                            mAllowMainThreadQueries,
-                            mJournalMode.resolve(mContext),
+                    new DatabaseConfiguration(mContext, mName, mFactory, mMigrationContainer,
+                            mCallbacks, mAllowMainThreadQueries, mJournalMode.resolve(mContext),
                             mQueryExecutor,
-                            mTransactionExecutor,
                             mMultiInstanceInvalidation,
                             mRequireMigration,
-                            mAllowDestructiveMigrationOnDowngrade,
-                            mMigrationsNotRequiredFrom,
-                            mCopyFrom,
-                            mCopyFromPath);
+                            mAllowDestructiveMigrationOnDowngrade, mMigrationsNotRequiredFrom);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;
@@ -927,7 +731,8 @@ public abstract class RoomDatabase {
      * between two versions.
      */
     public static class MigrationContainer {
-        private HashMap<Integer, TreeMap<Integer, Migration>> mMigrations = new HashMap<>();
+        private SparseArrayCompat<SparseArrayCompat<Migration>> mMigrations =
+                new SparseArrayCompat<>();
 
         /**
          * Adds the given migrations to the list of available migrations. If 2 migrations have the
@@ -944,16 +749,16 @@ public abstract class RoomDatabase {
         private void addMigration(Migration migration) {
             final int start = migration.startVersion;
             final int end = migration.endVersion;
-            TreeMap<Integer, Migration> targetMap = mMigrations.get(start);
+            SparseArrayCompat<Migration> targetMap = mMigrations.get(start);
             if (targetMap == null) {
-                targetMap = new TreeMap<>();
+                targetMap = new SparseArrayCompat<>();
                 mMigrations.put(start, targetMap);
             }
             Migration existing = targetMap.get(end);
             if (existing != null) {
                 Log.w(Room.LOG_TAG, "Overriding migration " + existing + " with " + migration);
             }
-            targetMap.put(end, migration);
+            targetMap.append(end, migration);
         }
 
         /**
@@ -978,20 +783,27 @@ public abstract class RoomDatabase {
 
         private List<Migration> findUpMigrationPath(List<Migration> result, boolean upgrade,
                 int start, int end) {
+            final int searchDirection = upgrade ? -1 : 1;
             while (upgrade ? start < end : start > end) {
-                TreeMap<Integer, Migration> targetNodes = mMigrations.get(start);
+                SparseArrayCompat<Migration> targetNodes = mMigrations.get(start);
                 if (targetNodes == null) {
                     return null;
                 }
                 // keys are ordered so we can start searching from one end of them.
-                Set<Integer> keySet;
+                final int size = targetNodes.size();
+                final int firstIndex;
+                final int lastIndex;
+
                 if (upgrade) {
-                    keySet = targetNodes.descendingKeySet();
+                    firstIndex = size - 1;
+                    lastIndex = -1;
                 } else {
-                    keySet = targetNodes.keySet();
+                    firstIndex = 0;
+                    lastIndex = size;
                 }
                 boolean found = false;
-                for (int targetVersion : keySet) {
+                for (int i = firstIndex; i != lastIndex; i += searchDirection) {
+                    final int targetVersion = targetNodes.keyAt(i);
                     final boolean shouldAddToPath;
                     if (upgrade) {
                         shouldAddToPath = targetVersion <= end && targetVersion > start;
@@ -999,7 +811,7 @@ public abstract class RoomDatabase {
                         shouldAddToPath = targetVersion >= end && targetVersion < start;
                     }
                     if (shouldAddToPath) {
-                        result.add(targetNodes.get(targetVersion));
+                        result.add(targetNodes.valueAt(i));
                         start = targetVersion;
                         found = true;
                         break;

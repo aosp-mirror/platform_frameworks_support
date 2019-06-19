@@ -66,9 +66,8 @@ class MessageThreadUtil<T> implements ThreadUtil<T> {
                                 callback.updateItemCount(msg.arg1, msg.arg2);
                                 break;
                             case ADD_TILE:
-                                @SuppressWarnings("unchecked")
-                                TileList.Tile<T> tile = (TileList.Tile<T>) msg.data;
-                                callback.addTile(msg.arg1, tile);
+                                //noinspection unchecked
+                                callback.addTile(msg.arg1, (TileList.Tile<T>) msg.data);
                                 break;
                             case REMOVE_TILE:
                                 callback.removeTile(msg.arg1, msg.arg2);
@@ -156,9 +155,8 @@ class MessageThreadUtil<T> implements ThreadUtil<T> {
                                 callback.loadTile(msg.arg1, msg.arg2);
                                 break;
                             case RECYCLE_TILE:
-                                @SuppressWarnings("unchecked")
-                                TileList.Tile<T> tile = (TileList.Tile<T>) msg.data;
-                                callback.recycleTile(tile);
+                                //noinspection unchecked
+                                callback.recycleTile((TileList.Tile<T>) msg.data);
                                 break;
                             default:
                                 Log.e("ThreadUtil", "Unsupported message, what=" + msg.what);

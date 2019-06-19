@@ -77,11 +77,8 @@ public class LinearLayoutManagerBaseConfigSetTest extends BaseLinearLayoutManage
         // try scrolling towards head, should not affect anything
         Map<Item, Rect> before = mLayoutManager.collectChildCoordinates();
         if (config.mStackFromEnd) {
-            scrollToPositionWithOffset(
-                    mTestAdapter.getItemCount() - 1,
-                    mLayoutManager.mOrientationHelper.getEnd()
-                            - mRecyclerView.getChildAt(0).getWidth()
-                            - 20);
+            scrollToPositionWithOffset(mTestAdapter.getItemCount() - 1,
+                    mLayoutManager.mOrientationHelper.getEnd() - 500);
         } else {
             scrollToPositionWithOffset(0, 20);
         }

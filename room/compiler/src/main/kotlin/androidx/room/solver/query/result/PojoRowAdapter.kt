@@ -17,7 +17,6 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.L
-import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.T
 import androidx.room.processor.Context
@@ -29,7 +28,6 @@ import androidx.room.vo.FieldWithIndex
 import androidx.room.vo.Pojo
 import androidx.room.vo.RelationCollector
 import androidx.room.vo.Warning
-import androidx.room.vo.findFieldByColumnName
 import androidx.room.writer.FieldReadWriteWriter
 import com.squareup.javapoet.TypeName
 import stripNonJava
@@ -59,7 +57,7 @@ class PojoRowAdapter(
                 // first check remaining, otherwise check any. maybe developer wants to map the same
                 // column into 2 fields. (if they want to post process etc)
                 val field = remainingFields.firstOrNull { it.columnName == column.name }
-                        ?: pojo.findFieldByColumnName(column.name)
+                        ?: pojo.fields.firstOrNull { it.columnName == column.name }
                 if (field == null) {
                     unusedColumns.add(column.name)
                     null
@@ -86,7 +84,7 @@ class PojoRowAdapter(
                         allQueryColumns = info.columns.map { it.name }))
             }
             if (matchedFields.isEmpty()) {
-                context.logger.e(ProcessorErrors.cannotFindQueryResultAdapter(out.toString()))
+                context.logger.e(ProcessorErrors.CANNOT_FIND_QUERY_RESULT_ADAPTER)
             }
         } else {
             matchedFields = remainingFields.map { it }
@@ -120,9 +118,8 @@ class PojoRowAdapter(
             } else {
                 "getColumnIndexOrThrow"
             }
-            scope.builder().addStatement("final $T $L = $T.$L($L, $S)",
-                TypeName.INT, indexVar, RoomTypeNames.CURSOR_UTIL, indexMethod, cursorVarName,
-                it.columnName)
+            scope.builder().addStatement("final $T $L = $L.$L($S)",
+                    TypeName.INT, indexVar, cursorVarName, indexMethod, it.columnName)
             FieldWithIndex(field = it, indexVar = indexVar, alwaysExists = info != null)
         }
         if (relationCollectors.isNotEmpty()) {

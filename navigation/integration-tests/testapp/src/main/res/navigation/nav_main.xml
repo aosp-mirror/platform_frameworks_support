@@ -30,28 +30,15 @@
                 app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         </fragment>
     </navigation>
-    <dialog
-        android:id="@+id/learn_more"
-        android:label="This Should Not Show"
-        android:name="androidx.navigation.testapp.LearnMoreDialogFragment">
-        <argument android:name="myarg" android:defaultValue="@null" />
-        <action
-            android:id="@+id/learn_more_about_android"
-            app:destination="@+id/android"
-            app:popUpTo="@+id/learn_more"
-            app:popUpToInclusive="true"/>
-    </dialog>
     <fragment android:id="@+id/android"
               android:label="@string/android"
               android:name="androidx.navigation.testapp.AndroidFragment">
         <argument android:name="myarg" android:defaultValue="Android!" />
-        <!-- Handle the 'More information' link on www.example.com -->
         <deepLink app:uri="www.iana.org/domains/{myarg}"/>
         <action android:id="@+id/next" app:destination="@+id/first_screen"/>
     </fragment>
     <fragment android:id="@+id/first_screen"
-        android:name="androidx.navigation.testapp.MainFragment"
-        android:label="@string/first">
+        android:name="androidx.navigation.testapp.MainFragment">
         <argument android:name="myarg" android:defaultValue="one" />
         <action android:id="@+id/next" app:destination="@+id/next_fragment"
                 app:enterAnim="@anim/nav_default_enter_anim"
@@ -60,8 +47,7 @@
                 app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/next_fragment"
-        android:name="androidx.navigation.testapp.MainFragment"
-        android:label="@string/second">
+        android:name="androidx.navigation.testapp.MainFragment">
         <argument android:name="myarg" android:defaultValue="two" />
         <action android:id="@+id/next" app:destination="@+id/first_screen"
                 app:enterAnim="@anim/nav_default_enter_anim"

@@ -19,9 +19,6 @@ package androidx.browser.customtabs;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.RestrictTo;
-import androidx.browser.customtabs.CustomTabsService.Relation;
-
 /**
  * A callback class for custom tabs client to get messages regarding events in their custom tabs. In
  * the implementation, all callbacks are sent to the UI thread for the client.
@@ -59,15 +56,6 @@ public class CustomTabsCallback {
     public static final int TAB_HIDDEN = 6;
 
     /**
-     * Key for the extra included in {@link #onRelationshipValidationResult} {@code extras}
-     * containing whether the verification was performed while the device was online. This may be
-     * missing in cases verification was short cut.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public static final String ONLINE_EXTRAS_KEY = "online";
-
-    /**
      * To be called when a navigation event happens.
      *
      * @param navigationEvent The code corresponding to the navigation event.
@@ -87,7 +75,7 @@ public class CustomTabsCallback {
      * purposes.
      *
      * @param callbackName Name of the extra callback.
-     * @param args Arguments for the callback
+     * @param args Arguments for the calback
      */
     public void extraCallback(String callbackName, Bundle args) {}
 
@@ -123,6 +111,6 @@ public class CustomTabsCallback {
      * @param result Whether the relation was validated.
      * @param extras Reserved for future use.
      */
-    public void onRelationshipValidationResult(@Relation int relation, Uri requestedOrigin,
-            boolean result, Bundle extras) {}
+    public void onRelationshipValidationResult(@CustomTabsService.Relation int relation, Uri requestedOrigin,
+                                               boolean result, Bundle extras) {}
 }

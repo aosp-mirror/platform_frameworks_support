@@ -21,7 +21,6 @@
               android:minHeight="?android:attr/listPreferredItemHeight"
               android:gravity="center_vertical"
               android:paddingEnd="?android:attr/scrollbarSize"
-              android:paddingRight="?android:attr/scrollbarSize"
               android:clipChildren="false"
               android:clipToPadding="false">
 
@@ -36,9 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dip"
-            android:layout_marginLeft="16dip"
             android:layout_marginEnd="8dip"
-            android:layout_marginRight="8dip"
             android:layout_marginTop="6dip"
             android:layout_marginBottom="6dip"
             android:layout_weight="1"
@@ -58,7 +55,6 @@
                   android:layout_height="wrap_content"
                   android:layout_below="@android:id/title"
                   android:layout_alignStart="@android:id/title"
-                  android:layout_alignLeft="@android:id/title"
                   android:textAppearance="?android:attr/textAppearanceSmall"
                   android:textColor="?android:attr/textColorSecondary"
                   android:maxLines="4"/>
@@ -72,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@android:id/summary"
                 android:layout_alignStart="@android:id/title"
-                android:layout_alignLeft="@android:id/title"
                 android:clipChildren="false"
                 android:clipToPadding="false">
             <SeekBar
@@ -80,16 +75,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/preference_seekbar_padding_horizontal"
-                    android:paddingLeft="@dimen/preference_seekbar_padding_horizontal"
-                    android:paddingEnd="22dp"
-                    android:paddingRight="22dp"
+                    android:paddingStart="@dimen/preference_seekbar_padding_start"
+                    android:paddingEnd="@dimen/preference_seekbar_padding_end"
                     android:focusable="false"
                     android:clickable="false"
                     android:background="@null" />
 
             <TextView android:id="@+id/seekbar_value"
-                      android:layout_width="@dimen/preference_seekbar_value_minWidth"
+                      android:layout_width="@dimen/preference_seekbar_value_width"
                       android:layout_height="match_parent"
                       android:gravity="right|center_vertical"
                       android:fontFamily="sans-serif-condensed"

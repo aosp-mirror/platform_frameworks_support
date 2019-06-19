@@ -16,15 +16,13 @@
 
 package androidx.room.solver.shortcut.binderprovider
 
-import androidx.room.ext.L
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.processor.Context
-import androidx.room.solver.shortcut.binder.CallableInsertMethodBinder.Companion.createInsertBinder
 import androidx.room.solver.shortcut.binder.InsertMethodBinder
+import androidx.room.solver.shortcut.binder.RxCallableInsertMethodBinder
+import androidx.room.solver.shortcut.binder.RxCallableInsertMethodBinder.RxType
 import androidx.room.vo.ShortcutQueryParameter
-import com.squareup.javapoet.ClassName
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 
@@ -33,7 +31,7 @@ import javax.lang.model.type.TypeMirror
  */
 sealed class RxCallableInsertMethodBinderProvider(
     val context: Context,
-    private val rxType: RxType
+    private val rxType: RxCallableInsertMethodBinder.RxType
 ) : InsertMethodBinderProvider {
 
     /**
@@ -56,18 +54,7 @@ sealed class RxCallableInsertMethodBinderProvider(
     ): InsertMethodBinder {
         val typeArg = extractTypeArg(declared)
         val adapter = context.typeAdapterStore.findInsertAdapter(typeArg, params)
-        return createInsertBinder(typeArg, adapter) { callableImpl, _ ->
-            addStatement("return $T.fromCallable($L)", rxType.className, callableImpl)
-        }
-    }
-
-    /**
-     * Supported types for insert
-     */
-    enum class RxType(val className: ClassName) {
-        SINGLE(RxJava2TypeNames.SINGLE),
-        MAYBE(RxJava2TypeNames.MAYBE),
-        COMPLETABLE(RxJava2TypeNames.COMPLETABLE)
+        return RxCallableInsertMethodBinder(rxType, typeArg, adapter)
     }
 }
 
@@ -97,7 +84,8 @@ class RxCompletableInsertMethodBinderProvider(context: Context)
      * Like this, the generated Callable.call method will return Void.
      */
     override fun extractTypeArg(declared: DeclaredType): TypeMirror =
-            context.COMMON_TYPES.VOID
+            context.processingEnv.elementUtils.getTypeElement(Void::class.java.canonicalName)
+                    .asType()
 
     override fun matches(declared: DeclaredType): Boolean = isCompletable(declared)
 

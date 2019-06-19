@@ -30,9 +30,9 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.core.view.ViewCompat;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +48,7 @@ import org.junit.runner.RunWith;
  * {@link CoordinatorLayout.Behavior#onNestedScroll(View, int, int, int, int, int)}
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class CoordinatorLayoutNestedScrollingParentCompatTest {
 
     private static final int WIDTH_AND_HEIGHT = 500;
@@ -109,7 +109,7 @@ public class CoordinatorLayoutNestedScrollingParentCompatTest {
     }
 
     private void setup(boolean behaviorIsV3) {
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getContext();
 
         mSpyBehavior = spy(behaviorIsV3 ? new V3TestBehavior() : new NonV3TestBehavior());
         when(mSpyBehavior.onStartNestedScroll(

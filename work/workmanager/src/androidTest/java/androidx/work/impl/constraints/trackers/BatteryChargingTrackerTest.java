@@ -34,14 +34,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 
-import androidx.annotation.RequiresApi;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.constraints.ConstraintListener;
-import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +57,8 @@ public class BatteryChargingTrackerTest {
     public void setUp() {
         mMockContext = mock(Context.class);
         when(mMockContext.getApplicationContext()).thenReturn(mMockContext);
-        mTracker = new BatteryChargingTracker(mMockContext, new InstantWorkTaskExecutor());
+
+        mTracker = new BatteryChargingTracker(mMockContext);
         mListener = mock(ConstraintListener.class);
     }
 
@@ -140,7 +140,7 @@ public class BatteryChargingTrackerTest {
         verify(mListener).onConstraintChanged(true);
 
         mTracker.onBroadcastReceive(
-                ApplicationProvider.getApplicationContext(),
+                InstrumentationRegistry.getTargetContext(),
                 new Intent("INVALID"));
         verifyNoMoreInteractions(mListener);
     }

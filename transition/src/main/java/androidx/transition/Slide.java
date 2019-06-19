@@ -16,11 +16,10 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -59,7 +58,7 @@ public class Slide extends Visibility {
     private int mSlideEdge = Gravity.BOTTOM;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({Gravity.LEFT, Gravity.TOP, Gravity.RIGHT, Gravity.BOTTOM, Gravity.START, Gravity.END})
     public @interface GravityFlag {
@@ -163,8 +162,6 @@ public class Slide extends Visibility {
         setSlideEdge(slideEdge);
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
-    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public Slide(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, Styleable.SLIDE);
@@ -257,7 +254,7 @@ public class Slide extends Visibility {
         float startY = mSlideCalculator.getGoneY(sceneRoot, view);
         return TranslationAnimationCreator
                 .createAnimation(view, endValues, position[0], position[1],
-                        startX, startY, endX, endY, sDecelerate, this);
+                        startX, startY, endX, endY, sDecelerate);
     }
 
     @Override
@@ -273,7 +270,7 @@ public class Slide extends Visibility {
         float endY = mSlideCalculator.getGoneY(sceneRoot, view);
         return TranslationAnimationCreator
                 .createAnimation(view, startValues, position[0], position[1],
-                        startX, startY, endX, endY, sAccelerate, this);
+                        startX, startY, endX, endY, sAccelerate);
     }
 
 }

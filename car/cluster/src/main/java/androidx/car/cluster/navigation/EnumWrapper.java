@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,15 +33,14 @@ import java.util.Objects;
 /**
  * An {@link Enum} wrapper that implements {@link VersionedParcelable} and provides backwards and
  * forward compatibility by allowing the data producer to provide an optional set of "fallback"
- * values. If a value provided by the third-party navigation app is not known by the data consumer
- * (e.g. a new value was introduced, but the OEM cluster rendering service is still using an older
- * version of the API), then this class would return the first "fallback" value that is known to the
- * OEM cluster rendering service.
+ * values. If a value provided by the producer is not known by the data consumer (e.g.: a new value
+ * was introduced, but the consumer still is using a older version of the API), then this
+ * class would return the first "fallback" value that is known to the consumer.
 
  * @param <T> Enum type to be wrapped.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @VersionedParcelize
 final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
     @ParcelField(1)
@@ -63,11 +62,10 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
 
     /**
      * Returns the first value wrapped by the given {@link VersionedParcelable}, that is known to
-     * this OEM cluster rendering service, or a default value if none of the fallback alternatives
-     * is known, or the provided wrapper is null.
+     * this consumer, or a default value if none of the fallback alternatives is known, or the
+     * provided wrapper is null.
      *
-     * @param defaultValue Value to return if none of the reported values is known to the OEM
-     *                     cluster rendering service.
+     * @param defaultValue Value to return if none of the reported values is known to the consumer.
      */
     @NonNull
     public static <T extends Enum<T>> T getValue(@Nullable EnumWrapper<T> wrapper,
@@ -120,8 +118,8 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
      *
      * @param value Value to be wrapped.
      * @param fallbacks An optional list of fallback values, in order of preference, to be used in
-     *                  case the OEM cluster rendering service of this API doesn't know the value
-     *                  provided. This will be used only if {@code value} is not null.
+     *                  case the consumer of this API doesn't know the value provided. This will be
+     *                  used only if {@code value} is not null.
      */
     @SafeVarargs
     @NonNull

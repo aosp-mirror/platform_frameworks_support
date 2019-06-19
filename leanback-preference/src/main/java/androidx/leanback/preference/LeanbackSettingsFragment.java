@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -196,7 +196,7 @@ public abstract class LeanbackSettingsFragment extends Fragment
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static class DummyFragment extends Fragment {
 
         @Override

@@ -15,7 +15,7 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.media.tv.TvContentRating;
 import android.text.TextUtils;
@@ -30,7 +30,7 @@ import java.util.List;
  * Static helper methods for working with {@link android.media.tv.TvContract}.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class TvContractUtils {
 
     static final TvContentRating[] EMPTY = new TvContentRating[0];

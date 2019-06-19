@@ -23,10 +23,7 @@
     android:minWidth="56dp"
     android:gravity="start|center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="0dp"
-    android:paddingStart="0dp"
     android:paddingRight="8dp"
-    android:paddingEnd="8dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
 

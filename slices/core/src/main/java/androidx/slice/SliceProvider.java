@@ -143,7 +143,6 @@ public abstract class SliceProvider extends ContentProvider implements
 
     private SliceProviderCompat mCompat;
 
-    private final Object mPinnedSliceUrisLock = new Object();
     private List<Uri> mPinnedSliceUris;
 
     /**
@@ -201,6 +200,8 @@ public abstract class SliceProvider extends ContentProvider implements
     @Override
     public final boolean onCreate() {
         if (Build.VERSION.SDK_INT < 19) return false;
+        mPinnedSliceUris = new ArrayList<>(SliceManager.getInstance(
+                getContext()).getPinnedSlices());
         if (Build.VERSION.SDK_INT < 28) {
             mCompat = new SliceProviderCompat(this,
                     onCreatePermissionManager(mAutoGrantPermissions), getContext());
@@ -235,35 +236,14 @@ public abstract class SliceProvider extends ContentProvider implements
     }
 
     /**
-     * Called when an app requests a slice it does not have write permission
-     * to the uri for.
-     * <p>
-     * The return value will be the action on a slice that prompts the user that
-     * the calling app wants to show slices from this app. Returning null will use the default
-     * implementation that launches a dialog that allows the user to grant access to this slice.
-     * Apps that do not want to allow this user grant, can override this and instead
-     * launch their own dialog with different behavior.
-     *
-     * @param sliceUri the Uri of the slice attempting to be bound.
-     * @param callingPackage the packageName of the app requesting the slice
-     */
-    public @Nullable PendingIntent onCreatePermissionRequest(@NonNull Uri sliceUri,
-            @NonNull String callingPackage) {
-        return null;
-    }
-
-    /**
      * Generate a slice that contains a permission request.
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @RequiresApi(19)
-    public Slice createPermissionSlice(Uri sliceUri, String callingPackage) {
-        Context context = getContext();
-        PendingIntent action = onCreatePermissionRequest(sliceUri, callingPackage);
-        if (action == null) {
-            action = createPermissionIntent(context, sliceUri, callingPackage);
-        }
+    public static Slice createPermissionSlice(Context context, Uri sliceUri,
+            String callingPackage) {
+        PendingIntent action = createPermissionIntent(context, sliceUri, callingPackage);
 
         Slice.Builder parent = new Slice.Builder(sliceUri);
         Slice.Builder childAction = new Slice.Builder(parent)
@@ -289,9 +269,11 @@ public abstract class SliceProvider extends ContentProvider implements
 
     /**
      * Create a PendingIntent pointing at the permission dialog.
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @RequiresApi(19)
-    private static PendingIntent createPermissionIntent(Context context, Uri sliceUri,
+    public static PendingIntent createPermissionIntent(Context context, Uri sliceUri,
             String callingPackage) {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(context.getPackageName(),
@@ -308,9 +290,11 @@ public abstract class SliceProvider extends ContentProvider implements
 
     /**
      * Get string describing permission request.
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @RequiresApi(19)
-    private static CharSequence getPermissionString(Context context, String callingPackage) {
+    public static CharSequence getPermissionString(Context context, String callingPackage) {
         PackageManager pm = context.getPackageManager();
         try {
             return context.getString(R.string.abc_slices_permission_request,
@@ -377,9 +361,8 @@ public abstract class SliceProvider extends ContentProvider implements
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @RequiresApi(19)
     public void handleSlicePinned(Uri sliceUri) {
-        List<Uri> pinnedSlices = getPinnedSlices();
-        if (!pinnedSlices.contains(sliceUri)) {
-            pinnedSlices.add(sliceUri);
+        if (!mPinnedSliceUris.contains(sliceUri)) {
+            mPinnedSliceUris.add(sliceUri);
         }
     }
 
@@ -389,9 +372,8 @@ public abstract class SliceProvider extends ContentProvider implements
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @RequiresApi(19)
     public void handleSliceUnpinned(Uri sliceUri) {
-        List<Uri> pinnedSlices = getPinnedSlices();
-        if (pinnedSlices.contains(sliceUri)) {
-            pinnedSlices.remove(sliceUri);
+        if (mPinnedSliceUris.contains(sliceUri)) {
+            mPinnedSliceUris.remove(sliceUri);
         }
     }
 
@@ -431,12 +413,6 @@ public abstract class SliceProvider extends ContentProvider implements
      */
     @RequiresApi(19)
     @NonNull public List<Uri> getPinnedSlices() {
-        synchronized (mPinnedSliceUrisLock) {
-            if (mPinnedSliceUris == null) {
-                mPinnedSliceUris = new ArrayList<>(SliceManager.getInstance(getContext())
-                        .getPinnedSlices());
-            }
-        }
         return mPinnedSliceUris;
     }
 
@@ -507,7 +483,7 @@ public abstract class SliceProvider extends ContentProvider implements
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @RequiresApi(19)
     public static Set<SliceSpec> getCurrentSpecs() {
         return sSpecs;
@@ -525,7 +501,7 @@ public abstract class SliceProvider extends ContentProvider implements
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @RequiresApi(19)
     public static Clock getClock() {
         return sClock;

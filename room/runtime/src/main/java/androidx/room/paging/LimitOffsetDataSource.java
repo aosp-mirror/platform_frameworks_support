@@ -19,6 +19,7 @@ package androidx.room.paging;
 import android.database.Cursor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.paging.PositionalDataSource;
 import androidx.room.InvalidationTracker;
@@ -43,7 +44,7 @@ import java.util.Set;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     private final RoomSQLiteQuery mSourceQuery;
     private final String mCountQuery;
@@ -76,8 +77,6 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
 
     /**
      * Count number of rows query can return
-     *
-     * @hide
      */
     @SuppressWarnings("WeakerAccess")
     public int countItems() {
@@ -105,61 +104,52 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     @SuppressWarnings("WeakerAccess")
     protected abstract List<T> convertRows(Cursor cursor);
 
-    @SuppressWarnings("deprecation")
     @Override
     public void loadInitial(@NonNull LoadInitialParams params,
             @NonNull LoadInitialCallback<T> callback) {
-        List<T> list = Collections.emptyList();
-        int totalCount = 0;
-        int firstLoadPosition = 0;
-        RoomSQLiteQuery sqLiteQuery = null;
-        Cursor cursor = null;
-        mDb.beginTransaction();
-        try {
-            totalCount = countItems();
-            if (totalCount != 0) {
-                // bound the size requested, based on known count
-                firstLoadPosition = computeInitialLoadPosition(params, totalCount);
-                int firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
-
-                sqLiteQuery = getSQLiteQuery(firstLoadPosition, firstLoadSize);
-                cursor = mDb.query(sqLiteQuery);
-                List<T> rows = convertRows(cursor);
-                mDb.setTransactionSuccessful();
-                list = rows;
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            mDb.endTransaction();
-            if (sqLiteQuery != null) {
-                sqLiteQuery.release();
-            }
+        int totalCount = countItems();
+        if (totalCount == 0) {
+            callback.onResult(Collections.<T>emptyList(), 0, 0);
+            return;
         }
 
-        callback.onResult(list, firstLoadPosition, totalCount);
+        // bound the size requested, based on known count
+        final int firstLoadPosition = computeInitialLoadPosition(params, totalCount);
+        final int firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
+
+        List<T> list = loadRange(firstLoadPosition, firstLoadSize);
+        if (list != null && list.size() == firstLoadSize) {
+            callback.onResult(list, firstLoadPosition, totalCount);
+        } else {
+            // null list, or size doesn't match request - DB modified between count and load
+            invalidate();
+        }
     }
 
     @Override
     public void loadRange(@NonNull LoadRangeParams params,
             @NonNull LoadRangeCallback<T> callback) {
-        callback.onResult(loadRange(params.startPosition, params.loadSize));
+        List<T> list = loadRange(params.startPosition, params.loadSize);
+        if (list != null) {
+            callback.onResult(list);
+        } else {
+            invalidate();
+        }
     }
 
     /**
      * Return the rows from startPos to startPos + loadCount
-     *
-     * @hide
      */
-    @SuppressWarnings("deprecation")
-    @NonNull
+    @Nullable
     public List<T> loadRange(int startPosition, int loadCount) {
-        final RoomSQLiteQuery sqLiteQuery = getSQLiteQuery(startPosition, loadCount);
+        final RoomSQLiteQuery sqLiteQuery = RoomSQLiteQuery.acquire(mLimitOffsetQuery,
+                mSourceQuery.getArgCount() + 2);
+        sqLiteQuery.copyArgumentsFrom(mSourceQuery);
+        sqLiteQuery.bindLong(sqLiteQuery.getArgCount() - 1, loadCount);
+        sqLiteQuery.bindLong(sqLiteQuery.getArgCount(), startPosition);
         if (mInTransaction) {
             mDb.beginTransaction();
             Cursor cursor = null;
-            //noinspection TryFinallyCanBeTryWithResources
             try {
                 cursor = mDb.query(sqLiteQuery);
                 List<T> rows = convertRows(cursor);
@@ -182,14 +172,5 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
                 sqLiteQuery.release();
             }
         }
-    }
-
-    private RoomSQLiteQuery getSQLiteQuery(int startPosition, int loadCount) {
-        final RoomSQLiteQuery sqLiteQuery = RoomSQLiteQuery.acquire(mLimitOffsetQuery,
-                mSourceQuery.getArgCount() + 2);
-        sqLiteQuery.copyArgumentsFrom(mSourceQuery);
-        sqLiteQuery.bindLong(sqLiteQuery.getArgCount() - 1, loadCount);
-        sqLiteQuery.bindLong(sqLiteQuery.getArgCount(), startPosition);
-        return sqLiteQuery;
     }
 }

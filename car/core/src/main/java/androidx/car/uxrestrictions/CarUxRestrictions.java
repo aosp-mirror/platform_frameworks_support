@@ -16,7 +16,7 @@
 
 package androidx.car.uxrestrictions;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -146,7 +146,7 @@ public final class CarUxRestrictions {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef(flag = true,
             value = {UX_RESTRICTIONS_BASELINE,
                     UX_RESTRICTIONS_NO_DIALPAD,
@@ -344,7 +344,7 @@ public final class CarUxRestrictions {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public CarUxRestrictions(android.car.drivingstate.CarUxRestrictions uxRestrictions) {
         mTimestamp = uxRestrictions.getTimeStamp();
         mIsDistractionOptimizationRequired = uxRestrictions.isRequiresDistractionOptimization();

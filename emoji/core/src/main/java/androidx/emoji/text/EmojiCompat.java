@@ -15,7 +15,7 @@
  */
 package androidx.emoji.text;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -129,7 +129,7 @@ public class EmojiCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({LOAD_STATE_DEFAULT, LOAD_STATE_LOADING, LOAD_STATE_SUCCEEDED, LOAD_STATE_FAILED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LoadState {
@@ -157,7 +157,7 @@ public class EmojiCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({REPLACE_STRATEGY_DEFAULT, REPLACE_STRATEGY_NON_EXISTENT, REPLACE_STRATEGY_ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ReplaceStrategy {
@@ -181,7 +181,7 @@ public class EmojiCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({LOAD_STRATEGY_DEFAULT, LOAD_STRATEGY_MANUAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LoadStrategy {
@@ -190,7 +190,7 @@ public class EmojiCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     static final int EMOJI_COUNT_UNLIMITED = Integer.MAX_VALUE;
 
     private static final Object sInstanceLock = new Object();
@@ -309,7 +309,7 @@ public class EmojiCompat {
      * @hide
      */
     @SuppressWarnings("GuardedBy")
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @VisibleForTesting
     public static EmojiCompat reset(@NonNull final Config config) {
         synchronized (sInstanceLock) {
@@ -324,7 +324,7 @@ public class EmojiCompat {
      * @hide
      */
     @SuppressWarnings("GuardedBy")
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @VisibleForTesting
     public static EmojiCompat reset(final EmojiCompat emojiCompat) {
         synchronized (sInstanceLock) {
@@ -338,7 +338,7 @@ public class EmojiCompat {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @VisibleForTesting
     void setGlyphChecker(@NonNull final EmojiProcessor.GlyphChecker glyphChecker) {
         mHelper.setGlyphChecker(glyphChecker);
@@ -506,7 +506,7 @@ public class EmojiCompat {
      * @return whether a background should be drawn for the emoji.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     boolean isEmojiSpanIndicatorEnabled() {
         return mEmojiSpanIndicatorEnabled;
     }
@@ -515,7 +515,7 @@ public class EmojiCompat {
      * @return whether a background should be drawn for the emoji.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @ColorInt int getEmojiSpanIndicatorColor() {
         return mEmojiSpanIndicatorColor;
     }
@@ -803,7 +803,7 @@ public class EmojiCompat {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void updateEditorInfoAttrs(@NonNull final EditorInfo outAttrs) {
         //noinspection ConstantConditions
         if (isInitialized() && outAttrs != null && outAttrs.extras != null) {
@@ -816,7 +816,7 @@ public class EmojiCompat {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @RequiresApi(19)
     static class SpanFactory {
         /**

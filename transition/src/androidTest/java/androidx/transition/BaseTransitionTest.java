@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 import androidx.transition.test.R;
 
 import org.junit.Before;
@@ -80,7 +80,7 @@ public abstract class BaseTransitionTest extends BaseTest {
         startTransition(loadScene(layoutId));
     }
 
-    void startTransition(final Scene scene) throws Throwable {
+    private void startTransition(final Scene scene) throws Throwable {
         rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {

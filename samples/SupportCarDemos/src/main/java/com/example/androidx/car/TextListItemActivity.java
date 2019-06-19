@@ -60,7 +60,7 @@ public class TextListItemActivity extends Activity {
 
         SampleProvider provider = new SampleProvider(this);
         ListItemAdapter adapter = new ListItemAdapter(this, provider,
-                ListItemAdapter.BACKGROUND_STYLE_NONE);
+                ListItemAdapter.BackgroundStyle.NONE);
 
         final boolean[] showDivider = {false};
         // Demonstrate how to update list item post construction.
@@ -285,9 +285,9 @@ public class TextListItemActivity extends Activity {
             actionItem.setPrimaryActionNoIcon();
             actionItem.setTitle("single line with both dividers for actions. "
                     + mContext.getString(R.string.long_text));
-            actionItem.setPrimaryAction("Action 1 with really long text", true,
+            actionItem.setPrimaryAction("Action 1", true,
                     v -> Toast.makeText(v.getContext(), "Action 1", Toast.LENGTH_SHORT).show());
-            actionItem.setSecondaryAction("Action 2 with really long text", true,
+            actionItem.setSecondaryAction("Action 2", true,
                     v -> Toast.makeText(v.getContext(), "Action 2", Toast.LENGTH_SHORT).show());
             mItems.add(actionItem);
 
@@ -295,9 +295,9 @@ public class TextListItemActivity extends Activity {
             actionItem.setPrimaryActionNoIcon();
             actionItem.setTitle("single line with both dividers for raised actions. "
                     + mContext.getString(R.string.long_text));
-            actionItem.setPrimaryAction("Action 1 with really long text", true,
+            actionItem.setPrimaryAction("Action 1", true,
                     v -> Toast.makeText(v.getContext(), "Action 1", Toast.LENGTH_SHORT).show());
-            actionItem.setSecondaryAction("Action 2 with really long text", true,
+            actionItem.setSecondaryAction("Action 2", true,
                     v -> Toast.makeText(v.getContext(), "Action 2", Toast.LENGTH_SHORT).show());
             actionItem.setActionBorderless(false);
             mItems.add(actionItem);

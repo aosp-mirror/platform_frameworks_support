@@ -60,7 +60,7 @@ import androidx.emoji.text.EmojiSpan;
  * }
  * </pre>
  *
- * {@link androidx.emoji.R.attr#emojiReplaceStrategy}
+ * @attr ref androidx.emoji.R.styleable#EmojiExtractTextLayout_emojiReplaceStrategy
  */
 public class EmojiExtractTextLayout extends LinearLayout {
 
@@ -114,11 +114,6 @@ public class EmojiExtractTextLayout extends LinearLayout {
             if (attrs != null) {
                 final TypedArray a = context.obtainStyledAttributes(attrs,
                         R.styleable.EmojiExtractTextLayout, defStyleAttr, defStyleRes);
-                if (Build.VERSION.SDK_INT >= 29) {
-                    saveAttributeDataForStyleable(
-                            context, R.styleable.EmojiExtractTextLayout, attrs, a, defStyleAttr,
-                            defStyleRes);
-                }
                 final int replaceStrategy = a.getInteger(
                         R.styleable.EmojiExtractTextLayout_emojiReplaceStrategy,
                         EmojiCompat.REPLACE_STRATEGY_DEFAULT);
@@ -136,7 +131,7 @@ public class EmojiExtractTextLayout extends LinearLayout {
      *                        {@link EmojiCompat#REPLACE_STRATEGY_NON_EXISTENT},
      *                        {@link EmojiCompat#REPLACE_STRATEGY_ALL}
      *
-     * {@link androidx.emoji.R.attr#emojiReplaceStrategy}
+     * @attr ref androidx.emoji.R.styleable#EmojiExtractTextLayout_emojiReplaceStrategy
      */
     public void setEmojiReplaceStrategy(@EmojiCompat.ReplaceStrategy int replaceStrategy) {
         mExtractEditText.setEmojiReplaceStrategy(replaceStrategy);
@@ -150,7 +145,7 @@ public class EmojiExtractTextLayout extends LinearLayout {
      *                        {@link EmojiCompat#REPLACE_STRATEGY_NON_EXISTENT},
      *                        {@link EmojiCompat#REPLACE_STRATEGY_ALL}
      *
-     * {@link androidx.emoji.R.attr#emojiReplaceStrategy}
+     * @attr ref androidx.emoji.R.styleable#EmojiExtractTextLayout_emojiReplaceStrategy
      */
     public int getEmojiReplaceStrategy() {
         return mExtractEditText.getEmojiReplaceStrategy();

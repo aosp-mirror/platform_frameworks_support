@@ -31,13 +31,13 @@ import android.text.Spanned;
 import androidx.emoji.text.EmojiMetadata;
 import androidx.emoji.text.EmojiSpan;
 import androidx.emoji.text.TypefaceEmojiSpan;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class EmojiEditableFactoryTest {
 
@@ -79,7 +79,7 @@ public class EmojiEditableFactoryTest {
         Class clazz = null;
         try {
             String className = "android.text.DynamicLayout$ChangeWatcher";
-            clazz = Class.forName(className, false, getClass().getClassLoader());
+            clazz = getClass().getClassLoader().loadClass(className);
         } catch (Throwable t) {
             // ignore
         }

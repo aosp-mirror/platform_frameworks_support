@@ -17,8 +17,7 @@
 import androidx.build.BuildServerConfigurationKt
 
 plugins {
-    id("AndroidXPlugin")
-    id("kotlin")
+    id("SupportKotlinLibraryPlugin")
     id("application")
 }
 
@@ -34,4 +33,5 @@ task dist(type: Copy) {
 
   destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
 }
+rootProject.tasks["createArchive"].dependsOn(dist)
 

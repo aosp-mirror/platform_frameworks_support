@@ -15,7 +15,6 @@
  */
 package androidx.recyclerview.widget;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -61,7 +60,6 @@ final class GapWorker implements Runnable {
     /**
      * Prefetch information associated with a specific RecyclerView.
      */
-    @SuppressLint("VisibleForTests")
     static class LayoutPrefetchRegistryImpl
             implements RecyclerView.LayoutManager.LayoutPrefetchRegistry {
         int mPrefetchDx;

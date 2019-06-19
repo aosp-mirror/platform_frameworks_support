@@ -16,11 +16,11 @@
 
 package androidx.work.impl.model;
 
-import static androidx.room.OnConflictStrategy.IGNORE;
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
 
 import java.util.List;
 

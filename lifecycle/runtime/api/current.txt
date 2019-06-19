@@ -1,4 +1,3 @@
-// Signature format: 3.0
 package androidx.lifecycle {
 
   public class LifecycleRegistry extends androidx.lifecycle.Lifecycle {
@@ -7,13 +6,12 @@ package androidx.lifecycle {
     method public androidx.lifecycle.Lifecycle.State getCurrentState();
     method public int getObserverCount();
     method public void handleLifecycleEvent(androidx.lifecycle.Lifecycle.Event);
-    method @Deprecated @MainThread public void markState(androidx.lifecycle.Lifecycle.State);
+    method public void markState(androidx.lifecycle.Lifecycle.State);
     method public void removeObserver(androidx.lifecycle.LifecycleObserver);
-    method @MainThread public void setCurrentState(androidx.lifecycle.Lifecycle.State);
   }
 
-  @Deprecated public interface LifecycleRegistryOwner extends androidx.lifecycle.LifecycleOwner {
-    method @Deprecated public androidx.lifecycle.LifecycleRegistry getLifecycle();
+  public abstract deprecated interface LifecycleRegistryOwner implements androidx.lifecycle.LifecycleOwner {
+    method public abstract androidx.lifecycle.LifecycleRegistry getLifecycle();
   }
 
 }

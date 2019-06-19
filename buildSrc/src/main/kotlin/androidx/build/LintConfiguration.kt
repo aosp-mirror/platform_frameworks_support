@@ -21,23 +21,19 @@ import com.android.build.gradle.internal.dsl.LintOptions
 import org.gradle.api.Project
 import java.io.File
 
-fun Project.configureNonAndroidProjectForLint(extension: AndroidXExtension) {
+fun Project.configureNonAndroidProjectForLint(extension: SupportLibraryExtension) {
     apply(mapOf("plugin" to "com.android.lint"))
 
     // Create fake variant tasks since that is what is invoked on CI and by developers.
-    val lintTask = tasks.named("lint")
-    tasks.register("lintDebug") {
-        it.dependsOn(lintTask)
-    }
-    tasks.register("lintRelease") {
-        it.dependsOn(lintTask)
-    }
+    val lintTask = tasks.getByName("lint")
+    tasks.create("lintDebug").dependsOn(lintTask)
+    tasks.create("lintRelease").dependsOn(lintTask)
 
     val lintOptions = extensions.getByType<LintOptions>()
     project.configureLint(lintOptions, extension)
 }
 
-fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension) {
+fun Project.configureLint(lintOptions: LintOptions, extension: SupportLibraryExtension) {
     // Lint is configured entirely in afterEvaluate so that individual projects cannot easily
     // disable individual checks in the DSL for any reason. That being said, when rolling out a new
     // check as fatal, it can be beneficial to set it to fatal above this comment. This allows you
@@ -67,16 +63,8 @@ fun Project.configureLint(lintOptions: LintOptions, extension: AndroidXExtension
                 fatal("NewApi")
                 fatal("ObsoleteSdkInt")
                 fatal("NoHardKeywords")
+                fatal("SyntheticAccessor")
                 fatal("UnusedResources")
-                fatal("KotlinPropertyAccess")
-                fatal("LambdaLast")
-                fatal("NoHardKeywords")
-
-                // Only override if not set explicitly.
-                // Some Kotlin projects may wish to disable this.
-                if (lintOptions.severityOverrides["SyntheticAccessor"] == null) {
-                    fatal("SyntheticAccessor")
-                }
 
                 if (extension.mavenVersion?.isFinalApi() == true) {
                     fatal("MissingTranslation")

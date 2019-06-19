@@ -21,7 +21,6 @@ import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -31,14 +30,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.futures.ResolvableFuture;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
 
 /**
  * A wrapper around a WebView instance, to run View methods on the UI thread. This also includes
@@ -48,7 +44,7 @@ import java.util.concurrent.Executor;
  * Modifications to this class should be reflected in that class as necessary. See
  * http://go/modifying-webview-cts.
  */
-public class WebViewOnUiThread {
+class WebViewOnUiThread {
     /**
      * The maximum time, in milliseconds (10 seconds) to wait for a load
      * to be triggered.
@@ -72,22 +68,10 @@ public class WebViewOnUiThread {
     private WebView mWebView;
 
     public WebViewOnUiThread() {
-        this(WebkitUtils.onMainThreadSync(new Callable<WebView>() {
-            @Override
-            public WebView call() {
-                return new WebView(ApplicationProvider.getApplicationContext());
-            }
-        }));
-    }
-
-    /**
-     * Create a new WebViewOnUiThread wrapping the provided {@link WebView}.
-     */
-    public WebViewOnUiThread(final WebView webView) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                mWebView = webView;
+                mWebView = new WebView(InstrumentationRegistry.getTargetContext());
                 mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
                 mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
             }
@@ -100,8 +84,8 @@ public class WebViewOnUiThread {
 
     public static WebView createWebView() {
         final Holder h = new Holder();
-        final Context ctx = ApplicationProvider.getApplicationContext();
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        final Context ctx = InstrumentationRegistry.getTargetContext();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 h.mView = new WebView(ctx);
@@ -115,7 +99,7 @@ public class WebViewOnUiThread {
      * the tests.
      */
     public void cleanUp() {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mWebView.clearHistory();
@@ -153,7 +137,7 @@ public class WebViewOnUiThread {
     }
 
     public static void destroy(final WebView webView) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 webView.destroy();
@@ -167,7 +151,7 @@ public class WebViewOnUiThread {
 
     public static void setWebViewClient(
             final WebView webView, final WebViewClient webviewClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 webView.setWebViewClient(webviewClient);
@@ -181,7 +165,7 @@ public class WebViewOnUiThread {
 
     public static void setWebChromeClient(
             final WebView webView, final WebChromeClient webChromeClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 webView.setWebChromeClient(webChromeClient);
@@ -189,64 +173,17 @@ public class WebViewOnUiThread {
         });
     }
 
-    public void setWebViewRenderProcessClient(
-            final WebViewRenderProcessClient webViewRenderProcessClient) {
-        setWebViewRenderProcessClient(mWebView, webViewRenderProcessClient);
-    }
-
-    public static void setWebViewRenderProcessClient(
-            final WebView webView, final WebViewRenderProcessClient webViewRenderProcessClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.setWebViewRenderProcessClient(webView, webViewRenderProcessClient);
-            }
-        });
-    }
-
-    public void setWebViewRenderProcessClient(
-            final Executor executor, final WebViewRenderProcessClient webViewRenderProcessClient) {
-        setWebViewRenderProcessClient(mWebView, executor, webViewRenderProcessClient);
-    }
-
-    public static void setWebViewRenderProcessClient(
-            final WebView webView,
-            final Executor executor,
-            final WebViewRenderProcessClient webViewRenderProcessClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.setWebViewRenderProcessClient(
-                        webView, executor, webViewRenderProcessClient);
-            }
-        });
-    }
-
-    public WebViewRenderProcessClient getWebViewRenderProcessClient() {
-        return getWebViewRenderProcessClient(mWebView);
-    }
-
-    public static WebViewRenderProcessClient getWebViewRenderProcessClient(
-            final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewRenderProcessClient>() {
-            @Override
-            public WebViewRenderProcessClient call() {
-                return WebViewCompat.getWebViewRenderProcessClient(webView);
-            }
-        });
-    }
-
     public WebMessagePortCompat[] createWebMessageChannelCompat() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebMessagePortCompat[]>() {
+        return getValue(new ValueGetter<WebMessagePortCompat[]>() {
             @Override
-            public WebMessagePortCompat[] call() {
+            public WebMessagePortCompat[] capture() {
                 return WebViewCompat.createWebMessageChannel(mWebView);
             }
         });
     }
 
     public void postWebMessageCompat(final WebMessageCompat message, final Uri targetOrigin) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 WebViewCompat.postWebMessage(mWebView, message, targetOrigin);
@@ -255,7 +192,7 @@ public class WebViewOnUiThread {
     }
 
     public void addJavascriptInterface(final Object object, final String name) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mWebView.addJavascriptInterface(object, name);
@@ -279,7 +216,7 @@ public class WebViewOnUiThread {
     }
 
     public void loadUrl(final String url) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mWebView.loadUrl(url);
@@ -342,27 +279,27 @@ public class WebViewOnUiThread {
     }
 
     public String getTitle() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
+        return getValue(new ValueGetter<String>() {
             @Override
-            public String call() {
+            public String capture() {
                 return mWebView.getTitle();
             }
         });
     }
 
     public WebSettings getSettings() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebSettings>() {
+        return getValue(new ValueGetter<WebSettings>() {
             @Override
-            public WebSettings call() {
+            public WebSettings capture() {
                 return mWebView.getSettings();
             }
         });
     }
 
     public String getUrl() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
+        return getValue(new ValueGetter<String>() {
             @Override
-            public String call() {
+            public String capture() {
                 return mWebView.getUrl();
             }
         });
@@ -370,7 +307,7 @@ public class WebViewOnUiThread {
 
     public void postVisualStateCallbackCompat(final long requestId,
             final WebViewCompat.VisualStateCallback callback) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 WebViewCompat.postVisualStateCallback(mWebView, requestId, callback);
@@ -379,7 +316,7 @@ public class WebViewOnUiThread {
     }
 
     void evaluateJavascript(final String script, final ValueCallback<String> result) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mWebView.evaluateJavascript(script, result);
@@ -392,9 +329,9 @@ public class WebViewOnUiThread {
     }
 
     public static WebViewClient getWebViewClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewClient>() {
+        return getValue(new ValueGetter<WebViewClient>() {
             @Override
-            public WebViewClient call() {
+            public WebViewClient capture() {
                 return WebViewCompat.getWebViewClient(webView);
             }
         });
@@ -405,9 +342,9 @@ public class WebViewOnUiThread {
     }
 
     public static WebChromeClient getWebChromeClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebChromeClient>() {
+        return getValue(new ValueGetter<WebChromeClient>() {
             @Override
-            public WebChromeClient call() {
+            public WebChromeClient capture() {
                 return WebViewCompat.getWebChromeClient(webView);
             }
         });
@@ -417,39 +354,24 @@ public class WebViewOnUiThread {
         return mWebView;
     }
 
-    /**
-     * Wait for the current state of the DOM to be ready to render on the next draw.
-     */
-    public void waitForDOMReadyToRender() {
-        final ResolvableFuture<Void> future = ResolvableFuture.create();
-        postVisualStateCallbackCompat(0, new WebViewCompat.VisualStateCallback() {
-            @Override
-            public void onComplete(long requestId) {
-                future.set(null);
-            }
-        });
-        WebkitUtils.waitForFuture(future);
+    private static <T> T getValue(ValueGetter<T> getter) {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(getter);
+        return getter.getValue();
     }
 
-    /**
-     * Capture a bitmap representation of the current WebView state.
-     *
-     * This synchronises so that the bitmap contents reflects the current DOM state, rather than
-     * potentially capturing a previously generated frame.
-     */
-    public Bitmap captureBitmap() {
-        getSettings().setOffscreenPreRaster(true);
-        waitForDOMReadyToRender();
-        return WebkitUtils.onMainThreadSync(new Callable<Bitmap>() {
-            @Override
-            public Bitmap call() throws Exception {
-                Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(), mWebView.getHeight(),
-                        Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                mWebView.draw(canvas);
-                return bitmap;
-            }
-        });
+    private abstract static class ValueGetter<T> implements Runnable {
+        private T mValue;
+
+        @Override
+        public void run() {
+            mValue = capture();
+        }
+
+        protected abstract T capture();
+
+        public T getValue() {
+            return mValue;
+        }
     }
 
     /**
@@ -478,11 +400,7 @@ public class WebViewOnUiThread {
                         + "without calling waitForLoadCompletion after the load",
                 !isLoaded());
         clearLoad(); // clear any extraneous signals from a previous load.
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            call.run();
-        } else {
-            WebkitUtils.onMainThreadSync(call);
-        }
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(call);
         waitForLoadCompletion();
     }
 
@@ -543,7 +461,7 @@ public class WebViewOnUiThread {
 
         // Force loop to exit when processing this. Loop.quit() doesn't
         // work because this is the main Loop.
-        WebkitUtils.onMainThread(new Runnable() {
+        mWebView.getHandler().post(new Runnable() {
             @Override
             public void run() {
                 throw new ExitLoopException(); // exit loop!
@@ -570,7 +488,6 @@ public class WebViewOnUiThread {
         }
 
         @Override
-        @CallSuper
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
             mOnUiThread.onProgressChanged(newProgress);
@@ -592,14 +509,12 @@ public class WebViewOnUiThread {
         }
 
         @Override
-        @CallSuper
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mOnUiThread.onPageFinished();
         }
 
         @Override
-        @CallSuper
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             mOnUiThread.onPageStarted();

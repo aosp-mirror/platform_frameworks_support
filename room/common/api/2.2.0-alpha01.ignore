@@ -1,3 +1,0 @@
-// Baseline format: 1.0
-AddedAbstractMethod: androidx.room.Relation#associateBy():
-    Added method androidx.room.Relation.associateBy()

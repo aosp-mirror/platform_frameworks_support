@@ -37,8 +37,7 @@ class ProGuardTransformer internal constructor(context: TransformationContext) :
         ))
 
     override fun canTransform(file: ArchiveFile): Boolean {
-        // Does not support single proguard file transformation, file has to be within archive.
-        return file.isProGuardFile() && !file.isSingleFile
+        return file.isProGuardFile()
     }
 
     override fun runTransform(file: ArchiveFile) {
@@ -52,3 +51,4 @@ class ProGuardTransformer internal constructor(context: TransformationContext) :
         file.setNewData(result.toByteArray())
     }
 }
+

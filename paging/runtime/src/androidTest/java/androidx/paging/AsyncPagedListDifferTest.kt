@@ -21,12 +21,6 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.test.filters.SmallTest
-import androidx.testutils.TestExecutor
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.reset
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -36,6 +30,11 @@ import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.reset
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.verifyZeroInteractions
 
 @SmallTest
 @RunWith(JUnit4::class)
@@ -47,34 +46,31 @@ class AsyncPagedListDifferTest {
     private fun createDiffer(
         listUpdateCallback: ListUpdateCallback = IGNORE_CALLBACK
     ): AsyncPagedListDiffer<String> {
-        val differ = AsyncPagedListDiffer(
-            listUpdateCallback,
-            AsyncDifferConfig.Builder(STRING_DIFF_CALLBACK)
-                .setBackgroundThreadExecutor(mDiffThread)
-                .build()
-        )
+        val differ = AsyncPagedListDiffer(listUpdateCallback,
+                AsyncDifferConfig.Builder(STRING_DIFF_CALLBACK)
+                        .setBackgroundThreadExecutor(mDiffThread)
+                        .build())
         // by default, use ArchExecutor
-        assertEquals(differ.mainThreadExecutor, ArchTaskExecutor.getMainThreadExecutor())
-        differ.mainThreadExecutor = mMainThread
+        assertEquals(differ.mMainThreadExecutor, ArchTaskExecutor.getMainThreadExecutor())
+        differ.mMainThreadExecutor = mMainThread
         return differ
     }
 
-    private fun <V : Any> createPagedListFromListAndPos(
+    private fun <V> createPagedListFromListAndPos(
         config: PagedList.Config,
         data: List<V>,
         initialKey: Int
     ): PagedList<V> {
-        @Suppress("DEPRECATION")
-        return PagedList.Builder(ListDataSource(data), config)
-            .setInitialKey(initialKey)
-            .setNotifyExecutor(mMainThread)
-            .setFetchExecutor(mPageLoadingThread)
-            .build()
+        return PagedList.Builder<Int, V>(ListDataSource(data), config)
+                .setInitialKey(initialKey)
+                .setNotifyExecutor(mMainThread)
+                .setFetchExecutor(mPageLoadingThread)
+                .build()
     }
 
     @Test
     fun initialState() {
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
         assertEquals(null, differ.currentList)
         assertEquals(0, differ.itemCount)
@@ -83,7 +79,7 @@ class AsyncPagedListDifferTest {
 
     @Test
     fun setFullList() {
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
         differ.submitList(StringPagedList(0, 0, "a", "b"))
 
@@ -119,7 +115,7 @@ class AsyncPagedListDifferTest {
 
     @Test
     fun simpleStatic() {
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
 
         assertEquals(0, differ.itemCount)
@@ -140,7 +136,7 @@ class AsyncPagedListDifferTest {
 
     @Test
     fun submitListReuse() {
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
         val origList = StringPagedList(2, 2, "a", "b")
 
@@ -165,12 +161,12 @@ class AsyncPagedListDifferTest {
     @Test
     fun pagingInContent() {
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(4)
-            .setPageSize(2)
-            .setPrefetchDistance(2)
-            .build()
+                .setInitialLoadSizeHint(4)
+                .setPageSize(2)
+                .setPrefetchDistance(2)
+                .build()
 
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
 
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST, 2))
@@ -196,11 +192,9 @@ class AsyncPagedListDifferTest {
         differ.getItem(12)
         verifyNoMoreInteractions(callback)
         drain()
-
-        // NOTE: tiling is currently disabled, so tiles at 6 and 8 are required to load around 12
-        for (pos in 6..14 step 2) {
-            verify(callback).onChanged(pos, 2, null)
-        }
+        verify(callback).onChanged(10, 2, null)
+        verify(callback).onChanged(12, 2, null)
+        verify(callback).onChanged(14, 2, null)
         verifyNoMoreInteractions(callback)
 
         // finally, clear
@@ -214,10 +208,10 @@ class AsyncPagedListDifferTest {
     fun simpleSwap() {
         // Page size large enough to load
         val config = PagedList.Config.Builder()
-            .setPageSize(50)
-            .build()
+                .setPageSize(50)
+                .build()
 
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
 
         // initial list missing one item (immediate)
@@ -247,12 +241,12 @@ class AsyncPagedListDifferTest {
     @Test
     fun newPageWhileDiffing() {
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(4)
-            .setPageSize(2)
-            .setPrefetchDistance(2)
-            .build()
+                .setInitialLoadSizeHint(4)
+                .setPageSize(2)
+                .setPrefetchDistance(2)
+                .build()
 
-        val callback = mock<ListUpdateCallback>()
+        val callback = mock(ListUpdateCallback::class.java)
         val differ = createDiffer(callback)
 
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST, 2))
@@ -316,8 +310,8 @@ class AsyncPagedListDifferTest {
         differAccessor[0] = differ
 
         val config = PagedList.Config.Builder()
-            .setPageSize(20)
-            .build()
+                .setPageSize(20)
+                .build()
 
         // in the fast-add case...
         expectedCount[0] = 5
@@ -344,31 +338,31 @@ class AsyncPagedListDifferTest {
         val differ = createDiffer()
 
         val config = PagedList.Config.Builder()
-            .setPageSize(5)
-            .setEnablePlaceholders(false)
-            .build()
+                .setPageSize(5)
+                .setEnablePlaceholders(false)
+                .build()
 
         // initialize, initial key position is 0
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(10, 20), 0))
         differ.currentList!!.loadAround(0)
         drain()
-        assertEquals(0, differ.currentList!!.lastKey)
+        assertEquals(differ.currentList!!.lastKey, 0)
 
         // if 10 items are prepended, lastKey should be updated to point to same item
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(0, 20), 0))
         drain()
-        assertEquals(10, differ.currentList!!.lastKey)
+        assertEquals(differ.currentList!!.lastKey, 10)
     }
 
     @Test
     fun submitSubset() {
         // Page size large enough to load
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(4)
-            .setPageSize(2)
-            .setPrefetchDistance(1)
-            .setEnablePlaceholders(false)
-            .build()
+                .setInitialLoadSizeHint(4)
+                .setPageSize(2)
+                .setPrefetchDistance(1)
+                .setEnablePlaceholders(false)
+                .build()
 
         val differ = createDiffer()
 
@@ -423,10 +417,11 @@ class AsyncPagedListDifferTest {
         val differ = createDiffer()
 
         @Suppress("UNCHECKED_CAST")
-        val listener = mock<AsyncPagedListDiffer.PagedListListener<String>>()
+        val listener = mock(AsyncPagedListDiffer.PagedListListener::class.java)
+                as AsyncPagedListDiffer.PagedListListener<String>
         differ.addPagedListListener(listener)
 
-        val callback = mock<Runnable>()
+        val callback = mock(Runnable::class.java)
 
         // first - simple insert
         val first = StringPagedList(2, 2, "a", "b")

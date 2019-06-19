@@ -23,11 +23,10 @@ import static junit.framework.TestCase.assertTrue;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.util.Property;
 
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +34,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class ObjectAnimatorTest {
     private static final float LINE1_START = -32f;
@@ -84,23 +83,6 @@ public class ObjectAnimatorTest {
         public void setColor(Integer colorVal) {
             color = colorVal;
         }
-    }
-
-    class ColorProperty extends Property<AnimObject, Integer> {
-        ColorProperty() {
-            super(Integer.class, "");
-        }
-
-        @Override
-        public void set(AnimObject obj, Integer val) {
-            obj.setColor(val);
-        }
-
-        @Override
-        public Integer get(AnimObject obj) {
-            return null;
-        }
-
     }
 
     /**
@@ -199,11 +181,11 @@ public class ObjectAnimatorTest {
     @Test
     public void testOfObject() {
         AnimObject object = new AnimObject();
-        Property<AnimObject, Integer> property = new ColorProperty();
+        String property = "color";
         int startColor = 0xFFFF8080;
         int endColor = 0xFF8080FF;
 
-        Integer[] values = {new Integer(startColor), new Integer(endColor)};
+        Object[] values = {new Integer(startColor), new Integer(endColor)};
         ArgbEvaluator evaluator = new ArgbEvaluator();
         final ObjectAnimator colorAnimator = ObjectAnimator.ofObject(object, property,
                 evaluator, values);
@@ -261,7 +243,7 @@ public class ObjectAnimatorTest {
     @Test
     public void testOfArgb() {
         AnimObject object = new AnimObject();
-        Property<AnimObject, Integer> property = new ColorProperty();
+        String property = "color";
         int start = 0xffff0000;
         int end = 0xff0000ff;
 

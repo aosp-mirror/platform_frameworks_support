@@ -37,11 +37,11 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.test.R;
 import androidx.preference.tests.helpers.PreferenceTestHelperActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -222,7 +222,7 @@ public class PreferenceVisibilityTest {
     }
 
     /**
-     * A {@link OnHierarchyChangeListener} that will count down a provided {@link CountDownLatch}
+     * A {@link OnHierarchyChangeListener that will count down a provided {@link CountDownLatch}
      * to allow tests to wait for the view hierarchy to be updated, and fail the test if the
      * hierarchy is updated when it shouldn't be.
      */

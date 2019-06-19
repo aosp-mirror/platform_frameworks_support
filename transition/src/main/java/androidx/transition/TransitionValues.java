@@ -61,7 +61,8 @@ public class TransitionValues {
     /**
      * The View with these values
      */
-    // TODO Make it NonNull and final after removing the deprecated constructor.
+    @SuppressWarnings("NullableProblems") // Can't make it final because of deprecated constructor.
+    @NonNull
     public View view;
 
     /**

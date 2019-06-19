@@ -15,12 +15,21 @@
   ~ limitations under the License.
   -->
 <resources>
-    <color name="car_primary_text">@color/car_primary_text_dark</color>
-    <color name="car_secondary_text">@color/car_secondary_text_dark</color>
+    <color name="car_display1">@color/car_display1_light</color>
+    <color name="car_display2">@color/car_display2_light</color>
+    <color name="car_display3">@color/car_display3_light</color>
+    <color name="car_display4">@color/car_display4_light</color>
 
-    <!-- Deprecated. Mapping to primary and secondary text colors until removal. -->
-    <color name="car_body1">@color/car_primary_text_dark</color>
-    <color name="car_body2">@color/car_primary_text_dark</color>
+    <color name="car_body1">@color/car_body1_light</color>
+    <color name="car_body2">@color/car_body2_light</color>
+    <color name="car_body3">@color/car_body3_light</color>
+    <color name="car_body4">@color/car_body4_light</color>
+
+    <color name="car_subtext1">@color/car_subtext1_light</color>
+    <color name="car_subtext2">@color/car_subtext2_light</color>
+    <color name="car_subtext3">@color/car_subtext3_light</color>
+    <color name="car_subtext4">@color/car_subtext4_light</color>
+    <color name="car_subtext5">@color/car_subtext5_light</color>
 
     <color name="car_tint">@color/car_tint_light</color>
 
@@ -35,9 +44,17 @@
     <color name="car_list_divider">@color/car_list_divider_light</color>
     <color name="car_scrollbar_thumb">@color/car_scrollbar_thumb_light</color>
 
-    <color name="car_accent">@color/car_accent_dark</color>
+    <color name="car_accent">@color/car_accent_light</color>
 
     <color name="car_seekbar_track_background">@color/car_seekbar_track_background_dark</color>
+
+    <!-- Colors for the switch widget (thumb and track) -->
+    <color name="car_switch_thumb_on">@color/car_teal_200</color>
+    <color name="car_switch_track_on">@color/car_teal_200</color>
+    <color name="car_switch_thumb_off">@color/car_body2</color>
+    <color name="car_switch_track_off">@color/car_body2</color>
+    <color name="car_switch_compat_track_on">@color/car_teal_200</color>
+    <color name="car_switch_compat_track_off">@color/car_grey_700</color>
 
     <color name="speed_bump_background">#FF4C4C4C</color>
 

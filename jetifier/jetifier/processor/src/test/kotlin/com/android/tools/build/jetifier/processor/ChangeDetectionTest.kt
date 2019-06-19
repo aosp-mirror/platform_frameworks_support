@@ -150,7 +150,7 @@ class ChangeDetectionTest {
                 "  </dependencies>" +
                 "</project>\n",
             fileName = "pom.xml",
-            areChangesExpected = false
+            areChangesExpected = true
         )
     }
 
@@ -161,7 +161,7 @@ class ChangeDetectionTest {
 
         testChange(
             config = prefRewriteConfig,
-            files = listOf(ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes())),
+            file = ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes()),
             areChangesExpected = true
         )
     }
@@ -173,44 +173,8 @@ class ChangeDetectionTest {
 
         testChange(
             config = Config.EMPTY,
-            files = listOf(ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes())),
+            file = ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes()),
             areChangesExpected = false
-        )
-    }
-
-    @Test
-    fun javaClass_androidXReferencesDetectionOn_archiveNotChanged() {
-        val inputFile =
-            File(javaClass.getResource("/changeDetectionTest/testPreference.class").file)
-        val inputFile2 =
-            File(javaClass.getResource("/classRewriteTest/ShareCompat.class").file)
-
-        testChange(
-            config = prefRewriteConfig,
-            files = listOf(
-                ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes()),
-                ArchiveFile(Paths.get("/", "ShareCompat.class"), inputFile2.readBytes())
-            ),
-            areChangesExpected = false,
-            enableToSkipLibsWithAndroidXReferences = true
-        )
-    }
-
-    @Test
-    fun javaClass_androidXReferencesDetectionOff_archiveChanged() {
-        val inputFile =
-            File(javaClass.getResource("/changeDetectionTest/testPreference.class").file)
-        val inputFile2 =
-            File(javaClass.getResource("/classRewriteTest/ShareCompat.class").file)
-
-        testChange(
-            config = prefRewriteConfig,
-            files = listOf(
-                ArchiveFile(Paths.get("/", "preference.class"), inputFile.readBytes()),
-                ArchiveFile(Paths.get("/", "ShareCompat.class"), inputFile2.readBytes())
-            ),
-            areChangesExpected = true,
-            enableToSkipLibsWithAndroidXReferences = false
         )
     }
 
@@ -222,7 +186,7 @@ class ChangeDetectionTest {
     ) {
         testChange(
             config = config,
-            files = listOf(ArchiveFile(Paths.get("/", fileName), fileContent.toByteArray())),
+            file = ArchiveFile(Paths.get("/", fileName), fileContent.toByteArray()),
             areChangesExpected = areChangesExpected)
     }
 
@@ -232,28 +196,22 @@ class ChangeDetectionTest {
      */
     private fun testChange(
         config: Config,
-        files: List<ArchiveFile>,
-        areChangesExpected: Boolean,
-        enableToSkipLibsWithAndroidXReferences: Boolean = false
+        file: ArchiveFile,
+        areChangesExpected: Boolean
     ) {
-        val archive = Archive(Paths.get("some/path"), files)
+        val archive = Archive(Paths.get("some/path"), listOf(file))
         val sourceArchive = archive.writeSelfToFile(Files.createTempFile("test", ".zip"))
 
         val expectedFileIfRefactored = Files.createTempFile("testRefactored", ".zip")
-        val processor = Processor.createProcessor3(
-            config = config)
-        val resultFiles = processor.transform2(
-            input = setOf(FileMapping(sourceArchive, expectedFileIfRefactored.toFile())),
-            copyUnmodifiedLibsAlso = false,
-            skipLibsWithAndroidXReferences = enableToSkipLibsWithAndroidXReferences
-        ).librariesMap
+        val processor = Processor.createProcessor(config)
+        val resultFiles = processor.transform(
+            setOf(FileMapping(sourceArchive, expectedFileIfRefactored.toFile())),
+            copyUnmodifiedLibsAlso = false)
 
         if (areChangesExpected) {
-            Truth.assertThat(resultFiles).containsExactly(
-                sourceArchive, expectedFileIfRefactored.toFile())
+            Truth.assertThat(resultFiles).containsExactly(expectedFileIfRefactored.toFile())
         } else {
-            Truth.assertThat(resultFiles).containsExactly(
-                sourceArchive, null)
+            Truth.assertThat(resultFiles).containsExactly(sourceArchive)
         }
     }
 }

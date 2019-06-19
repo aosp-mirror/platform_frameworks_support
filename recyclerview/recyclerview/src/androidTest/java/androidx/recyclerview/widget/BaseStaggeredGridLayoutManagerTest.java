@@ -72,8 +72,11 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
                 for (int spanCount : new int[]{1, 3}) {
                     for (int gapStrategy : new int[]{GAP_HANDLING_NONE,
                             GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS}) {
-                        variations.add(new Config(orientation, reverseLayout, spanCount,
-                                gapStrategy));
+                        for (boolean wrap : new boolean[]{true, false}) {
+                            variations.add(new Config(orientation, reverseLayout, spanCount,
+                                    gapStrategy).wrap(wrap));
+                        }
+
                     }
                 }
             }
@@ -414,6 +417,7 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
         int mSpanCount = 3;
         int mGapStrategy = GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS;
         int mItemCount = DEFAULT_ITEM_COUNT;
+        boolean mWrap = false;
         int mRecyclerViewLayoutHeight = ViewGroup.LayoutParams.MATCH_PARENT;
         int mRecyclerViewLayoutWidth = ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -463,6 +467,11 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
             return this;
         }
 
+        public Config wrap(boolean wrap) {
+            mWrap = wrap;
+            return this;
+        }
+
         @Override
         public String toString() {
             return "[CONFIG:"
@@ -470,6 +479,7 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
                     + ",orientation:" + (mOrientation == HORIZONTAL ? "horz," : "vert,")
                     + ",reverse:" + (mReverseLayout ? "T" : "F")
                     + ",itemCount:" + mItemCount
+                    + ",wrapContent:" + mWrap
                     + ",gap_strategy:" + gapStrategyName(mGapStrategy);
         }
 
@@ -921,9 +931,9 @@ abstract class BaseStaggeredGridLayoutManagerTest extends BaseRecyclerViewInstru
                 final int minSize = mViewsHaveEqualSize ? mSizeReference :
                         mSizeReference + 20 * (item.mId % 10);
                 if (mOrientation == OrientationHelper.HORIZONTAL) {
-                    lp.width = minSize;
+                    holder.itemView.setMinimumWidth(minSize);
                 } else {
-                    lp.height = minSize;
+                    holder.itemView.setMinimumHeight(minSize);
                 }
                 lp.topMargin = 3;
                 lp.leftMargin = 5;

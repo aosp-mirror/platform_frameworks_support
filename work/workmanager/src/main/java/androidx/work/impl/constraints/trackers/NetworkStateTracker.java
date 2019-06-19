@@ -25,14 +25,12 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.RestrictTo;
+import android.support.v4.net.ConnectivityManagerCompat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
-import androidx.core.net.ConnectivityManagerCompat;
 import androidx.work.Logger;
 import androidx.work.impl.constraints.NetworkState;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * A {@link ConstraintTracker} for monitoring network state.
@@ -49,9 +47,7 @@ import androidx.work.impl.utils.taskexecutor.TaskExecutor;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
-
-    // Synthetic Accessor
-    static final String TAG = Logger.tagWithPrefix("NetworkStateTracker");
+    private static final String TAG = "NetworkStateTracker";
 
     private final ConnectivityManager mConnectivityManager;
 
@@ -62,10 +58,9 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
     /**
      * Create an instance of {@link NetworkStateTracker}
      * @param context the application {@link Context}
-     * @param taskExecutor The internal {@link TaskExecutor} being used by WorkManager.
      */
-    public NetworkStateTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
-        super(context, taskExecutor);
+    public NetworkStateTracker(Context context) {
+        super(context);
         mConnectivityManager =
                 (ConnectivityManager) mAppContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (isNetworkCallbackSupported()) {
@@ -83,10 +78,10 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
     @Override
     public void startTracking() {
         if (isNetworkCallbackSupported()) {
-            Logger.get().debug(TAG, "Registering network callback");
+            Logger.debug(TAG, "Registering network callback");
             mConnectivityManager.registerDefaultNetworkCallback(mNetworkCallback);
         } else {
-            Logger.get().debug(TAG, "Registering broadcast receiver");
+            Logger.debug(TAG, "Registering broadcast receiver");
             mAppContext.registerReceiver(mBroadcastReceiver,
                     new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
@@ -95,19 +90,10 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
     @Override
     public void stopTracking() {
         if (isNetworkCallbackSupported()) {
-            try {
-                Logger.get().debug(TAG, "Unregistering network callback");
-                mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
-            } catch (IllegalArgumentException e) {
-                // This seems to be happening on NVIDIA Shield Tablets a lot.  Catching the
-                // exception since it's not fatal and moving on.  See b/119484416.
-                Logger.get().error(
-                        TAG,
-                        "Received exception while unregistering network callback",
-                        e);
-            }
+            Logger.debug(TAG, "Unregistering network callback");
+            mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
         } else {
-            Logger.get().debug(TAG, "Unregistering broadcast receiver");
+            Logger.debug(TAG, "Unregistering broadcast receiver");
             mAppContext.unregisterReceiver(mBroadcastReceiver);
         }
     }
@@ -146,15 +132,13 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
         @Override
         public void onCapabilitiesChanged(Network network, NetworkCapabilities capabilities) {
             // The Network parameter is unreliable when a VPN app is running - use active network.
-            Logger.get().debug(
-                    TAG,
-                    String.format("Network capabilities changed: %s", capabilities));
+            Logger.debug(TAG, String.format("Network capabilities changed: %s", capabilities));
             setState(getActiveNetworkState());
         }
 
         @Override
         public void onLost(Network network) {
-            Logger.get().debug(TAG, "Network connection lost");
+            Logger.debug(TAG, "Network connection lost");
             setState(getActiveNetworkState());
         }
     }
@@ -169,7 +153,7 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
                 return;
             }
             if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                Logger.get().debug(TAG, "Network broadcast received");
+                Logger.debug(TAG, "Network broadcast received");
                 setState(getActiveNetworkState());
             }
         }

@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package androidx.paging
-
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.paging.Config
+import androidx.paging.DataSource
+import androidx.paging.PositionalDataSource
+import androidx.paging.toFlowable
+import androidx.paging.toObservable
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
@@ -70,11 +73,9 @@ class RxPagedListTest {
                 params: LoadInitialParams,
                 callback: LoadInitialCallback<String>
             ) {
-                callback.onResult(listOf(), 0, 0)
             }
 
             override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<String>) {
-                // never completes...
             }
         }
 

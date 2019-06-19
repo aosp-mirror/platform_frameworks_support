@@ -62,16 +62,13 @@ class MediaRouteVolumeSlider extends AppCompatSeekBar {
         mThumb.setColorFilter(mProgressAndThumbColor, PorterDuff.Mode.SRC_IN);
         mThumb.setAlpha(alpha);
 
-        Drawable progressDrawable = getProgressDrawable();
-        if (progressDrawable instanceof LayerDrawable) {
-            LayerDrawable ld = (LayerDrawable) getProgressDrawable();
-            progressDrawable = ld.findDrawableByLayerId(android.R.id.progress);
-            Drawable backgroundDrawable = ld.findDrawableByLayerId(android.R.id.background);
+        LayerDrawable ld = (LayerDrawable) getProgressDrawable();
+        Drawable progressDrawable = ld.findDrawableByLayerId(android.R.id.progress);
+        Drawable backgroundDrawable = ld.findDrawableByLayerId(android.R.id.background);
 
-            backgroundDrawable.setColorFilter(mBackgroundColor, PorterDuff.Mode.SRC_IN);
-        }
         progressDrawable.setColorFilter(mProgressAndThumbColor, PorterDuff.Mode.SRC_IN);
-        progressDrawable.setAlpha(alpha);
+        backgroundDrawable.setColorFilter(mBackgroundColor, PorterDuff.Mode.SRC_IN);
+        ld.setAlpha(alpha);
     }
 
     @Override

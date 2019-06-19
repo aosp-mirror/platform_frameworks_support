@@ -20,7 +20,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Matrix;
@@ -108,8 +107,6 @@ public class ChangeTransform extends Transition {
     public ChangeTransform() {
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
-    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public ChangeTransform(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, Styleable.CHANGE_TRANSFORM);
@@ -391,7 +388,7 @@ public class ChangeTransform extends Transition {
         Matrix localEndMatrix = new Matrix(endMatrix);
         ViewUtils.transformMatrixToLocal(sceneRoot, localEndMatrix);
 
-        GhostView ghostView = GhostViewUtils.addGhost(view, sceneRoot, localEndMatrix);
+        GhostViewImpl ghostView = GhostViewUtils.addGhost(view, sceneRoot, localEndMatrix);
         if (ghostView == null) {
             return;
         }
@@ -516,9 +513,9 @@ public class ChangeTransform extends Transition {
     private static class GhostListener extends TransitionListenerAdapter {
 
         private View mView;
-        private GhostView mGhostView;
+        private GhostViewImpl mGhostView;
 
-        GhostListener(View view, GhostView ghostView) {
+        GhostListener(View view, GhostViewImpl ghostView) {
             mView = view;
             mGhostView = ghostView;
         }

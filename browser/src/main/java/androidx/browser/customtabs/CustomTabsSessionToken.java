@@ -16,7 +16,6 @@
 
 package androidx.browser.customtabs;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,8 +25,6 @@ import android.support.customtabs.ICustomTabsCallback;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.core.app.BundleCompat;
 
 /**
@@ -37,17 +34,8 @@ import androidx.core.app.BundleCompat;
 public class CustomTabsSessionToken {
     private static final String TAG = "CustomTabsSessionToken";
 
-    /**
-     * Both {@link #mCallbackBinder} and {@link #mSessionId} are used as session ID.
-     * At least one of the ID should be not null. If {@link #mSessionId} is null,
-     * the session will be invalidated as soon as the client goes away.
-     * Otherwise the browser will attempt to keep the session parameters,
-     * but it might drop them to reclaim resources
-     */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    @Nullable final ICustomTabsCallback mCallbackBinder;
-    @Nullable private final PendingIntent mSessionId;
-
+    final ICustomTabsCallback mCallbackBinder;
     private final CustomTabsCallback mCallback;
 
     /* package */ static class MockCallback extends ICustomTabsCallback.Stub {
@@ -64,8 +52,8 @@ public class CustomTabsSessionToken {
         public void onPostMessage(String message, Bundle extras) {}
 
         @Override
-        public void onRelationshipValidationResult(@CustomTabsService.Relation int relation,
-                Uri requestedOrigin, boolean result, Bundle extras) {}
+        public void onRelationshipValidationResult(@CustomTabsService.Relation int relation, Uri requestedOrigin,
+                boolean result, Bundle extras) {}
 
         @Override
         public IBinder asBinder() {
@@ -79,16 +67,12 @@ public class CustomTabsSessionToken {
      * @param intent The intent to generate the token from. This has to include an extra for
      *               {@link CustomTabsIntent#EXTRA_SESSION}.
      * @return The token that was generated.
-     *
-     * TODO(peconn): Mark @Nullable with an API change.
      */
     public static CustomTabsSessionToken getSessionTokenFromIntent(Intent intent) {
         Bundle b = intent.getExtras();
-        if (b == null) return null;
         IBinder binder = BundleCompat.getBinder(b, CustomTabsIntent.EXTRA_SESSION);
-        PendingIntent sessionId = intent.getParcelableExtra(CustomTabsIntent.EXTRA_SESSION_ID);
-        if (binder == null && sessionId == null) return null;
-        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder), sessionId);
+        if (binder == null) return null;
+        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder));
     }
 
     /**
@@ -99,15 +83,13 @@ public class CustomTabsSessionToken {
      */
     @NonNull
     public static CustomTabsSessionToken createMockSessionTokenForTesting() {
-        return new CustomTabsSessionToken(new MockCallback(), null);
+        return new CustomTabsSessionToken(new MockCallback());
     }
 
-    CustomTabsSessionToken(@Nullable ICustomTabsCallback callbackBinder,
-            @Nullable PendingIntent sessionId) {
+    CustomTabsSessionToken(ICustomTabsCallback callbackBinder) {
         mCallbackBinder = callbackBinder;
-        mSessionId = sessionId;
+        mCallback = new CustomTabsCallback() {
 
-        mCallback = callbackBinder == null ? null : new CustomTabsCallback() {
             @Override
             public void onNavigationEvent(int navigationEvent, Bundle extras) {
                 try {
@@ -145,8 +127,8 @@ public class CustomTabsSessionToken {
             }
 
             @Override
-            public void onRelationshipValidationResult(@CustomTabsService.Relation int relation,
-                    Uri origin, boolean result, Bundle extras) {
+            public void onRelationshipValidationResult(@CustomTabsService.Relation int relation, Uri origin,
+                                                       boolean result, Bundle extras) {
                 try {
                     mCallbackBinder.onRelationshipValidationResult(
                             relation, origin, result, extras);
@@ -162,41 +144,16 @@ public class CustomTabsSessionToken {
         return mCallbackBinder.asBinder();
     }
 
-    PendingIntent getId() {
-        return mSessionId;
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public boolean hasCallback() {
-        return mCallbackBinder != null;
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public boolean hasId() {
-        return mSessionId != null;
-    }
-
     @Override
     public int hashCode() {
-        if (mSessionId != null) return mSessionId.hashCode();
-
         return getCallbackBinder().hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CustomTabsSessionToken)) return false;
-        CustomTabsSessionToken other = (CustomTabsSessionToken) o;
-        if (mSessionId != null && other.getId() != null) return mSessionId.equals(other.getId());
-
-        return other.getCallbackBinder() != null
-                && other.getCallbackBinder().equals(mCallbackBinder.asBinder());
+        CustomTabsSessionToken token = (CustomTabsSessionToken) o;
+        return token.getCallbackBinder().equals(mCallbackBinder.asBinder());
     }
 
     /**

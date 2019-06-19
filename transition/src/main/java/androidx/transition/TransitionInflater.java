@@ -16,7 +16,6 @@
 
 package androidx.transition;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -202,7 +201,7 @@ public class TransitionInflater {
                 Constructor constructor = CONSTRUCTORS.get(className);
                 if (constructor == null) {
                     @SuppressWarnings("unchecked")
-                    Class<?> c = Class.forName(className, false, mContext.getClassLoader())
+                    Class<?> c = mContext.getClassLoader().loadClass(className)
                             .asSubclass(expectedType);
                     if (c != null) {
                         constructor = c.getConstructor(CONSTRUCTOR_SIGNATURE);
@@ -219,8 +218,6 @@ public class TransitionInflater {
         }
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
-    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void getTargetIds(XmlPullParser parser,
             AttributeSet attrs, Transition transition) throws XmlPullParserException, IOException {
 
@@ -307,8 +304,6 @@ public class TransitionInflater {
         return transitionManager;
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
-    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void loadTransition(AttributeSet attrs, XmlPullParser parser, ViewGroup sceneRoot,
             TransitionManager transitionManager) throws Resources.NotFoundException {
 

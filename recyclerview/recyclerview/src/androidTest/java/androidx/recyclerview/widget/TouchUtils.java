@@ -123,8 +123,7 @@ public class TouchUtils {
         }
     }
 
-    static void longClickView(Instrumentation inst, View v, float longPressTime,
-            Runnable toRunHalfwayThrough) {
+    public static void longClickView(Instrumentation inst, View v) {
         int[] xy = new int[2];
         v.getLocationOnScreen(xy);
 
@@ -143,17 +142,7 @@ public class TouchUtils {
         inst.waitForIdleSync();
 
         try {
-            Thread.sleep((long) (longPressTime / 2));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (toRunHalfwayThrough != null) {
-            toRunHalfwayThrough.run();
-        }
-
-        try {
-            Thread.sleep((long) (longPressTime / 2));
+            Thread.sleep((long) (ViewConfiguration.getLongPressTimeout() * 1.5f));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

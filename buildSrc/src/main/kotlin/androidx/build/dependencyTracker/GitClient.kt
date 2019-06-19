@@ -16,6 +16,7 @@
 
 package androidx.build.dependencyTracker
 
+import com.android.annotations.VisibleForTesting
 import org.gradle.api.logging.Logger
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -109,7 +110,9 @@ internal class GitClientImpl(
     }
 
     companion object {
+        @VisibleForTesting
         internal const val PREV_MERGE_CMD = "git log -1 --merges --oneline"
+        @VisibleForTesting
         internal const val CHANGED_FILES_CMD_PREFIX = "git diff --name-only"
     }
 }

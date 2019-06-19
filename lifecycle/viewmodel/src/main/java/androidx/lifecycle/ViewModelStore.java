@@ -59,7 +59,7 @@ public class ViewModelStore {
      */
     public final void clear() {
         for (ViewModel vm : mMap.values()) {
-            vm.clear();
+            vm.onCleared();
         }
         mMap.clear();
     }

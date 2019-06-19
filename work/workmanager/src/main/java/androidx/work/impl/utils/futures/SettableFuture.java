@@ -16,8 +16,8 @@
 
 package androidx.work.impl.utils.futures;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
+import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
 import com.google.common.util.concurrent.ListenableFuture;
 

@@ -24,6 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import androidx.annotation.Nullable;
+import androidx.test.filters.SmallTest;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -40,6 +41,7 @@ import java.util.Random;
 import java.util.UUID;
 
 @RunWith(JUnit4.class)
+@SmallTest
 public class DiffUtilTest {
     private static Random sRand = new Random(System.nanoTime());
     private List<Item> mBefore = new ArrayList<>();

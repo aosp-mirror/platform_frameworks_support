@@ -25,16 +25,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.LocaleList;
+import android.text.SpannableString;
 
 import androidx.core.app.RemoteActionCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.LocaleListCompat;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public final class TextClassificationTest {
     private static final Long REFERENCE_TIME_IN_MS = 946684800000L; // 2000-01-01 00:00:00
-    private static final String TEXT = "This is an apple";
+    private static final CharSequence TEXT = new SpannableString("This is an apple");
     private static final int START_INDEX = 2;
     private static final int END_INDEX = 5;
     private static final String ID = "id";
@@ -54,12 +54,6 @@ public final class TextClassificationTest {
     private static final LocaleListCompat LOCALE_LIST =
             LocaleListCompat.forLanguageTags("en-US,de-DE");
 
-    private static final String BUNDLE_KEY = "key";
-    private static final String BUNDLE_VALUE = "value";
-    private static final Bundle BUNDLE = new Bundle();
-    static {
-        BUNDLE.putString(BUNDLE_KEY, BUNDLE_VALUE);
-    }
 
     private static final String PRIMARY_LABEL = "primaryLabel";
     private static final String PRIMARY_DESCRIPTION = "primaryDescription";
@@ -75,7 +69,7 @@ public final class TextClassificationTest {
 
     @Before
     public void setup() {
-        mContext = ApplicationProvider.getApplicationContext();
+        mContext = InstrumentationRegistry.getTargetContext();
     }
 
     private static IconCompat generateTestIcon(int width, int height, int colorValue) {
@@ -90,29 +84,25 @@ public final class TextClassificationTest {
 
     @Test
     public void testBundle() {
-        final TextClassification reference = createExpectedBuilderWithRemoteActions()
-                .setExtras(BUNDLE).build();
+        final TextClassification reference = createExpectedBuilderWithRemoteActions().build();
         // Serialize/deserialize.
         final TextClassification result = TextClassification.createFromBundle(reference.toBundle());
         assertTextClassificationEquals(result, reference);
-        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
     }
 
     @Test
     public void testBundleRequest() {
-        TextClassification.Request reference = createTextClassificationRequestBuilder()
-                .setExtras(BUNDLE).build();
+        TextClassification.Request reference = createTextClassificationRequest();
 
         // Serialize/deserialize.
         TextClassification.Request result = TextClassification.Request.createFromBundle(
                 reference.toBundle());
 
-        assertEquals(TEXT, result.getText().toString());
+        assertEquals(TEXT, result.getText());
         assertEquals(START_INDEX, result.getStartIndex());
         assertEquals(END_INDEX, result.getEndIndex());
         assertEquals(LOCALE_LIST.toLanguageTags(), result.getDefaultLocales().toLanguageTags());
         assertEquals(REFERENCE_TIME_IN_MS, result.getReferenceTime());
-        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
     }
 
     @Test
@@ -123,7 +113,7 @@ public final class TextClassificationTest {
         TextClassification.Request result = TextClassification.Request.createFromBundle(
                 reference.toBundle());
 
-        assertEquals(TEXT, result.getText().toString());
+        assertEquals(TEXT, result.getText());
         assertEquals(START_INDEX, result.getStartIndex());
         assertEquals(END_INDEX, result.getEndIndex());
         assertEquals(null, result.getReferenceTime());
@@ -132,13 +122,13 @@ public final class TextClassificationTest {
     @Test
     @SdkSuppress(minSdkVersion = 28)
     public void testToPlatformRequest() {
-        TextClassification.Request request = createTextClassificationRequestBuilder().build();
+        TextClassification.Request request = createTextClassificationRequest();
         android.view.textclassifier.TextClassification.Request platformRequest =
                 (android.view.textclassifier.TextClassification.Request) request.toPlatform();
 
         assertThat(platformRequest.getStartIndex()).isEqualTo(START_INDEX);
         assertThat(platformRequest.getEndIndex()).isEqualTo(END_INDEX);
-        assertThat(platformRequest.getText().toString()).isEqualTo(TEXT);
+        assertThat(platformRequest.getText()).isEqualTo(TEXT);
         assertThat(platformRequest.getDefaultLocales().toLanguageTags())
                 .isEqualTo(LOCALE_LIST.toLanguageTags());
         assertThat(platformRequest.getReferenceTime().toInstant().toEpochMilli())
@@ -162,7 +152,7 @@ public final class TextClassificationTest {
 
         assertThat(request.getStartIndex()).isEqualTo(START_INDEX);
         assertThat(request.getEndIndex()).isEqualTo(END_INDEX);
-        assertThat(request.getText().toString()).isEqualTo(TEXT);
+        assertThat(request.getText()).isEqualTo(TEXT);
         assertThat(request.getDefaultLocales().toLanguageTags())
                 .isEqualTo(LOCALE_LIST.toLanguageTags());
         assertThat(request.getReferenceTime()).isEqualTo(REFERENCE_TIME_IN_MS);
@@ -181,7 +171,7 @@ public final class TextClassificationTest {
 
         android.view.textclassifier.TextClassification platformTextClassification =
                 new android.view.textclassifier.TextClassification.Builder()
-                        .setText(TEXT)
+                        .setText(TEXT.toString())
                         .addAction(remoteAction0.toRemoteAction())
                         .addAction(remoteAction1.toRemoteAction())
                         .setEntityType(TextClassifier.TYPE_ADDRESS, ADDRESS_SCORE)
@@ -200,7 +190,7 @@ public final class TextClassificationTest {
     public void testConvertFromPlatformTextClassification_O() {
         android.view.textclassifier.TextClassification platformTextClassification =
                 new android.view.textclassifier.TextClassification.Builder()
-                        .setText(TEXT)
+                        .setText(TEXT.toString())
                         .setEntityType(TextClassifier.TYPE_ADDRESS, ADDRESS_SCORE)
                         .setEntityType(TextClassifier.TYPE_PHONE, PHONE_SCORE)
                         .setIcon(mContext.getDrawable(R.drawable.abc_ic_star_black_16dp))
@@ -242,7 +232,7 @@ public final class TextClassificationTest {
         android.view.textclassifier.TextClassification platformTextClassification =
                 (android.view.textclassifier.TextClassification) reference.toPlatform(mContext);
 
-        assertThat(platformTextClassification.getText()).isEqualTo(TEXT);
+        assertThat(platformTextClassification.getText()).isEqualTo(TEXT.toString());
         assertThat(platformTextClassification.getIcon()).isNotNull();
         assertThat(platformTextClassification.getOnClickListener()).isNotNull();
         assertThat(platformTextClassification.getEntityCount()).isEqualTo(2);
@@ -251,43 +241,16 @@ public final class TextClassificationTest {
         assertThat(platformTextClassification.getIntent()).isNull();
     }
 
-    // Ensures the package manager can recognize a url scheme that is not all lowercase.
-    // b/123640937
-    @Test
-    public void testNormalizeUriSchemeInRequest() {
-        // Change scheme to lower case if classifying a URI.
-        String text = "Visit hTTp://www.android.com today";
-        String expected = "Visit http://www.android.com today";
-        int startIndex = text.indexOf("hTTp://www.android.com");
-        int endIndex = startIndex + "hTTp://www.android.com".length();
-        TextClassification.Request request =
-                new TextClassification.Request.Builder(text, startIndex, endIndex).build();
-        assertThat(request.getText().toString()).isEqualTo(expected);
-
-        // No changes if classifying non-URIs.
-        text = "Visit hTTp://www.android.com today";
-        startIndex = text.indexOf("hTTp");
-        endIndex = startIndex + "hTTp".length();
-        request = new TextClassification.Request.Builder(text, startIndex, endIndex).build();
-        assertThat(request.getText().toString()).isEqualTo(text);
-
-        // No changes if classifying URLs that do not specify any scheme.
-        text = "Visit www.android.com today";
-        startIndex = text.indexOf("www.android.com");
-        endIndex = startIndex + "www.android.com".length();
-        request = new TextClassification.Request.Builder(text, startIndex, endIndex).build();
-        assertThat(request.getText().toString()).isEqualTo(text);
-    }
-
-    private static TextClassification.Request.Builder createTextClassificationRequestBuilder() {
+    private static TextClassification.Request createTextClassificationRequest() {
         return new TextClassification.Request.Builder(TEXT, START_INDEX, END_INDEX)
                 .setDefaultLocales(LOCALE_LIST)
-                .setReferenceTime(REFERENCE_TIME_IN_MS);
+                .setReferenceTime(REFERENCE_TIME_IN_MS)
+                .build();
     }
 
     private TextClassification.Builder createExpectedBuilder() {
         TextClassification.Builder builder = new TextClassification.Builder()
-                .setText(TEXT)
+                .setText(TEXT.toString())
                 .setEntityType(TextClassifier.TYPE_ADDRESS, ADDRESS_SCORE)
                 .setEntityType(TextClassifier.TYPE_PHONE, PHONE_SCORE)
                 .setId(ID);

@@ -28,10 +28,10 @@ import android.database.MatrixCursor;
 import android.media.tv.TvContentRating;
 import android.net.Uri;
 
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.tvprovider.media.tv.TvContractCompat.WatchNextPrograms;
 
 import org.junit.Before;
@@ -53,10 +53,10 @@ public class WatchNextProgramTest {
 
     @Before
     public void tearDown() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         resolver.delete(WatchNextPrograms.CONTENT_URI, null, null);
     }
 
@@ -102,11 +102,11 @@ public class WatchNextProgramTest {
 
     @Test
     public void testChannelWithSystemContentProvider() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
         WatchNextProgram fullyPopulatedProgram = createFullyPopulatedWatchNextProgram();
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         Uri watchNextProgramUri = resolver.insert(WatchNextPrograms.CONTENT_URI,
                 fullyPopulatedProgram.toContentValues());
 
@@ -117,12 +117,12 @@ public class WatchNextProgramTest {
 
     @Test
     public void testWatchNextProgramUpdateWithContentProvider() {
-        if (!Utils.hasTvInputFramework(ApplicationProvider.getApplicationContext())) {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
             return;
         }
 
         WatchNextProgram fullyPopulatedProgram = createFullyPopulatedWatchNextProgram();
-        ContentResolver resolver = ApplicationProvider.getApplicationContext().getContentResolver();
+        ContentResolver resolver = InstrumentationRegistry.getContext().getContentResolver();
         Uri watchNextProgramUri = resolver.insert(WatchNextPrograms.CONTENT_URI,
                 fullyPopulatedProgram.toContentValues());
 

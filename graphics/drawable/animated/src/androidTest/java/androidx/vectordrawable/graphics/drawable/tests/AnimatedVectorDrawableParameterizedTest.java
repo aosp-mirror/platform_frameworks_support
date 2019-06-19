@@ -16,7 +16,8 @@
 
 package androidx.vectordrawable.graphics.drawable.tests;
 
-import static androidx.vectordrawable.graphics.drawable.tests.DrawableUtils.saveVectorDrawableIntoPNG;
+import static androidx.vectordrawable.graphics.drawable.tests.DrawableUtils
+        .saveVectorDrawableIntoPNG;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,12 +27,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.vectordrawable.animated.test.R;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat.AnimationCallback;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+import androidx.vectordrawable.test.R;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -42,7 +43,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-@SmallTest
+@MediumTest
 @RunWith(Parameterized.class)
 public class AnimatedVectorDrawableParameterizedTest {
     @Rule public final ActivityTestRule<DrawableStubActivity> mActivityTestRule =

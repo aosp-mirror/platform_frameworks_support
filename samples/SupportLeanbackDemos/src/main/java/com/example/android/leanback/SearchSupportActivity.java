@@ -62,7 +62,6 @@ public class SearchSupportActivity extends FragmentActivity
         if (DEBUG) Log.v(TAG, "onActivityResult requestCode=" + requestCode +
                 " resultCode=" + resultCode +
                 " data=" + data);
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SPEECH && resultCode == RESULT_OK) {
             mFragment.setSearchQuery(data, true);
         }

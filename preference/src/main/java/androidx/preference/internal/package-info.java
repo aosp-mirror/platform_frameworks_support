@@ -17,9 +17,9 @@
 /**
  * @hide
  */
-@RestrictTo(LIBRARY)
+@RestrictTo(LIBRARY_GROUP)
 package androidx.preference.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.RestrictTo;
