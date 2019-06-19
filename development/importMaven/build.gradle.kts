@@ -228,23 +228,29 @@ fun supportingArtifacts(
         }
     }
 
-    // Create a separate query for a sources. This is because, withArtifacts seems to be an AND.
-    // So if artifacts only have a distributable without a source, we still want to copy the POM file.
-    val sourcesQuery = project.dependencies.createArtifactResolutionQuery()
-    val sourcesQueryResult = sourcesQuery.forComponents(artifact.id.componentIdentifier)
-        .withArtifacts(
-            MavenModule::class.java,
-            SourcesArtifact::class.java
-        )
-        .execute()
+    if (internal) {
+        // Create a separate query for a sources. This is because, withArtifacts seems to be an AND.
+        // So if artifacts only have a distributable without a source, we still want to copy the POM file.
+        val sourcesQuery = project.dependencies.createArtifactResolutionQuery()
+        val sourcesQueryResult = sourcesQuery.forComponents(artifact.id.componentIdentifier)
+            .withArtifacts(
+                MavenModule::class.java,
+                SourcesArtifact::class.java
+            )
+            .execute()
 
-    for (component in sourcesQueryResult.resolvedComponents) {
-        val sourcesArtifacts = component.getArtifacts(SourcesArtifact::class.java)
-        for (sourcesArtifact in sourcesArtifacts) {
-            val sourcesFile = sourcesArtifact as? ResolvedArtifactResult
-            if (sourcesFile != null) {
-                supportingArtifacts.add(sourcesFile)
+        if (sourcesQueryResult.resolvedComponents.size > 0) {
+            for (component in sourcesQueryResult.resolvedComponents) {
+                val sourcesArtifacts = component.getArtifacts(SourcesArtifact::class.java)
+                for (sourcesArtifact in sourcesArtifacts) {
+                    val sourcesFile = sourcesArtifact as? ResolvedArtifactResult
+                    if (sourcesFile != null) {
+                        supportingArtifacts.add(sourcesFile)
+                    }
+                }
             }
+        } else {
+            project.logger.warn("No sources found for $artifact")
         }
     }
     return supportingArtifacts
