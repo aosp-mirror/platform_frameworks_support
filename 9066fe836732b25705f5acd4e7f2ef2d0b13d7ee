@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "264e7118_8c7fcfc3",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-06-19T16:27:57Z",
+      "side": 1,
+      "message": "Any reason for this not to be final?",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68122895_e9f57d1c",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-06-19T16:27:57Z",
+      "side": 1,
+      "message": "Does this class need to be public? It offers no API other than what\u0027s on its parent - could you have a factory method on the parent so that the type is not exposed?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204e4ea8_07a4a054",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-06-19T16:27:57Z",
+      "side": 1,
+      "message": "Why does this say \"not used\"? It\u0027s certainly used.",
+      "range": {
+        "startLine": 70,
+        "startChar": 55,
+        "endLine": 70,
+        "endChar": 63
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
