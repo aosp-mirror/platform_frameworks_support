@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9958e24_215b45f6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T20:37:38Z",
+      "side": 1,
+      "message": "can we just have default value here and merge it with getCurrentApiLocation()",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bd6b5a3_552c0f31",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T20:37:38Z",
+      "side": 1,
+      "message": "We have so many overrides now. Do we need all of these?",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2156736d_17a15a86",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T20:37:38Z",
+      "side": 1,
+      "message": "Why does the caller care about this temp dir? Can we just use Files.createTempDirectory?",
+      "range": {
+        "startLine": 84,
+        "startChar": 13,
+        "endLine": 84,
+        "endChar": 20
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e71e3eb_3c9ec982",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T20:37:38Z",
+      "side": 1,
+      "message": "Can we use mutableListOf so then it is easier to append instead of creating new list objects.",
+      "range": {
+        "startLine": 90,
+        "startChar": 15,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30a4a250_faf190b9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/RegenerateOldApisTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-19T20:37:38Z",
+      "side": 1,
+      "message": "1. This will not work for ui/ project as relative path is different. Please use SupportConfig#getSupportRoot as base.\n\n2. As far as I understand this is missing prebuilts for certain versions? Do we want to fetch more artifacts? Should we just use maven.google.com as a source?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 83
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
