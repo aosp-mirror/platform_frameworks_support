@@ -108,16 +108,16 @@ public final class CameraRepository implements UseCaseGroup.StateChangeListener 
             Map<String, Set<UseCase>> cameraIdToUseCaseMap = useCaseGroup.getCameraIdToUseCaseMap();
             for (Map.Entry<String, Set<UseCase>> cameraUseCaseEntry :
                     cameraIdToUseCaseMap.entrySet()) {
-                BaseCamera camera = getCamera(cameraUseCaseEntry.getKey());
-                attachUseCasesToCamera(camera, cameraUseCaseEntry.getValue());
+                String cameraId = cameraUseCaseEntry.getKey();
+                Set<UseCase> useCases = cameraUseCaseEntry.getValue();
+                BaseCamera camera = getCamera(cameraId);
+
+                camera.addOnlineUseCase(useCases);
+                for (UseCase useCase : useCases) {
+                    useCase.onAttachToCamera(cameraId);
+                }
             }
         }
-    }
-
-    /** Attaches a set of use cases to a camera. */
-    @GuardedBy("mCamerasLock")
-    private void attachUseCasesToCamera(BaseCamera camera, Set<UseCase> useCases) {
-        camera.addOnlineUseCase(useCases);
     }
 
     /**
@@ -130,15 +130,15 @@ public final class CameraRepository implements UseCaseGroup.StateChangeListener 
             Map<String, Set<UseCase>> cameraIdToUseCaseMap = useCaseGroup.getCameraIdToUseCaseMap();
             for (Map.Entry<String, Set<UseCase>> cameraUseCaseEntry :
                     cameraIdToUseCaseMap.entrySet()) {
-                BaseCamera camera = getCamera(cameraUseCaseEntry.getKey());
-                detachUseCasesFromCamera(camera, cameraUseCaseEntry.getValue());
+                String cameraId = cameraUseCaseEntry.getKey();
+                Set<UseCase> useCases = cameraUseCaseEntry.getValue();
+                BaseCamera camera = getCamera(cameraId);
+
+                camera.removeOnlineUseCase(useCases);
+                for (UseCase useCase : useCases) {
+                    useCase.onDetachFromCamera(cameraId);
+                }
             }
         }
-    }
-
-    /** Detaches a set of use cases from a camera. */
-    @GuardedBy("mCamerasLock")
-    private void detachUseCasesFromCamera(BaseCamera camera, Set<UseCase> useCases) {
-        camera.removeOnlineUseCase(useCases);
     }
 }
