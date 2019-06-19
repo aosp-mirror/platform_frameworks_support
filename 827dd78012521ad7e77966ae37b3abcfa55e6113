@@ -22,6 +22,30 @@
       "revId": "827dd78012521ad7e77966ae37b3abcfa55e6113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0965e238_b472b539",
+        "filename": "media2/session/version-compat-tests/previous/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-19T05:26:57Z",
+      "side": 0,
+      "message": "Since the onSubtitleData() is hidden in beta02.\nAlso, there was a bug in TrackInfo (which you solved - I couldn\u0027t find the CL title) which makes this test fail.",
+      "parentUuid": "c5e6d65c_b41ce82f",
+      "range": {
+        "startLine": 946,
+        "startChar": 16,
+        "endLine": 946,
+        "endChar": 34
+      },
+      "revId": "827dd78012521ad7e77966ae37b3abcfa55e6113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
