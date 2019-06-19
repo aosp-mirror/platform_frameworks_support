@@ -28,8 +28,10 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.camera.core.BaseCamera;
+import androidx.camera.core.CameraX;
 import androidx.camera.core.UseCase;
 import androidx.test.core.app.ApplicationProvider;
 
@@ -190,5 +192,23 @@ public final class CameraUtil {
         }
 
         return numberOfCamera > 0;
+    }
+
+    /**
+     * Check if the specified lensFacing is supported by the device.
+     *
+     * @param lensFacing The desired camera lensFacing.
+     * @return True if the device supports the lensFacing.
+     * @throws IllegalStateException if the CAMERA permission is not currently granted.
+     */
+    public static boolean hasCameraWithLensFacing(@NonNull CameraX.LensFacing lensFacing) {
+        String cameraId;
+        try {
+            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to query lens facing.", e);
+        }
+
+        return cameraId != null;
     }
 }
