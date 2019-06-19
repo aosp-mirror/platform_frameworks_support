@@ -22,6 +22,30 @@
       "revId": "6d2982f1fb39fb9a954302f7bb53d5c18f37a3a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46bd2889_d6733524",
+        "filename": "ui/android-text/src/androidTest/java/androidx/text/style/WordSpacingSpanTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-19T21:00:35Z",
+      "side": 1,
+      "message": "Thanks for your info!",
+      "parentUuid": "718f8ee7_23e52403",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "6d2982f1fb39fb9a954302f7bb53d5c18f37a3a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
