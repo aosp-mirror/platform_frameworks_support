@@ -83,14 +83,23 @@ import java.util.concurrent.TimeUnit;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public final class CaptureSessionTest {
-    private CaptureSessionTestParameters mTestParameters0;
-    private CaptureSessionTestParameters mTestParameters1;
-
-    private CameraDevice mCameraDevice;
-
     @Rule
     public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
             Manifest.permission.CAMERA);
+    private CaptureSessionTestParameters mTestParameters0;
+    private CaptureSessionTestParameters mTestParameters1;
+    private CameraDevice mCameraDevice;
+
+    private static CaptureConfig getCaptureConfig(CaptureRequest.Key key, int effectValue,
+            CameraCaptureCallback callback) {
+        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
+        Camera2Config.Builder camera2ConfigurationBuilder =
+                new Camera2Config.Builder();
+        camera2ConfigurationBuilder.setCaptureRequestOption(key, effectValue);
+        captureConfigBuilder.addImplementationOptions(camera2ConfigurationBuilder.build());
+        captureConfigBuilder.addCameraCaptureCallback(callback);
+        return captureConfigBuilder.build();
+    }
 
     @Before
     public void setup() throws CameraAccessException, InterruptedException,
@@ -335,7 +344,8 @@ public final class CaptureSessionTest {
 
         // From CaptureConfig option
         assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AF_MODE)).isEqualTo(
-                CaptureRequest.CONTROL_AF_MODE_EDOF);
+                CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+
 
         // From CameraEventCallbacks option
         assertThat(captureResult.getRequest().get(CaptureRequest.FLASH_MODE)).isEqualTo(
@@ -345,6 +355,7 @@ public final class CaptureSessionTest {
         assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AE_MODE)).isEqualTo(
                 CaptureRequest.CONTROL_AE_MODE_ON);
     }
+
     @Test
     public void issueCaptureRequestAcrossCaptureSessions()
             throws CameraAccessException, InterruptedException {
@@ -527,17 +538,6 @@ public final class CaptureSessionTest {
         }
     }
 
-    private static CaptureConfig getCaptureConfig(CaptureRequest.Key key, int effectValue,
-            CameraCaptureCallback callback) {
-        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
-        Camera2Config.Builder camera2ConfigurationBuilder =
-                new Camera2Config.Builder();
-        camera2ConfigurationBuilder.setCaptureRequestOption(key, effectValue);
-        captureConfigBuilder.addImplementationOptions(camera2ConfigurationBuilder.build());
-        captureConfigBuilder.addCameraCaptureCallback(callback);
-        return captureConfigBuilder.build();
-    }
-
     /**
      * Collection of parameters required for setting a {@link CaptureSession} and wait for it to
      * produce data.
@@ -629,7 +629,7 @@ public final class CaptureSessionTest {
             // ==================================================================================
             // Priority | Component        | AF_MODE       | FLASH_MODE         | AE_MODE
             // ----------------------------------------------------------------------------------
-            // P1 | CaptureConfig          | AF_MODE_EDOF  |
+            // P1 | CaptureConfig          | AF_MODE_CONTINUOUS_PICTURE  |      |
             // ----------------------------------------------------------------------------------
             // P2 | CameraEventCallbacks   | AF_MODE_MACRO | FLASH_MODE_TORCH   |
             // ----------------------------------------------------------------------------------
@@ -679,8 +679,8 @@ public final class CaptureSessionTest {
 
             // Add capture request options for CaptureConfig
             captureConfigBuilder.addImplementationOptions(new Camera2Config.Builder()
-                    .setCaptureRequestOption(
-                            CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_EDOF)
+                    .setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE,
+                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                     .build());
 
             mCaptureConfig = captureConfigBuilder.build();
@@ -697,6 +697,7 @@ public final class CaptureSessionTest {
 
         void waitForCameraCaptureCallback() throws InterruptedException {
             mCameraCaptureCallbackLatch.await(TIME_TO_WAIT_FOR_DATA_SECONDS, TimeUnit.SECONDS);
+
         }
 
         /** Clean up resources. */
