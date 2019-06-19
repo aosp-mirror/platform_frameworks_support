@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e6768f6b_e30d9caf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-19T02:24:23Z",
+      "side": 1,
+      "message": "There will be the same issue when the extra of Session2Token or connection hints of MediaController2 contain custom parcelable.\n\nYes, we should add similar code if we didn\u0027t handle it properly.",
+      "parentUuid": "f0992904_6c16dcef",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "ed10485b90061cdf58d570034dcfa4457604e1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1334989_60309d1e",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
