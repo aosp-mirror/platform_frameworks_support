@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2b26d82_9ef9ef67",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-19T23:59:10Z",
+      "side": 1,
+      "message": "Need to get textPainter and calculate the top/bottom/left/right here.\nOtherwise sometimes this fun gets zero size Rect. \nDue to the behavior of Compose.",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
