@@ -16,6 +16,24 @@
       "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b503ff62_6a527fca",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-19T09:25:05Z",
+      "side": 1,
+      "message": "Discussed and it would be fine. Sorry for the false alarm! Let\u0027s submit this!",
+      "parentUuid": "51523f8c_7f4435ff",
+      "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
