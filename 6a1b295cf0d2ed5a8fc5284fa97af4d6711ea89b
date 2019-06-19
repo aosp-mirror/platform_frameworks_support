@@ -70,6 +70,30 @@
       "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1396e868_7c4322b4",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-06-19T00:32:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t work as it violates the naming convention enforced by MavenUploadHelper. The artifactId implied by the name must match be prefixed with the name following the \"androidx\" in the group id. This would make this \":compose:compose-runtime\" as the name calculated based on what follows the last \":\".\n\nI propose that I keep the \":compose-runtime\" which would lead to,\n\n  \":compose-runtime\" \n  \":compose-compiler-plugin\"\n  \":compose-compiler-plugin-integration-tests\"\n  \":compose-compiler-plugin-embedded\"\n  \":compose-ide-plugin\"\n  \":compose-gradle-plugin\" // coming soon",
+      "parentUuid": "af4d600a_e6bb5f1e",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 91
+      },
+      "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
