@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6945a40_70f74dec",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2066,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-19T02:25:47Z",
+      "side": 1,
+      "message": "This is javadoc.\nPlease move this outside of javadoc.\n\n// TODO: Unhide this when it can be public.",
+      "range": {
+        "startLine": 2066,
+        "startChar": 7,
+        "endLine": 2066,
+        "endChar": 47
+      },
+      "revId": "1c00ace0c9825a18fa1ce221bc9657cf70bddd8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
