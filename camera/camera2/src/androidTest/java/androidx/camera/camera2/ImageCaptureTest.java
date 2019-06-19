@@ -62,6 +62,7 @@ import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
+import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
@@ -292,6 +293,35 @@ public final class ImageCaptureTest {
 
         verify(mMockImageCapturedListener, times(numImages)).onCaptureSuccess(any(ImageProxy.class),
                 anyInt());
+    }
+
+    @Test
+    @UiThreadTest
+    public void captureImagesAndDetachFromCamera() throws InterruptedException {
+        ImageCaptureExt useCase = new ImageCaptureExt(mDefaultConfig);
+
+        int numImages = 5;
+        for (int i = 0; i < numImages; ++i) {
+            useCase.takePicture(
+                    new ImageCapture.OnImageCapturedListener() {
+                        @Override
+                        public void onError(UseCaseError useCaseError, String message,
+                                @Nullable Throwable cause) {
+                            mMockImageCapturedListener.onError(useCaseError, message, cause);
+
+                            // Signal that an image has been captured.
+                            mSemaphore.release();
+                        }
+                    });
+        }
+
+        useCase.onDetachFromCamera();
+
+        // Wait for the signal that all images have been captured.
+        mSemaphore.acquire(numImages);
+
+        verify(mMockImageCapturedListener, times(numImages)).onError(any(UseCaseError.class),
+                anyString(), any(Throwable.class));
     }
 
     @Test
@@ -560,5 +590,16 @@ public final class ImageCaptureTest {
                 .setCaptureProcessor(mock(CaptureProcessor.class))
                 .build();
         new ImageCapture(config);
+    }
+
+    private static class ImageCaptureExt extends ImageCapture {
+        ImageCaptureExt(ImageCaptureConfig userConfig) {
+            super(userConfig);
+        }
+
+        @Override
+        public void onDetachFromCamera() {
+            super.onDetachFromCamera();
+        }
     }
 }
