@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "f45bd1a7_e148067e",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-19T23:47:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d9e98a_dbbfdbfc",
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2b8c189_04779c89",
         "filename": "car/core/res/values/styles.xml",
         "patchSetId": 1
@@ -110,6 +128,30 @@
       "revId": "91a32948fa9388894419cf41625a4f9b09903505",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d83c75_1d5dfeb6",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-19T23:47:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "174cab58_f0f4e1f7",
+      "range": {
+        "startLine": 392,
+        "startChar": 17,
+        "endLine": 392,
+        "endChar": 43
+      },
+      "revId": "91a32948fa9388894419cf41625a4f9b09903505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
