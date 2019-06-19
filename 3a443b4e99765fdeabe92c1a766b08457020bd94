@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6ff01bb0_eca4007b",
+        "filename": "security/crypto/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-19T18:02:34Z",
+      "side": 1,
+      "message": "This should be \u0027implementation\u0027 not \u0027api\u0027.",
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38799e81_d9d257d7",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 4
