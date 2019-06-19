@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6079cf87_f1b4a937",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Px.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-19T04:38:05Z",
+      "side": 1,
+      "message": "Nitpick could we name this minDimension or equivalent?",
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9a6e450_8191c97e",
         "filename": "ui/core/src/main/java/androidx/ui/engine/geometry/Outline.kt",
         "patchSetId": 2
@@ -43,6 +60,23 @@
         "endLine": 43,
         "endChar": 22
       },
+      "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ff0fe70_ba8566e6",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-19T04:38:05Z",
+      "side": 1,
+      "message": "This is an action item for me here. Need to move some of the non-vector graphics primitives like Brush out to the core module to sit alongside canvas or eqvuivalent",
       "revId": "96ba350173109c2583dcbef385389f20127ae7bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
