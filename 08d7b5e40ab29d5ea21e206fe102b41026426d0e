@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61ae11ce_fa546e4d",
+        "filename": "transition/src/androidTest/java/androidx/transition/ChangeImageTransformTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-19T08:39:51Z",
+      "side": 0,
+      "message": "This is the wrong way around.",
+      "range": {
+        "startLine": 303,
+        "startChar": 26,
+        "endLine": 303,
+        "endChar": 71
+      },
+      "revId": "08d7b5e40ab29d5ea21e206fe102b41026426d0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
