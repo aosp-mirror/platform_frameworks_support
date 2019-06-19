@@ -576,7 +576,7 @@ public class MockPlayer extends SessionPlayer {
         return mVideoSize;
     }
 
-    public void notifyVideoSizeChanged(final @NonNull VideoSize videoSize) {
+    public void notifyVideoSizeChanged(@NonNull final VideoSize videoSize) {
         final MediaItem dummyItem = new MediaItem.Builder().build();
 
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
@@ -602,8 +602,8 @@ public class MockPlayer extends SessionPlayer {
         return mSurface != null;
     }
 
-    public void notifySubtitleData(final @NonNull MediaItem item, final @NonNull TrackInfo track,
-            final @NonNull SubtitleData data) {
+    public void notifySubtitleData(@NonNull final MediaItem item, @NonNull final TrackInfo track,
+            @NonNull final SubtitleData data) {
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;

@@ -424,8 +424,8 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
         });
     }
 
-    @Override
     @NonNull
+    @Override
     public PlaybackParams getPlaybackParams() {
         return runPlayerCallableBlocking(new Callable<PlaybackParams>() {
             @Override
@@ -616,8 +616,8 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
         throw new UnsupportedOperationException();
     }
 
-    @Override
     @NonNull
+    @Override
     public MediaDrm.KeyRequest getDrmKeyRequest(byte[] keySetId, byte[] initData, String mimeType,
             int keyType, Map<String, String> optionalParameters) {
         throw new UnsupportedOperationException();
@@ -633,8 +633,8 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
         throw new UnsupportedOperationException();
     }
 
-    @Override
     @NonNull
+    @Override
     public String getDrmPropertyString(@NonNull String propertyName) {
         throw new UnsupportedOperationException();
     }

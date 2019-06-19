@@ -397,6 +397,7 @@ public abstract class MediaLibraryService extends MediaSessionService {
             getImpl().notifySearchResultChanged(controller, query, itemCount, params);
         }
 
+        @NonNull
         @Override
         MediaLibrarySessionCallback getCallback() {
             return (MediaLibrarySessionCallback) super.getCallback();

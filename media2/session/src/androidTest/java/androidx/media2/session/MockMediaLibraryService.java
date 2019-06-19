@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.session.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
@@ -119,7 +120,7 @@ public class MockMediaLibraryService extends MediaLibraryService {
     }
 
     @Override
-    public MediaLibrarySession onGetSession(ControllerInfo controllerInfo) {
+    public MediaLibrarySession onGetSession(@NonNull ControllerInfo controllerInfo) {
         TestServiceRegistry registry = TestServiceRegistry.getInstance();
         TestServiceRegistry.OnGetSessionHandler onGetSessionHandler =
                 registry.getOnGetSessionHandler();

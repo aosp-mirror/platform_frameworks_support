@@ -533,8 +533,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    @Override
     @NonNull
+    @Override
     public PlaybackParams getPlaybackParams() {
         return new PlaybackParams.Builder(mPlayer.getPlaybackParams()).build();
     }
@@ -767,8 +767,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    @Override
     @NonNull
+    @Override
     public MediaDrm.KeyRequest getDrmKeyRequest(@Nullable byte[] keySetId,
             @Nullable byte[] initData, @Nullable String mimeType, int keyType,
             @Nullable Map<String, String> optionalParameters)
@@ -803,8 +803,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    @Override
     @NonNull
+    @Override
     public String getDrmPropertyString(@NonNull String propertyName)
             throws NoDrmSchemeException {
         try {

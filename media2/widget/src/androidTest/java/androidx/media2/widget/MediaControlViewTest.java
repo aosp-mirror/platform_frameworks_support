@@ -44,7 +44,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
@@ -228,7 +227,7 @@ public class MediaControlViewTest {
         registerCallback(new SessionPlayer.PlayerCallback() {
             @Override
             public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
-                    @Nullable MediaItem item) {
+                    @NonNull MediaItem item) {
                 assertNotNull(item);
                 assertNotNull(item.getMetadata());
                 assertEquals(title, metadata.getString(MediaMetadata.METADATA_KEY_TITLE));
@@ -395,7 +394,7 @@ public class MediaControlViewTest {
         registerCallback(new SessionPlayer.PlayerCallback() {
             @Override
             public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
-                    @Nullable MediaItem item) {
+                    @NonNull MediaItem item) {
                 assertSame(mediaItem, item);
                 latch.countDown();
             }

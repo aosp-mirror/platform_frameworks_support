@@ -236,7 +236,7 @@ public abstract class MediaSessionService extends Service {
      *
      * @return sessions
      */
-    public final @NonNull List<MediaSession> getSessions() {
+    public @NonNull final List<MediaSession> getSessions() {
         return mImpl.getSessions();
     }
 

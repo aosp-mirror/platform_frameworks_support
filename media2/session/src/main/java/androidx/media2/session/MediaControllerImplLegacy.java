@@ -616,7 +616,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setMediaItem(String mediaId) {
+    public ListenableFuture<SessionResult> setMediaItem(@NonNull String mediaId) {
         return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
     }
 
@@ -808,8 +808,8 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
         return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
     }
 
+    @NonNull
     @Override
-    @Nullable
     public List<TrackInfo> getTrackInfo() {
         Log.w(TAG, "Session doesn't support getting TrackInfo");
         return null;

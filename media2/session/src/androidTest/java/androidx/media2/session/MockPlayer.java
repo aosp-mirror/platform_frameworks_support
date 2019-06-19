@@ -109,6 +109,7 @@ public class MockPlayer extends SessionPlayer {
         // no-op
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> play() {
         mPlayCalled = true;
@@ -121,6 +122,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> pause() {
         mPauseCalled = true;
@@ -133,6 +135,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> prepare() {
         mPrepareCalled = true;
@@ -145,6 +148,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> seekTo(long pos) {
         mSeekToCalled = true;
@@ -322,8 +326,10 @@ public class MockPlayer extends SessionPlayer {
         }
     }
 
+    @NonNull
     @Override
-    public ListenableFuture<PlayerResult> setAudioAttributes(AudioAttributesCompat attributes) {
+    public ListenableFuture<PlayerResult> setAudioAttributes(
+            @NonNull AudioAttributesCompat attributes) {
         mAudioAttributes = attributes;
         return new SyncListenableFuture(mCurrentMediaItem);
     }
@@ -333,6 +339,7 @@ public class MockPlayer extends SessionPlayer {
         return mAudioAttributes;
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> setPlaybackSpeed(float speed) {
         mSetPlaybackSpeedCalled = true;
@@ -352,17 +359,19 @@ public class MockPlayer extends SessionPlayer {
         return mPlaylist;
     }
 
+    @NonNull
     @Override
-    public ListenableFuture<PlayerResult> setMediaItem(MediaItem item) {
+    public ListenableFuture<PlayerResult> setMediaItem(@NonNull MediaItem item) {
         mItem = item;
         mCurrentMediaItem = item;
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> setPlaylist(
-            List<MediaItem> list, MediaMetadata metadata) {
+            @NonNull List<MediaItem> list, MediaMetadata metadata) {
         mSetPlaylistCalled = true;
         mPlaylist = list;
         mMetadata = metadata;
@@ -375,6 +384,7 @@ public class MockPlayer extends SessionPlayer {
         return mMetadata;
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> updatePlaylistMetadata(MediaMetadata metadata) {
         mUpdatePlaylistMetadataCalled = true;
@@ -406,8 +416,9 @@ public class MockPlayer extends SessionPlayer {
         return mNextMediaItemIndex;
     }
 
+    @NonNull
     @Override
-    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item) {
+    public ListenableFuture<PlayerResult> addPlaylistItem(int index, @NonNull MediaItem item) {
         // TODO: check for invalid index
         mAddPlaylistItemCalled = true;
         mIndex = index;
@@ -416,6 +427,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> removePlaylistItem(int index) {
         // TODO: check for invalid index
@@ -425,8 +437,9 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
-    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem item) {
+    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, @NonNull MediaItem item) {
         // TODO: check for invalid index
         mReplacePlaylistItemCalled = true;
         mIndex = index;
@@ -435,6 +448,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> skipToPlaylistItem(int index) {
         // TODO: check for invalid index
@@ -448,6 +462,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> skipToPreviousPlaylistItem() {
         mSkipToPreviousItemCalled = true;
@@ -455,6 +470,7 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> skipToNextPlaylistItem() {
         mSkipToNextItemCalled = true;
@@ -467,6 +483,7 @@ public class MockPlayer extends SessionPlayer {
         return mRepeatMode;
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> setRepeatMode(int repeatMode) {
         mSetRepeatModeCalled = true;
@@ -480,6 +497,7 @@ public class MockPlayer extends SessionPlayer {
         return mShuffleMode;
     }
 
+    @NonNull
     @Override
     public ListenableFuture<PlayerResult> setShuffleMode(int shuffleMode) {
         mSetShuffleModeCalled = true;
@@ -593,8 +611,8 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
-    void notifySubtitleData(final @NonNull MediaItem item, final @NonNull TrackInfo track,
-            final @NonNull SubtitleData data) {
+    void notifySubtitleData(@NonNull final MediaItem item, @NonNull final TrackInfo track,
+            @NonNull final SubtitleData data) {
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;
