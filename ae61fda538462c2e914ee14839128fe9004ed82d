@@ -46,6 +46,144 @@
       "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd44b74_975707b1",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "Is there any reason to have this default? Maybe it\u0027s good to force people to set it?",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d3d7ea_695bcc92",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "Don\u0027t block CL on this one, but personally I\u0027d prefer borderColor to be in the same place as shapeColor. Either in the struct or in DrawShape component is fine I think",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f773b59b_f36cd5fc",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/GenericShape.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "Can this be data class as well?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ec078b_0e6a6d76",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/CornerSize.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "Does it make sense to require this receiver only in fun CornerSize(size: Dp) below? It seems we don\u0027t need it for others",
+      "range": {
+        "startLine": 29,
+        "startChar": 23,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ceaed02_89b31fed",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/CornerSize.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "Do we want to use @Range for this kinds of arguments?",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "688f678d_97ce8ee8",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/PxCornerSizes.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-19T17:18:26Z",
+      "side": 1,
+      "message": "typo: if",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
