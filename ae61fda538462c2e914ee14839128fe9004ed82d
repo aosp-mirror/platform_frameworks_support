@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "637f5516_1a824e96",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "ok, removed for now. will see later would it be useful to add something here",
+      "parentUuid": "ffd44b74_975707b1",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58d3d7ea_695bcc92",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
         "patchSetId": 3
@@ -92,6 +116,30 @@
       "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336c7409_800aff32",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "Discussed it in person. I currently believe this will make it possible to have nicer api with having it here, so I would submit like this. Maybe later with more usages in place we would reconsider it",
+      "parentUuid": "58d3d7ea_695bcc92",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "751d1d8d_cf1ad4ec",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/GenericShape.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f773b59b_f36cd5fc",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ec078b_0e6a6d76",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/CornerSize.kt",
         "patchSetId": 3
@@ -129,6 +201,30 @@
       "writtenOn": "2019-06-19T17:18:26Z",
       "side": 1,
       "message": "Does it make sense to require this receiver only in fun CornerSize(size: Dp) below? It seems we don\u0027t need it for others",
+      "range": {
+        "startLine": 29,
+        "startChar": 23,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a3fcad_17a4f050",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/CornerSize.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "there is currently no DensityReceiver required at the moment of creation of CornerSize. It will be available for you at the moment of shape resolving on the drawing stage. so you can write\nContainer {\n   DrawShape(RoundedCornerShape(CornerSizes(20.dp)))\n}\nwith your suggestion it will became\nContainer {\n    WithDensity {\n        DrawShape(RoundedCornerShape(CornerSizes(20.dp.toPx())))\n    }\n}\n(or the same but without .toPx() if we provide a helper function)\n+ it will simplify CornerSize definition\n- will make worse the usage experience",
+      "parentUuid": "b0ec078b_0e6a6d76",
       "range": {
         "startLine": 29,
         "startChar": 23,
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "313906da_046daa28",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/CornerSize.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ceaed02_89b31fed",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "688f678d_97ce8ee8",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/PxCornerSizes.kt",
         "patchSetId": 3
@@ -184,6 +304,30 @@
       "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f8a4f1_57eee3a6",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/corner/PxCornerSizes.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-19T17:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "688f678d_97ce8ee8",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "ae61fda538462c2e914ee14839128fe9004ed82d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
