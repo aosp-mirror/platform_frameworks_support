@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5cf0b922_f6529c0b",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T01:33:36Z",
+      "side": 1,
+      "message": "Thanks for checking.\n\nI moved assumeFeature to the end for the sake of sane cleanup. As we saw in http://b/124445985, tearDown runs even if setUp skips. Although I don\u0027t actually see crashes for unregistering not-yet-registered IdlingResources, it doesn\u0027t seem like behavior we should rely on.",
+      "parentUuid": "1a4afad8_00e9cfdb",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 89
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a48106d_08252d30",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
         "patchSetId": 2
@@ -87,6 +111,24 @@
       "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec774733_612f9030",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T01:33:36Z",
+      "side": 1,
+      "message": "Done - I wasn\u0027t sure since the API doc didn\u0027t mention this was strictly necessary, and tests seemed to continue passing. Did you find more helpful docs?",
+      "parentUuid": "2a48106d_08252d30",
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +176,30 @@
       "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84187deb_6c081d8c",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T01:33:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be4077e7_ff0b51ec",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
