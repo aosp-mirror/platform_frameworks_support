@@ -34,6 +34,24 @@
       "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13ade52b_6cfc7a8e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-19T09:29:31Z",
+      "side": 1,
+      "message": "Ack. Thanks for the reviews!",
+      "parentUuid": "b503ff62_6a527fca",
+      "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
