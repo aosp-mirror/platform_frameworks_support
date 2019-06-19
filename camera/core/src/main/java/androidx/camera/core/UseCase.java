@@ -20,6 +20,7 @@ import android.util.Log;
 import android.util.Size;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -423,6 +424,14 @@ public abstract class UseCase {
         if (eventListener != null) {
             eventListener.onBind(getCameraIdUnchecked());
         }
+    }
+
+    /** Called when use case is attached to camera. */
+    protected void onAttachToCamera(@NonNull String cameraId) {
+    }
+
+    /** Called when use case is detached from camera. */
+    protected void onDetachFromCamera(@NonNull String cameraId) {
     }
 
     /**

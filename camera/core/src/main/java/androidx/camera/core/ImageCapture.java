@@ -55,6 +55,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,8 @@ public class ImageCapture extends UseCase {
     final Handler mMainHandler = new Handler(Looper.getMainLooper());
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final ArrayDeque<ImageCaptureRequest> mImageCaptureRequests = new ArrayDeque<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Map<ImageProxy, ImageCaptureRequest> mImageDispatchedRequests = new HashMap<>();
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
     private final SessionConfig.Builder mSessionConfigBuilder;
@@ -241,6 +244,18 @@ public class ImageCapture extends UseCase {
     @Override
     protected void onCameraControlReady(String cameraId) {
         getCameraControl(cameraId).setFlashMode(mFlashMode);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected void onDetachFromCamera(@NonNull String cameraId) {
+        // Drop un-handled image capture requests.
+        ImageCaptureRequest request;
+        while ((request = mImageCaptureRequests.poll()) != null) {
+            String message = "Take picture is canceled.";
+            request.callbackError(UseCaseError.UNKNOWN_ERROR, message,
+                    new IllegalStateException(message));
+        }
     }
 
     /**
@@ -497,6 +512,12 @@ public class ImageCapture extends UseCase {
         if (mImageCaptureRequests.isEmpty()) {
             return;
         }
+
+        // If there are dispatched images, need to wait until images are closed.
+        if (!mImageDispatchedRequests.isEmpty()) {
+            return;
+        }
+
         takePictureInternal();
     }
 
@@ -628,10 +649,11 @@ public class ImageCapture extends UseCase {
                             if (image != null) {
                                 // Call the head request listener to process the captured image.
                                 ImageCaptureRequest imageCaptureRequest;
-                                if ((imageCaptureRequest = mImageCaptureRequests.peek()) != null) {
+                                if ((imageCaptureRequest = mImageCaptureRequests.poll()) != null) {
                                     SingleCloseImageProxy wrappedImage = new SingleCloseImageProxy(
                                             image);
                                     wrappedImage.addOnImageCloseListener(mOnImageCloseListener);
+                                    mImageDispatchedRequests.put(wrappedImage, imageCaptureRequest);
                                     imageCaptureRequest.dispatchImage(wrappedImage);
                                 } else {
                                     // Discard the image if we have no requests.
@@ -675,7 +697,7 @@ public class ImageCapture extends UseCase {
                 });
                 return;
             }
-            mImageCaptureRequests.poll();
+            mImageDispatchedRequests.remove(image);
             issueImageCaptureRequests();
         }
     };
@@ -1285,6 +1307,24 @@ public class ImageCapture extends UseCase {
             }
 
             mListener.onCaptureSuccess(image, mRotationDegrees);
+        }
+
+        void callbackError(final UseCaseError useCaseError, final String message,
+                final Throwable cause) {
+            if (mHandler != null && Looper.myLooper() != mHandler.getLooper()) {
+                boolean posted = mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageCaptureRequest.this.callbackError(useCaseError, message, cause);
+                    }
+                });
+                if (!posted) {
+                    Log.e(TAG, "Unable to post to the supplied handler.");
+                }
+                return;
+            }
+
+            mListener.onError(useCaseError, message, cause);
         }
     }
 }
