@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d4c9aa39_0f661b05",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T03:25:05Z",
+      "side": 1,
+      "message": "I wasn\u0027t confused that it didn\u0027t load zip files, but rather the implementation of this class isn\u0027t relevant to the test logic. Moving it out makes the test logic easier to follow.\n\nIf you keep it in-line, how about making this a lambda?",
+      "parentUuid": "0d9f4715_05f657ea",
+      "range": {
+        "startLine": 254,
+        "startChar": 25,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90f9d02_932b443c",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
         "patchSetId": 9
@@ -445,6 +469,30 @@
       "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2004e7e4_691f90f5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-19T03:25:05Z",
+      "side": 1,
+      "message": "I suppose that\u0027s fine, although then they don\u0027t share our path matching implementation",
+      "parentUuid": "ca89c40a_670b4ed0",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 62
+      },
+      "revId": "119a6a1bac53868ee1e4b368e47912eaf7802eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
