@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38799e81_d9d257d7",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-19T17:59:12Z",
+      "side": 1,
+      "message": "I don\u0027t understand this documentation. Are you saying that this enum value is only usable on API level 23+?",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 104,
+        "endChar": 71
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e0c50e_c019eeaa",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-19T17:59:12Z",
+      "side": 1,
+      "message": "Don\u0027t pad this out",
+      "range": {
+        "startLine": 202,
+        "startChar": 26,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611fb2b8_1ebc6307",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-19T17:59:12Z",
+      "side": 1,
+      "message": "don\u0027t pad",
+      "range": {
+        "startLine": 225,
+        "startChar": 26,
+        "endLine": 225,
+        "endChar": 40
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8f5710_3539ae25",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-19T17:59:12Z",
+      "side": 1,
+      "message": "Also not sure what this means. Why is the API level mentioned here?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 53
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df697cfa_5f228c34",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKeys.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-19T17:59:12Z",
+      "side": 1,
+      "message": "Annotate the class itself if all of the APIs here require M.",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
