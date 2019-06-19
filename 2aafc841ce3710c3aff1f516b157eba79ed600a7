@@ -22,6 +22,30 @@
       "revId": "2aafc841ce3710c3aff1f516b157eba79ed600a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6765b8_56e207a1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-19T00:38:26Z",
+      "side": 1,
+      "message": "Good suggestion. (I\u0027ve thought that it will increase the cost, but it only affects only when DEBUG is turned on. :) ) Done.",
+      "parentUuid": "b8e4e51d_0f3f969f",
+      "range": {
+        "startLine": 718,
+        "startChar": 31,
+        "endLine": 718,
+        "endChar": 42
+      },
+      "revId": "2aafc841ce3710c3aff1f516b157eba79ed600a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
