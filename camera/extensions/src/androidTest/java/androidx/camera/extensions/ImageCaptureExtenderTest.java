@@ -16,6 +16,8 @@
 
 package androidx.camera.extensions;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
@@ -32,18 +34,25 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.util.Pair;
 
+import androidx.camera.camera2.Camera2AppConfig;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
+import androidx.camera.core.AppConfig;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureProcessor;
+import androidx.camera.core.CaptureStage;
+import androidx.camera.core.Config;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.extensions.impl.CaptureProcessorImpl;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeLifecycleOwner;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.Before;
@@ -56,31 +65,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class ImageCaptureExtenderTest {
+public final class ImageCaptureExtenderTest {
+    private static final int STAGE_ID = 0;
+    private static final CameraX.LensFacing LENS_FACING = CameraX.LensFacing.BACK;
+    private ImageCaptureConfig.Builder mBuilder = new ImageCaptureConfig.Builder();
+    private ImageCaptureExtender mImageCaptureExtender;
+    private FakeImageCaptureExtenderImpl mFakeImageCaptureExtenderImpl =
+            new FakeImageCaptureExtenderImpl();
+    private FakeLifecycleOwner mLifecycleOwner = new FakeLifecycleOwner();
+    private ImageCaptureExtenderImpl mMockImageCaptureExtenderImpl = mock(
+            ImageCaptureExtenderImpl.class);
+    private ArrayList<CaptureStageImpl> mCaptureStages = new ArrayList<>();
 
     @Rule
     public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
             Manifest.permission.CAMERA);
 
-    private FakeLifecycleOwner mLifecycleOwner;
-    private ImageCaptureExtenderImpl mMockImageCaptureExtenderImpl;
-    private ArrayList<CaptureStageImpl> mCaptureStages = new ArrayList<>(); {
-        mCaptureStages.add(new FakeCaptureStage());
-    }
-
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
-        mLifecycleOwner = new FakeLifecycleOwner();
-        mMockImageCaptureExtenderImpl = mock(ImageCaptureExtenderImpl.class);
-
+        mCaptureStages.add(new SettableCaptureStage(STAGE_ID));
         when(mMockImageCaptureExtenderImpl.getCaptureStages()).thenReturn(mCaptureStages);
+
+        Context context = ApplicationProvider.getApplicationContext();
+        AppConfig appConfig = Camera2AppConfig.create(context);
+        CameraX.init(context, appConfig);
+
+        mBuilder.setLensFacing(LENS_FACING);
+        mImageCaptureExtender = FakeImageCaptureExtender.create(mBuilder);
+        mFakeImageCaptureExtenderImpl.setCaptureProcessor(mock(CaptureProcessorImpl.class));
+        mImageCaptureExtender.init(mBuilder, mFakeImageCaptureExtenderImpl,
+                ExtensionsManager.EffectMode.NORMAL);
+        mImageCaptureExtender.enableExtension();
+    }
+
+    @Test
+    @SmallTest
+    public void canCheckIsExtensionAvailable() {
+        // Extension availability is defaulted to true
+        assertThat(mImageCaptureExtender.isExtensionAvailable()).isTrue();
+        // Deactivate extension
+        mFakeImageCaptureExtenderImpl.setExtensionAvailable(false);
+        assertThat(mImageCaptureExtender.isExtensionAvailable()).isFalse();
+    }
+
+    @Test
+    @SmallTest
+    public void canEnableExtension() {
+        ImageCaptureConfig config = mBuilder.build();
+        assertThat(config.getMaxCaptureStages()).isEqualTo(
+                mFakeImageCaptureExtenderImpl.getMaxCaptureStage());
+        checkConfigContainsCaptureStages(mBuilder,
+                mFakeImageCaptureExtenderImpl.getCaptureStages());
     }
 
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreGetCaptureStagesBeforeAndAfterInitDeInit() {
-
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
         ImageCaptureConfig.Builder configBuilder =
@@ -115,7 +156,6 @@ public class ImageCaptureExtenderTest {
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreCameraEventCallbacksBeforeAndAfterInitDeInit() {
-
         ImageCaptureExtender.ImageCaptureAdapter imageCaptureAdapter =
                 new ImageCaptureExtender.ImageCaptureAdapter(mMockImageCaptureExtenderImpl, null);
         ImageCaptureConfig.Builder configBuilder =
@@ -158,17 +198,36 @@ public class ImageCaptureExtenderTest {
         verifyNoMoreInteractions(mMockImageCaptureExtenderImpl);
     }
 
-    final class FakeCaptureStage implements CaptureStageImpl {
+    private void checkConfigContainsCaptureStages(ImageCaptureConfig.Builder builder,
+            List<CaptureStageImpl> captureStages) {
+        Camera2Config.Builder camera2ConfigurationBuilder =
+                new Camera2Config.Builder();
 
-        @Override
-        public int getId() {
-            return 0;
+        for (CaptureStageImpl captureStage : captureStages) {
+            assertThat(captureStage).isNotNull();
+            for (Pair<CaptureRequest.Key, Object> captureParameter :
+                    captureStage.getParameters()) {
+                camera2ConfigurationBuilder.setCaptureRequestOption(captureParameter.first,
+                        captureParameter.second);
+            }
         }
 
-        @Override
-        public List<Pair<CaptureRequest.Key, Object>> getParameters() {
-            List<Pair<CaptureRequest.Key, Object>> parameters = new ArrayList<>();
-            return parameters;
+        final Camera2Config camera2Config = camera2ConfigurationBuilder.build();
+
+        for (Config.Option<?> option : camera2Config.listOptions()) {
+            @SuppressWarnings("unchecked") // Options/values are being copied directly
+                    Config.Option<Object> objectOpt = (Config.Option<Object>) option;
+            boolean findAMatch = false;
+            for (CaptureStage captureStage :
+                    builder.build().getCaptureBundle().getCaptureStages()) {
+                if (captureStage.getCaptureConfig().getImplementationOptions().containsOption(
+                        objectOpt)) {
+                    findAMatch = true;
+                    break;
+                }
+            }
+            assertThat(findAMatch).isTrue();
+            findAMatch = false;
         }
     }
 }
