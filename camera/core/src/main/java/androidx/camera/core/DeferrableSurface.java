@@ -42,6 +42,24 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
 public abstract class DeferrableSurface {
+    /**
+     * The exception that is returned by the ListenableFuture of {@link #getSurface()} if the
+     * {@link Surface} backing the DeferrableSurface has already been closed.
+     */
+    public final class SurfaceClosedException extends Exception {
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public SurfaceClosedException(String s, Throwable e) {
+            super(s, e);
+        }
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public SurfaceClosedException(String s) {
+            super(s);
+        }
+    }
+
     private static final boolean DEBUG = false;
     protected static final String TAG = "DeferrableSurface";
 
