@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dbfcb5da_ff2730b6",
+        "filename": "security/crypto/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "Should they all be implementation instead of API?",
+      "parentUuid": "6ff01bb0_eca4007b",
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38799e81_d9d257d7",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b175620d_e561d78d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "I updated the javadoc to reflect what is going on more clearly. Pre M devices do not support the same encryption algorithms. The Fallback is used on Pre M devices. Let me know if this makes sense now.",
+      "parentUuid": "38799e81_d9d257d7",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 104,
+        "endChar": 71
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "4bb9cecc_98b78604",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "Auto format issue. Fixed.",
+      "parentUuid": "30e0c50e_c019eeaa",
+      "range": {
+        "startLine": 202,
+        "startChar": 26,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "611fb2b8_1ebc6307",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 4
@@ -85,6 +151,30 @@
       "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170bea33_831a2763",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611fb2b8_1ebc6307",
+      "range": {
+        "startLine": 225,
+        "startChar": 26,
+        "endLine": 225,
+        "endChar": 40
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "bef1c60f_4e048ea1",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "Added more clarifications here. Basically the algorithm used on older devices will differ which I named Fallback. I know Thai will have more thoughts on this. :)",
+      "parentUuid": "fd8f5710_3539ae25",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 53
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df697cfa_5f228c34",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKeys.java",
         "patchSetId": 4
@@ -131,6 +245,30 @@
       "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbaebfa1_81fca2e5",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKeys.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-06-19T19:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df697cfa_5f228c34",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "3a443b4e99765fdeabe92c1a766b08457020bd94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
