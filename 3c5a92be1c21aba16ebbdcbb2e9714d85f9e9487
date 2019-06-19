@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9af38978_9f976b8b",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-06-19T00:23:50Z",
+      "side": 1,
+      "message": "You\u0027re building a new player whenever onGetSession() is called.\nThis means, whenever a new controller is connected, previous player will be replaced with the new one. Is it intended? Bluetooth can add controller here later.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74cd7a1f_e5e931c2",
         "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
         "patchSetId": 4
@@ -18,6 +41,53 @@
         "startChar": 40,
         "endLine": 63,
         "endChar": 48
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "584b9af0_70f4648a",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-06-19T00:23:50Z",
+      "side": 1,
+      "message": "Yes, we should allow developers to set the executor. But this seems to be the test app, so looks fine for me.",
+      "parentUuid": "74cd7a1f_e5e931c2",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 48
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be93f85c_d57891f3",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-06-19T00:23:50Z",
+      "side": 1,
+      "message": "Q) Why not onDestroy()?",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 27
       },
       "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -53,6 +123,30 @@
       "writtenOn": "2019-06-18T10:02:37Z",
       "side": 1,
       "message": "Q) is it correct API usage that converts mediaId parameter to Uri?",
+      "range": {
+        "startLine": 91,
+        "startChar": 62,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ac9f26_19885e87",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-06-19T00:23:50Z",
+      "side": 1,
+      "message": "This is one of the recommended way to define mediaId.\nDefining mediaId is up to app developers\u0027 decision, so this can be acceptable.",
+      "parentUuid": "93bb4569_c9ee195d",
       "range": {
         "startLine": 91,
         "startChar": 62,
