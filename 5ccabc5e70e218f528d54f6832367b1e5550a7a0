@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e52f96db_d9126979",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-19T20:44:44Z",
+      "side": 1,
+      "message": "Yeah, what I really meant was that I couldn\u0027t understand the method and I was hoping that by breaking it up, you\u0027d make it more readable. The docs help.\n\nThe style:\n\nval foo \u003d if (someCondition) {\n    // do a ton of stuff\n  } else {\n    somethingElse()\n  }\n\nCan be difficult to track. I have some trouble following the indentation.",
+      "parentUuid": "5fcdfb94_a93837fb",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dccc2ec8_cfd47d44",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
