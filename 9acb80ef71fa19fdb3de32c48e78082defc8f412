@@ -22,6 +22,30 @@
       "revId": "9acb80ef71fa19fdb3de32c48e78082defc8f412",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b606bdc_df760c47",
+        "filename": "transition/api/1.2.0-alpha02.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-19T16:49:44Z",
+      "side": 1,
+      "message": "It\u0027s not source-compatible as you can see by the test code needing to update. It\u0027s binary compatible though.\n\nI don\u0027t think it\u0027s clear whether metalava tracks binary or source compatibility. It seems to be somewhat of a mix of both.",
+      "parentUuid": "d078dbbe_5f401577",
+      "range": {
+        "startLine": 3,
+        "startChar": 100,
+        "endLine": 3,
+        "endChar": 155
+      },
+      "revId": "9acb80ef71fa19fdb3de32c48e78082defc8f412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
