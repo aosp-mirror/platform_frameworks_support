@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e7e31fef_5563588a",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T03:40:21Z",
+      "side": 1,
+      "message": "I see, makes sense.",
+      "parentUuid": "5cf0b922_f6529c0b",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 89
+      },
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a48106d_08252d30",
         "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
         "patchSetId": 2
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "Done - I wasn\u0027t sure since the API doc didn\u0027t mention this was strictly necessary, and tests seemed to continue passing. Did you find more helpful docs?",
       "parentUuid": "2a48106d_08252d30",
+      "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94c05810_29198831",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T03:40:21Z",
+      "side": 1,
+      "message": "It\u0027s in the main idling resource page: https://developer.android.com/training/testing/espresso/idling-resource\nsearch for \"Unregister idling resources after you\u0027re done using them\"",
+      "parentUuid": "ec774733_612f9030",
       "revId": "bcd6e800cebab58af2e0028e78d88193eee53bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
