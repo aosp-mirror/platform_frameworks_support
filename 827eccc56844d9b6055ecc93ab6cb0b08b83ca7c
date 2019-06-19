@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f39537d_57f0e6b4",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/SafeBrowsingTestAppTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T03:36:29Z",
+      "side": 1,
+      "message": "Typo, should be assumeFeature(...).",
+      "revId": "827eccc56844d9b6055ecc93ab6cb0b08b83ca7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d15d939_6a844878",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/SafeBrowsingActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-06-19T03:36:29Z",
+      "side": 1,
+      "message": "nit, do we plan to have additional idling resources for this?  If not, can just return the one and not bother with arrays.",
+      "revId": "827eccc56844d9b6055ecc93ab6cb0b08b83ca7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
