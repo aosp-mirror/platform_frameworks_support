@@ -94,6 +94,30 @@
       "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed154802_720eb4cd",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-19T00:54:28Z",
+      "side": 1,
+      "message": "Ah ok, yeah that makes sense.\n\nIt looks like as of the latest discussions on module naming in androidx, the resolution was to move all artifacts into a folder matching their group id, i.e this should be :compose:compose-runtime as you mentioned, and inside of compose/compose-runtime.\n\nI guess the tangentially related question is, what\u0027s our naming strategy for other modules, such as ui-core - does this become:\n\ndir /compose/compose-core \u003d androidx.compose:compose-core",
+      "parentUuid": "1396e868_7c4322b4",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 91
+      },
+      "revId": "6a1b295cf0d2ed5a8fc5284fa97af4d6711ea89b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
