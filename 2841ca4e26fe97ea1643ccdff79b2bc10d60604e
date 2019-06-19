@@ -46,6 +46,30 @@
       "revId": "2841ca4e26fe97ea1643ccdff79b2bc10d60604e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3bcf0d_1296261d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-19T23:15:28Z",
+      "side": 1,
+      "message": "It\u0027s known that Throwable.getStackTrace is faster than Thread.getStackTrace. \nOne of the references is https://bugs.openjdk.java.net/browse/JDK-6375302",
+      "parentUuid": "66ac31ae_72086603",
+      "range": {
+        "startLine": 717,
+        "startChar": 77,
+        "endLine": 717,
+        "endChar": 80
+      },
+      "revId": "2841ca4e26fe97ea1643ccdff79b2bc10d60604e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
