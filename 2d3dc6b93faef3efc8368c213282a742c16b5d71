@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "58cf963b_3535c82e",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "Seems API 29, should it be ImageWriter.newInstance(surface, 2)?",
+      "range": {
+        "startLine": 191,
+        "startChar": 34,
+        "endLine": 191,
+        "endChar": 79
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac095172_7ef04442",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "nit: could add final",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c69110_7bfdd4bd",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "nit: could add final",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b02de16_0b141219",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -30,6 +99,121 @@
       "writtenOn": "2019-06-20T02:24:08Z",
       "side": 1,
       "message": "Maybe the constant name can be all uppercase.",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7edca6a_c241e52b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "nit: can merge to one line",
+      "range": {
+        "startLine": 120,
+        "startChar": 29,
+        "endLine": 121,
+        "endChar": 38
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8265398_254d0ff1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "mHandler could be null since input handler is @Nullable. One suggestion is to create a Handler instance by caller\u0027s looper in the constructor if input handler is null.",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 16
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3477b5_2c055498",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "Redundant parentheses",
+      "range": {
+        "startLine": 263,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 17
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31b422ac_07ae0083",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "next",
+      "range": {
+        "startLine": 279,
+        "startChar": 42,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78083bc6_16f2a5a1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-20T08:04:46Z",
+      "side": 1,
+      "message": "Will tag be a null? (NullPointerException)",
+      "range": {
+        "startLine": 283,
+        "startChar": 45,
+        "endLine": 283,
+        "endChar": 48
+      },
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
