@@ -16,6 +16,7 @@
 
 package androidx.room;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.IntDef;
@@ -33,7 +34,6 @@ import java.util.concurrent.Executor;
  */
 @SuppressWarnings("WeakerAccess")
 public class DatabaseConfiguration {
-
     /**
      * Copy indicator for when Room is initially opening the database.
      */
@@ -135,6 +135,13 @@ public class DatabaseConfiguration {
      */
     @Nullable
     public final String copyFromPath;
+
+    /**
+     * If database is being installed on top of another database, parentDatabase is that
+     * database. Note that parentDatabase might also be a child database.
+     */
+    @Nullable
+    public final RoomDatabase parentDatabase;
 
 
     /**
@@ -245,6 +252,7 @@ public class DatabaseConfiguration {
      *
      * @hide
      */
+    @Deprecated
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public DatabaseConfiguration(@NonNull Context context, @Nullable String name,
             @NonNull SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory,
@@ -260,6 +268,54 @@ public class DatabaseConfiguration {
             @Nullable Set<Integer> migrationNotRequiredFrom,
             @CopyFrom int copyFrom,
             @Nullable String copyFromPath) {
+        this(context, name, sqliteOpenHelperFactory, migrationContainer, callbacks,
+                allowMainThreadQueries, journalMode, queryExecutor, transactionExecutor,
+                multiInstanceInvalidation, requireMigration, allowDestructiveMigrationOnDowngrade,
+                migrationNotRequiredFrom, COPY_FROM_NONE, null, null);
+    }
+
+    /**
+     * Creates a database configuration with the given values.
+     *
+     * @param context The application context.
+     * @param name Name of the database, can be null if it is in memory.
+     * @param sqliteOpenHelperFactory The open helper factory to use.
+     * @param migrationContainer The migration container for migrations.
+     * @param callbacks The list of callbacks for database events.
+     * @param allowMainThreadQueries Whether to allow main thread reads/writes or not.
+     * @param journalMode The journal mode. This has to be either TRUNCATE or WRITE_AHEAD_LOGGING.
+     * @param queryExecutor The Executor used to execute asynchronous queries.
+     * @param transactionExecutor The Executor used to execute asynchronous transactions.
+     * @param multiInstanceInvalidation True if Room should perform multi-instance invalidation.
+     * @param requireMigration True if Room should require a valid migration if version changes,
+     * @param allowDestructiveMigrationOnDowngrade True if Room should recreate tables if no
+     *                                             migration is supplied during a downgrade.
+     * @param migrationNotRequiredFrom The collection of schema versions from which migrations
+     *                                 aren't required.
+     * @param copyFrom If Room should copy a pre-packaged database on initial create. If set to
+     *                 anything other than COPY_FROM_NONE, then path to copy from should be set into
+     *                 the {@code copyFromPath} parameter.
+     * @param copyFromPath Path to the pre-packaged database.
+     * @param parentDatabase The parent database
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public DatabaseConfiguration(@NonNull Context context, @Nullable String name,
+            @NonNull SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory,
+            @NonNull RoomDatabase.MigrationContainer migrationContainer,
+            @Nullable List<RoomDatabase.Callback> callbacks,
+            boolean allowMainThreadQueries,
+            RoomDatabase.JournalMode journalMode,
+            @NonNull Executor queryExecutor,
+            @NonNull Executor transactionExecutor,
+            boolean multiInstanceInvalidation,
+            boolean requireMigration,
+            boolean allowDestructiveMigrationOnDowngrade,
+            @Nullable Set<Integer> migrationNotRequiredFrom,
+            @CopyFrom int copyFrom,
+            @Nullable String copyFromPath,
+            @SuppressLint("LambdaLast") @Nullable RoomDatabase parentDatabase) {
         this.sqliteOpenHelperFactory = sqliteOpenHelperFactory;
         this.context = context;
         this.name = name;
@@ -275,6 +331,7 @@ public class DatabaseConfiguration {
         this.mMigrationNotRequiredFrom = migrationNotRequiredFrom;
         this.copyFrom = copyFrom;
         this.copyFromPath = copyFromPath;
+        this.parentDatabase = parentDatabase;
     }
 
     /**
@@ -312,5 +369,28 @@ public class DatabaseConfiguration {
         return requireMigration
                 && (mMigrationNotRequiredFrom == null
                 || !mMigrationNotRequiredFrom.contains(fromVersion));
+    }
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public DatabaseConfiguration createChildConfiguration(RoomDatabase parentDatabase) {
+        // TODO modify configuration
+        return new DatabaseConfiguration(
+                context,
+                name,
+                sqliteOpenHelperFactory,
+                new RoomDatabase.MigrationContainer(),//get rid of migrations
+                null,
+                allowMainThreadQueries,
+                journalMode,
+                queryExecutor,
+                transactionExecutor,
+                multiInstanceInvalidation,
+                requireMigration,
+                allowDestructiveMigrationOnDowngrade,
+                null,
+                COPY_FROM_NONE,
+                null,
+                parentDatabase
+        );
     }
 }

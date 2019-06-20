@@ -27,6 +27,7 @@ import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseMethod
 import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import androidx.room.vo.FtsEntity
@@ -86,10 +87,8 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
             verifyDatabaseViews(viewsMap, dbVerifier)
         }
         val resolvedViews = resolveDatabaseViews(views)
-        validateUniqueTableAndViewNames(element, entities, views)
-
         val declaredType = MoreTypes.asDeclared(element.asType())
-        val daoMethods = allMembers.filter {
+        val (daoMethods, dbMethods) = allMembers.asSequence().filter {
             it.hasAnyOf(Modifier.ABSTRACT) && it.kind == ElementKind.METHOD
         }.filterNot {
             // remove methods that belong to room
@@ -101,13 +100,42 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
             // TODO when we add support for non Dao return types (e.g. database), this code needs
             // to change
             val daoType = executable.returnType.asTypeElement()
-            val dao = DaoProcessor(context, daoType, declaredType, dbVerifier).process()
-            DaoMethod(executable, executable.simpleName.toString(), dao)
-        }
-        validateUniqueDaoClasses(element, daoMethods, entities)
-        validateUniqueIndices(element, entities)
+            if (daoType.hasAnnotation(androidx.room.Dao::class)) {
+                val dao = DaoProcessor(context, daoType, declaredType, dbVerifier).process()
+                @Suppress("IMPLICIT_CAST_TO_ANY")
+                DaoMethod(executable, executable.simpleName.toString(), dao)
+            } else if (daoType.hasAnnotation(androidx.room.Database::class)) {
+                // TODO make sure we don't generate code for dependency dbs
+                val db = DatabaseProcessor(context, daoType).process()
+                @Suppress("IMPLICIT_CAST_TO_ANY")
+                DatabaseMethod(executable, executable.simpleName.toString(), db)
+            } else {
+                context.logger.e(
+                    executable,
+                    ProcessorErrors.ABSTRACT_DB_METHOD_HAS_BAD_RETURN_TYPE
+                )
+                @Suppress("IMPLICIT_CAST_TO_ANY")
+                null
+            }
+        }.filterNotNull()
+            .partition {
+                it is DaoMethod
+            }.let {
+                it.first.filterIsInstance(DaoMethod::class.java) to
+                        it.second.filterIsInstance(DatabaseMethod::class.java)
+            }
+        val entitiesIncludingNested = entities + dbMethods.flatMap { it.db.entitiesIncludingNested }
+        val viewsIncludingNested = views + dbMethods.flatMap { it.db.viewsIncludingNested }
+        validateUniqueTableAndViewNames(element, entitiesIncludingNested, viewsIncludingNested)
 
-        val hasForeignKeys = entities.any { it.foreignKeys.isNotEmpty() }
+        validateUniqueDaoClasses(
+            dbElement = element,
+            daoMethods = daoMethods,
+            entities = entitiesIncludingNested
+        )
+        validateUniqueIndices(element, entitiesIncludingNested)
+
+        val hasForeignKeys = entitiesIncludingNested.any { it.foreignKeys.isNotEmpty() }
 
         val database = Database(
                 version = dbAnnotation.value.version,
@@ -117,7 +145,8 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                 views = resolvedViews,
                 daoMethods = daoMethods,
                 exportSchema = dbAnnotation.value.exportSchema,
-                enableForeignKeys = hasForeignKeys)
+                enableForeignKeys = hasForeignKeys,
+                dbMethods = dbMethods)
         return database
     }
 

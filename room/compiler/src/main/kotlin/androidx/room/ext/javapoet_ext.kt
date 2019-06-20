@@ -52,6 +52,7 @@ object SupportDbTypeNames {
 
 object RoomTypeNames {
     val STRING_UTIL: ClassName = ClassName.get("$ROOM_PACKAGE.util", "StringUtil")
+    val ROOM: ClassName = ClassName.get(ROOM_PACKAGE, "Room")
     val ROOM_DB: ClassName = ClassName.get(ROOM_PACKAGE, "RoomDatabase")
     val ROOM_DB_KT: ClassName = ClassName.get(ROOM_PACKAGE, "RoomDatabaseKt")
     val ROOM_DB_CONFIG: ClassName = ClassName.get(ROOM_PACKAGE, "DatabaseConfiguration")

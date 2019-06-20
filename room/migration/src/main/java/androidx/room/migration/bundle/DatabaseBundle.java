@@ -125,7 +125,9 @@ public class DatabaseBundle implements SchemaEquality<DatabaseBundle> {
         for (DatabaseViewBundle viewBundle : mViews) {
             result.add(viewBundle.createView());
         }
-        result.addAll(mSetupQueries);
+        // ignore setup queries, RoomOpenHelper handles it
+//        result.addAll(mSetupQueries);
+        // TODO old database create them, maybe not accept them as child via interface ?
         return result;
     }
 

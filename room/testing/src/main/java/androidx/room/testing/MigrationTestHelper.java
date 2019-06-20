@@ -164,13 +164,17 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 DatabaseConfiguration.COPY_FROM_NONE,
+                null,
                 null);
+        // TODO open w/ children?
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
                 // we pass the same hash twice since an old schema does not necessarily have
                 // a legacy hash and we would not even persist it.
-                schemaBundle.getDatabase().getIdentityHash());
+                schemaBundle.getDatabase().getIdentityHash(),
+                null,
+                null);
         return openDatabase(name, roomOpenHelper);
     }
 
@@ -224,6 +228,7 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 Collections.<Integer>emptySet(),
                 DatabaseConfiguration.COPY_FROM_NONE,
+                null,
                 null);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),

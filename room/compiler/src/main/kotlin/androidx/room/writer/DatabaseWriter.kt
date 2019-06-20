@@ -28,7 +28,9 @@ import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseMethod
 import com.google.auto.common.MoreElements
+import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
@@ -55,11 +57,13 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
             addModifiers(PUBLIC)
             addModifiers(FINAL)
             superclass(database.typeName)
+            addMethod(createCreateOpenHelperCallback())
             addMethod(createCreateOpenHelper())
             addMethod(createCreateInvalidationTracker())
             addMethod(createClearAllTables())
         }
         addDaoImpls(builder)
+        addDbImpls(builder)
         return builder
     }
 
@@ -175,6 +179,31 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
         }
     }
 
+    private fun addDbImpls(builder: TypeSpec.Builder) {
+        val scope = CodeGenScope(this)
+        builder.apply {
+            database.dbMethods.forEach { method ->
+                val name = method.db.typeName.simpleName().decapitalize().stripNonJava()
+                val fieldName = scope.getTmpVar("_$name")
+                val field = FieldSpec.builder(method.db.typeName, fieldName,
+                    PRIVATE, FINAL)
+                    .initializer(
+                        CodeBlock.of("new $T()", method.db.implTypeName)
+                    ).build()
+                addField(field)
+                addMethod(createDbGetter(field, method))
+                // TODO get id for the partial database
+                addInitializerBlock(CodeBlock.of("super.addChildDatabase($S, $N);", name, field))
+            }
+        }
+    }
+
+    private fun createDbGetter(field: FieldSpec, method: DatabaseMethod): MethodSpec {
+        return MethodSpec.overriding(MoreElements.asExecutable(method.element)).apply {
+            addStatement("return $N", field)
+        }.build()
+    }
+
     private fun createDaoGetter(field: FieldSpec, method: DaoMethod): MethodSpec {
         return MethodSpec.overriding(MoreElements.asExecutable(method.element)).apply {
             beginControlFlow("if ($N != null)", field).apply {
@@ -209,6 +238,30 @@ class DatabaseWriter(val database: Database) : ClassWriter(database.implTypeName
             val openHelperCode = scope.fork()
             SQLiteOpenHelperWriter(database)
                     .write(openHelperVar, configParam, openHelperCode)
+            addCode(openHelperCode.builder().build())
+            addStatement("return $L", openHelperVar)
+        }.build()
+    }
+
+    private fun createCreateOpenHelperCallback() : MethodSpec {
+        val scope = CodeGenScope(this)
+        return MethodSpec.methodBuilder("createOpenHelperCallback").apply {
+            addModifiers(Modifier.PROTECTED)
+            addAnnotation(Override::class.java)
+            returns(SupportDbTypeNames.SQLITE_OPEN_HELPER)
+
+            val configParam = ParameterSpec.builder(RoomTypeNames.ROOM_DB_CONFIG,
+                "configuration").build()
+            addParameter(configParam)
+
+            val idParam = ParameterSpec.builder(CommonTypeNames.STRING,
+                "idParamn").build()
+            addParameter(configParam)
+
+            val openHelperVar = scope.getTmpVar("_helper")
+            val openHelperCode = scope.fork()
+            SQLiteOpenHelperWriter(database)
+                .write(openHelperVar, configParam, openHelperCode)
             addCode(openHelperCode.builder().build())
             addStatement("return $L", openHelperVar)
         }.build()

@@ -83,7 +83,7 @@ public abstract class RoomDatabase {
     private Executor mQueryExecutor;
     private Executor mTransactionExecutor;
     private SupportSQLiteOpenHelper mOpenHelper;
-    private final InvalidationTracker mInvalidationTracker;
+    private InvalidationTracker mInvalidationTracker;
     private boolean mAllowMainThreadQueries;
     boolean mWriteAheadLoggingEnabled;
 
@@ -139,6 +139,9 @@ public abstract class RoomDatabase {
         return mBackingFieldMap;
     }
 
+    @SuppressWarnings("WeakerAccess") // accessed from RoomOpenHelper
+    Map<String, RoomDatabase> mChildDatabases = new HashMap<>();
+
     /**
      * Creates a RoomDatabase.
      * <p>
@@ -157,21 +160,48 @@ public abstract class RoomDatabase {
      */
     @CallSuper
     public void init(@NonNull DatabaseConfiguration configuration) {
-        mOpenHelper = createOpenHelper(configuration);
-        boolean wal = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            wal = configuration.journalMode == JournalMode.WRITE_AHEAD_LOGGING;
-            mOpenHelper.setWriteAheadLoggingEnabled(wal);
+        RoomDatabase parent = configuration.parentDatabase;
+        if (parent != null) {
+            mOpenHelper = parent.mOpenHelper;
+        } else {
+            mOpenHelper = createOpenHelper(configuration);
         }
-        mCallbacks = configuration.callbacks;
-        mQueryExecutor = configuration.queryExecutor;
-        mTransactionExecutor = new TransactionExecutor(configuration.transactionExecutor);
-        mAllowMainThreadQueries = configuration.allowMainThreadQueries;
-        mWriteAheadLoggingEnabled = wal;
-        if (configuration.multiInstanceInvalidation) {
-            mInvalidationTracker.startMultiInstanceInvalidation(configuration.context,
-                    configuration.name);
+
+        if (parent == null) {
+            boolean wal = false;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                wal = configuration.journalMode == JournalMode.WRITE_AHEAD_LOGGING;
+                mOpenHelper.setWriteAheadLoggingEnabled(wal);
+            }
+            mCallbacks = configuration.callbacks;
+            mQueryExecutor = configuration.queryExecutor;
+            mTransactionExecutor = new TransactionExecutor(configuration.transactionExecutor);
+            mAllowMainThreadQueries = configuration.allowMainThreadQueries;
+            mWriteAheadLoggingEnabled = wal;
+            if (configuration.multiInstanceInvalidation) {
+                mInvalidationTracker.startMultiInstanceInvalidation(configuration.context,
+                        configuration.name);
+            }
+        } else {
+            mInvalidationTracker = parent.mInvalidationTracker;
+            mCallbacks = null; // TODO
+            mQueryExecutor = parent.mQueryExecutor;
+            mTransactionExecutor = parent.mTransactionExecutor;
+            mAllowMainThreadQueries = parent.mAllowMainThreadQueries;
+            mWriteAheadLoggingEnabled = parent.mWriteAheadLoggingEnabled;
         }
+        if (mChildDatabases.size() > 0) {
+            DatabaseConfiguration childConfig = configuration
+                    .createChildConfiguration(parent  == null ? this : parent);
+            for (RoomDatabase child : mChildDatabases.values()) {
+                child.init(childConfig);
+            }
+        }
+    }
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    protected void addChildDatabase(String id, RoomDatabase roomDatabase) {
+        mChildDatabases.put(id, roomDatabase);
     }
 
     /**
@@ -194,6 +224,19 @@ public abstract class RoomDatabase {
      */
     @NonNull
     protected abstract SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration config);
+
+    /**
+     *
+     * @param config
+     * @param id The database id used for child databases
+     * @return
+     */
+    @Nullable
+    protected RoomOpenHelper createOpenHelperCallback(DatabaseConfiguration config,
+            String id) {
+        // default implementation for backwards compatibility
+        return null;
+    }
 
     /**
      * Called when the RoomDatabase is created.
@@ -915,7 +958,8 @@ public abstract class RoomDatabase {
                             mAllowDestructiveMigrationOnDowngrade,
                             mMigrationsNotRequiredFrom,
                             mCopyFrom,
-                            mCopyFromPath);
+                            mCopyFromPath,
+                            null);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;

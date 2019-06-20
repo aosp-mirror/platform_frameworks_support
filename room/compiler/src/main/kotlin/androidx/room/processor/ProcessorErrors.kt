@@ -696,4 +696,8 @@ object ProcessorErrors {
                 " (https://bugs.openjdk.java.net/browse/JDK-8007720)" +
                 " that prevents Room from being incremental." +
                 " Consider using JDK 11+ or the embedded JDK shipped with Android Studio 3.5+."
+
+    val ABSTRACT_DB_METHOD_HAS_BAD_RETURN_TYPE = """
+        Abstract methods in Database classes must return a class annotated with @Dao or @Database
+    """.trimIndent()
 }

@@ -34,23 +34,37 @@ public class RoomMasterTable {
     public static final String NAME = "room_master_table";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_IDENTITY_HASH = "identity_hash";
+    public static final String COLUMN_VERSION = "version";
     public static final String DEFAULT_ID = "42";
 
     public static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID + " TEXT PRIMARY KEY,"
-            + COLUMN_IDENTITY_HASH + " TEXT)";
-
-    public static final String READ_QUERY = "SELECT " + COLUMN_IDENTITY_HASH
-            + " FROM " + TABLE_NAME + " WHERE "
-            + COLUMN_ID + " = " + DEFAULT_ID + " LIMIT 1";
+            + COLUMN_IDENTITY_HASH + " TEXT,"
+            + COLUMN_VERSION + " INTEGER DEFAULT 0)";
+//
+//    public static final String READ_QUERY = "SELECT " + COLUMN_IDENTITY_HASH
+//            + " FROM " + TABLE_NAME + " WHERE "
+//            + COLUMN_ID + " = " + DEFAULT_ID + " LIMIT 1";
 
     /**
      * We don't escape here since we know what we are passing.
      */
-    public static String createInsertQuery(String hash) {
+    public static String createInsertQuery(String id, int version, String hash) {
         return "INSERT OR REPLACE INTO " + TABLE_NAME + " ("
-                + COLUMN_ID + "," + COLUMN_IDENTITY_HASH + ")"
-                + " VALUES(" + DEFAULT_ID + ", '" + hash + "')";
+                + COLUMN_ID + "," + COLUMN_IDENTITY_HASH + ", " + COLUMN_VERSION + ")"
+                + " VALUES(" + DEFAULT_ID + ", '" + hash + "', " + version + ")";
+    }
+
+    static String createReadVersionQuery(String id) {
+        return "SELECT " + COLUMN_VERSION
+                + " FROM " + TABLE_NAME + " WHERE "
+                + COLUMN_ID + " = `" + id + "` LIMIT 1";
+    }
+
+    static String createReadIdentityQuery(String id) {
+        return "SELECT " + COLUMN_IDENTITY_HASH
+                + " FROM " + TABLE_NAME + " WHERE "
+                + COLUMN_ID + " = `" + id + "` LIMIT 1";
     }
 
     private RoomMasterTable() {

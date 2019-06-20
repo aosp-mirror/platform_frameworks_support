@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.room.migration.Migration;
 import androidx.room.util.TableInfo;
-import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
@@ -50,18 +49,38 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     @NonNull // b/64290754
     private final String mLegacyHash;
 
+    @Nullable
+    private final List<RoomOpenHelper> mChildCallbacks;
+
+    private final String mDbId;
+
     public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
-            @NonNull String identityHash, @NonNull String legacyHash) {
+            @NonNull String identityHash, @NonNull String legacyHash,
+            @Nullable String dbId,
+            @Nullable List<RoomOpenHelper> childCallbacks) {
         super(delegate.version);
         mConfiguration = configuration;
         mDelegate = delegate;
         mIdentityHash = identityHash;
         mLegacyHash = legacyHash;
+        if (dbId == null) {
+            mDbId = RoomMasterTable.DEFAULT_ID;
+        } else {
+            mDbId = dbId;
+        }
+        mChildCallbacks = childCallbacks;
     }
 
+    @Deprecated
     public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
             @NonNull String legacyHash) {
         this(configuration, delegate, "", legacyHash);
+    }
+
+    @Deprecated
+    public RoomOpenHelper(@NonNull DatabaseConfiguration configuration, @NonNull Delegate delegate,
+            @NonNull String identityHash, @NonNull String legacyHash) {
+        this(configuration, delegate, identityHash, legacyHash, null, null);
     }
 
     @Override
@@ -127,15 +146,56 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     public void onOpen(SupportSQLiteDatabase db) {
         super.onOpen(db);
         checkIdentity(db);
+        openChildDatabases(db);
         mDelegate.onOpen(db);
         // there might be too many configurations etc, just clear it.
         mConfiguration = null;
     }
 
+    private void openChildDatabases(SupportSQLiteDatabase db) {
+        if (mChildCallbacks == null) {
+            return;
+        }
+        for(RoomOpenHelper callback : mChildCallbacks) {
+            callback.openAsChild(callback, db);
+
+        }
+    }
+
+    private void openAsChild(RoomOpenHelper childHelper, SupportSQLiteDatabase db) {
+        if (RoomMasterTable.COLUMN_ID.equals(mDbId)) {
+            throw new IllegalStateException("version for the master table should be sqlite"
+                    + " version");
+        }
+        int existingVersion = readChildVersion(db);
+        if (existingVersion == 0) {
+            // create
+            mDelegate.createAllTables(db);
+        } else if (existingVersion < mDelegate.version){
+            onUpgrade(db, existingVersion, mDelegate.version);
+        } else {
+            onDowngrade(db, existingVersion, mDelegate.version);
+        }
+        onOpen(db);
+    }
+
+    private int readChildVersion(SupportSQLiteDatabase db) {
+        Cursor cursor = db.query(RoomMasterTable.createReadVersionQuery(mDbId));
+        //noinspection TryFinallyCanBeTryWithResources
+        try {
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(0);
+            }
+        } finally {
+            cursor.close();
+        }
+        return 0;
+    }
+
     private void checkIdentity(SupportSQLiteDatabase db) {
         if (hasRoomMasterTable(db)) {
             String identityHash = null;
-            Cursor cursor = db.query(new SimpleSQLiteQuery(RoomMasterTable.READ_QUERY));
+            Cursor cursor = db.query(RoomMasterTable.createReadIdentityQuery(mDbId));
             //noinspection TryFinallyCanBeTryWithResources
             try {
                 if (cursor.moveToFirst()) {
@@ -150,6 +210,10 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
                         + " simply fix this by increasing the version number.");
             }
         } else {
+            if (!RoomMasterTable.DEFAULT_ID.equals(mDbId)) {
+                throw new IllegalStateException("Inconsistency detected, child database "
+                        + "should be created after master database is created");
+            }
             // No room_master_table, this might an an external DB or pre-populated DB, we must
             // validate to see if its suitable for usage.
             // TODO: Use better error message indicating pre-packaged DB issue instead of migration
@@ -161,7 +225,7 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
 
     private void updateIdentity(SupportSQLiteDatabase db) {
         createMasterTableIfNotExists(db);
-        db.execSQL(RoomMasterTable.createInsertQuery(mIdentityHash));
+        db.execSQL(RoomMasterTable.createInsertQuery(mDbId, mDelegate.version, mIdentityHash));
     }
 
     private static void createMasterTableIfNotExists(SupportSQLiteDatabase db) {
@@ -257,4 +321,38 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
         }
     }
 
+    static class ChildOpenHelper implements SupportSQLiteOpenHelper {
+        private final SupportSQLiteOpenHelper mParent;
+        private final SupportSQLiteOpenHelper mChild;
+        public ChildOpenHelper(SupportSQLiteOpenHelper parentOpenHelper, SupportSQLiteOpenHelper childOpenHelper) {
+            mParent = parentOpenHelper;
+            mChild = childOpenHelper;
+        }
+
+        @Override
+        public String getDatabaseName() {
+            return null;
+        }
+
+        @Override
+        public void setWriteAheadLoggingEnabled(boolean enabled) {
+
+        }
+
+        @Override
+        public SupportSQLiteDatabase getWritableDatabase() {
+            return mParent.getWritableDatabase();
+        }
+
+        @Override
+        public SupportSQLiteDatabase getReadableDatabase() {
+            return mParent.getReadableDatabase();
+        }
+
+        @Override
+        public void close() {
+            // TODO or close for reals ?
+            throw new UnsupportedOperationException("Cannot close a child database");
+        }
+    }
 }

@@ -36,7 +36,8 @@ data class Database(
     val daoMethods: List<DaoMethod>,
     val version: Int,
     val exportSchema: Boolean,
-    val enableForeignKeys: Boolean
+    val enableForeignKeys: Boolean,
+    val dbMethods : List<DatabaseMethod>
 ) {
     val typeName: ClassName by lazy { ClassName.get(element) }
 
@@ -51,8 +52,15 @@ data class Database(
     val bundle by lazy {
         DatabaseBundle(version, identityHash, entities.map(Entity::toBundle),
                 views.map(DatabaseView::toBundle),
-                listOf(RoomMasterTable.CREATE_QUERY,
-                        RoomMasterTable.createInsertQuery(identityHash)))
+                emptyList())
+    }
+
+    val entitiesIncludingNested : List<Entity> = entities + dbMethods.flatMap {
+        it.db.entitiesIncludingNested
+    }
+
+    val viewsIncludingNested : List<DatabaseView> = views + dbMethods.flatMap {
+        it.db.viewsIncludingNested
     }
 
     /**
