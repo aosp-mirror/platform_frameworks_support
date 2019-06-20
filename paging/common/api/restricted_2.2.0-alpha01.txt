@@ -13,12 +13,12 @@ package androidx.paging {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final Key getKeyInternal$lintWithKotlin(Value item);
   }
 
-  public abstract class ListenablePageKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public Key getKeyInternal$lintWithKotlin(Value item);
-  }
-
   public abstract class ListenablePositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final Integer! getKeyInternal$lintWithKotlin(T item);
+  }
+
+  public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public Key getKeyInternal$lintWithKotlin(Value item);
   }
 
   public abstract class PagedList<T> extends java.util.AbstractList<T> {
