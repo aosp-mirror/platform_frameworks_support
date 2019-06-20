@@ -46,6 +46,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.heifwriter.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -166,6 +167,7 @@ public class HeifWriterTest {
 
     @Test
     @LargeTest
+    @FlakyTest
     public void testInputBuffer_Grid_NoHandler() throws Throwable {
         if (shouldSkip()) return;
 
@@ -220,6 +222,7 @@ public class HeifWriterTest {
 
     @Test
     @LargeTest
+    @FlakyTest
     public void testInputSurface_Grid_Handler() throws Throwable {
         if (shouldSkip()) return;
 
@@ -229,6 +232,7 @@ public class HeifWriterTest {
 
     @Test
     @LargeTest
+    @FlakyTest
     public void testInputBitmap_NoGrid_NoHandler() throws Throwable {
         if (shouldSkip()) return;
 

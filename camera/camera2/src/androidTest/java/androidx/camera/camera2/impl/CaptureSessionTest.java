@@ -54,6 +54,7 @@ import androidx.camera.core.MutableOptionsBundle;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.testing.CameraUtil;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -285,6 +286,7 @@ public final class CaptureSessionTest {
     }
 
     @Test
+    @FlakyTest
     public void issueCaptureRequest() throws CameraAccessException, InterruptedException {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
@@ -305,6 +307,7 @@ public final class CaptureSessionTest {
     }
 
     @Test
+    @FlakyTest
     public void issueCaptureRequestAppendAndOverrideRepeatingOptions()
             throws CameraAccessException, InterruptedException {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
@@ -346,6 +349,7 @@ public final class CaptureSessionTest {
                 CaptureRequest.CONTROL_AE_MODE_ON);
     }
     @Test
+    @FlakyTest
     public void issueCaptureRequestAcrossCaptureSessions()
             throws CameraAccessException, InterruptedException {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
@@ -371,6 +375,7 @@ public final class CaptureSessionTest {
     }
 
     @Test
+    @FlakyTest
     public void issueCaptureRequestBeforeCaptureSessionOpened()
             throws CameraAccessException, InterruptedException {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
