@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58838936_e5ab17df",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T02:12:22Z",
+      "side": 1,
+      "message": "nit: Maybe we can change this global variable to a local variable in createFrom? This is only be used in createFrom().",
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "259c94c7_35902343",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T02:12:22Z",
+      "side": 1,
+      "message": "Should we use the \"instanceof\" to check the captureResult instance (and replace the line 88 \u0026 89)?\nThe captureResult should not be null after the line 82 checking.",
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
