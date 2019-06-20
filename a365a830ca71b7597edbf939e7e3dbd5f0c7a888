@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5a40116_916957a2",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T19:06:44Z",
+      "side": 1,
+      "message": "Not necessary if this ends up as BiometricManagerCompat since platform constants get inlined by the compiler and are always safe to reference from apps.\n\nIf this class is a full replacement, please use the platform constants as values instead of explicit ints. Again, they get inlined.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f96cdbe_a65420ce",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T19:06:44Z",
+      "side": 1,
+      "message": "I think this will throw an info-level VFY error on pre-Q devices, but please check. If so, you\u0027d need to move the .class reference to a static inner class.",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 74,
+        "endChar": 70
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b4dfd6_c342d19b",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T19:06:44Z",
+      "side": 1,
+      "message": "Use platform-defined constants here. They get inlined, so it\u0027s safe on all devices.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91270922_5c835e9c",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T19:06:44Z",
+      "side": 1,
+      "message": "Will throw VFY error. Calls to methods on new classes need to be in a separate (e.g. static inner) class.",
+      "range": {
+        "startLine": 97,
+        "startChar": 19,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
