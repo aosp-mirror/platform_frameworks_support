@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a859fd7e_664bc9ae",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-20T23:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad6042f8_60938065",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "8ea912a740081278ad8c7a0f41cade874b0b65c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93dd489c_fc1c8c19",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
         "patchSetId": 6
