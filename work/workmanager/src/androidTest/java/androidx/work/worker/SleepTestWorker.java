@@ -17,9 +17,9 @@
 package androidx.work.worker;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -42,6 +42,6 @@ public class SleepTestWorker extends Worker {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

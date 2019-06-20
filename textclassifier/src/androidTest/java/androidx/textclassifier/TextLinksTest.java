@@ -26,18 +26,17 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.LocaleList;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.widget.TextView;
 
 import androidx.collection.ArrayMap;
 import androidx.core.os.LocaleListCompat;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +44,6 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +63,13 @@ public final class TextLinksTest {
     private static final long REFERENCE_TIME = System.currentTimeMillis();
 
     private Map<String, Float> mDummyEntityScores;
+
+    private static final String BUNDLE_KEY = "key";
+    private static final String BUNDLE_VALUE = "value";
+    private static final Bundle BUNDLE = new Bundle();
+    static {
+        BUNDLE.putString(BUNDLE_KEY, BUNDLE_VALUE);
+    }
 
     @Before
     public void setup() {
@@ -93,17 +98,19 @@ public final class TextLinksTest {
         final TextLinks reference = new TextLinks.Builder(FULL_TEXT.toString())
                 .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f))
                 .addLink(5, 12, getEntityScores(.8f, .1f, .5f))
+                .setExtras(BUNDLE)
                 .build();
 
         // Serialize/deserialize.
         final TextLinks result = TextLinks.createFromBundle(reference.toBundle());
 
         assertTextLinks(result);
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
     }
 
     @Test
     public void testBundleRequest() {
-        TextLinks.Request reference = createTextLinksRequest();
+        TextLinks.Request reference = createTextLinksRequest().setExtras(BUNDLE).build();
 
         // Serialize/deserialize.
         TextLinks.Request result = TextLinks.Request.createFromBundle(reference.toBundle());
@@ -111,10 +118,11 @@ public final class TextLinksTest {
         assertEquals(FULL_TEXT, result.getText());
         assertEquals(LANGUAGE_TAGS, result.getDefaultLocales().toLanguageTags());
         assertThat(result.getEntityConfig().getHints()).containsExactly("hints");
-        assertThat(result.getEntityConfig().resolveEntityTypes(
+        assertThat(result.getEntityConfig().resolveTypes(
                 Arrays.asList("default", "excluded")))
                 .containsExactly("included", "default");
         assertThat(result.getReferenceTime()).isEqualTo(REFERENCE_TIME);
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
     }
 
     @Test
@@ -130,7 +138,7 @@ public final class TextLinksTest {
     @Test
     @SdkSuppress(minSdkVersion = 28)
     public void testConvertToPlatformRequest() {
-        TextLinks.Request request = createTextLinksRequest();
+        TextLinks.Request request = createTextLinksRequest().build();
 
         android.view.textclassifier.TextLinks.Request platformRequest = request.toPlatform();
         assertEquals(FULL_TEXT, platformRequest.getText());
@@ -139,6 +147,28 @@ public final class TextLinksTest {
         assertThat(platformRequest.getEntityConfig().resolveEntityListModifications(
                 Arrays.asList("default", "excluded")))
                 .containsExactly("included", "default");
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testFromPlatformRequest() {
+        android.view.textclassifier.TextClassifier.EntityConfig entityConfig =
+                android.view.textclassifier.TextClassifier.EntityConfig.create(
+                        Collections.singleton("hints"),
+                        Collections.singleton("include"),
+                        Collections.singleton("exclude"));
+        android.view.textclassifier.TextLinks.Request platformRequest =
+                new android.view.textclassifier.TextLinks.Request.Builder(FULL_TEXT)
+                        .setDefaultLocales(LocaleList.forLanguageTags(LANGUAGE_TAGS))
+                        .setEntityConfig(entityConfig)
+                        .build();
+
+        TextLinks.Request request = TextLinks.Request.fromPlatform(platformRequest);
+        assertThat(request.getText()).isEqualTo(FULL_TEXT);
+        assertThat(request.getDefaultLocales().toLanguageTags()).isEqualTo(LANGUAGE_TAGS);
+        assertThat(request.getEntityConfig().getHints()).containsExactly("hints");
+        assertThat(request.getEntityConfig().resolveTypes(Arrays.asList("default", "exclude")))
+                .containsExactly("include", "default");
     }
 
     @Test
@@ -155,16 +185,18 @@ public final class TextLinksTest {
     }
 
     @Test
-    public void testTextLinksWithUrlSpan() {
-        final String url = "http://www.google.com";
-        final TextLinks textLinks = new TextLinks.Builder(FULL_TEXT.toString())
-                .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f), new URLSpan(url))
-                .build();
+    @SdkSuppress(minSdkVersion = 28)
+    public void testConvertToPlatformTextLinks() {
+        final TextLinks textLinks =
+                new TextLinks.Builder(FULL_TEXT.toString())
+                        .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f))
+                        .addLink(5, 12, getEntityScores(.8f, .1f, .5f))
+                        .build();
 
-        Collection<TextLinks.TextLink> links = textLinks.getLinks();
-        assertThat(links).hasSize(1);
-        TextLinks.TextLink textLink = links.iterator().next();
-        assertThat(textLink.getUrlSpan().getURL()).isEqualTo(url);
+        android.view.textclassifier.TextLinks platformTextLinks = textLinks.toPlatform();
+        TextLinks recovered = TextLinks.fromPlatform(platformTextLinks, FULL_TEXT);
+
+        assertTextLinks(recovered);
     }
 
     @Test
@@ -172,8 +204,9 @@ public final class TextLinksTest {
         SpannableString text = new SpannableString(FULL_TEXT);
         TextLinks textLinks = new TextLinks.Builder(text).build();
 
-        Context context = InstrumentationRegistry.getContext();
-        int status = textLinks.apply(context, text, TextLinksParams.DEFAULT_PARAMS);
+        Context context = ApplicationProvider.getApplicationContext();
+        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        int status = textLinks.apply(text, textClassifier, TextLinksParams.DEFAULT_PARAMS);
         assertThat(status).isEqualTo(TextLinks.STATUS_NO_LINKS_FOUND);
 
         final TextLinks.TextLinkSpan[] spans =
@@ -188,28 +221,12 @@ public final class TextLinksTest {
                 .addLink(START, END, Collections.singletonMap(TextClassifier.TYPE_PHONE, 1.0f))
                 .build();
 
-        Context context = InstrumentationRegistry.getContext();
-        int status = textLinks.apply(context, text, TextLinksParams.DEFAULT_PARAMS);
+        Context context = ApplicationProvider.getApplicationContext();
+        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        int status = textLinks.apply(text, textClassifier, TextLinksParams.DEFAULT_PARAMS);
         assertThat(status).isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
 
         assertAppliedSpannable(text);
-    }
-
-    @Test
-    public void testApply_textview() {
-        SpannableString text = new SpannableString(FULL_TEXT);
-        TextLinks textLinks = new TextLinks.Builder(text)
-                .addLink(START, END, Collections.singletonMap(TextClassifier.TYPE_PHONE, 1.0f))
-                .build();
-
-        final TextView textView = new TextView(InstrumentationRegistry.getTargetContext());
-        textView.setText(text);
-
-        int status = textLinks.apply(textView, TextLinksParams.DEFAULT_PARAMS);
-        assertThat(status).isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
-        assertThat(textView.getMovementMethod()).isInstanceOf(LinkMovementMethod.class);
-
-        assertAppliedSpannable((Spannable) textView.getText());
     }
 
     private void assertAppliedSpannable(Spannable spannable) {
@@ -219,22 +236,21 @@ public final class TextLinksTest {
         TextLinks.TextLinkSpan span = spans[0];
         assertThat(spannable.getSpanStart(span)).isEqualTo(START);
         assertThat(spannable.getSpanEnd(span)).isEqualTo(END);
-        assertThat(span.getTextLinkSpanData().getTextLink().getEntity(0))
+        assertThat(span.getTextLinkSpanData().getTextLink().getEntityType(0))
                 .isEqualTo(TextClassifier.TYPE_PHONE);
     }
 
-    private TextLinks.Request createTextLinksRequest() {
+    private TextLinks.Request.Builder createTextLinksRequest() {
         EntityConfig entityConfig = new EntityConfig.Builder()
-                .setIncludedEntityTypes(Arrays.asList("included"))
-                .setExcludedEntityTypes(Arrays.asList("excluded"))
+                .setIncludedTypes(Arrays.asList("included"))
+                .setExcludedTypes(Arrays.asList("excluded"))
                 .setHints(Arrays.asList("hints"))
                 .build();
 
         return new TextLinks.Request.Builder(FULL_TEXT)
                 .setDefaultLocales(LOCALE_LIST)
                 .setEntityConfig(entityConfig)
-                .setReferenceTime(REFERENCE_TIME)
-                .build();
+                .setReferenceTime(REFERENCE_TIME);
     }
 
     private void assertTextLinks(TextLinks textLinks) {
@@ -244,15 +260,15 @@ public final class TextLinksTest {
         assertEquals(2, resultList.size());
         assertEquals(0, resultList.get(0).getStart());
         assertEquals(4, resultList.get(0).getEnd());
-        assertEquals(1, resultList.get(0).getEntityCount());
-        assertEquals(TYPE_OTHER, resultList.get(0).getEntity(0));
+        assertEquals(1, resultList.get(0).getEntityTypeCount());
+        assertEquals(TYPE_OTHER, resultList.get(0).getEntityType(0));
         assertEquals(1.f, resultList.get(0).getConfidenceScore(TYPE_OTHER), epsilon);
         assertEquals(5, resultList.get(1).getStart());
         assertEquals(12, resultList.get(1).getEnd());
-        assertEquals(3, resultList.get(1).getEntityCount());
-        assertEquals(TYPE_ADDRESS, resultList.get(1).getEntity(0));
-        assertEquals(TYPE_OTHER, resultList.get(1).getEntity(1));
-        assertEquals(TYPE_PHONE, resultList.get(1).getEntity(2));
+        assertEquals(3, resultList.get(1).getEntityTypeCount());
+        assertEquals(TYPE_ADDRESS, resultList.get(1).getEntityType(0));
+        assertEquals(TYPE_OTHER, resultList.get(1).getEntityType(1));
+        assertEquals(TYPE_PHONE, resultList.get(1).getEntityType(2));
         assertEquals(.8f, resultList.get(1).getConfidenceScore(TYPE_ADDRESS), epsilon);
         assertEquals(.5f, resultList.get(1).getConfidenceScore(TYPE_OTHER), epsilon);
         assertEquals(.1f, resultList.get(1).getConfidenceScore(TYPE_PHONE), epsilon);

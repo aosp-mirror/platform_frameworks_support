@@ -17,9 +17,12 @@
 package androidx.work.impl.background.systemalarm;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -29,20 +32,19 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.DatabaseTest;
 import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkManagerImpl;
@@ -54,8 +56,10 @@ import androidx.work.impl.constraints.trackers.Trackers;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.RepeatRule;
+import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
+import androidx.work.worker.RetryWorker;
 import androidx.work.worker.SleepTestWorker;
 import androidx.work.worker.TestWorker;
 
@@ -78,7 +82,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@LargeTest
 public class SystemAlarmDispatcherTest extends DatabaseTest {
 
     @Rule
@@ -107,7 +111,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
     @Before
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
+        mContext = ApplicationProvider.getApplicationContext().getApplicationContext();
         mScheduler = mock(Scheduler.class);
         mWorkManager = mock(WorkManagerImpl.class);
         mLatch = new CountDownLatch(1);
@@ -117,9 +121,10 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                 mLatch.countDown();
             }
         };
-
-        Logger.setMinimumLoggingLevel(Log.VERBOSE);
-        mConfiguration = new Configuration.Builder().build();
+        Logger.setLogger(new Logger.LogcatLogger(Log.DEBUG));
+        mConfiguration = new Configuration.Builder()
+                .setExecutor(new SynchronousExecutor())
+                .build();
         when(mWorkManager.getWorkDatabase()).thenReturn(mDatabase);
         when(mWorkManager.getConfiguration()).thenReturn(mConfiguration);
         TaskExecutor instantTaskExecutor = new InstantWorkTaskExecutor();
@@ -127,7 +132,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         mProcessor = new Processor(
                 mContext,
                 mConfiguration,
-                new InstantWorkTaskExecutor(),
+                instantTaskExecutor,
                 mDatabase,
                 Collections.singletonList(mScheduler));
         mSpyProcessor = spy(mProcessor);
@@ -137,11 +142,11 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         mDispatcher.setCompletedListener(mCompletedListener);
         mSpyDispatcher = spy(mDispatcher);
 
-        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext));
-        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext));
+        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext, instantTaskExecutor));
+        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext, instantTaskExecutor));
         // Requires API 24+ types.
         mNetworkStateTracker = mock(NetworkStateTracker.class);
-        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext));
+        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext, instantTaskExecutor));
         mTracker = mock(Trackers.class);
 
         when(mTracker.getBatteryChargingTracker()).thenReturn(mBatteryChargingTracker);
@@ -192,6 +197,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     }
 
     @Test
+    @RepeatRule.Repeat(times = 1)
     public void testDelayMet_success() throws InterruptedException {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -283,6 +289,37 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     }
 
     @Test
+    public void testDelayMet_withAlwaysRetryWorker() throws InterruptedException {
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RetryWorker.class)
+                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .build();
+
+        insertWork(work);
+        String workSpecId = work.getStringId();
+
+        final Intent scheduleWork = CommandHandler.createDelayMetIntent(mContext, workSpecId);
+        mSpyDispatcher.postOnMainThread(
+                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, scheduleWork, START_ID));
+        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+
+        assertThat(mLatch.getCount(), is(0L));
+        verify(mSpyProcessor, times(1)).startWork(workSpecId);
+        List<String> intentActions = mSpyDispatcher.getIntentActions();
+        assertThat(intentActions,
+                IsIterableContainingInOrder.contains(
+                        CommandHandler.ACTION_DELAY_MET,
+                        CommandHandler.ACTION_EXECUTION_COMPLETED,
+                        CommandHandler.ACTION_SCHEDULE_WORK));
+
+        WorkSpecDao workSpecDao = mDatabase.workSpecDao();
+        WorkSpec workSpec = workSpecDao.getWorkSpec(work.getStringId());
+
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
+        // It should be scheduled
+        assertThat(workSpec.scheduleRequestedAt, is(not(WorkSpec.SCHEDULE_NOT_REQUESTED_YET)));
+    }
+
+    @Test
     public void testSchedule_withConstraints() throws InterruptedException {
         when(mBatteryChargingTracker.getInitialState()).thenReturn(true);
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
@@ -341,7 +378,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
         assertThat(mLatch.getCount(), is(0L));
-        verify(mSpyProcessor, times(0)).startWork(workSpecId);
+        verify(mSpyProcessor, times(1)).startWork(workSpecId);
     }
 
     @Test
@@ -378,7 +415,46 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                         CommandHandler.ACTION_EXECUTION_COMPLETED,
                         CommandHandler.ACTION_CONSTRAINTS_CHANGED));
 
-        assertThat(workSpec.state, is(State.ENQUEUED));
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
+    }
+
+    @Test
+    @LargeTest
+    @RepeatRule.Repeat(times = 1)
+    public void testDelayMet_withPartiallyMetConstraint() throws InterruptedException {
+        when(mStorageNotLowTracker.getInitialState()).thenReturn(true);
+        when(mBatteryChargingTracker.getInitialState()).thenReturn(false);
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .setConstraints(new Constraints.Builder()
+                        .setRequiresStorageNotLow(true)
+                        .setRequiresCharging(true)
+                        .build())
+                .build();
+
+        insertWork(work);
+
+        Intent delayMet = CommandHandler.createDelayMetIntent(mContext, work.getStringId());
+        mSpyDispatcher.postOnMainThread(
+                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, delayMet, START_ID));
+
+        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+
+        List<String> intentActions = mSpyDispatcher.getIntentActions();
+        WorkSpecDao workSpecDao = mDatabase.workSpecDao();
+        WorkSpec workSpec = workSpecDao.getWorkSpec(work.getStringId());
+
+        assertThat(mLatch.getCount(), is(0L));
+
+        // Verify order of events
+        assertThat(intentActions,
+                IsIterableContainingInOrder.contains(
+                        CommandHandler.ACTION_DELAY_MET,
+                        CommandHandler.ACTION_STOP_WORK,
+                        CommandHandler.ACTION_EXECUTION_COMPLETED,
+                        CommandHandler.ACTION_CONSTRAINTS_CHANGED));
+
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -428,7 +504,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                         CommandHandler.ACTION_EXECUTION_COMPLETED,
                         CommandHandler.ACTION_CONSTRAINTS_CHANGED));
 
-        assertThat(workSpec.state, is(State.SUCCEEDED));
+        assertThat(workSpec.state, is(WorkInfo.State.SUCCEEDED));
     }
 
     @Test
@@ -441,12 +517,12 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         OneTimeWorkRequest failed = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.FAILED)
+                .setInitialState(WorkInfo.State.FAILED)
                 .build();
 
         OneTimeWorkRequest succeeded = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
 
         OneTimeWorkRequest noConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
@@ -499,20 +575,22 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         OneTimeWorkRequest failed = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.FAILED)
+                .setInitialState(WorkInfo.State.FAILED)
                 .build();
 
         OneTimeWorkRequest succeeded = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
 
         OneTimeWorkRequest noConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
         OneTimeWorkRequest workWithConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .setConstraints(new Constraints.Builder()
                         .setRequiresCharging(true)
                         .build())
@@ -521,6 +599,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         long hourFromNow = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1);
         OneTimeWorkRequest workInTheFuture = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(hourFromNow, TimeUnit.MILLISECONDS)
+                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
         insertWork(failed);
@@ -537,16 +616,71 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         assertThat(mLatch.getCount(), is(0L));
 
         List<String> intentActions = mSpyDispatcher.getIntentActions();
-        // Assert order of events
-        assertThat(intentActions,
-                IsIterableContainingInOrder.contains(
-                        CommandHandler.ACTION_CONSTRAINTS_CHANGED,
-                        CommandHandler.ACTION_DELAY_MET,
-                        CommandHandler.ACTION_DELAY_MET,
-                        CommandHandler.ACTION_EXECUTION_COMPLETED,
-                        CommandHandler.ACTION_EXECUTION_COMPLETED,
-                        // Update proxies
-                        CommandHandler.ACTION_CONSTRAINTS_CHANGED));
+
+        // Ordering of events can change slightly due to timing, so this test can become flaky if we
+        // don't compare the relative order of things.
+
+        assertThat(intentActions.size(), is(6));
+        // The last action must be a constraints changed event to update proxies.
+        assertThat(intentActions.get(5), is(CommandHandler.ACTION_CONSTRAINTS_CHANGED));
+
+        int numConstraintsChanged = 0;
+        int numDelayMet = 0;
+        int numExecutionCompleted = 0;
+        for (int i = 0; i < intentActions.size() - 1; ++i) {
+            switch (intentActions.get(i)) {
+                case CommandHandler.ACTION_CONSTRAINTS_CHANGED: {
+                    ++numConstraintsChanged;
+                    break;
+                }
+
+                case CommandHandler.ACTION_DELAY_MET: {
+                    ++numDelayMet;
+                    break;
+                }
+
+                case CommandHandler.ACTION_EXECUTION_COMPLETED: {
+                    ++numExecutionCompleted;
+                    assertThat(numConstraintsChanged, greaterThan(0));
+                    assertThat(numDelayMet, greaterThanOrEqualTo(numExecutionCompleted));
+                    break;
+                }
+            }
+        }
+        assertThat(numExecutionCompleted, is(2));
+    }
+
+    @Test
+    @LargeTest
+    @RepeatRule.Repeat(times = 1)
+    public void testDelayMet_withUnMetConstraintShouldNotCrashOnDestroy()
+            throws InterruptedException {
+        when(mBatteryChargingTracker.getInitialState()).thenReturn(false);
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .setConstraints(new Constraints.Builder()
+                        .setRequiresCharging(true)
+                        .build())
+                .build();
+
+        insertWork(work);
+
+        Intent delayMet = CommandHandler.createDelayMetIntent(mContext, work.getStringId());
+        mSpyDispatcher.postOnMainThread(
+                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, delayMet, START_ID));
+
+        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+        assertThat(mLatch.getCount(), is(0L));
+
+        // Should not crash after we destroy the dispatcher
+        mDispatcher.onDestroy();
+        mBatteryChargingTracker.setState(true);
+    }
+
+    @Test
+    public void tearDownTest() {
+        mDispatcher.onDestroy();
+        assertThat(mDispatcher.getWorkTimer().getExecutorService().isShutdown(), is(true));
     }
 
     // Marking it public for mocking

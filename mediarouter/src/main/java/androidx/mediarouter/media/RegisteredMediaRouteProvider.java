@@ -276,7 +276,11 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
 
             mBound = false;
             disconnect();
-            getContext().unbindService(this);
+            try {
+                getContext().unbindService(this);
+            } catch (IllegalArgumentException ex) {
+                Log.e(TAG, this + ": unbindService failed", ex);
+            }
         }
     }
 
@@ -426,7 +430,6 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
     private final class RegisteredDynamicController extends DynamicGroupRouteController
             implements ControllerConnection {
         private final String mInitialMemberRouteId;
-        String mRouteId;
         String mGroupableSectionTitle;
         String mTransferableSectionTitle;
 
@@ -455,7 +458,6 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
             ControlRequestCallback callback = new ControlRequestCallback() {
                 @Override
                 public void onResult(Bundle data) {
-                    mRouteId = data.getString(CLIENT_DATA_ROUTE_ID);
                     mGroupableSectionTitle = data.getString(DATA_KEY_GROUPABLE_SECION_TITLE);
                     mTransferableSectionTitle = data.getString(DATA_KEY_TRANSFERABLE_SECTION_TITLE);
                 }
@@ -548,11 +550,6 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
         // Overrides DynamicGroupRouteController
 
         @Override
-        public String getDynamicGroupRouteId() {
-            return mRouteId;
-        }
-
-        @Override
         public String getGroupableSelectionTitle() {
             return mGroupableSectionTitle;
         }
@@ -583,30 +580,11 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
             }
         }
 
-        @Override
-        public void setOnDynamicRoutesChangedListener(
-                @NonNull Executor executor,
-                @NonNull OnDynamicRoutesChangedListener listener) {
-            mDynamicRoutesChangedListener = listener;
-            mListenerExecutor = executor;
-        }
-
         ////////////////////////////////////
         // Other methods
         void onDynamicRoutesChanged(
                 final List<DynamicRouteDescriptor> routes) {
-            if (mDynamicRoutesChangedListener == null || mListenerExecutor == null) {
-                Log.d(TAG, "No listener exists. Ignore changes: " + routes);
-                return;
-            }
-            mListenerExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    mDynamicRoutesChangedListener.onRoutesChanged(
-                            RegisteredDynamicController.this,
-                            routes);
-                }
-            });
+            notifyDynamicRoutesChanged(routes);
         }
     }
 

@@ -16,30 +16,29 @@
 
 package androidx.room.integration.kotlintestapp.test
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.testing.CountingTaskExecutorRule
 import androidx.room.Room
 import androidx.room.integration.kotlintestapp.TestDatabase
 import androidx.room.integration.kotlintestapp.dao.BooksDao
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import java.util.concurrent.TimeUnit
 
 abstract class TestDatabaseTest {
-
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
-
+    @Rule
+    @JvmField
+    val countingTaskExecutorRule = CountingTaskExecutorRule()
     protected lateinit var database: TestDatabase
     protected lateinit var booksDao: BooksDao
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        database = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
                 TestDatabase::class.java)
-                // allowing main thread queries, just for testing
-                .allowMainThreadQueries()
                 .build()
 
         booksDao = database.booksDao()
@@ -49,5 +48,9 @@ abstract class TestDatabaseTest {
     @Throws(Exception::class)
     fun tearDown() {
         database.close()
+    }
+
+    fun drain() {
+        countingTaskExecutorRule.drainTasks(10, TimeUnit.SECONDS)
     }
 }

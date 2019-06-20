@@ -16,13 +16,29 @@
 
 package androidx.transition;
 
+import android.annotation.SuppressLint;
 import android.graphics.Matrix;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 class ViewUtilsBase {
+
+    private static final String TAG = "ViewUtilsBase";
+
+    private static Method sSetFrameMethod;
+    private static boolean sSetFrameFetched;
+
+    private static Field sViewFlagsField;
+    private static boolean sViewFlagsFieldFetched;
+    private static final int VISIBILITY_MASK = 0x0000000C;
 
     private float[] mMatrixValues;
 
@@ -79,7 +95,7 @@ class ViewUtilsBase {
             transformMatrixToLocal(vp, matrix);
             matrix.postTranslate(vp.getScrollX(), vp.getScrollY());
         }
-        matrix.postTranslate(view.getLeft(), view.getTop());
+        matrix.postTranslate(-view.getLeft(), -view.getTop());
         final Matrix vm = view.getMatrix();
         if (!vm.isIdentity()) {
             final Matrix inverted = new Matrix();
@@ -89,7 +105,7 @@ class ViewUtilsBase {
         }
     }
 
-    public void setAnimationMatrix(@NonNull View view, Matrix matrix) {
+    public void setAnimationMatrix(@NonNull View view, @Nullable Matrix matrix) {
         if (matrix == null || matrix.isIdentity()) {
             view.setPivotX(view.getWidth() / 2);
             view.setPivotY(view.getHeight() / 2);
@@ -122,11 +138,51 @@ class ViewUtilsBase {
         }
     }
 
-    public void setLeftTopRightBottom(View v, int left, int top, int right, int bottom) {
-        v.setLeft(left);
-        v.setTop(top);
-        v.setRight(right);
-        v.setBottom(bottom);
+    public void setLeftTopRightBottom(@NonNull View v, int left, int top, int right, int bottom) {
+        fetchSetFrame();
+        if (sSetFrameMethod != null) {
+            try {
+                sSetFrameMethod.invoke(v, left, top, right, bottom);
+            } catch (IllegalAccessException e) {
+                // Do nothing
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+    }
+
+    public void setTransitionVisibility(@NonNull View view, int visibility) {
+        if (!sViewFlagsFieldFetched) {
+            try {
+                sViewFlagsField = View.class.getDeclaredField("mViewFlags");
+                sViewFlagsField.setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                Log.i(TAG, "fetchViewFlagsField: ");
+            }
+            sViewFlagsFieldFetched = true;
+        }
+        if (sViewFlagsField != null) {
+            try {
+                int viewFlags = sViewFlagsField.getInt(view);
+                sViewFlagsField.setInt(view, (viewFlags & ~VISIBILITY_MASK) | visibility);
+            } catch (IllegalAccessException e) {
+                // Do nothing
+            }
+        }
+    }
+
+    @SuppressLint("PrivateApi")
+    private void fetchSetFrame() {
+        if (!sSetFrameFetched) {
+            try {
+                sSetFrameMethod = View.class.getDeclaredMethod("setFrame",
+                        int.class, int.class, int.class, int.class);
+                sSetFrameMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                Log.i(TAG, "Failed to retrieve setFrame method", e);
+            }
+            sSetFrameFetched = true;
+        }
     }
 
 }

@@ -22,9 +22,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.taskexecutor.WorkManagerTaskExecutor;
 import androidx.work.worker.TestWorker;
@@ -34,6 +34,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.Executor;
+
 @RunWith(AndroidJUnit4.class)
 public class DefaultWorkerFactoryTest extends DatabaseTest {
 
@@ -42,7 +44,7 @@ public class DefaultWorkerFactoryTest extends DatabaseTest {
 
     @Before
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mDefaultWorkerFactory = WorkerFactory.getDefaultWorkerFactory();
     }
 
@@ -52,6 +54,7 @@ public class DefaultWorkerFactoryTest extends DatabaseTest {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWork(work);
 
+        Executor executor = new SynchronousExecutor();
         ListenableWorker worker = mDefaultWorkerFactory.createWorkerWithDefaultFallback(
                 mContext.getApplicationContext(),
                 TestWorker.class.getName(),
@@ -61,8 +64,8 @@ public class DefaultWorkerFactoryTest extends DatabaseTest {
                         work.getTags(),
                         new WorkerParameters.RuntimeExtras(),
                         1,
-                        new SynchronousExecutor(),
-                        new WorkManagerTaskExecutor(),
+                        executor,
+                        new WorkManagerTaskExecutor(executor),
                         mDefaultWorkerFactory));
         assertThat(worker, is(notNullValue()));
         assertThat(worker,

@@ -20,10 +20,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * Tracks whether or not the device's battery is charging.
@@ -32,14 +33,15 @@ import androidx.work.Logger;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class BatteryChargingTracker extends BroadcastReceiverConstraintTracker<Boolean> {
 
-    private static final String TAG = "BatteryChrgTracker";
+    private static final String TAG = Logger.tagWithPrefix("BatteryChrgTracker");
 
     /**
      * Create an instance of {@link BatteryChargingTracker}.
      * @param context The application {@link Context}
+     * @param taskExecutor The internal {@link TaskExecutor} being used by WorkManager.
      */
-    public BatteryChargingTracker(Context context) {
-        super(context);
+    public BatteryChargingTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
+        super(context, taskExecutor);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class BatteryChargingTracker extends BroadcastReceiverConstraintTracker<B
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent intent = mAppContext.registerReceiver(null, intentFilter);
         if (intent == null) {
-            Logger.error(TAG, "getInitialState - null intent received");
+            Logger.get().error(TAG, "getInitialState - null intent received");
             return null;
         }
         return isBatteryChangedIntentCharging(intent);
@@ -75,7 +77,7 @@ public class BatteryChargingTracker extends BroadcastReceiverConstraintTracker<B
             return;
         }
 
-        Logger.debug(TAG, String.format("Received %s", action));
+        Logger.get().debug(TAG, String.format("Received %s", action));
         switch (action) {
             case BatteryManager.ACTION_CHARGING:
                 setState(true);

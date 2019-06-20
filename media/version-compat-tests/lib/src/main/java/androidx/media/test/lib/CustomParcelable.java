@@ -16,12 +16,14 @@
 
 package androidx.media.test.lib;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
  * Custom Parcelable class to test sending/receiving user parcelables between processes.
  */
+@SuppressLint("BanParcelableUsage")
 public class CustomParcelable implements Parcelable {
 
     public int mValue;

@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
@@ -91,7 +91,8 @@ public class SingleFragmentTestBase {
         }
     }
 
-    public SingleFragmentTestActivity launchAndWaitActivity(Class fragmentClass, long waitTimeMs) {
+    public SingleFragmentTestActivity launchAndWaitActivity(Class<?> fragmentClass,
+            long waitTimeMs) {
         return launchAndWaitActivity(fragmentClass.getName(), null, waitTimeMs);
     }
 
@@ -101,7 +102,7 @@ public class SingleFragmentTestBase {
         return activity;
     }
 
-    public SingleFragmentTestActivity launchAndWaitActivity(Class fragmentClass, Options options,
+    public SingleFragmentTestActivity launchAndWaitActivity(Class<?> fragmentClass, Options options,
             long waitTimeMs) {
         return launchAndWaitActivity(fragmentClass.getName(), options, waitTimeMs);
     }

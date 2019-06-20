@@ -16,7 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -28,6 +29,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.collection.SimpleArrayMap;
@@ -39,14 +41,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A container for multiple {@link Preference} objects. It is a base class for preference
+ * A container for multiple {@link Preference}s. It is a base class for preference
  * objects that are parents, such as {@link PreferenceCategory} and {@link PreferenceScreen}.
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
- * <p>For information about building a settings UI with Preferences,
- * read the <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>
- * guide.</p>
+ * <p>For information about building a settings screen using the AndroidX Preference library, see
+ * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
  * </div>
  *
  * @attr name android:orderingFromXml
@@ -61,7 +62,7 @@ public abstract class PreferenceGroup extends Preference {
      * The container for child {@link Preference}s. This is sorted based on the ordering, please
      * use {@link #addPreference(Preference)} instead of adding to this directly.
      */
-    private List<Preference> mPreferenceList;
+    private List<Preference> mPreferences;
     private boolean mOrderingAsAdded = true;
     private int mCurrentPreferenceOrder = 0;
     private boolean mAttachedToHierarchy = false;
@@ -80,7 +81,7 @@ public abstract class PreferenceGroup extends Preference {
     public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        mPreferenceList = new ArrayList<>();
+        mPreferences = new ArrayList<>();
 
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.PreferenceGroup, defStyleAttr, defStyleRes);
@@ -142,7 +143,7 @@ public abstract class PreferenceGroup extends Preference {
      * correctly persist state.
      *
      * @param expandedCount The number of children that is initially shown
-     * @attr ref R.styleable#PreferenceGroup_initialExpandedChildrenCount
+     * {@link androidx.preference.R.attr#initialExpandedChildrenCount}
      */
     public void setInitialExpandedChildrenCount(int expandedCount) {
         if (expandedCount != Integer.MAX_VALUE && !hasKey()) {
@@ -156,7 +157,7 @@ public abstract class PreferenceGroup extends Preference {
      * Gets the maximal number of children that are initially shown.
      *
      * @return The maximal number of children that are initially shown
-     * @attr ref R.styleable#PreferenceGroup_initialExpandedChildrenCount
+     * {@link androidx.preference.R.attr#initialExpandedChildrenCount}
      */
     public int getInitialExpandedChildrenCount() {
         return mInitialExpandedChildrenCount;
@@ -175,7 +176,7 @@ public abstract class PreferenceGroup extends Preference {
      * @return The number of preference children in this group
      */
     public int getPreferenceCount() {
-        return mPreferenceList.size();
+        return mPreferences.size();
     }
 
     /**
@@ -185,7 +186,7 @@ public abstract class PreferenceGroup extends Preference {
      * @return The {@link Preference}
      */
     public Preference getPreference(int index) {
-        return mPreferenceList.get(index);
+        return mPreferences.get(index);
     }
 
     /**
@@ -195,7 +196,7 @@ public abstract class PreferenceGroup extends Preference {
      * @return Whether the preference is now in this group
      */
     public boolean addPreference(Preference preference) {
-        if (mPreferenceList.contains(preference)) {
+        if (mPreferences.contains(preference)) {
             return true;
         }
         if (preference.getKey() != null) {
@@ -223,7 +224,7 @@ public abstract class PreferenceGroup extends Preference {
             }
         }
 
-        int insertionIndex = Collections.binarySearch(mPreferenceList, preference);
+        int insertionIndex = Collections.binarySearch(mPreferences, preference);
         if (insertionIndex < 0) {
             insertionIndex = insertionIndex * -1 - 1;
         }
@@ -233,7 +234,7 @@ public abstract class PreferenceGroup extends Preference {
         }
 
         synchronized (this) {
-            mPreferenceList.add(insertionIndex, preference);
+            mPreferences.add(insertionIndex, preference);
         }
 
         final PreferenceManager preferenceManager = getPreferenceManager();
@@ -262,11 +263,12 @@ public abstract class PreferenceGroup extends Preference {
      *
      * <p>Note: This action is not recursive, and will only remove a preference if it exists in
      * this group, ignoring preferences found in nested groups. Use
-     * {@link #findAndRemovePreference(CharSequence)} to recursively find and remove a preference.
+     * {@link #removePreferenceRecursively(CharSequence)} to recursively find and remove a
+     * preference.
      *
      * @param preference The preference to remove
      * @return Whether the preference was found and removed
-     * @see #findAndRemovePreference(CharSequence)
+     * @see #removePreferenceRecursively(CharSequence)
      */
     public boolean removePreference(Preference preference) {
         final boolean returnValue = removePreferenceInt(preference);
@@ -276,13 +278,14 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Recursively finds and removes a {@link Preference} from this group or a nested group lower
-     * down in the hierarchy.
+     * down in the hierarchy. If two {@link Preference}s share the same key (not recommended),
+     * the first to appear will be removed.
      *
      * @param key The key of the preference to remove
      * @return Whether the preference was found and removed
      * @see #findPreference(CharSequence)
      */
-    public boolean findAndRemovePreference(CharSequence key) {
+    public boolean removePreferenceRecursively(@NonNull CharSequence key) {
         final Preference preference = findPreference(key);
         if (preference == null) {
             return false;
@@ -296,7 +299,7 @@ public abstract class PreferenceGroup extends Preference {
             if (preference.getParent() == this) {
                 preference.assignParent(null);
             }
-            boolean success = mPreferenceList.remove(preference);
+            boolean success = mPreferences.remove(preference);
             if (success) {
                 // If this preference, or another preference with the same key, gets re-added
                 // immediately, we want it to have the same id so that it can be correctly tracked
@@ -329,9 +332,9 @@ public abstract class PreferenceGroup extends Preference {
      */
     public void removeAll() {
         synchronized (this) {
-            List<Preference> preferenceList = mPreferenceList;
-            for (int i = preferenceList.size() - 1; i >= 0; i--) {
-                removePreferenceInt(preferenceList.get(0));
+            List<Preference> preferences = mPreferences;
+            for (int i = preferences.size() - 1; i >= 0; i--) {
+                removePreferenceInt(preferences.get(0));
             }
         }
         notifyHierarchyChanged();
@@ -350,38 +353,39 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Finds a {@link Preference} based on its key. If two {@link Preference}s share the same key
-     * (not recommended), the first to appear will be returned (to retrieve the other preference
-     * with the same key, call this method on the first preference). If this preference has the
-     * key, it will not be returned.
+     * (not recommended), the first to appear will be returned.
      *
-     * <p>This will recursively search for the preference into children that are also
+     * <p>This will recursively search for the {@link Preference} in any children that are also
      * {@link PreferenceGroup}s.
      *
-     * @param key The key of the preference to retrieve
-     * @return The {@link Preference} with the key, or null
+     * @param key The key of the {@link Preference} to retrieve
+     * @return The {@link Preference} with the key, or {@code null}
      */
-    public Preference findPreference(CharSequence key) {
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+    @Nullable
+    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         if (TextUtils.equals(getKey(), key)) {
-            return this;
+            return (T) this;
         }
         final int preferenceCount = getPreferenceCount();
         for (int i = 0; i < preferenceCount; i++) {
             final Preference preference = getPreference(i);
             final String curKey = preference.getKey();
 
-            if (curKey != null && curKey.equals(key)) {
-                return preference;
+            if (TextUtils.equals(curKey, key)) {
+                return (T) preference;
             }
 
             if (preference instanceof PreferenceGroup) {
-                final Preference returnedPreference = ((PreferenceGroup) preference)
-                        .findPreference(key);
+                final T returnedPreference = ((PreferenceGroup) preference).findPreference(key);
                 if (returnedPreference != null) {
                     return returnedPreference;
                 }
             }
         }
-
         return null;
     }
 
@@ -401,7 +405,7 @@ public abstract class PreferenceGroup extends Preference {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public boolean isAttached() {
         return mAttachedToHierarchy;
     }
@@ -409,12 +413,13 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Sets the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @param onExpandButtonClickListener The callback to be invoked
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
-     * @pending
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setOnExpandButtonClickListener(
             @Nullable OnExpandButtonClickListener onExpandButtonClickListener) {
         mOnExpandButtonClickListener = onExpandButtonClickListener;
@@ -423,11 +428,12 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Returns the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @return The callback to be invoked when the expand button is clicked.
      * @hide
-     * @pending
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     public OnExpandButtonClickListener getOnExpandButtonClickListener() {
         return mOnExpandButtonClickListener;
@@ -476,7 +482,7 @@ public abstract class PreferenceGroup extends Preference {
 
     void sortPreferences() {
         synchronized (this) {
-            Collections.sort(mPreferenceList);
+            Collections.sort(mPreferences);
         }
     }
 
@@ -549,11 +555,13 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Definition for a callback to be invoked when the expand button is clicked.
+     *
+     * Used by Settings.
+     *
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
-     * @pending
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public interface OnExpandButtonClickListener {
         /**
          * Called when the expand button is clicked.

@@ -16,8 +16,8 @@
 
 package androidx.documentfile.provider;
 
-import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -133,9 +133,13 @@ public abstract class DocumentFile {
     @Nullable
     public static DocumentFile fromTreeUri(@NonNull Context context, @NonNull Uri treeUri) {
         if (Build.VERSION.SDK_INT >= 21) {
+            String documentId = DocumentsContract.getTreeDocumentId(treeUri);
+            if (DocumentsContract.isDocumentUri(context, treeUri)) {
+                documentId = DocumentsContract.getDocumentId(treeUri);
+            }
             return new TreeDocumentFile(null, context,
                     DocumentsContract.buildDocumentUriUsingTree(treeUri,
-                            DocumentsContract.getTreeDocumentId(treeUri)));
+                            documentId));
         } else {
             return null;
         }

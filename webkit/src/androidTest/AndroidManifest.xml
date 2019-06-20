@@ -19,5 +19,13 @@
     <!-- Note: we must provide INTERNET permission for
          ServiceWorkerWebSettingsCompatTest#testBlockNetworkLoads -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+    <!-- Note: we must specify this because our local server uses
+         http://localhost URLs (and P defaults to blocking cleartext traffic).
+         -->
+    <application android:label="AndroidX Webkit Unittests"
+                 android:hardwareAccelerated="true"
+                 android:usesCleartextTraffic="true">
+
+        <activity android:name=".WebViewTestActivity"/>
+    </application>
 </manifest>

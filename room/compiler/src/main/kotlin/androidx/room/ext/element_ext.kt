@@ -18,10 +18,10 @@
 
 package androidx.room.ext
 
+import asTypeElement
 import com.google.auto.common.AnnotationMirrors
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
-import me.eugeniomarletti.kotlin.metadata.shadow.load.java.JvmAbi
 import java.lang.reflect.Proxy
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.AnnotationMirror
@@ -76,38 +76,36 @@ fun TypeElement.getAllFieldsIncludingPrivateSupers(processingEnvironment: Proces
             .map { it as VariableElement }
             .toSet()
     if (superclass.kind != TypeKind.NONE) {
-        return myMembers + MoreTypes.asTypeElement(superclass)
+        return myMembers + superclass.asTypeElement()
                 .getAllFieldsIncludingPrivateSupers(processingEnvironment)
     } else {
         return myMembers
     }
 }
 
-fun TypeElement.getAllAbstractMethodsIncludingSupers(): Set<ExecutableElement> {
-    val myMethods = ElementFilter.methodsIn(this.enclosedElements)
-            .filter { it.hasAnyOf(Modifier.ABSTRACT) }
-            .toSet()
+fun TypeElement.getAllMethodsIncludingSupers(): Set<ExecutableElement> {
+    val myMethods = ElementFilter.methodsIn(this.enclosedElements).toSet()
     val interfaceMethods = interfaces.flatMap {
-        MoreTypes.asTypeElement(it).getAllAbstractMethodsIncludingSupers()
+        it.asTypeElement().getAllMethodsIncludingSupers()
     }
-    if (superclass.kind != TypeKind.NONE) {
-        return myMethods + interfaceMethods + MoreTypes.asTypeElement(superclass)
-                .getAllAbstractMethodsIncludingSupers()
+    return if (superclass.kind != TypeKind.NONE) {
+        myMethods + interfaceMethods + superclass.asTypeElement().getAllMethodsIncludingSupers()
     } else {
-        return myMethods + interfaceMethods
+        myMethods + interfaceMethods
     }
 }
 
 interface ClassGetter {
     fun getAsTypeMirror(methodName: String): TypeMirror?
     fun getAsTypeMirrorList(methodName: String): List<TypeMirror>
-    fun <T : Annotation> getAsAnnotationBox(methodName: String): Array<AnnotationBox<T>>
+    fun <T : Annotation> getAsAnnotationBox(methodName: String): AnnotationBox<T>
+    fun <T : Annotation> getAsAnnotationBoxArray(methodName: String): Array<AnnotationBox<T>>
 }
 
 /**
  * Class that helps to read values from annotations. Simple types as string, int, lists can
  * be read from [value]. If you need to read classes or another annotations from annotation use
- * [getAsTypeMirror] and [getAsAnnotationBox] correspondingly.
+ * [getAsTypeMirror], [getAsAnnotationBox] and [getAsAnnotationBoxArray] correspondingly.
  */
 class AnnotationBox<T : Annotation>(private val obj: Any) : ClassGetter by (obj as ClassGetter) {
     @Suppress("UNCHECKED_CAST")
@@ -136,12 +134,18 @@ private fun <T : Annotation> AnnotationMirror.box(cl: Class<T>): AnnotationBox<T
                 }
             }
             returnType == Int::class.java -> value.getAsInt(defaultValue as Int?)
+            returnType.isAnnotation -> {
+                @Suppress("UNCHECKED_CAST")
+                AnnotationClassVisitor(returnType as Class<out Annotation>).visit(value)
+            }
             returnType.isArray && returnType.componentType.isAnnotation -> {
                 @Suppress("UNCHECKED_CAST")
                 ListVisitor(returnType.componentType as Class<out Annotation>).visit(value)
             }
-            returnType.isEnum -> value.getAsEnum(returnType as Class<out Enum<*>>)
-
+            returnType.isEnum -> {
+                @Suppress("UNCHECKED_CAST")
+                value.getAsEnum(returnType as Class<out Enum<*>>)
+            }
             else -> throw UnsupportedOperationException("$returnType isn't supported")
         }
         method.name to result
@@ -152,6 +156,7 @@ private fun <T : Annotation> AnnotationMirror.box(cl: Class<T>): AnnotationBox<T
             ClassGetter::getAsTypeMirror.name -> map[args[0]]
             ClassGetter::getAsTypeMirrorList.name -> map[args[0]]
             "getAsAnnotationBox" -> map[args[0]]
+            "getAsAnnotationBoxArray" -> map[args[0]]
             else -> map[method.name]
         }
     })
@@ -327,7 +332,7 @@ fun Types.isAssignableWithoutVariance(from: TypeMirror, to: TypeMirror): Boolean
 fun TypeMirror.extendsBound(): TypeMirror? {
     return this.accept(object : SimpleTypeVisitor7<TypeMirror?, Void?>() {
         override fun visitWildcard(type: WildcardType, ignored: Void?): TypeMirror? {
-            return type.extendsBound
+            return type.extendsBound ?: type.superBound
         }
     }, null)
 }
@@ -339,6 +344,11 @@ fun TypeMirror.extendsBound(): TypeMirror? {
 fun TypeMirror.extendsBoundOrSelf(): TypeMirror {
     return extendsBound() ?: this
 }
+
+/**
+ * Suffix of the Kotlin synthetic class created interface method implementations.
+ */
+const val DEFAULT_IMPLS_CLASS_NAME = "DefaultImpls"
 
 /**
  * Finds the default implementation method corresponding to this Kotlin interface method.
@@ -359,11 +369,23 @@ fun Element.findKotlinDefaultImpl(typeUtils: Types): Element? {
 
     val parent = this.enclosingElement as TypeElement
     val innerClass = parent.enclosedElements.find {
-        it.kind == ElementKind.CLASS && it.simpleName.contentEquals(JvmAbi.DEFAULT_IMPLS_CLASS_NAME)
+        it.kind == ElementKind.CLASS && it.simpleName.contentEquals(DEFAULT_IMPLS_CLASS_NAME)
     } ?: return null
     return innerClass.enclosedElements.find {
         it.kind == ElementKind.METHOD && it.simpleName == this.simpleName &&
                 paramsMatch(MoreElements.asExecutable(this).parameters,
                         MoreElements.asExecutable(it).parameters)
     }
+}
+
+/**
+ * Finds the Kotlin's suspend function return type by inspecting the type param of the Continuation
+ * parameter of the function. This method assumes the executable element is a suspend function.
+ * @see KotlinMetadataElement.isSuspendFunction
+ */
+fun ExecutableElement.getSuspendFunctionReturnType(): TypeMirror {
+    // the continuation parameter is always the last parameter of a suspend function and it only has
+    // one type parameter, e.g Continuation<? super T>
+    val typeParam = MoreTypes.asDeclared(parameters.last().asType()).typeArguments.first()
+    return typeParam.extendsBoundOrSelf() // reduce the type param
 }

@@ -18,27 +18,30 @@ package androidx.work.impl.utils;
 
 import static androidx.work.ExistingWorkPolicy.APPEND;
 import static androidx.work.ExistingWorkPolicy.KEEP;
-import static androidx.work.State.BLOCKED;
-import static androidx.work.State.CANCELLED;
-import static androidx.work.State.ENQUEUED;
-import static androidx.work.State.FAILED;
-import static androidx.work.State.RUNNING;
-import static androidx.work.State.SUCCEEDED;
+import static androidx.work.WorkInfo.State.BLOCKED;
+import static androidx.work.WorkInfo.State.CANCELLED;
+import static androidx.work.WorkInfo.State.ENQUEUED;
+import static androidx.work.WorkInfo.State.FAILED;
+import static androidx.work.WorkInfo.State.RUNNING;
+import static androidx.work.WorkInfo.State.SUCCEEDED;
 import static androidx.work.impl.workers.ConstraintTrackingWorker.ARGUMENT_CLASS_NAME;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
-import androidx.work.State;
+import androidx.work.Operation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
+import androidx.work.impl.OperationImpl;
+import androidx.work.impl.Scheduler;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkContinuationImpl;
 import androidx.work.impl.WorkDatabase;
@@ -50,10 +53,7 @@ import androidx.work.impl.model.WorkName;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.model.WorkTag;
-import androidx.work.impl.utils.futures.SettableFuture;
 import androidx.work.impl.workers.ConstraintTrackingWorker;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,14 +67,14 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class EnqueueRunnable implements Runnable {
 
-    private static final String TAG = "EnqueueRunnable";
+    private static final String TAG = Logger.tagWithPrefix("EnqueueRunnable");
 
     private final WorkContinuationImpl mWorkContinuation;
-    private final SettableFuture<Void> mFuture;
+    private final OperationImpl mOperation;
 
     public EnqueueRunnable(@NonNull WorkContinuationImpl workContinuation) {
         mWorkContinuation = workContinuation;
-        mFuture = SettableFuture.create();
+        mOperation = new OperationImpl();
     }
 
     @Override
@@ -92,14 +92,17 @@ public class EnqueueRunnable implements Runnable {
                 PackageManagerHelper.setComponentEnabled(context, RescheduleReceiver.class, true);
                 scheduleWorkInBackground();
             }
-            mFuture.set(null);
+            mOperation.setState(Operation.SUCCESS);
         } catch (Throwable exception) {
-            mFuture.setException(exception);
+            mOperation.setState(new Operation.State.FAILURE(exception));
         }
     }
 
-    public ListenableFuture<Void> getFuture() {
-        return mFuture;
+    /**
+     * @return The {@link Operation} that encapsulates the state of the {@link EnqueueRunnable}.
+     */
+    public Operation getOperation() {
+        return mOperation;
     }
 
     /**
@@ -142,7 +145,7 @@ public class EnqueueRunnable implements Runnable {
                 if (!parent.isEnqueued()) {
                     needsScheduling |= processContinuation(parent);
                 } else {
-                    Logger.warning(TAG, String.format("Already enqueued work ids (%s).",
+                    Logger.get().warning(TAG, String.format("Already enqueued work ids (%s).",
                             TextUtils.join(", ", parent.getIds())));
                 }
             }
@@ -194,12 +197,12 @@ public class EnqueueRunnable implements Runnable {
             for (String id : prerequisiteIds) {
                 WorkSpec prerequisiteWorkSpec = workDatabase.workSpecDao().getWorkSpec(id);
                 if (prerequisiteWorkSpec == null) {
-                    Logger.error(TAG,
+                    Logger.get().error(TAG,
                             String.format("Prerequisite %s doesn't exist; not enqueuing", id));
                     return false;
                 }
 
-                State prerequisiteState = prerequisiteWorkSpec.state;
+                WorkInfo.State prerequisiteState = prerequisiteWorkSpec.state;
                 hasCompletedAllPrerequisites &= (prerequisiteState == SUCCEEDED);
                 if (prerequisiteState == FAILED) {
                     hasFailedPrerequisites = true;
@@ -280,12 +283,21 @@ public class EnqueueRunnable implements Runnable {
                     workSpec.state = BLOCKED;
                 }
             } else {
-                // Set scheduled times only for work without prerequisites. Dependent work
-                // will set their scheduled times when they are unblocked.
-                workSpec.periodStartTime = currentTimeMillis;
+                // Set scheduled times only for work without prerequisites and that are
+                // not periodic. Dependent work will set their scheduled times when they are
+                // unblocked.
+                if (!workSpec.isPeriodic()) {
+                    workSpec.periodStartTime = currentTimeMillis;
+                } else {
+                    workSpec.periodStartTime = 0L;
+                }
             }
 
-            if (Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT <= 25) {
+            if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL
+                    && Build.VERSION.SDK_INT <= 25) {
+                tryDelegateConstrainedWorkSpec(workSpec);
+            } else if (Build.VERSION.SDK_INT <= WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL
+                    && usesScheduler(workManagerImpl, Schedulers.GCM_SCHEDULER)) {
                 tryDelegateConstrainedWorkSpec(workSpec);
             }
 
@@ -326,6 +338,27 @@ public class EnqueueRunnable implements Runnable {
                     .putString(ARGUMENT_CLASS_NAME, workerClassName);
             workSpec.workerClassName = ConstraintTrackingWorker.class.getName();
             workSpec.input = builder.build();
+        }
+    }
+
+    /**
+     * @param className The fully qualified class name of the {@link Scheduler}
+     * @return {@code true} if the {@link Scheduler} class is being used by WorkManager.
+     */
+    private static boolean usesScheduler(
+            @NonNull WorkManagerImpl workManager,
+            @NonNull String className) {
+
+        try {
+            Class<?> klass = Class.forName(className);
+            for (Scheduler scheduler : workManager.getSchedulers()) {
+                if (klass.isAssignableFrom(scheduler.getClass())) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (ClassNotFoundException ignore) {
+            return false;
         }
     }
 }

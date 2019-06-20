@@ -16,11 +16,12 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -38,8 +39,8 @@ public final class Maneuver implements VersionedParcelable {
      */
     public enum Type {
         /**
-         * Maneuver type is unknown to the consumer, in which case the consumer shouldn't show any
-         * maneuver information.
+         * Maneuver type is unknown to the OEM cluster rendering service, in which case the OEM
+         * cluster rendering service shouldn't show any maneuver information.
          */
         UNKNOWN,
         /**
@@ -51,7 +52,7 @@ public final class Maneuver implements VersionedParcelable {
          */
         NAME_CHANGE,
         /**
-         * No turn (0-10 degrees). Used when we just wish to say "Keep left/right". Note that this
+         * No turn (0-10 degrees). Used to say "Keep left/right". Note that this
          * is used in contrast to {@link Type#STRAIGHT} for disambiguating cases where there
          * is more than one option to go into the same general direction.
          */
@@ -167,88 +168,89 @@ public final class Maneuver implements VersionedParcelable {
         ROUNDABOUT_EXIT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at sharp angle towards the right (135-175 degrees).
+         * (as seen from above) where the exit is at a sharp angle to the right (135-175 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at normal angle towards the right (45-135 degrees).
+         * (as seen from above) where the exit is at a normal angle to the right (45-135 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at slight angle towards the right (10-45 degrees).
+         * (as seen from above) where the exit is at slight angle to the right (10-45 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is straight ahead (0-10 degrees).
+         * (as seen from above) where the exit is straight ahead (0-10 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at sharp angle towards the left (135-175 degrees).
+         * (as seen from above) where the exit is at sharp angle towards the left (135-175 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at normal angle towards the left (45-135 degrees).
+         * (as seen from above) where the exit is at normal angle towards the left (45-135 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is at slight angle towards the left (10-45 degrees).
+         * (as seen from above) where the exit is at slight angle towards the left (10-45 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
-         * (as see from above) where the exit is on the opposite side of the road (175-180 degrees).
+         * (as seen from above) where the exit is on the opposite side of the road (175-180
+         * degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at sharp angle towards the right
+         * roundabout (as seen from above) where the exit is at sharp angle to the right
          * (135-175 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at normal angle towards the right
+         * roundabout (as seen from above) where the exit is at normal angle to the right
          * (45-135 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at slight angle towards the right
+         * roundabout (as seen from above) where the exit is at slight angle towards the right
          * (10-45 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is straight ahead (0-10 degrees).
+         * roundabout (as seen from above) where the exit is straight ahead (0-10 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at sharp angle towards the left
+         * roundabout (as seen from above) where the exit is at sharp angle towards the left
          * (135-175 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at normal angle towards the left
+         * roundabout (as seen from above) where the exit is at normal angle towards the left
          * (45-135 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is at slight angle towards the left
+         * roundabout (as seen from above) where the exit is at slight angle towards the left
          * (10-45 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
-         * roundabout (as see from above) where the exit is on the opposite side of the road
+         * roundabout (as seen from above) where the exit is on the opposite side of the road
          * (175-180 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN,
@@ -265,15 +267,15 @@ public final class Maneuver implements VersionedParcelable {
          */
         FERRY_TRAIN,
         /**
-         * Arrival to a destination.
+         * Arrival at a destination.
          */
         DESTINATION,
         /**
-         * Arrival to a destination located straight ahead.
+         * Arrival at a destination located straight ahead.
          */
         DESTINATION_STRAIGHT,
         /**
-         * Arrival to a destination located on the right side of the road.
+         * Arrival at a destination located on the right side of the road.
          */
         DESTINATION_LEFT,
         /**
@@ -286,31 +288,36 @@ public final class Maneuver implements VersionedParcelable {
     EnumWrapper<Type> mType;
     @ParcelField(2)
     int mRoundaboutExitNumber;
+    @ParcelField(3)
+    ImageReference mIcon;
 
     /**
      * Used by {@link VersionedParcelable}
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     Maneuver() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
-    Maneuver(@NonNull EnumWrapper<Type> type, int roundaboutExitNumber) {
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    Maneuver(@NonNull EnumWrapper<Type> type, int roundaboutExitNumber,
+            @Nullable ImageReference icon) {
         mType = type;
         mRoundaboutExitNumber = roundaboutExitNumber;
+        mIcon = icon;
     }
 
     /**
      * Builder for creating a {@link Maneuver}
      */
     public static final class Builder {
-        EnumWrapper<Type> mType;
-        int mRoundaboutExitNumber;
+        private EnumWrapper<Type> mType;
+        private int mRoundaboutExitNumber;
+        private ImageReference mIcon;
 
 
         /**
@@ -346,11 +353,21 @@ public final class Maneuver implements VersionedParcelable {
         }
 
         /**
+         * Sets a reference to an image presenting this maneuver. The provided image must be
+         * optimized to be presented in a square canvas (aspect ratio of 1:1).
+         */
+        @NonNull
+        public Builder setIcon(@Nullable ImageReference icon) {
+            mIcon = icon;
+            return this;
+        }
+
+        /**
          * Returns a {@link Maneuver} built with the provided information.
          */
         @NonNull
         public Maneuver build() {
-            return new Maneuver(mType, mRoundaboutExitNumber);
+            return new Maneuver(mType, mRoundaboutExitNumber, mIcon);
         }
     }
 
@@ -375,6 +392,16 @@ public final class Maneuver implements VersionedParcelable {
         return mRoundaboutExitNumber;
     }
 
+    /**
+     * Returns a reference to an image representing this maneuver, or null if image representation
+     * is not available. This image is optimized to be displayed in a square canvas (aspect ratio of
+     * 1:1).
+     */
+    @Nullable
+    public ImageReference getIcon() {
+        return mIcon;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -385,18 +412,20 @@ public final class Maneuver implements VersionedParcelable {
         }
         Maneuver maneuver = (Maneuver) o;
         return getRoundaboutExitNumber() == maneuver.getRoundaboutExitNumber()
-                && Objects.equals(getType(), maneuver.getType());
+                && Objects.equals(getType(), maneuver.getType())
+                && Objects.equals(getIcon(), maneuver.getIcon());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getRoundaboutExitNumber());
+        return Objects.hash(getType(), getRoundaboutExitNumber(), getIcon());
     }
 
     // DefaultLocale suppressed as this method is only offered for debugging purposes.
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        return String.format("{type: %s, roundaboutExitNumer: %d}", mType, mRoundaboutExitNumber);
+        return String.format("{type: %s, roundaboutExitNumer: %d, icon: %s}", mType,
+                mRoundaboutExitNumber, mIcon);
     }
 }

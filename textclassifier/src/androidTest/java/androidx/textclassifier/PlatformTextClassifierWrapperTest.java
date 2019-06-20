@@ -22,17 +22,17 @@ import static org.junit.Assert.assertTrue;
 import android.os.Build;
 
 import androidx.core.os.LocaleListCompat;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /** UnInstrumentation unit tests for {@link PlatformTextClassifierWrapper}. */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
 public class PlatformTextClassifierWrapperTest {
@@ -57,7 +57,7 @@ public class PlatformTextClassifierWrapperTest {
     @Before
     public void setup() {
         mClassifier = PlatformTextClassifierWrapper.create(
-                InstrumentationRegistry.getTargetContext());
+                ApplicationProvider.getApplicationContext());
     }
 
     @Test
@@ -79,9 +79,9 @@ public class PlatformTextClassifierWrapperTest {
         assertNotNull(selection);
         assertTrue(selection.getSelectionStartIndex() >= 0);
         assertTrue(selection.getSelectionEndIndex() > selection.getSelectionStartIndex());
-        assertTrue(selection.getEntityCount() >= 0);
-        for (int i = 0; i < selection.getEntityCount(); i++) {
-            final String entity = selection.getEntity(i);
+        assertTrue(selection.getEntityTypeCount() >= 0);
+        for (int i = 0; i < selection.getEntityTypeCount(); i++) {
+            final String entity = selection.getEntityType(i);
             assertNotNull(entity);
             final float confidenceScore = selection.getConfidenceScore(entity);
             assertTrue(confidenceScore >= 0);
@@ -105,11 +105,11 @@ public class PlatformTextClassifierWrapperTest {
     private static void assertValidResult(TextLinks links) {
         assertNotNull(links);
         for (TextLinks.TextLink link : links.getLinks()) {
-            assertTrue(link.getEntityCount() > 0);
+            assertTrue(link.getEntityTypeCount() > 0);
             assertTrue(link.getStart() >= 0);
             assertTrue(link.getStart() <= link.getEnd());
-            for (int i = 0; i < link.getEntityCount(); i++) {
-                String entityType = link.getEntity(i);
+            for (int i = 0; i < link.getEntityTypeCount(); i++) {
+                String entityType = link.getEntityType(i);
                 assertNotNull(entityType);
                 final float confidenceScore = link.getConfidenceScore(entityType);
                 assertTrue(confidenceScore >= 0);

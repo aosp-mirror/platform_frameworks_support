@@ -39,14 +39,19 @@ class MetaInfTransformer internal constructor(
 
         val FILES_TO_IGNORE = setOf(
             "androidx.car_car-cluster.version",
-            "androidx.car_car-moderator.version"
+            "androidx.car_car-moderator.version",
+            "androidx.activity_activity-ktx.version",
+            "androidx.lifecycle_lifecycle-runtime-ktx.version",
+            "androidx.dynamicanimation_dynamicanimation-ktx.version"
         )
     }
 
+    // Does not support single proguard file transformation, file has to be within archive.
     override fun canTransform(file: ArchiveFile): Boolean {
         return context.rewritingSupportLib &&
             file.relativePath.toString().contains(META_INF_DIR, ignoreCase = true) &&
-            file.fileName.endsWith(VERSION_FILE_SUFFIX, ignoreCase = true)
+            file.fileName.endsWith(VERSION_FILE_SUFFIX, ignoreCase = true) &&
+            !file.isSingleFile
     }
 
     override fun runTransform(file: ArchiveFile) {

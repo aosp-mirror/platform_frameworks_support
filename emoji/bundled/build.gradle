@@ -1,8 +1,10 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 ext {
@@ -19,10 +21,10 @@ dependencies {
     api(project(":emoji"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Emoji Compat"
-    publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    publish = Publish.SNAPSHOT_AND_RELEASE
+    mavenVersion = LibraryVersions.EMOJI
     mavenGroup = LibraryGroups.EMOJI
     inceptionYear = "2017"
     description = "Library bundled with assets to enable emoji compatibility in Kitkat and newer devices to avoid the empty emoji characters."

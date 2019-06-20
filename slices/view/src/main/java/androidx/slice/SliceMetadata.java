@@ -136,7 +136,7 @@ public class SliceMetadata {
         if (updatedItem != null) {
             mLastUpdated = updatedItem.getLong();
         }
-        mListContent = new ListContent(context, slice);
+        mListContent = new ListContent(slice);
         mHeaderContent = mListContent.getHeader();
         mTemplateType = mListContent.getHeaderTemplateType();
         mPrimaryAction = mListContent.getShortcut(mContext);
@@ -241,8 +241,8 @@ public class SliceMetadata {
                     toggles.add(action);
                 }
             }
-        } else {
-            toggles = mHeaderContent.getToggleItems();
+        } else if (mHeaderContent != null) {
+            toggles.addAll(mHeaderContent.getToggleItems());
         }
         return toggles;
     }
@@ -341,6 +341,13 @@ public class SliceMetadata {
         }
         return -1;
 
+    }
+
+    /**
+     * @return whether this slice is a selection (a drop-down list) slice.
+     */
+    public boolean isSelection() {
+        return (mTemplateType == EventInfo.ROW_TYPE_SELECTION);
     }
 
     /**
@@ -486,5 +493,13 @@ public class SliceMetadata {
         long now = System.currentTimeMillis();
         return (mExpiry == 0 || mExpiry == SliceHints.INFINITY || now > mExpiry)
                 ? 0 : mExpiry - now;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public ListContent getListContent() {
+        return mListContent;
     }
 }

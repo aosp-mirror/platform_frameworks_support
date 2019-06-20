@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package androidx.viewpager2.widget
 
 import androidx.test.filters.LargeTest
 import androidx.viewpager2.widget.SwipeTest.TestConfig
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.ViewPager2.Orientation
-import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
-import androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL
 import androidx.viewpager2.widget.swipe.PageView
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +35,6 @@ private const val RANDOM_TESTS_PER_CONFIG = 0 // increase to have random tests g
 @RunWith(Parameterized::class)
 @LargeTest
 class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
-
     @Test
     fun test() {
         testConfig.apply {
@@ -43,7 +42,7 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
                 val expectedValues = stringSequence(totalPages).toMutableList()
                 val adapter = adapterProvider(expectedValues.toList()) // immutable defensive copy
                 setAdapterSync(adapter)
-                assertBasicState(0, "0")
+                assertBasicState(0)
 
                 pageSequence.forEachIndexed { currentStep, targetPage ->
                     val currentPage = viewPager.currentItem
@@ -53,7 +52,7 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
                     if (modifiedPageValue != null) {
                         expectedValues[currentPage] = modifiedPageValue
                         runOnUiThread {
-                            PageView.setPageText(PageView.findPageInActivity(activity),
+                            PageView.setPageText(PageView.findPageInActivity(activity)!!,
                                     modifiedPageValue)
                         }
                     }
@@ -66,7 +65,7 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
 
                     // page swipe
                     val latch = viewPager.addWaitForScrolledLatch(targetPage)
-                    swiper.swipe(currentPage, targetPage)
+                    swipe(currentPage, targetPage)
                     latch.await(1, TimeUnit.SECONDS)
                     assertBasicState(targetPage, expectedValues[targetPage])
                 }
@@ -96,12 +95,15 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
 // region test definitions
 
 private fun createTestSet(): List<TestConfig> {
-    return listOf(
-            fragmentAdapterProvider to HORIZONTAL,
-            fragmentAdapterProvider to VERTICAL,
-            viewAdapterProvider to HORIZONTAL,
-            viewAdapterProvider to VERTICAL)
-            .flatMap { (activity, orientation) -> createTestSet(activity, orientation) }
+    return listOf(ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL).flatMap { orientation ->
+        listOf(
+            fragmentAdapterProvider,
+            fragmentAdapterProviderCustomIds,
+            viewAdapterProvider
+        ).flatMap { activity ->
+            createTestSet(activity, orientation)
+        }
+    }
 }
 
 private fun createTestSet(

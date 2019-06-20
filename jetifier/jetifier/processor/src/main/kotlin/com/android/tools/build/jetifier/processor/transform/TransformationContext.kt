@@ -35,6 +35,11 @@ class TransformationContext(
      * Whether to use fallback if type in our scope is missing instead of throwing an exception.
      */
     val useFallbackIfTypeIsMissing: Boolean = true,
+    /**
+     * Whether packages such as "android.support.v4" should be allowed. We throw an exception
+     * otherwise.
+     */
+    val allowAmbiguousPackages: Boolean = false,
     val versions: DependencyVersions = DependencyVersions.EMPTY
 ) {
 
@@ -97,9 +102,11 @@ class TransformationContext(
     fun reportNoPackageMappingFoundFailure(tag: String, packageName: String, filePath: Path) {
         if (!useFallbackIfTypeIsMissing || (rewritingSupportLib && isInReversedMode)) {
             packageMappingNotFoundFailuresCounts++
-            Log.e(tag, "No mapping for package '%s' in '%s'", packageName, filePath)
+            Log.w(tag, "No mapping for package '%s' in '%s', keeping identity", packageName,
+                filePath)
         } else {
-            Log.w(tag, "No mapping for package '%s' in '%s'", packageName, filePath)
+            Log.w(tag, "No mapping for package '%s' in '%s', keeping identity", packageName,
+                filePath)
         }
     }
 }

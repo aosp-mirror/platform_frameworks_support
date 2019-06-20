@@ -15,19 +15,17 @@
   ~ limitations under the License
   -->
 <PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <Preference
-            android:title="Preference 1"
-            android:summary="12345"
+            app:title="Preference 1"
+            app:summary="12345"
             app:enableCopying="true"/>
 
     <Preference
-            android:title="Preference 2"
-            android:summary="6789"/>
+            app:title="Preference 2"
+            app:summary="6789"/>
 
     <Preference
-            android:title="Preference 3"
+            app:title="Preference 3"
             app:enableCopying="true"/>
 </PreferenceScreen>

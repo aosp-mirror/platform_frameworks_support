@@ -19,12 +19,12 @@ package androidx.room.integration.kotlintestapp.test
 import androidx.room.integration.kotlintestapp.vo.Book
 import androidx.room.integration.kotlintestapp.vo.BookWithPublisher
 import androidx.room.integration.kotlintestapp.vo.Publisher
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
-@SmallTest
+@MediumTest
 class LiveDataQueryTest : TestDatabaseTest() {
 
     @Test
@@ -33,7 +33,8 @@ class LiveDataQueryTest : TestDatabaseTest() {
         booksDao.addPublishers(TestUtil.PUBLISHER)
         booksDao.addBooks(TestUtil.BOOK_1)
 
-        val book = LiveDataTestUtil.getValue(booksDao.getBookLiveData(TestUtil.BOOK_1.bookId))
+        val book = LiveDataTestUtil.awaitValue(
+            booksDao.getBookLiveData(TestUtil.BOOK_1.bookId))
 
         assertThat(book, `is`<Book>(TestUtil.BOOK_1))
     }
@@ -48,8 +49,8 @@ class LiveDataQueryTest : TestDatabaseTest() {
                 TestUtil.PUBLISHER)
         var expectedList = ArrayList<BookWithPublisher>()
         expectedList.add(expected)
-
-        val actual = LiveDataTestUtil.getValue(booksDao.getBooksWithPublisherLiveData())
+        val actual = LiveDataTestUtil.awaitValue(
+            booksDao.getBooksWithPublisherLiveData())
         assertThat(actual, `is`<List<BookWithPublisher>>(expectedList))
     }
 
@@ -59,7 +60,7 @@ class LiveDataQueryTest : TestDatabaseTest() {
         booksDao.addPublishers(TestUtil.PUBLISHER)
         booksDao.addBooks(TestUtil.BOOK_1, TestUtil.BOOK_2)
 
-        var actualPublisherWithBooks = LiveDataTestUtil.getValue(
+        var actualPublisherWithBooks = LiveDataTestUtil.awaitValue(
                 booksDao.getPublisherWithBooksLiveData(TestUtil.PUBLISHER.publisherId))
 
         assertThat(actualPublisherWithBooks.publisher, `is`<Publisher>(TestUtil.PUBLISHER))

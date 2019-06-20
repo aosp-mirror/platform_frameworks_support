@@ -41,38 +41,5 @@
                 <action android:name="android.media.browse.MediaBrowserService"/>
             </intent-filter>
         </service>
-
-        <service android:name="androidx.media.test.service.MediaSession2ProviderService">
-            <intent-filter>
-                <!-- Keep sync with CommonConstants.java -->
-                <action android:name="androidx.media.test.action.MEDIA_SESSION2" />
-            </intent-filter>
-        </service>
-
-        <service android:name="androidx.media.test.service.MediaSessionCompatProviderService">
-            <intent-filter>
-                <!-- Keep sync with CommonConstants.java -->
-                <action android:name="androidx.media.test.action.MEDIA_SESSION_COMPAT" />
-            </intent-filter>
-        </service>
-
-        <service android:name="androidx.media.test.service.MockMediaSessionService2">
-            <intent-filter>
-                <action android:name="android.media.MediaSessionService2" />
-            </intent-filter>
-        </service>
-
-        <service android:name="androidx.media.test.service.MockMediaLibraryService2">
-            <intent-filter>
-                <action android:name="android.media.MediaLibraryService2" />
-            </intent-filter>
-        </service>
-
-        <service android:name="androidx.media.test.service.MockMediaBrowserServiceCompat">
-            <intent-filter>
-                <action android:name="android.media.browse.MediaBrowserService"/>
-            </intent-filter>
-        </service>
-
     </application>
 </manifest>

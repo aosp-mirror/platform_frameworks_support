@@ -24,6 +24,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.TypedArrayUtils;
 
 /**
@@ -34,6 +36,9 @@ import androidx.core.content.res.TypedArrayUtils;
 public class EditTextPreference extends DialogPreference {
     private String mText;
 
+    @Nullable
+    private OnBindEditTextListener mOnBindEditTextListener;
+
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -41,9 +46,9 @@ public class EditTextPreference extends DialogPreference {
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.EditTextPreference, defStyleAttr, defStyleRes);
 
-        if (TypedArrayUtils.getBoolean(a, R.styleable.EditTextPreference_setDefaultSummaryProvider,
-                R.styleable.EditTextPreference_setDefaultSummaryProvider, false)) {
-            setSummaryProvider(DefaultProvider.getInstance());
+        if (TypedArrayUtils.getBoolean(a, R.styleable.EditTextPreference_useSimpleSummaryProvider,
+                R.styleable.EditTextPreference_useSimpleSummaryProvider, false)) {
+            setSummaryProvider(SimpleSummaryProvider.getInstance());
         }
 
         a.recycle();
@@ -55,7 +60,7 @@ public class EditTextPreference extends DialogPreference {
 
     public EditTextPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.editTextPreferenceStyle,
-                AndroidResources.ANDROID_R_EDITTEXT_PREFERENCE_STYLE));
+                android.R.attr.editTextPreferenceStyle));
     }
 
     public EditTextPreference(Context context) {
@@ -132,6 +137,46 @@ public class EditTextPreference extends DialogPreference {
         setText(myState.mText);
     }
 
+    /**
+     * Set an {@link OnBindEditTextListener} that will be invoked when the corresponding dialog
+     * view for this preference is bound. Set {@code null} to remove the existing
+     * OnBindEditTextListener.
+     *
+     * @param onBindEditTextListener The {@link OnBindEditTextListener} that will be invoked when
+     *                               the corresponding dialog view for this preference is bound
+     * @see OnBindEditTextListener
+     */
+    public void setOnBindEditTextListener(@Nullable OnBindEditTextListener onBindEditTextListener) {
+        mOnBindEditTextListener = onBindEditTextListener;
+    }
+
+    /**
+     * Returns the {@link OnBindEditTextListener} used to configure the {@link EditText}
+     * displayed in the corresponding dialog view for this preference.
+     *
+     * @return The {@link OnBindEditTextListener} set for this preference, or {@code null} if
+     * there is no OnBindEditTextListener set
+     * @see OnBindEditTextListener
+     */
+    @Nullable OnBindEditTextListener getOnBindEditTextListener() {
+        return mOnBindEditTextListener;
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when the corresponding dialog view for
+     * this preference is bound. This allows you to customize the {@link EditText} displayed
+     * in the dialog, such as setting a max length or a specific input type.
+     */
+    public interface OnBindEditTextListener {
+        /**
+         * Called when the dialog view for this preference has been bound, allowing you to
+         * customize the {@link EditText} displayed in the dialog.
+         *
+         * @param editText The {@link EditText} displayed in the dialog
+         */
+        void onBindEditText(@NonNull EditText editText);
+    }
+
     private static class SavedState extends BaseSavedState {
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
@@ -165,29 +210,28 @@ public class EditTextPreference extends DialogPreference {
     }
 
     /**
-     * A default {@link androidx.preference.Preference.SummaryProvider} implementation for an
+     * A simple {@link androidx.preference.Preference.SummaryProvider} implementation for an
      * {@link EditTextPreference}. If no value has been set, the summary displayed will be 'Not
      * set', otherwise the summary displayed will be the value set for this preference.
      */
-    public static final class DefaultProvider implements SummaryProvider<EditTextPreference> {
+    public static final class SimpleSummaryProvider implements SummaryProvider<EditTextPreference> {
 
-        private static DefaultProvider sDefaultProvider;
+        private static SimpleSummaryProvider sSimpleSummaryProvider;
 
-        private DefaultProvider() {
-        }
+        private SimpleSummaryProvider() {}
 
         /**
-         * Retrieve a singleton instance of the default
-         * {@link androidx.preference.Preference.SummaryProvider} for a {@link EditTextPreference}.
+         * Retrieve a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation.
          *
-         * @return a singleton instance of the default
-         * {@link androidx.preference.Preference.SummaryProvider} for a {@link EditTextPreference}
+         * @return a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation
          */
-        public static DefaultProvider getInstance() {
-            if (sDefaultProvider == null) {
-                sDefaultProvider = new DefaultProvider();
+        public static SimpleSummaryProvider getInstance() {
+            if (sSimpleSummaryProvider == null) {
+                sSimpleSummaryProvider = new SimpleSummaryProvider();
             }
-            return sDefaultProvider;
+            return sSimpleSummaryProvider;
         }
 
         @Override

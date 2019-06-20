@@ -53,6 +53,7 @@ import androidx.slice.builders.ListBuilder.InputRangeBuilder;
 import androidx.slice.builders.ListBuilder.RangeBuilder;
 import androidx.slice.builders.ListBuilder.RowBuilder;
 import androidx.slice.builders.MessagingSliceBuilder;
+import androidx.slice.builders.SelectionBuilder;
 import androidx.slice.builders.SliceAction;
 
 import java.util.ArrayList;
@@ -105,9 +106,9 @@ public class SampleSliceProvider extends SliceProvider {
             "rtlgrid",
             "slices",
             "cat",
-            "permission",
             "longtext",
-            "loading"
+            "loading",
+            "selection",
     };
 
     /**
@@ -199,10 +200,10 @@ public class SampleSliceProvider extends SliceProvider {
                 return createFoodOptionsSlice(sliceUri);
             case "/cat":
                 return createBigPicSlice(sliceUri);
-            case "/permission":
-                return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
             case "/loading":
                 return createLoadingSlice(sliceUri);
+            case "/selection":
+                return createSelectionSlice(sliceUri);
         }
         Log.w(TAG, String.format("Unknown uri: %s", sliceUri));
         return null;
@@ -1142,6 +1143,28 @@ public class SampleSliceProvider extends SliceProvider {
                                         updating || TextUtils.isEmpty(school))))
                 .build();
         return s;
+    }
+
+    private Slice createSelectionSlice(Uri sliceUri) {
+        return new ListBuilder(getContext(), sliceUri, INFINITY)
+                .addSelection(new SelectionBuilder()
+                        .setTitle("Pick a card")
+                        .setSubtitle("Any card")
+                        .addOption("index", "Index")
+                        .addOption("business", "Business")
+                        .addOption("playing", "Playing")
+                        .setSelectedOption("business")
+                        // TODO: Update this intent once view-side selection is supported.
+                        .setPrimaryAction(SliceAction.create(
+                                getBroadcastIntent(ACTION_TOAST,
+                                        "open card type selection"),
+                                IconCompat.createWithResource(getContext(), R.drawable.ic_note),
+                                ICON_IMAGE,
+                                "Select card type"))
+                        .setInputAction(getBroadcastIntent(ACTION_TOAST,
+                                "handle card type selection"))
+                        .setContentDescription("selection for card type"))
+                .build();
     }
 
     private PendingIntent getIntent(String action) {

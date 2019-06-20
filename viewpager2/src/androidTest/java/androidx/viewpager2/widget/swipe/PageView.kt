@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,29 @@
 package androidx.viewpager2.widget.swipe
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.viewpager2.test.R
 
-object PageView {
-    fun inflatePage(parent: ViewGroup): View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_test_layout, parent, false)
+private val PAGE_COLOR_EVEN = Color.parseColor("#FFAAAA")
+private val PAGE_COLOR_ODD = Color.parseColor("#AAAAFF")
 
-    fun findPageInActivity(activity: Activity): View = activity.findViewById(R.id.text_view)
+object PageView {
+    fun inflatePage(layoutInflater: LayoutInflater, parent: ViewGroup?): View =
+        layoutInflater.inflate(R.layout.item_test_layout, parent, false)
+
+    fun findPageInActivity(activity: Activity): View? = activity.findViewById(R.id.text_view)
 
     fun getPageText(page: View): String = (page as TextView).text.toString()
 
     fun setPageText(page: View, text: String) {
         (page as TextView).text = text
+    }
+
+    fun setPageColor(page: View, position: Int) {
+        page.setBackgroundColor(if (position % 2 == 0) PAGE_COLOR_EVEN else PAGE_COLOR_ODD)
     }
 }

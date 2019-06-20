@@ -17,7 +17,7 @@
 
 <!-- This is a primitive example showing the different types of preferences available. -->
 <!-- BEGIN_INCLUDE(preferences) -->
-<androidx.preference.PreferenceScreen
+<PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -63,15 +63,13 @@
         <DropDownPreference
                 android:key="dropdown"
                 android:title="@string/title_dropdown_preference"
-                android:summary="@string/summary_dropdown_preference"
                 android:entries="@array/entries"
-                app:setDefaultSummaryProvider="true"
+                app:useSimpleSummaryProvider="true"
                 android:entryValues="@array/entry_values"/>
 
         <SeekBarPreference
                 android:key="seekbar"
                 android:title="@string/title_seekbar_preference"
-                android:summary="@string/summary_seekbar_preference"
                 android:max="10"
                 android:defaultValue="5"/>
     </PreferenceCategory>
@@ -82,15 +80,13 @@
         <EditTextPreference
                 android:key="edittext"
                 android:title="@string/title_edittext_preference"
-                android:summary="@string/summary_edittext_preference"
-                app:setDefaultSummaryProvider="true"
+                app:useSimpleSummaryProvider="true"
                 android:dialogTitle="@string/dialog_title_edittext_preference"/>
 
         <ListPreference
                 android:key="list"
                 android:title="@string/title_list_preference"
-                android:summary="@string/summary_list_preference"
-                app:setDefaultSummaryProvider="true"
+                app:useSimpleSummaryProvider="true"
                 android:entries="@array/entries"
                 android:entryValues="@array/entry_values"
                 android:dialogTitle="@string/dialog_title_list_preference"/>
@@ -144,8 +140,9 @@
                 android:key="copyable"
                 android:title="@string/title_copyable_preference"
                 android:summary="@string/summary_copyable_preference"
+                android:selectable="false"
                 app:enableCopying="true"/>
     </PreferenceCategory>
 
-</androidx.preference.PreferenceScreen>
+</PreferenceScreen>
 <!-- END_INCLUDE(preferences) -->

@@ -25,6 +25,7 @@ import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.Entity
+import androidx.room.vo.columnNames
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.ParameterizedTypeName
 import stripNonJava
@@ -44,12 +45,13 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             addStatement("final $T $L = new $T($L)", columnListType, columnListVar,
                     columnListType, entity.fields.size)
             entity.fields.forEach { field ->
-                addStatement("$L.put($S, new $T($S, $S, $L, $L))",
+                addStatement("$L.put($S, new $T($S, $S, $L, $L, $S))",
                         columnListVar, field.columnName, RoomTypeNames.TABLE_INFO_COLUMN,
                         /*name*/ field.columnName,
                         /*type*/ field.affinity?.name ?: SQLTypeAffinity.TEXT.name,
                         /*nonNull*/ field.nonNull,
-                        /*pkeyPos*/ entity.primaryKey.fields.indexOf(field) + 1)
+                        /*pkeyPos*/ entity.primaryKey.fields.indexOf(field) + 1,
+                        /*defaultValue*/ field.defaultValue)
             }
 
             val foreignKeySetVar = scope.getTmpVar("_foreignKeys$suffix")
@@ -80,8 +82,7 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             addStatement("final $T $L = new $T($L)", indicesType, indicesSetVar,
                     indicesType, entity.indices.size)
             entity.indices.forEach { index ->
-                val columnNames = index.fields
-                        .joinToString(",") { "\"${it.columnName}\"" }
+                val columnNames = index.columnNames.joinToString(",") { "\"$it\"" }
                 addStatement("$L.add(new $T($S, $L, $T.asList($L)))",
                         indicesSetVar,
                         RoomTypeNames.TABLE_INFO_INDEX,

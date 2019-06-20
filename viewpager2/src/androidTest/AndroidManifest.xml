@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2017 The Android Open Source Project
+<!-- Copyright 2017 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="androidx.viewpager2.test">
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
     <application android:supportsRtl="true">
-        <activity android:name="androidx.viewpager2.widget.swipe.TestActivity"/>
+        <activity android:name="androidx.viewpager2.widget.swipe.TestActivity"
+                  android:theme="@style/Theme.AppCompat"/>
     </application>
 </manifest>

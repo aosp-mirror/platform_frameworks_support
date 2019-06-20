@@ -45,6 +45,7 @@ import java.lang.ref.WeakReference;
  * when no routes are available, the action provider will instead make the
  * menu item invisible.  In this way, the button will only be visible when it
  * is possible for the user to discover and select a matching route.
+ * You can call {@link #setAlwaysVisible} to override this behavior.
  * </p>
  *
  * <h3>Prerequisites</h3>
@@ -129,7 +130,7 @@ import java.lang.ref.WeakReference;
  * @see #setRouteSelector
  */
 public class MediaRouteActionProvider extends ActionProvider {
-    private static final String TAG = "MediaRouteActionProvider";
+    private static final String TAG = "MRActionProvider";
 
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
@@ -137,6 +138,8 @@ public class MediaRouteActionProvider extends ActionProvider {
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
     private MediaRouteButton mButton;
+    private boolean mUseDynamicGroup;
+    private boolean mAlwaysVisible;
 
     /**
      * Creates the action provider.
@@ -191,6 +194,42 @@ public class MediaRouteActionProvider extends ActionProvider {
 
             if (mButton != null) {
                 mButton.setRouteSelector(selector);
+            }
+        }
+    }
+
+    /**
+     * Enables dynamic group feature.
+     * With this enabled, a different set of {@link MediaRouteChooserDialog} and
+     * {@link MediaRouteControllerDialog} is shown when the button is clicked.
+     * If a {@link androidx.mediarouter.media.MediaRouteProvider media route provider}
+     * supports dynamic group, the users can use that feature with the dialogs.
+     *
+     * @see MediaRouteButton#enableDynamicGroup()
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
+     */
+    public void enableDynamicGroup() {
+        mUseDynamicGroup = true;
+        if (mButton != null) {
+            mButton.enableDynamicGroup();
+        }
+    }
+
+    /**
+     * Sets whether {@link MediaRouteButton} is visible when no routes are available.
+     * When true, the button is visible even when there are no routes to connect.
+     * The default is false.
+     *
+     * @param alwaysVisible true to show MediaRouteButton even when no routes are available.
+     *
+     * @see MediaRouteButton#setAlwaysVisible(boolean)
+     */
+    public void setAlwaysVisible(boolean alwaysVisible) {
+        if (mAlwaysVisible != alwaysVisible) {
+            mAlwaysVisible = alwaysVisible;
+            refreshVisibility();
+            if (mButton != null) {
+                mButton.setAlwaysVisible(mAlwaysVisible);
             }
         }
     }
@@ -256,6 +295,10 @@ public class MediaRouteActionProvider extends ActionProvider {
         mButton = onCreateMediaRouteButton();
         mButton.setCheatSheetEnabled(true);
         mButton.setRouteSelector(mSelector);
+        if (mUseDynamicGroup) {
+            mButton.enableDynamicGroup();
+        }
+        mButton.setAlwaysVisible(mAlwaysVisible);
         mButton.setDialogFactory(mDialogFactory);
         mButton.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -278,7 +321,7 @@ public class MediaRouteActionProvider extends ActionProvider {
 
     @Override
     public boolean isVisible() {
-        return mRouter.isRouteAvailable(mSelector,
+        return mAlwaysVisible || mRouter.isRouteAvailable(mSelector,
                 MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE);
     }
 

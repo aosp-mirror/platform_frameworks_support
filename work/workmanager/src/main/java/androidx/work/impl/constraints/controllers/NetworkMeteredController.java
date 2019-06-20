@@ -20,22 +20,23 @@ import static androidx.work.NetworkType.METERED;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import androidx.work.Logger;
 import androidx.work.impl.constraints.NetworkState;
 import androidx.work.impl.constraints.trackers.Trackers;
 import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * A {@link ConstraintController} for monitoring that the network connection is metered.
  */
 
 public class NetworkMeteredController extends ConstraintController<NetworkState> {
-    private static final String TAG = "NetworkMeteredCtrlr";
+    private static final String TAG = Logger.tagWithPrefix("NetworkMeteredCtrlr");
 
-    public NetworkMeteredController(Context context) {
-        super(Trackers.getInstance(context).getNetworkStateTracker());
+    public NetworkMeteredController(Context context, TaskExecutor taskExecutor) {
+        super(Trackers.getInstance(context, taskExecutor).getNetworkStateTracker());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class NetworkMeteredController extends ConstraintController<NetworkState>
     @Override
     boolean isConstrained(@NonNull NetworkState state) {
         if (Build.VERSION.SDK_INT < 26) {
-            Logger.debug(TAG, "Metered network constraint is not supported before API 26, "
+            Logger.get().debug(TAG, "Metered network constraint is not supported before API 26, "
                     + "only checking for connected state.");
             return !state.isConnected();
         }

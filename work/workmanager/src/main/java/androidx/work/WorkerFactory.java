@@ -17,22 +17,31 @@
 package androidx.work;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 import java.lang.reflect.Constructor;
 
 /**
- * A factory object that creates {@link ListenableWorker} instances.
+ * A factory object that creates {@link ListenableWorker} instances.  The factory is invoked every
+ * time a work runs.  You can override the default implementation of this factory by manually
+ * initializing {@link WorkManager} (see {@link WorkManager#initialize(Context, Configuration)} and
+ * specifying a new WorkerFactory in {@link Configuration.Builder#setWorkerFactory(WorkerFactory)}.
  */
+
 public abstract class WorkerFactory {
 
-    private static final String TAG = "WorkerFactory";
+    private static final String TAG = Logger.tagWithPrefix("WorkerFactory");
 
     /**
      * Override this method to implement your custom worker-creation logic.  Use
      * {@link Configuration.Builder#setWorkerFactory(WorkerFactory)} to use your custom class.
+     * <p></p>
+     * Throwing an {@link Exception} here will crash the application. If a {@link WorkerFactory}
+     * is unable to create an instance of the {@link ListenableWorker}, it should return {@code
+     * null} so it can delegate to the default {@link WorkerFactory}.
      * <p></p>
      * Returns a new instance of the specified {@code workerClassName} given the arguments.  The
      * returned worker should be a newly-created instance and must not have been previously returned
@@ -60,7 +69,9 @@ public abstract class WorkerFactory {
      * @param workerParameters Parameters for worker initialization
      * @return A new {@link ListenableWorker} instance of type {@code workerClassName}, or
      *         {@code null} if the worker could not be created
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public final @Nullable ListenableWorker createWorkerWithDefaultFallback(
             @NonNull Context appContext,
             @NonNull String workerClassName,
@@ -76,7 +87,7 @@ public abstract class WorkerFactory {
         try {
             clazz = Class.forName(workerClassName).asSubclass(ListenableWorker.class);
         } catch (ClassNotFoundException e) {
-            Logger.error(TAG, "Class not found: " + workerClassName);
+            Logger.get().error(TAG, "Class not found: " + workerClassName);
             return null;
         }
 
@@ -88,7 +99,7 @@ public abstract class WorkerFactory {
                     workerParameters);
             return worker;
         } catch (Exception e) {
-            Logger.error(TAG, "Could not instantiate " + workerClassName, e);
+            Logger.get().error(TAG, "Could not instantiate " + workerClassName, e);
         }
         return null;
     }

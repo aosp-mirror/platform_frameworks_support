@@ -16,7 +16,6 @@
 
 package androidx.textclassifier;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -121,7 +120,7 @@ final class LegacyTextClassifier extends TextClassifier {
     /** @inheritDoc */
     public TextLinks generateLinks(@NonNull TextLinks.Request request) {
         final Collection<String> entityTypes = request.getEntityConfig()
-                .resolveEntityTypes(DEFAULT_ENTITY_TYPES);
+                .resolveTypes(DEFAULT_ENTITY_TYPES);
         final String requestText = request.getText().toString();
         final TextLinks.Builder builder = new TextLinks.Builder(requestText);
         for (String entityType : entityTypes) {
@@ -144,8 +143,7 @@ final class LegacyTextClassifier extends TextClassifier {
                 builder.addLink(
                         spannable.getSpanStart(urlSpan),
                         spannable.getSpanEnd(urlSpan),
-                        Collections.singletonMap(entityType, 1.0f),
-                        urlSpan);
+                        Collections.singletonMap(entityType, 1.0f));
             }
         }
     }
@@ -201,7 +199,6 @@ final class LegacyTextClassifier extends TextClassifier {
             mPermissionsChecker = Preconditions.checkNotNull(permissionsChecker);
         }
 
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
         private static Bundle createUserRestrictions(Context context) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 return Bundle.EMPTY;

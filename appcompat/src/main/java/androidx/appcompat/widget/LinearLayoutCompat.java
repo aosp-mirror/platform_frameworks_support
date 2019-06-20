@@ -17,7 +17,7 @@
 package androidx.appcompat.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -56,7 +56,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class LinearLayoutCompat extends ViewGroup {
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({HORIZONTAL, VERTICAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface OrientationMode {}
@@ -65,7 +65,7 @@ public class LinearLayoutCompat extends ViewGroup {
     public static final int VERTICAL = 1;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef(flag = true,
             value = {
                     SHOW_DIVIDER_NONE,
@@ -134,6 +134,10 @@ public class LinearLayoutCompat extends ViewGroup {
     private static final int INDEX_TOP = 1;
     private static final int INDEX_BOTTOM = 2;
     private static final int INDEX_FILL = 3;
+
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.appcompat.widget.LinearLayoutCompat";
 
     private Drawable mDivider;
     private int mDividerWidth;
@@ -273,7 +277,7 @@ public class LinearLayoutCompat extends ViewGroup {
      *
      * @hide Used internally by framework.
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getDividerWidth() {
         return mDividerWidth;
     }
@@ -1754,13 +1758,13 @@ public class LinearLayoutCompat extends ViewGroup {
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
-        event.setClassName(LinearLayoutCompat.class.getName());
+        event.setClassName(ACCESSIBILITY_CLASS_NAME);
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(LinearLayoutCompat.class.getName());
+        info.setClassName(ACCESSIBILITY_CLASS_NAME);
     }
 
     /**

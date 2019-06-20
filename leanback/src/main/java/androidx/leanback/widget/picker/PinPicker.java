@@ -18,6 +18,7 @@ package androidx.leanback.widget.picker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
@@ -30,7 +31,7 @@ import java.util.List;
  * {@link Picker} subclass for allowing the user to enter a numerical PIN. The column count can be
  * customized, and defaults to 4.
  *
- * @attr ref R.styleable#lbPinPicker_columnCount
+ * {@link R.attr#columnCount}
  */
 public class PinPicker extends Picker {
 
@@ -44,6 +45,10 @@ public class PinPicker extends Picker {
         super(context, attrs, defStyleAttr);
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.lbPinPicker, defStyleAttr, 0);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.lbPinPicker, attrs, a, defStyleAttr, 0);
+        }
         try {
             setSeparator(" ");
             setNumberOfColumns(a.getInt(R.styleable.lbPinPicker_columnCount, DEFAULT_COLUMN_COUNT));

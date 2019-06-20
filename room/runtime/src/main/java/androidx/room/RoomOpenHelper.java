@@ -34,7 +34,7 @@ import java.util.List;
  * @hide
  */
 @SuppressWarnings("unused")
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     @Nullable
     private DatabaseConfiguration mConfiguration;
@@ -70,8 +70,17 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
 
     @Override
     public void onCreate(SupportSQLiteDatabase db) {
-        updateIdentity(db);
+        boolean isEmptyDatabase = hasEmptySchema(db);
         mDelegate.createAllTables(db);
+        if (!isEmptyDatabase) {
+            // A 0 version pre-populated database goes through the create path because the
+            // framework's SQLiteOpenHelper thinks the database was just created from scratch. If we
+            // find the database not to be empty, then it is a pre-populated, we must validate it to
+            // see if its suitable for usage.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration.
+            mDelegate.validateMigration(db);
+        }
+        updateIdentity(db);
         mDelegate.onCreate(db);
     }
 
@@ -123,8 +132,8 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     }
 
     private void checkIdentity(SupportSQLiteDatabase db) {
-        String identityHash = null;
         if (hasRoomMasterTable(db)) {
+            String identityHash = null;
             Cursor cursor = db.query(new SimpleSQLiteQuery(RoomMasterTable.READ_QUERY));
             //noinspection TryFinallyCanBeTryWithResources
             try {
@@ -134,11 +143,18 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
             } finally {
                 cursor.close();
             }
-        }
-        if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
-            throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
-                    + " you've changed schema but forgot to update the version number. You can"
-                    + " simply fix this by increasing the version number.");
+            if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
+                throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
+                        + " you've changed schema but forgot to update the version number. You can"
+                        + " simply fix this by increasing the version number.");
+            }
+        } else {
+            // No room_master_table, this might an a pre-populated DB, we must validate to see if
+            // its suitable for usage.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration
+            mDelegate.validateMigration(db);
+            mDelegate.onPostMigrate(db);
+            updateIdentity(db);
         }
     }
 
@@ -162,10 +178,21 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
         }
     }
 
+    private static boolean hasEmptySchema(SupportSQLiteDatabase db) {
+        Cursor cursor = db.query(
+                "SELECT count(*) FROM sqlite_master WHERE name != 'android_metadata'");
+        //noinspection TryFinallyCanBeTryWithResources
+        try {
+            return cursor.moveToFirst() && cursor.getInt(0) == 0;
+        } finally {
+            cursor.close();
+        }
+    }
+
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public abstract static class Delegate {
         public final int version;
 

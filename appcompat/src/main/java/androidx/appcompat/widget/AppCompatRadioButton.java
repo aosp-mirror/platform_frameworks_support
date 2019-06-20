@@ -16,13 +16,14 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RadioButton;
 
 import androidx.annotation.DrawableRes;
@@ -30,6 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.TintableBackgroundView;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.TintableCompoundButton;
 
 /**
@@ -47,9 +50,11 @@ import androidx.core.widget.TintableCompoundButton;
  * <a href="{@docRoot}topic/libraries/support-library/packages.html#v7-appcompat">appcompat</a>.
  * You should only need to manually use this class when writing custom views.</p>
  */
-public class AppCompatRadioButton extends RadioButton implements TintableCompoundButton {
+public class AppCompatRadioButton extends RadioButton implements TintableCompoundButton,
+        TintableBackgroundView {
 
     private final AppCompatCompoundButtonHelper mCompoundButtonHelper;
+    private final AppCompatBackgroundHelper mBackgroundTintHelper;
     private final AppCompatTextHelper mTextHelper;
 
     public AppCompatRadioButton(Context context) {
@@ -64,6 +69,10 @@ public class AppCompatRadioButton extends RadioButton implements TintableCompoun
         super(TintContextWrapper.wrap(context), attrs, defStyleAttr);
         mCompoundButtonHelper = new AppCompatCompoundButtonHelper(this);
         mCompoundButtonHelper.loadFromAttributes(attrs, defStyleAttr);
+
+        mBackgroundTintHelper = new AppCompatBackgroundHelper(this);
+        mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
+
         mTextHelper = new AppCompatTextHelper(this);
         mTextHelper.loadFromAttributes(attrs, defStyleAttr);
     }
@@ -93,7 +102,7 @@ public class AppCompatRadioButton extends RadioButton implements TintableCompoun
      * This should be accessed from {@link androidx.core.widget.CompoundButtonCompat}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportButtonTintList(@Nullable ColorStateList tint) {
         if (mCompoundButtonHelper != null) {
@@ -105,7 +114,7 @@ public class AppCompatRadioButton extends RadioButton implements TintableCompoun
      * This should be accessed from {@link androidx.core.widget.CompoundButtonCompat}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     @Override
     public ColorStateList getSupportButtonTintList() {
@@ -118,7 +127,7 @@ public class AppCompatRadioButton extends RadioButton implements TintableCompoun
      * This should be accessed from {@link androidx.core.widget.CompoundButtonCompat}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportButtonTintMode(@Nullable PorterDuff.Mode tintMode) {
         if (mCompoundButtonHelper != null) {
@@ -130,12 +139,95 @@ public class AppCompatRadioButton extends RadioButton implements TintableCompoun
      * This should be accessed from {@link androidx.core.widget.CompoundButtonCompat}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     @Override
     public PorterDuff.Mode getSupportButtonTintMode() {
         return mCompoundButtonHelper != null
                 ? mCompoundButtonHelper.getSupportButtonTintMode()
                 : null;
+    }
+
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintList(View, ColorStateList)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Override
+    public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintList(tint);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintList(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Override
+    @Nullable
+    public ColorStateList getSupportBackgroundTintList() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintList() : null;
+    }
+
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintMode(View, PorterDuff.Mode)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Override
+    public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintMode(tintMode);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintMode(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Override
+    @Nullable
+    public PorterDuff.Mode getSupportBackgroundTintMode() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintMode() : null;
+    }
+
+    @Override
+    public void setBackgroundDrawable(Drawable background) {
+        super.setBackgroundDrawable(background);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundDrawable(background);
+        }
+    }
+
+    @Override
+    public void setBackgroundResource(@DrawableRes int resId) {
+        super.setBackgroundResource(resId);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundResource(resId);
+        }
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.applySupportBackgroundTint();
+        }
+        if (mTextHelper != null) {
+            mTextHelper.applyCompoundDrawablesTints();
+        }
     }
 }

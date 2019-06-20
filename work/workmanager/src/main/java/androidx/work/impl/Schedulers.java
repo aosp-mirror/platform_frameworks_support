@@ -21,10 +21,10 @@ import static androidx.work.impl.utils.PackageManagerHelper.setComponentEnabled;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.work.Configuration;
 import androidx.work.Logger;
 import androidx.work.impl.background.systemalarm.SystemAlarmScheduler;
@@ -34,7 +34,6 @@ import androidx.work.impl.background.systemjob.SystemJobService;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -48,13 +47,8 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Schedulers {
 
-    private static final String TAG = "Schedulers";
-    private static final String FIREBASE_JOB_SCHEDULER_CLASSNAME =
-            "androidx.work.impl.background.firebase.FirebaseJobScheduler";
-
-    @VisibleForTesting
-    static final String FIREBASE_JOB_SERVICE_CLASSNAME =
-            "androidx.work.impl.background.firebase.FirebaseJobService";
+    public static final String GCM_SCHEDULER = "androidx.work.impl.background.gcm.GcmScheduler";
+    private static final String TAG = Logger.tagWithPrefix("Schedulers");
 
     /**
      * Schedules {@link WorkSpec}s while honoring the {@link Scheduler#MAX_SCHEDULER_LIMIT}.
@@ -101,52 +95,41 @@ public class Schedulers {
         }
     }
 
+    @NonNull
     @SuppressLint("NewApi") // TODO https://issuetracker.google.com/issues/110576968
-    static @NonNull Scheduler createBestAvailableBackgroundScheduler(
+    static Scheduler createBestAvailableBackgroundScheduler(
             @NonNull Context context,
             @NonNull WorkManagerImpl workManager) {
 
         Scheduler scheduler;
-        boolean enableFirebaseJobService = false;
-        boolean enableSystemAlarmService = false;
 
         if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
             scheduler = new SystemJobScheduler(context, workManager);
             setComponentEnabled(context, SystemJobService.class, true);
-            Logger.debug(TAG, "Created SystemJobScheduler and enabled SystemJobService");
+            Logger.get().debug(TAG, "Created SystemJobScheduler and enabled SystemJobService");
         } else {
-            try {
-                scheduler = tryCreateFirebaseJobScheduler(context);
-                enableFirebaseJobService = true;
-                Logger.debug(TAG, "Created FirebaseJobScheduler");
-            } catch (Exception e) {
-                // Also catches the exception thrown if Play Services was not found on the device.
+            scheduler = tryCreateGcmBasedScheduler(context);
+            if (scheduler == null) {
                 scheduler = new SystemAlarmScheduler(context);
-                enableSystemAlarmService = true;
-                Logger.debug(TAG, "Created SystemAlarmScheduler");
+                setComponentEnabled(context, SystemAlarmService.class, true);
+                Logger.get().debug(TAG, "Created SystemAlarmScheduler");
             }
         }
-
-        try {
-            Class firebaseJobServiceClass = Class.forName(FIREBASE_JOB_SERVICE_CLASSNAME);
-            setComponentEnabled(context, firebaseJobServiceClass, enableFirebaseJobService);
-        } catch (ClassNotFoundException e) {
-            // Do nothing.
-        }
-
-        setComponentEnabled(context, SystemAlarmService.class, enableSystemAlarmService);
-
         return scheduler;
     }
 
-    @NonNull
-    private static Scheduler tryCreateFirebaseJobScheduler(@NonNull Context context)
-            throws ClassNotFoundException, IllegalAccessException, InstantiationException,
-            InvocationTargetException, NoSuchMethodException {
-        Class<?> firebaseJobSchedulerClass = Class.forName(FIREBASE_JOB_SCHEDULER_CLASSNAME);
-        return (Scheduler) firebaseJobSchedulerClass
-                .getConstructor(Context.class)
-                .newInstance(context);
+    @Nullable
+    private static Scheduler tryCreateGcmBasedScheduler(@NonNull Context context) {
+        try {
+            Class<?> klass = Class.forName(GCM_SCHEDULER);
+            Scheduler scheduler =
+                    (Scheduler) klass.getConstructor(Context.class).newInstance(context);
+            Logger.get().debug(TAG, String.format("Created %s", GCM_SCHEDULER));
+            return scheduler;
+        } catch (Throwable throwable) {
+            Logger.get().debug(TAG, "Unable to create GCM Scheduler", throwable);
+            return null;
+        }
     }
 
     private Schedulers() {

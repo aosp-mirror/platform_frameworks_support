@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -31,54 +31,80 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Navigation state data to be displayed on the instrument cluster of a car. This is composed by:
+ * Navigation state data to be displayed on the instrument cluster of a car. This comprises:
  * <ul>
- * <li>a list of destinations.
- * <li>the immediate step or steps in order to drive towards those destinations.
+ * <li>A list of destinations.
+ * <li>The immediate step or steps needed to drive towards those destinations.
  * </ul>
- * This information can converted it to/from a {@link Parcelable} by using {@link #toParcelable()}
+ * This information can convert it to/from a {@link Parcelable} by using {@link #toParcelable()}
  * and {@link #fromParcelable(Parcelable)}, in order to be used in IPC (see {@link Parcel}).
  */
 @VersionedParcelize
 public final class NavigationState implements VersionedParcelable {
+    /**
+     * Possible service states
+     */
+    public enum ServiceStatus {
+        /**
+         * Default service status, indicating that navigation state data is valid and up-to-date.
+         */
+        NORMAL,
+        /**
+         * New navigation information is being fetched, and an updated navigation state will be
+         * provided soon. OEM cluster rendering services can use this signal to display a progress
+         * indicator to the user.
+         */
+        REROUTING,
+    }
+
     @ParcelField(1)
     List<Step> mSteps;
     @ParcelField(2)
     List<Destination> mDestinations;
+    @ParcelField(3)
+    Segment mCurrentSegment;
+    @ParcelField(4)
+    EnumWrapper<ServiceStatus> mServiceStatus;
 
     /**
      * Used by {@link VersionedParcelable}
 
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     NavigationState() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
-    NavigationState(@NonNull List<Step> steps, @NonNull List<Destination> destinations) {
-        mSteps = Collections.unmodifiableList(new ArrayList<>(steps));
-        mDestinations = Collections.unmodifiableList(new ArrayList<>(destinations));
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    NavigationState(@NonNull List<Step> steps,
+            @NonNull List<Destination> destinations,
+            @Nullable Segment currentSegment,
+            @NonNull EnumWrapper<ServiceStatus> serviceStatus) {
+        mSteps = new ArrayList<>(steps);
+        mDestinations = new ArrayList<>(destinations);
+        mCurrentSegment = currentSegment;
+        mServiceStatus = Preconditions.checkNotNull(serviceStatus);
     }
 
     /**
      * Builder for creating a {@link NavigationState}
      */
     public static final class Builder {
-        List<Step> mSteps = new ArrayList<>();
-        List<Destination> mDestinations = new ArrayList<>();
+        private List<Step> mSteps = new ArrayList<>();
+        private List<Destination> mDestinations = new ArrayList<>();
+        private Segment mCurrentSegment;
+        private EnumWrapper<ServiceStatus> mServiceStatus = new EnumWrapper<>();
 
         /**
          * Add a navigation step. Steps should be provided in order of execution. It is up to the
-         * producer to decide how many steps in advance will be provided.
+         * third-party navigation app to decide how many steps in advance will be provided.
          *
          * @return this object for chaining
          */
@@ -101,21 +127,48 @@ public final class NavigationState implements VersionedParcelable {
         }
 
         /**
+         * Sets the current segment being driven, or null if the segment being driven is unknown.
+         */
+        @NonNull
+        public Builder setCurrentSegment(@Nullable Segment segment) {
+            mCurrentSegment = segment;
+            return this;
+        }
+
+        /**
+         * Sets the service status (e.g.: normal operation, re-routing in progress, etc.)
+         *
+         * @param serviceStatus current service status
+         * @param fallbackServiceStatuses variations of the current service status (ordered from
+         *                                specific to generic), in case the main one is not
+         *                                understood by the consumer of this API. In such scenario,
+         *                                consumers will receive the first value in this list that
+         *                                they can deserialize.
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder setServiceStatus(@NonNull ServiceStatus serviceStatus,
+                @NonNull ServiceStatus... fallbackServiceStatuses) {
+            mServiceStatus = new EnumWrapper<>(serviceStatus, fallbackServiceStatuses);
+            return this;
+        }
+
+        /**
          * Returns a {@link NavigationState} built with the provided information.
          */
         @NonNull
         public NavigationState build() {
-            return new NavigationState(mSteps, mDestinations);
+            return new NavigationState(mSteps, mDestinations, mCurrentSegment, mServiceStatus);
         }
     }
 
     /**
      * Returns an unmodifiable list of navigation steps, in order of execution. It is up to the
-     * producer to decide how many steps in advance will be provided.
+     * third-party navigation app to decide how many steps in advance will be provided.
      */
     @NonNull
     public List<Step> getSteps() {
-        return Common.nonNullOrEmpty(mSteps);
+        return Common.immutableOrEmpty(mSteps);
     }
 
     /**
@@ -124,7 +177,23 @@ public final class NavigationState implements VersionedParcelable {
      */
     @NonNull
     public List<Destination> getDestinations() {
-        return Common.nonNullOrEmpty(mDestinations);
+        return Common.immutableOrEmpty(mDestinations);
+    }
+
+    /**
+     * Returns the current segment being driven, or null if the segment being driven is unknown.
+     */
+    @Nullable
+    public Segment getCurrentSegment() {
+        return mCurrentSegment;
+    }
+
+    /**
+     * Returns the service status (e.g.: normal operation, re-routing in progress, etc.).
+     */
+    @NonNull
+    public ServiceStatus getServiceStatus() {
+        return EnumWrapper.getValue(mServiceStatus, ServiceStatus.NORMAL);
     }
 
     @Override
@@ -137,17 +206,20 @@ public final class NavigationState implements VersionedParcelable {
         }
         NavigationState that = (NavigationState) o;
         return Objects.equals(getSteps(), that.getSteps())
-                && Objects.equals(getDestinations(), that.getDestinations());
+                && Objects.equals(getDestinations(), that.getDestinations())
+                && Objects.equals(getCurrentSegment(), that.getCurrentSegment())
+                && Objects.equals(getServiceStatus(), that.getServiceStatus());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSteps(), getDestinations());
+        return Objects.hash(getSteps(), getDestinations(), getCurrentSegment(), getServiceStatus());
     }
 
     @Override
     public String toString() {
-        return String.format("{steps: %s, destinations: %s}", mSteps, mDestinations);
+        return String.format("{steps: %s, destinations: %s, segment: %s, serviceStatus: %s}",
+                mSteps, mDestinations, mCurrentSegment, mServiceStatus);
     }
 
     /**

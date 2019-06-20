@@ -20,19 +20,28 @@ import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+import static androidx.work.WorkInfo.State.ENQUEUED;
+import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.work.Logger;
+import androidx.work.impl.Schedulers;
+import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.background.systemjob.SystemJobScheduler;
+import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.model.WorkSpecDao;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ForceStopRunnable implements Runnable {
 
-    private static final String TAG = "ForceStopRunnable";
+    private static final String TAG = Logger.tagWithPrefix("ForceStopRunnable");
 
     @VisibleForTesting
     static final String ACTION_FORCE_STOP_RESCHEDULE = "ACTION_FORCE_STOP_RESCHEDULE";
@@ -64,14 +73,25 @@ public class ForceStopRunnable implements Runnable {
 
     @Override
     public void run() {
+        // Clean invalid jobs attributed to WorkManager, and Workers that might have been
+        // interrupted because the application crashed (RUNNING state).
+        Logger.get().debug(TAG, "Performing cleanup operations.");
+        boolean needsScheduling = cleanUp();
+
         if (shouldRescheduleWorkers()) {
-            Logger.debug(TAG, "Rescheduling Workers.");
+            Logger.get().debug(TAG, "Rescheduling Workers.");
             mWorkManager.rescheduleEligibleWork();
             // Mark the jobs as migrated.
             mWorkManager.getPreferences().setNeedsReschedule(false);
         } else if (isForceStopped()) {
-            Logger.debug(TAG, "Application was force-stopped, rescheduling.");
+            Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
+        } else if (needsScheduling) {
+            Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+            Schedulers.schedule(
+                    mWorkManager.getConfiguration(),
+                    mWorkManager.getWorkDatabase(),
+                    mWorkManager.getSchedulers());
         }
         mWorkManager.onForceStopRunnableCompleted();
     }
@@ -92,6 +112,49 @@ public class ForceStopRunnable implements Runnable {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Performs cleanup operations like
+     *
+     * * Cancel invalid JobScheduler jobs.
+     * * Reschedule previously RUNNING jobs.
+     *
+     * @return {@code true} if there are WorkSpecs that need rescheduling.
+     */
+    @VisibleForTesting
+    public boolean cleanUp() {
+        // Mitigation for faulty implementations of JobScheduler (b/134058261
+        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            SystemJobScheduler.cancelInvalidJobs(mContext);
+        }
+
+        // Reset previously unfinished work.
+        WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+        workDatabase.beginTransaction();
+        boolean needsScheduling;
+        try {
+            List<WorkSpec> workSpecs = workSpecDao.getRunningWork();
+            needsScheduling = workSpecs != null && !workSpecs.isEmpty();
+            if (needsScheduling) {
+                // Mark every instance of unfinished work with state = ENQUEUED and
+                // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                // This is because the application might have crashed previously and we should
+                // reschedule jobs that may have been running previously.
+                // Also there is a chance that an application crash, happened during
+                // onStartJob() and now no corresponding job now exists in JobScheduler.
+                // To solve this, we simply force-reschedule all unfinished work.
+                for (WorkSpec workSpec : workSpecs) {
+                    workSpecDao.setState(ENQUEUED, workSpec.id);
+                    workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                }
+            }
+            workDatabase.setTransactionSuccessful();
+        } finally {
+            workDatabase.endTransaction();
+        }
+        return needsScheduling;
     }
 
     /**
@@ -145,7 +208,7 @@ public class ForceStopRunnable implements Runnable {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static class BroadcastReceiver extends android.content.BroadcastReceiver {
-        private static final String TAG = "ForceStopRunnable$Rcvr";
+        private static final String TAG = Logger.tagWithPrefix("ForceStopRunnable$Rcvr");
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -154,7 +217,9 @@ public class ForceStopRunnable implements Runnable {
             if (intent != null) {
                 String action = intent.getAction();
                 if (ACTION_FORCE_STOP_RESCHEDULE.equals(action)) {
-                    Logger.verbose(TAG, "Rescheduling alarm that keeps track of force-stops.");
+                    Logger.get().verbose(
+                            TAG,
+                            "Rescheduling alarm that keeps track of force-stops.");
                     ForceStopRunnable.setAlarm(context);
                 }
             }

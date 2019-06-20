@@ -34,9 +34,9 @@ import androidx.leanback.media.PlaybackGlue;
 import androidx.leanback.media.PlaybackGlueHost;
 import androidx.leanback.test.R;
 import androidx.leanback.testutils.PollingCheck;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -238,7 +238,12 @@ public class VideoSupportFragmentTest extends SingleSupportFragmentTestBase {
         assertEquals(0, fragment.mGlueDetachedFromHost);
         assertEquals(1, fragment.mGlueOnReadyForPlaybackCalled);
 
-        activity.finish();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                fragment.getFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        });
         PollingCheck.waitFor(5000, new PollingCheck.PollingCheckCondition() {
             @Override
             public boolean canProceed() {

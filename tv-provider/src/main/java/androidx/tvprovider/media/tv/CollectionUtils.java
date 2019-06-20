@@ -15,7 +15,7 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import androidx.annotation.RestrictTo;
 
@@ -25,7 +25,7 @@ import java.util.Arrays;
  * Static utilities for collections
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class CollectionUtils {
     /**
      * Returns an array with the arrays concatenated together.
@@ -33,6 +33,7 @@ public class CollectionUtils {
      * @see <a href="http://stackoverflow.com/a/784842/1122089">Stackoverflow answer</a> by
      *      <a href="http://stackoverflow.com/users/40342/joachim-sauer">Joachim Sauer</a>
      */
+    @SuppressWarnings("unchecked")
     public static <T> T[] concatAll(T[] first, T[]... rest) {
         int totalLength = first.length;
         for (T[] array : rest) {

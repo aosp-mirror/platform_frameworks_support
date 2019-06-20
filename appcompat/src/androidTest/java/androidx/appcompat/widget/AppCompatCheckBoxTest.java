@@ -23,38 +23,33 @@ import static org.junit.Assert.assertTrue;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.ViewGroup;
 
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
 import androidx.appcompat.test.R;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.CompoundButtonCompat;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Provides tests specific to {@link AppCompatCheckBox} class.
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AppCompatCheckBoxTest {
+public class AppCompatCheckBoxTest extends AppCompatBaseViewTest<AppCompatCheckBoxActivity,
+        AppCompatCheckBox> {
 
-    @Rule
-    public final ActivityTestRule<AppCompatCheckBoxActivity> mActivityTestRule =
-            new ActivityTestRule(AppCompatCheckBoxActivity.class);
-    private AppCompatCheckBoxActivity mActivity;
-    private ViewGroup mContainer;
+    public AppCompatCheckBoxTest() {
+        super(AppCompatCheckBoxActivity.class);
+    }
 
-    @Before
-    public void setUp() {
-        mActivity = mActivityTestRule.getActivity();
-        mContainer = mActivity.findViewById(R.id.container);
+    @Override
+    protected boolean hasBackgroundByDefault() {
+        return true;
     }
 
     @Test
@@ -68,8 +63,8 @@ public class AppCompatCheckBoxTest {
     @Test
     public void testDefaultButton_isAnimated() {
         // Given an ACCB with the theme's button drawable
-        final AppCompatCheckBoxSpy checkBox = mContainer.findViewById(R.id.checkbox_button_compat);
-        final Drawable button = checkBox.mButton;
+        final AppCompatCheckBox checkBox = mContainer.findViewById(R.id.checkbox_button_compat);
+        final Drawable button = CompoundButtonCompat.getButtonDrawable(checkBox);
 
         // Then this drawable should be an animated-selector
         assertTrue(button instanceof AnimatedStateListDrawableCompat
@@ -82,9 +77,9 @@ public class AppCompatCheckBoxTest {
     @Test
     public void testNullCompatButton() {
         // Given an ACCB which specifies a null app:buttonCompat
-        final AppCompatCheckBoxSpy checkBox = mContainer.findViewById(
+        final AppCompatCheckBox checkBox = mContainer.findViewById(
                 R.id.checkbox_null_button_compat);
-        final Drawable button = checkBox.mButton;
+        final Drawable button = CompoundButtonCompat.getButtonDrawable(checkBox);
         boolean isAnimated = button instanceof AnimatedStateListDrawableCompat;
 
         // Then the drawable should be present but not animated

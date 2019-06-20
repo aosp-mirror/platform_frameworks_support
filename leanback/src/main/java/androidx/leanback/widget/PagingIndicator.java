@@ -16,7 +16,7 @@
 
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -34,6 +34,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Property;
 import android.view.View;
@@ -48,7 +49,7 @@ import androidx.leanback.R;
  * A page indicator with dots.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class PagingIndicator extends View {
     private static final long DURATION_ALPHA = 167;
     private static final long DURATION_DIAMETER = 417;
@@ -143,6 +144,10 @@ public class PagingIndicator extends View {
         Resources res = getResources();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PagingIndicator,
                 defStyle, 0);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.PagingIndicator, attrs, typedArray, defStyle, 0);
+        }
         mDotRadius = getDimensionFromTypedArray(typedArray, R.styleable.PagingIndicator_lbDotRadius,
                 R.dimen.lb_page_indicator_dot_radius);
         mDotDiameter = mDotRadius * 2;

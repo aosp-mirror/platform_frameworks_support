@@ -17,21 +17,32 @@
 package androidx.work;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Stores a set of {@link Trigger}s.
+ * A container for {@link Uri} {@link Trigger}s that caused a worker's {@link Constraints} to be
+ * met.
+ * <p>
+ * When enqueuing work, you can add Uris or content authorities that should trigger the worker upon
+ * update (see {@link Constraints.Builder#addContentUriTrigger(Uri, boolean)}).  This class is an
+ * encapsulation of those triggers.
+ * <p>
+ * This class and its behavior is intrinsically tied to {@code JobScheduler}.
+ * @hide
  */
-public final class ContentUriTriggers implements Iterable<ContentUriTriggers.Trigger> {
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public final class ContentUriTriggers {
 
     private final Set<Trigger> mTriggers = new HashSet<>();
 
     /**
-     * Add a Content {@link Uri} to observe
+     * Adds a content {@link Uri} for system observation
+     *
      * @param uri {@link Uri} to observe
      * @param triggerForDescendants {@code true} if any changes in descendants cause this
      *                              {@link WorkRequest} to run
@@ -41,10 +52,8 @@ public final class ContentUriTriggers implements Iterable<ContentUriTriggers.Tri
         mTriggers.add(trigger);
     }
 
-    @NonNull
-    @Override
-    public Iterator<Trigger> iterator() {
-        return mTriggers.iterator();
+    public @NonNull Set<Trigger> getTriggers() {
+        return mTriggers;
     }
 
     /**
@@ -70,7 +79,7 @@ public final class ContentUriTriggers implements Iterable<ContentUriTriggers.Tri
     }
 
     /**
-     * Defines a content {@link Uri} trigger for a {@link WorkRequest}
+     * Defines a content {@link Uri} trigger for a {@link WorkRequest}.
      */
     public static final class Trigger {
         private final @NonNull Uri mUri;
@@ -89,7 +98,7 @@ public final class ContentUriTriggers implements Iterable<ContentUriTriggers.Tri
         }
 
         /**
-         * @return {@code true} if trigger also applies to descendants of the Uri
+         * @return {@code true} if trigger also applies to descendants of the {@link Uri}
          */
         public boolean shouldTriggerForDescendants() {
             return mTriggerForDescendants;

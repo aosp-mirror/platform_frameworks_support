@@ -16,50 +16,48 @@
 
 package androidx.car.util;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.app.Activity;
 import android.car.Car;
 import android.car.CarNotConnectedException;
-import android.car.drivingstate.CarUxRestrictions;
 import android.car.drivingstate.CarUxRestrictionsManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
+import androidx.car.uxrestrictions.CarUxRestrictions;
+import androidx.car.uxrestrictions.OnUxRestrictionsChangedListener;
 
 /**
- * Class that helps registering {@link CarUxRestrictionsManager.OnUxRestrictionsChangedListener} and
- * managing car connection.
- *
- * @hide
+ * Helps registering {@link OnUxRestrictionsChangedListener} and managing car connection.
  */
-@RestrictTo(LIBRARY_GROUP)
 public class CarUxRestrictionsHelper {
     private static final String TAG = "CarUxRestrictionsHelper";
 
     // mCar is created in the constructor, but can be null if connection to the car is not
     // successful.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    @Nullable final Car mCar;
+    @Nullable
+    final Car mCar;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    @Nullable CarUxRestrictionsManager mCarUxRestrictionsManager;
+    @Nullable
+    CarUxRestrictionsManager mCarUxRestrictionsManager;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final CarUxRestrictionsManager.OnUxRestrictionsChangedListener mListener;
+    final OnUxRestrictionsChangedListener mListener;
 
-    public CarUxRestrictionsHelper(Context context,
-            CarUxRestrictionsManager.OnUxRestrictionsChangedListener listener) {
+    public CarUxRestrictionsHelper(@NonNull Context context,
+            @NonNull OnUxRestrictionsChangedListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("Listener cannot be null.");
         }
         mListener = listener;
         mCar = Car.createCar(context, mServiceConnection);
-    };
+    }
 
     /**
      * Starts monitoring any changes in {@link CarUxRestrictions}.
@@ -67,7 +65,9 @@ public class CarUxRestrictionsHelper {
      * <p>This method can be called from {@code Activity}'s {@link Activity#onStart()}, or at the
      * time of construction.
      *
-     * <p>This method must be accompanied with a matching {@link #stop()} to avoid leak.
+     * <p>This method must be accompanied with a matching {@link #stop()} to avoid leak. After
+     * {@link #start()} has been called, calling {@link #start()} subsequent times without
+     * calling {@link #stop()} will result in a no-op.
      */
     public void start() {
         try {
@@ -85,6 +85,10 @@ public class CarUxRestrictionsHelper {
      *
      * <p>This method should be called from {@code Activity}'s {@link Activity#onStop()}, or at the
      * time of being discarded.
+     *
+     * <p>After {@link #stop()} has been called, {@link #start()} can be called again to resume
+     * monitoring car ux restrictions change. Calling {@link #stop()} without calling
+     * {@link #start()} will result in a no-op.
      */
     public void stop() {
         if (mCarUxRestrictionsManager != null) {
@@ -105,16 +109,41 @@ public class CarUxRestrictionsHelper {
         }
     }
 
+    /**
+     * Gets the current UX restrictions {@link CarUxRestrictions} in place.
+     *
+     * @return current UX restrictions that is in effect. If the current UX restrictions cannot
+     * be obtained, the default of no active restrictions is returned.
+     */
+    @NonNull
+    public CarUxRestrictions getCurrentCarUxRestrictions() {
+        try {
+            if (mCarUxRestrictionsManager != null) {
+                return new CarUxRestrictions(
+                        mCarUxRestrictionsManager.getCurrentCarUxRestrictions());
+            }
+        } catch (CarNotConnectedException e) {
+            // Do nothing.
+            Log.w(TAG, "getCurrentCarUxRestrictions(); cannot get current UX restrictions.");
+        }
+
+        return new CarUxRestrictions.Builder(false,
+                CarUxRestrictions.UX_RESTRICTIONS_BASELINE, SystemClock.elapsedRealtimeNanos())
+                .build();
+    }
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             try {
                 mCarUxRestrictionsManager = (CarUxRestrictionsManager)
                         mCar.getCarManager(Car.CAR_UX_RESTRICTION_SERVICE);
-                mCarUxRestrictionsManager.registerListener(mListener);
+                // Convert framework UX restrictions to androidx type.
+                mCarUxRestrictionsManager.registerListener(restrictions ->
+                        mListener.onUxRestrictionsChanged(new CarUxRestrictions(restrictions)));
 
-                mListener.onUxRestrictionsChanged(
-                        mCarUxRestrictionsManager.getCurrentCarUxRestrictions());
+                mListener.onUxRestrictionsChanged(new CarUxRestrictions(
+                        mCarUxRestrictionsManager.getCurrentCarUxRestrictions()));
             } catch (CarNotConnectedException e) {
                 e.printStackTrace();
             }

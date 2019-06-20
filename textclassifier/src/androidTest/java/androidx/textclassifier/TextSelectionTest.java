@@ -21,12 +21,13 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.os.LocaleList;
 
 import androidx.core.os.LocaleListCompat;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +38,7 @@ import org.junit.runner.RunWith;
 public final class TextSelectionTest {
     private static final float EPSILON = 1e-7f;
 
-    private static final CharSequence TEXT = "This is an apple";
+    private static final String TEXT = "This is an apple";
     private static final int START_INDEX = 2;
     private static final int END_INDEX = 5;
     private static final String ID = "id";
@@ -48,9 +49,16 @@ public final class TextSelectionTest {
     private static final LocaleListCompat LOCALE_LIST =
             LocaleListCompat.forLanguageTags("en-US,de-DE");
 
+    private static final String BUNDLE_KEY = "key";
+    private static final String BUNDLE_VALUE = "value";
+    private static final Bundle BUNDLE = new Bundle();
+    static {
+        BUNDLE.putString(BUNDLE_KEY, BUNDLE_VALUE);
+    }
+
     @Test
     public void testParcel() {
-        TextSelection reference = createTextSelection();
+        TextSelection reference = createTextSelection().setExtras(BUNDLE).build();
 
         // Serialize/deserialize.
         final TextSelection result = TextSelection.createFromBundle(reference.toBundle());
@@ -58,11 +66,12 @@ public final class TextSelectionTest {
         assertEquals(START_INDEX, result.getSelectionStartIndex());
         assertEquals(END_INDEX, result.getSelectionEndIndex());
         assertEquals(ID, result.getId());
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
 
-        assertThat(result.getEntityCount()).isEqualTo(3);
-        assertThat(result.getEntity(0)).isEqualTo(TextClassifier.TYPE_ADDRESS);
-        assertThat(result.getEntity(1)).isEqualTo(TextClassifier.TYPE_PHONE);
-        assertThat(result.getEntity(2)).isEqualTo(TextClassifier.TYPE_URL);
+        assertThat(result.getEntityTypeCount()).isEqualTo(3);
+        assertThat(result.getEntityType(0)).isEqualTo(TextClassifier.TYPE_ADDRESS);
+        assertThat(result.getEntityType(1)).isEqualTo(TextClassifier.TYPE_PHONE);
+        assertThat(result.getEntityType(2)).isEqualTo(TextClassifier.TYPE_URL);
         assertThat(result.getConfidenceScore(TextClassifier.TYPE_ADDRESS))
                 .isWithin(EPSILON).of(ADDRESS_SCORE);
         assertThat(result.getConfidenceScore(TextClassifier.TYPE_PHONE))
@@ -79,6 +88,7 @@ public final class TextSelectionTest {
         TextSelection.Request reference =
                 new TextSelection.Request.Builder(text, startIndex, endIndex)
                         .setDefaultLocales(LocaleListCompat.forLanguageTags("en-US,de-DE"))
+                        .setExtras(BUNDLE)
                         .build();
 
         // Serialize/deserialize.
@@ -88,6 +98,7 @@ public final class TextSelectionTest {
         assertEquals(startIndex, result.getStartIndex());
         assertEquals(endIndex, result.getEndIndex());
         assertEquals("en-US,de-DE", result.getDefaultLocales().toLanguageTags());
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
     }
 
     @Test
@@ -103,7 +114,7 @@ public final class TextSelectionTest {
 
         assertThat(platformRequest.getStartIndex()).isEqualTo(START_INDEX);
         assertThat(platformRequest.getEndIndex()).isEqualTo(END_INDEX);
-        assertThat(platformRequest.getText()).isEqualTo(TEXT);
+        assertThat(platformRequest.getText().toString()).isEqualTo(TEXT);
         assertThat(platformRequest.getDefaultLocales().toLanguageTags())
                 .isEqualTo(LOCALE_LIST.toLanguageTags());
     }
@@ -120,7 +131,7 @@ public final class TextSelectionTest {
         TextSelection.Request request = TextSelection.Request.fromPlatfrom(platformRequest);
         assertThat(request.getStartIndex()).isEqualTo(START_INDEX);
         assertThat(request.getEndIndex()).isEqualTo(END_INDEX);
-        assertThat(request.getText()).isEqualTo(TEXT);
+        assertThat(request.getText().toString()).isEqualTo(TEXT);
         assertThat(request.getDefaultLocales().toLanguageTags())
                 .isEqualTo(LOCALE_LIST.toLanguageTags());
     }
@@ -160,7 +171,7 @@ public final class TextSelectionTest {
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O, maxSdkVersion = Build.VERSION_CODES.O_MR1)
     public void testToPlatform_O() {
-        TextSelection reference = createTextSelection();
+        TextSelection reference = createTextSelection().build();
 
         android.view.textclassifier.TextSelection platformTextSelection =
                 (android.view.textclassifier.TextSelection) reference.toPlatform();
@@ -172,7 +183,7 @@ public final class TextSelectionTest {
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
     public void testToPlatform_P() {
-        TextSelection reference = createTextSelection();
+        TextSelection reference = createTextSelection().build();
 
         android.view.textclassifier.TextSelection platformTextSelection =
                 (android.view.textclassifier.TextSelection) reference.toPlatform();
@@ -183,10 +194,10 @@ public final class TextSelectionTest {
     }
 
     private void assertTextSelection(TextSelection textSelection) {
-        assertThat(textSelection.getEntityCount()).isEqualTo(3);
-        assertThat(textSelection.getEntity(0)).isEqualTo(TextClassifier.TYPE_ADDRESS);
-        assertThat(textSelection.getEntity(1)).isEqualTo(TextClassifier.TYPE_PHONE);
-        assertThat(textSelection.getEntity(2)).isEqualTo(TextClassifier.TYPE_URL);
+        assertThat(textSelection.getEntityTypeCount()).isEqualTo(3);
+        assertThat(textSelection.getEntityType(0)).isEqualTo(TextClassifier.TYPE_ADDRESS);
+        assertThat(textSelection.getEntityType(1)).isEqualTo(TextClassifier.TYPE_PHONE);
+        assertThat(textSelection.getEntityType(2)).isEqualTo(TextClassifier.TYPE_URL);
         assertThat(textSelection.getConfidenceScore(TextClassifier.TYPE_ADDRESS))
                 .isWithin(EPSILON).of(ADDRESS_SCORE);
         assertThat(textSelection.getConfidenceScore(TextClassifier.TYPE_PHONE))
@@ -195,12 +206,11 @@ public final class TextSelectionTest {
                 .isWithin(EPSILON).of(URL_SCORE);
     }
 
-    private TextSelection createTextSelection() {
+    private TextSelection.Builder createTextSelection() {
         return new TextSelection.Builder(START_INDEX, END_INDEX)
                 .setId(ID)
                 .setEntityType(TextClassifier.TYPE_ADDRESS, ADDRESS_SCORE)
                 .setEntityType(TextClassifier.TYPE_PHONE, PHONE_SCORE)
-                .setEntityType(TextClassifier.TYPE_URL, URL_SCORE)
-                .build();
+                .setEntityType(TextClassifier.TYPE_URL, URL_SCORE);
     }
 }

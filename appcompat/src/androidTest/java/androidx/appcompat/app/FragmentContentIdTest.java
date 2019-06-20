@@ -23,9 +23,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import androidx.appcompat.test.R;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class FragmentContentIdTest {
     public final ActivityTestRule<FragmentContentIdActivity> mActivityTestRule =
             new ActivityTestRule<>(FragmentContentIdActivity.class);
 
-    @SmallTest
+    @LargeTest
     @Test
     public void testFragmentAddedToAndroidContentIdCanBeRemoved() throws Throwable {
         mActivityTestRule.runOnUiThread(new Runnable() {

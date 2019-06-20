@@ -24,11 +24,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
+import androidx.test.filters.FlakyTest;
 import androidx.viewpager.test.R;
 
 /**
  * Provides assertions that depend on the non-interactive nature of <code>PagerTabStrip</code>.
  */
+@FlakyTest(bugId = 112265192)
 public class ViewPagerWithTitleStripTest
         extends BaseViewPagerTest<ViewPagerWithTitleStripActivity> {
     public ViewPagerWithTitleStripTest() {
@@ -36,7 +38,7 @@ public class ViewPagerWithTitleStripTest
     }
 
     @Override
-    protected Class getStripClass() {
+    protected Class<PagerTitleStrip> getStripClass() {
         return PagerTitleStrip.class;
     }
 

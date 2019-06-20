@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ActivityChooserView extends ViewGroup implements
         ActivityChooserModel.ActivityChooserModelClient {
 
@@ -222,6 +223,10 @@ public class ActivityChooserView extends ViewGroup implements
 
         TypedArray attributesArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ActivityChooserView, defStyle, 0);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.ActivityChooserView, attrs, attributesArray, defStyle, 0);
+        }
 
         mInitialActivityCount = attributesArray.getInt(
                 R.styleable.ActivityChooserView_initialActivityCount,
@@ -337,7 +342,7 @@ public class ActivityChooserView extends ViewGroup implements
      * Set the provider hosting this view, if applicable.
      * @hide Internal use only
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setProvider(ActionProvider provider) {
         mProvider = provider;
     }
@@ -858,7 +863,7 @@ public class ActivityChooserView extends ViewGroup implements
      * Allows us to set the background using TintTypedArray
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static class InnerLayout extends LinearLayout {
 
         private static final int[] TINT_ATTRS = {

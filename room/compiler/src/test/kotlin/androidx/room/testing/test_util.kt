@@ -16,9 +16,11 @@
 
 import androidx.room.DatabaseView
 import androidx.room.Entity
+import androidx.room.ext.GuavaUtilConcurrentTypeNames
 import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.PagingTypeNames
 import androidx.room.ext.ReactiveStreamsTypeNames
+import androidx.room.ext.RoomGuavaTypeNames
 import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
 import androidx.room.processor.TableEntityProcessor
@@ -65,6 +67,19 @@ object COMMON {
     }
     val NOT_AN_ENTITY by lazy {
         loadJavaCode("common/input/NotAnEntity.java", "foo.bar.NotAnEntity")
+    }
+
+    val PARENT by lazy {
+        loadJavaCode("common/input/Parent.java", "foo.bar.Parent")
+    }
+    val CHILD1 by lazy {
+        loadJavaCode("common/input/Child1.java", "foo.bar.Child1")
+    }
+    val CHILD2 by lazy {
+        loadJavaCode("common/input/Child2.java", "foo.bar.Child2")
+    }
+    val INFO by lazy {
+        loadJavaCode("common/input/Info.java", "foo.bar.Info")
     }
 
     val NOT_AN_ENTITY_TYPE_NAME by lazy {
@@ -117,6 +132,16 @@ object COMMON {
     val POSITIONAL_DATA_SOURCE by lazy {
         loadJavaCode("common/input/PositionalDataSource.java",
                 PagingTypeNames.POSITIONAL_DATA_SOURCE.toString())
+    }
+
+    val LISTENABLE_FUTURE by lazy {
+        loadJavaCode("common/input/guava/ListenableFuture.java",
+            GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
+    }
+
+    val GUAVA_ROOM by lazy {
+        loadJavaCode("common/input/GuavaRoom.java",
+            RoomGuavaTypeNames.GUAVA_ROOM.toString())
     }
 }
 fun testCodeGenScope(): CodeGenScope {

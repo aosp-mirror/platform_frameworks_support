@@ -78,6 +78,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
     private ListView mListView;
     private boolean mAttachedToWindow;
     private long mLastUpdateTime;
+    @SuppressWarnings("unchecked")
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message message) {
@@ -348,7 +349,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
             }
 
             // Otherwise, make the best guess based on other route information.
-            if (route instanceof MediaRouter.RouteGroup) {
+            if (route.isGroup()) {
                 // Only speakers can be grouped for now.
                 return mSpeakerGroupIcon;
             }

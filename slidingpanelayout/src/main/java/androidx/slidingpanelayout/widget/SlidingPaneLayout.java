@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -116,6 +115,10 @@ public class SlidingPaneLayout extends ViewGroup {
      * Minimum velocity that will be detected as a fling
      */
     private static final int MIN_FLING_VELOCITY = 400; // dips per second
+
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.slidingpanelayout.widget.SlidingPaneLayout";
 
     /**
      * The fade color used for the panel covered by the slider. 0 = no fading.
@@ -396,6 +399,8 @@ public class SlidingPaneLayout extends ViewGroup {
         }
     }
 
+    @SuppressWarnings("deprecation")
+    // Remove suppression once b/120984816 is addressed.
     private static boolean viewIsOpaque(View v) {
         if (v.isOpaque()) {
             return true;
@@ -958,6 +963,7 @@ public class SlidingPaneLayout extends ViewGroup {
         dispatchOnPanelSlide(mSlideableView);
     }
 
+    @SuppressWarnings("deprecation")
     private void dimChildView(View v, float mag, int fadeColor) {
         final LayoutParams lp = (LayoutParams) v.getLayoutParams();
 
@@ -968,7 +974,8 @@ public class SlidingPaneLayout extends ViewGroup {
             if (lp.dimPaint == null) {
                 lp.dimPaint = new Paint();
             }
-            lp.dimPaint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER));
+            lp.dimPaint.setColorFilter(new android.graphics.PorterDuffColorFilter(
+                    color, PorterDuff.Mode.SRC_OVER));
             if (v.getLayerType() != View.LAYER_TYPE_HARDWARE) {
                 v.setLayerType(View.LAYER_TYPE_HARDWARE, lp.dimPaint);
             }
@@ -1027,7 +1034,7 @@ public class SlidingPaneLayout extends ViewGroup {
             if (!mDisplayListReflectionLoaded) {
                 try {
                     mGetDisplayList = View.class.getDeclaredMethod("getDisplayList",
-                            (Class[]) null);
+                            (Class<?>[]) null);
                 } catch (NoSuchMethodException e) {
                     Log.e(TAG, "Couldn't fetch getDisplayList method; dimming won't work right.",
                             e);
@@ -1520,7 +1527,7 @@ public class SlidingPaneLayout extends ViewGroup {
             copyNodeInfoNoChildren(info, superNode);
             superNode.recycle();
 
-            info.setClassName(SlidingPaneLayout.class.getName());
+            info.setClassName(ACCESSIBILITY_CLASS_NAME);
             info.setSource(host);
 
             final ViewParent parent = ViewCompat.getParentForAccessibility(host);
@@ -1546,7 +1553,7 @@ public class SlidingPaneLayout extends ViewGroup {
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
 
-            event.setClassName(SlidingPaneLayout.class.getName());
+            event.setClassName(ACCESSIBILITY_CLASS_NAME);
         }
 
         @Override
@@ -1583,8 +1590,13 @@ public class SlidingPaneLayout extends ViewGroup {
             dest.setContentDescription(src.getContentDescription());
 
             dest.setEnabled(src.isEnabled());
+            dest.setClickable(src.isClickable());
+            dest.setFocusable(src.isFocusable());
+            dest.setFocused(src.isFocused());
             dest.setAccessibilityFocused(src.isAccessibilityFocused());
             dest.setSelected(src.isSelected());
+            dest.setLongClickable(src.isLongClickable());
+
             dest.addAction(src.getActions());
 
             dest.setMovementGranularities(src.getMovementGranularities());
