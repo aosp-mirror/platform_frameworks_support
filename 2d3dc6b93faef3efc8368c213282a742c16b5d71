@@ -84,6 +84,29 @@
     },
     {
       "key": {
+        "uuid": "90f4fd43_c5d8c904",
+        "filename": "camera/core/src/main/java/androidx/camera/core/FixedSizeSurfaceTextures.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-20T20:37:47Z",
+      "side": 1,
+      "message": "Do you get an error if you just use \"0\" here?",
+      "range": {
+        "startLine": 30,
+        "startChar": 77,
+        "endLine": 30,
+        "endChar": 89
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac095172_7ef04442",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -257,6 +280,92 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0fec7d_fbf1cdf9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-20T20:37:47Z",
+      "side": 1,
+      "message": "Since \u0027close()\u0027 can be called from any thread and \"getSurface()\" can also be called from any thread, this API will likely be throwing a lot of IllegalStateExceptions. At a minimum, the exception should be set in the ListenableFuture, but I also wouldn\u0027t use \"IllegalStateException\".",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 80
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee9157e_2e17996c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-20T20:37:47Z",
+      "side": 1,
+      "message": "This isn\u0027t thread safe. This variable is being modified by multiple threads.",
+      "range": {
+        "startLine": 161,
+        "startChar": 39,
+        "endLine": 161,
+        "endChar": 52
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9d0809_c7609c5b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-20T20:37:47Z",
+      "side": 1,
+      "message": "This also needs to be in a synchronized block.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 89
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1983d77a_800d65c8",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-20T20:37:47Z",
+      "side": 1,
+      "message": "Closing should be made into an atomic operation. Guarding with a volatile boolean is not sufficient. I would suggest using a synchronized block.",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
