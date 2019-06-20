@@ -16,6 +16,24 @@
       "revId": "7bc54ea8f5d1352207bf42423924bf62d3bf964b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b72ed08_812ba456",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-20T15:49:22Z",
+      "side": 1,
+      "message": "Hmm, I just assumed that we weren\u0027t planning on using the sources for third-party libraries. We could keep importing them anyway if we do",
+      "parentUuid": "03a77554_496facf9",
+      "revId": "7bc54ea8f5d1352207bf42423924bf62d3bf964b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
