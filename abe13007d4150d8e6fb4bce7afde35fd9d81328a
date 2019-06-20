@@ -22,6 +22,213 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e60f81_58544bc4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Sorry, this is the first time to see the selection code in Crane.\nCan you elaborate \"all the logic\" here?\n\nAlso, you says this is logic but actually, this looks just a data class of some process result.",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a737780_724a2b14",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Please leave a comment about the coordinate.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c0ea2b_69a9d535",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Can you elaborate a bit about the meaning of \"Offset\" here?\nRectangle offset sounds weird to me.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848e962a_86c03f78",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "This confuses me, you says this is TextPosition but it is Int.\nAlso, why do you need to keep this value as a member?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7324dc03_c6b44c7d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Shall we do this inline?\n\nlike\n\ninternal var containsWholeSelectionStart \u003d false",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23445ac4_b9aa0219",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Looks weird getSelection returns nothing.\nCan you change the name?",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81edb351_2178446d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Please leave a comment about the coordinate system of this position. Is this widget coordinate or window coordinate?",
+      "range": {
+        "startLine": 106,
+        "startChar": 18,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8091a00_6b3931fa",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "Please double check if we want to include right position in this logic.\nFor example, if two widget is places horizontally without any padding, margin.\nCurrent logic give containsWholeSelectionBoder true for both widget if you put the selection position on the middle point of these two widget.\n\nI\u0027m sorry if I misunderstand something.",
+      "range": {
+        "startLine": 128,
+        "startChar": 12,
+        "endLine": 128,
+        "endChar": 34
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50492cca_f4771e5d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T18:39:01Z",
+      "side": 1,
+      "message": "nit: Let\u0027s use coerceIn https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/coerce-in.html",
+      "range": {
+        "startLine": 136,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 17
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
