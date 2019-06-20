@@ -16,16 +16,17 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-
 import android.animation.LayoutTransition;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
+
+import java.util.ArrayList;
 
 /**
  * FragmentContainerView is a customized Layout designed specifically for Fragments. It extends
@@ -38,17 +39,29 @@ import androidx.annotation.RestrictTo;
  * {@link #setLayoutTransition(LayoutTransition)} is called directly an
  * {@link UnsupportedOperationException} will be thrown.
  *
- * @hide -- remove once z ordering is implemented.
+ * <p>Fragments using exit animations are drawn before all others for FragmentContainerView. This
+ * ensures that exiting Fragments do not appear on top of the view. When using this layout, a
+ * Fragment with an enter animation is popped using {@link FragmentManager#popBackStack()}, the
+ * reverse animation will not appear.
  */
-@RestrictTo(LIBRARY)
 public final class FragmentContainerView extends FrameLayout {
 
+    @Nullable
+    protected ArrayList<View> mDisappearingFragmentChildren;
+
+    private ArrayList<View> mTransitioningFragmentViews;
+
+    /**
+     * Placeholder view for helping correct animations.
+     */
+    private View mHoldView;
+
     public FragmentContainerView(@NonNull Context context) {
-        super(context);
+        this(context, null);
     }
 
     public FragmentContainerView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public FragmentContainerView(
@@ -56,6 +69,9 @@ public final class FragmentContainerView extends FrameLayout {
             @Nullable AttributeSet attrs,
             int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        // Make the holder view the first child
+        mHoldView = new View(context);
+        addView(mHoldView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     }
 
     /**
@@ -76,4 +92,108 @@ public final class FragmentContainerView extends FrameLayout {
                 "FragmentContainerView does not support Layout Transitions or "
                         + "animateLayoutChanges=\"true\".");
     }
+
+    @Override
+    protected boolean drawChild(@NonNull Canvas canvas, @NonNull View child, long drawingTime) {
+        if (mDisappearingFragmentChildren != null && mDisappearingFragmentChildren.size() > 0
+                && getChildCount() > 1) {
+            // When drawChild is called on the placeholder fragment, draw all of the disappearing
+            // child fragment views.
+            if (child == mHoldView) {
+                boolean more = false;
+                for (int i = mDisappearingFragmentChildren.size() - 1; i >= 0; i--) {
+                    more |= super.drawChild(
+                            canvas,
+                            mDisappearingFragmentChildren.get(i),
+                            drawingTime);
+                }
+                return more;
+            // If the child is disappearing, we have already drawn it so skip.
+            } else if (mDisappearingFragmentChildren.contains(child)) {
+                return false;
+            }
+        }
+
+        return super.drawChild(canvas, child, drawingTime);
+    }
+
+    @Override
+    public void startViewTransition(@NonNull View view) {
+        if (view.getParent() == this) {
+            if (mTransitioningFragmentViews == null) {
+                mTransitioningFragmentViews = new ArrayList<>();
+            }
+        }
+        mTransitioningFragmentViews.add(view);
+        super.startViewTransition(view);
+    }
+
+    @Override
+    public void endViewTransition(@NonNull View view) {
+        if (mTransitioningFragmentViews != null) {
+            mTransitioningFragmentViews.remove(view);
+            if (mDisappearingFragmentChildren != null) {
+                mDisappearingFragmentChildren.remove(view);
+            }
+        }
+        super.endViewTransition(view);
+    }
+
+    @Override
+    public void removeViewAt(int index) {
+        View view = getChildAt(index);
+        if (view.getAnimation() != null || (mTransitioningFragmentViews != null
+                && mTransitioningFragmentViews.contains(view))) {
+            addDisappearingFragmentView(view);
+        }
+        super.removeViewAt(index);
+    }
+
+    @Override
+    public void removeViewInLayout(@NonNull View view) {
+        if (view.getAnimation() != null || (mTransitioningFragmentViews != null
+                && mTransitioningFragmentViews.contains(view))) {
+            addDisappearingFragmentView(view);
+        }
+        super.removeViewInLayout(view);
+    }
+
+    @Override
+    public void removeView(@NonNull View view) {
+        if (view.getAnimation() != null || (mTransitioningFragmentViews != null
+                && mTransitioningFragmentViews.contains(view))) {
+            addDisappearingFragmentView(view);
+        }
+        super.removeView(view);
+    }
+
+    @Override
+    public void removeAllViewsInLayout() {
+        int count = getChildCount();
+        for (int i = count - 1; i >= 0; i--) {
+            final View view = getChildAt(i);
+            if (view.getAnimation() != null || (mTransitioningFragmentViews != null
+                    && mTransitioningFragmentViews.contains(view))) {
+                addDisappearingFragmentView(view);
+            }
+        }
+        super.removeAllViewsInLayout();
+    }
+
+    @Override
+    protected void removeDetachedView(@NonNull View child, boolean animate) {
+        if ((animate && child.getAnimation() != null) || (mTransitioningFragmentViews != null
+                && mTransitioningFragmentViews.contains(child))) {
+            addDisappearingFragmentView(child);
+        }
+        super.removeDetachedView(child, animate);
+    }
+
+    private void addDisappearingFragmentView(@NonNull View v) {
+        if (mDisappearingFragmentChildren == null) {
+            mDisappearingFragmentChildren = new ArrayList<>();
+        }
+        mDisappearingFragmentChildren.add(v);
+    }
+
 }
