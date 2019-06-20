@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5fcab9d_c20abfc2",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "getAdIdProviders",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77469d0d_7f7ba563",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "just do this at your return statement",
+      "range": {
+        "startLine": 74,
+        "startChar": 38,
+        "endLine": 74,
+        "endChar": 49
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8794b8b7_c60d1bc0",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "hasHigherPriority",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc14bda_894b03b1",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "... among all the providers for the developer library, meaning its provided ID will be used.",
+      "range": {
+        "startLine": 46,
+        "startChar": 64,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f02bd64_fc00c700",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "try to remove this, as it\u0027s only for testing",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5863fddc_efa0ec95",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "extra space",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34d89335_af0dc173",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "getOpenSettingsActivities",
+      "range": {
+        "startLine": 115,
+        "startChar": 39,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ca7b25_7037a680",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-20T06:44:04Z",
+      "side": 1,
+      "message": "Provider (singular)",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
