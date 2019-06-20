@@ -66,6 +66,8 @@ fun Semantics(
     <SemanticsComponentNode
         container
         explicitChildNodes
+        // Uncomment the following line for "Expected attribute <children>: KtxElement:"
+        // Leave commented for "IrSimpleFunctionSymbolImpl for local final fun ... is already bound: KtLambdaExpression:"
         properties
     >
         TestTag(tag=DefaultTestTag) {

@@ -527,7 +527,6 @@ private class InvalidatingCallbackProperty<T>(private var value: T) :
 }
 
 class SemanticsComponentNode(
-    properties: (SemanticsPropertyReceiver.() -> Unit)? = null,
     /**
      * If [container] is true, this widget will introduce a new
      * node in the semantics tree. Otherwise, the semantics will be
@@ -556,7 +555,9 @@ class SemanticsComponentNode(
      * This setting is often used in combination with [SemanticsConfiguration.isSemanticBoundary]
      * to create semantic boundaries that are either writable or not for children.
      */
-    explicitChildNodes: Boolean = false
+    explicitChildNodes: Boolean = false,
+    // If this is the last parameter to this constructor, Semantics.kt in framework will not compile
+    properties: (SemanticsPropertyReceiver.() -> Unit)? = null
 ) : ComponentNode() {
     private var needsSemanticsUpdate = true
     private var cachedSemanticsConfiguration: SemanticsConfiguration? = null
