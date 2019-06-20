@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3955b48_b7f78cd1",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-20T21:12:33Z",
+      "side": 1,
+      "message": "This was only added in API 29. Did you mean to restrict this test to API 29+?\n\nOtherwise you need to extract an existing WindowInsets (say, view.getRootWindowInsets() on API 23+) and call replaceSystemWindowInsets() on it to construct your custom insets.",
+      "range": {
+        "startLine": 98,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 45
+      },
+      "revId": "6fa32b0465b936fc4975ca29814063ca50406407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
