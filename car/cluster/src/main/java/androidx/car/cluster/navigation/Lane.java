@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
@@ -26,14 +26,13 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Configuration of a single lane of a road at a particular point in the navigation. It describes
  * all possible directions the driver could go from this lane, and indicates which directions the
- * driver could take to stay in the navigation route.
+ * driver could take to stay on the navigation route.
  */
 @VersionedParcelize
 public final class Lane implements VersionedParcelable {
@@ -45,23 +44,23 @@ public final class Lane implements VersionedParcelable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     Lane() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     Lane(@NonNull List<LaneDirection> directions) {
-        mDirections = Collections.unmodifiableList(new ArrayList<>(directions));
+        mDirections = new ArrayList<>(directions);
     }
 
     /**
      * Builder for creating a {@link Lane}
      */
     public static final class Builder {
-        List<LaneDirection> mDirections = new ArrayList<>();
+        private List<LaneDirection> mDirections = new ArrayList<>();
 
         /**
          * Add a possible direction a driver can take from this lane.
@@ -86,7 +85,7 @@ public final class Lane implements VersionedParcelable {
      */
     @NonNull
     public List<LaneDirection> getDirections() {
-        return Common.nonNullOrEmpty(mDirections);
+        return Common.immutableOrEmpty(mDirections);
     }
 
     @Override

@@ -17,10 +17,10 @@
 package androidx.work.integration.testapp.imageprocessing;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.Worker;
@@ -46,14 +46,14 @@ public class ImageSetupWorker extends Worker {
         String uriString = getInputData().getString(URI_KEY);
         if (TextUtils.isEmpty(uriString)) {
             Log.e(TAG, "Invalid URI!");
-            return Result.FAILURE;
+            return Result.failure();
         }
 
         Image image = new Image();
         image.mOriginalAssetName = uriString;
         image.mIsProcessed = false;
         TestDatabase.getInstance(getApplicationContext()).getImageDao().insert(image);
-        return Result.SUCCESS;
+        return Result.success();
     }
 
     static OneTimeWorkRequest createWork(String uriString) {

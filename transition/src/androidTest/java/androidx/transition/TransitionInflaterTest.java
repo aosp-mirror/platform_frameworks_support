@@ -128,6 +128,8 @@ public class TransitionInflaterTest extends BaseTest {
         assertTrue(transition instanceof TransitionSet);
         TransitionSet set = (TransitionSet) transition;
         assertEquals(TransitionSet.ORDERING_SEQUENTIAL, set.getOrdering());
+        assertEquals(300, set.getDuration());
+        assertNotNull(set.getPathMotion());
         assertEquals(2, set.getTransitionCount());
         assertTrue(set.getTransitionAt(0) instanceof ChangeBounds);
         assertTrue(set.getTransitionAt(1) instanceof Fade);
@@ -154,7 +156,7 @@ public class TransitionInflaterTest extends BaseTest {
     }
 
     private void verifyTargetClass(Transition transition) {
-        List<Class> targets = transition.getTargetTypes();
+        List<Class<?>> targets = transition.getTargetTypes();
         assertNotNull(targets);
         assertEquals(2, targets.size());
         assertEquals(TextView.class, targets.get(0));

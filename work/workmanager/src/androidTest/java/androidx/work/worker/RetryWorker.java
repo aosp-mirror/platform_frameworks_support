@@ -17,9 +17,9 @@
 package androidx.work.worker;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -36,6 +36,6 @@ public class RetryWorker extends Worker {
     @Override
     public @NonNull Result doWork() {
         Log.d("RetryWorker", "Returning RETRY");
-        return Result.RETRY;
+        return Result.retry();
     }
 }

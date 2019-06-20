@@ -23,7 +23,6 @@ import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPositio
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThan;
@@ -42,7 +41,6 @@ import static org.mockito.Mockito.verify;
 
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
@@ -50,14 +48,14 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import androidx.car.test.R;
-import androidx.car.utils.CarUxRestrictionsTestUtils;
+import androidx.car.util.CarUxRestrictionsTestUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
 import org.junit.Assume;
@@ -76,7 +74,7 @@ import java.util.Locale;
 * Tests the layout configuration in {@link TextListItem}.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class TextListItemTest {
 
     @Rule
@@ -414,7 +412,7 @@ public class TextListItemTest {
         for (int i = 0; i < items.size(); i++) {
             TextListItem.ViewHolder viewHolder = getViewHolderAtPosition(i);
 
-            int expected = InstrumentationRegistry.getContext().getResources()
+            int expected = ApplicationProvider.getApplicationContext().getResources()
                     .getDimensionPixelSize(expectedStartMargin.get(i));
             assertThat(((ViewGroup.MarginLayoutParams) viewHolder.getTitle().getLayoutParams())
                     .getMarginStart(), is(equalTo(expected)));
@@ -438,13 +436,14 @@ public class TextListItemTest {
 
         // String wouldn't fit in one line.
         TextListItem item3 = new TextListItem(mActivity);
-        item3.setTitle(InstrumentationRegistry.getContext().getResources().getString(
+        item3.setTitle(ApplicationProvider.getApplicationContext().getResources().getString(
                 R.string.over_uxr_text_length_limit));
 
         List<TextListItem> items = Arrays.asList(item0, item1, item2, item3);
         setupPagedListView(items);
 
-        double singleLineHeight = InstrumentationRegistry.getContext().getResources().getDimension(
+        double singleLineHeight =
+                ApplicationProvider.getApplicationContext().getResources().getDimension(
                 R.dimen.car_single_line_list_item_height);
 
         LinearLayoutManager layoutManager =
@@ -467,14 +466,14 @@ public class TextListItemTest {
 
         // String wouldn't fit in one line.
         TextListItem item2 = new TextListItem(mActivity);
-        item2.setBody(InstrumentationRegistry.getContext().getResources().getString(
+        item2.setBody(ApplicationProvider.getApplicationContext().getResources().getString(
                 R.string.over_uxr_text_length_limit));
 
         List<TextListItem> items = Arrays.asList(item0, item1, item2);
         setupPagedListView(items);
 
         final int doubleLineHeight =
-                (int) InstrumentationRegistry.getContext().getResources().getDimension(
+                (int) ApplicationProvider.getApplicationContext().getResources().getDimension(
                         R.dimen.car_double_line_list_item_height);
 
         LinearLayoutManager layoutManager =
@@ -487,7 +486,7 @@ public class TextListItemTest {
 
     @Test
     public void testPrimaryIconDrawable() {
-        Drawable drawable = InstrumentationRegistry.getContext().getResources().getDrawable(
+        Drawable drawable = ApplicationProvider.getApplicationContext().getResources().getDrawable(
                 android.R.drawable.sym_def_app_icon, null);
 
         TextListItem item0 = new TextListItem(mActivity);
@@ -502,33 +501,17 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testSetPrimaryActionIcon() {
-        TextListItem item = new TextListItem(mActivity);
-        item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
-                TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
-
-        List<TextListItem> items = Arrays.asList(item);
-        setupPagedListView(items);
-
-        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getDrawable(), is(notNullValue()));
-    }
-
-    @Test
     public void testPrimaryIconSizesInIncreasingOrder() {
         TextListItem small = new TextListItem(mActivity);
-        small.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        small.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         TextListItem medium = new TextListItem(mActivity);
-        medium.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        medium.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         TextListItem large = new TextListItem(mActivity);
-        large.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        large.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<TextListItem> items = Arrays.asList(small, medium, large);
@@ -547,8 +530,7 @@ public class TextListItemTest {
     @Test
     public void testLargePrimaryIconHasNoStartMargin() {
         TextListItem item0 = new TextListItem(mActivity);
-        item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item0.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<TextListItem> items = Arrays.asList(item0);
@@ -562,19 +544,18 @@ public class TextListItemTest {
     @Test
     public void testSmallAndMediumPrimaryIconStartMargin() {
         TextListItem item0 = new TextListItem(mActivity);
-        item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item0.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         TextListItem item1 = new TextListItem(mActivity);
-        item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item1.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         List<TextListItem> items = Arrays.asList(item0, item1);
         setupPagedListView(items);
 
-        int expected = InstrumentationRegistry.getContext().getResources().getDimensionPixelSize(
+        int expected =
+                ApplicationProvider.getApplicationContext().getResources().getDimensionPixelSize(
                 R.dimen.car_keyline_1);
 
         TextListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
@@ -588,43 +569,39 @@ public class TextListItemTest {
 
     @Test
     public void testSmallPrimaryIconTopMarginRemainsTheSameRegardlessOfTextLength() {
-        final String longText = InstrumentationRegistry.getContext().getResources().getString(
+        final String longText =
+                ApplicationProvider.getApplicationContext().getResources().getString(
                 R.string.over_uxr_text_length_limit);
 
         // Single line item.
         TextListItem item0 = new TextListItem(mActivity);
-        item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item0.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item0.setTitle("one line text");
 
         // Double line item with one line text.
         TextListItem item1 = new TextListItem(mActivity);
-        item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item1.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item1.setTitle("one line text");
         item1.setBody("one line text");
 
         // Double line item with long text.
         TextListItem item2 = new TextListItem(mActivity);
-        item2.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item2.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item2.setTitle("one line text");
         item2.setBody(longText);
 
         // Body text only - long text.
         TextListItem item3 = new TextListItem(mActivity);
-        item3.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item3.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item3.setBody(longText);
 
         // Body text only - one line text.
         TextListItem item4 = new TextListItem(mActivity);
-        item4.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item4.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item4.setBody("one line text");
 
@@ -657,8 +634,7 @@ public class TextListItemTest {
 
         TextListItem item0 = new TextListItem(mActivity);
         item0.setOnClickListener(v -> clicked[0] = true);
-        item0.setSupplementalIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon), true);
+        item0.setSupplementalIcon(android.R.drawable.sym_def_app_icon, true);
         item0.setSupplementalIconOnClickListener(v -> clicked[1] = true);
 
         List<TextListItem> items = Arrays.asList(item0);
@@ -678,8 +654,7 @@ public class TextListItemTest {
         final boolean[] clicked = {false};
 
         TextListItem item0 = new TextListItem(mActivity);
-        item0.setSupplementalIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon), true);
+        item0.setSupplementalIcon(android.R.drawable.sym_def_app_icon, true);
         item0.setSupplementalIconOnClickListener(v -> clicked[0] = true);
 
         List<TextListItem> items = Arrays.asList(item0);
@@ -693,8 +668,7 @@ public class TextListItemTest {
     @Test
     public void testSupplementalIconWithoutClickListenerIsNotClickable() {
         TextListItem item0 = new TextListItem(mActivity);
-        item0.setSupplementalIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon), true);
+        item0.setSupplementalIcon(android.R.drawable.sym_def_app_icon, true);
 
         List<TextListItem> items = Arrays.asList(item0);
         setupPagedListView(items);
@@ -761,7 +735,7 @@ public class TextListItemTest {
         // Custom binder interacts with body but has no effect.
         // Expect card height to remain single line.
         assertThat((double) viewHolder.itemView.getHeight(), is(closeTo(
-                InstrumentationRegistry.getContext().getResources().getDimension(
+                ApplicationProvider.getApplicationContext().getResources().getDimension(
                         R.dimen.car_single_line_list_item_height), 1.0d)));
     }
 
@@ -917,7 +891,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_ClickableIfSupplmentalIconClickable() {
+    public void testClickInterceptor_ClickableIfSupplementalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -931,7 +905,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_VisibleIfSupplmentalIconClickable() {
+    public void testClickInterceptor_VisibleIfSupplementalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -945,7 +919,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_NotClickableIfSupplmentalIconNotClickable() {
+    public void testClickInterceptor_NotClickableIfSupplementalIconNotClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -959,7 +933,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_GoneIfSupplmentalIconClickable() {
+    public void testClickInterceptor_GoneIfSupplementalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 

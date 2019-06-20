@@ -45,6 +45,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.SliceConvert.unwrap;
 import static androidx.slice.core.SliceHints.HINT_ACTIVITY;
 import static androidx.slice.core.SliceHints.HINT_CACHED;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION;
 
 import android.app.PendingIntent;
 import android.app.RemoteInput;
@@ -70,6 +71,8 @@ import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -124,8 +127,10 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
             HINT_PERMISSION_REQUEST,
             HINT_ERROR,
             HINT_ACTIVITY,
-            HINT_CACHED
+            HINT_CACHED,
+            HINT_SELECTION_OPTION,
     })
+    @Retention(RetentionPolicy.SOURCE)
     public @interface SliceHint{ }
 
     @ParcelField(value = 1, defaultValue = "null")
@@ -202,7 +207,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
      * @return The spec for this slice
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public @Nullable SliceSpec getSpec() {
         return mSpec;
     }
@@ -222,6 +227,15 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
     }
 
     /**
+     * @hide
+     * @return
+     */
+    @RestrictTo(LIBRARY)
+    public SliceItem[] getItemArray() {
+        return mItems;
+    }
+
+    /**
      * @return All hints associated with this Slice.
      */
     public @SliceHint List<String> getHints() {
@@ -231,7 +245,15 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
+    public @SliceHint String[] getHintArray() {
+        return mHints;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public boolean hasHint(@SliceHint String hint) {
         return ArrayUtils.contains(mHints, hint);
     }
@@ -239,7 +261,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @Override
     public void onPreParceling(boolean isStream) {
     }
@@ -247,7 +269,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @Override
     public void onPostParceling() {
         for (int i = mItems.length - 1; i >= 0; i--) {
@@ -264,7 +286,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
      * A Builder used to construct {@link Slice}s
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public static class Builder {
 
         private final Uri mUri;
@@ -299,7 +321,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
          * Add the spec for this slice.
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Builder setSpec(SliceSpec spec) {
             mSpec = spec;
             return this;
@@ -335,8 +357,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
          */
         public Builder addSubSlice(@NonNull Slice slice, String subType) {
             Preconditions.checkNotNull(slice);
-            mItems.add(new SliceItem(slice, FORMAT_SLICE, subType, slice.getHints().toArray(
-                    new String[slice.getHints().size()])));
+            mItems.add(new SliceItem(slice, FORMAT_SLICE, subType, slice.getHintArray()));
             return this;
         }
 
@@ -349,7 +370,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
                 @NonNull Slice s, @Nullable String subType) {
             Preconditions.checkNotNull(action);
             Preconditions.checkNotNull(s);
-            @SliceHint String[] hints = s.getHints().toArray(new String[s.getHints().size()]);
+            @SliceHint String[] hints = s.getHintArray();
             mItems.add(new SliceItem(action, s, FORMAT_ACTION, subType, hints));
             return this;
         }
@@ -363,7 +384,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
         public Slice.Builder addAction(@NonNull SliceItem.ActionHandler action,
                 @NonNull Slice s, @Nullable String subType) {
             Preconditions.checkNotNull(s);
-            @SliceHint String[] hints = s.getHints().toArray(new String[s.getHints().size()]);
+            @SliceHint String[] hints = s.getHintArray();
             mItems.add(new SliceItem(action, s, FORMAT_ACTION, subType, hints));
             return this;
         }
@@ -423,7 +444,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
          * @see SliceItem#getSubType()
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Slice.Builder addRemoteInput(RemoteInput remoteInput, @Nullable String subType,
                 @SliceHint List<String> hints) {
             Preconditions.checkNotNull(remoteInput);
@@ -436,7 +457,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
          * @see SliceItem#getSubType()
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Slice.Builder addRemoteInput(RemoteInput remoteInput, @Nullable String subType,
                 @SliceHint String... hints) {
             Preconditions.checkNotNull(remoteInput);
@@ -513,7 +534,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
          * Add a SliceItem to the slice being constructed.
          * @hide
          */
-        @RestrictTo(Scope.LIBRARY)
+        @RestrictTo(Scope.LIBRARY_GROUP)
         public Slice.Builder addItem(SliceItem item) {
             mItems.add(item);
             return this;
@@ -587,7 +608,7 @@ public final class Slice extends CustomVersionedParcelable implements VersionedP
      * @return The Slice provided by the app or null if none is given.
      * @see Slice
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     @Nullable
     public static Slice bindSlice(Context context, @NonNull Uri uri,
             Set<SliceSpec> supportedSpecs) {

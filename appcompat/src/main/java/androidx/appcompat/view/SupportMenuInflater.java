@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,6 +42,7 @@ import androidx.appcompat.R;
 import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.appcompat.widget.DrawableUtils;
+import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.internal.view.SupportMenu;
 import androidx.core.view.ActionProvider;
 import androidx.core.view.MenuItemCompat;
@@ -64,7 +65,7 @@ import java.lang.reflect.Method;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class SupportMenuInflater extends MenuInflater {
     static final String LOG_TAG = "SupportMenuInflater";
 
@@ -79,7 +80,7 @@ public class SupportMenuInflater extends MenuInflater {
 
     static final int NO_ID = 0;
 
-    static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] {Context.class};
+    static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class<?>[] {Context.class};
 
     static final Class<?>[] ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE =
             ACTION_VIEW_CONSTRUCTOR_SIGNATURE;
@@ -238,7 +239,7 @@ public class SupportMenuInflater extends MenuInflater {
 
     private static class InflatedOnMenuItemClickListener
             implements MenuItem.OnMenuItemClickListener {
-        private static final Class<?>[] PARAM_TYPES = new Class[] { MenuItem.class };
+        private static final Class<?>[] PARAM_TYPES = new Class<?>[] { MenuItem.class };
 
         private Object mRealOwner;
         private Method mMethod;
@@ -382,7 +383,8 @@ public class SupportMenuInflater extends MenuInflater {
          * Called when the parser is pointing to an item tag.
          */
         public void readItem(AttributeSet attrs) {
-            TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.MenuItem);
+            TintTypedArray a = TintTypedArray.obtainStyledAttributes(mContext, attrs,
+                    R.styleable.MenuItem);
 
             // Inherit attributes from the group as default value
             itemId = a.getResourceId(R.styleable.MenuItem_android_id, defaultItemId);
@@ -545,7 +547,7 @@ public class SupportMenuInflater extends MenuInflater {
         private <T> T newInstance(String className, Class<?>[] constructorSignature,
                 Object[] arguments) {
             try {
-                Class<?> clazz = mContext.getClassLoader().loadClass(className);
+                Class<?> clazz = Class.forName(className, false, mContext.getClassLoader());
                 Constructor<?> constructor = clazz.getConstructor(constructorSignature);
                 constructor.setAccessible(true);
                 return (T) constructor.newInstance(arguments);

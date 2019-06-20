@@ -16,9 +16,6 @@
 
 package androidx.media;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.versionedparcelable.VersionedParcelable;
 
 interface AudioAttributesImpl extends VersionedParcelable {
@@ -30,5 +27,12 @@ interface AudioAttributesImpl extends VersionedParcelable {
     int getContentType();
     @AudioAttributesCompat.AttributeUsage int getUsage();
     int getFlags();
-    @NonNull Bundle toBundle();
+
+    interface Builder {
+        AudioAttributesImpl build();
+        Builder setUsage(@AudioAttributesCompat.AttributeUsage int usage);
+        Builder setContentType(@AudioAttributesCompat.AttributeContentType int contentType);
+        Builder setFlags(int flags);
+        Builder setLegacyStreamType(int streamType);
+    }
 }

@@ -18,7 +18,6 @@ package androidx.build
 
 import com.android.build.gradle.LibraryExtension
 import com.android.builder.core.BuilderConstants
-
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
@@ -33,8 +32,8 @@ fun Project.configureSourceJarForAndroid(extension: LibraryExtension) {
             return@all // Skip non-release builds.
         }
 
-        val sourceJar = tasks.create("sourceJar${variant.name.capitalize()}", Jar::class.java) {
-            it.classifier = "sources"
+        val sourceJar = tasks.register("sourceJar${variant.name.capitalize()}", Jar::class.java) {
+            it.archiveClassifier.set("sources")
             it.from(extension.sourceSets.getByName("main").java.srcDirs)
         }
         artifacts.add("archives", sourceJar)
@@ -45,8 +44,8 @@ fun Project.configureSourceJarForAndroid(extension: LibraryExtension) {
  * Sets up a source jar task for a Java library project.
  */
 fun Project.configureSourceJarForJava() {
-    val sourceJar = tasks.create("sourceJar", Jar::class.java) {
-        it.classifier = "sources"
+    val sourceJar = tasks.register("sourceJar", Jar::class.java) {
+        it.archiveClassifier.set("sources")
 
         val convention = convention.getPlugin<JavaPluginConvention>()
         it.from(convention.sourceSets.getByName("main").allSource.srcDirs)

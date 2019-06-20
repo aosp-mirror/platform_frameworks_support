@@ -18,7 +18,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import androidx.core.widget.TextViewCompat;
 import androidx.leanback.R;
 
 /**
@@ -38,7 +37,7 @@ public class SearchEditText extends StreamingTextView {
         public void onKeyboardDismiss();
     }
 
-    private OnKeyboardDismissListener mKeyboardDismissListener;
+    OnKeyboardDismissListener mKeyboardDismissListener;
 
     public SearchEditText(Context context) {
         this(context, null);
@@ -56,10 +55,18 @@ public class SearchEditText extends StreamingTextView {
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             if (DEBUG) Log.v(TAG, "Keyboard being dismissed");
+            // Delay focus on result because focus to result in EditText.onKeyPreIme(KEYCODE_BACK).
+            // If set focus too early, the activity will be closed.
             if (mKeyboardDismissListener != null) {
-                mKeyboardDismissListener.onKeyboardDismiss();
+                post(new Runnable() {
+                         @Override
+                         public void run() {
+                             if (mKeyboardDismissListener != null) {
+                                 mKeyboardDismissListener.onKeyboardDismiss();
+                             }
+                         }
+                     });
             }
-            return false;
         }
         return super.onKeyPreIme(keyCode, event);
     }

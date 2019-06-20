@@ -21,16 +21,17 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.Build;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.WorkManagerImpl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,14 +43,14 @@ import java.util.Map;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobService extends JobService implements ExecutionListener {
-    private static final String TAG = "SystemJobService";
+    private static final String TAG = Logger.tagWithPrefix("SystemJobService");
     private WorkManagerImpl mWorkManagerImpl;
     private final Map<String, JobParameters> mJobParameters = new HashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
+        mWorkManagerImpl = WorkManagerImpl.getInstance(getApplicationContext());
         if (mWorkManagerImpl == null) {
             // This can occur if...
             // 1. The app is performing an auto-backup.  Prior to O, JobScheduler could erroneously
@@ -67,7 +68,7 @@ public class SystemJobService extends JobService implements ExecutionListener {
                 throw new IllegalStateException("WorkManager needs to be initialized via a "
                         + "ContentProvider#onCreate() or an Application#onCreate().");
             }
-            Logger.warning(TAG, "Could not find WorkManager instance; this may be because an "
+            Logger.get().warning(TAG, "Could not find WorkManager instance; this may be because an "
                     + "auto-backup is in progress. Ignoring JobScheduler commands for now. Please "
                     + "make sure that you are initializing WorkManager if you have manually "
                     + "disabled WorkManagerInitializer.");
@@ -87,15 +88,22 @@ public class SystemJobService extends JobService implements ExecutionListener {
     @Override
     public boolean onStartJob(JobParameters params) {
         if (mWorkManagerImpl == null) {
-            Logger.debug(TAG, "WorkManager is not initialized; requesting retry.");
+            Logger.get().debug(TAG, "WorkManager is not initialized; requesting retry.");
             jobFinished(params, true);
             return false;
         }
 
         PersistableBundle extras = params.getExtras();
+        // This can be null, possibly on a device-specific/API-specific (23) situation.  b/134028277
+        //noinspection ConstantConditions
+        if (extras == null) {
+            Logger.get().error(TAG, "No extras in JobParameters.");
+            return false;
+        }
+
         String workSpecId = extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
         if (TextUtils.isEmpty(workSpecId)) {
-            Logger.error(TAG, "WorkSpec id not found!");
+            Logger.get().error(TAG, "WorkSpec id not found!");
             return false;
         }
 
@@ -103,7 +111,7 @@ public class SystemJobService extends JobService implements ExecutionListener {
             if (mJobParameters.containsKey(workSpecId)) {
                 // This condition may happen due to our workaround for an undesired behavior in API
                 // 23.  See the documentation in {@link SystemJobScheduler#schedule}.
-                Logger.debug(TAG, String.format(
+                Logger.get().debug(TAG, String.format(
                         "Job is already being executed by SystemJobService: %s", workSpecId));
                 return false;
             }
@@ -112,25 +120,33 @@ public class SystemJobService extends JobService implements ExecutionListener {
             // returns true. This is because JobScheduler ensures that for PeriodicWork, constraints
             // are actually met irrespective.
 
-            Logger.debug(TAG, String.format("onStartJob for %s", workSpecId));
+            Logger.get().debug(TAG, String.format("onStartJob for %s", workSpecId));
             mJobParameters.put(workSpecId, params);
         }
 
         WorkerParameters.RuntimeExtras runtimeExtras = null;
         if (Build.VERSION.SDK_INT >= 24) {
             runtimeExtras = new WorkerParameters.RuntimeExtras();
-            if (params.getTriggeredContentUris() != null
-                    || params.getTriggeredContentAuthorities() != null) {
-                runtimeExtras.triggeredContentUris = params.getTriggeredContentUris();
-                runtimeExtras.triggeredContentAuthorities =
-                        params.getTriggeredContentAuthorities();
+            if (params.getTriggeredContentUris() != null) {
+                runtimeExtras.triggeredContentUris =
+                        Arrays.asList(params.getTriggeredContentUris());
             }
-
+            if (params.getTriggeredContentAuthorities() != null) {
+                runtimeExtras.triggeredContentAuthorities =
+                        Arrays.asList(params.getTriggeredContentAuthorities());
+            }
             if (Build.VERSION.SDK_INT >= 28) {
                 runtimeExtras.network = params.getNetwork();
             }
         }
 
+        // It is important that we return true, and hang on this onStartJob() request.
+        // The call to startWork() may no-op because the WorkRequest could have been picked up
+        // by the GreedyScheduler, and was already being executed. GreedyScheduler does not
+        // handle retries, and the Processor notifies all Schedulers about an intent to reschedule.
+        // In such cases, we rely on SystemJobService to ask for a reschedule by calling
+        // jobFinished(params, true) in onExecuted(...);
+        // For more information look at b/123211993
         mWorkManagerImpl.startWork(workSpecId, runtimeExtras);
         return true;
     }
@@ -138,17 +154,25 @@ public class SystemJobService extends JobService implements ExecutionListener {
     @Override
     public boolean onStopJob(JobParameters params) {
         if (mWorkManagerImpl == null) {
-            Logger.debug(TAG, "WorkManager is not initialized; requesting retry.");
+            Logger.get().debug(TAG, "WorkManager is not initialized; requesting retry.");
             return true;
         }
 
-        String workSpecId = params.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
-        if (TextUtils.isEmpty(workSpecId)) {
-            Logger.error(TAG, "WorkSpec id not found!");
+        PersistableBundle extras = params.getExtras();
+        // This can be null, possibly on a device-specific/API-specific (23) situation.  b/134028277
+        //noinspection ConstantConditions
+        if (extras == null) {
+            Logger.get().error(TAG, "No extras in JobParameters.");
             return false;
         }
 
-        Logger.debug(TAG, String.format("onStopJob for %s", workSpecId));
+        String workSpecId = extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
+        if (TextUtils.isEmpty(workSpecId)) {
+            Logger.get().error(TAG, "WorkSpec id not found!");
+            return false;
+        }
+
+        Logger.get().debug(TAG, String.format("onStopJob for %s", workSpecId));
 
         synchronized (mJobParameters) {
             mJobParameters.remove(workSpecId);
@@ -159,7 +183,7 @@ public class SystemJobService extends JobService implements ExecutionListener {
 
     @Override
     public void onExecuted(@NonNull String workSpecId, boolean needsReschedule) {
-        Logger.debug(TAG, String.format("%s executed on JobScheduler", workSpecId));
+        Logger.get().debug(TAG, String.format("%s executed on JobScheduler", workSpecId));
         JobParameters parameters;
         synchronized (mJobParameters) {
             parameters = mJobParameters.remove(workSpecId);

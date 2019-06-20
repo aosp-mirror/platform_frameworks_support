@@ -26,7 +26,7 @@ import javax.lang.model.type.DeclaredType
  */
 open class Entity(
     element: TypeElement,
-    val tableName: String,
+    override val tableName: String,
     type: DeclaredType,
     fields: List<Field>,
     embeddedFields: List<EmbeddedField>,
@@ -35,7 +35,9 @@ open class Entity(
     val foreignKeys: List<ForeignKey>,
     constructor: Constructor?,
     val shadowTableName: String?
-) : Pojo(element, type, fields, embeddedFields, emptyList(), constructor), HasSchemaIdentity {
+) : Pojo(element, type, fields, embeddedFields, emptyList(), constructor),
+    HasSchemaIdentity,
+    EntityOrView {
 
     open val createTableQuery by lazy {
         createTableQuery(tableName)
@@ -68,7 +70,7 @@ open class Entity(
         return if (primaryKey.fields.isEmpty() || primaryKey.autoGenerateId) {
             null
         } else {
-            val keys = primaryKey.fields.joinToString(", ") { "`${it.columnName}`" }
+            val keys = primaryKey.columnNames.joinToString(", ") { "`$it`" }
             "PRIMARY KEY($keys)"
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,21 @@
 package androidx.viewpager2.widget
 
 import android.view.View
+import androidx.annotation.FloatRange
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.filters.LargeTest
-import androidx.test.runner.AndroidJUnit4
 import androidx.viewpager2.widget.BaseTest.SortOrder.ASC
 import androidx.viewpager2.widget.BaseTest.SortOrder.DESC
 import androidx.viewpager2.widget.PageTransformerTest.Event.OnPageScrolledEvent
 import androidx.viewpager2.widget.PageTransformerTest.Event.TransformPageEvent
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeListener
-import androidx.viewpager2.widget.ViewPager2.Orientation.HORIZONTAL
-import androidx.viewpager2.widget.ViewPager2.Orientation.VERTICAL
+import androidx.viewpager2.widget.PageTransformerTest.ScrollMethod
+import androidx.viewpager2.widget.PageTransformerTest.TestConfig
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import androidx.viewpager2.widget.ViewPager2.PageTransformer
 import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.lessThan
@@ -39,11 +40,25 @@ import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.util.concurrent.TimeUnit.SECONDS
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(Parameterized::class)
 @LargeTest
-class PageTransformerTest : BaseTest() {
+class PageTransformerTest(private val config: TestConfig) : BaseTest() {
+    data class TestConfig(
+        val title: String,
+        @ViewPager2.Orientation val orientation: Int,
+        val scrollMethod: ScrollMethod,
+        val pageList: List<Int>
+    )
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun spec(): List<TestConfig> = createTestSet()
+    }
+
     /*
     When the ViewPager2 smooth scrolls to another page, it should generate transform events. The
     resulting event stream should have certain properties:
@@ -107,79 +122,70 @@ class PageTransformerTest : BaseTest() {
                                              transformPage(2, 1.000000)
                                              onPageScrollStateChanged(0)
      */
-    private fun test_transformer(
-        @ViewPager2.Orientation orientation: Int,
-        goToTargetPage: Context.(currentPage: Int, targetPage: Int) -> Unit,
-        pageList: List<Int>
-    ) {
+    @Test
+    fun test() {
         // given
-        setUpTest(orientation).apply {
-            setAdapterSync(viewAdapterProvider(stringSequence(100)))
+        val test = setUpTest(config.orientation)
+        test.setAdapterSync(viewAdapterProvider(stringSequence(100)))
 
-            // when
-            pageList.forEach { targetPage ->
-                val currentPage = viewPager.currentItem
-                val listener = viewPager.addNewRecordingListener()
+        // when
+        config.pageList.forEach { targetPage ->
+            val currentPage = test.viewPager.currentItem
+            val callback = test.viewPager.addNewRecordingCallback()
 
-                goToTargetPage(currentPage, targetPage)
+            test.scrollToPage(config.scrollMethod, currentPage, targetPage)
 
-                // then
-                listener.apply {
-                    assertThat(events.first(), instanceOf(OnPageScrolledEvent::class.java))
-                    assertThat(events.last(), instanceOf(TransformPageEvent::class.java))
+            // then
+            callback.apply {
+                assertFirstTransformEventsAreSnapped(currentPage)
+                assertLastTransformEventsAreSnapped(targetPage)
 
-                    val sortOrder = if (targetPage - currentPage > 0) ASC else DESC
-                    assertTransformEventsPerScrollEventAreForUniquePages()
-                    assertTransformEventsPerPageAreContiguous()
-                    assertTransformOffsetsPerPageAreOrdered(sortOrder)
-                    assertTransformOffsetsPerScrollEventDifferByOne()
-                    assertTransformEventsPerScrollEventFillScreen()
-                    assertPagesDoNotOvertakeEachOther()
-                }
+                val sortOrder = if (targetPage - currentPage > 0) ASC else DESC
+                assertTransformEventsPerScrollEventAreForUniquePages()
+                assertTransformEventsPerPageAreContiguous()
+                assertTransformOffsetsPerPageAreOrdered(sortOrder)
+                assertTransformOffsetsPerScrollEventDifferByOne()
+                assertTransformEventsPerScrollEventFillScreen()
+                assertPagesDoNotOvertakeEachOther()
             }
+
+            test.viewPager.unregisterOnPageChangeCallback(callback)
         }
     }
 
-    private val smoothScrollPages = listOf(1, 3, 6, 10, 15, 99, 0)
-    private val swipePages = listOf(1, 2, 1, 2, 3, 2, 1, 0, 1, 0)
+    enum class ScrollMethod {
+        PROGRAMMATIC_SCROLL,
+        SWIPE,
+    }
 
-    private val smoothScroll: Context.(Int, Int) -> Unit = { _, targetPage ->
+    private fun Context.scrollToPage(
+        scrollMethod: ScrollMethod,
+        currentPage: Int,
+        targetPage: Int
+    ) {
+        when (scrollMethod) {
+            ScrollMethod.PROGRAMMATIC_SCROLL -> programmaticScrollToPage(targetPage)
+            ScrollMethod.SWIPE -> swipeToPage(currentPage, targetPage)
+        }
+    }
+
+    private fun Context.programmaticScrollToPage(targetPage: Int) {
         viewPager.setCurrentItemSync(targetPage, true, 2, SECONDS)
     }
 
-    private val swipe: Context.(Int, Int) -> Unit = { currentPage, targetPage ->
+    private fun Context.swipeToPage(currentPage: Int, targetPage: Int) {
         val latch = viewPager.addWaitForScrolledLatch(targetPage)
-        swiper.swipe(currentPage, targetPage)
-        latch.await(1, SECONDS)
-        assertBasicState(targetPage, "$targetPage")
+        swipe(currentPage, targetPage)
+        latch.await(2, SECONDS)
+        assertBasicState(targetPage)
     }
 
-    @Test
-    fun test_transformer_smoothScroll_horizontal() {
-        test_transformer(HORIZONTAL, smoothScroll, smoothScrollPages)
-    }
-
-    @Test
-    fun test_transformer_smoothScroll_vertical() {
-        test_transformer(VERTICAL, smoothScroll, smoothScrollPages)
-    }
-
-    @Test
-    fun test_transformer_swipe_horizontal() {
-        test_transformer(HORIZONTAL, swipe, swipePages)
-    }
-
-    @Test
-    fun test_transformer_swipe_vertical() {
-        test_transformer(VERTICAL, swipe, swipePages)
-    }
-
-    private fun ViewPager2.addNewRecordingListener(): RecordingListener {
-        val layoutManager = (getChildAt(0) as RecyclerView).layoutManager as LinearLayoutManager
-        val listener = RecordingListener(layoutManager)
-        setPageTransformer(listener)
-        addOnPageChangeListener(listener)
-        return listener
+    private fun ViewPager2.addNewRecordingCallback(): RecordingCallback {
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+        return RecordingCallback(layoutManager).also {
+            setPageTransformer(it)
+            registerOnPageChangeCallback(it)
+        }
     }
 
     private sealed class Event {
@@ -198,20 +204,22 @@ class PageTransformerTest : BaseTest() {
     private val Pair<Int, TransformPageEvent>.index get() = first
     private val Pair<Int, TransformPageEvent>.event get() = second
 
-    private class RecordingListener(val layoutManager: LinearLayoutManager) :
-        PageTransformer, OnPageChangeListener {
+    private class RecordingCallback(val layoutManager: LinearLayoutManager) :
+        PageTransformer, OnPageChangeCallback() {
         val events = mutableListOf<Event>()
 
         val transformEvents get() = events.mapNotNull { it as? TransformPageEvent }
         val frames get() =
-            events.fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
-                if (e is Event.OnPageScrolledEvent) {
-                    groups.add(mutableListOf())
-                } else if (e is TransformPageEvent) {
-                    groups.last().add(e)
+            // Drop the first TransformPageEvents, they were triggered
+            // by setting the PageTransformer and not by the scroll
+            events.dropWhile { it is TransformPageEvent }
+                .fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
+                    when (e) {
+                        is OnPageScrolledEvent -> groups.add(mutableListOf())
+                        is TransformPageEvent -> groups.last().add(e)
+                    }
+                    groups
                 }
-                groups
-            }
         val pageIndices get() = events.mapNotNull { (it as? TransformPageEvent)?.page }.distinct()
 
         fun indexedEventsOf(page: Int): List<Pair<Int, TransformPageEvent>> {
@@ -226,7 +234,10 @@ class PageTransformerTest : BaseTest() {
 
         /* interface implementations */
 
-        override fun transformPage(page: View, position: Float) {
+        override fun transformPage(
+            @NonNull page: View,
+            @FloatRange(from = -1.0, to = 1.0) position: Float
+        ) {
             events.add(TransformPageEvent(layoutManager.getPosition(page), position))
         }
 
@@ -247,7 +258,24 @@ class PageTransformerTest : BaseTest() {
 
     /* assertions */
 
-    private fun RecordingListener.assertTransformEventsPerScrollEventAreForUniquePages() {
+    private fun RecordingCallback.assertFirstTransformEventsAreSnapped(currentPage: Int) {
+        events.takeWhile { it is TransformPageEvent }.assertSnappedRelativeToPage(currentPage)
+    }
+
+    private fun RecordingCallback.assertLastTransformEventsAreSnapped(targetPage: Int) {
+        events.takeLastWhile { it is TransformPageEvent }.assertSnappedRelativeToPage(targetPage)
+    }
+
+    private fun List<Event>.assertSnappedRelativeToPage(snappedPage: Int) {
+        map { it as TransformPageEvent }.forEach {
+            assertThat("transformPage() call must be snapped at page $snappedPage",
+                // event.page - event.offset resolves to the currently visible page index
+                it.page - it.offset, equalTo(snappedPage.toFloat())
+            )
+        }
+    }
+
+    private fun RecordingCallback.assertTransformEventsPerScrollEventAreForUniquePages() {
         frames.forEach {
             it.map { it.page }.apply {
                 assertThat(size, equalTo(distinct().size))
@@ -255,7 +283,7 @@ class PageTransformerTest : BaseTest() {
         }
     }
 
-    private fun RecordingListener.assertTransformEventsPerPageAreContiguous() {
+    private fun RecordingCallback.assertTransformEventsPerPageAreContiguous() {
         pageIndices.forEach { page ->
             val containsPage: (List<TransformPageEvent>) -> Boolean = { it.any { it.page == page } }
             assertFalse(
@@ -264,13 +292,13 @@ class PageTransformerTest : BaseTest() {
         }
     }
 
-    private fun RecordingListener.assertTransformOffsetsPerPageAreOrdered(sortOrder: SortOrder) {
+    private fun RecordingCallback.assertTransformOffsetsPerPageAreOrdered(sortOrder: SortOrder) {
         transformEvents.groupBy { it.page }.forEach { (_, events) ->
             events.assertSorted { it.offset * -sortOrder.sign }
         }
     }
 
-    private fun RecordingListener.assertTransformOffsetsPerScrollEventDifferByOne() {
+    private fun RecordingCallback.assertTransformOffsetsPerScrollEventDifferByOne() {
         val epsilon = 0.000001f
         frames.forEach {
             it.sortedBy { it.offset }.zipWithNext { a, b ->
@@ -279,7 +307,7 @@ class PageTransformerTest : BaseTest() {
         }
     }
 
-    private fun RecordingListener.assertTransformEventsPerScrollEventFillScreen() {
+    private fun RecordingCallback.assertTransformEventsPerScrollEventFillScreen() {
         // check that in each frame, there is either a page with offset 0,
         // or at least one negative and one positive offset
         frames.forEach {
@@ -294,7 +322,7 @@ class PageTransformerTest : BaseTest() {
         }
     }
 
-    private fun RecordingListener.assertPagesDoNotOvertakeEachOther() {
+    private fun RecordingCallback.assertPagesDoNotOvertakeEachOther() {
         pageIndices.forEach { pageB ->
             val pageBEvents = indexedEventsOf(pageB)
             pageIndices.forEach { pageA ->
@@ -323,3 +351,26 @@ class PageTransformerTest : BaseTest() {
         }
     }
 }
+
+// region Test Suite creation
+
+private fun createTestSet(): List<TestConfig> {
+    return listOf(ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL).flatMap { orientation ->
+        listOf(
+            TestConfig(
+                title = "swiping",
+                orientation = orientation,
+                scrollMethod = ScrollMethod.SWIPE,
+                pageList = listOf(1, 2, 1, 2, 3, 2, 1, 0, 1, 0)
+            ),
+            TestConfig(
+                title = "programmatic_scroll",
+                orientation = orientation,
+                scrollMethod = ScrollMethod.PROGRAMMATIC_SCROLL,
+                pageList = listOf(1, 3, 6, 10, 15, 99, 0)
+            )
+        )
+    }
+}
+
+// endregion

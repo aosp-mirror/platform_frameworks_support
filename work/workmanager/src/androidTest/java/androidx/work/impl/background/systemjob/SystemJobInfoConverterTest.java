@@ -25,15 +25,16 @@ import static androidx.work.NetworkType.UNMETERED;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 import android.app.job.JobInfo;
 import android.net.Uri;
 import android.os.Build;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
@@ -47,6 +48,8 @@ import androidx.work.worker.TestWorker;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
@@ -63,7 +66,7 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
     @Before
     public void setUp() {
         mConverter = new SystemJobInfoConverter(
-                InstrumentationRegistry.getTargetContext());
+                ApplicationProvider.getApplicationContext());
     }
 
     @Test
@@ -118,7 +121,7 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         WorkSpec workSpec = new WorkSpec("id", TestWorker.class.getName());
         workSpec.initialDelay = expectedInitialDelay;
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
-        assertThat(jobInfo.getMinLatencyMillis(), is(expectedInitialDelay));
+        assertCloseValues(jobInfo.getMinLatencyMillis(), expectedInitialDelay);
     }
 
     @Test
@@ -127,18 +130,17 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         WorkSpec workSpec = new WorkSpec("id", TestWorker.class.getName());
         workSpec.setPeriodic(TEST_INTERVAL_DURATION);
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
-        assertThat(jobInfo.getIntervalMillis(), is(TEST_INTERVAL_DURATION));
+        assertThat(jobInfo.getMinLatencyMillis(), is(0L));
     }
 
     @Test
     @SmallTest
-    @SdkSuppress(minSdkVersion = 24)
     public void testConvert_periodicWithFlex() {
         WorkSpec workSpec = new WorkSpec("id", TestWorker.class.getName());
         workSpec.setPeriodic(TEST_INTERVAL_DURATION, TEST_FLEX_DURATION);
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
-        assertThat(jobInfo.getIntervalMillis(), is(TEST_INTERVAL_DURATION));
-        assertThat(jobInfo.getFlexMillis(), is(TEST_FLEX_DURATION));
+        assertCloseValues(jobInfo.getMinLatencyMillis(),
+                TEST_INTERVAL_DURATION - TEST_FLEX_DURATION);
     }
 
     @Test
@@ -160,11 +162,16 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
                 new JobInfo.TriggerContentUri(
                         expectedUri, JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS);
         WorkSpec workSpec = getTestWorkSpecWithConstraints(new Constraints.Builder()
-                .addContentUriTrigger(expectedUri, true).build());
+                .addContentUriTrigger(expectedUri, true)
+                .setTriggerContentUpdateDelay(5, TimeUnit.SECONDS)
+                .setTriggerContentMaxDelay(10, TimeUnit.SECONDS)
+                .build());
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
 
         JobInfo.TriggerContentUri[] triggerContentUris = jobInfo.getTriggerContentUris();
         assertThat(triggerContentUris, is(arrayContaining(expectedTriggerContentUri)));
+        assertThat(jobInfo.getTriggerContentUpdateDelay(), is(TimeUnit.SECONDS.toMillis(5)));
+        assertThat(jobInfo.getTriggerContentMaxDelay(), is(TimeUnit.SECONDS.toMillis(10)));
     }
 
     @Test
@@ -281,5 +288,12 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         return getWorkSpec(new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setConstraints(constraints)
                 .build());
+    }
+
+    private void assertCloseValues(long value, long target) {
+        double min = Math.min(value, target);
+        double max = Math.max(value, target);
+        double ratio = min / max;
+        assertThat(ratio, greaterThanOrEqualTo(0.999d));
     }
 }

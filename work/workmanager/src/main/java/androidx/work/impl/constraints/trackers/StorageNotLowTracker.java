@@ -18,10 +18,11 @@ package androidx.work.impl.constraints.trackers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.work.Logger;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * Tracks whether or not the device's storage is low.
@@ -30,14 +31,15 @@ import androidx.work.Logger;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class StorageNotLowTracker extends BroadcastReceiverConstraintTracker<Boolean> {
 
-    private static final String TAG = "StorageNotLowTracker";
+    private static final String TAG = Logger.tagWithPrefix("StorageNotLowTracker");
 
     /**
      * Create an instance of {@link StorageNotLowTracker}.
      * @param context The application {@link Context}
+     * @param taskExecutor The internal {@link TaskExecutor} being used by WorkManager.
      */
-    public StorageNotLowTracker(Context context) {
-        super(context);
+    public StorageNotLowTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
+        super(context, taskExecutor);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class StorageNotLowTracker extends BroadcastReceiverConstraintTracker<Boo
             return; // Should never happen since the IntentFilter was configured.
         }
 
-        Logger.debug(TAG, String.format("Received %s", intent.getAction()));
+        Logger.get().debug(TAG, String.format("Received %s", intent.getAction()));
 
         switch (intent.getAction()) {
             case Intent.ACTION_DEVICE_STORAGE_OK:

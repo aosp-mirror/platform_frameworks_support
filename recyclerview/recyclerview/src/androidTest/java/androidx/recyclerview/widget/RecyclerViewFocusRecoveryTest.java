@@ -805,9 +805,9 @@ public class RecyclerViewFocusRecoveryTest extends BaseRecyclerViewInstrumentati
         assertThat(msg, fvh.getViewToFocus().hasFocus(), is(hasFocus));
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends FocusViewHolder> T cast(RecyclerView.ViewHolder vh) {
         assertThat(vh, instanceOf(FocusViewHolder.class));
-        //noinspection unchecked
         return (T) vh;
     }
 
@@ -916,7 +916,7 @@ public class RecyclerViewFocusRecoveryTest extends BaseRecyclerViewInstrumentati
         }
 
         protected String getText(Item item) {
-            return item.mText + "(" + item.mId + ")";
+            return item.getDisplayText();
         }
 
         abstract void setFocusable(boolean focusable);

@@ -31,6 +31,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresFeature;
+import androidx.annotation.RestrictTo;
 import androidx.webkit.internal.WebMessagePortImpl;
 import androidx.webkit.internal.WebViewFeatureInternal;
 import androidx.webkit.internal.WebViewGlueCommunicator;
@@ -38,11 +39,11 @@ import androidx.webkit.internal.WebViewProviderAdapter;
 import androidx.webkit.internal.WebViewProviderFactory;
 
 import org.chromium.support_lib_boundary.WebViewProviderBoundaryInterface;
-import org.chromium.support_lib_boundary.util.Features;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Compatibility version of {@link android.webkit.WebView}
@@ -440,7 +441,7 @@ public class WebViewCompat {
             enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
     public static @NonNull WebViewClient getWebViewClient(@NonNull WebView webview) {
         final WebViewFeatureInternal feature =
-                WebViewFeatureInternal.getFeature(Features.GET_WEB_VIEW_CLIENT);
+                WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_CLIENT);
         if (feature.isSupportedByFramework()) {
             return webview.getWebViewClient();
         } else if (feature.isSupportedByWebView()) {
@@ -470,6 +471,163 @@ public class WebViewCompat {
             return webview.getWebChromeClient();
         } else if (feature.isSupportedByWebView()) {
             return getProvider(webview).getWebChromeClient();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Gets the WebView renderer associated with this WebView.
+     *
+     * <p>In Android O and above, WebView may run in "multiprocess"
+     * mode. In multiprocess mode, rendering of web content is performed by
+     * a sandboxed renderer process separate to the application process.
+     * This renderer process may be shared with other WebViews in the
+     * application, but is not shared with other application processes.
+     *
+     * <p>If WebView is running in multiprocess mode, this method returns a
+     * handle to the renderer process associated with the WebView, which can
+     * be used to control the renderer process.
+     *
+     * <p>This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#GET_WEB_VIEW_RENDERER}.
+     *
+     * @return the {@link WebViewRenderProcess} renderer handle associated
+     *         with this {@link android.webkit.WebView}, or {@code null} if
+     *         WebView is not runing in multiprocess mode.
+     */
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.GET_WEB_VIEW_RENDERER,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @Nullable WebViewRenderProcess getWebViewRenderProcess(@NonNull WebView webview) {
+        final WebViewFeatureInternal feature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        if (feature.isSupportedByWebView()) {
+            return getProvider(webview).getWebViewRenderProcess();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Sets the renderer client object associated with this WebView.
+     *
+     * <p>The renderer client encapsulates callbacks relevant to WebView renderer
+     * state. See {@link WebViewRenderProcessClient} for details.
+     *
+     * <p>Although many WebView instances may share a single underlying renderer, and renderers may
+     * live either in the application process, or in a sandboxed process that is isolated from
+     * the application process, instances of {@link WebViewRenderProcessClient} are set per-WebView.
+     * Callbacks represent renderer events from the perspective of this WebView, and may or may
+     * not be correlated with renderer events affecting other WebViews.
+     *
+     * <p>The renderer client encapsulates callbacks relevant to WebView renderer
+     * state. See {@link WebViewRenderProcessClient} for details.
+     *
+     * <p>Although many WebView instances may share a single underlying renderer, and renderers may
+     * live either in the application process, or in a sandboxed process that is isolated from
+     * the application process, instances of {@link WebViewRenderProcessClient} are set per-WebView.
+     * Callbacks represent renderer events from the perspective of this WebView, and may or may
+     * not be correlated with renderer events affecting other WebViews.
+     *
+     * <p>This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE}.
+     *
+     * @param webview the {@link WebView} on which to monitor responsiveness.
+     * @param executor the {@link Executor} that will be used to execute callbacks.
+     * @param webViewRenderProcessClient the {@link WebViewRenderProcessClient} to set for
+     *                                   callbacks.
+     */
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setWebViewRenderProcessClient(
+            @NonNull WebView webview,
+            @NonNull /* @CallbackExecutor */ Executor executor,
+            @NonNull WebViewRenderProcessClient webViewRenderProcessClient) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            getProvider(webview).setWebViewRenderProcessClient(
+                    executor, webViewRenderProcessClient);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Sets the renderer client object associated with this WebView.
+     *
+     * <p>See {@link WebViewCompat#setWebViewRenderProcessClient(WebView,Executor,WebViewRenderProcessClient)} for
+     * details, with the following differences:
+     *
+     * <p>Callbacks will execute directly on the thread on which this WebView was instantiated.
+     *
+     * <p>Passing {@code null} for {@code webViewRenderProcessClient} will clear the renderer client
+     * object for this WebView.
+     *
+     * <p>This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE}.
+     *
+     * @param webview the {@link WebView} on which to monitor responsiveness.
+     * @param webViewRenderProcessClient the {@link WebViewRenderProcessClient} to set for
+     *                                   callbacks.
+     */
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setWebViewRenderProcessClient(
+            @NonNull WebView webview,
+            @Nullable WebViewRenderProcessClient webViewRenderProcessClient) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            getProvider(webview).setWebViewRenderProcessClient(null, webViewRenderProcessClient);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Gets the renderer client object associated with this WebView.
+     *
+     * <p>This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE}.
+     *
+     * @return the {@link WebViewRenderProcessClient} object associated with this WebView, if
+     * one has been set via
+     * {@link #setWebViewRenderProcessClient(WebView,WebViewRenderProcessClient)} or {@code null}
+     * otherwise.
+     */
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @Nullable WebViewRenderProcessClient getWebViewRenderProcessClient(
+            @NonNull WebView webview) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            return getProvider(webview).getWebViewRenderProcessClient();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Returns true if {@link WebView} is running in multi process mode.
+     *
+     * //TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @RequiresFeature(name = WebViewFeature.MULTI_PROCESS_QUERY,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static boolean isMultiProcessEnabled() {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.MULTI_PROCESS_QUERY);
+        if (feature.isSupportedByWebView()) {
+            return getFactory().getStatics().isMultiProcessEnabled();
         } else {
             throw WebViewFeatureInternal.getUnsupportedOperationException();
         }

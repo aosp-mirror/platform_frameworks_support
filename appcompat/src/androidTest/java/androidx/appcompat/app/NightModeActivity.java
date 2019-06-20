@@ -17,29 +17,14 @@
 package androidx.appcompat.app;
 
 import android.content.res.Configuration;
-import android.view.View;
-import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
 public class NightModeActivity extends BaseTestActivity {
-
-    /**
-     * Warning, gross hack here. Since night mode uses recreate(), we need a way to be able to
-     * grab the top activity. The test runner only keeps reference to the original Activity which
-     * is no good for these tests. Fixed by keeping a static reference to the 'top' instance, and
-     * updating it in onResume and onPause. I said it was gross.
-     */
-    static NightModeActivity TOP_ACTIVITY = null;
-
-    Configuration lastChangeConfiguration = null;
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        lastChangeConfiguration = newConfig;
-    }
+    private int mLastNightModeChange = Integer.MIN_VALUE;
+    private Configuration mLastConfigurationChange;
 
     @Override
     protected int getContentViewLayoutResId() {
@@ -47,23 +32,25 @@ public class NightModeActivity extends BaseTestActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        TOP_ACTIVITY = this;
+    public void onNightModeChanged(int mode) {
+        mLastNightModeChange = mode;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (TOP_ACTIVITY == this) {
-            TOP_ACTIVITY = null;
-        }
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mLastConfigurationChange = newConfig;
     }
 
-    /**
-     * This is referenced from an android:onClick in the layout
-     */
-    public void onButtonClicked(View view) {
-        ((Button) view).setText(R.string.clicked);
+    Configuration getLastConfigurationChangeAndClear() {
+        final Configuration config = mLastConfigurationChange;
+        mLastConfigurationChange = null;
+        return config;
+    }
+
+    int getLastNightModeAndReset() {
+        final int mode = mLastNightModeChange;
+        mLastNightModeChange = Integer.MIN_VALUE;
+        return mode;
     }
 }

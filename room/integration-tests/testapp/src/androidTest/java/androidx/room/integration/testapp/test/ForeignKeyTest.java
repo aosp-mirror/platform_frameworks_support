@@ -40,9 +40,9 @@ import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -208,7 +208,7 @@ public class ForeignKeyTest {
 
     @Before
     public void openDb() {
-        mDb = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getTargetContext(),
+        mDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
                 ForeignKeyDb.class).build();
         mDao = mDb.dao();
     }
@@ -240,6 +240,7 @@ public class ForeignKeyTest {
     @Test
     public void immediateForeignKeyFailure() {
         Throwable t = catchException(new ThrowingRunnable() {
+            @SuppressWarnings("deprecation")
             @Override
             public void run() throws Exception {
                 try {
@@ -255,6 +256,7 @@ public class ForeignKeyTest {
         assertThat(t, instanceOf(SQLiteException.class));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void deferredForeignKeySuccess() {
         try {
@@ -390,7 +392,7 @@ public class ForeignKeyTest {
                 .or(both(containsString("CODE 19")).and(containsString("CONSTRAINT FAILED")));
     }
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates", "deprecation"})
     private void deleteInTransaction(A a, B b) {
         mDb.beginTransaction();
         try {
@@ -402,7 +404,7 @@ public class ForeignKeyTest {
         }
     }
 
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates", "deprecation"})
     private void deleteInTransaction(A a, C c) {
         mDb.beginTransaction();
         try {

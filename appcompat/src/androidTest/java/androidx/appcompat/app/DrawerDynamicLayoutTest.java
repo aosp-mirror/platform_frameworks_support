@@ -35,9 +35,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -51,7 +51,7 @@ import org.junit.runner.RunWith;
  * Test cases to verify that <code>DrawerLayout</code> only supports configurations
  * with at most one drawer child along each vertical (left / right) edge.
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class DrawerDynamicLayoutTest {
     @Rule

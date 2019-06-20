@@ -16,6 +16,7 @@
 
 package androidx.room.integration.testapp.test;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -26,17 +27,18 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 import androidx.room.EmptyResultSetException;
 import androidx.room.Room;
+import androidx.room.RxRoom;
 import androidx.room.integration.testapp.FtsTestDatabase;
 import androidx.room.integration.testapp.dao.MailDao;
 import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.google.common.collect.Lists;
 
@@ -49,14 +51,18 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Predicate;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subscribers.TestSubscriber;
 
@@ -530,6 +536,7 @@ public class RxJava2Test extends TestDatabaseTest {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Flowable() throws InterruptedException {
         // When subscribing to the emissions of the user
@@ -553,6 +560,7 @@ public class RxJava2Test extends TestDatabaseTest {
         userTestSubscriber.assertValueCount(1);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Observable() throws InterruptedException {
         // When subscribing to the emissions of the user
@@ -579,7 +587,7 @@ public class RxJava2Test extends TestDatabaseTest {
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
     public void withFtsTable_Flowable() throws InterruptedException {
-        final Context context = InstrumentationRegistry.getTargetContext();
+        final Context context = ApplicationProvider.getApplicationContext();
         final FtsTestDatabase db = Room.inMemoryDatabaseBuilder(context, FtsTestDatabase.class)
                 .build();
         final MailDao mailDao = db.getMailDao();
@@ -609,5 +617,81 @@ public class RxJava2Test extends TestDatabaseTest {
                 return mailList.equals(Lists.newArrayList(mail0, mail1));
             }
         });
+    }
+
+    @Test
+    public void singleFromCallable_emptyResult_disposed() throws InterruptedException {
+        CountDownLatch queryLatch = new CountDownLatch(1);
+        CountDownLatch bgThreadLatch = new CountDownLatch(1);
+        TestObserver<Boolean> testObserver = new TestObserver<>();
+        Disposable disposable = Single.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                bgThreadLatch.countDown();
+                queryLatch.await();
+                throw new EmptyResultSetException("Empty result");
+            }
+        }).subscribeOn(mTestScheduler).subscribeWith(testObserver);
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    RxJavaPlugins.setErrorHandler(e -> {
+                        assertThat(e, instanceOf(UndeliverableException.class));
+                        RxJavaPlugins.setErrorHandler(null);
+                    });
+                    drain();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        t.start();
+
+        bgThreadLatch.await();
+        testObserver.assertNotComplete();
+        disposable.dispose();
+        queryLatch.countDown();
+        t.join();
+
+        testObserver.assertNoValues();
+        testObserver.assertNotTerminated();
+    }
+
+    @Test
+    public void createSingle_emptyResult_disposed() throws InterruptedException {
+        CountDownLatch queryLatch = new CountDownLatch(1);
+        CountDownLatch bgThreadLatch = new CountDownLatch(1);
+        TestObserver<Boolean> testObserver = new TestObserver<>();
+        Disposable disposable = RxRoom.createSingle(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                bgThreadLatch.countDown();
+                queryLatch.await();
+                throw new EmptyResultSetException("Empty result");
+            }
+        }).subscribeOn(mTestScheduler).subscribeWith(testObserver);
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    drain();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        t.start();
+
+        bgThreadLatch.await();
+        testObserver.assertNotComplete();
+        disposable.dispose();
+        queryLatch.countDown();
+        t.join();
+
+        testObserver.assertNoValues();
+        testObserver.assertNotTerminated();
     }
 }

@@ -16,31 +16,34 @@
 
 import static androidx.build.dependencies.DependenciesKt.*
 
+buildscript {
+    // TODO: Remove this when this test app no longer depends on 1.0.0 of vectordrawable-animated.
+    // vectordrawable and vectordrawable-animated were accidentally using the same package name
+    // which is no longer valid in namespaced resource world.
+    project.ext['android.uniquePackageNames'] = false
+}
 
 plugins {
     id("AndroidXPlugin")
     id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 dependencies {
-    implementation(project(":arch:core-runtime"))
-    implementation(project(":arch:core-common"))
-    implementation(project(":paging:paging-common"))
-    implementation(project(":room:room-runtime"))
-    implementation(project(":room:room-rxjava2"))
-    implementation(project(":lifecycle:lifecycle-extensions"))
-    implementation(project(":lifecycle:lifecycle-runtime"))
-    implementation(project(":lifecycle:lifecycle-common"))
+    implementation(ARCH_CORE_RUNTIME)
+    implementation(ARCH_ROOM_RUNTIME)
+    implementation(ARCH_ROOM_RXJAVA)
+
+    implementation(project(":paging:paging-common-ktx"))
     implementation(project(":paging:paging-runtime"))
     implementation(project(":paging:paging-rxjava2"))
 
-    annotationProcessor project(":room:room-compiler")
+    kapt(ARCH_ROOM_COMPILER)
 
     implementation(MULTIDEX)
     implementation(SUPPORT_RECYCLERVIEW, libs.support_exclude_config)
-    implementation(SUPPORT_APPCOMPAT, libs.support_exclude_config)
+    implementation(project(":fragment:fragment-ktx"))
+    implementation(project(":appcompat"))
+    implementation(KOTLIN_STDLIB)
 }
-
-tasks['check'].dependsOn(tasks['connectedCheck'])
-
-uploadArchives.enabled = false

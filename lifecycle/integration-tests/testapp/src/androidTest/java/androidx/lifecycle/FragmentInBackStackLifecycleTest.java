@@ -27,7 +27,6 @@ import static androidx.lifecycle.TestUtils.recreateActivity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.iterableWithSize;
 
 import static java.util.Arrays.asList;
 
@@ -37,9 +36,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.testapp.EmptyActivity;
 import androidx.lifecycle.testapp.R;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,13 +46,14 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class FragmentInBackStackLifecycleTest {
     @Rule
     public ActivityTestRule<EmptyActivity> activityTestRule = new ActivityTestRule<>(
             EmptyActivity.class);
 
+    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     @Test
     public void test() throws Throwable {
         final ArrayList<Event> collectedEvents = new ArrayList<>();
@@ -83,7 +83,6 @@ public class FragmentInBackStackLifecycleTest {
         EmptyActivity newActivity = recreateActivity(activityTestRule.getActivity(),
                 activityTestRule);
 
-        //noinspection ArraysAsListWithZeroOrOneArgument
         assertThat(collectedEvents, is(asList(ON_DESTROY)));
         collectedEvents.clear();
         EmptyActivity lastActivity = recreateActivity(newActivity, activityTestRule);
@@ -91,9 +90,10 @@ public class FragmentInBackStackLifecycleTest {
             FragmentManager fm = lastActivity.getSupportFragmentManager();
             Fragment fragment = fm.findFragmentByTag("tag");
             fragment.getLifecycle().addObserver(collectingObserver);
-            assertThat(collectedEvents, iterableWithSize(0));
+            assertThat(collectedEvents, is(asList(ON_CREATE)));
+            collectedEvents.clear();
             fm.popBackStackImmediate();
-            assertThat(collectedEvents, is(asList(ON_CREATE, ON_START, ON_RESUME)));
+            assertThat(collectedEvents, is(asList(ON_START, ON_RESUME)));
         });
     }
 

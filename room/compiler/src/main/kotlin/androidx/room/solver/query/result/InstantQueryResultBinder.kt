@@ -35,6 +35,9 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
+        scope.builder().apply {
+            addStatement("$N.assertNotSuspendingTransaction()", DaoWriter.dbField)
+        }
         val transactionWrapper = if (inTransaction) {
             scope.builder().transactionWrapper(dbField)
         } else {
@@ -49,7 +52,7 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
                     AndroidTypeNames.CURSOR,
                     cursorVar,
                     RoomTypeNames.DB_UTIL,
-                    DaoWriter.dbField,
+                    dbField,
                     roomSQLiteQueryVar,
                     if (shouldCopyCursor) "true" else "false")
             beginControlFlow("try").apply {

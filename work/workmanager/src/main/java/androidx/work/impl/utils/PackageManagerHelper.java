@@ -18,8 +18,8 @@ package androidx.work.impl.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import androidx.work.Logger;
 
 /**
@@ -27,7 +27,7 @@ import androidx.work.Logger;
  */
 
 public class PackageManagerHelper {
-    private static final String TAG = "PackageManagerHelper";
+    private static final String TAG = Logger.tagWithPrefix("PackageManagerHelper");
 
     private PackageManagerHelper() {
     }
@@ -41,7 +41,7 @@ public class PackageManagerHelper {
      */
     public static void setComponentEnabled(
             @NonNull Context context,
-            @NonNull Class klazz,
+            @NonNull Class<?> klazz,
             boolean enabled) {
         try {
             PackageManager packageManager = context.getPackageManager();
@@ -52,10 +52,10 @@ public class PackageManagerHelper {
                             : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP);
 
-            Logger.debug(TAG,
+            Logger.get().debug(TAG,
                     String.format("%s %s", klazz.getName(), (enabled ? "enabled" : "disabled")));
         } catch (Exception exception) {
-            Logger.debug(TAG, String.format("%s could not be %s", klazz.getName(),
+            Logger.get().debug(TAG, String.format("%s could not be %s", klazz.getName(),
                     (enabled ? "enabled" : "disabled")), exception);
         }
     }
@@ -63,7 +63,7 @@ public class PackageManagerHelper {
     /**
      * Convenience method for {@link #isComponentExplicitlyEnabled(Context, String)}
      */
-    public static boolean isComponentExplicitlyEnabled(Context context, Class klazz) {
+    public static boolean isComponentExplicitlyEnabled(Context context, Class<?> klazz) {
         return isComponentExplicitlyEnabled(context, klazz.getName());
     }
 

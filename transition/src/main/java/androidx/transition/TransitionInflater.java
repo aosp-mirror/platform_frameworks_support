@@ -16,6 +16,7 @@
 
 package androidx.transition;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -41,8 +42,8 @@ import java.lang.reflect.Constructor;
 public class TransitionInflater {
 
     private static final Class<?>[] CONSTRUCTOR_SIGNATURE =
-            new Class[]{Context.class, AttributeSet.class};
-    private static final ArrayMap<String, Constructor> CONSTRUCTORS = new ArrayMap<>();
+            new Class<?>[]{Context.class, AttributeSet.class};
+    private static final ArrayMap<String, Constructor<?>> CONSTRUCTORS = new ArrayMap<>();
 
     private final Context mContext;
 
@@ -189,7 +190,7 @@ public class TransitionInflater {
         return transition;
     }
 
-    private Object createCustom(AttributeSet attrs, Class expectedType, String tag) {
+    private Object createCustom(AttributeSet attrs, Class<?> expectedType, String tag) {
         String className = attrs.getAttributeValue(null, "class");
 
         if (className == null) {
@@ -198,10 +199,10 @@ public class TransitionInflater {
 
         try {
             synchronized (CONSTRUCTORS) {
-                Constructor constructor = CONSTRUCTORS.get(className);
+                Constructor<?> constructor = CONSTRUCTORS.get(className);
                 if (constructor == null) {
                     @SuppressWarnings("unchecked")
-                    Class<?> c = mContext.getClassLoader().loadClass(className)
+                    Class<?> c = Class.forName(className, false, mContext.getClassLoader())
                             .asSubclass(expectedType);
                     if (c != null) {
                         constructor = c.getConstructor(CONSTRUCTOR_SIGNATURE);
@@ -218,6 +219,8 @@ public class TransitionInflater {
         }
     }
 
+    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
+    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void getTargetIds(XmlPullParser parser,
             AttributeSet attrs, Transition transition) throws XmlPullParserException, IOException {
 
@@ -254,11 +257,11 @@ public class TransitionInflater {
                             "excludeClass", Styleable.TransitionTarget.EXCLUDE_CLASS);
                     try {
                         if (className != null) {
-                            Class clazz = Class.forName(className);
+                            Class<?> clazz = Class.forName(className);
                             transition.excludeTarget(clazz, true);
                         } else if ((className = TypedArrayUtils.getNamedString(a, parser,
                                 "targetClass", Styleable.TransitionTarget.TARGET_CLASS)) != null) {
-                            Class clazz = Class.forName(className);
+                            Class<?> clazz = Class.forName(className);
                             transition.addTarget(clazz);
                         }
                     } catch (ClassNotFoundException e) {
@@ -304,6 +307,8 @@ public class TransitionInflater {
         return transitionManager;
     }
 
+    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
+    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void loadTransition(AttributeSet attrs, XmlPullParser parser, ViewGroup sceneRoot,
             TransitionManager transitionManager) throws Resources.NotFoundException {
 

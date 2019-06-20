@@ -42,10 +42,10 @@ import androidx.appcompat.testutils.BaseTestActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.AutoSizeableTextView;
 import androidx.core.widget.TextViewCompat;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -68,7 +68,7 @@ public abstract class AppCompatBaseAutoSizeTest<A extends BaseTestActivity,
     protected Instrumentation mInstrumentation;
     protected ViewGroup mContainer;
 
-    public AppCompatBaseAutoSizeTest(Class clazz) {
+    public AppCompatBaseAutoSizeTest(Class<A> clazz) {
         mActivityTestRule = new ActivityTestRule<A>(clazz);
     }
 

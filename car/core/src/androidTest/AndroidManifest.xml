@@ -16,11 +16,8 @@
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="androidx.car.widget.test">
-    <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
     <application android:supportsRtl="true">
-        <activity android:name="androidx.car.widget.ActionBarTestActivity"
-                  android:theme="@style/Theme.Car.Light.NoActionBar" />
         <activity android:name="androidx.car.drawer.CarDrawerTestActivity"
                   android:theme="@style/Theme.Car.Light.NoActionBar.Drawer" />
         <activity android:name="androidx.car.widget.CarToolbarTestActivity"
@@ -33,5 +30,7 @@
                   android:theme="@style/Theme.Car.Light.NoActionBar" />
         <activity android:name="androidx.car.widget.PagedListViewTestActivity"
                   android:theme="@style/Theme.Car.Light.NoActionBar" />
+        <activity android:name="androidx.car.widget.PagedListViewNoScrollBarActivity"
+                  android:theme="@style/Theme.Car.Dark.NoActionBar" />
     </application>
 </manifest>

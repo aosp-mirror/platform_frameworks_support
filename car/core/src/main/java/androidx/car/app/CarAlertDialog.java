@@ -24,6 +24,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.MovementMethod;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
@@ -38,6 +39,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import androidx.car.R;
 
 /**
@@ -66,6 +68,7 @@ public class CarAlertDialog extends Dialog {
     private TextView mTitleView;
     private ImageView mIconView;
     private TextView mBodyView;
+    private MovementMethod mBodyMovementMethod;
 
     private View mButtonPanel;
     private Button mPositiveButton;
@@ -78,6 +81,7 @@ public class CarAlertDialog extends Dialog {
         mTitle = builder.mTitle;
         mIcon = builder.mIcon;
         mBody = builder.mBody;
+        mBodyMovementMethod = builder.mBodyMovementMethod;
         mPositiveButtonText = builder.mPositiveButtonText;
         mPositiveButtonListener = builder.mPositiveButtonListener;
         mNegativeButtonText = builder.mNegativeButtonText;
@@ -88,7 +92,7 @@ public class CarAlertDialog extends Dialog {
         mButtonPanelTopMargin = res.getDimensionPixelSize(R.dimen.car_padding_2);
         mBottomPadding = res.getDimensionPixelSize(R.dimen.car_padding_4);
         mButtonMinWidth = res.getDimensionPixelSize(R.dimen.car_button_min_width);
-        mButtonSpacing = res.getDimensionPixelSize(R.dimen.car_padding_4);
+        mButtonSpacing = res.getDimensionPixelSize(R.dimen.car_padding_5);
     }
 
     @Override
@@ -181,7 +185,9 @@ public class CarAlertDialog extends Dialog {
 
     private void setBody(CharSequence body) {
         mBodyView.setText(body);
+        mBodyView.setMovementMethod(mBodyMovementMethod);
         mBodyView.setVisibility(TextUtils.isEmpty(body) ? View.GONE : View.VISIBLE);
+
         updateButtonPanelTopMargin();
     }
 
@@ -363,8 +369,10 @@ public class CarAlertDialog extends Dialog {
      * multiple {@code TouchDelegate}s and will delegate out touch events to each.
      */
     private static final class ButtonPanelTouchDelegate extends TouchDelegate {
-        @Nullable private TouchDelegate mPositiveButtonDelegate;
-        @Nullable private TouchDelegate mNegativeButtonDelegate;
+        @Nullable
+        private TouchDelegate mPositiveButtonDelegate;
+        @Nullable
+        private TouchDelegate mNegativeButtonDelegate;
 
         ButtonPanelTouchDelegate(View view) {
             super(new Rect(), view);
@@ -399,12 +407,15 @@ public class CarAlertDialog extends Dialog {
 
     /**
      * Returns the style that has been assigned to {@code carDialogTheme} in the
-     * current theme that is inflating this dialog.
+     * current theme that is inflating this dialog. If a style has not been defined, a default
+     * style will be returned.
      */
+    @StyleRes
     private static int getDialogTheme(Context context) {
         TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.carDialogTheme, outValue, true);
-        return outValue.resourceId;
+        boolean hasStyle =
+                context.getTheme().resolveAttribute(R.attr.carDialogTheme, outValue, true);
+        return hasStyle ? outValue.resourceId : R.style.Theme_Car_Dark_Dialog;
     }
 
     /**
@@ -417,6 +428,8 @@ public class CarAlertDialog extends Dialog {
         Icon mIcon;
         CharSequence mTitle;
         CharSequence mBody;
+        MovementMethod mBodyMovementMethod;
+
         CharSequence mPositiveButtonText;
         OnClickListener mPositiveButtonListener;
         CharSequence mNegativeButtonText;
@@ -431,7 +444,7 @@ public class CarAlertDialog extends Dialog {
          *
          * @param context The {@code Context} that the dialog is to be created in.
          */
-        public Builder(Context context) {
+        public Builder(@NonNull Context context) {
             mContext = context;
         }
 
@@ -444,7 +457,6 @@ public class CarAlertDialog extends Dialog {
          */
         @NonNull
         public Builder setHeaderIcon(@DrawableRes int iconId) {
-            String resource  = mContext.getResources().getResourceTypeName(iconId);
             mIcon = Icon.createWithResource(mContext, iconId);
             return this;
         }
@@ -468,6 +480,7 @@ public class CarAlertDialog extends Dialog {
          * @param titleId The resource id of the string to be used as the title.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+        @NonNull
         public Builder setTitle(@StringRes int titleId) {
             mTitle = mContext.getString(titleId);
             return this;
@@ -479,7 +492,8 @@ public class CarAlertDialog extends Dialog {
          * @param title The string to be used as the title.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
-        public Builder setTitle(CharSequence title) {
+        @NonNull
+        public Builder setTitle(@Nullable CharSequence title) {
             mTitle = title;
             return this;
         }
@@ -490,6 +504,7 @@ public class CarAlertDialog extends Dialog {
          * @param bodyId The resource id of the string to be used as the body text.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+        @NonNull
         public Builder setBody(@StringRes int bodyId) {
             mBody = mContext.getString(bodyId);
             return this;
@@ -501,8 +516,22 @@ public class CarAlertDialog extends Dialog {
          * @param body The string to be used as the body text.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
-        public Builder setBody(CharSequence body) {
+        @NonNull
+        public Builder setBody(@Nullable CharSequence body) {
             mBody = body;
+            return this;
+        }
+
+        /**
+         * Sets the {@link MovementMethod} to be applied on the body text of this alert dialog.
+         *
+         * @param movementMethod The {@code MovementMethod} to apply or {@code null}.
+         * @return This {@code Builder} object to allow for chaining of calls.
+         * @see TextView#setMovementMethod(MovementMethod)
+         */
+        @NonNull
+        public Builder setBodyMovementMethod(@Nullable MovementMethod movementMethod) {
+            mBodyMovementMethod = movementMethod;
             return this;
         }
 
@@ -514,11 +543,12 @@ public class CarAlertDialog extends Dialog {
          * <p>The positive button should be used to accept and continue with the action (e.g.
          * an "OK" action).
          *
-         * @param textId The resource id of the string to be used for the positive button text.
+         * @param textId   The resource id of the string to be used for the positive button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+        @NonNull
         public Builder setPositiveButton(@StringRes int textId,
                 @Nullable OnClickListener listener) {
             mPositiveButtonText = mContext.getString(textId);
@@ -534,12 +564,14 @@ public class CarAlertDialog extends Dialog {
          * <p>The positive button should be used to accept and continue with the action (e.g.
          * an "OK" action).
          *
-         * @param text The string to be used for the positive button text.
+         * @param text     The string to be used for the positive button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
-        public Builder setPositiveButton(CharSequence text, @Nullable OnClickListener listener) {
+        @NonNull
+        public Builder setPositiveButton(@NonNull CharSequence text,
+                @Nullable OnClickListener listener) {
             mPositiveButtonText = text;
             mPositiveButtonListener = listener;
             return this;
@@ -552,11 +584,12 @@ public class CarAlertDialog extends Dialog {
          *
          * <p>The negative button should be used to cancel any actions the dialog represents.
          *
-         * @param textId The resource id of the string to be used for the negative button text.
+         * @param textId   The resource id of the string to be used for the negative button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+        @NonNull
         public Builder setNegativeButton(@StringRes int textId,
                 @Nullable OnClickListener listener) {
             mNegativeButtonText = mContext.getString(textId);
@@ -571,12 +604,14 @@ public class CarAlertDialog extends Dialog {
          *
          * <p>The negative button should be used to cancel any actions the dialog represents.
          *
-         * @param text The string to be used for the negative button text.
+         * @param text     The string to be used for the negative button text.
          * @param listener A {@link android.content.DialogInterface.OnClickListener} to be invoked
          *                 when the button is clicked. Can be {@code null} to represent no listener.
          * @return This {@code Builder} object to allow for chaining of calls.
          */
-        public Builder setNegativeButton(CharSequence text, @Nullable OnClickListener listener) {
+        @NonNull
+        public Builder setNegativeButton(@NonNull CharSequence text,
+                @Nullable OnClickListener listener) {
             mNegativeButtonText = text;
             mNegativeButtonListener = listener;
             return this;
@@ -587,6 +622,7 @@ public class CarAlertDialog extends Dialog {
          *
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+        @NonNull
         public Builder setCancelable(boolean cancelable) {
             mCancelable = cancelable;
             return this;
@@ -602,11 +638,11 @@ public class CarAlertDialog extends Dialog {
          *
          * @param onCancelListener The listener to be invoked when this dialog is canceled.
          * @return This {@code Builder} object to allow for chaining of calls.
-         *
          * @see #setCancelable(boolean)
          * @see #setOnDismissListener(OnDismissListener)
          */
-        public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+        @NonNull
+        public Builder setOnCancelListener(@NonNull OnCancelListener onCancelListener) {
             mOnCancelListener = onCancelListener;
             return this;
         }
@@ -616,7 +652,8 @@ public class CarAlertDialog extends Dialog {
          *
          * @return This {@code Builder} object to allow for chaining of calls.
          */
-        public Builder setOnDismissListener(OnDismissListener onDismissListener) {
+        @NonNull
+        public Builder setOnDismissListener(@NonNull OnDismissListener onDismissListener) {
             mOnDismissListener = onDismissListener;
             return this;
         }
@@ -627,6 +664,7 @@ public class CarAlertDialog extends Dialog {
          * <p>Calling this method does not display the dialog. Utilize this dialog within a
          * {@link androidx.fragment.app.DialogFragment} to show the dialog.
          */
+        @NonNull
         public CarAlertDialog create() {
             CarAlertDialog dialog = new CarAlertDialog(mContext, /* builder= */ this);
 

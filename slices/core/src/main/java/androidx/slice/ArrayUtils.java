@@ -26,7 +26,7 @@ import java.lang.reflect.Array;
 /**
  * @hide
  */
-@RestrictTo(Scope.LIBRARY)
+@RestrictTo(Scope.LIBRARY_GROUP)
 @RequiresApi(19)
 class ArrayUtils {
 
@@ -39,6 +39,7 @@ class ArrayUtils {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[] appendElement(Class<T> kind, T[] array, T element) {
         final T[] result;
         final int end;
@@ -54,6 +55,7 @@ class ArrayUtils {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[] removeElement(Class<T> kind, T[] array, T element) {
         if (array != null) {
             if (!contains(array, element)) {

@@ -16,7 +16,7 @@
 
 package androidx.lifecycle;
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -29,12 +29,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.testapp.LifecycleTestActivity;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.UiThreadTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -165,7 +166,7 @@ public class SynchronousActivityLifecycleTest {
         }
     }
 
-    private static class TestObserver implements GenericLifecycleObserver {
+    private static class TestObserver implements LifecycleEventObserver {
         private final LifecycleTestActivity mActivity;
         private final Event mExpectedEvent;
         boolean mEventReceived = false;
@@ -181,7 +182,7 @@ public class SynchronousActivityLifecycleTest {
         }
 
         @Override
-        public void onStateChanged(LifecycleOwner lifecycleOwner, Event event) {
+        public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Event event) {
             if (mMuted) {
                 return;
             }

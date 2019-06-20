@@ -46,8 +46,9 @@ import org.junit.Test;
  */
 public abstract class AppCompatBaseImageViewTest<T extends ImageView>
         extends AppCompatBaseViewTest<BaseTestActivity, T> {
-    public AppCompatBaseImageViewTest(Class clazz) {
-        super(clazz);
+    @SuppressWarnings("unchecked")
+    public AppCompatBaseImageViewTest(Class<? extends BaseTestActivity> clazz) {
+        super((Class<BaseTestActivity>) clazz);
     }
 
     private void verifyImageSourceIsColoredAs(String description, @NonNull ImageView imageView,
@@ -207,6 +208,45 @@ public abstract class AppCompatBaseImageViewTest<T extends ImageView>
         verifyImageSourceIsColoredAs("New emerald tinting in disabled state under src_over",
                 view, ColorUtils.compositeColors(emeraldDisabled, sourceColor),
                 allowedComponentVariance);
+    }
+
+    /**
+     * Tests for behavior around setting a tint list without setting a tint mode
+     */
+    @Test
+    @SmallTest
+    public void testImageTintingWithDefaultMode() {
+        final @IdRes int viewId = R.id.view_untinted_source;
+        final Resources res = mActivity.getResources();
+        final T view = (T) mContainer.findViewById(viewId);
+
+        @ColorInt final int sandDefault = ResourcesCompat.getColor(
+                res, R.color.sand_default, null);
+        @ColorInt final int sandDisabled = ResourcesCompat.getColor(
+                res, R.color.sand_disabled, null);
+
+        // This is the fill color of R.drawable.test_drawable_blue set on our view
+        // that we'll be testing in this method
+        @ColorInt final int sourceColor = ResourcesCompat.getColor(
+                res, R.color.test_blue, null);
+
+        final ColorStateList sandColorStateList = ResourcesCompat.getColorStateList(
+                res, R.color.color_state_list_sand, null);
+
+        // Test the default state for tinting set up in the layout XML file.
+        verifyImageSourceIsColoredAs("Default no tinting in enabled state",
+                view, sourceColor, 0);
+
+        // Applying the tint should immediately switch colors
+        onView(withId(viewId)).perform(
+                AppCompatTintableViewActions.setImageSourceTintList(sandColorStateList));
+        verifyImageSourceIsColoredAs("Enabled sand tint after supplying tint list",
+                view, sandDefault, 0);
+
+        // Disabling the view should now switch colors
+        onView(withId(viewId)).perform(setEnabled(false));
+        verifyImageSourceIsColoredAs("Disabled sand tint after disabling view",
+                view, sandDisabled, 0);
     }
 
     /**

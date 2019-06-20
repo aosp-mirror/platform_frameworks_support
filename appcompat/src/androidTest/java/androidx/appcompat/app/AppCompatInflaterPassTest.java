@@ -28,9 +28,9 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.AppCompatToggleButton;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -50,7 +50,7 @@ public abstract class AppCompatInflaterPassTest<A extends BaseTestActivity> {
     @Rule
     public final ActivityTestRule<A> mActivityTestRule;
 
-    public AppCompatInflaterPassTest(Class clazz) {
+    public AppCompatInflaterPassTest(Class<A> clazz) {
         mActivityTestRule = new ActivityTestRule<A>(clazz);
     }
 

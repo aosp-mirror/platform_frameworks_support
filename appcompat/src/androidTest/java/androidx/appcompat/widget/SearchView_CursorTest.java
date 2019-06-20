@@ -39,11 +39,11 @@ import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.testutils.PollingCheck;
 
 import org.junit.Before;
@@ -203,7 +203,7 @@ public class SearchView_CursorTest {
         // Emulate click on the first suggestion - which should be Dido
         final int suggestionRowHeight = mActivity.getResources().getDimensionPixelSize(
                 R.dimen.search_view_suggestion_row_height);
-        TestUtils.emulateTapOnView(mInstrumentation, mSearchView,
+        TestUtils.emulateTapOnView(mInstrumentation, mActivityRule, mSearchView,
                 mSearchView.getWidth() / 2, mSearchView.getHeight() + suggestionRowHeight / 2);
 
         // At this point we expect the click on the first suggestion to have activated a sequence

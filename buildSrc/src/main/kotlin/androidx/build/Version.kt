@@ -44,7 +44,10 @@ data class Version(
 
     fun isAlpha(): Boolean = extra?.toLowerCase()?.startsWith("-alpha") ?: false
 
-    fun isFinalApi(): Boolean = isPatch() || !(isSnapshot() || isAlpha())
+    fun isBeta(): Boolean = extra?.toLowerCase()?.startsWith("-beta") ?: false
+
+    // Returns whether the API surface is allowed to change within the current revision (see go/androidx/versioning for policy definition)
+    fun isFinalApi(): Boolean = !(isSnapshot() || isAlpha())
 
     override fun compareTo(other: Version) = compareValuesBy(this, other,
             { it.major },
@@ -59,7 +62,7 @@ data class Version(
     }
 
     companion object {
-        private val VERSION_FILE_REGEX = Pattern.compile("^(.*).txt$")
+        private val VERSION_FILE_REGEX = Pattern.compile("^(res-)?(.*).txt$")
         private val VERSION_REGEX = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(-.+)?$")
 
         private fun checkedMatcher(versionString: String): Matcher {
@@ -76,7 +79,7 @@ data class Version(
         fun parseOrNull(file: File): Version? {
             if (!file.isFile) return null
             val matcher = VERSION_FILE_REGEX.matcher(file.name)
-            return if (matcher.matches()) parseOrNull(matcher.group(1)) else null
+            return if (matcher.matches()) parseOrNull(matcher.group(2)) else null
         }
 
         /**
@@ -86,10 +89,25 @@ data class Version(
             val matcher = VERSION_REGEX.matcher(versionString)
             return if (matcher.matches()) Version(versionString) else null
         }
+
+        /**
+         * Tells whether a version string would refer to a dependency range
+         */
+        fun isDependencyRange(version: String): Boolean {
+            if ((version.startsWith("[") || version.startsWith("(")) &&
+                version.contains(",") &&
+                (version.endsWith("]") || version.endsWith(")"))) {
+                return true
+            }
+            if (version.endsWith("+")) {
+                return true
+            }
+            return false
+        }
     }
 }
 
-fun Project.setupVersion(extension: SupportLibraryExtension) = afterEvaluate {
+fun Project.setupVersion(extension: AndroidXExtension) = afterEvaluate {
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     version = extension.mavenVersion?.toString()
 }

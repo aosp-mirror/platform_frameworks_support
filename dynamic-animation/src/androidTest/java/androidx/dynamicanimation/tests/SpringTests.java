@@ -42,11 +42,11 @@ import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 import androidx.dynamicanimation.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -147,6 +147,28 @@ public class SpringTests {
         verify(mockListener, timeout(1000).atLeast(10)).onAnimationUpdate(eq(anim), lt(1000f),
                 any(float.class));
         verify(listener, timeout(1000)).onAnimationEnd(anim, false, 1000f, 0f);
+    }
+
+    /**
+     * Cancel a spring animation right after an animateToFinalPosition() is called.
+     */
+    @Test
+    public void testCancelAfterAnimateToFinalPosition() {
+        final SpringAnimation anim = new SpringAnimation(mView1, DynamicAnimation.TRANSLATION_X,
+                0);
+        final DynamicAnimation.OnAnimationEndListener listener = mock(
+                DynamicAnimation.OnAnimationEndListener.class);
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
+            anim.addEndListener(listener);
+            anim.start();
+            assertTrue(anim.isRunning());
+            anim.animateToFinalPosition(200f);
+            anim.cancel();
+            anim.animateToFinalPosition(-200f);
+            anim.skipToEnd();
+        });
+        verify(listener, timeout(1000)).onAnimationEnd(anim, true, 0f, 0f);
+        verify(listener, timeout(1000)).onAnimationEnd(anim, false, -200f, 0f);
     }
 
 
@@ -346,7 +368,7 @@ public class SpringTests {
                 }
             });
 
-            verify(mockListener, timeout(2000)).onAnimationEnd(springAnims[1], false, 0f, 0f);
+            verify(mockListener, timeout(4000)).onAnimationEnd(springAnims[1], false, 0f, 0f);
 
             if (springAnims[0].isRunning()) {
                 InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {

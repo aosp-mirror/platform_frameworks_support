@@ -24,7 +24,7 @@ import androidx.annotation.RestrictTo;
  * @hide
  */
 @SuppressWarnings("WeakerAccess")
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class RoomMasterTable {
     /**
      * The master table where room keeps its metadata information.
@@ -50,7 +50,7 @@ public class RoomMasterTable {
     public static String createInsertQuery(String hash) {
         return "INSERT OR REPLACE INTO " + TABLE_NAME + " ("
                 + COLUMN_ID + "," + COLUMN_IDENTITY_HASH + ")"
-                + " VALUES(" + DEFAULT_ID + ", \"" + hash + "\")";
+                + " VALUES(" + DEFAULT_ID + ", '" + hash + "')";
     }
 
     private RoomMasterTable() {

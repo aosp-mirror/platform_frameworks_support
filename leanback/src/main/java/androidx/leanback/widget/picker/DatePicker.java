@@ -16,6 +16,7 @@ package androidx.leanback.widget.picker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -39,9 +40,9 @@ import java.util.TimeZone;
  * can be customized.  The columns can be customized by attribute "datePickerFormat" or
  * {@link #setDatePickerFormat(String)}.
  *
- * @attr ref R.styleable#lbDatePicker_android_maxDate
- * @attr ref R.styleable#lbDatePicker_android_minDate
- * @attr ref R.styleable#lbDatePicker_datePickerFormat
+ * {@link android.R.attr#maxDate}
+ * {@link android.R.attr#minDate}
+ * {@link R.attr#datePickerFormat}
  */
 public class DatePicker extends Picker {
 
@@ -75,6 +76,10 @@ public class DatePicker extends Picker {
 
         final TypedArray attributesArray = context.obtainStyledAttributes(attrs,
                 R.styleable.lbDatePicker);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.lbDatePicker, attrs, attributesArray, 0, 0);
+        }
         String minDate;
         String maxDate;
         String datePickerFormat;

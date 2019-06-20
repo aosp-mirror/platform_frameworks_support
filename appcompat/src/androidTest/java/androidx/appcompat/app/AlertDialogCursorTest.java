@@ -52,10 +52,9 @@ import android.widget.ListView;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtilsMatchers;
 import androidx.test.espresso.DataInteraction;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -66,7 +65,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AlertDialogCursorTest {
     @Rule

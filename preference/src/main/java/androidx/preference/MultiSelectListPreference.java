@@ -25,7 +25,6 @@ import android.util.AttributeSet;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.TypedArrayUtils;
-import androidx.preference.internal.AbstractMultiSelectListPreference;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -40,7 +39,7 @@ import java.util.Set;
  * @attr name android:entries
  * @attr name android:entryValues
  */
-public class MultiSelectListPreference extends AbstractMultiSelectListPreference {
+public class MultiSelectListPreference extends DialogPreference {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
     private Set<String> mValues = new HashSet<>();
@@ -104,7 +103,6 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
      *
      * @return The list as an array
      */
-    @Override
     public CharSequence[] getEntries() {
         return mEntries;
     }
@@ -133,7 +131,6 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
      *
      * @return The array of mValues
      */
-    @Override
     public CharSequence[] getEntryValues() {
         return mEntryValues;
     }
@@ -143,12 +140,12 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
      *
      * @param values The mValues to set for the key
      */
-    @Override
     public void setValues(Set<String> values) {
         mValues.clear();
         mValues.addAll(values);
 
         persistStringSet(values);
+        notifyChanged();
     }
 
     /**
@@ -156,7 +153,6 @@ public class MultiSelectListPreference extends AbstractMultiSelectListPreference
      *
      * @return The set of current values
      */
-    @Override
     public Set<String> getValues() {
         return mValues;
     }

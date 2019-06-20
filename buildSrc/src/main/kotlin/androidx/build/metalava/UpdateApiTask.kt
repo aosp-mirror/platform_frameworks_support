@@ -16,65 +16,94 @@
 
 package androidx.build.metalava
 
-import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.api.BaseVariant
-import org.gradle.api.attributes.Attribute
-import org.gradle.api.file.FileCollection
+import androidx.build.checkapi.ApiLocation
+import com.google.common.io.Files
+import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
+import org.gradle.api.logging.Logger
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-/** Generate an API signature text file from a set of source files. */
-open class UpdateApiTask : MetalavaTask() {
-    /** Text file to which API signatures will be written. */
-    @get:OutputFile
-    var apiTxtFile: File? = null
+/**
+ * Updates API signature text files.
+ * In practice, the values they will be updated to will match the APIs defined by the source code.
+ */
+abstract class UpdateApiTask : DefaultTask() {
+    /** Text file from which API signatures will be read. */
+    @get:Input
+    abstract val inputApiLocation: Property<ApiLocation>
 
-    /** Android's boot classpath. Obtained from [BaseExtension.getBootClasspath]. */
-    @get:InputFiles
-    var bootClasspath: Collection<File> = emptyList()
+    /** Text files to which API signatures will be written. */
+    abstract val outputApiLocations: ListProperty<ApiLocation>
 
-    /** Dependencies of [sourcePaths]. */
-    @get:InputFiles
-    var dependencyClasspath: FileCollection? = null
+    /** Whether to update restricted API files too */
+    @get:Input
+    var updateRestrictedAPIs = false
 
-    /** Source files for which API signatures will be generated. */
-    @get:InputFiles
-    var sourcePaths: Collection<File> = emptyList()
+    @InputFiles
+    fun getTaskInputs(): List<File>? {
+        return inputApiLocation.get().files()
+    }
 
-    /** Convenience method for setting [dependencyClasspath] and [sourcePaths] from a variant. */
-    fun setVariant(variant: BaseVariant) {
-        sourcePaths = variant.sourceSets.flatMap { it.javaDirectories }
-        dependencyClasspath = variant.compileConfiguration.incoming.artifactView { config ->
-            config.attributes { container ->
-                container.attribute(Attribute.of("artifactType", String::class.java), "jar")
-            }
-        }.artifacts.artifactFiles
+    @OutputFiles
+    fun getTaskOutputs(): List<File> {
+        if (updateRestrictedAPIs) {
+            return outputApiLocations.get().flatMap { it.files() }
+        }
+        return outputApiLocations.get().map { it.publicApiFile }
     }
 
     @TaskAction
     fun exec() {
-        val dependencyClasspath = checkNotNull(
-                dependencyClasspath) { "Dependency classpath not set." }
-        val apiTxtFile = checkNotNull(apiTxtFile) { "Current API file not set." }
-        check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
-        check(sourcePaths.isNotEmpty()) { "Source paths not set." }
+        var permitOverwriting = true
+        for (outputApi in outputApiLocations.get()) {
+            val version = outputApi.version()
+            if (version != null && version.isFinalApi() &&
+                outputApi.publicApiFile.exists() &&
+                !project.hasProperty("force")) {
+                permitOverwriting = false
+            }
+        }
+        for (outputApi in outputApiLocations.get()) {
+            copy(
+                inputApiLocation.get().publicApiFile,
+                outputApi.publicApiFile,
+                permitOverwriting,
+                project.logger
+            )
+            if (updateRestrictedAPIs) {
+                copy(
+                    inputApiLocation.get().restrictedApiFile,
+                    outputApi.restrictedApiFile,
+                    permitOverwriting,
+                    project.logger
+                )
+            }
+        }
+    }
 
-        runWithArgs(
-            "--classpath",
-            (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
-
-            "--source-path",
-            sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
-
-            "--api",
-            apiTxtFile.toString(),
-
-            "--no-banner",
-            "--compatible-output=no",
-            "--omit-common-packages=yes",
-            "--output-kotlin-nulls=yes"
-        )
+    fun copy(source: File, dest: File, permitOverwriting: Boolean, logger: Logger) {
+        val overwriting = (dest.exists() && source.readText() != dest.readText())
+        val changing = overwriting || !dest.exists()
+        if (changing) {
+            if (overwriting && !permitOverwriting) {
+                val message = "Modifying the API definition for a previously released artifact " +
+                        "having a final API version (version not ending in '-alpha') is not " +
+                        "allowed.\n\n" +
+                        "Previously declared definition is $dest\n" +
+                        "Current generated   definition is $source\n\n" +
+                        "Did you mean to increment the library version first?\n\n" +
+                        "If you have reason to overwrite the API files for the previous release " +
+                        "anyway, you can run `./gradlew updateApi -Pforce` to ignore this message"
+                throw GradleException(message)
+            }
+            Files.copy(source, dest)
+            logger.lifecycle("Copied $source to $dest")
+        }
     }
 }

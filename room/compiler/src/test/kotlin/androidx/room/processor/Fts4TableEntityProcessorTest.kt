@@ -24,6 +24,7 @@ import androidx.room.vo.CallType
 import androidx.room.vo.Field
 import androidx.room.vo.FieldGetter
 import androidx.room.vo.FieldSetter
+import androidx.room.vo.Fields
 import com.google.auto.common.MoreElements
 import com.google.testing.compile.JavaFileObjects
 import org.hamcrest.CoreMatchers
@@ -62,7 +63,7 @@ class Fts4TableEntityProcessorTest : BaseFtsEntityParserTest() {
                     affinity = SQLTypeAffinity.INTEGER)))
             assertThat(field.setter, `is`(FieldSetter("setRowId", intType, CallType.METHOD)))
             assertThat(field.getter, `is`(FieldGetter("getRowId", intType, CallType.METHOD)))
-            assertThat(entity.primaryKey.fields, `is`(listOf(field)))
+            assertThat(entity.primaryKey.fields, `is`(Fields(field)))
             assertThat(entity.shadowTableName, `is`("MyEntity_content"))
             assertThat(entity.ftsVersion, `is`(FtsVersion.FTS4))
         }.compilesWithoutError()
@@ -228,9 +229,24 @@ class Fts4TableEntityProcessorTest : BaseFtsEntityParserTest() {
                 public int getRowId() { return rowId; }
                 public void setRowId(int id) { this.rowId = rowId; }
                 """,
-                ftsAttributes = hashMapOf("tokenizer" to "FtsOptions.Tokenizer.PORTER")
+                ftsAttributes = hashMapOf("tokenizer" to "FtsOptions.TOKENIZER_PORTER")
         ) { entity, _ ->
-            assertThat(entity.ftsOptions.tokenizer, `is`(FtsOptions.Tokenizer.PORTER))
+            assertThat(entity.ftsOptions.tokenizer, `is`(FtsOptions.TOKENIZER_PORTER))
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun customTokenizer() {
+        singleEntity("""
+                @PrimaryKey
+                @ColumnInfo(name = "rowid")
+                private int rowId;
+                public int getRowId() { return rowId; }
+                public void setRowId(int id) { this.rowId = rowId; }
+                """,
+            ftsAttributes = hashMapOf("tokenizer" to "\"customICU\"")
+        ) { entity, _ ->
+            assertThat(entity.ftsOptions.tokenizer, `is`("customICU"))
         }.compilesWithoutError()
     }
 

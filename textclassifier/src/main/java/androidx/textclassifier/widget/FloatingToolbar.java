@@ -16,7 +16,7 @@
 
 package androidx.textclassifier.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -84,7 +84,7 @@ import java.util.Objects;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 @RequiresApi(Build.VERSION_CODES.M)
 final class FloatingToolbar {
 
@@ -133,7 +133,7 @@ final class FloatingToolbar {
                 int oldLeft, int oldRight, int oldTop, int oldBottom) {
             mNewRect.set(newLeft, newRight, newTop, newBottom);
             mOldRect.set(oldLeft, oldRight, oldTop, oldBottom);
-            if (mPopup.isShowing() && !mNewRect.equals(mOldRect)) {
+            if (mPopup.isShowing() && (mNewRect.width() != mOldRect.width())) {
                 mWidthChanged = true;
                 updateLayout();
             }
@@ -319,12 +319,12 @@ final class FloatingToolbar {
         List<SupportMenuItem> menuItems = getVisibleAndEnabledMenuItems(mMenu);
         Collections.sort(menuItems, mMenuItemComparator);
         if (!isCurrentlyShowing(menuItems) || mWidthChanged) {
-            mPopup.dismiss();
+            mPopup.hide();
             mPopup.layoutMenuItems(menuItems, mMenuItemClickListener, mSuggestedWidth);
             mShowingMenuItems = menuItems;
         }
         if (menuItems.isEmpty()) {
-            // don't update or show the toolbar.
+            mPopup.dismiss();
         } else if (!mPopup.isShowing()) {
             mPopup.show(mContentRect);
         } else if (!mPreviousContentRect.equals(mContentRect)) {
@@ -489,7 +489,6 @@ final class FloatingToolbar {
         /* Outside touch handling */
         final Runnable mDismissRunnable;
         final View.OnClickListener mOnOutsideTouchHandler;
-        PopupWindow.OnDismissListener mOnDismiss;
 
         boolean mOpenOverflowUpwards;  // Whether the overflow opens upwards or downwards.
         boolean mIsOverflowOpen;
@@ -513,9 +512,6 @@ final class FloatingToolbar {
                 public void onClick(View v) {
                     hide();
                     mDismissRunnable.run();
-                    if (mOnDismiss != null) {
-                        mOnDismiss.onDismiss();
-                    }
                 }
             };
             mPopupWindow = createPopupWindow(mContentContainer, mOnOutsideTouchHandler);
@@ -590,7 +586,6 @@ final class FloatingToolbar {
          * Sets the floating popup's onDismissListener.
          */
         public void setOnDismissListener(@Nullable final PopupWindow.OnDismissListener onDismiss) {
-            mOnDismiss = onDismiss;
             mPopupWindow.setOnDismissListener(onDismiss);
         }
 
@@ -1280,6 +1275,7 @@ final class FloatingToolbar {
             return remainingMenuItems;
         }
 
+        @SuppressWarnings("unchecked")
         void layoutOverflowPanelItems(List<SupportMenuItem> menuItems) {
             ArrayAdapter<SupportMenuItem> overflowPanelAdapter =
                     (ArrayAdapter<SupportMenuItem>) mOverflowPanel.getAdapter();
@@ -1330,6 +1326,7 @@ final class FloatingToolbar {
         /**
          * Clears out the panels and their container. Resets their calculated sizes.
          */
+        @SuppressWarnings("unchecked")
         void clearPanels() {
             mOverflowPanelSize = null;
             mMainPanelSize = null;
@@ -1758,7 +1755,10 @@ final class FloatingToolbar {
         popupWindow.setOutsideTouchable(true);
         popupWindow.setWindowLayoutType(WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL);
         popupWindow.setAnimationStyle(0);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        int color = Color.TRANSPARENT;
+        // Want to see the floating window? Uncomment the next line.
+        //color = Color.argb(50, 0, 0, 0);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(color));
         content.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         popupContentHolder.addView(content);

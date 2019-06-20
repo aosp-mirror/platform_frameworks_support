@@ -19,6 +19,8 @@ package androidx.dynamicanimation.animation;
 import android.os.Looper;
 import android.util.AndroidRuntimeException;
 
+import androidx.annotation.MainThread;
+
 /**
  * SpringAnimation is an animation that is driven by a {@link SpringForce}. The spring force defines
  * the spring's stiffness, damping ratio, as well as the rest position. Once the SpringAnimation is
@@ -79,6 +81,27 @@ public final class SpringAnimation extends DynamicAnimation<SpringAnimation> {
     }
 
     /**
+     * <p>This creates a SpringAnimation that animates a {@link FloatValueHolder} instance. During
+     * the animation, the {@link FloatValueHolder} instance will be updated via
+     * {@link FloatValueHolder#setValue(float)} each frame. The caller can obtain the up-to-date
+     * animation value via {@link FloatValueHolder#getValue()}.
+     *
+     * A Spring will be created with the given final position and default stiffness and damping
+     * ratio. This spring can be accessed and reconfigured through {@link #setSpring(SpringForce)}.
+     *
+     * <p><strong>Note:</strong> changing the value in the {@link FloatValueHolder} via
+     * {@link FloatValueHolder#setValue(float)} outside of the animation during an
+     * animation run will not have any effect on the on-going animation.
+     *
+     * @param floatValueHolder the property to be animated
+     * @param finalPosition the final position of the spring to be created.
+     */
+    public SpringAnimation(FloatValueHolder floatValueHolder, float finalPosition) {
+        super(floatValueHolder);
+        mSpring = new SpringForce(finalPosition);
+    }
+
+    /**
      * This creates a SpringAnimation that animates the property of the given object.
      * Note, a spring will need to setup through {@link #setSpring(SpringForce)} before
      * the animation starts.
@@ -129,6 +152,7 @@ public final class SpringAnimation extends DynamicAnimation<SpringAnimation> {
         return this;
     }
 
+    @MainThread
     @Override
     public void start() {
         sanityCheck();
@@ -157,6 +181,26 @@ public final class SpringAnimation extends DynamicAnimation<SpringAnimation> {
             }
             mSpring.setFinalPosition(finalPosition);
             start();
+        }
+    }
+
+    /**
+     * Cancels the on-going animation. If the animation hasn't started, no op. Note that this method
+     * should only be called on main thread.
+     *
+     * @throws AndroidRuntimeException if this method is not called on the main thread
+     */
+    @MainThread
+    @Override
+    public void cancel() {
+        super.cancel();
+        if (mPendingPosition != UNSET) {
+            if (mSpring == null) {
+                mSpring = new SpringForce(mPendingPosition);
+            } else {
+                mSpring.setFinalPosition(mPendingPosition);
+            }
+            mPendingPosition = UNSET;
         }
     }
 

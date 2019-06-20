@@ -16,9 +16,11 @@
 package androidx.work.impl.constraints.trackers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * A singleton class to hold an instance of each {@link ConstraintTracker}.
@@ -35,9 +37,10 @@ public class Trackers {
      * @param context The initializing context (we only use the application context)
      * @return The singleton instance of {@link Trackers}.
      */
-    public static synchronized Trackers getInstance(Context context) {
+    @NonNull
+    public static synchronized Trackers getInstance(Context context, TaskExecutor taskExecutor) {
         if (sInstance == null) {
-            sInstance = new Trackers(context);
+            sInstance = new Trackers(context, taskExecutor);
         }
         return sInstance;
     }
@@ -55,12 +58,12 @@ public class Trackers {
     private NetworkStateTracker mNetworkStateTracker;
     private StorageNotLowTracker mStorageNotLowTracker;
 
-    private Trackers(Context context) {
+    private Trackers(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
         Context appContext = context.getApplicationContext();
-        mBatteryChargingTracker = new BatteryChargingTracker(appContext);
-        mBatteryNotLowTracker = new BatteryNotLowTracker(appContext);
-        mNetworkStateTracker = new NetworkStateTracker(appContext);
-        mStorageNotLowTracker = new StorageNotLowTracker(appContext);
+        mBatteryChargingTracker = new BatteryChargingTracker(appContext, taskExecutor);
+        mBatteryNotLowTracker = new BatteryNotLowTracker(appContext, taskExecutor);
+        mNetworkStateTracker = new NetworkStateTracker(appContext, taskExecutor);
+        mStorageNotLowTracker = new StorageNotLowTracker(appContext, taskExecutor);
     }
 
     /**
@@ -68,6 +71,7 @@ public class Trackers {
      *
      * @return The tracker used to track battery charging status
      */
+    @NonNull
     public BatteryChargingTracker getBatteryChargingTracker() {
         return mBatteryChargingTracker;
     }
@@ -77,6 +81,7 @@ public class Trackers {
      *
      * @return The tracker used to track if the battery is okay or low
      */
+    @NonNull
     public BatteryNotLowTracker getBatteryNotLowTracker() {
         return mBatteryNotLowTracker;
     }
@@ -86,6 +91,7 @@ public class Trackers {
      *
      * @return The tracker used to track state of the network
      */
+    @NonNull
     public NetworkStateTracker getNetworkStateTracker() {
         return mNetworkStateTracker;
     }
@@ -95,6 +101,7 @@ public class Trackers {
      *
      * @return The tracker used to track if device storage is okay or low.
      */
+    @NonNull
     public StorageNotLowTracker getStorageNotLowTracker() {
         return mStorageNotLowTracker;
     }

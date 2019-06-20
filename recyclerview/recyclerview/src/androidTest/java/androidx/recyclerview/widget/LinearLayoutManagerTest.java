@@ -375,8 +375,15 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         final int visibleChildCount = 5;
         final int consecutiveFocusablesCount = 2;
         final int consecutiveUnFocusablesCount = 18;
+        final int childWidth = 250;
+        final int childHeight = 1000;
+        // Parent width is 1 more than 4 times child width, so when focusable child is 1 pixel on
+        // screen 4 non-focusable children can fit on screen.
+        final int parentWidth = childWidth * 4 + 1;
+        final int parentHeight = childHeight;
         final TestAdapter adapter = new TestAdapter(
-                consecutiveFocusablesCount + consecutiveUnFocusablesCount) {
+                consecutiveFocusablesCount + consecutiveUnFocusablesCount,
+                new RecyclerView.LayoutParams(childWidth, childHeight)) {
             RecyclerView mAttachedRv;
 
             @Override
@@ -415,7 +422,9 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
             }
         };
         setupByConfig(new Config(HORIZONTAL, false, false).adapter(adapter).reverseLayout(true),
-                false);
+                false,
+                null,
+                new RecyclerView.LayoutParams(parentWidth, parentHeight));
         waitForFirstLayout();
 
         // adapter position of the currently focused item.
@@ -461,8 +470,15 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         final int visibleChildCount = 5;
         final int consecutiveFocusablesCount = 2;
         final int consecutiveUnFocusablesCount = 18;
+        final int childWidth = 250;
+        final int childHeight = 1000;
+        // Parent width is 1 more than 4 times child width, so when focusable child is 1 pixel on
+        // screen 4 non-focusable children can fit on screen.
+        final int parentWidth = childWidth * 4 + 1;
+        final int parentHeight = childHeight;
         final TestAdapter adapter = new TestAdapter(
-                consecutiveFocusablesCount + consecutiveUnFocusablesCount) {
+                consecutiveFocusablesCount + consecutiveUnFocusablesCount,
+                new RecyclerView.LayoutParams(childWidth, childHeight)) {
             RecyclerView mAttachedRv;
 
             @Override
@@ -500,7 +516,10 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
                         + mAttachedRv.getWidth() / (2 * visibleChildCount)) / visibleChildCount);
             }
         };
-        setupByConfig(new Config(HORIZONTAL, false, false).adapter(adapter), false);
+        setupByConfig(new Config(HORIZONTAL, false, false).adapter(adapter),
+                false,
+                null,
+                new RecyclerView.LayoutParams(parentWidth, parentHeight));
         waitForFirstLayout();
 
         // adapter position of the currently focused item.
@@ -909,7 +928,7 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
     }
 
     @Test
-    public void layoutFrozenBug70402422() throws Throwable {
+    public void layoutSuppressedBug70402422() throws Throwable {
         final Config config = new Config();
         TestAdapter adapter = new TestAdapter(2);
         adapter.setHasStableIds(false);
@@ -929,10 +948,10 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRecyclerView.setLayoutFrozen(true);
+                mRecyclerView.suppressLayout(true);
             }
         });
-        // requestLayout during item animation, which should be eaten by setLayoutFrozen(true)
+        // requestLayout during item animation, which should be eaten by suppressLayout(true)
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -947,13 +966,13 @@ public class LinearLayoutManagerTest extends BaseLinearLayoutManagerTest {
                 itemAnimator.endAnimations();
             }
         });
-        // When setLayoutFrozen(false), the firstItemView should run a layout pass and clear
+        // When suppressLayout(false), the firstItemView should run a layout pass and clear
         // isLayoutRequested() flag.
         mLayoutManager.expectLayouts(1);
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRecyclerView.setLayoutFrozen(false);
+                mRecyclerView.suppressLayout(false);
             }
         });
         mLayoutManager.waitForLayout(1);

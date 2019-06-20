@@ -33,8 +33,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Annotation;
+import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -56,6 +59,8 @@ import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelize;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -86,6 +91,8 @@ public final class SliceItem extends CustomVersionedParcelable {
     private static final String SUBTYPE = "subtype";
     private static final String OBJ = "obj";
     private static final String OBJ_2 = "obj_2";
+    private static final String SLICE_CONTENT = "androidx.slice.content";
+    private static final String SLICE_CONTENT_SENSITIVE = "sensitive";
 
     /**
      * @hide
@@ -93,6 +100,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     @RestrictTo(Scope.LIBRARY)
     @StringDef({FORMAT_SLICE, FORMAT_TEXT, FORMAT_IMAGE, FORMAT_ACTION, FORMAT_INT,
             FORMAT_LONG, FORMAT_REMOTE_INPUT, FORMAT_LONG})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface SliceType {
     }
 
@@ -117,7 +125,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public SliceItem(Object obj, @SliceType String format, String subType,
             @Slice.SliceHint String[] hints) {
         mHints = hints;
@@ -129,7 +137,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public SliceItem(Object obj, @SliceType String format, String subType,
             @Slice.SliceHint List<String> hints) {
         this (obj, format, subType, hints.toArray(new String[hints.size()]));
@@ -139,14 +147,14 @@ public final class SliceItem extends CustomVersionedParcelable {
      * Used by VersionedParcelable.
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public SliceItem() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public SliceItem(PendingIntent intent, Slice slice, String format, String subType,
             @Slice.SliceHint String[] hints) {
         this(new Pair<Object, Slice>(intent, slice), format, subType, hints);
@@ -155,7 +163,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public SliceItem(ActionHandler action, Slice slice, String format, String subType,
             @Slice.SliceHint String[] hints) {
         this(new Pair<Object, Slice>(action, slice), format, subType, hints);
@@ -174,6 +182,14 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
+    public @NonNull @Slice.SliceHint String[] getHintArray() {
+        return mHints;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public void addHint(@Slice.SliceHint String hint) {
         mHints = ArrayUtils.appendElement(String.class, mHints, hint);
     }
@@ -220,10 +236,21 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @return The text held by this {@link android.app.slice.SliceItem#FORMAT_TEXT} SliceItem with
      * ony spans that are unsupported by the androidx Slice renderer removed.
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public CharSequence getSanitizedText() {
         if (mSanitizedText == null) mSanitizedText = sanitizeText(getText());
         return mSanitizedText;
+    }
+
+    /**
+     * Get the same content as {@link #getText()} except with content that should be excluded from
+     * persistent logs because it was tagged with {@link #createSensitiveSpan()}.
+     *
+     * @return The text held by this {@link android.app.slice.SliceItem#FORMAT_TEXT} SliceItem
+     */
+    @Nullable
+    public CharSequence getRedactedText() {
+        return redactSensitiveText(getText());
     }
 
     /**
@@ -237,6 +264,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @return The pending intent held by this {@link android.app.slice.SliceItem#FORMAT_ACTION}
      * SliceItem
      */
+    @SuppressWarnings("unchecked")
     public PendingIntent getAction() {
         Object action = ((Pair<Object, Slice>) mObj).first;
         if (action instanceof PendingIntent) {
@@ -258,7 +286,8 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public boolean fireActionInternal(@Nullable Context context, @Nullable Intent i)
             throws PendingIntent.CanceledException {
         Object action = ((Pair<Object, Slice>) mObj).first;
@@ -277,7 +306,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @hide
      */
     @RequiresApi(20)
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public RemoteInput getRemoteInput() {
         return (RemoteInput) mObj;
     }
@@ -293,6 +322,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @return The slice held by this {@link android.app.slice.SliceItem#FORMAT_ACTION} or
      * {@link android.app.slice.SliceItem#FORMAT_SLICE} SliceItem
      */
+    @SuppressWarnings("unchecked")
     public Slice getSlice() {
         if (FORMAT_ACTION.equals(getFormat())) {
             return ((Pair<Object, Slice>) mObj).second;
@@ -358,7 +388,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY)
+    @RestrictTo(Scope.LIBRARY_GROUP)
     public boolean hasAnyHints(@Slice.SliceHint String... hints) {
         if (hints == null) return false;
         for (String hint : hints) {
@@ -369,6 +399,7 @@ public final class SliceItem extends CustomVersionedParcelable {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private void writeObj(Bundle dest, Object obj, String type) {
         switch (type) {
             case FORMAT_IMAGE:
@@ -455,6 +486,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
+    @SuppressWarnings("unchecked")
     public String toString(String indent) {
         StringBuilder sb = new StringBuilder();
         sb.append(indent);
@@ -540,6 +572,15 @@ public final class SliceItem extends CustomVersionedParcelable {
         mHolder = null;
     }
 
+    /**
+     * Creates a span object that identifies content that should be redacted when acquired using
+     * {@link #getRedactedText()}.
+     */
+    @NonNull
+    public static ParcelableSpan createSensitiveSpan() {
+        return new Annotation(SLICE_CONTENT, SLICE_CONTENT_SENSITIVE);
+    }
+
     private static String layoutDirectionToString(int layoutDirection) {
         switch (layoutDirection) {
             case android.util.LayoutDirection.LTR:
@@ -553,6 +594,53 @@ public final class SliceItem extends CustomVersionedParcelable {
             default:
                 return Integer.toString(layoutDirection);
         }
+    }
+
+    private static CharSequence redactSensitiveText(CharSequence text) {
+        if (text instanceof Spannable) {
+            return redactSpannableText((Spannable) text);
+        } else if (text instanceof Spanned) {
+            if (!isRedactionNeeded((Spanned) text)) return text;
+            Spannable fixedText = new SpannableString(text);
+            return redactSpannableText(fixedText);
+        } else {
+            return text;
+        }
+    }
+
+    private static boolean isRedactionNeeded(Spanned text) {
+        for (Annotation span : text.getSpans(0, text.length(), Annotation.class)) {
+            if (SLICE_CONTENT.equals(span.getKey())
+                    && SLICE_CONTENT_SENSITIVE.equals(span.getValue())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static CharSequence redactSpannableText(Spannable text) {
+        Spanned out = text;
+        for (Annotation span : text.getSpans(0, text.length(), Annotation.class)) {
+            if (!SLICE_CONTENT.equals(span.getKey())
+                    || !SLICE_CONTENT_SENSITIVE.equals(span.getValue())) {
+                continue;
+            }
+            int spanStart = text.getSpanStart(span);
+            int spanEnd = text.getSpanEnd(span);
+            out = new SpannableStringBuilder()
+                    .append(out.subSequence(0, spanStart))
+                    .append(createRedacted(spanEnd - spanStart))
+                    .append(out.subSequence(spanEnd, text.length()));
+        }
+        return out;
+    }
+
+    private static String createRedacted(final int n) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            s.append('*');
+        }
+        return s.toString();
     }
 
     private static CharSequence sanitizeText(CharSequence text) {
@@ -609,7 +697,7 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public interface ActionHandler {
         /**
          * Called when a pending intent would be sent on a real slice.

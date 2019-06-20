@@ -37,9 +37,9 @@ import androidx.leanback.widget.GuidedActionsStylist;
 import androidx.leanback.widget.VerticalGridView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -128,7 +128,7 @@ public class GuidedStepSupportFragmentTest extends GuidedStepSupportFragmentTest
         verify(first, times(2)).onResume();
 
         sendKey(KeyEvent.KEYCODE_BACK);
-        PollingCheck.waitFor(new PollingCheck.ActivityDestroy(activity));
+        PollingCheck.waitFor(new PollingCheck.ActivityStop(activity));
         verify(first, timeout(ON_DESTROY_TIMEOUT).times(1)).onDestroy();
         assertTrue(activity.isDestroyed());
     }
@@ -232,7 +232,7 @@ public class GuidedStepSupportFragmentTest extends GuidedStepSupportFragmentTest
         View viewFinish = first.getFragment().getActionItemView(0);
         assertTrue(viewFinish.hasFocus());
         sendKey(KeyEvent.KEYCODE_DPAD_CENTER);
-        PollingCheck.waitFor(new PollingCheck.ActivityDestroy(activity));
+        PollingCheck.waitFor(new PollingCheck.ActivityStop(activity));
         verify(first, timeout(ON_DESTROY_TIMEOUT).times(1)).onDestroy();
     }
 
@@ -366,7 +366,7 @@ public class GuidedStepSupportFragmentTest extends GuidedStepSupportFragmentTest
         assertFalse(first.getFragment().isExpanded());
 
         sendKey(KeyEvent.KEYCODE_BACK);
-        PollingCheck.waitFor(new PollingCheck.ActivityDestroy(activity));
+        PollingCheck.waitFor(new PollingCheck.ActivityStop(activity));
         verify(first, timeout(ON_DESTROY_TIMEOUT).times(1)).onDestroy();
     }
 
