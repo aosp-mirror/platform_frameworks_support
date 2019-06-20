@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f81a066f_ad74a972",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2516afa2_a75d1be6",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58cf963b_3535c82e",
         "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ae864a_95655be8",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Thanks, changed it.",
+      "parentUuid": "58cf963b_3535c82e",
+      "range": {
+        "startLine": 191,
+        "startChar": 34,
+        "endLine": 191,
+        "endChar": 79
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1944aa30_92e6b3dd",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac095172_7ef04442",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3c69110_7bfdd4bd",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "97ae1d02_4e5afb7e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3c69110_7bfdd4bd",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b02de16_0b141219",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -102,6 +192,24 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ae4bb83_afad3173",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b02de16_0b141219",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "2d70a021_ffd24740",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7edca6a_c241e52b",
+      "range": {
+        "startLine": 120,
+        "startChar": 29,
+        "endLine": 121,
+        "endChar": 38
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8265398_254d0ff1",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -148,6 +280,30 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d4a78be_9de091fe",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8265398_254d0ff1",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 16
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "5fa96260_967727b4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3477b5_2c055498",
+      "range": {
+        "startLine": 263,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 17
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31b422ac_07ae0083",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "240eaaf5_0e786c2d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31b422ac_07ae0083",
+      "range": {
+        "startLine": 279,
+        "startChar": 42,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78083bc6_16f2a5a1",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -217,6 +421,30 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869a8420_e59856f6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:21Z",
+      "side": 1,
+      "message": "If tag is null, then it will be not equal so its fine. But I changed to check getImageInfo for nullness since it can be null.",
+      "parentUuid": "78083bc6_16f2a5a1",
+      "range": {
+        "startLine": 283,
+        "startChar": 45,
+        "endLine": 283,
+        "endChar": 48
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
