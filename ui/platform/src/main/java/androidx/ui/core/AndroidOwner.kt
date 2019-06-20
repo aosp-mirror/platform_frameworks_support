@@ -198,11 +198,19 @@ class AndroidCraneView constructor(context: Context)
 
     override fun onRequestMeasure(layoutNode: LayoutNode) {
         // find root of layout request:
+        if (layoutNode.needsRemeasure) {
+            // don't need to do anything because it already needs to be remeasured
+            return
+        }
         layoutNode.needsRemeasure = true
 
         var layout = layoutNode
         while (layout.parentLayoutNode != null && layout.affectsParentSize) {
             layout = layout.parentLayoutNode!!
+            if (layout.needsRemeasure) {
+                // don't need to do anything else since the parent already needs measuring
+                return
+            }
             layout.needsRemeasure = true
         }
 

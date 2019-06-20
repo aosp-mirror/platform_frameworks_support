@@ -421,6 +421,16 @@ class LayoutNode : ComponentNode() {
     override val containingLayoutNode: LayoutNode?
         get() = this
 
+    override fun attach(owner: Owner) {
+        super.attach(owner)
+        parentLayoutNode?.requestRemeasure()
+    }
+
+    override fun detach() {
+        super.detach()
+        parentLayoutNode?.requestRemeasure()
+    }
+
     fun moveTo(x: IntPx, y: IntPx) {
         visible = true
         if (x != this.x || y != this.y) {
