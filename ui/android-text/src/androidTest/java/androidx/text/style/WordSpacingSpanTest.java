@@ -22,6 +22,7 @@ import static org.junit.Assert.assertThat;
 import android.os.Build;
 import android.text.TextPaint;
 
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
@@ -49,6 +50,7 @@ public class WordSpacingSpanTest {
 
     @SdkSuppress(minSdkVersion = 26)
     @Test
+    @FlakyTest
     public void updateDrawState_increaseWordSpacing() {
         // WordSpacing is public on Q and on P(API 28) reflection won't work.
         if (Build.VERSION.SDK_INT == 28) return;
@@ -65,6 +67,7 @@ public class WordSpacingSpanTest {
 
     @SdkSuppress(minSdkVersion = 26)
     @Test
+    @FlakyTest
     public void updateDrawState_decreaseWordSpacing() {
         // WordSpacing is public on Q and on P(API 28) reflection won't work.
         if (Build.VERSION.SDK_INT == 28) return;
@@ -89,6 +92,7 @@ public class WordSpacingSpanTest {
 
     @SdkSuppress(minSdkVersion = 26)
     @Test
+    @FlakyTest
     public void updateMeasureState_increaseWordSpacing() {
         // WordSpacing is public on Q and on P(API 28) reflection won't work.
         if (Build.VERSION.SDK_INT == 28) return;
@@ -105,6 +109,7 @@ public class WordSpacingSpanTest {
 
     @SdkSuppress(minSdkVersion = 26)
     @Test
+    @FlakyTest
     public void updateMeasureState_decreaseWordSpacing() {
         // WordSpacing is public on Q and on P(API 28) reflection won't work.
         if (Build.VERSION.SDK_INT == 28) return;
