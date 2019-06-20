@@ -44,7 +44,7 @@ open class BuildOnServer : DefaultTask() {
         val filesNames = mutableListOf(
         // TODO: re-add after merge to compose merge to master
         // "androidx-public-docs-$buildId.zip",
-        // "dokkaPublicDocs-$buildId.zip",
+//        "dokkaPublicDocs-$buildId.zip",
         "androidx-tipOfTree-docs-$buildId.zip",
         "dokkaTipOfTreeDocs-$buildId.zip",
         "androidx_aggregate_build_info.txt",
