@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b50f5247_b71887b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-20T23:20:20Z",
+      "side": 1,
+      "message": "We should write this more generically. \n\nThe API here are just here to allow for dynamic restyling.",
+      "range": {
+        "startLine": 7,
+        "startChar": 58,
+        "endLine": 7,
+        "endChar": 85
+      },
+      "revId": "cb4b3456ae57b020dd2ddd3bb6f6ad3e2ae419c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
