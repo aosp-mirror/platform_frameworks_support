@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e64dea18_76fff924",
+        "filename": "camera/extensions/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T15:07:44Z",
+      "side": 1,
+      "message": "Oh, thanks! I have removed the compileOnly import.\nit seems the compile only can work without conflict, but remove the duplicate definition would be better.",
+      "parentUuid": "183470f0_fb890cc9",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30dbebb7_235e6ee8",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7b135c_1bc6052b",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T15:07:44Z",
+      "side": 1,
+      "message": "Ah, the verify on onPresetSession() and onEnableSession() with timeout(3000) is also be used to wait for the capture session created, and then we can going to invoked the CameraX.unbind().  \n\nWe still have some other way to wait for the capture session creation, such like to take a picture and wait for the image saved callback. Or just call Thread.sleep(3000) before unbind() \u003c\u003d not good.\n\nTo wait for the verification of the onEnableSession() should be the easiest way to get the capture session status (just because the CameraEventCallback is used to reflect the capture session state).  So I would suggest to keep the verify stay here\n\n\nI also add some more comments to explain the reason.",
+      "parentUuid": "30dbebb7_235e6ee8",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "58634361_5706a9eb",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T15:07:44Z",
+      "side": 1,
+      "message": "Ah, the verify on onPresetSession() and onEnableSession() with timeout(3000) is also be used to wait for the capture session created, and then we can going to invoked the CameraX.unbind().  \n\nWe still have some other way to wait for the capture session creation, such like to take a picture and wait for the image saved callback. Or just call Thread.sleep(3000) before unbind() \u003c\u003d not good.\n\nTo wait for the verification of the onEnableSession() should be the easiest way to get the capture session status (just because the CameraEventCallback is used to reflect the capture session state).  So I would suggest to keep the verify stay here.\n\n\nI also add some more comments to explain the reason.",
+      "parentUuid": "85add530_2ca27c8e",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89558d3a_b9bd64fd",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc671e7_62642322",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T15:07:44Z",
+      "side": 1,
+      "message": "Ah, the verify on onPresetSession() and onEnableSession() with timeout(3000) is also be used to wait for the capture session created, and then we can going to invoked the CameraX.unbind().  \n\nWe still have some other way to wait for the capture session creation, such like to take a picture and wait for the image saved callback. Or just call Thread.sleep(3000) before unbind() \u003c\u003d not good.\n\nTo wait for the verification of the onEnableSession() should be the easiest way to get the capture session status (just because the CameraEventCallback is used to reflect the capture session state).  So I would suggest to keep the verify stay here.\n\n\nI also add some more comments to explain the reason.",
+      "parentUuid": "89558d3a_b9bd64fd",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
