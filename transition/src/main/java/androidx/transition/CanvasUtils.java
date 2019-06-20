@@ -16,6 +16,7 @@
 
 package androidx.transition;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.os.Build;
 
@@ -35,10 +36,18 @@ class CanvasUtils {
      *
      * IMPORTANT: This method doesn't work on Pie! It will thrown an exception instead
      */
+    @SuppressLint("SoonBlockedPrivateApi")
     static void enableZ(@NonNull Canvas canvas, boolean enable) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // no shadows yet added into a platform
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        } else if (Build.VERSION.SDK_INT >= 29) {
+            if (enable) {
+                canvas.enableZ();
+            } else {
+                canvas.disableZ();
+            }
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+            // not on P's greylist, can't use reflection
             throw new IllegalStateException("This method doesn't work on Pie!");
         } else {
             if (!sOrderMethodsFetched) {

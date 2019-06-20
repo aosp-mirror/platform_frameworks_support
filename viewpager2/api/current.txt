@@ -6,7 +6,7 @@ package androidx.viewpager2.adapter {
     ctor public FragmentStateAdapter(androidx.fragment.app.Fragment);
     ctor public FragmentStateAdapter(androidx.fragment.app.FragmentManager, androidx.lifecycle.Lifecycle);
     method public boolean containsItem(long);
-    method public abstract androidx.fragment.app.Fragment getItem(int);
+    method public abstract androidx.fragment.app.Fragment createFragment(int);
     method public final void onBindViewHolder(androidx.viewpager2.adapter.FragmentViewHolder, int);
     method public final androidx.viewpager2.adapter.FragmentViewHolder onCreateViewHolder(android.view.ViewGroup, int);
     method public final boolean onFailedToRecycleView(androidx.viewpager2.adapter.FragmentViewHolder);
@@ -31,8 +31,8 @@ package androidx.viewpager2.widget {
 
   public final class CompositePageTransformer implements androidx.viewpager2.widget.ViewPager2.PageTransformer {
     ctor public CompositePageTransformer();
-    method public boolean addTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
-    method public boolean removeTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void addTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void removeTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
     method public void transformPage(android.view.View, @FloatRange(from=-1.0, to=1.0) float);
   }
 
@@ -46,17 +46,24 @@ package androidx.viewpager2.widget {
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?, int);
     ctor @RequiresApi(21) public ViewPager2(android.content.Context, android.util.AttributeSet?, int, int);
+    method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
+    method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration, int);
     method public boolean beginFakeDrag();
     method public boolean endFakeDrag();
-    method public boolean fakeDragBy(float);
+    method public boolean fakeDragBy(@Px float);
     method public androidx.recyclerview.widget.RecyclerView.Adapter? getAdapter();
     method public int getCurrentItem();
+    method public androidx.recyclerview.widget.RecyclerView.ItemDecoration getItemDecorationAt(int);
+    method public int getItemDecorationCount();
     method public int getOffscreenPageLimit();
     method public int getOrientation();
     method public int getScrollState();
+    method public void invalidateItemDecorations();
     method public boolean isFakeDragging();
     method public boolean isUserInputEnabled();
     method public void registerOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
+    method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
+    method public void removeItemDecorationAt(int);
     method public void requestTransform();
     method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter?);
     method public void setCurrentItem(int);
@@ -66,7 +73,7 @@ package androidx.viewpager2.widget {
     method public void setPageTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer?);
     method public void setUserInputEnabled(boolean);
     method public void unregisterOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
-    field public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = 0; // 0x0
+    field public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1; // 0xffffffff
     field public static final int ORIENTATION_HORIZONTAL = 0; // 0x0
     field public static final int ORIENTATION_VERTICAL = 1; // 0x1
     field public static final int SCROLL_STATE_DRAGGING = 1; // 0x1

@@ -16,6 +16,7 @@
 
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 import static androidx.build.dependencies.DependenciesKt.*
@@ -38,7 +39,7 @@ dependencies {
     testImplementation(MOCKITO_CORE)
     testImplementation(ANDROIDX_TEST_RUNNER)
     testImplementation(ANDROIDX_TEST_RULES)
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2", {
+    testImplementation MOCKITO_KOTLIN, {
         exclude group: 'org.mockito' // to keep control on the mockito version
     }
     testImplementation(TRUTH)
@@ -48,7 +49,7 @@ dependencies {
     androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
-    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2", {
+    androidTestImplementation MOCKITO_KOTLIN, {
         exclude group: 'org.mockito' // to keep control on the mockito version
     }
     androidTestImplementation(TRUTH)
@@ -56,7 +57,7 @@ dependencies {
 
 androidx {
     name = "Composables for Animation Lib"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.UI
     mavenGroup = LibraryGroups.UI
     inceptionYear = "2019"
