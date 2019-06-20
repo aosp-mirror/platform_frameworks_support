@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "22b2d879_003c649e",
+        "filename": "camera/integration-tests/extensionstestapp/src/main/java/androidx/camera/integration/extensions/CameraExtensionsActivity.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0d35da0_07f30374",
+      "revId": "67403d78f88f2f276c99b45d9f8448f07df03498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7457343f_88949355",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "67403d78f88f2f276c99b45d9f8448f07df03498",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cafb649_c1aac052",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:23:58Z",
+      "side": 1,
+      "message": "Good point. I made it so that it gets initialized in onInit() and then closed() + set to null on onDeInit() since that is a possible scenario.",
+      "parentUuid": "7457343f_88949355",
+      "revId": "67403d78f88f2f276c99b45d9f8448f07df03498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
