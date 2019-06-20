@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa28a038_54525d99",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/api/1.0.0-alpha02.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-20T22:08:47Z",
+      "side": 1,
+      "message": "idk about this :/ is this a metalava issue ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 93,
+        "endLine": 16,
+        "endChar": 97
+      },
+      "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
