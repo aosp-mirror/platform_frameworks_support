@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e0b215aa_de154609",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-20T18:18:56Z",
+      "side": 1,
+      "message": "Yeah, I understand.  I\u0027m often torn between splitting methods out and keeping things inline (have gone back and forth a bit, but I think for now, I\u0027d like to try keeping things inline and see how that works out. :)",
+      "parentUuid": "e52f96db_d9126979",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dccc2ec8_cfd47d44",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
         "patchSetId": 3
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "It would help clarify what\u0027s going on in the code that I highlighted. I\u0027d do a utility function:\n\nprivate fun union(a: Rect?, b: Rect?) : Rect? {// null checks can happen in here...}\n\nIt would make this block of code easier to read for me. But of course that\u0027s up to you.",
       "parentUuid": "c6db5d6b_a2913e65",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "5ccabc5e70e218f528d54f6832367b1e5550a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73df84c_05f879e2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/PointerInputEventProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-06-20T18:18:56Z",
+      "side": 1,
+      "message": "I realized my argument that \"code that is intended to only be called by one code path should simply be made inline in that path\" didn\u0027t take into account methods that don\u0027t change state.  State changing methods are dangerous to make their own method because calling it from the wrong code path could create confusing bugs and code.  But if the method doesn\u0027t change state (especially if it can be external to the state holding entity) then it seems totally fine to pull it out. \n\nSo, done!",
+      "parentUuid": "cb5eb637_be60876e",
       "range": {
         "startLine": 170,
         "startChar": 0,
