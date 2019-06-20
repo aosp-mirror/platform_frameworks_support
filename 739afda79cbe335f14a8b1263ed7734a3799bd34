@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e60fdd4_31c81624",
+        "filename": "ui/core/api/restricted_1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Unfortunately manually removing will cause build failure in checkApi stage.",
+      "parentUuid": "2a1deefc_6882b5cf",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f529889_78c50698",
         "filename": "ui/core/api/restricted_current.txt",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "3534c119_c50ba59c",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ca34a87_9f5b6e9d",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 44
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "516fcb03_74aa5365",
         "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
         "patchSetId": 2
@@ -91,6 +139,30 @@
       "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53953633_f028e01c",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "516fcb03_74aa5365",
+      "range": {
+        "startLine": 40,
+        "startChar": 48,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "f92c0811_ead96f2f",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de66eebc_985f5eef",
+      "range": {
+        "startLine": 43,
+        "startChar": 63,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01f4fc67_cdfd7010",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d912c8_715816fb",
+      "range": {
+        "startLine": 43,
+        "startChar": 89,
+        "endLine": 43,
+        "endChar": 96
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "506eccbf_f2134eba",
         "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
         "patchSetId": 2
@@ -160,6 +280,30 @@
       "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05ad732f_46c0f603",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "506eccbf_f2134eba",
+      "range": {
+        "startLine": 58,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 72
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "077d90c7_93563dad",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1572ee9c_ef100180",
+      "range": {
+        "startLine": 60,
+        "startChar": 19,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3cfe116_9f5b88a2",
         "filename": "ui/core/src/main/java/androidx/ui/input/EditorState.kt",
         "patchSetId": 2
@@ -206,6 +374,30 @@
       "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15edd6f1_1832f645",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditorState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-20T22:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3cfe116_9f5b88a2",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 6
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
