@@ -495,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "8fa0b987_a5632824",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-20T00:07:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6749368e_4349b146",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 18
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3acaf9e3_b5811097",
         "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
         "patchSetId": 4
@@ -589,6 +613,30 @@
     },
     {
       "key": {
+        "uuid": "e7b0e516_6d3206f6",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/AnnotatedString.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-20T00:07:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "410cbf13_a704f46d",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "352d54d3_ec9f7824",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
         "patchSetId": 4
@@ -609,6 +657,30 @@
       "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853ceac0_9532dc59",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-20T00:07:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "352d54d3_ec9f7824",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 14
+      },
+      "revId": "47d5524e1100693f619e2932b42ea63d6268ae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
