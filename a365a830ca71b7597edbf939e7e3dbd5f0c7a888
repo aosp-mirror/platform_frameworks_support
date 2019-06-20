@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cb52361_4553388e",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T19:08:01Z",
+      "side": 1,
+      "message": "Follow-up from chat, sounds like this *is* a replacement so please use the platform constants as values instead of explicit ints.",
+      "parentUuid": "c5a40116_916957a2",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f96cdbe_a65420ce",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
         "patchSetId": 3
