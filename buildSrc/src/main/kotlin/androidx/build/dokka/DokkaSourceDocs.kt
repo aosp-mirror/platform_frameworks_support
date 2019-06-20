@@ -29,7 +29,8 @@ import org.gradle.kotlin.dsl.getPlugin
 import org.jetbrains.dokka.gradle.DokkaTask
 
 object DokkaSourceDocs {
-    private val RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("TipOfTree")
+    private val JAVA_RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("TipOfTree", "java")
+    private val KOTLIN_RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("TipOfTree", "kotlin")
     public val ARCHIVE_TASK_NAME: String = Dokka.archiveTaskNameForType("TipOfTree")
     // TODO(b/72330103) make "generateDocs" be the only archive task once Doclava is fully removed
     private val ALTERNATE_ARCHIVE_TASK_NAME: String = "generateDocs"
@@ -44,14 +45,14 @@ object DokkaSourceDocs {
         return tryGetRunnerProject(project)!!
     }
 
-    fun getDocsTask(project: Project): DokkaTask {
-        var runnerProject = getRunnerProject(project)
+    fun getDocsTasks(project: Project): List<DokkaTask> {
+        val runnerProject = getRunnerProject(project)
         return runnerProject.tasks.getOrCreateDocsTask(runnerProject)
     }
 
-    @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): DokkaTask {
+    @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): List<DokkaTask> {
         val tasks = this
-        if (tasks.findByName(DokkaSourceDocs.RUNNER_TASK_NAME) == null) {
+        if (tasks.findByName(DokkaSourceDocs.KOTLIN_RUNNER_TASK_NAME) == null) {
             Dokka.createDocsTask("TipOfTree", runnerProject, hiddenPackages)
             if (tasks.findByName(DokkaSourceDocs.ALTERNATE_ARCHIVE_TASK_NAME) == null) {
                 tasks.create(ALTERNATE_ARCHIVE_TASK_NAME)
@@ -59,7 +60,8 @@ object DokkaSourceDocs {
             tasks.getByName(ALTERNATE_ARCHIVE_TASK_NAME)
                 .dependsOn(tasks.getByName(ARCHIVE_TASK_NAME))
         }
-        return tasks.getByName(DokkaSourceDocs.RUNNER_TASK_NAME) as DokkaTask
+        return listOf(runnerProject.tasks.getByName(KOTLIN_RUNNER_TASK_NAME) as DokkaTask,
+            runnerProject.tasks.getByName(JAVA_RUNNER_TASK_NAME) as DokkaTask)
     }
 
     fun registerAndroidProject(
@@ -104,10 +106,16 @@ object DokkaSourceDocs {
     }
 
     fun registerInputs(inputs: JavaCompileInputs, project: Project) {
-        val docsTask = getDocsTask(project)
-        docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath = docsTask.classpath.plus(inputs.dependencyClasspath)
+        val (kotlinDocsTask, javaDocsTask) = getDocsTasks(project)
+
+        kotlinDocsTask.sourceDirs += inputs.sourcePaths
+        kotlinDocsTask.classpath = kotlinDocsTask.classpath.plus(inputs.dependencyClasspath)
             .plus(inputs.bootClasspath)
-        docsTask.dependsOn(inputs.dependencyClasspath)
+        kotlinDocsTask.dependsOn(inputs.dependencyClasspath)
+
+        javaDocsTask.sourceDirs += inputs.sourcePaths
+        javaDocsTask.classpath = javaDocsTask.classpath.plus(inputs.dependencyClasspath)
+            .plus(inputs.bootClasspath)
+        javaDocsTask.dependsOn(inputs.dependencyClasspath)
     }
 }
