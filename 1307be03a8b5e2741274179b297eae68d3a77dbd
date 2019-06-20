@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "eaf33766_60f4b48e",
+        "filename": "heifwriter/src/androidTest/java/androidx/heifwriter/HeifWriterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1039918
+      },
+      "writtenOn": "2019-06-20T22:17:56Z",
+      "side": 1,
+      "message": "Can you just disable the entire test for presubmit for now?\n\nI took a look at the failure logs, it seems the test is getting killed by OOM killer, probably because some objects are not garbage collected fast enought. (It doesn\u0027t happen on physical devices). \n\nIf that\u0027s the case, disabling some of them will not help. It\u0027ll just fail at the next point it runs out of memory.",
+      "range": {
+        "startLine": 170,
+        "startChar": 5,
+        "endLine": 170,
+        "endChar": 14
+      },
+      "revId": "1307be03a8b5e2741274179b297eae68d3a77dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33cb88c7_3e2cffaf",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/ScrollerPerformance.kt",
         "patchSetId": 1
