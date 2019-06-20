@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7924168e_604b8a4d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-20T16:41:33Z",
+      "side": 1,
+      "message": "This code is going to evolve a lot. I was hoping to get it working so we have a baseline, and can get the docs looking correct, then come back to make code neater and more sustainable. What do you think?",
+      "parentUuid": "83c38c92_c9f59ad8",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4fa194cb_8e5ee074",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4067e48a_5b858540",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-20T16:41:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa194cb_8e5ee074",
+      "range": {
+        "startLine": 82,
+        "startChar": 52,
+        "endLine": 82,
+        "endChar": 58
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d257730_340951da",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3636f778_806fd667",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-20T16:41:33Z",
+      "side": 1,
+      "message": "Right now there isn\u0027t a way to link directly to any constant. The formats map to a \u003cformat\u003e.properties file https://github.com/google/dokka/tree/devsite-with-java-layout-html/core/src/main/resources/dokka/format",
+      "parentUuid": "7d257730_340951da",
+      "range": {
+        "startLine": 84,
+        "startChar": 33,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
