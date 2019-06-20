@@ -1,12 +1,27 @@
 package androidx.paging {
 
   public abstract class DataSource<Key, Value> {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public void addInvalidatedCallback(androidx.paging.DataSource.InvalidatedCallback);
     method public void invalidate();
     method public boolean isInvalid();
     method public abstract <ToValue> androidx.paging.DataSource<Key, ToValue> map(androidx.arch.core.util.Function<Value, ToValue>);
     method public abstract <ToValue> androidx.paging.DataSource<Key, ToValue> mapByPage(androidx.arch.core.util.Function<java.util.List<Value>, java.util.List<ToValue>>);
     method public void removeInvalidatedCallback(androidx.paging.DataSource.InvalidatedCallback);
+=======
+    method @AnyThread public void addInvalidatedCallback(androidx.paging.DataSource.InvalidatedCallback onInvalidatedCallback);
+    method @AnyThread public final void addInvalidatedCallback(kotlin.jvm.functions.Function0<kotlin.Unit> onInvalidatedCallback);
+    method protected final java.util.concurrent.Executor getExecutor();
+    method @AnyThread public void invalidate();
+    method @WorkerThread public boolean isInvalid();
+    method public boolean isRetryableError(Throwable error);
+    method public <ToValue> androidx.paging.DataSource<Key,ToValue> map(androidx.arch.core.util.Function<Value,ToValue> function);
+    method public <ToValue> androidx.paging.DataSource<Key,ToValue> mapByPage(androidx.arch.core.util.Function<java.util.List<Value>,java.util.List<ToValue>> function);
+    method @AnyThread public void removeInvalidatedCallback(androidx.paging.DataSource.InvalidatedCallback onInvalidatedCallback);
+    method @AnyThread public final void removeInvalidatedCallback(kotlin.jvm.functions.Function0<kotlin.Unit> onInvalidatedCallback);
+    property protected final java.util.concurrent.Executor executor;
+    property @WorkerThread public boolean isInvalid;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
   public static abstract class DataSource.Factory<Key, Value> {
@@ -20,14 +35,31 @@ package androidx.paging {
     method public abstract void onInvalidated();
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public abstract class ItemKeyedDataSource<Key, Value> extends androidx.paging.DataSource {
+=======
+  public final class DataSourceKt {
+    ctor public DataSourceKt();
+  }
+
+  public abstract class ItemKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     ctor public ItemKeyedDataSource();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public abstract Key getKey(Value);
     method public abstract void loadAfter(androidx.paging.ItemKeyedDataSource.LoadParams<Key>, androidx.paging.ItemKeyedDataSource.LoadCallback<Value>);
     method public abstract void loadBefore(androidx.paging.ItemKeyedDataSource.LoadParams<Key>, androidx.paging.ItemKeyedDataSource.LoadCallback<Value>);
     method public abstract void loadInitial(androidx.paging.ItemKeyedDataSource.LoadInitialParams<Key>, androidx.paging.ItemKeyedDataSource.LoadInitialCallback<Value>);
     method public final <ToValue> androidx.paging.ItemKeyedDataSource<Key, ToValue> map(androidx.arch.core.util.Function<Value, ToValue>);
     method public final <ToValue> androidx.paging.ItemKeyedDataSource<Key, ToValue> mapByPage(androidx.arch.core.util.Function<java.util.List<Value>, java.util.List<ToValue>>);
+=======
+    method public abstract Key getKey(Value item);
+    method public abstract void loadAfter(androidx.paging.ItemKeyedDataSource.LoadParams<Key> params, androidx.paging.ItemKeyedDataSource.LoadCallback<Value> callback);
+    method public abstract void loadBefore(androidx.paging.ItemKeyedDataSource.LoadParams<Key> params, androidx.paging.ItemKeyedDataSource.LoadCallback<Value> callback);
+    method public abstract void loadInitial(androidx.paging.ItemKeyedDataSource.LoadInitialParams<Key> params, androidx.paging.ItemKeyedDataSource.LoadInitialCallback<Value> callback);
+    method public final <ToValue> androidx.paging.ItemKeyedDataSource<Key,ToValue> map(androidx.arch.core.util.Function<Value,ToValue> function);
+    method public final <ToValue> androidx.paging.ItemKeyedDataSource<Key,ToValue> mapByPage(androidx.arch.core.util.Function<java.util.List<Value>,java.util.List<ToValue>> function);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
   public static abstract class ItemKeyedDataSource.LoadCallback<Value> {
@@ -41,19 +73,90 @@ package androidx.paging {
   }
 
   public static class ItemKeyedDataSource.LoadInitialParams<Key> {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     ctor public ItemKeyedDataSource.LoadInitialParams(Key, int, boolean);
+=======
+    ctor public ItemKeyedDataSource.LoadInitialParams(Key? requestedInitialKey, int requestedLoadSize, boolean placeholdersEnabled);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     field public final boolean placeholdersEnabled;
     field public final Key requestedInitialKey;
     field public final int requestedLoadSize;
   }
 
   public static class ItemKeyedDataSource.LoadParams<Key> {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     ctor public ItemKeyedDataSource.LoadParams(Key, int);
+=======
+    ctor public ItemKeyedDataSource.LoadParams(Key key, int requestedLoadSize);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     field public final Key key;
     field public final int requestedLoadSize;
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.DataSource {
+=======
+  public abstract class ListenablePageKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+    ctor public ListenablePageKeyedDataSource();
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.Result<Key,Value>> loadAfter(androidx.paging.ListenablePageKeyedDataSource.LoadParams<Key> params);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.Result<Key,Value>> loadBefore(androidx.paging.ListenablePageKeyedDataSource.LoadParams<Key> params);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.InitialResult<Key,Value>> loadInitial(androidx.paging.ListenablePageKeyedDataSource.LoadInitialParams<Key> params);
+  }
+
+  public static class ListenablePageKeyedDataSource.InitialResult<Key, Value> extends androidx.paging.DataSource.BaseResult<Value> {
+    ctor public ListenablePageKeyedDataSource.InitialResult(java.util.List<? extends Value> data, int position, int totalCount, Key? previousPageKey, Key? nextPageKey);
+    ctor public ListenablePageKeyedDataSource.InitialResult(java.util.List<? extends Value> data, Key? previousPageKey, Key? nextPageKey);
+  }
+
+  public static class ListenablePageKeyedDataSource.LoadInitialParams<Key> {
+    ctor public ListenablePageKeyedDataSource.LoadInitialParams(int requestedLoadSize, boolean placeholdersEnabled);
+    field public final boolean placeholdersEnabled;
+    field public final int requestedLoadSize;
+  }
+
+  public static class ListenablePageKeyedDataSource.LoadParams<Key> {
+    ctor public ListenablePageKeyedDataSource.LoadParams(Key key, int requestedLoadSize);
+    field public final Key key;
+    field public final int requestedLoadSize;
+  }
+
+  public static class ListenablePageKeyedDataSource.Result<Key, Value> extends androidx.paging.DataSource.BaseResult<Value> {
+    ctor public ListenablePageKeyedDataSource.Result(java.util.List<? extends Value> data, Key? adjacentPageKey);
+  }
+
+  public abstract class ListenablePositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
+    ctor public ListenablePositionalDataSource();
+    method public static final int computeInitialLoadPosition(androidx.paging.ListenablePositionalDataSource.LoadInitialParams params, int totalCount);
+    method public static final int computeInitialLoadSize(androidx.paging.ListenablePositionalDataSource.LoadInitialParams params, int initialLoadPosition, int totalCount);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePositionalDataSource.InitialResult<T>> loadInitial(androidx.paging.ListenablePositionalDataSource.LoadInitialParams params);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePositionalDataSource.RangeResult<T>> loadRange(androidx.paging.ListenablePositionalDataSource.LoadRangeParams params);
+  }
+
+  public static class ListenablePositionalDataSource.InitialResult<V> extends androidx.paging.DataSource.BaseResult<V> {
+    ctor public ListenablePositionalDataSource.InitialResult(java.util.List<? extends V> data, int position, int totalCount);
+    ctor public ListenablePositionalDataSource.InitialResult(java.util.List<? extends V> data, int position);
+  }
+
+  public static class ListenablePositionalDataSource.LoadInitialParams {
+    ctor public ListenablePositionalDataSource.LoadInitialParams(int requestedStartPosition, int requestedLoadSize, int pageSize, boolean placeholdersEnabled);
+    field public final int pageSize;
+    field public final boolean placeholdersEnabled;
+    field public final int requestedLoadSize;
+    field public final int requestedStartPosition;
+  }
+
+  public static class ListenablePositionalDataSource.LoadRangeParams {
+    ctor public ListenablePositionalDataSource.LoadRangeParams(int startPosition, int loadSize);
+    field public final int loadSize;
+    field public final int startPosition;
+  }
+
+  public static class ListenablePositionalDataSource.RangeResult<V> extends androidx.paging.DataSource.BaseResult<V> {
+    ctor public ListenablePositionalDataSource.RangeResult(java.util.List<? extends V> data);
+  }
+
+  public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.ListenablePageKeyedDataSource<Key,Value> {
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     ctor public PageKeyedDataSource();
     method public abstract void loadAfter(androidx.paging.PageKeyedDataSource.LoadParams<Key>, androidx.paging.PageKeyedDataSource.LoadCallback<Key, Value>);
     method public abstract void loadBefore(androidx.paging.PageKeyedDataSource.LoadParams<Key>, androidx.paging.PageKeyedDataSource.LoadCallback<Key, Value>);
@@ -85,10 +188,18 @@ package androidx.paging {
     field public final int requestedLoadSize;
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public abstract class PagedList<T> extends java.util.AbstractList {
     method public void addWeakCallback(java.util.List<T>, androidx.paging.PagedList.Callback);
     method public void detach();
     method public T get(int);
+=======
+  public abstract class PagedList<T> extends java.util.AbstractList<T> {
+    method public void addWeakCallback(java.util.List<? extends T>? previousSnapshot, androidx.paging.PagedList.Callback callback);
+    method public void addWeakLoadStateListener(kotlin.jvm.functions.Function3<? super androidx.paging.PagedList.LoadType,? super androidx.paging.PagedList.LoadState,? super java.lang.Throwable,kotlin.Unit> listener);
+    method public abstract void detach();
+    method public T? get(int index);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public androidx.paging.PagedList.Config getConfig();
     method public abstract androidx.paging.DataSource<?, T> getDataSource();
     method public abstract java.lang.Object getLastKey();
@@ -96,9 +207,16 @@ package androidx.paging {
     method public int getPositionOffset();
     method public boolean isDetached();
     method public boolean isImmutable();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public void loadAround(int);
     method public void removeWeakCallback(androidx.paging.PagedList.Callback);
     method public int size();
+=======
+    method public void loadAround(int index);
+    method public void removeWeakCallback(androidx.paging.PagedList.Callback callback);
+    method public void removeWeakLoadStateListener(kotlin.jvm.functions.Function3<? super androidx.paging.PagedList.LoadType,? super androidx.paging.PagedList.LoadState,? super java.lang.Throwable,kotlin.Unit> listener);
+    method public void retry();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public java.util.List<T> snapshot();
   }
 
@@ -126,7 +244,7 @@ package androidx.paging {
     method public abstract void onRemoved(int, int);
   }
 
-  public static class PagedList.Config {
+  public static final class PagedList.Config {
     field public static final int MAX_SIZE_UNBOUNDED = 2147483647; // 0x7fffffff
     field public final boolean enablePlaceholders;
     field public final int initialLoadSizeHint;
@@ -145,7 +263,107 @@ package androidx.paging {
     method public androidx.paging.PagedList.Config.Builder setPrefetchDistance(int);
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public abstract class PositionalDataSource<T> extends androidx.paging.DataSource {
+=======
+  public enum PagedList.LoadState {
+    enum_constant public static final androidx.paging.PagedList.LoadState DONE;
+    enum_constant public static final androidx.paging.PagedList.LoadState ERROR;
+    enum_constant public static final androidx.paging.PagedList.LoadState IDLE;
+    enum_constant public static final androidx.paging.PagedList.LoadState LOADING;
+    enum_constant public static final androidx.paging.PagedList.LoadState RETRYABLE_ERROR;
+  }
+
+  public enum PagedList.LoadType {
+    enum_constant public static final androidx.paging.PagedList.LoadType END;
+    enum_constant public static final androidx.paging.PagedList.LoadType REFRESH;
+    enum_constant public static final androidx.paging.PagedList.LoadType START;
+  }
+
+  public final class PagedListConfigKt {
+    ctor public PagedListConfigKt();
+    method public static androidx.paging.PagedList.Config Config(int pageSize, int prefetchDistance = pageSize, boolean enablePlaceholders = true, int initialLoadSizeHint = pageSize * androidx.paging.PagedList.Config.Builder.DEFAULT_INITIAL_PAGE_MULTIPLIER, int maxSize = 2147483647);
+  }
+
+  public final class PagedListKt {
+    ctor public PagedListKt();
+    method public static <Key, Value> androidx.paging.PagedList<Value> PagedList(androidx.paging.DataSource<Key,Value> dataSource, androidx.paging.PagedList.Config config, java.util.concurrent.Executor notifyExecutor, java.util.concurrent.Executor fetchExecutor, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, Key? initialKey = null);
+  }
+
+  public abstract class PagedSource<Key, Value> {
+    ctor public PagedSource();
+    method public abstract boolean getInvalid();
+    method public abstract androidx.paging.PagedSource.KeyProvider<Key,Value> getKeyProvider();
+    method public abstract void invalidate();
+    method public abstract boolean isRetryableError(Throwable error);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.PagedSource.LoadResult<Key,Value>> load(androidx.paging.PagedSource.LoadParams<Key> params);
+    property public abstract boolean invalid;
+    property public abstract androidx.paging.PagedSource.KeyProvider<Key,Value> keyProvider;
+    field public static final int COUNT_UNDEFINED = -1; // 0xffffffff
+    field public static final androidx.paging.PagedSource.Companion! Companion;
+  }
+
+  public static final class PagedSource.Companion {
+  }
+
+  public abstract static sealed class PagedSource.KeyProvider<Key, Value> {
+  }
+
+  public abstract static class PagedSource.KeyProvider.ItemKey<Key, Value> extends androidx.paging.PagedSource.KeyProvider<Key,Value> {
+    ctor public PagedSource.KeyProvider.ItemKey();
+    method public abstract Key getKey(Value item);
+  }
+
+  public static final class PagedSource.KeyProvider.PageKey<Key, Value> extends androidx.paging.PagedSource.KeyProvider<Key,Value> {
+    ctor public PagedSource.KeyProvider.PageKey();
+  }
+
+  public static final class PagedSource.KeyProvider.Positional<Value> extends androidx.paging.PagedSource.KeyProvider<java.lang.Integer,Value> {
+    ctor public PagedSource.KeyProvider.Positional();
+  }
+
+  public static final class PagedSource.LoadParams<Key> {
+    ctor public PagedSource.LoadParams(androidx.paging.PagedSource.LoadType loadType, Key? key, int loadSize, boolean placeholdersEnabled, int pageSize);
+    method public androidx.paging.PagedSource.LoadType component1();
+    method public Key? component2();
+    method public int component3();
+    method public boolean component4();
+    method public int component5();
+    method public androidx.paging.PagedSource.LoadParams<Key> copy(androidx.paging.PagedSource.LoadType loadType, Key? key, int loadSize, boolean placeholdersEnabled, int pageSize);
+    method public Key? getKey();
+    method public int getLoadSize();
+    method public androidx.paging.PagedSource.LoadType getLoadType();
+    method public int getPageSize();
+    method public boolean getPlaceholdersEnabled();
+  }
+
+  public static final class PagedSource.LoadResult<Key, Value> {
+    ctor public PagedSource.LoadResult(int itemsBefore, int itemsAfter, Key? nextKey, Key? prevKey, java.util.List<? extends Value> data, int offset, boolean counted);
+    method public int component1();
+    method public int component2();
+    method public Key? component3();
+    method public Key? component4();
+    method public java.util.List<Value> component5();
+    method public int component6();
+    method public boolean component7();
+    method public androidx.paging.PagedSource.LoadResult<Key,Value> copy(int itemsBefore, int itemsAfter, Key? nextKey, Key? prevKey, java.util.List<? extends Value> data, int offset, boolean counted);
+    method public boolean getCounted();
+    method public java.util.List<Value> getData();
+    method public int getItemsAfter();
+    method public int getItemsBefore();
+    method public Key? getNextKey();
+    method public int getOffset();
+    method public Key? getPrevKey();
+  }
+
+  public enum PagedSource.LoadType {
+    enum_constant public static final androidx.paging.PagedSource.LoadType END;
+    enum_constant public static final androidx.paging.PagedSource.LoadType INITIAL;
+    enum_constant public static final androidx.paging.PagedSource.LoadType START;
+  }
+
+  public abstract class PositionalDataSource<T> extends androidx.paging.ListenablePositionalDataSource<T> {
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     ctor public PositionalDataSource();
     method public static int computeInitialLoadPosition(androidx.paging.PositionalDataSource.LoadInitialParams, int);
     method public static int computeInitialLoadSize(androidx.paging.PositionalDataSource.LoadInitialParams, int, int);
@@ -174,10 +392,27 @@ package androidx.paging {
     method public abstract void onResult(java.util.List<T>);
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public static class PositionalDataSource.LoadRangeParams {
     ctor public PositionalDataSource.LoadRangeParams(int, int);
     field public final int loadSize;
     field public final int startPosition;
+=======
+  public static class PositionalDataSource.LoadRangeParams extends androidx.paging.ListenablePositionalDataSource.LoadRangeParams {
+    ctor public PositionalDataSource.LoadRangeParams(int startPosition, int loadSize);
+  }
+
+}
+
+package androidx.paging.futures {
+
+  public final class DirectExecutorKt {
+    ctor public DirectExecutorKt();
+  }
+
+  public final class Futures {
+    ctor public Futures();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
 }

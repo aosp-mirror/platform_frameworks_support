@@ -42,8 +42,7 @@ public final class WriterDao_Impl implements WriterDao {
         this.__insertionAdapterOfUser = new EntityInsertionAdapter<User>(__db) {
             @Override
             public String createQuery() {
-                return "INSERT OR ABORT INTO `User`(`uid`,`name`,`lastName`,`ageColumn`) VALUES"
-                        + " (?,?,?,?)";
+                return "INSERT OR ABORT INTO `User` (`uid`,`name`,`lastName`,`ageColumn`) VALUES (?,?,?,?)";
             }
 
             @Override
@@ -65,8 +64,7 @@ public final class WriterDao_Impl implements WriterDao {
         this.__insertionAdapterOfUser_1 = new EntityInsertionAdapter<User>(__db) {
             @Override
             public String createQuery() {
-                return "INSERT OR REPLACE INTO `User`(`uid`,`name`,`lastName`,`ageColumn`) VALUES"
-                        + " (?,?,?,?)";
+                return "INSERT OR REPLACE INTO `User` (`uid`,`name`,`lastName`,`ageColumn`) VALUES (?,?,?,?)";
             }
 
             @Override
@@ -88,7 +86,7 @@ public final class WriterDao_Impl implements WriterDao {
         this.__insertionAdapterOfBook = new EntityInsertionAdapter<Book>(__db) {
             @Override
             public String createQuery() {
-                return "INSERT OR ABORT INTO `Book`(`bookId`,`uid`) VALUES (?,?)";
+                return "INSERT OR ABORT INTO `Book` (`bookId`,`uid`) VALUES (?,?)";
             }
 
             @Override

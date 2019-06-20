@@ -45,7 +45,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.car.R;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 import androidx.recyclerview.widget.GridLayoutManager;
+=======
+import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
+import androidx.car.widget.itemdecorators.DividerDecoration;
+import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
+import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -295,6 +303,7 @@ public class PagedListView extends FrameLayout {
 
             int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
+            int listDividerColor = ContextCompat.getColor(context, listDividerColorRes);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
                     dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
@@ -475,8 +484,33 @@ public class PagedListView extends FrameLayout {
     /**
      * Returns {@code true} if the scroll bar thumb is visible
      */
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     public boolean getShowScrollBarThumb() {
         return mScrollBarView.getShowScrollBarThumb();
+=======
+    public boolean isScrollbarThumbEnabled() {
+        return mScrollBarView.isScrollbarThumbEnabled();
+    }
+
+    /**
+     * Sets whether the scroll bar is enabled.
+     *
+     * If enabled, a scroll bar will appear when the number of items causes the PagedListView to
+     * be scrollable. Otherwise, the scroll bar is hidden regardless of item count.
+     *
+     * @param enabled {@code true} to enable the scroll bar.
+     */
+    public final void setScrollBarEnabled(boolean enabled) {
+        mScrollBarEnabled = enabled;
+        mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns {@code true} if the scroll bar is enabled.
+     */
+    public final boolean isScrollBarEnabled() {
+        return mScrollBarEnabled;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 
     /**

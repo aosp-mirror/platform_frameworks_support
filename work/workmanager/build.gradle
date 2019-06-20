@@ -60,12 +60,22 @@ dependencies {
 
 supportLibrary {
     name = "Android WorkManager Runtime"
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     publish = true
     mavenVersion = LibraryVersions.WORKMANAGER
     mavenGroup = LibraryGroups.WORKMANAGER
+=======
+    publish = Publish.SNAPSHOT_AND_RELEASE
+    mavenVersion = LibraryVersions.WORK
+    mavenGroup = LibraryGroups.WORK
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     inceptionYear = "2018"
     description = "Android WorkManager runtime library"
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     url = SupportLibraryExtension.ARCHITECTURE_URL
     failOnUncheckedWarnings = false
+=======
+    url = AndroidXExtension.ARCHITECTURE_URL
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     failOnDeprecationWarnings = false
 }

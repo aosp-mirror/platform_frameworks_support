@@ -69,7 +69,7 @@ public abstract class AppCompatBaseViewTest<A extends BaseTestActivity, T extend
     protected A mActivity;
     protected Resources mResources;
 
-    public AppCompatBaseViewTest(Class clazz) {
+    public AppCompatBaseViewTest(Class<A> clazz) {
         mActivityTestRule = new ActivityTestRule<A>(clazz);
     }
 

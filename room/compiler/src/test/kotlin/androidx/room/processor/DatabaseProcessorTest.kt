@@ -646,15 +646,16 @@ class DatabaseProcessorTest {
             val adapter = loadOne?.queryResultBinder?.adapter?.rowAdapter
             assertThat("test sanity", adapter, instanceOf(EntityRowAdapter::class.java))
             val adapterEntity = (adapter as EntityRowAdapter).entity
-            assertThat(insertionMethod?.entities?.values?.first(), sameInstance(adapterEntity))
+            assertThat(adapterEntity,
+                sameInstance(insertionMethod?.entities?.values?.first()?.pojo))
 
             val withConverter = userDao.queryMethods.find { it.name == "loadWithConverter" }
             assertThat(withConverter, notNullValue())
             val convAdapter = withConverter?.queryResultBinder?.adapter?.rowAdapter
             assertThat("test sanity", adapter, instanceOf(EntityRowAdapter::class.java))
             val convAdapterEntity = (convAdapter as EntityRowAdapter).entity
-            assertThat(insertionMethod?.entities?.values?.first(),
-                    not(sameInstance(convAdapterEntity)))
+            assertThat(convAdapterEntity,
+                    not(sameInstance(insertionMethod?.entities?.values?.first()?.pojo)))
 
             assertThat(convAdapterEntity, notNullValue())
             assertThat(adapterEntity, notNullValue())

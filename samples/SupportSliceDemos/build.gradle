@@ -30,11 +30,15 @@ dependencies {
     implementation(project(":recyclerview"))
     implementation(project(":appcompat"))
     implementation(project(":cardview"))
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     api(ARCH_LIFECYCLE_EXTENSIONS, libs.exclude_annotations_transitive = {
         exclude group: 'androidx.annotation'
         exclude group: 'androidx.fragment'
         transitive = true
     })
+=======
+    implementation(project(":core:core"))
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }
 
 android {

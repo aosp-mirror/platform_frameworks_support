@@ -9,6 +9,7 @@ plugins {
 dependencies {
     api(project(":annotation"))
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     api(project(":core"))
     api(project(":collection"))
     api(project(":cursoradapter"))
@@ -16,6 +17,14 @@ dependencies {
     api(project(":fragment"))
     api(project(":vectordrawable"))
     api(project(":vectordrawable-animated"))
+=======
+    api("androidx.core:core:1.1.0-rc01")
+    implementation("androidx.collection:collection:1.0.0")
+    api("androidx.cursoradapter:cursoradapter:1.0.0")
+    api("androidx.fragment:fragment:1.1.0-rc01")
+    api(project(":appcompat:appcompat-resources"))
+    api("androidx.drawerlayout:drawerlayout:1.0.0")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
@@ -55,6 +64,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.APPCOMPAT
     inceptionYear = "2011"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

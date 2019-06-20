@@ -17,6 +17,7 @@
 package androidx.build.dependencyTracker
 
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.testfixtures.ProjectBuilder
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -50,6 +51,17 @@ class AffectedModuleDetectorImplTest {
                 .withProjectDir(tmpDir)
                 .withName("root")
                 .build()
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+        // Project Graph expects supportRootFolder.
+        (root.properties.get("ext") as ExtraPropertiesExtension).set("supportRootFolder", tmpDir)
+        root2 = ProjectBuilder.builder()
+            .withProjectDir(tmpDir2)
+            .withName("root2/ui")
+            .build()
+        // Project Graph expects supportRootFolder.
+        (root2.properties.get("ext") as ExtraPropertiesExtension).set("supportRootFolder", tmpDir2)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         p1 = ProjectBuilder.builder()
                 .withProjectDir(tmpDir.resolve("p1"))
                 .withName("p1")

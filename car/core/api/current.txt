@@ -340,6 +340,11 @@ package androidx.car.widget {
     method public void hideAlphaJump();
     method public boolean isAtEnd();
     method public boolean isAtStart();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    method public final boolean isScrollBarEnabled();
+    method public boolean isScrollbarThumbEnabled();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public void onLayout(boolean, int, int, int, int);
     method public void onRestoreInstanceState(android.os.Parcelable);
     method public android.os.Parcelable onSaveInstanceState();
@@ -362,6 +367,10 @@ package androidx.car.widget {
     method public void setMaxPages(int);
     method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener);
     method public void setScrollBarContainerWidth(int);
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    method public final void setScrollBarEnabled(boolean);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public void setScrollBarTopMargin(int);
     method public void setShowScrollBarThumb(boolean);
     method public void setUpButtonIcon(android.graphics.drawable.Drawable);

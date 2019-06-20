@@ -187,9 +187,15 @@ package androidx.preference {
     method protected void onClick();
     method public void onDependencyChanged(androidx.preference.Preference, boolean);
     method public void onDetached();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method protected java.lang.Object onGetDefaultValue(android.content.res.TypedArray, int);
     method public void onInitializeAccessibilityNodeInfo(androidx.core.view.accessibility.AccessibilityNodeInfoCompat);
     method public void onParentChanged(androidx.preference.Preference, boolean);
+=======
+    method protected Object! onGetDefaultValue(android.content.res.TypedArray!, int);
+    method @Deprecated @CallSuper public void onInitializeAccessibilityNodeInfo(androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method public void onParentChanged(androidx.preference.Preference!, boolean);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method protected void onPrepareForRemoval();
     method protected void onRestoreInstanceState(android.os.Parcelable);
     method protected android.os.Parcelable onSaveInstanceState();

@@ -130,15 +130,21 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
         }
 
         @Override
-        public void onCapabilitiesChanged(Network network, NetworkCapabilities capabilities) {
+        public void onCapabilitiesChanged(
+                @NonNull Network network, @NonNull NetworkCapabilities capabilities) {
             // The Network parameter is unreliable when a VPN app is running - use active network.
             Logger.debug(TAG, String.format("Network capabilities changed: %s", capabilities));
             setState(getActiveNetworkState());
         }
 
         @Override
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         public void onLost(Network network) {
             Logger.debug(TAG, "Network connection lost");
+=======
+        public void onLost(@NonNull Network network) {
+            Logger.get().debug(TAG, "Network connection lost");
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             setState(getActiveNetworkState());
         }
     }

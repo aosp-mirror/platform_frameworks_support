@@ -159,7 +159,13 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 true,
                 false,
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
                 Collections.<Integer>emptySet());
+=======
+                Collections.<Integer>emptySet(),
+                null,
+                null);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
@@ -215,7 +221,13 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 true,
                 false,
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
                 Collections.<Integer>emptySet());
+=======
+                Collections.<Integer>emptySet(),
+                null,
+                null);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
                 // we pass the same hash twice since an old schema does not necessarily have
@@ -378,7 +390,7 @@ public class MigrationTestHelper extends TestWatcher {
 
     private static TableInfo.Column toColumn(EntityBundle entity, FieldBundle field) {
         return new TableInfo.Column(field.getColumnName(), field.getAffinity(),
-                field.isNonNull(), findPrimaryKeyPosition(entity, field));
+                field.isNonNull(), findPrimaryKeyPosition(entity, field), field.getDefaultValue());
     }
 
     private static int findPrimaryKeyPosition(EntityBundle entity, FieldBundle field) {

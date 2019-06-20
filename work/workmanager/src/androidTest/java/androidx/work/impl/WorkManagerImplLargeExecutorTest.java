@@ -187,11 +187,21 @@ public class WorkManagerImplLargeExecutorTest {
         }
 
         @Override
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         public synchronized void schedule(WorkSpec... workSpecs) {
             for (WorkSpec workSpec : workSpecs) {
                 assertThat(mScheduledWorkSpecIds.contains(workSpec.id), is(false));
                 mScheduledWorkSpecIds.add(workSpec.id);
                 assertThat(mScheduledWorkSpecIds.size() <= TEST_SCHEDULER_LIMIT, is(true));
+=======
+        public void schedule(@NonNull WorkSpec... workSpecs) {
+            synchronized (sLock) {
+                for (WorkSpec workSpec : workSpecs) {
+                    assertThat(mScheduledWorkSpecIds.contains(workSpec.id), is(false));
+                    mScheduledWorkSpecIds.add(workSpec.id);
+                    assertThat(mScheduledWorkSpecIds.size() <= TEST_SCHEDULER_LIMIT, is(true));
+                }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
             super.schedule(workSpecs);
         }

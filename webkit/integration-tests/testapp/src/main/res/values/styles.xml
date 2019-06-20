@@ -21,4 +21,17 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    <style name="WebkitSwitch" parent="AppTheme">
+        <!-- The "thumb" is the piece the user can drag along the "track." -->
+        <item name="colorControlActivated">@color/colorActiveSwitchThumb</item>
+        <item name="colorSwitchThumbNormal">@color/colorInctiveSwitchThumb</item>
+        <item name="android:colorForeground">@color/colorInctiveSwitchTrack</item>
+    </style>
+    <style name="AppDayNightTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:forceDarkAllowed">true</item>
+        <item name="android:isLightTheme">true</item>
+    </style>
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 </resources>

@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.car.R;
+import androidx.core.content.ContextCompat;
 import androidx.gridlayout.widget.GridLayout;
 
 import java.util.List;
@@ -51,8 +52,16 @@ public class AlphaJumpOverlayView extends GridLayout {
 
         // Get the background color from the theme and set it.
         TypedValue typedValue = new TypedValue();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         context.getTheme().resolveAttribute(R.attr.alphaJumpPickerBackground, typedValue, true);
         setBackgroundColor(typedValue.data);
+=======
+        boolean hasAttribute = context.getTheme().resolveAttribute(
+                R.attr.alphaJumpPickerBackground, typedValue, true);
+        setBackgroundColor(hasAttribute
+                ? typedValue.data
+                : ContextCompat.getColor(context, R.color.car_card_dark));
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
         setColumnCount(res.getInteger(R.integer.car_alpha_jump_button_columns));
 

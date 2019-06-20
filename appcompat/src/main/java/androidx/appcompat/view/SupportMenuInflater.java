@@ -79,7 +79,7 @@ public class SupportMenuInflater extends MenuInflater {
 
     static final int NO_ID = 0;
 
-    static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] {Context.class};
+    static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class<?>[] {Context.class};
 
     static final Class<?>[] ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE =
             ACTION_VIEW_CONSTRUCTOR_SIGNATURE;
@@ -238,7 +238,7 @@ public class SupportMenuInflater extends MenuInflater {
 
     private static class InflatedOnMenuItemClickListener
             implements MenuItem.OnMenuItemClickListener {
-        private static final Class<?>[] PARAM_TYPES = new Class[] { MenuItem.class };
+        private static final Class<?>[] PARAM_TYPES = new Class<?>[] { MenuItem.class };
 
         private Object mRealOwner;
         private Method mMethod;

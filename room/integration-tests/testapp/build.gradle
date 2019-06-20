@@ -41,9 +41,13 @@ dependencies {
     implementation(project(":sqlite:sqlite"))
     implementation(project(":sqlite:sqlite-framework"))
     implementation(project(":arch:core-runtime"))
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     implementation(project(":lifecycle:lifecycle-extensions"))
     implementation(project(":lifecycle:lifecycle-runtime"))
     implementation(project(":lifecycle:lifecycle-common"))
+=======
+    implementation(project(":lifecycle:lifecycle-livedata"))
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     // FINDBUGS dependency resolves an app/testapp version conflict.
     implementation(FINDBUGS)
@@ -52,10 +56,13 @@ dependencies {
     annotationProcessor project(":room:room-compiler")
     androidTestAnnotationProcessor project(":room:room-compiler")
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     // IJ's gradle integration just cannot figure this out ...
     androidTestImplementation(project(":lifecycle:lifecycle-extensions"))
     androidTestImplementation(project(":lifecycle:lifecycle-common"))
     androidTestImplementation(project(":lifecycle:lifecycle-runtime"))
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     androidTestImplementation(project(":room:room-testing"))
     androidTestImplementation(project(":room:room-rxjava2"))
     androidTestImplementation(project(":room:room-guava"))

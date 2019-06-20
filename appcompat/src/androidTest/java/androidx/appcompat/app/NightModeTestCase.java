@@ -26,8 +26,14 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+=======
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
 import android.app.Instrumentation;
 import android.content.res.Configuration;
@@ -230,11 +236,46 @@ public class NightModeTestCase {
         setLocalNightModeAndWaitForRecreate(mActivityTestRule.getActivity(),
                 AppCompatDelegate.MODE_NIGHT_YES);
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         // Click the button and assert that the text changes. The text change logic is in
         // an method in the Activity referenced from the XML layout
         onView(withId(R.id.button))
                 .perform(click())
                 .check(matches(withText(R.string.clicked)));
+=======
+                // Set the local night mode of the Dialog to be an AUTO mode
+                delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+
+                // Now show and dismiss the dialog
+                dialog.show();
+                dialog.dismiss();
+
+                // Assert that the auto manager is destroyed (not listening)
+                assertFalse(delegate.getAutoTimeNightModeManager().isListening());
+            }
+        });
+    }
+
+    @Test
+    public void testOnConfigurationChangeNotCalled() throws Throwable {
+        NightModeActivity activity = mActivityTestRule.getActivity();
+        // Set local night mode to YES
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+        // Assert that onConfigurationChange was not called on the original activity
+        assertNull(activity.getLastConfigurationChangeAndClear());
+
+        activity = mActivityTestRule.getActivity();
+        // Set local night mode back to NO
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, mSetMode);
+        // Assert that onConfigurationChange was not called
+        assertNull(activity.getLastConfigurationChangeAndClear());
+    }
+
+    @After
+    public void cleanup() throws Throwable {
+        // Reset the default night mode
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, NightSetMode.DEFAULT);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 
     private static class FakeTwilightManager extends TwilightManager {

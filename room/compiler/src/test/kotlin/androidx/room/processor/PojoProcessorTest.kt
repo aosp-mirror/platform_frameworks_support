@@ -23,7 +23,11 @@ import androidx.room.processor.ProcessorErrors.CANNOT_FIND_GETTER_FOR_FIELD
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_TYPE
 import androidx.room.processor.ProcessorErrors.ENTITY_MUST_BE_ANNOTATED_WITH_ENTITY
 import androidx.room.processor.ProcessorErrors.POJO_FIELD_HAS_DUPLICATE_COLUMN_NAME
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 import androidx.room.processor.ProcessorErrors.RELATION_NOT_COLLECTION
+=======
+import androidx.room.processor.ProcessorErrors.junctionColumnWithoutIndex
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 import androidx.room.processor.ProcessorErrors.relationCannotFindEntityField
 import androidx.room.processor.ProcessorErrors.relationCannotFindParentEntityField
 import androidx.room.testing.TestInvocation
@@ -342,7 +346,7 @@ class PojoProcessorTest {
                 public User user;
                 """, COMMON.USER
         ) { _ ->
-        }.failsToCompile().withErrorContaining(RELATION_NOT_COLLECTION)
+        }.compilesWithoutError()
     }
 
     @Test

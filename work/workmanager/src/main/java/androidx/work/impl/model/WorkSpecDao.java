@@ -292,6 +292,29 @@ public interface WorkSpecDao {
     List<WorkSpec> getEligibleWorkForScheduling(int schedulerLimit);
 
     /**
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+     * @return The List of {@link WorkSpec}s that are unfinished and scheduled.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.ENQUEUED
+            // We only want WorkSpecs which have been scheduled.
+            + " AND schedule_requested_at<>" + WorkSpec.SCHEDULE_NOT_REQUESTED_YET
+    )
+    List<WorkSpec> getScheduledWork();
+
+    /**
+     * @return The List of {@link WorkSpec}s that are running.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.RUNNING
+    )
+    List<WorkSpec> getRunningWork();
+
+    /**
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
      * Immediately prunes eligible work from the database meeting the following criteria:
      * - Is finished (succeeded, failed, or cancelled)
      * - Has zero unfinished dependents

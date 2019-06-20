@@ -55,6 +55,7 @@ open class UpdateApiTask : MetalavaTask() {
 
     @TaskAction
     fun exec() {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         val dependencyClasspath = checkNotNull(
                 dependencyClasspath) { "Dependency classpath not set." }
         val apiTxtFile = checkNotNull(apiTxtFile) { "Current API file not set." }
@@ -64,6 +65,34 @@ open class UpdateApiTask : MetalavaTask() {
         runWithArgs(
             "--classpath",
             (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
+=======
+        var permitOverwriting = true
+        for (outputApi in outputApiLocations.get()) {
+            val version = outputApi.version()
+            if (version != null && version.isFinalApi() &&
+                outputApi.publicApiFile.exists() &&
+                !project.hasProperty("force")) {
+                permitOverwriting = false
+            }
+        }
+        for (outputApi in outputApiLocations.get()) {
+            copy(
+                inputApiLocation.get().publicApiFile,
+                outputApi.publicApiFile,
+                permitOverwriting,
+                project.logger
+            )
+            if (updateRestrictedAPIs) {
+                copy(
+                    inputApiLocation.get().restrictedApiFile,
+                    outputApi.restrictedApiFile,
+                    permitOverwriting,
+                    project.logger
+                )
+            }
+        }
+    }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
             "--source-path",
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),

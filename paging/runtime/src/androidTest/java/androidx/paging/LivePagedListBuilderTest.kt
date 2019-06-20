@@ -121,4 +121,87 @@ class LivePagedListBuilderTest {
 
         assertEquals(listOf("a", "b", "c", "d"), pagedList)
     }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+
+    data class LoadState(
+        val type: PagedList.LoadType,
+        val state: PagedList.LoadState,
+        val error: Throwable?
+    )
+
+    @Test
+    fun failedLoad() {
+        val factory = MockDataSourceFactory()
+        factory.enqueueRetryableError()
+
+        val livePagedList = LivePagedListBuilder(factory, 2)
+            .setFetchExecutor(backgroundExecutor)
+            .build()
+
+        val pagedListHolder: Array<PagedList<String>?> = arrayOfNulls(1)
+
+        livePagedList.observe(lifecycleOwner, Observer<PagedList<String>> { newList ->
+            pagedListHolder[0] = newList
+        })
+
+        val loadStates = mutableListOf<LoadState>()
+
+        // initially, immediately get passed empty initial list
+        val initPagedList = pagedListHolder[0]
+        assertNotNull(initPagedList!!)
+        assertTrue(initPagedList is InitialPagedList<*, *>)
+
+        val loadStateChangedCallback =
+            { type: PagedList.LoadType, state: PagedList.LoadState, error: Throwable? ->
+                if (type == REFRESH) {
+                    loadStates.add(LoadState(type, state, error))
+                }
+            }
+        initPagedList.addWeakLoadStateListener(loadStateChangedCallback)
+
+        // flush loadInitial, done with passed executor
+        backgroundExecutor.executeAll()
+
+        assertSame(initPagedList, pagedListHolder[0])
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION)
+            ), loadStates
+        )
+
+        initPagedList.retry()
+        assertSame(initPagedList, pagedListHolder[0])
+
+        // flush loadInitial, should succeed now
+        backgroundExecutor.executeAll()
+        assertNotSame(initPagedList, pagedListHolder[0])
+        assertEquals(listOf("a", "b", null, null), pagedListHolder[0])
+
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION),
+                LoadState(REFRESH, LOADING, null)
+            ), loadStates
+        )
+
+        // the IDLE result shows up on the next PagedList
+        initPagedList.removeWeakLoadStateListener(loadStateChangedCallback)
+        pagedListHolder[0]!!.addWeakLoadStateListener(loadStateChangedCallback)
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION),
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, IDLE, null)
+            ), loadStates
+        )
+    }
+
+    companion object {
+        val RETRYABLE_EXCEPTION = Exception("retryable")
+    }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }

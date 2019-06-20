@@ -1281,6 +1281,27 @@ public class DrawerLayout extends ViewGroup {
                 }
             }
         }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+
+        if (sEdgeSizeUsingSystemGestureInsets) {
+            // Update the ViewDragHelper edge sizes to match the gesture insets
+            WindowInsets rootInsets = getRootWindowInsets();
+            if (rootInsets != null) {
+                WindowInsetsCompat rootInsetsCompat = WindowInsetsCompat
+                        .toWindowInsetsCompat(rootInsets);
+                Insets gestureInsets = rootInsetsCompat.getSystemGestureInsets();
+
+                // We use Math.max() here since the gesture insets will be 0 if the device
+                // does not have gesture navigation enabled
+                mLeftDragger.setEdgeSize(
+                        Math.max(mLeftDragger.getDefaultEdgeSize(), gestureInsets.left));
+                mRightDragger.setEdgeSize(
+                        Math.max(mRightDragger.getDefaultEdgeSize(), gestureInsets.right));
+            }
+        }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         mInLayout = false;
         mFirstLayout = false;
     }

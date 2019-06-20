@@ -349,7 +349,7 @@ public class GridActivity extends Activity {
             if (alignmentFacet != null) {
                 return new FacetProvider() {
                     @Override
-                    public Object getFacet(Class facetClass) {
+                    public Object getFacet(Class<?> facetClass) {
                         if (facetClass.equals(ItemAlignmentFacet.class)) {
                             return alignmentFacet;
                         }
@@ -515,7 +515,7 @@ public class GridActivity extends Activity {
         }
 
         @Override
-        public Object getFacet(Class facetClass) {
+        public Object getFacet(Class<?> facetClass) {
             if (facetClass.equals(ItemAlignmentFacet.class)) {
                 return mItemAlignment;
             }

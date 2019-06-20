@@ -27,7 +27,10 @@ dependencies {
     implementation(project(":sqlite:sqlite-framework"))
     implementation(project(":room:room-runtime"))
     implementation(project(":arch:core-runtime"))
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     implementation(project(":lifecycle:lifecycle-extensions"))
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     androidTestAnnotationProcessor project(":room:room-compiler")
     androidTestAnnotationProcessor(AUTO_VALUE)

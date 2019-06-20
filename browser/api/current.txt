@@ -67,12 +67,22 @@ package androidx.browser.customtabs {
   }
 
   public class CustomTabsClient {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public static boolean bindCustomTabsService(android.content.Context, java.lang.String, androidx.browser.customtabs.CustomTabsServiceConnection);
     method public static boolean connectAndInitialize(android.content.Context, java.lang.String);
     method public android.os.Bundle extraCommand(java.lang.String, android.os.Bundle);
     method public static java.lang.String getPackageName(android.content.Context, java.util.List<java.lang.String>);
     method public static java.lang.String getPackageName(android.content.Context, java.util.List<java.lang.String>, boolean);
     method public androidx.browser.customtabs.CustomTabsSession newSession(androidx.browser.customtabs.CustomTabsCallback);
+=======
+    method public static boolean bindCustomTabsService(android.content.Context, String?, androidx.browser.customtabs.CustomTabsServiceConnection);
+    method public static boolean connectAndInitialize(android.content.Context, String);
+    method public android.os.Bundle? extraCommand(String, android.os.Bundle?);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?, boolean);
+    method public androidx.browser.customtabs.CustomTabsSession? newSession(androidx.browser.customtabs.CustomTabsCallback?);
+    method public androidx.browser.customtabs.CustomTabsSession? newSession(androidx.browser.customtabs.CustomTabsCallback?, int);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public boolean warmup(long);
   }
 
@@ -177,8 +187,13 @@ package androidx.browser.customtabs {
 
   public class CustomTabsSessionToken {
     method public static androidx.browser.customtabs.CustomTabsSessionToken createMockSessionTokenForTesting();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public androidx.browser.customtabs.CustomTabsCallback getCallback();
     method public static androidx.browser.customtabs.CustomTabsSessionToken getSessionTokenFromIntent(android.content.Intent);
+=======
+    method public androidx.browser.customtabs.CustomTabsCallback? getCallback();
+    method public static androidx.browser.customtabs.CustomTabsSessionToken? getSessionTokenFromIntent(android.content.Intent);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public boolean isAssociatedWith(androidx.browser.customtabs.CustomTabsSession);
   }
 

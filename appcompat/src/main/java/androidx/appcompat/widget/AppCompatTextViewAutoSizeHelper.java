@@ -752,7 +752,30 @@ class AppCompatTextViewAutoSizeHelper {
                 includePad);
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     private <T> T invokeAndReturnWithDefault(@NonNull Object object,
+=======
+    private StaticLayout createStaticLayoutForMeasuringPre16(CharSequence text,
+            Layout.Alignment alignment, int availableWidth) {
+        // The default values have been inlined with the StaticLayout defaults.
+
+        final float lineSpacingMultiplier = accessAndReturnWithDefault(mTextView,
+                "mSpacingMult", 1.0f);
+        final float lineSpacingAdd = accessAndReturnWithDefault(mTextView,
+                "mSpacingAdd", 0.0f);
+        final boolean includePad = accessAndReturnWithDefault(mTextView,
+                "mIncludePad", true);
+
+        return new StaticLayout(text, mTempTextPaint, availableWidth,
+                alignment,
+                lineSpacingMultiplier,
+                lineSpacingAdd,
+                includePad);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T invokeAndReturnWithDefault(@NonNull Object object,
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             @NonNull final String methodName, @NonNull final T defaultValue) {
         T result = null;
         boolean exceptionThrown = false;
@@ -773,6 +796,25 @@ class AppCompatTextViewAutoSizeHelper {
         return result;
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    @SuppressWarnings("unchecked")
+    private static <T> T accessAndReturnWithDefault(@NonNull Object object,
+            @NonNull final String fieldName, @NonNull final T defaultValue) {
+        try {
+            final Field field = getTextViewField(fieldName);
+            if (field == null) {
+                return defaultValue;
+            }
+
+            return (T) field.get(object);
+        }  catch (IllegalAccessException e) {
+            Log.w(TAG, "Failed to access TextView#" + fieldName + " member", e);
+            return defaultValue;
+        }
+    }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     @Nullable
     private Method getTextViewMethod(@NonNull final String methodName) {
         try {

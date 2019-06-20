@@ -45,6 +45,7 @@ import java.lang.ref.WeakReference;
  * when no routes are available, the action provider will instead make the
  * menu item invisible.  In this way, the button will only be visible when it
  * is possible for the user to discover and select a matching route.
+ * You can call {@link #setAlwaysVisible} to override this behavior.
  * </p>
  *
  * <h3>Prerequisites</h3>
@@ -196,6 +197,45 @@ public class MediaRouteActionProvider extends ActionProvider {
     }
 
     /**
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+     * Enables dynamic group feature.
+     * With this enabled, a different set of {@link MediaRouteChooserDialog} and
+     * {@link MediaRouteControllerDialog} is shown when the button is clicked.
+     * If a {@link androidx.mediarouter.media.MediaRouteProvider media route provider}
+     * supports dynamic group, the users can use that feature with the dialogs.
+     *
+     * @see MediaRouteButton#enableDynamicGroup()
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
+     */
+    public void enableDynamicGroup() {
+        mUseDynamicGroup = true;
+        if (mButton != null) {
+            mButton.enableDynamicGroup();
+        }
+    }
+
+    /**
+     * Sets whether {@link MediaRouteButton} is visible when no routes are available.
+     * When true, the button is visible even when there are no routes to connect.
+     * The default is false.
+     *
+     * @param alwaysVisible true to show MediaRouteButton even when no routes are available.
+     *
+     * @see MediaRouteButton#setAlwaysVisible(boolean)
+     */
+    public void setAlwaysVisible(boolean alwaysVisible) {
+        if (mAlwaysVisible != alwaysVisible) {
+            mAlwaysVisible = alwaysVisible;
+            refreshVisibility();
+            if (mButton != null) {
+                mButton.setAlwaysVisible(mAlwaysVisible);
+            }
+        }
+    }
+
+    /**
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
      * Gets the media route dialog factory to use when showing the route chooser
      * or controller dialog.
      *

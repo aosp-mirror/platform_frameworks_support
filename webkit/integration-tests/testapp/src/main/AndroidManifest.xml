@@ -33,7 +33,61 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+=======
+        <activity
+            android:name=".SafeBrowsingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SmallInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MediumInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoudInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GiantInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerWebViewEnableActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InvisibleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnattachedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CustomInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PopupInterstitialActivity" />
+        <activity
+            android:name=".WhitelistActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProxyOverrideActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderSimpleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderAjaxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForceDarkActivity"
+            android:theme="@style/AppDayNightTheme"
+            android:exported="true" />
+        <activity
+            android:name=".MultiProcessEnabledActivity"
+            android:exported="true" />
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     </application>
 </manifest>

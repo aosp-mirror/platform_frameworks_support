@@ -39,20 +39,34 @@ import org.mockito.Mockito.verifyZeroInteractions
 @SmallTest
 @RunWith(JUnit4::class)
 class AsyncPagedListDifferTest {
-    private val mMainThread = TestExecutor()
-    private val mDiffThread = TestExecutor()
-    private val mPageLoadingThread = TestExecutor()
+    private val mainThread = TestExecutor()
+    private val diffThread = TestExecutor()
+    private val pageLoadingThread = TestExecutor()
 
     private fun createDiffer(
         listUpdateCallback: ListUpdateCallback = IGNORE_CALLBACK
     ): AsyncPagedListDiffer<String> {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         val differ = AsyncPagedListDiffer(listUpdateCallback,
                 AsyncDifferConfig.Builder(STRING_DIFF_CALLBACK)
                         .setBackgroundThreadExecutor(mDiffThread)
                         .build())
+=======
+        val differ = AsyncPagedListDiffer(
+            listUpdateCallback,
+            AsyncDifferConfig.Builder(STRING_DIFF_CALLBACK)
+                .setBackgroundThreadExecutor(diffThread)
+                .build()
+        )
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         // by default, use ArchExecutor
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         assertEquals(differ.mMainThreadExecutor, ArchTaskExecutor.getMainThreadExecutor())
         differ.mMainThreadExecutor = mMainThread
+=======
+        assertEquals(differ.mainThreadExecutor, ArchTaskExecutor.getMainThreadExecutor())
+        differ.mainThreadExecutor = mainThread
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         return differ
     }
 
@@ -61,11 +75,20 @@ class AsyncPagedListDifferTest {
         data: List<V>,
         initialKey: Int
     ): PagedList<V> {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         return PagedList.Builder<Int, V>(ListDataSource(data), config)
                 .setInitialKey(initialKey)
                 .setNotifyExecutor(mMainThread)
                 .setFetchExecutor(mPageLoadingThread)
                 .build()
+=======
+        @Suppress("DEPRECATION")
+        return PagedList.Builder(ListDataSource(data), config)
+            .setInitialKey(initialKey)
+            .setNotifyExecutor(mainThread)
+            .setFetchExecutor(pageLoadingThread)
+            .build()
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 
     @Test
@@ -269,8 +292,8 @@ class AsyncPagedListDifferTest {
         assertTrue(differ.currentList!!.isImmutable)
 
         // flush diff, which signals nothing, since 1st pagedlist == 2nd pagedlist
-        mDiffThread.executeAll()
-        mMainThread.executeAll()
+        diffThread.executeAll()
+        mainThread.executeAll()
         verifyNoMoreInteractions(callback)
         assertNotNull(differ.currentList)
         assertFalse(differ.currentList!!.isImmutable)
@@ -390,8 +413,8 @@ class AsyncPagedListDifferTest {
         // AsyncPagedListDiffer / calls to PagedList.loadAround
 
         // finish diff, but no further loading
-        mDiffThread.executeAll()
-        mMainThread.executeAll()
+        diffThread.executeAll()
+        mainThread.executeAll()
 
         // 2nd list starts out at size 4
         assertEquals(4, second.size)
@@ -471,20 +494,32 @@ class AsyncPagedListDifferTest {
         verifyNoMoreInteractions(callback)
     }
 
+    @Test
+    fun addRemovePagedListCallback() {
+        val differ = createDiffer()
+        val noopCallback = { _: PagedList<String>?, _: PagedList<String>? -> }
+        differ.addPagedListListener(noopCallback)
+        assert(differ.listeners.size == 1)
+        differ.removePagedListListener { _: PagedList<String>?, _: PagedList<String>? -> }
+        assert(differ.listeners.size == 1)
+        differ.removePagedListListener(noopCallback)
+        assert(differ.listeners.size == 0)
+    }
+
     private fun drainExceptDiffThread() {
         var executed: Boolean
         do {
-            executed = mPageLoadingThread.executeAll()
-            executed = mMainThread.executeAll() or executed
+            executed = pageLoadingThread.executeAll()
+            executed = mainThread.executeAll() or executed
         } while (executed)
     }
 
     private fun drain() {
         var executed: Boolean
         do {
-            executed = mPageLoadingThread.executeAll()
-            executed = mDiffThread.executeAll() or executed
-            executed = mMainThread.executeAll() or executed
+            executed = pageLoadingThread.executeAll()
+            executed = diffThread.executeAll() or executed
+            executed = mainThread.executeAll() or executed
         } while (executed)
     }
 

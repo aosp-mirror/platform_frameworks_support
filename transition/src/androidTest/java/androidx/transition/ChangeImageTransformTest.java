@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.animation.Animator;
@@ -90,6 +89,13 @@ public class ChangeImageTransformTest extends BaseTransitionTest {
         transformImage(ImageView.ScaleType.FIT_START, ImageView.ScaleType.CENTER);
         verifyMatrixMatches(fitStartMatrix(), mStartMatrix);
         verifyMatrixMatches(centerMatrix(), mEndMatrix);
+    }
+
+    @Test
+    public void testNoChange() throws Throwable {
+        transformImage(ImageView.ScaleType.CENTER, ImageView.ScaleType.CENTER);
+        assertNull(mStartMatrix);
+        assertNull(mEndMatrix);
     }
 
     @Test
@@ -238,6 +244,7 @@ public class ChangeImageTransformTest extends BaseTransitionTest {
 
     private void transformImage(final ImageView.ScaleType startScale,
             final ImageView.ScaleType endScale,
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             @Nullable final Drawable image,
             final boolean noAnimationExpected) throws Throwable {
         final ImageView imageView = enterImageViewScene(startScale, image);
@@ -246,12 +253,34 @@ public class ChangeImageTransformTest extends BaseTransitionTest {
             public void run() {
                 TransitionManager.beginDelayedTransition(mRoot, mChangeImageTransform);
                 imageView.setScaleType(endScale);
+=======
+            @Nullable final Drawable customImage,
+            final boolean applyPadding,
+            final boolean withChangingSize,
+            final boolean noMatrixChangeExpected) throws Throwable {
+        final ImageView imageView = enterImageViewScene(startScale, customImage, applyPadding);
+        rule.runOnUiThread(() -> {
+            TransitionManager.beginDelayedTransition(mRoot, mChangeImageTransform);
+            if (withChangingSize) {
+                imageView.getLayoutParams().height /= 2;
+                imageView.requestLayout();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
+            imageView.setScaleType(endScale);
         });
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         waitForStart();
         verify(mListener, (noAnimationExpected) ? times(1) : never())
                 .onTransitionEnd(any(Transition.class));
         waitForEnd();
+=======
+        if (noMatrixChangeExpected) {
+            verify(mListener, never()).onTransitionStart(any(Transition.class));
+        } else {
+            waitForStart();
+            waitForEnd();
+        }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 
     private ImageView enterImageViewScene(final ImageView.ScaleType scaleType,

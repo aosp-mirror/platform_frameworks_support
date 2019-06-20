@@ -237,6 +237,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @return The pending intent held by this {@link android.app.slice.SliceItem#FORMAT_ACTION}
      * SliceItem
      */
+    @SuppressWarnings("unchecked")
     public PendingIntent getAction() {
         Object action = ((Pair<Object, Slice>) mObj).first;
         if (action instanceof PendingIntent) {
@@ -258,7 +259,12 @@ public final class SliceItem extends CustomVersionedParcelable {
     /**
      * @hide
      */
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     @RestrictTo(Scope.LIBRARY_GROUP)
+=======
+    @SuppressWarnings("unchecked")
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     public boolean fireActionInternal(@Nullable Context context, @Nullable Intent i)
             throws PendingIntent.CanceledException {
         Object action = ((Pair<Object, Slice>) mObj).first;
@@ -293,6 +299,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @return The slice held by this {@link android.app.slice.SliceItem#FORMAT_ACTION} or
      * {@link android.app.slice.SliceItem#FORMAT_SLICE} SliceItem
      */
+    @SuppressWarnings("unchecked")
     public Slice getSlice() {
         if (FORMAT_ACTION.equals(getFormat())) {
             return ((Pair<Object, Slice>) mObj).second;
@@ -369,6 +376,7 @@ public final class SliceItem extends CustomVersionedParcelable {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private void writeObj(Bundle dest, Object obj, String type) {
         switch (type) {
             case FORMAT_IMAGE:
@@ -455,6 +463,7 @@ public final class SliceItem extends CustomVersionedParcelable {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
+    @SuppressWarnings("unchecked")
     public String toString(String indent) {
         StringBuilder sb = new StringBuilder();
         sb.append(indent);

@@ -179,6 +179,7 @@ public class PostMessageTest {
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
         final int messageCount = 3;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         final CountDownLatch latch = new CountDownLatch(messageCount);
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -195,7 +196,20 @@ public class PostMessageTest {
                         latch.countDown();
                     }
                 });
+=======
+        final BlockingQueue<String> queue = new ArrayBlockingQueue<>(messageCount);
+        WebkitUtils.onMainThread(() -> {
+            for (int i = 0; i < messageCount; i++) {
+                channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE + i));
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
+            channel[0].setWebMessageCallback(new WebMessageCallbackCompat() {
+                @Override
+                public void onMessage(@NonNull WebMessagePortCompat port,
+                        WebMessageCompat message) {
+                    queue.add(message.getData());
+                }
+            });
         });
         // Wait for all the responses to arrive.
         Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));
@@ -219,6 +233,7 @@ public class PostMessageTest {
         WebMessageCompat message =
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -230,7 +245,17 @@ public class PostMessageTest {
                     return;
                 }
                 Assert.fail("A closed port cannot be used to transfer messages");
+=======
+        WebkitUtils.onMainThreadSync(() -> {
+            try {
+                channel[0].close();
+                channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE));
+            } catch (IllegalStateException ex) {
+                // expect to receive an exception
+                return;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
+            Assert.fail("A closed port cannot be used to transfer messages");
         });
     }
 
@@ -270,6 +295,7 @@ public class PostMessageTest {
         WebMessageCompat message =
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -281,6 +307,16 @@ public class PostMessageTest {
                     }
                 });
             }
+=======
+        WebkitUtils.onMainThreadSync(() -> {
+            channel[0].setWebMessageCallback(new WebMessageCallbackCompat() {
+                @Override
+                public void onMessage(@NonNull WebMessagePortCompat port,
+                        WebMessageCompat message) {
+                    message.getPorts()[0].postMessage(new WebMessageCompat(hello));
+                }
+            });
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         });
         waitForTitle(hello);
     }
@@ -311,6 +347,7 @@ public class PostMessageTest {
         messageHandlerThread.start();
         final Handler messageHandler = new Handler(messageHandlerThread.getLooper());
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -323,6 +360,17 @@ public class PostMessageTest {
                     }
                 });
             }
+=======
+        WebkitUtils.onMainThreadSync(() -> {
+            channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE));
+            channel[0].setWebMessageCallback(messageHandler, new WebMessageCallbackCompat() {
+                @Override
+                public void onMessage(WebMessagePortCompat port, WebMessageCompat message) {
+                    messageHandlerThreadFuture.set(
+                            messageHandlerThread.getLooper().isCurrentThread());
+                }
+            });
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         });
         // Wait for all the responses to arrive.
         Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));
@@ -349,6 +397,7 @@ public class PostMessageTest {
         final int messageCount = 1;
         final CountDownLatch latch = new CountDownLatch(messageCount);
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -361,6 +410,16 @@ public class PostMessageTest {
                     }
                 });
             }
+=======
+        WebkitUtils.onMainThread(() -> {
+            channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE));
+            channel[0].setWebMessageCallback(new WebMessageCallbackCompat() {
+                @Override
+                public void onMessage(WebMessagePortCompat port, WebMessageCompat message) {
+                    messageMainLooperFuture.set(Looper.getMainLooper().isCurrentThread());
+                }
+            });
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         });
         // Wait for all the responses to arrive.
         Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));

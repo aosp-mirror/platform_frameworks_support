@@ -24,7 +24,12 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     api(project(":fragment"))
+=======
+    api(project(":core:core"))
+    api("androidx.fragment:fragment:1.1.0-rc01")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     api(project(":recyclerview"))
 
     androidTestImplementation(TEST_RUNNER)
@@ -51,4 +56,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.VIEWPAGER2
     inceptionYear = "2017"
     description = "AndroidX Widget ViewPager2"
+    failOnDeprecationWarnings = false
 }

@@ -20,17 +20,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.test.runner.MonitoringInstrumentation;
-
 public class TestActivity extends Activity {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     // This is not great but the only way to do this until test runner adds support to not kill
     // activities after tests.
     private static final String TEST_RUNNER =
             MonitoringInstrumentation.class.getCanonicalName() + "$" + MonitoringInstrumentation
                     .ActivityFinisher.class.getSimpleName();
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     private volatile TestedFrameLayout mContainer;
-    boolean mVisible;
-    boolean mAllowFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +48,8 @@ public class TestActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mVisible = false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mVisible = true;
-    }
-
-    @Override
     public void finish() {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         if (!mAllowFinish) {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             // this is terrible but easy workaround for selective finishing
@@ -73,6 +61,8 @@ public class TestActivity extends Activity {
                 }
             }
         }
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         super.finish();
     }
 }

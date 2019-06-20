@@ -444,6 +444,7 @@ private fun createDistDocsTask(
     project: Project,
     generateDocs: DoclavaTask,
     ruleName: String = ""
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 ): Zip = project.tasks.createWithConfig("dist${ruleName}Docs", Zip::class.java) {
     dependsOn(generateDocs)
     group = JavaBasePlugin.DOCUMENTATION_GROUP
@@ -454,6 +455,28 @@ private fun createDistDocsTask(
     destinationDir = project.getDistributionDirectory()
     doLast {
         logger.lifecycle("'Wrote API reference to $archivePath")
+=======
+): TaskProvider<Zip> = project.tasks.register("dist${ruleName}Docs", Zip::class.java) {
+    it.apply {
+        dependsOn(generateDocs)
+        from(generateDocs.map {
+            it.destinationDir
+        })
+        val baseName = "androidx-$ruleName-docs"
+        val buildId = getBuildId()
+        archiveBaseName.set(baseName)
+        archiveVersion.set(buildId)
+        destinationDirectory.set(project.getDistributionDirectory())
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+        val fileName = "$baseName-$buildId.zip"
+        val destinationFile = filePath + fileName
+        description = "Zips $ruleName Java documentation (generated via Doclava in the " +
+            "style of d.android.com) into $destinationFile"
+        doLast {
+            logger.lifecycle("'Wrote API reference to $destinationFile")
+        }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 }
 

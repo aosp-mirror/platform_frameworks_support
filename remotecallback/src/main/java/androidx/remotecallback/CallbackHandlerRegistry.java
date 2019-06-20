@@ -42,8 +42,17 @@ public class CallbackHandlerRegistry {
     private final ArrayMap<Class<? extends CallbackReceiver>, ClsHandler> mClsLookup =
             new ArrayMap<>();
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     @SuppressWarnings("TypeParameterUnusedInFormals")
     <T extends CallbackReceiver> T getAndResetStub(Class<? extends CallbackReceiver> cls,
+=======
+    /**
+     * @hide
+     */
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public <T extends CallbackReceiver> T getAndResetStub(Class<? extends CallbackReceiver> cls,
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             Context context, String authority) {
         ClsHandler stub = findMap(cls);
         initStub(stub.mCallStub, cls, context, authority);
@@ -187,6 +196,7 @@ public class CallbackHandlerRegistry {
      * Note: This should only be called by generated code, there is no reason to reference this
      * otherwise.
      */
+    @SuppressWarnings("unchecked")
     public static RemoteCallback stubToRemoteCallback(CallbackReceiver receiver,
             Class<? extends CallbackReceiver> cls, Bundle args, String method) {
         return receiver.toRemoteCallback(cls, args, method);
@@ -207,7 +217,7 @@ public class CallbackHandlerRegistry {
      */
     public interface CallbackHandler<T extends CallbackReceiver> {
         /**
-         * Executes a callback given a Bundle of aurgements.
+         * Executes a callback given a Bundle of arguments.
          * Note: This should only be called by generated code, there is no reason to reference this
          * otherwise.
          */

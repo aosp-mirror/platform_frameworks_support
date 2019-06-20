@@ -126,7 +126,12 @@ public class SliceQuery {
      */
     public static List<SliceItem> findAll(Slice s, final String format, final String[] hints,
             final String[] nonHints) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         return collect(filter(stream(s), new Filter<SliceItem>() {
+=======
+        ArrayList<SliceItem> ret = new ArrayList<>();
+        findAll(toQueue(s), new Filter<SliceItem>() {
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)
@@ -139,7 +144,12 @@ public class SliceQuery {
      */
     public static List<SliceItem> findAll(SliceItem s, final String format, final String[] hints,
             final String[] nonHints) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         return collect(filter(stream(s), new Filter<SliceItem>() {
+=======
+        ArrayList<SliceItem> ret = new ArrayList<>();
+        findAll(toQueue(s), new Filter<SliceItem>() {
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             @Override
             public boolean filter(SliceItem item) {
                 return checkFormat(item, format)

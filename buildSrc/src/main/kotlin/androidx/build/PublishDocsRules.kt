@@ -25,8 +25,15 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 
 val RELEASE_RULE = docsRules("public", false) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     prebuilts(LibraryGroups.ANNOTATION, "1.0.0")
     prebuilts(LibraryGroups.APPCOMPAT, "1.0.0")
+=======
+    prebuilts(LibraryGroups.ACTIVITY, "1.0.0-beta01")
+    prebuilts(LibraryGroups.ANNOTATION, "1.1.0")
+    prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-beta01")
+    prebuilts(LibraryGroups.ARCH_CORE, "2.1.0-rc01")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
     prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha01")
     prebuilts(LibraryGroups.BROWSER, "1.0.0")
@@ -35,7 +42,12 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.CAR, "1.0.0-alpha5")
             .addStubs("car/stubs/android.car.jar")
     prebuilts(LibraryGroups.CARDVIEW, "1.0.0")
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     prebuilts(LibraryGroups.COLLECTION, "1.0.0")
+=======
+    prebuilts(LibraryGroups.COLLECTION, "1.1.0")
+    prebuilts(LibraryGroups.CONCURRENT, "1.0.0-beta01")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     prebuilts(LibraryGroups.CONTENTPAGER, "1.0.0")
     prebuilts(LibraryGroups.COORDINATORLAYOUT, "1.0.0")
     prebuilts(LibraryGroups.CORE, "1.0.0")
@@ -80,6 +92,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.VIEWPAGER, "1.0.0")
     prebuilts(LibraryGroups.WEAR, "1.0.0")
             .addStubs("wear/wear_stubs/com.google.android.wearable-stubs.jar")
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
     prebuilts(LibraryGroups.ROOM, "2.1.0-alpha01")
     prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
@@ -95,6 +108,11 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.PAGING, "2.0.0")
     prebuilts(LibraryGroups.NAVIGATION, "1.0.0-alpha06")
     prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-alpha09")
+=======
+    prebuilts(LibraryGroups.WEBKIT, "1.1.0-alpha01")
+    ignore(LibraryGroups.WORK.group, "work-gcm")
+    prebuilts(LibraryGroups.WORK, "2.1.0-beta02")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     default(Ignore)
 }
 

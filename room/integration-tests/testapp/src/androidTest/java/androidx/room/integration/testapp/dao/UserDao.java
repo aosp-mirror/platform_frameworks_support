@@ -31,8 +31,15 @@ import androidx.room.Update;
 import androidx.room.integration.testapp.TestDatabase;
 import androidx.room.integration.testapp.vo.AvgWeightByAge;
 import androidx.room.integration.testapp.vo.Day;
+import androidx.room.integration.testapp.vo.IdUsername;
 import androidx.room.integration.testapp.vo.NameAndLastName;
 import androidx.room.integration.testapp.vo.User;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+import androidx.room.integration.testapp.vo.UserAndFriends;
+import androidx.room.integration.testapp.vo.UserSummary;
+import androidx.room.integration.testapp.vo.Username;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 import androidx.sqlite.db.SupportSQLiteQuery;
 
 import org.reactivestreams.Publisher;
@@ -78,6 +85,9 @@ public abstract class UserDao {
     @Delete
     public abstract int delete(User user);
 
+    @Delete(entity = User.class)
+    public abstract int deleteViaUsername(Username username);
+
     @Delete
     public abstract int deleteAll(User[] users);
 
@@ -86,6 +96,9 @@ public abstract class UserDao {
 
     @Update
     public abstract int update(User user);
+
+    @Update(entity = User.class)
+    public abstract int updateUsername(IdUsername username);
 
     @Update
     public abstract int updateAll(List<User> users);

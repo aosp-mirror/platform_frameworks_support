@@ -636,7 +636,7 @@ public final class Data {
             if (value == null) {
                 mValues.put(key, null);
             } else {
-                Class valueType = value.getClass();
+                Class<?> valueType = value.getClass();
                 if (valueType == Boolean.class
                         || valueType == Integer.class
                         || valueType == Long.class

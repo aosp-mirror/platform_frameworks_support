@@ -48,7 +48,36 @@ object Jacoco {
         return task
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     fun createCoverageJarTask(project: Project): Task {
+=======
+    fun registerClassFilesTask(project: Project, extension: TestedExtension) {
+        extension.testVariants.all { v ->
+            if (v.buildType.isTestCoverageEnabled &&
+                v.sourceSets.any { it.javaDirectories.isNotEmpty() }) {
+                val jarifyTask = project.tasks.register(
+                    "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                    Jar::class.java
+                ) {
+                    it.dependsOn(v.testedVariant.javaCompileProvider)
+                    // using get() here forces task configuration, but is necessary
+                    // to obtain a valid value for destinationDir
+                    it.from(v.testedVariant.javaCompileProvider.get().destinationDir)
+                    it.exclude("**/R.class", "**/R\$*.class", "**/BuildConfig.class")
+                    it.destinationDirectory.set(project.buildDir)
+                    it.archiveFileName.set("${project.name}-${v.baseName}-allclasses.jar")
+                }
+                project.rootProject.tasks.named(
+                    "packageAllClassFilesForCoverageReport",
+                    Jar::class.java
+                ).configure { it.from(jarifyTask) }
+            }
+        }
+    }
+
+    fun createCoverageJarTask(project: Project): TaskProvider<Jar> {
+        Preconditions.checkArgument(project.isRoot, "Must be root project")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         // Package the individual *-allclasses.jar files together to generate code coverage reports
         val packageAllClassFiles = project.tasks.create("packageAllClassFilesForCoverageReport",
                 Jar::class.java) {

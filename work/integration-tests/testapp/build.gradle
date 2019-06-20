@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':work:work-runtime')
     implementation project(':work:work-firebase')
@@ -43,6 +44,24 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:27.1.1"
     implementation "com.android.support:appcompat-v7:27.1.1"
     implementation "com.android.support:design:27.1.1"
+=======
+    // Using -PuseMaxDepVersions does not use the right version of the annotation processor
+    // Remove this workaround after b/127495641 is fixed
+    if (project.hasProperty('useMaxDepVersions')) {
+        annotationProcessor(project(":room:room-compiler"))
+        implementation(project(":room:room-runtime"))
+    } else {
+        annotationProcessor(ARCH_ROOM_COMPILER)
+        implementation(ARCH_ROOM_RUNTIME)
+    }
+
+    implementation(CONSTRAINT_LAYOUT, { transitive = true })
+    implementation project(':work:work-runtime-ktx')
+    implementation (project(':work:work-gcm'))
+    implementation(WORK_ARCH_CORE_RUNTIME)
+    implementation(ANDROIDX_RECYCLERVIEW)
+    implementation(MATERIAL)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])

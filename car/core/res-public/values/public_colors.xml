@@ -38,6 +38,7 @@
     <public type="color" name="car_body2" />
     <public type="color" name="car_body3_dark" />
     <public type="color" name="car_body3_light" />
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     <public type="color" name="car_body3" />
     <public type="color" name="car_body4_dark" />
     <public type="color" name="car_body4_light" />
@@ -57,6 +58,10 @@
     <public type="color" name="car_subtext5_dark" />
     <public type="color" name="car_subtext5_light" />
     <public type="color" name="car_subtext5" />
+=======
+    <public type="color" name="car_body4_light" />
+    <public type="color" name="car_subtext1_light" />
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     <!-- Tint colors -->
     <public type="color" name="car_tint_dark" />

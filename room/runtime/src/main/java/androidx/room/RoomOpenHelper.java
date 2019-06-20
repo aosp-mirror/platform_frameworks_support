@@ -70,6 +70,19 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
 
     @Override
     public void onCreate(SupportSQLiteDatabase db) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+        boolean isEmptyDatabase = hasEmptySchema(db);
+        mDelegate.createAllTables(db);
+        if (!isEmptyDatabase) {
+            // A 0 version pre-populated database goes through the create path because the
+            // framework's SQLiteOpenHelper thinks the database was just created from scratch. If we
+            // find the database not to be empty, then it is a pre-populated, we must validate it to
+            // see if its suitable for usage.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration.
+            mDelegate.validateMigration(db);
+        }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         updateIdentity(db);
         mDelegate.createAllTables(db);
         mDelegate.onCreate(db);
@@ -134,11 +147,26 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
             } finally {
                 cursor.close();
             }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         }
         if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
             throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
                     + " you've changed schema but forgot to update the version number. You can"
                     + " simply fix this by increasing the version number.");
+=======
+            if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
+                throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
+                        + " you've changed schema but forgot to update the version number. You can"
+                        + " simply fix this by increasing the version number.");
+            }
+        } else {
+            // No room_master_table, this might an a pre-populated DB, we must validate to see if
+            // its suitable for usage.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration
+            mDelegate.validateMigration(db);
+            mDelegate.onPostMigrate(db);
+            updateIdentity(db);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         }
     }
 

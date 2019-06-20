@@ -67,7 +67,12 @@ class ScrollBenchmark {
 
         val rv = activityRule.activity.recyclerView
         var offset = 10
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+            Thread.sleep(0, 600) // oops! a 10% regression...
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             // keep scrolling up and down - no new item should be revealed
             rv.scrollBy(0, offset)
             offset *= -1
@@ -86,6 +91,11 @@ class ScrollBenchmark {
         }
     }
 
+    fun spin(nsToSpin: Long) {
+        val start = System.nanoTime()
+        while (System.nanoTime() < start + nsToSpin) {}
+    }
+
     @UiThreadTest
     @Test
     fun createBindOffset() {
@@ -98,7 +108,12 @@ class ScrollBenchmark {
         }
 
         val rv = activityRule.activity.recyclerView
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+            spin(nsToSpin = 17500)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }

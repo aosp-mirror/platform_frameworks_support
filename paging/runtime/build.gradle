@@ -24,25 +24,41 @@ plugins {
     id("kotlin-android")
 }
 
-android {
-    lintOptions {
-        fatal("UnknownNullness")
-    }
-}
-
 dependencies {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    api(project(":paging:paging-common"))
+    // Ensure that the -ktx dependency graph mirrors the Java dependency graph
+    api(project(":paging:paging-common-ktx"))
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     api(project(":arch:core-runtime"))
     api(project(":paging:paging-common"))
     api(project(":lifecycle:lifecycle-runtime"))
     api(project(":lifecycle:lifecycle-livedata"))
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     api(SUPPORT_RECYCLERVIEW, libs.support_exclude_config)
 
+=======
+    androidTestImplementation project(':internal-testutils-common')
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ARCH_CORE_TESTING)
+    androidTestImplementation(ESPRESSO_CORE)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     androidTestImplementation(JUNIT)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(KOTLIN_STDLIB)
+=======
+    androidTestImplementation MOCKITO_KOTLIN, {
+        exclude group: 'org.mockito' // to keep control on the mockito version
+    }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }
 
 supportLibrary {

@@ -77,10 +77,10 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
             @Override
             protected void validateMigration(SupportSQLiteDatabase _db) {
                 final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(4);
-                _columnsUser.put("uid", new TableInfo.Column("uid", "INTEGER", true, 1));
-                _columnsUser.put("name", new TableInfo.Column("name", "TEXT", false, 0));
-                _columnsUser.put("lastName", new TableInfo.Column("lastName", "TEXT", false, 0));
-                _columnsUser.put("ageColumn", new TableInfo.Column("ageColumn", "INTEGER", true, 0));
+                _columnsUser.put("uid", new TableInfo.Column("uid", "INTEGER", true, 1, null));
+                _columnsUser.put("name", new TableInfo.Column("name", "TEXT", false, 0, null));
+                _columnsUser.put("lastName", new TableInfo.Column("lastName", "TEXT", false, 0, null));
+                _columnsUser.put("ageColumn", new TableInfo.Column("ageColumn", "INTEGER", true, 0, null));
                 final HashSet<TableInfo.ForeignKey> _foreignKeysUser = new HashSet<TableInfo.ForeignKey>(0);
                 final HashSet<TableInfo.Index> _indicesUser = new HashSet<TableInfo.Index>(0);
                 final TableInfo _infoUser = new TableInfo("User", _columnsUser, _foreignKeysUser, _indicesUser);
@@ -90,6 +90,37 @@ public final class ComplexDatabase_Impl extends ComplexDatabase {
                             + " Expected:\n" + _infoUser + "\n"
                             + " Found:\n" + _existingUser);
                 }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+                final HashMap<String, TableInfo.Column> _columnsChild1 = new HashMap<String, TableInfo.Column>(4);
+                _columnsChild1.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null));
+                _columnsChild1.put("name", new TableInfo.Column("name", "TEXT", false, 0, null));
+                _columnsChild1.put("serial", new TableInfo.Column("serial", "INTEGER", false, 0, null));
+                _columnsChild1.put("code", new TableInfo.Column("code", "TEXT", false, 0, null));
+                final HashSet<TableInfo.ForeignKey> _foreignKeysChild1 = new HashSet<TableInfo.ForeignKey>(0);
+                final HashSet<TableInfo.Index> _indicesChild1 = new HashSet<TableInfo.Index>(0);
+                final TableInfo _infoChild1 = new TableInfo("Child1", _columnsChild1, _foreignKeysChild1, _indicesChild1);
+                final TableInfo _existingChild1 = TableInfo.read(_db, "Child1");
+                if (! _infoChild1.equals(_existingChild1)) {
+                    throw new IllegalStateException("Migration didn't properly handle Child1(foo.bar.Child1).\n"
+                            + " Expected:\n" + _infoChild1 + "\n"
+                            + " Found:\n" + _existingChild1);
+                }
+                final HashMap<String, TableInfo.Column> _columnsChild2 = new HashMap<String, TableInfo.Column>(4);
+                _columnsChild2.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null));
+                _columnsChild2.put("name", new TableInfo.Column("name", "TEXT", false, 0, null));
+                _columnsChild2.put("serial", new TableInfo.Column("serial", "INTEGER", false, 0, null));
+                _columnsChild2.put("code", new TableInfo.Column("code", "TEXT", false, 0, null));
+                final HashSet<TableInfo.ForeignKey> _foreignKeysChild2 = new HashSet<TableInfo.ForeignKey>(0);
+                final HashSet<TableInfo.Index> _indicesChild2 = new HashSet<TableInfo.Index>(0);
+                final TableInfo _infoChild2 = new TableInfo("Child2", _columnsChild2, _foreignKeysChild2, _indicesChild2);
+                final TableInfo _existingChild2 = TableInfo.read(_db, "Child2");
+                if (! _infoChild2.equals(_existingChild2)) {
+                    throw new IllegalStateException("Migration didn't properly handle Child2(foo.bar.Child2).\n"
+                            + " Expected:\n" + _infoChild2 + "\n"
+                            + " Found:\n" + _existingChild2);
+                }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
                 final ViewInfo _infoUserSummary = new ViewInfo("UserSummary", "CREATE VIEW `UserSummary` AS SELECT uid, name FROM User");
                 final ViewInfo _existingUserSummary = ViewInfo.read(_db, "UserSummary");
                 if (!_infoUserSummary.equals(_existingUserSummary)) {

@@ -46,11 +46,15 @@ class StringPagedList constructor(
         return null
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     override fun dispatchUpdatesSinceSnapshot(
         storageSnapshot: PagedList<String>,
         callback: PagedList.Callback
     ) {
     }
+=======
+    override fun dispatchCurrentLoadState(callback: LoadStateListener) {}
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     override fun loadAroundInternal(index: Int) {}
 

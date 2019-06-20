@@ -49,7 +49,12 @@ import java.util.Set;
  *
  * @hide
  */
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 @RestrictTo(LIBRARY_GROUP)
+=======
+@RestrictTo(LIBRARY)
+@SuppressWarnings("unchecked")
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
 
     private static final String TAG = "DefaultSelectionTracker";
@@ -352,7 +357,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
         return mAdapterObserver;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "unchecked"}) /* synthetic access */
     void onDataSetChanged() {
         mSelection.clearProvisionalSelection();
 
@@ -505,7 +510,6 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public final void onSaveInstanceState(@NonNull Bundle state) {
         if (mSelection.isEmpty()) {
             return;

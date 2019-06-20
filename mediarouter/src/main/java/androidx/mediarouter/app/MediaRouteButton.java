@@ -55,7 +55,7 @@ import androidx.mediarouter.media.MediaRouter;
  * a {@link MediaRouteChooserDialog} to allow the user to select a route.
  * If no non-default routes match the selector and it is not possible for an active
  * scan to discover any matching routes, then the button is disabled and cannot
- * be clicked.
+ * be clicked unless {@link #setAlwaysVisible} is called.
  * </p><p>
  * When a non-default route is selected that matches the selector, the button will
  * appear in an active state indicating that the application is connected
@@ -340,6 +340,7 @@ public class MediaRouteButton extends View {
             mRemoteIndicatorLoader.cancel(false);
         }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         if (mRemoteIndicator != null) {
             mRemoteIndicator.setCallback(null);
             unscheduleDrawable(mRemoteIndicator);
@@ -369,6 +370,23 @@ public class MediaRouteButton extends View {
                 }
                 curDrawable.selectDrawable(curDrawable.getNumberOfFrames() - 1);
             }
+=======
+    /**
+     * Sets whether the button is visible when no routes are available.
+     * When true, the button is visible even when there are no routes to connect.
+     * You may want to override {@link View#performClick()} to change the behavior
+     * when the button is clicked.
+     * The default is false.
+     * It doesn't overrides the {@link View#getVisibility visibility} status of the button.
+     *
+     * @param alwaysVisible true to show the button even when no routes are available.
+     */
+    public void setAlwaysVisible(boolean alwaysVisible) {
+        if (alwaysVisible != mAlwaysVisible) {
+            mAlwaysVisible = alwaysVisible;
+            refreshVisibility();
+            refreshRoute();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         }
     }
 

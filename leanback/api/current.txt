@@ -84,9 +84,77 @@ package androidx.leanback.app {
     method public void showTitle(int);
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public deprecated class BrowseFragment extends androidx.leanback.app.BaseFragment {
     ctor public BrowseFragment();
     method public static android.os.Bundle createArgs(android.os.Bundle, java.lang.String, int);
+=======
+  @Deprecated public static class BrowseFragment.BrowseTransitionListener {
+    ctor @Deprecated public BrowseFragment.BrowseTransitionListener();
+    method @Deprecated public void onHeadersTransitionStart(boolean);
+    method @Deprecated public void onHeadersTransitionStop(boolean);
+  }
+
+  @Deprecated public abstract static class BrowseFragment.FragmentFactory<T extends android.app.Fragment> {
+    ctor @Deprecated public BrowseFragment.FragmentFactory();
+    method @Deprecated public abstract T! createFragment(Object!);
+  }
+
+  @Deprecated public static interface BrowseFragment.FragmentHost {
+    method @Deprecated public void notifyDataReady(androidx.leanback.app.BrowseFragment.MainFragmentAdapter!);
+    method @Deprecated public void notifyViewCreated(androidx.leanback.app.BrowseFragment.MainFragmentAdapter!);
+    method @Deprecated public void showTitleView(boolean);
+  }
+
+  @Deprecated public static class BrowseFragment.ListRowFragmentFactory extends androidx.leanback.app.BrowseFragment.FragmentFactory<androidx.leanback.app.RowsFragment> {
+    ctor @Deprecated public BrowseFragment.ListRowFragmentFactory();
+    method @Deprecated public androidx.leanback.app.RowsFragment! createFragment(Object!);
+  }
+
+  @Deprecated public static class BrowseFragment.MainFragmentAdapter<T extends android.app.Fragment> {
+    ctor @Deprecated public BrowseFragment.MainFragmentAdapter(T!);
+    method @Deprecated public final T! getFragment();
+    method @Deprecated public final androidx.leanback.app.BrowseFragment.FragmentHost! getFragmentHost();
+    method @Deprecated public boolean isScalingEnabled();
+    method @Deprecated public boolean isScrolling();
+    method @Deprecated public void onTransitionEnd();
+    method @Deprecated public boolean onTransitionPrepare();
+    method @Deprecated public void onTransitionStart();
+    method @Deprecated public void setAlignment(int);
+    method @Deprecated public void setEntranceTransitionState(boolean);
+    method @Deprecated public void setExpand(boolean);
+    method @Deprecated public void setScalingEnabled(boolean);
+  }
+
+  @Deprecated public static interface BrowseFragment.MainFragmentAdapterProvider {
+    method @Deprecated public androidx.leanback.app.BrowseFragment.MainFragmentAdapter! getMainFragmentAdapter();
+  }
+
+  @Deprecated public static final class BrowseFragment.MainFragmentAdapterRegistry {
+    ctor @Deprecated public BrowseFragment.MainFragmentAdapterRegistry();
+    method @Deprecated public android.app.Fragment! createFragment(Object!);
+    method @Deprecated public void registerFragment(Class<?>!, androidx.leanback.app.BrowseFragment.FragmentFactory!);
+  }
+
+  @Deprecated public static class BrowseFragment.MainFragmentRowsAdapter<T extends android.app.Fragment> {
+    ctor @Deprecated public BrowseFragment.MainFragmentRowsAdapter(T!);
+    method @Deprecated public androidx.leanback.widget.RowPresenter.ViewHolder! findRowViewHolderByPosition(int);
+    method @Deprecated public final T! getFragment();
+    method @Deprecated public int getSelectedPosition();
+    method @Deprecated public void setAdapter(androidx.leanback.widget.ObjectAdapter!);
+    method @Deprecated public void setOnItemViewClickedListener(androidx.leanback.widget.OnItemViewClickedListener!);
+    method @Deprecated public void setOnItemViewSelectedListener(androidx.leanback.widget.OnItemViewSelectedListener!);
+    method @Deprecated public void setSelectedPosition(int, boolean, androidx.leanback.widget.Presenter.ViewHolderTask!);
+    method @Deprecated public void setSelectedPosition(int, boolean);
+  }
+
+  @Deprecated public static interface BrowseFragment.MainFragmentRowsAdapterProvider {
+    method @Deprecated public androidx.leanback.app.BrowseFragment.MainFragmentRowsAdapter! getMainFragmentRowsAdapter();
+  }
+
+  public class BrowseSupportFragment extends androidx.leanback.app.BaseSupportFragment {
+    method public static android.os.Bundle! createArgs(android.os.Bundle!, String!, int);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public void enableMainFragmentScaling(boolean);
     method public deprecated void enableRowScaling(boolean);
     method public androidx.leanback.widget.ObjectAdapter getAdapter();
@@ -264,8 +332,13 @@ package androidx.leanback.app {
 
   public static final class BrowseSupportFragment.MainFragmentAdapterRegistry {
     ctor public BrowseSupportFragment.MainFragmentAdapterRegistry();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public androidx.fragment.app.Fragment createFragment(java.lang.Object);
     method public void registerFragment(java.lang.Class, androidx.leanback.app.BrowseSupportFragment.FragmentFactory);
+=======
+    method public androidx.fragment.app.Fragment! createFragment(Object!);
+    method public void registerFragment(Class<?>!, androidx.leanback.app.BrowseSupportFragment.FragmentFactory!);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
   public static class BrowseSupportFragment.MainFragmentRowsAdapter<T extends androidx.fragment.app.Fragment> {
@@ -396,11 +469,86 @@ package androidx.leanback.app {
     method public void setMessage(java.lang.CharSequence);
   }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   public deprecated class GuidedStepFragment extends android.app.Fragment {
     ctor public GuidedStepFragment();
     method public static int add(android.app.FragmentManager, androidx.leanback.app.GuidedStepFragment);
     method public static int add(android.app.FragmentManager, androidx.leanback.app.GuidedStepFragment, int);
     method public static int addAsRoot(android.app.Activity, androidx.leanback.app.GuidedStepFragment, int);
+=======
+  @Deprecated public class GuidedStepFragment extends android.app.Fragment {
+    ctor @Deprecated public GuidedStepFragment();
+    method @Deprecated public static int add(android.app.FragmentManager!, androidx.leanback.app.GuidedStepFragment!);
+    method @Deprecated public static int add(android.app.FragmentManager!, androidx.leanback.app.GuidedStepFragment!, int);
+    method @Deprecated public static int addAsRoot(android.app.Activity!, androidx.leanback.app.GuidedStepFragment!, int);
+    method @Deprecated public void collapseAction(boolean);
+    method @Deprecated public void collapseSubActions();
+    method @Deprecated public void expandAction(androidx.leanback.widget.GuidedAction!, boolean);
+    method @Deprecated public void expandSubActions(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public androidx.leanback.widget.GuidedAction! findActionById(long);
+    method @Deprecated public int findActionPositionById(long);
+    method @Deprecated public androidx.leanback.widget.GuidedAction! findButtonActionById(long);
+    method @Deprecated public int findButtonActionPositionById(long);
+    method @Deprecated public void finishGuidedStepFragments();
+    method @Deprecated public android.view.View! getActionItemView(int);
+    method @Deprecated public java.util.List<androidx.leanback.widget.GuidedAction!>! getActions();
+    method @Deprecated public android.view.View! getButtonActionItemView(int);
+    method @Deprecated public java.util.List<androidx.leanback.widget.GuidedAction!>! getButtonActions();
+    method @Deprecated public static androidx.leanback.app.GuidedStepFragment! getCurrentGuidedStepFragment(android.app.FragmentManager!);
+    method @Deprecated public androidx.leanback.widget.GuidanceStylist! getGuidanceStylist();
+    method @Deprecated public androidx.leanback.widget.GuidedActionsStylist! getGuidedActionsStylist();
+    method @Deprecated public androidx.leanback.widget.GuidedActionsStylist! getGuidedButtonActionsStylist();
+    method @Deprecated public int getSelectedActionPosition();
+    method @Deprecated public int getSelectedButtonActionPosition();
+    method @Deprecated public int getUiStyle();
+    method @Deprecated public boolean isExpanded();
+    method @Deprecated public boolean isFocusOutEndAllowed();
+    method @Deprecated public boolean isFocusOutStartAllowed();
+    method @Deprecated public boolean isSubActionsExpanded();
+    method @Deprecated public void notifyActionChanged(int);
+    method @Deprecated public void notifyButtonActionChanged(int);
+    method @Deprecated protected void onAddSharedElementTransition(android.app.FragmentTransaction!, androidx.leanback.app.GuidedStepFragment!);
+    method @Deprecated public void onCreate(android.os.Bundle!);
+    method @Deprecated public void onCreateActions(java.util.List<androidx.leanback.widget.GuidedAction!>, android.os.Bundle!);
+    method @Deprecated public androidx.leanback.widget.GuidedActionsStylist! onCreateActionsStylist();
+    method @Deprecated public android.view.View! onCreateBackgroundView(android.view.LayoutInflater!, android.view.ViewGroup!, android.os.Bundle!);
+    method @Deprecated public void onCreateButtonActions(java.util.List<androidx.leanback.widget.GuidedAction!>, android.os.Bundle!);
+    method @Deprecated public androidx.leanback.widget.GuidedActionsStylist! onCreateButtonActionsStylist();
+    method @Deprecated public androidx.leanback.widget.GuidanceStylist.Guidance onCreateGuidance(android.os.Bundle!);
+    method @Deprecated public androidx.leanback.widget.GuidanceStylist! onCreateGuidanceStylist();
+    method @Deprecated public android.view.View! onCreateView(android.view.LayoutInflater!, android.view.ViewGroup!, android.os.Bundle!);
+    method @Deprecated public void onDestroyView();
+    method @Deprecated public void onGuidedActionClicked(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public void onGuidedActionEditCanceled(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public void onGuidedActionEdited(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public long onGuidedActionEditedAndProceed(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public void onGuidedActionFocused(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated protected void onProvideFragmentTransitions();
+    method @Deprecated public int onProvideTheme();
+    method @Deprecated public void onResume();
+    method @Deprecated public void onSaveInstanceState(android.os.Bundle!);
+    method @Deprecated public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public void openInEditMode(androidx.leanback.widget.GuidedAction!);
+    method @Deprecated public void popBackStackToGuidedStepFragment(Class<?>!, int);
+    method @Deprecated public void setActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+    method @Deprecated public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction!>!);
+    method @Deprecated public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+    method @Deprecated public void setSelectedActionPosition(int);
+    method @Deprecated public void setSelectedButtonActionPosition(int);
+    method @Deprecated public void setUiStyle(int);
+    field @Deprecated public static final String EXTRA_UI_STYLE = "uiStyle";
+    field @Deprecated public static final int UI_STYLE_ACTIVITY_ROOT = 2; // 0x2
+    field @Deprecated public static final int UI_STYLE_DEFAULT = 0; // 0x0
+    field @Deprecated public static final int UI_STYLE_ENTRANCE = 1; // 0x1
+    field @Deprecated public static final int UI_STYLE_REPLACE = 0; // 0x0
+  }
+
+  public class GuidedStepSupportFragment extends androidx.fragment.app.Fragment {
+    ctor public GuidedStepSupportFragment();
+    method public static int add(androidx.fragment.app.FragmentManager!, androidx.leanback.app.GuidedStepSupportFragment!);
+    method public static int add(androidx.fragment.app.FragmentManager!, androidx.leanback.app.GuidedStepSupportFragment!, int);
+    method public static int addAsRoot(androidx.fragment.app.FragmentActivity!, androidx.leanback.app.GuidedStepSupportFragment!, int);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public void collapseAction(boolean);
     method public void collapseSubActions();
     method public void expandAction(androidx.leanback.widget.GuidedAction, boolean);
@@ -442,12 +590,21 @@ package androidx.leanback.app {
     method public void onGuidedActionFocused(androidx.leanback.widget.GuidedAction);
     method protected void onProvideFragmentTransitions();
     method public int onProvideTheme();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction);
     method public void openInEditMode(androidx.leanback.widget.GuidedAction);
     method public void popBackStackToGuidedStepFragment(java.lang.Class, int);
     method public void setActions(java.util.List<androidx.leanback.widget.GuidedAction>);
     method public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction>);
     method public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction>);
+=======
+    method public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction!);
+    method public void openInEditMode(androidx.leanback.widget.GuidedAction!);
+    method public void popBackStackToGuidedStepSupportFragment(Class<?>!, int);
+    method public void setActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+    method public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction!>!);
+    method public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     method public void setSelectedActionPosition(int);
     method public void setSelectedButtonActionPosition(int);
     method public void setUiStyle(int);

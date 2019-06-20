@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 /*
  * Copyright 2017 The Android Open Source Project
  *
@@ -26,3 +27,5 @@ import androidx.annotation.MainThread
  */
 @MainThread
 inline fun <reified VM : ViewModel> ViewModelProvider.get() = get(VM::class.java)
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)

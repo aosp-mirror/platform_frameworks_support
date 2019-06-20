@@ -462,8 +462,39 @@ public class MediaSessionCompat {
     }
 
     /**
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
      * @hide
      * Creates session for MediaSession2.
+=======
+     * Creates a new session with a specified media button receiver (a component name and/or
+     * a pending intent). You must call {@link #release()} when finished with the session.
+     * <p>
+     * The session will automatically be registered with the system but will not be published
+     * until {@link #setActive(boolean) setActive(true)} is called.
+     * </p><p>
+     * For API 20 or earlier, note that a media button receiver is required for handling
+     * {@link Intent#ACTION_MEDIA_BUTTON}. This constructor will attempt to find an appropriate
+     * {@link BroadcastReceiver} from your manifest if it's not specified. See
+     * {@link MediaButtonReceiver} for more details.
+     * </p>
+     * The {@code sessionInfo} can include additional unchanging information about this session.
+     * For example, it can include the version of the application, or other app-specific
+     * unchanging information.
+     *
+     * @param context The context to use to create the session.
+     * @param tag A short name for debugging purposes.
+     * @param mbrComponent The component name for your media button receiver.
+     * @param mbrIntent The PendingIntent for your receiver component that handles
+     *            media button events. This is optional and will be used on between
+     *            {@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} and
+     *            {@link android.os.Build.VERSION_CODES#KITKAT_WATCH} instead of the
+     *            component name.
+     * @param sessionInfo A bundle for additional information about this session,
+     *                    or {@link Bundle#EMPTY} if none. Controllers can get this information
+     *                    by calling {@link MediaControllerCompat#getSessionInfo()}. An
+     *                    {@link IllegalArgumentException} will be thrown if this contains any
+     *                    non-framework Parcelable objects.
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
      */
     @RestrictTo(LIBRARY_GROUP)
     public MediaSessionCompat(Context context, String tag, VersionedParcelable token2) {
@@ -494,6 +525,7 @@ public class MediaSessionCompat {
             mbrIntent = PendingIntent.getBroadcast(context,
                     0/* requestCode, ignored */, mediaButtonIntent, 0/* flags */);
         }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         if (android.os.Build.VERSION.SDK_INT >= 28) {
             mImpl = new MediaSessionImplApi28(context, tag, token2);
             // Set default callback to respond to controllers' extra binder requests.
@@ -501,6 +533,23 @@ public class MediaSessionCompat {
             mImpl.setMediaButtonReceiver(mbrIntent);
         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
             mImpl = new MediaSessionImplApi21(context, tag, token2);
+=======
+
+        if (doesBundleHaveCustomParcelable(sessionInfo)) {
+            throw new IllegalArgumentException("sessionInfo shouldn't contain any custom "
+                    + "parcelables");
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            MediaSession sessionFwk = createFwkMediaSession(context, tag, sessionInfo);
+            if (android.os.Build.VERSION.SDK_INT >= 29) {
+                mImpl = new MediaSessionImplApi29(sessionFwk, session2Token, sessionInfo);
+            } else if (android.os.Build.VERSION.SDK_INT >= 28) {
+                mImpl = new MediaSessionImplApi28(sessionFwk, session2Token, sessionInfo);
+            } else {
+                mImpl = new MediaSessionImplApi21(sessionFwk, session2Token, sessionInfo);
+            }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             // Set default callback to respond to controllers' extra binder requests.
             setCallback(new Callback() {});
             mImpl.setMediaButtonReceiver(mbrIntent);
@@ -939,6 +988,39 @@ public class MediaSessionCompat {
             impl = new MediaSessionImplApi21(mediaSession);
         }
         return new MediaSessionCompat(context, impl);
+    }
+
+
+    /**
+     * Returns whether the given bundle includes non-framework Parcelables.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static boolean doesBundleHaveCustomParcelable(@Nullable Bundle bundle) {
+        if (bundle == null) {
+            return false;
+        }
+
+        // Try writing the bundle to parcel, and read it with framework classloader.
+        Parcel parcel = null;
+        try {
+            parcel = Parcel.obtain();
+            parcel.writeBundle(bundle);
+            parcel.setDataPosition(0);
+            Bundle out = parcel.readBundle(null);
+
+            // Calling Bundle#isEmpty() will trigger Bundle#unparcel().
+            out.isEmpty();
+        } catch (BadParcelableException e) {
+            Log.d(TAG, "Custom parcelable in sessionInfo.", e);
+            return true;
+        } finally {
+            if (parcel != null) {
+                parcel.recycle();
+            }
+        }
+        return false;
     }
 
     /**

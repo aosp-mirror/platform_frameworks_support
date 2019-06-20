@@ -460,6 +460,35 @@ public class ViewDragHelper {
     }
 
     /**
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+     * Set the range in pixels along the edges of this view that will actively
+     * detect edge touches or drags if edge tracking is enabled.
+     *
+     * @param size Edge size in pixels
+     *
+     * @see #setEdgeTrackingEnabled(int)
+     * @see #getEdgeSize()
+     */
+    public void setEdgeSize(@Px @IntRange(from = 0) int size) {
+        mEdgeSize = size;
+    }
+
+    /**
+     * Return the default size used for edge tracking.
+     *
+     * @return The default edge size
+     *
+     * @see #setEdgeTrackingEnabled(int)
+     * @see #getEdgeSize()
+     */
+    @Px
+    public int getDefaultEdgeSize() {
+        return mDefaultEdgeSize;
+    }
+
+    /**
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
      * Capture a specific child view for dragging within the parent. The callback will be notified
      * but {@link Callback#tryCaptureView(android.view.View, int)} will not be asked permission to
      * capture this view.

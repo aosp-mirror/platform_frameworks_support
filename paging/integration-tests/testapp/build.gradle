@@ -23,6 +23,7 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     implementation(project(":arch:core-runtime"))
     implementation(project(":arch:core-common"))
     implementation(project(":paging:paging-common"))
@@ -31,6 +32,13 @@ dependencies {
     implementation(project(":lifecycle:lifecycle-extensions"))
     implementation(project(":lifecycle:lifecycle-runtime"))
     implementation(project(":lifecycle:lifecycle-common"))
+=======
+    implementation(ARCH_CORE_RUNTIME)
+    implementation(ARCH_ROOM_RUNTIME)
+    implementation(ARCH_ROOM_RXJAVA)
+
+    implementation(project(":paging:paging-common-ktx"))
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     implementation(project(":paging:paging-runtime"))
     implementation(project(":paging:paging-rxjava2"))
 
@@ -38,7 +46,13 @@ dependencies {
 
     implementation(MULTIDEX)
     implementation(SUPPORT_RECYCLERVIEW, libs.support_exclude_config)
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     implementation(SUPPORT_APPCOMPAT, libs.support_exclude_config)
+=======
+    implementation(project(":fragment:fragment-ktx"))
+    implementation(project(":appcompat"))
+    implementation(KOTLIN_STDLIB)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])

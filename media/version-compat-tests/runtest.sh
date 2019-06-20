@@ -54,9 +54,15 @@ function runTest() {
   ./gradlew $CLIENT_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
   ./gradlew $SERVICE_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
   # Install the apks
   adb install -r "../../out/dist/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
   adb install -r "../../out/dist/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+=======
+  echo "Installing the test apks"
+  adb $DEVICE_SERIAL install -r "../../out/dist/apks/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+  adb $DEVICE_SERIAL install -r "../../out/dist/apks/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
   # Run the tests
   local test_command="adb shell am instrument -w -e debug false -e client_version $CLIENT_VERSION -e service_version $SERVICE_VERSION"

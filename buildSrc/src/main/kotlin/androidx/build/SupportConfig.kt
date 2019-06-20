@@ -31,4 +31,34 @@ object SupportConfig {
                 .get("supportRootFolder") as File
         return File(supportRoot, "development/keystore/debug.keystore")
     }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+
+    @JvmStatic
+    fun getSupportRoot(project: Project): File {
+        val extension = (project.rootProject.property("ext") as ExtraPropertiesExtension)
+        val file = extension.get("supportRootFolder") as File
+        return file
+    }
+
+    @JvmStatic
+    fun getPrebuiltsRootPath(project: Project): String {
+        val reposProperties = (project.rootProject.property("ext") as ExtraPropertiesExtension)
+            .get("repos") as Map<*, *>
+        return reposProperties["prebuiltsRoot"].toString()
+    }
+
+    @JvmStatic
+    fun getSupportRepoPath(project: Project): String {
+        return project.getRepositoryDirectory().absolutePath
+    }
+
+    @JvmStatic
+    fun getAGPVersion(project: Project): String {
+        val studioProperties = (project.rootProject.property("ext") as ExtraPropertiesExtension)
+            .let { it.get("build_versions") as Map<*, *> }
+            .let { it["studio"] as Map<*, *> }
+        return studioProperties["agp"].toString()
+    }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }

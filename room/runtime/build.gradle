@@ -42,6 +42,12 @@ dependencies {
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    testImplementation(ARCH_LIFECYCLE_LIVEDATA_CORE)
+    testImplementation(KOTLIN_STDLIB)
+    testImplementation(TRUTH)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     androidTestImplementation(JUNIT)
     androidTestImplementation(TEST_RUNNER)

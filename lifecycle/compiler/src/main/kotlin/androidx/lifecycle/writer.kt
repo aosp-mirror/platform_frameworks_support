@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -195,3 +196,5 @@ private fun MethodSpec.Builder.writeMethodCalls(calls: List<EventMethodCall>,
 private fun takeParams(count: Int, vararg params: Any) = params.take(count).toTypedArray()
 
 private fun generateParamString(count: Int) = (0 until count).joinToString(",") { N }
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)

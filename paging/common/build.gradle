@@ -24,10 +24,6 @@ plugins {
     id("kotlin")
 }
 
-lintOptions {
-    fatal("UnknownNullness")
-}
-
 dependencies {
     compile(SUPPORT_ANNOTATIONS)
     compile(project(":arch:core-common"))

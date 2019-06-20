@@ -107,14 +107,34 @@ class DatabaseVerifier private constructor(
     init {
         entities.forEach { entity ->
             val stmt = connection.createStatement()
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             stmt.executeUpdate(stripLocalizeCollations(entity.createTableQuery))
+=======
+            val createTableQuery = if (entity is FtsEntity &&
+                !FtsOptions.defaultTokenizers.contains(entity.ftsOptions.tokenizer)) {
+                // Custom FTS tokenizer used, use create statement without custom tokenizer
+                // since the DB used for verification probably doesn't have the tokenizer.
+                entity.getCreateTableQueryWithoutTokenizer()
+            } else {
+                entity.createTableQuery
+            }
+            try {
+                stmt.executeUpdate(stripLocalizeCollations(createTableQuery))
+            } catch (e: SQLException) {
+                context.logger.e(entity.element, "${e.message}")
+            }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             entity.indices.forEach {
                 stmt.executeUpdate(it.createQuery(entity.tableName))
             }
         }
         views.forEach { view ->
             val stmt = connection.createStatement()
-            stmt.executeUpdate(stripLocalizeCollations(view.createViewQuery))
+            try {
+                stmt.executeUpdate(stripLocalizeCollations(view.createViewQuery))
+            } catch (e: SQLException) {
+                context.logger.e(view.element, "${e.message}")
+            }
         }
     }
 

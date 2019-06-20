@@ -2,18 +2,32 @@ package androidx.room {
 
   public class DatabaseConfiguration {
     method public boolean isMigrationRequired(int, int);
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public deprecated boolean isMigrationRequiredFrom(int);
+=======
+    method @Deprecated public boolean isMigrationRequiredFrom(int);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     field public final boolean allowDestructiveMigrationOnDowngrade;
     field public final boolean allowMainThreadQueries;
     field public final java.util.List<androidx.room.RoomDatabase.Callback> callbacks;
     field public final android.content.Context context;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     field public final androidx.room.RoomDatabase.JournalMode journalMode;
+=======
+    field public final String? copyFromAssetPath;
+    field public final java.io.File? copyFromFile;
+    field public final androidx.room.RoomDatabase.JournalMode! journalMode;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
     field public final java.lang.String name;
     field public final java.util.concurrent.Executor queryExecutor;
     field public final boolean requireMigration;
     field public final androidx.sqlite.db.SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    field public final java.util.concurrent.Executor transactionExecutor;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
   public class InvalidationTracker {
@@ -65,6 +79,7 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> addMigrations(androidx.room.migration.Migration...);
     method public androidx.room.RoomDatabase.Builder<T> allowMainThreadQueries();
     method public T build();
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     method public androidx.room.RoomDatabase.Builder<T> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigrationFrom(int...);
@@ -72,6 +87,18 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory);
     method public androidx.room.RoomDatabase.Builder<T> setJournalMode(androidx.room.RoomDatabase.JournalMode);
     method public androidx.room.RoomDatabase.Builder<T> setQueryExecutor(java.util.concurrent.Executor);
+=======
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(java.io.File);
+    method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationOnDowngrade();
+    method public androidx.room.RoomDatabase.Builder<T!> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
+    method public androidx.room.RoomDatabase.Builder<T!> setJournalMode(androidx.room.RoomDatabase.JournalMode);
+    method public androidx.room.RoomDatabase.Builder<T!> setQueryExecutor(java.util.concurrent.Executor);
+    method public androidx.room.RoomDatabase.Builder<T!> setTransactionExecutor(java.util.concurrent.Executor);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
   }
 
   public static abstract class RoomDatabase.Callback {

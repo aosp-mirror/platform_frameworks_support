@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -463,3 +464,5 @@ public abstract class LiveData<T> {
         }
     }
 }
+=======
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)

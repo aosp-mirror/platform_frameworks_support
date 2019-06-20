@@ -38,7 +38,19 @@ const val INTELLIJ_ANNOTATIONS = "com.intellij:annotations:12.0"
 const val JAVAPOET = "com.squareup:javapoet:1.8.0"
 const val JSR250 = "javax.annotation:javax.annotation-api:1.2"
 const val JUNIT = "junit:junit:4.12"
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:1.2.70"
+=======
+const val KOTLINPOET = "com.squareup:kotlinpoet:1.1.0"
+
+private const val KOTLIN_VERSION = "1.3.40"
+const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+const val KOTLIN_TEST_COMMON = "org.jetbrains.kotlin:kotlin-test:$KOTLIN_VERSION"
+const val COMPOSE_VERSION = "1.3.30-compose-20190503"
+const val KOTLIN_COMPOSE_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$COMPOSE_VERSION"
+const val KOTLIN_COMPOSE_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:$COMPOSE_VERSION"
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
 const val MULTIDEX = "androidx.multidex:multidex:2.0.0"
@@ -73,9 +85,43 @@ const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
 // Arch libraries
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:2.0.0-rc01@aar"
 const val ARCH_LIFECYCLE_LIVEDATA_CORE =
         "androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01@aar"
 const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01@aar"
 const val ARCH_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01@aar"
 const val ARCH_CORE_COMMON = "androidx.arch.core:core-common:2.0.0-rc01@jar"
+=======
+const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:2.0.0"
+const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common:2.0.0@jar"
+const val ARCH_LIFECYCLE_LIVEDATA_CORE = "androidx.lifecycle:lifecycle-livedata-core:2.0.0"
+const val ARCH_LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata:2.0.0"
+const val ARCH_LIFECYCLE_SERVICE = "androidx.lifecycle:lifecycle-service:2.0.0"
+const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:2.0.0"
+const val ARCH_LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+const val ARCH_CORE_COMMON = "androidx.arch.core:core-common:2.0.1@jar"
+const val ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.1"
+const val ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.1"
+
+const val SAFE_ARGS_ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:3.4.0"
+const val SAFE_ARGS_KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.20"
+const val SAFE_ARGS_NAVIGATION_COMMON = "androidx.navigation:navigation-common:2.0.0-rc02"
+
+const val ARCH_PAGING_COMMON = "androidx.paging:paging-common:2.0.0"
+const val ARCH_PAGING_RUNTIME = "androidx.paging:paging-runtime:2.0.0"
+const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.0.0"
+const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.0.0"
+const val ARCH_ROOM_RXJAVA = "androidx.room:room-rxjava2:2.0.0"
+const val ARCH_ROOM_TESTING = "androidx.room:room-testing:2.0.0"
+
+const val WORK_ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
+const val WORK_ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
+const val WORK_ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.1.0"
+const val WORK_ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.1.0"
+const val WORK_ARCH_ROOM_TESTING = "androidx.room:room-testing:2.1.0"
+
+const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
+
+const val PROTOBUF = "com.google.protobuf:protobuf-java:3.4.0"
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)

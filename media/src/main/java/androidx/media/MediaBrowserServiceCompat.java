@@ -1158,6 +1158,50 @@ public abstract class MediaBrowserServiceCompat extends Service {
         }
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    @RequiresApi(21)
+    @SuppressWarnings("unchecked")
+    static class ResultWrapper<T> {
+        MediaBrowserService.Result mResultFwk;
+
+        ResultWrapper(MediaBrowserService.Result result) {
+            mResultFwk = result;
+        }
+
+        public void sendResult(T result) {
+            if (result instanceof List) {
+                mResultFwk.sendResult(parcelListToItemList((List<Parcel>) result));
+            } else if (result instanceof Parcel) {
+                Parcel parcel = (Parcel) result;
+                parcel.setDataPosition(0);
+                mResultFwk.sendResult(MediaBrowser.MediaItem.CREATOR.createFromParcel(parcel));
+                parcel.recycle();
+            } else {
+                // The result is null or an invalid instance.
+                mResultFwk.sendResult(null);
+            }
+        }
+
+        public void detach() {
+            mResultFwk.detach();
+        }
+
+        List<MediaBrowser.MediaItem> parcelListToItemList(List<Parcel> parcelList) {
+            if (parcelList == null) {
+                return null;
+            }
+            List<MediaBrowser.MediaItem> items = new ArrayList<>();
+            for (Parcel parcel : parcelList) {
+                parcel.setDataPosition(0);
+                items.add(MediaBrowser.MediaItem.CREATOR.createFromParcel(parcel));
+                parcel.recycle();
+            }
+            return items;
+        }
+    }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     /**
      * Attaches to the base context. This method is added to change the visibility of
      * {@link Service#attachBaseContext(Context)}.

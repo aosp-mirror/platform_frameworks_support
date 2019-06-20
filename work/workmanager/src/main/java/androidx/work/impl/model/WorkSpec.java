@@ -312,6 +312,7 @@ public class WorkSpec {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "{WorkSpec: " + id + "}";

@@ -16,7 +16,23 @@
 
 def build_versions = [:]
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 build_versions.kotlin = '1.2.70'
+=======
+def kotlin_override = System.getenv("KOTLIN_OVERRIDE")
+if (kotlin_override != null) {
+    build_versions.kotlin = kotlin_override
+    logger.warn("USING OVERRIDDEN KOTLIN GRADLE PLUGIN DEPENDENCY " + build_versions.kotlin)
+} else {
+    build_versions.kotlin = '1.3.40'
+}
+build_versions.lint = '26.5.0-beta04'
+build_versions.dokka = '0.9.17-g002'
+
+build_versions.studio = new Properties()
+new File(buildscript.sourceFile.parentFile, "studio_versions.properties").withInputStream { build_versions.studio.load(it) }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
 rootProject.ext['build_versions'] = build_versions
 

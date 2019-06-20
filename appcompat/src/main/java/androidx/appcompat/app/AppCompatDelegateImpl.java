@@ -406,7 +406,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return mMenuInflater;
     }
 
-    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
     @Nullable
     @Override
     public <T extends View> T findViewById(@IdRes int id) {
@@ -1263,7 +1263,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mAppCompatViewInflater = new AppCompatViewInflater();
             } else {
                 try {
-                    Class viewInflaterClass = Class.forName(viewInflaterClassName);
+                    Class<?> viewInflaterClass = Class.forName(viewInflaterClassName);
                     mAppCompatViewInflater =
                             (AppCompatViewInflater) viewInflaterClass.getDeclaredConstructor()
                                     .newInstance();
@@ -2121,9 +2121,20 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         final Configuration conf = res.getConfiguration();
         final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         final int newNightMode = (mode == MODE_NIGHT_YES)
                 ? Configuration.UI_MODE_NIGHT_YES
                 : Configuration.UI_MODE_NIGHT_NO;
+=======
+        if (newNightMode != applicationNightMode
+                && !activityHandlingUiMode
+                && Build.VERSION.SDK_INT >= 17
+                && !mBaseContextAttached
+                && mHost instanceof android.view.ContextThemeWrapper) {
+            // If we're here then we can try and apply an override configuration on the Context.
+            final Configuration conf = new Configuration();
+            conf.uiMode = newNightMode | (conf.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
         if (currentNightMode != newNightMode) {
             final boolean manifestHandlingUiMode = isActivityManifestHandlingUiMode();
@@ -2134,6 +2145,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 if (DEBUG) {
                     Log.d(TAG, "applyNightMode() | Night mode changed, recreating Activity");
                 }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
                 // If we've already been created, we need to recreate the Activity for the
                 // mode to be applied
                 ((Activity) mContext).recreate();
@@ -2155,14 +2167,108 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 if (manifestHandlingUiMode) {
                     ((Activity) mContext).onConfigurationChanged(config);
                 }
+=======
+                ((android.view.ContextThemeWrapper) mHost).applyOverrideConfiguration(conf);
+                handled = true;
+            } catch (IllegalStateException e) {
+                // applyOverrideConfiguration throws an IllegalStateException if its resources
+                // have already been created. Since there's no way to check this beforehand we
+                // just have to try it and catch the exception.
+                Log.e(TAG, "updateForNightMode. Calling applyOverrideConfiguration() failed"
+                        + " with an exception. Will fall back to using"
+                        + " Resources.updateConfiguration()", e);
+                handled = false;
             }
+        }
+
+        final int currentNightMode = mContext.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (!handled
+                && currentNightMode != newNightMode
+                && allowRecreation
+                && !activityHandlingUiMode
+                && mBaseContextAttached
+                && (Build.VERSION.SDK_INT >= 17 || mCreated)
+                && mHost instanceof Activity) {
+            // If we're an attached Activity, we can recreate to apply
+            // The SDK_INT check above is because applyOverrideConfiguration only exists on
+            // API 17+, so we don't want to get into an loop of infinite recreations.
+            // On < API 17 we need to use updateConfiguration before we're 'created'
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Recreating Activity");
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
+            }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             return true;
         } else {
             if (DEBUG) {
                 Log.d(TAG, "applyNightMode() | Skipping. Night mode has not changed: " + mode);
+=======
+            ActivityCompat.recreate((Activity) mHost);
+            handled = true;
+        }
+
+        if (!handled && currentNightMode != newNightMode) {
+            // Else we need to use the updateConfiguration path
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Updating resources config");
+            }
+            updateResourcesConfigurationForNightMode(newNightMode, activityHandlingUiMode);
+            handled = true;
+        }
+
+        if (DEBUG && !handled) {
+            Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
+        }
+
+        // Notify the activity of the night mode. We only notify if we handled the change,
+        // or the Activity is set to handle uiMode changes
+        if (handled && mHost instanceof AppCompatActivity) {
+            ((AppCompatActivity) mHost).onNightModeChanged(mode);
+        }
+
+        return handled;
+    }
+
+    private void updateResourcesConfigurationForNightMode(
+            final int uiModeNightModeValue, final boolean callOnConfigChange) {
+        // If the Activity is not set to handle uiMode config changes we will
+        // update the Resources with a new Configuration with an updated UI Mode
+        final Resources res = mContext.getResources();
+        final Configuration conf = new Configuration(res.getConfiguration());
+        conf.uiMode = uiModeNightModeValue
+                | (res.getConfiguration().uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+        res.updateConfiguration(conf, null);
+
+        // We may need to flush the Resources' drawable cache due to framework bugs.
+        if (Build.VERSION.SDK_INT < 26) {
+            ResourcesFlusher.flush(res);
+        }
+
+        if (mThemeResId != 0) {
+            // We need to re-apply the theme so that it reflected the new
+            // configuration
+            mContext.setTheme(mThemeResId);
+
+            if (Build.VERSION.SDK_INT >= 23) {
+                // On M+ setTheme only applies if the themeResId actually changes,
+                // since we have no way to publicly check what the Theme's current
+                // themeResId is, we just manually apply it anyway. Most of the time
+                // this is what we need anyway (since the themeResId does not
+                // often change)
+                mContext.getTheme().applyStyle(mThemeResId, true);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
         }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         return false;
+=======
+
+        if (callOnConfigChange && mHost instanceof Activity) {
+            ((Activity) mHost).onConfigurationChanged(conf);
+        }
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 
     @RequiresApi(17)

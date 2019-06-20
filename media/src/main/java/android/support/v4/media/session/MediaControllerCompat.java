@@ -1073,6 +1073,7 @@ public final class MediaControllerCompat {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void handleMessage(Message msg) {
                 if (!mRegistered) {
                     return;
@@ -1731,6 +1732,23 @@ public final class MediaControllerCompat {
         }
 
         @Override
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+        public Bundle getSessionInfo() {
+            try {
+                mSessionInfo = mBinder.getSessionInfo();
+            } catch (RemoteException e) {
+                Log.d(TAG, "Dead object in getSessionInfo.", e);
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+        }
+
+        @Override
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         public Object getMediaController() {
             return null;
         }
@@ -2190,7 +2208,35 @@ public final class MediaControllerCompat {
 
         @Override
         public String getPackageName() {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             return MediaControllerCompatApi21.getPackageName(mControllerObj);
+=======
+            return mControllerFwk.getPackageName();
+        }
+
+        @Override
+        public Bundle getSessionInfo() {
+            if (mSessionInfo != null) {
+                return new Bundle(mSessionInfo);
+            }
+
+            // Get the info from the connected session.
+            if (Build.VERSION.SDK_INT >= 29) {
+                mSessionInfo = mControllerFwk.getSessionInfo();
+            } else if (mSessionToken.getExtraBinder() != null) {
+                try {
+                    mSessionInfo = mSessionToken.getExtraBinder().getSessionInfo();
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Dead object in getSessionInfo.", e);
+                    mSessionInfo = Bundle.EMPTY;
+                }
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         }
 
         @Override

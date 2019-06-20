@@ -17,13 +17,19 @@
 package androidx.appcompat.app;
 
 import android.content.res.Configuration;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 import android.view.View;
 import android.widget.Button;
 
+=======
+
+import androidx.annotation.NonNull;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
 public class NightModeActivity extends BaseTestActivity {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
 
     /**
      * Warning, gross hack here. Since night mode uses recreate(), we need a way to be able to
@@ -40,6 +46,10 @@ public class NightModeActivity extends BaseTestActivity {
         super.onConfigurationChanged(newConfig);
         lastChangeConfiguration = newConfig;
     }
+=======
+    private int mLastNightModeChange = Integer.MIN_VALUE;
+    private Configuration mLastConfigurationChange;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     @Override
     protected int getContentViewLayoutResId() {
@@ -53,6 +63,7 @@ public class NightModeActivity extends BaseTestActivity {
     }
 
     @Override
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     protected void onPause() {
         super.onPause();
         if (TOP_ACTIVITY == this) {
@@ -65,5 +76,22 @@ public class NightModeActivity extends BaseTestActivity {
      */
     public void onButtonClicked(View view) {
         ((Button) view).setText(R.string.clicked);
+=======
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mLastConfigurationChange = newConfig;
+    }
+
+    Configuration getLastConfigurationChangeAndClear() {
+        final Configuration config = mLastConfigurationChange;
+        mLastConfigurationChange = null;
+        return config;
+    }
+
+    int getLastNightModeAndReset() {
+        final int mode = mLastNightModeChange;
+        mLastNightModeChange = Integer.MIN_VALUE;
+        return mode;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 }

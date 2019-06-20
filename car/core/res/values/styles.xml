@@ -273,19 +273,35 @@ limitations under the License.
         <item name="android:textSize">@dimen/car_body3_size</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/car_button_background</item>
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         <item name="android:textColor">@color/car_body1</item>
     </style>
 
     <!-- A style for buttons that is fixed with dark-colored text. -->
     <style name="Widget.Car.Button.DarkText">
         <item name="android:textColor">@color/car_body1_dark</item>
+=======
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <!-- A style for buttons that has white text. -->
+    <style name="Widget.Car.Button.LightText">
+        <item name="android:textColor">@color/car_primary_text</item>
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
+    </style>
+
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     <!-- A style for buttons that is fixed with light-colored text. -->
     <style name="Widget.Car.Button.LightText">
         <item name="android:textColor">@color/car_body1_light</item>
     </style>
 
+=======
+    <!-- Deprecated. Use Widget.Car.Button instead. -->
+    <style name="Widget.Car.Button.DarkText" />
+
+    <!-- The style for borderless buttons. -->
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     <style name="Widget.Car.Button.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:layout_height">@dimen/car_button_height</item>

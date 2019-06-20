@@ -70,6 +70,7 @@
     <color name="car_display3">@color/car_display3_dark</color>
     <color name="car_display4">@color/car_display4_dark</color>
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     <color name="car_body1">@color/car_body1_dark</color>
     <color name="car_body2">@color/car_body2_dark</color>
     <color name="car_body3">@color/car_body3_dark</color>
@@ -80,6 +81,19 @@
     <color name="car_subtext3">@color/car_subtext3_dark</color>
     <color name="car_subtext4">@color/car_subtext4_dark</color>
     <color name="car_subtext5">@color/car_subtext5_dark</color>
+=======
+    <!-- Deprecated. Mapping to primary and secondary text colors until removal. -->
+    <color name="car_display3_light">@color/car_primary_text_light</color>
+    <color name="car_body1">@color/car_primary_text_light</color>
+    <color name="car_body1_dark">@color/car_primary_text_dark</color>
+    <color name="car_body1_light">@color/car_primary_text_dark</color>
+    <color name="car_body2">@color/car_primary_text_light</color>
+    <color name="car_body2_light">@color/car_primary_text_dark</color>
+    <color name="car_body3_light">@color/car_secondary_text_light</color>
+    <color name="car_body3_dark">@color/car_secondary_text_dark</color>
+    <color name="car_body4_light">@color/car_secondary_text_dark</color>
+    <color name="car_subtext1_light">@color/car_secondary_text_dark</color>
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 
     <!-- The tinting color for an icon. This icon is assumed to be on a light background. -->
     <color name="car_tint">@color/car_tint_dark</color>

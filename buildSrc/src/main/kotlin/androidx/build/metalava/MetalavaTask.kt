@@ -24,13 +24,30 @@ import org.gradle.api.tasks.Classpath
 abstract class MetalavaTask : DefaultTask() {
     /** Configuration containing Metalava and its dependencies. */
     @get:Classpath
-    var configuration: Configuration? = null
+    lateinit var configuration: Configuration
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
     protected fun runWithArgs(vararg args: String) {
         project.javaexec {
             it.classpath = checkNotNull(configuration) { "Configuration not set." }
             it.main = "com.android.tools.metalava.Driver"
             it.args = args.toList()
         }
+=======
+    /** Android's boot classpath. Obtained from [BaseExtension.getBootClasspath]. */
+    @get:InputFiles
+    var bootClasspath: Collection<File> = emptyList()
+
+    /** Dependencies of [sourcePaths]. */
+    @get:InputFiles
+    var dependencyClasspath: FileCollection? = null
+
+    /** Source files against which API signatures will be validated. */
+    @get:InputFiles
+    var sourcePaths: Collection<File> = emptyList()
+
+    protected fun runWithArgs(args: List<String>) {
+        project.runMetalavaWithArgs(configuration, args)
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     }
 }

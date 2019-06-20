@@ -36,6 +36,11 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.car.R;
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+import androidx.car.app.CarListDialog;
+import androidx.core.content.ContextCompat;
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 import androidx.core.view.MarginLayoutParamsCompat;
 
 /**
@@ -113,7 +118,45 @@ public class CarToolbar extends ViewGroup {
             setNavigationIcon(a.getResourceId(R.styleable.CarToolbar_navigationIcon,
                     R.drawable.ic_nav_arrow_back));
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             mNavButtonContainerWidth = a.getDimensionPixelSize(
+=======
+            int navigationIconTintResId =
+                    a.getResourceId(R.styleable.CarToolbar_navigationIconTint, -1);
+            if (navigationIconTintResId != -1) {
+                setNavigationIconTint(ContextCompat.getColor(context, navigationIconTintResId));
+            }
+
+            int titleIconResId = a.getResourceId(R.styleable.CarToolbar_titleIcon, -1);
+            setTitleIcon(titleIconResId != -1
+                    ? context.getDrawable(titleIconResId)
+                    : null);
+
+            setTitleIconStartMargin(
+                    a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconStartMargin, 0));
+
+            setTitleIconEndMargin(
+                    a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconEndMargin, 0));
+
+            setTitleIconSize(a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconSize,
+                    res.getDimensionPixelSize(R.dimen.car_application_icon_size)));
+
+            CharSequence subtitle = a.getText(R.styleable.CarToolbar_subtitle);
+            setSubtitle(subtitle);
+
+            setSubtitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_subtitleTextAppearance,
+                    R.style.TextAppearance_Car_Body2_Light));
+
+            setOverflowIcon(a.getResourceId(R.styleable.CarToolbar_overflowIcon,
+                    R.drawable.ic_more_vert));
+
+            mOverflowButtonView.setOnClickListener(v -> {
+                populateOverflowMenu();
+                mOverflowDialog.show();
+            });
+
+            mEdgeButtonContainerWidth = a.getDimensionPixelSize(
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
                     R.styleable.CarToolbar_navigationIconContainerWidth,
                     res.getDimensionPixelSize(R.dimen.car_margin));
         } finally {
@@ -280,6 +323,203 @@ public class CarToolbar extends ViewGroup {
         mTitleTextView.setTextAppearance(resId);
     }
 
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+    /**
+     * Sets the text color, size, style, hint color, and highlight color
+     * from the specified TextAppearance resource.
+     *
+     * @param resId Resource id of TextAppearance.
+     */
+    public void setSubtitleTextAppearance(@StyleRes int resId) {
+        mSubtitleTextView.setTextAppearance(resId);
+    }
+
+    /**
+     * Sets the list of {@link CarMenuItem}s that will be displayed on this {@code CarToolbar}.
+     *
+     * @param items List of {@link CarMenuItem}s to display, {@code null} to remove all items.
+     */
+    public void setMenuItems(@Nullable List<CarMenuItem> items) {
+        mMenuItems = items;
+
+        mAllMenuItems.clear();
+        mAlwaysItemCount = 0;
+
+        if (mMenuItems == null) {
+            requestLayout();
+            return;
+        }
+
+        // Create Views for all ALWAYS and IF_ROOM items.
+        for (CarMenuItem item : mMenuItems) {
+            View action;
+            switch (item.getDisplayBehavior()) {
+                case ALWAYS:
+                    mAlwaysItemCount++;
+                    // Fall-through
+                case IF_ROOM:
+                    action = item.isCheckable() ? createCheckableAction(item) : createAction(item);
+                    break;
+                case NEVER:
+                    action = null;
+                    break;
+                default:
+                    throw new IllegalStateException(
+                            "Unknown display behavior: " + item.getDisplayBehavior());
+            }
+            mAllMenuItems.add(new InflatedMenuItem(item, action));
+        }
+        requestLayout();
+    }
+
+    /**
+     * Returns a list of this {@code CarToolbar}'s {@link CarMenuItem}s, or
+     * {@code null} if none were set.
+     */
+    @Nullable
+    public List<CarMenuItem> getMenuItems() {
+        return mMenuItems;
+    }
+
+    /**
+     * Creates an Action {@link Button} item configured for the given {@link CarMenuItem}.
+     *
+     * @param item The {@link CarMenuItem} used to create the {@link Button}.
+     * @return A configured {@link Button} view.
+     */
+    private Button createAction(CarMenuItem item) {
+        Context context = getContext();
+        Button button = new Button(context, null, 0, item.getStyleResId());
+        button.setLayoutParams(
+                new MarginLayoutParams(LayoutParams.WRAP_CONTENT, mActionButtonHeight));
+        CharSequence title = item.getTitle();
+        button.setText(title);
+
+        if (item.getIcon() != null) {
+            Drawable icon = item.getIcon();
+            icon.setBounds(0, 0, mActionButtonIconBound, mActionButtonIconBound);
+            // Set the Drawable on the left side.
+            button.setCompoundDrawables(icon, null, null, null);
+            if (!TextUtils.isEmpty(title)) {
+                // Add padding after the icon only if there's a title.
+                button.setCompoundDrawablePadding(mActionButtonPadding);
+            }
+        }
+
+        button.setEnabled(item.isEnabled());
+        button.setOnClickListener(v -> {
+            CarMenuItem.OnClickListener onClickListener = item.getOnClickListener();
+            if (onClickListener != null) {
+                onClickListener.onClick(item);
+            }
+        });
+        return button;
+    }
+
+    /**
+     * Creates an Action {@link Switch} item configured for the given {@link CarMenuItem}.
+     *
+     * @param item The checkable {@link CarMenuItem} used to create the {@link Switch}.
+     * @return A configured {@link Switch} view.
+     */
+    private View createCheckableAction(CarMenuItem item) {
+        Context context = getContext();
+        ViewGroup checkableAction = (ViewGroup) LayoutInflater.from(context)
+                .inflate(R.layout.checkable_action_item, this, false);
+        Switch switchWidget = checkableAction.findViewById(R.id.switch_widget);
+        switchWidget.setEnabled(item.isEnabled());
+        switchWidget.setChecked(item.isChecked());
+
+        if (item.isEnabled()) {
+            checkableAction.setOnClickListener(v -> {
+                switchWidget.toggle();
+                item.setChecked(switchWidget.isChecked());
+                CarMenuItem.OnClickListener itemOnClickListener = item.getOnClickListener();
+                if (itemOnClickListener != null) {
+                    itemOnClickListener.onClick(item);
+                }
+            });
+        } else {
+            checkableAction.setClickable(false);
+        }
+
+        CharSequence title = item.getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            Button button = new Button(context, null, 0, item.getStyleResId());
+            // The button is added programmatically so that we can apply a custom style.
+            button.setText(title);
+
+            checkableAction.addView(button);
+        }
+        return checkableAction;
+    }
+
+    /**
+     * Adds the overflow items to the overflow menu dialog.
+     */
+    private void populateOverflowMenu() {
+        if (mOverflowMenuItems.isEmpty()) {
+            mOverflowDialog = null;
+            return;
+        }
+
+        CharSequence[] titles = mOverflowMenuItems.stream()
+                .map(CarMenuItem::getTitle)
+                .toArray(CharSequence[]::new);
+
+        mOverflowDialog = new CarListDialog.Builder(getContext())
+                .setItems(titles, mOverflowDialogClickListener)
+                .create();
+    }
+
+    /**
+     * Sets the icon of the overflow menu button.
+     *
+     * @param iconResId Resource id of the drawable to use for the overflow menu button.
+     * @attr ref R.styleable#CarToolbar_overflowIcon
+     */
+    public void setOverflowIcon(@DrawableRes int iconResId) {
+        mOverflowButtonView.setImageDrawable(getContext().getDrawable(iconResId));
+    }
+
+    /**
+     * Sets the icon of the overflow menu button.
+     *
+     * @param icon Icon to set.
+     * @attr ref R.styleable#CarToolbar_overflowIcon
+     */
+    public void setOverflowIcon(@NonNull Drawable icon) {
+        if (icon == null) {
+            throw new IllegalArgumentException("Provided overflow icon cannot be null.");
+        }
+        mOverflowButtonView.setImageDrawable(icon);
+    }
+
+    /**
+     * Returns {@code true} if the overflow menu is showing.
+     */
+    public boolean isOverflowMenuShowing() {
+        return mOverflowDialog != null && mOverflowDialog.isShowing();
+    }
+
+    /**
+     * Sets whether the overflow menu is shown.
+     *
+     * @param show {code true} to show the overflow menu or {@code false} to hide it.
+     */
+    public void setOverflowMenuShown(boolean show) {
+        if (show) {
+            populateOverflowMenu();
+            if (mOverflowDialog != null) {
+                mOverflowDialog.show();
+            }
+        } else if (mOverflowDialog != null) {
+            mOverflowDialog.dismiss();
+        }
+    }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);

@@ -77,7 +77,7 @@ public abstract class Presenter implements FacetProvider {
      */
     public static class ViewHolder implements FacetProvider {
         public final View view;
-        private Map<Class, Object> mFacets;
+        private Map<Class<?>, Object> mFacets;
 
         public ViewHolder(View view) {
             this.view = view;
@@ -98,7 +98,11 @@ public abstract class Presenter implements FacetProvider {
          */
         public final void setFacet(Class<?> facetClass, Object facetImpl) {
             if (mFacets == null) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
                 mFacets = new HashMap<Class, Object>();
+=======
+                mFacets = new ArrayMap<>();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
             }
             mFacets.put(facetClass, facetImpl);
         }
@@ -116,7 +120,7 @@ public abstract class Presenter implements FacetProvider {
         }
     }
 
-    private Map<Class, Object> mFacets;
+    private Map<Class<?>, Object> mFacets;
 
     /**
      * Creates a new {@link View}.
@@ -221,7 +225,11 @@ public abstract class Presenter implements FacetProvider {
      */
     public final void setFacet(Class<?> facetClass, Object facetImpl) {
         if (mFacets == null) {
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
             mFacets = new HashMap<Class, Object>();
+=======
+            mFacets = new ArrayMap<>();
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         }
         mFacets.put(facetClass, facetImpl);
     }

@@ -337,4 +337,44 @@ public class BiometricPromptDemo extends FragmentActivity {
             throw new RuntimeException(e);
         }
     }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
+=======
+
+    private boolean useCrypto() {
+        return mUseCryptoCheckbox.isChecked();
+    }
+
+    /**
+     * Callback when the checkbox is clicked.
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        final boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.checkbox_use_crypto:
+                findViewById(R.id.button_enable_biometric_with_crypto)
+                        .setVisibility(checked ? View.VISIBLE : View.GONE);
+                break;
+        }
+    }
+
+    /**
+     * @return The currently selected configuration.
+     */
+    private int getMode() {
+        int id = ((RadioGroup) findViewById(R.id.radio_group)).getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.radio_persist_across_configuration_changes:
+                return MODE_PERSIST_ACROSS_CONFIGURATION_CHANGES;
+            case R.id.radio_cancel_on_configuration_change:
+                return MODE_CANCEL_ON_CONFIGURATION_CHANGE;
+            case R.id.radio_cancel_after_three_failures:
+                return MODE_CANCEL_AFTER_THREE_FAILURES;
+            default:
+                return MODE_NONE;
+        }
+    }
+
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
 }

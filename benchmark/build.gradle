@@ -39,6 +39,4 @@ supportLibrary {
     mavenGroup = LibraryGroups.BENCHMARK
     inceptionYear = "2018"
     description = "Android Benchmark"
-    failOnUncheckedWarnings = true
-    failOnDeprecationWarnings = true
 }

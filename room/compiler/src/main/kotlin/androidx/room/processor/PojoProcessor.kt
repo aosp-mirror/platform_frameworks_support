@@ -31,7 +31,6 @@ import androidx.room.ext.toAnnotationBox
 import androidx.room.ext.typeName
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_GETTER_FOR_FIELD
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_SETTER_FOR_FIELD
-import androidx.room.processor.ProcessorErrors.CANNOT_FIND_TYPE
 import androidx.room.processor.ProcessorErrors.POJO_FIELD_HAS_DUPLICATE_COLUMN_NAME
 import androidx.room.processor.autovalue.AutoValuePojoProcessorDelegate
 import androidx.room.processor.cache.Cache
@@ -474,23 +473,32 @@ class PojoProcessor private constructor(
             return null
         }
         val declared = MoreTypes.asDeclared(asMember)
-        if (!declared.isCollection()) {
-            context.logger.e(relationElement, ProcessorErrors.RELATION_NOT_COLLECTION)
+        val asType = if (declared.isCollection()) {
+            declared.typeArguments.first().extendsBoundOrSelf()
+        } else {
+            asMember
+        }
+        if (asType.kind == TypeKind.ERROR) {
+            context.logger.e(asType.asTypeElement(), ProcessorErrors.CANNOT_FIND_TYPE)
             return null
         }
+<<<<<<< HEAD   (138046 Merge "Snap for 5059817 from 82004b8f0965236345dce1144b09e2e)
         val typeArg = declared.typeArguments.first().extendsBoundOrSelf()
         if (typeArg.kind == TypeKind.ERROR) {
             context.logger.e(MoreTypes.asTypeElement(typeArg), CANNOT_FIND_TYPE)
             return null
         }
         val typeArgElement = MoreTypes.asTypeElement(typeArg)
+=======
+        val typeElement = asType.asTypeElement()
+>>>>>>> BRANCH (d55bc8 Merge "Replacing "WORKMANAGER" with "WORK" in each build.gra)
         val entityClassInput = annotation.getAsTypeMirror("entity")
 
         // do we need to decide on the entity?
         val inferEntity = (entityClassInput == null ||
                 MoreTypes.isTypeOf(Any::class.java, entityClassInput))
         val entityElement = if (inferEntity) {
-            typeArgElement
+            typeElement
         } else {
             MoreTypes.asTypeElement(entityClassInput)
         }
@@ -524,7 +532,7 @@ class PojoProcessor private constructor(
 
         val projection = if (annotation.value.projection.isEmpty()) {
             // we need to infer the projection from inputs.
-            createRelationshipProjection(inferEntity, typeArg, entity, entityField, typeArgElement)
+            createRelationshipProjection(inferEntity, asType, entity, entityField, typeElement)
         } else {
             // make sure projection makes sense
             validateRelationshipProjection(annotation.value.projection, entity, relationElement)
@@ -533,7 +541,7 @@ class PojoProcessor private constructor(
         // if types don't match, row adapter prints a warning
         return androidx.room.vo.Relation(
                 entity = entity,
-                pojoType = typeArg,
+                pojoType = asType,
                 field = field,
                 parentField = parentField,
                 entityField = entityField,
