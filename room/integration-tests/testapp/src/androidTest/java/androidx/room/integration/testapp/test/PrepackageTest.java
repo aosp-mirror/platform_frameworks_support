@@ -35,6 +35,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
@@ -217,6 +218,7 @@ public class PrepackageTest {
     }
 
     @Test
+    @FlakyTest
     public void createFromAsset_copyOnDestructiveMigration() {
         Context context = ApplicationProvider.getApplicationContext();
         context.deleteDatabase("products.db");
