@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "521deac3_5bfa24b3",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-20T23:42:42Z",
+      "side": 1,
+      "message": "Can we have a test with one of the @Embedded having a prefix but no alias in the query.\n\nI can\u0027t tell if the table alias needs to match the prefix for this to work of this is just a coincidence.",
+      "range": {
+        "startLine": 292,
+        "startChar": 51,
+        "endLine": 292,
+        "endChar": 56
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2a529e_f4dddfae",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-20T23:42:42Z",
+      "side": 1,
+      "message": "When do we decide to add the table name?\n\nCan we have a test where the method returns User but the query is a JOIN with a conflicting column, like \"SELECT * FROM user JOIN employee ON (user.id \u003d\u003d employee.id)\", both tables having id.",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
