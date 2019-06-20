@@ -33,9 +33,11 @@ import org.jetbrains.dokka.gradle.PackageOptions
 import java.io.File
 
 object Dokka {
-    fun generatorTaskNameForType(docsType: String): String {
-        return "dokka${docsType}Docs"
+    fun generatorTaskNameForType(docsType: String, language: String = ""): String {
+        val formattedLangauage = language.toLowerCase().capitalize()
+        return "dokka${formattedLangauage}${docsType}Docs"
     }
+
     fun archiveTaskNameForType(docsType: String): String {
         return "dist${docsType}DokkaDocs"
     }
@@ -44,7 +46,7 @@ object Dokka {
         project: Project,
         hiddenPackages: List<String>
     ) {
-        val taskName = generatorTaskNameForType(docsType)
+
         val archiveTaskName = archiveTaskNameForType(docsType)
         project.apply<DokkaAndroidPlugin>()
         // We don't use the `dokka` task, but it normally appears in `./gradlew tasks`
@@ -53,35 +55,63 @@ object Dokka {
         if (project.name != "support" && project.name != "docs-runner") {
             throw Exception("Illegal project passed to createDocsTask: " + project.name)
         }
-        val docsTask = project.tasks.create(taskName, DokkaAndroidTask::class.java) { docsTask ->
-            docsTask.moduleName = project.name
-            docsTask.outputDirectory = File(project.buildDir, taskName).absolutePath
-            docsTask.description = "Generates $docsType Kotlin documentation in the style of " +
-                    "d.android.com.  Places docs in ${docsTask.outputDirectory}"
-            docsTask.outputFormat = "dac"
-            docsTask.outlineRoot = "androidx/"
-            docsTask.dacRoot = "/reference/kotlin"
-            docsTask.moduleName = ""
+        val kotlinDocTaskName = generatorTaskNameForType(docsType, "kotlin")
+        val kotlinDocsTask = project.tasks.create(kotlinDocTaskName, DokkaAndroidTask::class.java) {
+                task ->
+            task.moduleName = project.name
+            task.outputDirectory = File(project.buildDir, kotlinDocTaskName).absolutePath
+            task.description = "Generates $docsType Kotlin documentation in the style of " +
+                    "d.android.com.  Places docs in ${task.outputDirectory}"
+            task.outputFormat = "dac"
+            task.outlineRoot = "androidx/"
+            task.dacRoot = "/reference/kotlin"
+            task.moduleName = ""
             for (hiddenPackage in hiddenPackages) {
                 val opts = PackageOptions()
                 opts.prefix = hiddenPackage
                 opts.suppress = true
-                docsTask.perPackageOptions.add(opts)
+                task.perPackageOptions.add(opts)
+            }
+        }
+
+        val javaDocTaskName = generatorTaskNameForType(docsType, "java")
+        val javaDocsTask = project.tasks.create(javaDocTaskName, DokkaAndroidTask::class.java) {
+                task ->
+            task.moduleName = project.name
+            task.outputDirectory = File(project.buildDir, javaDocTaskName).absolutePath
+            task.description = "Generates $docsType Kotlin documentation in the style of " +
+                    "d.android.com.  Places docs in ${task.outputDirectory}"
+            task.outputFormat = "dac-as-java"
+            task.outlineRoot = "androidx/"
+            task.dacRoot = "/reference/"
+            task.moduleName = ""
+            for (hiddenPackage in hiddenPackages) {
+                val opts = PackageOptions()
+                opts.prefix = hiddenPackage
+                opts.suppress = true
+                task.perPackageOptions.add(opts)
             }
         }
 
         project.tasks.create(archiveTaskName, Zip::class.java) { zipTask ->
-            zipTask.dependsOn(docsTask)
-            zipTask.from(docsTask.outputDirectory) { copySpec ->
+            zipTask.dependsOn(javaDocsTask)
+            zipTask.from(javaDocsTask.outputDirectory) { copySpec ->
+                copySpec.into("reference/java")
+            }
+
+            zipTask.dependsOn(kotlinDocsTask)
+            zipTask.from(kotlinDocsTask.outputDirectory) { copySpec ->
                 copySpec.into("reference/kotlin")
             }
+
             val buildId = getBuildId()
-            zipTask.archiveBaseName.set(taskName)
+            val archiveBaseName = generatorTaskNameForType(docsType)
+            zipTask.archiveBaseName.set(archiveBaseName)
             zipTask.archiveVersion.set(buildId)
             zipTask.destinationDirectory.set(project.getDistributionDirectory())
             val filePath = "${project.getDistributionDirectory().canonicalPath}/"
-            val fileName = "$taskName-$buildId.zip"
-            zipTask.description = "Zips $docsType Kotlin documentation (generated via " +
+            val fileName = "$archiveBaseName-$buildId.zip"
+            zipTask.description = "Zips $docsType documentation (generated via " +
                 "Dokka in the style of d.android.com) into ${filePath + fileName}"
             zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
         }

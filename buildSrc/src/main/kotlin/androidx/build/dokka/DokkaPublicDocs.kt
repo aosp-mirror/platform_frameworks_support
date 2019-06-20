@@ -36,7 +36,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 
 object DokkaPublicDocs {
     val ARCHIVE_TASK_NAME: String = Dokka.archiveTaskNameForType("Public")
-    private val RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("Public")
+    private val JAVA_RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("Public", "java")
+    private val KOTLIN_RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("Public", "kotlin")
     private const val UNZIP_DEPS_TASK_NAME = "unzipDokkaPublicDocsDeps"
 
     val hiddenPackages = listOf(
@@ -64,7 +65,7 @@ object DokkaPublicDocs {
         return tryGetRunnerProject(project)!!
     }
 
-    fun getDocsTask(project: Project): DokkaTask {
+    fun getDocsTasks(project: Project): List<DokkaTask> {
         val runnerProject = getRunnerProject(project)
         return runnerProject.tasks.getOrCreateDocsTask(runnerProject)
     }
@@ -74,24 +75,32 @@ object DokkaPublicDocs {
         return runnerProject.tasks.getByName(DokkaPublicDocs.UNZIP_DEPS_TASK_NAME) as LocateJarsTask
     }
 
-    @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): DokkaTask {
+    @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): List<DokkaTask> {
         val tasks = this
-        if (tasks.findByName(RUNNER_TASK_NAME) == null) {
+        if (tasks.findByName(KOTLIN_RUNNER_TASK_NAME) == null) {
             Dokka.createDocsTask("Public",
                 runnerProject,
                 hiddenPackages)
-            val docsTask = runnerProject.tasks.getByName(RUNNER_TASK_NAME) as DokkaTask
+            val kotlinDocsTask = runnerProject.tasks.getByName(KOTLIN_RUNNER_TASK_NAME) as DokkaTask
+            val javaDocsTask = runnerProject.tasks.getByName(JAVA_RUNNER_TASK_NAME) as DokkaTask
+
             tasks.create(UNZIP_DEPS_TASK_NAME, LocateJarsTask::class.java) { unzipTask ->
                 unzipTask.doLast {
                     for (jar in unzipTask.outputJars) {
-                        docsTask.classpath = docsTask.classpath.plus(runnerProject.file(jar))
+                        kotlinDocsTask.classpath += runnerProject.file(jar)
+                        javaDocsTask.classpath += runnerProject.file(jar)
                     }
-                    docsTask.classpath += androidJarFile(runnerProject)
+
+                    kotlinDocsTask.classpath += androidJarFile(runnerProject)
+                    javaDocsTask.classpath += androidJarFile(runnerProject)
                 }
-                docsTask.dependsOn(unzipTask)
+
+                kotlinDocsTask.dependsOn(unzipTask)
+                javaDocsTask.dependsOn(unzipTask)
             }
         }
-        return runnerProject.tasks.getByName(DokkaPublicDocs.RUNNER_TASK_NAME) as DokkaTask
+        return listOf(runnerProject.tasks.getByName(KOTLIN_RUNNER_TASK_NAME) as DokkaTask,
+            runnerProject.tasks.getByName(JAVA_RUNNER_TASK_NAME) as DokkaTask)
     }
 
     // specifies that <project> exists and might need us to generate documentation for it
@@ -120,13 +129,17 @@ object DokkaPublicDocs {
 
     // specifies that <dependency> describes an artifact containing sources that we want to include in our generated documentation
     private fun registerPrebuilt(dependency: String, runnerProject: Project): Copy {
-        val docsTask = getDocsTask(runnerProject)
+
+        val (kotlinDocsTask, javaDocsTask) = getDocsTasks(runnerProject)
 
         // unzip the sources jar
         val unzipTask = getPrebuiltSources(runnerProject, "$dependency:sources")
         val sourceDir = unzipTask.destinationDir
-        docsTask.dependsOn(unzipTask)
-        docsTask.sourceDirs += sourceDir
+        kotlinDocsTask.dependsOn(unzipTask)
+        kotlinDocsTask.sourceDirs += sourceDir
+
+        javaDocsTask.dependsOn(unzipTask)
+        javaDocsTask.sourceDirs += sourceDir
 
         // also make a note to unzip any dependencies too
         getUnzipDepsTask(runnerProject).inputDependencies.add(dependency)
@@ -174,11 +187,16 @@ object DokkaPublicDocs {
     }
 
     private fun registerInputs(inputs: JavaCompileInputs, project: Project) {
-        val docsTask = getDocsTask(project)
-        docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath = docsTask.classpath.plus(inputs.dependencyClasspath)
+        val (kotlinDocsTask, javaDocsTask) = getDocsTasks(project)
+        kotlinDocsTask.sourceDirs += inputs.sourcePaths
+        kotlinDocsTask.classpath = kotlinDocsTask.classpath.plus(inputs.dependencyClasspath)
             .plus(inputs.bootClasspath)
-        docsTask.dependsOn(inputs.dependencyClasspath)
+        kotlinDocsTask.dependsOn(inputs.dependencyClasspath)
+
+        javaDocsTask.sourceDirs += inputs.sourcePaths
+        javaDocsTask.classpath = javaDocsTask.classpath.plus(inputs.dependencyClasspath)
+            .plus(inputs.bootClasspath)
+        javaDocsTask.dependsOn(inputs.dependencyClasspath)
     }
 }
 
