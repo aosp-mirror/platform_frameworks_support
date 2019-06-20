@@ -16,20 +16,32 @@
 
 package androidx.ui.painting
 
+import androidx.annotation.RestrictTo
+import androidx.annotation.VisibleForTesting
+import androidx.ui.core.Constraints
+import androidx.ui.core.IntPxSize
+import androidx.ui.core.constrain
+import androidx.ui.core.px
+import androidx.ui.core.round
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
 import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
-import androidx.ui.engine.text.TextBaseline
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.window.Locale
+import androidx.ui.graphics.Color
+import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.ui.services.text_editing.TextRange
 import androidx.ui.services.text_editing.TextSelection
 import kotlin.math.ceil
+
+/** The default selection color if none is specified. */
+private val DEFAULT_SELECTION_COLOR = Color(0x6633B5E5)
 
 /**
  * Unfortunately, using full precision floating point here causes bad layouts because floating
@@ -57,55 +69,72 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  * If the width of the area into which the text is being painted changes, return to step 2. If the
  *  text to be painted changes, return to step 1.
  *
- * * `text`: The (potentially styled) text to paint. After this is set, you must call [layout]
+ * @param text The (potentially styled) text to paint. After this is set, you must call [layout]
  *   before the next call to [paint]. This and [textDirection] must be non-null before you call
  *   [layout].
  *
- * * `textAlign`: How the text should be aligned horizontally. After this is set, you must call
+ * @param textAlign How the text should be aligned horizontally. After this is set, you must call
  *    [layout] before the next call to [paint]. The [textAlign] property must not be null.
  *
- * * `textDirection`: The default directionality of the text. This controls how the
+ * @param textDirection The default directionality of the text. This controls how the
  *   [TextAlign.start], [TextAlign.end], and [TextAlign.justify] values of [textAlign] are resolved.
  *   After this is set, you must call [layout] before the next call to [paint]. This and [text] must
  *   be non-null before you call [layout].
  *
- * * `textScaleFactor`: The number of font pixels for each logical pixel.
+ * @param textScaleFactor The number of font pixels for each logical pixel.
  *   After this is set, you must call [layout] before the next call to [paint].
  *
- * * `maxLines`: An optional maximum number of lines for the text to span, wrapping if necessary.
+ * @param maxLines An optional maximum number of lines for the text to span, wrapping if necessary.
  *   If the text exceeds the given number of lines, it is truncated such that subsequent lines are
  *   dropped.
  *   After this is set, you must call [layout] before the next call to [paint].
  *
- * * `ellipsis`: Whether to ellipsize overflowing text. Setting this to true
- *   string will cause the overflowing text to be ellipsized if the text can not fit
- *   within the specified maximum width.
+ * @param softWrap Whether the text should break at soft line breaks.
+ *   If false, the glyphs in the text will be positioned as if there was unlimited horizontal space.
+ *   If [softWrap] is false, [overflow] and [textAlign] may have unexpected effects.
+ *
+ * @param overflow How visual overflow should be handled.
  *   Specifically, the ellipsis is applied to the last line before the line truncated by [maxLines],
  *   if [maxLines] is non-null and that line overflows the width constraint.
  *   After this is set, you must call [layout] before the next call to [paint].
- *   The higher layers of the system, such as the [Text] widget, represent overflow effects using
- *   the [TextOverflow] enum.
  *
- *   `locale`: The locale used to select region-specific glyphs.
+ * @param locale The locale used to select region-specific glyphs.
  */
 class TextPainter(
     text: TextSpan? = null,
-    textAlign: TextAlign = TextAlign.START,
+    textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
-    // TODO(Migration/qqd):  We won't be able to use customized ellipsis, but lets leave it here for
-    // now. Maybe remove it later.
-    ellipsis: Boolean? = null,
-    locale: Locale? = null
+    softWrap: Boolean = true,
+    overflow: TextOverflow = TextOverflow.Clip,
+    locale: Locale? = null,
+    var selectionColor: Color = DEFAULT_SELECTION_COLOR
 ) {
     init {
         assert(maxLines == null || maxLines > 0)
     }
 
-    var paragraph: Paragraph? = null
-    var needsLayout = true
-    var layoutTemplate: Paragraph? = null
+    @VisibleForTesting
+    internal var paragraph: Paragraph? = null
+        private set
+
+    @VisibleForTesting
+    internal var needsLayout = true
+        private set
+
+    @VisibleForTesting
+    internal var layoutTemplate: Paragraph? = null
+        private set
+
+    private var overflowShader: Shader? = null
+
+    @VisibleForTesting
+    internal var hasVisualOverflow = false
+        private set
+
+    private var lastMinWidth: Float = 0.0f
+    private var lastMaxWidth: Float = 0.0f
 
     var text: TextSpan? = text
         set(value) {
@@ -151,7 +180,15 @@ class TextPainter(
             needsLayout = true
         }
 
-    var ellipsis: Boolean? = ellipsis
+    var softWrap: Boolean = softWrap
+        set(value) {
+            if (field == value) return
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    var overflow: TextOverflow? = overflow
         set(value) {
             if (field == value) return
             field = value
@@ -179,14 +216,14 @@ class TextPainter(
             textDirection = textDirection ?: defaultTextDirection,
             textScaleFactor = textScaleFactor,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
 
         ) ?: ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection ?: defaultTextDirection,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
         )
     }
@@ -208,7 +245,7 @@ class TextPainter(
             if (layoutTemplate == null) {
                 val builder = ParagraphBuilder(
                     // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.LTR)
+                    createParagraphStyle(TextDirection.Ltr)
                 ) // direction doesn't matter, text is just a space
                 if (text?.style != null) {
                     builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
@@ -257,7 +294,7 @@ class TextPainter(
     val width: Float
         get() {
             assertNeedsLayout("width")
-            return applyFloatingPointHack(paragraph!!.width)
+            return applyFloatingPointHack(size.width)
         }
 
     /**
@@ -268,7 +305,7 @@ class TextPainter(
     val height: Float
         get() {
             assertNeedsLayout("height")
-            return applyFloatingPointHack(paragraph!!.height)
+            return applyFloatingPointHack(size.height)
         }
 
     /**
@@ -276,24 +313,12 @@ class TextPainter(
      *
      * Valid only after [layout] has been called.
      */
-    val size: Size
+    var size: Size = Size(0f, 0f)
         get() {
             assertNeedsLayout("size")
-            return Size(width, height)
+            return field
         }
-
-    /**
-     * Returns the distance from the top of the text to the first baseline of the given type.
-     *
-     * Valid only after [layout] has been called.
-     */
-    fun computeDistanceToActualBaseline(baseline: TextBaseline): Float {
-        assertNeedsLayout("computeDistanceToActualBaseline")
-        return when (baseline) {
-            TextBaseline.alphabetic -> paragraph!!.alphabeticBaseline
-            TextBaseline.ideographic -> paragraph!!.ideographicBaseline
-        }
-    }
+        private set
 
     /**
      * Whether any text was truncated or ellipsized.
@@ -312,9 +337,6 @@ class TextPainter(
             return paragraph!!.didExceedMaxLines
         }
 
-    private var lastMinWidth: Float = 0.0f
-    private var lastMaxWidth: Float = 0.0f
-
     /**
      * Computes the visual position of the glyphs for painting the text.
      *
@@ -323,7 +345,7 @@ class TextPainter(
      *
      * The [text] and [textDirection] properties must be non-null before this is called.
      */
-    fun layout(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
+    private fun layoutText(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
         assert(text != null) {
             "TextPainter.text must be set to a non-null value before using the TextPainter."
         }
@@ -331,7 +353,13 @@ class TextPainter(
             "TextPainter.textDirection must be set to a non-null value before using the" +
                     " TextPainter."
         }
-        if (!needsLayout && minWidth == lastMinWidth && maxWidth == lastMaxWidth) return
+
+        // TODO(haoyuchang): fix that when softWarp is false and overflow is Ellipsis, ellipsis
+        //  doesn't work.
+        val widthMatters = softWrap || overflow == TextOverflow.Ellipsis
+        val finalMaxWidth = if (widthMatters) maxWidth else Float.POSITIVE_INFINITY
+
+        if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
             val builder = ParagraphBuilder(createParagraphStyle())
@@ -339,13 +367,63 @@ class TextPainter(
             paragraph = builder.build()
         }
         lastMinWidth = minWidth
-        lastMaxWidth = maxWidth
-        paragraph!!.layout(ParagraphConstraints(width = maxWidth))
-        if (minWidth != maxWidth) {
-            val newWidth = maxIntrinsicWidth.coerceIn(minWidth, maxWidth)
-            if (newWidth != width) {
+        lastMaxWidth = finalMaxWidth
+        paragraph!!.layout(ParagraphConstraints(width = finalMaxWidth))
+        if (minWidth != finalMaxWidth) {
+            val newWidth = maxIntrinsicWidth.coerceIn(minWidth, finalMaxWidth)
+            if (newWidth != paragraph!!.width) {
                 paragraph!!.layout(ParagraphConstraints(width = newWidth))
             }
+        }
+    }
+
+    fun layout(constraints: Constraints) {
+        layoutText(constraints.minWidth.value.toFloat(), constraints.maxWidth.value.toFloat())
+
+        val didOverflowHeight = didExceedMaxLines
+        size = constraints.constrain(
+            IntPxSize(paragraph!!.width.px.round(), paragraph!!.height.px.round())
+        ).let {
+            Size(it.width.value.toFloat(), it.height.value.toFloat())
+        }
+        val didOverflowWidth = size.width < paragraph!!.width
+        // TODO(abarth): We're only measuring the sizes of the line boxes here. If
+        // the glyphs draw outside the line boxes, we might think that there isn't
+        // visual overflow when there actually is visual overflow. This can become
+        // a problem if we start having horizontal overflow and introduce a clip
+        // that affects the actual (but undetected) vertical overflow.
+        hasVisualOverflow = didOverflowWidth || didOverflowHeight
+        overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
+            val fadeSizePainter = TextPainter(
+                text = TextSpan(style = text?.style, text = "\u2026"),
+                textDirection = textDirection,
+                textScaleFactor = textScaleFactor
+            )
+            fadeSizePainter.layoutText()
+            val fadeWidth = fadeSizePainter.paragraph!!.width
+            val fadeHeight = fadeSizePainter.paragraph!!.height
+            if (didOverflowWidth) {
+                val (fadeStart, fadeEnd) = if (textDirection == TextDirection.Rtl) {
+                    Pair(fadeWidth, 0.0f)
+                } else {
+                    Pair(size.width - fadeWidth, size.width)
+                }
+                Gradient.linear(
+                    Offset(fadeStart, 0.0f),
+                    Offset(fadeEnd, 0.0f),
+                    listOf(Color(0xFFFFFFFF.toInt()), Color(0x00FFFFFF))
+                )
+            } else {
+                val fadeEnd = size.height
+                val fadeStart = fadeEnd - fadeHeight
+                Gradient.linear(
+                    Offset(0.0f, fadeStart),
+                    Offset(0.0f, fadeEnd),
+                    listOf(Color(0xFFFFFFFF.toInt()), Color(0x00FFFFFF))
+                )
+            }
+        } else {
+            null
         }
     }
 
@@ -367,13 +445,56 @@ class TextPainter(
             "TextPainter.paint called when text geometry was not yet calculated.\n" +
                     "Please call layout() before paint() to position the text before painting it."
         }
+        // Ideally we could compute the min/max intrinsic width/height with a
+        // non-destructive operation. However, currently, computing these values
+        // will destroy state inside the painter. If that happens, we need to
+        // get back the correct state by calling layout again.
+        //
+        // TODO(abarth): Make computing the min/max intrinsic width/height
+        // a non-destructive operation.
+        //
+        // If you remove this call, make sure that changing the textAlign still
+        // works properly.
+        // TODO(Migration/qqd): Need to figure out where this constraints come from and how to make
+        // it non-null. For now Crane Text version does not need to layout text again. Comment it.
+        // layoutTextWithConstraints(constraints!!)
+
+        if (hasVisualOverflow) {
+            val bounds = offset.and(size)
+            if (overflowShader != null) {
+                // This layer limits what the shader below blends with to be just the text
+                // (as opposed to the text and its background).
+                canvas.saveLayer(bounds, Paint())
+            } else {
+                canvas.save()
+            }
+            canvas.clipRect(bounds)
+        }
         paragraph!!.paint(canvas, offset.dx, offset.dy)
+        if (hasVisualOverflow) {
+            if (overflowShader != null) {
+                canvas.translate(offset.dx, offset.dy)
+                val paint = Paint()
+                paint.blendMode = BlendMode.multiply
+                paint.shader = overflowShader
+                canvas.drawRect(Offset.zero.and(size), paint)
+            }
+            canvas.restore()
+        }
     }
 
-    /** Returns path that enclose the given text selection range. */
-    fun getPathForSelection(selection: TextSelection): Path {
+    /**
+     * Paint the text selection highlight of the given [selection] and [offset] on [canvas].
+     *
+     * This function can only be called after [layout] is called first.
+     */
+    fun paintSelection(selection: TextSelection, canvas: Canvas, offset: Offset) {
         assert(!needsLayout)
-        return paragraph!!.getPathForRange(selection.start, selection.end)
+        val selectionPath = paragraph!!.getPathForRange(selection.start, selection.end)
+        // TODO(haoyuchang): check if move this paint to parameter is better
+        val selectionPaint = Paint()
+        selectionPaint.color = selectionColor
+        canvas.drawPath(selectionPath.shift(offset), selectionPaint)
     }
 
     /** Returns the position within the text for the given pixel offset. */
@@ -383,13 +504,17 @@ class TextPainter(
     }
 
     /**
-     * Returns the Caret as a vertical bar for given text position, at which to paint the caret.
+     * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
+     * top, bottom, left and right of a character.
      *
      * Valid only after [layout] has been called.
+     *
+     * @hide
      */
-    fun getCaretForTextPosition(position: TextPosition): Pair<Offset, Offset> {
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
         assert(!needsLayout)
-        return paragraph!!.getCaretForTextPosition(position)
+        return paragraph!!.getBoundingBoxForTextPosition(textPosition)
     }
 
     /**

@@ -16,10 +16,12 @@
 
 package androidx.ui.painting
 
+import androidx.ui.core.Constraints
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.window.Locale
+import androidx.ui.rendering.paragraph.TextOverflow
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test
@@ -33,11 +35,11 @@ class TextPainterTest() {
         val textPainter = TextPainter()
 
         assertThat(textPainter.text).isNull()
-        assertThat(textPainter.textAlign).isEqualTo(TextAlign.START)
+        assertThat(textPainter.textAlign).isEqualTo(TextAlign.Start)
         assertThat(textPainter.textDirection).isNull()
         assertThat(textPainter.textScaleFactor).isEqualTo(1.0f)
         assertThat(textPainter.maxLines).isNull()
-        assertThat(textPainter.ellipsis).isNull()
+        assertThat(textPainter.overflow).isEqualTo(TextOverflow.Clip)
         assertThat(textPainter.locale).isNull()
     }
 
@@ -52,16 +54,16 @@ class TextPainterTest() {
 
     @Test
     fun `constructor with customized textAlign`() {
-        val textPainter = TextPainter(textAlign = TextAlign.LEFT)
+        val textPainter = TextPainter(textAlign = TextAlign.Left)
 
-        assertThat(textPainter.textAlign).isEqualTo(TextAlign.LEFT)
+        assertThat(textPainter.textAlign).isEqualTo(TextAlign.Left)
     }
 
     @Test
     fun `constructor with customized textDirection`() {
-        val textPainter = TextPainter(textDirection = TextDirection.RTL)
+        val textPainter = TextPainter(textDirection = TextDirection.Rtl)
 
-        assertThat(textPainter.textDirection).isEqualTo(TextDirection.RTL)
+        assertThat(textPainter.textDirection).isEqualTo(TextDirection.Rtl)
     }
 
     @Test
@@ -83,12 +85,12 @@ class TextPainterTest() {
     }
 
     @Test
-    fun `constructor with customized ellipsis`() {
-        val ellipsis = true
+    fun `constructor with customized overflow`() {
+        val overflow = TextOverflow.Ellipsis
 
-        val textPainter = TextPainter(ellipsis = ellipsis)
+        val textPainter = TextPainter(overflow = overflow)
 
-        assertThat(textPainter.ellipsis).isEqualTo(ellipsis)
+        assertThat(textPainter.overflow).isEqualTo(overflow)
     }
 
     @Test
@@ -116,9 +118,9 @@ class TextPainterTest() {
     fun `textAlign setter`() {
         val textPainter = TextPainter()
 
-        textPainter.textAlign = TextAlign.LEFT
+        textPainter.textAlign = TextAlign.Left
 
-        assertThat(textPainter.textAlign).isEqualTo(TextAlign.LEFT)
+        assertThat(textPainter.textAlign).isEqualTo(TextAlign.Left)
         assertThat(textPainter.paragraph).isNull()
         assertThat(textPainter.needsLayout).isTrue()
     }
@@ -127,9 +129,9 @@ class TextPainterTest() {
     fun `textDirection setter`() {
         val textPainter = TextPainter()
 
-        textPainter.textDirection = TextDirection.RTL
+        textPainter.textDirection = TextDirection.Rtl
 
-        assertThat(textPainter.textDirection).isEqualTo(TextDirection.RTL)
+        assertThat(textPainter.textDirection).isEqualTo(TextDirection.Rtl)
         assertThat(textPainter.paragraph).isNull()
         assertThat(textPainter.layoutTemplate).isNull()
         assertThat(textPainter.needsLayout).isTrue()
@@ -161,13 +163,13 @@ class TextPainterTest() {
     }
 
     @Test
-    fun `ellipsis setter`() {
+    fun `overflow setter`() {
         val textPainter = TextPainter()
-        val ellipsis = true
+        val overflow = TextOverflow.Ellipsis
 
-        textPainter.ellipsis = ellipsis
+        textPainter.overflow = overflow
 
-        assertThat(textPainter.ellipsis).isEqualTo(ellipsis)
+        assertThat(textPainter.overflow).isEqualTo(overflow)
         assertThat(textPainter.paragraph).isNull()
         assertThat(textPainter.needsLayout).isTrue()
     }
@@ -189,27 +191,27 @@ class TextPainterTest() {
         val fontSize = 15.0f
         val scaleFactor = 3.0f
         val maxLines = 5
-        val ellipsis = true
+        val overflow = TextOverflow.Ellipsis
         val locale = Locale("en", "US")
         val textStyle = TextStyle(fontSize = fontSize)
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.CENTER,
-            textDirection = TextDirection.RTL,
+            textAlign = TextAlign.Center,
+            textDirection = TextDirection.Rtl,
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            overflow = overflow,
             locale = locale
         )
 
         val paragraphStyle = textPainter.createParagraphStyle()
 
         assertThat(paragraphStyle.getTextStyle().fontSize).isEqualTo(fontSize * scaleFactor)
-        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.CENTER)
-        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.RTL)
+        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.Center)
+        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.Rtl)
         assertThat(paragraphStyle.maxLines).isEqualTo(maxLines)
-        assertThat(paragraphStyle.ellipsis).isEqualTo(ellipsis)
+        assertThat(paragraphStyle.ellipsis).isEqualTo(true)
         assertThat(paragraphStyle.locale).isEqualTo(locale)
     }
 
@@ -217,26 +219,26 @@ class TextPainterTest() {
     fun `createParagraphStyle without TextStyle in TextSpan`() {
         val scaleFactor = 3.0f
         val maxLines = 5
-        val ellipsis = true
+        val overflow = TextOverflow.Ellipsis
         val locale = Locale("en", "US")
         val textSpan = TextSpan(text = "Hello")
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.CENTER,
-            textDirection = TextDirection.RTL,
+            textAlign = TextAlign.Center,
+            textDirection = TextDirection.Rtl,
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            overflow = overflow,
             locale = locale
         )
 
         val paragraphStyle = textPainter.createParagraphStyle()
 
         assertThat(paragraphStyle.getTextStyle().fontSize).isNull()
-        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.CENTER)
-        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.RTL)
+        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.Center)
+        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.Rtl)
         assertThat(paragraphStyle.maxLines).isEqualTo(maxLines)
-        assertThat(paragraphStyle.ellipsis).isEqualTo(ellipsis)
+        assertThat(paragraphStyle.ellipsis).isEqualTo(true)
         assertThat(paragraphStyle.locale).isEqualTo(locale)
     }
 
@@ -245,26 +247,26 @@ class TextPainterTest() {
         val fontSize = 15.0f
         val scaleFactor = 3.0f
         val maxLines = 5
-        val ellipsis = true
+        val overflow = TextOverflow.Ellipsis
         val locale = Locale("en", "US")
         val textStyle = TextStyle(fontSize = fontSize)
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.CENTER,
+            textAlign = TextAlign.Center,
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
-            ellipsis = ellipsis,
+            overflow = overflow,
             locale = locale
         )
 
-        val paragraphStyle = textPainter.createParagraphStyle(TextDirection.RTL)
+        val paragraphStyle = textPainter.createParagraphStyle(TextDirection.Rtl)
 
         assertThat(paragraphStyle.getTextStyle().fontSize).isEqualTo(fontSize * scaleFactor)
-        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.CENTER)
-        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.RTL)
+        assertThat(paragraphStyle.textAlign).isEqualTo(TextAlign.Center)
+        assertThat(paragraphStyle.textDirection).isEqualTo(TextDirection.Rtl)
         assertThat(paragraphStyle.maxLines).isEqualTo(maxLines)
-        assertThat(paragraphStyle.ellipsis).isEqualTo(ellipsis)
+        assertThat(paragraphStyle.ellipsis).isEqualTo(true)
         assertThat(paragraphStyle.locale).isEqualTo(locale)
     }
 
@@ -320,27 +322,16 @@ class TextPainterTest() {
 
     @Test(expected = AssertionError::class)
     fun `layout without text assertion should fail`() {
-        val textPainter = TextPainter(textDirection = TextDirection.LTR)
+        val textPainter = TextPainter(textDirection = TextDirection.Ltr)
 
-        textPainter.layout()
+        textPainter.layout(Constraints())
     }
 
     @Test(expected = AssertionError::class)
     fun `layout without textDirection assertion should fail`() {
         val textPainter = TextPainter(text = TextSpan())
 
-        textPainter.layout()
-    }
-
-    @Test
-    fun `layout with !needsLayout && minWidth == lastMinWidth && maxWidth == lastMaxWidth`() {
-        val textPainter =
-            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.LTR)
-        textPainter.needsLayout = false
-
-        textPainter.layout(0.0f, 0.0f)
-
-        assertThat(textPainter.paragraph).isNull()
+        textPainter.layout(Constraints())
     }
 
     @Test(expected = AssertionError::class)
