@@ -34,6 +34,24 @@
       "revId": "7bc54ea8f5d1352207bf42423924bf62d3bf964b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa23155_4c4a0287",
+        "filename": "development/importMaven/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-20T18:17:14Z",
+      "side": 1,
+      "message": "No, i think we should do it for both. It\u0027s super helpful when debugging.",
+      "parentUuid": "7b72ed08_812ba456",
+      "revId": "7bc54ea8f5d1352207bf42423924bf62d3bf964b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
