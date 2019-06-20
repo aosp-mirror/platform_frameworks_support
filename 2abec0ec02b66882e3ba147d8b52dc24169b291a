@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd228e6d_2839f663",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-20T17:46:10Z",
+      "side": 1,
+      "message": "Because this is inline and contains two lambdas you\u0027re actually causing two classes to be created at every call site.\n\nYou\u0027d be better off not marking this function as inline, removing crossinline, and changing the implementation to `list.map(function)`. This will cause a single class at the call site (the lambda) and a single class as implementation detail (the Function which accepts the lambda).",
+      "revId": "2abec0ec02b66882e3ba147d8b52dc24169b291a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
