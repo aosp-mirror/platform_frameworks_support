@@ -16,29 +16,27 @@
 
 package androidx.ui.material
 
+import androidx.compose.composer
+import androidx.compose.state
+import androidx.compose.unaryPlus
 import androidx.test.filters.MediumTest
-
 import androidx.ui.core.OnChildPositioned
 import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
+import androidx.ui.core.round
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.DisableTransitions
-import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsChecked
 import androidx.ui.test.assertIsNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
+import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
-import androidx.compose.composer
-import androidx.compose.state
-import androidx.compose.unaryPlus
-import androidx.ui.core.round
 import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
@@ -47,10 +45,10 @@ import org.junit.runners.JUnit4
 
 @MediumTest
 @RunWith(JUnit4::class)
-class SwitchUiTest : AndroidUiTestRunner() {
+class SwitchUiTest {
 
     @get:Rule
-    val disableTransitions = DisableTransitions()
+    val composeTestRule = createComposeRule(disableTransitions = true)
 
     private val defaultUncheckedSwitchSemantics = createFullSemantics(
         isEnabled = true,
@@ -63,13 +61,13 @@ class SwitchUiTest : AndroidUiTestRunner() {
 
     @Test
     fun switch_defaultSemantics() {
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             Column {
                 TestTag(tag = "checked") {
-                    Switch(checked = true)
+                    Switch(checked = true, onCheckedChange = null)
                 }
                 TestTag(tag = "unchecked") {
-                    Switch(checked = false)
+                    Switch(checked = false, onCheckedChange = null)
                 }
             }
         }
@@ -80,10 +78,10 @@ class SwitchUiTest : AndroidUiTestRunner() {
 
     @Test
     fun switch_toggle() {
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             val (checked, onChecked) = +state { false }
             TestTag(tag = defaultSwitchTag) {
-                Switch(checked = checked, onClick = { onChecked(!checked) })
+                Switch(checked, onChecked)
             }
         }
         findByTag(defaultSwitchTag)
@@ -95,10 +93,10 @@ class SwitchUiTest : AndroidUiTestRunner() {
     @Test
     fun switch_toggleTwice() {
 
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             val (checked, onChecked) = +state { false }
             TestTag(tag = defaultSwitchTag) {
-                Switch(checked = checked, onClick = { onChecked(!checked) })
+                Switch(checked, onChecked)
             }
         }
         findByTag(defaultSwitchTag)
@@ -111,10 +109,10 @@ class SwitchUiTest : AndroidUiTestRunner() {
 
     @Test
     fun switch_uncheckableWithNoLambda() {
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             val (checked, _) = +state { false }
             TestTag(tag = defaultSwitchTag) {
-                Switch(checked = checked)
+                Switch(checked = checked, onCheckedChange = null)
             }
         }
         findByTag(defaultSwitchTag)
@@ -135,7 +133,7 @@ class SwitchUiTest : AndroidUiTestRunner() {
 
     private fun materialSizesTestForValue(checked: Boolean) {
         var switchSize: PxSize? = null
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             Container(
                 constraints = DpConstraints(
                     maxWidth = 5000.dp,
@@ -145,11 +143,11 @@ class SwitchUiTest : AndroidUiTestRunner() {
                 OnChildPositioned(onPositioned = { coordinates ->
                     switchSize = coordinates.size
                 }) {
-                    Switch(checked = checked)
+                    Switch(checked = checked, onCheckedChange = null)
                 }
             }
         }
-        withDensity(density) {
+        withDensity(composeTestRule.density) {
             Truth.assertThat(switchSize?.width?.round())
                 .isEqualTo(34.dp.toIntPx() + 2.dp.toIntPx() * 2)
             Truth.assertThat(switchSize?.height?.round())

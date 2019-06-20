@@ -18,6 +18,7 @@ import static androidx.build.dependencies.DependenciesKt.*
 
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
     id("AndroidXPlugin")
@@ -25,7 +26,7 @@ plugins {
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:1.1.0-rc01")
+    implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.collection:collection:1.0.0")
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
@@ -45,7 +46,7 @@ android {
 
 androidx {
     name = "VersionedParcelable and friends"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.VERSIONED_PARCELABLE
     mavenGroup = LibraryGroups.VERSIONEDPARCELABLE
     inceptionYear = "2018"

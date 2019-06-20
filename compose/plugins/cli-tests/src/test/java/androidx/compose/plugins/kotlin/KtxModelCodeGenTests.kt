@@ -254,9 +254,7 @@ class KtxModelCodeGenTests : AbstractCodegenTest() {
               </Observe>
             }
 
-            val president = FrameManager.framed { PersonD("$PRESIDENT_NAME_1", ${
-                PRESIDENT_AGE_1
-            }).apply { age = $PRESIDENT_AGE_1 } }
+            val president = FrameManager.framed { PersonD("$PRESIDENT_NAME_1", $PRESIDENT_AGE_1).apply { age = $PRESIDENT_AGE_1 } }
             """, { mapOf("name" to name, "age" to age) }, """
                president.name = name
                president.age = age
@@ -384,8 +382,8 @@ class ModelCompositionTest(val composable: () -> Unit, val advance: () -> Unit) 
         val root = activity.root
         val component = ModelRoot()
         val cc = Compose.createCompositionContext(root.context, root, component, null)
-        cc.runWithCurrent {
-            val composer = composer.composer
+        cc.composer.runWithCurrent {
+            val composer = cc.composer
             composer.startRoot()
             composable()
             composer.endRoot()

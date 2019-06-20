@@ -73,6 +73,9 @@ function_lock_cpu() {
         # enable core, so we can find its frequencies
         echo 1 > ${CPU_BASE}/cpu${cpu}/online
 
+        # set userspace governor on all CPUs to ensure freq scaling is disabled
+        echo userspace > ${CPU_BASE}/cpu${cpu}/${GOV}
+
         maxFreq=`cat ${CPU_BASE}/cpu$cpu/cpufreq/cpuinfo_max_freq`
         availFreq=`cat ${CPU_BASE}/cpu$cpu/cpufreq/scaling_available_frequencies`
         availFreqCmpr=${availFreq// /-}
@@ -114,7 +117,6 @@ function_lock_cpu() {
         freq=${CPU_BASE}/cpu$cpu/cpufreq
 
         echo 1 > ${CPU_BASE}/cpu${cpu}/online
-        echo userspace > ${CPU_BASE}/cpu${cpu}/${GOV}
         echo ${chosenFreq} > ${freq}/scaling_max_freq
         echo ${chosenFreq} > ${freq}/scaling_min_freq
         echo ${chosenFreq} > ${freq}/scaling_setspeed
@@ -228,6 +230,8 @@ stop thermal-engine
 stop perfd
 stop vendor.thermal-engine
 stop vendor.perfd
+setprop vendor.powerhal.init 0
+setprop ctl.interface_restart android.hardware.power@1.0::IPower/default
 
 function_lock_cpu
 
