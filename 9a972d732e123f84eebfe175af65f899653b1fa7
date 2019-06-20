@@ -16,6 +16,24 @@
       "revId": "9a972d732e123f84eebfe175af65f899653b1fa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb7acd4f_952f4e05",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-20T17:36:20Z",
+      "side": 1,
+      "message": "Previously open in 2.1, so that would be a breaking change.\n\nCan you start a doc with things like this though - proposed API breakages for 3.0? Final data SGTM, but it\u0027s an orthogonal change - better as a follow up.",
+      "parentUuid": "4431028c_c5377a70",
+      "revId": "9a972d732e123f84eebfe175af65f899653b1fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
