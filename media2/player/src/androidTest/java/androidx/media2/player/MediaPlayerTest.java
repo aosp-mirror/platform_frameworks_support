@@ -24,7 +24,6 @@ import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_SUCCESS;
 import static junit.framework.TestCase.assertFalse;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -64,7 +63,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -83,10 +81,10 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     private Object mPlayerCbArg1;
     private Object mPlayerCbArg2;
 
-    private final Vector<Integer> mVideoTrackIndices = new Vector<>();
-    private final Vector<Integer> mAudioTrackIndices = new Vector<>();
-    private final Vector<Integer> mSubtitleTrackIndices = new Vector<>();
-    private int mSelectedSubtitleIndex;
+    private final List<TrackInfo> mVideoTrackInfos = new ArrayList<>();
+    private final List<TrackInfo> mAudioTrackInfos = new ArrayList<>();
+    private final List<TrackInfo> mSubtitleTrackInfos = new ArrayList<>();
+    private TrackInfo mSelectedTrack = null;
     private final Monitor mOnSubtitleDataCalled = new Monitor();
     private final Monitor mOnInfoCalled = new Monitor();
     private final Monitor mOnTrackInfoChangedCalled = new Monitor();
@@ -557,53 +555,44 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     }
 
     private void readTracks() {
-        mVideoTrackIndices.clear();
-        mAudioTrackIndices.clear();
-        mSubtitleTrackIndices.clear();
+        mVideoTrackInfos.clear();
+        mAudioTrackInfos.clear();
+        mSubtitleTrackInfos.clear();
         List<MediaPlayer.TrackInfo> trackInfos = mPlayer.getTrackInfo();
         if (trackInfos == null || trackInfos.size() == 0) {
             return;
         }
 
-        Vector<Integer> videoTrackIndices = new Vector<>();
-        Vector<Integer> audioTrackIndices = new Vector<>();
-        Vector<Integer> subtitleTrackIndices = new Vector<>();
-        for (int i = 0; i < trackInfos.size(); ++i) {
-            assertNotNull(trackInfos.get(i));
-            switch (trackInfos.get(i).getTrackType()) {
+        for (MediaPlayer.TrackInfo track: trackInfos) {
+            assertNotNull(track);
+            switch (track.getTrackType()) {
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
-                    mVideoTrackIndices.add(i);
+                    mVideoTrackInfos.add(track);
                     break;
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
-                    mAudioTrackIndices.add(i);
+                    mAudioTrackInfos.add(track);
                     break;
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
-                    mSubtitleTrackIndices.add(i);
+                    mSubtitleTrackInfos.add(track);
                     break;
             }
         }
-
-        mVideoTrackIndices.addAll(videoTrackIndices);
-        mAudioTrackIndices.addAll(audioTrackIndices);
-        mSubtitleTrackIndices.addAll(subtitleTrackIndices);
     }
 
-    private void selectSubtitleTrack(int index) throws Exception {
-        int trackIndex = mSubtitleTrackIndices.get(index);
-        List<TrackInfo> tracks = mPlayer.getTrackInfo();
-        ListenableFuture<PlayerResult> future = mPlayer.selectTrack(tracks.get(trackIndex));
-        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
-        mSelectedSubtitleIndex = index;
+    private void expectSelectSubtitleTrack(int index, boolean expectSuccess) throws Exception {
+        assertTrue(index < mSubtitleTrackInfos.size());
+        final TrackInfo track = mSubtitleTrackInfos.get(index);
+        ListenableFuture<PlayerResult> future = mPlayer.selectTrack(track);
+        assertEquals(expectSuccess, RESULT_SUCCESS == future.get().getResultCode());
+        mSelectedTrack = track;
     }
 
-    private int deselectSubtitleTrack(int index) throws Exception {
-        int trackIndex = mSubtitleTrackIndices.get(index);
-        List<TrackInfo> tracks = mPlayer.getTrackInfo();
-        ListenableFuture<PlayerResult> future = mPlayer.deselectTrack(tracks.get(trackIndex));
-        if (mSelectedSubtitleIndex == index) {
-            mSelectedSubtitleIndex = -1;
-        }
-        return future.get().getResultCode();
+    private void expectDeselectSubtitleTrack(int index, boolean expectSuccess) throws Exception {
+        assertTrue(index < mSubtitleTrackInfos.size());
+        final TrackInfo track = mSubtitleTrackInfos.get(index);
+        ListenableFuture<PlayerResult> future = mPlayer.deselectTrack(track);
+        assertEquals(expectSuccess, RESULT_SUCCESS == future.get().getResultCode());
+        mSelectedTrack = null;
     }
 
     @Test
@@ -651,18 +640,18 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         // Run twice to check if repeated selection-deselection on the same track works well.
         for (int i = 0; i < 2; i++) {
             // Waits until at least one subtitle is fired. Timeout is 2.5 seconds.
-            selectSubtitleTrack(i);
+            expectSelectSubtitleTrack(i, true);
             mOnSubtitleDataCalled.reset();
             assertTrue(mOnSubtitleDataCalled.waitForSignal(2500));
 
             // Try deselecting track.
-            assertEquals(RESULT_SUCCESS, deselectSubtitleTrack(i));
+            expectDeselectSubtitleTrack(i, true);
             mOnSubtitleDataCalled.reset();
             assertFalse(mOnSubtitleDataCalled.waitForSignal(1500));
         }
 
         // Deselecting unselected track: expected error status
-        assertNotEquals(RESULT_SUCCESS, deselectSubtitleTrack(0));
+        expectDeselectSubtitleTrack(0, false);
         mPlayer.reset();
     }
 
@@ -705,14 +694,20 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mOnInfoCalled.waitForSignal(1500);
 
         readTracks();
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         // Waits until at least two captions are fired. Timeout is 2.5 sec.
-        selectSubtitleTrack(0);
+        expectSelectSubtitleTrack(0, true);
         assertTrue(mOnSubtitleDataCalled.waitForCountedSignals(2, 2500) >= 2);
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         mOnSubtitleDataCalled.reset();
-        selectSubtitleTrack(1);
+        expectSelectSubtitleTrack(1, true);
         assertTrue(mOnSubtitleDataCalled.waitForCountedSignals(2, 2500) >= 2);
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         mPlayer.reset();
     }
@@ -749,7 +744,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mOnInfoCalled.waitForSignal(1500);
 
         readTracks();
-        assertEquals(2, mSubtitleTrackIndices.size());
+        assertEquals(2, mSubtitleTrackInfos.size());
 
         mPlayer.reset();
     }
@@ -779,10 +774,16 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         // R.raw.testvideo contains the following tracks:
         //  MEDIA_TRACK_TYPE_VIDEO: 1
         //  MEDIA_TRACK_TYPE_AUDIO: 1
-        assertEquals(1, mVideoTrackIndices.size());
-        assertEquals(1, mAudioTrackIndices.size());
-        assertEquals(0, mSubtitleTrackIndices.size());
+        assertEquals(1, mVideoTrackInfos.size());
+        assertEquals(1, mAudioTrackInfos.size());
+        assertEquals(0, mSubtitleTrackInfos.size());
 
+        // Test getSelectedTrack
+        assertEquals(mVideoTrackInfos.get(0),
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_VIDEO));
+        assertEquals(mAudioTrackInfos.get(0),
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_AUDIO));
+        assertNull(mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
         mPlayer.reset();
     }
 

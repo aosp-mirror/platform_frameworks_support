@@ -1601,6 +1601,19 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             for (int i = 0; i < mQueue.size(); i++) {
                 MediaPlayerSource src = mQueue.get(i);
                 if (mp == src.getPlayer()) {
+                    // The first video/audio tracks are selected tracks.
+                    MediaPlayer.TrackInfo[] tracks = mp.getTrackInfo();
+                    for (int j = 0; j < tracks.length; j++) {
+                        switch (tracks[j].getTrackType()) {
+                            case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                            case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                                src.mSelectedTracks.putIfAbsent(tracks[j].getTrackType(), j);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     if (i == 0) {
                         if (src.mPlayPending) {
                             src.mPlayPending = false;
