@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "990854ee_5e211208",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "what about properties in kotlin?",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 21
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b9b74a_844de416",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "nothing to return",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03f1e76e_4f046b64",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "I think it makes sense to save results, so we don\u0027t have rebuild that again and again, because it probably fairly expensive",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 63
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e4d91d4_9cb384d5",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "why not simply: \n\nval foo \u003d if (isFile) {} else {}",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 30
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07396aa1_e3173f31",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXUiPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "Can we turn it on for everyone?",
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

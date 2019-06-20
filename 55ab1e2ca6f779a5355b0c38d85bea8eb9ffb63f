@@ -1,0 +1,267 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "072262eb_69dc5fd9",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "KDocSampleLinkDetector",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a33b9734_4ef5e9c2",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "it should be in KDocSampleLinkDetector, no reason to make a more complicated structure and keeping it global (especially given that you clean on before and after project)",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b66aade9_a9562ccf",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "same it shouldn\u0027t be static",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170421c8_58d9d877",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "SampleAnnotationHandler",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658b2d8a_5dc0a860",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "see Alan\u0027s visitAnnotationUsage, it will save you a little bit of time",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e93d4b3_99890016",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "create a small function for that instead of making it a caller responsibility",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 337,
+        "endChar": 17
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ae5e349_bc83a904",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "use proper API on File to getParent",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa05b9c_3204186a",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "move it to top-level still private. So it will be clean that it is \"pure\"",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e043016_477d37a6",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "will \n\n.mapNotNull { it as? KDocSection}\n\nsimply work?",
+      "range": {
+        "startLine": 405,
+        "startChar": 68,
+        "endLine": 407,
+        "endChar": 21
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a8ca97a_19348e71",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "simply receive context as a param and kill base class.",
+      "range": {
+        "startLine": 424,
+        "startChar": 12,
+        "endLine": 424,
+        "endChar": 31
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f91b45a2_d8e1e778",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "a bit scary, but let\u0027s try :)",
+      "range": {
+        "startLine": 425,
+        "startChar": 29,
+        "endLine": 425,
+        "endChar": 48
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cea22224_c259d049",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "throw better exceptions here, so it will be easier to debug if it fails",
+      "range": {
+        "startLine": 427,
+        "startChar": 34,
+        "endLine": 427,
+        "endChar": 36
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b057dda_1d5ace35",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T19:15:33Z",
+      "side": 1,
+      "message": "does it depend on anything except PsiDirectory? If no, move it to top-level still private. So it will be clean that it is \"pure\"",
+      "range": {
+        "startLine": 431,
+        "startChar": 12,
+        "endLine": 431,
+        "endChar": 24
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
