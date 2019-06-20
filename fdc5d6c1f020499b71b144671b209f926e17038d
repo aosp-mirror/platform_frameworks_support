@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84ecadcc_0a4d3b8b",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Consider also adding:\n\nIdentityCredentialException(String message, Throwable cause) {\n    super(message, cause);\n}\n\nsame on others.",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 5
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49edca95_74d2d471",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Extracting some methods to make this shorter/simpler might be good.",
+      "range": {
+        "startLine": 301,
+        "startChar": 26,
+        "endLine": 301,
+        "endChar": 36
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f17572_5a8b2328",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "entriesNotToRequest\n\nDon\u0027t split infinitives :P",
+      "range": {
+        "startLine": 303,
+        "startChar": 51,
+        "endLine": 303,
+        "endChar": 70
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5db6c1cb_f2e1cfc9",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be parsed from requestMessage?  Same with readerCertificateChain, maybe?",
+      "range": {
+        "startLine": 306,
+        "startChar": 12,
+        "endLine": 306,
+        "endChar": 44
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a91f45_855e23df",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Why not?",
+      "range": {
+        "startLine": 308,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 97
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2428c1_90c2e262",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Perhaps entriesNotToRequest should be a Set\u003cPair\u003cString, String\u003e\u003e.",
+      "range": {
+        "startLine": 367,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 59
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79dcebeb_612c8fc3",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Might be good to memoize.  Once you\u0027ve checked an ACP once for a request, there\u0027s no need to evaluate it again; the answer won\u0027t change.",
+      "range": {
+        "startLine": 552,
+        "startChar": 25,
+        "endLine": 552,
+        "endChar": 83
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1052edf_265ea022",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareWritableIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Why check all aliases, rather than just trying to retrieve the one you care about?  Actually it seems like you should just replace this loop with \"ks.deleteEntry(aliasForCredential)\".",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0716679_c81bf817",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareWritableIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Nit:  Consider a more concise approach:\n\nif (challenge \u003d\u003d null) {\n    challenge \u003d EmptyArray.BYTES;\n}\nbuilder.setAttestationChallenge(challenge);",
+      "range": {
+        "startLine": 117,
+        "startChar": 7,
+        "endLine": 122,
+        "endChar": 17
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f9802f_6a6dfa45",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareWritableIdentityCredential.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "It\u0027s better to pass e to the IdentityCredentialException as the \"cause\".  Makes for much clearer logs.",
+      "range": {
+        "startLine": 138,
+        "startChar": 11,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc1f913_1cf98261",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/Util.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Uncomment?  Or delete?",
+      "range": {
+        "startLine": 596,
+        "startChar": 15,
+        "endLine": 596,
+        "endChar": 18
+      },
+      "revId": "fdc5d6c1f020499b71b144671b209f926e17038d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

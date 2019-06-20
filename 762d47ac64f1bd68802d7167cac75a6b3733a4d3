@@ -1,0 +1,504 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "676f1c8b_e9d6e675",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Maybe check that you got the same list of certificates as previous, not just a list of the same size?",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 45
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8e531e6_f4f39d1c",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Nit:  Maps.newHashMap() avoids the need to specify generic args.  Less verbose.  Ditto for Lists.newArrayList() above and below.  Also, it\u0027s slightly nicer to instantiate field defaults in the field declaration.",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 74
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e8e7e25_3477fc7e",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Nit:  I think you could write:\n\ndata.mEntryNamespaces \u003d Lists.newArrayList(entryNamespaces);\n\nIf not, you could at least avoid writing the explicit loop with:\n\ndata.mEntryNamespaces.addAll(entryNamespaces);",
+      "range": {
+        "startLine": 162,
+        "startChar": 7,
+        "endLine": 162,
+        "endChar": 50
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "563fb50f_bdf9e643",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Nit:  This method is long and complicated, and a little repetitive.  It looks like it might benefit from extracting some of the code into methods.",
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e86762_dc3e9bff",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "What if credentialName contains a NUL or a /?",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35818c6_9c2d8ef1",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "nit:  ks.load(null) works and is more common.",
+      "range": {
+        "startLine": 291,
+        "startChar": 11,
+        "endLine": 291,
+        "endChar": 31
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d74ee1_ae22368b",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Also need to delete credentialKey... and should delete any other keys as well.",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 22
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83106c0_bbd47aac",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Why?  This is not a good idea.",
+      "range": {
+        "startLine": 320,
+        "startChar": 20,
+        "endLine": 320,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1902372_09561f81",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "AtomicFile is unsafe in concurrent contexts, per the docs.",
+      "range": {
+        "startLine": 436,
+        "startChar": 30,
+        "endLine": 436,
+        "endChar": 40
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c79fc00_5e44f704",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Extracting logical chunks into methods would make this more readable.",
+      "range": {
+        "startLine": 451,
+        "startChar": 17,
+        "endLine": 451,
+        "endChar": 29
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073666c0_8c71b987",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "prevAuthKeyCount?",
+      "range": {
+        "startLine": 690,
+        "startChar": 12,
+        "endLine": 690,
+        "endChar": 24
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f9d6c1_19ee629c",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Isn\u0027t this \"newKeyNeeded\", rather than \"certificationNeeded\"?",
+      "range": {
+        "startLine": 762,
+        "startChar": 20,
+        "endLine": 762,
+        "endChar": 39
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e5690e_6aad0178",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "I think it would be simpler just to track a largest auth key number used, and continue incrementing it.  Or even random key alias names (sufficiently large to make the odds of collisions negligible).",
+      "range": {
+        "startLine": 768,
+        "startChar": 20,
+        "endLine": 773,
+        "endChar": 21
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60cfadc_137db6a9",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Nit: Range for would work here.",
+      "range": {
+        "startLine": 896,
+        "startChar": 7,
+        "endLine": 896,
+        "endChar": 49
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "225b1c06_7b880fa1",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Why not remove this condition, so this loop always finds the entry with the smallest use count.  Then you won\u0027t need the \"search again\" loop -- you\u0027ll only need to decide whether:\n\ncandidate.mUseCount \u003c mAuthMaxUsesPerKey || allowUsingExhaustedKeys",
+      "range": {
+        "startLine": 898,
+        "startChar": 38,
+        "endLine": 898,
+        "endChar": 77
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519f2011_5d19b758",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "It would be better to use the auth-bound key to actually encrypt the data it protects.  That could be an improvement added later, though.",
+      "range": {
+        "startLine": 1006,
+        "startChar": 20,
+        "endLine": 1006,
+        "endChar": 50
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680812c9_538656c0",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "This seems more complicated than necessary.  There\u0027s no need to track which existing key a pending key is intended to replace.  Why not just add pending keys as entries in a pending auth key list, then when you get a certificate, pick some existing key and delete it (ideally, the one with the highest use count) and move the no-longer-pending key into its place?  That way you wouldn\u0027t need the extra state with special semantics, and you could eliminate a bunch of status-checking in various places above -- no need to check if mAlias is empty; if a key is in the active list it\u0027s usable, if it\u0027s pending it\u0027s in the pending list.",
+      "range": {
+        "startLine": 1057,
+        "startChar": 3,
+        "endLine": 1059,
+        "endChar": 98
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b20eacc_89f99b23",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "I think this should default to true.  On balance, I think the small privacy risk of occasionally reusing exhausted keys is preferable to the large functionality risk of not being able to identify yourself.\n\nAnother approach might be to not make this a credential-wide configuration option, but instead make it a per-request option, with the recommendation that apps usually set the option to false, but if that results in no key being available they could ask the user whether to allow using an exhausted key in this particular case.  In the abstract it seems like this really should be a user choice, and should be made on a case by case basis.  In practice I doubt many users would understand the question.\n\nObviously the app could still choose to make it a global configuration option, and just always pass the configured value to the request API.",
+      "range": {
+        "startLine": 107,
+        "startChar": 33,
+        "endLine": 107,
+        "endChar": 38
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b537272_475106b4",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "I think a store per app makes more sense... and maps better onto the future when the store is per-device (but partitioned per app).",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 60
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1bddda_0e025b18",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "proofOfDeletion, for consistency with other keys.\n\nMore importantly... if proofOfDeletion returns all of the data, one of two things must be true, both bad:  Either all ACPs for retrieval must be satisfied before the credential can be deleted, or else deletion can be used to bypass all ACPs.\n\nWe need to think more about what a deletion receipt should be.",
+      "range": {
+        "startLine": 168,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 32
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d0b14d6_15d890e8",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa76ec1_177c2631",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "messageCiphertextAndAuthTag?  Would eliminate the need for the comment.",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

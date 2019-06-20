@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cfccb529_6d5ee21d",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/CborPrettyPrintingUnitTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-06-20T10:13:36Z",
+      "side": 1,
+      "message": "This seems odd... the constructed CBOR is invalid.  You can\u0027t have a sequence of elements that isn\u0027t contained in some sort of structure (map or array).",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f103a85d_ed0e146d",
         "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
         "patchSetId": 2
