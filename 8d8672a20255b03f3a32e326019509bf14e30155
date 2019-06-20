@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d63db50e_6a809ba5",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-20T11:58:32Z",
+      "side": 1,
+      "message": "Can we revert to assertIsChecked since we no longer needs to support multiple elements by this API?",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 26
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
