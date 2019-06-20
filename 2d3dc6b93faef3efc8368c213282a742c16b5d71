@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "f2f63017_d027c51a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/FixedSizeSurfaceTextures.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T23:12:02Z",
+      "side": 1,
+      "message": "Changed it to 0. It works",
+      "parentUuid": "90f4fd43_c5d8c904",
+      "range": {
+        "startLine": 30,
+        "startChar": 77,
+        "endLine": 30,
+        "endChar": 89
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac095172_7ef04442",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -306,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "3e8fa78d_df1792a2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T23:12:02Z",
+      "side": 1,
+      "message": "Changed the Future to an ImmediateFailedFuture with a SurfaceClosedException which is defined in DeferrableSurface",
+      "parentUuid": "9c0fec7d_fbf1cdf9",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 80
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee9157e_2e17996c",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -326,6 +374,30 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0965869e_ed8821a0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T23:12:02Z",
+      "side": 1,
+      "message": "Put this into a synchronized block",
+      "parentUuid": "7ee9157e_2e17996c",
+      "range": {
+        "startLine": 161,
+        "startChar": 39,
+        "endLine": 161,
+        "endChar": 52
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -352,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "eb240abd_05885bab",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T23:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb9d0809_c7609c5b",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 89
+      },
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1983d77a_800d65c8",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 2
@@ -366,6 +462,24 @@
       "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12399b9_a5063245",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T23:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1983d77a_800d65c8",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
