@@ -1328,13 +1328,27 @@ public class MediaControlView extends ViewGroup {
                 }
             };
 
-    void updateMetadata() {
+    void updateTimeViews(MediaItem item) {
+        if (item == null) {
+            mProgress.setProgress(0);
+            mCurrentTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            mEndTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            return;
+        }
+
         ensurePlayerIsNotNull();
 
         long duration = mPlayer.getDurationMs();
         if (duration != 0) {
             mDuration = duration;
             setProgress();
+        }
+    }
+
+    void updateTitleView(MediaItem item) {
+        if (item == null) {
+            mTitleView.setText(null);
+            return;
         }
 
         if (!isCurrentItemMusic()) {
@@ -1918,6 +1932,8 @@ public class MediaControlView extends ViewGroup {
                 Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
             }
 
+            updateTimeViews(player.getCurrentMediaItem());
+
             // Update pause button depending on playback state for the following two reasons:
             //   1) Need to handle case where app customizes playback state behavior when app
             //      activity is resumed.
@@ -2006,7 +2022,8 @@ public class MediaControlView extends ViewGroup {
             if (DEBUG) {
                 Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
             }
-            updateMetadata();
+            updateTimeViews(mediaItem);
+            updateTitleView(mediaItem);
         }
 
         @Override
@@ -2085,7 +2102,8 @@ public class MediaControlView extends ViewGroup {
             }
 
             updateTracks(player, trackInfos);
-            updateMetadata();
+            updateTimeViews(player.getCurrentMediaItem());
+            updateTitleView(player.getCurrentMediaItem());
         }
 
         @Override
