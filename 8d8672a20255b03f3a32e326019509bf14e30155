@@ -22,6 +22,75 @@
       "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0dfc17_f1e5f3d5",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-20T12:56:43Z",
+      "side": 1,
+      "message": "nit: wrong docs",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 80
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f70a14_d8aff62f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-20T12:56:43Z",
+      "side": 1,
+      "message": "nit: ditto with dumping the list of nodes",
+      "range": {
+        "startLine": 123,
+        "startChar": 30,
+        "endLine": 123,
+        "endChar": 85
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e971bfad_404c98e3",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-20T12:56:43Z",
+      "side": 1,
+      "message": "nit: I think it could be helpful here to actually dump the list of found nodes and their properties, can do in a later cl also.",
+      "range": {
+        "startLine": 85,
+        "startChar": 33,
+        "endLine": 85,
+        "endChar": 97
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
