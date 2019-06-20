@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4431028c_c5377a70",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/ItemKeyedDataSource.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-20T17:14:24Z",
+      "side": 1,
+      "message": "Should this actually be a final data class?",
+      "revId": "9a972d732e123f84eebfe175af65f899653b1fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
