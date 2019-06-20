@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "827b55ae_5e5f3b20",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T17:52:36Z",
+      "side": 1,
+      "message": "The problem that I\u0027m pointing out isn\u0027t the internal logic of the LenFacingCameraIdFilter.\nBut rather the question of how to get a particular camera\nMethod 1:\nString id \u003d INSTANCE.getCameraFactory().cameraIdForLensFacing(lensFacing);\n\nMethod 2:\nLenFacingCameraIdFilter filter;\nSet\u003cString\u003e availableCameraIds \u003d INSTANCE.getCameraFactory().getAvailableCameraIds();\nSet\u003cString\u003e filteredIds \u003d filter.filter(availableCameraIds);\nString id \u003d filteredId.get(0);\n\nWhich way should I use? Why do I need both of these methods of doing the same thing?\n\nI can see a point made for CameraX.getCameraWithLensFacing() since it is a top level convenience function. However, I think from the perspective of the CameraFactory we might want it to be more generic so we aren\u0027t bloating its interface.",
+      "parentUuid": "ddc58f94_e2ba4eeb",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7f699e4_783758ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 4
