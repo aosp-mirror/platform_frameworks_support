@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Andrey Kulikov <andreykulikov@google.com>
+Submitted-by: Yuichi Araki <yaraki@google.com>
+Submitted-at: Thu, 20 Jun 2019 03:48:40 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/985734
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
