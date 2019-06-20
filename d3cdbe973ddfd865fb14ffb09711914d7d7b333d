@@ -22,6 +22,30 @@
       "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06626161_4d55fa9b",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/api/1.0.0-alpha02.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-20T22:13:40Z",
+      "side": 1,
+      "message": "that is correct, because neither of @Nullable or @NonNull are specified and that was intentional",
+      "parentUuid": "fa28a038_54525d99",
+      "range": {
+        "startLine": 16,
+        "startChar": 93,
+        "endLine": 16,
+        "endChar": 97
+      },
+      "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
