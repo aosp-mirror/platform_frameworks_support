@@ -332,7 +332,8 @@ fun Layout(
             var intrinsicWidth = IntPx.Zero
             val measureBoxReceiver = LayoutReceiver(layoutState, { m, c ->
                 val width = m.minIntrinsicWidth(c.maxHeight)
-                DummyPlaceable(width, h)
+                val height = m.minIntrinsicHeight(width)
+                DummyPlaceable(width, height)
             }, { width, _, _ -> intrinsicWidth = width }, density)
             val constraints = Constraints(maxHeight = h)
             layoutBlock(measureBoxReceiver, measurables, constraints)
@@ -343,7 +344,8 @@ fun Layout(
             var intrinsicWidth = IntPx.Zero
             val layoutReceiver = LayoutReceiver(layoutState, { m, c ->
                 val width = m.maxIntrinsicWidth(c.maxHeight)
-                DummyPlaceable(width, h)
+                val height = m.maxIntrinsicHeight(width)
+                DummyPlaceable(width, height)
             }, { width, _, _ -> intrinsicWidth = width }, density)
             val constraints = Constraints(maxHeight = h)
             layoutBlock(layoutReceiver, measurables, constraints)
@@ -354,7 +356,8 @@ fun Layout(
             var intrinsicHeight = IntPx.Zero
             val layoutReceiver = LayoutReceiver(layoutState, { m, c ->
                 val height = m.minIntrinsicHeight(c.maxWidth)
-                DummyPlaceable(w, height)
+                val width = m.minIntrinsicWidth(height)
+                DummyPlaceable(width, height)
             }, { _, height, _ -> intrinsicHeight = height }, density)
             val constraints = Constraints(maxWidth = w)
             layoutBlock(layoutReceiver, measurables, constraints)
@@ -365,7 +368,8 @@ fun Layout(
             var intrinsicHeight = IntPx.Zero
             val layoutReceiver = LayoutReceiver(layoutState, { m, c ->
                 val height = m.maxIntrinsicHeight(c.maxWidth)
-                DummyPlaceable(w, height)
+                val width = m.maxIntrinsicWidth(height)
+                DummyPlaceable(width, height)
             }, { _, height, _ -> intrinsicHeight = height }, density)
             val constraints = Constraints(maxWidth = w)
             layoutBlock(layoutReceiver, measurables, constraints)
