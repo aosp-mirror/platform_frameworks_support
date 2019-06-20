@@ -380,8 +380,8 @@ private class AndroidCanvas(val internalCanvas: android.graphics.Canvas) : Canva
         internalRectF.set(rect.toFrameworkRect())
         internalCanvas.drawArc(
             internalRectF,
-            degrees(startAngle),
-            degrees(sweepAngle),
+            startAngle,
+            sweepAngle,
             useCenter,
             paint.asFrameworkPaint()
         )
