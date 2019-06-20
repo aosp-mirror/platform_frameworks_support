@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ab7c75f4_cc3ea1f3",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-20T22:37:21Z",
+      "side": 1,
+      "message": "Ah thanks for catching this, I totally forgot :)",
+      "parentUuid": "5cb52361_4553388e",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f96cdbe_a65420ce",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f365ac97_9978c575",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-20T22:37:21Z",
+      "side": 1,
+      "message": "Done I think - let me know if I did it correctly.",
+      "parentUuid": "9f96cdbe_a65420ce",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 74,
+        "endChar": 70
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "b17a273a_49c37bad",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-20T22:37:21Z",
+      "side": 1,
+      "message": "Done (I think?) Let me know if this is what you had in mind. With the changes to the constants above (directly referencing platform APIs) I\u0027m not sure which way is better :)",
+      "parentUuid": "52b4dfd6_c342d19b",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91270922_5c835e9c",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
         "patchSetId": 3
@@ -115,6 +187,30 @@
       "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26931062_86d4aaab",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-20T22:37:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91270922_5c835e9c",
+      "range": {
+        "startLine": 97,
+        "startChar": 19,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "a365a830ca71b7597edbf939e7e3dbd5f0c7a888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
