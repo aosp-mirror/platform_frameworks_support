@@ -405,14 +405,14 @@ class LayoutNode : ComponentNode() {
      * `true` when the layout has been dirtied by [requestRemeasure]. `false` after
      * the measurement has been complete ([resize] has been called).
      */
-    var needsRemeasure = true
+    var needsRemeasure = false
         internal set
 
     /**
      * `true` when the layout has been measured or dirtied because the layout
      * lambda accessed a model that has been dirtied.
      */
-    var needsRelayout = true
+    var needsRelayout = false
         internal set
 
     override val parentLayoutNode: LayoutNode?
@@ -420,6 +420,16 @@ class LayoutNode : ComponentNode() {
 
     override val containingLayoutNode: LayoutNode?
         get() = this
+
+    override fun attach(owner: Owner) {
+        super.attach(owner)
+        parentLayoutNode?.requestRemeasure()
+    }
+
+    override fun detach() {
+        parentLayoutNode?.requestRemeasure()
+        super.detach()
+    }
 
     fun moveTo(x: IntPx, y: IntPx) {
         visible = true

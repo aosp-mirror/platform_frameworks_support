@@ -198,11 +198,19 @@ class AndroidCraneView constructor(context: Context)
 
     override fun onRequestMeasure(layoutNode: LayoutNode) {
         // find root of layout request:
+        if (layoutNode.needsRemeasure) {
+            // don't need to do anything because it already needs to be remeasured
+            return
+        }
         layoutNode.needsRemeasure = true
 
         var layout = layoutNode
         while (layout.parentLayoutNode != null && layout.affectsParentSize) {
             layout = layout.parentLayoutNode!!
+            if (layout.needsRemeasure) {
+                // don't need to do anything else since the parent already needs measuring
+                return
+            }
             layout.needsRemeasure = true
         }
 
@@ -259,13 +267,11 @@ class AndroidCraneView constructor(context: Context)
                 relayoutNodes.sortedBy { it.depth }.forEach { layoutNode ->
                     if (layoutNode.needsRemeasure) {
                         val parent = layoutNode.parentLayoutNode
-                        if (parent != null) {
+                        if (parent != null && parent.layout != null) {
                             // This should call measure and layout on the child
-                            val parentLayout = parent.layout
-                            if (parentLayout != null) {
-                                parent.needsRelayout = true
-                                parentLayout.callLayout()
-                            }
+                            val parentLayout = parent.layout!!
+                            parent.needsRelayout = true
+                            parentLayout.callLayout()
                         } else {
                             layoutNode.layout?.callMeasure(layoutNode.constraints)
                             layoutNode.layout?.callLayout()
