@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b1824f55_0fb97eec",
+        "filename": "ui/core/api/restricted_1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-20T22:27:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3e60fdd4_31c81624",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "739afda79cbe335f14a8b1263ed7734a3799bd34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f529889_78c50698",
         "filename": "ui/core/api/restricted_current.txt",
         "patchSetId": 2
