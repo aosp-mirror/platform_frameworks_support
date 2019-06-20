@@ -19,33 +19,51 @@ package androidx.media2.widget;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.player.MediaPlayer;
+import androidx.media2.session.MediaController;
+import androidx.media2.session.MediaSession;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.runner.RunWith;
 
 /**
- * Test {@link MediaControlView} with a {@link SessionPlayer}.
+ * Test {@link MediaControlView} with a {@link MediaController}.
  * Please place actual test cases in {@link MediaControlView_WithSthTestBase}.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MediaControlView_WithPlayerTest extends MediaControlView_WithSthTestBase {
+public class MediaControlView_WithControllerTest extends MediaControlView_WithSthTestBase {
     private SessionPlayer mPlayer;
+    private MediaSession mSession;
+    private MediaController mController;
 
     @Override
     void initPlayerOrController() throws Throwable {
+        prepareLooper();
+
         mPlayer = new MediaPlayer(mContext);
+        mSession = new MediaSession.Builder(mContext, mPlayer)
+                .setId("MCVTest")
+                .build();
+        mController = new MediaController.Builder(mContext)
+                .setSessionToken(mSession.getToken())
+                .build();
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mMediaControlView.setPlayer(mPlayer);
+                mMediaControlView.setMediaController(mController);
             }
         });
     }
 
     @Override
     void closePlayerOrController() throws Throwable {
+        if (mController != null) {
+            mController.close();
+        }
+        if (mSession != null) {
+            mSession.close();
+        }
         if (mPlayer != null) {
             mPlayer.close();
         }
@@ -53,7 +71,7 @@ public class MediaControlView_WithPlayerTest extends MediaControlView_WithSthTes
 
     @Override
     void registerCallback(PlayerWrapper.PlayerCallback callback) {
-        mPlayerWrapper = new PlayerWrapper(mPlayer, mMainHandlerExecutor, callback);
+        mPlayerWrapper = new PlayerWrapper(mController, mMainHandlerExecutor, callback);
         mPlayerWrapper.attachCallback();
     }
 

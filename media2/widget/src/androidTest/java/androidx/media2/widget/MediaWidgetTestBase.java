@@ -43,7 +43,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
-public class MediaWidgetTestBase {
+public class MediaWidgetTestBase extends MediaTestBase {
     // Expected success time
     static final int WAIT_TIME_MS = 1000;
 
