@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f19cc5ef_146156b5",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58838936_e5ab17df",
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95ba053a_573cf852",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 26
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9970c388_82eab486",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95ba053a_573cf852",
+      "range": {
+        "startLine": 103,
+        "startChar": 45,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07361d70_03e661c4",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 26
@@ -53,6 +95,30 @@
       "writtenOn": "2019-06-20T09:13:08Z",
       "side": 1,
       "message": "If there are multiple use cases set tag to its own SessionConfig, seems like the last one will be applied(in SessionConfig.ValidatingBuilder). Does it cause this tag to disappear?",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890bec2f_c821417b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Hmmm thats a good point.\nRight now the only ImageCapture and Preview are using setTag() and since they are issued as part of single and repeating requests respectively they aren\u0027t going to conflict with each other.\n\nLet me create a follow on task to update how we do tagging. b/135689812",
+      "parentUuid": "07361d70_03e661c4",
       "range": {
         "startLine": 125,
         "startChar": 33,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "7ef9c359_0f6aac7f",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d7e3639_92519e12",
+      "range": {
+        "startLine": 76,
+        "startChar": 30,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "259c94c7_35902343",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
         "patchSetId": 26
@@ -102,6 +192,24 @@
       "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89689e11_71c0f5a4",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "259c94c7_35902343",
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "51abd268_59ac3990",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bed1c1c_357db483",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26c08719_86d9ce42",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
         "patchSetId": 26
@@ -142,6 +274,24 @@
       "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8d9238_f93e3359",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T20:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c08719_86d9ce42",
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
