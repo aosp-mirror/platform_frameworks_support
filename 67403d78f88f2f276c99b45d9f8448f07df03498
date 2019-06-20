@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0d35da0_07f30374",
+        "filename": "camera/integration-tests/extensionstestapp/src/main/java/androidx/camera/integration/extensions/CameraExtensionsActivity.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T04:22:51Z",
+      "side": 1,
+      "message": "Should we add a mHandlerThread.quitSafely() or mHandlerThread.getLooper().quit() in onDestory()?\nOr we can set the HandlerThread to static final to keep it running.",
+      "revId": "67403d78f88f2f276c99b45d9f8448f07df03498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7457343f_88949355",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T04:22:51Z",
+      "side": 1,
+      "message": "Should we call mRenderer.close() some where? \nex: in onDeInit()",
+      "revId": "67403d78f88f2f276c99b45d9f8448f07df03498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
