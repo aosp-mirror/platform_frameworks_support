@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33cb88c7_3e2cffaf",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/ScrollerPerformance.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-20T22:09:41Z",
+      "side": 1,
+      "message": "You cannot remove androidx.compose.composer",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "1307be03a8b5e2741274179b297eae68d3a77dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb1a9bb_22f9ce22",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/ScrollerPerformance.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-20T22:09:41Z",
+      "side": 1,
+      "message": "My understanding is that this is a bug in the benchmarking library.",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 14
+      },
+      "revId": "1307be03a8b5e2741274179b297eae68d3a77dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
