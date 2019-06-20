@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "548685ba_98733a23",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "rm blank line",
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8519b7_47939827",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "High duplication with below block, save three configuration properties. Consider extracting to a method and passing those properties as named arguments.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923ce20f_72c4a308",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "Could be moved into a list early and handled with idiomatic Kotlin collections functions, ex.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 96
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c58f87_1caf2701",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "unzipTask.outputJars.forEach { jar -\u003e\n  docsTasks.forEach { task -\u003e\n    task.classpath +\u003d runnerProject.file(jar)\n  }\n}",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 73
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0183a838_95e31b0e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "docsTask.forEach { task -\u003e task.classpath +\u003d ... }",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 75
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d771718_cabd0704",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "docsTasks.forEach { task -\u003e task.dependsOn(unzipTask) }",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4940dd8_09ddf892",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "forEach across list here as well",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 44
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f527ae4_63fbf04d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "Could we cache the results here? Or just cache the DokkaTasks directly in this class after they are created?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a2c478_b0e5ce07",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-20T17:46:57Z",
+      "side": 1,
+      "message": "forEach",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 58
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
