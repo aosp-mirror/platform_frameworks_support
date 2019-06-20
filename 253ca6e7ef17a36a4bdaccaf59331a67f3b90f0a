@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83c38c92_c9f59ad8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-20T15:35:33Z",
+      "side": 1,
+      "message": "Do we really want to continue having 2 split docs for kotlin and java? Could we just have one combined build?",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa194cb_8e5ee074",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-20T15:35:33Z",
+      "side": 1,
+      "message": "I assume this should be Java?",
+      "range": {
+        "startLine": 82,
+        "startChar": 52,
+        "endLine": 82,
+        "endChar": 58
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d257730_340951da",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-20T15:35:33Z",
+      "side": 1,
+      "message": "where are these formats defined? Can we use a constant from where it is defined?",
+      "range": {
+        "startLine": 84,
+        "startChar": 33,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "253ca6e7ef17a36a4bdaccaf59331a67f3b90f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
