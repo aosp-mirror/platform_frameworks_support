@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "183470f0_fb890cc9",
+        "filename": "camera/extensions/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:06:23Z",
+      "side": 1,
+      "message": "How come we are compiling with the stub and then using testlib as the implementation?\n\nIsn\u0027t that going to conflict? You shouldn\u0027t need the stub if you are just going to use the testlib.",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30dbebb7_235e6ee8",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:06:23Z",
+      "side": 1,
+      "message": "Are you able to move all of the verify calls to the end to use the arrange-act-assert pattern?",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85add530_2ca27c8e",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ImageCaptureExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:06:23Z",
+      "side": 1,
+      "message": "Are you able to move all of the verify calls to the end to use the arrange-act-assert pattern?",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89558d3a_b9bd64fd",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:06:23Z",
+      "side": 1,
+      "message": "Are you able to move all of the verify calls after the unbind to use the arrange-act-assert pattern?",
+      "revId": "a44f482ff0b5dfaa0ee3b25fa86193ac81f585d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
