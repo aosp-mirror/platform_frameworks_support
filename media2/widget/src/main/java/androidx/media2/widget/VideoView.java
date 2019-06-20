@@ -583,6 +583,13 @@ public class VideoView extends SelectiveLayout {
         }
     }
 
+    void resetMusicView() {
+        mMusicView.setVisibility(View.GONE);
+        mMusicView.setAlbumDrawable(null);
+        mMusicView.setTitleText(null);
+        mMusicView.setArtistText(null);
+    }
+
     private Drawable getAlbumArt(@NonNull MediaMetadata metadata, Drawable defaultDrawable) {
         Drawable drawable = defaultDrawable;
         Bitmap bitmap = null;
@@ -684,7 +691,11 @@ public class VideoView extends SelectiveLayout {
                 Log.d(TAG, "onCurrentMediaItemChanged(): MediaItem: " + item);
             }
             if (shouldIgnoreCallback(player)) return;
-            updateMusicView(item);
+            if (item == null) {
+                resetMusicView();
+            } else {
+                updateMusicView(item);
+            }
         }
 
         @Override

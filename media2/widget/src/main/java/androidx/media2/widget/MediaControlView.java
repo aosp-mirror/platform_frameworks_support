@@ -1328,7 +1328,7 @@ public class MediaControlView extends ViewGroup {
                 }
             };
 
-    void updateMetadata() {
+    void updateMetadataViews() {
         ensurePlayerIsNotNull();
 
         long duration = mPlayer.getDurationMs();
@@ -1355,6 +1355,15 @@ public class MediaControlView extends ViewGroup {
             // Update title for Embedded size type
             mTitleView.setText(title.toString() + " - " + artist.toString());
         }
+    }
+
+    void resetMetadataViews() {
+        ensurePlayerIsNotNull();
+
+        mProgress.setProgress(0);
+        mCurrentTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+        mEndTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+        mTitleView.setText(null);
     }
 
     void updateLayoutForAd() {
@@ -2006,7 +2015,11 @@ public class MediaControlView extends ViewGroup {
             if (DEBUG) {
                 Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
             }
-            updateMetadata();
+            if (mediaItem == null) {
+                resetMetadataViews();
+            } else {
+                updateMetadataViews();
+            }
         }
 
         @Override
@@ -2085,7 +2098,7 @@ public class MediaControlView extends ViewGroup {
             }
 
             updateTracks(player, trackInfos);
-            updateMetadata();
+            updateMetadataViews();
         }
 
         @Override

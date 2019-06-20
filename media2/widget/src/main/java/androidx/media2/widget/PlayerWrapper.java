@@ -110,6 +110,9 @@ class PlayerWrapper {
     }
 
     long getCurrentPosition() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return SessionPlayer.UNKNOWN_TIME;
+        }
         long position = 0;
         if (mController != null) {
             position = mController.getCurrentPosition();
@@ -120,6 +123,9 @@ class PlayerWrapper {
     }
 
     long getBufferPercentage() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return -1;
+        }
         long duration = getDurationMs();
         if (duration == 0) return 0;
         long bufferedPos = 0;
