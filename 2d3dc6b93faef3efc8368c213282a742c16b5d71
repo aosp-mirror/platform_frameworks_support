@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2516afa2_a75d1be6",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T02:24:08Z",
+      "side": 1,
+      "message": "Maybe add @After to invoke the handlerThread.getLooper().quit();",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b02de16_0b141219",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-20T02:24:08Z",
+      "side": 1,
+      "message": "Maybe the constant name can be all uppercase.",
+      "revId": "2d3dc6b93faef3efc8368c213282a742c16b5d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
