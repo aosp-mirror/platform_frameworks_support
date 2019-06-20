@@ -19,7 +19,6 @@ package androidx.ui.layout.test
 import androidx.test.filters.SmallTest
 import androidx.compose.Composable
 import androidx.compose.composer
-import androidx.ui.core.ComplexLayout
 import androidx.ui.core.IntPx
 import androidx.ui.core.OnChildPositioned
 import androidx.ui.core.PxPosition
@@ -143,95 +142,31 @@ class ConstrainedBoxTest : LayoutTest() {
 
     @Test
     fun testConstrainedBox_hasCorrectIntrinsicMeasurements() = withDensity(density) {
-        val layoutLatch = CountDownLatch(1)
-        show {
-            Center {
-                val paddedChild = @Composable {
-                    ConstrainedBox(constraints = DpConstraints(10.dp, 20.dp, 30.dp, 40.dp)) {
-                        AspectRatio(1f) { }
-                    }
-                }
-                ComplexLayout(children = paddedChild) {
-                    layout { measurables, _ ->
-                        val constrainedBoxMeasurable = measurables.first()
-                        // Min width.
-                        assertEquals(
-                            10.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicWidth(0.dp.toIntPx())
-                        )
-                        assertEquals(
-                            15.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicWidth(15.dp.toIntPx())
-                        )
-                        assertEquals(
-                            20.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicWidth(75.dp.toIntPx())
-                        )
-                        assertEquals(
-                            10.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicWidth(IntPx.Infinity)
-                        )
-                        // Min height.
-                        assertEquals(
-                            30.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicHeight(0.dp.toIntPx())
-                        )
-                        assertEquals(
-                            35.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicHeight(35.dp.toIntPx())
-                        )
-                        assertEquals(
-                            40.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicHeight(70.dp.toIntPx())
-                        )
-                        assertEquals(
-                            30.dp.toIntPx(),
-                            constrainedBoxMeasurable.minIntrinsicHeight(IntPx.Infinity)
-                        )
-                        // Max width.
-                        assertEquals(
-                            10.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicWidth(0.dp.toIntPx())
-                        )
-                        assertEquals(
-                            15.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicWidth(15.dp.toIntPx())
-                        )
-                        assertEquals(
-                            20.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicWidth(75.dp.toIntPx())
-                        )
-                        assertEquals(
-                            10.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicWidth(IntPx.Infinity)
-                        )
-                        // Max height.
-                        assertEquals(
-                            30.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicHeight(0.dp.toIntPx())
-                        )
-                        assertEquals(
-                            35.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicHeight(35.dp.toIntPx())
-                        )
-                        assertEquals(
-                            40.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicHeight(70.dp.toIntPx())
-                        )
-                        assertEquals(
-                            30.dp.toIntPx(),
-                            constrainedBoxMeasurable.maxIntrinsicHeight(IntPx.Infinity)
-                        )
-                        layoutLatch.countDown()
-                    }
-                    minIntrinsicWidth { _, _ -> 0.ipx }
-                    maxIntrinsicWidth { _, _ -> 0.ipx }
-                    minIntrinsicHeight { _, _ -> 0.ipx }
-                    maxIntrinsicHeight { _, _ -> 0.ipx }
-                }
+        testIntrinsics(@Composable {
+            ConstrainedBox(constraints = DpConstraints(10.dp, 20.dp, 30.dp, 40.dp)) {
+                AspectRatio(1f) { }
             }
+        }) { minIntrinsicWidth, minIntrinsicHeight, maxIntrinsicWidth, maxIntrinsicHeight ->
+            // Min width.
+            assertEquals(10.dp.toIntPx(), minIntrinsicWidth(0.dp.toIntPx()))
+            assertEquals(15.dp.toIntPx(), minIntrinsicWidth(15.dp.toIntPx()))
+            assertEquals(20.dp.toIntPx(), minIntrinsicWidth(75.dp.toIntPx()))
+            assertEquals(10.dp.toIntPx(), minIntrinsicWidth(IntPx.Infinity))
+            // Min height.
+            assertEquals(30.dp.toIntPx(), minIntrinsicHeight(0.dp.toIntPx()))
+            assertEquals(35.dp.toIntPx(), minIntrinsicHeight(35.dp.toIntPx()))
+            assertEquals(40.dp.toIntPx(), minIntrinsicHeight(70.dp.toIntPx()))
+            assertEquals(30.dp.toIntPx(), minIntrinsicHeight(IntPx.Infinity))
+            // Max width.
+            assertEquals(10.dp.toIntPx(), maxIntrinsicWidth(0.dp.toIntPx()))
+            assertEquals(15.dp.toIntPx(), maxIntrinsicWidth(15.dp.toIntPx()))
+            assertEquals(20.dp.toIntPx(), maxIntrinsicWidth(75.dp.toIntPx()))
+            assertEquals(10.dp.toIntPx(), maxIntrinsicWidth(IntPx.Infinity))
+            // Max height.
+            assertEquals(30.dp.toIntPx(), maxIntrinsicHeight(0.dp.toIntPx()))
+            assertEquals(35.dp.toIntPx(), maxIntrinsicHeight(35.dp.toIntPx()))
+            assertEquals(40.dp.toIntPx(), maxIntrinsicHeight(70.dp.toIntPx()))
+            assertEquals(30.dp.toIntPx(), maxIntrinsicHeight(IntPx.Infinity))
         }
-        layoutLatch.await(1, TimeUnit.SECONDS)
-        Unit
     }
 }
