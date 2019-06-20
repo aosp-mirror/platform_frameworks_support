@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb2a1d6e_286b874f",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40983548_f6d52469",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5fcab9d_c20abfc2",
         "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
         "patchSetId": 17
@@ -39,6 +63,24 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a955d25_a2c881aa",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5fcab9d_c20abfc2",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fa86308b_a71a9de5",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68843592_1c22dbfa",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 61
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8534ec3b_ea747b43",
         "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
         "patchSetId": 17
@@ -85,6 +151,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2505b66f_62dc96d2",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8534ec3b_ea747b43",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "bdd6a4da_8ffc89fe",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Yes, resolveInfos will be used in other places also, calculate inside this method will cost more.",
+      "parentUuid": "6a9cb641_74ae2872",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77469d0d_7f7ba563",
         "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
         "patchSetId": 17
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "91c1463f_53dbebe0",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Return value could be null, so .serviceInfo at return needs a null check. Extract serviceInfo instead.",
+      "parentUuid": "77469d0d_7f7ba563",
+      "range": {
+        "startLine": 74,
+        "startChar": 38,
+        "endLine": 74,
+        "endChar": 49
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8794b8b7_c60d1bc0",
         "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
         "patchSetId": 17
@@ -148,6 +286,24 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "910b7428_0181aa33",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8794b8b7_c60d1bc0",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "936b8228_17dac584",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cc14bda_894b03b1",
+      "range": {
+        "startLine": 46,
+        "startChar": 64,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f02bd64_fc00c700",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
         "patchSetId": 17
@@ -191,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "15f10eb5_b416e7bd",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f02bd64_fc00c700",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5863fddc_efa0ec95",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
         "patchSetId": 17
@@ -205,6 +403,24 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616667e1_9e1672a4",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5863fddc_efa0ec95",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "a544b32f_041a7e7b",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d89335_af0dc173",
+      "range": {
+        "startLine": 115,
+        "startChar": 39,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33a56958_b6e8dc7b",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
         "patchSetId": 17
@@ -242,6 +482,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Why we need to provide a callable here? Could we just create the instance here?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d77656_37f417b7",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Do you means why we let the provider given us a Callable instead of the instance?\n\nThis is because the provider register the impl in the Application#onCreate(), which requires as quick as possible.\n\nhttps://developer.android.com/reference/android/app/Application#onCreate()",
+      "parentUuid": "33a56958_b6e8dc7b",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -271,6 +535,24 @@
     },
     {
       "key": {
+        "uuid": "615b7475_e61f99c8",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Plan to add concurrency in future cl.",
+      "parentUuid": "bb690858_d78dcf98",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43b15d23_21e84804",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -282,6 +564,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Will we allow developer to config the timeout in future?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb545c0_37ca8512",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Current this timeout is for service connection only, getId() does not have timeout limit.\nDeveloper is calling this api in a separate thread, so they can set their own timeout when they call.\n\nCurrent plan is to add a timeout limit for getId() also in the future cl.",
+      "parentUuid": "43b15d23_21e84804",
       "range": {
         "startLine": 54,
         "startChar": 4,
@@ -317,6 +623,30 @@
     },
     {
       "key": {
+        "uuid": "3b783c66_85fde342",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddc24353_7f3cd7f6",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e272e93_39a2ec28",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -337,6 +667,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c444550_42d6a650",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e272e93_39a2ec28",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 53
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -363,6 +717,30 @@
     },
     {
       "key": {
+        "uuid": "1067c40a_71c737f7",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df85c9d5_ddfe39b4",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f0d8fd4_df26c0a2",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -374,6 +752,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Is this the right exception to throw? And do we really need to check the id?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 13
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8bf667_462d36af",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Yes, we want developer to check the exception when the Ad ID is not available. Especially the return type is AdIdInfo instead of a string.",
+      "parentUuid": "4f0d8fd4_df26c0a2",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -409,6 +811,30 @@
     },
     {
       "key": {
+        "uuid": "d6c51940_e260e1f3",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23767711_433cbb4d",
+      "range": {
+        "startLine": 102,
+        "startChar": 37,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08808bed_6b08978d",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -432,6 +858,30 @@
     },
     {
       "key": {
+        "uuid": "cb26513b_0e0b097e",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08808bed_6b08978d",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 58
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77e2dadd_933f9347",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -443,6 +893,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Could this check and convention be slow?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f433bbf_ca7c2b56",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Single run is less than 1ms. I run the method for 10000 times, it takes around 200ms. I also tried the Regex, time is similar.",
+      "parentUuid": "77e2dadd_933f9347",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -478,6 +952,30 @@
     },
     {
       "key": {
+        "uuid": "b0fd8f29_45a638d6",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9728567d_85f09ad2",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 81
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb6280e2_48cdc5c4",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -501,6 +999,30 @@
     },
     {
       "key": {
+        "uuid": "5ab9fc9a_5cfd9a1e",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb6280e2_48cdc5c4",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 30
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941aff5d_05e61d82",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -512,6 +1034,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Is this really happening? I can\u0027t see others checking this.",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 187,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3044977_2bf0b4f4",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Copied from gmscore AdvertisingIdClient, and it is added in cl http://cr/#review/109390137/depot/google3/third_party/java/android_libs/gcore/migration_libs/oneup/ub-gcore-master/client/ads/src/com/google/android/gms/ads/identifier/AdvertisingIdClient.java\u0026l\u003dFIRST_DIFF_OR_COMMENT\n\nhttp://google3/java/com/google/android/gmscore/dev/client/ads_identifier/src/com/google/android/gms/ads/identifier/AdvertisingIdClient.java?l\u003d458\u0026rcl\u003d197597857",
+      "parentUuid": "941aff5d_05e61d82",
       "range": {
         "startLine": 185,
         "startChar": 9,
@@ -547,6 +1093,30 @@
     },
     {
       "key": {
+        "uuid": "e10ac24b_bb08fb62",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Copied from gmscore AdvertisingIdClient, and it is added in cl \nhttp://cr/#review/109390137/depot/google3/third_party/java/android_libs/gcore/migration_libs/oneup/ub-gcore-master/client/ads/src/com/google/android/gms/ads/identifier/AdvertisingIdClient.java\u0026l\u003dFIRST_DIFF_OR_COMMENT\n\nTimeoutException is throwed by getServiceWithTimeout and wrapped IOException here.",
+      "parentUuid": "09b3ad3c_d17f6583",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68ca7b25_7037a680",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -570,6 +1140,30 @@
     },
     {
       "key": {
+        "uuid": "fcaadc83_422679b4",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ca7b25_7037a680",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8b160b8_4d25c9f9",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
         "patchSetId": 17
@@ -581,6 +1175,30 @@
       "writtenOn": "2019-06-20T07:28:47Z",
       "side": 1,
       "message": "Is AutoValue allowed for AndroidX?\n\nFrom my point of view, this will just bring more classes into developer\u0027s app, the abstraction provides no benefits.\n\nSwitch from abstract class to real implementation will reduce code size and provide same functionality.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0e63324_24ec1bd0",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "There are 18 existing files using the AutoValue.\n\nFrom go/autovalue/performance\nshould perform like a hand-written class after HotSpot compiles it (generated accessors can be inlined)",
+      "parentUuid": "d8b160b8_4d25c9f9",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -616,6 +1234,30 @@
     },
     {
       "key": {
+        "uuid": "b4e23b14_9f9371a1",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Or CountDownLatch, will add concurrency in future cl.",
+      "parentUuid": "419c3aba_480a3a96",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45834faa_d57534c8",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
         "patchSetId": 17
@@ -639,6 +1281,30 @@
     },
     {
       "key": {
+        "uuid": "6922a19a_684e0b62",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "45834faa_d57534c8",
+      "range": {
+        "startLine": 46,
+        "startChar": 59,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0518e47c_6eded4a7",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
         "patchSetId": 17
@@ -659,6 +1325,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc902161_d717179d",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-20T09:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0518e47c_6eded4a7",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 91
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
