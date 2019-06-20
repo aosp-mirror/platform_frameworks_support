@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "40983548_f6d52469",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Add:\nprivate AdvertisingIdUtils() {}\n\nTo prevent from creating new instance.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5fcab9d_c20abfc2",
         "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
         "patchSetId": 17
@@ -13,6 +36,75 @@
       "writtenOn": "2019-06-20T06:44:04Z",
       "side": 1,
       "message": "getAdIdProviders",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68843592_1c22dbfa",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "This could return either empty list or null. I\u0027d suggest we do a check here and only return empty list.",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 61
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8534ec3b_ea747b43",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a9cb641_74ae2872",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Is this param necessary?",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 42
+      },
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -139,6 +231,322 @@
     },
     {
       "key": {
+        "uuid": "33a56958_b6e8dc7b",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Why we need to provide a callable here? Could we just create the instance here?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb690858_d78dcf98",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "There\u0027s no concurrency things in this java code.\nYou might face concurrency problem in future.",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b15d23_21e84804",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Will we allow developer to config the timeout in future?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc24353_7f3cd7f6",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "context.getApplicationContext() is good enough.",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e272e93_39a2ec28",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Not needed to declare.",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 53
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df85c9d5_ddfe39b4",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "This is not a good idea to check here, it\u0027s not checking the values passed in by developer.\nIt could crash developer\u0027s app by doing so.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0d8fd4_df26c0a2",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Is this the right exception to throw? And do we really need to check the id?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 13
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23767711_433cbb4d",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "We already told the publisher by thrown exception, do we still need to log something?",
+      "range": {
+        "startLine": 102,
+        "startChar": 37,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08808bed_6b08978d",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "throw new AdvertisingIdNotAvailableException(e);",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 58
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77e2dadd_933f9347",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Could this check and convention be slow?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9728567d_85f09ad2",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Is this a method developer could call?\nIf so, you should make it public.\nIf not, this check can only crash yourself in some circles and developer can do nothing but wait for your fix.\n\nAnd from the method itself, I see nothing that could not be called from main thread.",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 81
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb6280e2_48cdc5c4",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Making fields null is usually used to deal with memory leak.\nBut I\u0027d suggest prevent referencing the object that contains those fields.\n\nThis way it\u0027s more error prone.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 30
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941aff5d_05e61d82",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Is this really happening? I can\u0027t see others checking this.",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 187,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09b3ad3c_d17f6583",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Generally, catching throwable is not a good practice.\nIs there any uncatched exception here?\nAnd for InterruptedException, you might need to handle differently.\n\nAlso do you want to tell developer it\u0027s timeout or not?",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68ca7b25_7037a680",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -155,6 +563,98 @@
         "startChar": 26,
         "endLine": 220,
         "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b160b8_4d25c9f9",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Is AutoValue allowed for AndroidX?\n\nFrom my point of view, this will just bring more classes into developer\u0027s app, the abstraction provides no benefits.\n\nSwitch from abstract class to real implementation will reduce code size and provide same functionality.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "419c3aba_480a3a96",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "This is not thread safe, you might want AtomicBoolean",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45834faa_d57534c8",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "After onServiceDisconnected is called, onServiceConnected will be invoked again when service is back.\nIt\u0027s fine if the service is used for just one time, but if you need the service to keep usable for a period, you might need to handle this.",
+      "range": {
+        "startLine": 46,
+        "startChar": 59,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0518e47c_6eded4a7",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-20T07:28:47Z",
+      "side": 1,
+      "message": "Again, this is only called by the SDK, not developer.\nThere\u0027s no gain to do the check.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 91
       },
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
