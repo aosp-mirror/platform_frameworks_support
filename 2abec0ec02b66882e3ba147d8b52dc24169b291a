@@ -16,6 +16,24 @@
       "revId": "2abec0ec02b66882e3ba147d8b52dc24169b291a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b3bfe3_e3cc92c7",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/DataSource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-20T19:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd228e6d_2839f663",
+      "revId": "2abec0ec02b66882e3ba147d8b52dc24169b291a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
