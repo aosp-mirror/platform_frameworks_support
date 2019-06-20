@@ -22,6 +22,30 @@
       "revId": "4c1c82ffa98a29b4c06ff455cec525ec02844e61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c8ec52_2c6b799c",
+        "filename": "compose/compose-compiler/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-06-20T20:59:54Z",
+      "side": 1,
+      "message": "Yes. Is there an easy way to do that?",
+      "parentUuid": "80436b73_d4cc9e09",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "4c1c82ffa98a29b4c06ff455cec525ec02844e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
