@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9982a15e_68acff52",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:29:05Z",
+      "side": 1,
+      "message": "The set of unit tests would be much easier to understand if they were split into smaller tests which were more clear in what they specifically tested.",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab7c4de_de7e0132",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:29:05Z",
+      "side": 1,
+      "message": "Its not clear to me what this is testing for.\nThe callable is set and the futuretask is run. But nothing is done with it afterwards.",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ee69f4_280f66aa",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-20T00:29:05Z",
+      "side": 1,
+      "message": "It this blocking for a timeout? What is the timeout for a large test? Because you are running multiple iterations (possibly 2 iterations one for back and one for front) in the same test. So if the 3 second wait exceeds the large test then this will fail.",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
