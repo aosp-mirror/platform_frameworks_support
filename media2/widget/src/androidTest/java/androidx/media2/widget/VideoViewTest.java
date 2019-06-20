@@ -112,6 +112,7 @@ public class VideoViewTest {
 
     @After
     public void tearDown() throws Throwable {
+        mActivityRule.finishActivity();
         mPlayer.close();
     }
 
