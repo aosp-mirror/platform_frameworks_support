@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "914155a1_899ece88",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-20T14:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d63db50e_6a809ba5",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 26
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0dfc17_f1e5f3d5",
         "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5df2292_bca6655a",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-20T14:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0dfc17_f1e5f3d5",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 80
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9b9f529e_9fd3123e",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-20T14:49:55Z",
+      "side": 1,
+      "message": "Noted, will improve in a different CL.",
+      "parentUuid": "90f70a14_d8aff62f",
+      "range": {
+        "startLine": 123,
+        "startChar": 30,
+        "endLine": 123,
+        "endChar": 85
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e971bfad_404c98e3",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f71d783_d342bfb1",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-20T14:49:55Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ll do this in a separate CL. We do have an issue logged for this though, so I added a todo so to remember to check this function as well.",
+      "parentUuid": "e971bfad_404c98e3",
+      "range": {
+        "startLine": 85,
+        "startChar": 33,
+        "endLine": 85,
+        "endChar": 97
+      },
+      "revId": "8d8672a20255b03f3a32e326019509bf14e30155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
