@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "29584871_d9521155",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-21T05:56:00Z",
+      "side": 1,
+      "message": "They have to match. Otherwise we cannot tell which table in the SQL corresponds to which @Embedded.",
+      "parentUuid": "521deac3_5bfa24b3",
+      "range": {
+        "startLine": 292,
+        "startChar": 51,
+        "endLine": 292,
+        "endChar": 56
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f2a529e_f4dddfae",
         "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-20T23:42:42Z",
       "side": 1,
       "message": "When do we decide to add the table name?\n\nCan we have a test where the method returns User but the query is a JOIN with a conflicting column, like \"SELECT * FROM user JOIN employee ON (user.id \u003d\u003d employee.id)\", both tables having id.",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56b1cc35_fe18820e",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-21T05:56:00Z",
+      "side": 1,
+      "message": "When @Embedded does not have prefix.\n\nWe can add that test, and QueryInterpreter can write projection for that, but that SQL is useless. SQLite never gives us the second `id` column. The same is true if you spell out the columns yourself.",
+      "parentUuid": "3f2a529e_f4dddfae",
       "range": {
         "startLine": 353,
         "startChar": 32,
