@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7743189f_6214a42b",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-21T09:06:02Z",
+      "side": 1,
+      "message": "I have done some small refactor on the code, it should look better.\nThe primary goal is to bind/unbind all the effect of the extensions and verify if we can take a picture successfully.\n\nAlso, verify the CameraEventCallback and UseCase.Eventlistener was set in the config, to make sure the callback event will execute in the use case. (We already have another test to verify the EventCallback will be invoked correctly in the use case.)",
+      "parentUuid": "9982a15e_68acff52",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ab7c4de_de7e0132",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4b910ac2_34aa4466",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-21T09:06:02Z",
+      "side": 1,
+      "message": "oh, thanks~ this is not in used now, I have replaced the code with a mock object and verify the Update was called.",
+      "parentUuid": "1ab7c4de_de7e0132",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24ee69f4_280f66aa",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29146c7_94409a58",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/VendorExtensionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-21T09:06:02Z",
+      "side": 1,
+      "message": "Ah, thanks! \nI update the code to separate the back and front camera.\nand the waitFor() is now replaced by verify+timeout, it will wait for the capture callback and verify the result image not null.",
+      "parentUuid": "24ee69f4_280f66aa",
+      "revId": "f20f27ba27cbc83222766cb347d6572a9ac681b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
