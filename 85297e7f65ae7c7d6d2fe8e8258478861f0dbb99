@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "160b04ae_806dd830",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-06-21T06:46:28Z",
+      "side": 1,
+      "message": "Ignorable suggestion: it might be clearer to return the result code and assert it in the calling method, to make the place this is called easier to understand (avoiding passing a boolean that changes behavior of the method).",
+      "range": {
+        "startLine": 596,
+        "startChar": 64,
+        "endLine": 596,
+        "endChar": 77
+      },
+      "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3b07296_8d123115",
         "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
         "patchSetId": 3
@@ -18,6 +41,29 @@
         "startChar": 12,
         "endLine": 604,
         "endChar": 42
+      },
+      "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a236df90_664ba82f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-06-21T06:46:28Z",
+      "side": 1,
+      "message": "Nit: shorter written as an if instead of switch?",
+      "range": {
+        "startLine": 1607,
+        "startChar": 24,
+        "endLine": 1609,
+        "endChar": 78
       },
       "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
