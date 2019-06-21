@@ -1,0 +1,10 @@
+Autosubmit+1: Chuck Jazdzewski <chuckj@google.com>
+Code-Review+2: Leland Richardson <lelandr@google.com>
+Code-Review+2: Ryan Mentley <ryanmentley@google.com>
+Code-Review+2: Chris Craik <ccraik@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Chris Craik <ccraik@google.com>
+Submitted-at: Fri, 21 Jun 2019 16:44:06 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/987429
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
