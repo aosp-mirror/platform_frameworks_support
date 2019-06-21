@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c99776f5_9226a005",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Yeh, I should elaborate it. \n\nFor logic, I mean the geometric logic to process the selection. Originally I called it TextSelectionCalculator. It\u0027s more like a helper, or processor. I could rename it to match your style -- XXXProcessor.",
+      "parentUuid": "b6e60f81_58544bc4",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a737780_724a2b14",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -68,6 +92,30 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdc59d5_ae8c75f2",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a737780_724a2b14",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "b7c9f2c4_a5f60cd1",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Yes, it\u0027s very weird, that\u0027s why I added a TODO. \nCurrently I\u0027m not using Android\u0027s way, and I want to do it in an Android way soon.\nI just want to make the selection work first, because in this way I can know that other parts work correctly (gesture, compose, draw etc.). Then I\u0027ll dive deeper on the real text selection.\n\n\nThe kDoc I added is actually copied from Selection.kt.",
+      "parentUuid": "e9c0ea2b_69a9d535",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848e962a_86c03f78",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -105,6 +177,30 @@
       "writtenOn": "2019-06-20T18:39:01Z",
       "side": 1,
       "message": "This confuses me, you says this is TextPosition but it is Int.\nAlso, why do you need to keep this value as a member?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "608db71e_dbf9d06d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Actually it\u0027s just the \"length - 1\" of the total text in text widget (could have several TextSpans).\n\nAnd this value is used more than once. In the past CL, Siyamed felt it\u0027s too expensive to calculate too many times.\n\nMaybe I should just get length here, and use \"length - 1\" elsewhere.",
+      "parentUuid": "848e962a_86c03f78",
       "range": {
         "startLine": 44,
         "startChar": 13,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "f556619e_c67e7bb4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Yeh. No need to do it in init {}",
+      "parentUuid": "7324dc03_c6b44c7d",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23445ac4_b9aa0219",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -160,6 +280,30 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7f8c0c4_4d9d028a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23445ac4_b9aa0219",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "550833a4_f8dc0fdc",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81edb351_2178446d",
+      "range": {
+        "startLine": 106,
+        "startChar": 18,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8091a00_6b3931fa",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e94d6e00_3ddf9cf9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Wow. Good point. I\u0027ll change the logic in SelectionMode too.",
+      "parentUuid": "b8091a00_6b3931fa",
+      "range": {
+        "startLine": 128,
+        "startChar": 12,
+        "endLine": 128,
+        "endChar": 34
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50492cca_f4771e5d",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -229,6 +421,30 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4bb0e4_9a75d91d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-21T03:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50492cca_f4771e5d",
+      "range": {
+        "startLine": 136,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 17
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
