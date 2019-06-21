@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58e1de44_033ed250",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T04:09:38Z",
+      "side": 1,
+      "message": "it would be better if there was a ticket for this change.\nI\u0027d suggest to share the URLs and the flakiness reports for those tests in the ticket.",
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "880cdfb8_b1910467",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T04:09:38Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to disable these tests. is it possible for you to share the report/url for these tests?",
+      "range": {
+        "startLine": 553,
+        "startChar": 5,
+        "endLine": 553,
+        "endChar": 14
+      },
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9731469d_4848363e",
+        "filename": "ui/android-text/src/androidTest/java/androidx/text/style/WordSpacingSpanTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T04:09:38Z",
+      "side": 1,
+      "message": "this was very recently fixed by b/135279316, so maybe we should annotate this test.",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
