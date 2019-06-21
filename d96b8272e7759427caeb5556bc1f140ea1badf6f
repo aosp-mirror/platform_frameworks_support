@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0525cb4_9bd6d1d3",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-21T03:54:14Z",
+      "side": 1,
+      "message": "Ohh... perhaps, is it time to move MediaTestBase to androidx.media2.common? :)\nLet\u0027s do it later, not in this CL.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f52e709f_4925a1e6",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoView_WithPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-21T03:54:14Z",
+      "side": 1,
+      "message": "Q) does it stand for \"something\"? why not just VideoViewTestBase? same to MCV_WithSthTestBase",
+      "range": {
+        "startLine": 32,
+        "startChar": 60,
+        "endLine": 32,
+        "endChar": 63
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
