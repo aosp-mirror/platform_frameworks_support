@@ -16,6 +16,24 @@
       "revId": "c27ec452e886bb1057299a1f2cb8a86ef3acfa23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32d21a0_6e14e87c",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PageKeyedDataSource.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-21T16:56:23Z",
+      "side": 1,
+      "message": "Ah - this is actually already internal (inherited from base), but the @RestrictTo was added before I figured out that you had to redundantly specify internal to workaround the metalava bug\n\nb/134941934\n\nAnyway fixed it with the normal fix of redundant internal and suppressing",
+      "parentUuid": "0b6f2b33_1b9591e5",
+      "revId": "c27ec452e886bb1057299a1f2cb8a86ef3acfa23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
