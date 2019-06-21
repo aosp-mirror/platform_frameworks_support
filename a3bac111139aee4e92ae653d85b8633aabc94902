@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "78012794_76151568",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:40:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e180ec75_346cd922",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 64
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a271cf18_9578386f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Actually, it\u0027s not ExoPlayerMediaPlayer2Impl that is calling onCurrentMediaItemChanged(null) but PlayerWrapper, when setPlayer is called.\n\nAlthough SessionPlayer.PlayerCallback#onCurrentMediaItemChanged has @NonNull annotation, ControllerCallback#onCurrentMediaItemChanged has @Nullable annotation. A null item will be returned when MediaSession#updatePlayer is called with a SessionPlayer that does not have a current media item (whereas the previous player did).",
       "parentUuid": "a271cf18_9578386f",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d53120_9b967a9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:40:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "886d7e83_923da18d",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -225,6 +273,30 @@
     },
     {
       "key": {
+        "uuid": "6f8b0cd7_acc28905",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:40:33Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "268d6889_2e0c4c1b",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 363,
+        "endChar": 31
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faadfcea_2f060c11",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 1
@@ -269,6 +341,30 @@
       "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a99b61a_a33d9cd1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:40:33Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "1c7df26c_a598d884",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 5
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

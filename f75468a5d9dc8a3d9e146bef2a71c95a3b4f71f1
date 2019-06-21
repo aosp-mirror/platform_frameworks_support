@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f2e7159_3eb3f16e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:40:33Z",
+      "side": 1,
+      "message": "Q) Why does it change negative duration to 0 while L251 still returns UNKNOWN_TIME (negative value)?",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 45
+      },
+      "revId": "f75468a5d9dc8a3d9e146bef2a71c95a3b4f71f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
