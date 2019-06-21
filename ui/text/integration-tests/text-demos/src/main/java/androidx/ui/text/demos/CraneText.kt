@@ -324,7 +324,9 @@ fun TextDemoHeight() {
             Span(
                 text = "$displayText\n$displayText   ",
                 style = TextStyle(
-                    fontSize = fontSize8,
+                    fontSize = fontSize8
+                ),
+                paragraphStyle = ParagraphStyle(
                     lineHeight = 2.0f
                 )
             )
