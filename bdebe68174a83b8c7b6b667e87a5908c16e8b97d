@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81a7ddfe_e842d7a3",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-21T23:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c0051ef_6b118eec",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 38
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffe1adc6_e764b816",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 12
@@ -137,6 +161,30 @@
       "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7fcf03_75f3fc2f",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-21T23:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d776c92d_9e0d4ddf",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
