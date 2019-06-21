@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8561a26_707d5956",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "I think you want to override dispatchDraw() rather than drawChild(). If you have multiple children then this doubles the drawing of the disappearing children.",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d204e175_df8e3fae",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "It _seems_ like we would want to iterate forward through this list. If the most recent disappearing child is at the end of mDisappearingFragmentChildren, then don\u0027t we want to draw the most recently removed child on top of the oldest disappearing child?",
+      "range": {
+        "startLine": 104,
+        "startChar": 29,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ae2efa_e297aab8",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "if view.getParent() !\u003d this, do you want to do this?",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a12263_73582e00",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "If you do this, you\u0027re going to end up showing the transitioning view twice. ViewGroup also draws the view.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 32
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a967f2_848508b6",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "this part should be factored out because it is used in several overrides.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 71
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b030b84a_4b2bec44",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "Do you also need to override these?\n\nremoveAllViews()\nremoveViews()\nremoveViewsInLayout()",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 38
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4baf5646_a5944bbd",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-21T20:19:15Z",
+      "side": 1,
+      "message": "will this be called after removeView() for example? It seems like you\u0027ll end up adding the same view to mDisappearingFragmentChildren. Perhaps this is the only place it needs to be added?",
+      "range": {
+        "startLine": 184,
+        "startChar": 19,
+        "endLine": 184,
+        "endChar": 37
+      },
+      "revId": "4f3163ddbebdc883fa51e5f28873b9d526a3fe1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
