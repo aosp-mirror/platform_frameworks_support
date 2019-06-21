@@ -389,7 +389,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
+    @SdkSuppress(minSdkVersion = 29)
     fun textStyle_setWordSpacingOnWholeText() {
         val text = "ab cd"
         val wordSpacing = 2.0f
@@ -412,7 +412,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
+    @SdkSuppress(minSdkVersion = 29)
     fun textStyle_setWordSpacingOnPartText() {
         val text = "abc d"
         val wordSpacing = 2.0f
@@ -435,7 +435,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
+    @SdkSuppress(minSdkVersion = 29)
     fun textStyle_setWordSpacingTwice_lastOneOverwrite() {
         val text = "abc d"
         val wordSpacing = 2.0f
@@ -993,13 +993,13 @@ class ParagraphAndroidTest {
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
         val expectedTypeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
         val expectedStart = 0
         val expectedEnd = "abc".length
@@ -1078,7 +1078,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.bold),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1102,7 +1102,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Italic),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1127,7 +1127,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1150,7 +1150,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
         val typeface = paragraph.textPaint.typeface
         assertThat(typeface.isBold, equalTo(false))

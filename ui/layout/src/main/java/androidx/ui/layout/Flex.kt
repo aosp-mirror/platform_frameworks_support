@@ -29,6 +29,7 @@ import androidx.ui.core.max
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.isFinite
 
 /**
  * Parent data associated with children to assign flex and fit values for them.
@@ -71,25 +72,24 @@ class FlexChildren internal constructor() {
  * according to their flex weights.
  *
  * [FlexRow] children can be:
- * - [FlexChildren.inflexible] meaning that the child is not flex, and it should be measured with
- * loose constraints to determine its preferred width
- * - [FlexChildren.expanded] meaning that the child is flexible, and it should be assigned a
- * width according to its flex weight relative to its flexible children. The child is forced
- * to occupy the entire width assigned by the parent
- * - [FlexChildren.flexible] similar to [FlexChildren.expanded], but the child can leave
- * unoccupied width.
+ * - [inflexible] meaning that the child is not flex, and it should be measured with loose
+ * constraints to determine its preferred width
+ * - [expanded] meaning that the child is flexible, and it should be assigned a width according
+ * to its flex weight relative to its flexible children. The child is forced to occupy the
+ * entire width assigned by the parent
+ * - [flexible] similar to [expanded], but the child can leave unoccupied width.
  *
  * Example usage:
- *     FlexRow { children ->
- *         children.expanded(/*flex=*/2f) {
+ *     FlexRow {
+ *         expanded(flex = 2f) {
  *             Center {
  *                 SizedRectangle(color = Color(0xFF0000FF.toInt()), width = 40.dp, height = 40.dp)
  *             }
  *         }
- *         children.inflexible {
+ *         inflexible {
  *             SizedRectangle(color = Color(0xFFFF0000.toInt()), width = 40.dp)
  *         }
- *         children.expanded(/*flex=*/1f) {
+ *         expanded(flex = 1f) {
  *             SizedRectangle(color = Color(0xFF00FF00.toInt()))
  *         }
  *     }
@@ -115,25 +115,24 @@ fun FlexRow(
  * according to their flex weights.
  *
  * [FlexRow] children can be:
- * - [FlexChildren.inflexible] meaning that the child is not flex, and it should be measured with
+ * - [inflexible] meaning that the child is not flex, and it should be measured with
  * loose constraints to determine its preferred height
- * - [FlexChildren.expanded] meaning that the child is flexible, and it should be assigned a
+ * - [expanded] meaning that the child is flexible, and it should be assigned a
  * height according to its flex weight relative to its flexible children. The child is forced
  * to occupy the entire height assigned by the parent
- * - [FlexChildren.flexible] similar to [FlexChildren.expanded], but the child can leave
- * unoccupied height.
+ * - [flexible] similar to [expanded], but the child can leave unoccupied height.
  *
  * Example usage:
- *     ColumnFlex { children ->
- *         children.expanded(/*flex=*/2f) {
+ *     ColumnFlex {
+ *         expanded(flex = 2f) {
  *             Center {
  *                 SizedRectangle(color = Color(0xFF0000FF.toInt()), width = 40.dp, height = 40.dp)
  *             }
  *         }
- *         children.inflexible {
+ *         inflexible {
  *             SizedRectangle(color = Color(0xFFFF0000.toInt()), height = 40.dp)
  *         }
- *         children.expanded(/*flex=*/1f) {
+ *         expanded(flex = 1f) {
  *             SizedRectangle(color = Color(0xFF00FF00.toInt()))
  *         }
  *     }
@@ -435,9 +434,12 @@ private data class OrientationIndependentConstraints(
         IntPx.Zero, IntPx.Infinity, crossAxisMin, crossAxisMax
     )
 
-    // Creates a new instance with the same cross axis constraints and unbounded main axis.
+    // Creates a new instance with the same main axis constraints and maximum tight cross axis.
     fun stretchCrossAxis() = OrientationIndependentConstraints(
-        mainAxisMin, mainAxisMax, crossAxisMax, crossAxisMax
+        mainAxisMin,
+        mainAxisMax,
+        if (crossAxisMax.isFinite()) crossAxisMax else crossAxisMin,
+        crossAxisMax
     )
 
     // Given an orientation, resolves the current instance to traditional constraints.
