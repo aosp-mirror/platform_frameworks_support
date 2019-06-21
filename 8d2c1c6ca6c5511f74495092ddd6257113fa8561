@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "4075d3a4_3eac99eb",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Actions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "add a bit of docs",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 28
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d8163b9_63752486",
         "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
         "patchSetId": 10
@@ -48,6 +71,137 @@
     },
     {
       "key": {
+        "uuid": "f62016e9_514da155",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "needs docs. \n\nA bit worrying that you need to add all these permutation (check/notChecked, selected / notselected etc). But that is topic separate from this CL.",
+      "range": {
+        "startLine": 82,
+        "startChar": 29,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a467e255_91ae9ea8",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 90,
+        "startChar": 29,
+        "endLine": 90,
+        "endChar": 45
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be890a7_a4f344d9",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "docs",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3428a7_617b893c",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "surprise!\n.\n.\n.\n.\n.\n.\n.\ndocs \u003dP \nBut this one for real needs docs, because I as external guy have no idea what \"MutuallyExclusiveGroup\" is",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf800203_9399a776",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "same",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdaf3fc7_360c5101",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b210afa_c01d321b",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "280256fd_d365c19e",
         "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
         "patchSetId": 10
@@ -64,6 +218,69 @@
         "startChar": 38,
         "endLine": 143,
         "endChar": 44
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "382bb6a0_8112448c",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "docs",
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb7adb5b_fc664073",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SemanticsNodeInteraction.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "I\u0027d maybe play with names, because it looks a bit surprising that find returns me an interaction...it is a bit more \"Interactable\", but that sounds pretty bad too. This can be done in separate CL, but I\u0027d suggest to think about it a bit\n\nPS docs ;)",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d68763d7_363b9ba3",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SemanticsTreeInteraction.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:31:11Z",
+      "side": 1,
+      "message": "do you still need it in public API? Looks like SemNodeInteraction is main entry point for clients?",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 19
       },
       "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
