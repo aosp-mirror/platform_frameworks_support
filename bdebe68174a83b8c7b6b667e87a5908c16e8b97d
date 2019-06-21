@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ebd22a1_c4f7f78f",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/PathParser.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:53:49Z",
+      "side": 1,
+      "message": "nit: oops :)",
+      "range": {
+        "startLine": 266,
+        "startChar": 52,
+        "endLine": 266,
+        "endChar": 68
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11232f1a_fb083eaa",
+        "filename": "ui/text/api/1.0.0-alpha01.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:53:49Z",
+      "side": 1,
+      "message": "oops",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 395,
+        "endChar": 12
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9dc3f8_bfe5c500",
+        "filename": "ui/text/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:53:49Z",
+      "side": 1,
+      "message": "oops",
+      "range": {
+        "startLine": 395,
+        "startChar": 7,
+        "endLine": 395,
+        "endChar": 8
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
