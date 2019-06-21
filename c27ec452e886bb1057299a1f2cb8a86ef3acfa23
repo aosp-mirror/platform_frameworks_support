@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b6f2b33_1b9591e5",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PageKeyedDataSource.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-21T16:26:46Z",
+      "side": 1,
+      "message": "Why is this restrict to LIBRARY_GROUP, and not internal?",
+      "revId": "c27ec452e886bb1057299a1f2cb8a86ef3acfa23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
