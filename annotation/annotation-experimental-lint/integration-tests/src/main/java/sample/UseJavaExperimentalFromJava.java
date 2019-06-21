@@ -19,17 +19,25 @@ package sample;
 import androidx.annotation.UseExperimental;
 
 @SuppressWarnings("unused")
-class UseExperimentalClassCheckedUses {
+class UseJavaExperimentalFromJava {
+    int getDateUnsafe() {
+        DateProvider dateProvider = new DateProvider();
+        return dateProvider.getDate();
+    }
+
     @ExperimentalDateTime
-    class DateProvider {
-        int getDate() {
-            return -1;
-        }
+    int getDateExperimental() {
+        DateProvider dateProvider = new DateProvider();
+        return dateProvider.getDate();
     }
 
     @UseExperimental(markerClass = ExperimentalDateTime.class)
-    int getDate() {
-        DateProvider provider = new DateProvider();
-        return provider.getDate();
+    int getDateUseExperimental() {
+        DateProvider dateProvider = new DateProvider();
+        return dateProvider.getDate();
+    }
+
+    void displayDate() {
+        System.out.println("" + getDateUnsafe());
     }
 }

@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-package sample;
+package sample
 
-@SuppressWarnings("unused")
-class UseExperimentalMethodUnchecked {
-    @ExperimentalDateTime
-    class DateProvider {
-        int getDate() {
-            return -1;
-        }
-    }
-
-    @ExperimentalDateTime
-    int getDate() {
-        DateProvider provider = new DateProvider();
-        return provider.getDate();
-    }
-
-    void displayDate() {
-        System.out.println(getDate());
+@ExperimentalDateTimeKt
+class DateProviderKt {
+    fun getDate(): Int {
+        return -1
     }
 }

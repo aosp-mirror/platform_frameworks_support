@@ -16,17 +16,9 @@
 
 package sample;
 
-@SuppressWarnings("unused")
-class UseExperimentalClassUnchecked {
-    @ExperimentalDateTime
-    class DateProvider {
-        int getDate() {
-            return -1;
-        }
-    }
-
+@ExperimentalDateTime
+class DateProvider {
     int getDate() {
-        DateProvider provider = new DateProvider();
-        return provider.getDate();
+        return -1;
     }
 }
