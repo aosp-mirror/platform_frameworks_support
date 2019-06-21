@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "4c0051ef_6b118eec",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:58:33Z",
+      "side": 1,
+      "message": "nit: I think these are Span now",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 38
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe1adc6_e764b816",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:58:33Z",
+      "side": 1,
+      "message": "very nit: I wonder this should be textStyle (I also can change it later)",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 9
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ebd22a1_c4f7f78f",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/PathParser.kt",
         "patchSetId": 12
@@ -64,6 +110,29 @@
         "startChar": 7,
         "endLine": 395,
         "endChar": 8
+      },
+      "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d776c92d_9e0d4ddf",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T20:58:33Z",
+      "side": 1,
+      "message": "shall we make this internal now?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 5
       },
       "revId": "bdebe68174a83b8c7b6b667e87a5908c16e8b97d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
