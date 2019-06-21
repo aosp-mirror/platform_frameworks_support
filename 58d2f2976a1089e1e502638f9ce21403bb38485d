@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc436a54_0eadd7b1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-21T06:43:29Z",
+      "side": 1,
+      "message": "I believe it will get NullPointerException if tag is null because when do (int !\u003d Integer), unboxing will happen to the Integer instance.",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 40
+      },
+      "revId": "58d2f2976a1089e1e502638f9ce21403bb38485d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
