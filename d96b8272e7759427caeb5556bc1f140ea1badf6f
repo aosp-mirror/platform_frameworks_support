@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c87d73ef_d55d07b1",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:22:45Z",
+      "side": 1,
+      "message": "I had tried to move MediaTestBase into media2-common androidTest but I failed because the class couldn\u0027t be resolved in media2-session androidTest. Do you know a way to depend on other test library?",
+      "parentUuid": "a0525cb4_9bd6d1d3",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f52e709f_4925a1e6",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoView_WithPlayerTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12333b4_d608605b",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoView_WithPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T06:22:45Z",
+      "side": 1,
+      "message": "Yes, it\u0027s \"something\". I\u0027d initially named the class as VideoViewTestBase but I changed because VideoView_WithSthTestBase is not the base class of VideoView_WithoutPlayerTest.",
+      "parentUuid": "f52e709f_4925a1e6",
+      "range": {
+        "startLine": 32,
+        "startChar": 60,
+        "endLine": 32,
+        "endChar": 63
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
