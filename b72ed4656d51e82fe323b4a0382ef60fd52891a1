@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af1b8665_f2976d5d",
+        "filename": "room/runtime/src/main/java/androidx/room/util/ProcessLock.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T10:58:44Z",
+      "side": 1,
+      "message": "do you think that is worth to separating out? I mean we can rely only on FileLock 🤔 \n\nthat static map with Locks is something that makes me feel a bit uncomfortable \u003d\\",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "b72ed4656d51e82fe323b4a0382ef60fd52891a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
