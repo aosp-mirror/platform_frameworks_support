@@ -42,6 +42,8 @@ import kotlin.math.ceil
 
 /** The default selection color if none is specified. */
 private val DEFAULT_SELECTION_COLOR = Color(0x6633B5E5)
+private val DefaultTextAlign: TextAlign = TextAlign.Start
+private val DefaultTextDirection: TextDirection = TextDirection.Ltr
 
 /**
  * Unfortunately, using full precision floating point here causes bad layouts because floating
@@ -73,6 +75,9 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  *   before the next call to [paint]. This and [textDirection] must be non-null before you call
  *   [layout].
  *
+ * @param paragraphStyle Style configuration that applies only to paragraphs such as text alignment,
+ * or text direction.
+ *
  * @param textAlign How the text should be aligned horizontally. After this is set, you must call
  *    [layout] before the next call to [paint]. The [textAlign] property must not be null.
  *
@@ -102,8 +107,7 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  */
 class TextPainter(
     text: TextSpan? = null,
-    textAlign: TextAlign = TextAlign.Start,
-    textDirection: TextDirection? = null,
+    val paragraphStyle: androidx.ui.painting.ParagraphStyle? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
     softWrap: Boolean = true,
@@ -145,7 +149,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textAlign: TextAlign = textAlign
+    internal var textAlign: TextAlign = paragraphStyle?.textAlign ?: DefaultTextAlign
         set(value) {
             if (field == value) return
             field = value
@@ -153,7 +157,8 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textDirection: TextDirection? = textDirection
+    internal var textDirection: TextDirection? =
+        paragraphStyle?.textDirection ?: DefaultTextDirection
         set(value) {
             if (field == value) return
             field = value
@@ -162,7 +167,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textScaleFactor: Float = textScaleFactor
+    internal var textScaleFactor: Float = textScaleFactor
         set(value) {
             if (field == value) return
             field = value
@@ -171,7 +176,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var maxLines: Int? = maxLines
+    internal var maxLines: Int? = maxLines
         set(value) {
             assert(value == null || value > 0)
             if (field == value) return
@@ -180,7 +185,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var softWrap: Boolean = softWrap
+    internal var softWrap: Boolean = softWrap
         set(value) {
             if (field == value) return
             field = value
@@ -188,7 +193,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var overflow: TextOverflow? = overflow
+    internal var overflow: TextOverflow? = overflow
         set(value) {
             if (field == value) return
             field = value
@@ -196,7 +201,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var locale: Locale? = locale
+    internal var locale: Locale? = locale
         set(value) {
             if (field == value) return
             field = value
@@ -396,7 +401,7 @@ class TextPainter(
         overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
             val fadeSizePainter = TextPainter(
                 text = TextSpan(style = text?.style, text = "\u2026"),
-                textDirection = textDirection,
+                paragraphStyle = paragraphStyle,
                 textScaleFactor = textScaleFactor
             )
             fadeSizePainter.layoutText()
