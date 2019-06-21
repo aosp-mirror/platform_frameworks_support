@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6c856d2_e44a3378",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Changed this just to work on UDeclaration, so it now works correctly for functions, classes, fields, and anything else that has KDoc",
+      "parentUuid": "990854ee_5e211208",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 21
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9b9b74a_844de416",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83751080_1391ebc7",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9b9b74a_844de416",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b961c650_5d0f72b6",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "old patch set, ignoring",
+      "parentUuid": "03f1e76e_4f046b64",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 63
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e4d91d4_9cb384d5",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "898e3b20_08be0733",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/RequireSampledAnnotation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "old patch set, ignoring",
+      "parentUuid": "1e4d91d4_9cb384d5",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 30
+      },
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07396aa1_e3173f31",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXUiPlugin.kt",
         "patchSetId": 1
@@ -105,6 +201,24 @@
       "writtenOn": "2019-06-20T19:15:33Z",
       "side": 1,
       "message": "Can we turn it on for everyone?",
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c861be28_612c5ddf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXUiPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "We can, I just wasn\u0027t sure if we wanted to force this globally. If we do, should I remove this flag too?",
+      "parentUuid": "07396aa1_e3173f31",
       "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

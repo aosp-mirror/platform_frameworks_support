@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72034f49_7c3a4bc7",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "072262eb_69dc5fd9",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a33b9734_4ef5e9c2",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10604369_642627ec",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t realize that the detector was the same per project, looks like only the actual handler is created per file. Done.",
+      "parentUuid": "a33b9734_4ef5e9c2",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8eae909a_6ed6c028",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b66aade9_a9562ccf",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170421c8_58d9d877",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -73,6 +133,24 @@
       "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71860e8_35bd4f13",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "170421c8_58d9d877",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "133ca60f_d4b431d3",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "I\u0027m already using a UElementHandler here, so I can\u0027t really use visitAnnotationUsage. I could use visitAnnotation(), but then I would need to get the source method from the annotation, which seems a bit trickier to do. In the future we might want to add more lint checks to the method anyway, so I think it makes sense to just keep it visiting the method.",
+      "parentUuid": "658b2d8a_5dc0a860",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e93d4b3_99890016",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -104,6 +200,30 @@
       "writtenOn": "2019-06-20T19:15:33Z",
       "side": 1,
       "message": "create a small function for that instead of making it a caller responsibility",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 337,
+        "endChar": 17
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c849323_6899ec2f",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Moved it to a backed field with a getter, what do you think? I guess now the caller has no responsibility to call the method instead of just accessing the list directly",
+      "parentUuid": "6e93d4b3_99890016",
       "range": {
         "startLine": 335,
         "startChar": 15,
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "ecf31106_0e3b1610",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ae5e349_bc83a904",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fa05b9c_3204186a",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -147,6 +285,24 @@
       "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27869f93_a3f1a0d7",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fa05b9c_3204186a",
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "de4d0ff7_b1076293",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e043016_477d37a6",
+      "range": {
+        "startLine": 405,
+        "startChar": 68,
+        "endLine": 407,
+        "endChar": 21
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a8ca97a_19348e71",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -196,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "c18ea714_63696378",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a8ca97a_19348e71",
+      "range": {
+        "startLine": 424,
+        "startChar": 12,
+        "endLine": 424,
+        "endChar": 31
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f91b45a2_d8e1e778",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -207,6 +411,30 @@
       "writtenOn": "2019-06-20T19:15:33Z",
       "side": 1,
       "message": "a bit scary, but let\u0027s try :)",
+      "range": {
+        "startLine": 425,
+        "startChar": 29,
+        "endLine": 425,
+        "endChar": 48
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b43d841_333bc6cb",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Actually it looks like we can just get this from the virtualFile itself, probably the same thing but looks less scary",
+      "parentUuid": "f91b45a2_d8e1e778",
       "range": {
         "startLine": 425,
         "startChar": 29,
@@ -242,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "5234de7d_d666e20e",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cea22224_c259d049",
+      "range": {
+        "startLine": 427,
+        "startChar": 34,
+        "endLine": 427,
+        "endChar": 36
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b057dda_1d5ace35",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5
@@ -262,6 +514,30 @@
       "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59ca81f_1d7591ac",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T14:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b057dda_1d5ace35",
+      "range": {
+        "startLine": 431,
+        "startChar": 12,
+        "endLine": 431,
+        "endChar": 24
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
