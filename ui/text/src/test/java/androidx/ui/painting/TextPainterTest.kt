@@ -54,14 +54,16 @@ class TextPainterTest() {
 
     @Test
     fun `constructor with customized textAlign`() {
-        val textPainter = TextPainter(textAlign = TextAlign.Left)
+        val textPainter = TextPainter(paragraphStyle = ParagraphStyle(textAlign = TextAlign.Left))
 
         assertThat(textPainter.textAlign).isEqualTo(TextAlign.Left)
     }
 
     @Test
     fun `constructor with customized textDirection`() {
-        val textPainter = TextPainter(textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         assertThat(textPainter.textDirection).isEqualTo(TextDirection.Rtl)
     }
@@ -197,8 +199,10 @@ class TextPainterTest() {
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.Center,
-            textDirection = TextDirection.Rtl,
+            paragraphStyle = ParagraphStyle(
+                textAlign = TextAlign.Center,
+                textDirection = TextDirection.Rtl
+            ),
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
             overflow = overflow,
@@ -224,8 +228,10 @@ class TextPainterTest() {
         val textSpan = TextSpan(text = "Hello")
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.Center,
-            textDirection = TextDirection.Rtl,
+            paragraphStyle = ParagraphStyle(
+                textAlign = TextAlign.Center,
+                textDirection = TextDirection.Rtl
+            ),
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
             overflow = overflow,
@@ -253,7 +259,9 @@ class TextPainterTest() {
         val textSpan = TextSpan(text = "Hello", style = textStyle)
         val textPainter = TextPainter(
             text = textSpan,
-            textAlign = TextAlign.Center,
+            paragraphStyle = ParagraphStyle(
+                textAlign = TextAlign.Center
+            ),
             textScaleFactor = scaleFactor,
             maxLines = maxLines,
             overflow = overflow,
@@ -322,7 +330,9 @@ class TextPainterTest() {
 
     @Test(expected = AssertionError::class)
     fun `layout without text assertion should fail`() {
-        val textPainter = TextPainter(textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
 
         textPainter.layout(Constraints())
     }
