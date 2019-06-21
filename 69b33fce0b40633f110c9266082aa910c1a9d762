@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "8edbcd75_f758664c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-21T05:08:40Z",
+      "side": 1,
+      "message": "Ok, let\u0027s track it by b/135689812",
+      "parentUuid": "890bec2f_c821417b",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "69b33fce0b40633f110c9266082aa910c1a9d762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d7e3639_92519e12",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
         "patchSetId": 26
