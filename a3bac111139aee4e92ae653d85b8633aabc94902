@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "e802253f_91cbacf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T01:37:25Z",
+      "side": 1,
+      "message": "It seems that MediaPlayer2Impl#getDuration throws ISE when STATE_IDLE and MediaPlayer catches the exception and eventually returns UNKNOWN_TIME. I think ExoPlayerMediaPlayer2Impl#getDuration should do the same behaviour. What do you think?",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 64
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a271cf18_9578386f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T01:37:25Z",
+      "side": 1,
+      "message": "Does ExoPlayerMediaPlayer2Impl pass null MediaItem to onCurrentMediaItemChanged callback method? Then, the parameter should be annotated by @Nullable not @NonNull in SessionPlayer.PlayerCallback#onCurrentMediaItemChanged.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbe241a7_02bfefb4",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
@@ -13,6 +59,75 @@
       "writtenOn": "2019-06-20T22:45:05Z",
       "side": 1,
       "message": "It\u0027s not necessary",
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8baf89e6_165b17ed",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T01:37:25Z",
+      "side": 1,
+      "message": "Q) Does it also need to check STATE_IDLE here?",
+      "range": {
+        "startLine": 249,
+        "startChar": 9,
+        "endLine": 249,
+        "endChar": 22
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "752eb296_4aef28d1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T01:37:25Z",
+      "side": 1,
+      "message": "I missed calling onPlayerStateChanged in this method. Could you add it? Otherwise mSavedPlayerState in L113 and L126 may have stale state.",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 363,
+        "endChar": 31
+      },
+      "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faadfcea_2f060c11",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T01:37:25Z",
+      "side": 1,
+      "message": "Minor sugguestion: How about changing L566 to \"item !\u003d null \u0026\u0026 item.getMetadata() !\u003d null \u0026\u0026 isCurrentItemMusic()\" and moving L588-590 to after L582 instead of adding resetMusicView?",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 5
+      },
       "revId": "a3bac111139aee4e92ae653d85b8633aabc94902",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
