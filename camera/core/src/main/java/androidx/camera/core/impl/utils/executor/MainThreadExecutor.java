@@ -19,39 +19,33 @@ package androidx.camera.core.impl.utils.executor;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.annotation.NonNull;
-
 import java.util.concurrent.Executor;
-import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * An Executor which will post to the main thread.
+ * Helper class for retrieving an {@link ScheduledExecutorService} which will post to the main
+ * thread.
+ *
+ * <p>Since {@link ScheduledExecutorService} implements {@link Executor}, this can also be used
+ * as a simple Executor.
  */
-final class MainThreadExecutor implements Executor {
-    private static volatile Executor sExecutor;
-    private final Handler mMainThreadHandler;
+final class MainThreadExecutor {
+    private static volatile ScheduledExecutorService sInstance;
 
     private MainThreadExecutor() {
-        mMainThreadHandler = new Handler(Looper.getMainLooper());
     }
 
-    static Executor getInstance() {
-        if (sExecutor != null) {
-            return sExecutor;
+    static ScheduledExecutorService getInstance() {
+        if (sInstance != null) {
+            return sInstance;
         }
         synchronized (MainThreadExecutor.class) {
-            if (sExecutor == null) {
-                sExecutor = new MainThreadExecutor();
+            if (sInstance == null) {
+                sInstance = new HandlerScheduledExecutorService(
+                        new Handler(Looper.getMainLooper()));
             }
         }
 
-        return sExecutor;
-    }
-
-    @Override
-    public void execute(@NonNull Runnable command) {
-        if (!mMainThreadHandler.post(command)) {
-            throw new RejectedExecutionException(mMainThreadHandler + " is shutting down");
-        }
+        return sInstance;
     }
 }

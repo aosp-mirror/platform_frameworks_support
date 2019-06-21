@@ -125,15 +125,15 @@ class BenchmarkStateTest {
 
     @Test
     fun reportResult() {
-        BenchmarkState.reportData("className", "testName", 100, listOf(100), 1, 1)
+        BenchmarkState.reportData("className", "testName", listOf(100), 1, 0, 1)
         val expectedReport = BenchmarkState.Report(
             className = "className",
             testName = "testName",
-            nanos = 100,
             data = listOf(100),
             repeatIterations = 1,
+            thermalThrottleSleepSeconds = 0,
             warmupIterations = 1
         )
-        assertEquals(expectedReport, ResultWriter.fileManager.lastAddedEntry)
+        assertEquals(expectedReport, ResultWriter.reports.last())
     }
 }

@@ -17,6 +17,7 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
     id("AndroidXPlugin")
@@ -25,9 +26,9 @@ plugins {
 
 dependencies {
     api(project(":recyclerview"))
-    api("androidx.annotation:annotation:1.1.0-rc01")
-    api(project(":core"))
-    implementation("androidx.collection:collection:1.1.0-rc01")
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.1.0-rc01")
+    implementation("androidx.collection:collection:1.1.0")
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
@@ -40,11 +41,10 @@ dependencies {
 
 androidx {
     name = "Android RecyclerView Selection"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.RECYCLERVIEW
     mavenGroup = LibraryGroups.RECYCLERVIEW
     inceptionYear = "2017"
     description = "Library providing item selection framework for RecyclerView. Support for touch based and band selection is provided."
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

@@ -21,8 +21,15 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
-import androidx.core.os.BuildCompat.isAtLeastQ
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_DOWN
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_LEFT
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_RIGHT
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
@@ -64,7 +71,6 @@ import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
 import org.junit.After
 import org.junit.Assert.assertThat
-import org.junit.Assume.assumeThat
 import org.junit.Before
 import org.junit.Rule
 import java.util.concurrent.CountDownLatch
@@ -115,14 +121,6 @@ open class BaseTest {
         return Context(activityTestRule)
     }
 
-    /**
-     * Temporary workaround while we're stabilizing tests on the API 29 emulator.
-     * TODO(b/130160918): remove the workaround
-     */
-    protected fun assumeApiBeforeQ() {
-        assumeThat(isAtLeastQ(), equalTo(false))
-    }
-
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
         fun recreateActivity(
             adapterProvider: AdapterProvider,
@@ -150,10 +148,6 @@ open class BaseTest {
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
-
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
 
         fun peekForward() {
             peek(adjustForRtl(-50f))
@@ -213,14 +207,14 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
-                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
                 SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -241,6 +235,96 @@ open class BaseTest {
                         )
                     )
                 )
+        }
+
+        fun assertPageActions() {
+            if (!ViewPager2.sFeatureEnhancedA11yEnabled) {
+                return // these assertions only apply to enhanced a11y
+            }
+
+            var customActions = getActionList(viewPager)
+            var currentPage = viewPager.currentItem
+            var numPages = viewPager.adapter!!.itemCount
+            var isUserInputEnabled = viewPager.isUserInputEnabled
+            var isHorizontalOrientation = viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL
+            var isVerticalOrientation = viewPager.orientation == ViewPager2.ORIENTATION_VERTICAL
+
+            val expectPageLeftAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isHorizontalOrientation &&
+                    (if (viewPager.isRtl) currentPage < numPages - 1 else currentPage > 0)
+
+            val expectPageRightAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isHorizontalOrientation &&
+                    (if (viewPager.isRtl) currentPage > 0 else currentPage < numPages - 1)
+
+            val expectPageUpAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isVerticalOrientation &&
+                    currentPage > 0
+
+            val expectPageDownAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isVerticalOrientation &&
+                    currentPage < numPages - 1
+
+            val expectScrollBackwardAction =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && isUserInputEnabled &&
+                        currentPage > 0
+
+            val expectScrollForwardAction =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && isUserInputEnabled &&
+                        currentPage < numPages - 1
+
+            assertThat("Left action expected: $expectPageLeftAction",
+                hasPageAction(customActions, ACTION_PAGE_LEFT.id),
+                equalTo(expectPageLeftAction)
+            )
+
+            assertThat("Right action expected: $expectPageRightAction",
+                hasPageAction(customActions, ACTION_PAGE_RIGHT.id),
+                equalTo(expectPageRightAction)
+            )
+            assertThat("Up action expected: $expectPageUpAction",
+                hasPageAction(customActions, ACTION_PAGE_UP.id),
+                equalTo(expectPageUpAction)
+            )
+            assertThat("Down action expected: $expectPageDownAction",
+                hasPageAction(customActions, ACTION_PAGE_DOWN.id),
+                equalTo(expectPageDownAction)
+            )
+
+            var node = AccessibilityNodeInfo.obtain()
+            activityTestRule.runOnUiThread { viewPager.onInitializeAccessibilityNodeInfo(node) }
+            @Suppress("DEPRECATION") var standardActions = node.actions
+
+            assertThat("scroll backward action expected: $expectScrollBackwardAction",
+                hasScrollAction(standardActions, ACTION_SCROLL_BACKWARD),
+                equalTo(expectScrollBackwardAction)
+            )
+
+            assertThat("Scroll forward action expected: $expectScrollForwardAction",
+                hasScrollAction(standardActions, ACTION_SCROLL_FORWARD),
+                equalTo(expectScrollForwardAction)
+            )
+        }
+
+        private fun hasScrollAction(
+            actions: Int,
+            accessibilityActionId: Int
+        ): Boolean {
+            return actions and accessibilityActionId != 0
+        }
+
+        private fun hasPageAction(
+            actions: List<AccessibilityNodeInfoCompat.AccessibilityActionCompat>,
+            accessibilityActionId: Int
+        ): Boolean {
+            return actions.any { it.id == accessibilityActionId }
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        private fun getActionList(view: View):
+                List<AccessibilityNodeInfoCompat.AccessibilityActionCompat> {
+            return view.getTag(R.id.tag_accessibility_actions) as?
+                    ArrayList<AccessibilityNodeInfoCompat.AccessibilityActionCompat> ?: ArrayList()
         }
     }
 
@@ -385,6 +469,7 @@ open class BaseTest {
         if (performSelfCheck && viewPager.adapter is SelfChecking) {
             (viewPager.adapter as SelfChecking).selfCheck()
         }
+        assertPageActions()
     }
 
     fun ViewPager2.setCurrentItemSync(
@@ -566,3 +651,8 @@ fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
         }
     }
 }
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL

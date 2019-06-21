@@ -21,6 +21,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Debug
 import android.util.Log
+import androidx.annotation.IntRange
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
@@ -70,9 +71,11 @@ class BenchmarkState internal constructor() {
 
     private var startTimeNs: Long = 0 // System.nanoTime() at start of last warmup/test iter.
 
-    private var paused: Boolean = false
+    private var paused = false
     private var pausedTimeNs: Long = 0 // The System.nanoTime() when the pauseTiming() is called.
     private var pausedDurationNs: Long = 0 // The duration of paused state in nano sec.
+    private var thermalThrottleSleepSeconds: Long =
+        0 // The duration of sleep due to thermal throttling.
 
     private var repeatCount = 0
 
@@ -205,6 +208,7 @@ class BenchmarkState internal constructor() {
         pausedDurationNs = 0
         iterationsRemaining = maxIterations
         repeatCount = 0
+        thermalThrottleSleepSeconds = 0
         state = RUNNING
         startTimeNs = System.nanoTime()
     }
@@ -218,7 +222,7 @@ class BenchmarkState internal constructor() {
         if (repeatCount >= REPEAT_COUNT) {
             if (performThrottleChecks &&
                 throttleRemainingRetries > 0 &&
-                sleepIfThermalThrottled()
+                sleepIfThermalThrottled(THROTTLE_BACKOFF_S)
             ) {
                 // We've slept due to thermal throttle - retry benchmark!
                 throttleRemainingRetries -= 1
@@ -282,7 +286,7 @@ class BenchmarkState internal constructor() {
         when (state) {
             NOT_STARTED -> {
                 if (performThrottleChecks &&
-                    !Clocks.areLocked &&
+                    !CpuInfo.locked &&
                     !AndroidBenchmarkRunner.sustainedPerformanceModeInUse &&
                     !WarningState.isEmulator
                 ) {
@@ -326,42 +330,32 @@ class BenchmarkState internal constructor() {
         }
     }
 
-    private fun mean(): Long = stats.mean.toLong()
-
-    private fun median(): Long = stats.median
-
-    private fun min(): Long = stats.min
-
-    private fun standardDeviation(): Long = stats.standardDeviation.toLong()
-
-    private fun count(): Long = maxIterations.toLong()
-
     internal data class Report(
         val className: String,
         val testName: String,
-        val nanos: Long,
         val data: List<Long>,
         val repeatIterations: Int,
+        val thermalThrottleSleepSeconds: Long,
         val warmupIterations: Int
-    )
-
-    internal fun getReport(testName: String, className: String): Report {
-        return Report(
-            className = className,
-            testName = testName,
-            nanos = min(),
-            data = results,
-            repeatIterations = maxIterations,
-            warmupIterations = warmupIteration
-        )
+    ) {
+        val stats = Stats(data)
     }
 
+    internal fun getReport(testName: String, className: String) = Report(
+        className = className,
+        testName = testName,
+        data = results,
+        repeatIterations = maxIterations,
+        thermalThrottleSleepSeconds = thermalThrottleSleepSeconds,
+        warmupIterations = warmupIteration
+    )
+
     private fun summaryLine() = "Summary: " +
-            "median=${median()}ns, " +
-            "mean=${mean()}ns, " +
-            "min=${min()}ns, " +
-            "stddev=${standardDeviation()}ns, " +
-            "count=${count()}"
+            "median=${stats.median}ns, " +
+            "mean=${stats.mean.toLong()}ns, " +
+            "min=${stats.min}ns, " +
+            "stddev=${stats.standardDeviation.toLong()}ns, " +
+            "count=$maxIterations"
 
     /**
      * Acquires a status report bundle
@@ -373,18 +367,30 @@ class BenchmarkState internal constructor() {
         val status = Bundle()
 
         val prefix = WarningState.WARNING_PREFIX
-        status.putLong("${prefix}median", median())
-        status.putLong("${prefix}mean", mean())
-        status.putLong("${prefix}min", min())
-        status.putLong("${prefix}standardDeviation", standardDeviation())
-        status.putLong("${prefix}count", count())
-        status.putIdeSummaryLine(key, min())
+        status.putLong("${prefix}median", stats.median)
+        status.putLong("${prefix}mean", stats.mean.toLong())
+        status.putLong("${prefix}min", stats.min)
+        status.putLong("${prefix}standardDeviation", stats.standardDeviation.toLong())
+        status.putLong("${prefix}count", maxIterations.toLong())
+        status.putIdeSummaryLine(key, stats.min)
         return status
     }
 
     internal fun sendStatus(testName: String) {
         val bundle = getFullStatusReport(testName)
         InstrumentationRegistry.getInstrumentation().sendStatus(Activity.RESULT_OK, bundle)
+    }
+
+    private fun sleepIfThermalThrottled(sleepSeconds: Long) = when {
+        ThrottleDetector.isDeviceThermalThrottled() -> {
+            Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $sleepSeconds SECONDS")
+            val startTime = System.nanoTime()
+            Thread.sleep(TimeUnit.SECONDS.toMillis(sleepSeconds))
+            val sleepTime = System.nanoTime() - startTime
+            thermalThrottleSleepSeconds += TimeUnit.NANOSECONDS.toSeconds(sleepTime)
+            true
+        }
+        else -> false
     }
 
     internal companion object {
@@ -416,13 +422,11 @@ class BenchmarkState internal constructor() {
          *
          * @param className Name of class the benchmark runs in
          * @param testName Name of the benchmark
-         * @param nanos Summary number for benchmark result, in nanoseconds. Generally this is the
-         *              minimum value observed. If your existing external benchmark infrastructure
-         *              has a standard way of summarizing results, such as average or median, you
-         *              can use that instead.
-         * @param data List of all measured results, in nanoseconds
+         * @param dataNs List of all measured results, in nanoseconds
          * @param warmupIterations Number of iterations of warmup before measurements started.
          *                         Should be no less than 0.
+         * @param thermalThrottleSleepSeconds Number of seconds benchmark was paused during thermal
+         *                                    throttling.
          * @param repeatIterations Number of iterations in between each measurement. Should be no
          *                         less than 1.
          */
@@ -431,39 +435,29 @@ class BenchmarkState internal constructor() {
         fun reportData(
             className: String,
             testName: String,
-            nanos: Long,
-            data: List<Long>,
-            @androidx.annotation.IntRange(from = 0) warmupIterations: Int,
-            @androidx.annotation.IntRange(from = 1) repeatIterations: Int
+            dataNs: List<Long>,
+            @IntRange(from = 0) warmupIterations: Int,
+            @IntRange(from = 0) thermalThrottleSleepSeconds: Long,
+            @IntRange(from = 1) repeatIterations: Int
         ) {
+            val report = Report(
+                className = className,
+                testName = testName,
+                data = dataNs,
+                repeatIterations = repeatIterations,
+                thermalThrottleSleepSeconds = thermalThrottleSleepSeconds,
+                warmupIterations = warmupIterations
+            )
+
             // Report value to Studio console
             val bundle = Bundle()
             val fullTestName = WarningState.WARNING_PREFIX +
                     if (className.isNotEmpty()) "$className.$testName" else testName
-            bundle.putIdeSummaryLine(fullTestName, nanos)
+            bundle.putIdeSummaryLine(fullTestName, report.stats.min)
             InstrumentationRegistry.getInstrumentation().sendStatus(Activity.RESULT_OK, bundle)
 
             // Report values to file output
-            ResultWriter.appendStats(
-                BenchmarkState.Report(
-                    className = className,
-                    testName = testName,
-                    nanos = nanos,
-                    data = data,
-                    repeatIterations = repeatIterations,
-                    warmupIterations = warmupIterations
-                )
-            )
-        }
-
-        internal fun sleepIfThermalThrottled(): Boolean {
-            return if (ThrottleDetector.isDeviceThermalThrottled()) {
-                Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $THROTTLE_BACKOFF_S SECONDS")
-                Thread.sleep(TimeUnit.SECONDS.toMillis(THROTTLE_BACKOFF_S))
-                true
-            } else {
-                false
-            }
+            ResultWriter.appendReport(report)
         }
 
         internal fun ideSummaryLineWrapped(key: String, nanos: Long): String {
