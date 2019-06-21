@@ -83,7 +83,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints())
 
@@ -96,7 +99,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints())
 
@@ -109,7 +115,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints(0.ipx, 200.ipx))
 
@@ -123,7 +132,10 @@ class TextPainterIntegrationTest {
         val width = 80.ipx
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints(maxWidth = width))
 
@@ -135,7 +147,10 @@ class TextPainterIntegrationTest {
         val fontSize = 20.0f
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = "Hello", style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints())
 
@@ -148,7 +163,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Rtl)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl)
+        )
 
         textPainter.layout(Constraints())
 
@@ -161,8 +179,11 @@ class TextPainterIntegrationTest {
         var text = ""
         for (i in 1..50) text += " Hello"
         val textSpan = TextSpan(text = text)
-        val textPainter =
-            TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl),
+            maxLines = 2
+        )
 
         textPainter.layout(Constraints(0.ipx, 200.ipx))
 
@@ -173,8 +194,11 @@ class TextPainterIntegrationTest {
     fun didExceedMaxLines_not_exceed() {
         val text = "Hello"
         val textSpan = TextSpan(text = text)
-        val textPainter =
-            TextPainter(text = textSpan, textDirection = TextDirection.Rtl, maxLines = 2)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl),
+            maxLines = 2
+        )
 
         textPainter.layout(Constraints(0.ipx, 200.ipx))
 
@@ -183,8 +207,10 @@ class TextPainterIntegrationTest {
 
     @Test
     fun layout_build_paragraph() {
-        val textPainter =
-            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            text = TextSpan(text = "Hello"),
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
 
         textPainter.layout(Constraints(0.ipx, 20.ipx))
 
@@ -194,13 +220,13 @@ class TextPainterIntegrationTest {
     @Test
     fun getPositionForOffset_First_Character() {
         val fontSize = 20.0f
-        val textPainter =
-            TextPainter(
-                text = TextSpan(
-                    text = "Hello",
-                    style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.Ltr
-            )
+        val textPainter = TextPainter(
+            text = TextSpan(
+                text = "Hello",
+                style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+            ),
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints())
 
         val selection = textPainter.getPositionForOffset(Offset(dx = 0f, dy = 0f))
@@ -212,17 +238,18 @@ class TextPainterIntegrationTest {
     fun getPositionForOffset_other_Character() {
         val fontSize = 20.0f
         val characterIndex = 2 // Start from 0.
-        val textPainter =
-            TextPainter(
-                text = TextSpan(
-                    text = "Hello",
-                    style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.Ltr
-            )
+        val textPainter = TextPainter(
+            text = TextSpan(
+                text = "Hello",
+                style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+            ),
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints())
 
-        val selection =
-            textPainter.getPositionForOffset(Offset(dx = fontSize * characterIndex + 1f, dy = 0f))
+        val selection = textPainter.getPositionForOffset(
+            offset = Offset(dx = fontSize * characterIndex + 1f, dy = 0f)
+        )
 
         assertThat(selection.offset).isEqualTo(characterIndex)
     }
@@ -233,7 +260,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
 
         textPainter.layout(Constraints())
 
@@ -250,11 +280,12 @@ class TextPainterIntegrationTest {
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(
-                text = textSpan,
-                overflow = TextOverflow.Fade,
-                textDirection = TextDirection.Ltr,
-                softWrap = false,
-                maxLines = 1)
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr),
+            overflow = TextOverflow.Fade,
+            softWrap = false,
+            maxLines = 1
+        )
 
         textPainter.layout(Constraints(maxWidth = 100.ipx))
 
@@ -271,10 +302,11 @@ class TextPainterIntegrationTest {
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
         val textPainter = TextPainter(
-                text = textSpan,
-                overflow = TextOverflow.Fade,
-                textDirection = TextDirection.Ltr,
-                maxLines = 2)
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr),
+            overflow = TextOverflow.Fade,
+            maxLines = 2
+        )
 
         textPainter.layout(Constraints(maxWidth = 100.ipx))
 
@@ -288,7 +320,10 @@ class TextPainterIntegrationTest {
         val text = "HelloHello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints(maxWidth = 120.ipx))
 
         val expectedBitmap = Bitmap.createBitmap(
@@ -329,7 +364,12 @@ class TextPainterIntegrationTest {
         // Run.
         // Select all.
         textPainter.paintBackground(
-            0, text.length, defaultSelectionColor, actualCanvas, Offset.zero)
+            start = 0,
+            end = text.length,
+            color = defaultSelectionColor,
+            canvas = actualCanvas,
+            offset = Offset.zero
+        )
 
         // Assert.
         Assert.assertThat(actualBitmap, equalToBitmap(expectedBitmap))
@@ -344,7 +384,10 @@ class TextPainterIntegrationTest {
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints())
 
         val expectedBitmap = Bitmap.createBitmap(
@@ -363,7 +406,8 @@ class TextPainterIntegrationTest {
                 right = fontSize * (selectionEnd - selectionStart),
                 bottom = fontSize
             ),
-            expectedPaint)
+            expectedPaint
+        )
 
         val actualBitmap = Bitmap.createBitmap(
             ceil(textPainter.width).toInt(),
@@ -374,10 +418,11 @@ class TextPainterIntegrationTest {
 
         // Run.
         textPainter.paintBackground(
-            selectionStart, selectionEnd,
-            defaultSelectionColor,
-            actualCanvas,
-            Offset.zero
+            start = selectionStart,
+            end = selectionEnd,
+            color = defaultSelectionColor,
+            canvas = actualCanvas,
+            offset = Offset.zero
         )
 
         // Assert
@@ -396,7 +441,10 @@ class TextPainterIntegrationTest {
         val fontSize = 20.0f
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textSpan = TextSpan(text = text, style = textStyle)
-        val textPainter = TextPainter(text = textSpan, textDirection = TextDirection.Ltr)
+        val textPainter = TextPainter(
+            text = textSpan,
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints())
 
         val expectedBitmap = Bitmap.createBitmap(
@@ -416,7 +464,9 @@ class TextPainterIntegrationTest {
                 right = textLTR.length * fontSize,
                 bottom = fontSize
             ),
-            expectedPaint)
+            expectedPaint
+        )
+
         // Select "של"
         expectedCanvas.drawRect(
             Rect(
@@ -425,7 +475,8 @@ class TextPainterIntegrationTest {
                 right = (textLTR.length + textRTL.length) * fontSize,
                 bottom = fontSize
             ),
-            expectedPaint)
+            expectedPaint
+        )
 
         val actualBitmap = Bitmap.createBitmap(
             ceil(textPainter.width).toInt(),
@@ -436,11 +487,11 @@ class TextPainterIntegrationTest {
 
         // Run.
         textPainter.paintBackground(
-            selectionLTRStart,
-            textLTR.length + selectionRTLEnd,
-            defaultSelectionColor,
-            actualCanvas,
-            Offset.zero
+            start = selectionLTRStart,
+            end = textLTR.length + selectionRTLEnd,
+            color = defaultSelectionColor,
+            canvas = actualCanvas,
+            offset = Offset.zero
         )
 
         // Assert
@@ -459,7 +510,8 @@ class TextPainterIntegrationTest {
         val selectionColor = Color(0x66AABB33)
         val textPainter = TextPainter(
             text = textSpan,
-            textDirection = TextDirection.Ltr)
+            paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr)
+        )
         textPainter.layout(Constraints())
 
         val expectedBitmap = Bitmap.createBitmap(
@@ -477,7 +529,8 @@ class TextPainterIntegrationTest {
                 right = fontSize * (selectionEnd - selectionStart),
                 bottom = fontSize
             ),
-            expectedPaint)
+            expectedPaint
+        )
 
         val actualBitmap = Bitmap.createBitmap(
             ceil(textPainter.width).toInt(),
@@ -488,11 +541,11 @@ class TextPainterIntegrationTest {
 
         // Run.
         textPainter.paintBackground(
-            selectionStart,
-            selectionEnd,
-            selectionColor,
-            actualCanvas,
-            Offset.zero
+            start = selectionStart,
+            end = selectionEnd,
+            color = selectionColor,
+            canvas = actualCanvas,
+            offset = Offset.zero
         )
 
         // Assert
