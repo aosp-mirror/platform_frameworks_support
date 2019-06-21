@@ -111,4 +111,21 @@ src/sample/UseJavaExperimentalFromKt.kt:37: Error: This declaration is experimen
 
         checkJava(*input).expect(expected)
     }
+
+    @Test
+    fun useKtExperimentalFromJava() {
+        val input = arrayOf(
+            ktSample("sample.DateProviderKt"),
+            ktSample("sample.ExperimentalDateTimeKt"),
+            javaSample("sample.UseKtExperimentalFromJava")
+        )
+
+        /* ktlint-disable max-line-length */
+        val expected = """
+TODO
+        """.trimIndent()
+        /* ktlint-enable max-line-length */
+
+        checkJava(*input).expect(expected)
+    }
 }
