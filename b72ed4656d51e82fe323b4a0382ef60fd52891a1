@@ -47,6 +47,30 @@
       "revId": "b72ed4656d51e82fe323b4a0382ef60fd52891a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "011246c9_4bb00d87",
+        "filename": "room/runtime/src/main/java/androidx/room/util/ProcessLock.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T17:39:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b2b0648_f8fa871c",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "b72ed4656d51e82fe323b4a0382ef60fd52891a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
