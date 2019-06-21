@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b84abdc_ed5013be",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-06-21T00:46:38Z",
+      "side": 1,
+      "message": "You don\u0027t need this. The default behavior of ViewGroup.dispatchApplyWindowInsets() is exactly this.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 67
+      },
+      "revId": "ba0fa52773b8b3e41044cc5487317c38ccf8fe6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
