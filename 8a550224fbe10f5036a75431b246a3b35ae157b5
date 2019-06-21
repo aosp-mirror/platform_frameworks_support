@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "221e4da6_ed2b3ba8",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-21T21:12:07Z",
+      "side": 1,
+      "message": "Then we need to add documentation to @Embedded and this (new?) ability to alias a table name with an embedded prefix to redirect the embedded to that table. Otherwise @Embedded prefix up to this change has only affected column names.",
+      "parentUuid": "29584871_d9521155",
+      "range": {
+        "startLine": 292,
+        "startChar": 51,
+        "endLine": 292,
+        "endChar": 56
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f2a529e_f4dddfae",
         "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
         "patchSetId": 11
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "When @Embedded does not have prefix.\n\nWe can add that test, and QueryInterpreter can write projection for that, but that SQL is useless. SQLite never gives us the second `id` column. The same is true if you spell out the columns yourself.",
       "parentUuid": "3f2a529e_f4dddfae",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39b5256b_7c42abc1",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-21T21:12:07Z",
+      "side": 1,
+      "message": "Then the SQL transformation fails with in this change where it didn\u0027t used to before. By expanding the start projection on a not embedded POJO you end up not using the table name and the column \u0027id\u0027 will be ambiguous. The use-case here doesn\u0027t care about the 2nd \u0027id\u0027 column, but wants to JOIN on it.\n\nTo repro add to ToyDao:\n```\n@Query(\"SELECT * FROM user JOIN toy ON (user.mId \u003d\u003d toy.mId)\")\nList\u003cUser\u003e getUserWithMatchingToyId();\n```",
+      "parentUuid": "56b1cc35_fe18820e",
       "range": {
         "startLine": 353,
         "startChar": 32,
