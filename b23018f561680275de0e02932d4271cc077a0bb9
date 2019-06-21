@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5e7f46c2_f69bbe3b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-21T04:15:25Z",
+      "side": 1,
+      "message": "this class a @LargeTest and should not already be in presubmit am I wrong? (it does not show up in the go/androidx-tests)",
+      "parentUuid": "880cdfb8_b1910467",
+      "range": {
+        "startLine": 553,
+        "startChar": 5,
+        "endLine": 553,
+        "endChar": 14
+      },
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9731469d_4848363e",
         "filename": "ui/android-text/src/androidTest/java/androidx/text/style/WordSpacingSpanTest.java",
         "patchSetId": 3
