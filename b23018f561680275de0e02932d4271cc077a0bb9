@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "62e0f5a5_a957416e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-21T13:59:51Z",
+      "side": 1,
+      "message": "I suppose b/128597468 is the bug for enabling Cuttlefish, and can be treated as the ticket for the overall change. There will be bugs filed for each test before this gets merged.",
+      "parentUuid": "58e1de44_033ed250",
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "880cdfb8_b1910467",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
         "patchSetId": 3
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "6c13150f_2b64c71d",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-21T13:59:51Z",
+      "side": 1,
+      "message": "I don\u0027t see a way around disabling these tests if we want to get Cuttlefish running. Each test will have a bug filed for it. \n\n@Large tests still run when the containing project is changed. The test does not run when appcompat is a dependency.",
+      "parentUuid": "5e7f46c2_f69bbe3b",
+      "range": {
+        "startLine": 553,
+        "startChar": 5,
+        "endLine": 553,
+        "endChar": 14
+      },
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9731469d_4848363e",
         "filename": "ui/android-text/src/androidTest/java/androidx/text/style/WordSpacingSpanTest.java",
         "patchSetId": 3
@@ -86,6 +128,30 @@
       "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "046cbebe_7893537c",
+        "filename": "ui/android-text/src/androidTest/java/androidx/text/style/WordSpacingSpanTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-21T13:59:51Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. These tests are now green, removing flaky annotation.",
+      "parentUuid": "9731469d_4848363e",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "b23018f561680275de0e02932d4271cc077a0bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
