@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e12a9dca_617f2b48",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb9c7d23_60cf929c",
+      "range": {
+        "startLine": 80,
+        "startChar": 82,
+        "endLine": 80,
+        "endChar": 84
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f644999_c3421eab",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5bc4a5d_7c62b826",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f644999_c3421eab",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "cd157b2b_7993f791",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cfb8806_839b5e11",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 17
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06109bcb_f880e27d",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 3
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "cc3743db_d86272dd",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06109bcb_f880e27d",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d9e6bef_0527589d",
         "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6241c4_f6e87ba1",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d9e6bef_0527589d",
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +245,29 @@
       "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0f45590_c0749f5a",
+        "filename": "annotation/annotation-experimental/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-21T18:55:56Z",
+      "side": 1,
+      "message": "Need to turn lintPublish back on, which is going to create a dependency cycle and probably make Studio silently reject the dependency.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "e31eca6a62eedbbf2122e2130b36d971303d21a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
