@@ -342,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "b91580e3_dcdb1fe4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-21T19:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f527ae4_63fbf04d",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "70a96af98942583c8deaf0e3c60a768d4e51862d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18a2c478_b0e5ce07",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
         "patchSetId": 2
