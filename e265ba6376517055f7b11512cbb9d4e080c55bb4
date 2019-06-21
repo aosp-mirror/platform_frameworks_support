@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "8c3ad4b8_08aedb49",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-06-21T03:18:33Z",
+      "side": 1,
+      "message": "Yeah understand. The way I see this is, by having the same internal logic, CameraFactory (method 1) should be the intended way to get camera id with specific lens facing. And LensFacingCameraIdFilter is a nice wrap which can be stored in a config. Does it make sense to you?",
+      "parentUuid": "827b55ae_5e5f3b20",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7f699e4_783758ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 4
