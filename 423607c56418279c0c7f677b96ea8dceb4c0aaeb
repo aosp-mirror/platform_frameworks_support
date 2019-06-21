@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a66b0bc8_b88747d1",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T08:33:40Z",
+      "side": 1,
+      "message": "nit) Please use try-catch only for mMediaPlayer.close() since MediaSession#close doesn\u0027t throw Exception.",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 29
+      },
+      "revId": "423607c56418279c0c7f677b96ea8dceb4c0aaeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
