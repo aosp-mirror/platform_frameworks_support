@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf57d3b7_a539de63",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "copypaste",
+      "range": {
+        "startLine": 176,
+        "startChar": 3,
+        "endLine": 176,
+        "endChar": 74
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b69c5b_27fdcce9",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "c",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 37
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63bad1e7_b82b6e43",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "nit: inline variable",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 37
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907385fb_e409ec3d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "this can potentially be Dp.Infinity. should we handle it in some way?",
+      "range": {
+        "startLine": 78,
+        "startChar": 45,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db65b388_297d0140",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "while text here is a slot should DrawerHeader and DrawerSectionLabel also have text slots instead of String params?",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 30
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438e5d63_37a143da",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "don\u0027t you want Color.Transparent? as your main bg has this color already I guess?",
+      "range": {
+        "startLine": 174,
+        "startChar": 76,
+        "endLine": 174,
+        "endChar": 83
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "799aea46_0955e022",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "it is not clear what does it mean to be \"opened\" in this context. I guess in general I don\u0027t really like mixing two-states modal and three-states bottom drawers. and this magically works for both of them. what if later there will be some additional forth intermediate state? why for bottom drawer \"opened\" is when the dialog displayed on the half of the screen, when it is displayed as expanded to the full screen it is also opened semantically, right?",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 14
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e849b1a5_285343cc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "maybe draggableAxis? or actually should it have similar name to the next variable. like:\npositionToAxis\naxisToPosition",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 18
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b0d335_28bc7bd5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "maxValue \u003c minValue. this should be reconsidered I think.",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 18
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ddb5d0_dc5cd2e3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "why not combined into one aligned(TopLeft) ?",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 270,
+        "endChar": 13
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fc0daef_fac02140",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "it is not lerp, right? lerp always works with fraction as third param. maybe calculateFraction?",
+      "range": {
+        "startLine": 306,
+        "startChar": 12,
+        "endLine": 306,
+        "endChar": 23
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0b38e9c_4c793d90",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "could be extracted into a constant val instead",
+      "range": {
+        "startLine": 320,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d999c7_ee4b708b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "I guess it will be better to use onCommit here. there is an option with one parameter",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 328,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1452c29_e9e174dd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "can\u0027t it be simpler?\nval newValue \u003d (offset.value + draggedFraction).coerceIn(minFraction, maxFraction)\nval consumed \u003d newValue - offset.value\noffset.snapTo(newValue)\nreturn dragInfo.axisToPosition(scaleToAbsolute(consumed))",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 369,
+        "endChar": 73
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7628d2_688b6c21",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-21T16:32:52Z",
+      "side": 1,
+      "message": "you support both x and y",
+      "range": {
+        "startLine": 393,
+        "startChar": 16,
+        "endLine": 393,
+        "endChar": 17
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
