@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cf3f35d_b37ee63a",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-21T11:24:37Z",
+      "side": 1,
+      "message": "These tests shouldn\u0027t be here. This file is supposed to test material checkbox. But the tests you are adding are basically integration tests / demos for our testing APIs. using a checkbox. Can we move it our tests?",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 56
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d8163b9_63752486",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-21T11:24:37Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is correct. It re-runs the query but that doesn\u0027t mean the element no longer exist it just might not satisfy the search criteria anymore.",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 49
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280256fd_d365c19e",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-21T11:24:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this also check if the node is still in the tree?",
+      "range": {
+        "startLine": 143,
+        "startChar": 38,
+        "endLine": 143,
+        "endChar": 44
+      },
+      "revId": "8d2c1c6ca6c5511f74495092ddd6257113fa8561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
