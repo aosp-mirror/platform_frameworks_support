@@ -71,6 +71,52 @@
     },
     {
       "key": {
+        "uuid": "c6dff73c_83e70b2d",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "Can we provide some helper / higher level API here? It seems unfortunate that you have to manually specify things like space and labels, when we can easily work it out based on what \u0027group\u0027 something is in. For example:\n\nDrawerContent(header \u003d ...) {\n    Group(label \u003d ...) {\n        mainSection.forEachIndexed {...}\n    }\n    Group(label \u003d ...) {\n        secondarySection.forEachIndexed {...}\n    }\n}\n\nJust a thought :) I think it\u0027s ok to expose these things individually as well, but for most use cases I don\u0027t want developers to have to think about spacing between sections, it would be great if it could just work\n\nWDYT?",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88795fa8_539f7131",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "This is interesting, as this sort of forces developers to now hold on to this state, when they may want to just represent this as a Boolean in their data model. Does this actually provide any value here? Compared to for example, isOpen: Boolean",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "907385fb_e409ec3d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -87,6 +133,52 @@
         "startChar": 45,
         "endLine": 78,
         "endChar": 53
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3474c895_f138c937",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "This seems suspicious - might need to clarify the specs here. I\u0027m worried about other form factors such as multi window modes, freeform window modes, etc.",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 78
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a16d274_7b1e092e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "I\u0027m not sure this approach of putting everything inside one file here scales well in these kind of cases. To me the Drawer component is very separate from components that can be put inside the drawer - maybe a separate file for these? Maybe these should also live inside some class, as it will be quite confusing when you type \u0027Dra\u0027 and you get autocompleted results for:\nBottomDrawer\nDrawerHeader\nDrawerSectionLabel\nDrawerVerticalSpace\nModalDrawer\nNavigationDrawer\nDrawerState\n\n:)",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
       },
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -140,6 +232,29 @@
     },
     {
       "key": {
+        "uuid": "bdb12c78_18741df2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "nit: don\u0027t copy the same color if we are not selected",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "799aea46_0955e022",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -151,6 +266,30 @@
       "writtenOn": "2019-06-21T16:32:52Z",
       "side": 1,
       "message": "it is not clear what does it mean to be \"opened\" in this context. I guess in general I don\u0027t really like mixing two-states modal and three-states bottom drawers. and this magically works for both of them. what if later there will be some additional forth intermediate state? why for bottom drawer \"opened\" is when the dialog displayed on the half of the screen, when it is displayed as expanded to the full screen it is also opened semantically, right?",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 14
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a09dddb_c7a1626e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "I agree, I think it\u0027s totally fine to separate these, the logic is quite simple in both cases anyway, as we add more functionality here I think it will just get messy.",
+      "parentUuid": "799aea46_0955e022",
       "range": {
         "startLine": 209,
         "startChar": 8,
@@ -206,6 +345,29 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66726987_3a5eb076",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "This is maybe ok for now, but I think conceptually this is quite strange - as this isn\u0027t actually the children of the drawer component, but it\u0027s the rest of the app displayed underneath the drawer. We probably will iterate on this a lot though, so no need to worry about this for now",
+      "range": {
+        "startLine": 251,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -294,6 +456,29 @@
         "startChar": 4,
         "endLine": 328,
         "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f169e875_3f12fe10",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-21T18:06:13Z",
+      "side": 1,
+      "message": "nit: Maybe extract outside?",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 24
       },
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
