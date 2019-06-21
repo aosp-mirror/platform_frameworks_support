@@ -16,9 +16,13 @@
 
 package androidx.camera.core.impl.utils.executor;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.annotation.NonNull;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Utility class for generating specific implementations of {@link Executor}.
@@ -29,8 +33,8 @@ public final class CameraXExecutors {
     private CameraXExecutors() {
     }
 
-    /** Returns a cached {@link Executor} which posts to the main thread. */
-    public static Executor mainThreadExecutor() {
+    /** Returns a cached {@link ScheduledExecutorService} which posts to the main thread. */
+    public static ScheduledExecutorService mainThreadExecutor() {
         return MainThreadExecutor.getInstance();
     }
 
@@ -55,5 +59,32 @@ public final class CameraXExecutors {
      */
     public static Executor newSequentialExecutor(@NonNull Executor delegate) {
         return new SequentialExecutor(delegate);
+    }
+
+    /**
+     * Returns whether the executor is a sequential executor as returned by
+     * {@link #newSequentialExecutor(Executor)}.
+     */
+    public static boolean isSequentialExecutor(@NonNull Executor executor) {
+        return executor instanceof SequentialExecutor;
+    }
+
+    /**
+     * Returns an executor which posts to the thread's current {@link Looper}.
+     *
+     * @return An executor which posts to the thread's current looper.
+     * @throws IllegalStateException if the current thread does not have a looper.
+     */
+    public static ScheduledExecutorService myLooperExecutor() {
+        return HandlerScheduledExecutorService.currentThreadExecutor();
+    }
+
+    /**
+     * Returns an executor which posts to the given {@link Handler}.
+     *
+     * @return An executor which posts to the given handler.
+     */
+    public static ScheduledExecutorService newHandlerExecutor(@NonNull Handler handler) {
+        return new HandlerScheduledExecutorService(handler);
     }
 }

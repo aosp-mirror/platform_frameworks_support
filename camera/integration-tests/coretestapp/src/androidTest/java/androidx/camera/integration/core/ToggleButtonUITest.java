@@ -24,18 +24,22 @@ import static junit.framework.TestCase.assertNotNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assume.assumeTrue;
+
+import android.content.Intent;
 
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.Preview;
 import androidx.camera.integration.core.idlingresource.ElapsedTimeIdlingResource;
 import androidx.camera.integration.core.idlingresource.WaitForViewToShow;
+import androidx.camera.testing.CameraUtil;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -43,26 +47,31 @@ import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.Until;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /** Test toggle buttons in CoreTestApp. */
-@FlakyTest(bugId = 130580574)
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public final class ToggleButtonUITest {
 
     private static final int LAUNCH_TIMEOUT_MS = 5000;
     private static final int IDLE_TIMEOUT_MS = 1000;
+    private static final String BASIC_SAMPLE_PACKAGE = "androidx.camera.integration.core";
 
     private final UiDevice mDevice =
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     private final String mLauncherPackageName = mDevice.getLauncherPackageName();
+    private final Intent mIntent = ApplicationProvider.getApplicationContext().getPackageManager()
+            .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
 
     @Rule
     public ActivityTestRule<CameraXActivity> mActivityRule =
-            new ActivityTestRule<>(CameraXActivity.class);
+            new ActivityTestRule<>(CameraXActivity.class, true,
+                    false);
 
     @Rule
     public GrantPermissionRule mCameraPermissionRule =
@@ -78,6 +87,19 @@ public final class ToggleButtonUITest {
         IdlingRegistry.getInstance().register(idlingResource);
         Espresso.onIdle();
         IdlingRegistry.getInstance().unregister(idlingResource);
+    }
+
+    @Before
+    public void setUp() {
+        assumeTrue(CameraUtil.deviceHasCamera());
+        // Launch Activity
+        mActivityRule.launchActivity(mIntent);
+    }
+
+    @After
+    public void tearDown() {
+        pressBackAndReturnHome();
+        mActivityRule.finishActivity();
     }
 
     @Test
@@ -164,5 +186,11 @@ public final class ToggleButtonUITest {
         mDevice.wait(Until.hasObject(By.pkg(mLauncherPackageName).depth(0)), LAUNCH_TIMEOUT_MS);
     }
 
+    private void pressBackAndReturnHome() {
+        mDevice.pressBack();
+
+        // Returns to Home to restart next test.
+        mDevice.pressHome();
+    }
 }
 

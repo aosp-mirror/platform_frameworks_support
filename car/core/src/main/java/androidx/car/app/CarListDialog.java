@@ -177,6 +177,7 @@ public class CarListDialog extends Dialog {
      * Initializes {@link #mAdapter} to display the items in the given array. It utilizes the
      * {@link TextListItem} but only populates the title field with the the values in the array.
      */
+    @SuppressWarnings("unchecked")
     private void initializeWithItems(CharSequence[] items) {
         Context context = getContext();
         List<ListItem> listItems = new ArrayList<>();
@@ -194,6 +195,7 @@ public class CarListDialog extends Dialog {
      * the {@link SubheaderListItem} to display the section title and {@link TextListItem} to
      * display the individual items of a section.
      */
+    @SuppressWarnings("unchecked")
     private void initializeWithSections(DialogSubSection[] sections) {
         Context context = getContext();
         List<ListItem> listItems = new ArrayList<>();
@@ -465,7 +467,7 @@ public class CarListDialog extends Dialog {
          * @see #setOnDismissListener(OnDismissListener)
          */
         @NonNull
-        public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+        public Builder setOnCancelListener(@NonNull OnCancelListener onCancelListener) {
             mOnCancelListener = onCancelListener;
             return this;
         }
@@ -476,7 +478,7 @@ public class CarListDialog extends Dialog {
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
-        public Builder setOnDismissListener(OnDismissListener onDismissListener) {
+        public Builder setOnDismissListener(@NonNull OnDismissListener onDismissListener) {
             mOnDismissListener = onDismissListener;
             return this;
         }

@@ -93,7 +93,6 @@ class FakeDragTest(private val config: TestConfig) : BaseTest() {
 
     override fun setUp() {
         super.setUp()
-        assumeApiBeforeQ()
         if (config.rtl) {
             localeUtil.resetLocale()
             localeUtil.setLocale(LocaleTestUtils.RTL_LANGUAGE)
@@ -286,8 +285,7 @@ class FakeDragTest(private val config: TestConfig) : BaseTest() {
         val vc = ViewConfiguration.get(test.viewPager.context)
         val touchSlop = vc.scaledTouchSlop
         startManualDragDuringFakeDrag(1.8f, 700, 1) {
-            PageSwiperManual(test.viewPager, config.rtl)
-                .swipeForward(touchSlop * 5f, quadInterpolator)
+            PageSwiperManual(test.viewPager).swipeForward(touchSlop * 5f, quadInterpolator)
         }
     }
 

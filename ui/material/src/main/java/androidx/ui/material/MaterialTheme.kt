@@ -17,27 +17,27 @@
 package androidx.ui.material
 
 import androidx.annotation.CheckResult
+import androidx.compose.Ambient
+import androidx.compose.Children
+import androidx.compose.Composable
+import androidx.compose.composer
+import androidx.compose.ambient
+import androidx.compose.effectOf
+import androidx.compose.memo
+import androidx.compose.unaryPlus
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.dp
 import androidx.ui.core.withDensity
 import androidx.ui.engine.text.FontWeight
 import androidx.ui.engine.text.font.FontFamily
+import androidx.ui.graphics.Color
 import androidx.ui.material.borders.BorderRadius
 import androidx.ui.material.borders.RoundedRectangleBorder
 import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.DefaultRippleEffectFactory
 import androidx.ui.material.ripple.RippleTheme
-import androidx.ui.graphics.Color
 import androidx.ui.painting.TextStyle
-import androidx.compose.Ambient
-import androidx.compose.Children
-import androidx.compose.Composable
-import androidx.compose.Effect
-import androidx.compose.ambient
-import androidx.compose.composer
-import androidx.compose.effectOf
-import androidx.compose.unaryPlus
 
 /**
  * This Component defines the styling principles from the Material design specification. It must be
@@ -223,17 +223,20 @@ data class MaterialTypography(
 @Composable
 fun MaterialRippleTheme(@Children children: @Composable() () -> Unit) {
     val materialColors = +ambient(Colors)
-    val defaultTheme = RippleTheme(
-        factory = DefaultRippleEffectFactory,
-        colorCallback = { background ->
-            if (background == null || background.alpha == 0f ||
-                background.luminance() >= 0.5) { // light bg
-                materialColors.primary.copy(alpha = 0.12f)
-            } else { // dark bg
-                Color(0xFFFFFFFF.toInt()).copy(alpha = 0.24f)
+    val defaultTheme = +memo {
+        RippleTheme(
+            factory = DefaultRippleEffectFactory,
+            colorCallback = { background ->
+                if (background == null || background.alpha == 0f ||
+                    background.luminance() >= 0.5
+                ) { // light bg
+                    materialColors.primary.copy(alpha = 0.12f)
+                } else { // dark bg
+                    Color(0xFFFFFFFF.toInt()).copy(alpha = 0.24f)
+                }
             }
-        }
-    )
+        )
+    }
     CurrentRippleTheme.Provider(value = defaultTheme, children = children)
 }
 
@@ -302,40 +305,10 @@ fun MaterialButtonShapeTheme(@Children children: @Composable() () -> Unit) {
     CurrentShapeAmbient.Provider(value = value, children = children)
 }
 
-// Syntax helpers for having theme fallbacks
-
 /**
- * Helps to resolve the [Color]. It will take the current value or the [choosingBlock]
- * value from [Colors] if null was used.
- *
- * Example:
- *     val finalColor = +color.orFromTheme { primary }
+ * Helps to resolve the [ShapeBorder] by applying [choosingBlock] for the [Shapes].
  */
-fun Color?.orFromTheme(choosingBlock: MaterialColors.() -> Color): Effect<Color> {
-    val color = this
-    return effectOf {
-        if (color == null) {
-            (+ambient(Colors)).choosingBlock()
-        } else {
-            color
-        }
-    }
-}
-
-/**
- * Helps to resolve the [ShapeBorder]. It will take the current value or the [choosingBlock]
- * value from [CurrentShapeAmbient] if null was used.
- *
- * Example:
- *     val surfaceShape = +shape.orFromTheme{ button }
- */
-fun ShapeBorder?.orFromTheme(choosingBlock: Shapes.() -> ShapeBorder): Effect<ShapeBorder> {
-    val shape = this
-    return effectOf {
-        if (shape == null) {
-            (+ambient(CurrentShapeAmbient)).choosingBlock()
-        } else {
-            shape
-        }
-    }
-}
+@CheckResult(suggest = "+")
+fun themeShape(
+    choosingBlock: Shapes.() -> ShapeBorder
+) = effectOf<ShapeBorder> { (+ambient(CurrentShapeAmbient)).choosingBlock() }

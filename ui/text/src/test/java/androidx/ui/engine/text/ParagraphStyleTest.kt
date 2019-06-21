@@ -55,17 +55,17 @@ class ParagraphStyleTest {
 
     @Test
     fun `getTextStyle with non-null values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
         val maxLines = 2
         val fontFamily = FontFamily("sans-serif")
         val fontSize = 1.0f
         val lineHeight = 2.0f
         val ellipsis = true
         val locale = Locale("en")
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
 
         val paragraphStyle = ParagraphStyle(
             textAlign = textAlign,
@@ -89,7 +89,7 @@ class ParagraphStyleTest {
         assertThat(textStyle.fontFamily, equalTo(paragraphStyle.fontFamily))
         assertThat(textStyle.fontSize, equalTo(paragraphStyle.fontSize))
         assertThat(textStyle.locale, equalTo(paragraphStyle.locale))
-        assertThat(textStyle.height, equalTo(paragraphStyle.lineHeight))
+        assertThat(textStyle.lineHeight, equalTo(paragraphStyle.lineHeight))
         assertThat(textStyle.fontSynthesis, equalTo(paragraphStyle.fontSynthesis))
     }
 
@@ -117,23 +117,23 @@ class ParagraphStyleTest {
         assertThat(textStyle.fontFamily, `is`(nullValue()))
         assertThat(textStyle.fontSize, `is`(nullValue()))
         assertThat(textStyle.locale, `is`(nullValue()))
-        assertThat(textStyle.height, `is`(nullValue()))
+        assertThat(textStyle.lineHeight, `is`(nullValue()))
         assertThat(textStyle.fontSynthesis, `is`(nullValue()))
     }
 
     @Test
     fun `toString with values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
         val maxLines = 2
         val fontFamily = FontFamily("sans-serif")
         val fontSize = 1.0f
         val lineHeight = 2.0f
         val ellipsis = false
         val locale = Locale("en")
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
 
         val paragraphStyle = ParagraphStyle(
             textAlign = textAlign,
