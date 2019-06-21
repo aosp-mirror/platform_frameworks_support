@@ -16,8 +16,6 @@
 
 package androidx.media2.widget;
 
-import static android.content.Context.KEYGUARD_SERVICE;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -35,29 +33,20 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import android.app.Instrumentation;
-import android.app.KeyguardManager;
-import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.TrackInfo;
-import androidx.media2.common.UriMediaItem;
 import androidx.media2.player.MediaPlayer;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -68,7 +57,6 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -76,16 +64,10 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MediaControlViewTest {
+public class MediaControlViewTest extends MediaWidgetTestBase {
     private static final String TAG = "MediaControlViewTest";
-    // Expected success time
-    private static final int WAIT_TIME_MS = 1000;
     private static final long FFWD_MS = 30000L;
     private static final long REW_MS = 10000L;
-
-    private Context mContext;
-    private Executor mMainHandlerExecutor;
-    private Instrumentation mInstrumentation;
 
     private SessionPlayer mPlayer;
     private MediaControlViewTestActivity mActivity;
@@ -98,10 +80,6 @@ public class MediaControlViewTest {
 
     @Before
     public void setup() throws Throwable {
-        mContext = ApplicationProvider.getApplicationContext();
-        mMainHandlerExecutor = ContextCompat.getMainExecutor(mContext);
-        mInstrumentation = InstrumentationRegistry.getInstrumentation();
-
         mPlayer = new MediaPlayer(mContext);
         mActivity = mActivityRule.getActivity();
         mMediaControlView = mActivity.findViewById(R.id.mediacontrolview);
@@ -116,8 +94,8 @@ public class MediaControlViewTest {
                 + R.raw.test_file_scheme_video);
         mFileSchemeMediaItem = createTestMediaItem(fileSchemeUri);
 
-        setKeepScreenOn();
-        checkAttachedToWindow();
+        setKeepScreenOn(mActivityRule);
+        checkAttachedToWindow(mMediaControlView);
     }
 
     @After
@@ -147,7 +125,7 @@ public class MediaControlViewTest {
                 }
             }
         });
-        waitToPrepare(mFileSchemeMediaItem);
+        setAndPrepare(mFileSchemeMediaItem);
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         onView(allOf(withId(R.id.pause), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForPlayingState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -172,7 +150,7 @@ public class MediaControlViewTest {
                 }
             }
         });
-        waitToPrepare(mFileSchemeMediaItem);
+        setAndPrepare(mFileSchemeMediaItem);
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         onView(allOf(withId(R.id.ffwd), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -213,7 +191,7 @@ public class MediaControlViewTest {
                 return (actual < expected + delta) && (actual > expected - delta);
             }
         });
-        waitToPrepare(mFileSchemeMediaItem);
+        setAndPrepare(mFileSchemeMediaItem);
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         onView(allOf(withId(R.id.rew), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForRew.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -255,7 +233,7 @@ public class MediaControlViewTest {
                 latch.countDown();
             }
         });
-        waitToPrepare(uriMediaItem);
+        setAndPrepare(uriMediaItem);
         assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
         onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
     }
@@ -311,7 +289,7 @@ public class MediaControlViewTest {
         });
         // MediaPlayer needs a surface to be set in order to produce subtitle tracks
         mPlayer.setSurfaceInternal(mActivity.getSurfaceHolder().getSurface());
-        waitToPrepare(mediaItem);
+        setAndPrepare(mediaItem);
         assertTrue(latchForTrackUpdate.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
 
         onView(withId(R.id.subtitle)).check(matches(isClickable()));
@@ -406,55 +384,12 @@ public class MediaControlViewTest {
         assertEquals(mMediaControlView.isCurrentMediaItemFromNetwork(), isNetwork);
     }
 
-    private void setKeepScreenOn() throws Throwable {
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= 27) {
-                    mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                    mActivity.setTurnScreenOn(true);
-                    mActivity.setShowWhenLocked(true);
-                    KeyguardManager keyguardManager = (KeyguardManager)
-                            mInstrumentation.getTargetContext().getSystemService(KEYGUARD_SERVICE);
-                    keyguardManager.requestDismissKeyguard(mActivity, null);
-                } else {
-                    mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-                }
-            }
-        });
-        mInstrumentation.waitForIdleSync();
-    }
-
-    private void checkAttachedToWindow() throws Exception {
-        if (!mMediaControlView.isAttachedToWindow()) {
-            final CountDownLatch latch = new CountDownLatch(1);
-            View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
-                @Override
-                public void onViewAttachedToWindow(View v) {
-                    latch.countDown();
-                }
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                }
-            };
-            mMediaControlView.addOnAttachStateChangeListener(listener);
-            assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        }
-    }
-
-    private MediaItem createTestMediaItem(Uri uri) {
-        return new UriMediaItem.Builder(uri).build();
-    }
-
     private void registerCallback(SessionPlayer.PlayerCallback callback) {
         mPlayer.registerPlayerCallback(mMainHandlerExecutor, callback);
     }
 
-    private void waitToPrepare(MediaItem item) throws Exception {
+    private void setAndPrepare(MediaItem item) {
         mPlayer.setMediaItem(item);
-        mPlayer.prepare().get();
+        mPlayer.prepare();
     }
 }

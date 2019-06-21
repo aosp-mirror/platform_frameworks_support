@@ -24,11 +24,11 @@ import androidx.room.ext.T
 import androidx.room.processor.OnConflictProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Dao
-import androidx.room.vo.Entity
 import androidx.room.vo.InsertionMethod
 import androidx.room.vo.QueryMethod
 import androidx.room.vo.RawQueryMethod
 import androidx.room.vo.ReadQueryMethod
+import androidx.room.vo.ShortcutEntity
 import androidx.room.vo.ShortcutMethod
 import androidx.room.vo.TransactionMethod
 import androidx.room.vo.WriteQueryMethod
@@ -38,6 +38,7 @@ import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
+import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
 import stripNonJava
@@ -67,11 +68,20 @@ class DaoWriter(
                 .builder(RoomTypeNames.ROOM_DB, "__db", PRIVATE, FINAL)
                 .build()
 
-        private fun typeNameToFieldName(typeName: TypeName?): String {
-            if (typeName is ClassName) {
-                return typeName.simpleName()
+        private fun shortcutEntityFieldNamePart(shortcutEntity: ShortcutEntity): String {
+            return if (shortcutEntity.isPartialEntity) {
+                typeNameToFieldName(shortcutEntity.pojo.typeName) + "As" +
+                        typeNameToFieldName(shortcutEntity.entityTypeName)
             } else {
-                return typeName.toString().replace('.', '_').stripNonJava()
+                typeNameToFieldName(shortcutEntity.entityTypeName)
+            }
+        }
+
+        private fun typeNameToFieldName(typeName: TypeName?): String {
+            return if (typeName is ClassName) {
+                typeName.simpleName()
+            } else {
+                typeName.toString().replace('.', '_').stripNonJava()
             }
         }
     }
@@ -287,7 +297,7 @@ class DaoWriter(
 
                     val fields = entities.mapValues {
                         val spec = getOrCreateField(InsertionMethodField(it.value, onConflict))
-                        val impl = EntityInsertionAdapterWriter(it.value, onConflict)
+                        val impl = EntityInsertionAdapterWriter.create(it.value, onConflict)
                                 .createAnonymous(this@DaoWriter, dbField.name)
                         spec to impl
                     }
@@ -323,7 +333,7 @@ class DaoWriter(
      */
     private fun createDeletionMethods(): List<PreparedStmtQuery> {
         return createShortcutMethods(dao.deletionMethods, "deletion") { _, entity ->
-            EntityDeletionAdapterWriter(entity)
+            EntityDeletionAdapterWriter.create(entity)
                     .createAnonymous(this@DaoWriter, dbField.name)
         }
     }
@@ -334,7 +344,7 @@ class DaoWriter(
     private fun createUpdateMethods(): List<PreparedStmtQuery> {
         return createShortcutMethods(dao.updateMethods, "update") { update, entity ->
             val onConflict = OnConflictProcessor.onConflictText(update.onConflictStrategy)
-            EntityUpdateAdapterWriter(entity, onConflict)
+            EntityUpdateAdapterWriter.create(entity, onConflict)
                     .createAnonymous(this@DaoWriter, dbField.name)
         }
     }
@@ -342,11 +352,10 @@ class DaoWriter(
     private fun <T : ShortcutMethod> createShortcutMethods(
         methods: List<T>,
         methodPrefix: String,
-        implCallback: (T, Entity) -> TypeSpec
+        implCallback: (T, ShortcutEntity) -> TypeSpec
     ): List<PreparedStmtQuery> {
         return methods.mapNotNull { method ->
             val entities = method.entities
-
             if (entities.isEmpty()) {
                 null
             } else {
@@ -458,14 +467,15 @@ class DaoWriter(
     }
 
     private class InsertionMethodField(
-        val entity: Entity,
+        val shortcutEntity: ShortcutEntity,
         val onConflictText: String
     ) : SharedFieldSpec(
-            "insertionAdapterOf${Companion.typeNameToFieldName(entity.typeName)}",
-            RoomTypeNames.INSERTION_ADAPTER) {
-
+        baseName = "insertionAdapterOf${shortcutEntityFieldNamePart(shortcutEntity)}",
+        type = ParameterizedTypeName.get(
+            RoomTypeNames.INSERTION_ADAPTER, shortcutEntity.pojo.typeName)
+    ) {
         override fun getUniqueKey(): String {
-            return "${entity.typeName} $onConflictText"
+            return "${shortcutEntity.pojo.typeName}-${shortcutEntity.entityTypeName}$onConflictText"
         }
 
         override fun prepare(writer: ClassWriter, builder: FieldSpec.Builder) {
@@ -474,17 +484,19 @@ class DaoWriter(
     }
 
     class DeleteOrUpdateAdapterField(
-        val entity: Entity,
+        val shortcutEntity: ShortcutEntity,
         val methodPrefix: String
     ) : SharedFieldSpec(
-            "${methodPrefix}AdapterOf${Companion.typeNameToFieldName(entity.typeName)}",
-            RoomTypeNames.DELETE_OR_UPDATE_ADAPTER) {
+        baseName = "${methodPrefix}AdapterOf${shortcutEntityFieldNamePart(shortcutEntity)}",
+        type = ParameterizedTypeName.get(
+            RoomTypeNames.DELETE_OR_UPDATE_ADAPTER, shortcutEntity.pojo.typeName)
+    ) {
         override fun prepare(writer: ClassWriter, builder: FieldSpec.Builder) {
             builder.addModifiers(PRIVATE, FINAL)
         }
 
         override fun getUniqueKey(): String {
-            return entity.typeName.toString() + methodPrefix
+            return "${shortcutEntity.pojo.typeName}-${shortcutEntity.entityTypeName}$methodPrefix"
         }
     }
 

@@ -90,6 +90,7 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /** @hide */
+    @SuppressWarnings("WeakerAccess")
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({OFFSCREEN_PAGE_LIMIT_DEFAULT})
@@ -202,7 +203,10 @@ public final class ViewPager2 extends ViewGroup {
         final OnPageChangeCallback currentItemUpdater = new OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                mCurrentItem = position;
+                if (mCurrentItem != position) {
+                    mCurrentItem = position;
+                    mAccessibilityProvider.onSetNewCurrentItem();
+                }
             }
         };
 
@@ -247,6 +251,7 @@ public final class ViewPager2 extends ViewGroup {
         };
     }
 
+    @RequiresApi(23)
     @Override
     public CharSequence getAccessibilityClassName() {
         if (mAccessibilityProvider.handlesGetAccessibilityClassName()) {
@@ -268,6 +273,7 @@ public final class ViewPager2 extends ViewGroup {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -280,7 +286,7 @@ public final class ViewPager2 extends ViewGroup {
         if (mPendingAdapterState != null) {
             ss.mAdapterState = mPendingAdapterState;
         } else {
-            Adapter adapter = mRecyclerView.getAdapter();
+            Adapter<?> adapter = mRecyclerView.getAdapter();
             if (adapter instanceof StatefulAdapter) {
                 ss.mAdapterState = ((StatefulAdapter) adapter).saveState();
             }
@@ -307,7 +313,7 @@ public final class ViewPager2 extends ViewGroup {
             // No state to restore, or state is already restored
             return;
         }
-        Adapter adapter = getAdapter();
+        Adapter<?> adapter = getAdapter();
         if (adapter == null) {
             return;
         }
@@ -420,13 +426,14 @@ public final class ViewPager2 extends ViewGroup {
      * @see androidx.viewpager2.adapter.FragmentStateAdapter
      * @see RecyclerView#setAdapter(Adapter)
      */
-    public void setAdapter(@Nullable Adapter adapter) {
+    public void setAdapter(@Nullable @SuppressWarnings("rawtypes") Adapter adapter) {
         mAccessibilityProvider.onDetachAdapter(mRecyclerView.getAdapter());
         mRecyclerView.setAdapter(adapter);
         restorePendingState();
         mAccessibilityProvider.onAttachAdapter(adapter);
     }
 
+    @SuppressWarnings("rawtypes")
     public @Nullable Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
@@ -532,7 +539,7 @@ public final class ViewPager2 extends ViewGroup {
             throw new IllegalStateException("Cannot change current item when ViewPager2 is fake "
                     + "dragging");
         }
-        Adapter adapter = getAdapter();
+        Adapter<?> adapter = getAdapter();
         if (adapter == null) {
             // Update the pending current item if we're still waiting for the adapter
             if (mPendingCurrentItem != NO_POSITION) {
@@ -843,6 +850,7 @@ public final class ViewPager2 extends ViewGroup {
         mAccessibilityProvider.onInitializeAccessibilityNodeInfo(info);
     }
 
+    @RequiresApi(16)
     @Override
     public boolean performAccessibilityAction(int action, Bundle arguments) {
         if (mAccessibilityProvider.handlesPerformAccessibilityAction(action, arguments)) {
@@ -860,6 +868,7 @@ public final class ViewPager2 extends ViewGroup {
             super(context);
         }
 
+        @RequiresApi(23)
         @Override
         public CharSequence getAccessibilityClassName() {
             if (mAccessibilityProvider.handlesRvGetAccessibilityClassName()) {
@@ -1115,10 +1124,10 @@ public final class ViewPager2 extends ViewGroup {
         void onRestorePendingState() {
         }
 
-        void onAttachAdapter(@Nullable Adapter newAdapter) {
+        void onAttachAdapter(@Nullable Adapter<?> newAdapter) {
         }
 
-        void onDetachAdapter(@Nullable Adapter oldAdapter) {
+        void onDetachAdapter(@Nullable Adapter<?> oldAdapter) {
         }
 
         void onSetOrientation() {
@@ -1246,17 +1255,6 @@ public final class ViewPager2 extends ViewGroup {
                 }
             };
 
-            final OnPageChangeCallback accessibilityUpdater = new OnPageChangeCallback() {
-                @Override
-                public void onPageSelected(int position) {
-                    if (mCurrentItem != position) {
-                        updatePageAccessibilityActions();
-                    }
-                }
-            };
-
-            pageChangeEventDispatcher.addOnPageChangeCallback(accessibilityUpdater);
-
             if (ViewCompat.getImportantForAccessibility(ViewPager2.this)
                     == ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
                 ViewCompat.setImportantForAccessibility(ViewPager2.this,
@@ -1283,7 +1281,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         @Override
-        public void onAttachAdapter(@Nullable Adapter newAdapter) {
+        public void onAttachAdapter(@Nullable Adapter<?> newAdapter) {
             updatePageAccessibilityActions();
             if (newAdapter != null) {
                 newAdapter.registerAdapterDataObserver(mAdapterDataObserver);
@@ -1291,7 +1289,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         @Override
-        public void onDetachAdapter(@Nullable Adapter oldAdapter) {
+        public void onDetachAdapter(@Nullable Adapter<?> oldAdapter) {
             if (oldAdapter != null) {
                 oldAdapter.unregisterAdapterDataObserver(mAdapterDataObserver);
             }
@@ -1350,7 +1348,7 @@ public final class ViewPager2 extends ViewGroup {
         @Override
         public void onRvInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
             event.setSource(ViewPager2.this);
-            event.setClassName(ViewPager2.this.getAccessibilityClassName());
+            event.setClassName(onGetAccessibilityClassName());
         }
 
         /**
@@ -1424,7 +1422,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         private void addScrollActions(AccessibilityNodeInfo info) {
-            final Adapter adapter = getAdapter();
+            final Adapter<?> adapter = getAdapter();
             if (adapter == null) {
                 return;
             }

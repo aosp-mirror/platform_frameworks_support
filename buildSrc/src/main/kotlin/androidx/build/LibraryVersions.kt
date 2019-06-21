@@ -20,7 +20,7 @@ package androidx.build
  * The list of versions codes of all the libraries in this project.
  */
 object LibraryVersions {
-    val ACTIVITY = Version("1.0.0-rc01")
+    val ACTIVITY = Version("1.1.0-alpha01")
     val ADS_IDENTIFIER = Version("1.0.0-alpha01")
     val ANIMATION = Version("1.0.0-alpha01")
     val ANIMATION_TESTING = Version("1.1.0-alpha01")
@@ -33,7 +33,7 @@ object LibraryVersions {
     val AUTOFILL = Version("1.0.0-alpha01")
     val BENCHMARK = Version("1.0.0-alpha03")
     val BIOMETRIC = Version("1.0.0-alpha05")
-    val BROWSER = Version("1.2.0-alpha03")
+    val BROWSER = Version("1.2.0-alpha04")
     val CAMERA = Version("1.0.0-alpha03")
     val CAR = Version("1.0.0-alpha8")
     val CAR_CLUSTER = Version("1.0.0-alpha6")
@@ -54,13 +54,13 @@ object LibraryVersions {
     val EMOJI = Version("1.1.0-alpha01")
     val ENTERPRISE = Version("1.0.0-alpha03")
     val EXIFINTERFACE = Version("1.1.0-alpha02")
-    val FRAGMENT = Version("1.1.0-rc01")
+    val FRAGMENT = Version("1.2.0-alpha01")
     val FUTURES = Version("1.0.0-beta02")
     val GRIDLAYOUT = Version("1.1.0-alpha01")
     val HEIFWRITER = Version("1.1.0-alpha01")
     val INSPECTION = Version("1.0.0-alpha01")
     val INTERPOLATOR = Version("1.1.0-alpha01")
-    val JETIFIER = Version("1.0.0-beta05")
+    val JETIFIER = Version("1.0.0-rc01")
     val LEANBACK = Version("1.1.0-alpha03")
     val LEANBACK_PREFERENCE = Version("1.1.0-alpha03")
     val LEGACY = Version("1.1.0-alpha01")
@@ -108,5 +108,5 @@ object LibraryVersions {
     val VIEWPAGER2 = Version("1.0.0-alpha06")
     val WEAR = Version("1.1.0-alpha01")
     val WEBKIT = Version("1.1.0-alpha02")
-    val WORKMANAGER = Version("2.1.0-beta01")
+    val WORK = Version("2.1.0-beta02")
 }
