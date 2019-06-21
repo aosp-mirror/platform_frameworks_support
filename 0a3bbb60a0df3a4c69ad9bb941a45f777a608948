@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cacdf2dc_b06cd01a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SingleImageProxyBundle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-21T22:51:37Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fb9ac21_82230b21",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SingleImageProxyBundle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-21T22:51:37Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86f1f41_c0ae3082",
+        "filename": "camera/core/src/test/java/androidx/camera/core/SingleImageProxyBundleTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-21T22:51:37Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
