@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fd00348_6d3bbb59",
+        "filename": "benchmark/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "This is not a checked exception",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c15b1ae_1e0c0876",
+        "filename": "browser/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "Musing, out of scope: it\u0027d be rather clever if we could detect extras (incorrectly) named this way by looking for other \"Intent-like\" constants like ACTION_, etc.",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6afcff8a_980d32d3",
+        "filename": "coordinatorlayout/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "This check is pretty questionably useful.  There are 5 of these - I checked and they were all correct as-is, because it\u0027s defined in the superclass and we\u0027re not saving any file descriptors.",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a03170_f3854a28",
+        "filename": "core/core/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "Minor: this is correct, should probably check if the class is non-final, because this is clearly not a listener interface.",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc0c47e_e290126d",
+        "filename": "core/core/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "Super minor: this is correct, should probably check if the methods in question have at least one parameter",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0060ce_f91b21bc",
+        "filename": "customview/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-21T02:28:40Z",
+      "side": 1,
+      "message": "lol...",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
