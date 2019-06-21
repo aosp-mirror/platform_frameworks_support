@@ -32,16 +32,20 @@
     </navigation>
     <dialog
         android:id="@+id/learn_more"
+        android:label="This Should Not Show"
         android:name="androidx.navigation.testapp.LearnMoreDialogFragment">
         <argument android:name="myarg" android:defaultValue="@null" />
         <action
             android:id="@+id/learn_more_about_android"
-            app:destination="@+id/android"/>
+            app:destination="@+id/android"
+            app:popUpTo="@+id/learn_more"
+            app:popUpToInclusive="true"/>
     </dialog>
     <fragment android:id="@+id/android"
               android:label="@string/android"
               android:name="androidx.navigation.testapp.AndroidFragment">
         <argument android:name="myarg" android:defaultValue="Android!" />
+        <!-- Handle the 'More information' link on www.example.com -->
         <deepLink app:uri="www.iana.org/domains/{myarg}"/>
         <action android:id="@+id/next" app:destination="@+id/first_screen"/>
     </fragment>

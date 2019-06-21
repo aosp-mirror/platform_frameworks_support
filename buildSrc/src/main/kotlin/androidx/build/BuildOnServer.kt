@@ -25,7 +25,7 @@ import java.io.FileNotFoundException
 /**
  * Task for building all of Androidx libraries and documentation
  *
- * AndroidXPlugin configuration add dependencies to BuildOnServer for all of the tasks that
+ * AndroidXPlugin configuration adds dependencies to BuildOnServer for all of the tasks that
  * produce artifacts that we want to build on server builds
  * When BuildOnServer executes, it double-checks that all expected artifacts were built
  */
@@ -43,11 +43,11 @@ open class BuildOnServer : DefaultTask() {
 
         val filesNames = mutableListOf(
         // TODO: re-add after merge to compose merge to master
-        // "android-support-public-docs-$buildId.zip",
+        // "androidx-public-docs-$buildId.zip",
         // "dokkaPublicDocs-$buildId.zip",
-        "android-support-tipOfTree-docs-$buildId.zip",
+        "androidx-tipOfTree-docs-$buildId.zip",
         "dokkaTipOfTreeDocs-$buildId.zip",
-
+        "androidx_aggregate_build_info.txt",
         "gmaven-diff-all-$buildId.zip",
         "top-of-tree-m2repository-all-$buildId.zip")
 

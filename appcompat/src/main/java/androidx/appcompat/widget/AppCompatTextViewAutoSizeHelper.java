@@ -552,8 +552,9 @@ class AppCompatTextViewAutoSizeHelper {
                 return;
             }
 
-            final boolean horizontallyScrolling = invokeAndReturnWithDefault(
-                    mTextView, "getHorizontallyScrolling", false);
+            final boolean horizontallyScrolling = Build.VERSION.SDK_INT >= 29
+                    ? mTextView.isHorizontallyScrollable()
+                    : invokeAndReturnWithDefault(mTextView, "getHorizontallyScrolling", false);
             final int availableWidth = horizontallyScrolling
                     ? VERY_WIDE
                     : mTextView.getMeasuredWidth() - mTextView.getTotalPaddingLeft()
@@ -735,9 +736,10 @@ class AppCompatTextViewAutoSizeHelper {
         try {
             // Can use the StaticLayout.Builder (along with TextView params added in or after
             // API 23) to construct the layout.
-            final TextDirectionHeuristic textDirectionHeuristic = invokeAndReturnWithDefault(
-                    mTextView, "getTextDirectionHeuristic",
-                    TextDirectionHeuristics.FIRSTSTRONG_LTR);
+            final TextDirectionHeuristic textDirectionHeuristic = Build.VERSION.SDK_INT >= 29
+                    ? mTextView.getTextDirectionHeuristic()
+                    : invokeAndReturnWithDefault(mTextView, "getTextDirectionHeuristic",
+                            TextDirectionHeuristics.FIRSTSTRONG_LTR);
             layoutBuilder.setTextDirection(textDirectionHeuristic);
         } catch (ClassCastException e) {
             // On some devices this exception happens, details: b/127137059.
@@ -780,6 +782,7 @@ class AppCompatTextViewAutoSizeHelper {
                 includePad);
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T invokeAndReturnWithDefault(@NonNull Object object,
             @NonNull final String methodName, @NonNull final T defaultValue) {
         T result = null;
@@ -801,6 +804,7 @@ class AppCompatTextViewAutoSizeHelper {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T accessAndReturnWithDefault(@NonNull Object object,
             @NonNull final String fieldName, @NonNull final T defaultValue) {
         try {

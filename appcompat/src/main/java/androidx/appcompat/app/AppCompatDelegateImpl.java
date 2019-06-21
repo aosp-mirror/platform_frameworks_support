@@ -112,6 +112,8 @@ import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.PopupWindowCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -225,6 +227,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private boolean mBaseContextAttached;
     private boolean mCreated;
+    private boolean mStarted;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mIsDestroyed;
 
@@ -459,7 +462,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return mMenuInflater;
     }
 
-    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
     @Nullable
     @Override
     public <T extends View> T findViewById(@IdRes int id) {
@@ -490,6 +493,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onStart() {
+        mStarted = true;
+
         // This will apply day/night if the time has changed, it will also call through to
         // setupAutoNightModeIfNeeded()
         applyDayNight();
@@ -499,11 +504,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onStop() {
+        mStarted = false;
+
         markStopped(this);
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
+        }
+
+        if (mHost instanceof Dialog) {
+            // If the host is a Dialog, we should clean up the Auto managers now. This is
+            // because Dialogs do not have an onDestroy()
+            cleanupAutoManagers();
         }
     }
 
@@ -567,12 +580,18 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             mWindow.getDecorView().removeCallbacks(mInvalidatePanelMenuRunnable);
         }
 
+        mStarted = false;
         mIsDestroyed = true;
 
         if (mActionBar != null) {
             mActionBar.onDestroy();
         }
 
+        // Make sure we clean up any receivers setup for AUTO mode
+        cleanupAutoManagers();
+    }
+
+    private void cleanupAutoManagers() {
         // Make sure we clean up any receivers setup for AUTO mode
         if (mAutoTimeNightModeManager != null) {
             mAutoTimeNightModeManager.cleanup();
@@ -1354,7 +1373,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mAppCompatViewInflater = new AppCompatViewInflater();
             } else {
                 try {
-                    Class viewInflaterClass = Class.forName(viewInflaterClassName);
+                    Class<?> viewInflaterClass = Class.forName(viewInflaterClassName);
                     mAppCompatViewInflater =
                             (AppCompatViewInflater) viewInflaterClass.getDeclaredConstructor()
                                     .newInstance();
@@ -2236,8 +2255,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         final boolean activityHandlingUiMode = isActivityManifestHandlingUiMode();
 
-        if (newNightMode != applicationNightMode && !activityHandlingUiMode
-                && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
+        if (newNightMode != applicationNightMode
+                && !activityHandlingUiMode
+                && Build.VERSION.SDK_INT >= 17
+                && !mBaseContextAttached
                 && mHost instanceof android.view.ContextThemeWrapper) {
             // If we're here then we can try and apply an override configuration on the Context.
             final Configuration conf = new Configuration();
@@ -2260,48 +2281,51 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
-        if (!handled && !activityHandlingUiMode) {
-            final int currentNightMode = mContext.getResources().getConfiguration().uiMode
-                    & Configuration.UI_MODE_NIGHT_MASK;
-            if (currentNightMode != newNightMode) {
-                if (allowRecreation && mBaseContextAttached
-                        && (Build.VERSION.SDK_INT >= 17 || mCreated)
-                        && mHost instanceof Activity) {
-                    // If we're an attached Activity, we can recreate to apply
-                    // The SDK_INT check above is because applyOverrideConfiguration only exists on
-                    // API 17+, so we don't want to get into an loop of infinite recreations.
-                    // On < API 17 we need to use updateConfiguration before we're 'created'
-                    if (DEBUG) {
-                        Log.d(TAG, "updateForNightMode. Recreating Activity");
-                    }
-                    ActivityCompat.recreate((Activity) mHost);
-                    handled = true;
-                }
-                if (!handled) {
-                    // Else we need to use the updateConfiguration path
-                    if (DEBUG) {
-                        Log.d(TAG, "updateForNightMode. Updating resources config");
-                    }
-                    updateResourcesConfigurationForNightMode(newNightMode);
-                    handled = true;
-                }
-            } else {
-                if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
-                }
+        final int currentNightMode = mContext.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (!handled
+                && currentNightMode != newNightMode
+                && allowRecreation
+                && !activityHandlingUiMode
+                && mBaseContextAttached
+                && (Build.VERSION.SDK_INT >= 17 || mCreated)
+                && mHost instanceof Activity) {
+            // If we're an attached Activity, we can recreate to apply
+            // The SDK_INT check above is because applyOverrideConfiguration only exists on
+            // API 17+, so we don't want to get into an loop of infinite recreations.
+            // On < API 17 we need to use updateConfiguration before we're 'created'
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Recreating Activity");
             }
+            ActivityCompat.recreate((Activity) mHost);
+            handled = true;
+        }
+
+        if (!handled && currentNightMode != newNightMode) {
+            // Else we need to use the updateConfiguration path
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Updating resources config");
+            }
+            updateResourcesConfigurationForNightMode(newNightMode, activityHandlingUiMode);
+            handled = true;
+        }
+
+        if (DEBUG && !handled) {
+            Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
         }
 
         // Notify the activity of the night mode. We only notify if we handled the change,
         // or the Activity is set to handle uiMode changes
-        if ((handled || activityHandlingUiMode) && mHost instanceof AppCompatActivity) {
+        if (handled && mHost instanceof AppCompatActivity) {
             ((AppCompatActivity) mHost).onNightModeChanged(mode);
         }
 
         return handled;
     }
 
-    private void updateResourcesConfigurationForNightMode(final int uiModeNightModeValue) {
+    private void updateResourcesConfigurationForNightMode(
+            final int uiModeNightModeValue, final boolean callOnConfigChange) {
         // If the Activity is not set to handle uiMode config changes we will
         // update the Resources with a new Configuration with an updated UI Mode
         final Resources res = mContext.getResources();
@@ -2327,6 +2351,22 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 // this is what we need anyway (since the themeResId does not
                 // often change)
                 mContext.getTheme().applyStyle(mThemeResId, true);
+            }
+        }
+
+        if (callOnConfigChange && mHost instanceof Activity) {
+            final Activity activity = (Activity) mHost;
+            if (activity instanceof LifecycleOwner) {
+                // If the Activity is a LifecyleOwner, check that it is at least started
+                Lifecycle lifecycle = ((LifecycleOwner) activity).getLifecycle();
+                if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                    activity.onConfigurationChanged(conf);
+                }
+            } else {
+                // Otherwise we'll fallback to our internal started flag.
+                if (mStarted) {
+                    activity.onConfigurationChanged(conf);
+                }
             }
         }
     }
@@ -2939,6 +2979,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 }
                 mReceiver = null;
             }
+        }
+
+        boolean isListening() {
+            return mReceiver != null;
         }
     }
 

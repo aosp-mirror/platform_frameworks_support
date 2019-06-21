@@ -85,7 +85,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun fontWeightItalicCreatesItalicFont() {
-        val typeface = TypefaceAdapter().create(fontStyle = FontStyle.italic)
+        val typeface = TypefaceAdapter().create(fontStyle = FontStyle.Italic)
 
         assertThat(typeface).isNotNull()
         assertThat(typeface.isBold).isFalse()
@@ -104,7 +104,7 @@ class TypefaceAdapterTest {
     @Test
     fun fontWeightBoldFontStyleItalicCreatesBoldItalicFont() {
         val typeface = TypefaceAdapter().create(
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
 
@@ -140,7 +140,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.NORMAL)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.ITALIC)
@@ -165,7 +165,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD_ITALIC)
@@ -194,7 +194,7 @@ class TypefaceAdapterTest {
 
                 assertThat(typeface).isNotNull()
                 assertThat(typeface.isBold).isFalse()
-                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.italic)
+                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.Italic)
             }
         }
     }
@@ -218,7 +218,7 @@ class TypefaceAdapterTest {
 
                 assertThat(typeface).isNotNull()
                 assertThat(typeface.isBold).isTrue()
-                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.italic)
+                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.Italic)
             }
         }
     }
@@ -235,7 +235,7 @@ class TypefaceAdapterTest {
 
                 assertThat(typeface).isNotNull()
                 assertThat(typeface.weight).isEqualTo(fontWeight.weight)
-                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.italic)
+                assertThat(typeface.isItalic).isEqualTo(fontStyle == FontStyle.Italic)
             }
         }
     }
@@ -265,7 +265,7 @@ class TypefaceAdapterTest {
 
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
-            fontStyle = FontStyle.italic,
+            fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
 
@@ -322,7 +322,7 @@ class TypefaceAdapterTest {
         // might return. Therefore for the best effort matching we just make sure that FontMatcher
         // is called.
         val fontWeight = FontWeight.w300
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
         val fontFamily = FontFamily(FONT_200_ITALIC)
         fontFamily.context = context
 
@@ -370,8 +370,8 @@ class TypefaceAdapterTest {
     fun resultsNotSame_forDifferentFontStyle() {
         val typefaceAdapter = TypefaceAdapter()
 
-        val typeface = typefaceAdapter.create(fontStyle = FontStyle.normal)
-        val otherTypeface = typefaceAdapter.create(fontStyle = FontStyle.italic)
+        val typeface = typefaceAdapter.create(fontStyle = FontStyle.Normal)
+        val otherTypeface = typefaceAdapter.create(fontStyle = FontStyle.Italic)
 
         assertThat(typeface).isNotSameInstanceAs(otherTypeface)
     }
@@ -380,7 +380,7 @@ class TypefaceAdapterTest {
     fun resultsAreCached_withCustomTypeface() {
         val fontFamily = FontFamily("sans-serif")
         val fontWeight = FontWeight.normal
-        val fontStyle = FontStyle.italic
+        val fontStyle = FontStyle.Italic
 
         val typefaceAdapter = TypefaceAdapter()
         val typeface = typefaceAdapter.create(fontFamily, fontWeight, fontStyle)
@@ -427,12 +427,12 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.all
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.All
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
-        // FontStyle.italic should create a Typeface that is fake bold and fake italic
+        // FontStyle.Italic should create a Typeface that is fake bold and fake Italic
         assertThat(typeface.isBold).isTrue()
         assertThat(typeface.isItalic).isTrue()
     }
@@ -445,12 +445,12 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.style
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.Style
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
-        // FontStyle.italic should create a Typeface that is only fake italic
+        // FontStyle.Italic should create a Typeface that is only fake Italic
         assertThat(typeface.isBold).isFalse()
         assertThat(typeface.isItalic).isTrue()
     }
@@ -463,12 +463,12 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.weight
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.Weight
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
-        // FontStyle.italic should create a Typeface that is only fake bold
+        // FontStyle.Italic should create a Typeface that is only fake bold
         assertThat(typeface.isBold).isTrue()
         assertThat(typeface.isItalic).isFalse()
     }
@@ -481,8 +481,8 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.style
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.Style
         )
 
         assertThat(typeface.isBold).isFalse()
@@ -497,8 +497,8 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.all
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.All
         )
         assertThat(typeface.isItalic).isFalse()
 
@@ -521,8 +521,8 @@ class TypefaceAdapterTest {
         val typeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
-            fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.none
+            fontStyle = FontStyle.Italic,
+            fontSynthesis = FontSynthesis.None
         )
 
         assertThat(typeface.isBold).isFalse()
@@ -538,13 +538,13 @@ class TypefaceAdapterTest {
         val typeface500 = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w500,
-            fontSynthesis = FontSynthesis.weight
+            fontSynthesis = FontSynthesis.Weight
         )
         // 600 or more is synthesized
         val typeface600 = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w600,
-            fontSynthesis = FontSynthesis.weight
+            fontSynthesis = FontSynthesis.Weight
         )
 
         assertThat(typeface500.isBold).isFalse()
