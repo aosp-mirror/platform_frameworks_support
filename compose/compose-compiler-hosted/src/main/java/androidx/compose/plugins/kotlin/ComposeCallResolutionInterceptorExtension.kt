@@ -129,7 +129,8 @@ class ComposeCallResolutionInterceptorExtension : CallResolutionInterceptorExten
         if (!isComposableContext) return candidates
 
         val callResolver =
-            (scopeTower as NewResolutionOldInference.ImplicitScopeTowerImpl).callResolver
+            (scopeTower as? NewResolutionOldInference.ImplicitScopeTowerImpl)?.callResolver
+                ?: return candidates
         val ktxCallResolver = KtxCallResolver(
             callResolver,
             facade,
