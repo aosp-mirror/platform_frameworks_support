@@ -38,6 +38,7 @@ import androidx.compose.onDispose
 import androidx.compose.unaryPlus
 import androidx.ui.core.selection.SelectionRegistrarAmbient
 import androidx.ui.core.selection.TextSelectionHandlerImpl
+import androidx.ui.painting.ParagraphStyle
 import androidx.ui.painting.TextPainter
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
@@ -51,10 +52,14 @@ private val DefaultSelectionColor = Color(0x6633B5E5)
 
 @Composable
 fun Text(
-    /** How the text should be aligned horizontally. */
-    textAlign: TextAlign = DefaultTextAlign,
-    /** The directionality of the text. */
-    textDirection: TextDirection = DefaultTextDirection,
+    /**
+     * Style configuration that applies to text.
+     */
+    textStyle: TextStyle? = null,
+    /**
+     * Style configuration that applies only to paragraphs.
+     */
+    paragraphStyle: ParagraphStyle? = null,
     /**
      *  Whether the text should break at soft line breaks.
      *  If false, the glyphs in the text will be positioned as if there was unlimited horizontal
@@ -64,8 +69,6 @@ fun Text(
     softWrap: Boolean = DefaultSoftWrap,
     /** How visual overflow should be handled. */
     overflow: TextOverflow = DefaultOverflow,
-    /** The number of font pixels for each logical pixel. */
-    textScaleFactor: Float = 1.0f,
     /**
      *  An optional maximum number of lines for the text to span, wrapping if necessary.
      *  If the text exceeds the given number of lines, it will be truncated according to [overflow]
@@ -73,6 +76,8 @@ fun Text(
      *  The value may be null. If it is not null, then it must be greater than zero.
      */
     maxLines: Int? = DefaultMaxLines,
+    /** The number of font pixels for each logical pixel. */
+    textScaleFactor: Float = 1.0f,
     /**
      *  The color used to draw selected region.
      */
@@ -87,6 +92,7 @@ fun Text(
     compose(rootTextSpan, ref, child)
     +onDispose { disposeComposition(rootTextSpan, ref) }
 
+    //TODO(siyamed)
     // TODO This is a temporary workaround due to lack of textStyle parameter of Text.
     val textSpan = if (rootTextSpan.children.size == 1) {
         rootTextSpan.children[0]
@@ -94,16 +100,44 @@ fun Text(
         rootTextSpan
     }
     Text(
-        textAlign = textAlign,
-        textDirection = textDirection,
+        text = textSpan,
+        textStyle = textStyle,
+        paragraphStyle = paragraphStyle,
         softWrap = softWrap,
         overflow = overflow,
-        textScaleFactor = textScaleFactor,
         maxLines = maxLines,
-        selectionColor = selectionColor,
-        text = textSpan
+        textScaleFactor = textScaleFactor,
+        selectionColor = selectionColor
     )
 }
+
+/**
+ * Simplified version of [Text] component with minimal set of customizations.
+ *
+ * @param text The text to display.
+ * @param style The text style for the text.
+ */
+@Composable
+fun Text(
+    text: String,
+    textStyle: TextStyle? = null,
+    paragraphStyle: ParagraphStyle? = null,
+    softWrap: Boolean = DefaultSoftWrap,
+    overflow: TextOverflow = DefaultOverflow,
+    maxLines: Int? = DefaultMaxLines
+) {
+    Text(
+        text = TextSpan(text = text),
+        textStyle = textStyle,
+        paragraphStyle = paragraphStyle,
+        softWrap = softWrap,
+        overflow = overflow,
+        textScaleFactor = 1.0f,
+        maxLines = maxLines,
+        selectionColor = DefaultSelectionColor
+    )
+}
+
 
 /**
  * Text Widget Crane version.
@@ -116,10 +150,18 @@ fun Text(
 // TODO(migration/qqd): Add tests when text widget system is mature and testable.
 @Composable
 internal fun Text(
-    /** How the text should be aligned horizontally. */
-    textAlign: TextAlign = DefaultTextAlign,
-    /** The directionality of the text. */
-    textDirection: TextDirection = DefaultTextDirection,
+    /**
+     * Composable TextSpan attached after [text].
+     */
+    text: TextSpan,
+    /**
+     * Style configuration that applies to text.
+     */
+    textStyle: TextStyle? = null,
+    /**
+     * Style configuration that applies only to paragraphs.
+     */
+    paragraphStyle: ParagraphStyle? = null,
     /**
      *  Whether the text should break at soft line breaks.
      *  If false, the glyphs in the text will be positioned as if there was unlimited horizontal
@@ -141,11 +183,7 @@ internal fun Text(
     /**
      *  The color used to draw selected region.
      */
-    selectionColor: Color = DefaultSelectionColor,
-    /**
-     * Composable TextSpan attached after [text].
-     */
-    text: TextSpan
+    selectionColor: Color = DefaultSelectionColor
 ) {
     val context = composer.composer.context
     val internalSelection = +state<TextSelection?> { null }
@@ -174,8 +212,8 @@ internal fun Text(
     ) {
         val textPainter = TextPainter(
             text = styledText,
-            textAlign = textAlign,
-            textDirection = textDirection,
+            textStyle = textStyle,
+            paragraphStyle = paragraphStyle,
             softWrap = softWrap,
             overflow = overflow,
             textScaleFactor = textScaleFactor,
@@ -216,33 +254,6 @@ internal fun Text(
     }
 }
 
-/**
- * Simplified version of [Text] component with minimal set of customizations.
- *
- * @param text The text to display.
- * @param style The text style for the text.
- */
-@Composable
-fun Text(
-    text: String,
-    style: TextStyle? = null,
-    textAlign: TextAlign = DefaultTextAlign,
-    textDirection: TextDirection = DefaultTextDirection,
-    softWrap: Boolean = DefaultSoftWrap,
-    overflow: TextOverflow = DefaultOverflow,
-    maxLines: Int? = DefaultMaxLines
-) {
-    Text(
-        textAlign = textAlign,
-        textDirection = textDirection,
-        softWrap = softWrap,
-        overflow = overflow,
-        textScaleFactor = 1.0f,
-        maxLines = maxLines,
-        selectionColor = DefaultSelectionColor,
-        text = TextSpan(text = text, style = style)
-    )
-}
 
 internal val CurrentTextStyleAmbient = Ambient.of<TextStyle>("current text style") {
     TextStyle()

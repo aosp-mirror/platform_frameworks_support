@@ -64,59 +64,23 @@ import androidx.ui.engine.window.Locale
  *                   style cannot be found in the provided custom font family.
  */
 data class ParagraphStyle constructor(
+    val lineHeight: Float? = null,
     val textAlign: TextAlign? = null,
     val textDirection: TextDirection? = null,
-    val fontWeight: FontWeight? = null,
-    val fontStyle: FontStyle? = null,
+    val textIndent: TextIndent? = null,
+    //TODO(siyamed) remove from ParagraphStyle
     val maxLines: Int? = null,
-    val fontFamily: FontFamily? = null,
-    val fontSize: Float? = null,
-    val lineHeight: Float? = null,
-    // TODO(Migration/siyamed): pass to TextLayout
-    val ellipsis: Boolean? = null,
-    val locale: Locale? = null,
-    val fontSynthesis: FontSynthesis? = null
+    val ellipsis: Boolean? = null
 ) {
 
     override fun toString(): String {
         return "ParagraphStyle(" +
             "textAlign: ${textAlign ?: "unspecified"}, " +
             "textDirection: ${textDirection ?: "unspecified"}, " +
-            "fontWeight: ${fontWeight ?: "unspecified"}, " +
-            "fontStyle: ${fontStyle ?: "unspecified"}, " +
             "maxLines: ${maxLines ?: "unspecified"}, " +
-            "fontFamily: ${fontFamily ?: "unspecified"}, " +
-            "fontSize: ${fontSize ?: "unspecified"}, " +
             "lineHeight: ${if (lineHeight != null) "${lineHeight}x" else "unspecified"}, " +
             "ellipsis: ${if (ellipsis != null) "\"$ellipsis\"" else "unspecified"}, " +
-            "locale: ${locale ?: "unspecified"}, " +
-            "fontSynthesis: ${fontSynthesis ?: "unspecified"}" +
             ")"
     }
-
-    fun getTextStyle(): TextStyle {
-        return TextStyle(
-            fontWeight = fontWeight,
-            fontStyle = fontStyle,
-            fontFamily = fontFamily,
-            fontSize = fontSize,
-            locale = locale,
-            lineHeight = lineHeight,
-            fontSynthesis = fontSynthesis
-        )
-    }
 }
 
-/**
- * Returns true if this [ParagraphStyle] contains any font style attributes set.
- */
-internal fun ParagraphStyle.hasFontAttributes(): Boolean {
-    return fontFamily != null || fontStyle != null || fontWeight != null
-}
-
-/**
- * Returns true if this [TextStyle] contains any font style attributes set.
- */
-internal fun TextStyle.hasFontAttributes(): Boolean {
-    return fontFamily != null || fontStyle != null || fontWeight != null
-}

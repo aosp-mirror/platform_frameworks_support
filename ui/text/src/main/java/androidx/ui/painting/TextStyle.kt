@@ -33,9 +33,6 @@ import androidx.ui.graphics.Color
 import androidx.ui.graphics.lerp
 import androidx.ui.lerp
 import androidx.ui.painting.basictypes.RenderComparison
-import androidx.ui.toStringAsFixed
-
-private const val _kDefaultDebugLabel: String = "unknown"
 
 /** The default font size if none is specified. */
 private const val _defaultFontSize: Float = 14.0f
@@ -63,10 +60,7 @@ private const val _defaultFontSize: Float = 14.0f
  * @param background The background color for the text.
  * @param decoration The decorations to paint near the text (e.g., an underline).
  * @param fontFamily The name of the font to use when painting the text (e.g., Roboto).
- * @param textIndent Specify how much a paragraph is indented.
- * @param textAlign Specify how a paragraph is aligned.
  * @param shadow The shadow effect applied on the text.
- * @param debugLabel A human-readable description of this text style.
  */
 data class TextStyle(
     val color: Color? = null,
@@ -85,34 +79,16 @@ data class TextStyle(
     val background: Color? = null,
     val decoration: TextDecoration? = null,
     var fontFamily: FontFamily? = null,
-    val textIndent: TextIndent? = null,
-    val textAlign: TextAlign? = null,
-    val shadow: Shadow? = null,
-    val debugLabel: String? = null
+    val shadow: Shadow? = null
 ) {
 
     /**
      * Returns a new text style that is a combination of this style and the given [other] style.
      *
-     * If the given [other] text style has its [TextStyle.inherit] set to true, its null properties
-     * are replaced with the non-null properties of this text style. The [other] style
-     * _inherits_ the properties of this style. Another way to think of it is that the "missing"
-     * properties of the [other] style are _filled_ by the properties of this style.
-     *
-     * If the given [other] text style has its [TextStyle.inherit] set to false, returns the given
-     * [other] style unchanged. The [other] style does not inherit properties of this style.
-     *
      * If the given text style is null, returns this text style.
      */
     fun merge(other: TextStyle? = null): TextStyle {
         if (other == null) return this
-
-        // TODO(siyamed) remove debug labels
-        var mergedDebugLabel = ""
-        if (other.debugLabel != null || debugLabel != null) {
-            mergedDebugLabel = "(${debugLabel ?: _kDefaultDebugLabel}).merge(" +
-                    "${other.debugLabel ?: _kDefaultDebugLabel})"
-        }
 
         return TextStyle(
             color = other.color ?: this.color,
@@ -131,10 +107,7 @@ data class TextStyle(
             locale = other.locale ?: this.locale,
             background = other.background ?: this.background,
             decoration = other.decoration ?: this.decoration,
-            textIndent = other.textIndent ?: this.textIndent,
-            textAlign = other.textAlign ?: this.textAlign,
-            shadow = other.shadow ?: this.shadow,
-            debugLabel = mergedDebugLabel
+            shadow = other.shadow ?: this.shadow
         )
     }
 
@@ -155,42 +128,19 @@ data class TextStyle(
      * [AnimationController].
      */
     companion object {
-        private fun lerpColor(a: Color?, b: Color?, t: Float): Color? {
-            if (a == null && b == null) {
-                return null
-            }
-            val start = a ?: b!!.copy(alpha = 0f)
-            val end = b ?: a!!.copy(alpha = 0f)
-            return lerp(start, end, t)
-        }
 
-        private fun lerpFloat(a: Float?, b: Float?, t: Float, default: Float = 0f): Float? {
-            if (a == null && b == null) return null
-            val start = a ?: default
-            val end = b ?: default
-            return lerp(start, end, t)
-        }
-
-        private fun <T> lerpDiscrete(a: T?, b: T?, t: Float): T? = if (t < 0.5) a else b
-
-        fun lerp(a: TextStyle? = null, b: TextStyle? = null, t: Float): TextStyle? {
+        internal fun lerp(a: TextStyle? = null, b: TextStyle? = null, t: Float): TextStyle? {
             val aIsNull = a == null
             val bIsNull = b == null
 
             if (aIsNull && bIsNull) return null
-            // TODO(siyamed) remove debug labels
-            val lerpDebugLabel = "lerp(${a?.debugLabel
-                ?: _kDefaultDebugLabel} ⎯${t.toStringAsFixed(1)}→ ${b?.debugLabel
-                ?: _kDefaultDebugLabel})"
 
             if (a == null) {
-                val newB =
-                    b?.copy(debugLabel = lerpDebugLabel) ?: TextStyle(debugLabel = lerpDebugLabel)
+                val newB = b?.copy() ?: TextStyle()
                 return if (t < 0.5) {
                     TextStyle(
                         color = lerpColor(null, newB.color, t),
-                        fontWeight = FontWeight.lerp(null, newB.fontWeight, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(null, newB.fontWeight, t)
                     )
                 } else {
                     newB.copy(
@@ -204,14 +154,12 @@ data class TextStyle(
                 return if (t < 0.5) {
                     a.copy(
                         color = lerpColor(a.color, null, t),
-                        fontWeight = FontWeight.lerp(a.fontWeight, null, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(a.fontWeight, null, t)
                     )
                 } else {
                     TextStyle(
                         color = lerpColor(a.color, null, t),
-                        fontWeight = FontWeight.lerp(a.fontWeight, null, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(a.fontWeight, null, t)
                     )
                 }
             }
@@ -237,18 +185,12 @@ data class TextStyle(
                 locale = lerpDiscrete(a.locale, b.locale, t),
                 background = lerpDiscrete(a.background, b.background, t),
                 decoration = lerpDiscrete(a.decoration, b.decoration, t),
-                textIndent = lerp(
-                    a.textIndent ?: TextIndent.NONE,
-                    b.textIndent ?: TextIndent.NONE,
-                    t
-                ),
-                textAlign = if (t < 0.5) a.textAlign else b.textAlign,
+
                 shadow = lerp(
                     a.shadow ?: Shadow(),
                     b.shadow ?: Shadow(),
                     t
-                ),
-                debugLabel = lerpDebugLabel
+                )
             )
         }
     }
@@ -269,8 +211,6 @@ data class TextStyle(
             wordSpacing = wordSpacing,
             baselineShift = baselineShift,
             textGeometricTransform = textGeometricTransform,
-            textAlign = textAlign,
-            lineHeight = lineHeight,
             locale = locale,
             background = background,
             shadow = shadow
@@ -289,24 +229,16 @@ data class TextStyle(
     fun getParagraphStyle(
         textAlign: TextAlign? = null,
         textDirection: TextDirection? = null,
-        textScaleFactor: Float = 1.0f,
         ellipsis: Boolean? = null,
-        maxLines: Int? = null,
-        locale: Locale? = null
+        maxLines: Int? = null
     ): ParagraphStyle {
         assert(maxLines == null || maxLines > 0)
         return ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection,
-            fontWeight = fontWeight,
-            fontStyle = fontStyle,
             maxLines = maxLines,
-            fontFamily = fontFamily,
-            fontSize = (fontSize ?: _defaultFontSize) * textScaleFactor,
             lineHeight = lineHeight,
-            ellipsis = ellipsis,
-            locale = locale,
-            fontSynthesis = fontSynthesis
+            ellipsis = ellipsis
         )
     }
 
@@ -344,3 +276,22 @@ data class TextStyle(
         return RenderComparison.IDENTICAL
     }
 }
+
+internal fun lerpColor(a: Color?, b: Color?, t: Float): Color? {
+    if (a == null && b == null) {
+        return null
+    }
+    val start = a ?: b!!.copy(alpha = 0f)
+    val end = b ?: a!!.copy(alpha = 0f)
+    return lerp(start, end, t)
+}
+
+internal fun lerpFloat(a: Float?, b: Float?, t: Float, default: Float = 0f): Float? {
+    if (a == null && b == null) return null
+    val start = a ?: default
+    val end = b ?: default
+    return lerp(start, end, t)
+}
+
+internal fun <T> lerpDiscrete(a: T?, b: T?, t: Float): T? = if (t < 0.5) a else b
+

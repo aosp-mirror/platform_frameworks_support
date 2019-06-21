@@ -37,7 +37,7 @@ import java.util.Stack
  * Creates a [ParagraphBuilder] object, which is used to create a
  * [Paragraph].
  */
-class ParagraphBuilder constructor(val paragraphStyle: ParagraphStyle) {
+class ParagraphBuilder constructor(val textStyle: TextStyle, val paragraphStyle: ParagraphStyle) {
 
     internal data class TextStyleIndex(val textStyle: TextStyle, val start: Int, var end: Int = -1)
 

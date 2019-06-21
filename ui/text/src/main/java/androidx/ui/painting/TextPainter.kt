@@ -73,6 +73,9 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  *   before the next call to [paint]. This and [textDirection] must be non-null before you call
  *   [layout].
  *
+ * @param paragraphStyle Style configuration that applies only to paragraphs such as text alignment,
+ * or text direction.
+ *
  * @param textAlign How the text should be aligned horizontally. After this is set, you must call
  *    [layout] before the next call to [paint]. The [textAlign] property must not be null.
  *
@@ -101,9 +104,10 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  * @param locale The locale used to select region-specific glyphs.
  */
 class TextPainter(
-    text: TextSpan? = null,
-    textAlign: TextAlign = TextAlign.Start,
-    textDirection: TextDirection? = null,
+    val text: TextSpan? = null,
+    val textStyle: TextStyle? =  null,
+    val paragraphStyle: androidx.ui.painting.ParagraphStyle? =  null,
+//    textAlign: TextAlign = TextAlign.Start,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
     softWrap: Boolean = true,
@@ -136,33 +140,36 @@ class TextPainter(
     private var lastMinWidth: Float = 0.0f
     private var lastMaxWidth: Float = 0.0f
 
-    var text: TextSpan? = text
-        set(value) {
-            if (field == value) return
-            if (field?.style != value?.style) layoutTemplate = null
-            field = value
-            paragraph = null
-            needsLayout = true
-        }
+    //TODO(siyamed) Looks like TextPainter all values below nulls the paragraph, which means they
+    // do not provide performance value. We might want to remove those.
 
-    var textAlign: TextAlign = textAlign
-        set(value) {
-            if (field == value) return
-            field = value
-            paragraph = null
-            needsLayout = true
-        }
+//    var text: TextSpan? = text
+//        set(value) {
+//            if (field == value) return
+//            if (field?.style != value?.style) layoutTemplate = null
+//            field = value
+//            paragraph = null
+//            needsLayout = true
+//        }
 
-    var textDirection: TextDirection? = textDirection
-        set(value) {
-            if (field == value) return
-            field = value
-            paragraph = null
-            layoutTemplate = null // Shouldn't really matter, but for strict correctness...
-            needsLayout = true
-        }
+//    var textAlign: TextAlign = textAlign
+//        set(value) {
+//            if (field == value) return
+//            field = value
+//            paragraph = null
+//            needsLayout = true
+//        }
+//
+//    var textDirection: TextDirection? = textDirection
+//        set(value) {
+//            if (field == value) return
+//            field = value
+//            paragraph = null
+//            layoutTemplate = null // Shouldn't really matter, but for strict correctness...
+//            needsLayout = true
+//        }
 
-    var textScaleFactor: Float = textScaleFactor
+    internal var textScaleFactor: Float = textScaleFactor
         set(value) {
             if (field == value) return
             field = value
@@ -171,7 +178,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var maxLines: Int? = maxLines
+    internal var maxLines: Int? = maxLines
         set(value) {
             assert(value == null || value > 0)
             if (field == value) return
@@ -180,7 +187,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var softWrap: Boolean = softWrap
+    internal var softWrap: Boolean = softWrap
         set(value) {
             if (field == value) return
             field = value
@@ -188,7 +195,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var overflow: TextOverflow? = overflow
+    internal var overflow: TextOverflow? = overflow
         set(value) {
             if (field == value) return
             field = value
@@ -196,7 +203,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var locale: Locale? = locale
+    internal var locale: Locale? = locale
         set(value) {
             if (field == value) return
             field = value
@@ -244,8 +251,8 @@ class TextPainter(
         get() {
             if (layoutTemplate == null) {
                 val builder = ParagraphBuilder(
-                    // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.Ltr)
+                    textStyle = DefaultTextStyle,
+                    paragraphStyle = DefaultParagraphStyle
                 ) // direction doesn't matter, text is just a space
                 if (text?.style != null) {
                     builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
@@ -346,13 +353,13 @@ class TextPainter(
      * The [text] and [textDirection] properties must be non-null before this is called.
      */
     private fun layoutText(minWidth: Float = 0.0f, maxWidth: Float = Float.POSITIVE_INFINITY) {
-        assert(text != null) {
-            "TextPainter.text must be set to a non-null value before using the TextPainter."
-        }
-        assert(textDirection != null) {
-            "TextPainter.textDirection must be set to a non-null value before using the" +
-                    " TextPainter."
-        }
+//        assert(text != null) {
+//            "TextPainter.text must be set to a non-null value before using the TextPainter."
+//        }
+//        assert(textDirection != null) {
+//            "TextPainter.textDirection must be set to a non-null value before using the" +
+//                    " TextPainter."
+//        }
 
         // TODO(haoyuchang): fix that when softWarp is false and overflow is Ellipsis, ellipsis
         //  doesn't work.
@@ -362,7 +369,7 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            val builder = ParagraphBuilder(createParagraphStyle())
+            val builder = ParagraphBuilder(textStyle = textStyle, paragraphStyle = paragraphStyle)
             text!!.build(builder, textScaleFactor = textScaleFactor)
             paragraph = builder.build()
         }
@@ -396,14 +403,15 @@ class TextPainter(
         overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
             val fadeSizePainter = TextPainter(
                 text = TextSpan(style = text?.style, text = "\u2026"),
-                textDirection = textDirection,
+                textStyle = textStyle,
+                paragraphStyle = paragraphStyle,
                 textScaleFactor = textScaleFactor
             )
             fadeSizePainter.layoutText()
             val fadeWidth = fadeSizePainter.paragraph!!.width
             val fadeHeight = fadeSizePainter.paragraph!!.height
             if (didOverflowWidth) {
-                val (fadeStart, fadeEnd) = if (textDirection == TextDirection.Rtl) {
+                val (fadeStart, fadeEnd) = if (paragraphStyle!!.textDirection == TextDirection.Rtl) {
                     Pair(fadeWidth, 0.0f)
                 } else {
                     Pair(size.width - fadeWidth, size.width)
@@ -530,3 +538,6 @@ class TextPainter(
         return paragraph!!.getWordBoundary(position.offset)
     }
 }
+
+private val DefaultParagraphStyle = androidx.ui.painting.ParagraphStyle()
+private val DefaultTextStyle = TextStyle()
