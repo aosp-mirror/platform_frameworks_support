@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cac4aca2_8f73b477",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T02:01:13Z",
+      "side": 1,
+      "message": "minor) How about \"TrackInfo trackInfo : trackInfos\" as index is not needed?",
+      "range": {
+        "startLine": 567,
+        "startChar": 13,
+        "endLine": 567,
+        "endChar": 50
+      },
+      "revId": "f86934f5132cc9781cca8c8a86f34b47dc54edb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d1b80f_fcf15193",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T02:01:13Z",
+      "side": 1,
+      "message": "Unlike selectSubtitleTrack, it resets mSelectedSubtitleIndex even if deselectTrack fails.",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 9
+      },
+      "revId": "f86934f5132cc9781cca8c8a86f34b47dc54edb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39649fbb_df9221fb",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-21T02:01:13Z",
+      "side": 1,
+      "message": "Q) Should we add getSelectedTrack here like MediaPlayer2Test.java L1956?",
+      "revId": "f86934f5132cc9781cca8c8a86f34b47dc54edb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
