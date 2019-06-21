@@ -46,6 +46,30 @@
       "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34da511e_3628aff6",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/api/1.0.0-alpha02.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-21T11:46:20Z",
+      "side": 1,
+      "message": "But you have to suppress nullability lint \u003e_\u003e",
+      "parentUuid": "06626161_4d55fa9b",
+      "range": {
+        "startLine": 16,
+        "startChar": 93,
+        "endLine": 16,
+        "endChar": 97
+      },
+      "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
