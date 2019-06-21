@@ -22,6 +22,30 @@
       "revId": "f75468a5d9dc8a3d9e146bef2a71c95a3b4f71f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dae15de2_f0c1e28b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-21T06:46:23Z",
+      "side": 1,
+      "message": "Meant to return 0 in the above code. Thanks for finding!",
+      "parentUuid": "9f2e7159_3eb3f16e",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 45
+      },
+      "revId": "f75468a5d9dc8a3d9e146bef2a71c95a3b4f71f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
