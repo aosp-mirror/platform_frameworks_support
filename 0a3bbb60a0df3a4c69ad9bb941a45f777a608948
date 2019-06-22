@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "838611e8_9093b435",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SingleImageProxyBundle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cacdf2dc_b06cd01a",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fb9ac21_82230b21",
         "filename": "camera/core/src/main/java/androidx/camera/core/SingleImageProxyBundle.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2bb2114e_0650bcd6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SingleImageProxyBundle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fb9ac21_82230b21",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b86f1f41_c0ae3082",
         "filename": "camera/core/src/test/java/androidx/camera/core/SingleImageProxyBundleTest.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66741043_4f4bc2e1",
+        "filename": "camera/core/src/test/java/androidx/camera/core/SingleImageProxyBundleTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b86f1f41_c0ae3082",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "0a3bbb60a0df3a4c69ad9bb941a45f777a608948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
