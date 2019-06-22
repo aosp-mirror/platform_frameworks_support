@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "845c06cd_87f7ef47",
+        "filename": "camera/core/src/androidTest/java/androidx/camera/core/ProcessingSurfaceTextureTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5786da_f12eeec3",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "e8ec12386871c51825092590108cbfd720bc9668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd81453a_f4ce8191",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e3a75fda_afa2c24a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:37Z",
+      "side": 1,
+      "message": "Yeah on purpose since the caller of getSurfaceTexture/resetSurfaceTexture/getCameraCaptureCallback should also be the one calling close() so the caller should keep track of whether the ProcessingSurfaceTexture has been closed or not.",
+      "parentUuid": "fd81453a_f4ce8191",
+      "range": {
+        "startLine": 171,
+        "startChar": 26,
+        "endLine": 171,
+        "endChar": 47
+      },
+      "revId": "e8ec12386871c51825092590108cbfd720bc9668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ff32a2_63537d8b",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "e8ec12386871c51825092590108cbfd720bc9668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5f8f95f_6ce8bf23",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-22T00:41:37Z",
+      "side": 1,
+      "message": "Yeah on purpose since the caller of getSurfaceTexture/resetSurfaceTexture/getCameraCaptureCallback should also be the one calling close() so the caller should keep track of whether the ProcessingSurfaceTexture has been closed or not.",
+      "parentUuid": "79ff32a2_63537d8b",
+      "range": {
+        "startLine": 207,
+        "startChar": 26,
+        "endLine": 207,
+        "endChar": 47
+      },
+      "revId": "e8ec12386871c51825092590108cbfd720bc9668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
