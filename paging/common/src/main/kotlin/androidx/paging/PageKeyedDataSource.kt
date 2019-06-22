@@ -20,6 +20,11 @@ import androidx.arch.core.util.Function
 import androidx.concurrent.futures.ResolvableFuture
 import androidx.paging.DataSource.KeyType.PAGE_KEYED
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Incremental data loader for page-keyed content, where requests return keys for next/previous
@@ -241,7 +246,12 @@ abstract class PageKeyedDataSource<Key : Any, Value : Any> : DataSource<Key, Val
                 params.initialLoadSize,
                 params.placeholdersEnabled
             )
-            return loadInitial(initParams)
+
+            val future = ResolvableFuture.create<InitialResult<Key, Value>>()
+            coroutineScope.launch(executor.asCoroutineDispatcher()) {
+                future.set(loadInitial(initParams))
+            }
+            return future
         } else {
             if (params.key == null) {
                 // null key, immediately return empty data
@@ -261,38 +271,31 @@ abstract class PageKeyedDataSource<Key : Any, Value : Any> : DataSource<Key, Val
         throw IllegalArgumentException("Unsupported type " + params.type.toString())
     }
 
-    internal fun loadInitial(
+    private suspend fun loadInitial(
         params: LoadInitialParams<Key>
-    ): ListenableFuture<InitialResult<Key, Value>> {
-        val future = ResolvableFuture.create<InitialResult<Key, Value>>()
-        executor.execute {
-            val callback = object : LoadInitialCallback<Key, Value>() {
-                override fun onResult(
-                    data: List<Value>,
-                    position: Int,
-                    totalCount: Int,
-                    previousPageKey: Key?,
-                    nextPageKey: Key?
-                ) {
-                    future.set(
-                        InitialResult(data, position, totalCount, previousPageKey, nextPageKey)
-                    )
-                }
-
-                override fun onResult(data: List<Value>, previousPageKey: Key?, nextPageKey: Key?) {
-                    future.set(InitialResult(data, previousPageKey, nextPageKey))
-                }
-
-                override fun onError(error: Throwable) {
-                    future.setException(error)
-                }
+    ): InitialResult<Key, Value> = suspendCoroutine { coroutine ->
+        val callback = object : LoadInitialCallback<Key, Value>() {
+            override fun onResult(
+                data: List<Value>,
+                position: Int,
+                totalCount: Int,
+                previousPageKey: Key?,
+                nextPageKey: Key?
+            ) {
+                val result = InitialResult(data, position, totalCount, previousPageKey, nextPageKey)
+                coroutine.resume(result)
             }
-            loadInitial(
-                LoadInitialParams(params.requestedLoadSize, params.placeholdersEnabled),
-                callback
-            )
+
+            override fun onResult(data: List<Value>, previousPageKey: Key?, nextPageKey: Key?) {
+                coroutine.resume(InitialResult(data, previousPageKey, nextPageKey))
+            }
+
+            override fun onError(error: Throwable) {
+                coroutine.resumeWithException(error)
+            }
         }
-        return future
+
+        loadInitial(params, callback)
     }
 
     private fun getFutureAsCallback(future: ResolvableFuture<Result<Key, Value>>) =
