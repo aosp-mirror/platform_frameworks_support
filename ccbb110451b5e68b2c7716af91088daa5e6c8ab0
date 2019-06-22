@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c676833_2a32f521",
+        "filename": "ui/core/src/main/java/androidx/ui/input/EditorState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-22T01:55:53Z",
+      "side": 1,
+      "message": "typo: from",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "ccbb110451b5e68b2c7716af91088daa5e6c8ab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f2119a2_006aa90d",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-22T01:55:53Z",
+      "side": 1,
+      "message": "Missing the canvas offset here?(I think it\u0027s on purpose :P)\nMaybe we can restrict TextPainter to only render text with respect to (0,0). And if shifting is needed, we(and developers) can shift the canvas before passing to TextPainter. So that it can avoid to shift canvas multiple times. WDYT?",
+      "range": {
+        "startLine": 518,
+        "startChar": 8,
+        "endLine": 518,
+        "endChar": 48
+      },
+      "revId": "ccbb110451b5e68b2c7716af91088daa5e6c8ab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
