@@ -16,6 +16,12 @@
 
 package androidx.viewpager2.adapter;
 
+import static androidx.core.util.Preconditions.checkArgument;
+import static androidx.core.util.Preconditions.checkNotNull;
+import static androidx.lifecycle.Lifecycle.State.RESUMED;
+import static androidx.lifecycle.Lifecycle.State.STARTED;
+import static androidx.recyclerview.widget.RecyclerView.NO_ID;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +31,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArraySet;
@@ -34,6 +41,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -75,6 +83,8 @@ public abstract class FragmentStateAdapter extends
     private final LongSparseArray<Fragment.SavedState> mSavedStates = new LongSparseArray<>();
     private final LongSparseArray<Integer> mItemIdToViewHolder = new LongSparseArray<>();
 
+    private PrimaryItemLifecycle mPrimaryItemLifecycle;
+
     // Fragment GC
     @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
     boolean mIsInGracePeriod = false;
@@ -113,6 +123,22 @@ public abstract class FragmentStateAdapter extends
         mFragmentManager = fragmentManager;
         mLifecycle = lifecycle;
         super.setHasStableIds(true);
+    }
+
+    @CallSuper
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        checkArgument(mPrimaryItemLifecycle == null);
+        mPrimaryItemLifecycle = new PrimaryItemLifecycle(checkNotNull(mLifecycle),
+                checkNotNull(mFragmentManager), checkNotNull(mFragments));
+        mPrimaryItemLifecycle.register(recyclerView);
+    }
+
+    @CallSuper
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        mPrimaryItemLifecycle.unregister(recyclerView);
+        mPrimaryItemLifecycle = null;
     }
 
     /**
@@ -550,5 +576,162 @@ public abstract class FragmentStateAdapter extends
     // Helper function for dealing with save / restore state
     private static long parseIdFromKey(@NonNull String key, @NonNull String prefix) {
         return Long.parseLong(key.substring(prefix.length()));
+    }
+
+    class PrimaryItemLifecycle {
+        private ViewPager2.OnPageChangeCallback mPageChangeCallback;
+        private RecyclerView.AdapterDataObserver mDataObserver;
+        private LifecycleEventObserver mLifecycleObserver;
+
+        private final @NonNull Lifecycle mLifecycle;
+        private final @NonNull FragmentManager mFragmentManager;
+        private final @NonNull LongSparseArray<Fragment> mFragments;
+
+        private long mPrimaryItemId = NO_ID;
+
+        PrimaryItemLifecycle(@NonNull Lifecycle lifecycle,
+                @NonNull FragmentManager fragmentManager,
+                @NonNull LongSparseArray<Fragment> fragments) {
+            mLifecycle = lifecycle;
+            mFragmentManager = fragmentManager;
+            mFragments = fragments;
+        }
+
+        void register(@NonNull RecyclerView recyclerView) {
+            final ViewPager2 viewPager = inferViewPager(recyclerView);
+
+            // signal 1 of 3: current item has changed
+            mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    updatePrimaryItem(viewPager, false);
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    updatePrimaryItem(viewPager, false);
+                }
+            };
+            viewPager.registerOnPageChangeCallback(mPageChangeCallback);
+
+            // signal 2 of 3: underlying data-set has been updated
+            mDataObserver = new DataSetChangeObserver() {
+                @Override
+                public void onChanged() {
+                    updatePrimaryItem(viewPager, true);
+                }
+            };
+            registerAdapterDataObserver(mDataObserver);
+
+            // signal 3 of 3: we may have to catch-up after being in a lifecycle state that
+            // prevented us to perform transactions
+            mLifecycleObserver = new LifecycleEventObserver() {
+                @Override
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
+                    if (shouldDelayFragmentTransactions()) {
+                        return;
+                    }
+                    updatePrimaryItem(viewPager, false);
+                }
+            };
+            mLifecycle.addObserver(mLifecycleObserver);
+        }
+
+        void unregister(@NonNull RecyclerView recyclerView) {
+            ViewPager2 viewPager = inferViewPager(recyclerView);
+            viewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
+            unregisterAdapterDataObserver(mDataObserver);
+            mLifecycle.removeObserver(mLifecycleObserver);
+        }
+
+        void updatePrimaryItem(@NonNull ViewPager2 viewPager, boolean dataSetChanged) {
+            if (shouldDelayFragmentTransactions()) {
+                return; /** recovery step via {@link #mLifecycleObserver} */
+            }
+
+            if (viewPager.getScrollState() != ViewPager2.SCROLL_STATE_IDLE) {
+                return; // do not update while not idle to avoid jitter
+            }
+
+            if (mFragments.isEmpty() || viewPager.getChildCount() == 0) {
+                return; // nothing to do
+            }
+
+            final int currentItem = viewPager.getCurrentItem();
+            if (currentItem >= getItemCount()) {
+                /** current item is yet to be updated; it is guaranteed to change, so we will be
+                 * notified via {@link ViewPager2.OnPageChangeCallback#onPageSelected(int)}  */
+                return;
+            }
+
+            long currentItemId = getItemId(currentItem);
+            if (currentItemId == mPrimaryItemId && !dataSetChanged) {
+                return; // nothing to do
+            }
+
+            mPrimaryItemId = currentItemId;
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+            for (int ix = 0; ix < mFragments.size(); ix++) {
+                long itemId = mFragments.keyAt(ix);
+                Fragment fragment = mFragments.valueAt(ix);
+
+                if (!fragment.isAdded()) {
+                    continue;
+                }
+
+                transaction.setMaxLifecycle(fragment, itemId == mPrimaryItemId ? RESUMED : STARTED);
+                fragment.setMenuVisibility(itemId == mPrimaryItemId);
+            }
+
+            if (!transaction.isEmpty()) {
+                transaction.commitNow();
+            }
+        }
+
+        @NonNull
+        private ViewPager2 inferViewPager(@NonNull RecyclerView recyclerView) {
+            ViewParent parent = recyclerView.getParent();
+            if (parent instanceof ViewPager2) {
+                return (ViewPager2) parent;
+            }
+            throw new IllegalStateException("Expected ViewPager2 instance. Got: " + parent);
+        }
+    }
+
+    /**
+     * Simplified {@link RecyclerView.AdapterDataObserver} for clients interested in any data-set
+     * changes regardless of their nature.
+     */
+    private abstract static class DataSetChangeObserver extends RecyclerView.AdapterDataObserver {
+        @Override
+        public abstract void onChanged();
+
+        @Override
+        public final void onItemRangeChanged(int positionStart, int itemCount) {
+            onChanged();
+        }
+
+        @Override
+        public final void onItemRangeChanged(int positionStart, int itemCount,
+                @Nullable Object payload) {
+            onChanged();
+        }
+
+        @Override
+        public final void onItemRangeInserted(int positionStart, int itemCount) {
+            onChanged();
+        }
+
+        @Override
+        public final void onItemRangeRemoved(int positionStart, int itemCount) {
+            onChanged();
+        }
+
+        @Override
+        public final void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            onChanged();
+        }
     }
 }
