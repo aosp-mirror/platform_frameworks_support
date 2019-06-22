@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee6971dd_c0f36869",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-22T01:37:47Z",
+      "side": 1,
+      "message": "nit: rename this one?",
+      "range": {
+        "startLine": 222,
+        "startChar": 28,
+        "endLine": 222,
+        "endChar": 46
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecdc15e0_ce1e9ba4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-22T01:37:47Z",
+      "side": 1,
+      "message": "nit: Instead of boxing them, unboxing start.x, start.y has slightly better performance.",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
