@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f934f3ac_2784d48a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PositionalDataSource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-22T01:39:36Z",
+      "side": 1,
+      "message": "Not that you need to change it, but there\u0027s a `coerceIn` function for clamping a value to a range. There\u0027s also `coerceAtLeast` and `coerceAtMost` for single-sided clamping.",
+      "revId": "fe0a590cc99b71044e46cc052a8e8f759a0237f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
