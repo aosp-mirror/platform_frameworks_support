@@ -28,7 +28,7 @@ open class SemanticsActionKey<T : Function<Unit>> :
     SemanticsPropertyKey<SemanticsAction<T>>(compareByPresence = true)
 
 
-private /* inline */ class SemanticsProperty<T>(val propertyKey: SemanticsPropertyKey<T>) :
+private inline class SemanticsProperty<T>(val propertyKey: SemanticsPropertyKey<T>) :
     ReadWriteProperty<SemanticsPropertyReceiver, T> {
     override fun getValue(thisRef: SemanticsPropertyReceiver, property: KProperty<*>): T {
         return thisRef[propertyKey]
