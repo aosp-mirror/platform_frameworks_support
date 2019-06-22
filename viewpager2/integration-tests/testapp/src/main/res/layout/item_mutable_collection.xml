@@ -23,7 +23,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/spacer_large"
+            android:layout_margin="@dimen/spacer_small"
             android:gravity="center_vertical|start"
             android:background="@drawable/border"
             android:orientation="vertical">
@@ -34,7 +34,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@color/magnolia_100"
-                android:layout_margin="@dimen/spacer_large">
+                android:layout_margin="@dimen/spacer_small">
 
             <TextView
                     android:layout_margin="@dimen/spacer_small"
@@ -55,7 +55,7 @@
                 android:background="@color/magnolia_100"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_margin="@dimen/spacer_large">
+                android:layout_margin="@dimen/spacer_small">
 
             <TextView
                     android:layout_margin="@dimen/spacer_small"
@@ -73,7 +73,7 @@
 
         <Button
                 android:id="@+id/buttonCountIncrease"
-                android:layout_margin="@dimen/spacer_large"
+                android:layout_margin="@dimen/spacer_small"
                 android:layout_width="wrap_content"
                 android:backgroundTint="@color/teal_200"
                 android:text="@string/increase_count"

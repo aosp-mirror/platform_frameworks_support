@@ -53,6 +53,8 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(FakeDragActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with PageTransformers",
                 "intent" to activityToIntent(PageTransformerActivity::class.java.name)))
+        myData.add(mapOf("title" to "ViewPager2 with a Fragment Lifecycle Console",
+                "intent" to activityToIntent(FragmentLifecycleActivity::class.java.name)))
 
         return myData
     }
