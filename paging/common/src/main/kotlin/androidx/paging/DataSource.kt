@@ -22,6 +22,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.arch.core.util.Function
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.GlobalScope
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicBoolean
@@ -102,6 +103,9 @@ abstract class DataSource<Key : Any, Value : Any>
 // Since we currently rely on implementation details of two implementations, prevent external
 // subclassing, except through exposed subclasses.
 internal constructor(internal val type: KeyType) {
+    // TODO: Pass this in to allow cancellation based on lifecycle.
+    internal val coroutineScope = GlobalScope
+
     @VisibleForTesting
     internal val onInvalidatedCallbacks = CopyOnWriteArrayList<InvalidatedCallback>()
 
