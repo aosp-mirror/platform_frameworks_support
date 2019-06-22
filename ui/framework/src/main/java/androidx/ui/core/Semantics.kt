@@ -59,7 +59,7 @@ fun Semantics(
      * create semantic boundaries that are either writable or not for children.
      */
     explicitChildNodes: Boolean = false,
-    properties: (SemanticsPropertyReceiver.() -> Unit)? = null,
+    properties: (SemanticsPropertyReceiver.() -> Unit),
     @Children children: @Composable() () -> Unit
 ) {
     val providedTestTag = +ambient(TestTagAmbient)
