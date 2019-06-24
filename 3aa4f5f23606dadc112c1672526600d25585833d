@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "734a5f1b_584d1a10",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/MarginPageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-06-24T15:04:44Z",
+      "side": 1,
+      "message": "This makes assertions on the main thread. AFAIK, when they fail, the test crashes instead of fails. Assertions should be made on the test thread.\n\nNot related to this CL, so can be addressed later (if it is indeed an issue, not 100% sure)",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 34
+      },
+      "revId": "3aa4f5f23606dadc112c1672526600d25585833d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f1dc9cc_4aeac371",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/MarginPageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-06-24T15:04:44Z",
+      "side": 1,
+      "message": "ActivityTestRule\u0027s runOnUiThread is synchronous, no need for a latch:\n\n activityTestRule.runOnUiThread {\n     viewPager.offscreenPageLimit \u003d offscreenLimit\n }",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 146,
+        "endChar": 71
+      },
+      "revId": "3aa4f5f23606dadc112c1672526600d25585833d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
