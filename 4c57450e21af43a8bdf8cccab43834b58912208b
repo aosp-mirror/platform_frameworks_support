@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58e1b98c_b2ed76d1",
+        "filename": "core/core/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-24T23:57:22Z",
+      "side": 1,
+      "message": "Make sure to re-run updateApi",
+      "range": {
+        "startLine": 1044,
+        "startChar": 131,
+        "endLine": 1044,
+        "endChar": 132
+      },
+      "revId": "4c57450e21af43a8bdf8cccab43834b58912208b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
