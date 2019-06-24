@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9f21009a_1077c1be",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T20:46:45Z",
+      "side": 1,
+      "message": "Ah, I see.\nCurrently, we cannot use inline classes for some reasons but once we are ready to use inline classes, Px class won\u0027t be instantiated. So I think current code is fine in terms of performance.",
+      "parentUuid": "1a048ee3_94dc746b",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a6df683_2b1401a5",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionProcessor.kt",
         "patchSetId": 13
