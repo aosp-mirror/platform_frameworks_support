@@ -943,12 +943,15 @@ import java.util.Map;
         }
 
         public long getCurrentMediaItemDuration() {
+            if (mMediaItemInfos.isEmpty()) {
+                return C.TIME_UNSET;
+            }
             DurationProvidingMediaSource durationProvidingMediaSource =
                     mMediaItemInfos.peekFirst().mDurationProvidingMediaSource;
             if (durationProvidingMediaSource != null) {
                 return durationProvidingMediaSource.getDurationMs();
             } else {
-                return mPlayer.getDuration();
+                return C.TIME_UNSET;
             }
         }
 
