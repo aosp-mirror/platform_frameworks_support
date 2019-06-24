@@ -203,7 +203,7 @@ public class PaintTest {
         // PorterDuffXferMode
         Xfermode xfermode = p.getXfermode();
         if (compat != null) {
-            assertEquals(mode, PaintCompat.obtainPorterDuffFromCompat(compat));
+            assertEquals(mode, BlendModeUtils.obtainPorterDuffFromCompat(compat));
         }
 
         if (mode != null) {
