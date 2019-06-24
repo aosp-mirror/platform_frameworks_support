@@ -122,9 +122,7 @@ public final class TextLinks {
 
     /**
      * Returns the text that was used to generate these links.
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @NonNull
     public CharSequence getText() {
         return mFullText;
