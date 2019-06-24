@@ -1,8 +1,8 @@
 // Signature format: 3.0
 package androidx.drawerlayout.widget {
 
-  public class DrawerLayout {
-    method @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public void setChildInsets(Object!, boolean);
+  public class DrawerLayout extends android.view.ViewGroup {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setChildInsets(Object!, boolean);
   }
 
 }

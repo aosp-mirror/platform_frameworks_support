@@ -1,8 +1,8 @@
 // Signature format: 3.0
 package androidx.collection {
 
-  public final class ArraySet<E> {
-    method @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public void append(E!);
+  public final class ArraySet<E> implements java.util.Collection<E> java.util.Set<E> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void append(E!);
   }
 
 }

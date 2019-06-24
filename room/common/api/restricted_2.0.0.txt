@@ -1,7 +1,7 @@
 // Signature format: 3.0
 package androidx.room {
 
-  @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public class RoomMasterTable {
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class RoomMasterTable {
     method public static String! createInsertQuery(String!);
     field public static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)";
     field public static final String DEFAULT_ID = "42";

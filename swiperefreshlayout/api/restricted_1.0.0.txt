@@ -1,7 +1,7 @@
 // Signature format: 3.0
 package androidx.swiperefreshlayout.widget {
 
-  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public static @interface CircularProgressDrawable.ProgressDrawableSize {
+  @IntDef({androidx.swiperefreshlayout.widget.CircularProgressDrawable.LARGE, androidx.swiperefreshlayout.widget.CircularProgressDrawable.DEFAULT}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface CircularProgressDrawable.ProgressDrawableSize {
   }
 
 }

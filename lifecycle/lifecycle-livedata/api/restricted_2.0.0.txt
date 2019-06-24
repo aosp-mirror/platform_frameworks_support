@@ -1,7 +1,7 @@
 // Signature format: 3.0
 package androidx.lifecycle {
 
-  @RestrictTo({androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP}) public abstract class ComputableLiveData<T> {
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class ComputableLiveData<T> {
     ctor public ComputableLiveData();
     ctor public ComputableLiveData(java.util.concurrent.Executor);
     method @WorkerThread protected abstract T! compute();
