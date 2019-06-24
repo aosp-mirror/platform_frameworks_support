@@ -22,6 +22,30 @@
       "revId": "01a786657221b61a02671f990d83f27e16226360",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e438447e_c113b02c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-06-24T21:50:37Z",
+      "side": 1,
+      "message": "Good point. \n\nUpdated, thanks.",
+      "parentUuid": "1a2e61bf_f9144c82",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "01a786657221b61a02671f990d83f27e16226360",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
