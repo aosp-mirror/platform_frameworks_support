@@ -49,7 +49,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Class for using an OEM provided extension on preview.
  */
-public abstract class PreviewExtender {
+abstract class PreviewExtender {
     static final Config.Option<EffectMode> OPTION_PREVIEW_EXTENDER_MODE = Config.Option.create(
             "camerax.extensions.previewExtender.mode", EffectMode.class);
 
@@ -70,7 +70,7 @@ public abstract class PreviewExtender {
      *
      * @return True if the specific extension function is supported for the camera device.
      */
-    public boolean isExtensionAvailable() {
+    boolean isExtensionAvailable() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
@@ -85,7 +85,7 @@ public abstract class PreviewExtender {
      * extension is not enabled together.
      */
     @SuppressWarnings("unchecked")
-    public void enableExtension() {
+    void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);

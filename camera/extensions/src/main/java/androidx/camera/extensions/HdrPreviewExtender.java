@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.HdrPreviewExtenderImpl;
 /**
  * Load the OEM extension Preview implementation for HDR effect type.
  */
-public class HdrPreviewExtender extends PreviewExtender {
+class HdrPreviewExtender extends PreviewExtender {
     private static final String TAG = "HdrPreviewExtender";
 
     /**
@@ -34,7 +34,7 @@ public class HdrPreviewExtender extends PreviewExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.Preview}.
      */
-    public static HdrPreviewExtender create(PreviewConfig.Builder builder) {
+    static HdrPreviewExtender create(PreviewConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorHdrPreviewExtender(builder);

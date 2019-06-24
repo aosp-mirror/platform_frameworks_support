@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.NightImageCaptureExtenderImpl;
 /**
  * Load the OEM extension implementation for night effect type.
  */
-public class NightImageCaptureExtender extends ImageCaptureExtender {
+class NightImageCaptureExtender extends ImageCaptureExtender {
     private static final String TAG = "NightICExtender";
 
     /**
@@ -34,7 +34,7 @@ public class NightImageCaptureExtender extends ImageCaptureExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.ImageCapture}.
      */
-    public static NightImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
+    static NightImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorNightImageCaptureExtender(builder);
