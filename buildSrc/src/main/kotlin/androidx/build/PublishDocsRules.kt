@@ -37,8 +37,13 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.CAR, "car", "1.0.0-alpha5")
             .addStubs("car/stubs/android.car.jar")
     prebuilts(LibraryGroups.CARDVIEW, "1.0.0")
+<<<<<<< HEAD   (e9ec3c Merge "Merge empty history for sparse-5682645-L9340000033227)
     prebuilts(LibraryGroups.COLLECTION, "1.1.0-alpha02")
     prebuilts(LibraryGroups.CONCURRENT, "1.0.0-alpha03")
+=======
+    prebuilts(LibraryGroups.COLLECTION, "1.1.0-rc01")
+    prebuilts(LibraryGroups.CONCURRENT, "1.0.0-beta01")
+>>>>>>> BRANCH (8917fb Merge "Merge cherrypicks of [988392] into sparse-5661226-L61)
     prebuilts(LibraryGroups.CONTENTPAGER, "1.0.0")
     prebuilts(LibraryGroups.COORDINATORLAYOUT, "1.1.0-alpha01")
     prebuilts(LibraryGroups.CORE, "core", "1.1.0-alpha04")
