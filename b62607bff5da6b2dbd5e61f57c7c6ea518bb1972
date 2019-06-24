@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb5a1bf4_e2da8bef",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T08:57:01Z",
+      "side": 0,
+      "message": "nice finding",
+      "revId": "b62607bff5da6b2dbd5e61f57c7c6ea518bb1972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
