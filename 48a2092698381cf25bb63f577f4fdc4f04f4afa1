@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb1614aa_8c1e4e34",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf57d3b7_a539de63",
+      "range": {
+        "startLine": 176,
+        "startChar": 3,
+        "endLine": 176,
+        "endChar": 74
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1b69c5b_27fdcce9",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-21T16:32:52Z",
       "side": 1,
       "message": "c",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 37
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6158cf5c_982c639d",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "as class is called DpConstraints, I think it\u0027s in rules to leave C capital, isn\u0027t it?",
+      "parentUuid": "d1b69c5b_27fdcce9",
       "range": {
         "startLine": 178,
         "startChar": 34,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eaf7b67e_65c6efed",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63bad1e7_b82b6e43",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 37
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6dff73c_83e70b2d",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-21T18:06:13Z",
       "side": 1,
       "message": "Can we provide some helper / higher level API here? It seems unfortunate that you have to manually specify things like space and labels, when we can easily work it out based on what \u0027group\u0027 something is in. For example:\n\nDrawerContent(header \u003d ...) {\n    Group(label \u003d ...) {\n        mainSection.forEachIndexed {...}\n    }\n    Group(label \u003d ...) {\n        secondarySection.forEachIndexed {...}\n    }\n}\n\nJust a thought :) I think it\u0027s ok to expose these things individually as well, but for most use cases I don\u0027t want developers to have to think about spacing between sections, it would be great if it could just work\n\nWDYT?",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36a3c0d5_48df1bd6",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "I think your proposal will work and it will be nice to have better abstractions in some way. Now you have to type spacer only before and after dividers, because I didn\u0027t want to make DrawerDivider, everything else will work with its own paddings, though I agree that having Groups might be nice. Do you mind if there will be in one of followup CLs? As I think our priority now is to have Drawer, and then content inside",
+      "parentUuid": "c6dff73c_83e70b2d",
       "range": {
         "startLine": 99,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3fa72434_705162e0",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "The reason I introduced this enum is that there will be more states later on, e.g. Opening/Closing/InProgress when drawer is settling or being Dragged and Expanded for BottomDrawer, etc. \n\nI think we can make later overload with Boolean if we\u0027ll find it necessary, but for such a one-time thing in apps as Drawer I don\u0027t see any justification for making this overload, as instead of holding a DrawerState you\u0027ll have to hold Boolean anyway.\n\nWhat do you think?",
+      "parentUuid": "88795fa8_539f7131",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "907385fb_e409ec3d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-21T16:32:52Z",
       "side": 1,
       "message": "this can potentially be Dp.Infinity. should we handle it in some way?",
+      "range": {
+        "startLine": 78,
+        "startChar": 45,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27aa8245_7ea19864",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "good concern, I\u0027ll ask Mihai when in can be infinite and what is our strategy on this",
+      "parentUuid": "907385fb_e409ec3d",
       "range": {
         "startLine": 78,
         "startChar": 45,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7af87aae_75698f38",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Sure. It\u0027s super temporary, as we don\u0027t have a proper support yet. Added TODO as it\u0027s really just a stab",
+      "parentUuid": "3474c895_f138c937",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 78
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a16d274_7b1e092e",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2019-06-21T18:06:13Z",
       "side": 1,
       "message": "I\u0027m not sure this approach of putting everything inside one file here scales well in these kind of cases. To me the Drawer component is very separate from components that can be put inside the drawer - maybe a separate file for these? Maybe these should also live inside some class, as it will be quite confusing when you type \u0027Dra\u0027 and you get autocompleted results for:\nBottomDrawer\nDrawerHeader\nDrawerSectionLabel\nDrawerVerticalSpace\nModalDrawer\nNavigationDrawer\nDrawerState\n\n:)",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028988e5_6d103b41",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "You are right, it\u0027s now a little bit messy. The reason I\u0027ve done it is that I want to try approach with names and without Receiver-scope class, as it seems we chose this approach for now for AppBars. \nThere\u0027re several options now\n1. Use Receiver Scope, so this components will be available only inside drawerContent lambda.\n2. Use names like in this CL\n3. Use some kind of companion object, so components will be like Drawer.Header()\n\nAll of them has upsides and downsides and I\u0027m not sure I favor one out of 3. Intersting to see what Clara think about it. \n\nAlso worth bringing in Material sync and discuss. what do you think?\n\nRegarding different class: probably, but as all the components now in ui.material package, I don\u0027t want to pollute  it with DrawerContentComponents.kt class, though decided to do with simplest approach, which will definitely will change, but it\u0027s now just simple and straight.\n\nActually, interesting question: did decoupling and smaller function contribute to readability in any ways? Because I actually find it now not so bad and quite readable, but might be biased :)",
+      "parentUuid": "4a16d274_7b1e092e",
       "range": {
         "startLine": 119,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "2176cb68_8b6db22d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db65b388_297d0140",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 30
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "438e5d63_37a143da",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "c9df7544_7ba0ee26",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438e5d63_37a143da",
+      "range": {
+        "startLine": 174,
+        "startChar": 76,
+        "endLine": 174,
+        "endChar": 83
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdb12c78_18741df2",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -252,6 +492,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9d32b8_3a296481",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb12c78_18741df2",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -302,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "aed1dd6a_b054488f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Agree with you guys. Rewrote the whole thing, check this out",
+      "parentUuid": "4a09dddb_c7a1626e",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 14
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e849b1a5_285343cc",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -322,6 +610,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b2e7f9_49243086",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e849b1a5_285343cc",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 18
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -348,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "5a13ae4c_2b2b4a52",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "haha, weird :) Renamed to closedValue and expandedValue",
+      "parentUuid": "29b0d335_28bc7bd5",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 18
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66726987_3a5eb076",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -359,6 +695,30 @@
       "writtenOn": "2019-06-21T18:06:13Z",
       "side": 1,
       "message": "This is maybe ok for now, but I think conceptually this is quite strange - as this isn\u0027t actually the children of the drawer component, but it\u0027s the rest of the app displayed underneath the drawer. We probably will iterate on this a lot though, so no need to worry about this for now",
+      "range": {
+        "startLine": 251,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2a6584a_ef105f21",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "I don\u0027t know, it seems ok to me semantically and ideologically to have children as content underneath the drawer.\n\nFrom the material website:\n\u003e Modal navigation drawers use a scrim to block interaction with the rest of an app’s content.\n\nSo navigation drawers are want to ensure they cover content underneath. Also I think it\u0027s counter-intuitive to write Stack in order to use Drawer. I think is can be solved via Scaffolding, but I\u0027m not sure if I want it to be the only way for people to access Drawer functionality.\n\nYeah, you agree that I think this kind of things are definitely subject to change and iterate on, so we\u0027ll see.",
+      "parentUuid": "66726987_3a5eb076",
       "range": {
         "startLine": 251,
         "startChar": 4,
@@ -394,6 +754,30 @@
     },
     {
       "key": {
+        "uuid": "e89d9ea6_ceae379e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4ddb5d0_dc5cd2e3",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 270,
+        "endChar": 13
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fc0daef_fac02140",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -414,6 +798,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "578a0981_4ed3ad99",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fc0daef_fac02140",
+      "range": {
+        "startLine": 306,
+        "startChar": 12,
+        "endLine": 306,
+        "endChar": 23
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -440,6 +848,30 @@
     },
     {
       "key": {
+        "uuid": "e31c6cc4_af6e039a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0b38e9c_4c793d90",
+      "range": {
+        "startLine": 320,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86d999c7_ee4b708b",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -460,6 +892,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e5b7ef_a99c2e14",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d999c7_ee4b708b",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 328,
+        "endChar": 9
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -486,6 +942,30 @@
     },
     {
       "key": {
+        "uuid": "33f230f7_c8f12d5f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure what exactly you want to extract, but I refactored all the stuff a little bit, let me know if it\u0027s readable now :)",
+      "parentUuid": "f169e875_3f12fe10",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1452c29_e9e174dd",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -509,6 +989,30 @@
     },
     {
       "key": {
+        "uuid": "bbbf59dd_2ebd0d13",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1452c29_e9e174dd",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 369,
+        "endChar": 73
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c7628d2_688b6c21",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -529,6 +1033,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8ac9a7_f13ca0f1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-24T17:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c7628d2_688b6c21",
+      "range": {
+        "startLine": 393,
+        "startChar": 16,
+        "endLine": 393,
+        "endChar": 17
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
