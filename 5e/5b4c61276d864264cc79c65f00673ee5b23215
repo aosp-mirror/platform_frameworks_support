@@ -1,0 +1,9 @@
+Autosubmit+1: Jakub Gielzak <jgielzak@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+API-Review+1: Sergey Vasilinets <sergeyv@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Mon, 24 Jun 2019 17:03:32 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/987055
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
