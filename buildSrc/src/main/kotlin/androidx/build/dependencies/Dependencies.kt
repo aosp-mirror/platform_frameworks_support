@@ -77,6 +77,10 @@ const val SUPPORT_DESIGN = "com.google.android.material:material:1.0.0@aar"
 const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
+<<<<<<< HEAD   (07e4da Merge "Merge empty history for sparse-5626174-L8450000033227)
+=======
+const val ANDROIDX_ANNOTATION = "androidx.annotation:annotation:1.1.0"
+>>>>>>> BRANCH (5b6b89 Merge "Merge cherrypicks of [988388] into sparse-5649041-L34)
 const val ANDROIDX_COLLECTION = "androidx.collection:collection:$SUPPORT_VERSION"
 const val ANDROIDX_CORE = "androidx.core:core:1.0.0"
 const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
