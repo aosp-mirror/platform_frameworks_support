@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "37551010_417deb16",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-24T14:09:43Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e477934d_bb462fc8",
+      "range": {
+        "startLine": 182,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "3378163ec717658d498b3351816b3c8c9168e256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8762836_ae958df9",
         "filename": "ui/test/src/androidTest/java/androidx/ui/test/MultipleComposeRootsTest.kt",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9831c522_068004f0",
+        "filename": "ui/test/src/androidTest/java/androidx/ui/test/MultipleComposeRootsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-24T14:09:43Z",
+      "side": 1,
+      "message": "Had to change the state that is checked (pun intended) but otherwise works fine for me.",
+      "parentUuid": "c8762836_ae958df9",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "3378163ec717658d498b3351816b3c8c9168e256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4ff31eb_369ed015",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 12
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-24T11:24:16Z",
       "side": 1,
       "message": "Why do you need this? I have seen that this is used to check if SemanticsNode is in the tree. For that we don\u0027t need to query all the nodes and wrap them in NodeInteraction. In fact you basically need API that does return { treeProvider.getAllSemanticNodes().contains(node.data) }",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 24
+      },
+      "revId": "3378163ec717658d498b3351816b3c8c9168e256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "211ca648_62625a1f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-24T14:09:43Z",
+      "side": 1,
+      "message": "I can rename the method to something like contains, avoid the map call, and make treeProvider lazy but I just didn\u0027t want to go through the trouble considering we will probably rewrite this anyway. \n\nI\u0027d rather minimise the number of methods in the interface honestly i.e. maybe we could just create a new tree interaction and call findAllMatching with a function that always returns true as having a method so specific to one use case seems a little too much, but then again we don\u0027t know what we would need in the future :)\n\nwdyt?",
+      "parentUuid": "b4ff31eb_369ed015",
       "range": {
         "startLine": 70,
         "startChar": 17,
