@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -32,37 +33,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Constructs and launches an intent to start a Trusted Web Activity.
- *
- * @hide
+ * Constructs and launches an intent to start a Trusted Web Activity (see {@link TrustedWebUtils}
+ * for more details).
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class TrustedWebActivityBuilder {
     private final Context mContext;
     private final Uri mUri;
 
-    @Nullable
-    private Integer mStatusBarColor;
-
-    @Nullable
-    private List<String> mAdditionalTrustedOrigins;
-
-    @Nullable
-    private Bundle mSplashScreenParams;
+    @Nullable private Integer mStatusBarColor;
+    @Nullable private List<String> mAdditionalTrustedOrigins;
+    @Nullable private Bundle mSplashScreenParams;
 
     /**
      * Creates a Builder given the required parameters.
      * @param context {@link Context} to use.
      * @param uri The web page to launch as Trusted Web Activity.
      */
-    public TrustedWebActivityBuilder(Context context, Uri uri) {
+    public TrustedWebActivityBuilder(@NonNull Context context, @NonNull Uri uri) {
         mContext = context;
         mUri = uri;
     }
 
     /**
      * Sets the status bar color to be seen while the Trusted Web Activity is running.
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @NonNull
     public TrustedWebActivityBuilder setStatusBarColor(int color) {
         mStatusBarColor = color;
         return this;
@@ -79,8 +77,12 @@ public class TrustedWebActivityBuilder {
      *
      * Alternatively, use {@link CustomTabsSession#validateRelationship} to validate additional
      * origins asynchronously, but that would delay launching the Trusted Web Activity.
+     *
+     * Pass {@code null} to clear a previously set value.
      */
-    public TrustedWebActivityBuilder setAdditionalTrustedOrigins(List<String> origins) {
+    @NonNull
+    public TrustedWebActivityBuilder setAdditionalTrustedOrigins(
+            @Nullable List<String> origins) {
         mAdditionalTrustedOrigins = origins;
         return this;
     }
@@ -100,8 +102,11 @@ public class TrustedWebActivityBuilder {
      *
      * The splash screen will be removed on the first paint of the page, or when the page load
      * fails.
+     *
+     * Pass {@code null} to clear a previously set value.
      */
-    public TrustedWebActivityBuilder setSplashScreenParams(Bundle splashScreenParams) {
+    @NonNull
+    public TrustedWebActivityBuilder setSplashScreenParams(@Nullable Bundle splashScreenParams) {
         mSplashScreenParams = splashScreenParams;
         return this;
     }
@@ -112,7 +117,7 @@ public class TrustedWebActivityBuilder {
      *
      * @param session The {@link CustomTabsSession} to use for launching a Trusted Web Activity.
      */
-    public void launchActivity(CustomTabsSession session) {
+    public void launchActivity(@NonNull CustomTabsSession session) {
         if (session == null) {
             throw new NullPointerException("CustomTabsSession is required for launching a TWA");
         }
@@ -140,16 +145,19 @@ public class TrustedWebActivityBuilder {
     /**
      * Returns the {@link Uri} to be launched with this Builder.
      */
+    @NonNull
     public Uri getUrl() {
         return mUri;
     }
 
     /**
-     * Returns the color set via {@link #setStatusBarColor(int)} or null if not set.
+     * Returns the color set via {@link #setStatusBarColor(int)} or {@code null} if not set.
+     *
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Nullable
     public Integer getStatusBarColor() {
         return mStatusBarColor;
     }
-
 }
