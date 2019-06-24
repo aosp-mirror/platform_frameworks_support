@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2e61bf_f9144c82",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-24T20:40:20Z",
+      "side": 1,
+      "message": "You are exposing a modifiable class, someone could call getText().append(...). Would the code here handle that? Should we be returning a copy?",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "01a786657221b61a02671f990d83f27e16226360",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
