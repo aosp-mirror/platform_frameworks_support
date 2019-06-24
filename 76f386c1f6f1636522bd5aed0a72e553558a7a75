@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "39755e5d_82c6c0fd",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T22:08:23Z",
+      "side": 1,
+      "message": "My understanding of benefit of inline classes:\n- you can add some additional logic or assertions.\n- you can create immutable primitives.\n\nIf you want to keep this class for future extension, I think we should introduce new class at that time otherwise looks like this is unnecessary complexity.\n\nBTW, no need to do in this CL.",
+      "parentUuid": "6f908efc_3f4a7e49",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d801c29d_80d88106",
         "filename": "ui/core/src/main/java/androidx/ui/services/text_editing/TextSelection.kt",
         "patchSetId": 2
