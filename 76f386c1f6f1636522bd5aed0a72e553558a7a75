@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fbf19a86_dec08c16",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T21:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c34367d3_f60d0a5b",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e029d7a_fef89ba9",
         "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-24T20:27:44Z",
       "side": 1,
       "message": "I don\u0027t see any good motivation of using inline classes here.\nYou may want to use typealias instead of inline classes. (or even just Int should work I think.)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f908efc_3f4a7e49",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T21:56:18Z",
+      "side": 1,
+      "message": "shall we remove the class then?\n(I did not touch it since we thought we might bring back the affinity.)\nand since currently it was a single int, I thought it is a candidate for inline (and therefore added the signal to check it)",
+      "parentUuid": "1e029d7a_fef89ba9",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62b6c8da_b6e554f2",
+        "filename": "ui/core/src/main/java/androidx/ui/services/text_editing/TextSelection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T21:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d801c29d_80d88106",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 50
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
