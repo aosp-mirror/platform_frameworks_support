@@ -1037,6 +1037,10 @@ package androidx.core.graphics {
     enum_constant public static final androidx.core.graphics.BlendModeCompat XOR;
   }
 
+  public class ColorFilterCompat {
+    method public static android.graphics.ColorFilter? createBlendModeColorFilterCompat(int, androidx.core.graphics.BlendModeCompat);
+  }
+
   public final class ColorUtils {
     method @ColorInt public static int HSLToColor(float[]);
     method @ColorInt public static int LABToColor(@FloatRange(from=0.0f, to=100) double, @FloatRange(from=0xffffff80, to=127) double, @FloatRange(from=0xffffff80, to=127) double);
