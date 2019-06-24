@@ -22,6 +22,30 @@
       "revId": "58d2f2976a1089e1e502638f9ce21403bb38485d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b8e7d2_40b22c6c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T20:58:17Z",
+      "side": 1,
+      "message": "Added in check for null and for the object is an instance of Integer.",
+      "parentUuid": "bc436a54_0eadd7b1",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 40
+      },
+      "revId": "58d2f2976a1089e1e502638f9ce21403bb38485d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
