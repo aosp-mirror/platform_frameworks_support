@@ -140,6 +140,30 @@
       "revId": "3378163ec717658d498b3351816b3c8c9168e256",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232d79c2_f46666ba",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-24T14:35:13Z",
+      "side": 1,
+      "message": "I don\u0027t think we minimize anything by this :) Because this just opens another surface of API that is trying to be multipurpose. We only need findAllMatching at this stage, not findAll, right? I think verifying that something is still in the hierarchy is a valid API we will need. I don\u0027t think we need to go that deep to rewrite SemanticsTreeProvider but at least we could have a \"contains\" here.",
+      "parentUuid": "211ca648_62625a1f",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 24
+      },
+      "revId": "3378163ec717658d498b3351816b3c8c9168e256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
