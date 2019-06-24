@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e494375a_94c2a7ef",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T18:26:36Z",
+      "side": 1,
+      "message": "Yeah for sure, this can be done in a separate cl. I was just wondering if you had thought about a higher level api :)",
+      "parentUuid": "36a3c0d5_48df1bd6",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88795fa8_539f7131",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "The reason I introduced this enum is that there will be more states later on, e.g. Opening/Closing/InProgress when drawer is settling or being Dragged and Expanded for BottomDrawer, etc. \n\nI think we can make later overload with Boolean if we\u0027ll find it necessary, but for such a one-time thing in apps as Drawer I don\u0027t see any justification for making this overload, as instead of holding a DrawerState you\u0027ll have to hold Boolean anyway.\n\nWhat do you think?",
       "parentUuid": "88795fa8_539f7131",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a23d7f0f_1ade2b42",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T18:26:36Z",
+      "side": 1,
+      "message": "Interesting, I guess we would need to discuss further, but my intuition is that in most cases a developer only cares if the drawer is opened or closed - the intermediate states are mostly for animations, no? I think it\u0027s ok now, but I think this looks similar to ToggleableState - and making a Boolean overload there is really nice.",
+      "parentUuid": "3fa72434_705162e0",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -366,6 +414,30 @@
       "side": 1,
       "message": "You are right, it\u0027s now a little bit messy. The reason I\u0027ve done it is that I want to try approach with names and without Receiver-scope class, as it seems we chose this approach for now for AppBars. \nThere\u0027re several options now\n1. Use Receiver Scope, so this components will be available only inside drawerContent lambda.\n2. Use names like in this CL\n3. Use some kind of companion object, so components will be like Drawer.Header()\n\nAll of them has upsides and downsides and I\u0027m not sure I favor one out of 3. Intersting to see what Clara think about it. \n\nAlso worth bringing in Material sync and discuss. what do you think?\n\nRegarding different class: probably, but as all the components now in ui.material package, I don\u0027t want to pollute  it with DrawerContentComponents.kt class, though decided to do with simplest approach, which will definitely will change, but it\u0027s now just simple and straight.\n\nActually, interesting question: did decoupling and smaller function contribute to readability in any ways? Because I actually find it now not so bad and quite readable, but might be biased :)",
       "parentUuid": "4a16d274_7b1e092e",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a96f8483_c29f8ee5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T18:26:36Z",
+      "side": 1,
+      "message": "Yeah agreed, there isn\u0027t a perfect solution here. I think in this case, it\u0027s totally reasonable to want to use these components in any context, so I don\u0027t like 1. I actually think 3 is quite nice, as it\u0027s similar to how a DSL would look with group {} and other such contents, as it makes it clear that it\u0027s part of Drawer, not just something that you can use inside. But again, no super strong opinions at this stage :) \n\nRegarding readability, I think it\u0027s quite readable but also a bit too verbose, and I\u0027m worried that it\u0027s hard to know when to put spacers and dividers for example. I guess that\u0027s part of the problem when they are their own individual components, you kinda need to prefix them with Drawer, but then it just gets messy when you have DrawerFoo, DrawerBar etc.",
+      "parentUuid": "028988e5_6d103b41",
       "range": {
         "startLine": 119,
         "startChar": 0,
