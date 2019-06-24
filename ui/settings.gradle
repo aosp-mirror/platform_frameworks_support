@@ -44,7 +44,7 @@ includeProject(":ui-demos", "demos")
 includeProject(":ui-animation-core", "animation-core")
 includeProject(":ui-animation", "animation")
 includeProject(":ui-animation:integration-tests:ui-animation-demos", "animation/integration-tests/animation-demos")
-
+includeProject(":ui-tooling", "tooling")
 
 /////////////////////////////
 //

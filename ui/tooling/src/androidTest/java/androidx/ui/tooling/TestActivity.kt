@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package androidx.compose
+package androidx.ui.tooling
 
-internal data class JoinedKey(
-    @JvmField val left: Any?,
-    @JvmField val right: Any?
-)
+import android.app.Activity
+import java.util.concurrent.CountDownLatch
 
-fun isJoinedKey(key: Any?) = key is JoinedKey
-fun joinedKeyLeft(key: Any?): Any? = when (key) {
-    is JoinedKey -> key.left
-    else -> null
-}
+class TestActivity : Activity() {
+    var hasFocusLatch = CountDownLatch(1)
 
-fun joinedKeyRight(key: Any?): Any? = when (key) {
-    is JoinedKey -> key.right
-    else -> null
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hasFocusLatch.countDown()
+        }
+    }
 }
