@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8fa1d1cd_88b756aa",
+        "filename": "core/core/src/main/java/androidx/core/graphics/BlendModeUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-24T23:54:50Z",
+      "side": 1,
+      "message": "Not particularly. I changed it to be package private as you had suggested.",
+      "parentUuid": "b0b56195_c15e7dba",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "b3c28cc5f0c3ae2f2e2fc27344f8d2da30261641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eed82bd8_b7d8cf42",
         "filename": "core/core/src/main/java/androidx/core/graphics/ColorFilterCompat.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-24T23:33:07Z",
       "side": 1,
       "message": "Is failing back to a null ColorFilter the expected behavior from a Drawable/Paint/etc perspective? It seems like you\u0027d want a more explicit failure (throwing an UnsupportedOperationException, etc) so that developers can change their input based on API level.",
+      "range": {
+        "startLine": 36,
+        "startChar": 44,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "b3c28cc5f0c3ae2f2e2fc27344f8d2da30261641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d958da64_53187b41",
+        "filename": "core/core/src/main/java/androidx/core/graphics/ColorFilterCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-24T23:54:50Z",
+      "side": 1,
+      "message": "Yes falling back to null removes the color filter from the applied paint. Developers can query the result of this query to see if they get a null result and execute their fallback logic.",
+      "parentUuid": "eed82bd8_b7d8cf42",
       "range": {
         "startLine": 36,
         "startChar": 44,
@@ -68,6 +116,30 @@
       "revId": "b3c28cc5f0c3ae2f2e2fc27344f8d2da30261641",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5031f015_c8102925",
+        "filename": "core/core/src/main/java/androidx/core/graphics/ColorFilterCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-24T23:54:50Z",
+      "side": 1,
+      "message": "This was refactored out of PaintCompat. This method now expects a non null BlendModeCompat instance. Configuration of a null ColorFilter or BlendMode on a Paint directly removes the colorfilter and resets the default blend mode respectively.",
+      "parentUuid": "4a928d16_e7518f00",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 21
+      },
+      "revId": "b3c28cc5f0c3ae2f2e2fc27344f8d2da30261641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
