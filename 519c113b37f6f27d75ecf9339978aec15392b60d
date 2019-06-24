@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "dac22c66_25c1d307",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-24T20:28:48Z",
+      "side": 1,
+      "message": "\u003e How would a developer use this?\n\nI don\u0027t think Laís has addressed this. Please re-resolve this if the work is satisfactory.",
+      "parentUuid": "b074b8ec_44302e69",
+      "range": {
+        "startLine": 86,
+        "startChar": 38,
+        "endLine": 86,
+        "endChar": 51
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85a01b43_eeba5e29",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 3
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Agree with comment above to make the whole class final. I don\u0027t think it\u0027s our intention to have the developers interact with these lists. (These methods were actually private before)",
       "parentUuid": "85a01b43_eeba5e29",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755505c6_03135091",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-24T20:28:48Z",
+      "side": 1,
+      "message": "\u003e This is not detailed enough. What is the expected content of these strings in the list? Is this something developer can interact with? What can they do with it?\n\nI don\u0027t think any of this has been addressed (and I agree it should be addressed).",
+      "parentUuid": "c0248f7b_87a8f49f",
       "range": {
         "startLine": 91,
         "startChar": 7,
