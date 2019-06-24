@@ -36,6 +36,97 @@
     },
     {
       "key": {
+        "uuid": "4a7505a5_985f1c19",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/ApiLocation.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "Hmm, I kind of liked \"ViolationExclusions\" more than \"Baselines\" since the former indicates that it\u0027s an error to be ignored rather than the latter which sounds like it could refer to just the previous api to compare against ( https://www.google.com/search?q\u003ddefine+baseline defines \"baseline\" as \"a minimum or starting point used for comparisons\")\n\nHowever, Metalava itself seems to define this concept as a baseline too, which I guess is an argument in favor of \"Baselines\".\n\nI\u0027ll just mark this comment as resolved and if anyone has any opinions they can mention them",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40d79387_fdc5a9c7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "recommend either passing an invalid file or putting a comment saying that this api lint baseline file isn\u0027t actually used",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3098af86_1d75e925",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "Hmm I wonder if we should move these arguments down by line 119 near \"--api-lint\" to make it extra clear that they\u0027re only triggered by api-lint",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac55f8f_21c6df0a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "I wonder if we want to mention the existence of the updateApiLintBaseline task if this task fails. I guess probably not but just checking if that\u0027s intentional",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff6413fa_76b5cd69",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "Maybe add this as a task description?",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 97
+      },
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "221a7080_6078e677",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
         "patchSetId": 11
@@ -56,6 +147,47 @@
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dde7e36_b0009378",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "I\u0027ve written some Copy tasks elsewhere because it was a convenient way to do a lazy unzipping of some dependencies - I haven\u0027t heard anything against running multiple pieces of code inside a task",
+      "parentUuid": "221a7080_6078e677",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 78
+      },
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a5e53d9_5314eadc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-24T19:35:51Z",
+      "side": 1,
+      "message": "I discovered recently that Metalava provides a \"--delete-empty-baselines\" argument too",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
