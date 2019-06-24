@@ -70,6 +70,30 @@
       "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f5421e3_00d9f0e9",
+        "filename": "lifecycle/lifecycle-viewmodel-savedstate/api/1.0.0-alpha02.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-24T16:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34da511e_3628aff6",
+      "range": {
+        "startLine": 16,
+        "startChar": 93,
+        "endLine": 16,
+        "endChar": 97
+      },
+      "revId": "d3cdbe973ddfd865fb14ffb09711914d7d7b333d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
