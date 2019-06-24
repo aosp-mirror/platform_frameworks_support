@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34367d3_f60d0a5b",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T20:27:44Z",
+      "side": 1,
+      "message": "remove as well?",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e029d7a_fef89ba9",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T20:27:44Z",
+      "side": 1,
+      "message": "I don\u0027t see any good motivation of using inline classes here.\nYou may want to use typealias instead of inline classes. (or even just Int should work I think.)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d801c29d_80d88106",
+        "filename": "ui/core/src/main/java/androidx/ui/services/text_editing/TextSelection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T20:27:44Z",
+      "side": 1,
+      "message": "this comment is meaningless",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 50
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
