@@ -42,6 +42,7 @@ import androidx.camera.core.FlashMode;
 import androidx.camera.core.InternalCameraControl;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
+import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.HandlerUtil;
 import androidx.core.os.HandlerCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -80,7 +81,10 @@ public final class Camera2CameraControlTest {
         mHandler = HandlerCompat.createAsync(mHandlerThread.getLooper());
 
         ScheduledExecutorService executorService = CameraXExecutors.newHandlerExecutor(mHandler);
-        mCamera2CameraControl = new Camera2CameraControl(mControlUpdateListener, NO_TIMEOUT,
+
+        String cameraId = "0";
+        mCamera2CameraControl = new Camera2CameraControl(CameraUtil.getCameraManager(), cameraId,
+                mControlUpdateListener, NO_TIMEOUT,
                 executorService, executorService);
 
         HandlerUtil.waitForLooperToIdle(mHandler);

@@ -88,7 +88,7 @@ public final class PreviewTest {
     private String mCameraId;
 
     @Before
-    public void setUp()  {
+    public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
         // Instantiates OnPreviewOutputUpdateListener before each test run.
         mMockListener = mock(OnPreviewOutputUpdateListener.class);
@@ -490,6 +490,7 @@ public final class PreviewTest {
 
     private InternalCameraControl getFakeCameraControl() {
         return new Camera2CameraControl(
+                CameraUtil.getCameraManager(), "0",
                 new InternalCameraControl.ControlUpdateListener() {
                     @Override
                     public void onCameraControlUpdateSessionConfig(SessionConfig sessionConfig) {

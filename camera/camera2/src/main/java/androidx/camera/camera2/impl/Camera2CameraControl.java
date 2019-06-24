@@ -18,9 +18,12 @@ package androidx.camera.camera2.impl;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
+import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCaptureSession.CaptureCallback;
+import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
@@ -62,6 +65,8 @@ import java.util.concurrent.TimeUnit;
 public final class Camera2CameraControl implements InternalCameraControl {
     private static final long DEFAULT_FOCUS_TIMEOUT_MS = 5000;
     private static final String TAG = "Camera2CameraControl";
+    private final CameraManager mCameraManager;
+    private final String mCameraId;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final CameraControlSessionCallback mSessionCallback;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
@@ -74,36 +79,41 @@ public final class Camera2CameraControl implements InternalCameraControl {
     private volatile boolean mIsTorchOn = false;
     private volatile boolean mIsFocusLocked = false;
     private volatile FlashMode mFlashMode = FlashMode.OFF;
+    private final ZoomControl mZoomControl;
+
 
     //******************** Should only be accessed by executor *****************************//
-    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    CaptureResultListener mSessionListenerForFocus = null;
     private Rect mCropRect = null;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    MeteringRectangle mAfRect;
+            CaptureResultListener mSessionListenerForFocus = null;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    MeteringRectangle mAeRect;
+            MeteringRectangle mAfRect;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    MeteringRectangle mAwbRect;
+            MeteringRectangle mAeRect;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    Integer mCurrentAfState = CaptureResult.CONTROL_AF_STATE_INACTIVE;
+            MeteringRectangle mAwbRect;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
-    long mFocusTimeoutCounter = 0;
+            Integer mCurrentAfState = CaptureResult.CONTROL_AF_STATE_INACTIVE;
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+            long mFocusTimeoutCounter = 0;
     private long mFocusTimeoutMs;
     private ScheduledFuture<?> mFocusTimeoutHandle;
     //**************************************************************************************//
 
-
-    public Camera2CameraControl(@NonNull ControlUpdateListener controlUpdateListener,
+    public Camera2CameraControl(@NonNull CameraManager cameraManager, @NonNull String cameraId,
+            @NonNull ControlUpdateListener controlUpdateListener,
             @NonNull ScheduledExecutorService scheduler, @NonNull Executor executor) {
-        this(controlUpdateListener, DEFAULT_FOCUS_TIMEOUT_MS, scheduler, executor);
+        this(cameraManager, cameraId, controlUpdateListener, DEFAULT_FOCUS_TIMEOUT_MS, scheduler,
+                executor);
     }
 
-    public Camera2CameraControl(
+    public Camera2CameraControl(@NonNull CameraManager cameraManager, @NonNull String cameraId,
             @NonNull ControlUpdateListener controlUpdateListener,
             long focusTimeoutMs,
             @NonNull ScheduledExecutorService scheduler,
             @NonNull Executor executor) {
+        mCameraManager = cameraManager;
+        mCameraId = cameraId;
         mControlUpdateListener = controlUpdateListener;
         if (CameraXExecutors.isSequentialExecutor(executor)) {
             mExecutor = executor;
@@ -126,12 +136,41 @@ public final class Camera2CameraControl implements InternalCameraControl {
                 updateSessionConfig();
             }
         });
+
+        mZoomControl = new ZoomControl(Camera2CameraControl.this, mCameraManager, mCameraId);
     }
 
     @Override
     public CameraControl getPublicCameraControl() {
-        return CameraControl.DEFAULT_EMPTY_CAMERACONTROL;
+        return mCameraControl;
     }
+
+    CameraControl mCameraControl = new CameraControl() {
+        /** {@inheritDoc} */
+        @Override
+        public void setZoom(float multiplier) {
+            mZoomControl.setZoom(multiplier);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public float getZoom() {
+            return mZoomControl.getZoom();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public float getMaxZoom() {
+            return mZoomControl.getMaxZoom();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public float getMinZoom() {
+            return mZoomControl.getMinZoom();
+        }
+    };
+
 
     /** {@inheritDoc} */
     @Override
@@ -213,7 +252,6 @@ public final class Camera2CameraControl implements InternalCameraControl {
                 enableTorchInternal(torch);
             }
         });
-
     }
 
     /** {@inheritDoc} */
@@ -649,6 +687,17 @@ public final class Camera2CameraControl implements InternalCameraControl {
             });
 
 
+        }
+    }
+
+    @Nullable
+    Rect getSensorRect() {
+        try {
+            CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(
+                    mCameraId);
+            return characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
+        } catch (CameraAccessException e) {
+            return null;
         }
     }
 }

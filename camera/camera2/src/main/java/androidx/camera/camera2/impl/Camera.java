@@ -128,7 +128,8 @@ final class Camera implements BaseCamera {
         ScheduledExecutorService executorScheduler = CameraXExecutors.newHandlerExecutor(mHandler);
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
-        mInternalCameraControl = new Camera2CameraControl(this, executorScheduler,
+        mInternalCameraControl = new Camera2CameraControl(mCameraManager, mCameraId, this,
+                executorScheduler,
                 executorScheduler);
         mCaptureSession = new CaptureSession(mHandler);
     }
