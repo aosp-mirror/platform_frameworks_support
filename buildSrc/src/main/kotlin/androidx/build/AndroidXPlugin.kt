@@ -16,6 +16,12 @@
 
 package androidx.build
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+import androidx.benchmark.gradle.LockClocksTask
+import androidx.benchmark.gradle.UnlockClocksTask
+import androidx.build.SupportConfig.BENCHMARK_INSTRUMENTATION_RUNNER
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
@@ -56,6 +62,12 @@ import java.util.concurrent.ConcurrentHashMap
 import java.io.File
 
 /**
+ * Setting this property indicates that a build is being performed to check for forward
+ * compatibility.
+ */
+const val USE_MAX_DEP_VERSIONS = "useMaxDepVersions"
+
+/**
  * A plugin which enables all of the Gradle customizations for AndroidX.
  * This plugin reacts to other plugins being added and adds required and optional functionality.
  */
@@ -85,10 +97,31 @@ class AndroidXPlugin : Plugin<Project> {
                         targetCompatibility = VERSION_1_7
                     }
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                     verifyDependencyVersionsTask.configure {
                         it.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
+=======
+                    verifyDependencyVersionsTask?.configure { task ->
+                        task.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
                     }
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
+=======
+                    project.addCreateLibraryBuildInfoFileTask(androidXExtension)
+                    if (verifyDependencyVersionsTask != null) {
+                        project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
+                    }
+                    project.configureNonAndroidProjectForLint(androidXExtension)
+                    project.configureJavaProjectForDokka(androidXExtension)
+                    project.configureJavaProjectForMetalava(androidXExtension)
+                    project.configureJacoco()
+                    project.addToProjectMap(androidXExtension)
+                    // workaround for b/120487939
+                    project.configurations.all { configuration ->
+                        configuration.resolutionStrategy.preferProjectModules()
+                    }
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
                 }
                 is LibraryPlugin -> {
                     val extension = project.extensions.getByType<LibraryExtension>()
@@ -98,11 +131,29 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
+=======
+                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
+                        extension.libraryVariants.all { libraryVariant ->
+                            it.dependsOn(libraryVariant.javaCompileProvider)
+                        }
+                    }
+                    val checkReleaseReadyTasks = mutableListOf<TaskProvider<out Task>>()
+                    if (!project.hasProperty(USE_MAX_DEP_VERSIONS)) {
+                        checkReleaseReadyTasks.add(checkNoWarningsTask)
+                    }
+                    if (verifyDependencyVersionsTask != null) {
+                        checkReleaseReadyTasks.add(verifyDependencyVersionsTask)
+                    }
+                    if (!checkReleaseReadyTasks.isEmpty()) {
+                        project.createCheckReleaseReadyTask(checkReleaseReadyTasks)
+                    }
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
                     extension.libraryVariants.all { libraryVariant ->
-                        verifyDependencyVersionsTask.configure { task ->
+                        verifyDependencyVersionsTask?.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
                         checkNoWarningsTask.dependsOn(libraryVariant.javaCompileProvider)
@@ -116,6 +167,7 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
                 is AppPlugin -> {
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                     val extension = project.extensions.getByType<AppExtension>()
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidApplicationOptions(extension)
@@ -126,6 +178,21 @@ class AndroidXPlugin : Plugin<Project> {
                         if (!it.name.toLowerCase().contains("androidtest")) {
                             it.resolutionStrategy.preferProjectModules()
                         }
+=======
+                    project.extensions.getByType<AppExtension>().apply {
+                        configureAndroidCommonOptions(project, androidXExtension)
+                        configureAndroidApplicationOptions(project)
+                    }
+                }
+                is KotlinBasePluginWrapper -> {
+                    if (project.name == "lifecycle-runtime-ktx" || // b/134925073
+                        project.name == "lifecycle-livedata-ktx" || // b/134925073
+                        project.name == "benchmark") { // b/134925431
+                        return@all
+                    }
+                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                        compile.kotlinOptions.allWarningsAsErrors = true
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
                     }
                 }
             }
@@ -140,10 +207,37 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
+=======
+        if (isRunningOnBuildServer()) {
+            gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
+        }
+        val createAggregateBuildInfoFilesTask =
+            tasks.register(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK,
+                CreateAggregateLibraryBuildInfoFileTask::class.java)
+        val createLibraryBuildInfoFilesTask =
+            tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
+
+        extra.set("versionChecker", GMavenVersionChecker(logger))
+        val createArchiveTask = Release.getGlobalFullZipTask(this)
+
+        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
+        buildOnServerTask.dependsOn(createArchiveTask)
+        buildOnServerTask.dependsOn(createAggregateBuildInfoFilesTask)
+        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
+
+        val partiallyDejetifyArchiveTask = partiallyDejetifyArchiveTask(
+            createArchiveTask.get().archiveFile)
+        if (partiallyDejetifyArchiveTask != null)
+            buildOnServerTask.dependsOn(partiallyDejetifyArchiveTask)
+
+        val projectModules = ConcurrentHashMap<String, String>()
+        extra.set("projects", projectModules)
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -164,7 +258,7 @@ class AndroidXPlugin : Plugin<Project> {
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
                         ("lintDebug" == task.name &&
-                        !project.rootProject.hasProperty("useMaxDepVersions"))) {
+                        !project.rootProject.hasProperty(USE_MAX_DEP_VERSIONS))) {
                     buildOnServerTask.dependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
@@ -187,13 +281,27 @@ class AndroidXPlugin : Plugin<Project> {
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         buildOnServerTask.dependsOn(jacocoUberJar)
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         project.createClockLockTasks()
+=======
+        val adbPath = getSdkPath(project.projectDir).path + "/platform-tools/adb"
+        tasks.register("lockClocks", LockClocksTask::class.java).configure {
+            it.adbPath.set(adbPath)
+        }
+        tasks.register("unlockClocks", UnlockClocksTask::class.java).configure {
+            it.adbPath.set(adbPath)
+        }
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 
         AffectedModuleDetector.configure(gradle, this)
 
         // If useMaxDepVersions is set, iterate through all the project and substitute any androidx
         // artifact dependency with the local tip of tree version of the library.
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         if (project.hasProperty("useMaxDepVersions")) {
+=======
+        if (hasProperty(USE_MAX_DEP_VERSIONS)) {
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             // This requires evaluating all sub-projects to create the module:project map
             // and project dependencies.
             evaluationDependsOnChildren()
@@ -313,16 +421,84 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.createVerifyDependencyVersionsTask():
-            TaskProvider<VerifyDependencyVersionsTask> {
+            TaskProvider<VerifyDependencyVersionsTask>? {
+        /**
+         * Ignore -PuseMaxDepVersions when verifying dependency versions because it is a
+         * hypothetical build which is only intended to check for forward compatibility.
+         */
+        if (project.hasProperty(USE_MAX_DEP_VERSIONS)) {
+            return null
+        }
+
         return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
     }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+    // Task that creates a json file of a project's dependencies
+    private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
+        afterEvaluate {
+            if (extension.publish.shouldRelease()) {
+                // Only generate build info files for published libraries.
+                val task = project.tasks.register(
+                    CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
+                    CreateLibraryBuildInfoFileTask::class.java
+                ) {
+                    it.outputFile.set(File(project.getDistributionDirectory(),
+                        "${project.group}_${project.name}_build_info.txt"))
+                }
+                project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
+                    it.dependsOn(task)
+                }
+                addTaskToAggregateBuildInfoFileTask(task)
+            }
+        }
+    }
+
+    private fun Project.addTaskToAggregateBuildInfoFileTask(
+        task: TaskProvider<CreateLibraryBuildInfoFileTask>
+    ) {
+        project.rootProject.tasks.named(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK).configure {
+            var aggregateLibraryBuildInfoFileTask: CreateAggregateLibraryBuildInfoFileTask = it
+                    as CreateAggregateLibraryBuildInfoFileTask
+            aggregateLibraryBuildInfoFileTask.dependsOn(task)
+            aggregateLibraryBuildInfoFileTask.libraryBuildInfoFiles.add(
+                task.flatMap { it.outputFile }
+            )
+        }
+    }
+
+    private fun Project.configureJacoco() {
+        project.apply(plugin = "jacoco")
+        project.configure<JacocoPluginExtension> {
+            toolVersion = Jacoco.VERSION
+        }
+
+        project.tasks.withType(JacocoReport::class.java).configureEach { task ->
+            task.reports {
+                it.xml.isEnabled = true
+                it.html.isEnabled = false
+                it.csv.isEnabled = false
+
+                it.xml.destination = File(getHostTestCoverageDirectory(),
+                    "${project.path.replace(':', '-').substring(1)}.xml")
+            }
+        }
+    }
+
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
         const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
         const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+        const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
+        const val CREATE_LIBRARY_BUILD_INFO_FILES_TASK = "createLibraryBuildInfoFiles"
+        const val CREATE_AGGREGATE_BUILD_INFO_FILES_TASK = "createAggregateBuildInfoFiles"
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     }
 }
 

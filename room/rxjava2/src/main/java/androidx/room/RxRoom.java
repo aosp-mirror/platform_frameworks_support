@@ -31,6 +31,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
@@ -180,6 +183,37 @@ public class RxRoom {
                 });
     }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+    /**
+     * Helper method used by generated code to create a Single from a Callable that will ignore
+     * the EmptyResultSetException if the stream is already disposed.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public static <T> Single<T> createSingle(final Callable<T> callable) {
+        return Single.create(new SingleOnSubscribe<T>() {
+            @Override
+            public void subscribe(SingleEmitter<T> emitter) throws Exception {
+                try {
+                    emitter.onSuccess(callable.call());
+                } catch (EmptyResultSetException e) {
+                    emitter.tryOnError(e);
+                }
+            }
+        });
+    }
+
+    private static Executor getExecutor(RoomDatabase database, boolean inTransaction) {
+        if (inTransaction) {
+            return database.getTransactionExecutor();
+        } else {
+            return database.getQueryExecutor();
+        }
+    }
+
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     /** @deprecated This type should not be instantiated as it contains only static methods. */
     @Deprecated
     @SuppressWarnings("PrivateConstructorForUtilityClass")

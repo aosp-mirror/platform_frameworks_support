@@ -35,6 +35,7 @@ android {
 dependencies {
     api(project(":paging:paging-runtime"))
     // Ensure that the -ktx dependency graph mirrors the Java dependency graph
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     api(project(":paging:paging-common-ktx"))
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -42,6 +43,9 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(ARCH_CORE_TESTING)
+=======
+    implementation(project(":paging:paging-common-ktx"))
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 }
 
 supportLibrary {

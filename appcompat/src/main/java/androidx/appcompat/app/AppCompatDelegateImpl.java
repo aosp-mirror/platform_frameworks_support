@@ -2206,7 +2206,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         final boolean activityHandlingUiMode = isActivityManifestHandlingUiMode();
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         if (!activityHandlingUiMode && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
+=======
+        if (newNightMode != applicationNightMode
+                && !activityHandlingUiMode
+                && Build.VERSION.SDK_INT >= 17
+                && !mBaseContextAttached
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
                 && mHost instanceof android.view.ContextThemeWrapper) {
             // If we're here then we can try and apply an override configuration on the Context.
             final Configuration conf = new Configuration();
@@ -2226,6 +2233,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         if (!handled && !activityHandlingUiMode) {
             final int currentNightMode = mContext.getResources().getConfiguration().uiMode
                     & Configuration.UI_MODE_NIGHT_MASK;
@@ -2254,10 +2262,48 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 if (DEBUG) {
                     Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
                 }
+=======
+        final int currentNightMode = mContext.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (!handled
+                && currentNightMode != newNightMode
+                && allowRecreation
+                && !activityHandlingUiMode
+                && mBaseContextAttached
+                && (Build.VERSION.SDK_INT >= 17 || mCreated)
+                && mHost instanceof Activity) {
+            // If we're an attached Activity, we can recreate to apply
+            // The SDK_INT check above is because applyOverrideConfiguration only exists on
+            // API 17+, so we don't want to get into an loop of infinite recreations.
+            // On < API 17 we need to use updateConfiguration before we're 'created'
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Recreating Activity");
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             }
+            ActivityCompat.recreate((Activity) mHost);
+            handled = true;
         }
 
+        if (!handled && currentNightMode != newNightMode) {
+            // Else we need to use the updateConfiguration path
+            if (DEBUG) {
+                Log.d(TAG, "updateForNightMode. Updating resources config");
+            }
+            updateResourcesConfigurationForNightMode(newNightMode, activityHandlingUiMode);
+            handled = true;
+        }
+
+        if (DEBUG && !handled) {
+            Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
+        }
+
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         // Notify the activity of the night mode
+=======
+        // Notify the activity of the night mode. We only notify if we handled the change,
+        // or the Activity is set to handle uiMode changes
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         if (handled && mHost instanceof AppCompatActivity) {
             ((AppCompatActivity) mHost).onNightModeChanged(mode);
         }
@@ -2265,7 +2311,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return handled;
     }
 
-    private void updateResourcesConfigurationForNightMode(final int uiModeNightModeValue) {
+    private void updateResourcesConfigurationForNightMode(
+            final int uiModeNightModeValue, final boolean callOnConfigChange) {
         // If the Activity is not set to handle uiMode config changes we will
         // update the Resources with a new Configuration with an updated UI Mode
         final Resources res = mContext.getResources();
@@ -2292,6 +2339,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 // often change)
                 mContext.getTheme().applyStyle(mThemeResId, true);
             }
+        }
+
+        if (callOnConfigChange && mHost instanceof Activity) {
+            ((Activity) mHost).onConfigurationChanged(conf);
         }
     }
 

@@ -32,7 +32,14 @@ android {
 
 dependencies {
     api(project(":paging:paging-common"))
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+    api(project(":arch:core-runtime"))
+    api(RX_JAVA)
+    implementation(KOTLIN_STDLIB)
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     api(project(":arch:core-runtime"))
 
     api(RX_JAVA)
@@ -44,6 +51,16 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(KOTLIN_STDLIB)
+=======
+    testImplementation project(':internal-testutils-common')
+    testImplementation(JUNIT)
+    testImplementation(KOTLIN_TEST_COMMON)
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ARCH_CORE_TESTING)
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 }
 
 supportLibrary {

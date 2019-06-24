@@ -24,16 +24,24 @@ limitations under the License.
     <style name="Theme.Car" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:alertDialogTheme">@style/Theme.Car.Dark.Dialog.Alert</item>
         <item name="android:colorAccent">@color/car_accent</item>
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         <item name="android:colorForeground">@color/car_body2_light</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="android:buttonStyle">@style/Widget.Car.Button.DarkText</item>
+=======
+        <item name="android:colorForeground">@color/car_grey_300</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored
+        </item>
+        <item name="android:buttonStyle">@style/Widget.Car.Button</item>
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         <item name="android:checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
+        <item name="android:radioButtonStyle">@style/Widget.Car.RadioButton.Light</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background_light</item>
-        <item name="android:colorControlNormal">@color/car_body2_light</item>
+        <item name="android:colorControlNormal">@color/car_grey_300</item>
         <item name="android:colorPrimary">@android:color/black</item>
         <item name="android:colorPrimaryDark">@android:color/black</item>
-        <item name="android:editTextColor">@color/car_body1_light</item>
+        <item name="android:editTextColor">@color/car_primary_text_light</item>
         <item name="android:editTextStyle">@style/Widget.Car.EditText</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/car_checkbox</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/car_radio_button</item>
@@ -46,10 +54,9 @@ limitations under the License.
         <item name="android:secondaryProgressTint">@color/car_seekbar_track_secondary_progress</item>
         <item name="android:selectableItemBackground">@drawable/car_card_ripple_background</item>
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar.Light</item>
-        <item name="android:textColor">@color/car_body1_light</item>
-        <item name="android:textColorPrimary">@color/car_display1_light</item>
+        <item name="android:textColorPrimary">@color/car_primary_text_light</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
-        <item name="android:textColorHint">@color/car_body2_light</item>
+        <item name="android:textColorHint">@color/car_secondary_text_light</item>
         <item name="android:spinnerStyle">@style/Widget.Spinner.Car</item>
         <item name="android:spinnerItemStyle">@style/CarSpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/CarSpinnerItem</item>
@@ -67,11 +74,16 @@ limitations under the License.
         <item name="colorControlHighlight">@color/car_card_ripple_background_light</item>
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorSwitchThumbNormal">@color/car_body2_light</item>
+        <item name="colorSwitchThumbNormal">@color/car_grey_300</item>
         <item name="editTextStyle">@style/Widget.Car.EditText</item>
         <item name="listItemActionDividerColor">@color/car_list_divider_light</item>
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body3.Light</item>
+=======
+        <item name="listItemForeground">@drawable/car_card_ripple_background_light</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText.Light</item>
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         <item name="listItemPrimaryIconTint">@null</item>
         <item name="listItemSupplementalIconTint">@null</item>
         <item name="listItemSubheaderTextAppearance">@style/TextAppearance.Car.Subheader</item>
@@ -80,9 +92,15 @@ limitations under the License.
         <item name="pagedScrollBarViewStyle">@style/Widget.Car.Scrollbar.Light</item>
         <item name="seekBarStyle">@style/Widget.Car.SeekBar.Light</item>
         <item name="switchStyle">@style/Widget.Car.Switch</item>
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         <item name="tabStyle">@style/Widget.Car.TabLayout</item>
         <item name="checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation.Light</item>
+=======
+        <item name="toolbarNavigationButtonStyle">
+            @style/Widget.Car.Toolbar.Button.Navigation.Light
+        </item>
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         <item name="toolbarStyle">@style/Widget.Car.Toolbar.Light</item>
     </style>
 
@@ -97,10 +115,11 @@ limitations under the License.
     <style name="Theme.Car.Light.NoActionBar" parent="Theme.Car.NoActionBar">
         <item name="android:alertDialogTheme">@style/Theme.Car.Dialog.Alert</item>
         <item name="android:checkboxStyle">@style/Widget.Car.CheckBox</item>
+        <item name="android:radioButtonStyle">@style/Widget.Car.RadioButton</item>
         <item name="android:colorAccent">@color/car_accent</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background</item>
-        <item name="android:colorForeground">@color/car_body2</item>
+        <item name="android:colorForeground">@color/car_grey_650</item>
         <item name="android:colorPrimary">@color/car_card</item>
         <item name="android:colorPrimaryDark">@color/car_card</item>
         <item name="android:buttonStyle">@style/Widget.Car.Button</item>
@@ -118,13 +137,12 @@ limitations under the License.
         <item name="android:spinnerStyle">@style/Widget.Spinner.Car</item>
         <item name="android:spinnerItemStyle">@style/CarSpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/CarSpinnerItem</item>
-        <item name="android:textColor">@color/car_body1</item>
-        <item name="android:textColorPrimary">@color/car_display1</item>
+        <item name="android:textColorPrimary">@color/car_primary_text</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
-        <item name="android:textColorHint">@color/car_body2</item>
+        <item name="android:textColorHint">@color/car_secondary_text</item>
         <item name="android:editTextStyle">@style/Widget.Car.EditText</item>
-        <item name="android:editTextColor">@color/car_body1</item>
-        <item name="android:colorControlNormal">@color/car_body2</item>
+        <item name="android:editTextColor">@color/car_primary_text</item>
+        <item name="android:colorControlNormal">@color/car_grey_650</item>
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar</item>
         <item name="actionBarItemBackground">@drawable/car_card_ripple_background</item>
         <item name="actionBarSize">@dimen/car_app_bar_height</item>
@@ -139,18 +157,17 @@ limitations under the License.
         <item name="colorControlHighlight">@color/car_card_ripple_background</item>
         <item name="colorPrimary">@color/car_card</item>
         <item name="colorPrimaryDark">@color/car_card</item>
-        <item name="colorSwitchThumbNormal">@color/car_body2</item>
+        <item name="colorSwitchThumbNormal">@color/car_grey_650</item>
         <item name="editTextStyle">@style/Widget.Car.EditText</item>
         <item name="listItemActionDividerColor">@color/car_list_divider</item>
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body3</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText</item>
         <item name="listItemSubheaderTextAppearance">@style/TextAppearance.Car.Subheader</item>
         <item name="pagedListViewStyle">@style/Widget.Car.List</item>
         <item name="pagedScrollBarViewStyle">@style/Widget.Car.Scrollbar</item>
         <item name="seekBarStyle">@style/Widget.Car.SeekBar</item>
         <item name="switchStyle">@style/Widget.Car.Switch</item>
-        <item name="checkboxStyle">@style/Widget.Car.CheckBox</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Car.Toolbar.Button.Navigation</item>
         <item name="toolbarStyle">@style/Widget.Car.Toolbar</item>
     </style>
@@ -171,7 +188,7 @@ limitations under the License.
         <item name="drawerArrowStyle">@style/Widget.Car.DrawerArrowToggle</item>
         <item name="drawerBackgroundColor">@color/car_card_dark</item>
         <item name="drawerRippleColor">@color/car_card_ripple_background_light</item>
-        <item name="drawerHeaderColor">@color/car_body1_light</item>
+        <item name="drawerHeaderColor">@color/car_primary_text_light</item>
         <item name="drawerItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
         <item name="drawerItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>
         <item name="drawerListTheme">@style/Theme.Car.Light.List.DarkItems</item>
@@ -184,7 +201,7 @@ limitations under the License.
         <item name="drawerBackButtonTint">@color/car_tint</item>
         <item name="drawerBackgroundColor">@color/car_card</item>
         <item name="drawerRippleColor">@color/car_card_ripple_background</item>
-        <item name="drawerHeaderColor">@color/car_body1</item>
+        <item name="drawerHeaderColor">@color/car_primary_text</item>
         <item name="drawerItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
         <item name="drawerItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
         <item name="drawerListTheme">@style/Theme.Car.List</item>
@@ -211,6 +228,7 @@ limitations under the License.
         <item name="dialogListTheme">@style/Theme.Car.List</item>
         <item name="dialogTitleStyle">@style/Widget.Car.Dialog.Title</item>
         <item name="dialogBodyStyle">@style/Widget.Car.Dialog.Body</item>
+        <item name="selectionDialogButtonStyle">@style/Widget.Car.SelectionDialog.Button</item>
     </style>
 
     <!-- Styling for dialogs provided by the car support library that is fixed in a dark-color. -->
@@ -235,7 +253,7 @@ limitations under the License.
         <item name="android:background">@color/car_card</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
-        <item name="android:colorControlNormal">@color/car_body3</item>
+        <item name="android:colorControlNormal">@android:color/black</item>
         <item name="android:colorControlActivated">@color/car_accent</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/car_checkbox</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/car_radio_button</item>
@@ -245,7 +263,7 @@ limitations under the License.
         <item name="android:listPreferredItemPaddingEnd">@dimen/car_padding_4</item>
         <item name="android:scrollbarSize">@dimen/car_scroll_bar_thumb_width</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.Car.Body3</item>
-        <item name="android:textColorPrimary">@color/car_body3</item>
+        <item name="android:textColorPrimary">@color/car_primary_text</item>
         <item name="android:windowAnimationStyle">@style/Car.Dialog.Animation</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title</item>
         <item name="alertDialogStyle">@style/AlertDialog</item>
@@ -261,8 +279,8 @@ limitations under the License.
         <item name="android:colorButtonNormal">@color/car_accent_dark</item>
         <item name="android:colorControlActivated">@color/car_accent_dark</item>
         <item name="android:background">@color/car_card_light</item>
-        <item name="android:textColorPrimary">@color/car_body3_dark</item>
-        <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title.Dark</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title</item>
     </style>
 
     <!-- Style for framework and the Appcompat AlertDialog that is fixed to have a dark colored
@@ -271,7 +289,7 @@ limitations under the License.
         <item name="android:colorButtonNormal">@color/car_accent_light</item>
         <item name="android:colorControlActivated">@color/car_accent_light</item>
         <item name="android:background">@color/car_card_dark</item>
-        <item name="android:textColorPrimary">@color/car_body3_light</item>
+        <item name="android:textColorPrimary">@color/car_primary_text_light</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title.Light</item>
     </style>
 
@@ -293,7 +311,7 @@ limitations under the License.
         <item name="pagedScrollBarViewStyle">@style/Widget.Car.Scrollbar</item>
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText</item>
     </style>
 
     <!-- A theme for PagedListViews that will have a light scrollbars and light-colored items. The
@@ -308,7 +326,7 @@ limitations under the License.
     <style name="Theme.Car.Light.List.DarkItems">
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
-        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>
+        <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.ListItem.BodyText.Light</item>
     </style>
 
     <!-- ================ -->

@@ -460,6 +460,35 @@ public class ViewDragHelper {
     }
 
     /**
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+     * Set the range in pixels along the edges of this view that will actively
+     * detect edge touches or drags if edge tracking is enabled.
+     *
+     * @param size Edge size in pixels
+     *
+     * @see #setEdgeTrackingEnabled(int)
+     * @see #getEdgeSize()
+     */
+    public void setEdgeSize(@Px @IntRange(from = 0) int size) {
+        mEdgeSize = size;
+    }
+
+    /**
+     * Return the default size used for edge tracking.
+     *
+     * @return The default edge size
+     *
+     * @see #setEdgeTrackingEnabled(int)
+     * @see #getEdgeSize()
+     */
+    @Px
+    public int getDefaultEdgeSize() {
+        return mDefaultEdgeSize;
+    }
+
+    /**
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
      * Capture a specific child view for dragging within the parent. The callback will be notified
      * but {@link Callback#tryCaptureView(android.view.View, int)} will not be asked permission to
      * capture this view.

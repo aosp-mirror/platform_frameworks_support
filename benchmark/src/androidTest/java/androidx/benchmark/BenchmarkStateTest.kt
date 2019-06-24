@@ -57,7 +57,22 @@ class BenchmarkStateTest {
             }
         }.ideSummaryLine("fooBarLongerKey")
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         assertEquals(summary1.indexOf("foo"),
             summary2.indexOf("foo"))
+=======
+    @Test
+    fun reportResult() {
+        BenchmarkState.reportData("className", "testName", listOf(100), 1, 0, 1)
+        val expectedReport = BenchmarkState.Report(
+            className = "className",
+            testName = "testName",
+            data = listOf(100),
+            repeatIterations = 1,
+            thermalThrottleSleepSeconds = 0,
+            warmupIterations = 1
+        )
+        assertEquals(expectedReport, ResultWriter.reports.last())
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     }
 }

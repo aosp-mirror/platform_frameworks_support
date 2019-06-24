@@ -200,6 +200,8 @@ object ProcessorErrors {
 
     val CANNOT_FIND_CURSOR_READER = "Cannot figure out how to read this field from a cursor."
 
+    const val DEFAULT_VALUE_NULLABILITY = "Use of NULL as the default value of a non-null field"
+
     private val MISSING_PARAMETER_FOR_BIND = "Each bind variable in the query must have a" +
             " matching method parameter. Cannot find method parameters for %s."
 
@@ -378,6 +380,30 @@ object ProcessorErrors {
                 " Options: ${availableColumns.joinToString(", ")}"
     }
 
+    fun relationCannotFindJunctionEntityField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the child entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun relationCannotFindJunctionParentField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the parent entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun junctionColumnWithoutIndex(entityName: String, columnName: String) =
+            "The column $columnName in the junction entity $entityName is being used to resolve " +
+                    "a relationship but it is not covered by any index. This might cause a " +
+                    "full table scan when resolving the relationship, it is highly advised to " +
+                    "create an index that covers this column."
+
     val RELATION_IN_ENTITY = "Entities cannot have relations."
 
     val CANNOT_FIND_TYPE = "Cannot find type."
@@ -391,6 +417,30 @@ object ProcessorErrors {
         return """
         The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
         affinity of the child column ($childColumn : $childAffinity).
+        """.trim()
+    }
+
+    fun relationJunctionParentAffinityMismatch(
+        parentColumn: String,
+        junctionParentColumn: String,
+        parentAffinity: SQLTypeAffinity?,
+        junctionParentAffinity: SQLTypeAffinity?
+    ): String {
+        return """
+        The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
+        affinity of the junction parent column ($junctionParentColumn : $junctionParentAffinity).
+        """.trim()
+    }
+
+    fun relationJunctionChildAffinityMismatch(
+        childColumn: String,
+        junctionChildColumn: String,
+        childAffinity: SQLTypeAffinity?,
+        junctionChildAffinity: SQLTypeAffinity?
+    ): String {
+        return """
+        The affinity of child column ($childColumn : $childAffinity) does not match the type
+        affinity of the junction child column ($junctionChildColumn : $junctionChildAffinity).
         """.trim()
     }
 

@@ -27,8 +27,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+=======
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -287,7 +292,53 @@ public class NightModeTestCase {
         // Now assert that the context still has a night themed configuration
         assertConfigurationNightModeEquals(
                 Configuration.UI_MODE_NIGHT_YES,
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                 activity.getResources().getConfiguration());
+=======
+                mActivityTestRule.getActivity().getResources().getConfiguration());
+    }
+
+    @Test
+    public void testDialogCleansUpAutoMode() throws Throwable {
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppCompatDialog dialog = new AppCompatDialog(mActivityTestRule.getActivity());
+                AppCompatDelegateImpl delegate = (AppCompatDelegateImpl) dialog.getDelegate();
+
+                // Set the local night mode of the Dialog to be an AUTO mode
+                delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+
+                // Now show and dismiss the dialog
+                dialog.show();
+                dialog.dismiss();
+
+                // Assert that the auto manager is destroyed (not listening)
+                assertFalse(delegate.getAutoTimeNightModeManager().isListening());
+            }
+        });
+    }
+
+    @Test
+    public void testOnConfigurationChangeNotCalled() throws Throwable {
+        NightModeActivity activity = mActivityTestRule.getActivity();
+        // Set local night mode to YES
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+        // Assert that onConfigurationChange was not called on the original activity
+        assertNull(activity.getLastConfigurationChangeAndClear());
+
+        activity = mActivityTestRule.getActivity();
+        // Set local night mode back to NO
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, mSetMode);
+        // Assert that onConfigurationChange was not called
+        assertNull(activity.getLastConfigurationChangeAndClear());
+    }
+
+    @After
+    public void cleanup() throws Throwable {
+        // Reset the default night mode
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, NightSetMode.DEFAULT);
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     }
 
     private static class FakeTwilightManager extends TwilightManager {

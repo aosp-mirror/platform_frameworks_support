@@ -1281,6 +1281,27 @@ public class DrawerLayout extends ViewGroup {
                 }
             }
         }
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+
+        if (sEdgeSizeUsingSystemGestureInsets) {
+            // Update the ViewDragHelper edge sizes to match the gesture insets
+            WindowInsets rootInsets = getRootWindowInsets();
+            if (rootInsets != null) {
+                WindowInsetsCompat rootInsetsCompat = WindowInsetsCompat
+                        .toWindowInsetsCompat(rootInsets);
+                Insets gestureInsets = rootInsetsCompat.getSystemGestureInsets();
+
+                // We use Math.max() here since the gesture insets will be 0 if the device
+                // does not have gesture navigation enabled
+                mLeftDragger.setEdgeSize(
+                        Math.max(mLeftDragger.getDefaultEdgeSize(), gestureInsets.left));
+                mRightDragger.setEdgeSize(
+                        Math.max(mRightDragger.getDefaultEdgeSize(), gestureInsets.right));
+            }
+        }
+
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         mInLayout = false;
         mFirstLayout = false;
     }

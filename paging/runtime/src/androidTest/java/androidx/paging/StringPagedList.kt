@@ -21,14 +21,23 @@ class StringPagedList constructor(
     trailingNulls: Int,
     vararg items: String
 ) : PagedList<String>(
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         PagedStorage<String>(),
         TestExecutor(),
         TestExecutor(),
         null,
         PagedList.Config.Builder().setPageSize(1).build()
+=======
+    PagedStorage(),
+    TestExecutor(),
+    TestExecutor(),
+    null,
+    PagedList.Config.Builder().setPageSize(1).build()
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 ), PagedStorage.Callback {
     val list = items.toList()
     init {
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         @Suppress("UNCHECKED_CAST")
         val keyedStorage = mStorage as PagedStorage<String>
         keyedStorage.init(leadingNulls,
@@ -36,22 +45,55 @@ class StringPagedList constructor(
                 trailingNulls,
                 0,
                 this)
+=======
+        val keyedStorage = getStorage()
+        keyedStorage.init(
+            leadingNulls,
+            list,
+            trailingNulls,
+            0,
+            this
+        )
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     internal override fun isContiguous(): Boolean {
         return true
     }
+=======
+    override val isContiguous = true
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     override fun getLastKey(): Any? {
         return null
+=======
+    override val lastKey: Any? = null
+
+    override val isDetached
+        get() = detached
+
+    override fun detach() {
+        detached = true
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     override fun dispatchUpdatesSinceSnapshot(
         storageSnapshot: PagedList<String>,
         callback: PagedList.Callback
     ) {
     }
+=======
+    override fun dispatchUpdatesSinceSnapshot(snapshot: PagedList<String>, callback: Callback) {}
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+    override fun dispatchCurrentLoadState(listener: LoadStateListener) {}
+
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     override fun loadAroundInternal(index: Int) {}
 
     override fun onInitialized(count: Int) {}
@@ -68,15 +110,10 @@ class StringPagedList constructor(
 
     override fun onPageInserted(start: Int, count: Int) {}
 
-    override fun getDataSource(): DataSource<*, String> {
-        return ListDataSource<String>(list)
-    }
+    override val dataSource = ListDataSource(list)
 
-    override fun onPagesRemoved(startOfDrops: Int, count: Int) {
-        notifyRemoved(startOfDrops, count)
-    }
+    override fun onPagesRemoved(startOfDrops: Int, count: Int) = notifyRemoved(startOfDrops, count)
 
-    override fun onPagesSwappedToPlaceholder(startOfDrops: Int, count: Int) {
+    override fun onPagesSwappedToPlaceholder(startOfDrops: Int, count: Int) =
         notifyChanged(startOfDrops, count)
-    }
 }

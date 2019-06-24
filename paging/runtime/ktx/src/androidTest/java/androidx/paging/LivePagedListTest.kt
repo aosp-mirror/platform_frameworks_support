@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -71,3 +72,5 @@ class LivePagedListTest {
         private val config = Config(10)
     }
 }
+=======
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)

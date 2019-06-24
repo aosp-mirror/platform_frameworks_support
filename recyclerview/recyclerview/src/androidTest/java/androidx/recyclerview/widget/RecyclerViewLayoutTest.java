@@ -5463,7 +5463,7 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         }
 
         @Override
-        public void onStopNestedScroll(View target) {
+        public void onStopNestedScroll(@NonNull View target) {
             super.onStopNestedScroll(target);
         }
 

@@ -43,11 +43,20 @@ const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:
 const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
 const val LEAKCANARY_INSTRUMENTATION =
         "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+const val LINT_API_MIN = "com.android.tools.lint:lint-api:26.3.0"
+const val LINT_API_LATEST = "com.android.tools.lint:lint-api:26.5.0-beta04"
+const val LINT_CORE = "com.android.tools.lint:lint:26.5.0-beta04"
+const val LINT_TESTS = "com.android.tools.lint:lint-tests:26.5.0-beta04"
+const val MATERIAL = "com.google.android.material:material:1.0.0"
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
 const val MULTIDEX = "androidx.multidex:multidex:2.0.0"
 const val NULLAWAY = "com.uber.nullaway:nullaway:0.3.7"
 const val OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:3.11.0"
 const val REACTIVE_STREAMS = "org.reactivestreams:reactive-streams:1.0.0"
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 const val RX_JAVA = "io.reactivex.rxjava2:rxjava:2.0.6"
 const val TEST_CORE = "androidx.test:core:1.1.0"
 const val TEST_RUNNER = "androidx.test:runner:1.1.0"
@@ -60,6 +69,11 @@ const val TRUTH = "com.google.truth:truth:0.42"
  * https://github.com/xerial/sqlite-jdbc/issues/267
  */
 const val XERIAL = "org.xerial:sqlite-jdbc:3.20.1"
+=======
+const val RX_JAVA = "io.reactivex.rxjava2:rxjava:2.2.9"
+const val TRUTH = "com.google.truth:truth:0.44"
+const val XERIAL = "org.xerial:sqlite-jdbc:3.25.2"
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 const val XPP3 = "xpp3:xpp3:1.1.4c"
 const val XMLPULL = "xmlpull:xmlpull:1.1.3.1"
 
@@ -77,6 +91,10 @@ const val SUPPORT_DESIGN = "com.google.android.material:material:1.0.0@aar"
 const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+const val ANDROIDX_ANNOTATION = "androidx.annotation:annotation:1.1.0"
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 const val ANDROIDX_COLLECTION = "androidx.collection:collection:$SUPPORT_VERSION"
 const val ANDROIDX_CORE = "androidx.core:core:1.0.0"
 const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
@@ -89,12 +107,13 @@ const val ARCH_LIFECYCLE_LIVEDATA_CORE =
 const val ARCH_LIFECYCLE_LIVEDATA =
         "androidx.lifecycle:lifecycle-livedata:2.0.0"
 const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:2.0.0"
+const val ARCH_LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
 const val ARCH_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:2.0.0"
 const val ARCH_CORE_COMMON = "androidx.arch.core:core-common:2.0.0@jar"
 const val ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
 const val ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
 
-const val SAFE_ARGS_ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:3.3.0"
+const val SAFE_ARGS_ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:3.4.0"
 const val SAFE_ARGS_KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.20"
 const val SAFE_ARGS_NAVIGATION_COMMON = "android.arch.navigation:navigation-common:1.0.0-alpha10"
 
@@ -104,4 +123,16 @@ const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.0.0"
 const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.0.0"
 const val ARCH_ROOM_RXJAVA = "androidx.room:room-rxjava2:2.0.0"
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
+=======
+const val WORK_ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
+const val WORK_ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
+const val WORK_ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.1.0"
+const val WORK_ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.1.0"
+const val WORK_ARCH_ROOM_TESTING = "androidx.room:room-testing:2.1.0"
+
+const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
+
+const val PROTOBUF = "com.google.protobuf:protobuf-java:3.4.0"
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)

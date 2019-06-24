@@ -628,7 +628,12 @@ public class CarAlertDialog extends Dialog {
          * @see #setCancelable(boolean)
          * @see #setOnDismissListener(OnDismissListener)
          */
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+=======
+        @NonNull
+        public Builder setOnCancelListener(@NonNull OnCancelListener onCancelListener) {
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             mOnCancelListener = onCancelListener;
             return this;
         }
@@ -638,7 +643,12 @@ public class CarAlertDialog extends Dialog {
          *
          * @return This {@code Builder} object to allow for chaining of calls.
          */
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         public Builder setOnDismissListener(OnDismissListener onDismissListener) {
+=======
+        @NonNull
+        public Builder setOnDismissListener(@NonNull OnDismissListener onDismissListener) {
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             mOnDismissListener = onDismissListener;
             return this;
         }

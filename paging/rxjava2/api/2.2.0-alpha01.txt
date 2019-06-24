@@ -1,7 +1,12 @@
 // Signature format: 3.0
 package androidx.paging {
 
+  public final class RxDataSourceUtilKt {
+    ctor public RxDataSourceUtilKt();
+  }
+
   public final class RxPagedListBuilder<Key, Value> {
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     ctor public RxPagedListBuilder(androidx.paging.DataSource.Factory<Key,Value>, androidx.paging.PagedList.Config);
     ctor public RxPagedListBuilder(androidx.paging.DataSource.Factory<Key,Value>, int);
     method public io.reactivex.Flowable<androidx.paging.PagedList<Value>> buildFlowable(io.reactivex.BackpressureStrategy);
@@ -10,6 +15,24 @@ package androidx.paging {
     method public androidx.paging.RxPagedListBuilder<Key,Value> setFetchScheduler(io.reactivex.Scheduler);
     method public androidx.paging.RxPagedListBuilder<Key,Value> setInitialLoadKey(Key?);
     method public androidx.paging.RxPagedListBuilder<Key,Value> setNotifyScheduler(io.reactivex.Scheduler);
+=======
+    ctor public RxPagedListBuilder(androidx.paging.DataSource.Factory<Key,Value> dataSourceFactory, androidx.paging.PagedList.Config config);
+    ctor public RxPagedListBuilder(androidx.paging.DataSource.Factory<Key,Value> dataSourceFactory, int pageSize);
+    method public io.reactivex.Flowable<androidx.paging.PagedList<Value>> buildFlowable(io.reactivex.BackpressureStrategy backpressureStrategy);
+    method public io.reactivex.Observable<androidx.paging.PagedList<Value>> buildObservable();
+    method public androidx.paging.RxPagedListBuilder<Key,Value> setBoundaryCallback(androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback);
+    method public androidx.paging.RxPagedListBuilder<Key,Value> setFetchScheduler(io.reactivex.Scheduler scheduler);
+    method public androidx.paging.RxPagedListBuilder<Key,Value> setInitialLoadKey(Key? key);
+    method public androidx.paging.RxPagedListBuilder<Key,Value> setNotifyScheduler(io.reactivex.Scheduler scheduler);
+  }
+
+  public final class RxPagedListKt {
+    ctor public RxPagedListKt();
+    method public static <Key, Value> io.reactivex.Flowable<androidx.paging.PagedList<Value>> toFlowable(androidx.paging.DataSource.Factory<Key,Value>, androidx.paging.PagedList.Config config, Key? initialLoadKey = null, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, io.reactivex.Scheduler? fetchScheduler = null, io.reactivex.Scheduler? notifyScheduler = null, io.reactivex.BackpressureStrategy backpressureStrategy = io.reactivex.BackpressureStrategy.LATEST);
+    method public static <Key, Value> io.reactivex.Flowable<androidx.paging.PagedList<Value>> toFlowable(androidx.paging.DataSource.Factory<Key,Value>, int pageSize, Key? initialLoadKey = null, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, io.reactivex.Scheduler? fetchScheduler = null, io.reactivex.Scheduler? notifyScheduler = null, io.reactivex.BackpressureStrategy backpressureStrategy = io.reactivex.BackpressureStrategy.LATEST);
+    method public static <Key, Value> io.reactivex.Observable<androidx.paging.PagedList<Value>> toObservable(androidx.paging.DataSource.Factory<Key,Value>, androidx.paging.PagedList.Config config, Key? initialLoadKey = null, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, io.reactivex.Scheduler? fetchScheduler = null, io.reactivex.Scheduler? notifyScheduler = null);
+    method public static <Key, Value> io.reactivex.Observable<androidx.paging.PagedList<Value>> toObservable(androidx.paging.DataSource.Factory<Key,Value>, int pageSize, Key? initialLoadKey = null, androidx.paging.PagedList.BoundaryCallback<Value>? boundaryCallback = null, io.reactivex.Scheduler? fetchScheduler = null, io.reactivex.Scheduler? notifyScheduler = null);
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
   }
 
 }

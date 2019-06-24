@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -195,3 +196,5 @@ private fun MethodSpec.Builder.writeMethodCalls(calls: List<EventMethodCall>,
 private fun takeParams(count: Int, vararg params: Any) = params.take(count).toTypedArray()
 
 private fun generateParamString(count: Int) = (0 until count).joinToString(",") { N }
+=======
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)

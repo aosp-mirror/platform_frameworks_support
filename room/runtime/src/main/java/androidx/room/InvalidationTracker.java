@@ -27,9 +27,12 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.internal.SafeIterableMap;
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
 import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
 import androidx.collection.SparseArrayCompat;
+=======
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -40,6 +43,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -86,7 +90,7 @@ public class InvalidationTracker {
 
     @NonNull
     @VisibleForTesting
-    final ArrayMap<String, Integer> mTableIdLookup;
+    final HashMap<String, Integer> mTableIdLookup;
     final String[] mTableNames;
     @NonNull
     @VisibleForTesting
@@ -142,8 +146,12 @@ public class InvalidationTracker {
             Map<String, Set<String>> viewTables, String... tableNames) {
         mDatabase = database;
         mObservedTableTracker = new ObservedTableTracker(tableNames.length);
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         mTableIdLookup = new ArrayMap<>();
         mShadowTableLookup = new SparseArrayCompat<>(shadowTablesMap.size());
+=======
+        mTableIdLookup = new HashMap<>();
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
         mViewTables = viewTables;
         mInvalidationLiveDataContainer = new InvalidationLiveDataContainer(mDatabase);
         final int size = tableNames.length;
@@ -297,7 +305,7 @@ public class InvalidationTracker {
      * @return The names of the underlying tables.
      */
     private String[] resolveViews(String[] names) {
-        Set<String> tables = new ArraySet<>();
+        Set<String> tables = new HashSet<>();
         for (String name : names) {
             final String lowercase = name.toLowerCase(Locale.US);
             if (mViewTables.containsKey(lowercase)) {
@@ -414,8 +422,13 @@ public class InvalidationTracker {
             }
         }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
         private boolean checkUpdatedTable() {
             boolean hasUpdatedTable = false;
+=======
+        private Set<Integer> checkUpdatedTable() {
+            HashSet<Integer> invalidatedTableIds = new HashSet<>();
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             Cursor cursor = mDatabase.query(new SimpleSQLiteQuery(SELECT_UPDATED_TABLES_SQL));
             //noinspection TryFinallyCanBeTryWithResources
             try {
@@ -581,7 +594,7 @@ public class InvalidationTracker {
             mTableIds = tableIds;
             mTableNames = tableNames;
             if (tableIds.length == 1) {
-                ArraySet<String> set = new ArraySet<>();
+                HashSet<String> set = new HashSet<>();
                 set.add(mTableNames[0]);
                 mSingleTableSet = Collections.unmodifiableSet(set);
             } else {
@@ -606,7 +619,7 @@ public class InvalidationTracker {
                         invalidatedTables = mSingleTableSet;
                     } else {
                         if (invalidatedTables == null) {
-                            invalidatedTables = new ArraySet<>(size);
+                            invalidatedTables = new HashSet<>(size);
                         }
                         invalidatedTables.add(mTableNames[index]);
                     }
@@ -634,7 +647,7 @@ public class InvalidationTracker {
                     }
                 }
             } else {
-                ArraySet<String> set = new ArraySet<>();
+                HashSet<String> set = new HashSet<>();
                 for (String table : tables) {
                     for (String ourTable : mTableNames) {
                         if (ourTable.equalsIgnoreCase(table)) {

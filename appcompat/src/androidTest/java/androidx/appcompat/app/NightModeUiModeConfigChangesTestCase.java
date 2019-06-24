@@ -20,6 +20,7 @@ import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNig
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import android.content.res.Configuration;
 
@@ -50,23 +51,39 @@ public class NightModeUiModeConfigChangesTestCase {
     }
 
     @Test
-    public void testResourcesNotUpdated() throws Throwable {
-        final int defaultNightMode = mActivityTestRule.getActivity()
-                .getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-
+    public void testOnConfigurationChangeCalled() throws Throwable {
         // Set local night mode to YES
         setLocalNightModeAndWait(mActivityTestRule, AppCompatDelegate.MODE_NIGHT_YES);
 
-        // Assert that the Activity did not get updated
-        assertConfigurationNightModeEquals(defaultNightMode,
+        // Assert that the onConfigurationChange was called with a new correct config
+        Configuration lastConfig = mActivityTestRule.getActivity()
+                .getLastConfigurationChangeAndClear();
+        assertNotNull(lastConfig);
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, lastConfig);
+
+        // Set local night mode back to NO
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, mSetMode);
+
+        // Assert that the onConfigurationChange was again called with a new correct config
+        lastConfig = mActivityTestRule.getActivity().getLastConfigurationChangeAndClear();
+        assertNotNull(lastConfig);
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO, lastConfig);
+    }
+
+    @Test
+    public void testResourcesUpdated() throws Throwable {
+        // Set local night mode to YES
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+
+        // Assert that the Activity resources configuration was updated
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
                 mActivityTestRule.getActivity().getResources().getConfiguration());
 
         // Set local night mode back to NO
         setLocalNightModeAndWait(mActivityTestRule, AppCompatDelegate.MODE_NIGHT_NO);
 
-        // Assert that the Activity did not get updated
-        assertConfigurationNightModeEquals(defaultNightMode,
+        // Assert that the Activity resources configuration was updated
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO,
                 mActivityTestRule.getActivity().getResources().getConfiguration());
     }
 

@@ -13,6 +13,7 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog.Builder! setCancelable(boolean);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(@DrawableRes int);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(android.graphics.drawable.Icon?);
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder! setOnCancelListener(android.content.DialogInterface.OnCancelListener!);
@@ -21,6 +22,16 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog.Builder! setPositiveButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder! setTitle(@StringRes int);
     method public androidx.car.app.CarAlertDialog.Builder! setTitle(CharSequence!);
+=======
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(CharSequence, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
+    method public androidx.car.app.CarAlertDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(CharSequence?);
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
   }
 
   public class CarListDialog extends android.app.Dialog {
@@ -31,10 +42,17 @@ package androidx.car.app {
     method public androidx.car.app.CarListDialog! create();
     method public androidx.car.app.CarListDialog.Builder setCancelable(boolean);
     method public androidx.car.app.CarListDialog.Builder setInitialPosition(int);
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     method public androidx.car.app.CarListDialog.Builder setItems(CharSequence[], android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarListDialog.Builder setItems(androidx.car.app.CarListDialog.DialogSubSection[], android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarListDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener!);
     method public androidx.car.app.CarListDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener!);
+=======
+    method public androidx.car.app.CarListDialog.Builder setItems(CharSequence![], android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarListDialog.Builder setItems(androidx.car.app.CarListDialog.DialogSubSection![], android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarListDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
+    method public androidx.car.app.CarListDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
     method public androidx.car.app.CarListDialog.Builder setTitle(@StringRes int);
     method public androidx.car.app.CarListDialog.Builder setTitle(CharSequence!);
   }
@@ -46,6 +64,63 @@ package androidx.car.app {
     method public CharSequence getTitle();
   }
 
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+  public final class CarMultipleChoiceDialog extends android.app.Dialog {
+  }
+
+  public static final class CarMultipleChoiceDialog.Builder {
+    ctor public CarMultipleChoiceDialog.Builder(android.content.Context);
+    method public android.app.Dialog create();
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setBody(@StringRes int);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setCancelable(boolean);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setItems(java.util.List<androidx.car.app.CarMultipleChoiceDialog.Item!>);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setNegativeButton(@StringRes int);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setNegativeButton(CharSequence);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setPositiveButton(@StringRes int, androidx.car.app.CarMultipleChoiceDialog.OnMultiChoiceClickListener);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setPositiveButton(CharSequence, androidx.car.app.CarMultipleChoiceDialog.OnMultiChoiceClickListener);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setTitle(CharSequence?);
+  }
+
+  public static class CarMultipleChoiceDialog.Item {
+    ctor public CarMultipleChoiceDialog.Item(CharSequence, boolean);
+    ctor public CarMultipleChoiceDialog.Item(CharSequence, CharSequence?, boolean);
+  }
+
+  public static interface CarMultipleChoiceDialog.OnMultiChoiceClickListener {
+    method public void onClick(android.content.DialogInterface, boolean[]);
+  }
+
+  public final class CarSingleChoiceDialog extends android.app.Dialog {
+  }
+
+  public static final class CarSingleChoiceDialog.Builder {
+    ctor public CarSingleChoiceDialog.Builder(android.content.Context);
+    method public android.app.Dialog create();
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setCancelable(boolean);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setItems(java.util.List<androidx.car.app.CarSingleChoiceDialog.Item!>, @IntRange(from=0) int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setNegativeButton(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setNegativeButton(CharSequence);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(CharSequence?);
+  }
+
+  public static class CarSingleChoiceDialog.Item {
+    ctor public CarSingleChoiceDialog.Item(CharSequence);
+    ctor public CarSingleChoiceDialog.Item(CharSequence, CharSequence);
+  }
+
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 }
 
 package androidx.car.drawer {

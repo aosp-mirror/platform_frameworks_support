@@ -121,4 +121,92 @@ class LivePagedListBuilderTest {
 
         assertEquals(listOf("a", "b", "c", "d"), pagedList)
     }
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
+=======
+
+    data class LoadState(
+        val type: PagedList.LoadType,
+        val state: PagedList.LoadState,
+        val error: Throwable?
+    )
+
+    @Test
+    fun failedLoad() {
+        val factory = MockDataSourceFactory()
+        factory.enqueueRetryableError()
+
+        val livePagedList = LivePagedListBuilder(factory, 2)
+            .setFetchExecutor(backgroundExecutor)
+            .build()
+
+        val pagedListHolder: Array<PagedList<String>?> = arrayOfNulls(1)
+
+        livePagedList.observe(lifecycleOwner, Observer<PagedList<String>> { newList ->
+            pagedListHolder[0] = newList
+        })
+
+        val loadStates = mutableListOf<LoadState>()
+
+        // initially, immediately get passed empty initial list
+        val initPagedList = pagedListHolder[0]
+        assertNotNull(initPagedList!!)
+        assertTrue(initPagedList is InitialPagedList<*, *>)
+
+        val loadStateListener = object : PagedList.LoadStateListener {
+            override fun onLoadStateChanged(
+                type: PagedList.LoadType,
+                state: PagedList.LoadState,
+                error: Throwable?
+            ) {
+                if (type == REFRESH) {
+                    loadStates.add(LoadState(type, state, error))
+                }
+            }
+        }
+        initPagedList.addWeakLoadStateListener(loadStateListener)
+
+        // flush loadInitial, done with passed executor
+        backgroundExecutor.executeAll()
+
+        assertSame(initPagedList, pagedListHolder[0])
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION)
+            ), loadStates
+        )
+
+        initPagedList.retry()
+        assertSame(initPagedList, pagedListHolder[0])
+
+        // flush loadInitial, should succeed now
+        backgroundExecutor.executeAll()
+        assertNotSame(initPagedList, pagedListHolder[0])
+        assertEquals(listOf("a", "b", null, null), pagedListHolder[0])
+
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION),
+                LoadState(REFRESH, LOADING, null)
+            ), loadStates
+        )
+
+        // the IDLE result shows up on the next PagedList
+        initPagedList.removeWeakLoadStateListener(loadStateListener)
+        pagedListHolder[0]!!.addWeakLoadStateListener(loadStateListener)
+        assertEquals(
+            listOf(
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, RETRYABLE_ERROR, RETRYABLE_EXCEPTION),
+                LoadState(REFRESH, LOADING, null),
+                LoadState(REFRESH, IDLE, null)
+            ), loadStates
+        )
+    }
+
+    companion object {
+        val RETRYABLE_EXCEPTION = Exception("retryable")
+    }
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 }

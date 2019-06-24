@@ -25,6 +25,7 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
     compile(project(":paging:paging-common"))
     compile(KOTLIN_STDLIB)
 
@@ -32,6 +33,9 @@ dependencies {
     testImplementation(TEST_EXT_JUNIT)
     testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
+=======
+    api(project(":paging:paging-common"))
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
 }
 
 supportLibrary {

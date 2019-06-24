@@ -68,7 +68,13 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
         val stmtVar = scope.getTmpVar("_stmt")
         scope.builder().apply {
             val usingLongSparseArray =
+<<<<<<< HEAD   (810747 Merge "Merge empty history for sparse-5626174-L1780000033228)
                     collector.mapTypeName.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY
+=======
+                    collector.mapTypeName.rawType == CollectionTypeNames.LONG_SPARSE_ARRAY
+            val usingArrayMap =
+                    collector.mapTypeName.rawType == CollectionTypeNames.ARRAY_MAP
+>>>>>>> BRANCH (2c954e Merge "Merge cherrypicks of [988730] into sparse-5676727-L53)
             if (usingLongSparseArray) {
                 beginControlFlow("if ($N.isEmpty())", param)
             } else {
@@ -88,24 +94,34 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
                 addStatement("$T $L = new $T($L.MAX_BIND_PARAMETER_CNT)",
                         collector.mapTypeName, tmpMapVar,
                         collector.mapTypeName, RoomTypeNames.ROOM_DB)
-                val mapIndexVar = scope.getTmpVar("_mapIndex")
                 val tmpIndexVar = scope.getTmpVar("_tmpIndex")
-                val limitVar = scope.getTmpVar("_limit")
-                addStatement("$T $L = 0", TypeName.INT, mapIndexVar)
                 addStatement("$T $L = 0", TypeName.INT, tmpIndexVar)
-                addStatement("final $T $L = $N.size()", TypeName.INT, limitVar, param)
-                beginControlFlow("while($L < $L)", mapIndexVar, limitVar).apply {
-                    addStatement("$L.put($N.keyAt($L), $N.valueAt($L))",
+                if (usingLongSparseArray || usingArrayMap) {
+                    val mapIndexVar = scope.getTmpVar("_mapIndex")
+                    val limitVar = scope.getTmpVar("_limit")
+                    addStatement("$T $L = 0", TypeName.INT, mapIndexVar)
+                    addStatement("final $T $L = $N.size()", TypeName.INT, limitVar, param)
+                    beginControlFlow("while($L < $L)", mapIndexVar, limitVar).apply {
+                        addStatement("$L.put($N.keyAt($L), $N.valueAt($L))",
                             tmpMapVar, param, mapIndexVar, param, mapIndexVar)
-                    addStatement("$L++", mapIndexVar)
+                        addStatement("$L++", mapIndexVar)
+                    }
+                } else {
+                    val mapKeyVar = scope.getTmpVar("_mapKey")
+                    beginControlFlow("for($T $L : $L)",
+                        collector.keyTypeName, mapKeyVar, KEY_SET_VARIABLE).apply {
+                        addStatement("$L.put($L, $N.get($L))",
+                            tmpMapVar, mapKeyVar, param, mapKeyVar)
+                    }
+                }.apply {
                     addStatement("$L++", tmpIndexVar)
                     beginControlFlow("if($L == $T.MAX_BIND_PARAMETER_CNT)",
-                            tmpIndexVar, RoomTypeNames.ROOM_DB).apply {
+                        tmpIndexVar, RoomTypeNames.ROOM_DB).apply {
                         // recursively load that batch
                         addStatement("$L($L)", methodName, tmpMapVar)
                         // clear nukes the backing data hence we create a new one
                         addStatement("$L = new $T($T.MAX_BIND_PARAMETER_CNT)",
-                                tmpMapVar, collector.mapTypeName, RoomTypeNames.ROOM_DB)
+                            tmpMapVar, collector.mapTypeName, RoomTypeNames.ROOM_DB)
                         addStatement("$L = 0", tmpIndexVar)
                     }.endControlFlow()
                 }.endControlFlow()
@@ -129,9 +145,20 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
                     if (shouldCopyCursor) "true" else "false")
 
             beginControlFlow("try").apply {
-                addStatement("final $T $L = $T.getColumnIndex($L, $S)",
-                    TypeName.INT, itemKeyIndexVar, RoomTypeNames.CURSOR_UTIL, cursorVar,
-                    relation.entityField.columnName)
+                if (relation.junction != null) {
+                    // when using a junction table the relationship map is keyed on the parent
+                    // reference column of the junction table, the same column used in the WHERE IN
+                    // clause, this column is the rightmost column in the generated SELECT
+                    // clause.
+                    val junctionParentColumnIndex = relation.projection.size
+                    addStatement("final $T $L = $L; // _junction.$L",
+                        TypeName.INT, itemKeyIndexVar, junctionParentColumnIndex,
+                        relation.junction.parentField.columnName)
+                } else {
+                    addStatement("final $T $L = $T.getColumnIndex($L, $S)",
+                        TypeName.INT, itemKeyIndexVar, RoomTypeNames.CURSOR_UTIL, cursorVar,
+                        relation.entityField.columnName)
+                }
 
                 beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
                     addStatement("return")
