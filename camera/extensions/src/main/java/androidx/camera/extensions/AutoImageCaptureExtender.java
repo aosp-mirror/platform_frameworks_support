@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.AutoImageCaptureExtenderImpl;
 /**
  * Load the OEM extension implementation for auto effect type.
  */
-public class AutoImageCaptureExtender extends ImageCaptureExtender {
+class AutoImageCaptureExtender extends ImageCaptureExtender {
     private static final String TAG = "AutoICExtender";
 
     /**
@@ -34,7 +34,7 @@ public class AutoImageCaptureExtender extends ImageCaptureExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.ImageCapture}.
      */
-    public static AutoImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
+    static AutoImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorAutoImageCaptureExtender(builder);
