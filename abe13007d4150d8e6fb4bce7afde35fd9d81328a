@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42ed2184_4c50a0cd",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-24T23:21:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b26d82_9ef9ef67",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6e60f81_58544bc4",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
         "patchSetId": 11
@@ -69,6 +93,30 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63487901_c7a168fc",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-24T23:21:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c99776f5_9226a005",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +258,30 @@
       "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cae14f1_f4fca4e6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionLogic.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-24T23:21:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "608db71e_dbf9d06d",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "abe13007d4150d8e6fb4bce7afde35fd9d81328a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
