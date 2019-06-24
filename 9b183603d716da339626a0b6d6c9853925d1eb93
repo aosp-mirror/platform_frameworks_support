@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6b72c4e_5a6c0a4f",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-24T10:39:51Z",
+      "side": 1,
+      "message": "I think it is better to \"isJava()\" instead, because this is what you meant.",
+      "revId": "9b183603d716da339626a0b6d6c9853925d1eb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
