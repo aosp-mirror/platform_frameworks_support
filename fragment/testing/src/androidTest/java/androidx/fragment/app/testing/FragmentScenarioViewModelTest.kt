@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 /*
  * Copyright (C) 2019 The Android Open Source Project
  *
@@ -85,3 +86,5 @@ class InjectedViewModelFactoryFragment(
 ) : Fragment() {
     val viewModel: InjectedViewModel by viewModels { viewModelFactory }
 }
+=======
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

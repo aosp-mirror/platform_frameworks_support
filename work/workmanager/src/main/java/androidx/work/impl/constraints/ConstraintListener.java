@@ -15,7 +15,12 @@
  */
 package androidx.work.impl.constraints;
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 import android.support.annotation.Nullable;
+=======
+import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 
 /**
  * The listener for constraint changes.
@@ -29,5 +34,6 @@ public interface ConstraintListener<T> {
      * Called when the value of a constraint has changed.
      * @param newValue the new value of the constraint
      */
+    @MainThread
     void onConstraintChanged(@Nullable T newValue);
 }

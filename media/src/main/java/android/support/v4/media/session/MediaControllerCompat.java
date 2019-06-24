@@ -86,6 +86,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * <li>{@link #getPlaybackState()}.{@link PlaybackStateCompat#getExtras() getExtras()}</li>
  * <li>{@link #isCaptioningEnabled()}</li>
  * <li>{@link #getRepeatMode()}</li>
+ * <li>{@link #getSessionInfo()}</li>
  * <li>{@link #getShuffleMode()}</li>
  * </ul></p>
  *
@@ -657,6 +658,7 @@ public final class MediaControllerCompat {
      * <li>{@link #getPlaybackState()}</li>
      * <li>{@link #getRatingType()}</li>
      * <li>{@link #getRepeatMode()}</li>
+     * <li>{@link #getSessionInfo()}}</li>
      * <li>{@link #getShuffleMode()}</li>
      * <li>{@link #isCaptioningEnabled()}</li>
      * </ul>
@@ -678,6 +680,25 @@ public final class MediaControllerCompat {
     }
 
     /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+     * Gets the additional session information which was set when the session was created.
+     * The returned {@link Bundle} can include additional unchanging information about the session.
+     * For example, it can include the version of the session application, or other app-specific
+     * unchanging information.
+     *
+     * @return The additional session information, or {@link Bundle#EMPTY} if the session
+     *         didn't set the information or if the session is not ready.
+     * @see #isSessionReady
+     * @see Callback#onSessionReady
+     */
+    @NonNull
+    public Bundle getSessionInfo() {
+        return mImpl.getSessionInfo();
+    }
+
+    /**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
      * Gets the underlying framework
      * {@link android.media.session.MediaController} object.
      * <p>
@@ -1301,6 +1322,18 @@ public final class MediaControllerCompat {
         public abstract void setRating(RatingCompat rating, Bundle extras);
 
         /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+         * Sets the playback speed. A value of {@code 1.0f} is the default playback value,
+         * and a negative value indicates reverse playback. {@code 0.0f} is not allowed.
+         *
+         * @param speed The playback speed
+         * @throws IllegalArgumentException if the {@code speed} is equal to zero.
+         */
+        public void setPlaybackSpeed(float speed) {}
+
+        /**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
          * Enables/disables captioning for this session.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.
@@ -2224,6 +2257,29 @@ public final class MediaControllerCompat {
         }
 
         @Override
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+        public Bundle getSessionInfo() {
+            if (mSessionInfo != null) {
+                return new Bundle(mSessionInfo);
+            }
+
+            // Get the info from the connected session.
+            if (Build.VERSION.SDK_INT >= 29) {
+                mSessionInfo = mControllerFwk.getSessionInfo();
+            } else if (mSessionToken.getExtraBinder() != null) {
+                try {
+                    mSessionInfo = mSessionToken.getExtraBinder().getSessionInfo();
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Dead object in getSessionInfo.", e);
+                    mSessionInfo = Bundle.EMPTY;
+                }
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+        }
+
+        @Override
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         public Object getMediaController() {
             return mControllerFwk;
         }
@@ -2429,6 +2485,23 @@ public final class MediaControllerCompat {
         }
 
         @Override
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+        public void setPlaybackSpeed(float speed) {
+            if (speed == 0.0f) {
+                throw new IllegalArgumentException("speed must not be zero");
+            }
+            if (Build.VERSION.SDK_INT >= 29) {
+                mControlsFwk.setPlaybackSpeed(speed);
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putFloat(MediaSessionCompat.ACTION_ARGUMENT_PLAYBACK_SPEED, speed);
+            sendCustomAction(MediaSessionCompat.ACTION_SET_PLAYBACK_SPEED, bundle);
+        }
+
+        @Override
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         public void setCaptioningEnabled(boolean enabled) {
             Bundle bundle = new Bundle();
             bundle.putBoolean(MediaSessionCompat.ACTION_ARGUMENT_CAPTIONING_ENABLED, enabled);

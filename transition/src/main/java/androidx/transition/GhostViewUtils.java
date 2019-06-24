@@ -23,16 +23,33 @@ import android.view.ViewGroup;
 
 class GhostViewUtils {
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
     static GhostViewImpl addGhost(View view, ViewGroup viewGroup, Matrix matrix) {
         if (Build.VERSION.SDK_INT >= 21) {
             return GhostViewApi21.addGhost(view, viewGroup, matrix);
+=======
+    @Nullable
+    static GhostView addGhost(@NonNull View view, @NonNull ViewGroup viewGroup,
+            @Nullable Matrix matrix) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+            // Use the platform implementation on P as we can't backport the shadows drawing.
+            return GhostViewPlatform.addGhost(view, viewGroup, matrix);
+        } else {
+            return GhostViewPort.addGhost(view, viewGroup, matrix);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         }
         return GhostViewApi14.addGhost(view, viewGroup);
     }
 
     static void removeGhost(View view) {
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
         if (Build.VERSION.SDK_INT >= 21) {
             GhostViewApi21.removeGhost(view);
+=======
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+            // Use the platform implementation on P as we can't backport the shadows drawing.
+            GhostViewPlatform.removeGhost(view);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         } else {
             GhostViewApi14.removeGhost(view);
         }

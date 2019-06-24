@@ -22,8 +22,13 @@ dependencies {
     // treats this as local jar and package it inside the aar.
     api files(configurations.repackage)
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
     api(project(":core"))
     implementation(project(':collection'))
+=======
+    api("androidx.core:core:1.1.0-rc01")
+    implementation(project(':collection:collection'))
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

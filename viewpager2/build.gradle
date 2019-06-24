@@ -24,7 +24,8 @@ plugins {
 }
 
 dependencies {
-    api(project(":fragment"))
+    api(project(":core:core"))
+    api(project(":fragment:fragment"))
     api(project(":recyclerview"))
     implementation(project(":appcompat"))
     implementation(project(":collection"))

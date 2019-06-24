@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -396,6 +395,8 @@ public class SlidingPaneLayout extends ViewGroup {
         }
     }
 
+    @SuppressWarnings("deprecation")
+    // Remove suppression once b/120984816 is addressed.
     private static boolean viewIsOpaque(View v) {
         if (v.isOpaque()) {
             return true;
@@ -958,6 +959,7 @@ public class SlidingPaneLayout extends ViewGroup {
         dispatchOnPanelSlide(mSlideableView);
     }
 
+    @SuppressWarnings("deprecation")
     private void dimChildView(View v, float mag, int fadeColor) {
         final LayoutParams lp = (LayoutParams) v.getLayoutParams();
 
@@ -968,7 +970,8 @@ public class SlidingPaneLayout extends ViewGroup {
             if (lp.dimPaint == null) {
                 lp.dimPaint = new Paint();
             }
-            lp.dimPaint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER));
+            lp.dimPaint.setColorFilter(new android.graphics.PorterDuffColorFilter(
+                    color, PorterDuff.Mode.SRC_OVER));
             if (v.getLayerType() != View.LAYER_TYPE_HARDWARE) {
                 v.setLayerType(View.LAYER_TYPE_HARDWARE, lp.dimPaint);
             }

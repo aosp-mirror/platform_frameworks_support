@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.SingleLineTransformationMethod;
 import android.util.AttributeSet;
@@ -117,6 +118,9 @@ public class PagerTitleStrip extends ViewGroup {
         addView(mNextText = new TextView(context));
 
         final TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(context, ATTRS, attrs, a, 0, 0);
+        }
         final int textAppearance = a.getResourceId(0, 0);
         if (textAppearance != 0) {
             TextViewCompat.setTextAppearance(mPrevText, textAppearance);

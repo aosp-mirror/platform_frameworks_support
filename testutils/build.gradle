@@ -22,7 +22,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":fragment"))
+    api(project(":fragment:fragment"))
     api(project(":appcompat"))
 
     implementation(TEST_EXT_JUNIT)

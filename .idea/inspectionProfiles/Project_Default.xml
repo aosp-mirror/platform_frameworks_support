@@ -33,5 +33,37 @@
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
       <option name="myAdditionalJavadocTags" value="hide" />
     </inspection_tool>
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+    <inspection_tool class="MissingDeprecatedAnnotation" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="NullableProblems" enabled="true" level="ERROR" enabled_by_default="true">
+      <option name="REPORT_NULLABLE_METHOD_OVERRIDES_NOTNULL" value="true" />
+      <option name="REPORT_NOT_ANNOTATED_METHOD_OVERRIDES_NOTNULL" value="true" />
+      <option name="REPORT_NOTNULL_PARAMETER_OVERRIDES_NULLABLE" value="true" />
+      <option name="REPORT_NOT_ANNOTATED_PARAMETER_OVERRIDES_NOTNULL" value="true" />
+      <option name="REPORT_NOT_ANNOTATED_GETTER" value="true" />
+      <option name="REPORT_NOT_ANNOTATED_SETTER_PARAMETER" value="true" />
+      <option name="REPORT_ANNOTATION_NOT_PROPAGATED_TO_OVERRIDERS" value="true" />
+      <option name="REPORT_NULLS_PASSED_TO_NON_ANNOTATED_METHOD" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PrivatePropertyName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="_?[A-Za-z\d]+" />
+      </scope>
+    </inspection_tool>
+    <inspection_tool class="PropertyName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="[A-Za-z\d]+" />
+      </scope>
+    </inspection_tool>
+    <inspection_tool class="RemoveEmptyParenthesesFromAnnotationEntry" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="false" />
+    </inspection_tool>
+    <inspection_tool class="TestFunctionName" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Compose" level="WEAK WARNING" enabled="true">
+        <option name="namePattern" value="[A-Za-z_\d]+" />
+      </scope>
+    </inspection_tool>
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
   </profile>
 </component>

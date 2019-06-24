@@ -4,10 +4,15 @@ package androidx.room {
   public class DatabaseConfiguration {
     method public boolean isMigrationRequired(int, int);
     method @Deprecated public boolean isMigrationRequiredFrom(int);
+    field public static final int COPY_FROM_ASSET = 1; // 0x1
+    field public static final int COPY_FROM_FILE = 2; // 0x2
+    field public static final int COPY_FROM_NONE = 0; // 0x0
     field public final boolean allowDestructiveMigrationOnDowngrade;
     field public final boolean allowMainThreadQueries;
     field public final java.util.List<androidx.room.RoomDatabase.Callback>? callbacks;
     field public final android.content.Context context;
+    field @androidx.room.DatabaseConfiguration.CopyFrom public final int copyFrom;
+    field public final String? copyFromPath;
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -15,6 +20,9 @@ package androidx.room {
     field public final java.util.concurrent.Executor queryExecutor;
     field public final boolean requireMigration;
     field public final androidx.sqlite.db.SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory;
+  }
+
+  @IntDef({androidx.room.DatabaseConfiguration.COPY_FROM_NONE, androidx.room.DatabaseConfiguration.COPY_FROM_ASSET, androidx.room.DatabaseConfiguration.COPY_FROM_FILE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public static @interface DatabaseConfiguration.CopyFrom {
   }
 
   public class InvalidationTracker {
@@ -66,6 +74,7 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> addMigrations(androidx.room.migration.Migration...);
     method public androidx.room.RoomDatabase.Builder<T> allowMainThreadQueries();
     method public T build();
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
     method public androidx.room.RoomDatabase.Builder<T> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigrationFrom(int...!);
@@ -73,6 +82,18 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
     method public androidx.room.RoomDatabase.Builder<T> setJournalMode(androidx.room.RoomDatabase.JournalMode);
     method public androidx.room.RoomDatabase.Builder<T> setQueryExecutor(java.util.concurrent.Executor);
+=======
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(String);
+    method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationOnDowngrade();
+    method public androidx.room.RoomDatabase.Builder<T!> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
+    method public androidx.room.RoomDatabase.Builder<T!> setJournalMode(androidx.room.RoomDatabase.JournalMode);
+    method public androidx.room.RoomDatabase.Builder<T!> setQueryExecutor(java.util.concurrent.Executor);
+    method public androidx.room.RoomDatabase.Builder<T!> setTransactionExecutor(java.util.concurrent.Executor);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
   }
 
   public abstract static class RoomDatabase.Callback {

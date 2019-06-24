@@ -29,8 +29,16 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.support.v4.net.ConnectivityManagerCompat;
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.core.net.ConnectivityManagerCompat;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 import androidx.work.Logger;
 import androidx.work.impl.constraints.NetworkState;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 /**
  * A {@link ConstraintTracker} for monitoring network state.
@@ -60,9 +68,10 @@ public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
     /**
      * Create an instance of {@link NetworkStateTracker}
      * @param context the application {@link Context}
+     * @param taskExecutor The internal {@link TaskExecutor} being used by WorkManager.
      */
-    public NetworkStateTracker(Context context) {
-        super(context);
+    public NetworkStateTracker(@NonNull Context context, @NonNull TaskExecutor taskExecutor) {
+        super(context, taskExecutor);
         mConnectivityManager =
                 (ConnectivityManager) mAppContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (isNetworkCallbackSupported()) {

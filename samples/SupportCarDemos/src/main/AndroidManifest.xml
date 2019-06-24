@@ -261,5 +261,35 @@
                 <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+
+        <activity android:name=".CarSingleChoiceDialogDemoActivity"
+            android:label="CarSingleChoiceDialog Demo"
+            android:parentActivityName=".SupportCarDemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".CarMultipleChoiceDialogDemoActivity"
+            android:label="CarMultipleChoiceDialog Demo"
+            android:parentActivityName=".SupportCarDemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".CheckBoxListItemActivity"
+            android:label="CheckBoxListItem Demo"
+            android:parentActivityName=".SupportCarDemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     </application>
 </manifest>

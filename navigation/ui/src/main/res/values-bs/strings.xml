@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
   ~ Copyright 2019 The Android Open Source Project
@@ -20,3 +21,5 @@
     <string name="nav_app_bar_open_drawer_description" msgid="7456070600745802113">"Otvaranje panela za navigaciju"</string>
     <string name="nav_app_bar_navigate_up_description" msgid="6301633601645100427">"Idi gore"</string>
 </resources>
+=======
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

@@ -29,6 +29,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -148,7 +149,24 @@ public class MediaRouteButton extends View {
     public MediaRouteButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(MediaRouterThemeHelper.createThemedButtonContext(context), attrs, defStyleAttr);
         context = getContext();
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 
+=======
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.MediaRouteButton, defStyleAttr, 0);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.MediaRouteButton, attrs, a, defStyleAttr, 0);
+        }
+        if (isInEditMode()) {
+            mRouter = null;
+            mCallback = null;
+            int remoteIndicatorStaticResId = a.getResourceId(
+                    R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic, 0);
+            mRemoteIndicator = getResources().getDrawable(remoteIndicatorStaticResId);
+            return;
+        }
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback();
 

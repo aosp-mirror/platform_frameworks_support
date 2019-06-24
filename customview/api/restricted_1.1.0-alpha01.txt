@@ -1,0 +1,13 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+// Signature format: 3.0
+package androidx.customview.widget {
+
+  public class ViewDragHelper {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @Px public int getDefaultEdgeSize();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public void setEdgeSize(@Px @IntRange(from=0) int);
+  }
+
+}
+
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

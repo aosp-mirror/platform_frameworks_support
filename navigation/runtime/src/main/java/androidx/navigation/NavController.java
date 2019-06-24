@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -948,3 +949,5 @@ public class NavController {
         mBackStackArgsToRestore = navState.getParcelableArray(KEY_BACK_STACK_ARGS);
     }
 }
+=======
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

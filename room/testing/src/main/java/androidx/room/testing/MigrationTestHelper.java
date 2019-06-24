@@ -159,7 +159,9 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 true,
                 false,
-                Collections.<Integer>emptySet());
+                Collections.<Integer>emptySet(),
+                DatabaseConfiguration.COPY_FROM_NONE,
+                null);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
@@ -215,7 +217,9 @@ public class MigrationTestHelper extends TestWatcher {
                 false,
                 true,
                 false,
-                Collections.<Integer>emptySet());
+                Collections.<Integer>emptySet(),
+                DatabaseConfiguration.COPY_FROM_NONE,
+                null);
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
                 // we pass the same hash twice since an old schema does not necessarily have
@@ -304,8 +308,8 @@ public class MigrationTestHelper extends TestWatcher {
                 throw new FileNotFoundException("Cannot find the schema file in the assets folder. "
                         + "Make sure to include the exported json schemas in your test assert "
                         + "inputs. See "
-                        + "https://developer.android.com/topic/libraries/architecture/"
-                        + "room.html#db-migration-testing for details. Missing file: "
+                        + "https://developer.android.com/training/data-storage/room/"
+                        + "migrating-db-versions#export-schema for details. Missing file: "
                         + testAssetsIOExceptions.getMessage());
             }
         }

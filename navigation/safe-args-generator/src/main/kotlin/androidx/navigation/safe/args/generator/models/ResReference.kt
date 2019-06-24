@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -25,3 +26,5 @@ data class ResReference(val packageName: String, val resType: String, val name: 
 }
 
 fun ResReference?.accessor() = this?.let { "$packageName.R.$resType.$javaIdentifier" } ?: "0"
+=======
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

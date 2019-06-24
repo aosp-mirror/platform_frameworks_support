@@ -477,12 +477,48 @@ public class MediaSessionCompat {
     }
 
     /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
      * @hide
      * Creates session for MediaSession.
+=======
+     * Creates a new session with a specified media button receiver (a component name and/or
+     * a pending intent). You must call {@link #release()} when finished with the session.
+     * <p>
+     * The session will automatically be registered with the system but will not be published
+     * until {@link #setActive(boolean) setActive(true)} is called.
+     * </p><p>
+     * For API 20 or earlier, note that a media button receiver is required for handling
+     * {@link Intent#ACTION_MEDIA_BUTTON}. This constructor will attempt to find an appropriate
+     * {@link BroadcastReceiver} from your manifest if it's not specified. See
+     * {@link MediaButtonReceiver} for more details.
+     * </p>
+     * The {@code sessionInfo} can include additional unchanging information about this session.
+     * For example, it can include the version of the application, or other app-specific
+     * unchanging information.
+     *
+     * @param context The context to use to create the session.
+     * @param tag A short name for debugging purposes.
+     * @param mbrComponent The component name for your media button receiver.
+     * @param mbrIntent The PendingIntent for your receiver component that handles
+     *            media button events. This is optional and will be used on between
+     *            {@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} and
+     *            {@link android.os.Build.VERSION_CODES#KITKAT_WATCH} instead of the
+     *            component name.
+     * @param sessionInfo A bundle for additional information about this session,
+     *                    or {@link Bundle#EMPTY} if none. Controllers can get this information
+     *                    by calling {@link MediaControllerCompat#getSessionInfo()}.
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
      */
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public MediaSessionCompat(Context context, String tag, VersionedParcelable session2Token) {
         this(context, tag, null, null, session2Token);
+=======
+    public MediaSessionCompat(@NonNull Context context, @NonNull String tag,
+            @Nullable ComponentName mbrComponent, @Nullable PendingIntent mbrIntent,
+            @Nullable Bundle sessionInfo) {
+        this(context, tag, mbrComponent, mbrIntent, sessionInfo, null /* session2Token */);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     }
 
     private MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
@@ -509,6 +545,7 @@ public class MediaSessionCompat {
             mbrIntent = PendingIntent.getBroadcast(context,
                     0/* requestCode, ignored */, mediaButtonIntent, 0/* flags */);
         }
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
         if (android.os.Build.VERSION.SDK_INT >= 28) {
             mImpl = new MediaSessionImplApi28(context, tag, session2Token);
             // Set default callback to respond to controllers' extra binder requests.
@@ -516,6 +553,18 @@ public class MediaSessionCompat {
             mImpl.setMediaButtonReceiver(mbrIntent);
         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
             mImpl = new MediaSessionImplApi21(context, tag, session2Token);
+=======
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            MediaSession sessionFwk = createFwkMediaSession(context, tag, sessionInfo);
+            if (android.os.Build.VERSION.SDK_INT >= 29) {
+                mImpl = new MediaSessionImplApi29(sessionFwk, session2Token, sessionInfo);
+            } else if (android.os.Build.VERSION.SDK_INT >= 28) {
+                mImpl = new MediaSessionImplApi28(sessionFwk, session2Token, sessionInfo);
+            } else {
+                mImpl = new MediaSessionImplApi21(sessionFwk, session2Token, sessionInfo);
+            }
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
             // Set default callback to respond to controllers' extra binder requests.
             setCallback(new Callback() {});
             mImpl.setMediaButtonReceiver(mbrIntent);
@@ -537,6 +586,16 @@ public class MediaSessionCompat {
     private MediaSessionCompat(Context context, MediaSessionImpl impl) {
         mImpl = impl;
         mController = new MediaControllerCompat(context, this);
+    }
+
+    @RequiresApi(21)
+    private MediaSession createFwkMediaSession(Context context, String tag,
+            Bundle sessionInfo) {
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            return new MediaSession(context, tag, sessionInfo);
+        } else {
+            return new MediaSession(context, tag);
+        }
     }
 
     /**
@@ -948,7 +1007,9 @@ public class MediaSessionCompat {
             return null;
         }
         MediaSessionImpl impl;
-        if (Build.VERSION.SDK_INT >= 28) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            impl = new MediaSessionImplApi29(mediaSession);
+        } else if (Build.VERSION.SDK_INT >= 28) {
             impl = new MediaSessionImplApi28(mediaSession);
         } else {
             // API 21+
@@ -1259,6 +1320,25 @@ public class MediaSessionCompat {
         }
 
         /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+         * Override to handle the playback speed change.
+         * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
+         * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
+         * {@link #setPlaybackState(PlaybackStateCompat)}.
+         * <p>
+         * A value of {@code 1.0f} is the default playback value, and a negative value indicates
+         * reverse playback. The {@code speed} will not be equal to zero.
+         *
+         * @param speed the playback speed
+         * @see #setPlaybackState(PlaybackStateCompat)
+         * @see PlaybackStateCompat.Builder#setState(int, long, float)
+         */
+        public void onSetPlaybackSpeed(float speed) {
+        }
+
+        /**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
          * Override to handle requests to enable/disable captioning.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.
@@ -1643,6 +1723,14 @@ public class MediaSessionCompat {
                 ensureClassLoader(extras);
                 setCurrentControllerInfo();
                 Callback.this.onPrepareFromUri(uri, extras);
+                clearCurrentControllerInfo();
+            }
+
+            @RequiresApi(29)
+            @Override
+            public void onSetPlaybackSpeed(float speed) {
+                setCurrentControllerInfo();
+                Callback.this.onSetPlaybackSpeed(speed);
                 clearCurrentControllerInfo();
             }
         }
@@ -3471,6 +3559,10 @@ public class MediaSessionCompat {
         final MediaSession mSessionFwk;
         final Token mToken;
         final Object mLock = new Object();
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+        Bundle mSessionInfo;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 
         boolean mDestroyed = false;
         final RemoteCallbackList<IMediaControllerCallback> mExtraControllerCallbacks =
@@ -3487,8 +3579,14 @@ public class MediaSessionCompat {
         @GuardedBy("mLock")
         RemoteUserInfo mRemoteUserInfo;
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
         MediaSessionImplApi21(Context context, String tag, VersionedParcelable session2Token) {
             mSessionFwk = new MediaSession(context, tag);
+=======
+        MediaSessionImplApi21(MediaSession sessionFwk, VersionedParcelable session2Token,
+                Bundle sessionInfo) {
+            mSessionFwk = sessionFwk;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
             mToken = new Token(mSessionFwk.getSessionToken(), new ExtraSession(), session2Token);
             // For backward compatibility, these flags are always set.
             setFlags(FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS);
@@ -3501,6 +3599,10 @@ public class MediaSessionCompat {
             }
             mSessionFwk = (MediaSession) mediaSession;
             mToken = new Token(mSessionFwk.getSessionToken(), new ExtraSession());
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+            mSessionInfo = null;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
             // For backward compatibility, these flags are always set.
             setFlags(FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS);
         }
@@ -4030,8 +4132,14 @@ public class MediaSessionCompat {
 
     @RequiresApi(28)
     static class MediaSessionImplApi28 extends MediaSessionImplApi21 {
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
         MediaSessionImplApi28(Context context, String tag, VersionedParcelable session2Token) {
             super(context, tag, session2Token);
+=======
+        MediaSessionImplApi28(MediaSession sessionFwk, VersionedParcelable session2Token,
+                Bundle sessionInfo) {
+            super(sessionFwk, session2Token, sessionInfo);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         }
 
         MediaSessionImplApi28(Object mediaSession) {
@@ -4048,6 +4156,19 @@ public class MediaSessionCompat {
             android.media.session.MediaSessionManager.RemoteUserInfo info =
                     ((MediaSession) mSessionFwk).getCurrentControllerInfo();
             return new RemoteUserInfo(info);
+        }
+    }
+
+    @RequiresApi(29)
+    static class MediaSessionImplApi29 extends MediaSessionImplApi28 {
+        MediaSessionImplApi29(MediaSession sessionFwk, VersionedParcelable session2Token,
+                Bundle sessionInfo) {
+            super(sessionFwk, session2Token, sessionInfo);
+        }
+
+        MediaSessionImplApi29(Object mediaSession) {
+            super(mediaSession);
+            mSessionInfo = ((MediaSession) mediaSession).getController().getSessionInfo();
         }
     }
 }

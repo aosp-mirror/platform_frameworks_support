@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
 /*
  * Copyright 2017 The Android Open Source Project
  *
@@ -757,3 +758,5 @@ data class CustomTestParcelable(val name: String?) : Parcelable {
         override fun newArray(size: Int): Array<CustomTestParcelable?> = arrayOfNulls(size)
     }
 }
+=======
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)

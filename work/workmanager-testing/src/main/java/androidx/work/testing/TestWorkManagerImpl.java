@@ -75,5 +75,32 @@ abstract class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver
                     }
                 },
                 true);
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+
+        // mScheduler is initialized in createSchedulers() called by super()
+        getProcessor().addExecutionListener(mScheduler);
+    }
+
+    @Override
+    public @NonNull List<Scheduler> createSchedulers(Context context, TaskExecutor taskExecutor) {
+        mScheduler = new TestScheduler(context);
+        return Collections.singletonList((Scheduler) mScheduler);
+    }
+
+    @Override
+    public void setAllConstraintsMet(@NonNull UUID workSpecId) {
+        mScheduler.setAllConstraintsMet(workSpecId);
+    }
+
+    @Override
+    public void setInitialDelayMet(@NonNull UUID workSpecId) {
+        mScheduler.setInitialDelayMet(workSpecId);
+    }
+
+    @Override
+    public void setPeriodDelayMet(@NonNull UUID workSpecId) {
+        mScheduler.setPeriodDelayMet(workSpecId);
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     }
 }

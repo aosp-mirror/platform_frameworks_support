@@ -16,6 +16,7 @@
 
 package androidx.browser.customtabs;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,6 +28,9 @@ import android.support.customtabs.ICustomTabsCallback;
 import android.support.customtabs.ICustomTabsService;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
 
 import java.lang.annotation.Retention;
@@ -49,6 +53,26 @@ public abstract class CustomTabsService extends Service {
             "android.support.customtabs.action.CustomTabsService";
 
     /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+     * An Intent filter category to signify that the Custom Tabs provider supports customizing
+     * the color of the navigation bar ({@link CustomTabsIntent.Builder#setNavigationBarColor}).
+     */
+    public static final String CATEGORY_NAVBAR_COLOR_CUSTOMIZATION =
+            "androidx.browser.trusted.category.NavBarColorCustomization";
+
+    /**
+     * An Intent filter category to signify that the Custom Tabs provider supports Trusted Web
+     * Activities.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String TRUSTED_WEB_ACTIVITY_CATEGORY =
+            "androidx.browser.trusted.category.TrustedWebActivities";
+
+    /**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
      * For {@link CustomTabsService#mayLaunchUrl} calls that wants to specify more than one url,
      * this key can be used with {@link Bundle#putParcelable(String, android.os.Parcelable)}
      * to insert a new url to each bundle inside list of bundles.
@@ -98,7 +122,27 @@ public abstract class CustomTabsService extends Service {
      */
     public static final int RELATION_HANDLE_ALL_URLS = 2;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+
+    /**
+     * Enumerates the possible purposes of files received in {@link #receiveFile}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({FILE_PURPOSE_TWA_SPLASH_IMAGE})
+    public @interface FilePurpose {
+    }
+
+    /**
+     * File is a splash image to be shown on top of a Trusted Web Activity while the web contents
+     * are loading.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final int FILE_PURPOSE_TWA_SPLASH_IMAGE = 1;
+
     final Map<IBinder, DeathRecipient> mDeathRecipientMap = new ArrayMap<>();
 
     private ICustomTabsService.Stub mBinder = new ICustomTabsService.Stub() {
@@ -110,7 +154,17 @@ public abstract class CustomTabsService extends Service {
 
         @Override
         public boolean newSession(ICustomTabsCallback callback) {
-            final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
+            return newSessionInternal(callback, null);
+        }
+
+        @Override
+        public boolean newSessionWithExtras(ICustomTabsCallback callback, Bundle extras) {
+            return newSessionInternal(callback, getSessionIdFromBundle(extras));
+        }
+
+        private boolean newSessionInternal(ICustomTabsCallback callback, PendingIntent sessionId) {
+            final CustomTabsSessionToken sessionToken =
+                    new CustomTabsSessionToken(callback, sessionId);
             try {
                 DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
                     @Override
@@ -132,7 +186,8 @@ public abstract class CustomTabsService extends Service {
         public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                 Bundle extras, List<Bundle> otherLikelyBundles) {
             return CustomTabsService.this.mayLaunchUrl(
-                    new CustomTabsSessionToken(callback), url, extras, otherLikelyBundles);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    url, extras, otherLikelyBundles);
         }
 
         @Override
@@ -143,27 +198,53 @@ public abstract class CustomTabsService extends Service {
         @Override
         public boolean updateVisuals(ICustomTabsCallback callback, Bundle bundle) {
             return CustomTabsService.this.updateVisuals(
-                    new CustomTabsSessionToken(callback), bundle);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(bundle)), bundle);
         }
 
         @Override
         public boolean requestPostMessageChannel(ICustomTabsCallback callback,
                 Uri postMessageOrigin) {
             return CustomTabsService.this.requestPostMessageChannel(
-                    new CustomTabsSessionToken(callback), postMessageOrigin);
+                    new CustomTabsSessionToken(callback, null), postMessageOrigin);
+        }
+
+        @Override
+        public boolean requestPostMessageChannelWithExtras(ICustomTabsCallback callback,
+                Uri postMessageOrigin, Bundle extras) {
+            return CustomTabsService.this.requestPostMessageChannel(
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    postMessageOrigin);
         }
 
         @Override
         public int postMessage(ICustomTabsCallback callback, String message, Bundle extras) {
             return CustomTabsService.this.postMessage(
-                    new CustomTabsSessionToken(callback), message, extras);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    message, extras);
         }
 
         @Override
         public boolean validateRelationship(
                 ICustomTabsCallback callback, @Relation int relation, Uri origin, Bundle extras) {
             return CustomTabsService.this.validateRelationship(
-                    new CustomTabsSessionToken(callback), relation, origin, extras);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    relation, origin, extras);
+        }
+
+        @Override
+        public boolean receiveFile(ICustomTabsCallback callback, @NonNull Uri uri,
+                @FilePurpose int purpose, @Nullable Bundle extras) {
+            return CustomTabsService.this.receiveFile(
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    uri, purpose, extras);
+        }
+
+        private @Nullable PendingIntent getSessionIdFromBundle(@Nullable Bundle bundle) {
+            if (bundle == null) return null;
+
+            PendingIntent sessionId = bundle.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
+            bundle.remove(CustomTabsIntent.EXTRA_SESSION_ID);
+            return sessionId;
         }
     };
 
@@ -263,8 +344,7 @@ public abstract class CustomTabsService extends Service {
      *                     with the same structure in {@link CustomTabsIntent.Builder}.
      * @return Whether the operation was successful.
      */
-    protected abstract boolean updateVisuals(CustomTabsSessionToken sessionToken,
-            Bundle bundle);
+    protected abstract boolean updateVisuals(CustomTabsSessionToken sessionToken, Bundle bundle);
 
     /**
      * Sends a request to create a two way postMessage channel between the client and the browser
@@ -313,6 +393,28 @@ public abstract class CustomTabsService extends Service {
      * @return true if the request has been submitted successfully.
      */
     protected abstract boolean validateRelationship(
-            CustomTabsSessionToken sessionToken, @Relation int relation, Uri origin,
-            Bundle extras);
+            CustomTabsSessionToken sessionToken, @Relation int relation, Uri origin, Bundle extras);
+
+
+    /**
+     * Receive a file from client by given Uri, e.g. in order to display a large bitmap in a Custom
+     * Tab.
+     *
+     * Prior to calling this method, the client grants a read permission to the target
+     * Custom Tabs provider via {@link android.content.Context#grantUriPermission}.
+     *
+     * The file is read and processed (where applicable) synchronously.
+     *
+     * @param sessionToken The unique identifier for the session.
+     * @param uri {@link Uri} of the file.
+     * @param purpose Purpose of transferring this file, one of the constants enumerated in
+     *                {@code CustomTabsService#FilePurpose}.
+     * @param extras Reserved for future use.
+     * @return {@code true} if the file was received successfully.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    protected abstract boolean receiveFile(@NonNull CustomTabsSessionToken sessionToken,
+            @NonNull Uri uri, @FilePurpose int purpose, @Nullable Bundle extras);
 }

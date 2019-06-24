@@ -5145,6 +5145,169 @@ public class ExifInterface {
         }
     }
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+    private void getHeifAttributes(final ByteOrderedDataInputStream in) throws IOException {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            if (Build.VERSION.SDK_INT >= 23) {
+                retriever.setDataSource(new MediaDataSource() {
+                    long mPosition;
+
+                    @Override
+                    public void close() throws IOException {}
+
+                    @Override
+                    public int readAt(long position, byte[] buffer, int offset, int size)
+                            throws IOException {
+                        if (size == 0) {
+                            return 0;
+                        }
+                        if (position < 0) {
+                            return -1;
+                        }
+                        try {
+                            if (mPosition != position) {
+                                // We don't allow seek to positions after the available bytes,
+                                // the input stream won't be able to seek back then.
+                                // However, if we hit an exception before (mPosition set to -1),
+                                // let it try the seek in hope it might recover.
+                                if (mPosition >= 0 && position >= mPosition + in.available()) {
+                                    return -1;
+                                }
+                                in.seek(position);
+                                mPosition = position;
+                            }
+
+                            // If the read will cause us to go over the available bytes,
+                            // reduce the size so that we stay in the available range.
+                            // Otherwise the input stream may not be able to seek back.
+                            if (size > in.available()) {
+                                size = in.available();
+                            }
+
+                            int bytesRead = in.read(buffer, offset, size);
+                            if (bytesRead >= 0) {
+                                mPosition += bytesRead;
+                                return bytesRead;
+                            }
+                        } catch (IOException e) {
+                            // do nothing
+                        }
+                        mPosition = -1; // need to seek on next read
+                        return -1;
+                    }
+
+                    @Override
+                    public long getSize() throws IOException {
+                        return -1;
+                    }
+                });
+            } else {
+                if (mSeekableFileDescriptor != null) {
+                    retriever.setDataSource(mSeekableFileDescriptor);
+                } else if (mFilename != null) {
+                    retriever.setDataSource(mFilename);
+                } else {
+                    return;
+                }
+            }
+
+            String exifOffsetStr = retriever.extractMetadata(
+                    MediaMetadataRetriever.METADATA_KEY_EXIF_OFFSET);
+            String exifLengthStr = retriever.extractMetadata(
+                    MediaMetadataRetriever.METADATA_KEY_EXIF_LENGTH);
+            String hasImage = retriever.extractMetadata(
+                    MediaMetadataRetriever.METADATA_KEY_HAS_IMAGE);
+            String hasVideo = retriever.extractMetadata(
+                    MediaMetadataRetriever.METADATA_KEY_HAS_VIDEO);
+
+            String width = null;
+            String height = null;
+            String rotation = null;
+            final String metadataValueYes = "yes";
+            // If the file has both image and video, prefer image info over video info.
+            // App querying ExifInterface is most likely using the bitmap path which
+            // picks the image first.
+            if (metadataValueYes.equals(hasImage)) {
+                width = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_IMAGE_WIDTH);
+                height = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_IMAGE_HEIGHT);
+                rotation = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_IMAGE_ROTATION);
+            } else if (metadataValueYes.equals(hasVideo)) {
+                width = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+                height = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+                rotation = retriever.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+            }
+
+            if (width != null) {
+                mAttributes[IFD_TYPE_PRIMARY].put(TAG_IMAGE_WIDTH,
+                        ExifAttribute.createUShort(Integer.parseInt(width), mExifByteOrder));
+            }
+
+            if (height != null) {
+                mAttributes[IFD_TYPE_PRIMARY].put(TAG_IMAGE_LENGTH,
+                        ExifAttribute.createUShort(Integer.parseInt(height), mExifByteOrder));
+            }
+
+            if (rotation != null) {
+                int orientation = ExifInterface.ORIENTATION_NORMAL;
+
+                // all rotation angles in CW
+                switch (Integer.parseInt(rotation)) {
+                    case 90:
+                        orientation = ExifInterface.ORIENTATION_ROTATE_90;
+                        break;
+                    case 180:
+                        orientation = ExifInterface.ORIENTATION_ROTATE_180;
+                        break;
+                    case 270:
+                        orientation = ExifInterface.ORIENTATION_ROTATE_270;
+                        break;
+                }
+
+                mAttributes[IFD_TYPE_PRIMARY].put(TAG_ORIENTATION,
+                        ExifAttribute.createUShort(orientation, mExifByteOrder));
+            }
+
+            if (exifOffsetStr != null && exifLengthStr != null) {
+                int offset = Integer.parseInt(exifOffsetStr);
+                int length = Integer.parseInt(exifLengthStr);
+                if (length <= 6) {
+                    throw new IOException("Invalid exif length");
+                }
+                in.seek(offset);
+                byte[] identifier = new byte[6];
+                if (in.read(identifier) != 6) {
+                    throw new IOException("Can't read identifier");
+                }
+                offset += 6;
+                length -= 6;
+                if (!Arrays.equals(identifier, IDENTIFIER_EXIF_APP1)) {
+                    throw new IOException("Invalid identifier");
+                }
+
+                byte[] bytes = new byte[length];
+                if (in.read(bytes) != length) {
+                    throw new IOException("Can't read exif");
+                }
+                readExifSegment(bytes, IFD_TYPE_PRIMARY);
+            }
+
+            if (DEBUG) {
+                Log.d(TAG, "Heif meta: " + width + "x" + height + ", rotation " + rotation);
+            }
+        } finally {
+            retriever.release();
+        }
+    }
+
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     /**
      * ORF files contains a primary image data and a MakerNote data that contains preview/thumbnail
      * images. Both data takes the form of IFDs and can therefore be read with the

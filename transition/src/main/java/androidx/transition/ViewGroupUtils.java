@@ -16,16 +16,29 @@
 
 package androidx.transition;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 /**
  * Compatibility utilities for platform features of {@link ViewGroup}.
  */
 class ViewGroupUtils {
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+    /**
+     * False when linking of the hidden suppressLayout method has previously failed.
+     */
+    private static boolean sTryHiddenSuppressLayout = true;
+
+    private static Method sGetChildDrawingOrderMethod;
+    private static boolean sGetChildDrawingOrderMethodFetched;
+
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     /**
      * Backward-compatible {@link ViewGroup#getOverlay()}.
      */
@@ -39,14 +52,66 @@ class ViewGroupUtils {
     /**
      * Provides access to the hidden ViewGroup#suppressLayout method.
      */
+    @SuppressLint("NewApi") // TODO: Remove this suppression once Q SDK is released.
     static void suppressLayout(@NonNull ViewGroup group, boolean suppress) {
-        if (Build.VERSION.SDK_INT >= 18) {
-            ViewGroupUtilsApi18.suppressLayout(group, suppress);
+        if (Build.VERSION.SDK_INT >= 29) {
+            group.suppressLayout(suppress);
+        } else if (Build.VERSION.SDK_INT >= 18) {
+            hiddenSuppressLayout(group, suppress);
         } else {
             ViewGroupUtilsApi14.suppressLayout(group, suppress);
         }
     }
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+    @RequiresApi(18)
+    @SuppressLint("NewApi") // Lint doesn't know about the hidden method.
+    private static void hiddenSuppressLayout(@NonNull ViewGroup group, boolean suppress) {
+        if (sTryHiddenSuppressLayout) {
+            // Since this was an @hide method made public, we can link directly against it with
+            // a try/catch for its absence instead of doing the same through reflection.
+            try {
+                group.suppressLayout(suppress);
+            } catch (NoSuchMethodError e) {
+                sTryHiddenSuppressLayout = false;
+            }
+        }
+    }
+
+    /**
+     * Returns the index of the child to draw for this iteration.
+     */
+    @SuppressLint("NewApi") // TODO: Remove this suppression once Q SDK is released.
+    static int getChildDrawingOrder(@NonNull ViewGroup viewGroup, int i) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            return viewGroup.getChildDrawingOrder(i);
+        } else {
+            if (!sGetChildDrawingOrderMethodFetched) {
+                try {
+                    sGetChildDrawingOrderMethod = ViewGroup.class.getDeclaredMethod(
+                            "getChildDrawingOrder", int.class, int.class);
+                    sGetChildDrawingOrderMethod.setAccessible(true);
+                } catch (NoSuchMethodException ignore) {
+
+                }
+                sGetChildDrawingOrderMethodFetched = true;
+            }
+            if (sGetChildDrawingOrderMethod != null) {
+                try {
+                    return (Integer) sGetChildDrawingOrderMethod.invoke(viewGroup,
+                            viewGroup.getChildCount(), i);
+                } catch (IllegalAccessException ignore) {
+                } catch (InvocationTargetException ignore) {
+                }
+            }
+            // fallback implementation
+            return i;
+        }
+    }
+
+
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     private ViewGroupUtils() {
     }
 }

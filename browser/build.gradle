@@ -21,11 +21,26 @@ dependencies {
 
     implementation(project(":concurrent:concurrent-futures"))
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
+=======
+    testImplementation(ANDROIDX_TEST_CORE)
+    testImplementation(ANDROIDX_TEST_RUNNER)
+    testImplementation(JUNIT)
+    testImplementation(ROBOLECTRIC)
+    testImplementation(MOCKITO_CORE)
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(project(":internal-testutils"))
 }
 

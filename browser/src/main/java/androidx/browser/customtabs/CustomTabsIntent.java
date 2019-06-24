@@ -24,6 +24,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+import android.os.IBinder;
+import android.util.SparseArray;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -67,6 +72,56 @@ public final class CustomTabsIntent {
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
 
     /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+     * Extra used to match the session ID. This is PendingIntent which is created with
+     * {@link CustomTabsClient#createSessionId}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String EXTRA_SESSION_ID = "android.support.customtabs.extra.SESSION_ID";
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @IntDef({COLOR_SCHEME_SYSTEM, COLOR_SCHEME_LIGHT, COLOR_SCHEME_DARK})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ColorScheme {
+    }
+
+    /**
+     * Applies either a light or dark color scheme to the user interface in the custom tab depending
+     * on the user's system settings.
+     */
+    public static final int COLOR_SCHEME_SYSTEM = 0;
+
+    /**
+     * Applies a light color scheme to the user interface in the custom tab.
+     */
+    public static final int COLOR_SCHEME_LIGHT = 1;
+
+    /**
+     * Applies a dark color scheme to the user interface in the custom tab. Colors set through
+     * {@link #EXTRA_TOOLBAR_COLOR} may be darkened to match user expectations.
+     */
+    public static final int COLOR_SCHEME_DARK = 2;
+
+    /**
+     * Maximum value for the COLOR_SCHEME_* configuration options. For validation purposes only.
+     */
+    private static final int COLOR_SCHEME_MAX = 2;
+
+    /**
+     * Extra (int) that specifies which color scheme should be applied to the custom tab. Default is
+     * {@link #COLOR_SCHEME_SYSTEM}.
+     */
+    public static final String EXTRA_COLOR_SCHEME =
+            "androidx.browser.customtabs.extra.COLOR_SCHEME";
+
+    /**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
      * Extra that changes the background color for the toolbar. colorRes is an int that specifies a
      * {@link Color}, not a resource id.
      */
@@ -284,7 +339,19 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            this(null);
+            initialize(null, null);
+        }
+
+        /**
+         * Creates a {@link CustomTabsIntent.Builder} object associated with a given
+         * {@link CustomTabsSession.PendingSession}.
+         *
+         * {@see Builder(CustomTabsSession)}
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        public Builder(@Nullable CustomTabsSession.PendingSession session) {
+            initialize(null, session.getId());
         }
 
         /**
@@ -297,10 +364,21 @@ public final class CustomTabsIntent {
          * @param session The session to associate this Builder with.
          */
         public Builder(@Nullable CustomTabsSession session) {
-            if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
+            if (session != null) {
+                mIntent.setPackage(session.getComponentName().getPackageName());
+                initialize(session.getBinder(), session.getId());
+            } else {
+                initialize(null, null);
+            }
+        }
+
+        private void initialize(@Nullable IBinder session, @Nullable PendingIntent sessionId) {
             Bundle bundle = new Bundle();
-            BundleCompat.putBinder(
-                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
+            BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
+            if (sessionId != null) {
+                bundle.putParcelable(EXTRA_SESSION_ID, sessionId);
+            }
+
             mIntent.putExtras(bundle);
         }
 

@@ -32,6 +32,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.lifecycle.Observer;
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -44,6 +51,7 @@ import androidx.work.WorkInfo;
 import androidx.work.impl.background.greedy.GreedyScheduler;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 import androidx.work.worker.RandomSleepTestWorker;
 
 import org.junit.After;
@@ -84,7 +92,7 @@ public class WorkManagerImplLargeExecutorTest {
 
     @Before
     public void setUp() {
-        ArchTaskExecutor.getInstance().setDelegate(new TaskExecutor() {
+        ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
             @Override
             public void executeOnDiskIO(@NonNull Runnable runnable) {
                 runnable.run();
@@ -109,10 +117,13 @@ public class WorkManagerImplLargeExecutorTest {
                 .setExecutor(executor)
                 .setMaxSchedulerLimit(TEST_SCHEDULER_LIMIT)
                 .build();
+        TaskExecutor taskExecutor = new InstantWorkTaskExecutor();
         mWorkManagerImplSpy = spy(
-                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor(), true));
+                new WorkManagerImpl(context, configuration, taskExecutor, true));
 
-        TrackingScheduler trackingScheduler = new TrackingScheduler(context, mWorkManagerImplSpy);
+        TrackingScheduler trackingScheduler =
+                new TrackingScheduler(context, taskExecutor, mWorkManagerImplSpy);
+
         Processor processor = new Processor(context,
                 configuration,
                 mWorkManagerImplSpy.getWorkTaskExecutor(),
@@ -183,8 +194,10 @@ public class WorkManagerImplLargeExecutorTest {
 
         private Set<String> mScheduledWorkSpecIds;
 
-        TrackingScheduler(Context context, WorkManagerImpl workManagerImpl) {
-            super(context, workManagerImpl);
+        TrackingScheduler(Context context,
+                TaskExecutor taskExecutor,
+                WorkManagerImpl workManagerImpl) {
+            super(context, taskExecutor, workManagerImpl);
             mScheduledWorkSpecIds = new HashSet<>();
         }
 

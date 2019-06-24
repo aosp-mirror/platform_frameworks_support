@@ -25,6 +25,12 @@
     <string name="switch_list_item_title">SwitchListItem</string>
     <string name="sub_header_list_item_title">SubheaderListItem</string>
     <string name="alpha_jump_title">Alpha Jump Demo</string>
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+    <string name="single_choice_dialog_title">CarSingleChoiceDialog Demo</string>
+    <string name="multiple_choice_dialog_title">CarMultipleChoiceChoiceDialog Demo</string>
+
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 
     <string name="long_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="super_long_text">

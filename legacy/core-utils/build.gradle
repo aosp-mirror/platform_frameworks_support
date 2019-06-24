@@ -9,7 +9,7 @@ dependencies {
     api(project(":annotation"))
     api(project(":core"))
     api(project(":documentfile"))
-    api(project(":loader"))
+    api(project(":loader:loader"))
     api(project(":localbroadcastmanager"))
     api(project(":print"))
 }

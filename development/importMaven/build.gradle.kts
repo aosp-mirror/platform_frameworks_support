@@ -23,9 +23,18 @@ import org.apache.maven.model.building.ModelBuildingException
 import org.apache.maven.model.building.ModelBuildingRequest
 import org.apache.maven.model.building.ModelSource
 import org.apache.maven.model.resolution.ModelResolver
-import java.security.MessageDigest
-import org.gradle.api.artifacts.result.ResolvedArtifactResult
+import org.w3c.dom.Element
+import org.w3c.dom.Node
 import java.io.InputStream
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+import java.security.MessageDigest
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
 
 buildscript {
     repositories {
@@ -256,6 +265,115 @@ fun digest(file: File, algorithm: String): File {
 }
 
 /**
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
+=======
+ * Fetches license information for external dependencies.
+ */
+fun licenseFor(pomFile: File): File? {
+    try {
+        val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+        val document = builder.parse(pomFile)
+        val client = OkHttpClient()
+        /*
+          This is what a licenses declaration looks like:
+          <licenses>
+            <license>
+              <name>Android Software Development Kit License</name>
+              <url>https://developer.android.com/studio/terms.html</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
+         */
+        val licenses = document.getElementsByTagName("license")
+        for (i in 0 until licenses.length) {
+            val license = licenses.item(i)
+            val children = license.childNodes
+            for (j in 0 until children.length) {
+                val element = children.item(j)
+                if (element.nodeName.toLowerCase() == "url") {
+                    val url = element.textContent
+                    val payload = RequestBody.create(mediaType, "{\"url\": \"$url\"}")
+                    val request = Request.Builder().url(licenseEndpoint).post(payload).build()
+                    val response = client.newCall(request).execute()
+                    val contents = response.body()?.string()
+                    if (contents != null) {
+                        val parent = System.getProperty("java.io.tmpdir")
+                        val outputFile = File(parent, "${pomFile.name}.LICENSE")
+                        outputFile.deleteOnExit()
+                        outputFile.writeText(contents)
+                        return outputFile
+                    }
+                }
+            }
+        }
+    } catch (exception: Throwable) {
+        println("Error fetching license information for $pomFile")
+    }
+    return null
+}
+
+/**
+ * Transforms POM files so we automatically comment out nodes with <type>aar</type>.
+ *
+ * We are doing this for all internal libraries to account for -PuseMaxDepVersions which swaps out
+ * the dependencies of all androidx libraries with their respective ToT versions.
+ * For more information look at b/127495641.
+ */
+fun transformInternalPomFile(file: File): File {
+    val factory = DocumentBuilderFactory.newInstance()
+    val builder = factory.newDocumentBuilder()
+    val document = builder.parse(file)
+    document.normalizeDocument()
+
+    val container = document.getElementsByTagName("dependencies")
+    if (container.length <= 0) {
+        return file
+    }
+
+    fun findTypeAar(dependency: Node): Element? {
+        val children = dependency.childNodes
+        for (i in 0 until children.length) {
+            val node = children.item(i)
+            if (node.nodeType == Node.ELEMENT_NODE) {
+                val element = node as Element
+                if (element.tagName.toLowerCase() == "type" &&
+                    element.textContent?.toLowerCase() == "aar"
+                ) {
+                    return element
+                }
+            }
+        }
+        return null
+    }
+
+    for (i in 0 until container.length) {
+        val dependencies = container.item(i)
+        for (j in 0 until dependencies.childNodes.length) {
+            val dependency = dependencies.childNodes.item(j)
+            val element = findTypeAar(dependency)
+            if (element != null) {
+                val replacement = document.createComment("<type>aar</type>")
+                dependency.replaceChild(replacement, element)
+            }
+        }
+    }
+
+    val parent = System.getProperty("java.io.tmpdir")
+    val outputFile = File(parent, "${file.name}.transformed")
+    outputFile.deleteOnExit()
+
+    val transformer = TransformerFactory.newInstance().newTransformer()
+    val domSource = DOMSource(document)
+    val result = StreamResult(outputFile)
+    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "true")
+    transformer.setOutputProperty(OutputKeys.INDENT, "true")
+    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8")
+    transformer.transform(domSource, result)
+    return outputFile
+}
+
+/**
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
  * Copies artifacts to the right locations.
  */
 fun copyArtifact(artifact: ResolvedArtifact, internal: Boolean = false) {
@@ -284,6 +402,7 @@ fun copyArtifact(artifact: ResolvedArtifact, internal: Boolean = false) {
     }
     // Copy supporting artifacts
     for (supportingArtifact in supportingArtifacts) {
+<<<<<<< HEAD   (a5e8e6 Merge "Merge empty history for sparse-5675002-L2860000033185)
         println("Copying $supportingArtifact to $location")
         copy {
             from(
@@ -292,6 +411,21 @@ fun copyArtifact(artifact: ResolvedArtifact, internal: Boolean = false) {
                 digest(supportingArtifact.file, "SHA1")
             )
             into(location)
+=======
+        val file = supportingArtifact.file
+        if (file.name.endsWith(".pom")) {
+            copyPomFile(group, moduleVersionId.name, moduleVersionId.version, file, internal)
+        } else {
+            println("Copying $supportingArtifact to $location")
+            copy {
+                from(
+                    supportingArtifact.file,
+                    digest(supportingArtifact.file, "MD5"),
+                    digest(supportingArtifact.file, "SHA1")
+                )
+                into(location)
+            }
+>>>>>>> BRANCH (5b4a18 Merge "Merge cherrypicks of [987799] into sparse-5647264-L96)
         }
     }
 }
@@ -317,10 +451,18 @@ fun copyPomFile(
     )
     val location = pathComponents.joinToString("/")
     // Copy associated POM files.
+    val transformed = if (internal) transformInternalPomFile(pomFile) else pomFile
     println("Copying ${pomFile.name} to $location")
     copy {
+        from(transformed)
+        into(location)
+        rename {
+            pomFile.name
+        }
+    }
+    // Keep original MD5 and SHA1 hashes
+    copy {
         from(
-            pomFile,
             digest(pomFile, "MD5"),
             digest(pomFile, "SHA1")
         )
