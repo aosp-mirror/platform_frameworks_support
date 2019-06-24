@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d916391a_2c5cd54f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/InternalCameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T23:47:27Z",
+      "side": 1,
+      "message": "nit: Should be \"CameraControlInternal\" to match convention of other \"Internal\" classes in Android.",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "57a9140082035c6cf0721796da4f82c27d29b060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fcdaa96_5a139ad7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/InternalCameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T23:47:27Z",
+      "side": 1,
+      "message": "If we ever create a user-facing API that takes CameraControl as an argument, we won\u0027t be able to gain access to the internal camera control from that object with this architecture. I think there are 2 ways to fix this:\n\n1. Flip which CameraControl is stored in the other. i.e., instead of:\n\ninterface CameraControlInternal {\n\n CameraControl getPublicCameraControl();\n\n}\n\nIt should be:\n\ninterface CameraControl {\n\n CameraControlInternal getCameraControlInternal();\n\n}\n\n2. Make CameraControlInternal an extension of CameraControl. i.e.:\n\ninterface CameraControlInternal extends CameraControl {\n\n  // Add internal methods here.\n\n}\n\nThen we would have:\n\nclass Camera2CameraControl implements CameraControlInternal {...}\n\nand it could be passed directly through the public API since by implementing CameraControlInternal we are also implementing CameraControl.\n\nThis is not quite as clean internally though since we would have to do this whenever we need the internal camera control:\n\nCameraControl cameraControl \u003d ...;\nif (cameraControl instanceof CameraControlInternal) {\n  ((CameraControlInternal)cameraControl).doSomethingInternal();\n}",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "57a9140082035c6cf0721796da4f82c27d29b060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
