@@ -16,6 +16,24 @@
       "revId": "259d46867f4d9bb46aced1d49bb41143f8f4de2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e4f877_db1c5450",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-24T11:04:20Z",
+      "side": 1,
+      "message": "Missed this one, my bad.",
+      "parentUuid": "eb86220d_1c01b5e8",
+      "revId": "259d46867f4d9bb46aced1d49bb41143f8f4de2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
