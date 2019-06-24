@@ -295,6 +295,7 @@ final class SupportedSurfaceCombination {
         List<Size> outputSizeCandidates = new ArrayList<>();
         ImageOutputConfig config = (ImageOutputConfig) useCase.getUseCaseConfig();
         Size maxSize = config.getMaxResolution(getMaxOutputSizeByFormat(imageFormat));
+        // Check Pre-submit test
 
         // Sort the output sizes. The Comparator result must be reversed to have a descending order
         // result.
