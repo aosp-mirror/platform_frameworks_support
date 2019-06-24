@@ -7,7 +7,7 @@
 ##############################################################################
 
 # Override Kotlin version needed for compose - see buildSrc/build_dependencies.gradle
-export KOTLIN_OVERRIDE="1.3.30-compose-20190503"
+export KOTLIN_OVERRIDE="1.3.30-compose-20190520"
 
 # Override AGP version until we have a 3.5* compatible build of Compose Studio
 # TODO: Remove after b/132355581
