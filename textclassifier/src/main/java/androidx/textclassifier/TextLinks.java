@@ -122,9 +122,7 @@ public final class TextLinks {
 
     /**
      * Returns the text that was used to generate these links.
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @NonNull
     public CharSequence getText() {
         return mFullText;
@@ -480,10 +478,13 @@ public final class TextLinks {
              */
             @NonNull
             public Request build() {
-                return new Request(mText, mDefaultLocales, mEntityConfig, mReferenceTime,
+                return new Request(
+                        new SpannableString(mText),
+                        mDefaultLocales,
+                        mEntityConfig,
+                        mReferenceTime,
                         mExtras == null ? Bundle.EMPTY : mExtras);
             }
-
         }
 
         /**
