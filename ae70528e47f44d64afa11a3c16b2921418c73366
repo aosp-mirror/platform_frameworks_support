@@ -22,6 +22,30 @@
       "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4464f26a_43768d1e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 0,
+      "message": "I don\u0027t think so... negative value duration seems to be used for invalid duration values:\n\nMediaPlayer defines UNKNOWN_TIME (MIN LONG VALUE) as fallback for exceptions and ExoPlayer uses -1 for the same purposes.\n\nhttps://cs.corp.google.com/aosp-androidx/media2/player/src/main/java/androidx/media2/player/MediaPlayer.java?rcl\u003dc922ad13396a13db62efaa15af5bf8d77c9bda7b\u0026l\u003d970\n\nhttps://cs.corp.google.com/aosp-androidx/media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerWrapper.java?rcl\u003dc922ad13396a13db62efaa15af5bf8d77c9bda7b\u0026l\u003d256",
+      "parentUuid": "5d8905cc_2777a7b0",
+      "range": {
+        "startLine": 1335,
+        "startChar": 21,
+        "endLine": 1335,
+        "endChar": 25
+      },
+      "revId": "ae70528e47f44d64afa11a3c16b2921418c73366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

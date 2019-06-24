@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0803ee1c_762d54f7",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "Moved code inside onCreate and made MediaPlayer 1:1 mapping to MediaSession",
+      "parentUuid": "e9d53277_d7e8049e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74cd7a1f_e5e931c2",
         "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "a27c60cd_93f04591",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "584b9af0_70f4648a",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 48
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be93f85c_d57891f3",
         "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
         "patchSetId": 4
@@ -116,6 +164,30 @@
       "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13c1afe_c994b79c",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be93f85c_d57891f3",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +223,24 @@
       "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3734a2ad_35e958bd",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "Let me work on retrieving metadata in the next CL.",
+      "parentUuid": "abeaf982_a9e13fa3",
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -198,6 +288,30 @@
       "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f165b72_c9ea4035",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "52ac9f26_19885e87",
+      "range": {
+        "startLine": 91,
+        "startChar": 62,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "3c5a92be1c21aba16ebbdcbb2e9714d85f9e9487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "0e462a7410904fc660ac355b5d8a771e1b528989",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19fbd9b_34677199",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:45:33Z",
+      "side": 1,
+      "message": "As I briefly mentioned in today\u0027s meeting, calling setMediaItem multiple times throws an error. I suspect that it\u0027s because the current implementation is setNextMediaItem + skipToNextMediaItem, but skipToNextMediaItem is called too early (before the player is prepared).\n\nResetting the player provides an incomplete fix to this problem (this way, setMediaItem will always be called once).",
+      "parentUuid": "1c446016_d8ffda3d",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 33
+      },
+      "revId": "0e462a7410904fc660ac355b5d8a771e1b528989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
