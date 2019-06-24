@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c805126a_28895a1c",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T10:08:45Z",
+      "side": 1,
+      "message": "Right. I\u0027ve tried it and found out it\u0027s not simple. Maybe defining a new module such as \u0027media2-common-testutils\u0027 might be one way, but I am not sure if it\u0027s a good idea, adding a new module only for this. Let\u0027s keep it as is for now.",
+      "parentUuid": "c87d73ef_d55d07b1",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f52e709f_4925a1e6",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoView_WithPlayerTest.java",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, it\u0027s \"something\". I\u0027d initially named the class as VideoViewTestBase but I changed because VideoView_WithSthTestBase is not the base class of VideoView_WithoutPlayerTest.",
       "parentUuid": "f52e709f_4925a1e6",
+      "range": {
+        "startLine": 32,
+        "startChar": 60,
+        "endLine": 32,
+        "endChar": 63
+      },
+      "revId": "d96b8272e7759427caeb5556bc1f140ea1badf6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a071fee_0db251a2",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/VideoView_WithPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T10:08:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e12333b4_d608605b",
       "range": {
         "startLine": 32,
         "startChar": 60,
