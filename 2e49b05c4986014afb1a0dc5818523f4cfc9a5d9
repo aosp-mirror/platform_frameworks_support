@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f17543d_752a4632",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T17:40:44Z",
+      "side": 1,
+      "message": "imageInfoProcessor?",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b34863b_51fcee73",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T17:40:44Z",
+      "side": 1,
+      "message": "camerax.core.preview?",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f928b7_61378aa3",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T17:40:44Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 5
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13511ef8_9e22717f",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T17:40:44Z",
+      "side": 1,
+      "message": "Which thread is this being called on? I\u0027m having a hard time tracking it down by looking through the code.",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 23
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
