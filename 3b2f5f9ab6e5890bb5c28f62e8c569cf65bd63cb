@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "533a6be9_6024a9a3",
+        "filename": "ui/core/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-06-24T23:11:07Z",
+      "side": 1,
+      "message": "Do we have any plans to remove this too? Since there is only an integer variable in it.\nAndroid just uses an integer to represent the text position.",
+      "range": {
+        "startLine": 1087,
+        "startChar": 21,
+        "endLine": 1087,
+        "endChar": 33
+      },
+      "revId": "3b2f5f9ab6e5890bb5c28f62e8c569cf65bd63cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
