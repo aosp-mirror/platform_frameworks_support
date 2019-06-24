@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af6ecca_5f48efc5",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T20:55:12Z",
+      "side": 1,
+      "message": "nit: hasMatchingAspectRatio(Size resolution, Rational aspectRatio)",
+      "range": {
+        "startLine": 346,
+        "startChar": 16,
+        "endLine": 346,
+        "endChar": 34
+      },
+      "revId": "1cab2b15ce99318f5f0c8fb9785d8ad9300d4ed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9538db15_fb593986",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-24T20:55:12Z",
+      "side": 1,
+      "message": "What about if just one of the dimensions has been adjusted to be 16-byte aligned? e.g. 1088x1080",
+      "range": {
+        "startLine": 398,
+        "startChar": 19,
+        "endLine": 398,
+        "endChar": 84
+      },
+      "revId": "1cab2b15ce99318f5f0c8fb9785d8ad9300d4ed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
