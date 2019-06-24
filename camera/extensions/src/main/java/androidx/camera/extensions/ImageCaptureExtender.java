@@ -65,7 +65,7 @@ abstract class ImageCaptureExtender {
      *
      * @return True if the specific extension function is supported for the camera device.
      */
-    public boolean isExtensionAvailable() {
+    boolean isExtensionAvailable() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
@@ -79,7 +79,7 @@ abstract class ImageCaptureExtender {
      * PREVIEW_EXTENSION_REQUIRED error will be thrown if corresponding preview extension is not
      * enabled together.
      */
-    public void enableExtension() {
+    void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);

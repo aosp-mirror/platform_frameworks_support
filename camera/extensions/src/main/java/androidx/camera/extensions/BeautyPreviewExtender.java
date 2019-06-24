@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.BeautyPreviewExtenderImpl;
 /**
  * Load the OEM extension Preview implementation for beauty effect type.
  */
-public class BeautyPreviewExtender extends PreviewExtender {
+class BeautyPreviewExtender extends PreviewExtender {
     private static final String TAG = "BeautyPreviewExtender";
 
     /**
@@ -34,7 +34,7 @@ public class BeautyPreviewExtender extends PreviewExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.Preview}.
      */
-    public static BeautyPreviewExtender create(PreviewConfig.Builder builder) {
+    static BeautyPreviewExtender create(PreviewConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorBeautyPreviewExtender(builder);
