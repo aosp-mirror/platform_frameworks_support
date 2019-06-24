@@ -118,6 +118,26 @@ public interface CameraControlInternal extends CameraControl {
 
     CameraControlInternal DEFAULT_EMPTY_INSTANCE = new CameraControlInternal() {
         @Override
+        public void setZoom(float multiplier) {
+
+        }
+
+        @Override
+        public float getZoom() {
+            return 0;
+        }
+
+        @Override
+        public float getMaxZoom() {
+            return 0;
+        }
+
+        @Override
+        public float getMinZoom() {
+            return 0;
+        }
+
+        @Override
         public void setCropRegion(Rect crop) {
         }
 

@@ -23,4 +23,31 @@ package androidx.camera.core;
  * {@link CameraX#getCameraControl(CameraX.LensFacing)}.
  */
 public interface CameraControl {
+    /**
+     * Set current zoom by multiplier.
+     *
+     * <p>If the multiplier is small than {@link CameraControl#getMinZoom()},
+     * {@link CameraControl#getMinZoom() is set instead. If the multiplier is larger than
+     * {@link CameraControl#getMaxZoom()}, {@link CameraControl#getMaxZoom()} is set instead.
+     *
+     * @param multiplier of zoom to be applied
+     */
+    void setZoom(float multiplier);
+
+    /**
+     * Returns current zoom multiplier
+     */
+    float getZoom();
+
+    /**
+     * Returns available maximum zoom multiplier.
+     *
+     * <p>For devices that don't support zoom , it will returns 1.0.
+     */
+    float getMaxZoom();
+
+    /**
+     * Returns minimum zoom multiplier.
+     */
+    float getMinZoom();
 }

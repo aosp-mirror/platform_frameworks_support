@@ -46,6 +46,25 @@ public final class FakeCameraControl implements CameraControlInternal {
     }
 
     @Override
+    public void setZoom(float multiplier) {
+    }
+
+    @Override
+    public float getZoom() {
+        return 0;
+    }
+
+    @Override
+    public float getMaxZoom() {
+        return 0;
+    }
+
+    @Override
+    public float getMinZoom() {
+        return 0;
+    }
+
+    @Override
     public void setCropRegion(final Rect crop) {
         Log.d(TAG, "setCropRegion(" + crop + ")");
     }
