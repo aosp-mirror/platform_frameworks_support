@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0b56195_c15e7dba",
+        "filename": "core/core/src/main/java/androidx/core/graphics/BlendModeUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-06-24T23:27:38Z",
+      "side": 1,
+      "message": "Is there a reason this isn\u0027t a package-private class?",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "b3c28cc5f0c3ae2f2e2fc27344f8d2da30261641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
