@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb86220d_1c01b5e8",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-24T10:44:17Z",
+      "side": 1,
+      "message": "mini docs here",
+      "revId": "259d46867f4d9bb46aced1d49bb41143f8f4de2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
