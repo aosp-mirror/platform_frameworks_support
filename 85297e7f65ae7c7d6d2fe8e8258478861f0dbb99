@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8bd6b478_f55ded09",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T02:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "160b04ae_806dd830",
+      "range": {
+        "startLine": 596,
+        "startChar": 64,
+        "endLine": 596,
+        "endChar": 77
+      },
+      "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3b07296_8d123115",
         "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "036a5595_01648f85",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T02:58:02Z",
+      "side": 1,
+      "message": "Let me keep this as is, since it\u0027s not been exactly defined in MediaPlayer#deselectTrack doc. (Current actual value is RESULT_ERROR_UNKNOWN, though.)",
+      "parentUuid": "e3b07296_8d123115",
+      "range": {
+        "startLine": 604,
+        "startChar": 12,
+        "endLine": 604,
+        "endChar": 42
+      },
+      "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a236df90_664ba82f",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a555ff59_c410796b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T02:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a236df90_664ba82f",
+      "range": {
+        "startLine": 1607,
+        "startChar": 24,
+        "endLine": 1609,
+        "endChar": 78
+      },
+      "revId": "85297e7f65ae7c7d6d2fe8e8258478861f0dbb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
