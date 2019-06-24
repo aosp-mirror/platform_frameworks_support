@@ -25,7 +25,7 @@ import androidx.camera.extensions.impl.BeautyImageCaptureExtenderImpl;
 /**
  * Load the OEM extension implementation for beauty effect type.
  */
-public class BeautyImageCaptureExtender extends ImageCaptureExtender {
+class BeautyImageCaptureExtender extends ImageCaptureExtender {
     private static final String TAG = "BeautyICExtender";
 
     /**
@@ -34,7 +34,7 @@ public class BeautyImageCaptureExtender extends ImageCaptureExtender {
      * @param builder Builder that will be used to create the configurations for the
      * {@link androidx.camera.core.ImageCapture}.
      */
-    public static BeautyImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
+    static BeautyImageCaptureExtender create(ImageCaptureConfig.Builder builder) {
         if (ExtensionVersion.isExtensionVersionSupported()) {
             try {
                 return new VendorBeautyImageCaptureExtender(builder);
