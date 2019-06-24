@@ -22,9 +22,7 @@ package androidx.paging.futures
 import androidx.annotation.RestrictTo
 import androidx.arch.core.util.Function
 import androidx.concurrent.futures.ResolvableFuture
-
 import com.google.common.util.concurrent.ListenableFuture
-
 import java.util.concurrent.CancellationException
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
