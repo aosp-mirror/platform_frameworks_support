@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79cd1404_ce58fa4f",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/MarginPageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-24T15:47:32Z",
+      "side": 1,
+      "message": "Good catch. Created a TODO.",
+      "parentUuid": "734a5f1b_584d1a10",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 34
+      },
+      "revId": "3aa4f5f23606dadc112c1672526600d25585833d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f1dc9cc_4aeac371",
         "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/MarginPageTransformerTest.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "3aa4f5f23606dadc112c1672526600d25585833d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b01334a_d3b5f7d5",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/MarginPageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-24T15:47:32Z",
+      "side": 1,
+      "message": "Good catch. Created a TODO.",
+      "parentUuid": "8f1dc9cc_4aeac371",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 146,
+        "endChar": 71
+      },
+      "revId": "3aa4f5f23606dadc112c1672526600d25585833d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
