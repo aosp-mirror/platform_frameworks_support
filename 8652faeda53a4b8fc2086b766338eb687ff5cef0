@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a048ee3_94dc746b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-24T20:42:55Z",
+      "side": 1,
+      "message": "Thanks for pointing out, I think I misused the term \"boxing\". My suggestion is that we can write similar code like this,\n\nval top \u003d 0f // So it doesn\u0027t need to create a pixel object here.\n... \nif (end.y.value \u003c top) return false\n\nWDYT?",
+      "parentUuid": "dd5ce014_181a9905",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a6df683_2b1401a5",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionProcessor.kt",
         "patchSetId": 13
