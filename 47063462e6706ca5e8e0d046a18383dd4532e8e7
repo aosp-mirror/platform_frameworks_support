@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17c050f8_08646c8c",
+        "filename": "work/workmanager-foreground/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-24T22:18:08Z",
+      "side": 1,
+      "message": "/whatyearisit - just use 2019\n\nAlso check the other files you\u0027ve added.",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "47063462e6706ca5e8e0d046a18383dd4532e8e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f20ae6_98e839e6",
+        "filename": "work/workmanager-foreground/src/androidTest/res/values/values.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-24T22:18:08Z",
+      "side": 1,
+      "message": "You could just leave this file out if it is going to be empty. Gradle is smart enough to know what to do if you do need to add it later.",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "47063462e6706ca5e8e0d046a18383dd4532e8e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f518054_5568950a",
+        "filename": "work/workmanager-foreground/src/main/res/values/values.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-24T22:18:08Z",
+      "side": 1,
+      "message": "Ditto, leave out this file until you need it.",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "47063462e6706ca5e8e0d046a18383dd4532e8e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
