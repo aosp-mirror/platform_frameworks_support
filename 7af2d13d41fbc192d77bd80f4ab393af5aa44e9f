@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a05af7b0_468106dd",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T19:15:33Z",
+      "side": 1,
+      "message": "I think yes since this is a strong signal if there is ongoing edit session by IME.",
+      "parentUuid": "41a78ded_47603e98",
+      "range": {
+        "startLine": 1356,
+        "startChar": 54,
+        "endLine": 1356,
+        "endChar": 65
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8596a50_09e942c0",
         "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b5716b1e_8e26e2cb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T19:15:33Z",
+      "side": 1,
+      "message": "This is just a tmp value and came from res(ult). Replaced with let closure.",
+      "parentUuid": "f8596a50_09e942c0",
+      "range": {
+        "startLine": 103,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef264e25_ac195806",
         "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-24T18:53:12Z",
       "side": 1,
       "message": "nit: since class is internal not important but do we have something that would already return this info? Or is this a common thing to return from layout.",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19b9b68d_69d32f06",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T19:15:33Z",
+      "side": 1,
+      "message": "This is size, so usually we should use IntPxSize if there, but I couldn\u0027t find it, so use Pair instead. I felt little bit hesitate to add IntPxSize only for returning this method.",
+      "parentUuid": "ef264e25_ac195806",
       "range": {
         "startLine": 40,
         "startChar": 47,
