@@ -164,6 +164,30 @@
       "revId": "3378163ec717658d498b3351816b3c8c9168e256",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e121a4_9e581c91",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-06-24T16:41:20Z",
+      "side": 1,
+      "message": "Fair enough, added a contains method and deleted the findAll function.",
+      "parentUuid": "232d79c2_f46666ba",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 24
+      },
+      "revId": "3378163ec717658d498b3351816b3c8c9168e256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
