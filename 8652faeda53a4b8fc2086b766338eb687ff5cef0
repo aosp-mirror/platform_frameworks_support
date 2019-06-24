@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "e5249825_62a17920",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-24T20:51:27Z",
+      "side": 1,
+      "message": "Thanks for answering, it make sense to me now! Then Qingqing@ please ignore this comment.",
+      "parentUuid": "9f21009a_1077c1be",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a6df683_2b1401a5",
         "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionProcessor.kt",
         "patchSetId": 13
