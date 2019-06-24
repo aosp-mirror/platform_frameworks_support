@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0eb0a71c_771c2145",
+        "filename": "work/workmanager-foreground/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-24T22:06:03Z",
+      "side": 1,
+      "message": "Why does this module need an explicit dependency on Room?",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "8af0144d73fdf02ac5ab8897d081d3bc168a93ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
