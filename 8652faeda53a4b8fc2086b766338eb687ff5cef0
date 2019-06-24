@@ -45,6 +45,53 @@
       "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5ce014_181a9905",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/SelectionMode.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T18:12:44Z",
+      "side": 1,
+      "message": "Sorry for interrupting but I don\u0027t understand why this causes boxing?",
+      "parentUuid": "ecdc15e0_ce1e9ba4",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a6df683_2b1401a5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/selection/TextSelectionProcessor.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-24T18:12:44Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand this comment.\nAre you talking about the inclusive-inclusive vs inclusive-exclusive range?",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 64
+      },
+      "revId": "8652faeda53a4b8fc2086b766338eb687ff5cef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
