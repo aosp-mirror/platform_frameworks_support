@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7197702_c014527c",
+        "filename": "ui/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T21:43:09Z",
+      "side": 1,
+      "message": "Do we still need this?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 76
+      },
+      "revId": "6bc9c2d3bc2fbf2f732b426995fa4966f9c0b1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
