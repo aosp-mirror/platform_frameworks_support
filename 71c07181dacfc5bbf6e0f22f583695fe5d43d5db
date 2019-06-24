@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "80062bb7_0bf9032c",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Moved this up one level, so the detector is responsible for handling caching.",
+      "parentUuid": "ec230c03_5cc286b2",
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d7f656c_2c45d7ad",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7cf12ce_2f34cbf1",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d7f656c_2c45d7ad",
+      "range": {
+        "startLine": 186,
+        "startChar": 53,
+        "endLine": 186,
+        "endChar": 57
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "2ab81180_316da58f",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7578ebb2_18fe39e9",
+      "range": {
+        "startLine": 193,
+        "startChar": 23,
+        "endLine": 196,
+        "endChar": 25
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b529b2a8_9e552ed6",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -85,6 +151,30 @@
       "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c5e186_04e65103",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b529b2a8_9e552ed6",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 206,
+        "endChar": 25
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ac9d9702_2e80ebaf",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1285165a_0b30b189",
+      "range": {
+        "startLine": 217,
+        "startChar": 26,
+        "endLine": 217,
+        "endChar": 47
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e425eae_261467b3",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -131,6 +245,30 @@
       "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45bb322f_e336269b",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e425eae_261467b3",
+      "range": {
+        "startLine": 327,
+        "startChar": 26,
+        "endLine": 327,
+        "endChar": 47
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "a5d0b786_b139998b",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9ec9ac7_2e95b733",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 67
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bd27451_7bbc6cfe",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "b3212cda_7242270c",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bd27451_7bbc6cfe",
+      "range": {
+        "startLine": 397,
+        "startChar": 15,
+        "endLine": 402,
+        "endChar": 0
+      },
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62c44d16_25f81c09",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "1d791234_d2c6b281",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c44d16_25f81c09",
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9262d74_8327ad3a",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 7
@@ -211,6 +415,24 @@
       "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e3a96c_43fcb65f",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Cool! Thanks :)",
+      "parentUuid": "d9262d74_8327ad3a",
+      "revId": "71c07181dacfc5bbf6e0f22f583695fe5d43d5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

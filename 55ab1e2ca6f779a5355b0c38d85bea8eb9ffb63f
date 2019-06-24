@@ -236,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "2c184dec_1b279c35",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "7c849323_6899ec2f",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 337,
+        "endChar": 17
+      },
+      "revId": "55ab1e2ca6f779a5355b0c38d85bea8eb9ffb63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ae5e349_bc83a904",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 5

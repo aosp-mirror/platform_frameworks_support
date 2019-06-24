@@ -222,6 +222,24 @@
       "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4c31619_6c54333b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXUiPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-24T16:56:23Z",
+      "side": 1,
+      "message": "+alanv, do you have any thoughts here? Currently it\u0027s off by default, with plans to make this enabled for the entirety of compose",
+      "parentUuid": "c861be28_612c5ddf",
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
