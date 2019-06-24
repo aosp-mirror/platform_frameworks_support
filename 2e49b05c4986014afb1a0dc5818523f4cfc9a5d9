@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a92a2ed_ce60b188",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T22:15:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f17543d_752a4632",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b34863b_51fcee73",
         "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
         "patchSetId": 32
@@ -45,6 +69,30 @@
       "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e7f8f3_91a0278b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T22:15:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b34863b_51fcee73",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8ab74c32_ebcc5db2",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T22:15:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f928b7_61378aa3",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 5
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13511ef8_9e22717f",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
         "patchSetId": 32
@@ -91,6 +163,30 @@
       "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fb6f0f_68257745",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AdaptingPreviewProcessor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T22:15:24Z",
+      "side": 1,
+      "message": "This is called by the handler set by PreviewConfig.setCallbackHandler() and defaults to mainHandler if not set. See the ProcessingSurfaceTexture constructor where the handler gets set.",
+      "parentUuid": "13511ef8_9e22717f",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 23
+      },
+      "revId": "2e49b05c4986014afb1a0dc5818523f4cfc9a5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
