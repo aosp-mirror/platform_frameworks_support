@@ -23,6 +23,7 @@ import androidx.annotation.RestrictTo
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.arch.core.util.Function
+import androidx.concurrent.futures.ResolvableFuture
 import androidx.paging.PagedList.Callback
 import androidx.paging.PagedList.Config
 import androidx.paging.PagedList.Config.Builder
@@ -34,6 +35,8 @@ import androidx.paging.futures.transform
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import java.util.AbstractList
 import java.util.ArrayList
@@ -199,7 +202,15 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 config.pageSize
             )
 
-            return dataSource.load(params).transform(
+            val future = ResolvableFuture.create<DataSource.BaseResult<T>>()
+            coroutineScope.launch(initialLoadExecutor.asCoroutineDispatcher()) {
+                try {
+                    future.set(dataSource.load(params))
+                } catch (e: Exception) {
+                    future.setException(e)
+                }
+            }
+            return future.transform(
                 Function { initialResult ->
                     dataSource.initExecutor(fetchExecutor)
                     ContiguousPagedList(
