@@ -21,7 +21,6 @@ import androidx.ui.core.PxPosition
 import androidx.ui.core.px
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextPosition
 import androidx.ui.painting.TextPainter
 import androidx.ui.services.text_editing.TextSelection
@@ -77,16 +76,14 @@ internal class TextSelectionHandlerImpl(
 
         if (textSelectionStart.offset == textSelectionEnd.offset) {
             val wordBoundary = textPainter.getWordBoundary(textSelectionStart)
-            textSelectionStart =
-                TextPosition(wordBoundary.start, textSelectionStart.affinity)
-            textSelectionEnd = TextPosition(wordBoundary.end, textSelectionEnd.affinity)
+            textSelectionStart = TextPosition(wordBoundary.start)
+            textSelectionEnd = TextPosition(wordBoundary.end)
         } else {
             // Currently on Android, selection end is the offset after last character.
             // But when dragging happens, current Crane Text Selection end is the offset
             // of the last character. Thus before calling drawing selection background,
             // make the selection end matches Android behaviour.
-            textSelectionEnd =
-                TextPosition(textSelectionEnd.offset + 1, TextAffinity.upstream)
+            textSelectionEnd = TextPosition(textSelectionEnd.offset + 1)
         }
 
         onSelectionChange(TextSelection(textSelectionStart.offset, textSelectionEnd.offset))
@@ -94,13 +91,11 @@ internal class TextSelectionHandlerImpl(
         // In Crane Text Selection, the selection end should be the last character, thus
         // make the selection end matches Crane behaviour.
         textSelectionEnd =
-            TextPosition(textSelectionEnd.offset - 1, TextAffinity.upstream)
+            TextPosition(textSelectionEnd.offset - 1)
 
         return Selection(
-            startOffset =
-            textPainter.getBoundingBoxForTextPosition(textSelectionStart),
-            endOffset =
-            textPainter.getBoundingBoxForTextPosition(textSelectionEnd),
+            startOffset = textPainter.getBoundingBoxForTextPosition(textSelectionStart),
+            endOffset = textPainter.getBoundingBoxForTextPosition(textSelectionEnd),
             startLayoutCoordinates = startLayoutCoordinates,
             endLayoutCoordinates = endLayoutCoordinates
         )
@@ -119,8 +114,7 @@ internal class TextSelectionHandlerImpl(
         // for the end border. If the widget contains the whole selection's border, this value will
         // be reset.
         var selectionBorder = TextPosition(
-            offset = if (isStart) 0 else lastTextPosition,
-            affinity = TextAffinity.upstream
+            offset = if (isStart) 0 else lastTextPosition
         )
         // This LayoutCoordinates is for the widget which contains the whole selection's border. If
         // the current widget does not contain the whole selection's border, this default null value
@@ -141,8 +135,7 @@ internal class TextSelectionHandlerImpl(
             val constrainedSelectionBorderPosition =
                 min(max(textPainter.getPositionForOffset(offset).offset, 0), lastTextPosition)
             selectionBorder = TextPosition(
-                offset = constrainedSelectionBorderPosition,
-                affinity = TextAffinity.upstream
+                offset = constrainedSelectionBorderPosition
             )
             selectionBorderLayoutCoordinates = layoutCoordinates
         }
