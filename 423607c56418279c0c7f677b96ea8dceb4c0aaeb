@@ -22,6 +22,30 @@
       "revId": "423607c56418279c0c7f677b96ea8dceb4c0aaeb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd27128_f85a998f",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoSessionService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-24T02:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a66b0bc8_b88747d1",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 29
+      },
+      "revId": "423607c56418279c0c7f677b96ea8dceb4c0aaeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
