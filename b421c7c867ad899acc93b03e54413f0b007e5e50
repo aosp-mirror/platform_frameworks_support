@@ -22,6 +22,30 @@
       "revId": "b421c7c867ad899acc93b03e54413f0b007e5e50",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88c5e354_ddd6d121",
+        "filename": "media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-24T08:35:25Z",
+      "side": 1,
+      "message": "(Oops. Reverted!)",
+      "parentUuid": "5d37a970_4924c6d0",
+      "range": {
+        "startLine": 954,
+        "startChar": 23,
+        "endLine": 954,
+        "endChar": 35
+      },
+      "revId": "b421c7c867ad899acc93b03e54413f0b007e5e50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
