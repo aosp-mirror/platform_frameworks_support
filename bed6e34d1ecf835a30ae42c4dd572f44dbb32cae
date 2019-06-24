@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "548befea_0352fd9d",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T23:46:33Z",
+      "side": 1,
+      "message": "nit: bIsPreviewExtenderEnabled -\u003e isPreviewExtenderEnabled",
+      "revId": "bed6e34d1ecf835a30ae42c4dd572f44dbb32cae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979ad8f0_ea67cdaa",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T23:46:33Z",
+      "side": 1,
+      "message": "nit: bIsImageCaptureExtenderEnabled -\u003e isImageCaptureExtenderEnabled",
+      "revId": "bed6e34d1ecf835a30ae42c4dd572f44dbb32cae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f3d9b4f_63574e0a",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-24T23:46:33Z",
+      "side": 1,
+      "message": "listenerReference could be null since we don\u0027t enforce listener to be non-null",
+      "revId": "f706b03858d41500cbb112dc139e988dddc1e9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
