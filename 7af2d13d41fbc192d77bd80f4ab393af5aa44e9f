@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41a78ded_47603e98",
+        "filename": "ui/core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T18:53:12Z",
+      "side": 1,
+      "message": "do you really want to make composition public?",
+      "range": {
+        "startLine": 1356,
+        "startChar": 54,
+        "endLine": 1356,
+        "endChar": 65
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8596a50_09e942c0",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T18:53:12Z",
+      "side": 1,
+      "message": "what is res?",
+      "range": {
+        "startLine": 103,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef264e25_ac195806",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-24T18:53:12Z",
+      "side": 1,
+      "message": "nit: since class is internal not important but do we have something that would already return this info? Or is this a common thing to return from layout.",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "7af2d13d41fbc192d77bd80f4ab393af5aa44e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
