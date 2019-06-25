@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61e1642d_39c64681",
+        "filename": "core/core/src/main/java/androidx/core/graphics/PaintCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-06-25T23:25:07Z",
+      "side": 1,
+      "message": "I\u0027m late to this API party it seems but this method really shouldn\u0027t exist. There shouldn\u0027t be anything on PaintCompat that does a forced allocation. Why isn\u0027t there just a BlendModeCompat.createColorFilter(BlendModeCompat)? Paint.setColorFilter doesn\u0027t need a compat to it.",
+      "revId": "23ca642dd253d79eea0b8e41f9bfa6bc8535a6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
