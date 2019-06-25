@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "18ec1b53_8c38e1fe",
+        "filename": "media2/widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T06:21:04Z",
+      "side": 1,
+      "message": "Thanks. Removed this line as we move the classes into package-private.",
+      "parentUuid": "cf6f52c3_3da7a386",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 64
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b565b70_ceb8f46e",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/Cea608CaptionRenderer.java",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79b5575_35279679",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/Cea608CaptionRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T06:21:04Z",
+      "side": 1,
+      "message": "Thanks for pointing it out!\nIt\u0027s not been fixed in aosp-androidx-master-dev. Revised.",
+      "parentUuid": "8b565b70_ceb8f46e",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "31a17a4d_7fe909dc",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/Cea608CaptionRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T06:21:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4cf1b8d_8fa59567",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae6c2eb4_723e7480",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/MediaTimeProvider.java",
         "patchSetId": 1
@@ -115,6 +187,30 @@
       "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e15f4e_7c4f10f6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/MediaTimeProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T06:21:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae6c2eb4_723e7480",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +258,30 @@
       "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f485cb5_dc74daf9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/SubtitleTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T06:21:04Z",
+      "side": 1,
+      "message": "Right, it was a workaround. As we discussed, this has been revised.",
+      "parentUuid": "e2621b54_f0835031",
+      "range": {
+        "startLine": 571,
+        "startChar": 4,
+        "endLine": 571,
+        "endChar": 24
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
