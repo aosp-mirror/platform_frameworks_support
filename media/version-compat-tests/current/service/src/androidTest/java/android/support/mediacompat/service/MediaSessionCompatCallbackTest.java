@@ -73,6 +73,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -145,6 +146,7 @@ public class MediaSessionCompatCallbackTest {
     private String mClientVersion;
     private MediaSessionCompat mSession;
     private MediaSessionCallback mCallback = new MediaSessionCallback();
+    private final Bundle mSessionInfo = new Bundle();
     private AudioManager mAudioManager;
 
     @Before
@@ -153,12 +155,14 @@ public class MediaSessionCompatCallbackTest {
         mClientVersion = getArguments().getString(KEY_CLIENT_VERSION, "");
         Log.d(TAG, "Client app version: " + mClientVersion);
 
+        mSessionInfo.putString(TEST_KEY, TEST_VALUE);
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mAudioManager = (AudioManager) getApplicationContext().getSystemService(
                         Context.AUDIO_SERVICE);
-                mSession = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG);
+                mSession = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG,
+                        null, null, mSessionInfo);
                 mSession.setCallback(mCallback, mHandler);
             }
         });
@@ -183,6 +187,7 @@ public class MediaSessionCompatCallbackTest {
         assertNotNull(controller);
 
         final String errorMsg = "New session has unexpected configuration.";
+        assertBundleEquals(mSessionInfo, controller.getSessionInfo());
         assertEquals(errorMsg, FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS,
                 controller.getFlags());
         assertNull(errorMsg, controller.getExtras());
@@ -204,6 +209,30 @@ public class MediaSessionCompatCallbackTest {
                 info.getPlaybackType());
         assertEquals(errorMsg, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
                 info.getCurrentVolume());
+    }
+
+    /**
+     * Tests whether the constructor of {@link MediaSessionCompat} throws an
+     * {@link IllegalArgumentException} when the sessionInfo contains any custom Parcelables.
+     */
+    @Test
+    @SmallTest
+    public void testCustomParcelableInSessionInfoThrowsIAE() {
+        Bundle sessionInfo = new Bundle();
+        sessionInfo.putParcelable("key", new CustomParcelable(1));
+
+        MediaSessionCompat session = null;
+        try {
+            session = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG,
+                    null, null, sessionInfo);
+            fail("The constructor should throw IAE for this sessionInfo!");
+        } catch (IllegalArgumentException ex) {
+            // Expected.
+        }
+
+        if (session != null) {
+            session.release();
+        }
     }
 
     @Test

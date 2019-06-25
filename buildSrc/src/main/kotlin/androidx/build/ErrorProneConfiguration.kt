@@ -30,7 +30,7 @@ import org.gradle.kotlin.dsl.apply
 
 const val ERROR_PRONE_TASK = "runErrorProne"
 
-private const val ERROR_PRONE_VERSION = "com.google.errorprone:error_prone_core:2.3.2"
+private const val ERROR_PRONE_VERSION = "com.google.errorprone:error_prone_core:2.3.3"
 private val log = Logging.getLogger("ErrorProneConfiguration")
 
 fun Project.configureErrorProneForJava() {
@@ -109,7 +109,7 @@ private fun Project.makeErrorProneTask(
     compileTaskProvider: TaskProvider<JavaCompile>,
     toolChain: ErrorProneToolChain
 ) {
-    val provider = maybeRegister<JavaCompile>(
+    maybeRegister<JavaCompile>(
         name = ERROR_PRONE_TASK,
         onConfigure = {
             val compileTask = compileTaskProvider.get()

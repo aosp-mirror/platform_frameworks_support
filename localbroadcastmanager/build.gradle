@@ -1,17 +1,19 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0")
 }
 
 androidx {
     name = "Android Support Library Local Broadcast Manager"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.LOCALBROADCASTMANAGER
     mavenGroup = LibraryGroups.LOCALBROADCASTMANAGER
     inceptionYear = "2018"

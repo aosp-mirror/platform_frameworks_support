@@ -34,7 +34,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +48,7 @@ import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
 import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -117,7 +120,7 @@ public class PagedListView extends FrameLayout {
     /** Maximum number of pages to show. */
     private int mMaxPages = UNLIMITED_PAGES;
 
-    /** Package private to allow access to nested classes.  */
+    /** Package private to allow access to nested classes. */
     final List<Callback> mCallbacks = new ArrayList<>();
     OnScrollListener mOnScrollListener;
 
@@ -294,8 +297,9 @@ public class PagedListView extends FrameLayout {
             int dividerEndId = a.getResourceId(R.styleable.PagedListView_alignDividerEndTo,
                     DividerDecoration.INVALID_RESOURCE_ID);
 
-            int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
+            int listDividerColorRes = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
+            int listDividerColor = ContextCompat.getColor(context, listDividerColorRes);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
                     dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
@@ -353,7 +357,7 @@ public class PagedListView extends FrameLayout {
 
             @Override
             public void onAlphaJump() {
-                showAlphaJump();
+                setAlphaJumpVisible(true);
             }
         });
 
@@ -526,12 +530,32 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+     * Sets whether the scroll bar is enabled.
+     *
+     * If enabled, a scroll bar will appear when the number of items causes the PagedListView to
+     * be scrollable. Otherwise, the scroll bar is hidden regardless of item count.
+     *
+     * @param enabled {@code true} to enable the scroll bar.
+     */
+    public final void setScrollBarEnabled(boolean enabled) {
+        mScrollBarEnabled = enabled;
+        mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns {@code true} if the scroll bar is enabled.
+     */
+    public final boolean isScrollBarEnabled() {
+        return mScrollBarEnabled;
+    }
+
+    /**
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
      * @param offset The top offset to add in pixels.
      *
-     * {@link R.attr#listContentTopOffset}
+     *               {@link R.attr#listContentTopOffset}
      */
     public void setListContentTopOffset(@Px int offset) {
         TopOffsetDecoration existing = null;
@@ -578,7 +602,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param offset The bottom offset to add in pixels
      *
-     * {@link R.attr#listContentBottomOffset}
+     *               {@link R.attr#listContentBottomOffset}
      */
     public void setListContentBottomOffset(@Px int offset) {
         BottomOffsetDecoration existing = null;
@@ -749,7 +773,7 @@ public class PagedListView extends FrameLayout {
      * PagedListView needs to implement {@link ItemCap}.
      *
      * @param maxPages The maximum number of pages that fit on the screen. Should be positive or
-     * {@link #UNLIMITED_PAGES}.
+     *                 {@link #UNLIMITED_PAGES}.
      */
     public void setMaxPages(int maxPages) {
         mMaxPages = Math.max(UNLIMITED_PAGES, maxPages);
@@ -852,9 +876,9 @@ public class PagedListView extends FrameLayout {
     /**
      * Sets the color that should be used for the dividers in the PagedListView.
      *
-     * @param dividerColor The resource identifier for the divider color.
+     * @param dividerColor The packed color int for the divider color.
      */
-    public void setDividerColor(@ColorRes int dividerColor) {
+    public void setDividerColor(@ColorInt int dividerColor) {
         int decorCount = mRecyclerView.getItemDecorationCount();
         for (int i = 0; i < decorCount; i++) {
             RecyclerView.ItemDecoration decor = mRecyclerView.getItemDecorationAt(i);
@@ -862,6 +886,34 @@ public class PagedListView extends FrameLayout {
                 ((DividerDecoration) decor).setDividerColor(dividerColor);
             }
         }
+    }
+
+    /**
+     * Sets the color of the scrollbar thumb.
+     *
+     * @param color Resource identifier of the color.
+     */
+    public void setScrollbarThumbColor(@ColorRes int color) {
+        mScrollBarView.setScrollbarThumbColor(color);
+    }
+
+    /**
+     * Sets the tint color for the up and down buttons of the scrollbar.
+     *
+     * @param tintResId Resource identifier of the tint color.
+     */
+    public void setScrollBarButtonTintColor(@ColorRes int tintResId) {
+        mScrollBarView.setButtonTintColor(tintResId);
+    }
+
+    /**
+     * Sets the drawable that will function as the background for the buttons of the scrollbar. This
+     * background should provide the ripple.
+     *
+     * @param backgroundResId The drawable resource identifier for the ripple background.
+     */
+    public void setScrollBarButtonRippleBackground(@DrawableRes int backgroundResId) {
+        mScrollBarView.setButtonRippleBackground(backgroundResId);
     }
 
     /**
@@ -1304,24 +1356,24 @@ public class PagedListView extends FrameLayout {
         return mAlphaJumpView != null && mAlphaJumpView.getVisibility() == VISIBLE;
     }
 
-    /**
-     * Show the Alpha Jump Overlay.
-     */
-    public void showAlphaJump() {
+    private void ensureAlphaJumpViewIsChildView() {
         if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
             mAlphaJumpView = new AlphaJumpOverlayView(getContext());
             mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
             addView(mAlphaJumpView);
         }
-
-        mAlphaJumpView.show();
     }
 
     /**
-     * Hide the Alpha Jump Overlay.
+     * Sets whether the Alpha Jump Overlay is visible.
+     *
+     * @param visible {@code true} to show the Alpha Jump Overlay or {@code false} to hide it.
      */
-    public void hideAlphaJump() {
-        if (mAlphaJumpView != null) {
+    public void setAlphaJumpVisible(boolean visible) {
+        if (visible) {
+            ensureAlphaJumpViewIsChildView();
+            mAlphaJumpView.show();
+        } else if (mAlphaJumpView != null) {
             mAlphaJumpView.hide();
         }
     }

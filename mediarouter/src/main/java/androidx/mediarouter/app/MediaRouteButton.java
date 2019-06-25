@@ -29,6 +29,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -63,7 +64,7 @@ import java.util.List;
  * a {@link MediaRouteChooserDialog} to allow the user to select a route.
  * If no non-default routes match the selector and it is not possible for an active
  * scan to discover any matching routes, then the button is disabled and cannot
- * be clicked.
+ * be clicked unless {@link #setAlwaysVisible} is called.
  * </p><p>
  * When a non-default route is selected that matches the selector, the button will
  * appear in an active state indicating that the application is connected
@@ -150,6 +151,10 @@ public class MediaRouteButton extends View {
         context = getContext();
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MediaRouteButton, defStyleAttr, 0);
+        if (Build.VERSION.SDK_INT >= 29) {
+            saveAttributeDataForStyleable(
+                    context, R.styleable.MediaRouteButton, attrs, a, defStyleAttr, 0);
+        }
         if (isInEditMode()) {
             mRouter = null;
             mCallback = null;
@@ -184,15 +189,19 @@ public class MediaRouteButton extends View {
                 setRemoteIndicatorDrawable(remoteIndicatorState.newDrawable());
             }
         }
-        if (mRemoteIndicator == null && remoteIndicatorStaticResId != 0) {
-            Drawable.ConstantState remoteIndicatorStaticState =
-                    sRemoteIndicatorCache.get(remoteIndicatorStaticResId);
-            if (remoteIndicatorStaticState != null) {
-                setRemoteIndicatorDrawableInternal(remoteIndicatorStaticState.newDrawable());
+        if (mRemoteIndicator == null) {
+            if (remoteIndicatorStaticResId != 0) {
+                Drawable.ConstantState remoteIndicatorStaticState =
+                        sRemoteIndicatorCache.get(remoteIndicatorStaticResId);
+                if (remoteIndicatorStaticState != null) {
+                    setRemoteIndicatorDrawableInternal(remoteIndicatorStaticState.newDrawable());
+                } else {
+                    mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorStaticResId,
+                            getContext());
+                    mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                }
             } else {
-                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorStaticResId,
-                        getContext());
-                mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                loadRemoteIndicatorIfNeeded();
             }
         }
 
@@ -414,13 +423,13 @@ public class MediaRouteButton extends View {
 
     /**
      * Sets whether the button is visible when no routes are available.
-     * When true, the button is visible even if there are no routes to connect.
+     * When true, the button is visible even when there are no routes to connect.
      * You may want to override {@link View#performClick()} to change the behavior
      * when the button is clicked.
      * The default is false.
      * It doesn't overrides the {@link View#getVisibility visibility} status of the button.
      *
-     * @param alwaysVisible true to show button always.
+     * @param alwaysVisible true to show the button even when no routes are available.
      */
     public void setAlwaysVisible(boolean alwaysVisible) {
         if (alwaysVisible != mAlwaysVisible) {
