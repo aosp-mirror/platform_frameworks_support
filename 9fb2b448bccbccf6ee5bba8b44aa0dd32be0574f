@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "80580d1c_e5112faa",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T18:25:16Z",
+      "side": 1,
+      "message": "Ok sounds good.",
+      "parentUuid": "34c8a249_9b788645",
+      "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "982b0c7e_0895dc89",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 5
