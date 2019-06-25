@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e202d54_3a9a2f51",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T20:47:46Z",
+      "side": 1,
+      "message": "These AF mode/state checks require us to wait until the CaptureResult returns which will depend on how long it takes for the checker callback to get sent to the CaptureSession.\n\nAre we able to check the Af mode by querying the CameraControl so that this can determined immediately?",
+      "revId": "e65d9ded8957009eaaae239db53370727522e5c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
