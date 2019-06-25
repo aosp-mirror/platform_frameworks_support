@@ -140,10 +140,27 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
+<<<<<<< HEAD   (08eb43 Merge "Merge empty history for sparse-5616461-L9040000033286)
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
+=======
+        if (isRunningOnBuildServer()) {
+            gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
+        }
+        val createAggregateBuildInfoFilesTask =
+            tasks.register(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK,
+                CreateAggregateLibraryBuildInfoFileTask::class.java)
+        val createLibraryBuildInfoFilesTask =
+            tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
+        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
+        buildOnServerTask.dependsOn(createAggregateBuildInfoFilesTask)
+        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
+
+        val projectModules = ConcurrentHashMap<String, String>()
+        extra.set("projects", projectModules)
+>>>>>>> BRANCH (745d89 Merge "Merge cherrypicks of [989668, 989670] into sparse-559)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -318,11 +335,70 @@ class AndroidXPlugin : Plugin<Project> {
                 VerifyDependencyVersionsTask::class.java)
     }
 
+<<<<<<< HEAD   (08eb43 Merge "Merge empty history for sparse-5616461-L9040000033286)
+=======
+    // Task that creates a json file of a project's dependencies
+    private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
+        afterEvaluate {
+            if (extension.publish) { // Only generate build info files for published libraries.
+                val task = project.tasks.register(
+                    CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
+                    CreateLibraryBuildInfoFileTask::class.java
+                ) {
+                    it.outputFile.set(File(project.getDistributionDirectory(),
+                        "${project.group}_${project.name}_build_info.txt"))
+                }
+                project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
+                    it.dependsOn(task)
+                }
+                addTaskToAggregateBuildInfoFileTask(task)
+            }
+        }
+    }
+
+    private fun Project.addTaskToAggregateBuildInfoFileTask(
+        task: TaskProvider<CreateLibraryBuildInfoFileTask>
+    ) {
+        project.rootProject.tasks.named(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK).configure {
+            var aggregateLibraryBuildInfoFileTask: CreateAggregateLibraryBuildInfoFileTask = it
+                    as CreateAggregateLibraryBuildInfoFileTask
+            aggregateLibraryBuildInfoFileTask.dependsOn(task)
+            aggregateLibraryBuildInfoFileTask.libraryBuildInfoFiles.add(
+                task.flatMap { it.outputFile }
+            )
+        }
+    }
+
+    private fun Project.configureJacoco() {
+        project.apply(plugin = "jacoco")
+        project.configure<JacocoPluginExtension> {
+            toolVersion = Jacoco.VERSION
+        }
+
+        project.tasks.withType<JacocoReport> {
+            reports {
+                it.xml.isEnabled = true
+                it.html.isEnabled = false
+                it.csv.isEnabled = false
+
+                it.xml.destination = File(getHostTestCoverageDirectory(),
+                    "${project.path.replace(':', '-').substring(1)}.xml")
+            }
+        }
+    }
+
+>>>>>>> BRANCH (745d89 Merge "Merge cherrypicks of [989668, 989670] into sparse-559)
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
         const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
         const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
+<<<<<<< HEAD   (08eb43 Merge "Merge empty history for sparse-5616461-L9040000033286)
+=======
+        const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
+        const val CREATE_LIBRARY_BUILD_INFO_FILES_TASK = "createLibraryBuildInfoFiles"
+        const val CREATE_AGGREGATE_BUILD_INFO_FILES_TASK = "createAggregateBuildInfoFiles"
+>>>>>>> BRANCH (745d89 Merge "Merge cherrypicks of [989668, 989670] into sparse-559)
     }
 }
 
