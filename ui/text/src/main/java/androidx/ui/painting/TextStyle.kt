@@ -258,42 +258,7 @@ data class TextStyle(
             shadow = shadow
         )
     }
-
-    /**
-     * The style information for paragraphs, encoded for use by `ui`.
-     * The `textScaleFactor` argument must not be null. If omitted, it defaults
-     * to 1.0. The other arguments may be null. The `maxLines` argument, if
-     * specified and non-null, must be greater than zero.
-     *
-     * If the font size on this style isn't set, it will default to 14 logical
-     * pixels.
-     */
-    fun getParagraphStyle(
-        textAlign: TextAlign? = null,
-        textDirection: TextDirection? = null,
-        textIndent: TextIndent? = null,
-        lineHeight: Float? = null,
-        textScaleFactor: Float = 1.0f,
-        ellipsis: Boolean? = null,
-        maxLines: Int? = null,
-        locale: Locale? = null
-    ): ParagraphStyle {
-        assert(maxLines == null || maxLines > 0)
-        return ParagraphStyle(
-            textAlign = textAlign,
-            textDirection = textDirection,
-            textIndent = textIndent,
-            lineHeight = lineHeight,
-            fontWeight = fontWeight,
-            fontStyle = fontStyle,
-            maxLines = maxLines,
-            fontFamily = fontFamily,
-            fontSize = (fontSize ?: _defaultFontSize) * textScaleFactor,
-            ellipsis = ellipsis,
-            locale = locale,
-            fontSynthesis = fontSynthesis
-        )
-    }
+//(fontSize ?: _defaultFontSize) * textScaleFactor
 
     /**
      * Describe the difference between this style and another, in terms of how

@@ -15,6 +15,7 @@
  */
 package androidx.ui.engine.text.platform
 
+import android.graphics.Typeface
 import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
@@ -74,15 +75,13 @@ import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-const val LINE_FEED = '\n'
-
 internal class ParagraphAndroid constructor(
     val text: String,
+    val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
     val textStyles: List<AnnotatedString.Item<TextStyle>>,
     val typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
 ) {
-
     @VisibleForTesting
     internal val textPaint = TextPaint(android.graphics.Paint.ANTI_ALIAS_FLAG)
     private var layout: TextLayout? = null
@@ -142,32 +141,34 @@ internal class ParagraphAndroid constructor(
     fun layout(width: Float) {
         val floorWidth = floor(width)
 
-        paragraphStyle.fontSize?.let {
-            textPaint.textSize = it
-        }
+//        mainTextStyle.fontSize?.let {
+//            textPaint.textSize = it
+//        }
+//
+//        // TODO(siyamed): This default values are problem here. If the user just gives a single font
+//        // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
+//        // call as FontWeight.normal (which is the default value)
+//        if (mainTextStyle.hasFontAttributes()) {
+//            textPaint.typeface = createTypeface(mainTextStyle)
+//        }
+//
+//        mainTextStyle.locale?.let {
+//            textPaint.textLocale = Locale(
+//                it.languageCode,
+//                it.countryCode ?: ""
+//            )
+//        }
 
-        // TODO(siyamed): This default values are problem here. If the user just gives a single font
-        // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
-        // call as FontWeight.normal (which is the default value)
-        if (paragraphStyle.hasFontAttributes()) {
-            textPaint.typeface = typefaceAdapter.create(
-                fontFamily = paragraphStyle.fontFamily,
-                fontWeight = paragraphStyle.fontWeight ?: FontWeight.normal,
-                fontStyle = paragraphStyle.fontStyle ?: FontStyle.Normal,
-                fontSynthesis = paragraphStyle.fontSynthesis ?: FontSynthesis.All
-            )
-        }
-
-        paragraphStyle.locale?.let {
-            textPaint.textLocale = Locale(
-                it.languageCode,
-                it.countryCode ?: ""
-            )
-        }
-
-        val charSequence = applyTextStyle(text, paragraphStyle.textIndent, textStyles)
+        val charSequence = applyTextStyle(
+            text,
+            paragraphStyle.textIndent,
+            //TODO(siyamed) temporary fix for text style. Will apply Styles that cover the whole
+            // string onto the Paint
+            textStyles + AnnotatedString.Item<TextStyle>(style, 0, text.length)
+        )
 
         val alignment = toLayoutAlign(paragraphStyle.textAlign)
+
         // TODO(Migration/haoyuchang): Layout has more settings that flutter,
         //  we may add them in future.
         val textDirectionHeuristic = when (paragraphStyle.textDirection) {
@@ -282,6 +283,15 @@ internal class ParagraphAndroid constructor(
         canvas.translate(-x, -y)
     }
 
+    private fun createTypeface(style: androidx.ui.engine.text.TextStyle) : Typeface {
+        return typefaceAdapter.create(
+            fontFamily = style.fontFamily,
+            fontWeight = style.fontWeight ?: FontWeight.normal,
+            fontStyle = style.fontStyle ?: FontStyle.Normal,
+            fontSynthesis = style.fontSynthesis ?: FontSynthesis.All
+        )
+    }
+
     private fun applyTextStyle(
         text: String,
         textIndent: TextIndent?,
@@ -378,14 +388,8 @@ internal class ParagraphAndroid constructor(
             }
 
             if (style.hasFontAttributes()) {
-                val typeface = typefaceAdapter.create(
-                    fontFamily = style.fontFamily,
-                    fontWeight = style.fontWeight ?: FontWeight.normal,
-                    fontStyle = style.fontStyle ?: FontStyle.Normal,
-                    fontSynthesis = style.fontSynthesis ?: FontSynthesis.All
-                )
                 spannableString.setSpan(
-                    TypefaceSpan(typeface),
+                    TypefaceSpan(createTypeface(style)),
                     start,
                     end,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -472,3 +476,4 @@ internal fun toLayoutAlign(align: TextAlign?): Int = when (align) {
     TextAlign.End -> ALIGN_OPPOSITE
     else -> DEFAULT_ALIGNMENT
 }
+
