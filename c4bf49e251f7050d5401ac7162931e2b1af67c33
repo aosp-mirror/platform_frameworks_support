@@ -16,6 +16,24 @@
       "revId": "c4bf49e251f7050d5401ac7162931e2b1af67c33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66ad533_cf7fd136",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated the code to use verifyZeroInteractions to check onError() is never called for this test case. I set this test case as MediumTest since it will wait for one second to confirm postExtensionsError is not called.",
+      "parentUuid": "a6faafaf_8f581ffb",
+      "revId": "c4bf49e251f7050d5401ac7162931e2b1af67c33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

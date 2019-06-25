@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cdd47e9e_0edf66e9",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated to use AtomicReference\u003cExtensionsErrorCode\u003e and assert with the result error code to know what error was received if it got the wrong one.",
+      "parentUuid": "0e7d254c_d95855e6",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c88aaa42_bbcb7d63",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
         "patchSetId": 18
@@ -33,6 +51,24 @@
       "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eb9207c_60429963",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated to countDown it when there is error code received. Also update the test size to SmallTest since the test should be done in 300 ms in normal case. Also update the code to check the result error code for assertion.",
+      "parentUuid": "c88aaa42_bbcb7d63",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d308958e_15843b39",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated to use AtomicReference\u003cExtensionsErrorCode\u003e and assert with the result error code to know what error was received if it got the wrong one.",
+      "parentUuid": "f4291fdb_d7f0ff7c",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33b84bef_0f1a86a4",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
         "patchSetId": 18
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "3dd77370_0d279615",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. I have updated to countDown it when there is error code received. Also update the test size to SmallTest since the test should be done in 300 ms in normal case. Also update the code to check the result error code for assertion.",
+      "parentUuid": "33b84bef_0f1a86a4",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2b322b7_08ee46b3",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
         "patchSetId": 18
@@ -84,6 +156,24 @@
       "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "602b0ded_4e6f29d8",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T09:07:47Z",
+      "side": 1,
+      "message": "Thanks for review. receiveErrorCode_whenEnableMismatchedImageCapturePreviewExtenders has been added.",
+      "parentUuid": "c2b322b7_08ee46b3",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
