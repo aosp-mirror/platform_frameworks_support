@@ -18,9 +18,9 @@ package androidx.paging.integration.testapp.custom
 
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.paging.integration.testapp.R
@@ -34,8 +34,7 @@ class PagedListSampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
-        val viewModel = ViewModelProviders.of(this)
-            .get(PagedListItemViewModel::class.java)
+        val viewModel by viewModels<PagedListItemViewModel>()
 
         val adapter = PagedListItemAdapter()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
@@ -69,40 +68,35 @@ class PagedListSampleActivity : AppCompatActivity() {
             adapter.currentList?.retry()
         }
 
-        adapter.addLoadStateListener(object : PagedList.LoadStateListener {
-            override fun onLoadStateChanged(
-                type: PagedList.LoadType,
-                state: PagedList.LoadState,
-                error: Throwable?
-            ) {
-                val button = when (type) {
-                    PagedList.LoadType.REFRESH -> buttonRefresh
-                    PagedList.LoadType.START -> buttonStart
-                    PagedList.LoadType.END -> buttonEnd
+        adapter.addLoadStateListener { type: PagedList.LoadType, state: PagedList.LoadState,
+                                       _: Throwable? ->
+            val button = when (type) {
+                PagedList.LoadType.REFRESH -> buttonRefresh
+                PagedList.LoadType.START -> buttonStart
+                PagedList.LoadType.END -> buttonEnd
+            }
+            when (state) {
+                PagedList.LoadState.IDLE -> {
+                    button.text = "Idle"
+                    button.isEnabled = type == PagedList.LoadType.REFRESH
                 }
-                when (state) {
-                    PagedList.LoadState.IDLE -> {
-                        button.text = "Idle"
-                        button.isEnabled = type == PagedList.LoadType.REFRESH
-                    }
-                    PagedList.LoadState.LOADING -> {
-                        button.text = "Loading"
-                        button.isEnabled = false
-                    }
-                    PagedList.LoadState.DONE -> {
-                        button.text = "Done"
-                        button.isEnabled = false
-                    }
-                    PagedList.LoadState.ERROR -> {
-                        button.text = "Error"
-                        button.isEnabled = false
-                    }
-                    PagedList.LoadState.RETRYABLE_ERROR -> {
-                        button.text = "Error"
-                        button.isEnabled = true
-                    }
+                PagedList.LoadState.LOADING -> {
+                    button.text = "Loading"
+                    button.isEnabled = false
+                }
+                PagedList.LoadState.DONE -> {
+                    button.text = "Done"
+                    button.isEnabled = false
+                }
+                PagedList.LoadState.ERROR -> {
+                    button.text = "Error"
+                    button.isEnabled = false
+                }
+                PagedList.LoadState.RETRYABLE_ERROR -> {
+                    button.text = "Error"
+                    button.isEnabled = true
                 }
             }
-        })
+        }
     }
 }

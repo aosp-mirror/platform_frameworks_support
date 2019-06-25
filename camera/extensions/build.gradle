@@ -26,17 +26,46 @@ plugins {
 
 dependencies {
     api(project(":camera:camera-core"))
-
     implementation(project(":camera:camera-camera2"))
     implementation("androidx.core:core:1.0.0")
-    implementation(project(":concurrent-listenablefuture"))
+    implementation(GUAVA_LISTENABLE_FUTURE)
+    implementation(AUTO_VALUE_ANNOTATIONS)
+    annotationProcessor(AUTO_VALUE)
 
     compileOnly(project(":camera:camera-extensions-stub"))
+
+    testImplementation(JUNIT)
+    testImplementation(MOCKITO_CORE)
+    testImplementation(ROBOLECTRIC)
+
+    testCompileOnly(project(":camera:camera-extensions-stub"))
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TRUTH)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
+    androidTestImplementation(project(":camera:camera-testing"))
+
+    androidTestImplementation(project(":camera:integration-tests:camera-testlib-extensions"))
+    // To use the testlib to have the implementation of the extensions-stub interface.
 }
 
 android {
     defaultConfig {
         minSdkVersion 21
+
+        // TODO: To use the separate version for extensions after new library item is created.
+        buildConfigField "String", "CAMERA_VERSION", "\"${LibraryVersions.CAMERA}\""
+    }
+}
+
+// Enable generating BuildConfig.java since support library default disable it.
+// Need to track on https://issuetracker.google.com/issues/72050365
+android.libraryVariants.all { variant ->
+    variant.generateBuildConfigProvider.configure {
+        it.enabled = true
     }
 }
 

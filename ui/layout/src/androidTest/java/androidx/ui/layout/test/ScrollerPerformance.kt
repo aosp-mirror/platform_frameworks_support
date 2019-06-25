@@ -26,6 +26,7 @@ import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.setContent
 import androidx.compose.unaryPlus
+import androidx.test.filters.FlakyTest
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Draw
 import androidx.ui.core.dp
@@ -51,6 +52,7 @@ class ScrollerPerformance : LayoutTest() {
     val benchmarkRule = BenchmarkRule()
 
     @Test
+    @FlakyTest
     fun benchmarkScrollLayout() {
         val scrollerPosition = ScrollerPosition()
         val compositionContext =
@@ -88,6 +90,7 @@ class ScrollerPerformance : LayoutTest() {
     }
 
     @Test
+    @FlakyTest
     fun benchmarkScrollComposition() {
         val scrollerPosition = ScrollerPosition()
         val compositionContext =
@@ -97,13 +100,41 @@ class ScrollerPerformance : LayoutTest() {
             override fun run() {
                 compositionContext.compose()
                 val exec: BenchmarkRule.Scope.() -> Unit = {
-                    if (scrollerPosition.position == 0.px) {
-                        scrollerPosition.position = 10.px
-                    } else {
-                        scrollerPosition.position = 0.px
+                    runWithTimingDisabled {
+                        if (scrollerPosition.position == 0.px) {
+                            scrollerPosition.position = 10.px
+                        } else {
+                            scrollerPosition.position = 0.px
+                        }
+                        FrameManager.nextFrame()
                     }
-                    FrameManager.nextFrame()
                     compositionContext.recomposeSync()
+                }
+                benchmarkRule.measureRepeated(exec)
+            }
+        })
+    }
+
+    @Test
+    @FlakyTest
+    fun benchmarkLargeComposition() {
+        val scrollerPosition = ScrollerPosition()
+        val compositionContext =
+            composeScroller(scrollerPosition = scrollerPosition)
+
+        activityTestRule.runOnUiThread(object : Runnable {
+            override fun run() {
+                compositionContext.compose()
+                val exec: BenchmarkRule.Scope.() -> Unit = {
+                    runWithTimingDisabled {
+                        if (scrollerPosition.position == 0.px) {
+                            scrollerPosition.position = 10.px
+                        } else {
+                            scrollerPosition.position = 0.px
+                        }
+                        FrameManager.nextFrame()
+                    }
+                    compositionContext.compose()
                 }
                 benchmarkRule.measureRepeated(exec)
             }
