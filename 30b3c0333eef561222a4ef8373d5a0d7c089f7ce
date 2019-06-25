@@ -22,6 +22,30 @@
       "revId": "30b3c0333eef561222a4ef8373d5a0d7c089f7ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d16a92_70a6f775",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-06-25T13:03:51Z",
+      "side": 1,
+      "message": "Needed by TCLib to convert AndroidX TextLinks to platform TextLinks.",
+      "parentUuid": "9a7ec3ce_c36211ad",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "30b3c0333eef561222a4ef8373d5a0d7c089f7ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
