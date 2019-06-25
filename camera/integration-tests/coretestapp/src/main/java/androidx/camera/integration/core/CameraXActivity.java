@@ -22,6 +22,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -702,15 +703,21 @@ public class CameraXActivity extends AppCompatActivity
             }
         }
 
-        new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        CameraXActivity.this.setupCamera();
-                    }
-                })
-                .start();
-        setupPermissions();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            CameraXActivity.this.setupCamera();
+                        }
+                    })
+                    .start();
+            setupPermissions();
+        } else {
+            // The workaround for b/134894604 on Nexus 5, API 21.
+            setupPermissions();
+            setupCamera();
+        }
     }
 
     private void setupCamera() {
