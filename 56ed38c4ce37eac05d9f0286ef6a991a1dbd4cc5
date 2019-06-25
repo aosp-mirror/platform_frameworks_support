@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86594d1d_67683b9c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/FakeDragTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-25T11:27:58Z",
+      "side": 1,
+      "message": "nit: this could misalign with production code, so not ideal",
+      "range": {
+        "startLine": 328,
+        "startChar": 30,
+        "endLine": 328,
+        "endChar": 57
+      },
+      "revId": "56ed38c4ce37eac05d9f0286ef6a991a1dbd4cc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
