@@ -26,6 +26,7 @@ import androidx.compose.Compose
 import androidx.compose.composer
 import androidx.test.rule.ActivityTestRule
 import androidx.ui.animation.transitionsEnabled
+import androidx.ui.core.AndroidCraneView
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Density
 import androidx.ui.test.ComposeTestRule
@@ -61,6 +62,36 @@ class AndroidComposeTestRule(
                 action.invoke()
             }
         })
+    }
+
+    fun runOnUiThreadSync(action: () -> Unit) {
+        // Workaround for lambda bug in IR
+        activityTestRule.runOnUiThread(object : Runnable {
+            override fun run() {
+                action.invoke()
+            }
+        })
+    }
+
+    fun findAndroidCraneView(): AndroidCraneView {
+        val contentViewGroup =
+            activityTestRule.activity.findViewById<ViewGroup>(android.R.id.content)
+        return findAndroidCraneView(contentViewGroup)!!
+    }
+
+    private fun findAndroidCraneView(parent: ViewGroup): AndroidCraneView? {
+        for (index in 0 until parent.childCount) {
+            val child = parent.getChildAt(index)
+            if (child is AndroidCraneView) {
+                return child
+            } else if (child is ViewGroup) {
+                val craneView = findAndroidCraneView(child)
+                if (craneView != null) {
+                    return craneView
+                }
+            }
+        }
+        return null
     }
 
     /**

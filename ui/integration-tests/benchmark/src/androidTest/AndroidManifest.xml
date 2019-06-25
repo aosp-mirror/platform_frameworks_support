@@ -24,5 +24,7 @@
         android:debuggable="false"
         tools:replace="android:debuggable">
         <activity android:name="android.app.Activity"/>
+        <activity android:name="androidx.ui.test.android.DefaultTestActivity"
+            android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen"/>
     </application>
 </manifest>
