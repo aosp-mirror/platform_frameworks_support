@@ -15,7 +15,6 @@
  */
 package android.support.v4.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
@@ -445,7 +444,7 @@ public final class MediaBrowserCompat {
      *         String, Bundle)}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @Nullable Bundle getNotifyChildrenChangedOptions() {
         return mImpl.getNotifyChildrenChangedOptions();
     }
@@ -1405,6 +1404,7 @@ public final class MediaBrowserCompat {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void onLoadChildren(final Messenger callback, final String parentId,
                 final List list, final Bundle options, final Bundle notifyChildrenChangedOptions) {
             // Check that there hasn't been a disconnect or a different ServiceConnection.
@@ -1948,7 +1948,7 @@ public final class MediaBrowserCompat {
         }
 
         @Override
-        @SuppressWarnings("ReferenceEquality")
+        @SuppressWarnings({"ReferenceEquality", "unchecked"})
         public void onLoadChildren(Messenger callback, String parentId, List list, Bundle options,
                 Bundle notifyChildrenChangedOptions) {
             if (mCallbacksMessenger != callback) {
@@ -2118,9 +2118,7 @@ public final class MediaBrowserCompat {
 
                         serviceCallback.onServiceConnected(callbacksMessenger,
                                 data.getString(DATA_MEDIA_ITEM_ID),
-                                (MediaSessionCompat.Token) data.getParcelable(
-                                        DATA_MEDIA_SESSION_TOKEN),
-                                rootHints);
+                                data.getParcelable(DATA_MEDIA_SESSION_TOKEN), rootHints);
                         break;
                     }
                     case SERVICE_MSG_ON_CONNECT_FAILED:

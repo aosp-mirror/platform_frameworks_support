@@ -31,8 +31,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.collection.SparseArrayCompat;
-import androidx.core.app.ActivityManagerCompat;
 import androidx.room.migration.Migration;
 import androidx.room.util.SneakyThrow;
 import androidx.sqlite.db.SimpleSQLiteQuery;
@@ -42,12 +40,15 @@ import androidx.sqlite.db.SupportSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
@@ -157,6 +158,10 @@ public abstract class RoomDatabase {
     @CallSuper
     public void init(@NonNull DatabaseConfiguration configuration) {
         mOpenHelper = createOpenHelper(configuration);
+        if (mOpenHelper instanceof SQLiteCopyOpenHelper) {
+            SQLiteCopyOpenHelper copyOpenHelper = (SQLiteCopyOpenHelper) mOpenHelper;
+            copyOpenHelper.setDatabaseConfiguration(configuration);
+        }
         boolean wal = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             wal = configuration.journalMode == JournalMode.WRITE_AHEAD_LOGGING;
@@ -374,6 +379,8 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Runnable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Runnable}.
+     * <p>
+     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      */
@@ -391,6 +398,8 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Callable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Callable}.
+     * <p>
+     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      * @param <V>  The type of the return value.
@@ -487,11 +496,18 @@ public abstract class RoomDatabase {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityManager manager = (ActivityManager)
                         context.getSystemService(Context.ACTIVITY_SERVICE);
-                if (manager != null && !ActivityManagerCompat.isLowRamDevice(manager)) {
+                if (manager != null && !isLowRamDevice(manager)) {
                     return WRITE_AHEAD_LOGGING;
                 }
             }
             return TRUNCATE;
+        }
+
+        private static boolean isLowRamDevice(@NonNull ActivityManager activityManager) {
+            if (Build.VERSION.SDK_INT >= 19) {
+                return activityManager.isLowRamDevice();
+            }
+            return false;
         }
     }
 
@@ -528,6 +544,9 @@ public abstract class RoomDatabase {
          */
         private Set<Integer> mMigrationStartAndEndVersions;
 
+        private String mCopyFromAssetPath;
+        private File mCopyFromFile;
+
         Builder(@NonNull Context context, @NonNull Class<T> klass, @Nullable String name) {
             mContext = context;
             mDatabaseClass = klass;
@@ -538,11 +557,60 @@ public abstract class RoomDatabase {
         }
 
         /**
+         * Configures Room to create and open the database using a pre-packaged database located in
+         * the application 'assets/' folder.
+         * <p>
+         * Room does not open the pre-packaged database, instead it copies it into the internal
+         * app database folder and then opens it. The pre-packaged database file must be located in
+         * the "assets/" folder of your application. For example, the path for a file located in
+         * "assets/databases/products.db" would be "databases/products.db".
+         * <p>
+         * The pre-packaged database schema will be validated. It might be best to create your
+         * pre-packaged database schema utilizing the exported schema files generated when
+         * {@link Database#exportSchema()} is enabled.
+         * <p>
+         * This method is not valid if this {@link Builder} is for an in memory database.
+         *
+         * @param databaseFilePath The file path within the 'assets/' directory of where the
+         *                         database file is located.
+         *
+         * @return This {@link Builder} instance.
+         */
+        @NonNull
+        public Builder<T> createFromAsset(@NonNull String databaseFilePath) {
+            mCopyFromAssetPath = databaseFilePath;
+            return this;
+        }
+
+        /**
+         * Configures Room to create and open the database using a pre-packaged database file.
+         * <p>
+         * Room does not open the pre-packaged database, instead it copies it into the internal
+         * app database folder and then opens it. The given file must be accessible and the right
+         * permissions must be granted for Room to copy the file.
+         * <p>
+         * The pre-packaged database schema will be validated. It might be best to create your
+         * pre-packaged database schema utilizing the exported schema files generated when
+         * {@link Database#exportSchema()} is enabled.
+         * <p>
+         * This method is not valid if this {@link Builder} is for an in memory database.
+         *
+         * @param databaseFile The database file.
+         *
+         * @return This {@link Builder} instance.
+         */
+        @NonNull
+        public Builder<T> createFromFile(@NonNull File databaseFile) {
+            mCopyFromFile = databaseFile;
+            return this;
+        }
+
+        /**
          * Sets the database factory. If not set, it defaults to
          * {@link FrameworkSQLiteOpenHelperFactory}.
          *
          * @param factory The factory to use to access the database.
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> openHelperFactory(@Nullable SupportSQLiteOpenHelper.Factory factory) {
@@ -567,7 +635,7 @@ public abstract class RoomDatabase {
          *
          * @param migrations The migration object that can modify the database and to the necessary
          *                   changes.
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> addMigrations(@NonNull Migration... migrations) {
@@ -593,7 +661,7 @@ public abstract class RoomDatabase {
          * <p>
          * You may want to turn this check off for testing.
          *
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> allowMainThreadQueries() {
@@ -614,7 +682,7 @@ public abstract class RoomDatabase {
          * The default value is {@link JournalMode#AUTOMATIC}.
          *
          * @param journalMode The journal mode.
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> setJournalMode(@NonNull JournalMode journalMode) {
@@ -637,7 +705,7 @@ public abstract class RoomDatabase {
          * <p>
          * The input {@code Executor} cannot run tasks on the UI thread.
          **
-         * @return this
+         * @return This {@link Builder} instance.
          *
          * @see #setTransactionExecutor(Executor)
          */
@@ -659,11 +727,12 @@ public abstract class RoomDatabase {
          * <p>
          * If the given {@code Executor} is shared then it should be unbounded to avoid the
          * possibility of a deadlock. Room will not use more than one thread at a time from this
-         * executor.
+         * executor since only one transaction at a time can be executed, other transactions will
+         * be queued on a first come, first serve order.
          * <p>
          * The input {@code Executor} cannot run tasks on the UI thread.
          *
-         * @return this
+         * @return This {@link Builder} instance.
          *
          * @see #setQueryExecutor(Executor)
          */
@@ -684,7 +753,7 @@ public abstract class RoomDatabase {
          * This does not work for in-memory databases. This does not work between database instances
          * targeting different database files.
          *
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> enableMultiInstanceInvalidation() {
@@ -705,12 +774,14 @@ public abstract class RoomDatabase {
          * You can call this method to change this behavior to re-create the database instead of
          * crashing.
          * <p>
-         * Note that this will delete all of the data in the database tables managed by Room.
+         * If the database was create from an asset or a file then Room will try to use the same
+         * file to re-create the database, otherwise this will delete all of the data in the
+         * database tables managed by Room.
          * <p>
          * To let Room fallback to destructive migration only during a schema downgrade then use
          * {@link #fallbackToDestructiveMigrationOnDowngrade()}.
          *
-         * @return this
+         * @return This {@link Builder} instance.
          *
          * @see #fallbackToDestructiveMigrationOnDowngrade()
          */
@@ -725,7 +796,7 @@ public abstract class RoomDatabase {
          * Allows Room to destructively recreate database tables if {@link Migration}s are not
          * available when downgrading to old schema versions.
          *
-         * @return this
+         * @return This {@link Builder} instance.
          *
          * @see Builder#fallbackToDestructiveMigration()
          */
@@ -755,7 +826,7 @@ public abstract class RoomDatabase {
          *
          * @param startVersions The set of schema versions from which Room should use a destructive
          *                      migration.
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> fallbackToDestructiveMigrationFrom(int... startVersions) {
@@ -772,7 +843,7 @@ public abstract class RoomDatabase {
          * Adds a {@link Callback} to this database.
          *
          * @param callback The callback.
-         * @return this
+         * @return This {@link Builder} instance.
          */
         @NonNull
         public Builder<T> addCallback(@NonNull Callback callback) {
@@ -828,6 +899,20 @@ public abstract class RoomDatabase {
             if (mFactory == null) {
                 mFactory = new FrameworkSQLiteOpenHelperFactory();
             }
+
+            if (mCopyFromAssetPath != null || mCopyFromFile != null) {
+                if (mName == null) {
+                    throw new IllegalArgumentException("Cannot create from asset or file for an "
+                            + "in-memory database.");
+                }
+                if (mCopyFromAssetPath != null && mCopyFromFile != null) {
+                    throw new IllegalArgumentException("Both createFromAsset() and "
+                            + "createFromFile() was called on this Builder but the database can "
+                            + "only be created using one of the two configurations.");
+                }
+                mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromAssetPath, mCopyFromFile,
+                        mFactory);
+            }
             DatabaseConfiguration configuration =
                     new DatabaseConfiguration(
                             mContext,
@@ -842,7 +927,9 @@ public abstract class RoomDatabase {
                             mMultiInstanceInvalidation,
                             mRequireMigration,
                             mAllowDestructiveMigrationOnDowngrade,
-                            mMigrationsNotRequiredFrom);
+                            mMigrationsNotRequiredFrom,
+                            mCopyFromAssetPath,
+                            mCopyFromFile);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;
@@ -854,8 +941,7 @@ public abstract class RoomDatabase {
      * between two versions.
      */
     public static class MigrationContainer {
-        private SparseArrayCompat<SparseArrayCompat<Migration>> mMigrations =
-                new SparseArrayCompat<>();
+        private HashMap<Integer, TreeMap<Integer, Migration>> mMigrations = new HashMap<>();
 
         /**
          * Adds the given migrations to the list of available migrations. If 2 migrations have the
@@ -872,16 +958,16 @@ public abstract class RoomDatabase {
         private void addMigration(Migration migration) {
             final int start = migration.startVersion;
             final int end = migration.endVersion;
-            SparseArrayCompat<Migration> targetMap = mMigrations.get(start);
+            TreeMap<Integer, Migration> targetMap = mMigrations.get(start);
             if (targetMap == null) {
-                targetMap = new SparseArrayCompat<>();
+                targetMap = new TreeMap<>();
                 mMigrations.put(start, targetMap);
             }
             Migration existing = targetMap.get(end);
             if (existing != null) {
                 Log.w(Room.LOG_TAG, "Overriding migration " + existing + " with " + migration);
             }
-            targetMap.append(end, migration);
+            targetMap.put(end, migration);
         }
 
         /**
@@ -906,27 +992,20 @@ public abstract class RoomDatabase {
 
         private List<Migration> findUpMigrationPath(List<Migration> result, boolean upgrade,
                 int start, int end) {
-            final int searchDirection = upgrade ? -1 : 1;
             while (upgrade ? start < end : start > end) {
-                SparseArrayCompat<Migration> targetNodes = mMigrations.get(start);
+                TreeMap<Integer, Migration> targetNodes = mMigrations.get(start);
                 if (targetNodes == null) {
                     return null;
                 }
                 // keys are ordered so we can start searching from one end of them.
-                final int size = targetNodes.size();
-                final int firstIndex;
-                final int lastIndex;
-
+                Set<Integer> keySet;
                 if (upgrade) {
-                    firstIndex = size - 1;
-                    lastIndex = -1;
+                    keySet = targetNodes.descendingKeySet();
                 } else {
-                    firstIndex = 0;
-                    lastIndex = size;
+                    keySet = targetNodes.keySet();
                 }
                 boolean found = false;
-                for (int i = firstIndex; i != lastIndex; i += searchDirection) {
-                    final int targetVersion = targetNodes.keyAt(i);
+                for (int targetVersion : keySet) {
                     final boolean shouldAddToPath;
                     if (upgrade) {
                         shouldAddToPath = targetVersion <= end && targetVersion > start;
@@ -934,7 +1013,7 @@ public abstract class RoomDatabase {
                         shouldAddToPath = targetVersion >= end && targetVersion < start;
                     }
                     if (shouldAddToPath) {
-                        result.add(targetNodes.valueAt(i));
+                        result.add(targetNodes.get(targetVersion));
                         start = targetVersion;
                         found = true;
                         break;

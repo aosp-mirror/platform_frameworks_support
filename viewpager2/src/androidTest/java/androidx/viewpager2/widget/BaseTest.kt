@@ -18,14 +18,22 @@ package androidx.viewpager2.widget
 
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_DOWN
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_LEFT
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_RIGHT
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
 import androidx.test.espresso.action.GeneralSwipeAction
@@ -36,12 +44,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.AppCompatActivityUtils
-import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
-import androidx.viewpager2.LocaleTestUtils
+import androidx.testutils.LocaleTestUtils
+import androidx.testutils.recreate
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
@@ -56,6 +62,7 @@ import androidx.viewpager2.widget.swipe.PageSwiperManual
 import androidx.viewpager2.widget.swipe.SelfChecking
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
+import androidx.viewpager2.widget.swipe.WaitForInjectMotionEventsAction.Companion.waitForInjectMotionEvents
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -71,6 +78,10 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 open class BaseTest {
+    companion object {
+        const val TAG = "VP2_TESTS"
+    }
+
     lateinit var localeUtil: LocaleTestUtils
 
     @get:Rule
@@ -79,7 +90,8 @@ open class BaseTest {
     @Before
     open fun setUp() {
         localeUtil = LocaleTestUtils(
-            ApplicationProvider.getApplicationContext() as android.content.Context)
+            ApplicationProvider.getApplicationContext() as android.content.Context
+        )
         // Ensure a predictable test environment by explicitly setting a locale
         localeUtil.setLocale(LocaleTestUtils.DEFAULT_TEST_LANGUAGE)
     }
@@ -95,7 +107,7 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
-        waitForActivityDrawn(activityTestRule.activity)
+        onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
@@ -103,8 +115,7 @@ open class BaseTest {
 
         // animations getting in the way on API < 16
         if (Build.VERSION.SDK_INT < 16) {
-            val recyclerView: RecyclerView = viewPager.getChildAt(0) as RecyclerView
-            recyclerView.overScrollMode = OVER_SCROLL_NEVER
+            viewPager.recyclerView.overScrollMode = OVER_SCROLL_NEVER
         }
 
         return Context(activityTestRule)
@@ -115,14 +126,18 @@ open class BaseTest {
             adapterProvider: AdapterProvider,
             onCreateCallback: ((ViewPager2) -> Unit) = { }
         ) {
+            val orientation = viewPager.orientation
+            val isUserInputEnabled = viewPager.isUserInputEnabled
             TestActivity.onCreateCallback = { activity ->
                 val viewPager = activity.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.orientation = orientation
+                viewPager.isUserInputEnabled = isUserInputEnabled
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
-            activity = AppCompatActivityUtils.recreateActivity(activityTestRule, activity)
+            activity = activityTestRule.recreate()
             TestActivity.onCreateCallback = { }
-            waitForActivityDrawn(activity)
+            onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
         }
 
         var activity: TestActivity = activityTestRule.activity
@@ -133,10 +148,6 @@ open class BaseTest {
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
-
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
 
         fun peekForward() {
             peek(adjustForRtl(-50f))
@@ -196,14 +207,14 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
-                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
-                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager)
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
+                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
         private fun adjustForRtl(offset: Float): Float {
-            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+            return if (viewPager.isHorizontal && viewPager.isRtl) -offset else offset
         }
 
         private fun peek(offset: Float) {
@@ -224,6 +235,96 @@ open class BaseTest {
                         )
                     )
                 )
+        }
+
+        fun assertPageActions() {
+            if (!ViewPager2.sFeatureEnhancedA11yEnabled) {
+                return // these assertions only apply to enhanced a11y
+            }
+
+            var customActions = getActionList(viewPager)
+            var currentPage = viewPager.currentItem
+            var numPages = viewPager.adapter!!.itemCount
+            var isUserInputEnabled = viewPager.isUserInputEnabled
+            var isHorizontalOrientation = viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL
+            var isVerticalOrientation = viewPager.orientation == ViewPager2.ORIENTATION_VERTICAL
+
+            val expectPageLeftAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isHorizontalOrientation &&
+                    (if (viewPager.isRtl) currentPage < numPages - 1 else currentPage > 0)
+
+            val expectPageRightAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isHorizontalOrientation &&
+                    (if (viewPager.isRtl) currentPage > 0 else currentPage < numPages - 1)
+
+            val expectPageUpAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isVerticalOrientation &&
+                    currentPage > 0
+
+            val expectPageDownAction = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    isUserInputEnabled && isVerticalOrientation &&
+                    currentPage < numPages - 1
+
+            val expectScrollBackwardAction =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && isUserInputEnabled &&
+                        currentPage > 0
+
+            val expectScrollForwardAction =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && isUserInputEnabled &&
+                        currentPage < numPages - 1
+
+            assertThat("Left action expected: $expectPageLeftAction",
+                hasPageAction(customActions, ACTION_PAGE_LEFT.id),
+                equalTo(expectPageLeftAction)
+            )
+
+            assertThat("Right action expected: $expectPageRightAction",
+                hasPageAction(customActions, ACTION_PAGE_RIGHT.id),
+                equalTo(expectPageRightAction)
+            )
+            assertThat("Up action expected: $expectPageUpAction",
+                hasPageAction(customActions, ACTION_PAGE_UP.id),
+                equalTo(expectPageUpAction)
+            )
+            assertThat("Down action expected: $expectPageDownAction",
+                hasPageAction(customActions, ACTION_PAGE_DOWN.id),
+                equalTo(expectPageDownAction)
+            )
+
+            var node = AccessibilityNodeInfo.obtain()
+            activityTestRule.runOnUiThread { viewPager.onInitializeAccessibilityNodeInfo(node) }
+            @Suppress("DEPRECATION") var standardActions = node.actions
+
+            assertThat("scroll backward action expected: $expectScrollBackwardAction",
+                hasScrollAction(standardActions, ACTION_SCROLL_BACKWARD),
+                equalTo(expectScrollBackwardAction)
+            )
+
+            assertThat("Scroll forward action expected: $expectScrollForwardAction",
+                hasScrollAction(standardActions, ACTION_SCROLL_FORWARD),
+                equalTo(expectScrollForwardAction)
+            )
+        }
+
+        private fun hasScrollAction(
+            actions: Int,
+            accessibilityActionId: Int
+        ): Boolean {
+            return actions and accessibilityActionId != 0
+        }
+
+        private fun hasPageAction(
+            actions: List<AccessibilityNodeInfoCompat.AccessibilityActionCompat>,
+            accessibilityActionId: Int
+        ): Boolean {
+            return actions.any { it.id == accessibilityActionId }
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        private fun getActionList(view: View):
+                List<AccessibilityNodeInfoCompat.AccessibilityActionCompat> {
+            return view.getTag(R.id.tag_accessibility_actions) as?
+                    ArrayList<AccessibilityNodeInfoCompat.AccessibilityActionCompat> ?: ArrayList()
         }
     }
 
@@ -261,9 +362,10 @@ open class BaseTest {
     }
 
     fun Context.setAdapterSync(adapterProvider: AdapterProvider) {
-        val waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
+        lateinit var waitForRenderLatch: CountDownLatch
 
-        runOnUiThread {
+        activityTestRule.runOnUiThread {
+            waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
             viewPager.adapter = adapterProvider(activity)
         }
 
@@ -320,19 +422,25 @@ open class BaseTest {
         return latch
     }
 
-    val ViewPager2.pageSize: Int
-        get() {
-            return if (orientation == ORIENTATION_HORIZONTAL) {
-                measuredWidth - paddingLeft - paddingRight
-            } else {
-                measuredHeight - paddingTop - paddingBottom
+    fun ViewPager2.addWaitForFirstScrollEventLatch(): CountDownLatch {
+        val latch = CountDownLatch(1)
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(position: Int, offset: Float, offsetPx: Int) {
+                latch.countDown()
+                post { unregisterOnPageChangeCallback(this) }
             }
+        })
+        return latch
+    }
+
+    val ViewPager2.recyclerView: RecyclerView
+        get() {
+            return getChildAt(0) as RecyclerView
         }
 
     val ViewPager2.currentCompletelyVisibleItem: Int
         get() {
-            return ((getChildAt(0) as RecyclerView)
-                .layoutManager as LinearLayoutManager)
+            return (recyclerView.layoutManager as LinearLayoutManager)
                 .findFirstCompletelyVisibleItemPosition()
         }
 
@@ -343,7 +451,11 @@ open class BaseTest {
      * 3. Expected text is displayed
      * 4. Internal activity state is valid (as per activity self-test)
      */
-    fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
+    fun Context.assertBasicState(
+        pageIx: Int,
+        value: String = pageIx.toString(),
+        performSelfCheck: Boolean = true
+    ) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
@@ -353,9 +465,11 @@ open class BaseTest {
             matches(withText(value))
         )
 
-        if (viewPager.adapter is SelfChecking) {
+        // TODO(b/130153109): Wire offscreenPageLimit into FragmentAdapter, remove performSelfCheck
+        if (performSelfCheck && viewPager.adapter is SelfChecking) {
             (viewPager.adapter as SelfChecking).selfCheck()
         }
+        assertPageActions()
     }
 
     fun ViewPager2.setCurrentItemSync(
@@ -384,15 +498,20 @@ open class BaseTest {
         DESC(-1)
     }
 
-    fun onPage(childMatcher: Matcher<View>): ViewInteraction {
-        return onView(allOf(
-            withParent(withParent(isAssignableFrom(ViewPager2::class.java))),
-            childMatcher
-        ))
-    }
-
     fun <T, R : Comparable<R>> List<T>.assertSorted(selector: (T) -> R) {
         assertThat(this, equalTo(this.sortedBy(selector)))
+    }
+
+    /**
+     * Returns the slice between the first and second element. First and second element are not
+     * included in the results. Search for the second element starts on the element after the first
+     * element. If first element is not found, an empty list is returned. If second element is not
+     * found, all elements after the first are returned.
+     *
+     * @return A list with all elements between the first and the second element
+     */
+    fun <T> List<T>.slice(first: T, second: T): List<T> {
+        return dropWhile { it != first }.drop(1).takeWhile { it != second }
     }
 
     /**
@@ -514,3 +633,26 @@ fun scrollStateGlossary(): String {
             "$SCROLL_STATE_DRAGGING=${scrollStateToString(SCROLL_STATE_DRAGGING)}, " +
             "$SCROLL_STATE_SETTLING=${scrollStateToString(SCROLL_STATE_SETTLING)})"
 }
+
+class RetryException(msg: String) : Exception(msg)
+
+fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
+    repeat(n) { i ->
+        try {
+            tryBlock()
+            return
+        } catch (e: RetryException) {
+            if (i < n - 1) {
+                Log.w(BaseTest.TAG, "Bad state, retrying block", e)
+            } else {
+                throw AssertionError("Block hit bad state $n times", e)
+            }
+            resetBlock()
+        }
+    }
+}
+
+val View.isRtl: Boolean
+    get() = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+
+val ViewPager2.isHorizontal: Boolean get() = orientation == ORIENTATION_HORIZONTAL

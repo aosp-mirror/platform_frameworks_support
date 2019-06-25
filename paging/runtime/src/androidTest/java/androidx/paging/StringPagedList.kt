@@ -16,50 +16,47 @@
 
 package androidx.paging
 
+import androidx.testutils.TestExecutor
+
 class StringPagedList constructor(
     leadingNulls: Int,
     trailingNulls: Int,
     vararg items: String
 ) : PagedList<String>(
-        PagedStorage<String>(),
-        TestExecutor(),
-        TestExecutor(),
-        null,
-        PagedList.Config.Builder().setPageSize(1).build()
+    PagedStorage(),
+    TestExecutor(),
+    TestExecutor(),
+    null,
+    PagedList.Config.Builder().setPageSize(1).build()
 ), PagedStorage.Callback {
     val list = items.toList()
     var detached = false
+
     init {
-        @Suppress("UNCHECKED_CAST")
-        val keyedStorage = mStorage as PagedStorage<String>
-        keyedStorage.init(leadingNulls,
-                list,
-                trailingNulls,
-                0,
-                this)
+        val keyedStorage = getStorage()
+        keyedStorage.init(
+            leadingNulls,
+            list,
+            trailingNulls,
+            0,
+            this
+        )
     }
 
-    internal override fun isContiguous(): Boolean {
-        return true
-    }
+    override val isContiguous = true
 
-    override fun getLastKey(): Any? {
-        return null
-    }
+    override val lastKey: Any? = null
 
-    override fun isDetached(): Boolean = detached
+    override val isDetached
+        get() = detached
 
     override fun detach() {
         detached = true
     }
 
-    override fun dispatchUpdatesSinceSnapshot(
-        storageSnapshot: PagedList<String>,
-        callback: PagedList.Callback
-    ) {
-    }
+    override fun dispatchUpdatesSinceSnapshot(snapshot: PagedList<String>, callback: Callback) {}
 
-    override fun dispatchCurrentLoadState(listener: LoadStateListener?) {}
+    override fun dispatchCurrentLoadState(callback: LoadStateListener) {}
 
     override fun loadAroundInternal(index: Int) {}
 
@@ -73,15 +70,10 @@ class StringPagedList constructor(
 
     override fun onPageInserted(start: Int, count: Int) {}
 
-    override fun getDataSource(): DataSource<*, String> {
-        return ListDataSource<String>(list)
-    }
+    override val dataSource = ListDataSource(list)
 
-    override fun onPagesRemoved(startOfDrops: Int, count: Int) {
-        notifyRemoved(startOfDrops, count)
-    }
+    override fun onPagesRemoved(startOfDrops: Int, count: Int) = notifyRemoved(startOfDrops, count)
 
-    override fun onPagesSwappedToPlaceholder(startOfDrops: Int, count: Int) {
+    override fun onPagesSwappedToPlaceholder(startOfDrops: Int, count: Int) =
         notifyChanged(startOfDrops, count)
-    }
 }

@@ -16,99 +16,103 @@
 
 package androidx.benchmark
 
+import android.os.Build
+import android.os.Environment.DIRECTORY_DOWNLOADS
+import android.os.Environment.getExternalStoragePublicDirectory
+import android.util.JsonWriter
+import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 
 internal object ResultWriter {
-    private fun List<Long>.toXmlWithMargin(): String {
-        return joinToString("\n") { "|        <run nanos=\"$it\"/>" }
-    }
+    @VisibleForTesting
+    internal val reports = ArrayList<BenchmarkState.Report>()
 
-    private fun BenchmarkState.Report.toXml(name: String, className: String): String {
-        return "\n" + """
-        |    <testcase
-        |            name="$name"
-        |            classname="$className"
-        |            nanos="$nanos"
-        |            warmupIterations="$warmupIterations"
-        |            repeatIterations="$repeatIterations">
-        ${data.toXmlWithMargin()}
-        |    </testcase>
-    """.trimMargin()
-    }
+    fun appendReport(report: BenchmarkState.Report) {
+        reports.add(report)
 
-    private fun List<Long>.toJsonWithMargin(): String {
-        return joinToString(",\n") { "|            $it" }
-    }
-
-    private fun BenchmarkState.Report.toJson(name: String, className: String): String {
-        return "\n" + """
-        |    {
-        |        "name": "$name",
-        |        "classname": "$className",
-        |        "nanos": $nanos,
-        |        "warmupIterations": $warmupIterations,
-        |        "repeatIterations": $repeatIterations,
-        |        "runs": [
-        ${data.toJsonWithMargin()}
-        |        ]
-        |    }
-    """.trimMargin()
-    }
-
-    data class FileManager(
-        val extension: String,
-        val initial: String,
-        val tail: String,
-        val separator: String? = null,
-        val reportFormatter: (BenchmarkState.Report, String, String) -> String
-    ) {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext!!
-        val file = File("${context.filesDir}/benchmarkdata.$extension")
-        var currentContent = initial
-
-        val fullFileContent: String
-            get() = currentContent + tail
-
-        fun append(report: BenchmarkState.Report, name: String, className: String) {
-            if (currentContent != initial && separator != null) {
-                currentContent += separator
-            }
-            currentContent += reportFormatter(report, name, className)
+        val arguments = InstrumentationRegistry.getArguments()
+        if (arguments.getString("androidx.benchmark.output.enable")?.toLowerCase() == "true") {
+            // Currently, we just overwrite the whole file
+            // Ideally, append for efficiency
+            val packageName =
+                InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
+            @Suppress("DEPRECATION") // b/134925431
+            val filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+            val file = File(filePath, "$packageName-benchmarkData.json")
+            writeReport(file, reports)
         }
     }
 
-    val fileManagers = listOf(
-        FileManager(
-            extension = "xml",
-            initial = "<benchmarksuite>",
-            tail = "\n</benchmarksuite>",
-            reportFormatter = { report, name, className ->
-                report.toXml(name, className)
+    @VisibleForTesting
+    internal fun writeReport(file: File, reports: List<BenchmarkState.Report>) {
+        file.run {
+            if (!exists()) {
+                parentFile?.mkdirs()
+                createNewFile()
             }
-        ),
-        FileManager(
-            extension = "json",
-            initial = "{ \"results\": [",
-            tail = "\n]}",
-            separator = ",",
-            reportFormatter = { report, name, className ->
-                report.toJson(name, className)
-            }
-        )
-    )
 
-    fun appendStats(name: String, className: String, report: BenchmarkState.Report) {
-        for (fileManager in fileManagers) {
-            fileManager.append(report, WarningState.WARNING_PREFIX + name, className)
-            fileManager.file.run {
-                if (!exists()) {
-                    createNewFile()
-                }
-                // Currently, we just overwrite the whole file
-                // Ideally, truncate off the 'tail', and append for efficiency
-                writeText(fileManager.fullFileContent)
-            }
+            val writer = JsonWriter(bufferedWriter())
+            writer.setIndent("    ")
+
+            writer.beginObject()
+
+            writer.name("context").beginObject()
+                .name("build").buildInfoObject()
+                .name("cpuCoreCount").value(CpuInfo.coreDirs.size)
+                .name("cpuLocked").value(CpuInfo.locked)
+                .name("cpuMaxFreqHz").value(CpuInfo.maxFreqHz)
+                .name("memTotalBytes").value(MemInfo.memTotalBytes)
+                .name("sustainedPerformanceModeEnabled")
+                .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
+            writer.endObject()
+
+            writer.name("benchmarks").beginArray()
+            reports.forEach { writer.reportObject(it) }
+            writer.endArray()
+
+            writer.endObject()
+
+            writer.flush()
+            writer.close()
         }
+    }
+
+    private fun JsonWriter.buildInfoObject(): JsonWriter {
+        beginObject()
+            .name("device").value(Build.DEVICE)
+            .name("fingerprint").value(Build.FINGERPRINT)
+            .name("model").value(Build.MODEL)
+            .name("version").beginObject().name("sdk").value(Build.VERSION.SDK_INT).endObject()
+        return endObject()
+    }
+
+    private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
+        beginObject()
+            .name("name").value(report.testName)
+            .name("className").value(report.className)
+            .name("metrics").metricsObject(report)
+            .name("warmupIterations").value(report.warmupIterations)
+            .name("repeatIterations").value(report.repeatIterations)
+            .name("thermalThrottleSleepSeconds").value(report.thermalThrottleSleepSeconds)
+
+        return endObject()
+    }
+
+    private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
+        beginObject()
+
+        name("timeNs").beginObject()
+            .name("minimum").value(report.stats.min)
+            .name("maximum").value(report.stats.max)
+            .name("median").value(report.stats.median)
+
+        name("runs").beginArray()
+        report.data.forEach { value(it) }
+        endArray()
+
+        endObject() // timeNs
+
+        return endObject()
     }
 }
