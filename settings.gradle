@@ -249,9 +249,17 @@ includeProject(":support-media-compat-test-service", "media/version-compat-tests
 includeProject(":support-media-compat-test-service-previous", "media/version-compat-tests/previous/service")
 includeProject(":support-media-compat-test-lib", "media/version-compat-tests/lib")
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 includeProject(":support-media2-test-client", "media2/version-compat-tests/current/client")
 includeProject(":support-media2-test-service", "media2/version-compat-tests/current/service")
 includeProject(":support-media2-test-common", "media2/version-compat-tests/common")
+=======
+includeProject(":support-media2-test-client", "media2/session/version-compat-tests/current/client")
+includeProject(":support-media2-test-client-previous", "media2/session/version-compat-tests/previous/client")
+includeProject(":support-media2-test-service", "media2/session/version-compat-tests/current/service")
+includeProject(":support-media2-test-service-previous", "media2/session/version-compat-tests/previous/service")
+includeProject(":support-media2-test-common", "media2/session/version-compat-tests/common")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
 /////////////////////////////
 //

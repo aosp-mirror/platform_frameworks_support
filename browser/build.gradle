@@ -20,6 +20,11 @@ dependencies {
     api(project(":legacy-support-core-ui"))
 
     implementation(project(":concurrent:concurrent-futures"))
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+    annotationProcessor(NULLAWAY)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -36,4 +41,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.BROWSER
     inceptionYear = "2015"
     description = "Android Support Custom Tabs"
+    failOnDeprecationWarnings = false
 }

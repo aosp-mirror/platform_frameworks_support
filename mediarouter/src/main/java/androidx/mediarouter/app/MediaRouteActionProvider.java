@@ -45,6 +45,7 @@ import java.lang.ref.WeakReference;
  * when no routes are available, the action provider will instead make the
  * menu item invisible.  In this way, the button will only be visible when it
  * is possible for the user to discover and select a matching route.
+ * You can call {@link #setAlwaysVisible} to override this behavior.
  * </p>
  *
  * <h3>Prerequisites</h3>
@@ -208,10 +209,16 @@ public class MediaRouteActionProvider extends ActionProvider {
     }
 
     /**
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
      * Sets weather {@link MediaRouteButton} is visible when no routes are available.
      * When true, the button is visible even if there are no routes to connect.
+=======
+     * Sets whether {@link MediaRouteButton} is visible when no routes are available.
+     * When true, the button is visible even when there are no routes to connect.
+     * The default is false.
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
      *
-     * @param alwaysVisible true to show MediaRouteButton always.
+     * @param alwaysVisible true to show MediaRouteButton even when no routes are available.
      *
      * @see MediaRouteButton#setAlwaysVisible(boolean)
      */

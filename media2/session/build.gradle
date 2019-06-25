@@ -1,0 +1,48 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+import androidx.build.Publish
+
+import static androidx.build.dependencies.DependenciesKt.*
+
+plugins {
+    id("AndroidXPlugin")
+    id("com.android.library")
+}
+
+dependencies {
+    api(project(":media"))
+    api(project(":media2:media2-common"))
+    api(GUAVA_LISTENABLE_FUTURE)
+    implementation(project(":concurrent:concurrent-futures"))
+    implementation("androidx.collection:collection:1.0.0")
+    compileOnly(CHECKER_FRAMEWORK)
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation project(':internal-testutils')
+    annotationProcessor(project(":versionedparcelable-annotation"))
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+
+androidx {
+    name = "AndroidX media2 session library"
+    publish = Publish.SNAPSHOT_AND_RELEASE
+    mavenVersion = LibraryVersions.MEDIA2_SESSION
+    mavenGroup = LibraryGroups.MEDIA2
+    inceptionYear = "2018"
+    description = "Media2 Session"
+    // TODO: Remove these (b/130838274)
+    failOnDeprecationWarnings = false
+    trackRestrictedAPIs = false // TODO: Remove it (b/131561173)
+}
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

@@ -24,10 +24,6 @@ plugins {
     id("kotlin")
 }
 
-lintOptions {
-    fatal("UnknownNullness")
-}
-
 dependencies {
     compile(project(":annotation"))
     compile(ARCH_CORE_COMMON)

@@ -221,7 +221,7 @@ public class MigrationTest {
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
         //noinspection ConstantConditions
-        assertThat(throwable.getMessage(), containsString("Migration failed"));
+        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
     }
 
     @Test
@@ -472,7 +472,7 @@ public class MigrationTest {
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
         //noinspection ConstantConditions
-        assertThat(throwable.getMessage(), containsString("Migration failed"));
+        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
     }
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {

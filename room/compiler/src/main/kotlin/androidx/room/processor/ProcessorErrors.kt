@@ -356,8 +356,6 @@ object ProcessorErrors {
                 " Alternatively, you can set inheritSuperIndices to true in the @Entity annotation."
     }
 
-    val RELATION_NOT_COLLECTION = "Fields annotated with @Relation must be a List or Set."
-
     val NOT_ENTITY_OR_VIEW = "The class must be either @Entity or @DatabaseView."
 
     fun relationCannotFindEntityField(
@@ -625,6 +623,35 @@ object ProcessorErrors {
             "External Content FTS Entity '$ftsClassName' has a declared content entity " +
                     "'$contentClassName' that is not present in the same @Database. Maybe you " +
                     "forgot to add it to the entities section of the @Database?"
+
+    fun cannotFindAsEntityField(entityName: String) = "Cannot find a column in the entity " +
+            "$entityName that matches with this partial entity field. If you don't wish to use " +
+            "the field then you can annotate it with @Ignore."
+
+    val INVALID_TARGET_ENTITY_IN_SHORTCUT_METHOD = "Target entity declared in @Insert, @Update " +
+            "or @Delete must be annotated with @Entity."
+
+    val INVALID_RELATION_IN_PARTIAL_ENTITY = "Partial entities cannot have relations."
+
+    fun missingPrimaryKeysInPartialEntityForInsert(
+        partialEntityName: String,
+        primaryKeyNames: List<String>
+    ) = "The partial entity $partialEntityName is missing the primary key fields " +
+            "(${primaryKeyNames.joinToString()}) needed to perform an INSERT. If your single " +
+            "primary key is auto generated then the fields are optional."
+
+    fun missingRequiredColumnsInPartialEntity(
+        partialEntityName: String,
+        missingColumnNames: List<String>
+    ) = "The partial entity $partialEntityName is missing required columns " +
+            "(${missingColumnNames.joinToString()}) needed to perform an INSERT. These are " +
+            "NOT NULL columns without default values."
+
+    fun missingPrimaryKeysInPartialEntityForUpdate(
+        partialEntityName: String,
+        primaryKeyNames: List<String>
+    ) = "The partial entity $partialEntityName is missing the primary key fields " +
+            "(${primaryKeyNames.joinToString()}) needed to perform an UPDATE."
 
     fun cannotFindPreparedQueryResultAdapter(
         returnType: String,

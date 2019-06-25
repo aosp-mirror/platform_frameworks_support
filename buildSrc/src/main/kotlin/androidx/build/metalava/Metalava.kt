@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -164,3 +165,5 @@ object Metalava {
         project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
     }
 }
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

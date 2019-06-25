@@ -34,7 +34,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 import androidx.annotation.ColorRes;
+=======
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +52,7 @@ import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
 import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -264,6 +271,7 @@ public class PagedListView extends FrameLayout {
 
             int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
+            int listDividerColor = ContextCompat.getColor(context, listDividerColorRes);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
                     dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
@@ -488,6 +496,29 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+     * Sets whether the scroll bar is enabled.
+     *
+     * If enabled, a scroll bar will appear when the number of items causes the PagedListView to
+     * be scrollable. Otherwise, the scroll bar is hidden regardless of item count.
+     *
+     * @param enabled {@code true} to enable the scroll bar.
+     */
+    public final void setScrollBarEnabled(boolean enabled) {
+        mScrollBarEnabled = enabled;
+        mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns {@code true} if the scroll bar is enabled.
+     */
+    public final boolean isScrollBarEnabled() {
+        return mScrollBarEnabled;
+    }
+
+    /**
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
@@ -824,6 +855,34 @@ public class PagedListView extends FrameLayout {
                 ((DividerDecoration) decor).setDividerColor(dividerColor);
             }
         }
+    }
+
+    /**
+     * Sets the color of the scrollbar thumb.
+     *
+     * @param color Resource identifier of the color.
+     */
+    public void setScrollbarThumbColor(@ColorRes int color) {
+        mScrollBarView.setScrollbarThumbColor(color);
+    }
+
+    /**
+     * Sets the tint color for the up and down buttons of the scrollbar.
+     *
+     * @param tintResId Resource identifier of the tint color.
+     */
+    public void setScrollBarButtonTintColor(@ColorRes int tintResId) {
+        mScrollBarView.setButtonTintColor(tintResId);
+    }
+
+    /**
+     * Sets the drawable that will function as the background for the buttons of the scrollbar. This
+     * background should provide the ripple.
+     *
+     * @param backgroundResId The drawable resource identifier for the ripple background.
+     */
+    public void setScrollBarButtonRippleBackground(@DrawableRes int backgroundResId) {
+        mScrollBarView.setButtonRippleBackground(backgroundResId);
     }
 
     /**

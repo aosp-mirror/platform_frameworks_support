@@ -55,8 +55,11 @@ open class UpdateApiTask : DefaultTask() {
 
     @TaskAction
     fun exec() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         val inputPublicApi = checkNotNull(inputApiLocation?.publicApiFile) { "inputPublicApi not set" }
         val inputRestrictedApi = checkNotNull(inputApiLocation?.restrictedApiFile) { "inputRestrictedApi not set" }
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         var permitOverwriting = true
         for (outputApi in outputApiLocations) {
             val version = outputApi.version()
@@ -64,10 +67,29 @@ open class UpdateApiTask : DefaultTask() {
                 permitOverwriting = false
             }
         }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         for (outputApi in outputApiLocations) {
             copy(inputPublicApi, outputApi.publicApiFile, permitOverwriting, project.logger)
+=======
+        for (outputApi in outputApiLocations.get()) {
+            copy(
+                inputApiLocation.get().publicApiFile,
+                outputApi.publicApiFile,
+                permitOverwriting,
+                project.logger
+            )
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             if (updateRestrictedAPIs) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
                 copy(inputRestrictedApi, outputApi.restrictedApiFile, permitOverwriting, project.logger)
+=======
+                copy(
+                    inputApiLocation.get().restrictedApiFile,
+                    outputApi.restrictedApiFile,
+                    permitOverwriting,
+                    project.logger
+                )
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             }
         }
     }

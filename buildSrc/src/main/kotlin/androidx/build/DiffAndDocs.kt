@@ -545,9 +545,23 @@ private fun createDistDocsTask(
         from(generateDocs.map {
             it.destinationDir
         })
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         baseName = "android-support-$ruleName-docs"
         version = getBuildId()
         destinationDir = project.getDistributionDirectory()
+=======
+        val baseName = "androidx-$ruleName-docs"
+        val buildId = getBuildId()
+        archiveBaseName.set(baseName)
+        archiveVersion.set(buildId)
+        destinationDirectory.set(project.getDistributionDirectory())
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+        val fileName = "$baseName-$buildId.zip"
+        val destinationFile = filePath + fileName
+        description = "Zips $ruleName Java documentation (generated via Doclava in the " +
+            "style of d.android.com) into $destinationFile"
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         doLast {
             logger.lifecycle("'Wrote API reference to $archivePath")
         }

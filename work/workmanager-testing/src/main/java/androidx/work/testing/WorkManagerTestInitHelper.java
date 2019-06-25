@@ -91,7 +91,23 @@ public final class WorkManagerTestInitHelper {
         if (workManager == null) {
             return null;
         } else {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
             return ((TestWorkManagerImpl) WorkManagerImpl.getInstance());
+=======
+            return (TestWorkManagerImpl) workManager;
+        }
+    }
+
+    /**
+     * @return An instance of {@link TestDriver}. This exposes additional functionality that is
+     * useful in the context of testing when using WorkManager.
+     */
+    public static @Nullable TestDriver getTestDriver(@NonNull Context context) {
+        try {
+            return (TestWorkManagerImpl) WorkManagerImpl.getInstance(context);
+        } catch (IllegalStateException e) {
+            return null;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         }
     }
 

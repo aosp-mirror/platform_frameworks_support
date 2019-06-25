@@ -30,10 +30,10 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Database {
-    method public abstract Class[] entities();
+    method public abstract Class<?>[] entities();
     method public abstract boolean exportSchema() default true;
     method public abstract int version();
-    method public abstract Class[] views() default {};
+    method public abstract Class<?>[] views() default {};
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface DatabaseView {
@@ -42,6 +42,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.METHOD) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Delete {
+    method public abstract Class<?> entity() default java.lang.Object.class;
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Embedded {
@@ -60,7 +61,7 @@ package androidx.room {
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface ForeignKey {
     method public abstract String[] childColumns();
     method public abstract boolean deferred() default false;
-    method public abstract Class entity();
+    method public abstract Class<?> entity();
     method @androidx.room.ForeignKey.Action public abstract int onDelete() default androidx.room.ForeignKey.NO_ACTION;
     method @androidx.room.ForeignKey.Action public abstract int onUpdate() default androidx.room.ForeignKey.NO_ACTION;
     method public abstract String[] parentColumns();
@@ -80,7 +81,7 @@ package androidx.room {
   }
 
   @RequiresApi(16) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) public @interface Fts4 {
-    method public abstract Class contentEntity() default java.lang.Object.class;
+    method public abstract Class<?> contentEntity() default java.lang.Object.class;
     method public abstract String languageId() default "";
     method public abstract androidx.room.FtsOptions.MatchInfo matchInfo() default androidx.room.FtsOptions.MatchInfo.FTS4;
     method public abstract String[] notIndexed() default {};
@@ -117,10 +118,21 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Insert {
+    method public abstract Class<?> entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
   }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.room.OnConflictStrategy.REPLACE, androidx.room.OnConflictStrategy.ROLLBACK, androidx.room.OnConflictStrategy.ABORT, androidx.room.OnConflictStrategy.FAIL, androidx.room.OnConflictStrategy.IGNORE}) public @interface OnConflictStrategy {
+=======
+  @java.lang.annotation.Target({}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Junction {
+    method public abstract String entityColumn() default "";
+    method public abstract String parentColumn() default "";
+    method public abstract Class<?> value();
+  }
+
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) @IntDef({androidx.room.OnConflictStrategy.REPLACE, androidx.room.OnConflictStrategy.ROLLBACK, androidx.room.OnConflictStrategy.ABORT, androidx.room.OnConflictStrategy.FAIL, androidx.room.OnConflictStrategy.IGNORE}) public @interface OnConflictStrategy {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     field public static final int ABORT = 3; // 0x3
     field @Deprecated public static final int FAIL = 4; // 0x4
     field public static final int IGNORE = 5; // 0x5
@@ -137,11 +149,16 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.METHOD) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface RawQuery {
-    method public abstract Class[] observedEntities() default {};
+    method public abstract Class<?>[] observedEntities() default {};
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Relation {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public abstract Class entity() default java.lang.Object.class;
+=======
+    method public abstract androidx.room.Junction associateBy() default @androidx.room.Junction;
+    method public abstract Class<?> entity() default java.lang.Object.class;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public abstract String entityColumn();
     method public abstract String parentColumn();
     method public abstract String[] projection() default {};
@@ -178,6 +195,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Update {
+    method public abstract Class<?> entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
   }
 

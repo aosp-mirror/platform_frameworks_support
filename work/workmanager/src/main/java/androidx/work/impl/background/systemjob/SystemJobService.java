@@ -50,8 +50,15 @@ public class SystemJobService extends JobService implements ExecutionListener {
     @Override
     public void onCreate() {
         super.onCreate();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         mWorkManagerImpl = WorkManagerImpl.getInstance();
         if (mWorkManagerImpl == null) {
+=======
+        try {
+            mWorkManagerImpl = WorkManagerImpl.getInstance(getApplicationContext());
+            mWorkManagerImpl.getProcessor().addExecutionListener(this);
+        } catch (IllegalStateException e) {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             // This can occur if...
             // 1. The app is performing an auto-backup.  Prior to O, JobScheduler could erroneously
             //    try to send commands to JobService in this state (b/32180780).  Since neither
@@ -68,12 +75,10 @@ public class SystemJobService extends JobService implements ExecutionListener {
                 throw new IllegalStateException("WorkManager needs to be initialized via a "
                         + "ContentProvider#onCreate() or an Application#onCreate().");
             }
-            Logger.get().warning(TAG, "Could not find WorkManager instance; this may be because an "
-                    + "auto-backup is in progress. Ignoring JobScheduler commands for now. Please "
-                    + "make sure that you are initializing WorkManager if you have manually "
+            Logger.get().warning(TAG, "Could not find WorkManager instance; this may be because "
+                    + "an auto-backup is in progress. Ignoring JobScheduler commands for now. "
+                    + "Please make sure that you are initializing WorkManager if you have manually "
                     + "disabled WorkManagerInitializer.");
-        } else {
-            mWorkManagerImpl.getProcessor().addExecutionListener(this);
         }
     }
 

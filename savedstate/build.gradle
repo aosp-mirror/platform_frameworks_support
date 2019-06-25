@@ -8,13 +8,22 @@ plugins {
 }
 
 android {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     lintOptions {
         fatal("UnknownNullness")
+=======
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+    buildTypes.all {
+        consumerProguardFiles("proguard-rules.pro")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.0.0")
+    api("androidx.annotation:annotation:1.1.0")
     implementation(ARCH_CORE_COMMON)
 
     androidTestImplementation(KOTLIN_STDLIB)

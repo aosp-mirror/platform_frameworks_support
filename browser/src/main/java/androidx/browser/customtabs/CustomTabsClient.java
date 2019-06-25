@@ -68,8 +68,14 @@ public class CustomTabsClient {
      *                    #onCustomTabsServiceConnected(ComponentName, CustomTabsClient)}
      * @return Whether the binding was successful.
      */
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     public static boolean bindCustomTabsService(Context context,
             String packageName, CustomTabsServiceConnection connection) {
+=======
+    public static boolean bindCustomTabsService(@NonNull Context context,
+            @Nullable String packageName, @NonNull CustomTabsServiceConnection connection) {
+        connection.setApplicationContext(context.getApplicationContext());
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         Intent intent = new Intent(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION);
         if (!TextUtils.isEmpty(packageName)) intent.setPackage(packageName);
         return context.bindService(intent, connection,
@@ -81,7 +87,8 @@ public class CustomTabsClient {
      *
      * @see #getPackageName(Context, List<String>, boolean)
      */
-    public static String getPackageName(Context context, @Nullable List<String> packages) {
+    public static @Nullable String getPackageName(@NonNull Context context,
+            @Nullable List<String> packages) {
         return getPackageName(context, packages, false);
     }
 
@@ -137,7 +144,8 @@ public class CustomTabsClient {
      * @param packageName Package name of the target implementation.
      * @return Whether the binding was successful.
      */
-    public static boolean connectAndInitialize(Context context, String packageName) {
+    public static boolean connectAndInitialize(@NonNull Context context,
+            @NonNull String packageName) {
         if (packageName == null) return false;
         final Context applicationContext = context.getApplicationContext();
         CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
@@ -187,10 +195,84 @@ public class CustomTabsClient {
      *                 session. Can be null. All the callbacks will be received on the UI thread.
      * @return The session object that was created as a result of the transaction. The client can
      *         use this to relay session specific calls.
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
      *         Null on error.
+=======
+     *         Null if the service failed to respond (threw a RemoteException).
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
      */
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     public CustomTabsSession newSession(final CustomTabsCallback callback) {
         ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
+=======
+    public @Nullable CustomTabsSession newSession(@Nullable final CustomTabsCallback callback) {
+        return newSessionInternal(callback, null);
+    }
+
+    /**
+     * Creates a new session or updates a callback for the existing session
+     * through an ICustomTabsService. This session can be used to associate any related
+     * communication through the service with an intent and then later with a Custom Tab.
+     * The client can then send later service calls or intents to through same
+     * session-intent-Custom Tab association.
+     * @param callback The callback through which the client will receive updates about the created
+     *                 session. Can be null. All the callbacks will be received on the UI thread.
+     * @param id The session id. If the session with the specified id already exists for the given
+     *           client application, the new callback is supplied to that session and further
+     *           attempts to launch URLs using that session will update the existing Custom Tab
+     *           instead of launching a new one.
+     * @return The session object that was created as a result of the transaction. The client can
+     *         use this to relay session specific calls.
+     *         Null if the service failed to respond (threw a RemoteException).
+     */
+    public @Nullable CustomTabsSession newSession(@Nullable final CustomTabsCallback callback,
+            int id) {
+        return newSessionInternal(callback, createSessionId(mApplicationContext, id));
+    }
+
+    /**
+     * Creates a new pending session with an optional callback. This session can be converted to
+     * a standard session using {@link #attachSession} after connection.
+     *
+     * {@see PendingSession}
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static CustomTabsSession.PendingSession newPendingSession(
+            Context context, final CustomTabsCallback callback, int id) {
+        PendingIntent sessionId = createSessionId(context, id);
+
+        return new CustomTabsSession.PendingSession(callback, sessionId);
+    }
+
+    private @Nullable CustomTabsSession newSessionInternal(final CustomTabsCallback callback,
+                @Nullable PendingIntent sessionId) {
+        ICustomTabsCallback.Stub wrapper = createCallbackWrapper(callback);
+        Bundle extras = new Bundle();
+        if (sessionId != null) extras.putParcelable(CustomTabsIntent.EXTRA_SESSION_ID, sessionId);
+        try {
+            if (!mService.newSessionWithExtras(wrapper, extras)) return null;
+        } catch (RemoteException e) {
+            return null;
+        }
+        return new CustomTabsSession(mService, wrapper, mServiceComponentName, sessionId);
+    }
+
+    /**
+     * Can be used as a channel between the Custom Tabs client and the provider to do something that
+     * is not part of the API yet.
+     */
+    public @Nullable Bundle extraCommand(@NonNull String commandName, @Nullable Bundle args) {
+        try {
+            return mService.extraCommand(commandName, args);
+        } catch (RemoteException e) {
+            return null;
+        }
+    }
+
+    private ICustomTabsCallback.Stub createCallbackWrapper(final CustomTabsCallback callback) {
+        return new ICustomTabsCallback.Stub() {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             private Handler mHandler = new Handler(Looper.getMainLooper());
 
             @Override

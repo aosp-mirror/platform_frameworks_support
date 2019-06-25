@@ -17,6 +17,11 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -40,49 +45,33 @@ open class GenerateApiTask : MetalavaTask() {
     fun exec() {
         val dependencyClasspath = checkNotNull(
                 dependencyClasspath) { "Dependency classpath not set." }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         val publicApiFile = checkNotNull(apiLocation?.publicApiFile) { "Current public API file not set." }
         val restrictedApiFile = checkNotNull(apiLocation?.restrictedApiFile) { "Current restricted API file not set." }
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
-        // generate public API txt
-        runWithArgs(
-            "--classpath",
-            (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
-
-            "--source-path",
-            sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
-
-            "--api",
-            publicApiFile.toString(),
-
-            "--format=v3",
-            "--output-kotlin-nulls=yes"
+        project.generateApi(
+            bootClasspath,
+            dependencyClasspath,
+            sourcePaths,
+            apiLocation.get().publicApiFile,
+            false
         )
 
         if (generateRestrictedAPIs) {
-            // generate restricted API txt
-            val metalavaRestrictedOutputFile = File(restrictedApiFile.path + ".tmp")
-            runWithArgs(
-                "--classpath",
-                (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
-
-                "--source-path",
-                sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
-
-                "--api",
-                metalavaRestrictedOutputFile.toString(),
-
-                "--show-annotation",
-                "androidx.annotation.RestrictTo",
-
-                "--format=v3",
-                "--output-kotlin-nulls=yes"
+            project.generateApi(
+                bootClasspath,
+                dependencyClasspath,
+                sourcePaths,
+                apiLocation.get().restrictedApiFile,
+                true
             )
-
-            removeRestrictToLibraryLines(metalavaRestrictedOutputFile, restrictedApiFile)
         }
     }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 
     // until b/119617147 is done, remove lines containing "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
     fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
@@ -96,4 +85,6 @@ open class GenerateApiTask : MetalavaTask() {
         }
         outputFile.writeText(outputBuilder.toString())
     }
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }

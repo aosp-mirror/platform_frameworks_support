@@ -37,12 +37,19 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':work:work-runtime-ktx')
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "com.android.support:recyclerview-v7:27.1.1"
     implementation "com.android.support:appcompat-v7:27.1.1"
     implementation "com.android.support:design:27.1.1"
+=======
+    implementation (project(':work:work-gcm'))
+    implementation(WORK_ARCH_CORE_RUNTIME)
+    implementation(ANDROIDX_RECYCLERVIEW)
+    implementation(MATERIAL)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])

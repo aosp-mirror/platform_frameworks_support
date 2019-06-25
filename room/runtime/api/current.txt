@@ -8,6 +8,11 @@ package androidx.room {
     field public final boolean allowMainThreadQueries;
     field public final java.util.List<androidx.room.RoomDatabase.Callback>? callbacks;
     field public final android.content.Context context;
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    field public final String? copyFromAssetPath;
+    field public final java.io.File? copyFromFile;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -15,6 +20,10 @@ package androidx.room {
     field public final java.util.concurrent.Executor queryExecutor;
     field public final boolean requireMigration;
     field public final androidx.sqlite.db.SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory;
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    field public final java.util.concurrent.Executor transactionExecutor;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
   }
 
   public class InvalidationTracker {
@@ -66,6 +75,7 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> addMigrations(androidx.room.migration.Migration...);
     method public androidx.room.RoomDatabase.Builder<T> allowMainThreadQueries();
     method public T build();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public androidx.room.RoomDatabase.Builder<T> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T> fallbackToDestructiveMigrationFrom(int...!);
@@ -73,6 +83,18 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
     method public androidx.room.RoomDatabase.Builder<T> setJournalMode(androidx.room.RoomDatabase.JournalMode);
     method public androidx.room.RoomDatabase.Builder<T> setQueryExecutor(java.util.concurrent.Executor);
+=======
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(java.io.File);
+    method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
+    method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationOnDowngrade();
+    method public androidx.room.RoomDatabase.Builder<T!> openHelperFactory(androidx.sqlite.db.SupportSQLiteOpenHelper.Factory?);
+    method public androidx.room.RoomDatabase.Builder<T!> setJournalMode(androidx.room.RoomDatabase.JournalMode);
+    method public androidx.room.RoomDatabase.Builder<T!> setQueryExecutor(java.util.concurrent.Executor);
+    method public androidx.room.RoomDatabase.Builder<T!> setTransactionExecutor(java.util.concurrent.Executor);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
   }
 
   public abstract static class RoomDatabase.Callback {

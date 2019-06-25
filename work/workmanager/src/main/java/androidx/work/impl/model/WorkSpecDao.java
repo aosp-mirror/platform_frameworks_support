@@ -303,6 +303,18 @@ public interface WorkSpecDao {
     List<WorkSpec> getScheduledWork();
 
     /**
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+     * @return The List of {@link WorkSpec}s that are running.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.RUNNING
+    )
+    List<WorkSpec> getRunningWork();
+
+    /**
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
      * Immediately prunes eligible work from the database meeting the following criteria:
      * - Is finished (succeeded, failed, or cancelled)
      * - Has zero unfinished dependents

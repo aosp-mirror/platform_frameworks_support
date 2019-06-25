@@ -86,6 +86,11 @@ class ScrollBenchmark {
         }
     }
 
+    fun spin(nsToSpin: Long) {
+        val start = System.nanoTime()
+        while (System.nanoTime() < start + nsToSpin) {}
+    }
+
     @UiThreadTest
     @Test
     fun createBindOffset() {
@@ -98,7 +103,12 @@ class ScrollBenchmark {
         }
 
         val rv = activityRule.activity.recyclerView
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+            spin(nsToSpin = 17500)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }

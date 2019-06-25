@@ -24,12 +24,6 @@ plugins {
     id("kotlin-android")
 }
 
-android {
-    lintOptions {
-        fatal("UnknownNullness")
-    }
-}
-
 dependencies {
     api(project(":paging:paging-common"))
 

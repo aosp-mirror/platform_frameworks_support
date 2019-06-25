@@ -54,7 +54,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
     }
 
     @Override
-    public void schedule(WorkSpec... workSpecs) {
+    public void schedule(@NonNull WorkSpec... workSpecs) {
         if (workSpecs == null || workSpecs.length <= 0) {
             return;
         }

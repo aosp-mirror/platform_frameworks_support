@@ -33,7 +33,61 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+=======
+        <activity
+            android:name=".SafeBrowsingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SmallInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MediumInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoudInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GiantInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerWebViewEnableActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InvisibleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnattachedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CustomInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PopupInterstitialActivity" />
+        <activity
+            android:name=".WhitelistActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProxyOverrideActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderSimpleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderAjaxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForceDarkActivity"
+            android:theme="@style/AppDayNightTheme"
+            android:exported="true" />
+        <activity
+            android:name=".MultiProcessEnabledActivity"
+            android:exported="true" />
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     </application>
 </manifest>

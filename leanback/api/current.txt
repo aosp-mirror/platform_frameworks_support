@@ -165,7 +165,7 @@ package androidx.leanback.app {
   @Deprecated public static final class BrowseFragment.MainFragmentAdapterRegistry {
     ctor @Deprecated public BrowseFragment.MainFragmentAdapterRegistry();
     method @Deprecated public android.app.Fragment! createFragment(Object!);
-    method @Deprecated public void registerFragment(Class!, androidx.leanback.app.BrowseFragment.FragmentFactory!);
+    method @Deprecated public void registerFragment(Class<?>!, androidx.leanback.app.BrowseFragment.FragmentFactory!);
   }
 
   @Deprecated public static class BrowseFragment.MainFragmentRowsAdapter<T extends android.app.Fragment> {
@@ -264,7 +264,7 @@ package androidx.leanback.app {
   public static final class BrowseSupportFragment.MainFragmentAdapterRegistry {
     ctor public BrowseSupportFragment.MainFragmentAdapterRegistry();
     method public androidx.fragment.app.Fragment! createFragment(Object!);
-    method public void registerFragment(Class!, androidx.leanback.app.BrowseSupportFragment.FragmentFactory!);
+    method public void registerFragment(Class<?>!, androidx.leanback.app.BrowseSupportFragment.FragmentFactory!);
   }
 
   public static class BrowseSupportFragment.MainFragmentRowsAdapter<T extends androidx.fragment.app.Fragment> {
@@ -441,10 +441,17 @@ package androidx.leanback.app {
     method @Deprecated public int onProvideTheme();
     method @Deprecated public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction!);
     method @Deprecated public void openInEditMode(androidx.leanback.widget.GuidedAction!);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method @Deprecated public void popBackStackToGuidedStepFragment(Class!, int);
     method @Deprecated public void setActions(java.util.List<androidx.leanback.widget.GuidedAction>!);
     method @Deprecated public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction>!);
     method @Deprecated public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction>!);
+=======
+    method @Deprecated public void popBackStackToGuidedStepFragment(Class<?>!, int);
+    method @Deprecated public void setActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+    method @Deprecated public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction!>!);
+    method @Deprecated public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method @Deprecated public void setSelectedActionPosition(int);
     method @Deprecated public void setSelectedButtonActionPosition(int);
     method @Deprecated public void setUiStyle(int);
@@ -503,10 +510,17 @@ package androidx.leanback.app {
     method public int onProvideTheme();
     method public boolean onSubGuidedActionClicked(androidx.leanback.widget.GuidedAction!);
     method public void openInEditMode(androidx.leanback.widget.GuidedAction!);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public void popBackStackToGuidedStepSupportFragment(Class!, int);
     method public void setActions(java.util.List<androidx.leanback.widget.GuidedAction>!);
     method public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction>!);
     method public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction>!);
+=======
+    method public void popBackStackToGuidedStepSupportFragment(Class<?>!, int);
+    method public void setActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+    method public void setActionsDiffCallback(androidx.leanback.widget.DiffCallback<androidx.leanback.widget.GuidedAction!>!);
+    method public void setButtonActions(java.util.List<androidx.leanback.widget.GuidedAction!>!);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public void setSelectedActionPosition(int);
     method public void setSelectedButtonActionPosition(int);
     method public void setUiStyle(int);

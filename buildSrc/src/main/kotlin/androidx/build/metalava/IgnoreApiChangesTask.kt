@@ -96,8 +96,20 @@ open class IgnoreApiChangesTask : MetalavaTask() {
         }
         runWithArgs(args)
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         if (intermediateExclusionsFile.length() > 0) {
             Files.copy(intermediateExclusionsFile, exclusionsFile)
+=======
+        var moreThanHeader = false
+        intermediateExclusions.forEachLine {
+            if (!it.startsWith("// Baseline format: ")) {
+                moreThanHeader = true
+                return@forEachLine
+            }
+        }
+        if (moreThanHeader) {
+            Files.copy(intermediateExclusions, exclusionsFile)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         } else {
             if (exclusionsFile.exists()) {
                 exclusionsFile.delete()

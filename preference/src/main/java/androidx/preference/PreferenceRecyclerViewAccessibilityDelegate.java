@@ -32,7 +32,10 @@ import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
  * {@link Preference}s.
  *
  * @hide
+ * @deprecated This class is used to set AccessibilityNodeInfo for {@link Preference}. Preference
+ * class deprecated the API onInitializeAccessibilityNodeInfo.
  */
+@Deprecated
 @RestrictTo(LIBRARY_GROUP_PREFIX)
 public class PreferenceRecyclerViewAccessibilityDelegate
         extends RecyclerViewAccessibilityDelegate {

@@ -27,7 +27,11 @@ dependencies {
     api("androidx.appcompat:appcompat:1.1.0-alpha02")
     api(project(":core"))
     implementation("androidx.collection:collection:1.0.0")
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     api("androidx.fragment:fragment:1.1.0-alpha04")
+=======
+    api("androidx.fragment:fragment:1.1.0-rc01")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     api("androidx.recyclerview:recyclerview:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)

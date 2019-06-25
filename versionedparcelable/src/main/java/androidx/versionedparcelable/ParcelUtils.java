@@ -109,4 +109,46 @@ public class ParcelUtils {
             return null;
         }
     }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+    /**
+     * Add a list of VersionedParcelable to an existing Bundle.
+     */
+    public static void putVersionedParcelableList(@NonNull Bundle b, @NonNull String key,
+            @NonNull List<? extends VersionedParcelable> list) {
+        Bundle innerBundle = new Bundle();
+        ArrayList<Parcelable> toWrite = new ArrayList<>();
+        for (VersionedParcelable obj : list) {
+            toWrite.add(toParcelable(obj));
+        }
+        innerBundle.putParcelableArrayList(INNER_BUNDLE_KEY, toWrite);
+        b.putParcelable(key, innerBundle);
+    }
+
+    /**
+     * Get a list of VersionedParcelable from a Bundle.
+     *
+     * Returns null if the bundle isn't present or ClassLoader issues occur.
+     */
+    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @Nullable
+    public static <T extends VersionedParcelable> List<T> getVersionedParcelableList(
+            Bundle bundle, String key) {
+        List<T> resultList = new ArrayList<>();
+        try {
+            Bundle innerBundle = bundle.getParcelable(key);
+            innerBundle.setClassLoader(ParcelUtils.class.getClassLoader());
+            ArrayList<Parcelable> parcelableArrayList =
+                    innerBundle.getParcelableArrayList(INNER_BUNDLE_KEY);
+            for (Parcelable parcelable : parcelableArrayList) {
+                resultList.add(fromParcelable(parcelable));
+            }
+            return resultList;
+        } catch (RuntimeException e) {
+            // There may be new classes or such in the bundle, make sure not to crash the caller.
+        }
+        return null;
+    }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }

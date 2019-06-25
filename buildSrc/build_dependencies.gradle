@@ -16,9 +16,25 @@
 
 def build_versions = [:]
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 build_versions.kotlin = '1.3.10'
 build_versions.lint = '26.4.0-alpha10'
 build_versions.dokka = "0.9.17-g20181009"
+=======
+def kotlin_override = System.getenv("KOTLIN_OVERRIDE")
+if (kotlin_override != null) {
+    build_versions.kotlin = kotlin_override
+    logger.warn("USING OVERRIDDEN KOTLIN GRADLE PLUGIN DEPENDENCY " + build_versions.kotlin)
+} else {
+    build_versions.kotlin = '1.3.40'
+}
+build_versions.lint = '26.5.0-beta04'
+build_versions.dokka = '0.9.17-g002'
+
+build_versions.studio = new Properties()
+new File(buildscript.sourceFile.parentFile, "studio_versions.properties").withInputStream { build_versions.studio.load(it) }
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
 rootProject.ext['build_versions'] = build_versions
 

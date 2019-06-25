@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
 
@@ -73,6 +74,18 @@ public class BiometricPromptDemo extends FragmentActivity {
 
     private static final String DEFAULT_KEY_NAME = "default_key";
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    private static final String BIOMETRIC_SUCCESS_MESSAGE = "BIOMETRIC_SUCCESS_MESSAGE";
+    private static final String BIOMETRIC_ERROR_HW_UNAVAILABLE_MESSAGE =
+            "BIOMETRIC_ERROR_HW_UNAVAILABLE";
+    private static final String BIOMETRIC_ERROR_NONE_ENROLLED_MESSAGE =
+            "BIOMETRIC_ERROR_NONE_ENROLLED";
+    private static final String BIOMETRIC_ERROR_NO_HARDWARE =
+            "BIOMETRIC_ERROR_NO_HARDWARE";
+    private static final String BIOMETRIC_ERROR_UNKNOWN = "Error unknown return result";
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     private static final int MODE_NONE = 0;
     private static final int MODE_PERSIST_ACROSS_CONFIGURATION_CHANGES = 1;
     private static final int MODE_CANCEL_ON_CONFIGURATION_CHANGE = 2;
@@ -171,6 +184,39 @@ public class BiometricPromptDemo extends FragmentActivity {
             buttonCreateKeys.setOnClickListener(v -> enableBiometricWithCrypto());
         }
         buttonAuthenticate.setOnClickListener(v -> startAuthentication());
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+        canAuthenticate.setOnClickListener(v -> {
+            BiometricManager bm = BiometricManager.from(getApplicationContext());
+            String message;
+            switch (bm.canAuthenticate()) {
+                case BiometricManager.BIOMETRIC_SUCCESS:
+                    message = BIOMETRIC_SUCCESS_MESSAGE;
+                    break;
+                case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                    message = BIOMETRIC_ERROR_HW_UNAVAILABLE_MESSAGE;
+                    break;
+                case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                    message = BIOMETRIC_ERROR_NONE_ENROLLED_MESSAGE;
+                    break;
+                case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                    message = BIOMETRIC_ERROR_NO_HARDWARE;
+                    break;
+                default:
+                    message = BIOMETRIC_ERROR_UNKNOWN;
+            }
+            Toast.makeText(getApplicationContext(), "canAuthenticate : " + message,
+                    Toast.LENGTH_SHORT).show();
+        });
+
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            mDeviceCredentialAllowedCheckbox.setEnabled(false);
+            mDeviceCredentialAllowedCheckbox.setChecked(false);
+        }
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     @Override
@@ -182,7 +228,22 @@ public class BiometricPromptDemo extends FragmentActivity {
     }
 
     @Override
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     public void onSaveInstanceState(Bundle outState) {
+=======
+    protected void onResume() {
+        super.onResume();
+        // Developers should (re)create the BiometricPrompt every time the application is resumed.
+        // This is necessary because it is possible for the executor and callback to be GC'd.
+        // Instantiating the prompt here allows the library to handle things such as configuration
+        // changes.
+        mBiometricPrompt = new BiometricPrompt(this /* fragmentActivity */, mExecutor,
+                mAuthenticationCallback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_SAVED_USE_CRYPTO, mUseCrypto);
         outState.putInt(KEY_SAVED_RADIO, mMode);
@@ -251,6 +312,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         }
 
         // Build the biometric prompt info
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         BiometricPrompt.PromptInfo info =
                 new BiometricPrompt.PromptInfo.Builder()
                         .setTitle("Title " + mCounter)
@@ -260,6 +322,26 @@ public class BiometricPromptDemo extends FragmentActivity {
                                         + mCounter)
                         .setNegativeButtonText("Negative Button " + mCounter)
                         .build();
+=======
+        BiometricPrompt.PromptInfo.Builder builder = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Title " + mCounter)
+                .setSubtitle("Subtitle " + mCounter)
+                .setDescription(
+                        "Lorem ipsum dolor sit amet, consecte etur adipisicing elit. "
+                                + mCounter)
+                .setConfirmationRequired(mConfirmationRequiredCheckbox.isChecked());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (mDeviceCredentialAllowedCheckbox.isChecked()) {
+                builder.setDeviceCredentialAllowed(true);
+            } else {
+                builder.setNegativeButtonText("Negative Button " + mCounter);
+            }
+        } else {
+            builder.setNegativeButtonText("Negative Button " + mCounter);
+        }
+        BiometricPrompt.PromptInfo info = builder.build();
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         mCounter++;
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && mUseCrypto) {
@@ -349,4 +431,44 @@ public class BiometricPromptDemo extends FragmentActivity {
             throw new RuntimeException(e);
         }
     }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+    private boolean useCrypto() {
+        return mUseCryptoCheckbox.isChecked();
+    }
+
+    /**
+     * Callback when the checkbox is clicked.
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        final boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.checkbox_use_crypto:
+                findViewById(R.id.button_enable_biometric_with_crypto)
+                        .setVisibility(checked ? View.VISIBLE : View.GONE);
+                break;
+        }
+    }
+
+    /**
+     * @return The currently selected configuration.
+     */
+    private int getMode() {
+        int id = ((RadioGroup) findViewById(R.id.radio_group)).getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.radio_persist_across_configuration_changes:
+                return MODE_PERSIST_ACROSS_CONFIGURATION_CHANGES;
+            case R.id.radio_cancel_on_configuration_change:
+                return MODE_CANCEL_ON_CONFIGURATION_CHANGE;
+            case R.id.radio_cancel_after_three_failures:
+                return MODE_CANCEL_AFTER_THREE_FAILURES;
+            default:
+                return MODE_NONE;
+        }
+    }
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }

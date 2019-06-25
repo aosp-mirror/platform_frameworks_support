@@ -38,6 +38,7 @@
     <public type="color" name="car_body2" />
     <public type="color" name="car_body3_dark" />
     <public type="color" name="car_body3_light" />
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     <public type="color" name="car_body3" />
     <public type="color" name="car_body4_dark" />
     <public type="color" name="car_body4_light" />
@@ -57,6 +58,10 @@
     <public type="color" name="car_subtext5_dark" />
     <public type="color" name="car_subtext5_light" />
     <public type="color" name="car_subtext5" />
+=======
+    <public type="color" name="car_body4_light" />
+    <public type="color" name="car_subtext1_light" />
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
     <!-- Tint colors -->
     <public type="color" name="car_tint_dark" />

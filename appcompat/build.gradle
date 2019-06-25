@@ -9,10 +9,17 @@ plugins {
 dependencies {
     api(project(":annotation"))
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     api(project(":core"))
     implementation(project(":collection"))
     api(project(":cursoradapter"))
     api(project(":fragment"))
+=======
+    api("androidx.core:core:1.1.0-rc01")
+    implementation("androidx.collection:collection:1.0.0")
+    api("androidx.cursoradapter:cursoradapter:1.0.0")
+    api("androidx.fragment:fragment:1.1.0-rc01")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     api(project(":appcompat:appcompat-resources"))
     api("androidx.drawerlayout:drawerlayout:1.0.0")
 
@@ -56,6 +63,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.APPCOMPAT
     inceptionYear = "2011"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

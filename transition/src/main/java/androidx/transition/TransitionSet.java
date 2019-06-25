@@ -291,7 +291,7 @@ public class TransitionSet extends Transition {
 
     @NonNull
     @Override
-    public TransitionSet addTarget(@NonNull Class targetType) {
+    public TransitionSet addTarget(@NonNull Class<?> targetType) {
         for (int i = 0; i < mTransitions.size(); i++) {
             mTransitions.get(i).addTarget(targetType);
         }
@@ -324,7 +324,7 @@ public class TransitionSet extends Transition {
 
     @NonNull
     @Override
-    public TransitionSet removeTarget(@NonNull Class target) {
+    public TransitionSet removeTarget(@NonNull Class<?> target) {
         for (int i = 0; i < mTransitions.size(); i++) {
             mTransitions.get(i).removeTarget(target);
         }
@@ -369,7 +369,7 @@ public class TransitionSet extends Transition {
 
     @NonNull
     @Override
-    public Transition excludeTarget(@NonNull Class type, boolean exclude) {
+    public Transition excludeTarget(@NonNull Class<?> type, boolean exclude) {
         for (int i = 0; i < mTransitions.size(); i++) {
             mTransitions.get(i).excludeTarget(type, exclude);
         }

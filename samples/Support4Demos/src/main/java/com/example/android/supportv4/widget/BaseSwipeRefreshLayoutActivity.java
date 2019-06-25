@@ -24,6 +24,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.LayoutRes;
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 
@@ -90,6 +98,20 @@ abstract class BaseSwipeRefreshLayoutActivity extends Activity implements OnRefr
         super.onCreate(bundle);
         setContentView(getLayoutId());
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        mViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+        mViewModel.refreshDone.observe(this, event -> {
+            if (event.getContentIfNotHandled() != null) {
+                mSwipeRefreshWidget.setRefreshing(false);
+                Toast.makeText(BaseSwipeRefreshLayoutActivity.this,
+                        "Refreshing is completed. Long text is added here just to be better "
+                                + "visible on screen",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         mSwipeRefreshWidget = findViewById(R.id.swipe_refresh_widget);
         mSwipeRefreshWidget.setColorSchemeResources(R.color.color1, R.color.color2, R.color.color3,
                 R.color.color4);

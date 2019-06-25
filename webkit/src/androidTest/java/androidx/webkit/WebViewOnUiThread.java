@@ -69,6 +69,7 @@ class WebViewOnUiThread {
     private WebView mWebView;
 
     public WebViewOnUiThread() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
@@ -76,6 +77,21 @@ class WebViewOnUiThread {
                 mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
                 mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
             }
+=======
+        this(WebkitUtils.onMainThreadSync(() -> {
+            return new WebView(ApplicationProvider.getApplicationContext());
+        }));
+    }
+
+    /**
+     * Create a new WebViewOnUiThread wrapping the provided {@link WebView}.
+     */
+    public WebViewOnUiThread(final WebView webView) {
+        WebkitUtils.onMainThreadSync(() -> {
+            mWebView = webView;
+            mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
+            mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         });
     }
 
@@ -86,11 +102,8 @@ class WebViewOnUiThread {
     public static WebView createWebView() {
         final Holder h = new Holder();
         final Context ctx = ApplicationProvider.getApplicationContext();
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                h.mView = new WebView(ctx);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            h.mView = new WebView(ctx);
         });
         return h.mView;
     }
@@ -100,15 +113,12 @@ class WebViewOnUiThread {
      * the tests.
      */
     public void cleanUp() {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.clearHistory();
-                mWebView.clearCache(true);
-                mWebView.setWebChromeClient(null);
-                mWebView.setWebViewClient(null);
-                mWebView.destroy();
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            mWebView.clearHistory();
+            mWebView.clearCache(true);
+            mWebView.setWebChromeClient(null);
+            mWebView.setWebViewClient(null);
+            mWebView.destroy();
         });
     }
 
@@ -138,12 +148,7 @@ class WebViewOnUiThread {
     }
 
     public static void destroy(final WebView webView) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.destroy();
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> webView.destroy());
     }
 
     public void setWebViewClient(final WebViewClient webviewClient) {
@@ -152,12 +157,7 @@ class WebViewOnUiThread {
 
     public static void setWebViewClient(
             final WebView webView, final WebViewClient webviewClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebViewClient(webviewClient);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> webView.setWebViewClient(webviewClient));
     }
 
     public void setWebChromeClient(final WebChromeClient webChromeClient) {
@@ -166,18 +166,14 @@ class WebViewOnUiThread {
 
     public static void setWebChromeClient(
             final WebView webView, final WebChromeClient webChromeClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebChromeClient(webChromeClient);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> webView.setWebChromeClient(webChromeClient));
     }
 
     public void setWebViewRendererClient(final WebViewRendererClient webViewRendererClient) {
         setWebViewRendererClient(mWebView, webViewRendererClient);
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     public static void setWebViewRendererClient(
             final WebView webView, final WebViewRendererClient webViewRendererClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
@@ -185,6 +181,12 @@ class WebViewOnUiThread {
             public void run() {
                 WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
             }
+=======
+    public static void setWebViewRenderProcessClient(
+            final WebView webView, final WebViewRenderProcessClient webViewRenderProcessClient) {
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.setWebViewRenderProcessClient(webView, webViewRenderProcessClient);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         });
     }
 
@@ -196,12 +198,19 @@ class WebViewOnUiThread {
     public static void setWebViewRendererClient(
             final WebView webView,
             final Executor executor,
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
             final WebViewRendererClient webViewRendererClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
                 WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
             }
+=======
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.setWebViewRenderProcessClient(
+                    webView, executor, webViewRenderProcessClient);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         });
     }
 
@@ -211,39 +220,40 @@ class WebViewOnUiThread {
 
     public static WebViewRendererClient getWebViewRendererClient(
             final WebView webView) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<WebViewRendererClient>() {
             @Override
             public WebViewRendererClient capture() {
                 return WebViewCompat.getWebViewRendererClient(webView);
             }
+=======
+        return WebkitUtils.onMainThreadSync(() -> {
+            return WebViewCompat.getWebViewRenderProcessClient(webView);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         });
     }
 
     public WebMessagePortCompat[] createWebMessageChannelCompat() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<WebMessagePortCompat[]>() {
             @Override
             public WebMessagePortCompat[] capture() {
                 return WebViewCompat.createWebMessageChannel(mWebView);
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.createWebMessageChannel(mWebView));
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     public void postWebMessageCompat(final WebMessageCompat message, final Uri targetOrigin) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.postWebMessage(mWebView, message, targetOrigin);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.postWebMessage(mWebView, message, targetOrigin);
         });
     }
 
     public void addJavascriptInterface(final Object object, final String name) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.addJavascriptInterface(object, name);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.addJavascriptInterface(object, name));
     }
 
     /**
@@ -253,21 +263,11 @@ class WebViewOnUiThread {
      * @param url The URL to load.
      */
     void loadUrlAndWaitForCompletion(final String url) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadUrl(url);
-            }
-        });
+        callAndWait(() -> mWebView.loadUrl(url));
     }
 
     public void loadUrl(final String url) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadUrl(url);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.loadUrl(url));
     }
 
     /**
@@ -280,23 +280,15 @@ class WebViewOnUiThread {
      */
     public void loadDataAndWaitForCompletion(@NonNull final String data,
             @Nullable final String mimeType, @Nullable final String encoding) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadData(data, mimeType, encoding);
-            }
-        });
+        callAndWait(() -> mWebView.loadData(data, mimeType, encoding));
     }
 
     public void loadDataWithBaseURLAndWaitForCompletion(final String baseUrl,
             final String data, final String mimeType, final String encoding,
             final String historyUrl) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadDataWithBaseURL(baseUrl, data, mimeType, encoding,
-                        historyUrl);
-            }
+        callAndWait(() -> {
+            mWebView.loadDataWithBaseURL(baseUrl, data, mimeType, encoding,
+                    historyUrl);
         });
     }
 
@@ -306,13 +298,7 @@ class WebViewOnUiThread {
      * similar functions.
      */
     void waitForLoadCompletion() {
-        waitForCriteria(LOAD_TIMEOUT,
-                new Callable<Boolean>() {
-                    @Override
-                    public Boolean call() {
-                        return isLoaded();
-                    }
-                });
+        waitForCriteria(LOAD_TIMEOUT, () -> isLoaded());
         clearLoad();
     }
 
@@ -325,49 +311,53 @@ class WebViewOnUiThread {
     }
 
     public String getTitle() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<String>() {
             @Override
             public String capture() {
                 return mWebView.getTitle();
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getTitle());
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     public WebSettings getSettings() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<WebSettings>() {
             @Override
             public WebSettings capture() {
                 return mWebView.getSettings();
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getSettings());
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     public String getUrl() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<String>() {
             @Override
             public String capture() {
                 return mWebView.getUrl();
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getUrl());
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     public void postVisualStateCallbackCompat(final long requestId,
             final WebViewCompat.VisualStateCallback callback) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.postVisualStateCallback(mWebView, requestId, callback);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.postVisualStateCallback(mWebView, requestId, callback);
         });
     }
 
     void evaluateJavascript(final String script, final ValueCallback<String> result) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.evaluateJavascript(script, result);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.evaluateJavascript(script, result));
     }
 
     public WebViewClient getWebViewClient() {
@@ -375,12 +365,16 @@ class WebViewOnUiThread {
     }
 
     public static WebViewClient getWebViewClient(final WebView webView) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<WebViewClient>() {
             @Override
             public WebViewClient capture() {
                 return WebViewCompat.getWebViewClient(webView);
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.getWebViewClient(webView));
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     public WebChromeClient getWebChromeClient() {
@@ -388,12 +382,16 @@ class WebViewOnUiThread {
     }
 
     public static WebChromeClient getWebChromeClient(final WebView webView) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         return getValue(new ValueGetter<WebChromeClient>() {
             @Override
             public WebChromeClient capture() {
                 return WebViewCompat.getWebChromeClient(webView);
             }
         });
+=======
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.getWebChromeClient(webView));
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     WebView getWebViewOnCurrentThread() {
@@ -405,6 +403,7 @@ class WebViewOnUiThread {
         return getter.getValue();
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     private abstract static class ValueGetter<T> implements Runnable {
         private T mValue;
 
@@ -418,6 +417,24 @@ class WebViewOnUiThread {
         public T getValue() {
             return mValue;
         }
+=======
+    /**
+     * Capture a bitmap representation of the current WebView state.
+     *
+     * This synchronises so that the bitmap contents reflects the current DOM state, rather than
+     * potentially capturing a previously generated frame.
+     */
+    public Bitmap captureBitmap() {
+        getSettings().setOffscreenPreRaster(true);
+        waitForDOMReadyToRender();
+        return WebkitUtils.onMainThreadSync(() -> {
+            Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(), mWebView.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            mWebView.draw(canvas);
+            return bitmap;
+        });
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     /**

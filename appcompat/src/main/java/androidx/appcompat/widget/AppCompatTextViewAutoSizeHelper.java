@@ -774,6 +774,7 @@ class AppCompatTextViewAutoSizeHelper {
                 includePad);
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T invokeAndReturnWithDefault(@NonNull Object object,
             @NonNull final String methodName, @NonNull final T defaultValue) {
         T result = null;
@@ -795,6 +796,7 @@ class AppCompatTextViewAutoSizeHelper {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T accessAndReturnWithDefault(@NonNull Object object,
             @NonNull final String fieldName, @NonNull final T defaultValue) {
         try {

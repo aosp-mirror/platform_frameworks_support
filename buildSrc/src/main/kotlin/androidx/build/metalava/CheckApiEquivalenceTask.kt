@@ -56,26 +56,54 @@ open class CheckApiEquivalenceTask : DefaultTask() {
 
     @TaskAction
     fun exec() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         val truePublicDefinition = checkNotNull(builtApi?.publicApiFile) { "builtApi.publicApiFile not set" }
         val trueRestrictedApi = checkNotNull(builtApi?.restrictedApiFile) { "builtApi.restrictedApiFile not set" }
         for (checkedInApi in checkedInApis) {
             val declaredPublicApi = checkNotNull(checkedInApi?.publicApiFile) { "checkedInApi.publicApiFile not set" }
             val declaredRestrictedApi = checkNotNull(checkedInApi?.restrictedApiFile) { "checkedInApi.restrictedApiFile not set" }
             if (!FileUtils.contentEquals(declaredPublicApi, truePublicDefinition)) {
+=======
+        for (checkedInApi in checkedInApis.get()) {
+            if (!FileUtils.contentEquals(
+                    checkedInApi.publicApiFile,
+                    builtApi.get().publicApiFile
+                )) {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
                 val message = "Public API definition has changed.\n\n" +
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
                         "Declared definition is $declaredPublicApi\n" +
                         "True     definition is $truePublicDefinition\n\n" +
                         "Please run `./gradlew updateApi` to confirm these changes are intentional by updating the " +
                         "public API definition"
+=======
+                        "Declared definition is $checkedInApi.publicApiFile\n" +
+                        "True     definition is $builtApi.get().publicApiFile\n\n" +
+                        "Please run `./gradlew updateApi` to confirm these changes are " +
+                        "intentional by updating the public API definition"
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
                 throw GradleException(message)
             }
             if (checkRestrictedAPIs) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
                 if (!FileUtils.contentEquals(declaredRestrictedApi, trueRestrictedApi)) {
                     val message = "Restricted API definition (marked by the RestrictedTo annotation) has changed.\n\n" +
                             "Declared definition is $declaredRestrictedApi\n" +
                             "True     definition is $trueRestrictedApi\n" +
                             "Please run `./gradlew updateApi` to confirm these changes are intentional by updating " +
                             "the restricted API definition"
+=======
+                if (!FileUtils.contentEquals(
+                        checkedInApi.restrictedApiFile,
+                        builtApi.get().restrictedApiFile
+                    )) {
+                    val message = "Restricted API definition (marked by the RestrictedTo " +
+                            "annotation) has changed.\n\n" +
+                            "Declared definition is $checkedInApi.restrictedApiFile\n" +
+                            "True     definition is $builtApi.get().restrictedApiFile\n" +
+                            "Please run `./gradlew updateApi` to confirm these changes are " +
+                            "intentional by updating the restricted API definition"
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
                     throw GradleException(message)
                 }
             }

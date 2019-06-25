@@ -48,7 +48,36 @@ object Jacoco {
         return task
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     fun createCoverageJarTask(project: Project): Task {
+=======
+    fun registerClassFilesTask(project: Project, extension: TestedExtension) {
+        extension.testVariants.all { v ->
+            if (v.buildType.isTestCoverageEnabled &&
+                v.sourceSets.any { it.javaDirectories.isNotEmpty() }) {
+                val jarifyTask = project.tasks.register(
+                    "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                    Jar::class.java
+                ) {
+                    it.dependsOn(v.testedVariant.javaCompileProvider)
+                    // using get() here forces task configuration, but is necessary
+                    // to obtain a valid value for destinationDir
+                    it.from(v.testedVariant.javaCompileProvider.get().destinationDir)
+                    it.exclude("**/R.class", "**/R\$*.class", "**/BuildConfig.class")
+                    it.destinationDirectory.set(project.buildDir)
+                    it.archiveFileName.set("${project.name}-${v.baseName}-allclasses.jar")
+                }
+                project.rootProject.tasks.named(
+                    "packageAllClassFilesForCoverageReport",
+                    Jar::class.java
+                ).configure { it.from(jarifyTask) }
+            }
+        }
+    }
+
+    fun createCoverageJarTask(project: Project): TaskProvider<Jar> {
+        Preconditions.checkArgument(project.isRoot, "Must be root project")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         // Package the individual *-allclasses.jar files together to generate code coverage reports
         val packageAllClassFiles = project.tasks.create("packageAllClassFilesForCoverageReport",
                 Jar::class.java) {

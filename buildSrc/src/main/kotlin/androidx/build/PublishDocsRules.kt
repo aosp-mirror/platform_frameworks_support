@@ -25,10 +25,17 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 
 val RELEASE_RULE = docsRules("public", false) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha04")
     prebuilts(LibraryGroups.ANNOTATION, "1.1.0-alpha01")
     ignore(LibraryGroups.APPCOMPAT, "appcompat-resources")
     prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha02")
+=======
+    prebuilts(LibraryGroups.ACTIVITY, "1.0.0-beta01")
+    prebuilts(LibraryGroups.ANNOTATION, "1.1.0")
+    prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-beta01")
+    prebuilts(LibraryGroups.ARCH_CORE, "2.1.0-rc01")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
     prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha03")
     prebuilts(LibraryGroups.BROWSER, "1.0.0")
@@ -37,8 +44,13 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.CAR, "car", "1.0.0-alpha5")
             .addStubs("car/stubs/android.car.jar")
     prebuilts(LibraryGroups.CARDVIEW, "1.0.0")
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     prebuilts(LibraryGroups.COLLECTION, "1.1.0-alpha02")
     prebuilts(LibraryGroups.CONCURRENT, "1.0.0-alpha03")
+=======
+    prebuilts(LibraryGroups.COLLECTION, "1.1.0")
+    prebuilts(LibraryGroups.CONCURRENT, "1.0.0-beta01")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     prebuilts(LibraryGroups.CONTENTPAGER, "1.0.0")
     prebuilts(LibraryGroups.COORDINATORLAYOUT, "1.1.0-alpha01")
     prebuilts(LibraryGroups.CORE, "core", "1.1.0-alpha04")
@@ -93,6 +105,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.VIEWPAGER2, "1.0.0-alpha01")
     prebuilts(LibraryGroups.WEAR, "1.0.0")
             .addStubs("wear/wear_stubs/com.google.android.wearable-stubs.jar")
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
     prebuilts(LibraryGroups.ROOM, "2.1.0-alpha04")
     prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
@@ -109,6 +122,11 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.NAVIGATION, "navigation-testing")
     prebuilts(LibraryGroups.NAVIGATION, "1.0.0-beta02")
     prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-rc01")
+=======
+    prebuilts(LibraryGroups.WEBKIT, "1.1.0-alpha01")
+    ignore(LibraryGroups.WORK.group, "work-gcm")
+    prebuilts(LibraryGroups.WORK, "2.1.0-beta02")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     default(Ignore)
 }
 

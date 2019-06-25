@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -74,3 +75,5 @@ class WorkManagerLiveDataTracker {
         }
     }
 }
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

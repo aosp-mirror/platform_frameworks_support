@@ -20,6 +20,12 @@ import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+import static androidx.work.WorkInfo.State.ENQUEUED;
+import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -64,6 +70,11 @@ public class ForceStopRunnable implements Runnable {
 
     @Override
     public void run() {
+        // Clean invalid jobs attributed to WorkManager, and Workers that might have been
+        // interrupted because the application crashed (RUNNING state).
+        Logger.get().debug(TAG, "Performing cleanup operations.");
+        boolean needsScheduling = cleanUp();
+
         if (shouldRescheduleWorkers()) {
             Logger.get().debug(TAG, "Rescheduling Workers.");
             mWorkManager.rescheduleEligibleWork();
@@ -72,6 +83,15 @@ public class ForceStopRunnable implements Runnable {
         } else if (isForceStopped()) {
             Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        } else if (needsScheduling) {
+            Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+            Schedulers.schedule(
+                    mWorkManager.getConfiguration(),
+                    mWorkManager.getWorkDatabase(),
+                    mWorkManager.getSchedulers());
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         }
         mWorkManager.onForceStopRunnableCompleted();
     }
@@ -92,6 +112,49 @@ public class ForceStopRunnable implements Runnable {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Performs cleanup operations like
+     *
+     * * Cancel invalid JobScheduler jobs.
+     * * Reschedule previously RUNNING jobs.
+     *
+     * @return {@code true} if there are WorkSpecs that need rescheduling.
+     */
+    @VisibleForTesting
+    public boolean cleanUp() {
+        // Mitigation for faulty implementations of JobScheduler (b/134058261
+        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            SystemJobScheduler.cancelInvalidJobs(mContext);
+        }
+
+        // Reset previously unfinished work.
+        WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+        workDatabase.beginTransaction();
+        boolean needsScheduling;
+        try {
+            List<WorkSpec> workSpecs = workSpecDao.getRunningWork();
+            needsScheduling = workSpecs != null && !workSpecs.isEmpty();
+            if (needsScheduling) {
+                // Mark every instance of unfinished work with state = ENQUEUED and
+                // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                // This is because the application might have crashed previously and we should
+                // reschedule jobs that may have been running previously.
+                // Also there is a chance that an application crash, happened during
+                // onStartJob() and now no corresponding job now exists in JobScheduler.
+                // To solve this, we simply force-reschedule all unfinished work.
+                for (WorkSpec workSpec : workSpecs) {
+                    workSpecDao.setState(ENQUEUED, workSpec.id);
+                    workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                }
+            }
+            workDatabase.setTransactionSuccessful();
+        } finally {
+            workDatabase.endTransaction();
+        }
+        return needsScheduling;
     }
 
     /**

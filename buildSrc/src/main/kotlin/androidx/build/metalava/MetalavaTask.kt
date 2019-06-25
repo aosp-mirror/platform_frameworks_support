@@ -27,7 +27,7 @@ import org.gradle.api.tasks.InputFiles
 abstract class MetalavaTask : DefaultTask() {
     /** Configuration containing Metalava and its dependencies. */
     @get:Classpath
-    var configuration: Configuration? = null
+    lateinit var configuration: Configuration
 
     /** Android's boot classpath. Obtained from [BaseExtension.getBootClasspath]. */
     @get:InputFiles
@@ -41,15 +41,15 @@ abstract class MetalavaTask : DefaultTask() {
     @get:InputFiles
     var sourcePaths: Collection<File> = emptyList()
 
-    protected fun runWithArgs(vararg args: String) {
-        runWithArgs(args.asList())
-    }
-
     protected fun runWithArgs(args: List<String>) {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         project.javaexec {
             it.classpath = checkNotNull(configuration) { "Configuration not set." }
             it.main = "com.android.tools.metalava.Driver"
             it.args = listOf("--no-banner") + args
         }
+=======
+        project.runMetalavaWithArgs(configuration, args)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 }

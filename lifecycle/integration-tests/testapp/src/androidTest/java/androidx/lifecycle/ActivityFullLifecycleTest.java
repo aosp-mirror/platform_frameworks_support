@@ -52,8 +52,8 @@ public class ActivityFullLifecycleTest {
     public final ActivityTestRule<? extends CollectingLifecycleOwner> activityTestRule;
 
     @Parameterized.Parameters
-    public static Class[] params() {
-        return new Class[]{CollectingSupportActivity.class,
+    public static Class<?>[] params() {
+        return new Class<?>[]{CollectingSupportActivity.class,
                 FrameworkLifecycleRegistryActivity.class};
     }
 

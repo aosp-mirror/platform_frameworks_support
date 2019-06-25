@@ -22,7 +22,11 @@ import androidx.room.parser.SQLTypeAffinity
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_GETTER_FOR_FIELD
 import androidx.room.processor.ProcessorErrors.CANNOT_FIND_TYPE
 import androidx.room.processor.ProcessorErrors.POJO_FIELD_HAS_DUPLICATE_COLUMN_NAME
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 import androidx.room.processor.ProcessorErrors.RELATION_NOT_COLLECTION
+=======
+import androidx.room.processor.ProcessorErrors.junctionColumnWithoutIndex
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import androidx.room.processor.ProcessorErrors.relationCannotFindEntityField
 import androidx.room.processor.ProcessorErrors.relationCannotFindParentEntityField
 import androidx.room.testing.TestInvocation
@@ -353,7 +357,7 @@ class PojoProcessorTest {
                 public User user;
                 """, COMMON.USER
         ) { _ ->
-        }.failsToCompile().withErrorContaining(RELATION_NOT_COLLECTION)
+        }.compilesWithoutError()
     }
 
     @Test

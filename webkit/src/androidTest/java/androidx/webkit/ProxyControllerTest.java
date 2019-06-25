@@ -228,23 +228,33 @@ public class ProxyControllerTest {
 
     private void setProxyOverrideSync(final ProxyConfig proxyRules) {
         final ResolvableFuture<Void> future = ResolvableFuture.create();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         ProxyController.getInstance().setProxyOverride(proxyRules, new Runnable() {
             @Override
             public void run() {
                 future.set(null);
             }
         });
+=======
+        ProxyController.getInstance().setProxyOverride(proxyRules, new SynchronousExecutor(),
+                () -> future.set(null));
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         // This future is used to ensure that setProxyOverride's callback was called
         WebkitUtils.waitForFuture(future);
     }
 
     private void clearProxyOverrideSync() {
         final ResolvableFuture<Void> future = ResolvableFuture.create();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         ProxyController.getInstance().clearProxyOverride(new Runnable() {
             @Override
             public void run() {
                 future.set(null);
             }
+=======
+        ProxyController.getInstance().clearProxyOverride(new SynchronousExecutor(), () -> {
+            future.set(null);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         });
         // This future is used to ensure that clearProxyOverride's callback was called
         WebkitUtils.waitForFuture(future);

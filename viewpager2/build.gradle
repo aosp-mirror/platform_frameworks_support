@@ -24,7 +24,12 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     api(project(":fragment"))
+=======
+    api(project(":core:core"))
+    api("androidx.fragment:fragment:1.1.0-rc01")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     api(project(":recyclerview"))
     implementation(project(":appcompat"))
     implementation(project(":collection"))
@@ -55,4 +60,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.VIEWPAGER2
     inceptionYear = "2017"
     description = "AndroidX Widget ViewPager2"
+    failOnDeprecationWarnings = false
 }

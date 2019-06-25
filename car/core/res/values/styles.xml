@@ -309,18 +309,32 @@ limitations under the License.
         <item name="android:textSize">@dimen/car_body3_size</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/car_button_background</item>
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         <item name="android:textColor">@color/car_body1</item>
     </style>
 
     <!-- A style for buttons that is fixed with dark-colored text. -->
     <style name="Widget.Car.Button.DarkText">
         <item name="android:textColor">@color/car_body1_dark</item>
+=======
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <!-- A style for buttons that has white text. -->
+    <style name="Widget.Car.Button.LightText">
+        <item name="android:textColor">@color/car_primary_text</item>
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
+    </style>
+
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     <!-- A style for buttons that is fixed with light-colored text. -->
     <style name="Widget.Car.Button.LightText">
         <item name="android:textColor">@color/car_body1_light</item>
     </style>
+=======
+    <!-- Deprecated. Use Widget.Car.Button instead. -->
+    <style name="Widget.Car.Button.DarkText" />
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
     <!-- The style for borderless buttons. -->
     <style name="Widget.Car.Button.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored">
@@ -469,6 +483,7 @@ limitations under the License.
     <eat-comment />
 
     <style name="Widget.Car.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/car_primary_text</item>
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
         <item name="android:textColor">@color/car_body1</item>
         <item name="android:buttonTint">?android:attr/colorAccent</item>
@@ -476,8 +491,12 @@ limitations under the License.
     </style>
 
     <style name="Widget.Car.CheckBox.Light">
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Light</item>
         <item name="android:textColor">@color/car_body1_light</item>
+=======
+        <item name="android:textColor">@color/car_primary_text_light</item>
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     </style>
 
     <style name="Widget.Car.CheckBox.Dark">

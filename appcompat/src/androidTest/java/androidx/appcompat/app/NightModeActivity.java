@@ -16,6 +16,13 @@
 
 package androidx.appcompat.app;
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+import android.content.res.Configuration;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
@@ -50,9 +57,17 @@ public class NightModeActivity extends BaseTestActivity {
         }
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     @Override
     public void onNightModeChanged(int mode) {
         mLastNightModeChange = mode;
+=======
+    @Nullable
+    Configuration getLastConfigurationChangeAndClear() {
+        final Configuration config = mLastConfigurationChange;
+        mLastConfigurationChange = null;
+        return config;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     int getLastNightModeAndReset() {

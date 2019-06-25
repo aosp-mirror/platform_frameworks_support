@@ -49,7 +49,12 @@ import java.util.Set;
  *
  * @hide
  */
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+@RestrictTo(LIBRARY)
+@SuppressWarnings("unchecked")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
 
     private static final String TAG = "DefaultSelectionTracker";
@@ -352,7 +357,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
         return mAdapterObserver;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "unchecked"}) /* synthetic access */
     void onDataSetChanged() {
         mSelection.clearProvisionalSelection();
 
@@ -505,7 +510,6 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public final void onSaveInstanceState(@NonNull Bundle state) {
         if (mSelection.isEmpty()) {
             return;

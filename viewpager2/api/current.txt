@@ -29,7 +29,23 @@ package androidx.viewpager2.adapter {
 
 package androidx.viewpager2.widget {
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
   public class ViewPager2 extends android.view.ViewGroup {
+=======
+  public final class CompositePageTransformer implements androidx.viewpager2.widget.ViewPager2.PageTransformer {
+    ctor public CompositePageTransformer();
+    method public void addTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void removeTransformer(androidx.viewpager2.widget.ViewPager2.PageTransformer);
+    method public void transformPage(android.view.View, float);
+  }
+
+  public final class MarginPageTransformer implements androidx.viewpager2.widget.ViewPager2.PageTransformer {
+    ctor public MarginPageTransformer(@Px int);
+    method public void transformPage(android.view.View, float);
+  }
+
+  public final class ViewPager2 extends android.view.ViewGroup {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     ctor public ViewPager2(android.content.Context);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?, int);
@@ -66,9 +82,12 @@ package androidx.viewpager2.widget {
 
   public static interface ViewPager2.PageTransformer {
     method public void transformPage(android.view.View, float);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
   }
 
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING}) public static @interface ViewPager2.ScrollState {
+=======
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
   }
 
 }

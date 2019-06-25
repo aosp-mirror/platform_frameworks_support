@@ -30,11 +30,15 @@ dependencies {
     implementation(project(":recyclerview"))
     implementation(project(":appcompat"))
     implementation(project(":cardview"))
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     api(ARCH_LIFECYCLE_EXTENSIONS, libs.exclude_annotations_transitive = {
         exclude group: 'androidx.annotation'
         exclude group: 'androidx.fragment'
         transitive = true
     })
+=======
+    implementation(project(":core:core"))
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }
 
 android {

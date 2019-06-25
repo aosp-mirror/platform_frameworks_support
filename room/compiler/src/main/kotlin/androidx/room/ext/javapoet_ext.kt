@@ -70,7 +70,13 @@ object RoomTypeNames {
     val OPEN_HELPER: ClassName =
             ClassName.get("androidx.room", "RoomOpenHelper")
     val OPEN_HELPER_DELEGATE: ClassName =
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
             ClassName.get("androidx.room", "RoomOpenHelper.Delegate")
+=======
+            ClassName.get(ROOM_PACKAGE, "RoomOpenHelper.Delegate")
+    val OPEN_HELPER_VALIDATION_RESULT: ClassName =
+            ClassName.get(ROOM_PACKAGE, "RoomOpenHelper.ValidationResult")
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     val TABLE_INFO: ClassName =
             ClassName.get("androidx.room.util", "TableInfo")
     val TABLE_INFO_COLUMN: ClassName =

@@ -33,12 +33,40 @@
         android:layout_height="wrap_content"
         android:text="@string/button_authenticate"/>
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     <CheckBox
         android:id="@+id/checkbox_use_crypto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/checkbox_text_use_crypto"
         android:onClick="onCheckboxClicked"/>
+=======
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+        <CheckBox
+                android:id="@+id/checkbox_use_crypto"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_text_use_crypto"
+                android:onClick="onCheckboxClicked"/>
+        <CheckBox
+                android:id="@+id/checkbox_require_confirmation"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_text_require_confirmation"
+                android:checked="true"/>
+        <CheckBox
+                android:id="@+id/checkbox_enable_fallback"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_text_allow_device_credential"/>
+    </LinearLayout>
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
     <RadioGroup
         android:layout_width="wrap_content"

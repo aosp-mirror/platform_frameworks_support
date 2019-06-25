@@ -197,6 +197,7 @@ public class TextListItem extends ListItem<TextListItem.ViewHolder> {
      * Hides all views in {@link ViewHolder} then applies ViewBinders to adjust view layout params.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void onBind(ViewHolder viewHolder) {
         hideSubViews(viewHolder);
         for (ViewBinder binder : mBinders) {

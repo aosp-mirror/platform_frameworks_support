@@ -21,8 +21,6 @@ import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_4_5;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_2;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_3;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.COMPLETED_STATES;
-import static androidx.work.impl.model.WorkTypeConverters.StateIds.ENQUEUED;
-import static androidx.work.impl.model.WorkTypeConverters.StateIds.RUNNING;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -65,11 +63,6 @@ import java.util.concurrent.TimeUnit;
 public abstract class WorkDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "androidx.work.workdb";
-    private static final String CLEANUP_SQL = "UPDATE workspec "
-            + "SET state=" + ENQUEUED + ","
-            + " schedule_requested_at=" + WorkSpec.SCHEDULE_NOT_REQUESTED_YET
-            + " WHERE state=" + RUNNING;
-
     // Delete rows in the workspec table that...
     private static final String PRUNE_SQL_FORMAT_PREFIX = "DELETE FROM workspec WHERE "
             // are completed...
@@ -119,12 +112,9 @@ public abstract class WorkDatabase extends RoomDatabase {
                 super.onOpen(db);
                 db.beginTransaction();
                 try {
-                    db.execSQL(CLEANUP_SQL);
-
                     // Prune everything that is completed, has an expired retention time, and has no
                     // active dependents:
                     db.execSQL(getPruneSQL());
-
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();

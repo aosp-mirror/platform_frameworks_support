@@ -16,7 +16,12 @@
 
 package androidx.car.widget;
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
 import android.graphics.drawable.Icon;
+=======
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +35,7 @@ import androidx.car.R;
  * <ul>
  *     <li>Title - Primary text that is shown on the item.
  *     <li>{@link CarMenuItem.OnClickListener} - Listener that handles the clicks on the item.
- *     <li>Icon - An {@link Icon} shown before the title, if the item is not checkable (a switch).
+ *     <li>Icon - An icon shown before the title, if the item is not checkable (a switch).
  *     <li>Style - A Resource Id that specifies the style of the item if it's not an overflow item.
  *     <li>Enabled - A boolean that specifies whether the item is enabled or disabled.
  *     <li>Checkable - A boolean that specifies whether the item is checkable (a switch) or not.
@@ -83,15 +88,25 @@ public class CarMenuItem {
     @Nullable
     private final OnClickListener mOnClickListener;
     @Nullable
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     private final Icon mIcon;
+=======
+    private final Drawable mIconDrawable;
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     private final boolean mIsCheckable;
     private final DisplayBehavior mDisplayBehavior;
 
     CarMenuItem(Builder builder) {
         mTitle = builder.mTitle;
         mOnClickListener = builder.mOnClickListener;
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         mIcon = builder.mIcon;
         mStyleResId = builder.mStyleResId;
+=======
+        mStyleResId = builder.mStyleResId;
+        mIconDrawable = builder.mIconDrawable;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         mIsEnabled = builder.mIsEnabled;
         mIsChecked = builder.mIsChecked;
         mIsCheckable = builder.mIsCheckable;
@@ -199,7 +214,11 @@ public class CarMenuItem {
         @Nullable
         OnClickListener mOnClickListener;
         @Nullable
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         Icon mIcon;
+=======
+        Drawable mIconDrawable;
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         @StyleRes
         int mStyleResId = R.style.Widget_Car_ActionButton_Light;
         boolean mIsEnabled = true;
@@ -251,8 +270,26 @@ public class CarMenuItem {
          * @return This {@code Builder} object to allow call chaining.
          */
         @NonNull
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         public Builder setIcon(@NonNull Icon icon) {
             mIcon = icon;
+=======
+        public Builder setIcon(@NonNull Drawable icon) {
+            mIconDrawable = icon;
+            return this;
+        }
+
+        /**
+         * Sets the icon of the {@code CarMenuItem}.
+         *
+         * @param context Context to load the drawable resource with.
+         * @param iconResId Resource id of icon of the {@code CarMenuItem}.
+         * @return This {@code Builder} object to allow call chaining.
+         */
+        @NonNull
+        public Builder setIcon(@NonNull Context context, @DrawableRes int iconResId) {
+            mIconDrawable = context.getDrawable(iconResId);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             return this;
         }
 

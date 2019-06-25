@@ -27,7 +27,12 @@ dependencies {
     implementation(project(":paging:paging-common"))
     implementation(ARCH_ROOM_RUNTIME)
     implementation(ARCH_ROOM_RXJAVA)
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     implementation(ARCH_LIFECYCLE_EXTENSIONS)
+=======
+
+    implementation(project(":paging:paging-common-ktx"))
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     implementation(project(":paging:paging-runtime"))
     implementation(project(":paging:paging-rxjava2"))
 
@@ -35,7 +40,13 @@ dependencies {
 
     implementation(MULTIDEX)
     implementation(SUPPORT_RECYCLERVIEW, libs.support_exclude_config)
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     implementation(SUPPORT_APPCOMPAT, libs.support_exclude_config)
+=======
+    implementation(project(":fragment:fragment-ktx"))
+    implementation(project(":appcompat"))
+    implementation(KOTLIN_STDLIB)
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])

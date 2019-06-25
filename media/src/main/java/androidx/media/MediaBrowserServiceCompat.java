@@ -1252,6 +1252,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
     }
 
     @RequiresApi(21)
+    @SuppressWarnings("unchecked")
     static class ResultWrapper<T> {
         MediaBrowserService.Result mResultFwk;
 

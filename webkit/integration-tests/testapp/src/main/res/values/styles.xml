@@ -21,4 +21,17 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    <style name="WebkitSwitch" parent="AppTheme">
+        <!-- The "thumb" is the piece the user can drag along the "track." -->
+        <item name="colorControlActivated">@color/colorActiveSwitchThumb</item>
+        <item name="colorSwitchThumbNormal">@color/colorInctiveSwitchThumb</item>
+        <item name="android:colorForeground">@color/colorInctiveSwitchTrack</item>
+    </style>
+    <style name="AppDayNightTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:forceDarkAllowed">true</item>
+        <item name="android:isLightTheme">true</item>
+    </style>
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 </resources>

@@ -1,0 +1,55 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+// Signature format: 3.0
+package androidx.paging {
+
+
+  public abstract class DataSource<Key, Value> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void initExecutor(java.util.concurrent.Executor executor);
+  }
+
+
+
+
+  public abstract class PagedList<T> extends java.util.AbstractList<T> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final <K, T> com.google.common.util.concurrent.ListenableFuture<androidx.paging.PagedList<T>> create(androidx.paging.DataSource<K,T> dataSource, java.util.concurrent.Executor notifyExecutor, java.util.concurrent.Executor fetchExecutor, java.util.concurrent.Executor initialLoadExecutor, androidx.paging.PagedList.BoundaryCallback<T>? boundaryCallback, androidx.paging.PagedList.Config config, K? key);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final androidx.paging.PagedStorage<T> getStorage();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setInitialLoadState(androidx.paging.PagedList.LoadState loadState, Throwable? error);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final class PagedList.Companion {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public <K, T> com.google.common.util.concurrent.ListenableFuture<androidx.paging.PagedList<T>> create(androidx.paging.DataSource<K,T> dataSource, java.util.concurrent.Executor notifyExecutor, java.util.concurrent.Executor fetchExecutor, java.util.concurrent.Executor initialLoadExecutor, androidx.paging.PagedList.BoundaryCallback<T>? boundaryCallback, androidx.paging.PagedList.Config config, K? key);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract static class PagedList.LoadStateManager {
+    method public final void dispatchCurrentLoadState(kotlin.jvm.functions.Function3<? super androidx.paging.PagedList.LoadType,? super androidx.paging.PagedList.LoadState,? super java.lang.Throwable,kotlin.Unit> callback);
+    method public final androidx.paging.PagedList.LoadState getEnd();
+    method public final androidx.paging.PagedList.LoadState getRefresh();
+    method public final androidx.paging.PagedList.LoadState getStart();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract void onStateChanged(androidx.paging.PagedList.LoadType type, androidx.paging.PagedList.LoadState state, Throwable? error);
+    method public final void setState(androidx.paging.PagedList.LoadType type, androidx.paging.PagedList.LoadState state, Throwable? error);
+    property public final androidx.paging.PagedList.LoadState end;
+    property public final androidx.paging.PagedList.LoadState refresh;
+    property public final androidx.paging.PagedList.LoadState start;
+  }
+
+
+
+
+}
+
+package androidx.paging.futures {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public interface FutureCallback<V> {
+    method public void onError(Throwable throwable);
+    method public void onSuccess(V? value);
+  }
+
+  public final class Futures {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static <V> void addCallback(com.google.common.util.concurrent.ListenableFuture<? extends V>, androidx.paging.futures.FutureCallback<? super V> callback, java.util.concurrent.Executor executor);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static <I, O> com.google.common.util.concurrent.ListenableFuture<O> transform(com.google.common.util.concurrent.ListenableFuture<? extends I>, androidx.arch.core.util.Function<? super I,? extends O> function, java.util.concurrent.Executor executor);
+  }
+
+}
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

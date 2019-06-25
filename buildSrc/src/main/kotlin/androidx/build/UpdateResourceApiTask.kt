@@ -23,7 +23,12 @@ open class UpdateResourceApiTask : DefaultTask() {
 
     @TaskAction
     fun UpdateResourceApi() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         if (oldApiFile == null || !!oldApiFile!!.exists()) {
+=======
+        val destApiFile = checkNotNull(destApiFile) { "destApiFile not set" }
+        if (oldApiFile == null || !oldApiFile!!.exists()) {
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             if (newApiFile != null && newApiFile!!.exists()) {
                 newApiFile?.copyTo(File(project.projectDir,
                     "api/res-${project.version}.txt"), true, 8)
@@ -51,7 +56,7 @@ open class UpdateResourceApiTask : DefaultTask() {
         if (oldVersion.major == project.version().major && !removedResourceApi.isEmpty()) {
             var errorMessage = "Cannot remove public resources within the same major version, " +
                     "the following were removed since version $oldVersion:\n"
-            for (e in oldResourceApi) {
+            for (e in removedResourceApi) {
                 errorMessage = errorMessage + "$e\n"
             }
             throw GradleException(errorMessage)
@@ -61,7 +66,7 @@ open class UpdateResourceApiTask : DefaultTask() {
                 project.version().isFinalApi()) {
             var errorMessage = "Cannot add public resources when api becomes final, " +
                     "the following resources were added since version $oldVersion:\n"
-            for (e in newResourceApi) {
+            for (e in addedResourceApi) {
                 errorMessage = errorMessage + "$e\n"
             }
             throw GradleException(errorMessage)

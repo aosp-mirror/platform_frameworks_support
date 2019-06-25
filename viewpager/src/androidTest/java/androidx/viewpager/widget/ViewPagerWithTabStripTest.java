@@ -35,7 +35,7 @@ public class ViewPagerWithTabStripTest extends BaseViewPagerTest<ViewPagerWithTa
     }
 
     @Override
-    protected Class getStripClass() {
+    protected Class<PagerTabStrip> getStripClass() {
         return PagerTabStrip.class;
     }
 

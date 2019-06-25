@@ -1,0 +1,12 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+// Signature format: 3.0
+package androidx.lifecycle {
+
+  public abstract class AbstractSavedStateViewModelFactory implements androidx.lifecycle.ViewModelProvider.Factory {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final <T extends androidx.lifecycle.ViewModel> T create(String, Class<T!>);
+  }
+
+}
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

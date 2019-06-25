@@ -59,5 +59,4 @@ supportLibrary {
     mavenGroup = LibraryGroups.CAR
     inceptionYear = "2017"
     description = "Android Car Support UI"
-    failOnUncheckedWarnings = false
-}
+    }

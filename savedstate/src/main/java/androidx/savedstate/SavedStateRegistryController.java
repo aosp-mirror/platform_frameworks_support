@@ -44,7 +44,6 @@ public final class SavedStateRegistryController {
      *
      * @param savedState restored state
      */
-    @SuppressWarnings("WeakerAccess")
     @MainThread
     public void performRestore(@Nullable Bundle savedState) {
         mRegistry.performRestore(savedState);

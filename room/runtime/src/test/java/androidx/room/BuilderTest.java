@@ -16,11 +16,13 @@
 
 package androidx.room;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 
 import static java.util.Arrays.asList;
@@ -38,6 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.io.File;
 import java.util.List;
 
 @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
@@ -66,6 +69,47 @@ public class BuilderTest {
         Room.databaseBuilder(mock(Context.class), RoomDatabase.class, "  ").build();
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    @Test
+    public void executors_setQueryExecutor() {
+        Executor executor = mock(Executor.class);
+
+        TestDatabase db = Room.databaseBuilder(mock(Context.class), TestDatabase.class, "foo")
+                .setQueryExecutor(executor)
+                .build();
+
+        assertThat(db.mDatabaseConfiguration.queryExecutor, is(executor));
+        assertThat(db.mDatabaseConfiguration.transactionExecutor, is(executor));
+    }
+
+    @Test
+    public void executors_setTransactionExecutor() {
+        Executor executor = mock(Executor.class);
+
+        TestDatabase db = Room.databaseBuilder(mock(Context.class), TestDatabase.class, "foo")
+                .setTransactionExecutor(executor)
+                .build();
+
+        assertThat(db.mDatabaseConfiguration.queryExecutor, is(executor));
+        assertThat(db.mDatabaseConfiguration.transactionExecutor, is(executor));
+    }
+
+    @Test
+    public void executors_setBothExecutors() {
+        Executor executor1 = mock(Executor.class);
+        Executor executor2 = mock(Executor.class);
+
+        TestDatabase db = Room.databaseBuilder(mock(Context.class), TestDatabase.class, "foo")
+                .setQueryExecutor(executor1)
+                .setTransactionExecutor(executor2)
+                .build();
+
+        assertThat(db.mDatabaseConfiguration.queryExecutor, is(executor1));
+        assertThat(db.mDatabaseConfiguration.transactionExecutor, is(executor2));
+    }
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     @Test
     public void migration() {
         Migration m1 = new EmptyMigration(0, 1);
@@ -384,6 +428,56 @@ public class BuilderTest {
         DatabaseConfiguration config = ((BuilderTest_TestDatabase_Impl) db).mConfig;
         assertThat(config, notNullValue());
         assertThat(config.sqliteOpenHelperFactory, is(factory));
+    }
+
+    @Test
+    public void createFromAssetAndFromFile() {
+        Exception exception = null;
+        try {
+            Room.databaseBuilder(mock(Context.class), TestDatabase.class, "foo")
+                    .createFromAsset("assets-path")
+                    .createFromFile(new File("not-a--real-file"))
+                    .build();
+            fail("Build should have thrown");
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, instanceOf(IllegalArgumentException.class));
+        assertThat(exception.getMessage(),
+                containsString("Both createFromAsset() and createFromFile() was called on "
+                        + "this Builder"));
+    }
+
+    @Test
+    public void createInMemoryFromAsset() {
+        Exception exception = null;
+        try {
+            Room.inMemoryDatabaseBuilder(mock(Context.class), TestDatabase.class)
+                    .createFromAsset("assets-path")
+                    .build();
+            fail("Build should have thrown");
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, instanceOf(IllegalArgumentException.class));
+        assertThat(exception.getMessage(),
+                containsString("Cannot create from asset or file for an in-memory"));
+    }
+
+    @Test
+    public void createInMemoryFromFile() {
+        Exception exception = null;
+        try {
+            Room.inMemoryDatabaseBuilder(mock(Context.class), TestDatabase.class)
+                    .createFromFile(new File("not-a--real-file"))
+                    .build();
+            fail("Build should have thrown");
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertThat(exception, instanceOf(IllegalArgumentException.class));
+        assertThat(exception.getMessage(),
+                containsString("Cannot create from asset or file for an in-memory"));
     }
 
     abstract static class TestDatabase extends RoomDatabase {

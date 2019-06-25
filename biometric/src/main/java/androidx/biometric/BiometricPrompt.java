@@ -367,6 +367,29 @@ public class BiometricPrompt implements BiometricConstants {
                         mFingerprintHelperFragment.cancel(
                                 FingerprintHelperFragment.USER_CANCELED_FROM_NONE);
                     }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // TODO(b/123378871): Change == to >= if this bug is not resolved in R.
+                    // Ignore the first onPause if setDeviceCredentialAllowed is true, since
+                    // the Q implementation launches ConfirmDeviceCredentialActivity which is an
+                    // activity and puts the client app onPause.
+                    if (mBiometricFragment != null) {
+                        if (mBiometricFragment.isDeviceCredentialAllowed()) {
+                            if (!mPausedOnce) {
+                                mPausedOnce = true;
+                            } else {
+                                mBiometricFragment.cancel();
+                            }
+                        } else {
+                            mBiometricFragment.cancel();
+                        }
+                    }
+                } else {
+                    if (mBiometricFragment != null) {
+                        mBiometricFragment.cancel();
+                    }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
                 }
             }
         }

@@ -69,12 +69,22 @@ package androidx.browser.customtabs {
   }
 
   public class CustomTabsClient {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public static boolean bindCustomTabsService(android.content.Context!, String!, androidx.browser.customtabs.CustomTabsServiceConnection!);
     method public static boolean connectAndInitialize(android.content.Context!, String!);
     method public android.os.Bundle! extraCommand(String!, android.os.Bundle!);
     method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String>?);
     method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String>?, boolean);
     method public androidx.browser.customtabs.CustomTabsSession! newSession(androidx.browser.customtabs.CustomTabsCallback!);
+=======
+    method public static boolean bindCustomTabsService(android.content.Context, String?, androidx.browser.customtabs.CustomTabsServiceConnection);
+    method public static boolean connectAndInitialize(android.content.Context, String);
+    method public android.os.Bundle? extraCommand(String, android.os.Bundle?);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String!>?, boolean);
+    method public androidx.browser.customtabs.CustomTabsSession? newSession(androidx.browser.customtabs.CustomTabsCallback?);
+    method public androidx.browser.customtabs.CustomTabsSession? newSession(androidx.browser.customtabs.CustomTabsCallback?, int);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public boolean warmup(long);
   }
 
@@ -179,9 +189,9 @@ package androidx.browser.customtabs {
 
   public class CustomTabsSessionToken {
     method public static androidx.browser.customtabs.CustomTabsSessionToken createMockSessionTokenForTesting();
-    method public androidx.browser.customtabs.CustomTabsCallback! getCallback();
-    method public static androidx.browser.customtabs.CustomTabsSessionToken! getSessionTokenFromIntent(android.content.Intent!);
-    method public boolean isAssociatedWith(androidx.browser.customtabs.CustomTabsSession!);
+    method public androidx.browser.customtabs.CustomTabsCallback? getCallback();
+    method public static androidx.browser.customtabs.CustomTabsSessionToken? getSessionTokenFromIntent(android.content.Intent);
+    method public boolean isAssociatedWith(androidx.browser.customtabs.CustomTabsSession);
   }
 
   public class PostMessageService extends android.app.Service {

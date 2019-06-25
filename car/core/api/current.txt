@@ -12,6 +12,7 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog.Builder! setBodyMovementMethod(android.text.method.MovementMethod?);
     method public androidx.car.app.CarAlertDialog.Builder! setCancelable(boolean);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(@DrawableRes int);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(android.graphics.drawable.Icon?);
     method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
@@ -21,6 +22,16 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog.Builder! setPositiveButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder! setTitle(@StringRes int);
     method public androidx.car.app.CarAlertDialog.Builder! setTitle(CharSequence!);
+=======
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(CharSequence, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
+    method public androidx.car.app.CarAlertDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(CharSequence?);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
   }
 
   public class CarListDialog extends android.app.Dialog {
@@ -241,7 +252,12 @@ package androidx.car.widget {
     method public androidx.car.widget.CarMenuItem.Builder setChecked(boolean);
     method public androidx.car.widget.CarMenuItem.Builder setDisplayBehavior(androidx.car.widget.CarMenuItem.DisplayBehavior);
     method public androidx.car.widget.CarMenuItem.Builder setEnabled(boolean);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Icon);
+=======
+    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Drawable);
+    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.content.Context, @DrawableRes int);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public androidx.car.widget.CarMenuItem.Builder setOnClickListener(androidx.car.widget.CarMenuItem.OnClickListener);
     method public androidx.car.widget.CarMenuItem.Builder setStyle(@StyleRes int);
     method public androidx.car.widget.CarMenuItem.Builder setTitle(CharSequence);
@@ -376,6 +392,10 @@ package androidx.car.widget {
     method public boolean isAlphaJumpShown();
     method public boolean isAtEnd();
     method public boolean isAtStart();
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    method public final boolean isScrollBarEnabled();
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public boolean isScrollbarThumbEnabled();
     method public void onLayout(boolean, int, int, int, int);
     method public void onRestoreInstanceState(android.os.Parcelable!);
@@ -396,9 +416,20 @@ package androidx.car.widget {
     method public void setListContentBottomOffset(@Px int);
     method public void setListContentTopOffset(@Px int);
     method public void setMaxPages(int);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
+=======
+    method @Deprecated public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
+    method public void setScrollBarButtonRippleBackground(@DrawableRes int);
+    method public void setScrollBarButtonTintColor(@ColorRes int);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public void setScrollBarContainerWidth(int);
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+    method public final void setScrollBarEnabled(boolean);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     method public void setScrollBarTopMargin(int);
+    method public void setScrollbarThumbColor(@ColorRes int);
     method public void setScrollbarThumbEnabled(boolean);
     method public void setUpButtonIcon(android.graphics.drawable.Drawable!);
     method public void showAlphaJump();

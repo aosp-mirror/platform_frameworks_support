@@ -1086,6 +1086,7 @@ public final class MediaControllerCompat {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void handleMessage(Message msg) {
                 if (!mRegistered) {
                     return;
@@ -1763,6 +1764,23 @@ public final class MediaControllerCompat {
         }
 
         @Override
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        public Bundle getSessionInfo() {
+            try {
+                mSessionInfo = mBinder.getSessionInfo();
+            } catch (RemoteException e) {
+                Log.d(TAG, "Dead object in getSessionInfo.", e);
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+        }
+
+        @Override
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         public Object getMediaController() {
             return null;
         }
@@ -2224,6 +2242,33 @@ public final class MediaControllerCompat {
         }
 
         @Override
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        public Bundle getSessionInfo() {
+            if (mSessionInfo != null) {
+                return new Bundle(mSessionInfo);
+            }
+
+            // Get the info from the connected session.
+            if (Build.VERSION.SDK_INT >= 29) {
+                mSessionInfo = mControllerFwk.getSessionInfo();
+            } else if (mSessionToken.getExtraBinder() != null) {
+                try {
+                    mSessionInfo = mSessionToken.getExtraBinder().getSessionInfo();
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Dead object in getSessionInfo.", e);
+                    mSessionInfo = Bundle.EMPTY;
+                }
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+        }
+
+        @Override
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         public Object getMediaController() {
             return mControllerFwk;
         }

@@ -112,6 +112,8 @@ import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.PopupWindowCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -225,6 +227,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private boolean mBaseContextAttached;
     private boolean mCreated;
+    private boolean mStarted;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mIsDestroyed;
 
@@ -460,7 +463,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return mMenuInflater;
     }
 
-    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
     @Nullable
     @Override
     public <T extends View> T findViewById(@IdRes int id) {
@@ -491,6 +494,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onStart() {
+        mStarted = true;
+
         // This will apply day/night if the time has changed, it will also call through to
         // setupAutoNightModeIfNeeded()
         applyDayNight();
@@ -498,6 +503,13 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onStop() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        mStarted = false;
+
+        markStopped(this);
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
@@ -569,6 +581,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             mWindow.getDecorView().removeCallbacks(mInvalidatePanelMenuRunnable);
         }
 
+        mStarted = false;
         mIsDestroyed = true;
 
         if (mActionBar != null) {
@@ -1335,7 +1348,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mAppCompatViewInflater = new AppCompatViewInflater();
             } else {
                 try {
-                    Class viewInflaterClass = Class.forName(viewInflaterClassName);
+                    Class<?> viewInflaterClass = Class.forName(viewInflaterClassName);
                     mAppCompatViewInflater =
                             (AppCompatViewInflater) viewInflaterClass.getDeclaredConstructor()
                                     .newInstance();
@@ -2293,6 +2306,25 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mContext.getTheme().applyStyle(mThemeResId, true);
             }
         }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+        if (callOnConfigChange && mHost instanceof Activity) {
+            final Activity activity = (Activity) mHost;
+            if (activity instanceof LifecycleOwner) {
+                // If the Activity is a LifecyleOwner, check that it is at least started
+                Lifecycle lifecycle = ((LifecycleOwner) activity).getLifecycle();
+                if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                    activity.onConfigurationChanged(conf);
+                }
+            } else {
+                // Otherwise we'll fallback to our internal started flag.
+                if (mStarted) {
+                    activity.onConfigurationChanged(conf);
+                }
+            }
+        }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 
     /**

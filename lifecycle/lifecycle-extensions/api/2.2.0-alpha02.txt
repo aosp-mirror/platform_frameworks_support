@@ -1,0 +1,25 @@
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+// Signature format: 3.0
+package androidx.lifecycle {
+
+  @Deprecated public class ViewModelProviders {
+    ctor @Deprecated public ViewModelProviders();
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelProvider of(androidx.fragment.app.Fragment);
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelProvider of(androidx.fragment.app.FragmentActivity);
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelProvider of(androidx.fragment.app.Fragment, androidx.lifecycle.ViewModelProvider.Factory?);
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelProvider of(androidx.fragment.app.FragmentActivity, androidx.lifecycle.ViewModelProvider.Factory?);
+  }
+
+  @Deprecated public static class ViewModelProviders.DefaultFactory extends androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory {
+    ctor @Deprecated public ViewModelProviders.DefaultFactory(android.app.Application);
+  }
+
+  @Deprecated public class ViewModelStores {
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelStore of(androidx.fragment.app.FragmentActivity);
+    method @Deprecated @MainThread public static androidx.lifecycle.ViewModelStore of(androidx.fragment.app.Fragment);
+  }
+
+}
+
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)

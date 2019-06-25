@@ -46,11 +46,15 @@ class StringPagedList constructor(
         return null
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     override fun dispatchUpdatesSinceSnapshot(
         storageSnapshot: PagedList<String>,
         callback: PagedList.Callback
     ) {
     }
+=======
+    override fun dispatchCurrentLoadState(callback: LoadStateListener) {}
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 
     override fun loadAroundInternal(index: Int) {}
 

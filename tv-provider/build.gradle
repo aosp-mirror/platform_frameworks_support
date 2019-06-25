@@ -30,6 +30,5 @@ supportLibrary {
     mavenGroup = LibraryGroups.TVPROVIDER
     inceptionYear = "2017"
     description = "Android Support Library for TV Provider"
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

@@ -99,4 +99,27 @@ public class ForceStopRunnableTest {
         runnable.run();
         verify(mPreferences, times(1)).setNeedsReschedule(false);
     }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+
+    @Test
+    public void test_UnfinishedWork_getsScheduled() {
+        ForceStopRunnable runnable = spy(mRunnable);
+        when(runnable.shouldRescheduleWorkers()).thenReturn(false);
+        when(runnable.isForceStopped()).thenReturn(false);
+        String id = "id";
+        String worker = "Worker";
+        WorkSpec workSpec = new WorkSpec(id, worker);
+
+        when(mWorkSpecDao.getRunningWork()).thenReturn(Collections.singletonList(workSpec));
+        when(mWorkSpecDao.getEligibleWorkForScheduling(anyInt())).thenReturn(
+                Collections.singletonList(workSpec));
+
+        runnable.run();
+        verify(mWorkSpecDao, times(2))
+                .markWorkSpecScheduled(eq(id), anyLong());
+
+        verify(mScheduler, times(1)).schedule(eq(workSpec));
+    }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
 }

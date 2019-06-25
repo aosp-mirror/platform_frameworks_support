@@ -170,6 +170,15 @@ public class BiometricFragment extends Fragment {
      * Cancel the authentication.
      */
     protected void cancel() {
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && isDeviceCredentialAllowed()) {
+            if (!mStartRespectingCancel) {
+                Log.w(TAG, "Ignoring fast cancel signal");
+                return;
+            }
+        }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
         if (mCancellationSignal != null) {
             mCancellationSignal.cancel();
         }
@@ -210,10 +219,43 @@ public class BiometricFragment extends Fragment {
             mBiometricPrompt = new android.hardware.biometrics.BiometricPrompt.Builder(getContext())
                     .setTitle(mBundle.getCharSequence(BiometricPrompt.KEY_TITLE))
                     .setSubtitle(mBundle.getCharSequence(BiometricPrompt.KEY_SUBTITLE))
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
                     .setDescription(mBundle.getCharSequence(BiometricPrompt.KEY_DESCRIPTION))
                     .setNegativeButton(mBundle.getCharSequence(BiometricPrompt.KEY_NEGATIVE_TEXT),
                             mClientExecutor, mNegativeButtonListener)
                     .build();
+=======
+                    .setDescription(mBundle.getCharSequence(BiometricPrompt.KEY_DESCRIPTION));
+            // The negative text could be empty if setDeviceCredentialAllowed is true.
+            if (!TextUtils.isEmpty(mBundle.getCharSequence(BiometricPrompt.KEY_NEGATIVE_TEXT))) {
+                builder.setNegativeButton(
+                        mBundle.getCharSequence(BiometricPrompt.KEY_NEGATIVE_TEXT),
+                        mClientExecutor, mNegativeButtonListener);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                builder.setConfirmationRequired(
+                        mBundle.getBoolean((BiometricPrompt.KEY_REQUIRE_CONFIRMATION), true));
+                builder.setDeviceCredentialAllowed(
+                        mBundle.getBoolean(BiometricPrompt.KEY_ALLOW_DEVICE_CREDENTIAL));
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (mBundle.getBoolean(BiometricPrompt.KEY_ALLOW_DEVICE_CREDENTIAL, false)) {
+                    mStartRespectingCancel = false;
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Hack almost over 9000, ignore cancel signal in Q if it's within the
+                            // first quarter second.
+                            mStartRespectingCancel = true;
+                        }
+                    }, 250 /* ms */);
+                }
+            }
+
+            mBiometricPrompt = builder.build();
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             mCancellationSignal = new CancellationSignal();
             if (mCryptoObject == null) {
                 mBiometricPrompt.authenticate(mCancellationSignal, mExecutor,

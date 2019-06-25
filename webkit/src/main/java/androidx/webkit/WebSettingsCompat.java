@@ -223,8 +223,188 @@ public class WebSettingsCompat {
         }
     }
 
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
     private static WebSettingsAdapter getAdapter(WebSettings webSettings) {
         return WebViewGlueCommunicator.getCompatConverter().convertSettings(webSettings);
+=======
+    /**
+     * Sets whether the WebView’s internal error page should be suppressed or displayed
+     * for bad navigations. True means suppressed (not shown), false means it will be
+     * displayed.
+     * The default value is false.
+     *
+     * <p>
+     * This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#SUPPRESS_ERROR_PAGE}.
+     *
+     * @param suppressed whether the WebView should suppress its internal error page
+     *
+     * TODO(cricke): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.SUPPRESS_ERROR_PAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setWillSuppressErrorPage(@NonNull WebSettings settings,
+            boolean suppressed) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.SUPPRESS_ERROR_PAGE);
+        if (webviewFeature.isSupportedByWebView()) {
+            getAdapter(settings).setWillSuppressErrorPage(suppressed);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+
+    /**
+     * Gets whether the WebView’s internal error page will be suppressed or displayed
+     *
+     * <p>
+     * This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#SUPPRESS_ERROR_PAGE}.
+     *
+     * @return true if the WebView will suppress its internal error page
+     * @see #setWillSuppressErrorPage
+     *
+     * TODO(cricke): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.SUPPRESS_ERROR_PAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static boolean willSuppressErrorPage(@NonNull WebSettings settings) {
+        WebViewFeatureInternal webviewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.SUPPRESS_ERROR_PAGE);
+        if (webviewFeature.isSupportedByWebView()) {
+            return getAdapter(settings).willSuppressErrorPage();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Disable force dark, irrespective of the force dark mode of the WebView parent. In this mode,
+     * WebView content will always be rendered as-is, regardless of whether native views are being
+     * automatically darkened.
+     *
+     * @see #setForceDark
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final int FORCE_DARK_OFF = 0;
+
+    /**
+     * Enable force dark dependent on the state of the WebView parent view. If the WebView parent
+     * view is being automatically force darkened
+     * (@see android.view.View#setForceDarkAllowed), then WebView content will be rendered
+     * so as to emulate a dark theme. WebViews that are not attached to the view hierarchy will not
+     * be inverted.
+     *
+     * @see #setForceDark
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final int FORCE_DARK_AUTO = 1;
+
+    /**
+     * Used with {@link #setForceDark}
+     *
+     * Unconditionally enable force dark. In this mode WebView content will always be rendered so
+     * as to emulate a dark theme.
+     *
+     * @see #setForceDark
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final int FORCE_DARK_ON = 2;
+
+    /**
+     * @hide
+     */
+    // TODO(amalova): redefine with framework constants when AndroidX compiles against Q
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @IntDef(value = {
+            FORCE_DARK_OFF,
+            FORCE_DARK_AUTO,
+            FORCE_DARK_ON,
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    @Target({ElementType.PARAMETER, ElementType.METHOD})
+    public @interface ForceDark {}
+
+    /**
+     * Set the force dark mode for this WebView.
+     *
+     * <p>
+     * This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#FORCE_DARK}.
+     *
+     * @param forceDarkMode the force dark mode to set.
+     *
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.FORCE_DARK,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setForceDark(@NonNull WebSettings settings,
+            @ForceDark int forceDarkMode) {
+        WebViewFeatureInternal webViewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.FORCE_DARK);
+        if (webViewFeature.isSupportedByFramework()) {
+            settings.setForceDark(forceDarkMode);
+        } else if (webViewFeature.isSupportedByWebView()) {
+            getAdapter(settings).setForceDark(forceDarkMode);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Get the force dark mode for this WebView.
+     *
+     * <p>
+     * The default force dark mode is {@link #FORCE_DARK_AUTO}
+     *
+     * <p>
+     * This method should only be called if
+     * {@link WebViewFeature#isFeatureSupported(String)}
+     * returns true for {@link WebViewFeature#FORCE_DARK}.
+     *
+     * @return the currently set force dark mode.
+     *
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.FORCE_DARK,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @ForceDark int getForceDark(@NonNull WebSettings settings) {
+        WebViewFeatureInternal webViewFeature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.FORCE_DARK);
+        if (webViewFeature.isSupportedByFramework()) {
+            return settings.getForceDark();
+        } else if (webViewFeature.isSupportedByWebView()) {
+            return getAdapter(settings).getForceDark();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    private static WebSettingsAdapter getAdapter(WebSettings settings) {
+        return WebViewGlueCommunicator.getCompatConverter().convertSettings(settings);
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
     }
 }
 

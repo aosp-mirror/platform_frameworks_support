@@ -23,6 +23,9 @@ dependencies {
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.swiperefreshlayout', module: 'swiperefreshlayout'
     }
+    androidTestImplementation(ANDROIDX_RECYCLERVIEW) {
+        exclude group: 'androidx.swiperefreshlayout', module: 'swiperefreshlayout'
+    }
 }
 
 supportLibrary {

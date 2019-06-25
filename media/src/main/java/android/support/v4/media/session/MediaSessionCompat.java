@@ -477,6 +477,45 @@ public class MediaSessionCompat {
     }
 
     /**
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
+=======
+     * Creates a new session with a specified media button receiver (a component name and/or
+     * a pending intent). You must call {@link #release()} when finished with the session.
+     * <p>
+     * The session will automatically be registered with the system but will not be published
+     * until {@link #setActive(boolean) setActive(true)} is called.
+     * </p><p>
+     * For API 20 or earlier, note that a media button receiver is required for handling
+     * {@link Intent#ACTION_MEDIA_BUTTON}. This constructor will attempt to find an appropriate
+     * {@link BroadcastReceiver} from your manifest if it's not specified. See
+     * {@link MediaButtonReceiver} for more details.
+     * </p>
+     * The {@code sessionInfo} can include additional unchanging information about this session.
+     * For example, it can include the version of the application, or other app-specific
+     * unchanging information.
+     *
+     * @param context The context to use to create the session.
+     * @param tag A short name for debugging purposes.
+     * @param mbrComponent The component name for your media button receiver.
+     * @param mbrIntent The PendingIntent for your receiver component that handles
+     *            media button events. This is optional and will be used on between
+     *            {@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} and
+     *            {@link android.os.Build.VERSION_CODES#KITKAT_WATCH} instead of the
+     *            component name.
+     * @param sessionInfo A bundle for additional information about this session,
+     *                    or {@link Bundle#EMPTY} if none. Controllers can get this information
+     *                    by calling {@link MediaControllerCompat#getSessionInfo()}. An
+     *                    {@link IllegalArgumentException} will be thrown if this contains any
+     *                    non-framework Parcelable objects.
+     */
+    public MediaSessionCompat(@NonNull Context context, @NonNull String tag,
+            @Nullable ComponentName mbrComponent, @Nullable PendingIntent mbrIntent,
+            @Nullable Bundle sessionInfo) {
+        this(context, tag, mbrComponent, mbrIntent, sessionInfo, null /* session2Token */);
+    }
+
+    /**
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
      * @hide
      * Creates session for MediaSession.
      */
@@ -509,6 +548,7 @@ public class MediaSessionCompat {
             mbrIntent = PendingIntent.getBroadcast(context,
                     0/* requestCode, ignored */, mediaButtonIntent, 0/* flags */);
         }
+<<<<<<< HEAD   (be0ce7 Merge "Merge empty history for sparse-5662278-L1600000033295)
         if (android.os.Build.VERSION.SDK_INT >= 28) {
             mImpl = new MediaSessionImplApi28(context, tag, session2Token);
             // Set default callback to respond to controllers' extra binder requests.
@@ -516,6 +556,23 @@ public class MediaSessionCompat {
             mImpl.setMediaButtonReceiver(mbrIntent);
         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
             mImpl = new MediaSessionImplApi21(context, tag, session2Token);
+=======
+
+        if (doesBundleHaveCustomParcelable(sessionInfo)) {
+            throw new IllegalArgumentException("sessionInfo shouldn't contain any custom "
+                    + "parcelables");
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            MediaSession sessionFwk = createFwkMediaSession(context, tag, sessionInfo);
+            if (android.os.Build.VERSION.SDK_INT >= 29) {
+                mImpl = new MediaSessionImplApi29(sessionFwk, session2Token, sessionInfo);
+            } else if (android.os.Build.VERSION.SDK_INT >= 28) {
+                mImpl = new MediaSessionImplApi28(sessionFwk, session2Token, sessionInfo);
+            } else {
+                mImpl = new MediaSessionImplApi21(sessionFwk, session2Token, sessionInfo);
+            }
+>>>>>>> BRANCH (e55c95 Merge "Merge cherrypicks of [990151, 990154] into sparse-568)
             // Set default callback to respond to controllers' extra binder requests.
             setCallback(new Callback() {});
             mImpl.setMediaButtonReceiver(mbrIntent);
@@ -955,6 +1012,39 @@ public class MediaSessionCompat {
             impl = new MediaSessionImplApi21(mediaSession);
         }
         return new MediaSessionCompat(context, impl);
+    }
+
+
+    /**
+     * Returns whether the given bundle includes non-framework Parcelables.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static boolean doesBundleHaveCustomParcelable(@Nullable Bundle bundle) {
+        if (bundle == null) {
+            return false;
+        }
+
+        // Try writing the bundle to parcel, and read it with framework classloader.
+        Parcel parcel = null;
+        try {
+            parcel = Parcel.obtain();
+            parcel.writeBundle(bundle);
+            parcel.setDataPosition(0);
+            Bundle out = parcel.readBundle(null);
+
+            // Calling Bundle#isEmpty() will trigger Bundle#unparcel().
+            out.isEmpty();
+        } catch (BadParcelableException e) {
+            Log.d(TAG, "Custom parcelable in sessionInfo.", e);
+            return true;
+        } finally {
+            if (parcel != null) {
+                parcel.recycle();
+            }
+        }
+        return false;
     }
 
     /**
