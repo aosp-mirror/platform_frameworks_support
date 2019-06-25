@@ -199,6 +199,7 @@ public class VideoPlayerActivity extends FragmentActivity {
         @Override
         public void onConnected(@NonNull MediaController controller,
                 @NonNull SessionCommandGroup allowedCommands) {
+            Log.v("JSP", "URI: " + mUri);
             controller.setMediaItem(mUri.toString());
             controller.prepare();
         }
