@@ -46,6 +46,30 @@
       "revId": "4dd89d5908c5de6a82bdf7cf1cd8afa318a34bb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d23cb32_ab5b8f7b",
+        "filename": "core/core/src/androidTest/java/androidx/core/os/TraceCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-06-25T19:14:56Z",
+      "side": 1,
+      "message": "I more meant you didn\u0027t have to actual accumulate the output. It could just consume from the stream to completion but not store it.\n\nDoesn\u0027t really matter though.",
+      "parentUuid": "37f25000_c028863f",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 84
+      },
+      "revId": "4dd89d5908c5de6a82bdf7cf1cd8afa318a34bb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
