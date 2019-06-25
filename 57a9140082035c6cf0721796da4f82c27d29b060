@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "564cb322_4351cea8",
+        "filename": "camera/core/src/main/java/androidx/camera/core/InternalCameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-25T08:41:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d916391a_2c5cd54f",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "57a9140082035c6cf0721796da4f82c27d29b060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fcdaa96_5a139ad7",
         "filename": "camera/core/src/main/java/androidx/camera/core/InternalCameraControl.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "57a9140082035c6cf0721796da4f82c27d29b060",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82757c26_61b333e5",
+        "filename": "camera/core/src/main/java/androidx/camera/core/InternalCameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-25T08:41:25Z",
+      "side": 1,
+      "message": "I took the solution 2. Thanks for the feedback.",
+      "parentUuid": "0fcdaa96_5a139ad7",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "57a9140082035c6cf0721796da4f82c27d29b060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
