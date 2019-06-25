@@ -57,6 +57,7 @@ dependencies {
         exclude group: 'org.mockito' // to keep control on the mockito version
     }
     androidTestImplementation(TRUTH)
+    androidTestImplementation project(":benchmark")
 }
 
 androidx {

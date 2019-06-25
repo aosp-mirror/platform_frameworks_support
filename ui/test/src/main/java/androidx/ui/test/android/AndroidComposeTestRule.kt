@@ -63,6 +63,15 @@ class AndroidComposeTestRule(
         })
     }
 
+    fun runOnUiThreadSync(action: () -> Unit) {
+        // Workaround for lambda bug in IR
+        activityTestRule.runOnUiThread(object : Runnable {
+            override fun run() {
+                action.invoke()
+            }
+        })
+    }
+
     /**
      * Use this in your tests to setup the UI content to be tested. This should be called exactly
      * once per test.
