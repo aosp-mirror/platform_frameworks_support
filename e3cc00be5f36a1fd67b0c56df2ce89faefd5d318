@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea9a3106_0ce8039b",
+        "filename": "recyclerview/recyclerview/api/restricted_1.1.0-beta01.ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-06-25T21:08:17Z",
+      "side": 1,
+      "message": "Is this a false positive?  I forgot where we landed on ignores in recyclerview",
+      "revId": "e3cc00be5f36a1fd67b0c56df2ce89faefd5d318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
