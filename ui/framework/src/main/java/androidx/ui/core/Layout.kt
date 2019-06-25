@@ -16,6 +16,7 @@
 
 package androidx.ui.core
 
+import android.os.SystemClock
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.Compose
@@ -32,8 +33,14 @@ internal typealias IntrinsicMeasurementBlock = IntrinsicMeasurementsReceiver
 internal val LayoutBlockStub: LayoutBlock = { _, _ -> }
 internal val IntrinsicMeasurementBlockStub: IntrinsicMeasurementBlock = { _, _ -> 0.ipx }
 
+private val FitsConstraintsRemeasure: (IntPx, IntPx, Constraints, Constraints) -> Boolean =
+    { width, height, _, newConstraints ->
+        !newConstraints.satisfiedBy(IntPxSize(width, height))
+    }
+
 internal class ComplexLayoutState(
     internal var layoutBlock: LayoutBlock = LayoutBlockStub,
+    internal var shouldRemeasureBlock: (width: IntPx, height: IntPx, oldConstraints: Constraints, newConstraints: Constraints) -> Boolean = FitsConstraintsRemeasure,
     internal var minIntrinsicWidthBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
     internal var maxIntrinsicWidthBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
     internal var minIntrinsicHeightBlock: IntrinsicMeasurementBlock = IntrinsicMeasurementBlockStub,
@@ -82,13 +89,17 @@ internal class ComplexLayoutState(
                     "on the same Measurable")
         }
         measureIteration = iteration
-        if (layoutNode.constraints == constraints && !layoutNode.needsRemeasure) {
+        if (!layoutNode.needsRemeasure && (constraints == layoutNode.constraints ||
+            !shouldRemeasureBlock(width, height, layoutNode.constraints, constraints))) {
             layoutNode.resize(layoutNode.width, layoutNode.height)
             return this // we're already measured to this size, don't do anything
         }
         layoutNode.startMeasure()
+//        val t0 = SystemClock.elapsedRealtimeNanos()
         layoutNode.constraints = constraints
         layoutBlockReceiver.layoutBlock(childrenMeasurables, constraints)
+//        val t1 = SystemClock.elapsedRealtimeNanos()
+//        println("measure $layoutNode: ${(t1 - t0)/1000f}")
         layoutNode.endMeasure()
         return this
     }
@@ -108,9 +119,12 @@ internal class ComplexLayoutState(
     internal fun placeChildren() {
         if (layoutNode.needsRelayout) {
             layoutNode.startLayout()
+//            val t0 = SystemClock.elapsedRealtimeNanos()
             positioningBlockReceiver.apply { positioningBlock() }
             dispatchOnPositionedCallbacks()
+//            val t1 = SystemClock.elapsedRealtimeNanos()
             layoutNode.endLayout()
+//            println("placeChildren $layoutNode: ${(t1 - t0)/1000f}")
         }
     }
 
@@ -176,6 +190,9 @@ internal class ComplexLayoutStateMeasurablesList(
  * Receiver scope for the [ComplexLayout] lambda.
  */
 class ComplexLayoutReceiver internal constructor(private val layoutState: ComplexLayoutState) {
+    fun shouldRemeasure(shouldRemeasureBlock: (IntPx, IntPx, Constraints, Constraints) -> Boolean) {
+        layoutState.shouldRemeasureBlock = shouldRemeasureBlock
+    }
     fun layout(layoutBlock: LayoutBlock) {
         layoutState.layoutBlock = layoutBlock
     }
