@@ -22,6 +22,30 @@
       "revId": "ef810e28ee236eed5babfc6837f06cbb20a08437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821bd7c8_be83f49f",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-25T23:29:48Z",
+      "side": 1,
+      "message": "But aren\u0027t we setting start and end margins so you only care about determining if the scrollbar is at the start or the end (not if it\u0027s on the left or right)?",
+      "parentUuid": "c56834f9_61d983dd",
+      "range": {
+        "startLine": 452,
+        "startChar": 16,
+        "endLine": 454,
+        "endChar": 73
+      },
+      "revId": "ef810e28ee236eed5babfc6837f06cbb20a08437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
