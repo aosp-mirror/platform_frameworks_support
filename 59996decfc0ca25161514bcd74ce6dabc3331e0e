@@ -68,6 +68,29 @@
       "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bd5963f_594f1eaf",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/SubtitleTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T03:57:35Z",
+      "side": 1,
+      "message": "Do we need this for inner classes, too?",
+      "range": {
+        "startLine": 571,
+        "startChar": 4,
+        "endLine": 571,
+        "endChar": 24
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
