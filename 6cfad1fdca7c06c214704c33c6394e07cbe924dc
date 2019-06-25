@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2e95a7c_efda0935",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-25T07:26:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we call other callbacks? such as onPlaybackSpeedChanged, onBufferingStateChagned, ...?",
+      "revId": "6cfad1fdca7c06c214704c33c6394e07cbe924dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
