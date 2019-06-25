@@ -22,6 +22,30 @@
       "revId": "3698a4212f923eb93f8c8494992f9a338fd9806b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "139611c6_72e20e77",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-25T15:30:05Z",
+      "side": 1,
+      "message": "I removed resolve, and added a new function in BuildServerConfig. I\u0027m hoping this works.",
+      "parentUuid": "70d7b356_852d9d9f",
+      "range": {
+        "startLine": 588,
+        "startChar": 20,
+        "endLine": 588,
+        "endChar": 44
+      },
+      "revId": "3698a4212f923eb93f8c8494992f9a338fd9806b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
