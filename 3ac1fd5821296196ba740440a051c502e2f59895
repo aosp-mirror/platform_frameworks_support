@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4cbbf049_9fafb13e",
+        "filename": "benchmark/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "We want to also document runtime exceptions too. It is a good practice for both Java and Kotlin.",
+      "parentUuid": "2fd00348_6d3bbb59",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c15b1ae_1e0c0876",
         "filename": "browser/api/api_lint.ignore",
         "patchSetId": 11
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "95c308a4_07b94eb4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/ApiLocation.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "Discussed this with alanv@, he suggested that he prefers to use baseline just so it is more closely aligned to metalava, --baseline someBaseLineFile.",
+      "parentUuid": "4a7505a5_985f1c19",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40d79387_fdc5a9c7",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
         "patchSetId": 11
@@ -67,6 +103,24 @@
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3047b266_426e329b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d79387_fdc5a9c7",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "979400d4_75b375c1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "I would prefer to keep all of the metalava arguments for which checks are enabled and disabled in one place. Do you feel like keeping them next to --api-lint is more important? If so, we\u0027ll need these in a constant as they are used by two different invocations of metalava: generateApi and updateApiLintBaselines.",
+      "parentUuid": "3098af86_1d75e925",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ac55f8f_21c6df0a",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 11
@@ -98,6 +170,24 @@
       "writtenOn": "2019-06-24T19:35:51Z",
       "side": 1,
       "message": "I wonder if we want to mention the existence of the updateApiLintBaseline task if this task fails. I guess probably not but just checking if that\u0027s intentional",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceb54a5a_0b2e430a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "It is intentional not to mention it as we really don\u0027t want anyone to use it :)",
+      "parentUuid": "2ac55f8f_21c6df0a",
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -124,6 +214,30 @@
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ac821f7_8349bbdc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff6413fa_76b5cd69",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 97
+      },
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "39385717_e4ebe802",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "Deleted the need for updating of the baseline files.",
+      "parentUuid": "9dde7e36_b0009378",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 78
+      },
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a5e53d9_5314eadc",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
         "patchSetId": 11
@@ -185,6 +323,24 @@
       "writtenOn": "2019-06-24T19:35:51Z",
       "side": 1,
       "message": "I discovered recently that Metalava provides a \"--delete-empty-baselines\" argument too",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8f5afcb_617f4df4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateBaselineTasks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "Started using this. Thanks!",
+      "parentUuid": "0a5e53d9_5314eadc",
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -208,6 +364,24 @@
     },
     {
       "key": {
+        "uuid": "64af6081_ea782f01",
+        "filename": "coordinatorlayout/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "I\u0027ll leave it as is for now. If we hit more issues with it then we can file a bug and improve it.",
+      "parentUuid": "6afcff8a_980d32d3",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6a03170_f3854a28",
         "filename": "core/core/api/api_lint.ignore",
         "patchSetId": 11
@@ -222,6 +396,24 @@
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38847542_54a69703",
+        "filename": "core/core/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "I\u0027ll just keep the check as is. We can improve if we hit more instances of this. I suspect it will be quite rare.",
+      "parentUuid": "e6a03170_f3854a28",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -242,6 +434,24 @@
     },
     {
       "key": {
+        "uuid": "b3a6ddc9_4a8f7a10",
+        "filename": "core/core/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "I\u0027ll just keep the check as is. We can improve if we hit more instances of this. I suspect it will be quite rare.",
+      "parentUuid": "3bc0c47e_e290126d",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be0060ce_f91b21bc",
         "filename": "customview/api/api_lint.ignore",
         "patchSetId": 11
@@ -256,6 +466,24 @@
       "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd128b0_35ced05e",
+        "filename": "customview/api/api_lint.ignore",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T18:24:45Z",
+      "side": 1,
+      "message": "In general, this is a valid check, so I think it makes sense to keep it.",
+      "parentUuid": "be0060ce_f91b21bc",
+      "revId": "3ac1fd5821296196ba740440a051c502e2f59895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
