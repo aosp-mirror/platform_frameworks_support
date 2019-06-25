@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7964723c_e0554b36",
+        "filename": "car/core/res/layout/car_selection_dialog.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-25T17:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ad43c41_94c7af71",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 28
+      },
+      "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519ed4e7_c60e6cad",
         "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db54cf38_9a09d601",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-25T17:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519ed4e7_c60e6cad",
+      "range": {
+        "startLine": 232,
+        "startChar": 27,
+        "endLine": 233,
+        "endChar": 67
+      },
+      "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1772c81d_74ea7a6d",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-25T17:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923005fe_eb8355ec",
+      "range": {
+        "startLine": 162,
+        "startChar": 32,
+        "endLine": 162,
+        "endChar": 59
+      },
+      "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e66d9b7_6640ee1e",
         "filename": "car/core/src/main/java/androidx/car/app/CarSingleChoiceDialog.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d8308c_96f28e06",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleChoiceDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-25T17:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e66d9b7_6640ee1e",
+      "range": {
+        "startLine": 163,
+        "startChar": 32,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "1fea0d83650caad4146d1d20f0d9fec0e5463fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
