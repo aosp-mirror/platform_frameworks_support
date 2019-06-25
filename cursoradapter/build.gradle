@@ -1,17 +1,19 @@
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0")
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library Cursor Adapter"
-    publish = true
+    publish = Publish.SNAPSHOT_AND_RELEASE
     mavenVersion = LibraryVersions.CURSORADAPTER
     mavenGroup = LibraryGroups.CURSORADAPTER
     inceptionYear = "2018"

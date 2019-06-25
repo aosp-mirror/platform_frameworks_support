@@ -34,7 +34,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,11 +48,14 @@ import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
 import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.annotation.Retention;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * View that wraps a {@link RecyclerView} and a scroll bar that has
@@ -106,7 +111,8 @@ public class PagedListView extends FrameLayout {
      * which point we'll construct it and add it to the view hierarchy as a child of this frame
      * layout.
      */
-    @Nullable private AlphaJumpOverlayView mAlphaJumpView;
+    @Nullable
+    private AlphaJumpOverlayView mAlphaJumpView;
 
     private int mRowsPerPage = -1;
     private RecyclerView.Adapter<? extends RecyclerView.ViewHolder> mAdapter;
@@ -114,6 +120,8 @@ public class PagedListView extends FrameLayout {
     /** Maximum number of pages to show. */
     private int mMaxPages = UNLIMITED_PAGES;
 
+    /** Package private to allow access to nested classes. */
+    final List<Callback> mCallbacks = new ArrayList<>();
     OnScrollListener mOnScrollListener;
 
     /** Used to check if there are more items added to the list. */
@@ -244,7 +252,34 @@ public class PagedListView extends FrameLayout {
         mSnapHelper = new PagedSnapHelper(context);
         mSnapHelper.attachToRecyclerView(mRecyclerView);
 
-        mRecyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (mOnScrollListener != null) {
+                    mOnScrollListener.onScrollStateChanged(recyclerView, newState);
+                }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    mHandler.postDelayed(mPaginationRunnable, PAGINATION_HOLD_DELAY_MS);
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (mOnScrollListener != null) {
+                    mOnScrollListener.onScrolled(recyclerView, dx, dy);
+
+                    if (!isAtStart() && isAtEnd()) {
+                        mOnScrollListener.onReachBottom();
+                    }
+                }
+                if (!isAtStart() && isAtEnd()) {
+                    for (Callback callback : mCallbacks) {
+                        callback.onReachBottom();
+                    }
+                }
+                updatePaginationButtons(false);
+            }
+        });
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 12);
 
         if (a.getBoolean(R.styleable.PagedListView_verticallyCenterListContent, false)) {
@@ -262,8 +297,9 @@ public class PagedListView extends FrameLayout {
             int dividerEndId = a.getResourceId(R.styleable.PagedListView_alignDividerEndTo,
                     DividerDecoration.INVALID_RESOURCE_ID);
 
-            int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
+            int listDividerColorRes = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
+            int listDividerColor = ContextCompat.getColor(context, listDividerColorRes);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
                     dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
@@ -298,12 +334,18 @@ public class PagedListView extends FrameLayout {
                 switch (direction) {
                     case PagedScrollBarView.PaginationListener.PAGE_UP:
                         pageUp();
+                        for (Callback callback : mCallbacks) {
+                            callback.onScrollUpButtonClicked();
+                        }
                         if (mOnScrollListener != null) {
                             mOnScrollListener.onScrollUpButtonClicked();
                         }
                         break;
                     case PagedScrollBarView.PaginationListener.PAGE_DOWN:
                         pageDown();
+                        for (Callback callback : mCallbacks) {
+                            callback.onScrollDownButtonClicked();
+                        }
                         if (mOnScrollListener != null) {
                             mOnScrollListener.onScrollDownButtonClicked();
                         }
@@ -315,7 +357,7 @@ public class PagedListView extends FrameLayout {
 
             @Override
             public void onAlphaJump() {
-                showAlphaJump();
+                setAlphaJumpVisible(true);
             }
         });
 
@@ -488,12 +530,32 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+     * Sets whether the scroll bar is enabled.
+     *
+     * If enabled, a scroll bar will appear when the number of items causes the PagedListView to
+     * be scrollable. Otherwise, the scroll bar is hidden regardless of item count.
+     *
+     * @param enabled {@code true} to enable the scroll bar.
+     */
+    public final void setScrollBarEnabled(boolean enabled) {
+        mScrollBarEnabled = enabled;
+        mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns {@code true} if the scroll bar is enabled.
+     */
+    public final boolean isScrollBarEnabled() {
+        return mScrollBarEnabled;
+    }
+
+    /**
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
      * @param offset The top offset to add in pixels.
      *
-     * {@link R.attr#listContentTopOffset}
+     *               {@link R.attr#listContentTopOffset}
      */
     public void setListContentTopOffset(@Px int offset) {
         TopOffsetDecoration existing = null;
@@ -540,7 +602,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param offset The bottom offset to add in pixels
      *
-     * {@link R.attr#listContentBottomOffset}
+     *               {@link R.attr#listContentBottomOffset}
      */
     public void setListContentBottomOffset(@Px int offset) {
         BottomOffsetDecoration existing = null;
@@ -711,7 +773,7 @@ public class PagedListView extends FrameLayout {
      * PagedListView needs to implement {@link ItemCap}.
      *
      * @param maxPages The maximum number of pages that fit on the screen. Should be positive or
-     * {@link #UNLIMITED_PAGES}.
+     *                 {@link #UNLIMITED_PAGES}.
      */
     public void setMaxPages(int maxPages) {
         mMaxPages = Math.max(UNLIMITED_PAGES, maxPages);
@@ -814,9 +876,9 @@ public class PagedListView extends FrameLayout {
     /**
      * Sets the color that should be used for the dividers in the PagedListView.
      *
-     * @param dividerColor The resource identifier for the divider color.
+     * @param dividerColor The packed color int for the divider color.
      */
-    public void setDividerColor(@ColorRes int dividerColor) {
+    public void setDividerColor(@ColorInt int dividerColor) {
         int decorCount = mRecyclerView.getItemDecorationCount();
         for (int i = 0; i < decorCount; i++) {
             RecyclerView.ItemDecoration decor = mRecyclerView.getItemDecorationAt(i);
@@ -827,13 +889,83 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
+     * Sets the color of the scrollbar thumb.
+     *
+     * @param color Resource identifier of the color.
+     */
+    public void setScrollbarThumbColor(@ColorRes int color) {
+        mScrollBarView.setScrollbarThumbColor(color);
+    }
+
+    /**
+     * Sets the tint color for the up and down buttons of the scrollbar.
+     *
+     * @param tintResId Resource identifier of the tint color.
+     */
+    public void setScrollBarButtonTintColor(@ColorRes int tintResId) {
+        mScrollBarView.setButtonTintColor(tintResId);
+    }
+
+    /**
+     * Sets the drawable that will function as the background for the buttons of the scrollbar. This
+     * background should provide the ripple.
+     *
+     * @param backgroundResId The drawable resource identifier for the ripple background.
+     */
+    public void setScrollBarButtonRippleBackground(@DrawableRes int backgroundResId) {
+        mScrollBarView.setButtonRippleBackground(backgroundResId);
+    }
+
+    /**
      * Sets the {@link OnScrollListener} that will be notified of scroll events within the
      * PagedListView.
      *
      * @param listener The scroll listener to set.
+     * @deprecated Use {@link #addOnScrollListener(RecyclerView.OnScrollListener)} to be notified
+     * of scroll events within the PagedListView. To be notified of other PagedListView events, use
+     * {@link #registerCallback(Callback)}.
      */
+    @Deprecated
     public void setOnScrollListener(OnScrollListener listener) {
         mOnScrollListener = listener;
+    }
+
+    /**
+     * Adds a {@link RecyclerView.OnScrollListener} that will be notified of scroll events
+     * within the PagedListView.
+     *
+     * @param listener The scroll listener to add.
+     */
+    public void addOnScrollListener(@NonNull RecyclerView.OnScrollListener listener) {
+        mRecyclerView.addOnScrollListener(listener);
+    }
+
+    /**
+     * Remove a {@link RecyclerView.OnScrollListener} that was notified of scroll events
+     * within the PagedListView.
+     *
+     * @param listener The scroll listener to remove.
+     */
+    public void removeOnScrollListener(@NonNull RecyclerView.OnScrollListener listener) {
+        mRecyclerView.removeOnScrollListener(listener);
+    }
+
+    /**
+     * Add a {@link Callback} that will be notified of PagedListView events.
+     *
+     * @param callback The callback to add.
+     */
+    public void registerCallback(@NonNull Callback callback) {
+        mCallbacks.add(callback);
+    }
+
+    /**
+     * Remove a {@link Callback} that was notified of PagedListView events.
+     *
+     * @param callback The callback to remove.
+     */
+    public void unregisterCallback(@NonNull Callback callback) {
+        mCallbacks.remove(callback);
     }
 
     /** Returns the page the given position is on, starting with page 0. */
@@ -1224,52 +1356,27 @@ public class PagedListView extends FrameLayout {
         return mAlphaJumpView != null && mAlphaJumpView.getVisibility() == VISIBLE;
     }
 
-    /**
-     * Show the Alpha Jump Overlay.
-     */
-    public void showAlphaJump() {
+    private void ensureAlphaJumpViewIsChildView() {
         if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
             mAlphaJumpView = new AlphaJumpOverlayView(getContext());
             mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
             addView(mAlphaJumpView);
         }
-
-        mAlphaJumpView.show();
     }
 
     /**
-     * Hide the Alpha Jump Overlay.
+     * Sets whether the Alpha Jump Overlay is visible.
+     *
+     * @param visible {@code true} to show the Alpha Jump Overlay or {@code false} to hide it.
      */
-    public void hideAlphaJump() {
-        if (mAlphaJumpView != null) {
+    public void setAlphaJumpVisible(boolean visible) {
+        if (visible) {
+            ensureAlphaJumpViewIsChildView();
+            mAlphaJumpView.show();
+        } else if (mAlphaJumpView != null) {
             mAlphaJumpView.hide();
         }
     }
-
-    private final RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
-            new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    if (mOnScrollListener != null) {
-                        mOnScrollListener.onScrolled(recyclerView, dx, dy);
-
-                        if (!isAtStart() && isAtEnd()) {
-                            mOnScrollListener.onReachBottom();
-                        }
-                    }
-                    updatePaginationButtons(false);
-                }
-
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    if (mOnScrollListener != null) {
-                        mOnScrollListener.onScrollStateChanged(recyclerView, newState);
-                    }
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        mHandler.postDelayed(mPaginationRunnable, PAGINATION_HOLD_DELAY_MS);
-                    }
-                }
-            };
 
     final Runnable mPaginationRunnable =
             new Runnable() {
@@ -1291,25 +1398,56 @@ public class PagedListView extends FrameLayout {
     private final Runnable mUpdatePaginationRunnable =
             () -> updatePaginationButtons(true /*animate*/);
 
-    /** Used to listen for {@code PagedListView} scroll events. */
+    /** Used to listen for {@code PagedListView} events. */
+    public interface Callback {
+        /**
+         * Called when the {@code PagedListView} has been scrolled so that the last item is
+         * completely visible.
+         */
+        default void onReachBottom() {
+        }
+
+        /** Called when scroll up button is clicked */
+        default void onScrollUpButtonClicked() {
+        }
+
+        /** Called when scroll down button is clicked */
+        default void onScrollDownButtonClicked() {
+        }
+    }
+
+    /**
+     * Used to listen for {@code PagedListView} scroll events.
+     *
+     * @deprecated Use {@link RecyclerView.OnScrollListener} to be notified of scroll events within
+     * the PagedListView. To be notified of other PagedListView events, use {@link Callback}.
+     */
+    @Deprecated
     public abstract static class OnScrollListener {
         /**
          * Called when the {@code PagedListView} has been scrolled so that the last item is
          * completely visible.
          */
-        public void onReachBottom() {}
+        public void onReachBottom() {
+        }
+
         /** Called when scroll up button is clicked */
-        public void onScrollUpButtonClicked() {}
+        public void onScrollUpButtonClicked() {
+        }
+
         /** Called when scroll down button is clicked */
-        public void onScrollDownButtonClicked() {}
+        public void onScrollDownButtonClicked() {
+        }
 
         /**
          * Called when RecyclerView.OnScrollListener#onScrolled is called. See
          * RecyclerView.OnScrollListener
          */
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {}
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        }
 
         /** See RecyclerView.OnScrollListener */
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {}
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        }
     }
 }

@@ -17,7 +17,6 @@
 package androidx.recyclerview.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -1290,13 +1289,11 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         if (mOrientation == HORIZONTAL) {
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1,
-                    -1, -1,
-                    sglp.mFullSpan, false));
+                    -1, -1, false, false));
         } else { // VERTICAL
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     -1, -1,
-                    sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1,
-                    sglp.mFullSpan, false));
+                    sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1, false, false));
         }
     }
 
@@ -3147,7 +3144,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     @SuppressLint("BanParcelableUsage")
     public static class SavedState implements Parcelable {
 
@@ -3182,9 +3179,10 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
             mReverseLayout = in.readInt() == 1;
             mAnchorLayoutFromEnd = in.readInt() == 1;
             mLastLayoutRTL = in.readInt() == 1;
-            //noinspection unchecked
-            mFullSpanItems = in.readArrayList(
-                    LazySpanLookup.FullSpanItem.class.getClassLoader());
+            @SuppressWarnings("unchecked")
+            List<LazySpanLookup.FullSpanItem> fullSpanItems =
+                    in.readArrayList(LazySpanLookup.FullSpanItem.class.getClassLoader());
+            mFullSpanItems = fullSpanItems;
         }
 
         public SavedState(SavedState other) {

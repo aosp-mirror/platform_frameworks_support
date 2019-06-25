@@ -86,6 +86,9 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_TERMINATE,
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
+            SUPPRESS_ERROR_PAGE,
+            MULTI_PROCESS_QUERY,
+            FORCE_DARK,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -143,7 +146,7 @@ public class WebViewFeature {
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#getSafeBrowsingPrivacyPolicyUrl()}.
+     * {@link androidx.webkit.WebViewCompat#getSafeBrowsingPrivacyPolicyUrl()}.
      */
     public static final String SAFE_BROWSING_PRIVACY_POLICY_URL =
             "SAFE_BROWSING_PRIVACY_POLICY_URL";
@@ -318,14 +321,14 @@ public class WebViewFeature {
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#createWebMessageChannel(WebView)}.
+     * {@link androidx.webkit.WebViewCompat#createWebMessageChannel(WebView)}.
      */
     public static final String CREATE_WEB_MESSAGE_CHANNEL = "CREATE_WEB_MESSAGE_CHANNEL";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#postWebMessage(WebView, WebMessageCompat, Uri)}.
+     * {@link androidx.webkit.WebViewCompat#postWebMessage(WebView, WebMessageCompat, Uri)}.
      */
     public static final String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
 
@@ -340,35 +343,33 @@ public class WebViewFeature {
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebViewClient(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebViewClient(WebView)}
      */
     public static final String GET_WEB_VIEW_CLIENT = "GET_WEB_VIEW_CLIENT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebChromeClient(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebChromeClient(WebView)}
      */
     public static final String GET_WEB_CHROME_CLIENT = "GET_WEB_CHROME_CLIENT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebViewRenderer(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebViewRenderProcess(WebView)}
      */
     public static final String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewRenderer#terminate()}
+     * This feature covers {@link WebViewRenderProcess#terminate()}
      */
     public static final String WEB_VIEW_RENDERER_TERMINATE = "WEB_VIEW_RENDERER_TERMINATE";
 
     /**
-     * Feature for {@link #isFeatureSupported(String)}.
+     i* Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#getWebViewRendererClient()},
-     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
-     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
-     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     * {@link androidx.webkit.WebViewCompat#getWebViewRenderProcessClient(WebView)},
+     * {@link androidx.webkit.WebViewCompat#setWebViewRenderProcessClient(WebView, WebViewRenderProcessClient)},
      */
     public static final String WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE =
             "WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE";
@@ -377,11 +378,43 @@ public class WebViewFeature {
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)},
-     * {@link ProxyController#setProxyOverride(ProxyConfig, Runnable)},
      * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
-     * {@link ProxyController#clearProxyOverride(Runnable)}.
      */
     public static final String PROXY_OVERRIDE = "PROXY_OVERRIDE";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebSettingsCompat#willSuppressErrorPage(WebSettings)} and
+     * {@link WebSettingsCompat#setWillSuppressErrorPage(WebSettings, boolean)}.
+     *
+     * TODO(cricke): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}
+     *
+     * TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String MULTI_PROCESS_QUERY = "MULTI_PROCESS_QUERY";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebViewCompat#setForceDark(WebSettings, int)} and
+     * {@link WebViewCompat#getForceDark(WebSettings)}.
+     *
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String FORCE_DARK = "FORCE_DARK";
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

@@ -50,8 +50,10 @@ public class SystemJobService extends JobService implements ExecutionListener {
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
-        if (mWorkManagerImpl == null) {
+        try {
+            mWorkManagerImpl = WorkManagerImpl.getInstance(getApplicationContext());
+            mWorkManagerImpl.getProcessor().addExecutionListener(this);
+        } catch (IllegalStateException e) {
             // This can occur if...
             // 1. The app is performing an auto-backup.  Prior to O, JobScheduler could erroneously
             //    try to send commands to JobService in this state (b/32180780).  Since neither
@@ -68,12 +70,10 @@ public class SystemJobService extends JobService implements ExecutionListener {
                 throw new IllegalStateException("WorkManager needs to be initialized via a "
                         + "ContentProvider#onCreate() or an Application#onCreate().");
             }
-            Logger.get().warning(TAG, "Could not find WorkManager instance; this may be because an "
-                    + "auto-backup is in progress. Ignoring JobScheduler commands for now. Please "
-                    + "make sure that you are initializing WorkManager if you have manually "
+            Logger.get().warning(TAG, "Could not find WorkManager instance; this may be because "
+                    + "an auto-backup is in progress. Ignoring JobScheduler commands for now. "
+                    + "Please make sure that you are initializing WorkManager if you have manually "
                     + "disabled WorkManagerInitializer.");
-        } else {
-            mWorkManagerImpl.getProcessor().addExecutionListener(this);
         }
     }
 
@@ -94,6 +94,13 @@ public class SystemJobService extends JobService implements ExecutionListener {
         }
 
         PersistableBundle extras = params.getExtras();
+        // This can be null, possibly on a device-specific/API-specific (23) situation.  b/134028277
+        //noinspection ConstantConditions
+        if (extras == null) {
+            Logger.get().error(TAG, "No extras in JobParameters.");
+            return false;
+        }
+
         String workSpecId = extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
         if (TextUtils.isEmpty(workSpecId)) {
             Logger.get().error(TAG, "WorkSpec id not found!");
@@ -151,7 +158,15 @@ public class SystemJobService extends JobService implements ExecutionListener {
             return true;
         }
 
-        String workSpecId = params.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
+        PersistableBundle extras = params.getExtras();
+        // This can be null, possibly on a device-specific/API-specific (23) situation.  b/134028277
+        //noinspection ConstantConditions
+        if (extras == null) {
+            Logger.get().error(TAG, "No extras in JobParameters.");
+            return false;
+        }
+
+        String workSpecId = extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID);
         if (TextUtils.isEmpty(workSpecId)) {
             Logger.get().error(TAG, "WorkSpec id not found!");
             return false;

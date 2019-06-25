@@ -132,7 +132,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         mProcessor = new Processor(
                 mContext,
                 mConfiguration,
-                new InstantWorkTaskExecutor(),
+                instantTaskExecutor,
                 mDatabase,
                 Collections.singletonList(mScheduler));
         mSpyProcessor = spy(mProcessor);
@@ -142,11 +142,11 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         mDispatcher.setCompletedListener(mCompletedListener);
         mSpyDispatcher = spy(mDispatcher);
 
-        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext));
-        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext));
+        mBatteryChargingTracker = spy(new BatteryChargingTracker(mContext, instantTaskExecutor));
+        mBatteryNotLowTracker = spy(new BatteryNotLowTracker(mContext, instantTaskExecutor));
         // Requires API 24+ types.
         mNetworkStateTracker = mock(NetworkStateTracker.class);
-        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext));
+        mStorageNotLowTracker = spy(new StorageNotLowTracker(mContext, instantTaskExecutor));
         mTracker = mock(Trackers.class);
 
         when(mTracker.getBatteryChargingTracker()).thenReturn(mBatteryChargingTracker);
@@ -648,6 +648,33 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
             }
         }
         assertThat(numExecutionCompleted, is(2));
+    }
+
+    @Test
+    @LargeTest
+    @RepeatRule.Repeat(times = 1)
+    public void testDelayMet_withUnMetConstraintShouldNotCrashOnDestroy()
+            throws InterruptedException {
+        when(mBatteryChargingTracker.getInitialState()).thenReturn(false);
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .setConstraints(new Constraints.Builder()
+                        .setRequiresCharging(true)
+                        .build())
+                .build();
+
+        insertWork(work);
+
+        Intent delayMet = CommandHandler.createDelayMetIntent(mContext, work.getStringId());
+        mSpyDispatcher.postOnMainThread(
+                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, delayMet, START_ID));
+
+        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+        assertThat(mLatch.getCount(), is(0L));
+
+        // Should not crash after we destroy the dispatcher
+        mDispatcher.onDestroy();
+        mBatteryChargingTracker.setState(true);
     }
 
     @Test

@@ -41,7 +41,6 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Icon;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
@@ -159,7 +158,7 @@ public class SwitchListItemTest {
     @Test
     public void testClickableItem_setClickable() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setClickable(true);
+        item0.setEntireItemClickable(true);
 
         List<SwitchListItem> items = Arrays.asList(item0);
         setupPagedListView(items);
@@ -170,44 +169,44 @@ public class SwitchListItemTest {
     @Test
     public void testClickableItem_ClickingTogglesSwitch() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setClickable(true);
+        item0.setEntireItemClickable(true);
 
         List<SwitchListItem> items = Arrays.asList(item0);
         setupPagedListView(items);
 
         onView(withId(R.id.recycler_view)).perform(actionOnItemAtPosition(0, click()));
 
-        assertTrue(getViewHolderAtPosition(0).getSwitch().isChecked());
+        assertTrue(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
     public void testSwitchStatePersistsOnRebind() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
         // Switch initially checked.
-        item0.setSwitchState(true);
+        item0.setChecked(true);
 
         setupPagedListView(Collections.singletonList(item0));
         SwitchListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
 
-        toggleChecked(viewHolder.getSwitch());
+        toggleChecked(viewHolder.getCompoundButton());
 
         viewHolder = getViewHolderAtPosition(0);
-        assertThat(viewHolder.getSwitch().isChecked(), is(equalTo(false)));
+        assertThat(viewHolder.getCompoundButton().isChecked(), is(equalTo(false)));
     }
 
     @Test
     public void testSetSwitchState() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchState(true);
+        item0.setChecked(true);
 
         setupPagedListView(Arrays.asList(item0));
 
-        item0.setSwitchState(false);
+        item0.setChecked(false);
         refreshUi();
 
         SwitchListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
-        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
-        assertThat(viewHolder.getSwitch().isChecked(), is(equalTo(false)));
+        assertThat(viewHolder.getCompoundButton().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getCompoundButton().isChecked(), is(equalTo(false)));
     }
 
     @Test
@@ -215,11 +214,11 @@ public class SwitchListItemTest {
         CompoundButton.OnCheckedChangeListener listener =
                 mock(CompoundButton.OnCheckedChangeListener.class);
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchOnCheckedChangeListener(listener);
+        item0.setOnCheckedChangeListener(listener);
 
         setupPagedListView(Collections.singletonList(item0));
 
-        item0.setSwitchState(true);
+        item0.setChecked(true);
         refreshUi();
         verify(listener).onCheckedChanged(any(CompoundButton.class), eq(true));
     }
@@ -229,7 +228,7 @@ public class SwitchListItemTest {
         CompoundButton.OnCheckedChangeListener listener =
                 mock(CompoundButton.OnCheckedChangeListener.class);
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchOnCheckedChangeListener(listener);
+        item0.setOnCheckedChangeListener(listener);
 
         setupPagedListView(Collections.singletonList(item0));
 
@@ -242,8 +241,8 @@ public class SwitchListItemTest {
         CompoundButton.OnCheckedChangeListener listener =
                 mock(CompoundButton.OnCheckedChangeListener.class);
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchOnCheckedChangeListener(listener);
-        item0.setSwitchState(true);
+        item0.setOnCheckedChangeListener(listener);
+        item0.setChecked(true);
 
         setupPagedListView(Collections.singletonList(item0));
 
@@ -255,12 +254,12 @@ public class SwitchListItemTest {
         CompoundButton.OnCheckedChangeListener listener =
                 mock(CompoundButton.OnCheckedChangeListener.class);
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchOnCheckedChangeListener(listener);
+        item0.setOnCheckedChangeListener(listener);
 
         setupPagedListView(Collections.singletonList(item0));
 
         SwitchListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
-        toggleChecked(viewHolder.getSwitch());
+        toggleChecked(viewHolder.getCompoundButton());
 
         // Expect true because switch defaults to false.
         verify(listener).onCheckedChanged(any(CompoundButton.class), eq(true));
@@ -271,12 +270,12 @@ public class SwitchListItemTest {
         CompoundButton.OnCheckedChangeListener listener =
                 mock(CompoundButton.OnCheckedChangeListener.class);
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchState(true);
-        item0.setSwitchOnCheckedChangeListener(listener);
+        item0.setChecked(true);
+        item0.setOnCheckedChangeListener(listener);
 
         setupPagedListView(Collections.singletonList(item0));
 
-        item0.setSwitchState(true);
+        item0.setChecked(true);
         refreshUi();
 
         verify(listener, never()).onCheckedChanged(any(CompoundButton.class), anyBoolean());
@@ -286,7 +285,7 @@ public class SwitchListItemTest {
     public void testCheckingSwitch() {
         final boolean[] clicked = {false};
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setSwitchOnCheckedChangeListener((button, isChecked) -> {
+        item0.setOnCheckedChangeListener((button, isChecked) -> {
             // Initial value is false.
             assertTrue(isChecked);
             clicked[0] = true;
@@ -303,38 +302,35 @@ public class SwitchListItemTest {
     @Test
     public void testDividerVisibility() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setShowSwitchDivider(true);
+        item0.setShowCompoundButtonDivider(true);
 
         SwitchListItem item1 = new SwitchListItem(mActivity);
-        item0.setShowSwitchDivider(false);
+        item0.setShowCompoundButtonDivider(false);
 
         List<SwitchListItem> items = Arrays.asList(item0, item1);
         setupPagedListView(items);
 
         SwitchListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
-        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
-        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getCompoundButton().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getCompoundButton().getVisibility(), is(equalTo(View.VISIBLE)));
 
         viewHolder = getViewHolderAtPosition(1);
-        assertThat(viewHolder.getSwitch().getVisibility(), is(equalTo(View.VISIBLE)));
-        assertThat(viewHolder.getSwitchDivider().getVisibility(), is(equalTo(View.GONE)));
+        assertThat(viewHolder.getCompoundButton().getVisibility(), is(equalTo(View.VISIBLE)));
+        assertThat(viewHolder.getCompoundButtonDivider().getVisibility(), is(equalTo(View.GONE)));
     }
 
     @Test
     public void testPrimaryActionVisible() {
         SwitchListItem largeIcon = new SwitchListItem(mActivity);
-        largeIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        largeIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         SwitchListItem mediumIcon = new SwitchListItem(mActivity);
-        mediumIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        mediumIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem smallIcon = new SwitchListItem(mActivity);
-        smallIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        smallIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         List<SwitchListItem> items = Arrays.asList(largeIcon, mediumIcon, smallIcon);
@@ -368,18 +364,15 @@ public class SwitchListItemTest {
     @Test
     public void testTextStartMarginMatchesPrimaryActionType() {
         SwitchListItem largeIcon = new SwitchListItem(mActivity);
-        largeIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        largeIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         SwitchListItem mediumIcon = new SwitchListItem(mActivity);
-        mediumIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        mediumIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem smallIcon = new SwitchListItem(mActivity);
-        smallIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+        smallIcon.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem emptyIcon = new SwitchListItem(mActivity);
@@ -474,10 +467,22 @@ public class SwitchListItemTest {
     }
 
     @Test
-    public void testSetPrimaryActionIcon() {
+    public void testSetPrimaryActionIcon_withIcon() {
+        SwitchListItem item = new SwitchListItem(mActivity);
+        item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+
+        List<SwitchListItem> items = Arrays.asList(item);
+        setupPagedListView(items);
+
+        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getDrawable(), is(notNullValue()));
+    }
+
+    @Test
+    public void testSetPrimaryActionIcon_withDrawable() {
         SwitchListItem item = new SwitchListItem(mActivity);
         item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                mActivity.getDrawable(android.R.drawable.sym_def_app_icon),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(item);
@@ -489,18 +494,15 @@ public class SwitchListItemTest {
     @Test
     public void testPrimaryIconSizesInIncreasingOrder() {
         SwitchListItem small = new SwitchListItem(mActivity);
-        small.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        small.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem medium = new SwitchListItem(mActivity);
-        medium.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        medium.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem large = new SwitchListItem(mActivity);
-        large.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        large.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(small, medium, large);
@@ -519,8 +521,7 @@ public class SwitchListItemTest {
     @Test
     public void testLargePrimaryIconHasNoStartMargin() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
-        item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+        item0.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(item0);
@@ -535,12 +536,12 @@ public class SwitchListItemTest {
     public void testSmallAndMediumPrimaryIconStartMargin() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
         item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem item1 = new SwitchListItem(mActivity);
         item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         List<SwitchListItem> items = Arrays.asList(item0, item1);
@@ -568,14 +569,14 @@ public class SwitchListItemTest {
         // Single line item.
         SwitchListItem item0 = new SwitchListItem(mActivity);
         item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item0.setTitle("one line text");
 
         // Double line item with one line text.
         SwitchListItem item1 = new SwitchListItem(mActivity);
         item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item1.setTitle("one line text");
         item1.setBody("one line text");
@@ -583,7 +584,7 @@ public class SwitchListItemTest {
         // Double line item with long text.
         SwitchListItem item2 = new SwitchListItem(mActivity);
         item2.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item2.setTitle("one line text");
         item2.setBody(longText);
@@ -591,14 +592,14 @@ public class SwitchListItemTest {
         // Body text only - long text.
         SwitchListItem item3 = new SwitchListItem(mActivity);
         item3.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item3.setBody(longText);
 
         // Body text only - one line text.
         SwitchListItem item4 = new SwitchListItem(mActivity);
         item4.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item4.setBody("one line text");
 
@@ -751,7 +752,7 @@ public class SwitchListItemTest {
         SwitchListItem.ViewHolder viewHolder = getViewHolderAtPosition(0);
         assertFalse(viewHolder.getTitle().isEnabled());
         assertFalse(viewHolder.getBody().isEnabled());
-        assertFalse(viewHolder.getSwitch().isEnabled());
+        assertFalse(viewHolder.getCompoundButton().isEnabled());
     }
 
     @Test

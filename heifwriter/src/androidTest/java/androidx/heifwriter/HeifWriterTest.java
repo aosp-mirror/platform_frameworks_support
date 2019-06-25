@@ -30,6 +30,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
+import android.media.MediaCodecInfo;
+import android.media.MediaCodecList;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
@@ -44,6 +46,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.heifwriter.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -66,8 +69,11 @@ import java.util.Arrays;
  * Test {@link HeifWriter}.
  */
 @RunWith(AndroidJUnit4.class)
+@FlakyTest
 public class HeifWriterTest {
     private static final String TAG = HeifWriterTest.class.getSimpleName();
+
+    private static final MediaCodecList sMCL = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
 
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 =
@@ -154,6 +160,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_NoGrid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, false, false);
         doTestForVariousNumberImages(builder);
     }
@@ -161,6 +169,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_Grid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, true, false);
         doTestForVariousNumberImages(builder);
     }
@@ -168,6 +178,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_NoGrid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, false, true);
         doTestForVariousNumberImages(builder);
     }
@@ -175,6 +187,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBuffer_Grid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BUFFER, true, true);
         doTestForVariousNumberImages(builder);
     }
@@ -182,6 +196,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_NoGrid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, false, false);
         doTestForVariousNumberImages(builder);
     }
@@ -189,6 +205,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_Grid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, true, false);
         doTestForVariousNumberImages(builder);
     }
@@ -196,6 +214,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_NoGrid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, false, true);
         doTestForVariousNumberImages(builder);
     }
@@ -203,6 +223,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputSurface_Grid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_SURFACE, true, true);
         doTestForVariousNumberImages(builder);
     }
@@ -210,6 +232,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_NoGrid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, false, false);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -221,6 +245,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_Grid_NoHandler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, true, false);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -232,6 +258,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_NoGrid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, false, true);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -243,6 +271,8 @@ public class HeifWriterTest {
     @Test
     @LargeTest
     public void testInputBitmap_Grid_Handler() throws Throwable {
+        if (shouldSkip()) return;
+
         TestConfig.Builder builder = new TestConfig.Builder(INPUT_MODE_BITMAP, true, true);
         for (int i = 0; i < IMAGE_RESOURCES.length; ++i) {
             String inputPath = new File(Environment.getExternalStorageDirectory(),
@@ -281,6 +311,25 @@ public class HeifWriterTest {
             out.write(buffer, 0, c);
         }
         return total;
+    }
+
+    private boolean shouldSkip() {
+        return !hasEncoderForMime(MediaFormat.MIMETYPE_VIDEO_HEVC)
+            && !hasEncoderForMime(MediaFormat.MIMETYPE_IMAGE_ANDROID_HEIC);
+    }
+
+    private boolean hasEncoderForMime(String mime) {
+        for (MediaCodecInfo info : sMCL.getCodecInfos()) {
+            if (info.isEncoder()) {
+                for (String type : info.getSupportedTypes()) {
+                    if (type.equalsIgnoreCase(mime)) {
+                        Log.i(TAG, "found codec " + info.getName() + " for mime " + mime);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static class TestConfig {
@@ -418,6 +467,7 @@ public class HeifWriterTest {
         }
     }
 
+    private static byte[] mYuvData;
     private void doTest(final TestConfig config) throws Exception {
         final int width = config.mWidth;
         final int height = config.mHeight;
@@ -447,7 +497,9 @@ public class HeifWriterTest {
             heifWriter.start();
 
             if (config.mInputMode == INPUT_MODE_BUFFER) {
-                byte[] data = new byte[width * height * 3 / 2];
+                if (mYuvData == null || mYuvData.length != width * height * 3 / 2) {
+                    mYuvData = new byte[width * height * 3 / 2];
+                }
 
                 if (config.mInputPath != null) {
                     inputStream = new FileInputStream(config.mInputPath);
@@ -461,12 +513,12 @@ public class HeifWriterTest {
 
                 for (int i = 0; i < actualNumImages; i++) {
                     if (DEBUG) Log.d(TAG, "fillYuvBuffer: " + i);
-                    fillYuvBuffer(i, data, width, height, inputStream);
+                    fillYuvBuffer(i, mYuvData, width, height, inputStream);
                     if (DUMP_YUV_INPUT) {
                         Log.d(TAG, "@@@ dumping input YUV");
-                        outputStream.write(data);
+                        outputStream.write(mYuvData);
                     }
-                    heifWriter.addYuvBuffer(ImageFormat.YUV_420_888, data);
+                    heifWriter.addYuvBuffer(ImageFormat.YUV_420_888, mYuvData);
                 }
             } else if (config.mInputMode == INPUT_MODE_SURFACE) {
                 // The input surface is a surface texture using single buffer mode, draws will be
@@ -489,7 +541,7 @@ public class HeifWriterTest {
                 }
             }
 
-            heifWriter.stop(3000);
+            heifWriter.stop(10000);
             // The test sets the primary index to the last image.
             // However, if we're testing early abort, the last image will not be
             // present and the muxer is supposed to set it to 0 by default.
@@ -651,6 +703,8 @@ public class HeifWriterTest {
             Rect r = getColorBlockRect(primary, width, height);
             assertTrue("Color block doesn't match", approxEquals(COLOR_BLOCK,
                     Color.valueOf(bitmap.getPixel(r.centerX(), height - r.centerY()))));
+
+            bitmap.recycle();
         }
     }
 }

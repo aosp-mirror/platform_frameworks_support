@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 import org.apache.maven.model.Dependency
 import org.apache.maven.model.Parent
 import org.apache.maven.model.Repository
@@ -23,9 +27,15 @@ import org.apache.maven.model.building.ModelBuildingException
 import org.apache.maven.model.building.ModelBuildingRequest
 import org.apache.maven.model.building.ModelSource
 import org.apache.maven.model.resolution.ModelResolver
-import java.security.MessageDigest
-import org.gradle.api.artifacts.result.ResolvedArtifactResult
+import org.w3c.dom.Element
+import org.w3c.dom.Node
 import java.io.InputStream
+import java.security.MessageDigest
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 buildscript {
     repositories {
@@ -38,6 +48,7 @@ buildscript {
         classpath(gradleApi())
         classpath("org.apache.maven:maven-model:3.5.4")
         classpath("org.apache.maven:maven-model-builder:3.5.4")
+        classpath("com.squareup.okhttp3:okhttp:3.11.0")
     }
 }
 
@@ -112,6 +123,8 @@ val fetchArtifacts = configurations.create(configurationName)
 val fetchArtifactsContainer = configurations.getByName(configurationName)
 // Passed in as a project property
 val artifactName = project.findProperty("artifactName")
+val mediaType = MediaType.get("application/json; charset=utf-8")
+val licenseEndpoint = "https://fetch-licenses.appspot.com/convert/licenses"
 
 val internalArtifacts = listOf(
     "android.arch(.*)?".toRegex(),
@@ -225,14 +238,18 @@ fun supportingArtifacts(
         )
         .execute()
 
-    for (component in sourcesQueryResult.resolvedComponents) {
-        val sourcesArtifacts = component.getArtifacts(SourcesArtifact::class.java)
-        for (sourcesArtifact in sourcesArtifacts) {
-            val sourcesFile = sourcesArtifact as? ResolvedArtifactResult
-            if (sourcesFile != null) {
-                supportingArtifacts.add(sourcesFile)
+    if (sourcesQueryResult.resolvedComponents.size > 0) {
+        for (component in sourcesQueryResult.resolvedComponents) {
+            val sourcesArtifacts = component.getArtifacts(SourcesArtifact::class.java)
+            for (sourcesArtifact in sourcesArtifacts) {
+                val sourcesFile = sourcesArtifact as? ResolvedArtifactResult
+                if (sourcesFile != null) {
+                    supportingArtifacts.add(sourcesFile)
+                }
             }
         }
+    } else {
+        project.logger.warn("No sources found for $artifact")
     }
     return supportingArtifacts
 }
@@ -252,6 +269,112 @@ fun digest(file: File, algorithm: String): File {
     val outputFile = File(parent, "${file.name}.${algorithm.toLowerCase()}")
     outputFile.deleteOnExit()
     outputFile.writeText(builder.toString())
+    return outputFile
+}
+
+/**
+ * Fetches license information for external dependencies.
+ */
+fun licenseFor(pomFile: File): File? {
+    try {
+        val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+        val document = builder.parse(pomFile)
+        val client = OkHttpClient()
+        /*
+          This is what a licenses declaration looks like:
+          <licenses>
+            <license>
+              <name>Android Software Development Kit License</name>
+              <url>https://developer.android.com/studio/terms.html</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
+         */
+        val licenses = document.getElementsByTagName("license")
+        for (i in 0 until licenses.length) {
+            val license = licenses.item(i)
+            val children = license.childNodes
+            for (j in 0 until children.length) {
+                val element = children.item(j)
+                if (element.nodeName.toLowerCase() == "url") {
+                    val url = element.textContent
+                    val payload = RequestBody.create(mediaType, "{\"url\": \"$url\"}")
+                    val request = Request.Builder().url(licenseEndpoint).post(payload).build()
+                    val response = client.newCall(request).execute()
+                    val contents = response.body()?.string()
+                    if (contents != null) {
+                        val parent = System.getProperty("java.io.tmpdir")
+                        val outputFile = File(parent, "${pomFile.name}.LICENSE")
+                        outputFile.deleteOnExit()
+                        outputFile.writeText(contents)
+                        return outputFile
+                    }
+                }
+            }
+        }
+    } catch (exception: Throwable) {
+        println("Error fetching license information for $pomFile")
+    }
+    return null
+}
+
+/**
+ * Transforms POM files so we automatically comment out nodes with <type>aar</type>.
+ *
+ * We are doing this for all internal libraries to account for -PuseMaxDepVersions which swaps out
+ * the dependencies of all androidx libraries with their respective ToT versions.
+ * For more information look at b/127495641.
+ */
+fun transformInternalPomFile(file: File): File {
+    val factory = DocumentBuilderFactory.newInstance()
+    val builder = factory.newDocumentBuilder()
+    val document = builder.parse(file)
+    document.normalizeDocument()
+
+    val container = document.getElementsByTagName("dependencies")
+    if (container.length <= 0) {
+        return file
+    }
+
+    fun findTypeAar(dependency: Node): Element? {
+        val children = dependency.childNodes
+        for (i in 0 until children.length) {
+            val node = children.item(i)
+            if (node.nodeType == Node.ELEMENT_NODE) {
+                val element = node as Element
+                if (element.tagName.toLowerCase() == "type" &&
+                    element.textContent?.toLowerCase() == "aar"
+                ) {
+                    return element
+                }
+            }
+        }
+        return null
+    }
+
+    for (i in 0 until container.length) {
+        val dependencies = container.item(i)
+        for (j in 0 until dependencies.childNodes.length) {
+            val dependency = dependencies.childNodes.item(j)
+            val element = findTypeAar(dependency)
+            if (element != null) {
+                val replacement = document.createComment("<type>aar</type>")
+                dependency.replaceChild(replacement, element)
+            }
+        }
+    }
+
+    val parent = System.getProperty("java.io.tmpdir")
+    val outputFile = File(parent, "${file.name}.transformed")
+    outputFile.deleteOnExit()
+
+    val transformer = TransformerFactory.newInstance().newTransformer()
+    val domSource = DOMSource(document)
+    val result = StreamResult(outputFile)
+    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "true")
+    transformer.setOutputProperty(OutputKeys.INDENT, "true")
+    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8")
+    transformer.transform(domSource, result)
     return outputFile
 }
 
@@ -284,14 +407,19 @@ fun copyArtifact(artifact: ResolvedArtifact, internal: Boolean = false) {
     }
     // Copy supporting artifacts
     for (supportingArtifact in supportingArtifacts) {
-        println("Copying $supportingArtifact to $location")
-        copy {
-            from(
-                supportingArtifact.file,
-                digest(supportingArtifact.file, "MD5"),
-                digest(supportingArtifact.file, "SHA1")
-            )
-            into(location)
+        val file = supportingArtifact.file
+        if (file.name.endsWith(".pom")) {
+            copyPomFile(group, moduleVersionId.name, moduleVersionId.version, file, internal)
+        } else {
+            println("Copying $supportingArtifact to $location")
+            copy {
+                from(
+                    supportingArtifact.file,
+                    digest(supportingArtifact.file, "MD5"),
+                    digest(supportingArtifact.file, "SHA1")
+                )
+                into(location)
+            }
         }
     }
 }
@@ -317,14 +445,33 @@ fun copyPomFile(
     )
     val location = pathComponents.joinToString("/")
     // Copy associated POM files.
+    val transformed = if (internal) transformInternalPomFile(pomFile) else pomFile
     println("Copying ${pomFile.name} to $location")
     copy {
+        from(transformed)
+        into(location)
+        rename {
+            pomFile.name
+        }
+    }
+    // Keep original MD5 and SHA1 hashes
+    copy {
         from(
-            pomFile,
             digest(pomFile, "MD5"),
             digest(pomFile, "SHA1")
         )
         into(location)
+    }
+    // Copy licenses if available for external dependencies
+    val license = if (!internal) licenseFor(pomFile) else null
+    if (license != null) {
+        println("Copying License files for ${pomFile.name} to $location")
+        copy {
+            from(license)
+            into(location)
+            // rename to a file called LICENSE
+            rename { "LICENSE" }
+        }
     }
 }
 
