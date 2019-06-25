@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ea5d759_1add1b30",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-25T18:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cba34d2_39d35a8b",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 12
+      },
+      "revId": "8b3b6bf36aa3a01b882a5b3b1b18dd578d03c8ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe3ed458_3f7bc40b",
         "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8b3b6bf36aa3a01b882a5b3b1b18dd578d03c8ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713c6766_6b7295f2",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-25T18:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3ed458_3f7bc40b",
+      "range": {
+        "startLine": 193,
+        "startChar": 7,
+        "endLine": 193,
+        "endChar": 20
+      },
+      "revId": "8b3b6bf36aa3a01b882a5b3b1b18dd578d03c8ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
