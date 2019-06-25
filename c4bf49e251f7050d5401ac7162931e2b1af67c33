@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6faafaf_8f581ffb",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "Can you use something similar to verifyZeroInteractions? To make sure that onError() is never called?",
+      "revId": "c4bf49e251f7050d5401ac7162931e2b1af67c33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

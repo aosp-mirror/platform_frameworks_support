@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e7d254c_d95855e6",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "Atomic\u003cExtensionsErrorCode\u003e would be better since value is set in another thread. Also would make for the assertion to have a better error message since it would print out what error was received, if it got the wrong one.",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88aaa42_bbcb7d63",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "This is basically the same as a sleep because mLatch is never decremented. mLatch should get decremented in onError() to minimize the runtime. Also a check should be done on the return value. If it doesn\u0027t get unblocked then it should fail some assertion.",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4291fdb_d7f0ff7c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "Atomic\u003cExtensionsErrorCode\u003e would be better since value is set in another thread. Also would make for the assertion to have a better error message since it would print out what error was received, if it got the wrong one.",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b84bef_0f1a86a4",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "This is basically the same as a sleep because mLatch is never decremented. mLatch should get decremented in onError() to minimize the runtime. Also a check should be done on the return value. If it doesn\u0027t get unblocked then it should fail some assertion.",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b322b7_08ee46b3",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T00:17:02Z",
+      "side": 1,
+      "message": "Should probably add a test for when the EffectModes are mismatched (e.g ImageCaptureExtender had HDR, but Preview has BOKEH)",
+      "revId": "26f4405f0bd8119821db1e1931422ea428dc42c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
