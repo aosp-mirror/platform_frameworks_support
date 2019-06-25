@@ -19,6 +19,7 @@ package androidx.slice.widget;
 import static android.app.slice.Slice.SUBTYPE_COLOR;
 import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.view.View.MeasureSpec.EXACTLY;
+import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import android.app.PendingIntent;
@@ -343,24 +344,18 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         }
     }
 
-    private int getHeightForMode(int maxHeight) {
-        if (mListContent == null || !mListContent.isValid()) {
-            return 0;
-        }
-        int mode = getMode();
-        if (mode == MODE_SHORTCUT) {
-            return mShortcutSize;
-        }
-        if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
-            if (maxHeight <= mMinTemplateHeight) {
-                maxHeight = mMinTemplateHeight;
+    private void configureViewPolicy(int maxHeight) {
+        if (mListContent != null && mListContent.isValid() && getMode() != MODE_SHORTCUT) {
+            if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
+                if (maxHeight <= mMinTemplateHeight) {
+                    maxHeight = mMinTemplateHeight;
+                }
+                mViewPolicy.setMaxSmallHeight(maxHeight);
+            } else {
+                mViewPolicy.setMaxSmallHeight(0);
             }
-            mViewPolicy.setMaxSmallHeight(maxHeight);
-        } else {
-            mViewPolicy.setMaxSmallHeight(0);
+            mViewPolicy.setMaxHeight(maxHeight);
         }
-        mViewPolicy.setMaxHeight(maxHeight);
-        return mListContent.getHeight(mSliceStyle, mViewPolicy);
     }
 
     @Override
@@ -377,30 +372,35 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         LayoutParams lp = getLayoutParams();
         final int maxHeight = (lp != null && lp.height == LayoutParams.WRAP_CONTENT)
-                || heightMode == MeasureSpec.UNSPECIFIED
+                || heightMode == UNSPECIFIED
                 ? -1 // no max, be default sizes
                 : heightAvailable;
-        final int sliceHeight = getHeightForMode(maxHeight);
+        configureViewPolicy(maxHeight);
         // Remove the padding from our available height
-        int height = heightAvailable - getPaddingTop() - getPaddingBottom();
-        if (heightAvailable >= sliceHeight + actionHeight
-                || heightMode == MeasureSpec.UNSPECIFIED) {
-            // Available space is larger than the slice or we be what we want
-            if (heightMode == EXACTLY) {
-                height = Math.min(sliceHeight, height);
-            } else {
-                height = sliceHeight;
-            }
-        } else {
-            // Not enough space available for slice in current mode
-            if (getMode() == MODE_LARGE
-                    && heightAvailable >= mLargeHeight + actionHeight) {
-                height = sliceHeight;
+        int childrenHeight = heightAvailable - getPaddingTop() - getPaddingBottom();
+
+        // never change the height if set to exactly
+        if (heightMode != EXACTLY) {
+            if (mListContent == null || !mListContent.isValid()) {
+                childrenHeight = actionHeight;
             } else if (getMode() == MODE_SHORTCUT) {
-                // TODO: consider scaling the shortcut to fit if too small
-                height = mShortcutSize;
-            } else if (height <= mMinTemplateHeight) {
-                height = mMinTemplateHeight;
+                // No compromise in case of shortcut
+                childrenHeight = mShortcutSize + actionHeight;
+            } else {
+                int requiredHeight =
+                        mListContent.getHeight(mSliceStyle, mViewPolicy) + actionHeight;
+                if (childrenHeight > requiredHeight || heightMode == UNSPECIFIED) {
+                    // Available space is larger than what the slice wants
+                    childrenHeight = requiredHeight;
+                } else {
+                    // Not enough space available for slice in current mode
+                    if (getMode() == MODE_LARGE
+                            && childrenHeight >= mLargeHeight + actionHeight) {
+                        childrenHeight = mLargeHeight + actionHeight;
+                    } else if (childrenHeight <= mMinTemplateHeight) {
+                        childrenHeight = mMinTemplateHeight;
+                    }
+                }
             }
         }
 
@@ -411,7 +411,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mActionRow.measure(childWidthSpec, makeMeasureSpec(actionRowHeight, EXACTLY));
 
         // Include the bottom padding for currentView only if action row is invisible
-        int currentViewHeight = height + getPaddingTop()
+        int currentViewHeight = childrenHeight + getPaddingTop()
                 + (actionHeight > 0 ? 0 : getPaddingBottom());
         mCurrentView.measure(childWidthSpec, makeMeasureSpec(currentViewHeight, EXACTLY));
         setMeasuredDimension(width,
@@ -441,6 +441,8 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * content see {@link SliceLiveData}.
      */
     public void setSlice(@Nullable Slice slice) {
+        LocationBasedViewTracker.trackInputFocused(this);
+        LocationBasedViewTracker.trackA11yFocus(this);
         initSliceMetrics(slice);
         boolean isUpdate = slice != null && mCurrentSlice != null
                 && slice.getUri().equals(mCurrentSlice.getUri());
@@ -632,7 +634,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * Whether this view should show title items on the first row of the slice.
      * Title items appear at the start of the row.
      */
-    public void showTitleItems(boolean enabled) {
+    public void setShowTitleItems(boolean enabled) {
         mShowTitleItems = enabled;
         if (mListContent != null) {
             mListContent.showTitleItems(enabled);
@@ -640,9 +642,18 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     }
 
     /**
+     * @deprecated TO BE REMOVED
+     * @removed
+     */
+    @Deprecated
+    public void showTitleItems(boolean enabled) {
+        setShowTitleItems(enabled);
+    }
+
+    /**
      * Whether this view should show the header divider.
      */
-    public void showHeaderDivider(boolean enabled) {
+    public void setShowHeaderDivider(boolean enabled) {
         mShowHeaderDivider = enabled;
         if (mListContent != null) {
             mListContent.showHeaderDivider(enabled);
@@ -650,13 +661,31 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     }
 
     /**
+     * @deprecated TO BE REMOVED
+     * @removed
+     */
+    @Deprecated
+    public void showHeaderDivider(boolean enabled) {
+        setShowHeaderDivider(enabled);
+    }
+
+    /**
      * Whether this view should show action dividers for rows.
      */
-    public void showActionDividers(boolean enabled) {
+    public void setShowActionDividers(boolean enabled) {
         mShowActionDividers = enabled;
         if (mListContent != null) {
             mListContent.showActionDividers(enabled);
         }
+    }
+
+    /**
+     * @deprecated TO BE REMOVED
+     * @removed
+     */
+    @Deprecated
+    public void showActionDividers(boolean enabled) {
+        setShowActionDividers(enabled);
     }
 
     /**

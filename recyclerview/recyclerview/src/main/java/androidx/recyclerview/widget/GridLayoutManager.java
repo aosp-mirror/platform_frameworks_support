@@ -154,13 +154,11 @@ public class GridLayoutManager extends LinearLayoutManager {
         if (mOrientation == HORIZONTAL) {
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     glp.getSpanIndex(), glp.getSpanSize(),
-                    spanGroupIndex, 1,
-                    mSpanCount > 1 && glp.getSpanSize() == mSpanCount, false));
+                    spanGroupIndex, 1, false, false));
         } else { // VERTICAL
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     spanGroupIndex , 1,
-                    glp.getSpanIndex(), glp.getSpanSize(),
-                    mSpanCount > 1 && glp.getSpanSize() == mSpanCount, false));
+                    glp.getSpanIndex(), glp.getSpanSize(), false, false));
         }
     }
 
@@ -1253,14 +1251,14 @@ public class GridLayoutManager extends LinearLayoutManager {
      * {@link SpanSizeLookup#setSpanIndexCacheEnabled(boolean)}}.
      */
     public void setUsingSpansToEstimateScrollbarDimensions(
-            boolean useSpansToEstimateScrollBarDimentsions) {
-        mUsingSpansToEstimateScrollBarDimensions = useSpansToEstimateScrollBarDimentsions;
+            boolean useSpansToEstimateScrollBarDimensions) {
+        mUsingSpansToEstimateScrollBarDimensions = useSpansToEstimateScrollBarDimensions;
     }
 
     /**
      * Returns true if the scroll offset and scroll range calculations take account of span
      * information. See {@link #setUsingSpansToEstimateScrollbarDimensions(boolean)} for more
-     * information on this topic.
+     * information on this topic. Defaults to {@code false}.
      *
      * @return true if the scroll offset and scroll range calculations take account of span
      * information.

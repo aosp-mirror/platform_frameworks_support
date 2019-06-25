@@ -272,7 +272,7 @@ public class DetailsSupportFragmentTest extends SingleSupportFragmentTestBase {
         }
     }
 
-    private void navigateBetweenRowsAndVideoUsingRequestFocusInternal(Class cls)
+    private void navigateBetweenRowsAndVideoUsingRequestFocusInternal(Class<?> cls)
             throws Throwable {
         SingleSupportFragmentTestActivity activity = launchAndWaitActivity(cls,
                 new Options().uiVisibility(
@@ -336,7 +336,7 @@ public class DetailsSupportFragmentTest extends SingleSupportFragmentTestBase {
         navigateBetweenRowsAndVideoUsingRequestFocusInternal(DetailsSupportFragmentWithVideo2.class);
     }
 
-    private void navigateBetweenRowsAndVideoUsingDPADInternal(Class cls) throws Throwable {
+    private void navigateBetweenRowsAndVideoUsingDPADInternal(Class<?> cls) throws Throwable {
         SingleSupportFragmentTestActivity activity = launchAndWaitActivity(cls,
                 new Options().uiVisibility(
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN), 0);
@@ -407,7 +407,7 @@ public class DetailsSupportFragmentTest extends SingleSupportFragmentTestBase {
         }
     }
 
-    private void fragmentOnStartWithVideoInternal(Class cls) throws Throwable {
+    private void fragmentOnStartWithVideoInternal(Class<?> cls) throws Throwable {
         final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(cls,
                 new Options().uiVisibility(
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN), 0);
@@ -1031,7 +1031,7 @@ public class DetailsSupportFragmentTest extends SingleSupportFragmentTestBase {
 
         // before any details row is presented, pressing BACK will quit the activity
         sendKeys(KeyEvent.KEYCODE_BACK);
-        PollingCheck.waitFor(4000, new PollingCheck.ActivityDestroy(activity));
+        PollingCheck.waitFor(4000, new PollingCheck.ActivityStop(activity));
     }
 
     public static class DetailsSupportFragmentSwitchToVideoAndPrepareEntranceTransition
@@ -1206,7 +1206,7 @@ public class DetailsSupportFragmentTest extends SingleSupportFragmentTestBase {
         });
         SystemClock.sleep(100);
         activity.finish();
-        PollingCheck.waitFor(new PollingCheck.ActivityDestroy(activity));
+        PollingCheck.waitFor(new PollingCheck.ActivityStop(activity));
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {

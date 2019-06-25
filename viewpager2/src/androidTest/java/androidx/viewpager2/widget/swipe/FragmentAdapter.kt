@@ -22,7 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.greaterThanOrEqualTo
@@ -33,13 +33,13 @@ import java.util.concurrent.atomic.AtomicInteger
 private const val ARG_KEY = "key"
 
 class FragmentAdapter(
-    fragmentManager: FragmentManager,
+    fragmentActivity: FragmentActivity,
     private val items: List<String>
-) : FragmentStateAdapter(fragmentManager), SelfChecking {
+) : FragmentStateAdapter(fragmentActivity), SelfChecking {
     private val attachCount = AtomicInteger(0)
     private val destroyCount = AtomicInteger(0)
 
-    override fun getItem(position: Int): Fragment = PageFragment().apply {
+    override fun createFragment(position: Int): Fragment = PageFragment().apply {
         arguments = Bundle(1).apply { putString(ARG_KEY, items[position]) }
         onAttachListener = { attachCount.incrementAndGet() }
         onDestroyListener = { destroyCount.incrementAndGet() }
@@ -75,8 +75,8 @@ class PageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setValue(when {
-            savedInstanceState != null -> savedInstanceState.getString(ARG_KEY)
-            arguments != null -> arguments!!.getString(ARG_KEY)
+            savedInstanceState != null -> savedInstanceState.getString(ARG_KEY)!!
+            arguments != null -> arguments!!.getString(ARG_KEY)!!
             else -> throw IllegalStateException()
         })
     }

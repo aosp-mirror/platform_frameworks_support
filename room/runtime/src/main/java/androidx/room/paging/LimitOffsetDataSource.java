@@ -105,6 +105,7 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     @SuppressWarnings("WeakerAccess")
     protected abstract List<T> convertRows(Cursor cursor);
 
+    @SuppressWarnings("deprecation")
     @Override
     public void loadInitial(@NonNull LoadInitialParams params,
             @NonNull LoadInitialCallback<T> callback) {
@@ -113,7 +114,6 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
         int firstLoadPosition = 0;
         RoomSQLiteQuery sqLiteQuery = null;
         Cursor cursor = null;
-
         mDb.beginTransaction();
         try {
             totalCount = countItems();
@@ -152,25 +152,23 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
      *
      * @hide
      */
+    @SuppressWarnings("deprecation")
     @NonNull
     public List<T> loadRange(int startPosition, int loadCount) {
         final RoomSQLiteQuery sqLiteQuery = getSQLiteQuery(startPosition, loadCount);
         if (mInTransaction) {
-            //noinspection deprecation
             mDb.beginTransaction();
             Cursor cursor = null;
             //noinspection TryFinallyCanBeTryWithResources
             try {
                 cursor = mDb.query(sqLiteQuery);
                 List<T> rows = convertRows(cursor);
-                //noinspection deprecation
                 mDb.setTransactionSuccessful();
                 return rows;
             } finally {
                 if (cursor != null) {
                     cursor.close();
                 }
-                //noinspection deprecation
                 mDb.endTransaction();
                 sqLiteQuery.release();
             }

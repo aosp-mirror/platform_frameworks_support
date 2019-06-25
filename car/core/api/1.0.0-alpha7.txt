@@ -6,21 +6,21 @@ package androidx.car.app {
 
   public static final class CarAlertDialog.Builder {
     ctor public CarAlertDialog.Builder(android.content.Context!);
-    method public androidx.car.app.CarAlertDialog! create();
-    method public androidx.car.app.CarAlertDialog.Builder! setBody(@StringRes int);
-    method public androidx.car.app.CarAlertDialog.Builder! setBody(CharSequence!);
-    method public androidx.car.app.CarAlertDialog.Builder! setBodyMovementMethod(android.text.method.MovementMethod?);
-    method public androidx.car.app.CarAlertDialog.Builder! setCancelable(boolean);
+    method public androidx.car.app.CarAlertDialog create();
+    method public androidx.car.app.CarAlertDialog.Builder setBody(@StringRes int);
+    method public androidx.car.app.CarAlertDialog.Builder setBody(CharSequence!);
+    method public androidx.car.app.CarAlertDialog.Builder setBodyMovementMethod(android.text.method.MovementMethod?);
+    method public androidx.car.app.CarAlertDialog.Builder setCancelable(boolean);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(@DrawableRes int);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(android.graphics.drawable.Icon?);
-    method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
-    method public androidx.car.app.CarAlertDialog.Builder! setNegativeButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
-    method public androidx.car.app.CarAlertDialog.Builder! setOnCancelListener(android.content.DialogInterface.OnCancelListener!);
-    method public androidx.car.app.CarAlertDialog.Builder! setOnDismissListener(android.content.DialogInterface.OnDismissListener!);
-    method public androidx.car.app.CarAlertDialog.Builder! setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
-    method public androidx.car.app.CarAlertDialog.Builder! setPositiveButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
-    method public androidx.car.app.CarAlertDialog.Builder! setTitle(@StringRes int);
-    method public androidx.car.app.CarAlertDialog.Builder! setTitle(CharSequence!);
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setNegativeButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener!);
+    method public androidx.car.app.CarAlertDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener!);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(CharSequence!, android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(CharSequence!);
   }
 
   public class CarListDialog extends android.app.Dialog {
@@ -44,6 +44,31 @@ package androidx.car.app {
     method public int getItemCount();
     method public CharSequence[] getItems();
     method public CharSequence getTitle();
+  }
+
+  public final class CarSingleChoiceDialog extends android.app.Dialog {
+  }
+
+  public static final class CarSingleChoiceDialog.Builder {
+    ctor public CarSingleChoiceDialog.Builder(android.content.Context);
+    method public android.app.Dialog create();
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setCancelable(boolean);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setItems(java.util.List<androidx.car.app.CarSingleChoiceDialog.Item>, @IntRange(from=0) int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setNegativeButton(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setNegativeButton(CharSequence);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(CharSequence?);
+  }
+
+  public static class CarSingleChoiceDialog.Item {
+    ctor public CarSingleChoiceDialog.Item(CharSequence);
+    ctor public CarSingleChoiceDialog.Item(CharSequence, CharSequence?);
   }
 
 }
@@ -221,10 +246,9 @@ package androidx.car.widget {
     method public void show();
   }
 
-  public class CarMenuItem {
+  public final class CarMenuItem {
     method public androidx.car.widget.CarMenuItem.DisplayBehavior getDisplayBehavior();
-    method public android.graphics.drawable.Icon? getIcon();
-    method public androidx.car.widget.CarMenuItem.OnClickListener? getOnClickListener();
+    method public android.graphics.drawable.Drawable? getIcon();
     method @StyleRes public int getStyleResId();
     method public CharSequence? getTitle();
     method public boolean isCheckable();
@@ -242,7 +266,9 @@ package androidx.car.widget {
     method public androidx.car.widget.CarMenuItem.Builder setChecked(boolean);
     method public androidx.car.widget.CarMenuItem.Builder setDisplayBehavior(androidx.car.widget.CarMenuItem.DisplayBehavior);
     method public androidx.car.widget.CarMenuItem.Builder setEnabled(boolean);
-    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Icon);
+    method @Deprecated public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Icon);
+    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Drawable);
+    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.content.Context, @DrawableRes int);
     method public androidx.car.widget.CarMenuItem.Builder setOnClickListener(androidx.car.widget.CarMenuItem.OnClickListener);
     method public androidx.car.widget.CarMenuItem.Builder setStyle(@StyleRes int);
     method public androidx.car.widget.CarMenuItem.Builder setTitle(CharSequence);
@@ -366,6 +392,7 @@ package androidx.car.widget {
     ctor public PagedListView(android.content.Context!, android.util.AttributeSet!, int, int);
     method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void addOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
+    method public void addOnScrollListener(androidx.recyclerview.widget.RecyclerView.OnScrollListener);
     method public androidx.recyclerview.widget.RecyclerView.Adapter<? extends androidx.recyclerview.widget.RecyclerView.ViewHolder>? getAdapter();
     method public int getListContentBottomOffset();
     method public int getListContentTopOffset();
@@ -384,8 +411,10 @@ package androidx.car.widget {
     method public void pageDown();
     method public void pageUp();
     method public int positionOf(android.view.View?);
+    method public void registerCallback(androidx.car.widget.PagedListView.Callback);
     method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void removeOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
+    method public void removeOnScrollListener(androidx.recyclerview.widget.RecyclerView.OnScrollListener);
     method public void scrollToPosition(int);
     method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter<? extends androidx.recyclerview.widget.RecyclerView.ViewHolder>);
     method public void setDividerColor(@ColorRes int);
@@ -397,14 +426,21 @@ package androidx.car.widget {
     method public void setListContentBottomOffset(@Px int);
     method public void setListContentTopOffset(@Px int);
     method public void setMaxPages(int);
-    method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
+    method @Deprecated public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
     method public void setScrollBarContainerWidth(int);
     method public void setScrollBarTopMargin(int);
     method public void setScrollbarThumbEnabled(boolean);
     method public void setUpButtonIcon(android.graphics.drawable.Drawable!);
     method public void showAlphaJump();
     method public void snapToPosition(int);
+    method public void unregisterCallback(androidx.car.widget.PagedListView.Callback);
     field public static final int UNLIMITED_PAGES = -1; // 0xffffffff
+  }
+
+  public static interface PagedListView.Callback {
+    method public default void onReachBottom();
+    method public default void onScrollDownButtonClicked();
+    method public default void onScrollUpButtonClicked();
   }
 
   public static interface PagedListView.DividerVisibilityManager {
@@ -427,13 +463,13 @@ package androidx.car.widget {
     method public void setPositionOffset(int);
   }
 
-  public abstract static class PagedListView.OnScrollListener {
-    ctor public PagedListView.OnScrollListener();
-    method public void onReachBottom();
-    method public void onScrollDownButtonClicked();
-    method public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView!, int);
-    method public void onScrollUpButtonClicked();
-    method public void onScrolled(androidx.recyclerview.widget.RecyclerView!, int, int);
+  @Deprecated public abstract static class PagedListView.OnScrollListener {
+    ctor @Deprecated public PagedListView.OnScrollListener();
+    method @Deprecated public void onReachBottom();
+    method @Deprecated public void onScrollDownButtonClicked();
+    method @Deprecated public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView!, int);
+    method @Deprecated public void onScrollUpButtonClicked();
+    method @Deprecated public void onScrolled(androidx.recyclerview.widget.RecyclerView!, int, int);
   }
 
   public class PagedScrollBarView extends android.view.ViewGroup {
@@ -473,13 +509,16 @@ package androidx.car.widget {
     method public boolean isChecked();
     method protected void onBind(androidx.car.widget.RadioButtonListItem.ViewHolder!);
     method protected void resolveDirtyState();
+    method public void setBody(CharSequence?);
     method public void setChecked(boolean);
     method public void setEnabled(boolean);
     method public void setOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener);
-    method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
+    method public void setPrimaryActionNoIcon();
     method public void setShowRadioButtonDivider(boolean);
-    method public void setText(CharSequence?);
     method public void setTextStartMargin(@DimenRes int);
+    method public void setTitle(CharSequence?);
     field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
     field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
     field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
@@ -487,11 +526,12 @@ package androidx.car.widget {
 
   public static final class RadioButtonListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public RadioButtonListItem.ViewHolder(android.view.View);
+    method public android.widget.TextView getBody();
     method public android.view.ViewGroup getContainerLayout();
     method public android.widget.ImageView getPrimaryIcon();
     method public android.widget.RadioButton getRadioButton();
     method public android.view.View getRadioButtonDivider();
-    method public android.widget.TextView getText();
+    method public android.widget.TextView getTitle();
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
   }
 
@@ -506,16 +546,14 @@ package androidx.car.widget {
     method public void setMax(int);
     method public void setOnSeekBarChangeListener(android.widget.SeekBar.OnSeekBarChangeListener!);
     method public void setPrimaryActionEmptyIcon();
-    method public void setPrimaryActionIcon(android.graphics.drawable.Icon);
-    method @Deprecated public void setPrimaryActionIcon(@DrawableRes int);
-    method @Deprecated public void setPrimaryActionIcon(android.graphics.drawable.Drawable!);
+    method public void setPrimaryActionIcon(@DrawableRes int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable);
     method public void setPrimaryActionIconListener(android.view.View.OnClickListener!);
     method public void setProgress(int);
     method public void setSecondaryProgress(int);
     method public void setSupplementalEmptyIcon(boolean);
-    method public void setSupplementalIcon(android.graphics.drawable.Icon, boolean);
-    method @Deprecated public void setSupplementalIcon(@DrawableRes int, boolean);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
+    method public void setSupplementalIcon(@DrawableRes int, boolean);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
     method public void setSupplementalIconListener(android.view.View.OnClickListener!);
     method public void setText(CharSequence?);
   }
@@ -566,7 +604,8 @@ package androidx.car.widget {
     method public void setClickable(boolean);
     method public void setEnabled(boolean);
     method public void setPrimaryActionEmptyIcon();
-    method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
     method public void setPrimaryActionNoIcon();
     method public void setShowSwitchDivider(boolean);
     method public void setSwitchOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener?);
@@ -598,15 +637,13 @@ package androidx.car.widget {
     method public void setEnabled(boolean);
     method public void setOnClickListener(android.view.View.OnClickListener!);
     method public void setPrimaryActionEmptyIcon();
-    method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
-    method @Deprecated public void setPrimaryActionIcon(@DrawableRes int, int);
-    method @Deprecated public void setPrimaryActionIcon(android.graphics.drawable.Drawable?, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
     method public void setPrimaryActionNoIcon();
-    method public void setSupplementalIcon(android.graphics.drawable.Icon, boolean);
-    method @Deprecated public void setSupplementalIcon(int, boolean);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean);
-    method @Deprecated public void setSupplementalIcon(int, boolean, android.view.View.OnClickListener!);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean, android.view.View.OnClickListener!);
+    method public void setSupplementalIcon(@DrawableRes int, boolean);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
+    method public void setSupplementalIcon(@DrawableRes int, boolean, android.view.View.OnClickListener!);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean, android.view.View.OnClickListener!);
     method public void setSupplementalIconOnClickListener(android.view.View.OnClickListener);
     method @Deprecated public void setSwitch(boolean, boolean, android.widget.CompoundButton.OnCheckedChangeListener!);
     method @Deprecated public void setSwitchState(boolean);

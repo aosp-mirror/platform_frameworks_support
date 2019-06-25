@@ -20,6 +20,7 @@ import androidx.annotation.RestrictTo;
 
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -31,6 +32,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
@@ -97,12 +101,27 @@ public class RxRoom {
      * Helper method used by generated code to bind a Callable such that it will be run in
      * our disk io thread and will automatically block null values since RxJava2 does not like null.
      *
+     * @deprecated Use {@link #createFlowable(RoomDatabase, boolean, String[], Callable)}
+     *
+     * @hide
+     */
+    @Deprecated
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public static <T> Flowable<T> createFlowable(final RoomDatabase database,
+            final String[] tableNames, final Callable<T> callable) {
+        return createFlowable(database, false, tableNames, callable);
+    }
+
+    /**
+     * Helper method used by generated code to bind a Callable such that it will be run in
+     * our disk io thread and will automatically block null values since RxJava2 does not like null.
+     *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static <T> Flowable<T> createFlowable(final RoomDatabase database,
-            final String[] tableNames, final Callable<T> callable) {
-        Scheduler scheduler = Schedulers.from(database.getQueryExecutor());
+            final boolean inTransaction, final String[] tableNames, final Callable<T> callable) {
+        Scheduler scheduler = Schedulers.from(getExecutor(database, inTransaction));
         final Maybe<T> maybe = Maybe.fromCallable(callable);
         return createFlowable(database, tableNames)
                 .subscribeOn(scheduler)
@@ -161,12 +180,27 @@ public class RxRoom {
      * Helper method used by generated code to bind a Callable such that it will be run in
      * our disk io thread and will automatically block null values since RxJava2 does not like null.
      *
+     * @deprecated Use {@link #createObservable(RoomDatabase, boolean, String[], Callable)}
+     *
+     * @hide
+     */
+    @Deprecated
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public static <T> Observable<T> createObservable(final RoomDatabase database,
+            final String[] tableNames, final Callable<T> callable) {
+        return createObservable(database, false, tableNames, callable);
+    }
+
+    /**
+     * Helper method used by generated code to bind a Callable such that it will be run in
+     * our disk io thread and will automatically block null values since RxJava2 does not like null.
+     *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static <T> Observable<T> createObservable(final RoomDatabase database,
-            final String[] tableNames, final Callable<T> callable) {
-        Scheduler scheduler = Schedulers.from(database.getQueryExecutor());
+            final boolean inTransaction, final String[] tableNames, final Callable<T> callable) {
+        Scheduler scheduler = Schedulers.from(getExecutor(database, inTransaction));
         final Maybe<T> maybe = Maybe.fromCallable(callable);
         return createObservable(database, tableNames)
                 .subscribeOn(scheduler)
@@ -178,6 +212,34 @@ public class RxRoom {
                         return maybe;
                     }
                 });
+    }
+
+    /**
+     * Helper method used by generated code to create a Single from a Callable that will ignore
+     * the EmptyResultSetException if the stream is already disposed.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public static <T> Single<T> createSingle(final Callable<T> callable) {
+        return Single.create(new SingleOnSubscribe<T>() {
+            @Override
+            public void subscribe(SingleEmitter<T> emitter) throws Exception {
+                try {
+                    emitter.onSuccess(callable.call());
+                } catch (EmptyResultSetException e) {
+                    emitter.tryOnError(e);
+                }
+            }
+        });
+    }
+
+    private static Executor getExecutor(RoomDatabase database, boolean inTransaction) {
+        if (inTransaction) {
+            return database.getTransactionExecutor();
+        } else {
+            return database.getQueryExecutor();
+        }
     }
 
     /** @deprecated This type should not be instantiated as it contains only static methods. */

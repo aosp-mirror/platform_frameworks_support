@@ -103,7 +103,7 @@ class Archive(
         }
 
         // Create directories if they don't exist yet
-        if (outputPath.parent != null) {
+        if (outputPath.parent == null) {
             Files.createDirectories(outputPath.parent)
         }
 
@@ -111,8 +111,9 @@ class Archive(
         val file = outputPath.toFile()
         Files.createFile(outputPath)
         val stream = BufferedOutputStream(FileOutputStream(file))
-        writeSelfTo(stream)
-        stream.close()
+        stream.use {
+            writeSelfTo(it)
+        }
         return file
     }
 

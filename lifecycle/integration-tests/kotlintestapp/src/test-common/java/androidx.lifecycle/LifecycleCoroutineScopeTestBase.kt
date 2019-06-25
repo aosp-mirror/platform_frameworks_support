@@ -16,7 +16,6 @@
 
 package androidx.lifecycle
 
-import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,16 +28,15 @@ import kotlinx.coroutines.withContext
 import org.junit.Test
 import java.util.concurrent.CancellationException
 
-@SmallTest
 @ExperimentalCoroutinesApi
 abstract class LifecycleCoroutineScopeTestBase {
     @Test
     fun initialization() {
         val owner = FakeLifecycleOwner(Lifecycle.State.INITIALIZED)
         val scope = owner.lifecycleScope
-        assertThat(owner.lifecycle.mInternalScopeRef.get()).isSameAs(scope)
+        assertThat(owner.lifecycle.mInternalScopeRef.get()).isSameInstanceAs(scope)
         val scope2 = owner.lifecycleScope
-        assertThat(scope).isSameAs(scope2)
+        assertThat(scope).isSameInstanceAs(scope2)
         runBlocking(Dispatchers.Main) {
             assertThat((owner.lifecycle as LifecycleRegistry).observerCount).isEqualTo(1)
         }
@@ -117,7 +115,8 @@ abstract class LifecycleCoroutineScopeTestBase {
                 throw RuntimeException("foo")
             }
             action.join()
-            assertThat(action.getCompletionExceptionOrNull()).hasMessageThat().isSameAs("foo")
+            assertThat(action.getCompletionExceptionOrNull()).hasMessageThat().isSameInstanceAs(
+                "foo")
         }
     }
 
@@ -133,7 +132,8 @@ abstract class LifecycleCoroutineScopeTestBase {
                 owner.setState(Lifecycle.State.STARTED)
             }
             action.join()
-            assertThat(action.getCompletionExceptionOrNull()).hasMessageThat().isSameAs("foo")
+            assertThat(action.getCompletionExceptionOrNull()).hasMessageThat().isSameInstanceAs(
+                "foo")
         }
     }
 
@@ -178,6 +178,7 @@ abstract class LifecycleCoroutineScopeTestBase {
                 throw IllegalArgumentException("why not ?")
             }
             val result = kotlin.runCatching {
+                @Suppress("IMPLICIT_NOTHING_AS_TYPE_PARAMETER")
                 action.await()
             }
             assertThat(result.exceptionOrNull())

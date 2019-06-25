@@ -29,7 +29,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Icon;
 import android.view.View;
 
 import androidx.car.test.R;
@@ -83,107 +82,81 @@ public class RadioButtonListItemTest {
         item.setEnabled(false);
         setupPagedListView(Arrays.asList(item));
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isEnabled());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isEnabled());
     }
 
     @Test
-    public void testSetPrimaryActionIcon_NullIconTextNoOffset() {
+    public void testSetPrimaryActionIcon_NoIcon() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setText("text");
+        item.setPrimaryActionNoIcon();
+        item.setTitle("text");
 
         setupPagedListView(Arrays.asList(item));
 
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(0)));
+        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getVisibility(),
+                is(equalTo(View.GONE)));
+        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getLeft(), is(equalTo(0)));
     }
 
     @Test
-    public void testSetPrimaryActionIcon_SmallIconTextOffset() {
+    public void testSetPrimaryActionIcon_SmallIconOffset() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
-                RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setText("text");
-
-        setupPagedListView(Arrays.asList(item));
-
-        int expected = ApplicationProvider.getApplicationContext().getResources()
-                .getDimensionPixelSize(R.dimen.car_keyline_3);
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(expected)));
-    }
-
-    @Test
-    public void testSetPrimaryActionIcon_MediumIconTextOffset() {
-        RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                android.R.drawable.sym_def_app_icon,
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
-        item.setText("text");
+        item.setTitle("text");
 
         setupPagedListView(Arrays.asList(item));
 
-        int expected = ApplicationProvider.getApplicationContext().getResources()
-                .getDimensionPixelSize(R.dimen.car_keyline_3);
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(expected)));
+        View itemView = getViewHolderAtPosition(0).getContainerLayout();
+        int expected = itemView.getRight() - itemView.getPaddingRight()
+                - ApplicationProvider.getApplicationContext().getResources().getDimensionPixelSize(
+                R.dimen.car_keyline_1);
+
+        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getRight(), is(equalTo(expected)));
     }
 
     @Test
-    public void testSetPrimaryActionIcon_LargeIconTextOffset() {
+    public void testSetPrimaryActionIcon_LargeIconOffset() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
-                RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
-        item.setText("text");
+                android.R.drawable.sym_def_app_icon,
+                RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
+        item.setTitle("text");
 
         setupPagedListView(Arrays.asList(item));
 
-        int expected = ApplicationProvider.getApplicationContext().getResources()
-                .getDimensionPixelSize(R.dimen.car_keyline_4);
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(expected)));
+        View itemView = getViewHolderAtPosition(0).getContainerLayout();
+        int expected = itemView.getRight() - itemView.getPaddingRight()
+                - ApplicationProvider.getApplicationContext().getResources().getDimensionPixelSize(
+                R.dimen.car_keyline_1);
+
+        assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getRight(), is(equalTo(expected)));
     }
 
     @Test
     public void testSetText() {
         CharSequence text = "text";
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setText(text);
+        item.setTitle(text);
         setupPagedListView(Arrays.asList(item));
 
-        assertThat(getViewHolderAtPosition(0).getText().getText(), is(equalTo(text)));
+        assertThat(getViewHolderAtPosition(0).getTitle().getText(), is(equalTo(text)));
     }
 
     @Test
-    public void testSetTextStartMargin_NoIcon() {
+    public void testSetTextStartMargin_Margin() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
-        item.setText("text");
-        item.setTextStartMargin(R.dimen.car_keyline_1);
+        item.setTitle("text");
 
         setupPagedListView(Arrays.asList(item));
-
         int expected = ApplicationProvider.getApplicationContext().getResources()
-                .getDimensionPixelSize(R.dimen.car_keyline_1);
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(expected)));
-    }
-
-    @Test
-    public void testSetTextStartMargin_MarginPlusOffsetByIcon() {
-        RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
-                RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setText("text");
-        item.setTextStartMargin(R.dimen.car_keyline_1);
-
-        setupPagedListView(Arrays.asList(item));
-
-        int margin = ApplicationProvider.getApplicationContext().getResources()
-                .getDimensionPixelSize(R.dimen.car_keyline_1);
-        // Offset is determined by icon size - small icon uses keyline 3.
-        int offset = ApplicationProvider.getApplicationContext().getResources()
                 .getDimensionPixelSize(R.dimen.car_keyline_3);
-        assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(offset + margin)));
+        assertThat(getViewHolderAtPosition(0).getTitle().getLeft(), is(equalTo(expected)));
     }
+
+
 
     @Test
     public void testSetChecked() {
@@ -191,7 +164,7 @@ public class RadioButtonListItemTest {
         item.setChecked(true);
         setupPagedListView(Arrays.asList(item));
 
-        assertTrue(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertTrue(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -203,28 +176,28 @@ public class RadioButtonListItemTest {
         item.setChecked(false);
         refreshUi();
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
     public void testSetShowRadioButtonDivider() {
         RadioButtonListItem show = new RadioButtonListItem(mActivity);
-        show.setShowRadioButtonDivider(true);
+        show.setShowCompoundButtonDivider(true);
 
         setupPagedListView(Arrays.asList(show));
 
-        assertThat(getViewHolderAtPosition(0).getRadioButtonDivider().getVisibility(),
+        assertThat(getViewHolderAtPosition(0).getCompoundButtonDivider().getVisibility(),
                 is(equalTo(View.VISIBLE)));
     }
 
     @Test
     public void testSetShowRadioButtonDivider_noDivider() {
         RadioButtonListItem noShow = new RadioButtonListItem(mActivity);
-        noShow.setShowRadioButtonDivider(false);
+        noShow.setShowCompoundButtonDivider(false);
 
         setupPagedListView(Arrays.asList(noShow));
 
-        assertThat(getViewHolderAtPosition(0).getRadioButtonDivider().getVisibility(),
+        assertThat(getViewHolderAtPosition(0).getCompoundButtonDivider().getVisibility(),
                 is(equalTo(View.GONE)));
     }
 
@@ -233,24 +206,7 @@ public class RadioButtonListItemTest {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         setupPagedListView(Arrays.asList(item));
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
-    }
-
-    @Test
-    public void testClickingItemAlwaysCheckRadioButton() {
-        boolean[] clicked = new boolean[]{false};
-
-        RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        // Set radio button listener, but we will click the item.
-        item.setOnCheckedChangeListener((compoundButton, checked) -> clicked[0] = true);
-        setupPagedListView(Arrays.asList(item));
-
-        onView(withId(R.id.recycler_view)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        assertTrue(getViewHolderAtPosition(0).getRadioButton().isChecked());
-        // Verify the listener is also triggered.
-        assertTrue(clicked[0]);
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -265,7 +221,7 @@ public class RadioButtonListItemTest {
         item.setChecked(false);
         refreshUi();
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -276,7 +232,7 @@ public class RadioButtonListItemTest {
         setupPagedListView(Arrays.asList(item));
 
         onView(withId(R.id.recycler_view)).perform(
-                actionOnItemAtPosition(0, clickChildViewWithId(R.id.radio_button)));
+                actionOnItemAtPosition(0, clickChildViewWithId(R.id.radiobutton_widget)));
 
         assertTrue(clicked[0]);
     }

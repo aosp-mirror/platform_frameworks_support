@@ -73,6 +73,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -132,6 +133,7 @@ public class MediaSessionCompatCallbackTest {
 
     // The maximum time to wait for an operation.
     private static final long TIME_OUT_MS = 3000L;
+    private static final long VOLUME_CHANGE_TIMEOUT_MS = 5000L;
     private static final long WAIT_TIME_FOR_NO_RESPONSE_MS = 300L;
 
     private static final long TEST_POSITION = 1000000L;
@@ -144,6 +146,7 @@ public class MediaSessionCompatCallbackTest {
     private String mClientVersion;
     private MediaSessionCompat mSession;
     private MediaSessionCallback mCallback = new MediaSessionCallback();
+    private final Bundle mSessionInfo = new Bundle();
     private AudioManager mAudioManager;
 
     @Before
@@ -152,12 +155,14 @@ public class MediaSessionCompatCallbackTest {
         mClientVersion = getArguments().getString(KEY_CLIENT_VERSION, "");
         Log.d(TAG, "Client app version: " + mClientVersion);
 
+        mSessionInfo.putString(TEST_KEY, TEST_VALUE);
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 mAudioManager = (AudioManager) getApplicationContext().getSystemService(
                         Context.AUDIO_SERVICE);
-                mSession = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG);
+                mSession = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG,
+                        null, null, mSessionInfo);
                 mSession.setCallback(mCallback, mHandler);
             }
         });
@@ -182,6 +187,7 @@ public class MediaSessionCompatCallbackTest {
         assertNotNull(controller);
 
         final String errorMsg = "New session has unexpected configuration.";
+        assertBundleEquals(mSessionInfo, controller.getSessionInfo());
         assertEquals(errorMsg, FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS,
                 controller.getFlags());
         assertNull(errorMsg, controller.getExtras());
@@ -203,6 +209,30 @@ public class MediaSessionCompatCallbackTest {
                 info.getPlaybackType());
         assertEquals(errorMsg, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
                 info.getCurrentVolume());
+    }
+
+    /**
+     * Tests whether the constructor of {@link MediaSessionCompat} throws an
+     * {@link IllegalArgumentException} when the sessionInfo contains any custom Parcelables.
+     */
+    @Test
+    @SmallTest
+    public void testCustomParcelableInSessionInfoThrowsIAE() {
+        Bundle sessionInfo = new Bundle();
+        sessionInfo.putParcelable("key", new CustomParcelable(1));
+
+        MediaSessionCompat session = null;
+        try {
+            session = new MediaSessionCompat(getApplicationContext(), TEST_SESSION_TAG,
+                    null, null, sessionInfo);
+            fail("The constructor should throw IAE for this sessionInfo!");
+        } catch (IllegalArgumentException ex) {
+            // Expected.
+        }
+
+        if (session != null) {
+            session.release();
+        }
     }
 
     @Test
@@ -868,7 +898,9 @@ public class MediaSessionCompatCallbackTest {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
@@ -878,10 +910,11 @@ public class MediaSessionCompatCallbackTest {
         final int originalVolume = mAudioManager.getStreamVolume(stream);
         final int targetVolume = originalVolume == minVolume
                 ? originalVolume + 1 : originalVolume - 1;
+        Log.d(TAG, "originalVolume=" + originalVolume + ", targetVolume=" + targetVolume);
 
         callMediaControllerMethod(SET_VOLUME_TO, targetVolume, getApplicationContext(),
                 mSession.getSessionToken());
-        new PollingCheck(TIME_OUT_MS) {
+        new PollingCheck(VOLUME_CHANGE_TIMEOUT_MS) {
             @Override
             protected boolean check() {
                 return targetVolume == mAudioManager.getStreamVolume(stream);
@@ -904,7 +937,9 @@ public class MediaSessionCompatCallbackTest {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
@@ -915,10 +950,11 @@ public class MediaSessionCompatCallbackTest {
         final int direction = originalVolume == minVolume
                 ? AudioManager.ADJUST_RAISE : AudioManager.ADJUST_LOWER;
         final int targetVolume = originalVolume + direction;
+        Log.d(TAG, "originalVolume=" + originalVolume + ", targetVolume=" + targetVolume);
 
         callMediaControllerMethod(ADJUST_VOLUME, direction, getApplicationContext(),
                 mSession.getSessionToken());
-        new PollingCheck(TIME_OUT_MS) {
+        new PollingCheck(VOLUME_CHANGE_TIMEOUT_MS) {
             @Override
             protected boolean check() {
                 return targetVolume == mAudioManager.getStreamVolume(stream);

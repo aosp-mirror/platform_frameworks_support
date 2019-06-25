@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     def supportRootFolder = project.projectDir.getParentFile()
     apply from: "unbundled_check.gradle"
@@ -24,7 +26,11 @@ buildscript {
         }
     }
 }
-def runningInBuildServer = System.env.DIST_DIR != null && System.env.OUT_DIR != null
+
+apply from: "out.gradle"
+init.chooseOutDir()
+
+def runningInBuildServer = System.env.DIST_DIR != null
 if (runningInBuildServer) {
     System.setProperty("kotlin.compiler.execution.strategy", "in-process")
 }
@@ -44,13 +50,26 @@ allprojects {
             exceptionFormat "full"
         }
     }
+
+    tasks.withType(KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += ["-Werror"]
+        }
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += '../benchmark/gradle-plugin/src/main/kotlin'
+    main.resources.srcDirs += '../benchmark/gradle-plugin/src/main/resources'
 }
 
 dependencies {
-    compile build_libs.gradle
-    compile build_libs.error_prone_gradle
-    compile build_libs.dokka_gradle
-    compile gradleApi()
-    testCompile "junit:junit:4.12"
+    implementation build_libs.gradle
+    implementation build_libs.error_prone_gradle
+    implementation build_libs.dokka_gradle
+    implementation build_libs.kotlin.gradle_plugin
+    implementation gradleApi()
+    implementation project("jetpad-integration")
+    testImplementation "junit:junit:4.12"
 }
 
