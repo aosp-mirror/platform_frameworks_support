@@ -213,6 +213,30 @@
       "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e17e01_ede462a6",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:50:23Z",
+      "side": 1,
+      "message": "You description makes it sound that maybe we should not make these public at all then if they are to no use to developers. Is that actually the case? Why are we making them public?",
+      "parentUuid": "a4d1a59b_ac837e8c",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
