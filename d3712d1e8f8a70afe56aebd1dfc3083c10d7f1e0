@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52fc3f5_07114006",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "Please expand what is a trusted web activity and when it should be used.",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 17
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef580c4d_7246838b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "expand TWA",
+      "range": {
+        "startLine": 136,
+        "startChar": 28,
+        "endLine": 136,
+        "endChar": 57
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99eccaa0_20c83b64",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "When should the read permission be revoked?",
+      "range": {
+        "startLine": 395,
+        "startChar": 37,
+        "endLine": 395,
+        "endChar": 72
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4d7557_fa9f8af0",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "What are the plans here?",
+      "range": {
+        "startLine": 404,
+        "startChar": 20,
+        "endLine": 404,
+        "endChar": 45
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a621ac_cb83d27a",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "Should this be annotated with @WorkerThread then?",
+      "range": {
+        "startLine": 224,
+        "startChar": 75,
+        "endLine": 224,
+        "endChar": 81
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf3d81ef_fddaaf01",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "Add more explanation of what is a trusted web activity. Why a developer might want it and are there cases they should not use it?",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccea497e_b5f85e01",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:03:52Z",
+      "side": 1,
+      "message": "@ColorInt?\n\nShould we be taking in Integer to match the getter?\n\nAlso, do we want to support sets of color here for supporting things like dark mode?",
+      "range": {
+        "startLine": 59,
+        "startChar": 55,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "d3712d1e8f8a70afe56aebd1dfc3083c10d7f1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
