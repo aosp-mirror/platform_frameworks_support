@@ -35,7 +35,6 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.concurrent.ListenableFuture;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
@@ -57,6 +56,8 @@ import androidx.media2.session.SessionResult.ResultCode;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.HashMap;
 import java.util.List;
@@ -1269,6 +1270,7 @@ public class MediaSession implements AutoCloseable {
          *
          * @param pi The intent to launch to show UI for this session.
          */
+        @SuppressWarnings("unchecked")
         @NonNull U setSessionActivity(@Nullable PendingIntent pi) {
             mSessionActivity = pi;
             return (U) this;
@@ -1286,6 +1288,7 @@ public class MediaSession implements AutoCloseable {
         // Note: This ID is not visible to the controllers. ID is introduced in order to prevent
         // apps from creating multiple sessions without any clear reasons. If they create two
         // sessions with the same ID in a process, then an IllegalStateException will be thrown.
+        @SuppressWarnings("unchecked")
         @NonNull U setId(@NonNull String id) {
             if (id == null) {
                 throw new NullPointerException("id shouldn't be null");
@@ -1301,6 +1304,7 @@ public class MediaSession implements AutoCloseable {
          * @param callback session callback.
          * @return
          */
+        @SuppressWarnings("unchecked")
         @NonNull U setSessionCallback(@NonNull Executor executor, @NonNull C callback) {
             if (executor == null) {
                 throw new NullPointerException("executor shouldn't be null");
@@ -1321,6 +1325,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionToken#getExtras()
          */
         @NonNull
+        @SuppressWarnings("unchecked")
         public U setExtras(@NonNull Bundle extras) {
             if (extras == null) {
                 throw new NullPointerException("extras shouldn't be null");

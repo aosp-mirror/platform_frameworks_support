@@ -1105,6 +1105,7 @@ public final class MediaControllerCompat {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void handleMessage(Message msg) {
                 if (!mRegistered) {
                     return;
@@ -1799,6 +1800,10 @@ public final class MediaControllerCompat {
             } catch (RemoteException e) {
                 Log.d(TAG, "Dead object in getSessionInfo.", e);
             }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
+            }
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }
 
@@ -2293,6 +2298,10 @@ public final class MediaControllerCompat {
                     Log.e(TAG, "Dead object in getSessionInfo.", e);
                     mSessionInfo = Bundle.EMPTY;
                 }
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
             }
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }

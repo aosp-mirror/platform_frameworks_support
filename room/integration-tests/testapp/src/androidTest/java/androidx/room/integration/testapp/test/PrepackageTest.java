@@ -35,6 +35,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
@@ -48,6 +49,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 @SmallTest
+@FlakyTest
 @RunWith(AndroidJUnit4.class)
 public class PrepackageTest {
 
@@ -81,7 +83,8 @@ public class PrepackageTest {
             throwable = t;
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
-        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
+        assertThat(throwable.getMessage(),
+                containsString("Pre-packaged database has an invalid schema"));
     }
 
     @Test
@@ -137,7 +140,8 @@ public class PrepackageTest {
             throwable = t;
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
-        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
+        assertThat(throwable.getMessage(),
+                containsString("Pre-packaged database has an invalid schema"));
     }
 
     @Test
@@ -217,6 +221,86 @@ public class PrepackageTest {
     }
 
     @Test
+    public void createFromAsset_copyOnDestructiveMigration() {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+        ProductDao dao;
+
+        ProductsDatabase database_v1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_v1.db")
+                .build();
+        dao = database_v1.getProductDao();
+        assertThat(dao.countProducts(), is(2));
+
+        database_v1.close();
+
+        ProductsDatabase_v2 database_v2 = Room.databaseBuilder(
+                context, ProductsDatabase_v2.class, "products.db")
+                .createFromAsset("databases/products_v2.db")
+                .fallbackToDestructiveMigration()
+                .build();
+        dao = database_v2.getProductDao();
+        assertThat(dao.countProducts(), is(3));
+    }
+
+    @Test
+    public void createFromAsset_copyOnDestructiveMigration_noRecursion() {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+        ProductDao dao;
+
+        ProductsDatabase database_v1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_v1.db")
+                .build();
+        dao = database_v1.getProductDao();
+        assertThat(dao.countProducts(), is(2));
+
+        database_v1.close();
+
+        ProductsDatabase_v2 database_v2 = Room.databaseBuilder(
+                context, ProductsDatabase_v2.class, "products.db")
+                .createFromAsset("databases/products_v1.db")
+                .fallbackToDestructiveMigration()
+                .build();
+        dao = database_v2.getProductDao();
+        assertThat(dao.countProducts(), is(0));
+    }
+
+    @Test
+    public void createFromAsset_copyOnDestructiveMigration_migrationProvided() {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products.db");
+        ProductDao dao;
+
+        ProductsDatabase database_v1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products.db")
+                .createFromAsset("databases/products_v1.db")
+                .build();
+        dao = database_v1.getProductDao();
+        assertThat(dao.countProducts(), is(2));
+
+        database_v1.close();
+
+        ProductsDatabase_v2 database_v2 = Room.databaseBuilder(
+                context, ProductsDatabase_v2.class, "products.db")
+                .createFromAsset("databases/products_v1.db")
+                .addMigrations(new Migration(1, 2) {
+                    @Override
+                    public void migrate(@NonNull SupportSQLiteDatabase database) {
+                        database.execSQL(
+                                "INSERT INTO Products (id, name) VALUES (null, 'Mofongo')");
+                    }
+                })
+                .fallbackToDestructiveMigration()
+                .build();
+        dao = database_v2.getProductDao();
+        assertThat(dao.countProducts(), is(3));
+        assertThat(dao.getProductById(3).name, is("Mofongo"));
+    }
+
+    @Test
     public void createFromFile() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
         context.deleteDatabase("products_external.db");
@@ -228,7 +312,7 @@ public class PrepackageTest {
 
         ProductsDatabase database = Room.databaseBuilder(
                 context, ProductsDatabase.class, "products_external.db")
-                .createFromFile(dataDbFile.getAbsolutePath())
+                .createFromFile(dataDbFile)
                 .build();
 
         ProductDao dao = database.getProductDao();
@@ -236,7 +320,39 @@ public class PrepackageTest {
     }
 
     @Test
-    public void openExternalDatabase() throws IOException {
+    public void createFromFile_copyOnDestructiveMigration_fileNotFound() throws IOException {
+        Context context = ApplicationProvider.getApplicationContext();
+        context.deleteDatabase("products_external.db");
+        ProductDao dao;
+
+        File dataDbFile = new File(ContextCompat.getDataDir(context), "products_external.db");
+        context.deleteDatabase(dataDbFile.getAbsolutePath());
+        InputStream toCopyInput = context.getAssets().open("databases/products_v1.db");
+        copyAsset(toCopyInput, dataDbFile);
+
+        ProductsDatabase database_v1 = Room.databaseBuilder(
+                context, ProductsDatabase.class, "products_external.db")
+                .createFromFile(dataDbFile)
+                .build();
+        dao = database_v1.getProductDao();
+        assertThat(dao.countProducts(), is(2));
+
+        database_v1.close();
+
+        context.deleteDatabase(dataDbFile.getAbsolutePath());
+        assertThat(dataDbFile.exists(), is(false));
+
+        ProductsDatabase_v2 database_v2 = Room.databaseBuilder(
+                context, ProductsDatabase_v2.class, "products_external.db")
+                .createFromFile(dataDbFile)
+                .fallbackToDestructiveMigration()
+                .build();
+        dao = database_v2.getProductDao();
+        assertThat(dao.countProducts(), is(0));
+    }
+
+    @Test
+    public void openDataDirDatabase() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
 
         File dataDbFile = new File(ContextCompat.getDataDir(context), "products.db");
@@ -254,7 +370,7 @@ public class PrepackageTest {
     }
 
     @Test
-    public void openExternalDatabase_badSchema() throws IOException {
+    public void openDataDirDatabase_badSchema() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
 
         File dataDbFile = new File(ContextCompat.getDataDir(context), "products.db");
@@ -275,11 +391,12 @@ public class PrepackageTest {
             throwable = t;
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
-        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
+        assertThat(throwable.getMessage(),
+                containsString("Pre-packaged database has an invalid schema"));
     }
 
     @Test
-    public void openExternalDatabase_versionZero() throws IOException {
+    public void openDataDirDatabase_versionZero() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
 
         File dataDbFile = new File(ContextCompat.getDataDir(context), "products.db");
@@ -297,7 +414,7 @@ public class PrepackageTest {
     }
 
     @Test
-    public void openExternalDatabase_versionZero_badSchema() throws IOException {
+    public void openDataDirDatabase_versionZero_badSchema() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
 
         File dataDbFile = new File(ContextCompat.getDataDir(context), "products.db");
@@ -318,7 +435,8 @@ public class PrepackageTest {
             throwable = t;
         }
         assertThat(throwable, instanceOf(IllegalStateException.class));
-        assertThat(throwable.getMessage(), containsString("Migration didn't properly handle"));
+        assertThat(throwable.getMessage(),
+                containsString("Pre-packaged database has an invalid schema"));
     }
 
     @Database(entities = Product.class, version = 1, exportSchema = false)

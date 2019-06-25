@@ -5,8 +5,11 @@ package androidx.ui.input {
 
 
 
-  public final class EditOperationKt {
+
+
+  public final class EditorState {
   }
+
 
 
 

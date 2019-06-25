@@ -20,8 +20,9 @@ import android.util.SparseArray;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.CallbackToFutureAdapter;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,8 +102,8 @@ final class SettableImageProxyBundle implements ImageProxyBundle {
             // corresponding Future. Otherwise, throws exception.
             CallbackToFutureAdapter.Completer<ImageProxy> completer = mCompleters.get(captureId);
             if (completer != null) {
-                completer.set(imageProxy);
                 mOwnedImageProxies.add(imageProxy);
+                completer.set(imageProxy);
             } else {
                 throw new IllegalArgumentException(
                         "ImageProxyBundle does not contain this id: " + captureId);

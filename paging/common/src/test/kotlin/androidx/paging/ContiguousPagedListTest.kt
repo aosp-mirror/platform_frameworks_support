@@ -127,17 +127,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     private fun <E : Any> PagedList<E>.addLoadStateCapture(desiredType: PagedList.LoadType):
             MutableList<PagedList.LoadState> {
         val list = mutableListOf<PagedList.LoadState>()
-        this.addWeakLoadStateListener(object : PagedList.LoadStateListener {
-            override fun onLoadStateChanged(
-                type: PagedList.LoadType,
-                state: PagedList.LoadState,
-                error: Throwable?
-            ) {
-                if (type == desiredType) {
-                    list.add(state)
-                }
+        this.addWeakLoadStateListener { type, state, _ ->
+            if (type == desiredType) {
+                list.add(state)
             }
-        })
+        }
         return list
     }
 
@@ -150,21 +144,16 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
 
             val expectedTrailing = ITEMS.size - start - count
             assertEquals(ITEMS.size, actual.size)
-            assertEquals(
-                (ITEMS.size - start - expectedTrailing),
-                actual.storageCount
-            )
             assertEquals(start, actual.leadingNullCount)
             assertEquals(expectedTrailing, actual.trailingNullCount)
         } else {
             assertEquals(ITEMS.subList(start, start + count), actual)
 
             assertEquals(count, actual.size)
-            assertEquals(actual.size, actual.storageCount)
             assertEquals(0, actual.leadingNullCount)
             assertEquals(0, actual.trailingNullCount)
         }
-        assertEquals(count, actual.loadedCount)
+        assertEquals(count, actual.storageCount)
     }
 
     private fun verifyRange(start: Int, count: Int, actual: PagedList<Item>) {
@@ -650,17 +639,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         // have an error, move loading range, error goes away
         val pagedList = createCountedPagedList(0)
         val states = mutableListOf<PagedList.LoadState>()
-        pagedList.addWeakLoadStateListener(object : PagedList.LoadStateListener {
-            override fun onLoadStateChanged(
-                type: PagedList.LoadType,
-                state: PagedList.LoadState,
-                error: Throwable?
-            ) {
-                if (type == PagedList.LoadType.END) {
-                    states.add(state)
-                }
+        pagedList.addWeakLoadStateListener { type, state, _ ->
+            if (type == PagedList.LoadType.END) {
+                states.add(state)
             }
-        })
+        }
 
         pagedList.dataSource.enqueueErrorForIndex(45)
         pagedList.loadAround(35)
