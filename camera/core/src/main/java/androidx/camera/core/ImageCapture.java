@@ -519,7 +519,7 @@ public class ImageCapture extends UseCase {
                 .transformAsync(new AsyncFunction<Void, Void>() {
                     @Override
                     public ListenableFuture<Void> apply(Void v) throws Exception {
-                        return ImageCapture.this.issueTakePicture();
+                        return ImageCapture.this.issueTakePicture(state);
                     }
                 }, mExecutor)
                 .transformAsync(new AsyncFunction<Void, Void>() {
@@ -537,6 +537,20 @@ public class ImageCapture extends UseCase {
                             @Override
                             public void onFailure(Throwable t) {
                                 Log.e(TAG, "takePictureInternal onFailure", t);
+                                if (!state.mIsTakePictureRequestSubmitted) {
+                                    // We only callback the onError() before submitting the
+                                    // capture request to the camera. The other exceptions/errors
+                                    // in postTakePicture or failed in capturing can be ignored or
+                                    // will callback in imageReader.
+                                    ImageCaptureRequest request = mImageCaptureRequests.poll();
+                                    if (request != null) {
+                                        request.callbackError(UseCaseError.UNKNOWN_ERROR,
+                                                t.getMessage(), t);
+
+                                        // Handle the next request.
+                                        issueImageCaptureRequests();
+                                    }
+                                }
                             }
                         },
                         mExecutor);
@@ -845,7 +859,7 @@ public class ImageCapture extends UseCase {
     }
 
     /** Issues a take picture request. */
-    ListenableFuture<Void> issueTakePicture() {
+    ListenableFuture<Void> issueTakePicture(TakePictureState state) {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
         final List<CaptureConfig> captureConfigs = new ArrayList<>();
 
@@ -920,6 +934,7 @@ public class ImageCapture extends UseCase {
         }
 
         getCurrentCameraControl().submitCaptureRequests(captureConfigs);
+        state.mIsTakePictureRequestSubmitted = true;
         return CallbackToFutureAdapter.getFuture(new CallbackToFutureAdapter.Resolver<Void>() {
             @Override
             public Object attachCompleter(
@@ -1103,6 +1118,7 @@ public class ImageCapture extends UseCase {
         boolean mIsAfTriggered = false;
         boolean mIsAePrecaptureTriggered = false;
         boolean mIsFlashTriggered = false;
+        boolean mIsTakePictureRequestSubmitted = false;
     }
 
     /**
@@ -1285,6 +1301,24 @@ public class ImageCapture extends UseCase {
             }
 
             mListener.onCaptureSuccess(image, mRotationDegrees);
+        }
+
+        void callbackError(final UseCaseError useCaseError, final String message,
+                final Throwable cause) {
+            if (mHandler != null && Looper.myLooper() != mHandler.getLooper()) {
+                boolean posted = mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageCaptureRequest.this.callbackError(useCaseError, message, cause);
+                    }
+                });
+                if (!posted) {
+                    Log.e(TAG, "Unable to post to the supplied handler.");
+                }
+                return;
+            }
+
+            mListener.onError(useCaseError, message, cause);
         }
     }
 }
