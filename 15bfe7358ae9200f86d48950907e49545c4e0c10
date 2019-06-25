@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "629771a1_d62c947a",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-25T02:20:29Z",
+      "side": 1,
+      "message": "Q) Is this the right position for this kind of annotations?",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 14
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd42065_3cee2e7f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2376,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-25T02:20:29Z",
+      "side": 1,
+      "message": "Q) Where did you find the rule about this order?",
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea77af7_488b56d8",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-25T02:20:29Z",
+      "side": 1,
+      "message": "Q) Is it nullable or nonnull?",
+      "range": {
+        "startLine": 815,
+        "startChar": 8,
+        "endLine": 815,
+        "endChar": 20
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a01ee82_4bee3146",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-06-25T02:20:29Z",
+      "side": 1,
+      "message": "@CommandCode final? Here and others.\n\nMay be good to search these cases with \"final @\".",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 30
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
