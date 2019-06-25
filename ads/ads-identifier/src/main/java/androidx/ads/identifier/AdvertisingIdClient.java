@@ -16,21 +16,20 @@
 
 package androidx.ads.identifier;
 
-import static androidx.ads.identifier.AdvertisingIdUtils.GET_AD_ID_ACTION;
 import static androidx.ads.identifier.AdvertisingIdUtils.getAdIdProviders;
 
-import android.app.Service;
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.pm.ServiceInfo;
 import android.os.Looper;
 import android.os.RemoteException;
+import android.util.Pair;
 
-import androidx.ads.identifier.internal.BlockingServiceConnection;
+import androidx.ads.identifier.internal.HoldingConnectionClient;
 import androidx.ads.identifier.provider.IAdvertisingIdService;
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -42,7 +41,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -59,53 +57,47 @@ import java.util.concurrent.TimeoutException;
  */
 public class AdvertisingIdClient {
 
-    private static final long SERVICE_CONNECTION_TIMEOUT_SECONDS = 10;
+    private static final Object sLock = new Object();
 
+    @SuppressLint("StaticFieldLeak") // Application Context only.
+    @GuardedBy("sLock")
     @Nullable
-    private BlockingServiceConnection mConnection;
+    private static HoldingConnectionClient sHoldingConnectionClient;
 
-    @Nullable
-    private IAdvertisingIdService mService;
-
-    private final Context mContext;
-
-    private ComponentName mComponentName;
-
-    /** Constructs a new {@link AdvertisingIdClient} object. */
-    @VisibleForTesting
-    AdvertisingIdClient(Context context) {
-        Preconditions.checkNotNull(context);
-        mContext = context.getApplicationContext();
+    private AdvertisingIdClient() {
     }
 
     @WorkerThread
-    private void start() throws IOException, AdvertisingIdNotAvailableException, TimeoutException,
+    private static Pair<IAdvertisingIdService, Intent> getServiceWithIntent(Context context)
+            throws IOException, AdvertisingIdNotAvailableException, TimeoutException,
             InterruptedException {
-        if (mConnection == null) {
-            mComponentName = getProviderComponentName(mContext);
-            mConnection = getServiceConnection();
-            mService = getAdvertisingIdService(mConnection);
+        synchronized (sLock) {
+            if (sHoldingConnectionClient == null) {
+                sHoldingConnectionClient = new HoldingConnectionClient(context);
+            }
+            return sHoldingConnectionClient.getServiceWithIntent();
         }
     }
 
     /** Returns the Advertising ID info as {@link AdvertisingIdInfo}. */
     @VisibleForTesting
     @WorkerThread
-    AdvertisingIdInfo getInfoInternal() throws IOException, AdvertisingIdNotAvailableException,
-            TimeoutException, InterruptedException {
-        if (mConnection == null) {
-            start();
-        }
+    private static AdvertisingIdInfo getAdvertisingIdInfo(
+            Pair<IAdvertisingIdService, Intent> serviceWithIntent)
+            throws IOException, AdvertisingIdNotAvailableException {
+        IAdvertisingIdService service = serviceWithIntent.first;
+        ComponentName componentName = serviceWithIntent.second.getComponent();
+
         try {
-            String id = mService.getId();
+            String id = service.getId();
             if (id == null || id.trim().isEmpty()) {
                 throw new AdvertisingIdNotAvailableException(
                         "Advertising ID Provider does not returns an Advertising ID.");
             }
             return AdvertisingIdInfo.builder()
                     .setId(normalizeId(id))
-                    .setProviderPackageName(mComponentName.getPackageName())
-                    .setLimitAdTrackingEnabled(mService.isLimitAdTrackingEnabled())
+                    .setProviderPackageName(componentName.getPackageName())
+                    .setLimitAdTrackingEnabled(service.isLimitAdTrackingEnabled())
                     .build();
         } catch (RemoteException e) {
             throw new IOException("Remote exception", e);
@@ -139,65 +131,6 @@ public class AdvertisingIdClient {
         }
     }
 
-    /** Closes the connection to the Advertising ID Provider Service. */
-    @VisibleForTesting
-    void finish() {
-        if (mConnection == null) {
-            return;
-        }
-        mContext.unbindService(mConnection);
-        mComponentName = null;
-        mConnection = null;
-        mService = null;
-    }
-
-    private static ComponentName getProviderComponentName(Context context)
-            throws AdvertisingIdNotAvailableException {
-        PackageManager packageManager = context.getPackageManager();
-        List<ResolveInfo> resolveInfos = getAdIdProviders(packageManager);
-        ServiceInfo serviceInfo =
-                AdvertisingIdUtils.selectServiceByPriority(resolveInfos, packageManager);
-        if (serviceInfo == null) {
-            throw new AdvertisingIdNotAvailableException("No Advertising ID Provider available.");
-        }
-        return new ComponentName(serviceInfo.packageName, serviceInfo.name);
-    }
-
-    /**
-     * Retrieves BlockingServiceConnection which must be unbound after use.
-     *
-     * @throws IOException when unable to bind service successfully.
-     */
-    @VisibleForTesting
-    BlockingServiceConnection getServiceConnection() throws IOException {
-        Intent intent = new Intent(GET_AD_ID_ACTION);
-        intent.setComponent(mComponentName);
-
-        BlockingServiceConnection bsc = new BlockingServiceConnection();
-        if (mContext.bindService(intent, bsc, Service.BIND_AUTO_CREATE)) {
-            return bsc;
-        } else {
-            throw new IOException("Connection failure");
-        }
-    }
-
-    /**
-     * Get the {@link IAdvertisingIdService} from the blocking queue. This should wait until
-     * {@link android.content.ServiceConnection#onServiceConnected} event with a
-     * {@link #SERVICE_CONNECTION_TIMEOUT_SECONDS} second timeout.
-     *
-     * @throws TimeoutException     if connection timeout period has expired.
-     * @throws InterruptedException if connection has been interrupted before connected.
-     */
-    @WorkerThread
-    private static IAdvertisingIdService getAdvertisingIdService(BlockingServiceConnection bsc)
-            throws TimeoutException, InterruptedException {
-        // Block until the bind is complete, or timeout period is over.
-        return IAdvertisingIdService.Stub.asInterface(
-                bsc.getServiceWithTimeout(
-                        SERVICE_CONNECTION_TIMEOUT_SECONDS, TimeUnit.SECONDS));
-    }
-
     /**
      * Checks whether there is any Advertising ID Provider installed on the device.
      *
@@ -218,6 +151,13 @@ public class AdvertisingIdClient {
     private static void checkNotMainThread() {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalStateException("Calling this from your main thread can lead to ANR.");
+        }
+    }
+
+    @VisibleForTesting
+    static void clearHoldingConnectionClient() {
+        synchronized (sLock) {
+            sHoldingConnectionClient = null;
         }
     }
 
@@ -245,12 +185,17 @@ public class AdvertisingIdClient {
     public static AdvertisingIdInfo getAdvertisingIdInfo(@NonNull Context context)
             throws IOException, AdvertisingIdNotAvailableException, TimeoutException,
             InterruptedException {
+        Preconditions.checkNotNull(context);
         checkNotMainThread();
-        AdvertisingIdClient client = new AdvertisingIdClient(context);
+
         try {
-            return client.getInfoInternal();
+            return getAdvertisingIdInfo(getServiceWithIntent(context.getApplicationContext()));
         } finally {
-            client.finish();
+            synchronized (sLock) {
+                if (sHoldingConnectionClient != null) {
+                    sHoldingConnectionClient.scheduleAutoDisconnect();
+                }
+            }
         }
     }
 }
