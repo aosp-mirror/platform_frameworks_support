@@ -14,29 +14,32 @@
  * limitations under the License.
  */
 
-package androidx.ads.identifier;
+package androidx.ads.identifier.internal;
 
 import static androidx.ads.identifier.AdvertisingIdUtils.GET_AD_ID_ACTION;
 import static androidx.ads.identifier.MockAdvertisingIdService.TESTING_AD_ID;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+import android.util.Pair;
 
+import androidx.ads.identifier.MockAdvertisingIdService;
+import androidx.ads.identifier.MockAdvertisingIdThrowsNpeService;
+import androidx.ads.identifier.provider.IAdvertisingIdService;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.google.common.collect.Lists;
 
@@ -49,12 +52,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.Collections;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @SmallTest
 @RunWith(AndroidJUnit4.class)
-public class AdvertisingIdClientTest {
+public class HoldingConnectionClientTest {
     private static final String MOCK_SERVICE_PACKAGE_NAME = "androidx.ads.identifier.test";
     private static final String MOCK_SERVICE_NAME = MockAdvertisingIdService.class.getName();
     private static final String MOCK_THROWS_NPE_SERVICE_NAME =
@@ -68,8 +72,12 @@ public class AdvertisingIdClientTest {
 
     private Context mContext;
 
+    private HoldingConnectionClient mClient;
+
     @Before
     public void setUp() {
+        MockHoldingConnectionClient.sGetServiceConnectionThrowException = false;
+
         Context applicationContext = ApplicationProvider.getApplicationContext();
 
         mContext = new ContextWrapper(applicationContext) {
@@ -86,12 +94,12 @@ public class AdvertisingIdClientTest {
 
         mockQueryIntentServices(Lists.newArrayList(
                 createResolveInfo(MOCK_SERVICE_PACKAGE_NAME, MOCK_SERVICE_NAME)));
+
+        mClient = new HoldingConnectionClient(mContext);
     }
 
     @After
     public void tearDown() {
-        AdvertisingIdClient.clearHoldingConnectionClient();
-
         Intent serviceIntent = new Intent(GET_AD_ID_ACTION);
         serviceIntent.setClassName(MOCK_SERVICE_PACKAGE_NAME, MOCK_SERVICE_NAME);
         mContext.stopService(serviceIntent);
@@ -108,89 +116,67 @@ public class AdvertisingIdClientTest {
     }
 
     @Test
-    public void getAdvertisingIdInfo() throws Exception {
-        AdvertisingIdInfo info = AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-
-        assertThat(info).isEqualTo(AdvertisingIdInfo.builder()
-                .setId(TESTING_AD_ID)
-                .setLimitAdTrackingEnabled(true)
-                .setProviderPackageName(MOCK_SERVICE_PACKAGE_NAME)
-                .build());
+    public void notConnectedAtBeginning() {
+        assertThat(mClient.isConnected()).isFalse();
     }
 
     @Test
-    public void getAdvertisingIdInfo_runOnMainThread() throws Exception {
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
-            try {
-                AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-            } catch (IllegalStateException expected) {
-                // Expected exception.
-                return;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+    public void getServiceWithIntent() throws Exception {
+        Pair<IAdvertisingIdService, Intent> serviceWithIntent = mClient.getServiceWithIntent();
+
+        assertThat(serviceWithIntent.first.getId()).isEqualTo(TESTING_AD_ID);
+        assertThat(serviceWithIntent.second.getComponent())
+                .isEqualTo(new ComponentName(MOCK_SERVICE_PACKAGE_NAME, MOCK_SERVICE_NAME));
+    }
+
+    @Test
+    public void scheduleAutoDisconnect() throws Exception {
+        mClient.getServiceWithIntent();
+        mClient.scheduleAutoDisconnect();
+        assertThat(mClient.isConnected()).isTrue();
+
+        Thread.sleep(11000);
+
+        assertThat(mClient.isConnected()).isFalse();
+    }
+
+    @Test
+    public void finish() throws Exception {
+        mClient.getServiceWithIntent();
+        mClient.finish();
+
+        assertThat(mClient.isConnected()).isFalse();
+    }
+
+    @Test(expected = TimeoutException.class)
+    public void getServiceWithIntent_connectionTimeout() throws Exception {
+        new MockHoldingConnectionClient(mContext).getServiceWithIntent();
+    }
+
+    @Test(expected = IOException.class)
+    public void getServiceWithIntent_connectionFailed() throws Exception {
+        MockHoldingConnectionClient.sGetServiceConnectionThrowException = true;
+
+        new MockHoldingConnectionClient(mContext).getServiceWithIntent();
+    }
+
+    private static class MockHoldingConnectionClient extends HoldingConnectionClient {
+
+        static boolean sGetServiceConnectionThrowException = false;
+
+        MockHoldingConnectionClient(Context context) {
+            super(context);
+        }
+
+        @Override
+        BlockingServiceConnection getServiceConnection() throws IOException {
+            if (sGetServiceConnectionThrowException) {
+                throw new IOException();
             }
-            fail("IllegalStateException expected");
-        });
-    }
 
-    @Test(expected = AdvertisingIdNotAvailableException.class)
-    public void getAdvertisingIdInfo_noProvider() throws Exception {
-        mockQueryIntentServices(Collections.emptyList());
-
-        AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-    }
-
-    @Test(expected = AdvertisingIdNotAvailableException.class)
-    public void getAdvertisingIdInfo_serviceThrowsNpeException() throws Exception {
-        mockQueryIntentServices(Lists.newArrayList(
-                createResolveInfo(MOCK_SERVICE_PACKAGE_NAME, MOCK_THROWS_NPE_SERVICE_NAME)));
-
-        AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-    }
-
-    @Test
-    public void getInfo_getInfoTwice() throws Exception {
-        AdvertisingIdInfo info1 = AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-        AdvertisingIdInfo info2 = AdvertisingIdClient.getAdvertisingIdInfo(mContext);
-
-        assertThat(info1).isEqualTo(AdvertisingIdInfo.builder()
-                .setId(TESTING_AD_ID)
-                .setLimitAdTrackingEnabled(true)
-                .setProviderPackageName(MOCK_SERVICE_PACKAGE_NAME)
-                .build());
-        assertThat(info2).isEqualTo(AdvertisingIdInfo.builder()
-                .setId(TESTING_AD_ID)
-                .setLimitAdTrackingEnabled(true)
-                .setProviderPackageName(MOCK_SERVICE_PACKAGE_NAME)
-                .build());
-    }
-
-    @Test
-    public void normalizeId() throws Exception {
-        String id = AdvertisingIdClient.normalizeId("abc");
-
-        assertThat(id).isEqualTo("90015098-3cd2-3fb0-9696-3f7d28e17f72"); // UUID version 3 of "abc"
-    }
-
-    @Test
-    public void isAdvertisingIdProviderAvailable() {
-        assertThat(AdvertisingIdClient.isAdvertisingIdProviderAvailable(mContext)).isTrue();
-    }
-
-    @Test
-    public void isAdvertisingIdProviderAvailable_noProvider() {
-        mockQueryIntentServices(Collections.emptyList());
-
-        assertThat(AdvertisingIdClient.isAdvertisingIdProviderAvailable(mContext)).isFalse();
-    }
-
-    @Test
-    public void isAdvertisingIdProviderAvailable_twoProviders() {
-        mockQueryIntentServices(Lists.newArrayList(
-                createResolveInfo("com.a", "A"),
-                createResolveInfo("com.b", "B")));
-
-        assertThat(AdvertisingIdClient.isAdvertisingIdProviderAvailable(mContext)).isTrue();
+            // This connection does not bind to any service, so it always timeout.
+            return new BlockingServiceConnection();
+        }
     }
 
     private ResolveInfo createResolveInfo(String packageName, String name) {
