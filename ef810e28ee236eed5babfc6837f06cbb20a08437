@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c56834f9_61d983dd",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-25T22:42:39Z",
+      "side": 1,
+      "message": "I think this logic actually reversed. Gravity.START can shift something to the left or right depending on the layout direction while Gravity.LEFT should always be on the left.",
+      "range": {
+        "startLine": 452,
+        "startChar": 16,
+        "endLine": 454,
+        "endChar": 73
+      },
+      "revId": "ef810e28ee236eed5babfc6837f06cbb20a08437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
