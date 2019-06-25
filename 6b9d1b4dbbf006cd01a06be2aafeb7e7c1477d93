@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10f121ff_c3594347",
+        "filename": "compose/compose-gradle-plugin/src/main/java/androidx/compose/gradle/ComposePlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T19:06:35Z",
+      "side": 1,
+      "message": "what makes sure that the dependencies are present?",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "6b9d1b4dbbf006cd01a06be2aafeb7e7c1477d93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ccce433_120d0268",
+        "filename": "compose/compose-gradle-plugin/src/main/java/androidx/compose/gradle/ComposePlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T19:06:35Z",
+      "side": 1,
+      "message": "Should we throw an exception if the conf.isEmpty returns true?",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "6b9d1b4dbbf006cd01a06be2aafeb7e7c1477d93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
