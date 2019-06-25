@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "c8a9d0e9_2ee58ecd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-06-25T19:36:21Z",
+      "side": 1,
+      "message": "Alternatively you can add an Input ListProperty to this task and map the packageLibraryProvider\u0027s output to it\n\nthe implementation would look kind of like this in AndroidXPlugin\n\nreportLibraryMetricsTask.aarFiles +\u003d libraryVariant.packageLibraryProvider.flatMap { it.outputs.files.files }",
+      "parentUuid": "271e9a48_f6722064",
+      "range": {
+        "startLine": 56,
+        "startChar": 38,
+        "endLine": 56,
+        "endChar": 66
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8b1ee6a_76cb9961",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
         "patchSetId": 4
