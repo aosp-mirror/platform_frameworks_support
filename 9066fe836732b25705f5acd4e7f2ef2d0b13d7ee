@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "227e15ce_d781b324",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-06-25T13:44:54Z",
+      "side": 1,
+      "message": "No reason. Fixed.",
+      "parentUuid": "264e7118_8c7fcfc3",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e3b171e_7d8ace3a",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-06-25T13:44:54Z",
+      "side": 1,
+      "message": "We could do that. It\u0027d mean we\u0027d need two factory methods on the parent (one with, and one without, the Executor) - which would tie the parent to implementation details of this class.",
+      "parentUuid": "68122895_e9f57d1c",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "204e4ea8_07a4a054",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e331f6f_3aae8f79",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-06-25T13:44:54Z",
+      "side": 1,
+      "message": "I have no idea why it says not used... fixed.",
+      "parentUuid": "204e4ea8_07a4a054",
+      "range": {
+        "startLine": 70,
+        "startChar": 55,
+        "endLine": 70,
+        "endChar": 63
+      },
+      "revId": "9066fe836732b25705f5acd4e7f2ef2d0b13d7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
