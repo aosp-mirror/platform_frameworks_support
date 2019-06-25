@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "61fa1cb2_43d87237",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T13:06:22Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s a little bit more complicated than it seems. For example, actual Section Label is not really section label, but \"divider with subheader\" (https://material.io/design/components/dividers.html#types) ot something really close. So it\u0027s worth some consideration first before picking the API we want to provide here",
+      "parentUuid": "e494375a_94c2a7ef",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88795fa8_539f7131",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -285,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "1536a711_feffc593",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T13:06:22Z",
+      "side": 1,
+      "message": "With modal drawer the two most interesting states are opened and closed, I agree. But for bottom drawer \"expanded\" might be as interesting as \"opened\" from my perspective. \n\nI also think it\u0027s fairly different from ToggleableState, as checkbox is usually want to represent two states and it\u0027s considered by developers as \"it\u0027s turning on and off some thing\", but with drawer there\u0027s no such assumptions from me experience.\n\nI agree with you that it\u0027s forth further investigation, so we\u0027ll see, but for now as a used I don\u0027t really care to hold DrawerState instead of Boolean",
+      "parentUuid": "a23d7f0f_1ade2b42",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "907385fb_e409ec3d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
@@ -329,6 +377,30 @@
       "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2c8852_c5b1793c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T13:06:22Z",
+      "side": 1,
+      "message": "Decided to throw right now as it\u0027s an undefined behaviour",
+      "parentUuid": "27aa8245_7ea19864",
+      "range": {
+        "startLine": 78,
+        "startChar": 45,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -438,6 +510,30 @@
       "side": 1,
       "message": "Yeah agreed, there isn\u0027t a perfect solution here. I think in this case, it\u0027s totally reasonable to want to use these components in any context, so I don\u0027t like 1. I actually think 3 is quite nice, as it\u0027s similar to how a DSL would look with group {} and other such contents, as it makes it clear that it\u0027s part of Drawer, not just something that you can use inside. But again, no super strong opinions at this stage :) \n\nRegarding readability, I think it\u0027s quite readable but also a bit too verbose, and I\u0027m worried that it\u0027s hard to know when to put spacers and dividers for example. I guess that\u0027s part of the problem when they are their own individual components, you kinda need to prefix them with Drawer, but then it just gets messy when you have DrawerFoo, DrawerBar etc.",
       "parentUuid": "028988e5_6d103b41",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216bd767_816a4ffc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T13:06:22Z",
+      "side": 1,
+      "message": "Let\u0027s decide on this together later and I\u0027ll change this piece.\n\nCan you provide some examples when it can be reasonable to access this item not in drawer context (doesn\u0027t matter if this drawer is written by us or by someone else)?\n\nDrawerFoo and DrawerBar can become Drawer.Foo and Drawer.Bar, which can clean the namespace probably, but reduce discoverability, so we\u0027ll see :)",
+      "parentUuid": "a96f8483_c29f8ee5",
       "range": {
         "startLine": 119,
         "startChar": 0,
