@@ -189,6 +189,30 @@
       "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d1a59b_ac837e8c",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-06-25T10:18:39Z",
+      "side": 1,
+      "message": "These methods are now public and could be used to check the contents of the proxy rules / bypass rules, but that\u0027s all that developers can do right now. We could add setProxyRules()/setBypassRules() methods so that developers can modify the contents of the lists and replace whatever the ProxyConfig object holds. I don\u0027t know if that would be terribly useful though, and could potentially lead to people passing malformed input, which could cause problems.\n\nWDYT?",
+      "parentUuid": "755505c6_03135091",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
