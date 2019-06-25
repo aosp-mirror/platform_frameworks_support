@@ -22,6 +22,30 @@
       "revId": "4c57450e21af43a8bdf8cccab43834b58912208b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e3b2e29_0c306639",
+        "filename": "core/core/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-25T00:42:53Z",
+      "side": 1,
+      "message": "Good catch! Thanks! I re-ran updateApi and made sure to checkin the changes to current.txt and api.txt",
+      "parentUuid": "58e1b98c_b2ed76d1",
+      "range": {
+        "startLine": 1044,
+        "startChar": 131,
+        "endLine": 1044,
+        "endChar": 132
+      },
+      "revId": "4c57450e21af43a8bdf8cccab43834b58912208b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
