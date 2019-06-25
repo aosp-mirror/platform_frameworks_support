@@ -536,6 +536,16 @@ public class ImageCapture extends UseCase {
                             @Override
                             public void onFailure(Throwable t) {
                                 Log.e(TAG, "takePictureInternal onFailure", t);
+                                if (t instanceof IllegalCaptureStageException) {
+                                    // We only callback the onError () before submitting the
+                                    // capture request to the camera.
+                                    ImageCaptureRequest request = mImageCaptureRequests.poll();
+                                    request.mListener.onError(UseCaseError.UNKNOWN_ERROR,
+                                            t.getMessage(), t);
+
+                                    // Handle the next request.
+                                    issueImageCaptureRequests();
+                                }
                             }
                         },
                         mExecutor);
@@ -830,12 +840,12 @@ public class ImageCapture extends UseCase {
             captureBundle = getCaptureBundle(null);
 
             if (captureBundle == null) {
-                throw new IllegalArgumentException(
+                throw new IllegalCaptureStageException(
                         "ImageCapture cannot set empty CaptureBundle.");
             }
 
             if (captureBundle.getCaptureStages().size() > mMaxCaptureStages) {
-                throw new IllegalArgumentException(
+                throw new IllegalCaptureStageException(
                         "ImageCapture has CaptureStages > Max CaptureStage size");
             }
 
@@ -843,7 +853,7 @@ public class ImageCapture extends UseCase {
         } else {
             captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
             if (captureBundle.getCaptureStages().size() > 1) {
-                throw new IllegalArgumentException(
+                throw new IllegalCaptureStageException(
                         "ImageCapture have no CaptureProcess set with CaptureBundle size > 1.");
             }
         }
@@ -1258,6 +1268,12 @@ public class ImageCapture extends UseCase {
             }
 
             mListener.onCaptureSuccess(image, mRotationDegrees);
+        }
+    }
+
+    private final class IllegalCaptureStageException extends RuntimeException {
+        IllegalCaptureStageException(String message) {
+            super(message);
         }
     }
 }
