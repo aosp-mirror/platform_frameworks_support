@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8df27be0_58dc5d1a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T01:52:14Z",
+      "side": 1,
+      "message": "Previously there could be a 2nd image capture in flight while the 1st image is being processed for I/O.\n\nWith this change it makes it so that ImageCapture waits until the I/O (or whatever is processing is complete) before issuing the next request. Is that intentional?",
+      "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "982b0c7e_0895dc89",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T01:52:14Z",
+      "side": 1,
+      "message": "It would probably be best not to make ImageCapture implement OnImageCloseListener, because this would be exposing it at an interface level.\n\nIt would make more sense to define an internal class or instance that implements the OnImageCloseListener. Because this really is an implementation details that shouldn\u0027t be exposed.",
+      "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
