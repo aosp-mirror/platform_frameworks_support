@@ -26,7 +26,6 @@ import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
 import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getCurrentApiLocation
-import androidx.build.checkapi.getRequiredCompatibilityApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.dokka.Dokka.configureAndroidProjectForDokka
@@ -161,6 +160,14 @@ class AndroidXPlugin : Plugin<Project> {
                     if (checkReleaseReadyTasks.isNotEmpty()) {
                         project.createCheckReleaseReadyTask(checkReleaseReadyTasks)
                     }
+                    val reportLibraryMetricsTask = project.createReportLibraryMetricsTask()
+                    extension.libraryVariants.all { libraryVariant ->
+                        if (libraryVariant.buildType.name == "debug") {
+                            reportLibraryMetricsTask.configure { task ->
+                                task.dependsOn(libraryVariant.packageLibraryProvider)
+                            }
+                        }
+                    }
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask?.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
@@ -269,7 +276,8 @@ class AndroidXPlugin : Plugin<Project> {
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
                         "jar" == task.name ||
-                    "verifyDependencyVersions" == task.name ||
+                        "verifyDependencyVersions" == task.name ||
+                        "reportLibraryMetricsTask" == task.name ||
                         ("lintDebug" == task.name &&
                         !project.rootProject.hasProperty(USE_MAX_DEP_VERSIONS))) {
                     buildOnServerTask.dependsOn(task)
@@ -566,11 +574,11 @@ class AndroidXPlugin : Plugin<Project> {
          * Ignore -PuseMaxDepVersions when verifying dependency versions because it is a
          * hypothetical build which is only intended to check for forward compatibility.
          */
-        if (project.hasProperty(USE_MAX_DEP_VERSIONS)) {
+        if (hasProperty(USE_MAX_DEP_VERSIONS)) {
             return null
         }
 
-        return project.tasks.register("verifyDependencyVersions",
+        return tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
     }
 
@@ -579,14 +587,14 @@ class AndroidXPlugin : Plugin<Project> {
         afterEvaluate {
             if (extension.publish.shouldRelease()) {
                 // Only generate build info files for published libraries.
-                val task = project.tasks.register(
+                val task = tasks.register(
                     CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
                     CreateLibraryBuildInfoFileTask::class.java
                 ) {
-                    it.outputFile.set(File(project.getDistributionDirectory(),
-                        "${project.group}_${project.name}_build_info.txt"))
+                    it.outputFile.set(File(getDistributionDirectory(),
+                        "${group}_${name}_build_info.txt"))
                 }
-                project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
+                rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
                     it.dependsOn(task)
                 }
                 addTaskToAggregateBuildInfoFileTask(task)
@@ -597,7 +605,7 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.addTaskToAggregateBuildInfoFileTask(
         task: TaskProvider<CreateLibraryBuildInfoFileTask>
     ) {
-        project.rootProject.tasks.named(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK).configure {
+        rootProject.tasks.named(CREATE_AGGREGATE_BUILD_INFO_FILES_TASK).configure {
             var aggregateLibraryBuildInfoFileTask: CreateAggregateLibraryBuildInfoFileTask = it
                     as CreateAggregateLibraryBuildInfoFileTask
             aggregateLibraryBuildInfoFileTask.dependsOn(task)
@@ -608,19 +616,19 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureJacoco() {
-        project.apply(plugin = "jacoco")
-        project.configure<JacocoPluginExtension> {
+        apply(plugin = "jacoco")
+        configure<JacocoPluginExtension> {
             toolVersion = Jacoco.VERSION
         }
 
-        project.tasks.withType(JacocoReport::class.java).configureEach { task ->
+        tasks.withType(JacocoReport::class.java).configureEach { task ->
             task.reports {
                 it.xml.isEnabled = true
                 it.html.isEnabled = false
                 it.csv.isEnabled = false
 
                 it.xml.destination = File(getHostTestCoverageDirectory(),
-                    "${project.path.replace(':', '-').substring(1)}.xml")
+                    "${path.replace(':', '-').substring(1)}.xml")
             }
         }
     }
@@ -632,6 +640,7 @@ class AndroidXPlugin : Plugin<Project> {
         const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
         const val CREATE_LIBRARY_BUILD_INFO_FILES_TASK = "createLibraryBuildInfoFiles"
         const val CREATE_AGGREGATE_BUILD_INFO_FILES_TASK = "createAggregateBuildInfoFiles"
+        const val REPORT_LIBRARY_METRICS_TASK = "reportLibraryMetricsTask"
     }
 }
 
@@ -646,7 +655,7 @@ fun Project.hideJavadocTask() {
     // So, few tasks named "javadoc" are interesting to developers
     // So, we don't want "javadoc" to appear in the output of `./gradlew tasks`
     // So, we set the group to null for any task named "javadoc"
-    project.tasks.all { task ->
+    tasks.all { task ->
         if (task.name == "javadoc") {
             task.group = null
         }
@@ -658,50 +667,56 @@ fun Project.addToProjectMap(extension: AndroidXExtension) {
         if (extension.publish.shouldRelease()) {
             val group = extension.mavenGroup?.group
             if (group != null) {
-                val module = "$group:${project.name}"
+                val module = "$group:$name"
                 @Suppress("UNCHECKED_CAST")
                 val projectModules = getProjectsMap()
-                projectModules[module] = project.path
+                projectModules[module] = path
             }
         }
     }
 }
 
 private fun Project.createCheckResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("checkResourceApi",
+    return tasks.createWithConfig("checkResourceApi",
             CheckResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
-        oldApiFile = project.getCurrentApiLocation().resourceFile
+        oldApiFile = getCurrentApiLocation().resourceFile
     }
 }
 
 private fun Project.createCheckReleaseReadyTask(taskProviderList: List<TaskProvider<out Task>>) {
-    project.tasks.register(AndroidXPlugin.CHECK_RELEASE_READY_TASK) {
+    tasks.register(AndroidXPlugin.CHECK_RELEASE_READY_TASK) {
         for (taskProvider in taskProviderList) {
             it.dependsOn(taskProvider)
         }
     }
 }
 
+private fun Project.createReportLibraryMetricsTask(): TaskProvider<ReportLibraryMetricsTask> {
+    return tasks.register(
+        AndroidXPlugin.REPORT_LIBRARY_METRICS_TASK, ReportLibraryMetricsTask::class.java
+    )
+}
+
 private fun Project.createUpdateResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
+    return tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
-        oldApiFile = getRequiredCompatibilityApiFileFromDir(File(project.projectDir, "api/"),
-                project.version(), ApiType.RESOURCEAPI)
-        destApiFile = project.getCurrentApiLocation().resourceFile
+        oldApiFile = getLastReleasedApiFileFromDir(File(projectDir, "api/"),
+                version(), true, false, ApiType.RESOURCEAPI)
+        destApiFile = getCurrentApiLocation().resourceFile
     }
 }
 
 @Suppress("UNCHECKED_CAST")
 fun Project.getProjectsMap(): ConcurrentHashMap<String, String> {
-    return project.rootProject.extra.get("projects") as ConcurrentHashMap<String, String>
+    return rootProject.extra.get("projects") as ConcurrentHashMap<String, String>
 }
 
 private fun Project.configureResourceApiChecks(extension: LibraryExtension) {
     afterEvaluate {
-        if (project.hasApiFolder()) {
-            val checkResourceApiTask = project.createCheckResourceApiTask()
-            val updateResourceApiTask = project.createUpdateResourceApiTask()
+        if (hasApiFolder()) {
+            val checkResourceApiTask = createCheckResourceApiTask()
+            val updateResourceApiTask = createUpdateResourceApiTask()
 
             extension.libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
@@ -721,6 +736,6 @@ private fun Project.configureResourceApiChecks(extension: LibraryExtension) {
 }
 
 private fun Project.getGenerateResourceApiFile(): File {
-    return File(project.buildDir, "intermediates/public_res/debug" +
+    return File(buildDir, "intermediates/public_res/debug" +
             "/packageDebugResources/public.txt")
 }
