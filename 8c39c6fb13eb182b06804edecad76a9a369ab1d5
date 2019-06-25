@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a16fbc9_004a9d6d",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-25T13:20:13Z",
+      "side": 1,
+      "message": "any { it.data \u003d\u003d semanticsConfiguration }",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 45
+      },
+      "revId": "8c39c6fb13eb182b06804edecad76a9a369ab1d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
