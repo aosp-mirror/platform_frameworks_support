@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd516055_2c89ca45",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Missing nullability annotation",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 51
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9a1525c_cbae5cde",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Remove Ui, not necessary",
+      "range": {
+        "startLine": 6,
+        "startChar": 62,
+        "endLine": 6,
+        "endChar": 64
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a46905_cd36ea80",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Remove \"Interface\" from name",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6c1077_c02a1590",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Missing nullability.\n\nWe don\u0027t typically expose RemoteExceptions to clients, since there\u0027s usually nothing they can do about them. Instead, we do some reasonable fallback behavior, often no-op. You could also consider re-throwing as a RuntimeException, but again -- is there anything a client can actually do in the case of an exception?",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "154044b0_c9a69759",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Avoid \"Utils\" in a class name. Use \"Manager\" for consistency with other service registries in Android.",
+      "range": {
+        "startLine": 15,
+        "startChar": 36,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd05682c_d287628c",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Missing nullability annotations in param and return.\n\nRemove \"All\" from method name. Don\u0027t use \"Ad\" and \"Advertising\" interchangeably -- it\u0027s a class name and should be consistent.",
+      "range": {
+        "startLine": 16,
+        "startChar": 122,
+        "endLine": 16,
+        "endChar": 146
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e37e19_44153301",
+        "filename": "ads/ads-identifier-provider/integration-tests/testapp/src/main/java/androidx/ads/identifier/provider/testapp/AdsIdentifierProviderApplication.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Is this the intended pattern for client usage, or just something specific to your testing setup?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164a4504_0ce422db",
+        "filename": "ads/ads-identifier/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T14:06:28Z",
+      "side": 1,
+      "message": "Generally, nullability annotations",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 33
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
