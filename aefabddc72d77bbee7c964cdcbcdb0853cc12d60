@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98ec77d4_2fed6741",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlView_WithSthTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-25T10:02:47Z",
+      "side": 1,
+      "message": "Q) Can\u0027t we just keep the second test and remove the first one?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 5
+      },
+      "revId": "aefabddc72d77bbee7c964cdcbcdb0853cc12d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
