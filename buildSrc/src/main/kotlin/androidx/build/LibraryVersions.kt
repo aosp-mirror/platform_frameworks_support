@@ -22,10 +22,17 @@ package androidx.build
 object LibraryVersions {
     val ACTIVITY = Version("1.0.0-alpha05")
     val ANIMATION = Version("1.0.0-alpha01")
+<<<<<<< HEAD   (2648b1 Merge "Merge empty history for sparse-5597911-L8860000033286)
     val ANIMATION_TESTING = Version("1.0.0")
     val ANNOTATION = Version("1.1.0-alpha02")
     val APPCOMPAT = Version("1.1.0-alpha03")
     val ARCH_CORE = Version("2.0.0")
+=======
+    val ANIMATION_TESTING = Version("1.1.0-alpha01")
+    val ANNOTATION = Version("1.1.0")
+    val APPCOMPAT = Version("1.1.0-beta00")
+    val ARCH_CORE = Version("2.1.0-beta01")
+>>>>>>> BRANCH (2b6618 Merge "Merge cherrypicks of [989669, 989671] into sparse-561)
     val ARCH_CORE_TESTING = ARCH_CORE
     val ARCH_RUNTIME = Version("2.0.1-alpha01")
     val ASYNCLAYOUTINFLATER = Version("1.1.0-alpha01")
@@ -36,7 +43,11 @@ object LibraryVersions {
     val CAR_CLUSTER = Version("1.0.0-alpha5")
     val CAR_MODERATOR = Version("1.0.0-alpha1")
     val CARDVIEW = Version("1.1.0-alpha01")
+<<<<<<< HEAD   (2648b1 Merge "Merge empty history for sparse-5597911-L8860000033286)
     val COLLECTION = Version("1.1.0-alpha03")
+=======
+    val COLLECTION = Version("1.1.0")
+>>>>>>> BRANCH (2b6618 Merge "Merge cherrypicks of [989669, 989671] into sparse-561)
     val CONTENTPAGER = Version("1.1.0-alpha01")
     val COORDINATORLAYOUT = Version("1.1.0-alpha02")
     val CORE = Version("1.1.0-alpha05")
