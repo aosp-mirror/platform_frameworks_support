@@ -240,6 +240,24 @@
       "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8597d5f6_a0946703",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXUiPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T16:10:42Z",
+      "side": 1,
+      "message": "I think it\u0027s a useful check for everyone -- I\u0027m okay turning this on globally.",
+      "parentUuid": "d4c31619_6c54333b",
+      "revId": "71336de2b1f6cf1799b1fa75e721b45ff551da69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
