@@ -16,6 +16,24 @@
       "revId": "f706b03858d41500cbb112dc139e988dddc1e9d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca3e751_89547017",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-25T08:49:56Z",
+      "side": 1,
+      "message": "The null check has been added in patch set 16. Thanks.",
+      "parentUuid": "6f3d9b4f_63574e0a",
+      "revId": "f706b03858d41500cbb112dc139e988dddc1e9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
