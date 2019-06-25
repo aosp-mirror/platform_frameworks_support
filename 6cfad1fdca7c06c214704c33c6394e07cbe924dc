@@ -16,6 +16,24 @@
       "revId": "6cfad1fdca7c06c214704c33c6394e07cbe924dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4fd0269_d558fefe",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T08:31:29Z",
+      "side": 1,
+      "message": "Thank you for pointing out. Yes, we should if widgets need the callbacks. Added callbacks that are currently used.",
+      "parentUuid": "a2e95a7c_efda0935",
+      "revId": "6cfad1fdca7c06c214704c33c6394e07cbe924dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
