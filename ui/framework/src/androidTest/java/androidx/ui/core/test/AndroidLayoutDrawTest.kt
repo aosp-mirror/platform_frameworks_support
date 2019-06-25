@@ -50,6 +50,7 @@ import androidx.compose.Model
 import androidx.compose.composer
 import androidx.compose.setContent
 import androidx.test.filters.SdkSuppress
+import androidx.ui.core.ComplexLayout
 import androidx.ui.core.ContextAmbient
 import androidx.ui.core.Density
 import androidx.ui.core.DensityAmbient
@@ -710,6 +711,95 @@ class AndroidLayoutDrawTest {
         validateSquareColors(outerColor = outerColor, innerColor = innerColor, size = 20)
     }
 
+    // The layout should remeasure only when the size doesn't match new constraints
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
+    @Test
+    fun testDefaultRemeasure() {
+        val color = Color.Cyan
+        val measureCalls = Ref<Int>()
+        measureCalls.value = 0
+        runOnUiThread {
+            activity.setContent {
+                CraneWrapper {
+                    Draw { _, _ ->
+                        drawLatch.countDown()
+                    }
+                    Align {
+                        FixedSize(30.ipx, 30.ipx, measureCalls) {
+                            Draw { canvas, parentSize ->
+                                val paint = Paint()
+                                paint.color = color
+                                canvas.drawRect(parentSize.toRect(), paint)
+                            }
+                        }
+                    }
+                }
+            }
+            changeWrapperSize(30)
+        }
+
+        validateSquareColors(color, color, size = 10)
+        assertEquals(1, measureCalls.value!!)
+
+        drawLatch = CountDownLatch(1)
+
+        runOnUiThread {
+            changeWrapperSize(60)
+        }
+
+        validateSquareColors(color, color, size = 10, bitmapSize = 60)
+        assertEquals(1, measureCalls.value!!)
+    }
+
+    // The layout should still remeasure when the size match new constraints when I change the
+    // shouldRemeasureBlock
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
+    @Test
+    fun testAlwaysRemeasure() {
+        val color = Color.Cyan
+        val measureCalls = Ref<Int>()
+        measureCalls.value = 0
+        runOnUiThread {
+            activity.setContent {
+                CraneWrapper {
+                    Draw { _, _ ->
+                        drawLatch.countDown()
+                    }
+                    Align {
+                        HalfSize(measureCalls) {
+                            Draw { canvas, parentSize ->
+                                val paint = Paint()
+                                paint.color = color
+                                canvas.drawRect(parentSize.toRect(), paint)
+                            }
+                        }
+                    }
+                }
+            }
+            changeWrapperSize(30)
+        }
+
+        validateSquareColors(color, color, size = 15, totalSize = 15, bitmapSize = 30)
+        assertEquals(1, measureCalls.value!!)
+
+        drawLatch = CountDownLatch(1)
+
+        runOnUiThread {
+            changeWrapperSize(60)
+        }
+
+        validateSquareColors(color, color, size = 30, totalSize = 30, bitmapSize = 60)
+        assertEquals(2, measureCalls.value!!)
+    }
+
+    private fun changeWrapperSize(size: Int) {
+        val view = findAndroidCraneView()
+        val layoutParams = view.layoutParams
+        layoutParams.width = size
+        layoutParams.height = size
+        view.layoutParams = layoutParams
+    }
+
     // We only need this because IR compiler doesn't like converting lambdas to Runnables
     private fun runOnUiThread(block: () -> Unit) {
         val runnable: Runnable = object : Runnable {
@@ -862,12 +952,13 @@ class AndroidLayoutDrawTest {
         innerColor: Color,
         size: Int,
         offset: Int = 0,
-        totalSize: Int = size * 3
+        totalSize: Int = size * 3,
+        bitmapSize: Int = totalSize
     ) {
         assertTrue(drawLatch.await(1, TimeUnit.SECONDS))
         val bitmap = waitAndScreenShot()
-        assertEquals(totalSize, bitmap.width)
-        assertEquals(totalSize, bitmap.height)
+        assertEquals(bitmapSize, bitmap.width)
+        assertEquals(bitmapSize, bitmap.height)
         val squareStart = (totalSize - size) / 2 + offset
         val squareEnd = totalSize - ((totalSize - size) / 2) + offset
         for (x in 0 until totalSize) {
@@ -1063,6 +1154,55 @@ fun Position(size: IntPx, offset: OffsetModel, @Children children: @Composable()
                 child.place(offset.offset, offset.offset)
             }
         }
+    }
+}
+
+@Composable
+fun FixedSize(
+    width: IntPx,
+    height: IntPx,
+    measureCalls: Ref<Int>? = null,
+    @Children children: @Composable() () -> Unit
+) {
+    Layout(children) { measurables, _ ->
+        if (measureCalls != null) {
+            measureCalls.value = (measureCalls.value ?: 0) + 1
+        }
+        layout(width, height) {
+            val sizedConstraints = Constraints.tightConstraints(width, height)
+            val placeables = measurables.map { it.measure(sizedConstraints) }
+            placeables.forEach { child ->
+                child.place(0.ipx, 0.ipx)
+            }
+        }
+    }
+}
+
+@Composable
+fun HalfSize(
+    measureCalls: Ref<Int>? = null,
+    @Children children: @Composable() () -> Unit
+) {
+    ComplexLayout(children) {
+        shouldRemeasure { _, _, _, _ -> true }
+        layout { measurables, constraints ->
+            if (measureCalls != null) {
+                measureCalls.value = (measureCalls.value ?: 0) + 1
+            }
+            val width = constraints.maxWidth / 2
+            val height = constraints.maxHeight / 2
+            layoutResult(width, height) {
+                val sizedConstraints = Constraints.tightConstraints(width, height)
+                val placeables = measurables.map { it.measure(sizedConstraints) }
+                placeables.forEach { child ->
+                    child.place(0.ipx, 0.ipx)
+                }
+            }
+        }
+        minIntrinsicHeight { _, _ -> 0.ipx }
+        minIntrinsicWidth { _, _ -> 0.ipx }
+        maxIntrinsicHeight { _, _ -> 0.ipx }
+        maxIntrinsicWidth { _, _ -> 0.ipx }
     }
 }
 

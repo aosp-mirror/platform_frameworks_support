@@ -7,6 +7,7 @@ package androidx.ui.core {
     method public void maxIntrinsicWidth(kotlin.jvm.functions.Function3<? super androidx.ui.core.IntrinsicMeasurementsReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.IntPx,androidx.ui.core.IntPx> maxIntrinsicWidthBlock);
     method public void minIntrinsicHeight(kotlin.jvm.functions.Function3<? super androidx.ui.core.IntrinsicMeasurementsReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.IntPx,androidx.ui.core.IntPx> minIntrinsicHeightBlock);
     method public void minIntrinsicWidth(kotlin.jvm.functions.Function3<? super androidx.ui.core.IntrinsicMeasurementsReceiver,? super java.util.List<? extends androidx.ui.core.Measurable>,? super androidx.ui.core.IntPx,androidx.ui.core.IntPx> minIntrinsicWidthBlock);
+    method public void shouldRemeasure(kotlin.jvm.functions.Function4<? super androidx.ui.core.IntPx,? super androidx.ui.core.IntPx,? super androidx.ui.core.Constraints,? super androidx.ui.core.Constraints,java.lang.Boolean> shouldRemeasureBlock);
   }
 
   public final class DrawKt {
