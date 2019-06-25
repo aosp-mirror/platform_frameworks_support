@@ -43,7 +43,6 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -337,7 +336,7 @@ public class CarToolbarTest {
                 .Builder()
                 .setTitle(actionItemText)
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
-                .setIcon(Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon))
+                .setIcon(mActivity, android.R.drawable.sym_def_app_icon)
                 .build();
 
         mActivityRule.runOnUiThread(() ->
@@ -552,7 +551,7 @@ public class CarToolbarTest {
 
         // Since overflow items are set in onMeasure, need to wait for the views to be laid out.
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-        mActivityRule.runOnUiThread(() -> mToolbar.showOverflowMenu());
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
 
         onView(withText(overflowItemText)).inRoot(isDialog()).check(matches(isDisplayed()));
     }
@@ -568,8 +567,8 @@ public class CarToolbarTest {
 
         mActivityRule.runOnUiThread(() -> {
             mToolbar.setMenuItems(Collections.singletonList(overflowItem));
-            mToolbar.showOverflowMenu();
-            mToolbar.hideOverflowMenu();
+            mToolbar.setOverflowMenuShown(true);
+            mToolbar.setOverflowMenuShown(false);
         });
 
         onView(withText(overflowItemText)).check(doesNotExist());
@@ -600,21 +599,21 @@ public class CarToolbarTest {
     @Test
     public void testIfRoomItemDisplayedInOrderProvided() throws Throwable {
         List<CarMenuItem> items = new ArrayList<>();
-        String action1Text = "action_item_1";
+        String action1Text = "item_1";
         items.add(new CarMenuItem
                 .Builder()
                 .setTitle(action1Text)
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
                 .build());
 
-        String ifRoomItemText = "if_room_item_text";
+        String ifRoomItemText = "if_room";
         items.add(new CarMenuItem
                 .Builder()
                 .setTitle(ifRoomItemText)
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
                 .build());
 
-        String action2Text = "action_item_2";
+        String action2Text = "item_2";
         items.add(new CarMenuItem
                 .Builder()
                 .setTitle(action2Text)
@@ -693,7 +692,7 @@ public class CarToolbarTest {
 
         onView(withText(ifRoomItemText)).check(doesNotExist());
 
-        mActivityRule.runOnUiThread(() -> mToolbar.showOverflowMenu());
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
 
         onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
     }

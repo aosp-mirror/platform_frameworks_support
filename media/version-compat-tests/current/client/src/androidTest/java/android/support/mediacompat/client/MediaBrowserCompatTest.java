@@ -63,6 +63,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.mediacompat.testlib.util.PollingCheck;
@@ -315,6 +316,54 @@ public class MediaBrowserCompatTest {
 
     @Test
     @MediumTest
+    public void testMultipleConnections() throws Exception {
+        final Context context = getInstrumentation().getTargetContext();
+        final StubConnectionCallback callback1 = new StubConnectionCallback();
+        final StubConnectionCallback callback2 = new StubConnectionCallback();
+        final StubConnectionCallback callback3 = new StubConnectionCallback();
+        final List<MediaBrowserCompat> browserList = new ArrayList<>();
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                MediaBrowserCompat browser1 = new MediaBrowserCompat(context, TEST_BROWSER_SERVICE,
+                        callback1, new Bundle());
+                MediaBrowserCompat browser2 = new MediaBrowserCompat(context, TEST_BROWSER_SERVICE,
+                        callback2, new Bundle());
+                MediaBrowserCompat browser3 = new MediaBrowserCompat(context, TEST_BROWSER_SERVICE,
+                        callback3, new Bundle());
+
+                browserList.add(browser1);
+                browserList.add(browser2);
+                browserList.add(browser3);
+
+                browser1.connect();
+                browser2.connect();
+                browser3.connect();
+            }
+        });
+
+        try {
+            new PollingCheck(TIME_OUT_MS) {
+                @Override
+                protected boolean check() {
+                    return callback1.mConnectedCount == 1
+                            && callback2.mConnectedCount == 1
+                            && callback3.mConnectedCount == 1;
+                }
+            }.run();
+        } finally {
+            for (int i = 0; i < browserList.size(); i++) {
+                MediaBrowserCompat browser = browserList.get(i);
+                if (browser.isConnected()) {
+                    browser.disconnect();
+                }
+            }
+        }
+    }
+
+    @Test
+    @MediumTest
     public void testSubscribe() throws Exception {
         connectMediaBrowserService();
 
@@ -543,7 +592,6 @@ public class MediaBrowserCompatTest {
 
     @Test
     @MediumTest
-    @FlakyTest(bugId = 74093976)
     public void testUnsubscribeWithSubscriptionCallbackForMultipleSubscriptions() throws Exception {
         connectMediaBrowserService();
         final List<StubSubscriptionCallback> subscriptionCallbacks = new ArrayList<>();
@@ -580,21 +628,26 @@ public class MediaBrowserCompatTest {
             // Make StubMediaBrowserServiceCompat notify that the children are changed.
             callMediaBrowserServiceMethod(NOTIFY_CHILDREN_CHANGED, MEDIA_ID_ROOT,
                     getApplicationContext());
+
+            // Remaining subscriptionCallbacks should be called.
+            for (int j = i + 1; j < orderOfRemovingCallbacks.length; j++) {
+                StubSubscriptionCallback callback = subscriptionCallbacks
+                        .get(orderOfRemovingCallbacks[j]);
+                callback.await(TIME_OUT_MS);
+                assertEquals(1, callback.mChildrenLoadedWithOptionCount);
+            }
+
             try {
                 Thread.sleep(SLEEP_MS);
             } catch (InterruptedException e) {
                 fail("Unexpected InterruptedException occurred.");
             }
 
-            // Only the remaining subscriptionCallbacks should be called.
-            for (int j = 0; j < 4; j++) {
-                int childrenLoadedWithOptionsCount = subscriptionCallbacks
-                        .get(orderOfRemovingCallbacks[j]).mChildrenLoadedWithOptionCount;
-                if (j <= i) {
-                    assertEquals(0, childrenLoadedWithOptionsCount);
-                } else {
-                    assertEquals(1, childrenLoadedWithOptionsCount);
-                }
+            // Removed subscriptionCallbacks should NOT be called.
+            for (int j = 0; j <= i; j++) {
+                StubSubscriptionCallback callback = subscriptionCallbacks
+                        .get(orderOfRemovingCallbacks[j]);
+                assertEquals(0, callback.mChildrenLoadedWithOptionCount);
             }
         }
     }

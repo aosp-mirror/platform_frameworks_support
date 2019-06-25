@@ -16,10 +16,13 @@
 
 package androidx.build.dependencyTracker
 
+import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.CHANGED_PROJECTS_ARG
+import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.DEPENDENT_PROJECTS_ARG
 import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_ARG
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
 import androidx.build.isRunningOnBuildServer
+import java.io.File
 import org.gradle.BuildAdapter
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -30,7 +33,11 @@ import org.gradle.api.logging.Logger
 /**
  * The subsets we allow the projects to be partitioned into.
  * This is to allow more granular testing. Specifically, to enable running large tests on
- * CHANGED_PROJECTS, and
+ * CHANGED_PROJECTS, while still only running small and medium tests on DEPENDENT_PROJECTS.
+ *
+ * The ProjectSubset specifies which projects we are interested in testing.
+ * The AffectedModuleDetector determines the minimum set of projects that must be built in
+ * order to run all the tests along with their runtime dependencies.
  *
  * The subsets are:
  *  CHANGED_PROJECTS -- The containing projects for any files that were changed in this CL.
@@ -182,6 +189,7 @@ internal class AffectedModuleDetectorImpl constructor(
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
     private val projectSubset: ProjectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+    private val cobuiltTestPaths: Set<Set<String>> = COBUILT_TEST_PATHS,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -206,7 +214,7 @@ internal class AffectedModuleDetectorImpl constructor(
 
     override fun shouldInclude(project: Project): Boolean {
         return (project.isRoot || affectedProjects.contains(project)).also {
-            logger?.info("checking whether i should include ${project.path} and my answer is $it")
+            logger?.info("checking whether I should include ${project.path} and my answer is $it")
         }
     }
 
@@ -223,6 +231,8 @@ internal class AffectedModuleDetectorImpl constructor(
      * This is because we run all tests including @large on the changed set. So when we must
      * build all, we only want to run @small and @medium tests in the test runner for
      * DEPENDENT_PROJECTS.
+     *
+     * Also detects modules whose tests are codependent at runtime.
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
@@ -230,10 +240,8 @@ internal class AffectedModuleDetectorImpl constructor(
                 sha = lastMergeSha,
                 includeUncommitted = true)
 
-        val alwaysBuild = rootProject.subprojects.filter { project ->
-            ALWAYS_BUILD.any {
-                project.name.contains(it)
-            }
+        val alwaysBuild = ALWAYS_BUILD.map { path ->
+            rootProject.project(path)
         }.toSet()
 
         if (changedFiles.isEmpty()) {
@@ -244,6 +252,31 @@ internal class AffectedModuleDetectorImpl constructor(
                 ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
             }
         }
+
+        // TODO: around Q3 2019, revert to resolve b/132901339
+        val isRootProjectUi = rootProject.name.contains("ui")
+        var hasNormalFile = false
+        var hasUiFile = false
+        changedFiles.forEach {
+            val projectBaseDir = it.split(File.separatorChar)[0]
+            if (projectBaseDir == "ui" || projectBaseDir == "compose") {
+                hasUiFile = true
+            } else {
+                hasNormalFile = true
+            }
+        }
+        // if changes in both codebases, continue as usual (will test everything)
+        if (hasUiFile && hasNormalFile) {
+            // normal file exists in ui build -> don't build anything except the dummy
+            // since the "other" build will pick up the appropriate projects.
+        } else if (isRootProjectUi && hasNormalFile) {
+            return alwaysBuild
+            // ui file exists in normal build -> don't build anything except the dummy
+            // since the "other" build will pick up the appropriate projects.
+        } else if (!isRootProjectUi && hasUiFile) {
+            return alwaysBuild
+        }
+
         val containingProjects = changedFiles
                 .map(::findContainingProject)
                 .let {
@@ -268,13 +301,56 @@ internal class AffectedModuleDetectorImpl constructor(
             }
         }
 
-        return alwaysBuild + when (projectSubset) {
+        val cobuiltTestProjects = lookupProjectSetsFromPaths(cobuiltTestPaths)
+
+        val affectedProjects = when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
                 -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
             ProjectSubset.CHANGED_PROJECTS
-                -> (containingProjects).filterNotNull().toSet()
+                -> containingProjects.filterNotNull().toSet()
             else -> expandToDependents(containingProjects)
         }
+
+        return alwaysBuild + affectedProjects +
+                getAffectedCobuiltProjects(affectedProjects, cobuiltTestProjects)
+    }
+
+    private fun lookupProjectSetsFromPaths(allSets: Set<Set<String>>): Set<Set<Project>> {
+        return allSets.map { setPaths ->
+            var setExists = false
+            val projectSet = HashSet<Project>()
+            for (path in setPaths) {
+                val project = rootProject.findProject(path)
+                if (project == null) {
+                    if (setExists) {
+                        throw IllegalStateException("One of the projects in the group of " +
+                                "projects that are required to be built together is missing. " +
+                                "Looked for " + setPaths)
+                    }
+                } else {
+                    setExists = true
+                    projectSet.add(project)
+                }
+            }
+            return@map projectSet
+        }.toSet()
+    }
+
+    private fun getAffectedCobuiltProjects(
+        affectedProjects: Set<Project>,
+        allCobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        affectedProjects.forEach { project ->
+            allCobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
     }
 
     private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
@@ -292,6 +368,20 @@ internal class AffectedModuleDetectorImpl constructor(
     companion object {
         // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
         // if we resolve b/127819369
-        private val ALWAYS_BUILD = setOf("dumb-test")
+        private val ALWAYS_BUILD = setOf(":dumb-tests")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_TEST_PATHS = setOf(
+            // Install media tests together per b/128577735
+            setOf(
+                ":support-media-compat-test-client",
+                ":support-media-compat-test-service",
+                ":support-media-compat-test-client-previous",
+                ":support-media-compat-test-service-previous"
+            ),
+            setOf(
+                ":support-media2-test-client",
+                ":support-media2-test-service"
+            )
+        )
     }
 }

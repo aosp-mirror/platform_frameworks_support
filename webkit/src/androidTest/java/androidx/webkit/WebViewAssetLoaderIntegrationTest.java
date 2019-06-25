@@ -16,162 +16,98 @@
 
 package androidx.webkit;
 
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Callable;
 
 @RunWith(AndroidJUnit4.class)
 public class WebViewAssetLoaderIntegrationTest {
     private static final String TAG = "WebViewAssetLoaderIntegrationTest";
 
     @Rule
-    public final ActivityTestRule<TestActivity> mActivityRule =
-                                    new ActivityTestRule<>(TestActivity.class);
+    public final ActivityTestRule<WebViewTestActivity> mActivityRule =
+                                    new ActivityTestRule<>(WebViewTestActivity.class);
 
-    // An Activity for Integeration tests
-    public static class TestActivity extends Activity {
-        private class MyWebViewClient extends WebViewClient {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
-            }
+    private WebViewOnUiThread mOnUiThread;
+    private WebViewAssetLoader mAssetLoader;
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                mOnPageFinishedUrl.add(url);
-            }
-
-            @SuppressWarnings({"deprecated"})
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                return mAssetLoader.shouldInterceptRequest(url);
-            }
-
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view,
-                                                WebResourceRequest request) {
-                return mAssetLoader.shouldInterceptRequest(request);
-            }
+    private static class AssetLoadingWebViewClient extends WebViewOnUiThread.WaitForLoadedClient {
+        private final WebViewAssetLoader mAssetLoader;
+        AssetLoadingWebViewClient(WebViewOnUiThread onUiThread,
+                WebViewAssetLoader assetLoader) {
+            super(onUiThread);
+            mAssetLoader = assetLoader;
         }
 
-        private WebViewAssetLoader mAssetLoader;
-        private WebView mWebView;
-        private ArrayBlockingQueue<String> mOnPageFinishedUrl = new ArrayBlockingQueue<String>(5);
-
-        public WebViewAssetLoader getAssetLoader() {
-            return mAssetLoader;
-
-        }
-
-        public WebView getWebView() {
-            return mWebView;
-        }
-
-        public ArrayBlockingQueue<String> getOnPageFinishedUrl() {
-            return mOnPageFinishedUrl;
-        }
-
-        private void setUpWebView(WebView view) {
-            view.setWebViewClient(new MyWebViewClient());
+        @SuppressWarnings({"deprecated"})
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            return mAssetLoader.shouldInterceptRequest(url);
         }
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mAssetLoader = (new WebViewAssetLoader.Builder(this)).build();
-            mWebView = new WebView(this);
-            setUpWebView(mWebView);
-            setContentView(mWebView);
+        public WebResourceResponse shouldInterceptRequest(WebView view,
+                                            WebResourceRequest request) {
+            return mAssetLoader.shouldInterceptRequest(request);
         }
+    }
 
-        @Override
-        protected void onDestroy() {
-            super.onDestroy();
-            mWebView.destroy();
-            mWebView = null;
+    @Before
+    public void setUp() {
+        mAssetLoader = (new WebViewAssetLoader.Builder(mActivityRule.getActivity())).build();
+        mOnUiThread = new WebViewOnUiThread(mActivityRule.getActivity().getWebView());
+        mOnUiThread.setWebViewClient(new AssetLoadingWebViewClient(mOnUiThread, mAssetLoader));
+    }
+
+    @After
+    public void tearDown() {
+        if (mOnUiThread != null) {
+            mOnUiThread.cleanUp();
         }
     }
 
     @Test
     @MediumTest
     public void testAssetHosting() throws Exception {
-        final TestActivity activity = mActivityRule.getActivity();
-        final String test_with_title_path = "www/test_with_title.html";
+        final WebViewTestActivity activity = mActivityRule.getActivity();
 
-        String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                WebViewAssetLoader assetLoader = activity.getAssetLoader();
-                Uri.Builder testPath =
-                        assetLoader.getAssetsHttpsPrefix().buildUpon()
-                                .appendPath(test_with_title_path);
+        String url =
+                mAssetLoader.getAssetsHttpsPrefix().buildUpon()
+                        .appendPath("www")
+                        .appendPath("test_with_title.html")
+                        .build()
+                        .toString();
 
-                String url = testPath.toString();
-                activity.getWebView().loadUrl(url);
+        mOnUiThread.loadUrlAndWaitForCompletion(url);
 
-                return url;
-            }
-        });
-
-        String onPageFinishedUrl = activity.getOnPageFinishedUrl().take();
-        Assert.assertEquals(url, onPageFinishedUrl);
-
-        String title = WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                return activity.getWebView().getTitle();
-            }
-        });
-        Assert.assertEquals("WebViewAssetLoaderTest", title);
+        Assert.assertEquals("WebViewAssetLoaderTest", mOnUiThread.getTitle());
     }
 
     @Test
     @MediumTest
     public void testResourcesHosting() throws Exception {
-        final TestActivity activity = mActivityRule.getActivity();
-        final String test_with_title_path = "test_with_title.html";
+        final WebViewTestActivity activity = mActivityRule.getActivity();
 
-        String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                WebViewAssetLoader assetLoader = activity.getAssetLoader();
-                Uri.Builder testPath =
-                        assetLoader.getResourcesHttpsPrefix().buildUpon()
-                        .appendPath("raw")
-                        .appendPath(test_with_title_path);
+        String url =
+                mAssetLoader.getResourcesHttpsPrefix().buildUpon()
+                .appendPath("raw")
+                .appendPath("test_with_title.html")
+                .build()
+                .toString();
 
-                String url = testPath.toString();
-                activity.getWebView().loadUrl(url);
+        mOnUiThread.loadUrlAndWaitForCompletion(url);
 
-                return url;
-            }
-        });
-
-        String onPageFinishedUrl = activity.getOnPageFinishedUrl().take();
-        Assert.assertEquals(url, onPageFinishedUrl);
-
-        String title = WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                return activity.getWebView().getTitle();
-            }
-        });
-        Assert.assertEquals("WebViewAssetLoaderTest", title);
+        Assert.assertEquals("WebViewAssetLoaderTest", mOnUiThread.getTitle());
     }
 }

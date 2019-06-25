@@ -303,10 +303,10 @@ public enum WebViewFeatureInternal {
 
     /**
      * This feature covers
-     * {@link WebViewCompat#getWebViewRendererClient()},
-     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
-     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
-     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     * {@link WebViewCompat#getWebViewRenderProcessClient()},
+     * {@link WebViewCompat#setWebViewRenderProcessClient(WebViewRenderProcessClient)},
+     * {@link WebViewRenderProcessClient#onRenderProcessUnresponsive(WebView,WebViewRenderProcess)},
+     * {@link WebViewRenderProcessClient#onRenderProcessResponsive(WebView,WebViewRenderProcess)}
      */
     WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE(WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             Features.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE),
@@ -319,6 +319,25 @@ public enum WebViewFeatureInternal {
      * {@link ProxyController#clearProxyOverride(Runnable)}.
      */
     PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE, Features.PROXY_OVERRIDE),
+
+    /**
+     * This feature covers
+     * {@link androidx.webkit.WebSettingsCompat#willSuppressErrorPage(WebSettings)} and
+     * {@link androidx.webkit.WebSettingsCompat#setWillSuppressErrorPage(WebSettings, boolean)}.
+     */
+    SUPPRESS_ERROR_PAGE(WebViewFeature.SUPPRESS_ERROR_PAGE, Features.SUPPRESS_ERROR_PAGE),
+
+    /**
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}.
+     */
+    MULTI_PROCESS_QUERY(WebViewFeature.MULTI_PROCESS_QUERY, Features.MULTI_PROCESS_QUERY),
+
+    /**
+     * This feature covers
+     * {@link androidx.webkit.WebSettingsCompat#setForceDark(WebSettings, int)} and
+     * {@link androidx.webkit.WebSettingsCompat#getForceDark(WebSettings)}.
+     */
+    FORCE_DARK(WebViewFeature.FORCE_DARK, Features.FORCE_DARK),
 
     ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 

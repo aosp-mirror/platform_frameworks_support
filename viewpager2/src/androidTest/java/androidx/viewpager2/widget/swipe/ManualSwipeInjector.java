@@ -20,6 +20,8 @@ import android.app.Instrumentation;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.action.CoordinatesProvider;
@@ -29,9 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Performs a swipe on a view from the center of that view to on of its edges.
+ * Performs a swipe on a view from the center of that view to on of its edges. Mostly the same as
+ * Espresso's swipe ViewActions, but since this is not a ViewAction, it is not performed on the UI
+ * thread. It is still synchronous though, with sleeps between the injection of each MotionEvent. If
+ * you need asynchronous injection, run it in a separate thread. Another difference is that this
+ * injector swipes from the center of the targeted View to the center of an edge, instead of from
+ * the center of one edge to the center of another edge.
  *
- * Obtain a new instance of this class for each swipe you want to perform, with one of the {@link
+ * <p>Obtain a new instance of this class for each swipe you want to perform, with one of the {@link
  * #swipeLeft() swipe methods}. Inject the motion events by calling {@link #perform(Instrumentation,
  * View)}.
  */
@@ -48,7 +55,7 @@ public class ManualSwipeInjector {
     private final int mDuration;
     private final int mSteps;
 
-    private ManualSwipeInjector(CoordinatesProvider startCoordinatesProvider,
+    ManualSwipeInjector(CoordinatesProvider startCoordinatesProvider,
             CoordinatesProvider endCoordinatesProvider, int duration, int steps) {
         mStartCoordinatesProvider = startCoordinatesProvider;
         mEndCoordinatesProviders = endCoordinatesProvider;
@@ -93,9 +100,18 @@ public class ManualSwipeInjector {
      * into the Instrumentation instance.
      */
     public void perform(Instrumentation instr, View view) {
+        perform(instr, view, new LinearInterpolator());
+    }
+
+    /**
+     * Perform the swipe on the given view by generating and injecting the appropriate motion events
+     * into the Instrumentation instance. Interpolation between the start and end coordinates is
+     * done at regular intervals using the given interpolator.
+     */
+    public void perform(Instrumentation instr, View view, Interpolator interpolator) {
         float[] swipeStart = mStartCoordinatesProvider.calculateCoordinates(view);
         float[] swipeEnd = mEndCoordinatesProviders.calculateCoordinates(view);
-        sendSwipe(instr, swipeStart, swipeEnd, mDuration, mSteps, view);
+        sendSwipe(instr, swipeStart, swipeEnd, mDuration, mSteps, view, interpolator);
     }
 
     /**
@@ -108,8 +124,8 @@ public class ManualSwipeInjector {
      * @param view The View on which the swipe is performed
      */
     private void sendSwipe(Instrumentation instr, float[] from, float[] to, int duration,
-            int steps, View view) {
-        float[][] coords = interpolate(from, to, steps);
+            int steps, View view, Interpolator interpolator) {
+        float[][] coords = interpolate(from, to, steps, interpolator);
         long startTime = SystemClock.uptimeMillis();
 
         List<MotionEvent> events = new ArrayList<>();
@@ -157,18 +173,19 @@ public class ManualSwipeInjector {
         instrumentation.sendPointerSync(event);
     }
 
-    private static float[][] interpolate(float[] from, float[] to, int steps) {
+    private static float[][] interpolate(float[] from, float[] to, int steps,
+            Interpolator interpolator) {
         float[][] coords = new float[steps + 1][2];
         coords[0][X] = from[X];
         coords[0][Y] = from[Y];
         for (int i = 1; i <= steps; i++) {
-            lerp(from, to, (float) i / steps, coords[i]);
+            lerp(from, to, interpolator.getInterpolation((float) i / steps), coords[i]);
         }
         return coords;
     }
 
     private static void lerp(float[] from, float[] to, float f, float[] out) {
-        out[X] = (int) (from[X] + (to[X] - from[X]) * f);
-        out[Y] = (int) (from[Y] + (to[Y] - from[Y]) * f);
+        out[X] = from[X] + (to[X] - from[X]) * f;
+        out[Y] = from[Y] + (to[Y] - from[Y]) * f;
     }
 }

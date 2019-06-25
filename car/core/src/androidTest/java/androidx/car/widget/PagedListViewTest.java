@@ -36,6 +36,9 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -176,6 +179,76 @@ public final class PagedListViewTest {
     public void testScrollBarIsInvisibleIfItemsDoNotFillOnePage() {
         setUpPagedListView(1 /* itemCount */);
         onView(withId(R.id.paged_scroll_view)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testScrollButtonCallback() {
+        int itemCount = ITEMS_PER_PAGE * 3;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallbackOne = mock(PagedListView.Callback.class);
+        PagedListView.Callback mockedCallbackTwo = mock(PagedListView.Callback.class);
+        PagedListView.Callback mockedCallbackThree = mock(PagedListView.Callback.class);
+
+        mPagedListView.registerCallback(mockedCallbackOne);
+        mPagedListView.registerCallback(mockedCallbackTwo);
+        mPagedListView.registerCallback(mockedCallbackThree);
+
+        // Move one page down.
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallbackOne, times(1)).onScrollDownButtonClicked();
+        verify(mockedCallbackTwo, times(1)).onScrollDownButtonClicked();
+        verify(mockedCallbackThree, times(1)).onScrollDownButtonClicked();
+
+        // Move one page up.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallbackOne, times(1)).onScrollUpButtonClicked();
+        verify(mockedCallbackTwo, times(1)).onScrollUpButtonClicked();
+        verify(mockedCallbackThree, times(1)).onScrollUpButtonClicked();
+
+        mPagedListView.unregisterCallback(mockedCallbackOne);
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallbackOne, times(1)).onScrollDownButtonClicked();
+        verify(mockedCallbackTwo, times(2)).onScrollDownButtonClicked();
+        verify(mockedCallbackThree, times(2)).onScrollDownButtonClicked();
+    }
+
+    @Test
+    public void testMultipleScrollButtonCallback() {
+        int itemCount = ITEMS_PER_PAGE * 4;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Move one page down.
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallback, times(3)).onScrollDownButtonClicked();
+    }
+
+    @Test
+    public void testReachBottomCallback() {
+        int itemCount = ITEMS_PER_PAGE * 2;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Moving down to bottom of list.
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+
+        verify(mockedCallback, times(1)).onReachBottom();
+
+        // Moving up should not cause a onReachBottom event.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(1)).onReachBottom();
+
+        // Move to bottom of list again.
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallback, times(2)).onReachBottom();
     }
 
     @Test
@@ -376,6 +449,16 @@ public final class PagedListViewTest {
     }
 
     @Test
+    public void testScrollBarToggleHidden() throws Throwable {
+        // Just need enough items to ensure the scroll bar is showing.
+        setUpPagedListView(ITEMS_PER_PAGE * 10);
+        mActivityRule.runOnUiThread(() -> mPagedListView.setScrollBarEnabled(false));
+        onView(withId(R.id.paged_scroll_view)).check(matches(not(isDisplayed())));
+        mActivityRule.runOnUiThread(() -> mPagedListView.setScrollBarEnabled(true));
+        onView(withId(R.id.paged_scroll_view)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void testSetGutterNone() throws Throwable {
         // Just need enough items to ensure the scroll bar is showing.
         setUpPagedListView(ITEMS_PER_PAGE * 10);
@@ -463,11 +546,34 @@ public final class PagedListViewTest {
     }
 
     @Test
-    public void testSetGutterSizeStart() throws Throwable {
+    public void testSetGutterSizeStart_GutterSmallerThanScrollBar() throws Throwable {
         // Just need enough items to ensure the scroll bar is showing.
         setUpPagedListView(ITEMS_PER_PAGE * 10);
 
-        int gutterSize = 120;
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
+        int gutterSize = scrollBarContainerWidth - 10;
+
+        mActivityRule.runOnUiThread(() -> {
+            mPagedListView.setGutter(PagedListView.Gutter.START);
+            mPagedListView.setGutterSize(gutterSize);
+        });
+
+        waitForIdleSync();
+
+        assertThat(mRecyclerViewLayoutParams.getMarginStart(),
+                is(equalTo(scrollBarContainerWidth)));
+        assertThat(mRecyclerViewLayoutParams.getMarginEnd(), is(equalTo(0)));
+    }
+
+    @Test
+    public void testSetGutterSizeStart_GutterLargerThanScrollBar() throws Throwable {
+        // Just need enough items to ensure the scroll bar is showing.
+        setUpPagedListView(ITEMS_PER_PAGE * 10);
+
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
+        int gutterSize = scrollBarContainerWidth + 10;
 
         mActivityRule.runOnUiThread(() -> {
             mPagedListView.setGutter(PagedListView.Gutter.START);
@@ -502,11 +608,34 @@ public final class PagedListViewTest {
     }
 
     @Test
-    public void testSetGutterSizeBoth() throws Throwable {
+    public void testSetGutterSizeBoth_GutterSmallerThanScrollBar() throws Throwable {
         // Just need enough items to ensure the scroll bar is showing.
         setUpPagedListView(ITEMS_PER_PAGE * 10);
 
-        int gutterSize = 120;
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
+        int gutterSize = scrollBarContainerWidth - 10;
+
+        mActivityRule.runOnUiThread(() -> {
+            mPagedListView.setGutter(PagedListView.Gutter.BOTH);
+            mPagedListView.setGutterSize(gutterSize);
+        });
+
+        waitForIdleSync();
+
+        assertThat(mRecyclerViewLayoutParams.getMarginStart(),
+                is(equalTo(scrollBarContainerWidth)));
+        assertThat(mRecyclerViewLayoutParams.getMarginEnd(), is(equalTo(gutterSize)));
+    }
+
+    @Test
+    public void testSetGutterSizeBoth_GutterLargerThanScrollBar() throws Throwable {
+        // Just need enough items to ensure the scroll bar is showing.
+        setUpPagedListView(ITEMS_PER_PAGE * 10);
+
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
+        int gutterSize = scrollBarContainerWidth + 10;
 
         mActivityRule.runOnUiThread(() -> {
             mPagedListView.setGutter(PagedListView.Gutter.BOTH);
@@ -691,7 +820,7 @@ public final class PagedListViewTest {
         int limit = 10;
         for (int pageCount = 0; pageCount < limit
                 && orientationHelper.getDecoratedEnd(longItem)
-                        > mPagedListView.getRecyclerView().getBottom();
+                > mPagedListView.getRecyclerView().getBottom();
                 pageCount++) {
             onView(withId(R.id.page_down)).perform(click());
         }

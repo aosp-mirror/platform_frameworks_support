@@ -31,7 +31,6 @@ import java.io.File
  * b) has a license file.
  */
 open class CheckExternalDependencyLicensesTask : DefaultTask() {
-    @Suppress("unused")
     @TaskAction
     fun checkDependencies() {
         val supportRoot = (project.rootProject.property("ext") as ExtraPropertiesExtension)
@@ -107,11 +106,13 @@ fun Project.configureExternalDependencyLicenseCheck() {
     if (isRoot) {
         // Create an empty task in the root which will depend on all the per-project child tasks.
         // TODO have the normal license check run here so it catches the buildscript classpath.
-        tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME)
+        tasks.register(CheckExternalDependencyLicensesTask.TASK_NAME)
     } else {
-        val task = tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME,
+        val task = tasks.register(CheckExternalDependencyLicensesTask.TASK_NAME,
                 CheckExternalDependencyLicensesTask::class.java)
         configurations.create(CheckExternalDependencyLicensesTask.CONFIGURATION_NAME)
-        rootProject.tasks.getByName(CheckExternalDependencyLicensesTask.TASK_NAME).dependsOn(task)
+        rootProject.tasks.named(CheckExternalDependencyLicensesTask.TASK_NAME).configure {
+            it.dependsOn(task)
+        }
     }
 }

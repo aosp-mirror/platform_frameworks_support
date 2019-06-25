@@ -21,6 +21,7 @@ import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -30,8 +31,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.test.core.app.ApplicationProvider;
 
 import java.util.concurrent.Callable;
@@ -45,7 +48,7 @@ import java.util.concurrent.Executor;
  * Modifications to this class should be reflected in that class as necessary. See
  * http://go/modifying-webview-cts.
  */
-class WebViewOnUiThread {
+public class WebViewOnUiThread {
     /**
      * The maximum time, in milliseconds (10 seconds) to wait for a load
      * to be triggered.
@@ -69,13 +72,19 @@ class WebViewOnUiThread {
     private WebView mWebView;
 
     public WebViewOnUiThread() {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView = new WebView(ApplicationProvider.getApplicationContext());
-                mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
-                mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
-            }
+        this(WebkitUtils.onMainThreadSync(() -> {
+            return new WebView(ApplicationProvider.getApplicationContext());
+        }));
+    }
+
+    /**
+     * Create a new WebViewOnUiThread wrapping the provided {@link WebView}.
+     */
+    public WebViewOnUiThread(final WebView webView) {
+        WebkitUtils.onMainThreadSync(() -> {
+            mWebView = webView;
+            mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
+            mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
         });
     }
 
@@ -86,11 +95,8 @@ class WebViewOnUiThread {
     public static WebView createWebView() {
         final Holder h = new Holder();
         final Context ctx = ApplicationProvider.getApplicationContext();
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                h.mView = new WebView(ctx);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            h.mView = new WebView(ctx);
         });
         return h.mView;
     }
@@ -100,15 +106,12 @@ class WebViewOnUiThread {
      * the tests.
      */
     public void cleanUp() {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.clearHistory();
-                mWebView.clearCache(true);
-                mWebView.setWebChromeClient(null);
-                mWebView.setWebViewClient(null);
-                mWebView.destroy();
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            mWebView.clearHistory();
+            mWebView.clearCache(true);
+            mWebView.setWebChromeClient(null);
+            mWebView.setWebViewClient(null);
+            mWebView.destroy();
         });
     }
 
@@ -138,12 +141,7 @@ class WebViewOnUiThread {
     }
 
     public static void destroy(final WebView webView) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.destroy();
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> webView.destroy());
     }
 
     public void setWebViewClient(final WebViewClient webviewClient) {
@@ -152,12 +150,7 @@ class WebViewOnUiThread {
 
     public static void setWebViewClient(
             final WebView webView, final WebViewClient webviewClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebViewClient(webviewClient);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> webView.setWebViewClient(webviewClient));
     }
 
     public void setWebChromeClient(final WebChromeClient webChromeClient) {
@@ -166,84 +159,59 @@ class WebViewOnUiThread {
 
     public static void setWebChromeClient(
             final WebView webView, final WebChromeClient webChromeClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.setWebChromeClient(webChromeClient);
-            }
+        WebkitUtils.onMainThreadSync(() -> webView.setWebChromeClient(webChromeClient));
+    }
+
+    public void setWebViewRenderProcessClient(
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, webViewRenderProcessClient);
+    }
+
+    public static void setWebViewRenderProcessClient(
+            final WebView webView, final WebViewRenderProcessClient webViewRenderProcessClient) {
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.setWebViewRenderProcessClient(webView, webViewRenderProcessClient);
         });
     }
 
-    public void setWebViewRendererClient(final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, webViewRendererClient);
+    public void setWebViewRenderProcessClient(
+            final Executor executor, final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, executor, webViewRenderProcessClient);
     }
 
-    public static void setWebViewRendererClient(
-            final WebView webView, final WebViewRendererClient webViewRendererClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
-            }
-        });
-    }
-
-    public void setWebViewRendererClient(
-            final Executor executor, final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, executor, webViewRendererClient);
-    }
-
-    public static void setWebViewRendererClient(
+    public static void setWebViewRenderProcessClient(
             final WebView webView,
             final Executor executor,
-            final WebViewRendererClient webViewRendererClient) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
-            }
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.setWebViewRenderProcessClient(
+                    webView, executor, webViewRenderProcessClient);
         });
     }
 
-    public WebViewRendererClient getWebViewRendererClient() {
-        return getWebViewRendererClient(mWebView);
+    public WebViewRenderProcessClient getWebViewRenderProcessClient() {
+        return getWebViewRenderProcessClient(mWebView);
     }
 
-    public static WebViewRendererClient getWebViewRendererClient(
+    public static WebViewRenderProcessClient getWebViewRenderProcessClient(
             final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewRendererClient>() {
-            @Override
-            public WebViewRendererClient call() {
-                return WebViewCompat.getWebViewRendererClient(webView);
-            }
+        return WebkitUtils.onMainThreadSync(() -> {
+            return WebViewCompat.getWebViewRenderProcessClient(webView);
         });
     }
 
     public WebMessagePortCompat[] createWebMessageChannelCompat() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebMessagePortCompat[]>() {
-            @Override
-            public WebMessagePortCompat[] call() {
-                return WebViewCompat.createWebMessageChannel(mWebView);
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.createWebMessageChannel(mWebView));
     }
 
     public void postWebMessageCompat(final WebMessageCompat message, final Uri targetOrigin) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.postWebMessage(mWebView, message, targetOrigin);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.postWebMessage(mWebView, message, targetOrigin);
         });
     }
 
     public void addJavascriptInterface(final Object object, final String name) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.addJavascriptInterface(object, name);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.addJavascriptInterface(object, name));
     }
 
     /**
@@ -253,21 +221,11 @@ class WebViewOnUiThread {
      * @param url The URL to load.
      */
     void loadUrlAndWaitForCompletion(final String url) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadUrl(url);
-            }
-        });
+        callAndWait(() -> mWebView.loadUrl(url));
     }
 
     public void loadUrl(final String url) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadUrl(url);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.loadUrl(url));
     }
 
     /**
@@ -280,23 +238,15 @@ class WebViewOnUiThread {
      */
     public void loadDataAndWaitForCompletion(@NonNull final String data,
             @Nullable final String mimeType, @Nullable final String encoding) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadData(data, mimeType, encoding);
-            }
-        });
+        callAndWait(() -> mWebView.loadData(data, mimeType, encoding));
     }
 
     public void loadDataWithBaseURLAndWaitForCompletion(final String baseUrl,
             final String data, final String mimeType, final String encoding,
             final String historyUrl) {
-        callAndWait(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.loadDataWithBaseURL(baseUrl, data, mimeType, encoding,
-                        historyUrl);
-            }
+        callAndWait(() -> {
+            mWebView.loadDataWithBaseURL(baseUrl, data, mimeType, encoding,
+                    historyUrl);
         });
     }
 
@@ -306,13 +256,7 @@ class WebViewOnUiThread {
      * similar functions.
      */
     void waitForLoadCompletion() {
-        waitForCriteria(LOAD_TIMEOUT,
-                new Callable<Boolean>() {
-                    @Override
-                    public Boolean call() {
-                        return isLoaded();
-                    }
-                });
+        waitForCriteria(LOAD_TIMEOUT, () -> isLoaded());
         clearLoad();
     }
 
@@ -325,49 +269,26 @@ class WebViewOnUiThread {
     }
 
     public String getTitle() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                return mWebView.getTitle();
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getTitle());
     }
 
     public WebSettings getSettings() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebSettings>() {
-            @Override
-            public WebSettings call() {
-                return mWebView.getSettings();
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getSettings());
     }
 
     public String getUrl() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
-            @Override
-            public String call() {
-                return mWebView.getUrl();
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> mWebView.getUrl());
     }
 
     public void postVisualStateCallbackCompat(final long requestId,
             final WebViewCompat.VisualStateCallback callback) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebViewCompat.postVisualStateCallback(mWebView, requestId, callback);
-            }
+        WebkitUtils.onMainThreadSync(() -> {
+            WebViewCompat.postVisualStateCallback(mWebView, requestId, callback);
         });
     }
 
     void evaluateJavascript(final String script, final ValueCallback<String> result) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                mWebView.evaluateJavascript(script, result);
-            }
-        });
+        WebkitUtils.onMainThreadSync(() -> mWebView.evaluateJavascript(script, result));
     }
 
     public WebViewClient getWebViewClient() {
@@ -375,12 +296,7 @@ class WebViewOnUiThread {
     }
 
     public static WebViewClient getWebViewClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewClient>() {
-            @Override
-            public WebViewClient call() {
-                return WebViewCompat.getWebViewClient(webView);
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.getWebViewClient(webView));
     }
 
     public WebChromeClient getWebChromeClient() {
@@ -388,16 +304,43 @@ class WebViewOnUiThread {
     }
 
     public static WebChromeClient getWebChromeClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebChromeClient>() {
-            @Override
-            public WebChromeClient call() {
-                return WebViewCompat.getWebChromeClient(webView);
-            }
-        });
+        return WebkitUtils.onMainThreadSync(() -> WebViewCompat.getWebChromeClient(webView));
     }
 
     WebView getWebViewOnCurrentThread() {
         return mWebView;
+    }
+
+    /**
+     * Wait for the current state of the DOM to be ready to render on the next draw.
+     */
+    public void waitForDOMReadyToRender() {
+        final ResolvableFuture<Void> future = ResolvableFuture.create();
+        postVisualStateCallbackCompat(0, new WebViewCompat.VisualStateCallback() {
+            @Override
+            public void onComplete(long requestId) {
+                future.set(null);
+            }
+        });
+        WebkitUtils.waitForFuture(future);
+    }
+
+    /**
+     * Capture a bitmap representation of the current WebView state.
+     *
+     * This synchronises so that the bitmap contents reflects the current DOM state, rather than
+     * potentially capturing a previously generated frame.
+     */
+    public Bitmap captureBitmap() {
+        getSettings().setOffscreenPreRaster(true);
+        waitForDOMReadyToRender();
+        return WebkitUtils.onMainThreadSync(() -> {
+            Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(), mWebView.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            mWebView.draw(canvas);
+            return bitmap;
+        });
     }
 
     /**
@@ -518,6 +461,7 @@ class WebViewOnUiThread {
         }
 
         @Override
+        @CallSuper
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
             mOnUiThread.onProgressChanged(newProgress);
@@ -539,12 +483,14 @@ class WebViewOnUiThread {
         }
 
         @Override
+        @CallSuper
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mOnUiThread.onPageFinished();
         }
 
         @Override
+        @CallSuper
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             mOnUiThread.onPageStarted();

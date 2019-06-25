@@ -276,7 +276,11 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
 
             mBound = false;
             disconnect();
-            getContext().unbindService(this);
+            try {
+                getContext().unbindService(this);
+            } catch (IllegalArgumentException ex) {
+                Log.e(TAG, this + ": unbindService failed", ex);
+            }
         }
     }
 
@@ -576,30 +580,11 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
             }
         }
 
-        @Override
-        public void setOnDynamicRoutesChangedListener(
-                @NonNull Executor executor,
-                @NonNull OnDynamicRoutesChangedListener listener) {
-            mDynamicRoutesChangedListener = listener;
-            mListenerExecutor = executor;
-        }
-
         ////////////////////////////////////
         // Other methods
         void onDynamicRoutesChanged(
                 final List<DynamicRouteDescriptor> routes) {
-            if (mDynamicRoutesChangedListener == null || mListenerExecutor == null) {
-                Log.d(TAG, "No listener exists. Ignore changes: " + routes);
-                return;
-            }
-            mListenerExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    mDynamicRoutesChangedListener.onRoutesChanged(
-                            RegisteredDynamicController.this,
-                            routes);
-                }
-            });
+            notifyDynamicRoutesChanged(routes);
         }
     }
 

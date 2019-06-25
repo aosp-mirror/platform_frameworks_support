@@ -18,33 +18,46 @@
 // TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from Dokka to just Docs
 package androidx.build.dokka
 
-import java.io.File
+import androidx.build.AndroidXExtension
 import androidx.build.DiffAndDocs
 import androidx.build.getBuildId
 import androidx.build.getDistributionDirectory
-import androidx.build.SupportLibraryExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
 import org.jetbrains.dokka.gradle.DokkaAndroidPlugin
 import org.jetbrains.dokka.gradle.DokkaAndroidTask
 import org.jetbrains.dokka.gradle.PackageOptions
+import java.io.File
 
 object Dokka {
+    fun generatorTaskNameForType(docsType: String): String {
+        return "dokka${docsType}Docs"
+    }
+    fun archiveTaskNameForType(docsType: String): String {
+        return "dist${docsType}DokkaDocs"
+    }
     fun createDocsTask(
-        taskName: String,
+        docsType: String, // "public" or "tipOfTree"
         project: Project,
-        hiddenPackages: List<String>,
-        archiveTaskName: String
+        hiddenPackages: List<String>
     ) {
+        val taskName = generatorTaskNameForType(docsType)
+        val archiveTaskName = archiveTaskNameForType(docsType)
         project.apply<DokkaAndroidPlugin>()
+        // We don't use the `dokka` task, but it normally appears in `./gradlew tasks`
+        // so replace it with a new task that doesn't show up and doesn't do anything
+        project.tasks.replace("dokka")
         if (project.name != "support" && project.name != "docs-runner") {
             throw Exception("Illegal project passed to createDocsTask: " + project.name)
         }
         val docsTask = project.tasks.create(taskName, DokkaAndroidTask::class.java) { docsTask ->
             docsTask.moduleName = project.name
             docsTask.outputDirectory = File(project.buildDir, taskName).absolutePath
+            docsTask.description = "Generates $docsType Kotlin documentation in the style of " +
+                    "d.android.com.  Places docs in ${docsTask.outputDirectory}"
             docsTask.outputFormat = "dac"
             docsTask.outlineRoot = "androidx/"
             docsTask.dacRoot = "/reference/kotlin"
@@ -59,33 +72,42 @@ object Dokka {
 
         project.tasks.create(archiveTaskName, Zip::class.java) { zipTask ->
             zipTask.dependsOn(docsTask)
-            zipTask.description = "Generates documentation artifact for pushing to " +
-                "developer.android.com"
             zipTask.from(docsTask.outputDirectory) { copySpec ->
                 copySpec.into("reference/kotlin")
             }
-            zipTask.baseName = taskName
-            zipTask.version = getBuildId()
-            zipTask.destinationDir = project.getDistributionDirectory()
+            val buildId = getBuildId()
+            zipTask.archiveBaseName.set(taskName)
+            zipTask.archiveVersion.set(buildId)
+            zipTask.destinationDirectory.set(project.getDistributionDirectory())
+            val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+            val fileName = "$taskName-$buildId.zip"
+            zipTask.description = "Zips $docsType Kotlin documentation (generated via " +
+                "Dokka in the style of d.android.com) into ${filePath + fileName}"
+            zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
         }
     }
 
-    fun registerAndroidProject(
-        project: Project,
+    fun Project.configureAndroidProjectForDokka(
         library: LibraryExtension,
-        extension: SupportLibraryExtension
+        extension: AndroidXExtension
     ) {
-        DiffAndDocs.get(project).registerPrebuilts(extension)
-        DokkaPublicDocs.registerProject(project, extension)
-        DokkaSourceDocs.registerAndroidProject(project, library, extension)
+        afterEvaluate {
+            if (name != "docs-runner") {
+                DiffAndDocs.get(this).registerAndroidProject(library, extension)
+            }
+
+            DokkaPublicDocs.registerProject(this, extension)
+            DokkaSourceDocs.registerAndroidProject(this, library, extension)
+        }
     }
 
-    fun registerJavaProject(
-        project: Project,
-        extension: SupportLibraryExtension
-    ) {
-        DiffAndDocs.get(project).registerPrebuilts(extension)
-        DokkaPublicDocs.registerProject(project, extension)
-        DokkaSourceDocs.registerJavaProject(project, extension)
+    fun Project.configureJavaProjectForDokka(extension: AndroidXExtension) {
+        afterEvaluate {
+            if (name != "docs-runner") {
+                DiffAndDocs.get(this).registerJavaProject(this, extension)
+            }
+            DokkaPublicDocs.registerProject(this, extension)
+            DokkaSourceDocs.registerJavaProject(this, extension)
+        }
     }
 }

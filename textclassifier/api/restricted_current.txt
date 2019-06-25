@@ -3,6 +3,7 @@ package androidx.textclassifier {
 
 
 
+
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public final class SelectionEvent {
     method public static androidx.textclassifier.SelectionEvent createFromBundle(android.os.Bundle);
     method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, @androidx.textclassifier.SelectionEvent.ActionType int);
@@ -79,7 +80,7 @@ package androidx.textclassifier.widget {
 
   @RequiresApi(android.os.Build.VERSION_CODES.M) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @UiThread public final class ToolbarController {
     method public static androidx.textclassifier.widget.ToolbarController! getInstance(android.widget.TextView!);
-    method public void show(java.util.List<androidx.core.app.RemoteActionCompat>!, int, int);
+    method public void show(java.util.List<androidx.core.app.RemoteActionCompat!>!, int, int);
   }
 
 }

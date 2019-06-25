@@ -17,20 +17,30 @@
 package androidx.viewpager2.adapter;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.ArraySet;
 import androidx.collection.LongSparseArray;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.Set;
 
 /**
  * Similar in behavior to {@link FragmentStatePagerAdapter}
@@ -50,23 +60,74 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class FragmentStateAdapter extends
         RecyclerView.Adapter<FragmentViewHolder> implements StatefulAdapter {
+    // State saving config
     private static final String KEY_PREFIX_FRAGMENT = "f#";
     private static final String KEY_PREFIX_STATE = "s#";
 
-    private final LongSparseArray<Fragment> mFragments = new LongSparseArray<>();
-    private final LongSparseArray<Fragment.SavedState> mSavedStates = new LongSparseArray<>();
+    // Fragment GC config
+    private static final long GRACE_WINDOW_TIME_MS = 10_000; // 10 seconds
 
     private final FragmentManager mFragmentManager;
+    private final Lifecycle mLifecycle;
 
-    public FragmentStateAdapter(@NonNull FragmentManager fragmentManager) {
+    // Fragment bookkeeping
+    private final LongSparseArray<Fragment> mFragments = new LongSparseArray<>();
+    private final LongSparseArray<Fragment.SavedState> mSavedStates = new LongSparseArray<>();
+    private final LongSparseArray<Integer> mItemIdToViewHolder = new LongSparseArray<>();
+
+    // Fragment GC
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    boolean mIsInGracePeriod = false;
+    private boolean mHasStaleFragments = false;
+
+    /**
+     * @param fragmentActivity if the {@link ViewPager2} lives directly in a
+     * {@link FragmentActivity} subclass.
+     *
+     * @see FragmentStateAdapter#FragmentStateAdapter(Fragment)
+     * @see FragmentStateAdapter#FragmentStateAdapter(FragmentManager, Lifecycle)
+     */
+    public FragmentStateAdapter(@NonNull FragmentActivity fragmentActivity) {
+        this(fragmentActivity.getSupportFragmentManager(), fragmentActivity.getLifecycle());
+    }
+
+    /**
+     * @param fragment if the {@link ViewPager2} lives directly in a {@link Fragment} subclass.
+     *
+     * @see FragmentStateAdapter#FragmentStateAdapter(FragmentActivity)
+     * @see FragmentStateAdapter#FragmentStateAdapter(FragmentManager, Lifecycle)
+     */
+    public FragmentStateAdapter(@NonNull Fragment fragment) {
+        this(fragment.getChildFragmentManager(), fragment.getLifecycle());
+    }
+
+    /**
+     * @param fragmentManager of {@link ViewPager2}'s host
+     * @param lifecycle of {@link ViewPager2}'s host
+     *
+     * @see FragmentStateAdapter#FragmentStateAdapter(FragmentActivity)
+     * @see FragmentStateAdapter#FragmentStateAdapter(Fragment)
+     */
+    public FragmentStateAdapter(@NonNull FragmentManager fragmentManager,
+            @NonNull Lifecycle lifecycle) {
         mFragmentManager = fragmentManager;
+        mLifecycle = lifecycle;
         super.setHasStableIds(true);
     }
 
     /**
-     * Provide a Fragment associated with the specified position.
+     * Provide a new Fragment associated with the specified position.
+     * <p>
+     * The adapter will be responsible for the Fragment lifecycle:
+     * <ul>
+     *     <li>The Fragment will be used to display an item.</li>
+     *     <li>The Fragment will be destroyed when it gets too far from the viewport, and its state
+     *     will be saved. When the item is close to the viewport again, a new Fragment will be
+     *     requested, and a previously saved state will be used to initialize it.
+     * </ul>
+     * @see ViewPager2#setOffscreenPageLimit
      */
-    public abstract @NonNull Fragment getItem(int position);
+    public abstract @NonNull Fragment createFragment(int position);
 
     @NonNull
     @Override
@@ -76,13 +137,16 @@ public abstract class FragmentStateAdapter extends
 
     @Override
     public final void onBindViewHolder(final @NonNull FragmentViewHolder holder, int position) {
-        Fragment fragment = getFragment(position);
-        if (holder.mFragment != fragment) {
-            /** There is no guarantee that {@link #onViewRecycled} happened since the last
-             *  {@link #onBindViewHolder}, so performing a clean-up here. */
-            removeFragment(holder);
+        final long itemId = holder.getItemId();
+        final int viewHolderId = holder.getContainer().getId();
+        final Long boundItemId = itemForViewHolder(viewHolderId); // item currently bound to the VH
+        if (boundItemId != null && boundItemId != itemId) {
+            removeFragment(boundItemId);
+            mItemIdToViewHolder.remove(boundItemId);
         }
-        holder.mFragment = fragment;
+
+        mItemIdToViewHolder.put(itemId, viewHolderId); // this might overwrite an existing entry
+        ensureFragment(position);
 
         /** Special case when {@link RecyclerView} decides to keep the {@link container}
          * attached to the window, but not to the view hierarchy (i.e. parent is null) */
@@ -97,29 +161,87 @@ public abstract class FragmentStateAdapter extends
                         int oldLeft, int oldTop, int oldRight, int oldBottom) {
                     if (container.getParent() != null) {
                         container.removeOnLayoutChangeListener(this);
-                        onViewAttachedToWindow(holder);
+                        placeFragmentInViewHolder(holder);
                     }
                 }
             });
         }
+
+        gcFragments();
     }
 
-    private Fragment getFragment(int position) {
-        long itemId = getItemId(position);
-        Fragment activeFragment = mFragments.get(itemId);
-        if (activeFragment != null) {
-            return activeFragment;
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void gcFragments() {
+        if (!mHasStaleFragments || shouldDelayFragmentTransactions()) {
+            return;
         }
 
-        Fragment newFragment = getItem(position);
-        newFragment.setInitialSavedState(mSavedStates.get(itemId));
-        mFragments.put(itemId, newFragment);
-        return newFragment;
+        // Remove Fragments for items that are no longer part of the data-set
+        Set<Long> toRemove = new ArraySet<>();
+        for (int ix = 0; ix < mFragments.size(); ix++) {
+            long itemId = mFragments.keyAt(ix);
+            if (!containsItem(itemId)) {
+                toRemove.add(itemId);
+                mItemIdToViewHolder.remove(itemId); // in case they're still bound
+            }
+        }
+
+        // Remove Fragments that are not bound anywhere -- pending a grace period
+        if (!mIsInGracePeriod) {
+            mHasStaleFragments = false; // we've executed all GC checks
+
+            for (int ix = 0; ix < mFragments.size(); ix++) {
+                long itemId = mFragments.keyAt(ix);
+                if (!mItemIdToViewHolder.containsKey(itemId)) {
+                    toRemove.add(itemId);
+                }
+            }
+        }
+
+        for (Long itemId : toRemove) {
+            removeFragment(itemId);
+        }
+    }
+
+    private Long itemForViewHolder(int viewHolderId) {
+        Long boundItemId = null;
+        for (int ix = 0; ix < mItemIdToViewHolder.size(); ix++) {
+            if (mItemIdToViewHolder.valueAt(ix) == viewHolderId) {
+                if (boundItemId != null) {
+                    throw new IllegalStateException("Design assumption violated: "
+                            + "a ViewHolder can only be bound to one item at a time.");
+                }
+                boundItemId = mItemIdToViewHolder.keyAt(ix);
+            }
+        }
+        return boundItemId;
+    }
+
+    private void ensureFragment(int position) {
+        long itemId = getItemId(position);
+        if (!mFragments.containsKey(itemId)) {
+            // TODO(133419201): check if a Fragment provided here is a new Fragment
+            Fragment newFragment = createFragment(position);
+            newFragment.setInitialSavedState(mSavedStates.get(itemId));
+            mFragments.put(itemId, newFragment);
+        }
     }
 
     @Override
-    public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
-        Fragment fragment = holder.mFragment;
+    public final void onViewAttachedToWindow(@NonNull final FragmentViewHolder holder) {
+        placeFragmentInViewHolder(holder);
+        gcFragments();
+    }
+
+    /**
+     * @param holder that has been bound to a Fragment in the {@link #onBindViewHolder} stage.
+     */
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void placeFragmentInViewHolder(@NonNull final FragmentViewHolder holder) {
+        Fragment fragment = mFragments.get(holder.getItemId());
+        if (fragment == null) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
         FrameLayout container = holder.getContainer();
         View view = fragment.getView();
 
@@ -167,9 +289,27 @@ public abstract class FragmentStateAdapter extends
         }
 
         // { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
-        scheduleViewAttach(fragment, container);
-        // TODO(b/122669030): this call might fail, so address with recovery steps
-        mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        if (!shouldDelayFragmentTransactions()) {
+            scheduleViewAttach(fragment, container);
+            mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        } else {
+            if (mFragmentManager.isDestroyed()) {
+                return; // nothing we can do
+            }
+            mLifecycle.addObserver(new LifecycleEventObserver() {
+                @Override
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
+                    if (shouldDelayFragmentTransactions()) {
+                        return;
+                    }
+                    source.getLifecycle().removeObserver(this);
+                    if (ViewCompat.isAttachedToWindow(holder.getContainer())) {
+                        placeFragmentInViewHolder(holder);
+                    }
+                }
+            });
+        }
     }
 
     private void scheduleViewAttach(final Fragment fragment, final FrameLayout container) {
@@ -214,7 +354,12 @@ public abstract class FragmentStateAdapter extends
 
     @Override
     public final void onViewRecycled(@NonNull FragmentViewHolder holder) {
-        removeFragment(holder);
+        final int viewHolderId = holder.getContainer().getId();
+        final Long boundItemId = itemForViewHolder(viewHolderId); // item currently bound to the VH
+        if (boundItemId != null) {
+            removeFragment(boundItemId);
+            mItemIdToViewHolder.remove(boundItemId);
+        }
     }
 
     @Override
@@ -223,41 +368,48 @@ public abstract class FragmentStateAdapter extends
         // animation). We don't have sufficient information on how to clear up what lead to
         // the transient state, so we are throwing away the ViewHolder to stay on the
         // conservative side.
-        removeFragment(holder);
+        onViewRecycled(holder); // the same clean-up steps as when recycling a ViewHolder
         return false; // don't recycle the view
     }
 
-    private void removeFragment(@NonNull FragmentViewHolder holder) {
-        removeFragment(holder.mFragment, holder.getItemId());
-        holder.getContainer().removeAllViews();
-        holder.mFragment = null;
-    }
+    private void removeFragment(long itemId) {
+        Fragment fragment = mFragments.get(itemId);
 
-    /**
-     * Removes a Fragment and commits the operation.
-     */
-    private void removeFragment(Fragment fragment, long itemId) {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        removeFragment(fragment, itemId, fragmentTransaction);
-        // TODO(b/122669030): this call might fail, so address with recovery steps
-        fragmentTransaction.commitNow();
-    }
-
-    /**
-     * Adds a remove operation to the transaction, but does not commit.
-     */
-    private void removeFragment(Fragment fragment, long itemId,
-            @NonNull FragmentTransaction fragmentTransaction) {
         if (fragment == null) {
+            return;
+        }
+
+        if (fragment.getView() != null) {
+            ViewParent viewParent = fragment.getView().getParent();
+            if (viewParent != null) {
+                ((FrameLayout) viewParent).removeAllViews();
+            }
+        }
+
+        if (!containsItem(itemId)) {
+            mSavedStates.remove(itemId);
+        }
+
+        if (!fragment.isAdded()) {
+            mFragments.remove(itemId);
+            return;
+        }
+
+        if (shouldDelayFragmentTransactions()) {
+            mHasStaleFragments = true;
             return;
         }
 
         if (fragment.isAdded() && containsItem(itemId)) {
             mSavedStates.put(itemId, mFragmentManager.saveFragmentInstanceState(fragment));
         }
-
+        mFragmentManager.beginTransaction().remove(fragment).commitNow();
         mFragments.remove(itemId);
-        fragmentTransaction.remove(fragment);
+    }
+
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    boolean shouldDelayFragmentTransactions() {
+        return mFragmentManager.isStateSaved();
     }
 
     /**
@@ -294,7 +446,7 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public @NonNull Parcelable saveState() {
+    public final @NonNull Parcelable saveState() {
         /** TODO(b/122670461): use custom {@link Parcelable} instead of Bundle to save space */
         Bundle savedState = new Bundle(mFragments.size() + mSavedStates.size());
 
@@ -321,13 +473,17 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public void restoreState(@NonNull Parcelable savedState) {
+    public final void restoreState(@NonNull Parcelable savedState) {
         if (!mSavedStates.isEmpty() || !mFragments.isEmpty()) {
             throw new IllegalStateException(
                     "Expected the adapter to be 'fresh' while restoring state.");
         }
 
         Bundle bundle = (Bundle) savedState;
+        if (bundle.getClassLoader() == null) {
+            /** TODO(b/133752041): pass the class loader from {@link ViewPager2.SavedState } */
+            bundle.setClassLoader(getClass().getClassLoader());
+        }
 
         for (String key : bundle.keySet()) {
             if (isValidKey(key, KEY_PREFIX_FRAGMENT)) {
@@ -340,12 +496,45 @@ public abstract class FragmentStateAdapter extends
             if (isValidKey(key, KEY_PREFIX_STATE)) {
                 long itemId = parseIdFromKey(key, KEY_PREFIX_STATE);
                 Fragment.SavedState state = bundle.getParcelable(key);
-                mSavedStates.put(itemId, state);
+                if (containsItem(itemId)) {
+                    mSavedStates.put(itemId, state);
+                }
                 continue;
             }
 
             throw new IllegalArgumentException("Unexpected key in savedState: " + key);
         }
+
+        if (!mFragments.isEmpty()) {
+            mHasStaleFragments = true;
+            mIsInGracePeriod = true;
+            gcFragments();
+            scheduleGracePeriodEnd();
+        }
+    }
+
+    private void scheduleGracePeriodEnd() {
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mIsInGracePeriod = false;
+                gcFragments(); // good opportunity to GC
+            }
+        };
+
+        mLifecycle.addObserver(new LifecycleEventObserver() {
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    handler.removeCallbacks(runnable);
+                    source.getLifecycle().removeObserver(this);
+                }
+            }
+        });
+
+        handler.postDelayed(runnable, GRACE_WINDOW_TIME_MS);
     }
 
     // Helper function for dealing with save / restore state

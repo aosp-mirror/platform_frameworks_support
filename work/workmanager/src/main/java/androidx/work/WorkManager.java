@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit;
  *
  * <pre>
  * {@code
- * WorkManager workManager = WorkManager.getInstance();
+ * WorkManager workManager = WorkManager.getInstance(Context);
  * workManager.enqueue(new OneTimeWorkRequest.Builder(FooWorker.class).build());}</pre>
  *
  * A {@link WorkRequest} has an associated id that can be used for lookups and observation as
@@ -115,13 +115,32 @@ import java.util.concurrent.TimeUnit;
  * (see {@link WorkRequest.Builder#addTag(String)}), and chains of work can be given a
  * uniquely-identifiable name (see
  * {@link #beginUniqueWork(String, ExistingWorkPolicy, OneTimeWorkRequest)}).
- *
  * <p>
- * <b>Manually initializing WorkManager</b>
+ * <a name="initializing"></a>
+ * <b>Initializing WorkManager</b>
  * <p>
- * You can manually initialize WorkManager and provide a custom {@link Configuration} for it.
- * Please see {@link #initialize(Context, Configuration)}.
- */
+ * By default, WorkManager auto-initializes itself using a built-in {@code ContentProvider}.
+ * ContentProviders are created and run before the {@code Application} object, so this allows the
+ * WorkManager singleton to be setup before your code can run in most cases.  This is suitable for
+ * most developers.  However, you can provide a custom {@link Configuration} by using
+ * {@link Configuration.Provider} or
+ * {@link WorkManager#initialize(android.content.Context, androidx.work.Configuration)}.
+ * <p>
+ * <a name="worker_class_names"></a>
+ * <b>Renaming and Removing ListenableWorker Classes</b>
+ * <p>
+ * Exercise caution in renaming classes derived from {@link ListenableWorker}s.  WorkManager stores
+ * the class name in its internal database when the {@link WorkRequest} is enqueued so it can later
+ * create an instance of that worker when constraints are met.  Unless otherwise specified in the
+ * WorkManager {@link Configuration}, this is done in the default {@link WorkerFactory} which tries
+ * to reflectively create the ListenableWorker object.  Therefore, renaming or removing these
+ * classes is dangerous - if there is pending work with the given class, it will fail permanently
+ * if the class cannot be found.  If you are using a custom WorkerFactory, make sure you properly
+ * handle cases where the class is not found so that your code does not crash.
+ * <p>
+ * In case it is desirable to rename a class, implement a custom WorkerFactory that instantiates the
+ * right ListenableWorker for the old class name.
+ * */
 
 public abstract class WorkManager {
 
@@ -131,10 +150,11 @@ public abstract class WorkManager {
      * @return The singleton instance of {@link WorkManager}; this may be {@code null} in unusual
      *         circumstances where you have disabled automatic initialization and have failed to
      *         manually call {@link #initialize(Context, Configuration)}.
-     * @throws IllegalStateException If WorkManager is not initialized properly.  This is most
-     *         likely because you disabled the automatic initialization but forgot to manually
-     *         call {@link WorkManager#initialize(Context, Configuration)}.
+     * @throws IllegalStateException If WorkManager is not initialized properly as per the exception
+     *                               message.
+     * @deprecated Call {@link WorkManager#getInstance(Context)} instead.
      */
+    @Deprecated
     public static @NonNull WorkManager getInstance() {
         WorkManager workManager = WorkManagerImpl.getInstance();
         if (workManager == null) {
@@ -148,6 +168,19 @@ public abstract class WorkManager {
     }
 
     /**
+     * Retrieves the {@code default} singleton instance of {@link WorkManager}.
+     *
+     * @param context A {@link Context} for on-demand initialization.
+     * @return The singleton instance of {@link WorkManager}; this may be {@code null} in unusual
+     *         circumstances where you have disabled automatic initialization and have failed to
+     *         manually call {@link #initialize(Context, Configuration)}.
+     * @throws IllegalStateException If WorkManager is not initialized properly
+     */
+    public static @NonNull WorkManager getInstance(@NonNull Context context) {
+        return WorkManagerImpl.getInstance(context);
+    }
+
+    /**
      * Used to do a one-time initialization of the {@link WorkManager} singleton with a custom
      * {@link Configuration}.  By default, this method should not be called because WorkManager is
      * automatically initialized.  To initialize WorkManager yourself, please follow these steps:
@@ -155,7 +188,7 @@ public abstract class WorkManager {
      * <li>Disable {@code androidx.work.impl.WorkManagerInitializer} in your manifest.
      * <li>Invoke this method in {@code Application#onCreate} or a {@code ContentProvider}. Note
      * that this method <b>must</b> be invoked in one of these two places or you risk getting a
-     * {@code NullPointerException} in {@link #getInstance()}.
+     * {@code NullPointerException} in {@link #getInstance(Context)}.
      * </ul></p>
      * <p>
      * This method throws an exception if it is called multiple times.
@@ -164,6 +197,7 @@ public abstract class WorkManager {
      *                will call {@link Context#getApplicationContext()}, so you may safely pass in
      *                any Context without risking a memory leak.
      * @param configuration The {@link Configuration} for used to set up WorkManager.
+     * @see Configuration.Provider for on-demand initialization.
      */
     public static void initialize(@NonNull Context context, @NonNull Configuration configuration) {
         WorkManagerImpl.initialize(context, configuration);
