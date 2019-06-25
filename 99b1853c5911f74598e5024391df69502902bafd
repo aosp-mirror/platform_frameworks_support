@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11e2681d_27857b14",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T20:54:37Z",
+      "side": 1,
+      "message": "Is this generic for CaptureStage or is this meant just for ImageCapture?\n\nIf its meant to be used generically it should be moved into CaptureStage.\n\nAlso you should have a javadoc for this. Since it isn\u0027t clear under what conditions an IllegalCaptureStageException should be thrown. Because the exception is thrown on a CaptureBundle which is defined incorrectly rather than the CaptureStage itself.",
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
