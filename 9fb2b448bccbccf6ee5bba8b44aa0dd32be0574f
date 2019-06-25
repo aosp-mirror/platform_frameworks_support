@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "34c8a249_9b788645",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-25T03:01:03Z",
+      "side": 1,
+      "message": "Yes, it is. It has to wait image to be closed whatever the task is I/O or any image processing.\nIt can be enhanced to capture MAX_IMAGES at the same time but might need structure design to manage the image request queue (to record the dispatched images and track their onImageClose). can do it in the later CL. For now I think it should not have significant improvement if the bottleneck is IO processing and MAX_IMAGES is 2.",
+      "parentUuid": "8df27be0_58dc5d1a",
+      "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "982b0c7e_0895dc89",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b1885f6_c73226a5",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-25T03:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "982b0c7e_0895dc89",
+      "revId": "9fb2b448bccbccf6ee5bba8b44aa0dd32be0574f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
