@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b80e1b1f_849a38a7",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T20:00:54Z",
+      "side": 0,
+      "message": "Shouldn\u0027t delete this file as part of this change.",
+      "revId": "8ad12f9ca834e3a8193967e567ed563c5a72d5e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cc34641_30b06c4c",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T20:00:54Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be making workarounds in the CameraXActivity app because it doesn\u0027t help 3P developers.\n\nIf this is an incorrect usage of the public API or we are changing the API then we can make changes in CameraXActivity. But in this case there should only be one way that the developer calls the API.",
+      "revId": "9c89aac1324414dcaf9cd4dc440f0ef9933cc08e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
