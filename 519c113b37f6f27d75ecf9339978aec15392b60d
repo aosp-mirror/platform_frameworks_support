@@ -261,6 +261,30 @@
       "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b850d6b_0b8257da",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T14:21:11Z",
+      "side": 1,
+      "message": "Got it. Let\u0027s keep it as is then. Just add a comment linking to the builder method that adds these.",
+      "parentUuid": "175523e4_3f671459",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
