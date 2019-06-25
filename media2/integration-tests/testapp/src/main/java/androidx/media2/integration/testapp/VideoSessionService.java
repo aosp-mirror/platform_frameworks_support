@@ -22,6 +22,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,7 +106,10 @@ public class VideoSessionService extends MediaSessionService {
         @Override
         public MediaItem onCreateMediaItem(@NonNull MediaSession session,
                 @NonNull MediaSession.ControllerInfo controller, @NonNull String mediaId) {
-            // TODO: Need to check if current media item uri is equal to the given media id.
+            if (mCurrentItem != null
+                    && TextUtils.equals(mCurrentItem.getUri().toString(), mediaId)) {
+                return null;
+            }
             MediaMetadata metadata = new MediaMetadata.Builder()
                     .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, mediaId)
                     .build();
