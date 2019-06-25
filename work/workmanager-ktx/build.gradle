@@ -20,9 +20,11 @@ import androidx.build.LibraryVersions
 import androidx.build.AndroidXExtension
 
 import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.Publish
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -40,20 +42,21 @@ dependencies {
     api(KOTLIN_STDLIB)
     api(KOTLIN_COROUTINES)
 
-    androidTestImplementation project(':concurrent:concurrent-futures')
-    androidTestImplementation project(':work:work-testing')
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation project(':concurrent:concurrent-futures'), {
+    	exclude group: 'androidx.annotation'
+    }
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     testImplementation(JUNIT)
 }
 
 androidx {
     name = "Android WorkManager Kotlin Extensions"
-    publish = true
-    mavenVersion = LibraryVersions.WORKMANAGER
-    mavenGroup = LibraryGroups.WORKMANAGER
+    publish = Publish.SNAPSHOT_AND_RELEASE
+    mavenVersion = LibraryVersions.WORK
+    mavenGroup = LibraryGroups.WORK
     inceptionYear = "2018"
     description = "Android WorkManager Kotlin Extensions"
     url = AndroidXExtension.ARCHITECTURE_URL

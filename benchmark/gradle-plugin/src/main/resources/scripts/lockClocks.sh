@@ -73,6 +73,9 @@ function_lock_cpu() {
         # enable core, so we can find its frequencies
         echo 1 > ${CPU_BASE}/cpu${cpu}/online
 
+        # set userspace governor on all CPUs to ensure freq scaling is disabled
+        echo userspace > ${CPU_BASE}/cpu${cpu}/${GOV}
+
         maxFreq=`cat ${CPU_BASE}/cpu$cpu/cpufreq/cpuinfo_max_freq`
         availFreq=`cat ${CPU_BASE}/cpu$cpu/cpufreq/scaling_available_frequencies`
         availFreqCmpr=${availFreq// /-}
@@ -114,7 +117,6 @@ function_lock_cpu() {
         freq=${CPU_BASE}/cpu$cpu/cpufreq
 
         echo 1 > ${CPU_BASE}/cpu${cpu}/online
-        echo userspace > ${CPU_BASE}/cpu${cpu}/${GOV}
         echo ${chosenFreq} > ${freq}/scaling_max_freq
         echo ${chosenFreq} > ${freq}/scaling_min_freq
         echo ${chosenFreq} > ${freq}/scaling_setspeed
@@ -137,8 +139,10 @@ function_lock_cpu() {
       echo 0 > ${CPU_BASE}/cpu${cpu}/online
     done
 
-    echo "\nLocked CPUs ${enableIndices// /,} to $chosenFreq / $maxFreq KHz"
+    echo "=================================="
+    echo "Locked CPUs ${enableIndices// /,} to $chosenFreq / $maxFreq KHz"
     echo "Disabled CPUs ${disableIndices// /,}"
+    echo "=================================="
 }
 
 # If we have a Qualcomm GPU, find its max frequency, and lock to
@@ -146,12 +150,12 @@ function_lock_cpu() {
 function_lock_gpu_kgsl() {
     if [ ! -d /sys/class/kgsl/kgsl-3d0/ ]; then
         # not kgsl, abort
-        echo "\nCurrently don't support locking GPU clocks of $MODEL ($DEVICE)"
+        echo "Currently don't support locking GPU clocks of $MODEL ($DEVICE)"
         return -1
     fi
     if [ ${DEVICE} == "walleye" ] || [ ${DEVICE} == "taimen" ]; then
         # Workaround crash
-        echo "\nUnable to lock GPU clocks of $MODEL ($DEVICE)"
+        echo "Unable to lock GPU clocks of $MODEL ($DEVICE)"
         return -1
     fi
 
@@ -218,7 +222,7 @@ function_lock_gpu_kgsl() {
         echo "index = $chosenIndex"
         exit -1
     fi
-    echo "\nLocked GPU to $chosenFreq / $gpuMaxFreq Hz"
+    echo "Locked GPU to $chosenFreq / $gpuMaxFreq Hz"
 }
 
 # kill processes that manage thermals / scaling
@@ -226,6 +230,8 @@ stop thermal-engine
 stop perfd
 stop vendor.thermal-engine
 stop vendor.perfd
+setprop vendor.powerhal.init 0
+setprop ctl.interface_restart android.hardware.power@1.0::IPower/default
 
 function_lock_cpu
 
@@ -235,7 +241,7 @@ function_lock_gpu_kgsl
 if [ ${DEVICE} == "marlin" ] || [ ${DEVICE} == "sailfish" ]; then
     echo 13763 > /sys/class/devfreq/soc:qcom,gpubw/max_freq
 else
-    echo "\nUnable to lock memory bus of $MODEL ($DEVICE)."
+    echo "Unable to lock memory bus of $MODEL ($DEVICE)."
 fi
 
-echo "\n$DEVICE clocks have been locked - to reset, reboot the device\n"
+echo "$DEVICE clocks have been locked - to reset, reboot the device"

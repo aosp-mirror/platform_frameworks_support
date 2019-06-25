@@ -39,7 +39,6 @@ import androidx.annotation.NonNull;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
 
 import org.junit.After;
@@ -212,7 +211,6 @@ public class WebViewCompatTest {
      * android.webkit.cts.WebViewTest#testSetSafeBrowsingWhitelistWithValidList. Modifications to
      * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
      */
-    @FlakyTest(bugId = 111690396)
     @Test
     public void testSetSafeBrowsingWhitelistWithValidList() throws Exception {
         WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
@@ -318,6 +316,24 @@ public class WebViewCompatTest {
         assertNotSame(client, client2);
         WebViewOnUiThread.setWebChromeClient(webView, client2);
         assertSame(client2, WebViewOnUiThread.getWebChromeClient(webView));
+
+        WebViewOnUiThread.destroy(webView);
+    }
+
+    /**
+     * This test should have an equivalent in CTS when this is implemented in the framework.
+     */
+    @Test
+    public void testMultiProcessQuery() {
+        WebkitUtils.checkFeature(WebViewFeature.MULTI_PROCESS_QUERY);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+
+        // Creates a new WebView for non static getWebViewRenderProcess method
+        WebView webView = WebViewOnUiThread.createWebView();
+
+        // Asserts that if WebView is running in multi process, render process is not null
+        assertEquals(WebViewCompat.isMultiProcessEnabled(),
+                WebViewCompat.getWebViewRenderProcess(webView) != null);
 
         WebViewOnUiThread.destroy(webView);
     }

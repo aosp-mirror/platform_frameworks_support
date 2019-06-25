@@ -33,6 +33,7 @@ import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Processor;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.utils.WakeLocks;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Context mContext;
+    private final TaskExecutor mTaskExecutor;
     private final WorkTimer mWorkTimer;
     private final Processor mProcessor;
     private final WorkManagerImpl mWorkManager;
@@ -83,6 +85,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         mWorkTimer = new WorkTimer();
         mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance(context);
         mProcessor = processor != null ? processor : mWorkManager.getProcessor();
+        mTaskExecutor = mWorkManager.getWorkTaskExecutor();
         mProcessor.addExecutionListener(this);
         // a list of pending intents which need to be processed
         mIntents = new ArrayList<>();
@@ -91,7 +94,12 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         mMainHandler = new Handler(Looper.getMainLooper());
     }
 
+    /**
+     * This method needs to be idempotent. This could be called more than once, and therefore,
+     * this method should only perform cleanup when necessary.
+     */
     void onDestroy() {
+        Logger.get().debug(TAG, "Destroying SystemAlarmDispatcher");
         mProcessor.removeExecutionListener(this);
         mWorkTimer.onDestroy();
         mCompletedListener = null;
@@ -173,6 +181,10 @@ public class SystemAlarmDispatcher implements ExecutionListener {
 
     WorkManagerImpl getWorkManager() {
         return mWorkManager;
+    }
+
+    TaskExecutor getTaskExecutor() {
+        return mTaskExecutor;
     }
 
     void postOnMainThread(@NonNull Runnable runnable) {

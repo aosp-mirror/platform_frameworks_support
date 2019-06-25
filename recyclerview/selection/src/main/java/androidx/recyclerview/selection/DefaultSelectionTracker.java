@@ -16,7 +16,7 @@
 
 package androidx.recyclerview.selection;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.core.util.Preconditions.checkArgument;
 import static androidx.core.util.Preconditions.checkState;
 import static androidx.recyclerview.selection.Shared.DEBUG;
@@ -49,7 +49,8 @@ import java.util.Set;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY)
+@SuppressWarnings("unchecked")
 public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
 
     private static final String TAG = "DefaultSelectionTracker";
@@ -296,6 +297,11 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     private void extendRange(int position, @RangeType int type) {
         checkState(isRangeActive(), "Range start point not set.");
 
+        if (position == RecyclerView.NO_POSITION) {
+            Log.w(TAG, "Invalid position: Cannot extend selection to: " + position);
+            return;
+        }
+
         mRange.extendRange(position, type);
 
         // We're being lazy here notifying even when something might not have changed.
@@ -352,7 +358,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
         return mAdapterObserver;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "unchecked"}) /* synthetic access */
     void onDataSetChanged() {
         mSelection.clearProvisionalSelection();
 
@@ -505,7 +511,6 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public final void onSaveInstanceState(@NonNull Bundle state) {
         if (mSelection.isEmpty()) {
             return;

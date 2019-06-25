@@ -20,17 +20,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.test.runner.MonitoringInstrumentation;
-
 public class TestActivity extends Activity {
-    // This is not great but the only way to do this until test runner adds support to not kill
-    // activities after tests.
-    private static final String TEST_EXT_JUNIT =
-            MonitoringInstrumentation.class.getCanonicalName() + "$" + MonitoringInstrumentation
-                    .ActivityFinisher.class.getSimpleName();
     private volatile TestedFrameLayout mContainer;
-    boolean mVisible;
-    boolean mAllowFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +33,9 @@ public class TestActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         setContentView(mContainer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        // disable enter animation.
+        overridePendingTransition(0, 0);
     }
 
     public TestedFrameLayout getContainer() {
@@ -49,30 +43,10 @@ public class TestActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mVisible = false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mVisible = true;
-    }
-
-    @Override
     public void finish() {
-        if (!mAllowFinish) {
-            StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-            // this is terrible but easy workaround for selective finishing
-            for (StackTraceElement element : stackTrace) {
-
-                if (TEST_EXT_JUNIT.equals(element.getClassName())) {
-                    // don't allow activity finisher to finish this.
-                    return;
-                }
-            }
-        }
         super.finish();
+
+        // disable exit animation.
+        overridePendingTransition(0, 0);
     }
 }

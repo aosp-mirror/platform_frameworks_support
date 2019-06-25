@@ -17,7 +17,8 @@
 import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
@@ -27,6 +28,5 @@ dependencies {
 }
 
 androidx {
-    failOnUncheckedWarnings = false
     toolingProject = true
 }
