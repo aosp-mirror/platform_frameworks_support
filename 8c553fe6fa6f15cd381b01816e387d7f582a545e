@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27afecb5_f23593b6",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlView_WithSthTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-25T10:02:41Z",
+      "side": 1,
+      "message": "nit) testAttachViewAndPlayAfterSetPlayerOrController? Maybe too long..",
+      "range": {
+        "startLine": 379,
+        "startChar": 16,
+        "endLine": 379,
+        "endChar": 56
+      },
+      "revId": "8c553fe6fa6f15cd381b01816e387d7f582a545e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
