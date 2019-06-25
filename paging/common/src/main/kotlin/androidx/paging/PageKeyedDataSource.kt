@@ -17,10 +17,12 @@
 package androidx.paging
 
 import androidx.arch.core.util.Function
-import androidx.concurrent.futures.ResolvableFuture
 import androidx.paging.DataSource.KeyType.PAGE_KEYED
-import androidx.paging.futures.await
-import com.google.common.util.concurrent.ListenableFuture
+import androidx.paging.PageKeyedDataSource.Result
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 /**
  * Incremental data loader for page-keyed content, where requests return keys for next/previous
@@ -236,32 +238,22 @@ abstract class PageKeyedDataSource<Key : Any, Value : Any> : DataSource<Key, Val
     }
 
     @Suppress("RedundantVisibilityModifier") // Metalava doesn't inherit visibility properly.
-    internal final override suspend fun load(params: Params<Key>): BaseResult<Value> {
-        if (params.type == LoadType.INITIAL) {
-            val initParams = LoadInitialParams<Key>(
+    internal final override suspend fun load(params: Params<Key>): BaseResult<Value> = when {
+        params.type == LoadType.INITIAL -> loadInitial(
+            LoadInitialParams(
                 params.initialLoadSize,
                 params.placeholdersEnabled
             )
-            return loadInitial(initParams).await()
-        } else {
-            // null key, return empty data
-            if (params.key == null) return BaseResult.empty()
-
-            val loadParams = LoadParams(params.key, params.pageSize)
-            when {
-                params.type == LoadType.START -> return loadBefore(loadParams).await()
-                params.type == LoadType.END -> return loadAfter(loadParams).await()
-            }
-        }
-        throw IllegalArgumentException("Unsupported type " + params.type.toString())
+        )
+        params.key == null -> BaseResult.empty()
+        params.type == LoadType.START -> loadBefore(LoadParams(params.key, params.pageSize))
+        params.type == LoadType.END -> loadAfter(LoadParams(params.key, params.pageSize))
+        else -> throw IllegalArgumentException("Unsupported type " + params.type.toString())
     }
 
-    internal fun loadInitial(
-        params: LoadInitialParams<Key>
-    ): ListenableFuture<InitialResult<Key, Value>> {
-        val future = ResolvableFuture.create<InitialResult<Key, Value>>()
-        executor.execute {
-            val callback = object : LoadInitialCallback<Key, Value>() {
+    private suspend fun loadInitial(params: LoadInitialParams<Key>) =
+        suspendCancellableCoroutine<InitialResult<Key, Value>> { cont ->
+            loadInitial(params, object : LoadInitialCallback<Key, Value>() {
                 override fun onResult(
                     data: List<Value>,
                     position: Int,
@@ -269,56 +261,30 @@ abstract class PageKeyedDataSource<Key : Any, Value : Any> : DataSource<Key, Val
                     previousPageKey: Key?,
                     nextPageKey: Key?
                 ) {
-                    future.set(
+                    val initialResult =
                         InitialResult(data, position, totalCount, previousPageKey, nextPageKey)
-                    )
+                    cont.resume(initialResult)
                 }
 
                 override fun onResult(data: List<Value>, previousPageKey: Key?, nextPageKey: Key?) {
-                    future.set(InitialResult(data, previousPageKey, nextPageKey))
+                    cont.resume(InitialResult(data, previousPageKey, nextPageKey))
                 }
 
                 override fun onError(error: Throwable) {
-                    future.setException(error)
+                    cont.resumeWithException(error)
                 }
-            }
-            loadInitial(
-                LoadInitialParams(params.requestedLoadSize, params.placeholdersEnabled),
-                callback
-            )
-        }
-        return future
-    }
-
-    private fun getFutureAsCallback(future: ResolvableFuture<Result<Key, Value>>) =
-        object : LoadCallback<Key, Value>() {
-            override fun onResult(data: List<Value>, adjacentPageKey: Key?) {
-                future.set(Result(data, adjacentPageKey))
-            }
-
-            override fun onError(error: Throwable) {
-                future.setException(error)
-            }
+            })
         }
 
-    private fun loadBefore(params: LoadParams<Key>): ListenableFuture<Result<Key, Value>> {
-        val future = ResolvableFuture.create<Result<Key, Value>>()
-        executor.execute {
-            loadBefore(
-                LoadParams(params.key, params.requestedLoadSize),
-                getFutureAsCallback(future)
-            )
+    private suspend fun loadBefore(params: LoadParams<Key>) =
+        suspendCancellableCoroutine<Result<Key, Value>> { cont ->
+            loadBefore(params, cont.asCallback())
         }
-        return future
-    }
 
-    private fun loadAfter(params: LoadParams<Key>): ListenableFuture<Result<Key, Value>> {
-        val future = ResolvableFuture.create<Result<Key, Value>>()
-        executor.execute {
-            loadAfter(LoadParams(params.key, params.requestedLoadSize), getFutureAsCallback(future))
+    private suspend fun loadAfter(params: LoadParams<Key>) =
+        suspendCancellableCoroutine<Result<Key, Value>> { cont ->
+            loadAfter(params, cont.asCallback())
         }
-        return future
-    }
 
     /**
      * Load initial data.
@@ -403,3 +369,14 @@ abstract class PageKeyedDataSource<Key : Any, Value : Any> : DataSource<Key, Val
         function: (Value) -> ToValue
     ): PageKeyedDataSource<Key, ToValue> = mapByPage(Function { list -> list.map(function) })
 }
+
+private fun <Key : Any, Value : Any> CancellableContinuation<Result<Key, Value>>.asCallback() =
+    object : PageKeyedDataSource.LoadCallback<Key, Value>() {
+        override fun onResult(data: List<Value>, adjacentPageKey: Key?) {
+            resume(Result(data, adjacentPageKey))
+        }
+
+        override fun onError(error: Throwable) {
+            resumeWithException(error)
+        }
+    }
