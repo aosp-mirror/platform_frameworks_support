@@ -49,6 +49,7 @@ import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Preconditions;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -441,19 +442,28 @@ public class PagedListView extends FrameLayout {
      */
     public void setGutter(@Gutter int gutter) {
         mGutter = gutter;
+        FrameLayout.LayoutParams scrollBarViewLayoutParams =
+                (FrameLayout.LayoutParams) mScrollBarView.getLayoutParams();
+        int scrollBarGravity = scrollBarViewLayoutParams.gravity;
 
-        // Default starting margin is either the width of the scroll bar if it's enabled or just
-        // flush to the edge.
-        int startMargin = mScrollBarEnabled ? mScrollBarView.getLayoutParams().width : 0;
+        // Default starting margin is either the width of the scroll bar, if present on the left,
+        // or just flush to the edge.
+        int startMargin = mScrollBarEnabled && (scrollBarGravity == Gravity.LEFT)
+                ? mScrollBarView.getLayoutParams().width : 0;
         if ((mGutter & Gutter.START) != 0) {
             // Ensure that the gutter value is large enough so that the RecyclerView does not
             // overlap the scroll bar, if it's enabled.
             startMargin = Math.max(mGutterSize, startMargin);
         }
 
-        int endMargin = 0;
+        // Default end margin is either the width of the scroll bar, if present on the right, or
+        // just flush to the edge.
+        int endMargin = mScrollBarEnabled && (scrollBarGravity == Gravity.RIGHT)
+                ? mScrollBarView.getLayoutParams().width : 0;
         if ((mGutter & Gutter.END) != 0) {
-            endMargin = mGutterSize;
+            // Ensure that the gutter value is large enough so that the RecyclerView does not
+            // overlap the scroll bar, if it's enabled.
+            endMargin = Math.max(mGutterSize, endMargin);
         }
 
         MarginLayoutParams layoutParams = (MarginLayoutParams) mRecyclerView.getLayoutParams();
@@ -481,6 +491,23 @@ public class PagedListView extends FrameLayout {
      */
     public void setGutterSize(int gutterSize) {
         mGutterSize = gutterSize;
+
+        // Call setGutter to reset the gutter.
+        setGutter(mGutter);
+    }
+
+    /**
+     * Sets the gravity of the scrollbar, which determines its position within the PagedListView.
+     * Only horizontal gravities are supported.
+     *
+     * @param gravity The {@link Gravity} value to be applied to the scrollbar.
+     */
+    public void setScrollBarGravity(int gravity) {
+        Preconditions.checkArgument(Gravity.isHorizontal(gravity));
+        FrameLayout.LayoutParams layoutParams =
+                (FrameLayout.LayoutParams) mScrollBarView.getLayoutParams();
+        layoutParams.gravity = gravity;
+        mScrollBarView.requestLayout();
 
         // Call setGutter to reset the gutter.
         setGutter(mGutter);
@@ -540,6 +567,10 @@ public class PagedListView extends FrameLayout {
     public final void setScrollBarEnabled(boolean enabled) {
         mScrollBarEnabled = enabled;
         mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
+
+        // Ensure that the gutter is updated so that the RecyclerView does not overlap the scroll
+        // bar.
+        setGutter(mGutter);
     }
 
     /**
