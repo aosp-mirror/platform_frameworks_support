@@ -97,6 +97,7 @@ package androidx.paging {
     method public abstract void loadAfter(androidx.paging.PageKeyedDataSource.LoadParams<Key> params, androidx.paging.PageKeyedDataSource.LoadCallback<Key,Value> callback);
     method public abstract void loadBefore(androidx.paging.PageKeyedDataSource.LoadParams<Key> params, androidx.paging.PageKeyedDataSource.LoadCallback<Key,Value> callback);
     method public abstract void loadInitial(androidx.paging.PageKeyedDataSource.LoadInitialParams<Key> params, androidx.paging.PageKeyedDataSource.LoadInitialCallback<Key,Value> callback);
+    method public final suspend Object loadInitial$lintWithKotlin(androidx.paging.PageKeyedDataSource.LoadInitialParams<Key> params, kotlin.coroutines.Continuation<? super androidx.paging.PageKeyedDataSource.InitialResult<Key,Value>> p);
     method public final <ToValue> androidx.paging.PageKeyedDataSource<Key,ToValue> map(androidx.arch.core.util.Function<Value,ToValue> function);
     method public final <ToValue> androidx.paging.PageKeyedDataSource<Key,ToValue> map(kotlin.jvm.functions.Function1<? super Value,? extends ToValue> function);
     method public final <ToValue> androidx.paging.PageKeyedDataSource<Key,ToValue> mapByPage(androidx.arch.core.util.Function<java.util.List<Value>,java.util.List<ToValue>> function);
