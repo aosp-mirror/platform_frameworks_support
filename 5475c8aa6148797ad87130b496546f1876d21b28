@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecbf8cca_21da9b8a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "wat?",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3de78212_15848181",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "nit: to optimize it further you can make BottomDrawerFlinger a mutable class and just update the var for onStateChange as this lambda will be potentially updated with every recomposition. but it is up to you",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5729814a_5c64bbc5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "please add braces for if/else as they are not on a single line now. https://developer.android.com/kotlin/style-guide#formatting",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8784664d_21d68609",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "probably worth creating a bug for Doris: now you can dynamically change the bounds the current value will not be affected by them. say you have animatedValue with current value \u003d\u003d 0. then you change setBounds(1,2). I guess it should automatically change the value to be within the bounds -\u003e to 1.",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 321,
+        "endChar": 55
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b33e090_aafc0672",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "I am still not sure about animating it. maybe you have to animate to the next startValue only when animatedFloat.value \u003d\u003d startValue for example? or snap to it, which would mean we start from scratch. for example now you have different values for landscape and portrait, probably I expect it to be applied immediately.\nand it can became out of sync with the global state here, right? say your startValue is openedValue. currently animatedValue is equals to closedValue(drawerState is CLOSED). then you change the startValue to be the half of the screen height. your state is still CLOSED, but your drawer will switch to the new startValue which represents the opened state. not sure this should be handled without taking the state into account",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 54
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2cf384_b75de548",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-25T16:14:23Z",
+      "side": 1,
+      "message": "braces should be added here. https://developer.android.com/kotlin/style-guide#braces",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 30
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
