@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21d9eba9_cc25b509",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-25T21:12:39Z",
+      "side": 1,
+      "message": "Can you make this an extension?",
+      "revId": "5cd1f8fecee4e6803acf6f6ea643840f014289f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ab73b8_e4d4567e",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-06-25T21:12:39Z",
+      "side": 1,
+      "message": "put this directly around the it.onResult - best assert exactly where we expect it.\n\nAs written, it\u0027s just a longer version of the previous code",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 90
+      },
+      "revId": "5cd1f8fecee4e6803acf6f6ea643840f014289f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
