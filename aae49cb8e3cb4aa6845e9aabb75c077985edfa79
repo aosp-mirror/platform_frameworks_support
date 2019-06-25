@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76d017a1_328835bb",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd516055_2c89ca45",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 51
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9a1525c_cbae5cde",
         "filename": "ads/ads-identifier-provider/api/current.txt",
         "patchSetId": 20
@@ -45,6 +69,30 @@
       "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9cecf7d_aca60211",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a1525c_cbae5cde",
+      "range": {
+        "startLine": 6,
+        "startChar": 62,
+        "endLine": 6,
+        "endChar": 64
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "147dd3c1_dff1b80a",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a46905_cd36ea80",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d6c1077_c02a1590",
         "filename": "ads/ads-identifier-provider/api/current.txt",
         "patchSetId": 20
@@ -91,6 +163,30 @@
       "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c5a7ce_20badfe0",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Yes, the RemoteException is only for the Android system, user never need to throws it, removed it from interface. Done.",
+      "parentUuid": "7d6c1077_c02a1590",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ab80c466_35d6ee12",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "154044b0_c9a69759",
+      "range": {
+        "startLine": 15,
+        "startChar": 36,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd05682c_d287628c",
         "filename": "ads/ads-identifier-provider/api/current.txt",
         "patchSetId": 20
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "3d7294b7_ad58e6ac",
+        "filename": "ads/ads-identifier-provider/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd05682c_d287628c",
+      "range": {
+        "startLine": 16,
+        "startChar": 122,
+        "endLine": 16,
+        "endChar": 146
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0e37e19_44153301",
         "filename": "ads/ads-identifier-provider/integration-tests/testapp/src/main/java/androidx/ads/identifier/provider/testapp/AdsIdentifierProviderApplication.java",
         "patchSetId": 20
@@ -151,6 +295,30 @@
       "writtenOn": "2019-06-25T14:06:28Z",
       "side": 1,
       "message": "Is this the intended pattern for client usage, or just something specific to your testing setup?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e71bf6d1_c39a042b",
+        "filename": "ads/ads-identifier-provider/integration-tests/testapp/src/main/java/androidx/ads/identifier/provider/testapp/AdsIdentifierProviderApplication.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "This is the intended pattern for client usage, provider register their implementation through the registerProviderCallable().",
+      "parentUuid": "b0e37e19_44153301",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -183,6 +351,30 @@
       "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6640837d_d59192eb",
+        "filename": "ads/ads-identifier/api/current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-25T15:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164a4504_0ce422db",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 33
+      },
+      "revId": "aae49cb8e3cb4aa6845e9aabb75c077985edfa79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
