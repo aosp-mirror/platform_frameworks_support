@@ -22,6 +22,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -702,15 +703,21 @@ public class CameraXActivity extends AppCompatActivity
             }
         }
 
-        new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        CameraXActivity.this.setupCamera();
-                    }
-                })
-                .start();
-        setupPermissions();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            CameraXActivity.this.setupCamera();
+                        }
+                    })
+                    .start();
+            setupPermissions();
+        } else {
+            // The workaround for b/134894604 on Nexus 5, API 21.
+            setupPermissions();
+            setupCamera();
+        }
     }
 
     private void setupCamera() {
@@ -735,43 +742,54 @@ public class CameraXActivity extends AppCompatActivity
         Log.d(TAG, "Using camera lens facing: " + mCurrentCameraLensFacing);
 
         // Run this on the UI thread to manipulate the Textures & Views.
-        CameraXActivity.this.runOnUiThread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        CameraXActivity.this.createUseCases();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            CameraXActivity.this.runOnUiThread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            setupCameraUI();
+                        }
+                    });
+        } else {
+            // The workaround for b/134894604 on Nexus 5, API 21.
+            setupCameraUI();
+        }
 
-                        ImageButton directionToggle = findViewById(R.id.direction_toggle);
-                        directionToggle.setVisibility(View.VISIBLE);
-                        directionToggle.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (mCurrentCameraLensFacing == LensFacing.BACK) {
-                                    mCurrentCameraLensFacing = LensFacing.FRONT;
-                                } else if (mCurrentCameraLensFacing == LensFacing.FRONT) {
-                                    mCurrentCameraLensFacing = LensFacing.BACK;
-                                }
+    }
 
-                                Log.d(TAG, "Change camera direction: " + mCurrentCameraLensFacing);
-                                rebindUseCases();
+    private void setupCameraUI() {
+        CameraXActivity.this.createUseCases();
 
-                            }
-                        });
+        ImageButton directionToggle = findViewById(R.id.direction_toggle);
+        directionToggle.setVisibility(View.VISIBLE);
+        directionToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentCameraLensFacing == LensFacing.BACK) {
+                    mCurrentCameraLensFacing = LensFacing.FRONT;
+                } else if (mCurrentCameraLensFacing == LensFacing.FRONT) {
+                    mCurrentCameraLensFacing = LensFacing.BACK;
+                }
 
-                        ImageButton torchToggle = findViewById(R.id.torch_toggle);
-                        torchToggle.setVisibility(View.VISIBLE);
-                        torchToggle.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (mPreview != null) {
-                                    boolean toggledState = !mPreview.isTorchOn();
-                                    Log.d(TAG, "Set camera torch: " + toggledState);
-                                    mPreview.enableTorch(toggledState);
-                                }
-                            }
-                        });
-                    }
-                });
+                Log.d(TAG, "Change camera direction: " + mCurrentCameraLensFacing);
+                rebindUseCases();
+
+            }
+        });
+
+        ImageButton torchToggle = findViewById(R.id.torch_toggle);
+        torchToggle.setVisibility(View.VISIBLE);
+        torchToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPreview != null) {
+                    boolean toggledState = !mPreview.isTorchOn();
+                    Log.d(TAG, "Set camera torch: " + toggledState);
+                    mPreview.enableTorch(toggledState);
+                }
+            }
+        });
+
     }
 
     private void rebindUseCases() {
