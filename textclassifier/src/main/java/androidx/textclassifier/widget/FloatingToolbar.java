@@ -56,6 +56,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -417,6 +418,7 @@ final class FloatingToolbar {
         final ViewGroup mContentContainer;  // holds all contents.
         final ViewGroup mMainPanel;  // holds menu items that are initially displayed.
         final OverflowPanel mOverflowPanel;  // holds menu items hidden in the overflow.
+        final ViewGroup mSlicePanel;
         final ImageButton mOverflowButton;  // opens/closes the overflow.
         /* overflow button drawables. */
         final Drawable mArrow;
@@ -466,6 +468,7 @@ final class FloatingToolbar {
         final Size mOverflowButtonSize;
         Size mOverflowPanelSize;  // Should be null when there is no overflow.
         Size mMainPanelSize;
+        Size mSlicePanelSize;
 
         /* Item click listeners */
         boolean mDismissOnMenuItemClick;
@@ -505,7 +508,6 @@ final class FloatingToolbar {
                 Context context, View parent, Runnable dismissRunnable) {
             mParent = Preconditions.checkNotNull(parent);
             mContext = Preconditions.checkNotNull(context);
-            mContentContainer = createContentContainer(context);
             mDismissRunnable = Preconditions.checkNotNull(dismissRunnable);
             mOnOutsideTouchHandler = new View.OnClickListener() {
                 @Override
@@ -514,7 +516,6 @@ final class FloatingToolbar {
                     mDismissRunnable.run();
                 }
             };
-            mPopupWindow = createPopupWindow(mContentContainer, mOnOutsideTouchHandler);
             mMarginHorizontal = parent.getResources()
                     .getDimensionPixelSize(R.dimen.floating_toolbar_horizontal_margin);
             mMarginVertical = parent.getResources()
@@ -523,6 +524,9 @@ final class FloatingToolbar {
                     .getDimensionPixelSize(R.dimen.floating_toolbar_height);
             mIconTextSpacing = context.getResources()
                     .getDimensionPixelSize(R.dimen.floating_toolbar_icon_text_spacing);
+            mContentContainer = createContentContainer(context);
+            mSlicePanel = createSlicePanel(context);
+            mPopupWindow = createPopupWindow(mContentContainer, mSlicePanel, mOnOutsideTouchHandler);
 
             // Interpolators
             mLogAccelerateInterpolator = new LogAccelerateInterpolator();
@@ -1035,18 +1039,25 @@ final class FloatingToolbar {
 
                 // Update y-coordinates depending on overflow's open direction.
                 if (mOpenOverflowUpwards) {
-                    mContentContainer.setY(mMarginVertical);  // align top
+//                    mContentContainer.setY(mMarginVertical);  // align top
+                    mContentContainer.setY(mPopupWindow.getHeight() - containerSize.getHeight() - mMarginVertical);
                     mMainPanel.setY(containerSize.getHeight()
                             - mContentContainer.getHeight());  // align bottom
                     mOverflowButton.setY(containerSize.getHeight()
                             - mOverflowButtonSize.getHeight());  // align bottom
                     mOverflowPanel.setY(0);  // align top
+
+                    mSlicePanel.setX(mMarginHorizontal);
+                    mSlicePanel.setY(mMarginVertical);
                 } else {
                     // opens downwards.
                     mContentContainer.setY(mMarginVertical);  // align top
                     mMainPanel.setY(0);  // align top
                     mOverflowButton.setY(0);  // align top
                     mOverflowPanel.setY(mOverflowButtonSize.getHeight());  // align bottom
+
+                    mSlicePanel.setX(mMarginHorizontal);
+                    mSlicePanel.setY(mContentContainer.getY() + mMainPanelSize.getHeight() + mMarginVertical);
                 }
             } else {
                 // Overflow not open. Set closed state.
@@ -1080,18 +1091,25 @@ final class FloatingToolbar {
                     // Update y-coordinates depending on overflow's open direction.
                     if (mOpenOverflowUpwards) {
                         // align bottom
-                        mContentContainer.setY(mMarginVertical
-                                + mOverflowPanelSize.getHeight() - containerSize.getHeight());
+                        mContentContainer.setY(mPopupWindow.getHeight() - containerSize.getHeight() - mMarginVertical);
+//                        mContentContainer.setY(mMarginVertical
+//                                + mOverflowPanelSize.getHeight() - containerSize.getHeight() + mMarginVertical);
                         mMainPanel.setY(0);  // align top
                         mOverflowButton.setY(0);  // align top
                         mOverflowPanel.setY(containerSize.getHeight()
                                 - mOverflowPanelSize.getHeight());  // align bottom
+
+                        mSlicePanel.setX(mMarginHorizontal);
+                        mSlicePanel.setY(mMarginVertical);
                     } else {
                         // opens downwards.
                         mContentContainer.setY(mMarginVertical);  // align top
                         mMainPanel.setY(0);  // align top
                         mOverflowButton.setY(0);  // align top
                         mOverflowPanel.setY(mOverflowButtonSize.getHeight());  // align bottom
+
+                        mSlicePanel.setX(mMarginHorizontal);
+                        mSlicePanel.setY(mContentContainer.getY() + mMainPanelSize.getHeight() + mMarginVertical);
                     }
                 } else {
                     // No overflow.
@@ -1137,6 +1155,9 @@ final class FloatingToolbar {
                 width = Math.max(width, mOverflowPanelSize.getWidth());
                 height = Math.max(height, mOverflowPanelSize.getHeight());
             }
+
+            width = 900;
+            height = 600;
             mPopupWindow.setWidth(width + mMarginHorizontal * 2);
             mPopupWindow.setHeight(height + mMarginVertical * 2);
             maybeComputeTransitionDurationScale();
@@ -1742,8 +1763,15 @@ final class FloatingToolbar {
         return contentContainer;
     }
 
-    static PopupWindow createPopupWindow(ViewGroup content, View.OnClickListener onClick) {
-        ViewGroup popupContentHolder = new LinearLayout(content.getContext());
+    static ViewGroup createSlicePanel(Context context) {
+        final ViewGroup slicePanel = (ViewGroup) LayoutInflater.from(context)
+                .inflate(R.layout.floating_popup_slice_panel, null);
+        slicePanel.setLayoutParams(new ViewGroup.LayoutParams(900, 460));
+        return slicePanel;
+    }
+
+    static PopupWindow createPopupWindow(ViewGroup toolbar, View slice, View.OnClickListener onClick) {
+        RelativeLayout popupContentHolder = new RelativeLayout(toolbar.getContext());
         popupContentHolder.setOnClickListener(onClick);
         popupContentHolder.setSoundEffectsEnabled(false);
         PopupWindow popupWindow = new PopupWindow(popupContentHolder);
@@ -1755,11 +1783,12 @@ final class FloatingToolbar {
         popupWindow.setAnimationStyle(0);
         int color = Color.TRANSPARENT;
         // Want to see the floating window? Uncomment the next line.
-        //color = Color.argb(50, 0, 0, 0);
+        // color = Color.argb(50, 0, 0, 0);
         popupWindow.setBackgroundDrawable(new ColorDrawable(color));
-        content.setLayoutParams(new ViewGroup.LayoutParams(
+        toolbar.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        popupContentHolder.addView(content);
+        popupContentHolder.addView(slice);
+        popupContentHolder.addView(toolbar);
         return popupWindow;
     }
 
