@@ -22,10 +22,17 @@ package androidx.build
 object LibraryVersions {
     val ACTIVITY = Version("1.0.0-alpha05")
     val ANIMATION = Version("1.0.0-alpha01")
+<<<<<<< HEAD   (d29e9b Merge "Merge empty history for sparse-5661226-L4060000033228)
     val ANIMATION_TESTING = Version("1.0.0")
     val ANNOTATION = Version("1.1.0-alpha02")
     val APPCOMPAT = Version("1.1.0-alpha03")
     val ARCH_CORE = Version("2.0.0")
+=======
+    val ANIMATION_TESTING = Version("1.1.0-alpha01")
+    val ANNOTATION = Version("1.1.0")
+    val APPCOMPAT = Version("1.1.0-beta00")
+    val ARCH_CORE = Version("2.1.0-beta01")
+>>>>>>> BRANCH (bf9117 Merge "Merge cherrypicks of [989843, 989844] into sparse-561)
     val ARCH_CORE_TESTING = ARCH_CORE
     val ARCH_RUNTIME = Version("2.0.1-alpha01")
     val ASYNCLAYOUTINFLATER = Version("1.1.0-alpha01")
