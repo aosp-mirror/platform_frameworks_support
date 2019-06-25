@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf928244_9644b64c",
+        "filename": "core/core/src/androidTest/java/androidx/core/os/TraceCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-06-25T17:40:04Z",
+      "side": 1,
+      "message": "you don\u0027t really need to capture the output of this unless you want to assert it didn\u0027t have an error of some sort.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 84
+      },
+      "revId": "4dd89d5908c5de6a82bdf7cf1cd8afa318a34bb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
