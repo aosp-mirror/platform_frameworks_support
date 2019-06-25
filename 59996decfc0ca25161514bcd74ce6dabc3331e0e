@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "113dce62_baf9d9ca",
+        "filename": "media2/widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T02:48:59Z",
+      "side": 1,
+      "message": "Why do you disable tracking restricted APIs?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 64
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b565b70_ceb8f46e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/Cea608CaptionRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T02:48:59Z",
+      "side": 1,
+      "message": "Q) Did you verify b/131372502 has been fixed in aosp-androidx-master-dev?",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae6c2eb4_723e7480",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/MediaTimeProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T02:48:59Z",
+      "side": 1,
+      "message": "Could you add TODO comments with bug number b/131579290 for future cleanup?",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
