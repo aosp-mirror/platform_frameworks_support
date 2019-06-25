@@ -141,7 +141,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textStyle: TextStyle? = style
+    var textStyle: TextStyle = style ?: TextStyle()
         set(value) {
             if (field == value) return
             layoutTemplate = null
@@ -247,6 +247,7 @@ class TextPainter(
                 // TODO(Migration/qqd): The textDirection below used to be RTL.
                 layoutTemplate = Paragraph(
                     text = " ",
+                    defaultTextStyle = textStyle,
                     // direction doesn't matter, text is just a space
                     paragraphStyle = createParagraphStyle(),
                     textStyles = textStyle?.let {
@@ -363,7 +364,7 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            paragraph = Paragraph(text!!.text, createParagraphStyle(), text!!.textStyles)
+            paragraph = Paragraph(text!!.text, textStyle, createParagraphStyle(), text!!.textStyles)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth

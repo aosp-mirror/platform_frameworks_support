@@ -1374,7 +1374,7 @@ class ParagraphIntegrationTest {
         // custom 200 regular font has d as the wide glyph
         val textStyle = TextStyle(fontFamily = fontFamilyCustom200)
         // a is rendered in paragraphStyle font (custom 100), it will not have wide glyph
-        // d is rendered in textStyle font (custom 200), and it will be wide glyph
+        // d is rendered in defaultTextStyle font (custom 200), and it will be wide glyph
         val expectedWidth = fontSize + fontSize * 3
 
         val paragraph = simpleParagraph(
