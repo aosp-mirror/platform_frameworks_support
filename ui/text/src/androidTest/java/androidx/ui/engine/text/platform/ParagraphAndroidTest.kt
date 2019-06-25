@@ -1085,15 +1085,17 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = textStyles,
             typefaceAdapter = typefaceAdapter,
-            paragraphStyle = ParagraphStyle(
-                textAlign = textAlign,
-                textIndent = textIndent,
-                ellipsis = ellipsis,
-                maxLines = maxLines,
+            style = TextStyle(
                 fontFamily = fontFamily,
                 fontSize = fontSize,
                 fontWeight = fontWeight,
                 fontStyle = fontStyle
+            ),
+            paragraphStyle = ParagraphStyle(
+                textAlign = textAlign,
+                textIndent = textIndent,
+                ellipsis = ellipsis,
+                maxLines = maxLines
             )
         )
     }
