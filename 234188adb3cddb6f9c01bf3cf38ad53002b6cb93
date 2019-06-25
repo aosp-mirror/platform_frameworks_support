@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d423ff9f_0b960fc3",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/GLImage2SurfaceRenderer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-25T18:01:56Z",
+      "side": 1,
+      "message": "Just wanted to bring up again that this rotation is very much device specific and will depend on the sensor rotation.\n\nProbably the best thing to do here would be to use a 2x2 rotation matrix uniform and populate it with the inverse rotation calculated from the sensor rotation.\n\nThe other option is to pass on the transform to the SurfaceTexture, but that requires using a native function, ANativeWindow_setBuffersTransform, which AFAIK doesn\u0027t have an equivalent in java.\n\nAgain, not required for this CL. Just depends on how robust you want to make this.",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 97
+      },
+      "revId": "234188adb3cddb6f9c01bf3cf38ad53002b6cb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
