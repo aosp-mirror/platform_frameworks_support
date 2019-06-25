@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05a4fe3a_f66b7adb",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-06-25T00:38:59Z",
+      "side": 0,
+      "message": "Wow totally misnamed this method :)",
+      "range": {
+        "startLine": 240,
+        "startChar": 17,
+        "endLine": 240,
+        "endChar": 44
+      },
+      "revId": "ba160ab4513b85ccdfb21bc681db475d30c919ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
