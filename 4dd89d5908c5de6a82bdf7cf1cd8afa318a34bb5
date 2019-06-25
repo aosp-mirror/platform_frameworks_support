@@ -22,6 +22,30 @@
       "revId": "4dd89d5908c5de6a82bdf7cf1cd8afa318a34bb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f25000_c028863f",
+        "filename": "core/core/src/androidTest/java/androidx/core/os/TraceCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-06-25T18:29:20Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. Capturing the output here was being used as a (admittedly, non-obvious) synchronization mechanism to ensure atrace has fully started before calling any of the TraceCompat methods. I\u0027ve added a comment to hopefully clear up confusion.",
+      "parentUuid": "cf928244_9644b64c",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 84
+      },
+      "revId": "4dd89d5908c5de6a82bdf7cf1cd8afa318a34bb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
