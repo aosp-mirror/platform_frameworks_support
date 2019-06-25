@@ -142,9 +142,20 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
                     if (shouldCopyCursor) "true" else "false")
 
             beginControlFlow("try").apply {
-                addStatement("final $T $L = $T.getColumnIndex($L, $S)",
-                    TypeName.INT, itemKeyIndexVar, RoomTypeNames.CURSOR_UTIL, cursorVar,
-                    relation.entityField.columnName)
+                if (relation.junction != null) {
+                    // when using a junction table the relationship map is keyed on the parent
+                    // reference column of the junction table, the same column used in the WHERE IN
+                    // clause, this column is the rightmost column in the generated SELECT
+                    // clause.
+                    val junctionParentColumnIndex = relation.projection.size
+                    addStatement("final $T $L = $L; // _junction.$L",
+                        TypeName.INT, itemKeyIndexVar, junctionParentColumnIndex,
+                        relation.junction.parentField.columnName)
+                } else {
+                    addStatement("final $T $L = $T.getColumnIndex($L, $S)",
+                        TypeName.INT, itemKeyIndexVar, RoomTypeNames.CURSOR_UTIL, cursorVar,
+                        relation.entityField.columnName)
+                }
 
                 beginControlFlow("if ($L == -1)", itemKeyIndexVar).apply {
                     addStatement("return")
@@ -160,15 +171,22 @@ class RelationCollectorMethodWriter(private val collector: RelationCollector)
                             indexVar = itemKeyIndexVar,
                             scope = scope
                     ) { keyVar ->
-                        val collectionVar = scope.getTmpVar("_tmpCollection")
-                        addStatement("$T $L = $N.get($L)", collector.collectionTypeName,
-                                collectionVar, param, keyVar)
-                        beginControlFlow("if ($L != null)", collectionVar).apply {
+                        if (collector.relationTypeIsCollection) {
+                            val relationVar = scope.getTmpVar("_tmpRelation")
+                            addStatement("$T $L = $N.get($L)", collector.relationTypeName,
+                                relationVar, param, keyVar)
+                            beginControlFlow("if ($L != null)", relationVar)
                             addStatement("final $T $L", relation.pojoTypeName, tmpVarName)
                             collector.rowAdapter.convert(tmpVarName, cursorVar, scope)
-                            addStatement("$L.add($L)", collectionVar, tmpVarName)
+                            addStatement("$L.add($L)", relationVar, tmpVarName)
+                            endControlFlow()
+                        } else {
+                            beginControlFlow("if ($N.containsKey($L))", param, keyVar)
+                            addStatement("final $T $L", relation.pojoTypeName, tmpVarName)
+                            collector.rowAdapter.convert(tmpVarName, cursorVar, scope)
+                            addStatement("$N.put($L, $L)", param, keyVar, tmpVarName)
+                            endControlFlow()
                         }
-                        endControlFlow()
                     }
                 }
                 endControlFlow()

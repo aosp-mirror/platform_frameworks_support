@@ -18,7 +18,6 @@ package androidx.camera.view;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Matrix;
@@ -47,6 +46,7 @@ import android.view.animation.BaseInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -137,7 +137,7 @@ public final class CameraView extends ViewGroup {
         init(context, attrs);
     }
 
-    @TargetApi(21)
+    @RequiresApi(21)
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
@@ -210,13 +210,13 @@ public final class CameraView extends ViewGroup {
             int lensFacing = a.getInt(R.styleable.CameraView_lensFacing, LENS_FACING_BACK);
             switch (lensFacing) {
                 case LENS_FACING_NONE:
-                    setCameraByLensFacing(null);
+                    setCameraLensFacing(null);
                     break;
                 case LENS_FACING_FRONT:
-                    setCameraByLensFacing(LensFacing.FRONT);
+                    setCameraLensFacing(LensFacing.FRONT);
                     break;
                 case LENS_FACING_BACK:
-                    setCameraByLensFacing(LensFacing.BACK);
+                    setCameraLensFacing(LensFacing.BACK);
                     break;
                 default:
                     // Unhandled event.
@@ -288,7 +288,7 @@ public final class CameraView extends ViewGroup {
             setMaxVideoDuration(state.getLong(EXTRA_MAX_VIDEO_DURATION));
             setMaxVideoSize(state.getLong(EXTRA_MAX_VIDEO_SIZE));
             String lensFacingString = state.getString(EXTRA_CAMERA_DIRECTION);
-            setCameraByLensFacing(
+            setCameraLensFacing(
                     TextUtils.isEmpty(lensFacingString)
                             ? null
                             : LensFacing.valueOf(lensFacingString));
@@ -681,7 +681,7 @@ public final class CameraView extends ViewGroup {
     }
 
     /**
-     * Sets the desired camera lensFacing.
+     * Sets the desired camera by specifying desired lensFacing.
      *
      * <p>This will choose the primary camera with the specified camera lensFacing.
      *
@@ -695,8 +695,8 @@ public final class CameraView extends ViewGroup {
      *
      * @param lensFacing The desired camera lensFacing.
      */
-    public void setCameraByLensFacing(@Nullable LensFacing lensFacing) {
-        mCameraModule.setCameraByLensFacing(lensFacing);
+    public void setCameraLensFacing(@Nullable LensFacing lensFacing) {
+        mCameraModule.setCameraLensFacing(lensFacing);
     }
 
     /** Returns the currently selected {@link LensFacing}. */

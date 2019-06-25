@@ -47,8 +47,9 @@ import androidx.camera.core.impl.utils.futures.AsyncFunction;
 import androidx.camera.core.impl.utils.futures.FluentFuture;
 import androidx.camera.core.impl.utils.futures.FutureCallback;
 import androidx.camera.core.impl.utils.futures.Futures;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.CallbackToFutureAdapter;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
 import java.util.ArrayDeque;
@@ -162,6 +163,10 @@ public class ImageCapture extends UseCase {
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
         mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
+        if (mMaxCaptureStages < 1) {
+            throw new IllegalArgumentException(
+                    "Maximum outstanding image count must be at least 1");
+        }
 
         Integer bufferFormat = mConfig.getBufferFormat(null);
         if (bufferFormat != null) {
@@ -180,11 +185,6 @@ public class ImageCapture extends UseCase {
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        CaptureBundle captureBundle = getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-        if (captureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
-            throw new IllegalArgumentException(
-                    "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
-        }
 
         if (mCaptureMode == CaptureMode.MAX_QUALITY) {
             mEnableCheck3AConverged = true; // check 3A convergence in MAX_QUALITY mode
@@ -618,34 +618,20 @@ public class ImageCapture extends UseCase {
                 new ImageReaderProxy.OnImageAvailableListener() {
                     @Override
                     public void onImageAvailable(ImageReaderProxy imageReader) {
-                        // Call the listener so that the captured image can be processed.
-                        ImageCaptureRequest imageCaptureRequest = mImageCaptureRequests.peek();
-                        if (imageCaptureRequest != null) {
-                            ImageProxy image = null;
-                            try {
-                                image = imageReader.acquireLatestImage();
-                            } catch (IllegalStateException e) {
-                                Log.e(TAG, "Failed to acquire latest image.", e);
-                            } finally {
-                                if (image != null) {
-                                    // Remove the first listener from the queue
-                                    mImageCaptureRequests.poll();
-
-                                    // Inform the listener
+                        ImageProxy image = null;
+                        try {
+                            image = imageReader.acquireLatestImage();
+                        } catch (IllegalStateException e) {
+                            Log.e(TAG, "Failed to acquire latest image.", e);
+                        } finally {
+                            if (image != null) {
+                                // Call the head request listener to process the captured image.
+                                ImageCaptureRequest imageCaptureRequest;
+                                if ((imageCaptureRequest = mImageCaptureRequests.poll()) != null) {
                                     imageCaptureRequest.dispatchImage(image);
-
                                     ImageCapture.this.issueImageCaptureRequests();
-                                }
-                            }
-                        } else {
-                            // Flush the queue if we have no requests
-                            ImageProxy image = null;
-                            try {
-                                image = imageReader.acquireLatestImage();
-                            } catch (IllegalStateException e) {
-                                Log.e(TAG, "Failed to acquire latest image.", e);
-                            } finally {
-                                if (image != null) {
+                                } else {
+                                    // Discard the image if we have no requests.
                                     image.close();
                                 }
                             }
@@ -868,7 +854,8 @@ public class ImageCapture extends UseCase {
             builder.addImplementationOptions(mCaptureConfig.getImplementationOptions());
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
-            builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+
+            builder.addSurface(mDeferrableSurface);
 
             builder.addImplementationOptions(
                     captureStage.getCaptureConfig().getImplementationOptions());

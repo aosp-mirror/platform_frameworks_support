@@ -16,7 +16,6 @@
 
 package androidx.paging
 
-import androidx.arch.core.util.Function
 import androidx.paging.futures.DirectExecutor
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -401,18 +400,18 @@ class PositionalDataSourceTest {
 
     @Test
     fun testListConverterWrappedDataSource() = verifyWrappedDataSource { dataSource ->
-        dataSource.mapByPage(Function { page -> page.map { it.toString() } })
+        dataSource.mapByPage { page -> page.map { it.toString() } }
     }
 
     @Test
     fun testItemConverterWrappedDataSource() = verifyWrappedDataSource { dataSource ->
-        dataSource.map(Function { it.toString() })
+        dataSource.map { it.toString() }
     }
 
     @Test
     fun testInvalidateToWrapper() {
         val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.map<String>(Function { it.toString() })
+        val wrapper = orig.map { it.toString() }
 
         orig.invalidate()
         assertTrue(wrapper.isInvalid)
@@ -421,10 +420,22 @@ class PositionalDataSourceTest {
     @Test
     fun testInvalidateFromWrapper() {
         val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.map<String>(Function { it.toString() })
+        val wrapper = orig.map { it.toString() }
 
         wrapper.invalidate()
         assertTrue(orig.isInvalid)
+    }
+
+    @Test
+    fun addRemoveInvalidateFunction() {
+        val datasource = ListDataSource(listOf(0, 1, 2))
+        val noopCallback = { }
+        datasource.addInvalidatedCallback(noopCallback)
+        assert(datasource.onInvalidatedCallbacks.size == 1)
+        datasource.removeInvalidatedCallback { }
+        assert(datasource.onInvalidatedCallbacks.size == 1)
+        datasource.removeInvalidatedCallback(noopCallback)
+        assert(datasource.onInvalidatedCallbacks.size == 0)
     }
 
     companion object {

@@ -380,13 +380,16 @@ limitations under the License.
         <item name="android:singleLine">true</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/car_button_background</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- A style for buttons that has white text. -->
+    <style name="Widget.Car.Button.LightText">
         <item name="android:textColor">@color/car_primary_text</item>
     </style>
 
-    <!-- A style for buttons that is fixed with light-colored text. -->
-    <style name="Widget.Car.Button.LightText">
-        <item name="android:textColor">@color/car_primary_text_light</item>
-    </style>
+    <!-- Deprecated. Use Widget.Car.Button instead. -->
+    <style name="Widget.Car.Button.DarkText" />
 
     <!-- The style for borderless buttons. -->
     <style name="Widget.Car.Button.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored">
@@ -538,13 +541,14 @@ limitations under the License.
     <eat-comment />
 
     <style name="Widget.Car.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/car_primary_text</item>
         <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
         <item name="android:buttonTint">?android:attr/colorAccent</item>
         <item name="buttonTint">?android:attr/colorAccent</item>
     </style>
 
     <style name="Widget.Car.CheckBox.Light">
-        <item name="android:textAppearance">@style/TextAppearance.Car.Body1.Light</item>
+        <item name="android:textColor">@color/car_primary_text_light</item>
     </style>
 
     <!-- ================== -->
@@ -601,6 +605,15 @@ limitations under the License.
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <!-- The style for selection dialog buttons. -->
+    <style name="Widget.Car.SelectionDialog.Button" parent="Widget.Car.Dialog.Button">
+        <item name="android:minWidth">@dimen/car_dialog_button_min_width</item>
+        <item name="android:layout_marginTop">@dimen/car_padding_2</item>
+        <item name="android:layout_marginBottom">@dimen/car_padding_2</item>
+        <item name="android:paddingStart">@dimen/car_padding_4</item>
+        <item name="android:paddingEnd">@dimen/car_padding_4</item>
     </style>
 
     <!-- ================= -->

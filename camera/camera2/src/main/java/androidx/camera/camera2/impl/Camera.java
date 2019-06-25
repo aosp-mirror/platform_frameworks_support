@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -46,10 +47,12 @@ import androidx.camera.core.SessionConfig;
 import androidx.camera.core.SessionConfig.ValidatingBuilder;
 import androidx.camera.core.UseCase;
 import androidx.camera.core.UseCaseAttachState;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -122,9 +125,11 @@ final class Camera implements BaseCamera {
         mCameraManager = cameraManager;
         mCameraId = cameraId;
         mHandler = handler;
+        ScheduledExecutorService executorScheduler = CameraXExecutors.newHandlerExecutor(mHandler);
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
-        mCameraControl = new Camera2CameraControl(this, handler);
+        mCameraControl = new Camera2CameraControl(this, executorScheduler, executorScheduler);
+        mCaptureSession = new CaptureSession(mHandler);
     }
 
     /**
@@ -183,6 +188,9 @@ final class Camera implements BaseCamera {
                 break;
             case OPENING:
             case REOPENING:
+                // Though camera and capture session is not opened yet, still need to reset
+                // CaptureSession for clearing pending capture requests.
+                resetCaptureSession();
                 mState.set(State.CLOSING);
                 break;
             default:
@@ -214,18 +222,18 @@ final class Camera implements BaseCamera {
                 builder.addSessionStateCallback(new CameraCaptureSession.StateCallback() {
 
                     @Override
-                    public void onConfigured(CameraCaptureSession session) {
+                    public void onConfigured(@NonNull CameraCaptureSession session) {
                         session.close();
                     }
 
                     @Override
-                    public void onConfigureFailed(CameraCaptureSession session) {
+                    public void onConfigureFailed(@NonNull CameraCaptureSession session) {
                         closeCameraResource();
                         surfaceReleaseRunner.run();
                     }
 
                     @Override
-                    public void onClosed(CameraCaptureSession session) {
+                    public void onClosed(@NonNull CameraCaptureSession session) {
                         closeCameraResource();
                         surfaceReleaseRunner.run();
                     }
@@ -621,6 +629,11 @@ final class Camera implements BaseCamera {
      * <p>The previously opened session will be safely disposed of before the new session opened.
      */
     void openCaptureSession() {
+        if (mState.get() != State.OPENED) {
+            Log.d(TAG, "openCaptureSession() ignored due to being in state: " + mState.get());
+            return;
+        }
+
         ValidatingBuilder validatingBuilder;
         synchronized (mAttachedUseCaseLock) {
             validatingBuilder = mUseCaseAttachState.getOnlineBuilder();
@@ -630,15 +643,36 @@ final class Camera implements BaseCamera {
             return;
         }
 
-        resetCaptureSession();
-
         if (mCameraDevice == null) {
             Log.d(TAG, "CameraDevice is null");
             return;
         }
 
+        // When the previous capture session has not reached the open state, the issued single
+        // capture requests will still be in request queue and will need to be passed to the next
+        // capture session.
+        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
+        resetCaptureSession();
+
+        SessionConfig sessionConfig = validatingBuilder.build();
+
+        if (!unissuedCaptureConfigs.isEmpty()) {
+            List<CaptureConfig> reissuedCaptureConfigs = new ArrayList<>();
+            // Filters out requests that has unconfigured surface (probably caused by removeOnline)
+            for (CaptureConfig unissuedCaptureConfig : unissuedCaptureConfigs) {
+                if (sessionConfig.getSurfaces().containsAll(unissuedCaptureConfig.getSurfaces())) {
+                    reissuedCaptureConfigs.add(unissuedCaptureConfig);
+                }
+            }
+
+            if (!reissuedCaptureConfigs.isEmpty()) {
+                Log.d(TAG, "reissuedCaptureConfigs");
+                mCaptureSession.issueCaptureRequests(reissuedCaptureConfigs);
+            }
+        }
+
         try {
-            mCaptureSession.open(validatingBuilder.build(), mCameraDevice);
+            mCaptureSession.open(sessionConfig, mCameraDevice);
         } catch (CameraAccessException e) {
             Log.d(TAG, "Unable to configure camera " + mCameraId + " due to " + e.getMessage());
         }
@@ -649,7 +683,7 @@ final class Camera implements BaseCamera {
      * session with a new session initialized with the old session's configuration.
      */
     void resetCaptureSession() {
-        Log.d(TAG, "Closing Capture Session");
+        Log.d(TAG, "Closing Capture Session: " + mCameraId);
 
         // Recreate an initialized (but not opened) capture session from the previous configuration
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
@@ -665,14 +699,8 @@ final class Camera implements BaseCamera {
             }
         }
 
-        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
         mCaptureSession = new CaptureSession(mHandler);
         mCaptureSession.setSessionConfig(previousSessionConfig);
-        // When the previous capture session has not reached the open state, the issued single
-        // capture
-        // requests will still be in request queue and will need to be passed to the next capture
-        // session.
-        mCaptureSession.issueCaptureRequests(unissuedCaptureConfigs);
     }
 
     private CameraDevice.StateCallback createDeviceStateCallback() {
