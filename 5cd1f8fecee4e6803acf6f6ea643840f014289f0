@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9b7ff3c4_44d4bb84",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-25T22:45:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21d9eba9_cc25b509",
+      "revId": "5cd1f8fecee4e6803acf6f6ea643840f014289f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5ab73b8_e4d4567e",
         "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "5cd1f8fecee4e6803acf6f6ea643840f014289f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31687f15_2a490cc0",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-25T22:45:07Z",
+      "side": 1,
+      "message": "We actually need this extension to get the test to pass as we transition out to coroutines and start moving where the transition between coroutines to LF takes place. Basically we started calling LF.setException instead of not calling it which causes LF to wrap the exception in an java.concurrent.ExecutionException.\n\nSince performLoadInitial calls future.get(), catching the exception inside will either cause the test to spin infinitely or if we re-throw, cause the test to fail.\n\nSo it\u0027s probably easiest to keep it this way for now since all the LF stuff is going away anyway.",
+      "parentUuid": "c5ab73b8_e4d4567e",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 90
+      },
+      "revId": "5cd1f8fecee4e6803acf6f6ea643840f014289f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
