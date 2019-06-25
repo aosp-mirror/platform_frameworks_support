@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5f716fce_b2b958f8",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T03:49:20Z",
+      "side": 1,
+      "message": "Google java style guide 4.8.5:\n\"Annotations applying to a class, method or constructor appear immediately after the documentation block\"\nhttps://engdoc.corp.google.com/eng/doc/devguide/java/style/index.md?cl\u003dhead#s4.8.5-annotations\n\nAndroid API guideline doesn\u0027t mention about the locations of annotations, but it shows similar patterns (see section 12)\n\nhttps://docs.google.com/document/d/1GAzXERdykuhyubY-KEXNcaNB1KW-Vw4Qen8_4DulrT0/edit#heading\u003dh.rbzmz1yar8qw",
+      "parentUuid": "629771a1_d62c947a",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 14
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bd42065_3cee2e7f",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5f748eb_0b333c7f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2376,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T03:49:20Z",
+      "side": 1,
+      "message": "No rules for the annotation order, but I prefer to have return value related annotations closer to the method definition.",
+      "parentUuid": "0bd42065_3cee2e7f",
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "240241fd_fda5236f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T03:49:20Z",
+      "side": 1,
+      "message": "Changed to return EMPTY_LIST.",
+      "parentUuid": "0ea77af7_488b56d8",
+      "range": {
+        "startLine": 815,
+        "startChar": 8,
+        "endLine": 815,
+        "endChar": 20
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a01ee82_4bee3146",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b39a49_01ff7802",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T03:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a01ee82_4bee3146",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 30
+      },
+      "revId": "15bfe7358ae9200f86d48950907e49545c4e0c10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
