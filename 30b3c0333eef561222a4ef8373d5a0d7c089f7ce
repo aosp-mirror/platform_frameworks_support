@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a7ec3ce_c36211ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-06-25T13:02:17Z",
+      "side": 1,
+      "message": "What client needs this?\nAre we just making a method public just because we can?",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "30b3c0333eef561222a4ef8373d5a0d7c089f7ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
