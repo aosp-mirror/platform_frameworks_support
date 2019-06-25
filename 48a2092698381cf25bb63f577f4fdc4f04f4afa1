@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7943a06c_0a846157",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "Oh, you\u0027re right, copy-paste is bad :(",
+      "parentUuid": "1c54572d_757aca8f",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 37
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63bad1e7_b82b6e43",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
         "patchSetId": 2

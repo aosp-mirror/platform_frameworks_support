@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b16e783b_8a48fe09",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": ":D Thanks for catching this",
+      "parentUuid": "ecbf8cca_21da9b8a",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 12
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3de78212_15848181",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d930f3c_7d96cec6",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3de78212_15848181",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3fc8d69c_b1d98c09",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "Inlined to one line",
+      "parentUuid": "5729814a_5c64bbc5",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8784664d_21d68609",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca786841_edc88b46",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "b/136003916\n\nDone, thanks for catching this",
+      "parentUuid": "8784664d_21d68609",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 321,
+        "endChar": 55
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9d9a2aa1_597e3d2a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "Good point. I think the confusion here is because this code shouldn\u0027t actually exists here and user of this component should decide based on their state. Moved to Drawers now",
+      "parentUuid": "8b33e090_aafc0672",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 54
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e2cf384_b75de548",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10dbd2b2_b791adca",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-25T16:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e2cf384_b75de548",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 30
+      },
+      "revId": "5475c8aa6148797ad87130b496546f1876d21b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
