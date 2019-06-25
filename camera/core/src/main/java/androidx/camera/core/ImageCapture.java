@@ -80,7 +80,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * <p>When capturing to memory, the captured image is made available through an {@link ImageProxy}
  * via an {@link ImageCapture.OnImageCapturedListener}.
- *
  */
 public class ImageCapture extends UseCase {
     /**
@@ -776,13 +775,24 @@ public class ImageCapture extends UseCase {
                     @Override
                     public Boolean check(@NonNull CameraCaptureResult captureResult) {
                         // If afMode is CAF, don't check af locked to speed up.
-                        if ((captureResult.getAfMode() == AfMode.ON_CONTINUOUS_AUTO
-                                || (captureResult.getAfState() == AfState.FOCUSED
+                        // If afMode is OFF or UNKNOWN , no need for waiting.
+                        // otherwise wait until af is locked or focused.
+                        boolean isAfReady = (captureResult.getAfMode() == AfMode.ON_CONTINUOUS_AUTO
+                                || captureResult.getAfMode() == AfMode.OFF
+                                || captureResult.getAfMode() == AfMode.UNKNOWN
+                                || captureResult.getAfState() == AfState.FOCUSED
                                 || captureResult.getAfState() == AfState.LOCKED_FOCUSED
-                                || captureResult.getAfState()
-                                == AfState.LOCKED_NOT_FOCUSED))
-                                && captureResult.getAeState() == AeState.CONVERGED
-                                && captureResult.getAwbState() == AwbState.CONVERGED) {
+                                || captureResult.getAfState() == AfState.LOCKED_NOT_FOCUSED);
+
+                        // Unknown means cannot get valid state from CaptureResult
+                        boolean isAeReady = captureResult.getAeState() == AeState.CONVERGED
+                                || captureResult.getAeState() == AeState.UNKNOWN;
+
+                        // Unknown means cannot get valid state from CaptureResult
+                        boolean isAwbReady = captureResult.getAwbState() == AwbState.CONVERGED
+                                || captureResult.getAwbState() == AwbState.UNKNOWN;
+
+                        if (isAfReady && isAeReady && isAwbReady) {
                             return true;
                         }
                         // Return null to continue check.
@@ -1017,7 +1027,7 @@ public class ImageCapture extends UseCase {
          * <p>See also {@link ImageCaptureConfig.Builder#setTargetRotation(int)} and
          * {@link #setTargetRotation(int)}.
          *
-         * @param image The captured image
+         * @param image           The captured image
          * @param rotationDegrees The rotation which if applied to the image will make it match the
          *                        current target rotation. rotationDegrees is expressed as one of
          *                        {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
