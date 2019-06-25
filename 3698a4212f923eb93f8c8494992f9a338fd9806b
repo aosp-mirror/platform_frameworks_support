@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70d7b356_852d9d9f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T12:42:24Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to call resolve here as that will create the directory as we configure the task. Can we just set \"${BUILD_INFO_DIR}/${project.group}_...\" and the task creates the directory if needed as it is being run?",
+      "range": {
+        "startLine": 588,
+        "startChar": 20,
+        "endLine": 588,
+        "endChar": 44
+      },
+      "revId": "3698a4212f923eb93f8c8494992f9a338fd9806b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
