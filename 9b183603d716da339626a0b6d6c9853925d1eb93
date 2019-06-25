@@ -16,6 +16,24 @@
       "revId": "9b183603d716da339626a0b6d6c9853925d1eb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35eaa6f8_1d5968d3",
+        "filename": "annotation/annotation-experimental-lint/src/main/java/androidx/annotation/lint/ExperimentalDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-25T19:51:44Z",
+      "side": 1,
+      "message": "My intention was that we shouldn\u0027t duplicate the Kotlin compiler\u0027s enforcement of Kotlin Experimental, so we only want to run if it\u0027s not Kotlin code. This felt more explicit than isJava() -- that said, I *did* explicitly name the not-Kotlin annotation\u0027s constant with JAVA_ *but* it could also run on other Java-compatible non-Java code.",
+      "parentUuid": "e6b72c4e_5a6c0a4f",
+      "revId": "9b183603d716da339626a0b6d6c9853925d1eb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
