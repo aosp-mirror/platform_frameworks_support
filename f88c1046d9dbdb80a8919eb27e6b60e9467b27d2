@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d3b7012_8f29140b",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "note: this can\u0027t be destructured inline, as I run into some strange r8 bug:\n\nError: Field name \u0027$name for destructuring parameter 1\u0027 cannot be represented in dex format.",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 40
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

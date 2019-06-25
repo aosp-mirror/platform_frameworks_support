@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "202a0652_69490c24",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Nope, this is just for demo purposes - this can be anything.",
+      "parentUuid": "56a82a2e_1fb6b048",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb2db599_22c63a14",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 2
@@ -86,6 +110,24 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b509ea_1f380b38",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb2db599_22c63a14",
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -109,6 +151,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7027c57_c90f1769",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20c34452_809a4979",
+      "range": {
+        "startLine": 52,
+        "startChar": 39,
+        "endLine": 53,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +221,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fca16d9_8a65038e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f2d5ae59_d33dc80b",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 107,
+        "endChar": 61
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "a29a3699_05b66538",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Iterated offline on this, decided to simplify this a lot - currently you pass a List\u003cT\u003e of some items, this could be titles, icons, or whatever data representation you want to use - and then inside the tab {} lambda you just map that data to a Tab() or your own custom content.\n\nFor example, if you pass listOf(\"TAB 1\", \"TAB 2\", \"TAB 3\"), inside the tab {} lambda you get a reference to the current index, and the specific element, so you can just create a Tab and pass it the text from your list.\n\nThoughts?",
+      "parentUuid": "38fb7ea2_a2fa2a5a",
+      "range": {
+        "startLine": 143,
+        "startChar": 10,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f780d4a_b704306d",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -370,6 +484,30 @@
     },
     {
       "key": {
+        "uuid": "3b9e856a_63db11fb",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43b3a894_c386bc0c",
+      "range": {
+        "startLine": 224,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 26
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dac1dfc_bf4fd45a",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -390,6 +528,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64b6cd78_11723f4f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0dac1dfc_bf4fd45a",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 52
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -416,6 +578,30 @@
     },
     {
       "key": {
+        "uuid": "4d2c6ea3_f4e0eb01",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa5c736e_15bd241f",
+      "range": {
+        "startLine": 318,
+        "startChar": 10,
+        "endLine": 318,
+        "endChar": 73
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82701a90_5664208b",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 2
@@ -436,6 +622,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f2ee10_6dbd30df",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-25T17:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82701a90_5664208b",
+      "range": {
+        "startLine": 320,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 17
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
