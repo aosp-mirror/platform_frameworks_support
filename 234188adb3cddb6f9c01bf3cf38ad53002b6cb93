@@ -22,6 +22,30 @@
       "revId": "234188adb3cddb6f9c01bf3cf38ad53002b6cb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c95ce9b2_cbc42606",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/GLImage2SurfaceRenderer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-25T20:09:33Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll make a note that this was tested on a Pixel 2XL.\nI\u0027m not too concerned about making this generic, because the point of extensions is that it should be installed per device (granted it could have generic implementation). Also this is just for the sake of a sample.\n\nIf we do want to use the results of this in our testing for correctness (e.g. rotations) then we\u0027d have to make it more robust.",
+      "parentUuid": "d423ff9f_0b960fc3",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 97
+      },
+      "revId": "234188adb3cddb6f9c01bf3cf38ad53002b6cb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
