@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.media2.player.subtitle;
+package androidx.media2.widget.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.content.Context;
 import android.media.MediaFormat;
@@ -28,7 +28,7 @@ import android.os.Message;
 import android.view.accessibility.CaptioningManager;
 
 import androidx.annotation.RestrictTo;
-import androidx.media2.player.subtitle.SubtitleTrack.RenderingWidget;
+import androidx.media2.widget.subtitle.SubtitleTrack.RenderingWidget;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -41,7 +41,7 @@ import java.util.Locale;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY)
 public class SubtitleController {
     private MediaTimeProvider mTimeProvider;
     private ArrayList<Renderer> mRenderers;
@@ -401,7 +401,10 @@ public class SubtitleController {
 
     /**
      * Interface for supporting a single or multiple subtitle types in {@link MediaPlayer}.
+     *
+     * @hide
      */
+    @RestrictTo(LIBRARY)
     public abstract static class Renderer {
         /**
          * Called by {@link MediaPlayer}'s {@link SubtitleController} when a new
@@ -469,7 +472,10 @@ public class SubtitleController {
     /**
      * Subtitle anchor, an object that is able to display a subtitle renderer,
      * e.g. a VideoView.
+     *
+     * @hide
      */
+    @RestrictTo(LIBRARY)
     public interface Anchor {
         /**
          * Anchor should use the supplied subtitle rendering widget, or
@@ -525,7 +531,10 @@ public class SubtitleController {
 
     /**
      * Listener for when subtitle track has been selected.
+     *
+     * @hide
      */
+    @RestrictTo(LIBRARY)
     public interface Listener {
         /**
          * Called when a subtitle track has been selected.

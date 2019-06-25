@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.media2.player.subtitle;
+package androidx.media2.widget.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.graphics.Canvas;
 import android.media.MediaFormat;
@@ -42,7 +42,7 @@ import java.util.TreeMap;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY)
 public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeListener {
     private static final String TAG = "SubtitleTrack";
     private long mLastUpdateTimeMs;
@@ -564,7 +564,11 @@ public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeList
         }
     }
 
-    /** Cue has timing information */
+    /** Cue has timing information
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
     public static class Cue {
         public long mStartTimeMs;
         public long mEndTimeMs;
@@ -662,7 +666,10 @@ public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeList
 
     /**
      * Interface for rendering subtitles onto a Canvas.
+     *
+     * @hide
      */
+    @RestrictTo(LIBRARY)
     public interface RenderingWidget {
         /**
          * Sets the widget's callback, which is used to send updates when the
@@ -706,8 +713,11 @@ public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeList
 
         /**
          * Callback used to send updates about changes to rendering data.
+         *
+         * @hide
          */
-        public interface OnChangedListener {
+        @RestrictTo(LIBRARY)
+        interface OnChangedListener {
             /**
              * Called when the rendering data has changed.
              *

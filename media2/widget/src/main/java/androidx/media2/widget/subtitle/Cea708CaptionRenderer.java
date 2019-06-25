@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.media2.player.subtitle;
+package androidx.media2.widget.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -57,7 +57,7 @@ import java.util.List;
 
 // Note: This is forked from android.media.Cea708CaptionRenderer since P
 /** @hide */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY)
 public class Cea708CaptionRenderer extends SubtitleController.Renderer {
     private final Context mContext;
     private Cea708CCWidget mCCWidget;

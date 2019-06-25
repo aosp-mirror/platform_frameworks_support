@@ -35,12 +35,12 @@ import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
-import androidx.media2.player.subtitle.Cea708CaptionRenderer;
-import androidx.media2.player.subtitle.ClosedCaptionRenderer;
-import androidx.media2.player.subtitle.SubtitleController;
-import androidx.media2.player.subtitle.SubtitleTrack;
 import androidx.media2.session.MediaController;
 import androidx.media2.session.MediaSession;
+import androidx.media2.widget.subtitle.Cea608CaptionRenderer;
+import androidx.media2.widget.subtitle.Cea708CaptionRenderer;
+import androidx.media2.widget.subtitle.SubtitleController;
+import androidx.media2.widget.subtitle.SubtitleTrack;
 import androidx.palette.graphics.Palette;
 
 import java.lang.annotation.Retention;
@@ -276,7 +276,7 @@ public class VideoView extends SelectiveLayout {
             }
         };
         mSubtitleController = new SubtitleController(context, null, listener);
-        mSubtitleController.registerRenderer(new ClosedCaptionRenderer(context));
+        mSubtitleController.registerRenderer(new Cea608CaptionRenderer(context));
         mSubtitleController.registerRenderer(new Cea708CaptionRenderer(context));
         mSubtitleController.setAnchor(mSubtitleAnchorView);
 

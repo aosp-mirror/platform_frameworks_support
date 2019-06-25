@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package androidx.media2.player.subtitle;
+package androidx.media2.widget.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -39,21 +39,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RestrictTo;
-import androidx.media2.player.R;
+import androidx.media2.widget.R;
 
 import java.util.ArrayList;
 
-// Note: This is forked from android.media.ClosedCaptionRenderer since P
+// Note: This is forked from android.media.Cea608CaptionRenderer since P
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
-public class ClosedCaptionRenderer extends SubtitleController.Renderer {
-    private static final String TAG = "ClosedCaptionRenderer";
+@RestrictTo(LIBRARY)
+public class Cea608CaptionRenderer extends SubtitleController.Renderer {
+    private static final String TAG = "Cea608CaptionRenderer";
     private final Context mContext;
     private Cea608CCWidget mCCWidget;
 
-    public ClosedCaptionRenderer(Context context) {
+    public Cea608CaptionRenderer(Context context) {
         mContext = context;
     }
 
