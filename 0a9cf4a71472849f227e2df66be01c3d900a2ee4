@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ccb35b4_ab93a24a",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T04:39:19Z",
+      "side": 1,
+      "message": "updateAndNotify?",
+      "range": {
+        "startLine": 308,
+        "startChar": 9,
+        "endLine": 308,
+        "endChar": 15
+      },
+      "revId": "0a9cf4a71472849f227e2df66be01c3d900a2ee4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f8533e_c880c6c2",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-25T04:39:19Z",
+      "side": 1,
+      "message": "Are they always changed?",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 47
+      },
+      "revId": "0a9cf4a71472849f227e2df66be01c3d900a2ee4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
