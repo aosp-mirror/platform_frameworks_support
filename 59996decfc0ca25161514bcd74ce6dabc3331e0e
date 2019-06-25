@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "d4cf1b8d_8fa59567",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/Cea608CaptionRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T04:23:06Z",
+      "side": 1,
+      "message": "Can it be package-private? (other classes as well)",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae6c2eb4_723e7480",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/MediaTimeProvider.java",
         "patchSetId": 1
@@ -82,6 +105,30 @@
       "writtenOn": "2019-06-25T03:57:35Z",
       "side": 1,
       "message": "Do we need this for inner classes, too?",
+      "range": {
+        "startLine": 571,
+        "startChar": 4,
+        "endLine": 571,
+        "endChar": 24
+      },
+      "revId": "59996decfc0ca25161514bcd74ce6dabc3331e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2621b54_f0835031",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/subtitle/SubtitleTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-25T04:23:06Z",
+      "side": 1,
+      "message": "This is probably a workaround for b/131579290 that I mentioned at L79.",
+      "parentUuid": "8bd5963f_594f1eaf",
       "range": {
         "startLine": 571,
         "startChar": 4,
