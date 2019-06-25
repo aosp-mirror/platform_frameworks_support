@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a81924a2_81f54c7b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "I would drop Task from the name \"reportLibraryMetrics\"",
+      "range": {
+        "startLine": 644,
+        "startChar": 49,
+        "endLine": 644,
+        "endChar": 73
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cc03a3a_458162d1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "You are only creating this in one place and it is a one liner, I would just add this register directly in the method.",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 1
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ee2f10_237ebaf5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "Do we need to resolve? What if you just create File object and then do writeText(...)? Does that not create an object for you?\n\nI\u0027m thinking val outputFile \u003d File(outputDir, \"${project.name}${METRICS_FILE_SUFFIX}\")",
+      "range": {
+        "startLine": 43,
+        "startChar": 35,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f102a5_c08320c1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "Is that unique across all projects? I know for apks we had to do this:\nhttps://cs.corp.google.com/aosp-androidx/buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt?type\u003dcs\u0026q\u003dapk+copy+package:%5Eaosp-androidx$\u0026g\u003d0\u0026l\u003d481",
+      "range": {
+        "startLine": 43,
+        "startChar": 43,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b1ee6a_76cb9961",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "Add a comment on why this works. I assume there is ever only one debug libraryVariant?",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dffd672d_9307c0ba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-25T13:30:54Z",
+      "side": 1,
+      "message": "would endsWith() be a better comparison?",
+      "range": {
+        "startLine": 59,
+        "startChar": 26,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
