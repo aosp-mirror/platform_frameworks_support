@@ -68,3 +68,10 @@ data class TextStyle constructor(
     val fontSynthesis: FontSynthesis? = null,
     val shadow: Shadow? = null
 )
+
+/**
+ * Returns true if this [TextStyle] contains any font style attributes set.
+ */
+internal fun TextStyle.hasFontAttributes(): Boolean {
+    return fontFamily != null || fontStyle != null || fontWeight != null
+}

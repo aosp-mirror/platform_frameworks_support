@@ -377,10 +377,11 @@ class ParagraphIntegrationTest {
             val paragraph = Paragraph(
                 text = text,
                 textStyles = listOf(),
-                paragraphStyle = ParagraphStyle(
+                style = TextStyle(
                     fontSize = fontSize,
                     locale = locale
-                )
+                ),
+                paragraphStyle = ParagraphStyle()
             )
 
             // just have 10x font size to have a bitmap
@@ -402,6 +403,7 @@ class ParagraphIntegrationTest {
         val paragraph = Paragraph(
             text = text,
             textStyles = listOf(),
+            style = TextStyle(),
             paragraphStyle = ParagraphStyle()
         )
 
@@ -420,9 +422,10 @@ class ParagraphIntegrationTest {
         val paragraph = Paragraph(
             text = text,
             textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
+            style = TextStyle(
                 locale = locale
-            )
+            ),
+            paragraphStyle = ParagraphStyle()
         )
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
@@ -437,9 +440,10 @@ class ParagraphIntegrationTest {
         val paragraph = Paragraph(
             text = text,
             textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
+            style = TextStyle(
                 locale = locale
-            )
+            ),
+            paragraphStyle = ParagraphStyle()
         )
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
@@ -454,9 +458,10 @@ class ParagraphIntegrationTest {
         val paragraph = Paragraph(
             text = text,
             textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
+            style = TextStyle(
                 locale = locale
-            )
+            ),
+            paragraphStyle = ParagraphStyle()
         )
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
@@ -916,6 +921,7 @@ class ParagraphIntegrationTest {
         Paragraph(
             text = "",
             textStyles = listOf(),
+            style = TextStyle(),
             paragraphStyle = ParagraphStyle(
                 lineHeight = -1.0f
             )
@@ -1778,13 +1784,15 @@ class ParagraphIntegrationTest {
         return Paragraph(
             text = text,
             textStyles = textStyles,
+            style = TextStyle(
+                fontFamily = fontFamily,
+                fontSize = fontSize
+            ),
             paragraphStyle = ParagraphStyle(
                 textIndent = textIndent,
                 textAlign = textAlign,
                 textDirection = textDirection,
                 maxLines = maxLines,
-                fontFamily = fontFamily,
-                fontSize = fontSize,
                 lineHeight = lineHeight
             )
         )

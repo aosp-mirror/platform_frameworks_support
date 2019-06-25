@@ -23,28 +23,28 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class ParagraphStyleTest {
+class TextStyleTest {
     @Test
     fun `hasFontAttributes default`() {
-        val paragraphStyle = ParagraphStyle()
-        assertThat(paragraphStyle.hasFontAttributes(), equalTo(false))
+        val style = TextStyle()
+        assertThat(style.hasFontAttributes(), equalTo(false))
     }
 
     @Test
     fun `hasFontAttributes with fontFamily returns true`() {
-        val paragraphStyle = ParagraphStyle(fontFamily = FontFamily("sans"))
-        assertThat(paragraphStyle.hasFontAttributes(), equalTo(true))
+        val style = TextStyle(fontFamily = FontFamily("sans"))
+        assertThat(style.hasFontAttributes(), equalTo(true))
     }
 
     @Test
     fun `hasFontAttributes with fontStyle returns true`() {
-        val paragraphStyle = ParagraphStyle(fontStyle = FontStyle.Italic)
-        assertThat(paragraphStyle.hasFontAttributes(), equalTo(true))
+        val style = TextStyle(fontStyle = FontStyle.Italic)
+        assertThat(style.hasFontAttributes(), equalTo(true))
     }
 
     @Test
     fun `hasFontAttributes with fontWeight returns true`() {
-        val paragraphStyle = ParagraphStyle(fontWeight = FontWeight.normal)
-        assertThat(paragraphStyle.hasFontAttributes(), equalTo(true))
+        val style = TextStyle(fontWeight = FontWeight.normal)
+        assertThat(style.hasFontAttributes(), equalTo(true))
     }
 }
