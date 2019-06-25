@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0edc251_c27af906",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-25T00:10:07Z",
+      "side": 1,
+      "message": "Hmm, maybe. I guess that calling this function would look like \"project.getApiLocation()\"?\n\nI hope it\u0027s sufficiently unambiguous that it doesn\u0027t refer to api/current.txt and also doesn\u0027t refer to the api file in the out directory",
+      "parentUuid": "b9958e24_215b45f6",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bd6b5a3_552c0f31",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c5118d4e_0017683f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-25T00:10:07Z",
+      "side": 1,
+      "message": "In the next patchset I\u0027ve now refactored GenerateApiTask to pass in a JavaCompileInputs, to allow removing the definition on line 58",
+      "parentUuid": "5bd6b5a3_552c0f31",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2156736d_17a15a86",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-19T20:37:38Z",
       "side": 1,
       "message": "Why does the caller care about this temp dir? Can we just use Files.createTempDirectory?",
+      "range": {
+        "startLine": 84,
+        "startChar": 13,
+        "endLine": 84,
+        "endChar": 20
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85045c9_e9ecae63",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-25T00:10:07Z",
+      "side": 1,
+      "message": "It\u0027s convenient for this temp file to be saved in the out/dir next to the other api files so that if removeRestrictToLibraryLines on line 127 does something wrong then it\u0027s easier to see what the output had been",
+      "parentUuid": "2156736d_17a15a86",
       "range": {
         "startLine": 84,
         "startChar": 13,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "6848b886_4ca71ec0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-25T00:10:07Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "8e71e3eb_3c9ec982",
+      "range": {
+        "startLine": 90,
+        "startChar": 15,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30a4a250_faf190b9",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/RegenerateOldApisTask.kt",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-19T20:37:38Z",
       "side": 1,
       "message": "1. This will not work for ui/ project as relative path is different. Please use SupportConfig#getSupportRoot as base.\n\n2. As far as I understand this is missing prebuilts for certain versions? Do we want to fetch more artifacts? Should we just use maven.google.com as a source?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 83
+      },
+      "revId": "6826506953d32e67af5cea69a931f4e330b73e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71227125_4300164d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/RegenerateOldApisTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-25T00:10:07Z",
+      "side": 1,
+      "message": "1. Thanks\n\n2. Oops, I haven\u0027t investigated what to do about this hard enough yet. I was thinking based on what you said that maybe the way to go would be to iterate over the api files and for each one, regenerate it based on whichever dependencies are most convenient (prebuilts if present, maven.google.com if not?)",
+      "parentUuid": "30a4a250_faf190b9",
       "range": {
         "startLine": 41,
         "startChar": 8,
