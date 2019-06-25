@@ -141,6 +141,30 @@
       "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4390c092_677d4bfd",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-25T08:23:28Z",
+      "side": 1,
+      "message": "Hmm, you\u0027re right.\n\nThere are some patterns where we need to prefix table names, but there are some patterns we should not.\n\nIn that example, the columns should be prefixed with \"User.\", or otherwise it fails. However, that\u0027s not enough. On JB and below, doing \"SELECT `User`.`mId`...\" gives us back \"`User`.`mId`\" in the cursor, as opposed to \"mId\" on newer platforms.\n\nIt\u0027s getting very complicated, and I don\u0027t know what to do about this.",
+      "parentUuid": "39b5256b_7c42abc1",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
