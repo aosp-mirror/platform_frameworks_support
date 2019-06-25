@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Oussama Ben Abdelbaki <obenabde@google.com>
+Submitted-by: Oussama Ben Abdelbaki <obenabde@google.com>
+Submitted-at: Tue, 25 Jun 2019 18:40:48 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/987617
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
