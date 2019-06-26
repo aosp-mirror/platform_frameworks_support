@@ -22,6 +22,30 @@
       "revId": "aefabddc72d77bbee7c964cdcbcdb0853cc12d60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0c4ead_400007f5",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlView_WithSthTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-26T06:11:29Z",
+      "side": 1,
+      "message": "I think I don\u0027t catch your question. The first one is testing to set a paused-state player and then click play button while the second one is testing to set a playing-state player and then click pause button. Does it make sense to have two tests?",
+      "parentUuid": "98ec77d4_2fed6741",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 5
+      },
+      "revId": "aefabddc72d77bbee7c964cdcbcdb0853cc12d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
