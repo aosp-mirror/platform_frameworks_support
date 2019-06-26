@@ -184,7 +184,7 @@ class ParagraphIntegrationTest {
             assertThat(
                 "position at index $i, offset $offset does not match",
                 position,
-                equalTo(TextPosition(i, TextAffinity.upstream))
+                equalTo(i)
             )
         }
     }
@@ -204,7 +204,7 @@ class ParagraphIntegrationTest {
             assertThat(
                 "position at index $i, offset $offset does not match",
                 position,
-                equalTo(TextPosition(text.length - i, TextAffinity.upstream))
+                equalTo(text.length - i)
             )
         }
     }
@@ -227,7 +227,7 @@ class ParagraphIntegrationTest {
             assertThat(
                 "position at index $i, offset $offset, second line does not match",
                 position,
-                equalTo(TextPosition(i + firstLine.length, TextAffinity.upstream))
+                equalTo(i + firstLine.length)
             )
         }
     }
@@ -250,7 +250,7 @@ class ParagraphIntegrationTest {
             assertThat(
                 "position at index $i, offset $offset, second line does not match",
                 position,
-                equalTo(TextPosition(text.length - i, TextAffinity.upstream))
+                equalTo(text.length - i)
             )
         }
     }
@@ -266,12 +266,12 @@ class ParagraphIntegrationTest {
         // greater than width
         var offset = Offset(fontSize * text.length * 2, fontSize / 2)
         var position = paragraph.getPositionForOffset(offset)
-        assertThat(position, equalTo(TextPosition(text.length, TextAffinity.upstream)))
+        assertThat(position, equalTo(text.length))
 
         // negative
         offset = Offset(-1 * fontSize, fontSize / 2)
         position = paragraph.getPositionForOffset(offset)
-        assertThat(position, equalTo(TextPosition(0, TextAffinity.upstream)))
+        assertThat(position, equalTo(0))
     }
 
     @Test
@@ -285,12 +285,12 @@ class ParagraphIntegrationTest {
         // greater than height
         var offset = Offset(fontSize / 2, fontSize * text.length * 2)
         var position = paragraph.getPositionForOffset(offset)
-        assertThat(position, equalTo(TextPosition(0, TextAffinity.upstream)))
+        assertThat(position, equalTo(0))
 
         // negative
         offset = Offset(fontSize / 2, -1 * fontSize)
         position = paragraph.getPositionForOffset(offset)
-        assertThat(position, equalTo(TextPosition(0, TextAffinity.upstream)))
+        assertThat(position, equalTo(0))
     }
 
     @Test
@@ -302,8 +302,7 @@ class ParagraphIntegrationTest {
         paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
         // test positions that are 0, 1, 2 ... which maps to chars 0, 1, 2 ...
         for (i in 0..text.length - 1) {
-            val textPosition = TextPosition(i, TextAffinity.upstream)
-            val box = paragraph.getBoundingBoxForTextPosition(textPosition)
+            val box = paragraph.getBoundingBoxForTextPosition(i)
             assertThat(box.left, equalTo(i * fontSize))
             assertThat(box.right, equalTo((i + 1) * fontSize))
             assertThat(box.top, equalTo(0f))
@@ -324,7 +323,7 @@ class ParagraphIntegrationTest {
         // test positions are 3, 4, 5 and always on the second line
         // which maps to chars 3, 4, 5
         for (i in 0..secondLine.length - 1) {
-            val textPosition = TextPosition(i + firstLine.length, TextAffinity.upstream)
+            val textPosition = i + firstLine.length
             val box = paragraph.getBoundingBoxForTextPosition(textPosition)
             assertThat(box.left, equalTo(i * fontSize))
             assertThat(box.right, equalTo((i + 1) * fontSize))
@@ -341,7 +340,7 @@ class ParagraphIntegrationTest {
 
         paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
 
-        val textPosition = TextPosition(-1, TextAffinity.upstream)
+        val textPosition = -1
         val box = paragraph.getBoundingBoxForTextPosition(textPosition)
         assertThat(box.left, equalTo(0f))
         assertThat(box.right, equalTo(0f))
@@ -357,7 +356,7 @@ class ParagraphIntegrationTest {
 
         paragraph.layout(ParagraphConstraints(width = text.length * fontSize))
 
-        val textPosition = TextPosition(text.length + 1, TextAffinity.upstream)
+        val textPosition = text.length + 1
         paragraph.getBoundingBoxForTextPosition(textPosition)
     }
 
@@ -377,10 +376,11 @@ class ParagraphIntegrationTest {
             val paragraph = Paragraph(
                 text = text,
                 textStyles = listOf(),
-                paragraphStyle = ParagraphStyle(
+                style = TextStyle(
                     fontSize = fontSize,
                     locale = locale
-                )
+                ),
+                paragraphStyle = ParagraphStyle()
             )
 
             // just have 10x font size to have a bitmap
@@ -399,11 +399,7 @@ class ParagraphIntegrationTest {
     @Test
     fun locale_isDefaultLocaleIfNotProvided() {
         val text = "abc"
-        val paragraph = Paragraph(
-            text = text,
-            textStyles = listOf(),
-            paragraphStyle = ParagraphStyle()
-        )
+        val paragraph = simpleParagraph(text = text)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
@@ -417,13 +413,7 @@ class ParagraphIntegrationTest {
     fun locale_isSetOnParagraphImpl_enUS() {
         val locale = Locale(_languageCode = "en", _countryCode = "US")
         val text = "abc"
-        val paragraph = Paragraph(
-            text = text,
-            textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
-                locale = locale
-            )
-        )
+        val paragraph = simpleParagraph(text = text, locale = locale)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
@@ -434,13 +424,7 @@ class ParagraphIntegrationTest {
     fun locale_isSetOnParagraphImpl_jpJP() {
         val locale = Locale(_languageCode = "ja", _countryCode = "JP")
         val text = "abc"
-        val paragraph = Paragraph(
-            text = text,
-            textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
-                locale = locale
-            )
-        )
+        val paragraph = simpleParagraph(text = text, locale = locale)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
@@ -451,13 +435,7 @@ class ParagraphIntegrationTest {
     fun locale_noCountryCode_isSetOnParagraphImpl() {
         val locale = Locale(_languageCode = "ja")
         val text = "abc"
-        val paragraph = Paragraph(
-            text = text,
-            textStyles = listOf(),
-            paragraphStyle = ParagraphStyle(
-                locale = locale
-            )
-        )
+        val paragraph = simpleParagraph(text = text, locale = locale)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
@@ -786,7 +764,7 @@ class ParagraphIntegrationTest {
         paragraph.layout(ParagraphConstraints(width = layoutWidth))
         // The offset of the last character in display order.
         val offset = Offset("a.".length * fontSize + 1, fontSize / 2)
-        val charIndex = paragraph.getPositionForOffset(offset = offset).offset
+        val charIndex = paragraph.getPositionForOffset(offset = offset)
         assertThat(charIndex, equalTo(2))
     }
 
@@ -804,7 +782,7 @@ class ParagraphIntegrationTest {
         paragraph.layout(ParagraphConstraints(width = layoutWidth))
         // The offset of the first character in display order.
         val offset = Offset(fontSize / 2 + 1, fontSize / 2)
-        val charIndex = paragraph.getPositionForOffset(offset = offset).offset
+        val charIndex = paragraph.getPositionForOffset(offset = offset)
         assertThat(charIndex, equalTo(2))
     }
 
@@ -822,7 +800,7 @@ class ParagraphIntegrationTest {
         for (i in 0..text.length) {
             // The offset of the i-th character in display order.
             val offset = Offset(i * fontSize + 1, fontSize / 2)
-            val charIndex = paragraph.getPositionForOffset(offset = offset).offset
+            val charIndex = paragraph.getPositionForOffset(offset = offset)
             assertThat(charIndex, equalTo(i))
         }
     }
@@ -841,7 +819,7 @@ class ParagraphIntegrationTest {
         for (i in 0 until text.length) {
             // The offset of the i-th character in display order.
             val offset = Offset(i * fontSize + 1, fontSize / 2)
-            val charIndex = paragraph.getPositionForOffset(offset = offset).offset
+            val charIndex = paragraph.getPositionForOffset(offset = offset)
             assertThat(charIndex, equalTo(i))
         }
     }
@@ -859,7 +837,7 @@ class ParagraphIntegrationTest {
         paragraph.layout(ParagraphConstraints(width = layoutWidth))
         // The first character in display order should be '.'
         val offset = Offset(fontSize / 2 + 1, fontSize / 2)
-        val index = paragraph.getPositionForOffset(offset = offset).offset
+        val index = paragraph.getPositionForOffset(offset = offset)
         assertThat(index, equalTo(2))
     }
 
@@ -916,6 +894,7 @@ class ParagraphIntegrationTest {
         Paragraph(
             text = "",
             textStyles = listOf(),
+            style = TextStyle(),
             paragraphStyle = ParagraphStyle(
                 lineHeight = -1.0f
             )
@@ -923,7 +902,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_setFontSizeOnWholeText() {
+    fun testAnnotatedString_setFontSizeOnWholeText() {
         val text = "abcde"
         val fontSize = 20.0f
         val textStyle = TextStyle(fontSize = fontSize)
@@ -943,7 +922,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_setFontSizeOnPartOfText() {
+    fun testAnnotatedString_setFontSizeOnPartOfText() {
         val text = "abcde"
         val fontSize = 20.0f
         val textStyleFontSize = 30.0f
@@ -966,7 +945,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_seFontSizeTwice_lastOneOverwrite() {
+    fun testAnnotatedString_seFontSizeTwice_lastOneOverwrite() {
         val text = "abcde"
         val fontSize = 20.0f
         val textStyle = TextStyle(fontSize = fontSize)
@@ -993,7 +972,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontSizeScale() {
+    fun testAnnotatedString_fontSizeScale() {
         val text = "abcde"
         val fontSize = 20f
         val fontSizeScale = 0.5f
@@ -1014,7 +993,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontSizeScaleNested() {
+    fun testAnnotatedString_fontSizeScaleNested() {
         val text = "abcde"
         val fontSize = 20f
         val fontSizeScale = 0.5f
@@ -1041,7 +1020,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontSizeScaleWithFontSizeFirst() {
+    fun testAnnotatedString_fontSizeScaleWithFontSizeFirst() {
         val text = "abcde"
         val paragraphFontSize = 20f
 
@@ -1069,7 +1048,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontSizeScaleWithFontSizeSecond() {
+    fun testAnnotatedString_fontSizeScaleWithFontSizeSecond() {
         val text = "abcde"
         val paragraphFontSize = 20f
 
@@ -1097,7 +1076,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontSizeScaleWithFontSizeNested() {
+    fun testAnnotatedString_fontSizeScaleWithFontSizeNested() {
         val text = "abcde"
         val paragraphFontSize = 20f
 
@@ -1129,7 +1108,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingOnWholeText() {
+    fun testAnnotatedString_setLetterSpacingOnWholeText() {
         val text = "abcde"
         val fontSize = 20.0f
         val letterSpacing = 5.0f
@@ -1154,7 +1133,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingOnPartText() {
+    fun testAnnotatedString_setLetterSpacingOnPartText() {
         val text = "abcde"
         val fontSize = 20.0f
         val letterSpacing = 5.0f
@@ -1177,7 +1156,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setLetterSpacingTwice_lastOneOverwrite() {
         val text = "abcde"
         val fontSize = 20.0f
 
@@ -1209,7 +1188,7 @@ class ParagraphIntegrationTest {
 
     @SdkSuppress(minSdkVersion = 29)
     @Test
-    fun textStyle_setWordSpacingOnWholeText() {
+    fun testAnnotatedString_setWordSpacingOnWholeText() {
         if (!BuildCompat.isAtLeastQ()) return
         val text = "ab cd"
         val fontSize = 20.0f
@@ -1236,7 +1215,7 @@ class ParagraphIntegrationTest {
 
     @SdkSuppress(minSdkVersion = 29)
     @Test
-    fun textStyle_setWordSpacingOnPartText() {
+    fun testAnnotatedString_setWordSpacingOnPartText() {
         if (!BuildCompat.isAtLeastQ()) return
         val text = "a b c"
         val fontSize = 20.0f
@@ -1263,7 +1242,7 @@ class ParagraphIntegrationTest {
 
     @SdkSuppress(minSdkVersion = 29)
     @Test
-    fun textStyle_setWordSpacingTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setWordSpacingTwice_lastOneOverwrite() {
         if (!BuildCompat.isAtLeastQ()) return
         val text = "a b c"
         val fontSize = 20.0f
@@ -1314,7 +1293,7 @@ class ParagraphIntegrationTest {
         // Otherwise this offset will point to the second character 'b'.
         val offset = Offset(indent + 1, fontSize / 2)
         // The position corresponding to the offset should be the first char 'a'.
-        assertThat(paragraphImpl.getPositionForOffset(offset).offset, equalTo(0))
+        assertThat(paragraphImpl.getPositionForOffset(offset), equalTo(0))
     }
 
     @Test
@@ -1338,7 +1317,7 @@ class ParagraphIntegrationTest {
         // Otherwise this offset will point to the second character of the second line.
         val offset = Offset(indent + 1, fontSize / 2)
         // The position corresponding to the offset should be the first char 'a'.
-        assertThat(paragraphImpl.getPositionForOffset(offset).offset, equalTo(0))
+        assertThat(paragraphImpl.getPositionForOffset(offset), equalTo(0))
     }
 
     @Test
@@ -1361,20 +1340,20 @@ class ParagraphIntegrationTest {
         val offset = Offset(indent + 1, fontSize / 2 + fontSize)
         // The position corresponding to the offset should be the 'd' in the second line.
         assertThat(
-            paragraphImpl.getPositionForOffset(offset).offset,
+            paragraphImpl.getPositionForOffset(offset),
             equalTo("abcd".length - 1)
         )
     }
 
     @Test
-    fun textStyle_fontFamily_changesMeasurement() {
+    fun testAnnotatedString_fontFamily_changesMeasurement() {
         val text = "ad"
         val fontSize = 20.0f
         // custom 100 regular font has b as the wide glyph
         // custom 200 regular font has d as the wide glyph
         val textStyle = TextStyle(fontFamily = fontFamilyCustom200)
         // a is rendered in paragraphStyle font (custom 100), it will not have wide glyph
-        // d is rendered in textStyle font (custom 200), and it will be wide glyph
+        // d is rendered in defaultTextStyle font (custom 200), and it will be wide glyph
         val expectedWidth = fontSize + fontSize * 3
 
         val paragraph = simpleParagraph(
@@ -1393,7 +1372,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun textStyle_fontFeature_turnOffKern() {
+    fun testAnnotatedString_fontFeature_turnOffKern() {
         val text = "AaAa"
         val fontSize = 20.0f
         // This fontFeatureSetting turns off the kerning
@@ -1417,7 +1396,7 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun testStyle_shadow() {
+    fun testAnnotatedString_shadow() {
         val text = "abcde"
         val fontSize = 20f
         val paragraphWidth = fontSize * text.length
@@ -1435,6 +1414,54 @@ class ParagraphIntegrationTest {
         paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
         assertThat(paragraphShadow.bitmap(), not(equalToBitmap(paragraph.bitmap())))
+    }
+
+    @Test
+    fun testDefaultTextStyle_setColor() {
+        val text = "abc"
+        // FontSize doesn't matter here, but it should be big enough for bitmap comparison.
+        val fontSize = 100f
+        val paragraphWidth = fontSize * text.length
+        val textStyle = TextStyle(color = Color.Red)
+
+        val paragraphWithoutColor = simpleParagraph(
+            text = text,
+            fontSize = fontSize
+        )
+        paragraphWithoutColor.layout(ParagraphConstraints(paragraphWidth))
+
+        val paragraphWithColor = simpleParagraph(
+            text = text,
+            textStyle = textStyle,
+            fontSize = fontSize
+        )
+        paragraphWithColor.layout(ParagraphConstraints(paragraphWidth))
+
+        assertThat(
+            paragraphWithColor.bitmap(),
+            not(equalToBitmap(paragraphWithoutColor.bitmap()))
+        )
+    }
+
+    @Test
+    fun testDefaultTextStyle_setLetterSpacing() {
+        val text = "abc"
+        // FontSize doesn't matter here, but it should be big enough for bitmap comparison.
+        val fontSize = 100f
+        val letterSpacing = 1f
+        val textStyle = TextStyle(letterSpacing = letterSpacing)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = textStyle,
+            fontSize = fontSize
+        )
+        paragraph.layout(ParagraphConstraints(Float.MAX_VALUE))
+
+        assertThat(
+            paragraph.getLineRight(0),
+            equalTo(fontSize * (1 + letterSpacing) * text.length)
+        )
     }
 
     @Test
@@ -1773,18 +1800,23 @@ class ParagraphIntegrationTest {
         maxLines: Int? = null,
         lineHeight: Float? = null,
         textStyles: List<AnnotatedString.Item<TextStyle>> = listOf(),
-        fontFamily: FontFamily = fontFamilyMeasureFont
+        fontFamily: FontFamily = fontFamilyMeasureFont,
+        locale: Locale? = null,
+        textStyle: TextStyle? = null
     ): Paragraph {
         return Paragraph(
             text = text,
             textStyles = textStyles,
+            style = TextStyle(
+                fontFamily = fontFamily,
+                fontSize = fontSize,
+                locale = locale
+            ).merge(textStyle),
             paragraphStyle = ParagraphStyle(
                 textIndent = textIndent,
                 textAlign = textAlign,
                 textDirection = textDirection,
                 maxLines = maxLines,
-                fontFamily = fontFamily,
-                fontSize = fontSize,
                 lineHeight = lineHeight
             )
         )
