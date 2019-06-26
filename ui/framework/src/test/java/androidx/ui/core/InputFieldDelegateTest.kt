@@ -21,6 +21,9 @@ import androidx.ui.input.CommitTextEditOp
 import androidx.ui.input.EditOperation
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
+import androidx.ui.input.EventType
+import androidx.ui.input.KEYCODE_BACKSPACE
+import androidx.ui.input.KeyEvent
 import androidx.ui.input.SetSelectionEditOp
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.TextPainter
@@ -48,6 +51,11 @@ class InputFieldDelegateTest {
     private lateinit var processor: EditProcessor
     private lateinit var onValueChange: (EditorState) -> Unit
 
+    // TODO(nona): Use Mockito to mock onKeyEventForwarded. (Just mocking onKeyEventForwarded causes
+    //             NullPointerException. This is likely happening if the function returns primitive
+    //             values.
+    private var consumeKeyEvent = false
+
     @Before
     fun setup() {
         painter = mock()
@@ -55,7 +63,7 @@ class InputFieldDelegateTest {
         processor = mock()
         onValueChange = mock()
 
-        delegate = InputFieldDelegate(painter, processor, onValueChange)
+        delegate = InputFieldDelegate(painter, processor, onValueChange, { consumeKeyEvent })
     }
 
     @Test
@@ -138,5 +146,31 @@ class InputFieldDelegateTest {
         assertEquals(1, captor.firstValue.size)
         assertTrue(captor.firstValue[0] is SetSelectionEditOp)
         verify(onValueChange, times(1)).invoke(eq(dummyEditorState))
+    }
+
+    @Test
+    fun test_let_app_decide_keyevent_not_consumed() {
+        val keyEvent = KeyEvent(EventType.KEY_DOWN, KEYCODE_BACKSPACE)
+        val dummyEditorState = EditorState(text = "Hello, World", selection = TextRange(1, 1))
+
+        consumeKeyEvent = false
+        whenever(processor.onEditCommands(any())).thenReturn(dummyEditorState)
+
+        delegate.onKeyEvent(keyEvent)
+
+        verify(onValueChange, times(1)).invoke(eq(dummyEditorState))
+    }
+
+    @Test
+    fun test_let_app_decide_keyevent_consumed() {
+        val keyEvent = KeyEvent(EventType.KEY_DOWN, KEYCODE_BACKSPACE)
+        val dummyEditorState = EditorState(text = "Hello, World", selection = TextRange(1, 1))
+
+        consumeKeyEvent = true
+        whenever(processor.onEditCommands(any())).thenReturn(dummyEditorState)
+
+        delegate.onKeyEvent(keyEvent)
+
+        verify(onValueChange, never()).invoke(any())
     }
 }

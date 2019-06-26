@@ -29,6 +29,7 @@ import androidx.ui.core.input.FocusManager
 import androidx.ui.graphics.Color
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
+import androidx.ui.input.KeyEvent
 import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.TextPainter
 import androidx.ui.painting.TextStyle
@@ -82,8 +83,15 @@ fun InputField(
     /** Called when the InputMethod requested an editor action */
     onEditorActionPerformed: (Any) -> Unit = {}, // TODO(nona): Define argument type
 
-    /** Called when the InputMethod forwarded a key event */
-    onKeyEventForwarded: (Any) -> Unit = {} // TODO(nona): Define argument type
+    /**
+     * Called when the InputMethod forwarded a key event
+     *
+     * This callback is called before InputFiled applys keyboard event to text buffer. By returning
+     * false, InputFiled will process the keyboard event and onValueChange callback may be called
+     * if editor state is updated. By returning true, InputField does nothing for this keyboard
+     * event.
+     */
+    onKeyEventForwarded: (KeyEvent) -> Boolean = { false /* not consume by default */ }
 ) {
     val style = +ambient(CurrentTextStyleAmbient)
     val mergedStyle = style.merge(editorStyle.textStyle)
@@ -98,7 +106,8 @@ fun InputField(
             style = mergedStyle
         ),
         processor,
-        onValueChange
+        onValueChange,
+        onKeyEventForwarded
     )
 
     val textInputService = +ambient(TextInputServiceAmbient)
@@ -109,7 +118,7 @@ fun InputField(
                 initState = value,
                 onEditCommand = { delegate.onEditCommand(it) },
                 onEditorActionPerformed = onEditorActionPerformed,
-                onKeyEventForwarded = onKeyEventForwarded
+                onKeyEventForwarded = { delegate.onKeyEvent(it) }
             )
         },
         onBlur = { textInputService?.stopInput() },

@@ -327,6 +327,11 @@ package androidx.ui.core {
 
 package androidx.ui.core.input {
 
+  public final class KeyEventAndroidKt {
+    ctor public KeyEventAndroidKt();
+    method public static androidx.ui.input.KeyEvent toKeyEvent(android.view.KeyEvent);
+  }
+
   public final class RecordingInputConnectionKt {
     ctor public RecordingInputConnectionKt();
   }

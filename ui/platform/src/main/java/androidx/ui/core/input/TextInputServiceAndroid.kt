@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.ui.input.EditOperation
 import androidx.ui.input.EditorState
 import androidx.ui.input.InputEventListener
+import androidx.ui.input.KeyEvent
 import androidx.ui.input.TextInputService
 
 /**
@@ -40,7 +41,7 @@ internal class TextInputServiceAndroid(val view: View) : TextInputService {
      */
     private var onEditCommand: (List<EditOperation>) -> Unit = {}
     private var onEditorActionPerformed: (Any) -> Unit = {}
-    private var onKeyEventForwarded: (Any) -> Unit = {}
+    private var onKeyEventForwarded: (KeyEvent) -> Unit = {}
 
     /**
      * The editable buffer used for BaseInputConnection.
@@ -62,6 +63,10 @@ internal class TextInputServiceAndroid(val view: View) : TextInputService {
             override fun onEditOperations(editOps: List<EditOperation>) {
                 onEditCommand(editOps)
             }
+
+            override fun onKeyEvent(keyEvent: KeyEvent) {
+                onKeyEventForwarded(keyEvent)
+            }
         })
     }
 
@@ -74,7 +79,7 @@ internal class TextInputServiceAndroid(val view: View) : TextInputService {
         initState: EditorState,
         onEditCommand: (List<EditOperation>) -> Unit,
         onEditorActionPerformed: (Any) -> Unit,
-        onKeyEventForwarded: (Any) -> Unit
+        onKeyEventForwarded: (KeyEvent) -> Unit
     ) {
         editorHasFocus = true
         this.onEditCommand = onEditCommand
