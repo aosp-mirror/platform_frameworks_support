@@ -34,6 +34,24 @@
       "revId": "1e415b43bfeff2adcd5907f8a28ca258491e5af3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6814c7a1_a53eb695",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-06-26T01:50:14Z",
+      "side": 1,
+      "message": "(discussed 1:1)",
+      "parentUuid": "a4a8aa8b_54c3a3a5",
+      "revId": "1e415b43bfeff2adcd5907f8a28ca258491e5af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
