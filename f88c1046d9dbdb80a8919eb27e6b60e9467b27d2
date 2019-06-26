@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6365cc1f_ef63495e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-26T13:24:38Z",
+      "side": 1,
+      "message": "I strongly agree with Matvei here. I don\u0027t see any reason why TabRow should be private here. Also I don\u0027t think it makes sense for TabLayout to have a slots for Tabs instead of the one slot for TabRow. You are basically just skipping one layer of responsibility here. \nI also think I shouldn\u0027t be restricted to use TabLayout with viewPager inside. What if I don\u0027t have viewPager? What if I have something custom instead? What if I have some custom scrolling logic so my tabs will be collapsed when I scroll the content? What if I need to combine TabRow and AppBar into some common component to apply this scrolling for both of them, or just reuse them together in some way between the screens? What if I need some slightly different tabs indicator, should I rewrite all the TabLayout then?\nIt the purpose of the TabLayout is to just coordinate TabRow and the content maybe we are going into a wrong direction? Maybe we need a controller instead. Developers can write Column even without us and it would be even simpler for them to read as they are familiar with basics already\nColumn(\n   val tabController \u003d +memo { TabController\u003cItemClass\u003e(items, selectedItem) }\n   TabRow(tabController) { item -\u003e\n      Tab(\n        icon \u003d { SimpleImage(item.image) },\n        text \u003d { Text(item.title) }\n      )\n   }\n   ViewPager(tabController.toViewPagerController) { item -\u003e \n      // content\n   }\n}\nfor example ViewPager then could change the progress of the switching between the tabs accordingly to it\u0027s scroll position and this will be applied to the tabs as well. or some similar idea. If you will hide ViewPager inside TabLayout developer will not be able to customize it. What if they would want to provide some custom PageTransformer for it? Let\u0027s also not forget that we don\u0027t have ViewPager yet, and we don\u0027t know how it will work in the end. So we should have a flexible solution which would work with any ViewPager implementation. We should be able to connect our tabController with callbacks from ViewPager.\nI really think TabRow should be a separated item and can be used independently.",
+      "parentUuid": "8fd94f97_c441ded3",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 22
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63cf8b79_43b0a050",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -245,6 +269,24 @@
       "writtenOn": "2019-06-26T11:21:25Z",
       "side": 1,
       "message": "Do we plan to provide generic Tab to users, so they won\u0027t have to create their own semantics/ripples/clicks? For example I just want to place my own image implementation (MyAsyncFancyImage) as an image in the tab. Do I have to write Clickables, Ripples and everything again? \n\nSame question is when I want my Tabs to have MyI18nText() in the tab instead of our Text, or just some other composable",
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925efeec_6e980883",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-26T13:24:38Z",
+      "side": 1,
+      "message": "I also think it is very useful to provide a public BaseTab/RawTab with flexible content. Will  help to create whatever custom tabs with animations developers would want to put into a tab keeping semantics we want them to use.\nAlso you can use slots in your Tab to be aligned with our direction of using slots everywhere.\nTab(\n  selected \u003d selected, \n  onSelected \u003d onSelected, \n  icon \u003d { tintColor -\u003e SimpleImage(icon, tintColor) },\n  text \u003d { Text(text) } // maybe also color as a param or specify it with CurrentTextStyleProvider\n)",
+      "parentUuid": "326a3403_36689630",
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
