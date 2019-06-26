@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b59be25_7bfc738f",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T15:20:14Z",
+      "side": 1,
+      "message": "nit: did you consider overload that would also accept Dps so you don\u0027t have to do the conversions everytime? Or is this needed to enable the math operations? Couldn\u0027t this then be just a value and not lambda?",
+      "range": {
+        "startLine": 149,
+        "startChar": 10,
+        "endLine": 149,
+        "endChar": 32
+      },
+      "revId": "89f1a213648c815e3af768faaeff4c563659143f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77dd854_a7e5616f",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ColoredRectUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T15:20:14Z",
+      "side": 1,
+      "message": "nit (optional): consider new line here to make nicer indendentation with the assert block below.",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "89f1a213648c815e3af768faaeff4c563659143f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
