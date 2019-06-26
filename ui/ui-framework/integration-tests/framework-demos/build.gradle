@@ -26,6 +26,7 @@ dependencies {
     implementation project(':ui:ui-animation')
     implementation project(':ui:ui-framework')
     implementation project(':ui:ui-material')
+    compile project(path: ':ui:ui-vector')
 }
 
 android {
