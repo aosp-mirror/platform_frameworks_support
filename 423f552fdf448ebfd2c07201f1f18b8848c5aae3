@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6b12cd2_ea68bed1",
+        "filename": "ui/text/api/1.0.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "make this private",
+      "range": {
+        "startLine": 80,
+        "startChar": 51,
+        "endLine": 80,
+        "endChar": 56
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93554382_8855d823",
+        "filename": "ui/text/api/1.0.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "this is because of the extension function, make extension function internal.",
+      "range": {
+        "startLine": 210,
+        "startChar": 21,
+        "endLine": 210,
+        "endChar": 32
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a649fe39_7af139b0",
+        "filename": "ui/text/api/1.0.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "this should not be public at all. find why it is public.",
+      "range": {
+        "startLine": 289,
+        "startChar": 21,
+        "endLine": 289,
+        "endChar": 39
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96000096_5923351a",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "shall this be private.",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 453,
+        "endChar": 8
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0730601b_87323d24",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "shall this be private?",
+      "range": {
+        "startLine": 506,
+        "startChar": 0,
+        "endLine": 506,
+        "endChar": 8
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d2d108_238a64a0",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "this needs @hide",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 7
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e282448_c3747a74",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "make them private",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 12
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5299bbd0_b90f23fb",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T00:48:49Z",
+      "side": 1,
+      "message": "make them private",
+      "range": {
+        "startLine": 216,
+        "startChar": 25,
+        "endLine": 216,
+        "endChar": 26
+      },
+      "revId": "423f552fdf448ebfd2c07201f1f18b8848c5aae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
