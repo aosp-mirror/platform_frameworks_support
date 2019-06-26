@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0223ff52_f4447eb9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-26T03:35:26Z",
+      "side": 1,
+      "message": "It may need a generic exception (or other design) to indicate (or know) the capture request is issued or not. Once the request is issued then it should not file next image capture request in onFailure() callback because next request will be issued after onImageAvailable().\nFor example, if failure happen on \"preTakePicture()\", then it needs to file next request.\nif failure happen on \"postTakePicture\", then it shouldn\u0027t file next request. It depends on capture request issued or not.\nOne thought is to define a flag in TakePictureState and set the flag after capture request issued. Then it can depend on the flag to issue next request or not.",
+      "range": {
+        "startLine": 539,
+        "startChar": 32,
+        "endLine": 539,
+        "endChar": 80
+      },
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e2bcc41_972a5a40",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-26T03:35:26Z",
+      "side": 1,
+      "message": "It should reference to dispatchImage() and post runnable to caller\u0027s given handler. Suggest to add a callbackError() in ImageCaptureRequest and then we can reuse it. Here is a sample code (https://android-review.googlesource.com/c/platform/frameworks/support/+/985886/8/camera/core/src/main/java/androidx/camera/core/ImageCapture.java), feel free to use it.\nAlthough \"request\" should not be null at this moment, it is still safe to check null. So does \"t\"?",
+      "range": {
+        "startLine": 543,
+        "startChar": 36,
+        "endLine": 544,
+        "endChar": 63
+      },
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11e2681d_27857b14",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
