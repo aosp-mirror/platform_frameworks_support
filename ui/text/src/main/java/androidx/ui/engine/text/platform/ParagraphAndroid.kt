@@ -138,12 +138,12 @@ internal class ParagraphAndroid constructor(
     fun layout(width: Float) {
         val floorWidth = floor(width)
 
-        val newStyle = style.applyTextStyle(textPaint, typefaceAdapter)
+        style.applyTextStyle(textPaint, typefaceAdapter)
 
         val charSequence = applyTextStyle(
             text,
             paragraphStyle.textIndent,
-            listOf(AnnotatedString.Item<TextStyle>(newStyle, 0, text.length)) + textStyles
+            textStyles
         )
 
         val alignment = toLayoutAlign(paragraphStyle.textAlign)
@@ -445,10 +445,14 @@ internal class ParagraphAndroid constructor(
 private fun TextStyle.applyTextStyle(
     textPaint: TextPaint,
     typefaceAdapter: TypefaceAdapter
-): TextStyle {
+) {
     // TODO(haoyuchang) remove this engine.ParagraphStyle
     fontSize?.let {
         textPaint.textSize = it
+    }
+
+    fontSizeScale?.let {
+        textPaint.textSize *= fontSizeScale
     }
 
     // TODO(siyamed): This default values are problem here. If the user just gives a single font
@@ -478,21 +482,49 @@ private fun TextStyle.applyTextStyle(
         textPaint.letterSpacing = it
     }
 
-    // TODO(siyamed) temporary fix for text style. Will apply Styles that cover the whole
-    // string onto the Paint. This will null the values that are already applied to paint
-    // and provide a text style with other values.
-    return copy(
-        fontSize = null,
-        locale = null,
-        fontWeight = null,
-        fontFamily = null,
-        fontStyle = null,
-        fontSynthesis = null,
-        letterSpacing = null,
-        color = null
-    )
+    fontFeatureSettings?.let {
+        textPaint.fontFeatureSettings = it
+    }
 
-    // TODO(haoyuchang) apply other styles when engine.ParagraphStyle get removed.
+    if (Build.VERSION.SDK_INT >= 29) {
+        wordSpacing?.let {
+            textPaint.wordSpacing = it
+        }
+    }
+
+    baselineShift?.let {
+        textPaint.baselineShift += (textPaint.ascent() * it.multiplier).toInt()
+    }
+
+    textGeometricTransform?.scaleX?.let {
+        textPaint.textScaleX *= it
+    }
+
+    textGeometricTransform?.skewX?.let {
+        textPaint.textSkewX += it
+    }
+
+    shadow?.let {
+        textPaint.setShadowLayer(
+            it.blurRadius.value,
+            it.offset.dx,
+            it.offset.dy,
+            it.color.toArgb()
+        )
+    }
+
+    background?.let {
+        textPaint.bgColor = it.toArgb()
+    }
+
+    decoration?.let {
+        if (it.contains(TextDecoration.Underline)) {
+            textPaint.isUnderlineText = true
+        }
+        if (it.contains(TextDecoration.LineThrough)) {
+            textPaint.isStrikeThruText = true
+        }
+    }
 }
 
 /**
