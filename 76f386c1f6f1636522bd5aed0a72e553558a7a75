@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c0efbf42_84f81809",
+        "filename": "ui/core/src/main/java/androidx/ui/engine/text/TextPosition.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T01:12:13Z",
+      "side": 1,
+      "message": "ack. will do in another CL.",
+      "parentUuid": "39755e5d_82c6c0fd",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "76f386c1f6f1636522bd5aed0a72e553558a7a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d801c29d_80d88106",
         "filename": "ui/core/src/main/java/androidx/ui/services/text_editing/TextSelection.kt",
         "patchSetId": 2

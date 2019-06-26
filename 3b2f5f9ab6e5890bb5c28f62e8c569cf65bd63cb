@@ -22,6 +22,30 @@
       "revId": "3b2f5f9ab6e5890bb5c28f62e8c569cf65bd63cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcca532c_9da8d3a0",
+        "filename": "ui/core/api/1.0.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T01:12:13Z",
+      "side": 1,
+      "message": "position is used by selection. if you and nona thinks we should remove it i will remove it (in another CL)",
+      "parentUuid": "533a6be9_6024a9a3",
+      "range": {
+        "startLine": 1087,
+        "startChar": 21,
+        "endLine": 1087,
+        "endChar": 33
+      },
+      "revId": "3b2f5f9ab6e5890bb5c28f62e8c569cf65bd63cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
