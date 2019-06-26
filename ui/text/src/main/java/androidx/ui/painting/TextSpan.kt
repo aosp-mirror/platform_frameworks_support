@@ -118,9 +118,6 @@ class TextSpan(
             return RenderComparison.LAYOUT
         }
         var result: RenderComparison = RenderComparison.IDENTICAL
-            // TODO(siyamed) add recognizer
-            /*if (recognizer == other.recognizer) RenderComparison.IDENTICAL
-            else RenderComparison.METADATA*/
         style?.let {
             val candidate: RenderComparison = it.compareTo(other.style!!)
             if (candidate.ordinal > result.ordinal) {
