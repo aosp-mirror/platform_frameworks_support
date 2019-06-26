@@ -75,6 +75,30 @@
       "revId": "9b183603d716da339626a0b6d6c9853925d1eb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4e20b9_1768701c",
+        "filename": "annotation/annotation-experimental-lint/src/test/kotlin/androidx/annotation/lint/ExperimentalDetectorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-06-26T15:38:25Z",
+      "side": 1,
+      "message": "It was fixed in a later patchset, this is #2/5",
+      "parentUuid": "cc3c4b20_2164440f",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 4
+      },
+      "revId": "9b183603d716da339626a0b6d6c9853925d1eb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
