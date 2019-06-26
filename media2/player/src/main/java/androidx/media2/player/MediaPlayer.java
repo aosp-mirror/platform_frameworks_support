@@ -3138,6 +3138,8 @@ public final class MediaPlayer extends SessionPlayer {
                         @Override
                         public void callCallback(SessionPlayer.PlayerCallback callback) {
                             callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
+                            callback.onVideoSizeChangedInternal(MediaPlayer.this,
+                                    getCurrentMediaItem(), getVideoSizeInternal());
                         }
                     });
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
