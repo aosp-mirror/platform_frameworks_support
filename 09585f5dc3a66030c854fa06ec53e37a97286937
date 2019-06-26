@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62e7e977_00f418a6",
+        "filename": "ui/studio_versions.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T19:58:56Z",
+      "side": 1,
+      "message": "(copying comment from other cl)\n\nIt looks like this is a build based off 3.5 beta 1 - but the version of AGP we use elsewhere in AndroidX is 3.5 beta 4. Is it safe to use this version of Studio, with a newer version of AGP? I thought that they were meant to be used in tandem, and sometimes AGP introduces new features that require a new version of Studio to use.",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "09585f5dc3a66030c854fa06ec53e37a97286937",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
