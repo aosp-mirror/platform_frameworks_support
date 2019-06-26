@@ -23,24 +23,25 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.Xml
 import androidx.core.content.res.TypedArrayUtils
-import androidx.ui.core.vectorgraphics.addPathNodes
-import androidx.ui.core.vectorgraphics.group
-import androidx.ui.core.vectorgraphics.path
-import androidx.ui.core.vectorgraphics.vector
 import androidx.ui.painting.StrokeCap
 import androidx.ui.painting.StrokeJoin
-import androidx.ui.core.vectorgraphics.DefaultPivotX
-import androidx.ui.core.vectorgraphics.DefaultPivotY
-import androidx.ui.core.vectorgraphics.DefaultRotate
-import androidx.ui.core.vectorgraphics.DefaultScaleX
-import androidx.ui.core.vectorgraphics.DefaultScaleY
-import androidx.ui.core.vectorgraphics.DefaultTranslateX
-import androidx.ui.core.vectorgraphics.DefaultTranslateY
-import androidx.ui.core.vectorgraphics.EmptyBrush
-import androidx.ui.core.vectorgraphics.EmptyPath
-import androidx.ui.core.vectorgraphics.PathNode
 import androidx.compose.Children
 import androidx.compose.Composable
+import androidx.ui.core.vectorgraphics.DrawVector
+import androidx.ui.core.vectorgraphics.group
+import androidx.ui.core.vectorgraphics.path
+import androidx.ui.graphics.vectorgraphics.DefaultPivotX
+import androidx.ui.graphics.vectorgraphics.DefaultPivotY
+import androidx.ui.graphics.vectorgraphics.DefaultRotate
+import androidx.ui.graphics.vectorgraphics.DefaultScaleX
+import androidx.ui.graphics.vectorgraphics.DefaultScaleY
+import androidx.ui.graphics.vectorgraphics.DefaultTranslateX
+import androidx.ui.graphics.vectorgraphics.DefaultTranslateY
+import androidx.ui.graphics.vectorgraphics.EmptyBrush
+import androidx.ui.graphics.vectorgraphics.EmptyPath
+import androidx.ui.graphics.vectorgraphics.PathNode
+import androidx.ui.graphics.vectorgraphics.PathParser
+import androidx.ui.vector.VectorScope
 import androidx.compose.composer
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -78,9 +79,16 @@ private fun getStrokeLineJoin(id: Int, defValue: StrokeJoin = StrokeJoin.miter):
         else -> defValue
     }
 
+fun addPathNodes(pathStr: String?): Array<PathNode> =
+    if (pathStr == null) {
+        EmptyPath
+    } else {
+        PathParser().parsePathString(pathStr).toNodes()
+    }
+
 @Composable
 @SuppressWarnings("RestrictedApi")
-private fun inflateGroup(
+private fun VectorScope.inflateGroup(
     a: TypedArray,
     parser: XmlPullParser,
     @Suppress("UNUSED_PARAMETER") theme: Resources.Theme?,
@@ -157,7 +165,7 @@ private fun inflateGroup(
 
 @Suppress("UNUSED_PARAMETER")
 @Composable
-private fun inflateClip(
+private fun VectorScope.inflateClip(
     a: TypedArray,
     parser: XmlPullParser,
     theme: Resources.Theme?,
@@ -175,7 +183,7 @@ private fun inflateClip(
 
 @Composable
 @SuppressWarnings("RestrictedApi")
-private fun inflatePath(a: TypedArray, parser: XmlPullParser, theme: Resources.Theme?) {
+private fun VectorScope.inflatePath(a: TypedArray, parser: XmlPullParser, theme: Resources.Theme?) {
     val hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData")
     if (!hasPathData) {
         // If there is no pathData in the VPath tag, then this is an empty VPath,
@@ -261,7 +269,7 @@ private fun inflatePath(a: TypedArray, parser: XmlPullParser, theme: Resources.T
 
 @Composable
 @SuppressWarnings("RestrictedApi")
-private fun inflateInner(
+private fun VectorScope.inflateInner(
     res: Resources,
     attrs: AttributeSet,
     theme: Resources.Theme?,
@@ -370,7 +378,7 @@ private fun inflate(
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_HEIGHT, 0.0f
     )
 
-    vector(
+    DrawVector(
         name = "vector",
         defaultWidth = defaultWidth,
         defaultHeight = defaultHeight,

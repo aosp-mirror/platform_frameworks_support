@@ -22,11 +22,11 @@ import androidx.compose.trace
 import androidx.ui.core.Dp
 import androidx.ui.core.Draw
 import androidx.ui.core.toRect
-import androidx.ui.core.vectorgraphics.Brush
-import androidx.ui.core.vectorgraphics.SolidColor
-import androidx.ui.graphics.Color
 import androidx.ui.layout.Container
+import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
+import androidx.ui.graphics.vectorgraphics.Brush
+import androidx.ui.graphics.vectorgraphics.SolidColor
 
 /**
  * Component that represents a rectangle painted with the specified [Brush].

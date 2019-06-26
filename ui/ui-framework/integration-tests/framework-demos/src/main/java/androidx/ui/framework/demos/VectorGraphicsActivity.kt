@@ -19,18 +19,29 @@ package androidx.ui.framework.demos
 import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.LinearLayout
-import androidx.ui.core.vectorgraphics.adoptVectorGraphic
+import androidx.compose.Children
+import androidx.compose.Composable
+import androidx.compose.composer
+import androidx.compose.setContent
+import androidx.compose.unaryPlus
+import androidx.ui.core.CraneWrapper
+
+import androidx.ui.core.IntPx
+import androidx.ui.core.Layout
+import androidx.ui.core.Px
+import androidx.ui.core.dp
+import androidx.ui.core.px
+import androidx.ui.core.round
+import androidx.ui.core.vectorgraphics.DrawVector
 import androidx.ui.core.vectorgraphics.compat.vectorResource
 import androidx.ui.core.vectorgraphics.group
 import androidx.ui.core.vectorgraphics.path
-import androidx.ui.core.vectorgraphics.vector
-import androidx.ui.core.vectorgraphics.PathBuilder
-import androidx.ui.core.vectorgraphics.PathDelegate
-import androidx.compose.Composable
-import androidx.compose.composer
-import androidx.compose.registerAdapter
-import androidx.compose.setContent
+import androidx.ui.graphics.vectorgraphics.PathBuilder
+import androidx.ui.graphics.vectorgraphics.PathDelegate
+import androidx.ui.layout.Center
+import androidx.ui.layout.Column
+import androidx.ui.layout.Container
+import androidx.ui.vector.VectorScope
 
 class VectorGraphicsActivity : Activity() {
 
@@ -39,28 +50,45 @@ class VectorGraphicsActivity : Activity() {
 
         val res = getResources()
         setContent {
-            composer.registerAdapter { parent, child ->
-                adoptVectorGraphic(parent, child)
-            }
+            CraneWrapper {
+                Column {
+                    Container(width = 480.dp, height = 480.dp) {
+                        vectorResource(
+                            res = res,
+                            resId = R.drawable.ic_crane
+                        )
+                    }
 
-            LinearLayout(orientation = LinearLayout.VERTICAL) {
-                vectorResource(
-                    res = res,
-                    resId = androidx.ui.framework.demos.R.drawable.ic_crane
-                )
-                vectorShape()
+                    Center {
+                        val width = 300.px
+                        val height = 300.px
+                        FixedLayout(width.round(), height.round()) {
+                            vectorShape(width, height)
+                        }
+                    }
+                }
             }
         }
     }
 
     @Composable
-    fun vectorShape() {
-        val viewportWidth = 300.0f
-        val viewportHeight = 300.0f
-        vector(
+    fun FixedLayout(width: IntPx, height: IntPx, @Children child: @Composable() () -> Unit) {
+        Layout(children = { child() },
+            layoutBlock = { _, _ ->
+                layout(width, height) {}
+            })
+    }
+
+    @Composable
+    fun vectorShape(width: Px, height: Px) {
+        val viewportWidth = width.value
+        val viewportHeight = height.value
+        val defaultWidth = viewportWidth
+        val defaultHeight = viewportHeight
+        DrawVector(
             name = "vectorShape",
-            defaultWidth = 300.0f,
-            defaultHeight = 300.0f,
+            defaultWidth = defaultWidth,
+            defaultHeight = defaultHeight,
             viewportWidth = viewportWidth,
             viewportHeight = viewportHeight
         ) {
@@ -94,7 +122,7 @@ class VectorGraphicsActivity : Activity() {
     }
 
     @Composable
-    fun backgroundPath(vectorWidth: Float, vectorHeight: Float) {
+    fun VectorScope.backgroundPath(vectorWidth: Float, vectorHeight: Float) {
         val background = PathDelegate {
             horizontalLineTo(vectorWidth)
             verticalLineTo(vectorHeight)
@@ -106,7 +134,7 @@ class VectorGraphicsActivity : Activity() {
     }
 
     @Composable
-    fun stripePath(vectorWidth: Float, vectorHeight: Float) {
+    fun VectorScope.stripePath(vectorWidth: Float, vectorHeight: Float) {
         val stripeDelegate = PathDelegate {
             stripe(vectorWidth, vectorHeight, 10)
         }
