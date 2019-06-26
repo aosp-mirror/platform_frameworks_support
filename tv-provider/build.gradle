@@ -9,8 +9,8 @@ plugins {
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.1.0-rc01")
-    api(project(":core"))
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.1.0-rc01")
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
@@ -32,6 +32,5 @@ androidx {
     mavenGroup = LibraryGroups.TVPROVIDER
     inceptionYear = "2017"
     description = "Android Support Library for TV Provider"
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

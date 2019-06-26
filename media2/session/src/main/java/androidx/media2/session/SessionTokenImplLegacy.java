@@ -58,7 +58,8 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
     @ParcelField(6)
     Bundle mExtras;
 
-    SessionTokenImplLegacy(MediaSessionCompat.Token token, String packageName, int uid) {
+    SessionTokenImplLegacy(MediaSessionCompat.Token token, String packageName, int uid,
+            Bundle sessionInfo) {
         if (token == null) {
             throw new NullPointerException("token shouldn't be null");
         }
@@ -73,7 +74,7 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
         mPackageName = packageName;
         mComponentName = null;
         mType = TYPE_SESSION_LEGACY;
-        mExtras = null;
+        mExtras = sessionInfo;
     }
 
     SessionTokenImplLegacy(ComponentName serviceComponent, int uid) {
@@ -137,12 +138,14 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
     }
 
     @Override
-    public @NonNull String getPackageName() {
+    @NonNull
+    public String getPackageName() {
         return mPackageName;
     }
 
     @Override
-    public @Nullable String getServiceName() {
+    @Nullable
+    public String getServiceName() {
         return mComponentName == null ? null : mComponentName.getClassName();
     }
 
@@ -152,7 +155,8 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
     }
 
     @Override
-    public @SessionToken.TokenType int getType() {
+    @SessionToken.TokenType
+    public int getType() {
         switch (mType) {
             case TYPE_SESSION_LEGACY:
                 return TYPE_SESSION;
@@ -162,8 +166,8 @@ final class SessionTokenImplLegacy extends CustomVersionedParcelable implements 
         return TYPE_SESSION;
     }
 
-    @NonNull
     @Override
+    @NonNull
     public Bundle getExtras() {
         return mExtras == null ? Bundle.EMPTY : new Bundle(mExtras);
     }

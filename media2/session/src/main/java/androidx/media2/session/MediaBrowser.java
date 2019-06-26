@@ -25,8 +25,9 @@ import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.ListenableFuture;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.Executor;
 
@@ -259,9 +260,9 @@ public class MediaBrowser extends MediaController {
      * @see LibraryResult#getMediaItems()
      */
     @NonNull
-    public ListenableFuture<LibraryResult> getSearchResult(final @NonNull String query,
+    public ListenableFuture<LibraryResult> getSearchResult(@NonNull final String query,
             @IntRange(from = 0) int page, @IntRange(from = 1) int pageSize,
-            final @Nullable LibraryParams params) {
+            @Nullable final LibraryParams params) {
         if (TextUtils.isEmpty(query)) {
             throw new IllegalArgumentException("query shouldn't be empty");
         }

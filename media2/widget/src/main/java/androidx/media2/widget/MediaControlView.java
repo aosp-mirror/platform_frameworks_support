@@ -49,10 +49,10 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.UriMediaItem;
@@ -74,6 +74,14 @@ import java.util.Locale;
  * rewind/fast-forward, skip to next/previous, select subtitle track, enter/exit full screen mode,
  * select audio track, and adjust playback speed.
  * <p>
+ * For simple use cases not requiring communication with {@link MediaSession}, apps need to create
+ * a {@link SessionPlayer} (e.g. {@link androidx.media2.player.MediaPlayer}) and set it to this view
+ * by calling {@link #setPlayer}.
+ * For more advanced use cases that require {@link MediaSession} (e.g. handling media key events,
+ * integrating with other MediaSession apps as Assistant), apps need to create
+ * a {@link MediaController} attached to the {@link MediaSession} and set it to this view
+ * by calling {@link #setMediaController}.
+ * <p>
  * The easiest way to use a MediaControlView is by creating a {@link VideoView}, which will
  * internally create a MediaControlView instance and handle all the commands from buttons inside
  * MediaControlView. It is also possible to create a MediaControlView programmatically and add it
@@ -90,7 +98,23 @@ import java.util.Locale;
  * In addition, the following customizations are supported:
  * 1) Set focus to the play/pause button by calling {@link #requestPlayButtonFocus()}.
  * 2) Set full screen behavior by calling {@link #setOnFullScreenListener(OnFullScreenListener)}
+ * <p>
+ * <em> Displaying metadata : </em>
+ * MediaControlView supports displaying metadata by calling
+ * {@link MediaItem#setMetadata(MediaMetadata)}.
  *
+ * Metadata display is different for two different media types: music, and non-music.
+ * For music, the following metadata are supported:
+ * {@link MediaMetadata#METADATA_KEY_TITLE}, {@link MediaMetadata#METADATA_KEY_ARTIST},
+ * and {@link MediaMetadata#METADATA_KEY_ALBUM_ART}.
+ * If values for these keys are not set, the following default values will be shown, respectively:
+ * {@link androidx.media2.widget.R.string#mcv2_music_title_unknown_text}
+ * {@link androidx.media2.widget.R.string#mcv2_music_artist_unknown_text}
+ * {@link androidx.media2.widget.R.drawable#ic_default_album_image}
+ *
+ * For non-music, only {@link MediaMetadata#METADATA_KEY_TITLE} metadata is supported.
+ * If the value is not set, the following default value will be shown:
+ * {@link androidx.media2.widget.R.string#mcv2_non_music_title_unknown_text}
  */
 public class MediaControlView extends ViewGroup {
     private static final String TAG = "MediaControlView";
@@ -249,6 +273,10 @@ public class MediaControlView extends ViewGroup {
      * Sets {@link MediaController} to control playback with this view.
      * Setting a MediaController will unset any MediaController or SessionPlayer
      * that was previously set.
+     * <p>
+     * Note that MediaControlView allows controlling playback through its UI components, but calling
+     * the corresponding methods (e.g. {@link MediaController#play()},
+     * {@link MediaController#pause()}) will work as well.
      *
      * @param controller the controller
      * @see #setPlayer
@@ -271,6 +299,10 @@ public class MediaControlView extends ViewGroup {
      * Sets {@link SessionPlayer} to control playback with this view.
      * Setting a SessionPlayer will unset any MediaController or SessionPlayer
      * that was previously set.
+     * <p>
+     * Note that MediaControlView allows controlling playback through its UI components, but calling
+     * the corresponding methods (e.g. {@link SessionPlayer#play()}, {@link SessionPlayer#pause()})
+     * will work as well.
      *
      * @param player the player
      * @see #setMediaController
@@ -1181,7 +1213,6 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mFullScreenListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mPlayer == null) return;
             if (mOnFullScreenListener == null) {
                 return;
             }
@@ -1267,7 +1298,7 @@ public class MediaControlView extends ViewGroup {
                 case SETTINGS_MODE_PLAYBACK_SPEED:
                     if (position != mSelectedSpeedIndex) {
                         float speed = mPlaybackSpeedMultBy100List.get(position) / 100.0f;
-                        mPlayer.setSpeed(speed);
+                        mPlayer.setPlaybackSpeed(speed);
                     }
                     dismissSettingsWindow();
                     break;
@@ -1295,20 +1326,35 @@ public class MediaControlView extends ViewGroup {
                 }
             };
 
-    void updateMetadata() {
+    void updateTimeViews(MediaItem item) {
+        if (item == null) {
+            mProgress.setProgress(0);
+            mCurrentTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            mEndTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            return;
+        }
+
         ensurePlayerIsNotNull();
 
         long duration = mPlayer.getDurationMs();
-        if (duration != 0) {
+        if (duration > 0) {
             mDuration = duration;
             setProgress();
+        }
+    }
+
+    void updateTitleView(MediaItem item) {
+        if (item == null) {
+            mTitleView.setText(null);
+            return;
         }
 
         if (!isCurrentItemMusic()) {
             CharSequence title = mPlayer.getTitle();
-            if (title != null) {
-                mTitleView.setText(title.toString());
+            if (title == null) {
+                title = mResources.getString(R.string.mcv2_non_music_title_unknown_text);
             }
+            mTitleView.setText(title.toString());
         } else {
             CharSequence title = mPlayer.getTitle();
             if (title == null) {
@@ -1449,7 +1495,6 @@ public class MediaControlView extends ViewGroup {
     /**
      * @return true iff the current media item is from network.
      */
-    @VisibleForTesting
     boolean isCurrentMediaItemFromNetwork() {
         ensurePlayerIsNotNull();
 
@@ -1612,8 +1657,6 @@ public class MediaControlView extends ViewGroup {
     }
 
     void updateReplayButton(boolean toBeShown) {
-        ensurePlayerIsNotNull();
-
         ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
         ImageButton ffwdButton = findControlButton(mSizeType, R.id.ffwd);
         if (toBeShown) {
@@ -1631,7 +1674,7 @@ public class MediaControlView extends ViewGroup {
         } else {
             mIsShowingReplayButton = false;
             if (playPauseButton != null) {
-                if (mPlayer.isPlaying()) {
+                if (mPlayer != null && mPlayer.isPlaying()) {
                     playPauseButton.setImageDrawable(
                             mResources.getDrawable(R.drawable.ic_pause_circle_filled));
                     playPauseButton.setContentDescription(
@@ -1886,6 +1929,8 @@ public class MediaControlView extends ViewGroup {
                 Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
             }
 
+            updateTimeViews(player.getCurrentMediaItem());
+
             // Update pause button depending on playback state for the following two reasons:
             //   1) Need to handle case where app customizes playback state behavior when app
             //      activity is resumed.
@@ -1974,7 +2019,8 @@ public class MediaControlView extends ViewGroup {
             if (DEBUG) {
                 Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
             }
-            updateMetadata();
+            updateTimeViews(mediaItem);
+            updateTitleView(mediaItem);
         }
 
         @Override
@@ -2049,16 +2095,21 @@ public class MediaControlView extends ViewGroup {
             if (player != mPlayer) return;
 
             if (DEBUG) {
-                Log.d(TAG, "onTrackInfoChanged(): trackInfos: " + trackInfos);
+                Log.d(TAG, "onTrackInfoChanged(): " + trackInfos);
             }
 
             updateTracks(player, trackInfos);
+            updateTimeViews(player.getCurrentMediaItem());
+            updateTitleView(player.getCurrentMediaItem());
         }
 
         @Override
         void onTrackSelected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackSelected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2091,6 +2142,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackDeselected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackDeselected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2112,6 +2166,11 @@ public class MediaControlView extends ViewGroup {
         @Override
         void onVideoSizeChanged(@NonNull PlayerWrapper player, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {
+            if (player != mPlayer) return;
+
+            if (DEBUG) {
+                Log.d(TAG, "onVideoSizeChanged(): " + videoSize);
+            }
             if (mVideoTrackCount == 0 && videoSize.getHeight() > 0 && videoSize.getWidth() > 0) {
                 List<TrackInfo> tracks = player.getTrackInfo();
                 if (tracks != null) {

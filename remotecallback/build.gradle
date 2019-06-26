@@ -26,8 +26,8 @@ plugins {
 }
 
 dependencies {
-    implementation "androidx.annotation:annotation:1.1.0-rc01"
-    implementation project(path: ':collection')
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation project(':collection:collection')
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
@@ -50,6 +50,5 @@ androidx {
     mavenGroup = LibraryGroups.REMOTECALLBACK
     inceptionYear = "2018"
     description = "Wraps PendingIntents in a friendly and easier way to handle remote callbacks"
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

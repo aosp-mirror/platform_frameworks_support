@@ -2060,6 +2060,14 @@ public class ExifInterface {
      * @see #TAG_IMAGE_WIDTH
      */
     public static final String TAG_THUMBNAIL_IMAGE_WIDTH = "ThumbnailImageWidth";
+
+    // TODO: Unhide this when it can be public.
+    /**
+     * @see #TAG_ORIENTATION
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String TAG_THUMBNAIL_ORIENTATION = "ThumbnailOrientation";
     /** Type is int. DNG Specification 1.4.0.0. Section 4 */
     public static final String TAG_DNG_VERSION = "DNGVersion";
     /** Type is int. DNG Specification 1.4.0.0. Section 4 */
@@ -2850,10 +2858,6 @@ public class ExifInterface {
      */
     public static final int REDUCED_RESOLUTION_IMAGE = 1;
 
-    // TODO: Replace the following constants once Q is released. (b/124409340)
-    private static final int METADATA_KEY_EXIF_OFFSET = 33;
-    private static final int METADATA_KEY_EXIF_LENGTH = 34;
-
     // Maximum size for checking file type signature (see image_type_recognition_lite.cc)
     private static final int SIGNATURE_CHECK_SIZE = 5000;
 
@@ -3549,7 +3553,7 @@ public class ExifInterface {
             new ExifTag(TAG_MAKE, 271, IFD_FORMAT_STRING),
             new ExifTag(TAG_MODEL, 272, IFD_FORMAT_STRING),
             new ExifTag(TAG_STRIP_OFFSETS, 273, IFD_FORMAT_USHORT, IFD_FORMAT_ULONG),
-            new ExifTag(TAG_ORIENTATION, 274, IFD_FORMAT_USHORT),
+            new ExifTag(TAG_THUMBNAIL_ORIENTATION, 274, IFD_FORMAT_USHORT),
             new ExifTag(TAG_SAMPLES_PER_PIXEL, 277, IFD_FORMAT_USHORT),
             new ExifTag(TAG_ROWS_PER_STRIP, 278, IFD_FORMAT_USHORT, IFD_FORMAT_ULONG),
             new ExifTag(TAG_STRIP_BYTE_COUNTS, 279, IFD_FORMAT_USHORT, IFD_FORMAT_ULONG),
@@ -5454,9 +5458,9 @@ public class ExifInterface {
             }
 
             String exifOffsetStr = retriever.extractMetadata(
-                    METADATA_KEY_EXIF_OFFSET);
+                    MediaMetadataRetriever.METADATA_KEY_EXIF_OFFSET);
             String exifLengthStr = retriever.extractMetadata(
-                    METADATA_KEY_EXIF_LENGTH);
+                    MediaMetadataRetriever.METADATA_KEY_EXIF_LENGTH);
             String hasImage = retriever.extractMetadata(
                     MediaMetadataRetriever.METADATA_KEY_HAS_IMAGE);
             String hasVideo = retriever.extractMetadata(

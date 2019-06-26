@@ -16,10 +16,12 @@
 
 package androidx.camera.core.impl.utils.futures;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.util.Function;
-import androidx.concurrent.ListenableFuture;
 import androidx.core.util.Preconditions;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * Utility class for generating specific implementations of {@link ListenableFuture}.
@@ -35,16 +38,46 @@ public final class Futures {
 
     /**
      * Returns an implementation of {@link ListenableFuture} which immediately contains a result.
+     *
      * @param value The result that is immediately set on the future.
-     * @param <V> The type of the result.
+     * @param <V>   The type of the result.
      * @return A future which immediately contains the result.
      */
+    @NonNull
     public static <V> ListenableFuture<V> immediateFuture(@Nullable V value) {
         if (value == null) {
             return ImmediateFuture.nullFuture();
         }
 
-        return new ImmediateFuture<>(value);
+        return new ImmediateFuture.ImmediateSuccessfulFuture<>(value);
+    }
+
+    /**
+     * Returns an implementation of {@link ListenableFuture} which immediately contains an
+     * exception that will be thrown by {@link Future#get()}.
+     *
+     * @param cause The cause of the {@link ExecutionException} that will be thrown by
+     * {@link Future#get()}.
+     * @param <V>   The type of the result.
+     * @return A future which immediately contains an exception.
+     */
+    @NonNull
+    public static <V> ListenableFuture<V> immediateFailedFuture(@NonNull Throwable cause) {
+        return new ImmediateFuture.ImmediateFailedFuture<>(cause);
+    }
+
+    /**
+     * Returns an implementation of {@link ScheduledFuture} which immediately contains an
+     * exception that will be thrown by {@link Future#get()}.
+     *
+     * @param cause The cause of the {@link ExecutionException} that will be thrown by
+     * {@link Future#get()}.
+     * @param <V>   The type of the result.
+     * @return A future which immediately contains an exception.
+     */
+    @NonNull
+    public static <V> ScheduledFuture<V> immediateFailedScheduledFuture(@NonNull Throwable cause) {
+        return new ImmediateFuture.ImmediateFailedScheduledFuture<>(cause);
     }
 
     /**
@@ -59,10 +92,11 @@ public final class Futures {
      * @return A future that holds result of the function (if the input succeeded) or the original
      *     input's failure (if not)
      */
+    @NonNull
     public static <I, O> ListenableFuture<O> transformAsync(
-            ListenableFuture<I> input,
-            AsyncFunction<? super I, ? extends O> function,
-            Executor executor) {
+            @NonNull ListenableFuture<I> input,
+            @NonNull AsyncFunction<? super I, ? extends O> function,
+            @NonNull Executor executor) {
         return AbstractTransformFuture.create(input, function, executor);
     }
 
@@ -77,9 +111,10 @@ public final class Futures {
      * @param executor Executor to run the function in.
      * @return A future that holds result of the transformation.
      */
+    @NonNull
     public static <I, O> ListenableFuture<O> transform(
-            ListenableFuture<I> input, Function<? super I, ? extends O> function,
-            Executor executor) {
+            @NonNull ListenableFuture<I> input, @NonNull Function<? super I, ? extends O> function,
+            @NonNull Executor executor) {
         return AbstractTransformFuture.create(input, function, executor);
     }
 
@@ -95,8 +130,9 @@ public final class Futures {
      * @param futures futures to combine
      * @return a future that provides a list of the results of the component futures
      */
+    @NonNull
     public static <V> ListenableFuture<List<V>> successfulAsList(
-            Collection<? extends ListenableFuture<? extends V>> futures) {
+            @NonNull Collection<? extends ListenableFuture<? extends V>> futures) {
         return new CollectionFuture.ListFuture<V>(futures, false);
     }
 
@@ -112,8 +148,9 @@ public final class Futures {
      * @param futures futures to combine
      * @return a future that provides a list of the results of the component futures
      */
+    @NonNull
     public static <V> ListenableFuture<List<V>> allAsList(
-            Collection<? extends ListenableFuture<? extends V>> futures) {
+            @NonNull Collection<? extends ListenableFuture<? extends V>> futures) {
         return new CollectionFuture.ListFuture<V>(futures, true);
     }
 
@@ -127,9 +164,9 @@ public final class Futures {
      * @param executor The executor to run {@code callback} when the future completes.
      */
     public static <V> void addCallback(
-            final ListenableFuture<V> future,
-            final FutureCallback<? super V> callback,
-            Executor executor) {
+            @NonNull final ListenableFuture<V> future,
+            @NonNull final FutureCallback<? super V> callback,
+            @NonNull Executor executor) {
         Preconditions.checkNotNull(callback);
         future.addListener(new CallbackListener<V>(future, callback), executor);
     }
@@ -178,7 +215,8 @@ public final class Futures {
      * @throws CancellationException if the {@code Future} was cancelled
      * @throws IllegalStateException if the {@code Future} is not done
      */
-    public static <V> V getDone(Future<V> future) throws ExecutionException {
+    @Nullable
+    public static <V> V getDone(@NonNull Future<V> future) throws ExecutionException {
         /*
          * We throw IllegalStateException, since the call could succeed later. Perhaps we
          * "should" throw IllegalArgumentException, since the call could succeed with a different
@@ -195,12 +233,13 @@ public final class Futures {
     }
 
     /**
-     * Invokes {@code mFuture.}{@link Future#get() get()} uninterruptibly.
+     * Invokes {@code Future.}{@link Future#get() get()} uninterruptibly.
      *
      * @throws ExecutionException if the computation threw an exception
      * @throws CancellationException if the computation was cancelled
      */
-    public static <V> V getUninterruptibly(Future<V> future) throws ExecutionException {
+    @Nullable
+    public static <V> V getUninterruptibly(@NonNull Future<V> future) throws ExecutionException {
         boolean interrupted = false;
         try {
             while (true) {

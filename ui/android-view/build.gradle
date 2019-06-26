@@ -29,10 +29,10 @@ plugins {
 }
 
 dependencies {
-    kotlinPlugin project(path: ":compose-plugin-cli-gradle", configuration: "pluginForGradle")
+    kotlinPlugin project(path: ":compose:compose-compiler", configuration: "embeddablePlugin")
 
     api project(":ui-core")
-    api project(":compose-runtime")
+    api project(":compose:compose-runtime")
     api project(":ui-android-view-non-ir")
     api(KOTLIN_COMPOSE_STDLIB)
     api(KOTLIN_COMPOSE_COROUTINES)
@@ -44,7 +44,7 @@ dependencies {
     testImplementation(MOCKITO_CORE)
     testImplementation(ANDROIDX_TEST_RUNNER)
     testImplementation(ANDROIDX_TEST_RULES)
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2", {
+    testImplementation MOCKITO_KOTLIN, {
         exclude group: 'org.mockito' // to keep control on the mockito version
     }
     androidTestImplementation(JUNIT)
@@ -53,7 +53,7 @@ dependencies {
     androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
-    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2", {
+    androidTestImplementation MOCKITO_KOTLIN, {
         exclude group: 'org.mockito' // to keep control on the mockito version
     }
 }
