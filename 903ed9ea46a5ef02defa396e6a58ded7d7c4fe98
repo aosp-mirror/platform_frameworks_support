@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35092ad8_29c40414",
+        "filename": "annotation/annotation-sampled/src/main/java/androidx/annotation/Sampled.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T13:15:00Z",
+      "side": 1,
+      "message": "Resolved offline:\n\nTL;DR it helps provide some separation between @sample which \u0027samples\u0027 another function, and this annotation, which is only an indicator that it is being sampled, and doesn\u0027t actually do any \u0027sampling\u0027. So using @Sample here could be confusing.",
+      "parentUuid": "36a71b96_3e5ca426",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "903ed9ea46a5ef02defa396e6a58ded7d7c4fe98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c802044c_cf9dabb5",
         "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "903ed9ea46a5ef02defa396e6a58ded7d7c4fe98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6571c65f_f49dfb26",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/SampledAnnotationEnforcer.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T13:15:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c802044c_cf9dabb5",
+      "range": {
+        "startLine": 461,
+        "startChar": 28,
+        "endLine": 461,
+        "endChar": 36
+      },
+      "revId": "903ed9ea46a5ef02defa396e6a58ded7d7c4fe98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
