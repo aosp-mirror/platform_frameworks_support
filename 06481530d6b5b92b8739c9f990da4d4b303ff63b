@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83f796a6_bc96b453",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-26T11:10:15Z",
+      "side": 1,
+      "message": "is there a bit more context for this? I am understanding that this will enable us to highlight nodes for inspection, is that correct?\n\nI\u0027d be keen to find a better name as \"design\" made me assume this had something to do with designer handover work instead of tree inspection",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
