@@ -16,6 +16,24 @@
       "revId": "9c89aac1324414dcaf9cd4dc440f0ef9933cc08e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760d3c14_66acd897",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-06-26T03:31:20Z",
+      "side": 1,
+      "message": "Agree the comment. I can\u0027t find work-around in camerax core lib to resolve the strange symptom and try out the work-around on application side. Will check framework team if any other suggestion.",
+      "parentUuid": "9cc34641_30b06c4c",
+      "revId": "9c89aac1324414dcaf9cd4dc440f0ef9933cc08e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

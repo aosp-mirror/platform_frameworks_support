@@ -16,6 +16,24 @@
       "revId": "8ad12f9ca834e3a8193967e567ed563c5a72d5e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae01325d_2812ce5f",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-06-26T03:31:20Z",
+      "side": 0,
+      "message": "Thanks the detail and would recover it, not delete it.",
+      "parentUuid": "b80e1b1f_849a38a7",
+      "revId": "8ad12f9ca834e3a8193967e567ed563c5a72d5e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
