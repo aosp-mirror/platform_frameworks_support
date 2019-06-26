@@ -88,7 +88,11 @@ object LibraryVersions {
     val SLIDINGPANELAYOUT = Version("1.1.0-alpha01")
     val SWIPE_REFRESH_LAYOUT = Version("1.1.0-alpha01")
     val TEXTCLASSIFIER = Version("1.0.0-alpha03")
+<<<<<<< HEAD   (414941 Merge "Merge empty history for sparse-5682939-L0680000033348)
     val TRANSITION = Version("1.1.0-alpha02")
+=======
+    val TRANSITION = Version("1.1.0")
+>>>>>>> BRANCH (d91a56 Merge "Merge cherrypicks of [1000172, 1000076] into sparse-5)
     val TVPROVIDER = Version("1.1.0-alpha01")
     val VECTORDRAWABLE = Version("1.1.0-alpha02")
     val VECTORDRAWABLE_ANIMATED = Version("1.1.0-alpha02")
