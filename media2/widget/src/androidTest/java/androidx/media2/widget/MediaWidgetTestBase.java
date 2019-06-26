@@ -170,13 +170,63 @@ public class MediaWidgetTestBase extends MediaTestBase {
         return wrapper;
     }
 
+    PlayerWrapper createPlayerWrapperOfController(@NonNull PlayerWrapper.PlayerCallback callback,
+            @Nullable List<MediaItem> playlist) {
+        prepareLooper();
+
+        SessionPlayer player = new MediaPlayer(mContext);
+        MediaSession session = new MediaSession.Builder(mContext, player)
+                .setId(UUID.randomUUID().toString())
+                .build();
+        MediaController controller = new MediaController.Builder(mContext)
+                .setSessionToken(session.getToken())
+                .build();
+        synchronized (mLock) {
+            mPlayers.add(player);
+            mSessions.add(session);
+            mControllers.add(controller);
+        }
+        PlayerWrapper wrapper = new PlayerWrapper(controller, mMainHandlerExecutor, callback);
+        wrapper.attachCallback();
+        if (playlist != null) {
+            player.setPlaylist(playlist, null);
+            player.prepare();
+        }
+        return wrapper;
+    }
+
+    PlayerWrapper createPlayerWrapperOfPlayer(@NonNull PlayerWrapper.PlayerCallback callback,
+            @Nullable List<MediaItem> playlist) {
+        SessionPlayer player = new MediaPlayer(mContext);
+        synchronized (mLock) {
+            mPlayers.add(player);
+        }
+        PlayerWrapper wrapper = new PlayerWrapper(player, mMainHandlerExecutor, callback);
+        wrapper.attachCallback();
+        if (playlist != null) {
+            player.setPlaylist(playlist, null);
+            player.prepare();
+        }
+        return wrapper;
+    }
+
     PlayerWrapper createPlayerWrapperOfType(@NonNull PlayerWrapper.PlayerCallback callback,
-            @Nullable MediaItem item,
-            @NonNull String playerType) {
+            @Nullable MediaItem item, @NonNull String playerType) {
         if (PLAYER_TYPE_MEDIA_CONTROLLER.equals(playerType)) {
             return createPlayerWrapperOfController(callback, item);
         } else if (PLAYER_TYPE_MEDIA_PLAYER.equals(playerType)) {
             return createPlayerWrapperOfPlayer(callback, item);
+        } else {
+            throw new IllegalArgumentException("unknown playerType " + playerType);
+        }
+    }
+
+    PlayerWrapper createPlayerWrapperOfType(@NonNull PlayerWrapper.PlayerCallback callback,
+            @Nullable List<MediaItem> playlist, @NonNull String playerType) {
+        if (PLAYER_TYPE_MEDIA_CONTROLLER.equals(playerType)) {
+            return createPlayerWrapperOfController(callback, playlist);
+        } else if (PLAYER_TYPE_MEDIA_PLAYER.equals(playerType)) {
+            return createPlayerWrapperOfPlayer(callback, playlist);
         } else {
             throw new IllegalArgumentException("unknown playerType " + playerType);
         }
