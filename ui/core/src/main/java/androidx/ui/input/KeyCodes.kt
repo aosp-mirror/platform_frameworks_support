@@ -16,28 +16,12 @@
 
 package androidx.ui.input
 
-import androidx.annotation.RestrictTo
-import androidx.annotation.RestrictTo.Scope.LIBRARY
-/**
- * An interface of listening IME events.
- *
- * @hide
- */
-@RestrictTo(LIBRARY)
-interface InputEventListener {
-    /**
-     * Called when IME sends some input events.
-     *
-     * @param editOps The list of edit operations.
-     */
-    fun onEditOperations(editOps: List<EditOperation>)
+// This file provides the definition of key code values in Jetpack Compose.
+// Use HID USB usage ID as the KeyCode value which is likely the superset of key codes among the
+// platforms. (see https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf more details)
+// All values listed here is came from Chromium's keycode conversion table.
+// https://cs.chromium.org/chromium/src/ui/events/keycodes/dom/keycode_converter_data.inc
 
-    /**
-     * Called when IME sends a key event.
-     *
-     * @param keyEvent The key event.
-     */
-    fun onKeyEvent(keyEvent: KeyEvent)
+/* inline */ data class KeyCode(val keyCode: Int)
 
-    // TODO(nona): add more input event callbacks, editor action etc.
-}
+val KEYCODE_BACKSPACE = KeyCode(0x07002a)
