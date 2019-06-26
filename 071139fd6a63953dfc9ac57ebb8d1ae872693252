@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2926f387_92208445",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-26T20:10:05Z",
+      "side": 1,
+      "message": "To summarize our offline chat, I intentionally did not annotate final WebViewClientCompat methods, because apps are meant to ignore these. They\u0027re only public so apps aren\u0027t wondering \"what happened to onSafeBrowsingHit(..., SafeBrowsingResponse) and what should I override instead?\"",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 165
+      },
+      "revId": "071139fd6a63953dfc9ac57ebb8d1ae872693252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
