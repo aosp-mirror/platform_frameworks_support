@@ -22,6 +22,7 @@ import android.util.Rational;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -211,6 +212,30 @@ public final class ImageCaptureConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     public int getMaxCaptureStages() {
         return retrieveOption(OPTION_MAX_CAPTURE_STAGES);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing) {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS, valueIfMissing);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics() {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS);
     }
 
     // Start of the default implementation of Config
@@ -621,6 +646,7 @@ public final class ImageCaptureConfig
          *
          * @return A {@link ImageCaptureConfig} populated with the current state.
          */
+        @NonNull
         public ImageCaptureConfig build() {
             return new ImageCaptureConfig(OptionsBundle.from(mMutableConfig));
         }
@@ -892,5 +918,18 @@ public final class ImageCaptureConfig
             return this;
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @hide
+         */
+        @NonNull
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setCaptureCharacteristics(
+                @NonNull CaptureCharacteristics captureCharacteristics) {
+            getMutableConfig().insertOption(OPTION_CAPTURE_CHARACTERISTICS, captureCharacteristics);
+            return this;
+        }
     }
 }
