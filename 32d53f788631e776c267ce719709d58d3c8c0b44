@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24d7d100_8357f804",
+        "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Can we add documentation? Also applies to other public classes / interfaces in this CL.",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68fa42ed_50fd4ede",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Why are we defining these? And why are these part of public API?",
+      "range": {
+        "startLine": 442,
+        "startChar": 21,
+        "endLine": 442,
+        "endChar": 28
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a38f0c9_2f55cfb9",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Generally speaking I think this a cool idea. Being able to add new properties on fly and also reducing the boiler plate we had. I like this!",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 84
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be301b37_61c9c696",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "do we have tests for this?",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a96f34_f86fc594",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Please, let\u0027s not check-in anything with hardcoded strings. This will run out of control very quickly.",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 24
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d19bd705_a325f7db",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "You are using the class reference as the key instead of the name string to avoid potential collisions between libraries. Smart :)",
+      "range": {
+        "startLine": 31,
+        "startChar": 34,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f056e621_0a21a787",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "The map can contain Any? but return is not nullable, is that expected? Do you actually need nullable values?",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "090fc865_0ca8ac70",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Are you sure you need to re-implement map\u0027s APIs? Can\u0027t you just expose the immutable version of the map?\n\nval Properties: Map\u003c...\u003e get() \u003d map",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8046635_80a6d7eb",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "nit (optional): Can you iterate over key,value pair to avoid map lookup?",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa9d065_8dfd425c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "nit(optional): you could avoid a second lookup into the map by caching the result from above (instead of contains calling tryGet). Not sure if compiler optimizes that, probably not?",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 45
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a4846f5_43c56876",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "Any way we could avoid casting here? Is this going to be called a lot?\n\nI\u0027m thinking if canMerge / merge should accept Any instead of T. Because currently only Label support merging. So we could avoid casting lots of properties that would give us false anyway.",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 52
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84f7a2ab_1de7ac8b",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-26T22:45:00Z",
+      "side": 1,
+      "message": "This will not work. I can have a TextView with text \u003d\u003d \"Checked\" and it would be recognized as checkable. I\u0027m worried about the reduction of meta-data we did here. We might be loosing quite a few information. This gets tricky especially if tests rely on this. Also how do screen-readers work without knowing what type of element they\u0027re working with?\n\nAlso my concern is that we are loosing type safety here. It might seem like it gives us a freedom to modify these strings in the future and extend them. But in fact it is part of public API and developers will rely on these values. So I\u0027m not sure if it is that extensible. It would make sense for Semantics internally to use extensible solution but it should still expose stable API endpoints we /devs can rely on.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
