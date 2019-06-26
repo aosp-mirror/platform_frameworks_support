@@ -26,6 +26,7 @@ import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.CamcorderProfile;
 import android.os.Build;
+import android.util.Pair;
 import android.util.Rational;
 import android.util.Size;
 import android.view.Surface;
@@ -34,6 +35,7 @@ import android.view.WindowManager;
 import androidx.camera.core.CameraDeviceConfig;
 import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CaptureCharacteristics;
 import androidx.camera.core.ImageFormatConstants;
 import androidx.camera.core.ImageOutputConfig;
 import androidx.camera.core.SurfaceCombination;
@@ -319,10 +321,17 @@ final class SupportedSurfaceCombination {
 
     private List<Size> getSupportedOutputSizes(UseCase useCase) {
         int imageFormat = useCase.getImageFormat();
-        Size[] outputSizes = getAllOutputSizesByFormat(imageFormat);
         List<Size> outputSizeCandidates = new ArrayList<>();
         ImageOutputConfig config = (ImageOutputConfig) useCase.getUseCaseConfig();
         Size maxSize = config.getMaxResolution(getMaxOutputSizeByFormat(imageFormat));
+
+        // Retrieve customized supported resolutions
+        Size[] outputSizes = getCustomizedOutputSizes(useCase);
+
+        // If there is no customized supported resolutions, retrieve from standard API.
+        if (outputSizes == null) {
+            outputSizes = getAllOutputSizesByFormat(imageFormat);
+        }
 
         // Sort the output sizes. The Comparator result must be reversed to have a descending order
         // result.
@@ -548,6 +557,34 @@ final class SupportedSurfaceCombination {
                     e);
         }
         checkCustomization();
+    }
+
+    @SuppressWarnings("unchecked")
+    private Size[] getCustomizedOutputSizes(UseCase useCase) {
+        int imageFormat = useCase.getImageFormat();
+        Size[] outputSizes = null;
+
+        CaptureCharacteristics captureCharacteristics =
+                useCase.getUseCaseConfig().getCaptureCharacteristics(null);
+
+        if (captureCharacteristics != null) {
+            Object obj = captureCharacteristics.get(
+                    CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP.toString());
+
+            if (obj != null) {
+                List<Pair<Integer, Size[]>> formatResolutionPairList =
+                        (List<Pair<Integer, Size[]>>) obj;
+
+                for (Pair<Integer, Size[]> formatResolutionPair : formatResolutionPairList) {
+                    if (formatResolutionPair.first == imageFormat) {
+                        outputSizes = formatResolutionPair.second;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return outputSizes;
     }
 
     List<SurfaceCombination> getLegacySupportedCombinationList() {
