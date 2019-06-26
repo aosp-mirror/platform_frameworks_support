@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a96d0487_2bfa2885",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PositionalDataSource.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:26:24Z",
+      "side": 1,
+      "message": "Could be\n\n    cont.resume(RangeResult(if (isInvalid) emptyList() else data))",
+      "revId": "a10a0d41c4af25f19cd5496cfa4328e9d1e0f3a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
