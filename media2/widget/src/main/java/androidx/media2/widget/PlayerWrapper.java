@@ -353,6 +353,7 @@ class PlayerWrapper {
         if (trackInfos != null) {
             mWrapperCallback.onTrackInfoChanged(this, trackInfos);
         }
+        mWrapperCallback.onVideoSizeChanged(this, item, getVideoSize());
     }
 
     @NonNull

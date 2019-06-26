@@ -946,6 +946,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
                     && currentMediaItemIndex < mPlaylist.size()) {
                 mPlaylist.set(currentMediaItemIndex, item);
             }
+            mVideoSize = new VideoSize(0, 0);
         }
         mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
             @Override
