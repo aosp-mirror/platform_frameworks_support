@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "8677c5f0_40956a51",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-26T06:43:50Z",
+      "side": 1,
+      "message": "I\u0027m still wondering what is the best way to document this feature, but for now, I added a gate flag \"room.expandProjection\".",
+      "parentUuid": "221e4da6_ed2b3ba8",
+      "range": {
+        "startLine": 292,
+        "startChar": 51,
+        "endLine": 292,
+        "endChar": 56
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f2a529e_f4dddfae",
         "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
         "patchSetId": 11
@@ -165,6 +189,30 @@
       "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ca47d2_7794d9f9",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-06-26T06:43:50Z",
+      "side": 1,
+      "message": "Done. Added QueryInterpreterTest#joinAndAbandon() for this pattern.",
+      "parentUuid": "4390c092_677d4bfd",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "8a550224fbe10f5036a75431b246a3b35ae157b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
