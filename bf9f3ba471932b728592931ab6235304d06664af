@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16088a8a_42e85811",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-26T16:19:46Z",
+      "side": 1,
+      "message": "nit: We may need a comment stating that fontSizeScale always need to be applied after fontSize, so that it won\u0027t be mistakenly changed in future",
+      "range": {
+        "startLine": 454,
+        "startChar": 4,
+        "endLine": 454,
+        "endChar": 17
+      },
+      "revId": "bf9f3ba471932b728592931ab6235304d06664af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20f1d480_59817b69",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-26T16:19:46Z",
+      "side": 1,
+      "message": "nit: Need to move this one under fontSynthesis as well?",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 20
+      },
+      "revId": "bf9f3ba471932b728592931ab6235304d06664af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
