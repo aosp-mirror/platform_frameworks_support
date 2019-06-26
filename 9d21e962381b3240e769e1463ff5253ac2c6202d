@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a17671e9_0cc2d724",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:41:06Z",
+      "side": 1,
+      "message": "Would it make sense to change the argument list from\n(String cameraId, BaseCamera camera, Set\u003cUseCase\u003e useCases)\nto\n(String cameraId, Set\u003cUseCase\u003e useCases)\nSince camera can be queried from cameraId. This way we are always just passing around cameraId.",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa900e21_94032b7b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:41:06Z",
+      "side": 1,
+      "message": "Would it make sense to change the argument list from\n(String cameraId, BaseCamera camera, Set\u003cUseCase\u003e useCases)\nto\n(String cameraId, Set\u003cUseCase\u003e useCases)\nSince camera can be queried from cameraId. This way we are always just passing around cameraId.",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c4e495_9f3b252e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:41:06Z",
+      "side": 1,
+      "message": "Perhaps we want to create a new error type? Since we know what kind of error it is (e.g. USE_CASE_DETACHED? or DETACHED_FROM_CAMERA?)",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6078d2b_9cc777da",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:41:06Z",
+      "side": 1,
+      "message": "Not sure if IllegalStateException is exactly what we want to throw since its description is: \"Signals that a method has been invoked at an illegal or inappropriate time.\"\n\nThe call was made at the right time/state, but its that something else had canceled it.",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
