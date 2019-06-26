@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (7a3ed9 Merge "Merge cherrypicks of [975584, 975585] into androidx-m)
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
@@ -44,3 +45,5 @@ androidx {
     inceptionYear = "2018"
     description = "Provides the base Activity subclass and the relevant hooks to build a composable structure on top."
 }
+=======
+>>>>>>> BRANCH (687610 Merge "Increment androidx.recyclerview:recyclerview to 1.1.0)

@@ -198,14 +198,16 @@ public final class SessionToken implements VersionedParcelable {
     /**
      * @return package name of the session
      */
-    public @NonNull String getPackageName() {
+    @NonNull
+    public String getPackageName() {
         return mImpl.getPackageName();
     }
 
     /**
      * @return service name of the session. Can be {@code null} for {@link #TYPE_SESSION}.
      */
-    public @Nullable String getServiceName() {
+    @Nullable
+    public String getServiceName() {
         return mImpl.getServiceName();
     }
 
@@ -224,7 +226,8 @@ public final class SessionToken implements VersionedParcelable {
      * @see #TYPE_SESSION_SERVICE
      * @see #TYPE_LIBRARY_SERVICE
      */
-    public @TokenType int getType() {
+    @TokenType
+    public int getType() {
         return mImpl.getType();
     }
 
@@ -305,8 +308,8 @@ public final class SessionToken implements VersionedParcelable {
 
                     // MediaControllerCompat.Callback#onSessionReady() is not called, which means
                     // that the connected session is a framework MediaSession instance.
-                    final SessionToken resultToken = new SessionToken(
-                            new SessionTokenImplLegacy(compatToken, packageName, uid));
+                    SessionToken resultToken = new SessionToken(new SessionTokenImplLegacy(
+                            compatToken, packageName, uid, controller.getSessionInfo()));
 
                     // To prevent repeating this process with the same compat token, put the result
                     // media2 token inside of the compat token.
@@ -330,15 +333,15 @@ public final class SessionToken implements VersionedParcelable {
 
                     // TODO: Add logic for getting media2 token in API 21- by using binder.
 
-                    final SessionToken resultToken;
+                    SessionToken resultToken;
                     if (compatToken.getSession2Token() instanceof SessionToken) {
                         // TODO(b/132928776): Add tests for this code path.
                         // The connected MediaSessionCompat is created by media2.MediaSession
                         resultToken = (SessionToken) compatToken.getSession2Token();
                     } else {
                         // The connected MediaSessionCompat is standalone.
-                        resultToken = new SessionToken(
-                                new SessionTokenImplLegacy(compatToken, packageName, uid));
+                        resultToken = new SessionToken(new SessionTokenImplLegacy(
+                                compatToken, packageName, uid, controller.getSessionInfo()));
                         // To prevent repeating this process with the same compat token,
                         // put the result media2 token inside of the compat token.
                         compatToken.setSession2Token(resultToken);

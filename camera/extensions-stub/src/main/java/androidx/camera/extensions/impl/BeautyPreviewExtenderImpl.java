@@ -35,7 +35,7 @@ public final class BeautyPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
-    public void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics) {
+    public void init(String cameraId, CameraCharacteristics cameraCharacteristics) {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 
@@ -50,7 +50,7 @@ public final class BeautyPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
-    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+    public ProcessorImpl getProcessor() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 

@@ -33,7 +33,7 @@ public final class NightPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
-    public void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics) {
+    public void init(String cameraId, CameraCharacteristics cameraCharacteristics) {
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class NightPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
-    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+    public ProcessorImpl getProcessor() {
         return RequestUpdateProcessorImpls.noUpdateProcessor();
     }
 

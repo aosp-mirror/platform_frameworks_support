@@ -17,6 +17,7 @@
 package androidx.media2.integration.testapp;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,8 +38,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.media2.common.UriMediaItem;
 import androidx.media2.session.MediaController;
+import androidx.media2.session.SessionCommandGroup;
 import androidx.media2.session.SessionToken;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
@@ -57,10 +58,12 @@ public class VideoPlayerActivity extends FragmentActivity {
 
     MyVideoView mVideoView;
     View mResizeHandle;
+    MediaController mMediaController;
+    Uri mUri;
+
     private float mSpeed = 1.0f;
 
     private MediaControlView mMediaControlView = null;
-    private MediaController mMediaController = null;
 
     private int mVideoViewDX;
     private int mVideoViewDY;
@@ -83,6 +86,15 @@ public class VideoPlayerActivity extends FragmentActivity {
                 return onTouchVideoView(event);
             }
         });
+
+        SessionToken token = new SessionToken(this,
+                new ComponentName(this, VideoSessionService.class));
+        Executor executor = ContextCompat.getMainExecutor(this);
+        mMediaController = new MediaController.Builder(this)
+                .setControllerCallback(executor, new ControllerCallback())
+                .setSessionToken(token)
+                .build();
+        mVideoView.setMediaController(mMediaController);
 
         mResizeHandle = findViewById(R.id.resize_handle);
         mResizeHandle.setOnTouchListener(new View.OnTouchListener() {
@@ -128,19 +140,11 @@ public class VideoPlayerActivity extends FragmentActivity {
         if (intent == null || (videoUri = intent.getData()) == null || !videoUri.isAbsolute()) {
             errorString = "Invalid intent";
         } else {
-            UriMediaItem mediaItem = new UriMediaItem.Builder(videoUri).build();
-            mVideoView.setMediaItem(mediaItem);
-
             mMediaControlView = new MediaControlView(this);
             mVideoView.setMediaControlView(mMediaControlView, 2000);
             mMediaControlView.setOnFullScreenListener(new FullScreenListener());
-            SessionToken token = mVideoView.getSessionToken();
 
-            Executor executor = ContextCompat.getMainExecutor(this);
-            mMediaController = new MediaController.Builder(this)
-                    .setSessionToken(token)
-                    .setControllerCallback(executor, new ControllerCallback())
-                    .build();
+            mUri = videoUri;
         }
         if (errorString != null) {
             showErrorDialog(errorString);
@@ -151,6 +155,7 @@ public class VideoPlayerActivity extends FragmentActivity {
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
+        mMediaController.close();
     }
 
     @Override
@@ -189,6 +194,13 @@ public class VideoPlayerActivity extends FragmentActivity {
         public void onPlaybackSpeedChanged(
                 @NonNull MediaController controller, float speed) {
             mSpeed = speed;
+        }
+
+        @Override
+        public void onConnected(@NonNull MediaController controller,
+                @NonNull SessionCommandGroup allowedCommands) {
+            controller.setMediaItem(mUri.toString());
+            controller.prepare();
         }
     }
 
@@ -353,5 +365,4 @@ public class VideoPlayerActivity extends FragmentActivity {
         }
         return "Unknown";
     }
-
 }

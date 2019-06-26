@@ -38,36 +38,37 @@ import androidx.ui.toStringAsFixed
 private const val _kDefaultDebugLabel: String = "unknown"
 
 /** The default font size if none is specified. */
-private const val _defaultFontSize: Float = 14.0f
+internal const val _defaultFontSize: Float = 14.0f
 
 /**
  * Configuration object to define the text style.
  *
  * @param color The color to use when painting the text. If this is specified, `foreground` must be null.
  * @param fontSize The size of glyphs (in logical pixels) to use when painting the text.
+ * @param fontSizeScale The scale factor of the font size. When [fontSize] is also given in this
+ *  TextStyle, the final fontSize will be the [fontSize] times this value.
+ *  Otherwise, the final fontSize will be the current fontSize times this value.
  * @param fontWeight The typeface thickness to use when painting the text (e.g., bold).
  * @param fontStyle The typeface variant to use when drawing the letters (e.g., italics).
  * @param fontSynthesis Whether to synthesize font weight and/or style when the requested weight or
- *                      style cannot be found in the provided custom font family.
+ *  style cannot be found in the provided custom font family.
  * @param fontFeatureSettings The advanced typography settings provided by font. The format is the same as the CSS font-feature-settings attribute:
- *                            https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
+ *  https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
  * @param letterSpacing The amount of space (in logical pixels) to add between each letter.
  * @param wordSpacing The amount of space (in logical pixels) to add at each sequence of white-space (i.e. between each word). Only works on Android Q and above.
  * @param baselineShift This parameter specifies how much the baseline is shifted from the current position.
  * @param textGeometricTransform The geometric transformation applied the text.
- * @param height The height of this text span, as a multiple of the font size.
  * @param locale The locale used to select region-specific glyphs.
  * @param background The background color for the text.
  * @param decoration The decorations to paint near the text (e.g., an underline).
  * @param fontFamily The name of the font to use when painting the text (e.g., Roboto).
- * @param textIndent Specify how much a paragraph is indented.
- * @param textAlign Specify how a paragraph is aligned.
  * @param shadow The shadow effect applied on the text.
  * @param debugLabel A human-readable description of this text style.
  */
 data class TextStyle(
     val color: Color? = null,
     val fontSize: Float? = null,
+    val fontSizeScale: Float? = null,
     val fontWeight: FontWeight? = null,
     val fontStyle: FontStyle? = null,
     val fontSynthesis: FontSynthesis? = null,
@@ -76,13 +77,10 @@ data class TextStyle(
     val wordSpacing: Float? = null,
     val baselineShift: BaselineShift? = null,
     val textGeometricTransform: TextGeometricTransform? = null,
-    val height: Float? = null,
     val locale: Locale? = null,
     val background: Color? = null,
     val decoration: TextDecoration? = null,
     var fontFamily: FontFamily? = null,
-    val textIndent: TextIndent? = null,
-    val textAlign: TextAlign? = null,
     val shadow: Shadow? = null,
     val debugLabel: String? = null
 ) {
@@ -114,6 +112,7 @@ data class TextStyle(
             color = other.color ?: this.color,
             fontFamily = other.fontFamily ?: this.fontFamily,
             fontSize = other.fontSize ?: this.fontSize,
+            fontSizeScale = other.fontSizeScale ?: this.fontSizeScale,
             fontWeight = other.fontWeight ?: this.fontWeight,
             fontStyle = other.fontStyle ?: this.fontStyle,
             fontSynthesis = other.fontSynthesis ?: this.fontSynthesis,
@@ -122,12 +121,9 @@ data class TextStyle(
             wordSpacing = other.wordSpacing ?: this.wordSpacing,
             baselineShift = other.baselineShift ?: this.baselineShift,
             textGeometricTransform = other.textGeometricTransform ?: this.textGeometricTransform,
-            height = other.height ?: this.height,
             locale = other.locale ?: this.locale,
             background = other.background ?: this.background,
             decoration = other.decoration ?: this.decoration,
-            textIndent = other.textIndent ?: this.textIndent,
-            textAlign = other.textAlign ?: this.textAlign,
             shadow = other.shadow ?: this.shadow,
             debugLabel = mergedDebugLabel
         )
@@ -215,6 +211,7 @@ data class TextStyle(
                 color = lerpColor(a.color, b.color, t),
                 fontFamily = lerpDiscrete(a.fontFamily, b.fontFamily, t),
                 fontSize = lerpFloat(a.fontSize, b.fontSize, t),
+                fontSizeScale = lerpFloat(a.fontSizeScale, b.fontSizeScale, t, 1f),
                 fontWeight = FontWeight.lerp(a.fontWeight, b.fontWeight, t),
                 fontStyle = lerpDiscrete(a.fontStyle, b.fontStyle, t),
                 fontSynthesis = lerpDiscrete(a.fontSynthesis, b.fontSynthesis, t),
@@ -227,16 +224,9 @@ data class TextStyle(
                     b.textGeometricTransform ?: TextGeometricTransform.None,
                     t
                 ),
-                height = lerpFloat(a.height, b.height, t),
                 locale = lerpDiscrete(a.locale, b.locale, t),
                 background = lerpDiscrete(a.background, b.background, t),
                 decoration = lerpDiscrete(a.decoration, b.decoration, t),
-                textIndent = lerp(
-                    a.textIndent ?: TextIndent.NONE,
-                    b.textIndent ?: TextIndent.NONE,
-                    t
-                ),
-                textAlign = if (t < 0.5) a.textAlign else b.textAlign,
                 shadow = lerp(
                     a.shadow ?: Shadow(),
                     b.shadow ?: Shadow(),
@@ -258,12 +248,11 @@ data class TextStyle(
             fontFeatureSettings = fontFeatureSettings,
             fontFamily = fontFamily,
             fontSize = if (fontSize == null) null else (fontSize * textScaleFactor),
+            fontSizeScale = fontSizeScale,
             letterSpacing = letterSpacing,
             wordSpacing = wordSpacing,
             baselineShift = baselineShift,
             textGeometricTransform = textGeometricTransform,
-            textAlign = textAlign,
-            height = height,
             locale = locale,
             background = background,
             shadow = shadow
@@ -282,6 +271,8 @@ data class TextStyle(
     fun getParagraphStyle(
         textAlign: TextAlign? = null,
         textDirection: TextDirection? = null,
+        textIndent: TextIndent? = null,
+        lineHeight: Float? = null,
         textScaleFactor: Float = 1.0f,
         ellipsis: Boolean? = null,
         maxLines: Int? = null,
@@ -291,12 +282,13 @@ data class TextStyle(
         return ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection,
+            textIndent = textIndent,
+            lineHeight = lineHeight,
             fontWeight = fontWeight,
             fontStyle = fontStyle,
             maxLines = maxLines,
             fontFamily = fontFamily,
             fontSize = (fontSize ?: _defaultFontSize) * textScaleFactor,
-            lineHeight = height,
             ellipsis = ellipsis,
             locale = locale,
             fontSynthesis = fontSynthesis
@@ -325,7 +317,6 @@ data class TextStyle(
             wordSpacing != other.wordSpacing ||
             baselineShift != other.baselineShift ||
             textGeometricTransform != other.textGeometricTransform ||
-            height != other.height ||
             locale != other.locale ||
             background != other.background
         ) {

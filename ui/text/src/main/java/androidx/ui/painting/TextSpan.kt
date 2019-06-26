@@ -16,9 +16,7 @@
 
 package androidx.ui.painting
 
-import androidx.ui.engine.text.ParagraphBuilder
-import androidx.ui.engine.text.TextAffinity
-import androidx.ui.engine.text.TextPosition
+import androidx.annotation.RestrictTo
 import androidx.ui.painting.basictypes.RenderComparison
 
 /**
@@ -36,41 +34,16 @@ import androidx.ui.painting.basictypes.RenderComparison
  *   non-null, the text will precede the children. The list must not contain any nulls.
  *
  * @param recognizer A gesture recognizer that will receive events that hit this text span.
+ * @hide
  */
 // TODO(haoyuchang) Make TextSpan immutable.
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class TextSpan(
     var style: TextStyle? = null,
     var text: String? = null,
     val children: MutableList<TextSpan> = mutableListOf()/*,
     val recognizer: GestureRecognizer? = null*/
 ) {
-
-    /**
-     * Apply the [style], [text], and [children] of this object to the given [ParagraphBuilder],
-     * from which a [Paragraph] can be obtained.
-     * [Paragraph] objects can be drawn on [Canvas] objects.
-     *
-     * Rather than using this directly, it's simpler to use the [TextPainter] class to paint
-     * [TextSpan] objects onto [Canvas] objects.
-     */
-    fun build(builder: ParagraphBuilder, textScaleFactor: Float = 1.0f) {
-        val hasStyle: Boolean = style != null
-        if (hasStyle) {
-            builder.pushStyle(style!!.getTextStyle(textScaleFactor))
-        }
-
-        text?.let {
-            builder.addText(it)
-        }
-
-        children.forEach {
-            it.build(builder, textScaleFactor)
-        }
-
-        if (hasStyle) {
-            builder.pop()
-        }
-    }
 
     /**
      * Walks this text span and its descendants in pre-order and calls [visitor]
@@ -88,27 +61,6 @@ class TextSpan(
             }
         }
         return true
-    }
-
-    /** Returns the text span that contains the given position in the text. */
-    fun getSpanForPosition(position: TextPosition): TextSpan? {
-        val affinity: TextAffinity = position.affinity
-        val targetOffset: Int = position.offset
-        var offset = 0
-        var result: TextSpan? = null
-        visitTextSpan {
-                span: TextSpan ->
-            assert(result == null)
-            val endOffset: Int = offset + span.text!!.length
-            if (targetOffset == offset && affinity == TextAffinity.downstream ||
-                targetOffset > offset && targetOffset < endOffset ||
-                targetOffset == endOffset && affinity == TextAffinity.upstream) {
-                result = span
-            }
-            offset = endOffset
-            true
-        }
-        return result
     }
 
     /**
@@ -192,4 +144,48 @@ class TextSpan(
         }
         return result
     }
+}
+
+private data class RecordInternal(
+    val style: TextStyle,
+    val start: Int,
+    var end: Int
+)
+
+private fun TextSpan.annotatedStringVisitor(
+    includeRootStyle: Boolean,
+    stringBuilder: java.lang.StringBuilder,
+    styles: MutableList<RecordInternal>
+) {
+    val styleSpan = if (includeRootStyle) {
+        style?.let {
+            val span = RecordInternal(it, stringBuilder.length, -1)
+            styles.add(span)
+            span
+        }
+    } else null
+
+    text?.let { stringBuilder.append(text) }
+    for (child in children) {
+        child.annotatedStringVisitor(true, stringBuilder, styles)
+    }
+
+    if (styleSpan != null) {
+        styleSpan.end = stringBuilder.length
+    }
+}
+
+/**
+ * Convert a [TextSpan] into an [AnnotatedString].
+ * @param includeRootStyle whether to attach the text style in the root [TextSpan] to the output
+ *  [AnnotatedString]. It's useful when the top level [TextStyle] is used as global text style setting.
+ * @hide
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+fun TextSpan.toAnnotatedString(includeRootStyle: Boolean = true): AnnotatedString {
+    val stringBuilder = java.lang.StringBuilder()
+    val tempRecords = mutableListOf<RecordInternal>()
+    annotatedStringVisitor(includeRootStyle, stringBuilder, tempRecords)
+    val records = tempRecords.map { AnnotatedString.Item(it.style, it.start, it.end) }
+    return AnnotatedString(stringBuilder.toString(), records)
 }

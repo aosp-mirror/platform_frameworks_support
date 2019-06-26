@@ -18,7 +18,10 @@ package androidx.camera.extensions.impl;
 
 import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
+import android.media.Image;
+import android.util.Size;
+import android.view.Surface;
 
 /**
  * Implementation for HDR preview use case.
@@ -29,10 +32,12 @@ import android.hardware.camera2.CaptureRequest;
 public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
     private static final int DEFAULT_STAGE_ID = 0;
 
+    GLImage2SurfaceRenderer mRenderer;
+
     public HdrPreviewExtenderImpl() { }
 
     @Override
-    public void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics) {
+    public void init(String cameraId, CameraCharacteristics cameraCharacteristics) {
     }
 
     @Override
@@ -47,31 +52,65 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
         // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
         // placeholder set of CaptureRequest.Key values
         SettableCaptureStage captureStage = new SettableCaptureStage(DEFAULT_STAGE_ID);
-        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
-                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
 
         return captureStage;
     }
 
     @Override
     public ProcessorType getProcessorType() {
-        return ProcessorType.PROCESSOR_TYPE_REQUEST_UPDATE_ONLY;
+        return ProcessorType.PROCESSOR_TYPE_IMAGE_PROCESSOR;
     }
 
     @Override
-    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
-        return RequestUpdateProcessorImpls.noUpdateProcessor();
+    public ProcessorImpl getProcessor() {
+        return mProcessor;
     }
+
+    private PreviewImageProcessorImpl mProcessor = new PreviewImageProcessorImpl() {
+        Surface mSurface;
+        Size mSize;
+
+
+        private void setWindowSurface() {
+            if (mSurface != null && mSize != null) {
+                mRenderer.setWindowSurface(mSurface, mSize.getWidth(), mSize.getHeight());
+            }
+        }
+
+        @Override
+        public void onOutputSurface(Surface surface, int imageFormat) {
+            mSurface = surface;
+            setWindowSurface();
+        }
+
+        @Override
+        public void process(Image image, TotalCaptureResult result) {
+            mRenderer.renderTexture(image);
+        }
+
+        @Override
+        public void onResolutionUpdate(Size size) {
+            mSize = size;
+            setWindowSurface();
+            mRenderer.setInput(size);
+        }
+
+        @Override
+        public void onImageFormatUpdate(int imageFormat) {
+
+        }
+    };
 
     @Override
     public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
             Context context) {
-
+        mRenderer = new GLImage2SurfaceRenderer();
     }
 
     @Override
     public void onDeInit() {
-
+        mRenderer.close();
+        mRenderer = null;
     }
 
     @Override

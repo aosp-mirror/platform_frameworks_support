@@ -16,7 +16,7 @@
 
 package androidx.ui.test
 
-import androidx.ui.core.SemanticsTreeNode
+import androidx.ui.core.semantics.SemanticsConfiguration
 
 /**
  * Extension methods that provide the entry point for the testing APIs.
@@ -25,32 +25,41 @@ import androidx.ui.core.SemanticsTreeNode
 /**
  * Finds a component identified by the given tag.
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SemanticsNodeInteraction]
  */
-fun UiTestRunner.findByTag(testTag: String): SemanticsTreeQuery {
-    return findByCondition { node ->
-        node.data.testTag == testTag
+fun findByTag(testTag: String): SemanticsNodeInteraction {
+    return find {
+        this.testTag == testTag
     }
 }
 
 /**
  * Finds a component by the given text.
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SemanticsNodeInteraction]
  */
-fun UiTestRunner.findByText(text: String): SemanticsTreeQuery {
-    return findByCondition { node ->
-        node.data.label == text
+fun findByText(text: String, ignoreCase: Boolean = false): SemanticsNodeInteraction {
+    return find {
+        label.equals(text, ignoreCase)
     }
 }
 
 /**
- * Finds a component that matches the given condition
+ * Finds a component that matches the given condition.
+ * This tries to match exactly one element and throws [AssertionError] if more than one is matched.
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SemanticsNodeInteraction]
  */
-fun UiTestRunner.findByCondition(
-    selector: (SemanticsTreeNode) -> Boolean
-): SemanticsTreeQuery {
-    return SemanticsTreeQuery(this, selector)
+fun find(
+    selector: SemanticsConfiguration.() -> Boolean
+): SemanticsNodeInteraction {
+    return semanticsTreeInteractionFactory(selector)
+        .findOne()
+}
+
+fun findAll(
+    selector: SemanticsConfiguration.() -> Boolean
+): List<SemanticsNodeInteraction> {
+    return semanticsTreeInteractionFactory(selector)
+        .findAllMatching()
 }

@@ -8,6 +8,8 @@ package androidx.room {
     field public final boolean allowMainThreadQueries;
     field public final java.util.List<androidx.room.RoomDatabase.Callback!>? callbacks;
     field public final android.content.Context context;
+    field public final String? copyFromAssetPath;
+    field public final java.io.File? copyFromFile;
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -68,6 +70,8 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T!> addMigrations(androidx.room.migration.Migration!...);
     method public androidx.room.RoomDatabase.Builder<T!> allowMainThreadQueries();
     method public T build();
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(java.io.File);
     method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);

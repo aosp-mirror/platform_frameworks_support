@@ -77,7 +77,6 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.ListenableFuture;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
@@ -95,6 +94,9 @@ import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaController.VolumeDirection;
 import androidx.media2.session.MediaController.VolumeFlags;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.Collections;
 import java.util.List;
 
 class MediaControllerImplBase implements MediaControllerImpl {
@@ -159,7 +161,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     @GuardedBy("mLock")
     private VideoSize mVideoSize = new VideoSize(0, 0);
     @GuardedBy("mLock")
-    private List<TrackInfo> mTrackInfos;
+    private List<TrackInfo> mTrackInfos = Collections.emptyList();
     @GuardedBy("mLock")
     private SparseArray<TrackInfo> mSelectedTracks = new SparseArray<>();
 
@@ -379,8 +381,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> playFromMediaId(final @NonNull String mediaId,
-            final @Nullable Bundle extras) {
+    public ListenableFuture<SessionResult> playFromMediaId(@NonNull final String mediaId,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
                 new RemoteSessionTask() {
                     @Override
@@ -391,8 +393,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> playFromSearch(final @NonNull String query,
-            final @Nullable Bundle extras) {
+    public ListenableFuture<SessionResult> playFromSearch(@NonNull final String query,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
                 new RemoteSessionTask() {
                     @Override
@@ -403,8 +405,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> playFromUri(final @NonNull Uri uri,
-            final @NonNull Bundle extras) {
+    public ListenableFuture<SessionResult> playFromUri(@NonNull final Uri uri,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PLAY_FROM_URI,
                 new RemoteSessionTask() {
                     @Override
@@ -415,8 +417,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> prepareFromMediaId(final @NonNull String mediaId,
-            final @Nullable Bundle extras) {
+    public ListenableFuture<SessionResult> prepareFromMediaId(@NonNull final String mediaId,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID,
                 new RemoteSessionTask() {
                     @Override
@@ -427,8 +429,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> prepareFromSearch(final @NonNull String query,
-            final @Nullable Bundle extras) {
+    public ListenableFuture<SessionResult> prepareFromSearch(@NonNull final String query,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH,
                 new RemoteSessionTask() {
                     @Override
@@ -439,8 +441,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> prepareFromUri(final @NonNull Uri uri,
-            final @Nullable Bundle extras) {
+    public ListenableFuture<SessionResult> prepareFromUri(@NonNull final Uri uri,
+            @Nullable final Bundle extras) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_PREPARE_FROM_URI,
                 new RemoteSessionTask() {
                     @Override
@@ -539,7 +541,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public @SessionPlayer.BuffState int getBufferingState() {
+    @SessionPlayer.BuffState
+    public int getBufferingState() {
         synchronized (mLock) {
             if (mISession == null) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -568,8 +571,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setRating(final @NonNull String mediaId,
-            final @NonNull Rating rating) {
+    public ListenableFuture<SessionResult> setRating(@NonNull final String mediaId,
+            @NonNull final Rating rating) {
         return dispatchRemoteSessionTask(COMMAND_CODE_SESSION_SET_RATING, new RemoteSessionTask() {
             @Override
             public void run(IMediaSession iSession, int seq) throws RemoteException {
@@ -581,7 +584,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     @Override
     public ListenableFuture<SessionResult> sendCustomCommand(
-            final @NonNull SessionCommand command, final @Nullable Bundle args) {
+            @NonNull final SessionCommand command, @Nullable final Bundle args) {
         return dispatchRemoteSessionTask(command, new RemoteSessionTask() {
             @Override
             public void run(IMediaSession iSession, int seq) throws RemoteException {
@@ -599,8 +602,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setPlaylist(final @NonNull List<String> list,
-            final @Nullable MediaMetadata metadata) {
+    public ListenableFuture<SessionResult> setPlaylist(@NonNull final List<String> list,
+            @Nullable final MediaMetadata metadata) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SET_PLAYLIST, new RemoteSessionTask() {
             @Override
             public void run(IMediaSession iSession, int seq) throws RemoteException {
@@ -611,7 +614,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setMediaItem(final String mediaId) {
+    public ListenableFuture<SessionResult> setMediaItem(@NonNull final String mediaId) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
                 new RemoteSessionTask() {
                     @Override
@@ -623,7 +626,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     @Override
     public ListenableFuture<SessionResult> updatePlaylistMetadata(
-            final @Nullable MediaMetadata metadata) {
+            @Nullable final MediaMetadata metadata) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
                 new RemoteSessionTask() {
                     @Override
@@ -643,7 +646,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     @Override
     public ListenableFuture<SessionResult> addPlaylistItem(final int index,
-            final @NonNull String mediaId) {
+            @NonNull final String mediaId) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
                 new RemoteSessionTask() {
                     @Override
@@ -654,7 +657,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> removePlaylistItem(final @NonNull int index) {
+    public ListenableFuture<SessionResult> removePlaylistItem(final int index) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
                 new RemoteSessionTask() {
                     @Override
@@ -666,7 +669,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     @Override
     public ListenableFuture<SessionResult> replacePlaylistItem(final int index,
-            final @NonNull String mediaId) {
+            @NonNull final String mediaId) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM,
                 new RemoteSessionTask() {
                     @Override
@@ -729,7 +732,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> skipToPlaylistItem(final @NonNull int index) {
+    public ListenableFuture<SessionResult> skipToPlaylistItem(final int index) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
                 new RemoteSessionTask() {
                     @Override
@@ -776,7 +779,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    @Nullable
+    @NonNull
     public List<SessionPlayer.TrackInfo> getTrackInfo() {
         synchronized (mLock) {
             return mTrackInfos;
@@ -786,7 +789,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     @Override
     @NonNull
     public ListenableFuture<SessionResult> selectTrack(
-            final @NonNull SessionPlayer.TrackInfo trackInfo) {
+            @NonNull final SessionPlayer.TrackInfo trackInfo) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SELECT_TRACK,
                 new RemoteSessionTask() {
                     @Override
@@ -800,7 +803,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     @Override
     @NonNull
     public ListenableFuture<SessionResult> deselectTrack(
-            final @NonNull SessionPlayer.TrackInfo trackInfo) {
+            @NonNull final SessionPlayer.TrackInfo trackInfo) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_DESELECT_TRACK,
                 new RemoteSessionTask() {
                     @Override
@@ -811,8 +814,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 });
     }
 
-    @Nullable
     @Override
+    @Nullable
     public TrackInfo getSelectedTrack(int trackType) {
         synchronized (mLock) {
             return mSelectedTracks.get(trackType);
@@ -828,7 +831,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setSurface(final @Nullable Surface surface) {
+    public ListenableFuture<SessionResult> setSurface(@Nullable final Surface surface) {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SET_SURFACE,
                 new RemoteSessionTask() {
                     @Override

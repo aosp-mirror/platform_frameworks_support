@@ -52,6 +52,7 @@ import androidx.test.espresso.action.CoordinatesProvider;
 import androidx.test.espresso.action.GeneralSwipeAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Swipe;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
@@ -89,19 +90,12 @@ public class AppCompatSpinnerTest
     public void setUp() {
         super.setUp();
         mInstrumentation = InstrumentationRegistry.getInstrumentation();
-
-        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            SystemClock.sleep(250);
-        }
+        setOrientation(true);
     }
 
     @After
     public void cleanUp() {
-        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            SystemClock.sleep(250);
-        }
+        setOrientation(true);
     }
 
     /**
@@ -229,6 +223,7 @@ public class AppCompatSpinnerTest
     }
 
     @Test
+    @FlakyTest
     public void testSlowScroll() {
         final AppCompatSpinner spinner = mContainer
                 .findViewById(R.id.spinner_dropdown_popup_with_scroll);
@@ -270,17 +265,22 @@ public class AppCompatSpinnerTest
             final int offset,
             final boolean isVerticalOffset,
             final boolean isRtl) {
-        int spinnerId = R.id.spinner_dropdown_popup_small;
-
+        final int spinnerId = R.id.spinner_dropdown_popup_small;
         final AppCompatSpinner spinner = mContainer.findViewById(spinnerId);
-        if (isVerticalOffset) {
-            spinner.setDropDownVerticalOffset(offset);
-        } else {
-            spinner.setDropDownHorizontalOffset(offset);
-        }
+
+        mInstrumentation.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                if (isVerticalOffset) {
+                    spinner.setDropDownVerticalOffset(offset);
+                } else {
+                    spinner.setDropDownHorizontalOffset(offset);
+                }
+            }
+        });
 
         onView(withId(spinnerId)).perform(click());
-        SystemClock.sleep(250);
+        waitUntilPopupIsShown(spinner);
 
         int computedOffset;
         if (isVerticalOffset) {
@@ -424,5 +424,19 @@ public class AppCompatSpinnerTest
 
         mContainer = mActivity.findViewById(R.id.container);
         mResources = mActivity.getResources();
+    }
+
+    private void setOrientation(final boolean toPortrait) {
+        final int desiredOrientation = toPortrait
+                ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+
+        if (mActivity.getRequestedOrientation() != desiredOrientation) {
+            mActivity.setRequestedOrientation(desiredOrientation);
+            SystemClock.sleep(250);
+            mActivity = mActivityTestRule.getActivity();
+            mContainer = mActivity.findViewById(R.id.container);
+            mResources = mActivity.getResources();
+        }
     }
 }

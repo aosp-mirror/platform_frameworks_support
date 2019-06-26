@@ -50,6 +50,10 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(LIBRARY)
+<<<<<<< HEAD   (7a3ed9 Merge "Merge cherrypicks of [975584, 975585] into androidx-m)
+=======
+@SuppressWarnings("unchecked")
+>>>>>>> BRANCH (687610 Merge "Increment androidx.recyclerview:recyclerview to 1.1.0)
 public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
 
     private static final String TAG = "DefaultSelectionTracker";
@@ -357,7 +361,7 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
         return mAdapterObserver;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "unchecked"}) /* synthetic access */
     void onDataSetChanged() {
         mSelection.clearProvisionalSelection();
 
@@ -510,7 +514,6 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public final void onSaveInstanceState(@NonNull Bundle state) {
         if (mSelection.isEmpty()) {
             return;

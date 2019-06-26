@@ -26,9 +26,6 @@ plugins {
     id("java")
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
 dependencies {
     compile(JAVAPOET)
 }
@@ -41,7 +38,6 @@ androidx {
     mavenGroup = LibraryGroups.REMOTECALLBACK
     inceptionYear = "2018"
     description = "Compiler for RemoteCallback implementations"
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
     compilationTarget = CompilationTarget.HOST
 }

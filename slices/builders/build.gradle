@@ -27,9 +27,9 @@ plugins {
 dependencies {
     implementation(project(":slice-core"))
     api(project(":remotecallback"))
-    implementation "androidx.annotation:annotation:1.1.0-rc01"
-    implementation project(':core')
-    implementation project(':collection')
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "androidx.core:core:1.1.0-rc01"
+    implementation project(':collection:collection')
 }
 
 androidx {
@@ -39,6 +39,5 @@ androidx {
     mavenGroup = LibraryGroups.SLICE
     inceptionYear = "2017"
     description = "A set of builders to create templates using SliceProvider APIs"
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }
