@@ -69,6 +69,30 @@
       "revId": "ef810e28ee236eed5babfc6837f06cbb20a08437",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d28e98af_1c2266c0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-06-26T19:47:48Z",
+      "side": 1,
+      "message": "Couldn\u0027t find one. Nor does any existing androidx gravity setter seem to use one.",
+      "parentUuid": "a2106f4b_e5158efa",
+      "range": {
+        "startLine": 518,
+        "startChar": 19,
+        "endLine": 518,
+        "endChar": 20
+      },
+      "revId": "ef810e28ee236eed5babfc6837f06cbb20a08437",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
