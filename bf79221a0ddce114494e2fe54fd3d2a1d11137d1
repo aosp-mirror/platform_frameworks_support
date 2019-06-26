@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "409c13b8_7bbc6d0d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-26T21:17:22Z",
+      "side": 1,
+      "message": "expandProjection is good enough name",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "bf79221a0ddce114494e2fe54fd3d2a1d11137d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "818d8add_ea516d37",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-06-26T21:17:22Z",
+      "side": 1,
+      "message": "use by lazy { }, since we tend to fork the Context a lot but we don\u0027t actually read this value equally often.",
+      "range": {
+        "startLine": 59,
+        "startChar": 33,
+        "endLine": 59,
+        "endChar": 98
+      },
+      "revId": "bf79221a0ddce114494e2fe54fd3d2a1d11137d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
