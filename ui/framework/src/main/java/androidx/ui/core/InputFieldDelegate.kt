@@ -18,9 +18,13 @@ package androidx.ui.core
 
 import android.util.Log
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.input.DeleteSurroundingTextInCodePointsEditOp
 import androidx.ui.input.EditOperation
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
+import androidx.ui.input.EventType
+import androidx.ui.input.KEYCODE_BACKSPACE
+import androidx.ui.input.KeyEvent
 import androidx.ui.input.SetSelectionEditOp
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.TextPainter
@@ -42,7 +46,12 @@ internal class InputFieldDelegate(
     /**
      * A callback called when new editor state is created.
      */
-    private val onValueChange: (EditorState) -> Unit
+    private val onValueChange: (EditorState) -> Unit,
+
+    /**
+     * A callback called when new key event arrives from IME.
+     */
+    private val onKeyEventForwarded: (KeyEvent) -> Boolean
 ) {
 
     /**
@@ -125,5 +134,24 @@ internal class InputFieldDelegate(
     fun onRelease(position: PxPosition) {
         val offset = textPainter.getPositionForOffset(position.toOffset())
         onEditCommand(listOf(SetSelectionEditOp(offset, offset)))
+    }
+
+    /**
+     * Called when onKeyEvent is called from TextInputService.
+     *
+     * @param key A keyevent from IME.
+     */
+    fun onKeyEvent(key: KeyEvent) {
+        val consumed = onKeyEventForwarded(key)
+        if (consumed) return // If app consumed the key event, do nothing.
+
+        if (key.eventType == EventType.KEY_UP) return
+
+        when (key.keyCode) {
+            // TODO(nona): Must delete until next grapheme boundary.
+            // TODO(nona): Move keyevent logic to EditProcessor
+            KEYCODE_BACKSPACE ->
+                onEditCommand(listOf(DeleteSurroundingTextInCodePointsEditOp(1, 0)))
+        }
     }
 }

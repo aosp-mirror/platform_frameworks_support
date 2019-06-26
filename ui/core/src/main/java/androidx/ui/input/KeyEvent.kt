@@ -16,28 +16,14 @@
 
 package androidx.ui.input
 
-import androidx.annotation.RestrictTo
-import androidx.annotation.RestrictTo.Scope.LIBRARY
-/**
- * An interface of listening IME events.
- *
- * @hide
- */
-@RestrictTo(LIBRARY)
-interface InputEventListener {
-    /**
-     * Called when IME sends some input events.
-     *
-     * @param editOps The list of edit operations.
-     */
-    fun onEditOperations(editOps: List<EditOperation>)
-
-    /**
-     * Called when IME sends a key event.
-     *
-     * @param keyEvent The key event.
-     */
-    fun onKeyEvent(keyEvent: KeyEvent)
-
-    // TODO(nona): add more input event callbacks, editor action etc.
+enum class EventType {
+    KEY_DOWN,
+    KEY_UP
+    // TODO(nona): Do we need base Event class and handle mouse event?
 }
+
+data class KeyEvent(
+    val eventType: EventType,
+    val keyCode: KeyCode
+    // TODO(nona): Add modifiers, timesptamps, string, etc.
+)

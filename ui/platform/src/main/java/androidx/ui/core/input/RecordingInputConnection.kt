@@ -143,9 +143,10 @@ internal class RecordingInputConnection(
         return true
     }
 
-    override fun sendKeyEvent(event: KeyEvent?): Boolean {
+    override fun sendKeyEvent(event: KeyEvent): Boolean {
         if (DEBUG) { Log.d(TAG, "sendKeyEvent($event)") }
-        TODO("not implemented")
+        eventListener.onKeyEvent(event.toKeyEvent())
+        return true
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////

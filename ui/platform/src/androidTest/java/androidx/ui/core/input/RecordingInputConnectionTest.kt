@@ -16,14 +16,17 @@
 
 package androidx.ui.core.input
 
+import android.view.KeyEvent
 import androidx.test.filters.SmallTest
 import androidx.ui.core.TextRange
 import androidx.ui.input.CommitTextEditOp
 import androidx.ui.input.DeleteSurroundingTextEditOp
 import androidx.ui.input.DeleteSurroundingTextInCodePointsEditOp
 import androidx.ui.input.EditOperation
+import androidx.ui.input.EventType
 import androidx.ui.input.FinishComposingTextEditOp
 import androidx.ui.input.InputEventListener
+import androidx.ui.input.KEYCODE_BACKSPACE
 import androidx.ui.input.SetComposingRegionEditOp
 import androidx.ui.input.SetComposingTextEditOp
 import androidx.ui.input.SetSelectionEditOp
@@ -451,5 +454,19 @@ class RecordingInputConnectionTest {
         // Everything is internal and there is nothing to expect.
         // Just make sure it is not crashed by calling method.
         ic.closeConnection()
+    }
+
+    @Test
+    fun send_keyevent_test() {
+
+        ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+
+        argumentCaptor<androidx.ui.input.KeyEvent>().apply {
+            verify(listener, times(1)).onKeyEvent(capture())
+
+            assertEquals(1, allValues.size)
+            assertEquals(KEYCODE_BACKSPACE, firstValue.keyCode)
+            assertEquals(EventType.KEY_DOWN, firstValue.eventType)
+        }
     }
 }

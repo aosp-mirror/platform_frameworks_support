@@ -31,7 +31,7 @@ interface TextInputService {
         initState: EditorState,
         onEditCommand: (List<EditOperation>) -> Unit,
         onEditorActionPerformed: (Any) -> Unit, /* TODO(nona): decide type */
-        onKeyEventForwarded: (Any) -> Unit /* TODO(nona): decide type */
+        onKeyEventForwarded: (KeyEvent) -> Unit
     )
 
     /**
