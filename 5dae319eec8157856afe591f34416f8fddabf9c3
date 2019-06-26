@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fed8e6_766cc03a",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintHelperFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-26T00:53:45Z",
+      "side": 1,
+      "message": "Ah, I read it and realized it\u0027s because of the error string being final. The actual callback definition in FingerprintManagerCompat isn\u0027t final, so I think it might be easier to read if we just remove final from above and do something like\n\nif (errString \u003d\u003d null) {\n  Log.e(...)\n  errString \u003d mContext.getResources().getString(...)\n}",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "5dae319eec8157856afe591f34416f8fddabf9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8f5d884_ae5d33ef",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintHelperFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-26T00:53:45Z",
+      "side": 1,
+      "message": "Small nit, start logs with capital, same below",
+      "range": {
+        "startLine": 101,
+        "startChar": 40,
+        "endLine": 101,
+        "endChar": 41
+      },
+      "revId": "5dae319eec8157856afe591f34416f8fddabf9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
