@@ -21,6 +21,7 @@ import android.util.Rational;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -254,6 +255,30 @@ public final class VideoCaptureConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     public int getAudioMinBufferSize() {
         return retrieveOption(OPTION_AUDIO_MIN_BUFFER_SIZE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing) {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS, valueIfMissing);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics() {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS);
     }
 
     // Start of the default implementation of Config
@@ -654,6 +679,7 @@ public final class VideoCaptureConfig
          *
          * @return A {@link VideoCaptureConfig} populated with the current state.
          */
+        @NonNull
         public VideoCaptureConfig build() {
             return new VideoCaptureConfig(OptionsBundle.from(mMutableConfig));
         }
@@ -924,6 +950,20 @@ public final class VideoCaptureConfig
         @Override
         public Builder setUseCaseEventListener(UseCase.EventListener useCaseEventListener) {
             getMutableConfig().insertOption(OPTION_USE_CASE_EVENT_LISTENER, useCaseEventListener);
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @hide
+         */
+        @NonNull
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setCaptureCharacteristics(
+                @NonNull CaptureCharacteristics captureCharacteristics) {
+            getMutableConfig().insertOption(OPTION_CAPTURE_CHARACTERISTICS, captureCharacteristics);
             return this;
         }
     }
