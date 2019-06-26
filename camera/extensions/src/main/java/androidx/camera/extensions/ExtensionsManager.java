@@ -15,8 +15,10 @@
  */
 package androidx.camera.extensions;
 
+import android.hardware.camera2.CameraCharacteristics;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.MainThread;
@@ -24,11 +26,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
+import androidx.camera.core.CaptureCharacteristics;
 import androidx.camera.core.EffectHelper;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
+import androidx.camera.extensions.impl.CaptureCharacteristicsImpls;
 import androidx.lifecycle.LifecycleOwner;
 
 import java.util.HashMap;
@@ -39,6 +43,7 @@ import java.util.Map;
  * functions.
  */
 public final class ExtensionsManager {
+    private static final String TAG = "ExtensionsManager";
     /** The effect mode options applied on the bound use cases */
     public enum EffectMode {
         /** Normal mode without any specific effect applied. */
@@ -204,6 +209,18 @@ public final class ExtensionsManager {
                     }
                 });
             }
+        }
+    }
+
+    static CaptureCharacteristics getCaptureCharacteristics(Class<?> klass, String cameraId,
+            CameraCharacteristics cameraCharacteristics) {
+        try {
+            return new AdaptingCaptureCharacteristics(
+                    CaptureCharacteristicsImpls.getCaptureCharacteristicsImpl(), klass, cameraId,
+                    cameraCharacteristics);
+        } catch (NoClassDefFoundError e) {
+            Log.d(TAG, "No CaptureCharacteristicsImpl is implemented.");
+            return null;
         }
     }
 

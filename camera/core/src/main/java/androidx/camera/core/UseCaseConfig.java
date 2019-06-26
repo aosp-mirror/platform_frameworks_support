@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -80,6 +81,16 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
     @RestrictTo(Scope.LIBRARY_GROUP)
     Option<Integer> OPTION_SURFACE_OCCUPANCY_PRIORITY =
             Option.create("camerax.core.useCase.surfaceOccupancyPriority", int.class);
+
+    /**
+     * Option: camerax.core.useCase.captureCharacteristics
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    Option<CaptureCharacteristics> OPTION_CAPTURE_CHARACTERISTICS =
+            Option.create("camerax.core.useCase.captureCharacteristics",
+                    CaptureCharacteristics.class);
 
     // *********************************************************************************************
 
@@ -229,6 +240,29 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
     int getSurfaceOccupancyPriority();
 
     /**
+     * Returns the {@link CaptureCharacteristics}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing);
+
+    /**
+     * Returns the {@link CaptureCharacteristics}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    CaptureCharacteristics getCaptureCharacteristics();
+
+    /**
      * Builder for a {@link UseCaseConfig}.
      *
      * @param <T> The type of the object being configured.
@@ -303,10 +337,22 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
         B setSurfaceOccupancyPriority(int priority);
 
         /**
+         * Sets the {@link CaptureCharacteristics}.
+         *
+         * @param captureCharacteristics The customized capture characteristics for extension.
+         * @return The current Builder.
+         * @hide
+         */
+        @NonNull
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        B setCaptureCharacteristics(@NonNull CaptureCharacteristics captureCharacteristics);
+
+        /**
          * Builds the configuration for the target use case.
          *
          * @hide
          */
+        @NonNull
         @RestrictTo(Scope.LIBRARY_GROUP)
         C build();
     }
