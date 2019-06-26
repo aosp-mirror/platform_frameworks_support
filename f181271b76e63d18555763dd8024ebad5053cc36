@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56eab0b4_823652bb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-26T13:51:55Z",
+      "side": 1,
+      "message": "May need a specific Exception. IllegalStateException is a choice.",
+      "range": {
+        "startLine": 924,
+        "startChar": 63,
+        "endLine": 924,
+        "endChar": 72
+      },
+      "revId": "f181271b76e63d18555763dd8024ebad5053cc36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7ae778a_7592f58e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-26T13:51:55Z",
+      "side": 1,
+      "message": "nit: Not quite understand the naming. Will mIsCaptureRequestSuccess be better?",
+      "range": {
+        "startLine": 1122,
+        "startChar": 16,
+        "endLine": 1122,
+        "endChar": 32
+      },
+      "revId": "f181271b76e63d18555763dd8024ebad5053cc36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
