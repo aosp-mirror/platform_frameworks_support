@@ -16,19 +16,19 @@
 
 package androidx.ui.test
 
-fun SemanticsTreeInteraction.doClick(): SemanticsTreeInteraction {
-    val foundNodes = findAllMatching()
-    if (foundNodes.size != 1) {
-        throw AssertionError("Found '${foundNodes.size}' nodes but 1 was expected!")
-    }
+/**
+ * Performs a click action on the given component.
+ */
+fun SemanticsNodeInteraction.doClick(): SemanticsNodeInteraction {
+    assertStillExists()
 
-    // TODO(catalintudor): get real coordonates after Semantics API is ready (b/125702443)
-    val globalCoordinates = foundNodes[0].globalPosition
+    // TODO(catalintudor): get real coordinates after Semantics API is ready (b/125702443)
+    val globalCoordinates = semanticsTreeNode.globalPosition
         ?: throw AssertionError("Semantic Node has no child layout to perform click on!")
     val x = globalCoordinates.x.value + 1f
     val y = globalCoordinates.y.value + 1f
 
-    sendClick(x, y)
+    semanticsTreeInteraction.sendClick(x, y)
 
     return this
 }

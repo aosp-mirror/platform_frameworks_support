@@ -17,8 +17,6 @@
 package androidx.ui.painting
 
 import androidx.annotation.RestrictTo
-import androidx.ui.engine.text.TextAffinity
-import androidx.ui.engine.text.TextPosition
 import androidx.ui.painting.basictypes.RenderComparison
 
 /**
@@ -35,7 +33,6 @@ import androidx.ui.painting.basictypes.RenderComparison
  * @param children Additional spans to include as children. If both [text] and [children] are
  *   non-null, the text will precede the children. The list must not contain any nulls.
  *
- * @param recognizer A gesture recognizer that will receive events that hit this text span.
  * @hide
  */
 // TODO(haoyuchang) Make TextSpan immutable.
@@ -43,8 +40,7 @@ import androidx.ui.painting.basictypes.RenderComparison
 class TextSpan(
     var style: TextStyle? = null,
     var text: String? = null,
-    val children: MutableList<TextSpan> = mutableListOf()/*,
-    val recognizer: GestureRecognizer? = null*/
+    val children: MutableList<TextSpan> = mutableListOf()
 ) {
 
     /**
@@ -63,27 +59,6 @@ class TextSpan(
             }
         }
         return true
-    }
-
-    /** Returns the text span that contains the given position in the text. */
-    fun getSpanForPosition(position: TextPosition): TextSpan? {
-        val affinity: TextAffinity = position.affinity
-        val targetOffset: Int = position.offset
-        var offset = 0
-        var result: TextSpan? = null
-        visitTextSpan {
-                span: TextSpan ->
-            assert(result == null)
-            val endOffset: Int = offset + span.text!!.length
-            if (targetOffset == offset && affinity == TextAffinity.downstream ||
-                targetOffset > offset && targetOffset < endOffset ||
-                targetOffset == endOffset && affinity == TextAffinity.upstream) {
-                result = span
-            }
-            offset = endOffset
-            true
-        }
-        return result
     }
 
     /**
@@ -176,21 +151,18 @@ private data class RecordInternal(
 )
 
 private fun TextSpan.annotatedStringVisitor(
-    includeRootStyle: Boolean,
     stringBuilder: java.lang.StringBuilder,
     styles: MutableList<RecordInternal>
 ) {
-    val styleSpan = if (includeRootStyle) {
-        style?.let {
-            val span = RecordInternal(it, stringBuilder.length, -1)
-            styles.add(span)
-            span
-        }
-    } else null
+    val styleSpan = style?.let {
+        val span = RecordInternal(it, stringBuilder.length, -1)
+        styles.add(span)
+        span
+    }
 
     text?.let { stringBuilder.append(text) }
     for (child in children) {
-        child.annotatedStringVisitor(true, stringBuilder, styles)
+        child.annotatedStringVisitor(stringBuilder, styles)
     }
 
     if (styleSpan != null) {
@@ -200,15 +172,13 @@ private fun TextSpan.annotatedStringVisitor(
 
 /**
  * Convert a [TextSpan] into an [AnnotatedString].
- * @param includeRootStyle whether to attach the text style in the root [TextSpan] to the output
- *  [AnnotatedString]. It's useful when the top level [TextStyle] is used as global text style setting.
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun TextSpan.toAnnotatedString(includeRootStyle: Boolean = true): AnnotatedString {
+fun TextSpan.toAnnotatedString(): AnnotatedString {
     val stringBuilder = java.lang.StringBuilder()
     val tempRecords = mutableListOf<RecordInternal>()
-    annotatedStringVisitor(includeRootStyle, stringBuilder, tempRecords)
+    annotatedStringVisitor(stringBuilder, tempRecords)
     val records = tempRecords.map { AnnotatedString.Item(it.style, it.start, it.end) }
     return AnnotatedString(stringBuilder.toString(), records)
 }

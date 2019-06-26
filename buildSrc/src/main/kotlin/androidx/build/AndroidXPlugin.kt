@@ -80,6 +80,7 @@ import java.util.concurrent.ConcurrentHashMap
  * compatibility.
  */
 const val USE_MAX_DEP_VERSIONS = "useMaxDepVersions"
+const val BUILD_INFO_DIR = "build-info"
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -119,10 +120,9 @@ class AndroidXPlugin : Plugin<Project> {
                         targetCompatibility = VERSION_1_8
                     }
                     project.afterEvaluate {
-                        verifyJava7Targeting(
-                            project.version as String,
-                            convention.sourceCompatibility
-                        )
+                        if (androidXExtension.publish.shouldPublish()) {
+                            verifyJava7Targeting(project.version(), convention.sourceCompatibility)
+                        }
                     }
 
                     project.hideJavadocTask()
@@ -150,7 +150,7 @@ class AndroidXPlugin : Plugin<Project> {
                         configureAndroidLibraryOptions(project, androidXExtension)
                     }
                     project.configureSourceJarForAndroid(extension)
-                    project.configureVersionFileWriter(extension)
+                    project.configureVersionFileWriter(extension, androidXExtension)
                     project.configureResourceApiChecks(extension)
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
@@ -295,7 +295,8 @@ class AndroidXPlugin : Plugin<Project> {
             it.dependsOn(createCoverageJarTask)
         }
 
-        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
+        val rootProjectDir = SupportConfig.getSupportRoot(rootProject).canonicalFile
+        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, rootProjectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
         buildOnServerTask.dependsOn(allDocsTask)
@@ -486,9 +487,9 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
-    private fun verifyJava7Targeting(libraryVersion: String, javaVersion: JavaVersion) {
+    private fun verifyJava7Targeting(libraryVersion: Version, javaVersion: JavaVersion) {
         if (javaVersion == VERSION_1_7) {
-            if (libraryVersion.contains("alpha")) {
+            if (libraryVersion.isAlpha()) {
                 throw IllegalStateException("You moved a library that was targeting " +
                         "Java 7 to alpha version. Please remove " +
                         "`sourceCompatibility = VERSION_1_7` from build.gradle")
@@ -520,7 +521,9 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            verifyJava7Targeting(project.version as String, compileOptions.sourceCompatibility)
+            if (androidXExtension.publish.shouldPublish()) {
+                verifyJava7Targeting(project.version(), compileOptions.sourceCompatibility)
+            }
 
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
@@ -583,7 +586,7 @@ class AndroidXPlugin : Plugin<Project> {
                     CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
                     CreateLibraryBuildInfoFileTask::class.java
                 ) {
-                    it.outputFile.set(File(project.getDistributionDirectory(),
+                    it.outputFile.set(File(project.getBuildInfoDirectory(),
                         "${project.group}_${project.name}_build_info.txt"))
                 }
                 project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
