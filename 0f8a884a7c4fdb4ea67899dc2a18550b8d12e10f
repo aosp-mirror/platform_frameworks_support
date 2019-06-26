@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1fda8b_1ce52fc5",
+        "filename": "ui/gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T14:45:42Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 36
+      },
+      "revId": "0f8a884a7c4fdb4ea67899dc2a18550b8d12e10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a394a86d_c6a78f04",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T14:45:42Z",
+      "side": 1,
+      "message": "Can remove now",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 34
+      },
+      "revId": "0f8a884a7c4fdb4ea67899dc2a18550b8d12e10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96b1a46_b677866b",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T14:45:42Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 197,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 37
+      },
+      "revId": "0f8a884a7c4fdb4ea67899dc2a18550b8d12e10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f20803e_fc1c5bf8",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T14:45:42Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 204,
+        "startChar": 2,
+        "endLine": 205,
+        "endChar": 34
+      },
+      "revId": "0f8a884a7c4fdb4ea67899dc2a18550b8d12e10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8eca901_a8ca8b65",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T14:45:42Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 37
+      },
+      "revId": "0f8a884a7c4fdb4ea67899dc2a18550b8d12e10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
