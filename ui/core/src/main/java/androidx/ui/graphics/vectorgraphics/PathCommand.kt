@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.vectorgraphics
+package androidx.ui.graphics.vectorgraphics
 
 enum class PathCommand(private val mKey: Char) {
 

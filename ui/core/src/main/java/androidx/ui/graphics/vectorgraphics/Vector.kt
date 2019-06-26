@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.vectorgraphics
+package androidx.ui.graphics.vectorgraphics
 
 import android.graphics.ColorFilter
 import android.graphics.Matrix
@@ -28,14 +28,11 @@ import androidx.ui.painting.Canvas
 import androidx.ui.painting.Image
 import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle
+import androidx.ui.painting.Path
 import androidx.ui.painting.StrokeCap
 import androidx.ui.painting.StrokeJoin
-import androidx.compose.Children
-import androidx.compose.Composable
-import androidx.compose.Emittable
-import androidx.compose.composer
 import androidx.ui.painting.withSave
-import androidx.ui.painting.Path as PaintingPath
+import kotlin.math.ceil
 
 const val DefaultGroupName = ""
 const val DefaultRotate = 0.0f
@@ -72,99 +69,19 @@ const val DefaultStrokeLineMiter = 4.0f
 val DefaultStrokeLineCap = StrokeCap.butt
 val DefaultStrokeLineJoin = StrokeJoin.miter
 
-fun addPathNodes(pathStr: String?): Array<PathNode> =
-    if (pathStr == null) {
-        EmptyPath
-    } else {
-        PathParser().parsePathString(pathStr).toNodes()
-    }
-
-@Composable
-fun vector(
-    name: String = "",
-    viewportWidth: Float,
-    viewportHeight: Float,
-    defaultWidth: Float = viewportWidth,
-    defaultHeight: Float = viewportHeight,
-    @Children children: @Composable() () -> Unit
-) {
-    <Vector name defaultWidth defaultHeight viewportWidth viewportHeight>
-        children()
-    </Vector>
-}
-
-@Composable
-fun group(
-    name: String = DefaultGroupName,
-    rotate: Float = DefaultRotate,
-    pivotX: Float = DefaultPivotX,
-    pivotY: Float = DefaultPivotY,
-    scaleX: Float = DefaultScaleX,
-    scaleY: Float = DefaultScaleY,
-    translateX: Float = DefaultTranslateX,
-    translateY: Float = DefaultTranslateY,
-    clipPathData: PathData = EmptyPath,
-    @Children childNodes: @Composable() () -> Unit
-) {
-
-    val clipPathNodes = createPath(clipPathData)
-    <Group
-        name
-        rotate
-        pivotX
-        pivotY
-        scaleX
-        scaleY
-        translateX
-        translateY
-        clipPathNodes>
-        childNodes()
-    </Group>
-}
-
-@Composable
-fun path(
-    pathData: PathData,
-    name: String = DefaultPathName,
-    fill: BrushType = EmptyBrush,
-    fillAlpha: Float = DefaultAlpha,
-    stroke: BrushType = EmptyBrush,
-    strokeAlpha: Float = DefaultAlpha,
-    strokeLineWidth: Float = DefaultStrokeLineWidth,
-    strokeLineCap: StrokeCap = DefaultStrokeLineCap,
-    strokeLineJoin: StrokeJoin = DefaultStrokeLineJoin,
-    strokeLineMiter: Float = DefaultStrokeLineMiter
-) {
-    val pathNodes = createPath(pathData)
-    val fillBrush: Brush = obtainBrush(fill)
-    val strokeBrush: Brush = obtainBrush(stroke)
-
-    <Path
-        name
-        pathNodes
-        fill=fillBrush
-        fillAlpha
-        stroke=strokeBrush
-        strokeAlpha
-        strokeLineWidth
-        strokeLineCap
-        strokeLineJoin
-        strokeLineMiter />
-}
-
-private sealed class VNode {
+sealed class VNode {
     abstract fun draw(canvas: Canvas)
 }
 
-private class Vector(
+class Vector(
     val name: String = "",
-    val viewportWidth: Float,
-    val viewportHeight: Float,
-    val defaultWidth: Float = viewportWidth,
-    val defaultHeight: Float = viewportHeight
-) : VNode(), Emittable {
+    var viewportWidth: Float,
+    var viewportHeight: Float,
+    var defaultWidth: Float = viewportWidth,
+    var defaultHeight: Float = viewportHeight
+) : VNode() {
 
-    private val root = Group(this@Vector.name).apply {
+    val root = Group(this@Vector.name).apply {
         pivotX = 0.0f
         pivotY = 0.0f
         scaleX = defaultWidth / viewportWidth
@@ -185,8 +102,8 @@ private class Vector(
         var targetImage = cachedImage
         if (targetImage == null) {
             targetImage = Image(
-                kotlin.math.ceil(defaultWidth).toInt(),
-                kotlin.math.ceil(defaultHeight).toInt()
+                ceil(defaultWidth).toInt(),
+                ceil(defaultHeight).toInt()
             )
             cachedImage = targetImage
             root.draw(Canvas(targetImage))
@@ -205,20 +122,20 @@ private class Vector(
         }
     }
 
-    override fun emitInsertAt(index: Int, instance: Emittable) {
-        root.emitInsertAt(index, instance)
-    }
-
-    override fun emitMove(from: Int, to: Int, count: Int) {
-        root.emitMove(from, to, count)
-    }
-
-    override fun emitRemoveAt(index: Int, count: Int) {
-        root.emitRemoveAt(index, count)
-    }
+//    fun emitInsertAt(index: Int, instance: Emittable) {
+//        root.emitInsertAt(index, instance)
+//    }
+//
+//    fun emitMove(from: Int, to: Int, count: Int) {
+//        root.emitMove(from, to, count)
+//    }
+//
+//    fun emitRemoveAt(index: Int, count: Int) {
+//        root.emitRemoveAt(index, count)
+//    }
 }
 
-private class Path(val name: String) : VNode(), Emittable {
+class Path(val name: String) : VNode() {
 
     var fill: Brush = EmptyBrush
         set(value) {
@@ -292,7 +209,7 @@ private class Path(val name: String) : VNode(), Emittable {
 
     private var isPathDirty = true
 
-    private val path = PaintingPath()
+    private val path = Path()
 
     private var fillPaint: Paint? = null
     private var strokePaint: Paint? = null
@@ -366,24 +283,24 @@ private class Path(val name: String) : VNode(), Emittable {
         }
     }
 
-    override fun emitInsertAt(index: Int, instance: Emittable) {
-        throw IllegalArgumentException("Unable to insert Emittable into Path")
-    }
-
-    override fun emitMove(from: Int, to: Int, count: Int) {
-        throw IllegalArgumentException("Unable to move Emittable within Path")
-    }
-
-    override fun emitRemoveAt(index: Int, count: Int) {
-        throw IllegalArgumentException("Unable to remove Emittable from Path")
-    }
+//    override fun emitInsertAt(index: Int, instance: Emittable) {
+//        throw IllegalArgumentException("Unable to insert Emittable into Path")
+//    }
+//
+//    override fun emitMove(from: Int, to: Int, count: Int) {
+//        throw IllegalArgumentException("Unable to move Emittable within Path")
+//    }
+//
+//    override fun emitRemoveAt(index: Int, count: Int) {
+//        throw IllegalArgumentException("Unable to remove Emittable from Path")
+//    }
 
     override fun toString(): String {
         return path.toString()
     }
 }
 
-private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
+class Group(val name: String = DefaultGroupName) : VNode() {
 
     private var groupMatrix: Matrix? = null
 
@@ -400,7 +317,7 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
 
     private var isClipPathDirty = true
 
-    private var clipPath: PaintingPath? = null
+    private var clipPath: androidx.ui.painting.Path? = null
     private var parser: PathParser? = null
 
     private fun updateClipPath() {
@@ -415,7 +332,7 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
 
             var targetClip = clipPath
             if (targetClip == null) {
-                targetClip = PaintingPath()
+                targetClip = androidx.ui.painting.Path()
                 clipPath = targetClip
             } else {
                 targetClip.reset()
@@ -488,17 +405,21 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
         }
     }
 
-    override fun emitInsertAt(index: Int, instance: Emittable) {
-        if (instance is VNode) {
-            if (index < size) {
-                children[index] = instance
-            } else {
-                children.add(instance)
-            }
+    fun insertAt(index: Int, instance: VNode) {
+        if (index < size) {
+            children[index] = instance
+        } else {
+            children.add(instance)
         }
     }
 
-    override fun emitMove(from: Int, to: Int, count: Int) {
+//    override fun emitInsertAt(index: Int, instance: Emittable) {
+//        if (instance is VNode) {
+//            insertAt(index, instance)
+//        }
+//    }
+
+    fun move(from:Int, to: Int, count: Int) {
         if (from > to) {
             var current = to
             repeat(count) {
@@ -516,11 +437,19 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
         }
     }
 
-    override fun emitRemoveAt(index: Int, count: Int) {
+//    override fun emitMove(from: Int, to: Int, count: Int) {
+//        move(from, to, count)
+//    }
+
+    fun remove(index: Int, count: Int) {
         repeat(count) {
             children.removeAt(index)
         }
     }
+
+//    override fun emitRemoveAt(index: Int, count: Int) {
+//        remove(index, count)
+//    }
 
     override fun draw(canvas: Canvas) {
         if (isMatrixDirty) {
@@ -563,7 +492,7 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
     }
 }
 
-private fun createPath(pathData: PathData): Array<PathNode> {
+fun createPath(pathData: PathData): Array<PathNode> {
     @Suppress("UNCHECKED_CAST")
     return when (pathData) {
         is Array<*> -> pathData as Array<PathNode>

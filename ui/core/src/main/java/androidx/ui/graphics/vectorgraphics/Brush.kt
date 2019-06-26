@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.vectorgraphics
+package androidx.ui.graphics.vectorgraphics
 
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
@@ -33,7 +33,8 @@ interface Brush {
     fun applyBrush(p: Paint)
 }
 
-/* inline */ class SolidColor(private val value: Color) : Brush {
+/* inline */ class SolidColor(private val value: Color) :
+    Brush {
     override fun applyBrush(p: Paint) {
         p.color = value
     }

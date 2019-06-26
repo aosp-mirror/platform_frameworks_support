@@ -28,6 +28,7 @@ includeProject(":compose:compose-compiler-hosted:integration-tests", "../compose
 includeProject(":compose:compose-compiler", "../compose/compose-compiler")
 includeProject(":compose:compose-ide-plugin", "../compose/compose-ide-plugin")
 includeProject(":ui-android-text", "android-text")
+includeProject(":ui-vector", "vector")
 includeProject(":ui-text", "text")
 includeProject(":ui-text:integration-tests:ui-text-demos", "text/integration-tests/text-demos")
 includeProject(":ui-core", "core")
