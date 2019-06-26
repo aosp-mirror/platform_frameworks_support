@@ -15,6 +15,7 @@
  */
 package androidx.ui.engine.text.platform
 
+import android.graphics.Typeface
 import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
@@ -59,13 +60,10 @@ import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
 import androidx.ui.engine.text.ParagraphStyle
-import androidx.ui.engine.text.TextAffinity
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextIndent
-import androidx.ui.engine.text.TextPosition
-import androidx.ui.engine.text.hasFontAttributes
 import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
@@ -74,15 +72,13 @@ import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-const val LINE_FEED = '\n'
-
 internal class ParagraphAndroid constructor(
     val text: String,
+    val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
     val textStyles: List<AnnotatedString.Item<TextStyle>>,
     val typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
 ) {
-
     @VisibleForTesting
     internal val textPaint = TextPaint(android.graphics.Paint.ANTI_ALIAS_FLAG)
     private var layout: TextLayout? = null
@@ -142,32 +138,16 @@ internal class ParagraphAndroid constructor(
     fun layout(width: Float) {
         val floorWidth = floor(width)
 
-        paragraphStyle.fontSize?.let {
-            textPaint.textSize = it
-        }
+        val newStyle = style.applyTextStyle(textPaint, typefaceAdapter)
 
-        // TODO(siyamed): This default values are problem here. If the user just gives a single font
-        // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
-        // call as FontWeight.normal (which is the default value)
-        if (paragraphStyle.hasFontAttributes()) {
-            textPaint.typeface = typefaceAdapter.create(
-                fontFamily = paragraphStyle.fontFamily,
-                fontWeight = paragraphStyle.fontWeight ?: FontWeight.normal,
-                fontStyle = paragraphStyle.fontStyle ?: FontStyle.Normal,
-                fontSynthesis = paragraphStyle.fontSynthesis ?: FontSynthesis.All
-            )
-        }
-
-        paragraphStyle.locale?.let {
-            textPaint.textLocale = Locale(
-                it.languageCode,
-                it.countryCode ?: ""
-            )
-        }
-
-        val charSequence = applyTextStyle(text, paragraphStyle.textIndent, textStyles)
+        val charSequence = applyTextStyle(
+            text,
+            paragraphStyle.textIndent,
+            listOf(AnnotatedString.Item<TextStyle>(newStyle, 0, text.length)) + textStyles
+        )
 
         val alignment = toLayoutAlign(paragraphStyle.textAlign)
+
         // TODO(Migration/haoyuchang): Layout has more settings that flutter,
         //  we may add them in future.
         val textDirectionHeuristic = when (paragraphStyle.textDirection) {
@@ -204,14 +184,9 @@ internal class ParagraphAndroid constructor(
         this.width = floorWidth
     }
 
-    // TODO(qqd): TextAffinity in TextPosition is not implemented. We need to clean it up in future.
-    fun getPositionForOffset(offset: Offset): TextPosition {
+    fun getPositionForOffset(offset: Offset): Int {
         val line = ensureLayout.getLineForVertical(offset.dy.toInt())
-        return TextPosition(
-            offset = ensureLayout.getOffsetForHorizontal(line, offset.dx),
-            // TODO(Migration/siyamed): we provide a default value
-            affinity = TextAffinity.upstream
-        )
+        return ensureLayout.getOffsetForHorizontal(line, offset.dx)
     }
 
     /**
@@ -219,11 +194,11 @@ internal class ParagraphAndroid constructor(
      * top, bottom, left and right of a character.
      */
     // TODO:(qqd) Implement RTL case.
-    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
-        val left = ensureLayout.getPrimaryHorizontal(textPosition.offset)
-        val right = ensureLayout.getPrimaryHorizontal(textPosition.offset + 1)
+    fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
+        val left = ensureLayout.getPrimaryHorizontal(textPosition)
+        val right = ensureLayout.getPrimaryHorizontal(textPosition + 1)
 
-        val line = ensureLayout.getLineForOffset(textPosition.offset)
+        val line = ensureLayout.getLineForOffset(textPosition)
         val top = ensureLayout.getLineTop(line)
         val bottom = ensureLayout.getLineBottom(line)
 
@@ -280,6 +255,15 @@ internal class ParagraphAndroid constructor(
         canvas.translate(x, y)
         tmpLayout.paint(canvas.nativeCanvas)
         canvas.translate(-x, -y)
+    }
+
+    private fun createTypeface(style: androidx.ui.engine.text.TextStyle): Typeface {
+        return typefaceAdapter.create(
+            fontFamily = style.fontFamily,
+            fontWeight = style.fontWeight ?: FontWeight.normal,
+            fontStyle = style.fontStyle ?: FontStyle.Normal,
+            fontSynthesis = style.fontSynthesis ?: FontSynthesis.All
+        )
     }
 
     private fun applyTextStyle(
@@ -378,14 +362,8 @@ internal class ParagraphAndroid constructor(
             }
 
             if (style.hasFontAttributes()) {
-                val typeface = typefaceAdapter.create(
-                    fontFamily = style.fontFamily,
-                    fontWeight = style.fontWeight ?: FontWeight.normal,
-                    fontStyle = style.fontStyle ?: FontStyle.Normal,
-                    fontSynthesis = style.fontSynthesis ?: FontSynthesis.All
-                )
                 spannableString.setSpan(
-                    TypefaceSpan(typeface),
+                    TypefaceSpan(createTypeface(style)),
                     start,
                     end,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -435,7 +413,7 @@ internal class ParagraphAndroid constructor(
             style.locale?.let {
                 spannableString.setSpan(
                     // TODO(Migration/haoyuchang): support locale fallback in the framework
-                    LocaleSpan(Locale(it.languageCode, it.countryCode!!)),
+                    LocaleSpan(Locale(it.languageCode, it.countryCode ?: "")),
                     start,
                     end,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -464,7 +442,98 @@ internal class ParagraphAndroid constructor(
     }
 }
 
-internal fun toLayoutAlign(align: TextAlign?): Int = when (align) {
+private fun TextStyle.applyTextStyle(
+    textPaint: TextPaint,
+    typefaceAdapter: TypefaceAdapter
+): TextStyle {
+    // TODO(haoyuchang) remove this engine.ParagraphStyle
+    fontSize?.let {
+        textPaint.textSize = it
+    }
+
+    fontSizeScale?.let {
+        textPaint.textSize *= fontSizeScale
+    }
+
+    // TODO(siyamed): This default values are problem here. If the user just gives a single font
+    // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
+    // call as FontWeight.normal (which is the default value)
+    if (getTextStyle().hasFontAttributes()) {
+        textPaint.typeface = typefaceAdapter.create(
+            fontFamily = fontFamily,
+            fontWeight = fontWeight ?: FontWeight.normal,
+            fontStyle = fontStyle ?: FontStyle.Normal,
+            fontSynthesis = fontSynthesis ?: FontSynthesis.All
+        )
+    }
+
+    locale?.let {
+        textPaint.textLocale = Locale(
+            it.languageCode,
+            it.countryCode ?: ""
+        )
+    }
+
+    color?.let {
+        textPaint.color = it.toArgb()
+    }
+
+    letterSpacing?.let {
+        textPaint.letterSpacing = it
+    }
+
+    fontFeatureSettings?.let {
+        textPaint.fontFeatureSettings = it
+    }
+
+    if (Build.VERSION.SDK_INT >= 29) {
+        wordSpacing?.let {
+            textPaint.wordSpacing = it
+        }
+    }
+
+    textGeometricTransform?.scaleX?.let {
+        textPaint.textScaleX *= it
+    }
+
+    textGeometricTransform?.skewX?.let {
+        textPaint.textSkewX += it
+    }
+
+    shadow?.let {
+        textPaint.setShadowLayer(
+            it.blurRadius.value,
+            it.offset.dx,
+            it.offset.dy,
+            it.color.toArgb()
+        )
+    }
+
+    decoration?.let {
+        if (it.contains(TextDecoration.Underline)) {
+            textPaint.isUnderlineText = true
+        }
+        if (it.contains(TextDecoration.LineThrough)) {
+            textPaint.isStrikeThruText = true
+        }
+    }
+
+    // baselineShift and bgColor is reset in the Android Layout constructor.
+    // therefore we cannot apply them on paint, have to use spans.
+    return TextStyle(
+        background = background,
+        baselineShift = baselineShift
+    )
+}
+
+/**
+ * Returns true if this [TextStyle] contains any font style attributes set.
+ */
+private fun androidx.ui.engine.text.TextStyle.hasFontAttributes(): Boolean {
+    return fontFamily != null || fontStyle != null || fontWeight != null
+}
+
+private fun toLayoutAlign(align: TextAlign?): Int = when (align) {
     TextAlign.Left -> ALIGN_LEFT
     TextAlign.Right -> ALIGN_RIGHT
     TextAlign.Center -> ALIGN_CENTER
