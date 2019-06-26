@@ -36,13 +36,14 @@ import android.util.Log;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.ResolvableFuture;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.session.MediaBrowser.BrowserCallback;
 import androidx.media2.session.MediaBrowser.BrowserCallbackRunnable;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -195,7 +196,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
             }
 
             @Override
-            public void onError(String itemId) {
+            public void onError(@NonNull String itemId) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -216,8 +217,8 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
         }
         browserCompat.search(query, getExtras(params), new MediaBrowserCompat.SearchCallback() {
             @Override
-            public void onSearchResult(final String query, final Bundle extras,
-                    final List<MediaBrowserCompat.MediaItem> items) {
+            public void onSearchResult(@NonNull final String query, final Bundle extras,
+                    @NonNull final List<MediaBrowserCompat.MediaItem> items) {
                 getMediaBrowser().notifyBrowserCallback(new BrowserCallbackRunnable() {
                     @Override
                     public void run(@NonNull BrowserCallback callback) {
@@ -233,7 +234,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
             }
 
             @Override
-            public void onError(final String query, final Bundle extras) {
+            public void onError(@NonNull final String query, final Bundle extras) {
                 getMediaBrowser().notifyBrowserCallback(new BrowserCallbackRunnable() {
                     @Override
                     public void run(@NonNull BrowserCallback callback) {
@@ -252,8 +253,8 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
     }
 
     @Override
-    public ListenableFuture<LibraryResult> getSearchResult(final @NonNull String query,
-            final int page, final int pageSize, final @Nullable LibraryParams param) {
+    public ListenableFuture<LibraryResult> getSearchResult(@NonNull final String query,
+            final int page, final int pageSize, @Nullable final LibraryParams param) {
         MediaBrowserCompat browserCompat = getBrowserCompat();
         if (browserCompat == null) {
             return LibraryResult.createFutureWithResult(RESULT_ERROR_SESSION_DISCONNECTED);
@@ -265,8 +266,8 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
         options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);
         browserCompat.search(query, options, new MediaBrowserCompat.SearchCallback() {
             @Override
-            public void onSearchResult(final String query, final Bundle extrasSent,
-                    final List<MediaBrowserCompat.MediaItem> items) {
+            public void onSearchResult(@NonNull final String query, final Bundle extrasSent,
+                    @NonNull final List<MediaBrowserCompat.MediaItem> items) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -278,7 +279,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
             }
 
             @Override
-            public void onError(final String query, final Bundle extrasSent) {
+            public void onError(@NonNull final String query, final Bundle extrasSent) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -361,23 +362,25 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
         }
 
         @Override
-        public void onError(String parentId) {
+        public void onError(@NonNull String parentId) {
             onChildrenLoaded(parentId, null, null);
         }
 
         @Override
-        public void onError(String parentId, Bundle options) {
+        public void onError(@NonNull String parentId, @NonNull Bundle options) {
             onChildrenLoaded(parentId, null, options);
         }
 
         @Override
-        public void onChildrenLoaded(String parentId, List<MediaBrowserCompat.MediaItem> children) {
+        public void onChildrenLoaded(@NonNull String parentId,
+                @NonNull List<MediaBrowserCompat.MediaItem> children) {
             onChildrenLoaded(parentId, children, null);
         }
 
         @Override
-        public void onChildrenLoaded(final String parentId,
-                List<MediaBrowserCompat.MediaItem> children, final Bundle options) {
+        public void onChildrenLoaded(@NonNull final String parentId,
+                @NonNull List<MediaBrowserCompat.MediaItem> children,
+                @NonNull final Bundle options) {
             if (TextUtils.isEmpty(parentId)) {
                 Log.w(TAG, "SubscribeCallback.onChildrenLoaded(): Ignoring empty parentId");
                 return;
@@ -418,23 +421,24 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
         }
 
         @Override
-        public void onError(String parentId) {
+        public void onError(@NonNull String parentId) {
             mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
         }
 
         @Override
-        public void onError(String parentId, Bundle options) {
+        public void onError(@NonNull String parentId, @NonNull Bundle options) {
             mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
         }
 
         @Override
-        public void onChildrenLoaded(String parentId, List<MediaBrowserCompat.MediaItem> children) {
-            onChildrenLoaded(parentId, children, null);
+        public void onChildrenLoaded(@NonNull String parentId,
+                @NonNull List<MediaBrowserCompat.MediaItem> children) {
+            onChildrenLoaded(parentId, children);
         }
 
         @Override
-        public void onChildrenLoaded(final String parentId,
-                List<MediaBrowserCompat.MediaItem> children, Bundle options) {
+        public void onChildrenLoaded(@NonNull final String parentId,
+                @NonNull List<MediaBrowserCompat.MediaItem> children, @NonNull Bundle options) {
             if (TextUtils.isEmpty(parentId)) {
                 Log.w(TAG, "GetChildrenCallback.onChildrenLoaded(): Ignoring empty parentId");
                 return;

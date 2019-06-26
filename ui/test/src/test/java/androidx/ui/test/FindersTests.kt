@@ -18,22 +18,23 @@ package androidx.ui.test
 
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
-import androidx.ui.test.helpers.FakeUiTestRunner
+import androidx.ui.test.helpers.FakeSemanticsTreeInteraction
 import com.google.common.truth.Truth
 import org.junit.Test
 
 class FindersTests {
     @Test
     fun findByTag_zeroOutOfOne_findsNone() {
-        val foundNodes = FakeUiTestRunner()
-            .withSemantics(newNode(
-                SemanticsConfiguration().apply {
-                    testTag = "not_myTestTag"
-                }
-            ))
-            .findByTag("myTestTag")
-            .findAllMatching()
+        semanticsTreeInteractionFactory = { selector ->
+            FakeSemanticsTreeInteraction(selector)
+                .withSemantics(newNode(
+                    SemanticsConfiguration().apply {
+                        testTag = "not_myTestTag"
+                    }
+                ))
+        }
 
+        val foundNodes = findAll { testTag == "myTestTag" }
         Truth.assertThat(foundNodes).isEmpty()
     }
 
@@ -42,16 +43,17 @@ class FindersTests {
         val node1 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag"
         })
-        var node2 = newNode(SemanticsConfiguration().apply {
+        val node2 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag2"
         })
 
-        val foundNodes = FakeUiTestRunner()
-            .withSemantics(node1, node2)
-            .findByTag("myTestTag")
-            .findAllMatching()
+        semanticsTreeInteractionFactory = { selector ->
+            FakeSemanticsTreeInteraction(selector)
+                .withSemantics(node1, node2)
+        }
 
-        Truth.assertThat(foundNodes).containsExactly(node1)
+        val foundNodes = findAll { testTag == "myTestTag" }
+        Truth.assertThat(foundNodes.map { it.semanticsTreeNode }).containsExactly(node1)
     }
 
     @Test
@@ -61,18 +63,19 @@ class FindersTests {
                 testTag = "myTestTag"
             }
         )
-        var node2 = newNode(
+        val node2 = newNode(
             SemanticsConfiguration().apply {
                 testTag = "myTestTag"
             }
         )
 
-        val foundNodes = FakeUiTestRunner()
-            .withSemantics(node1, node2)
-            .findByTag("myTestTag")
-            .findAllMatching()
+        semanticsTreeInteractionFactory = { selector ->
+            FakeSemanticsTreeInteraction(selector)
+                .withSemantics(node1, node2)
+        }
 
-        Truth.assertThat(foundNodes).containsExactly(node1, node2)
+        val foundNodes = findAll { testTag == "myTestTag" }
+        Truth.assertThat(foundNodes.map { it.semanticsTreeNode }).containsExactly(node1, node2)
     }
 
     private fun newNode(properties: SemanticsConfiguration): SemanticsTreeNode {

@@ -9,8 +9,8 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
-    api("androidx.collection:collection:1.1.0-rc01")
+    api("androidx.core:core:1.1.0-rc01")
+    api("androidx.collection:collection:1.1.0")
     api(project(":legacy-support-core-utils"))
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
@@ -29,5 +29,4 @@ androidx {
     mavenGroup = LibraryGroups.DYNAMICANIMATION
     inceptionYear = "2017"
     description = "Physics-based animation in support library, where the animations are driven by physics force. You can use this Animation library to create smooth and realistic animations."
-    failOnUncheckedWarnings = false
-}
+    }

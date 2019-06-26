@@ -21,6 +21,7 @@ import android.util.AndroidRuntimeException;
 import android.view.View;
 
 import androidx.annotation.FloatRange;
+import androidx.annotation.MainThread;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 
@@ -375,6 +376,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @param startValue start value for the animation
      * @return the Animation whose start value is being set
      */
+    @SuppressWarnings("unchecked")
     public T setStartValue(float startValue) {
         mValue = startValue;
         mStartValueIsSet = true;
@@ -399,6 +401,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @param startVelocity start velocity of the animation
      * @return the Animation whose start velocity is being set
      */
+    @SuppressWarnings("unchecked")
     public T setStartVelocity(float startVelocity) {
         mVelocity = startVelocity;
         return (T) this;
@@ -412,6 +415,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @param max maximum value of the property to be animated
      * @return the Animation whose max value is being set
      */
+    @SuppressWarnings("unchecked")
     public T setMaxValue(float max) {
         // This max value should be checked and handled in the subclass animations, instead of
         // assuming the end of the animations when the max/min value is hit in the base class.
@@ -429,6 +433,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @param min minimum value of the property to be animated
      * @return the Animation whose min value is being set
      */
+    @SuppressWarnings("unchecked")
     public T setMinValue(float min) {
         mMinValue = min;
         return (T) this;
@@ -441,6 +446,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @param listener the listener to be added
      * @return the animation to which the listener is added
      */
+    @SuppressWarnings("unchecked")
     public T addEndListener(OnAnimationEndListener listener) {
         if (!mEndListeners.contains(listener)) {
             mEndListeners.add(listener);
@@ -469,6 +475,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @throws UnsupportedOperationException if the update listener is added after the animation has
      *                                       started
      */
+    @SuppressWarnings("unchecked")
     public T addUpdateListener(OnAnimationUpdateListener listener) {
         if (isRunning()) {
             // Require update listener to be added before the animation, such as when we start
@@ -519,6 +526,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      * @return the animation whose min visible change is being set
      * @throws IllegalArgumentException if the given threshold is not positive
      */
+    @SuppressWarnings("unchecked")
     public T setMinimumVisibleChange(@FloatRange(from = 0.0, fromInclusive = false)
             float minimumVisibleChange) {
         if (minimumVisibleChange <= 0) {
@@ -572,6 +580,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      *
      * @throws AndroidRuntimeException if this method is not called on the main thread
      */
+    @MainThread
     public void start() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw new AndroidRuntimeException("Animations may only be started on the main thread");
@@ -587,6 +596,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
      *
      * @throws AndroidRuntimeException if this method is not called on the main thread
      */
+    @MainThread
     public void cancel() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw new AndroidRuntimeException("Animations may only be canceled on the main thread");
@@ -686,6 +696,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
     /**
      * Updates the property value through the corresponding setter.
      */
+    @SuppressWarnings("unchecked")
     void setPropertyValue(float value) {
         mProperty.setValue(mTarget, value);
         for (int i = 0; i < mUpdateListeners.size(); i++) {
@@ -706,6 +717,7 @@ public abstract class DynamicAnimation<T extends DynamicAnimation<T>>
     /**
      * Obtain the property value through the corresponding getter.
      */
+    @SuppressWarnings("unchecked")
     private float getPropertyValue() {
         return mProperty.getValue(mTarget);
     }

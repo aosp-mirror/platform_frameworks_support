@@ -16,13 +16,17 @@
 
 package androidx.ui.core.pointerinput
 
+import androidx.ui.core.LayoutNode
 import androidx.ui.core.PointerEventPass
 import androidx.ui.core.PointerInputChange
 import androidx.ui.core.PointerInputNode
 import androidx.ui.core.PxPosition
-import androidx.ui.core.positionRelativeToAncestor
+import androidx.ui.core.hasNoLayoutDescendants
 import androidx.ui.core.positionRelativeToRoot
 import androidx.ui.core.isAttached
+import androidx.ui.core.px
+import androidx.ui.core.visitLayoutChildren
+import kotlin.math.min
 
 /**
  * Organizes pointers and the [PointerInputNode]s that they hit into a hierarchy such that
@@ -82,13 +86,6 @@ internal class HitPathTracker {
     }
 
     /**
-     * Removes [PointerInputNode]s that have been removed from the component hierarchy.
-     */
-    fun removeDetachedPointerInputNodes() {
-        root.removeDetachedPointerInputNodes()
-    }
-
-    /**
      * Removes the [pointerId] and any [PointerInputNode]s that are no longer associated with any
      * remaining [pointerId].
      */
@@ -97,20 +94,51 @@ internal class HitPathTracker {
     }
 
     /**
+     * Removes [PointerInputNode]s that have been removed from the component tree.
+     */
+    fun removeDetachedPointerInputNodes() {
+        root.removeDetachedPointerInputNodes()
+    }
+
+    /**
+     * Removes [PointerInputNode]s that do not have any descendant LayoutNodes.
+     */
+    fun removePointerInputNodesWithNoLayoutNodeDescendants() {
+        root.removePointerInputNodesWithNoLayoutNodeDescendants()
+    }
+
+    // TODO(shepshapard): Bind removeDetachedPointerInputNodes,
+    // removePointerInputNodesWithNoLayoutNodeDescendants, and refreshOffsets together given the
+    // constraint that right now, one must be called before the other.
+    /**
      * Updates this [HitPathTracker]'s cached knowledge of the bounds of the [PointerInputNode]s
      * it is tracking.  This is is necessary to call before calls to [dispatchChanges] so that
      * the positions of [PointerInputChange]s are offset to be relative to the [PointerInputNode]s
      * that are going to receive them.
+     *
+     * Must only be called after guaranteeing that each Node has a PointerInputNode that has at
+     * least one descendant LayoutNode.
      */
     fun refreshOffsets() {
         root.refreshOffsets()
+    }
+
+    /**
+     * Convenience method that removes PointerInputNodes that are no longer valid and refreshes the
+     * offset information for those that are.
+     */
+    fun refreshPathInformation() {
+        removeDetachedPointerInputNodes()
+        removePointerInputNodesWithNoLayoutNodeDescendants()
+        refreshOffsets()
     }
 }
 
 // TODO(shepshapard): This really should be private. Currently some tests inspect the node's
 // directly which is unnecessary and bad practice.
 internal class Node(
-    val pointerInputNode: PointerInputNode? = null
+    val pointerInputNode: PointerInputNode? = null,
+    val layoutNode: LayoutNode? = null
 ) {
     val pointerIds: MutableSet<Int> = mutableSetOf()
     val children: MutableSet<Node> = mutableSetOf()
@@ -139,8 +167,12 @@ internal class Node(
         //  3. update it in relevantChanges.
         if (pointerInputNode != null) {
             relevantChanges.run {
+                // TODO(shepshapard): would be nice if we didn't have to subtract and then add
+                // offsets.  This is currently done because the calculated offsets are currently
+                // global, not relative to eachother.
                 subtractOffset(offset)
                 dispatchToPointerInputNode(pointerInputNode, downPass)
+                addOffset(offset)
             }
         }
 
@@ -153,6 +185,7 @@ internal class Node(
         //  3. update it in  relevant changes.
         if (pointerInputNode != null && upPass != null) {
             relevantChanges.run {
+                subtractOffset(offset)
                 dispatchToPointerInputNode(pointerInputNode, upPass)
                 addOffset(offset)
             }
@@ -171,6 +204,15 @@ internal class Node(
         }
     }
 
+    fun removePointerInputNodesWithNoLayoutNodeDescendants() {
+        children.removeAll {
+            it.pointerInputNode != null && it.pointerInputNode.hasNoLayoutDescendants()
+        }
+        children.forEach {
+            it.removePointerInputNodesWithNoLayoutNodeDescendants()
+        }
+    }
+
     fun removePointerId(pointerId: Int) {
         children.forEach {
             it.pointerIds.remove(pointerId)
@@ -183,20 +225,17 @@ internal class Node(
         }
     }
 
+    // TODO(b/124960509): Make this much more efficient.
     fun refreshOffsets() {
-        if (pointerInputNode == null) {
-            children.forEach { child ->
-                child.offset = child.pointerInputNode?.layoutNode?.positionRelativeToRoot()
-                    ?: PxPosition.Origin
-            }
-        } else {
-            children.forEach { child ->
-                val layoutNode = child.pointerInputNode?.layoutNode
-                child.offset = layoutNode?.positionRelativeToAncestor(pointerInputNode.layoutNode!!)
-                    ?: PxPosition.Origin
-            }
-        }
         children.forEach { child ->
+            var minX: Float = Float.MAX_VALUE
+            var minY: Float = Float.MAX_VALUE
+            child.pointerInputNode?.visitLayoutChildren { layoutChild ->
+                val globalPosition = layoutChild.positionRelativeToRoot()
+                minX = min(minX, globalPosition.x.value)
+                minY = min(minY, globalPosition.y.value)
+            }
+            child.offset = PxPosition(minX.px, minY.px)
             child.refreshOffsets()
         }
     }

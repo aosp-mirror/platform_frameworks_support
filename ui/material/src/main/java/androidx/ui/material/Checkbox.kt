@@ -20,6 +20,10 @@ import androidx.animation.ColorPropKey
 import androidx.animation.FloatPropKey
 import androidx.animation.TransitionSpec
 import androidx.animation.transitionDefinition
+import androidx.compose.Composable
+import androidx.compose.composer
+import androidx.compose.memo
+import androidx.compose.unaryPlus
 import androidx.ui.animation.Transition
 import androidx.ui.baseui.selection.Toggleable
 import androidx.ui.baseui.selection.ToggleableState
@@ -30,56 +34,68 @@ import androidx.ui.engine.geometry.RRect
 import androidx.ui.engine.geometry.Radius
 import androidx.ui.engine.geometry.shrink
 import androidx.ui.engine.geometry.withRadius
+import androidx.ui.graphics.Color
 import androidx.ui.layout.Container
 import androidx.ui.layout.Padding
-import androidx.ui.graphics.Color
+import androidx.ui.layout.Wrap
+import androidx.ui.material.ripple.Ripple
 import androidx.ui.painting.Paint
 import androidx.ui.painting.PaintingStyle
 import androidx.ui.painting.StrokeCap
-import androidx.compose.Composable
-import androidx.compose.composer
-import androidx.compose.memo
-import androidx.compose.unaryPlus
-import androidx.ui.layout.Wrap
-import androidx.ui.material.ripple.Ripple
-
-// TODO(malkov): think about how to abstract it better
-/**
- * Function to resolve parent [Checkbox] state based on children checkboxes' state
- * Use it when you have a hierarchy relationship between checkboxes in different levels
- *
- * @param childrenStates states of children checkboxes this parent is responsible for
- */
-fun parentCheckboxState(vararg childrenStates: ToggleableState): ToggleableState {
-    return if (childrenStates.all { it == ToggleableState.Checked }) ToggleableState.Checked
-    else if (childrenStates.all { it == ToggleableState.Unchecked }) ToggleableState.Unchecked
-    else ToggleableState.Indeterminate
-}
 
 /**
- * A Checkbox is a toggleable component that provides checked / unchecked / indeterminate options
- * A Checkbox can only reach an indeterminate state when it has
- * child checkboxes with different state values.
+ * A TriStateCheckbox is a toggleable component that provides
+ * checked / unchecked / indeterminate options.
+ * <p>
+ * A TriStateCheckbox should be used when there are
+ * dependent checkboxes associated to this component and those can have different values.
  *
- * @see [parentCheckboxState] to create parent checkbox state based on children's state
+ * Example:
+ *     Column {
+ *         // define dependent checkboxes states
+ *         val (state, onStateChange) = +state { true }
+ *         val (state2, onStateChange2) = +state { true }
  *
- * @param value whether Checkbox is checked, unchecked or in indeterminate state
- * @param onClick callback to be invoked when checkbox is being clicked.
- * If [null], Checkbox will show static [value] and remain disabled
+ *         // TriStateCheckbox state reflects state of dependent checkboxes
+ *         val parentState = +memo(state, state2) {
+ *             if (state && state2) ToggleableState.Checked
+ *             else if (!state && !state2) ToggleableState.Unchecked
+ *             else ToggleableState.Indeterminate
+ *         }
+ *         // click on TriStateCheckbox can set state for dependent checkboxes
+ *         val onParentClick = {
+ *             val s = parentState != Checked
+ *             onStateChange(s)
+ *             onStateChange2(s)
+ *         }
+ *
+ *         TriStateCheckbox(value = parentState, onClick = onParentClick)
+ *         Padding(left = 10.dp) {
+ *             Checkbox(state, onStateChange)
+ *             Checkbox(state2, onStateChange2)
+ *         }
+ *     }
+ *
+ * @see [Checkbox] if you want a simple component that represents Boolean state
+ *
+ * @param value whether TriStateCheckbox is checked, unchecked or in indeterminate state
+ * @param onClick callback to be invoked when checkbox is being clicked,
+ * therefore the change of ToggleableState state is requested.
+ * If [null], TriStateCheckbox appears in the [value] state and remains disabled
  * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
  */
 @Composable
-fun Checkbox(
+fun TriStateCheckbox(
     value: ToggleableState,
-    onClick: (() -> Unit)? = null,
-    color: Color? = null
+    onClick: (() -> Unit)?,
+    color: Color = +themeColor { secondary }
 ) {
     Wrap {
-        Ripple {
+        Ripple(bounded = false) {
             Toggleable(value = value, onToggle = onClick) {
                 Padding(padding = CheckboxDefaultPadding) {
                     Container(width = CheckboxSize, height = CheckboxSize) {
-                        DrawCheckbox(value = value, color = color)
+                        DrawCheckbox(value = value, activeColor = color)
                     }
                 }
             }
@@ -87,9 +103,40 @@ fun Checkbox(
     }
 }
 
+/**
+ * A component that represents only two states (checked / unchecked).
+ *
+ * Example:
+ *     val checkedState = +state { true }
+ *     Checkbox(
+ *         checked = checkedState.value,
+ *         onCheckedChange = { checkedState.value = it },
+ *         color = customColor
+ *     )
+ *
+ * @see [TriStateCheckbox] if you require support for an indeterminate state.
+ *
+ * @param checked whether Checkbox is checked or unchecked
+ * @param onCheckedChange callback to be invoked when checkbox is being clicked,
+ * therefore the change of checked state in requested.
+ * If [null], Checkbox will appears in the [checked] state and remains disabled
+ * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
+ */
 @Composable
-private fun DrawCheckbox(value: ToggleableState, color: Color?) {
-    val activeColor = +color.orFromTheme { secondary }
+fun Checkbox(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    color: Color = +themeColor { secondary }
+) {
+    TriStateCheckbox(
+        value = ToggleableState(checked),
+        onClick = onCheckedChange?.let { { it(!checked) } },
+        color = color
+    )
+}
+
+@Composable
+private fun DrawCheckbox(value: ToggleableState, activeColor: Color) {
     val unselectedColor = (+themeColor { onSurface }).copy(alpha = UncheckedBoxOppacity)
     val definition = +memo(activeColor, unselectedColor) {
         generateTransitionDefinition(activeColor, unselectedColor)

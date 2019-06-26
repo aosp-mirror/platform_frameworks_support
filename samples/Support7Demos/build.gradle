@@ -12,9 +12,11 @@ dependencies {
     implementation(project(":cardview"))
     implementation(project(":gridlayout"))
     implementation(project(":mediarouter"))
-    implementation(project(":palette"))
+    implementation(project(":palette:palette"))
     implementation(project(":recyclerview"))
     implementation project(':recyclerview-selection')
+    implementation(project(":core:core"))
+    implementation project(':drawerlayout')
     api(KOTLIN_STDLIB)
 }
 

@@ -42,26 +42,6 @@ class PagedStorageDiffHelperTest {
     }
 
     @Test
-    fun sameListNoUpdatesPlaceholder() {
-        val storageNoPlaceholder = PagedStorage(0, listOf("a", "b", "c"), 10)
-
-        val storageWithPlaceholder = PagedStorage(0, listOf("a", "b", "c"), 10)
-        storageWithPlaceholder.allocatePlaceholders(3, 0, 3,
-                /* ignored */ mock(PagedStorage.Callback::class.java))
-
-        // even though one has placeholders, and null counts are different...
-        assertEquals(10, storageNoPlaceholder.trailingNullCount)
-        assertEquals(7, storageWithPlaceholder.trailingNullCount)
-
-        // ... should be no interactions, since content still same
-        validateTwoListDiff(
-                storageNoPlaceholder,
-                storageWithPlaceholder) {
-            verifyZeroInteractions(it)
-        }
-    }
-
-    @Test
     fun appendFill() {
         validateTwoListDiff(
                 PagedStorage(5, listOf("a", "b"), 5),
@@ -205,28 +185,6 @@ class PagedStorageDiffHelperTest {
         }
     }
 
-    @Test
-    fun transformAnchorIndex_loadingSnapshot() {
-        val oldList = PagedStorage(10, listOf("a"), 10)
-        val newList = PagedStorage(10, listOf("a"), 10)
-
-        oldList.allocatePlaceholders(10, 5, 1,
-                /* ignored */ mock(PagedStorage.Callback::class.java))
-
-        assertEquals(5, oldList.leadingNullCount)
-        assertEquals(10, oldList.computeLeadingNulls())
-
-        validateTwoListDiffTransform(
-                oldList,
-                newList) { transformAnchorIndex ->
-            // previously, this would cause a crash where we tried to use storage space
-            // (getLeadingNullCount..size-getTrailingNulls) incorrectly, instead of diff space
-            // (computeLeadingNulls..size-computeTrailingNulls). Diff space greedily excludes the
-            // nulls that represent partially loaded pages to minimize diff computation cost.
-            assertEquals(15, transformAnchorIndex(15))
-        }
-    }
-
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -244,9 +202,9 @@ class PagedStorageDiffHelperTest {
             newList: PagedStorage<String>,
             validator: (callback: ListUpdateCallback) -> Unit
         ) {
-            val diffResult = PagedStorageDiffHelper.computeDiff(oldList, newList, DIFF_CALLBACK)
+            val diffResult = oldList.computeDiff(newList, DIFF_CALLBACK)
             val listUpdateCallback = mock(ListUpdateCallback::class.java)
-            PagedStorageDiffHelper.dispatchDiff(listUpdateCallback, oldList, newList, diffResult)
+            oldList.dispatchDiff(listUpdateCallback, newList, diffResult)
 
             validator(listUpdateCallback)
         }
@@ -256,9 +214,8 @@ class PagedStorageDiffHelperTest {
             validator: (positionMapper: (Int) -> Int) -> Unit
         ) {
             validator {
-                PagedStorageDiffHelper.transformAnchorIndex(
-                        PagedStorageDiffHelper.computeDiff(oldList, newList, DIFF_CALLBACK),
-                        oldList,
+                oldList.transformAnchorIndex(
+                        oldList.computeDiff(newList, DIFF_CALLBACK),
                         newList,
                         it)
             }
