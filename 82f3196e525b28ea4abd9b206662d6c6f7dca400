@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a33c751_d64d5a5d",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-26T22:27:27Z",
+      "side": 1,
+      "message": "Is if OK not to call prepare()?",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
