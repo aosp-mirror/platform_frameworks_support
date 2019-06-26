@@ -1,0 +1,9 @@
+Autosubmit+1: Aurimas Liutikas <aurimas@google.com>
+Presubmit-Ready+1: Aurimas Liutikas <aurimas@google.com>
+Code-Review+2: Nick Anthony <nickanthony@google.com>
+Code-Review+2: Sumir Kataria <sumir@google.com>
+Submitted-by: Rahul Ravikumar <rahulrav@google.com>
+Submitted-at: Wed, 26 Jun 2019 18:05:40 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/999992
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
