@@ -16,6 +16,24 @@
       "revId": "1e415b43bfeff2adcd5907f8a28ca258491e5af3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a8aa8b_54c3a3a5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T01:34:37Z",
+      "side": 1,
+      "message": "Yes, this is intentional, this check is making sure that *Manager has no public constructors and is returned by getService(), thus not relevant to androidx. Would you like me to expand on the comment?",
+      "parentUuid": "c79dede6_6b278228",
+      "revId": "1e415b43bfeff2adcd5907f8a28ca258491e5af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
