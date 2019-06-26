@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e09ff1b_2898af5a",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:20:20Z",
+      "side": 1,
+      "message": "listenablefuture-ktx?",
+      "revId": "ff8cf8fac9f64582097edee8ae5a7030e91f045c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfc33ce_3dd84042",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:20:20Z",
+      "side": 1,
+      "message": "This is pretty specialized. It\u0027s not clear that the message is tested against the original throwable, not the cause, for example. I would remove the message parameter and change it to return a ThrowableSubject (from Truth) for the cause. This would allow the caller to do things like assert the message if they want.\n\nSee testutils-ktx and its assertThrows: https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/testutils-ktx/src/main/java/androidx/testutils/assertions.kt#22",
+      "revId": "ff8cf8fac9f64582097edee8ae5a7030e91f045c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8b6b1c_f264a383",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:20:20Z",
+      "side": 1,
+      "message": "import",
+      "revId": "ff8cf8fac9f64582097edee8ae5a7030e91f045c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
