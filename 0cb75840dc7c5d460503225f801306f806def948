@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666ea319_d5ff9394",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:50:21Z",
+      "side": 1,
+      "message": "We shouldn\u0027t need to try capturing.\n\nIf the maxCaptureStage \u003e 1 and CaptureProcessor is defined then it should fail at ImageCapture construction time.",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a1375d_030e5732",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:50:21Z",
+      "side": 1,
+      "message": "Which call is supposed to throw the IllegalArgumentException?\n\nYou should make it clear by writing a comment.",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8963f0_8432ae83",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:50:21Z",
+      "side": 1,
+      "message": "Isn\u0027t it the case the if onFailure gets called then capture isn\u0027t successful? This seems like a redundant check.\n\nOr is this a failure for postTakePicture? If that the case, then doesn\u0027t onSucccess also need this check?",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e0b198_4f578abe",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-26T20:50:21Z",
+      "side": 1,
+      "message": "How do you make sure that this is the same request? Instead of popping additional requests off?\nEspecially since we either pop off the current request either after the postTakePicture() or via OnImageAvailableListener.\n\nPlus how will this work with aosp/985886? There will be a currently dispatched set of requests.",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
