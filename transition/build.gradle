@@ -7,10 +7,18 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (468320 Merge "Merge empty history for sparse-5682940-L7210000033396)
     api(project(":annotation"))
     api(project(":core"))
     implementation(project(":collection"))
     compileOnly project(':fragment')
+=======
+    api("androidx.annotation:annotation:1.1.0")
+    api("androidx.core:core:1.0.1")
+    implementation("androidx.collection:collection:1.0.0")
+    compileOnly("androidx.fragment:fragment:1.0.0")
+    compileOnly("androidx.appcompat:appcompat:1.0.1")
+>>>>>>> BRANCH (58522e Merge "Merge cherrypicks of [1000734, 1000736] into sparse-5)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
