@@ -109,7 +109,6 @@ class BenchmarkPluginTest {
         val output = gradleRunner.withArguments("tasks").build()
         assertTrue { output.output.contains("lockClocks - ") }
         assertTrue { output.output.contains("unlockClocks - ") }
-        assertTrue { output.output.contains("benchmarkReport - ") }
     }
 
     @Test
@@ -144,7 +143,6 @@ class BenchmarkPluginTest {
         val output = gradleRunner.withArguments("tasks").build()
         assertTrue { output.output.contains("lockClocks - ") }
         assertTrue { output.output.contains("unlockClocks - ") }
-        assertTrue { output.output.contains("benchmarkReport - ") }
     }
 
     @Test
@@ -205,9 +203,9 @@ class BenchmarkPluginTest {
         """.trimIndent()
         )
 
-        assertFailsWith(UnexpectedBuildFailure::class) {
-            gradleRunner.withArguments("-m", "connectedAndroidTest").build()
-        }
+        val output = gradleRunner.withArguments("tasks").build()
+        assertTrue { output.output.contains("lockClocks - ") }
+        assertTrue { output.output.contains("unlockClocks - ") }
     }
 
     @Test
@@ -242,6 +240,5 @@ class BenchmarkPluginTest {
         val output = gradleRunner.withArguments("tasks").build()
         assertTrue { output.output.contains("lockClocks - ") }
         assertTrue { output.output.contains("unlockClocks - ") }
-        assertTrue { output.output.contains("benchmarkReport - ") }
     }
 }
