@@ -16,6 +16,7 @@
 
 package androidx.ui.layout
 
+import android.util.Log
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
@@ -54,21 +55,25 @@ fun ConstrainedBox(
         }
 
         minIntrinsicWidth { measurables, h ->
+            Log.d("MIHAI", "Min intrinsic width called")
             val width = measurables.firstOrNull()?.minIntrinsicWidth(h) ?: 0.ipx
             width.coerceIn(constraints.minWidth.toIntPx(), constraints.maxWidth.toIntPx())
         }
 
         maxIntrinsicWidth { measurables, h ->
+            Log.d("MIHAI", "Max intrinsic width called")
             val width = measurables.firstOrNull()?.maxIntrinsicWidth(h) ?: 0.ipx
             width.coerceIn(constraints.minWidth.toIntPx(), constraints.maxWidth.toIntPx())
         }
 
         minIntrinsicHeight { measurables, w ->
+            Log.d("MIHAI", "Min intrinsic height called")
             val height = measurables.firstOrNull()?.minIntrinsicHeight(w) ?: 0.ipx
             height.coerceIn(constraints.minHeight.toIntPx(), constraints.maxHeight.toIntPx())
         }
 
         maxIntrinsicHeight { measurables, w ->
+            Log.d("MIHAI", "Max intrinsic height called")
             val height = measurables.firstOrNull()?.maxIntrinsicHeight(w) ?: 0.ipx
             height.coerceIn(constraints.minHeight.toIntPx(), constraints.maxHeight.toIntPx())
         }
