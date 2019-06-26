@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "090226f8_c05fc8bb",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-26T23:56:31Z",
+      "side": 1,
+      "message": "Done - but just out of curiosity, when should we use api / implementation? I get that api let\u0027s other projects / modules that depend on this module use the dependency too - I\u0027m just not sure in what situations we\u0027re supposed to enable that as a library.\n\nOr to phrase this another way - why would we use api for kotlin_coroutines but not kotlin_stdlib?",
+      "parentUuid": "c88c08e0_9cc9e9d4",
+      "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e882f2b_056ff1e7",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feeb8c61_0c1e16ae",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-26T23:56:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e882f2b_056ff1e7",
+      "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
