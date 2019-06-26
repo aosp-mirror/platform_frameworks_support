@@ -17,8 +17,6 @@
 package androidx.benchmark
 
 import android.os.Build
-import android.os.Environment.DIRECTORY_DOWNLOADS
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.JsonWriter
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
@@ -32,13 +30,14 @@ internal object ResultWriter {
         reports.add(report)
 
         val arguments = InstrumentationRegistry.getArguments()
-        if (arguments.getString("androidx.benchmark.output.enable")?.toLowerCase() == "true") {
+        if (arguments.getString("androidx.benchmark.output.enable")?.toLowerCase() == "true" &&
+            arguments.containsKey("additionalTestOutputDir")
+        ) {
             // Currently, we just overwrite the whole file
             // Ideally, append for efficiency
             val packageName =
                 InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
-            @Suppress("DEPRECATION") // b/134925431
-            val filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+            val filePath = arguments.getString("additionalTestOutputDir")
             val file = File(filePath, "$packageName-benchmarkData.json")
             writeReport(file, reports)
         }
