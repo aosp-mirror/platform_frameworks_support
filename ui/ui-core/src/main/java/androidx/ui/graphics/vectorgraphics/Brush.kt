@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.vectorgraphics
+package androidx.ui.graphics.vectorgraphics
 
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
@@ -33,7 +33,7 @@ interface Brush {
     fun applyBrush(p: Paint)
 }
 
-/* inline */ class SolidColor(private val value: Color) : Brush {
+data class SolidColor(private val value: Color) : Brush {
     override fun applyBrush(p: Paint) {
         p.color = value
     }
@@ -52,23 +52,29 @@ fun obtainBrush(brush: Any?): Brush {
     }
 }
 
-// TODO (njawad) replace with inline color class
-class LinearGradient(
+fun LinearGradient(
     vararg colorStops: ColorStop,
+    startX: Float,
+    startY: Float,
+    endX: Float,
+    endY: Float,
+    tileMode: TileMode = TileMode.clamp
+): LinearGradient {
+    val colors = List(colorStops.size) { i -> colorStops[i].first }
+    val stops = List(colorStops.size) { i -> colorStops[i].second }
+    return LinearGradient(colors, stops, startX, startY, endX, endY, tileMode)
+}
+
+// TODO (njawad) replace with inline color class
+data class LinearGradient internal constructor(
+    val colors: List<Color>,
+    val stops: List<Float>,
     val startX: Float,
     val startY: Float,
     val endX: Float,
     val endY: Float,
     val tileMode: TileMode = TileMode.clamp
 ) : Brush {
-
-    private val colors: List<Color>
-    private val stops: List<Float>
-
-    init {
-        colors = List(colorStops.size) { i -> colorStops[i].first }
-        stops = List(colorStops.size) { i -> colorStops[i].second }
-    }
 
     override fun applyBrush(p: Paint) {
         p.shader = Gradient.linear(
@@ -80,21 +86,26 @@ class LinearGradient(
     }
 }
 
-class RadialGradient(
+fun RadialGradient(
     vararg colorStops: ColorStop,
+    centerX: Float,
+    centerY: Float,
+    radius: Float,
+    tileMode: TileMode = TileMode.clamp
+): RadialGradient {
+    val colors = List(colorStops.size) { i -> colorStops[i].first }
+    val stops = List(colorStops.size) { i -> colorStops[i].second }
+    return RadialGradient(colors, stops, centerX, centerY, radius, tileMode)
+}
+
+data class RadialGradient internal constructor(
+    private val colors: List<Color>,
+    private val stops: List<Float>,
     private val centerX: Float,
     private val centerY: Float,
     private val radius: Float,
     private val tileMode: TileMode = TileMode.clamp
 ) : Brush {
-
-    private val colors: List<Color>
-    private val stops: List<Float>
-
-    init {
-        colors = List(colorStops.size) { it -> colorStops[it].first }
-        stops = List(colorStops.size) { it -> colorStops[it].second }
-    }
 
     override fun applyBrush(p: Paint) {
         p.shader = Gradient.radial(
