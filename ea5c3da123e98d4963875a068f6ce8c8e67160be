@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "777e0d30_5144d5f9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-26T19:42:01Z",
+      "side": 1,
+      "message": "Might also want to include in the message which project it was being accessed, in case the project being evaluated isn\u0027t easy to figure out or is different from the project on which .version() is being called",
+      "revId": "ea5c3da123e98d4963875a068f6ce8c8e67160be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
