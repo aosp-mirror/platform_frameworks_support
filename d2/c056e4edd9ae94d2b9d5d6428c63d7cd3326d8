@@ -1,0 +1,8 @@
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+API-Review+1: Alan Viverette <alanv@google.com>
+Code-Review+2: Ryan Mentley <ryanmentley@google.com>
+Submitted-by: Aurimas Liutikas <aurimas@google.com>
+Submitted-at: Wed, 26 Jun 2019 17:47:33 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/984507
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
