@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d788198_37daaa54",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T16:48:08Z",
+      "side": 1,
+      "message": "did this in a new CL that I was already working on.",
+      "parentUuid": "16088a8a_42e85811",
+      "range": {
+        "startLine": 454,
+        "startChar": 4,
+        "endLine": 454,
+        "endChar": 17
+      },
+      "revId": "bf9f3ba471932b728592931ab6235304d06664af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20f1d480_59817b69",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "bf9f3ba471932b728592931ab6235304d06664af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "746ca484_a45f8c60",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-26T16:48:08Z",
+      "side": 1,
+      "message": "thanks. did this in a new CL that I was already working on.",
+      "parentUuid": "20f1d480_59817b69",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 20
+      },
+      "revId": "bf9f3ba471932b728592931ab6235304d06664af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
