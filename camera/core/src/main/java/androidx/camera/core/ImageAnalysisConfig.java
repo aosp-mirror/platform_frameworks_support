@@ -22,6 +22,7 @@ import android.util.Rational;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -458,6 +459,30 @@ public final class ImageAnalysisConfig
         return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing) {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS, valueIfMissing);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics() {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -558,6 +583,7 @@ public final class ImageAnalysisConfig
          *
          * @return A {@link ImageAnalysisConfig} populated with the current state.
          */
+        @NonNull
         public ImageAnalysisConfig build() {
             return new ImageAnalysisConfig(OptionsBundle.from(mMutableConfig));
         }
@@ -742,6 +768,20 @@ public final class ImageAnalysisConfig
         @Override
         public Builder setUseCaseEventListener(UseCase.EventListener useCaseEventListener) {
             getMutableConfig().insertOption(OPTION_USE_CASE_EVENT_LISTENER, useCaseEventListener);
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @hide
+         */
+        @NonNull
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setCaptureCharacteristics(
+                @NonNull CaptureCharacteristics captureCharacteristics) {
+            getMutableConfig().insertOption(OPTION_CAPTURE_CHARACTERISTICS, captureCharacteristics);
             return this;
         }
     }

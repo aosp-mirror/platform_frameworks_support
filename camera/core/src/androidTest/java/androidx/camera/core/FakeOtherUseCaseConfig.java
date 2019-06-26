@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
@@ -190,6 +191,18 @@ public class FakeOtherUseCaseConfig implements UseCaseConfig<FakeOtherUseCase>, 
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    @Nullable
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing) {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS, valueIfMissing);
+    }
+
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics() {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS);
+    }
+
     /** @hide */
     @Nullable
     @Override
@@ -228,6 +241,7 @@ public class FakeOtherUseCaseConfig implements UseCaseConfig<FakeOtherUseCase>, 
             return mOptionsBundle;
         }
 
+        @NonNull
         @Override
         public FakeOtherUseCaseConfig build() {
             return new FakeOtherUseCaseConfig(OptionsBundle.from(mOptionsBundle));
@@ -303,6 +317,14 @@ public class FakeOtherUseCaseConfig implements UseCaseConfig<FakeOtherUseCase>, 
         @Override
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
+            return this;
+        }
+
+        @NonNull
+        @Override
+        public Builder setCaptureCharacteristics(
+                @NonNull CaptureCharacteristics captureCharacteristics) {
+            getMutableConfig().insertOption(OPTION_CAPTURE_CHARACTERISTICS, captureCharacteristics);
             return this;
         }
 

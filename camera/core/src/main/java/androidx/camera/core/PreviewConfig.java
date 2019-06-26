@@ -439,6 +439,30 @@ public final class PreviewConfig
         return retrieveOption(OPTION_PREVIEW_CAPTURE_PROCESSOR);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public CaptureCharacteristics getCaptureCharacteristics(
+            @Nullable CaptureCharacteristics valueIfMissing) {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS, valueIfMissing);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public CaptureCharacteristics getCaptureCharacteristics() {
+        return retrieveOption(OPTION_CAPTURE_CHARACTERISTICS);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -498,6 +522,7 @@ public final class PreviewConfig
          *
          * @return A {@link PreviewConfig} populated with the current state.
          */
+        @NonNull
         public PreviewConfig build() {
             return new PreviewConfig(OptionsBundle.from(mMutableConfig));
         }
@@ -705,6 +730,20 @@ public final class PreviewConfig
         @NonNull
         public Builder setCaptureProcessor(@Nullable CaptureProcessor captureProcessor) {
             getMutableConfig().insertOption(OPTION_PREVIEW_CAPTURE_PROCESSOR, captureProcessor);
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @hide
+         */
+        @NonNull
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setCaptureCharacteristics(
+                @NonNull CaptureCharacteristics captureCharacteristics) {
+            getMutableConfig().insertOption(OPTION_CAPTURE_CHARACTERISTICS, captureCharacteristics);
             return this;
         }
     }
