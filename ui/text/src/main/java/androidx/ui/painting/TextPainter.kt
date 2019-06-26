@@ -17,6 +17,7 @@
 package androidx.ui.painting
 
 import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP
 import androidx.annotation.VisibleForTesting
 import androidx.ui.core.Constraints
 import androidx.ui.core.IntPxSize
@@ -31,7 +32,6 @@ import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
-import androidx.ui.engine.text.TextPosition
 import androidx.ui.engine.window.Locale
 import androidx.ui.graphics.Color
 import androidx.ui.rendering.paragraph.TextOverflow
@@ -40,6 +40,8 @@ import kotlin.math.ceil
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
+/** The default font size if none is specified. */
+private const val DefaultFontSize: Float = 14.0f
 
 /**
  * Unfortunately, using full precision floating point here causes bad layouts because floating
@@ -49,7 +51,7 @@ private val DefaultTextDirection: TextDirection = TextDirection.Ltr
  * fractional pixel values up to the nearest whole pixel value. The right long-term fix is to do
  * layout using fixed precision arithmetic.
  */
-fun applyFloatingPointHack(layoutValue: Float): Float {
+internal fun applyFloatingPointHack(layoutValue: Float): Float {
     return ceil(layoutValue)
 }
 
@@ -100,7 +102,7 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  */
 class TextPainter(
     text: AnnotatedString? = null,
-    style: TextStyle? = null,
+    val style: TextStyle? = null,
     val paragraphStyle: androidx.ui.painting.ParagraphStyle? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
@@ -133,6 +135,8 @@ class TextPainter(
     private var lastMinWidth: Float = 0.0f
     private var lastMaxWidth: Float = 0.0f
 
+    // TODO(siyamed) make arguments below immutable
+    @RestrictTo(LIBRARY_GROUP)
     var text: AnnotatedString? = text
         set(value) {
             if (field == value) return
@@ -141,14 +145,8 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textStyle: TextStyle? = style
-        set(value) {
-            if (field == value) return
-            layoutTemplate = null
-            field = value
-            paragraph = null
-            needsLayout = true
-        }
+    internal val textStyle: TextStyle
+        get() = style ?: TextStyle()
 
     internal var textAlign: TextAlign =
         if (paragraphStyle?.textAlign != null) paragraphStyle.textAlign else DefaultTextAlign
@@ -211,23 +209,18 @@ class TextPainter(
             needsLayout = true
         }
 
+    private fun createTextStyle(): TextStyle {
+        return textStyle.copy(fontSize = (textStyle.fontSize ?: DefaultFontSize) * textScaleFactor)
+    }
+
     internal fun createParagraphStyle(): ParagraphStyle {
-        return textStyle?.getParagraphStyle(
+        return ParagraphStyle(
             textAlign = textAlign,
             textDirection = textDirection,
-            textScaleFactor = textScaleFactor,
-            lineHeight = paragraphStyle?.lineHeight,
             textIndent = paragraphStyle?.textIndent,
+            lineHeight = paragraphStyle?.lineHeight,
             maxLines = maxLines,
-            ellipsis = overflow == TextOverflow.Ellipsis,
-            locale = locale
-        ) ?: ParagraphStyle(
-            textAlign = textAlign,
-            textDirection = textDirection,
-            maxLines = maxLines,
-            ellipsis = overflow == TextOverflow.Ellipsis,
-            locale = locale
-        )
+            ellipsis = overflow == TextOverflow.Ellipsis)
     }
 
     /**
@@ -247,11 +240,10 @@ class TextPainter(
                 // TODO(Migration/qqd): The textDirection below used to be RTL.
                 layoutTemplate = Paragraph(
                     text = " ",
+                    style = createTextStyle(),
                     // direction doesn't matter, text is just a space
                     paragraphStyle = createParagraphStyle(),
-                    textStyles = textStyle?.let {
-                        listOf(AnnotatedString.Item(it, 0, 1))
-                    } ?: listOf()
+                    textStyles = listOf()
                 )
                 layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
             }
@@ -363,7 +355,11 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            paragraph = Paragraph(text!!.text, createParagraphStyle(), text!!.textStyles)
+            paragraph = Paragraph(
+                text = text!!.text,
+                style = createTextStyle(),
+                paragraphStyle = createParagraphStyle(),
+                textStyles = text!!.textStyles)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -517,13 +513,13 @@ class TextPainter(
     }
 
     /** Returns the position within the text for the given pixel offset. */
-    fun getPositionForOffset(offset: Offset): TextPosition {
+    fun getPositionForOffset(offset: Offset): Int {
         assert(!needsLayout)
         return paragraph!!.getPositionForOffset(offset)
     }
 
     /**
-     * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
+     * Returns the bounding box as Rect of the character for given text position. Rect includes the
      * top, bottom, left and right of a character.
      *
      * Valid only after [layout] has been called.
@@ -531,7 +527,7 @@ class TextPainter(
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+    fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
         assert(!needsLayout)
         return paragraph!!.getBoundingBoxForTextPosition(textPosition)
     }
@@ -544,8 +540,8 @@ class TextPainter(
      * Word boundaries are defined more precisely in Unicode Standard Annex #29
      * <http://www.unicode.org/reports/tr29/#Word_Boundaries>.
      */
-    fun getWordBoundary(position: TextPosition): TextRange {
+    fun getWordBoundary(position: Int): TextRange {
         assert(!needsLayout)
-        return paragraph!!.getWordBoundary(position.offset)
+        return paragraph!!.getWordBoundary(position)
     }
 }

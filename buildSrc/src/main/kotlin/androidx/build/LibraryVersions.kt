@@ -84,7 +84,8 @@ object LibraryVersions {
     val PERSISTENCE = Version("2.0.1")
     val PREFERENCE = Version("1.1.0-rc01")
     val RECOMMENDATION = Version("1.1.0-alpha01")
-    val RECYCLERVIEW = Version("1.1.0-alpha07")
+    val RECYCLERVIEW = Version("1.1.0-beta01")
+    val RECYCLERVIEW_SELECTION = Version("1.1.0-alpha07")
     val REMOTECALLBACK = Version("1.0.0-alpha02")
     val ROOM = Version("2.2.0-alpha01")
     val SAVEDSTATE = Version("1.0.0-rc01")
@@ -108,5 +109,5 @@ object LibraryVersions {
     val VIEWPAGER2 = Version("1.0.0-alpha06")
     val WEAR = Version("1.1.0-alpha01")
     val WEBKIT = Version("1.1.0-alpha02")
-    val WORK = Version("2.1.0-beta02")
+    val WORK = Version("2.1.0-rc01")
 }
