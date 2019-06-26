@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f37753d_7c652f55",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-26T07:50:08Z",
+      "side": 1,
+      "message": "Ya, will will be good to handle all the exceptions before submit the request to camera control.\nAnd we can ignore the error in postTakePicture() just like previous did.\n\nThere is a new flag in TakePicutreState.mIsTakePictureRequestSubmitted and the flag will update after the request was submitted. The onFailure callback can redirect the exceptions when mIsTakePictureRequestSubmitted \u003d\u003d false.",
+      "parentUuid": "0223ff52_f4447eb9",
+      "range": {
+        "startLine": 539,
+        "startChar": 32,
+        "endLine": 539,
+        "endChar": 80
+      },
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e2bcc41_972a5a40",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5e7127b7_65487dc4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-26T07:50:08Z",
+      "side": 1,
+      "message": "Got it, reference the code in the above review and post the error callback to the handler.",
+      "parentUuid": "3e2bcc41_972a5a40",
+      "range": {
+        "startLine": 543,
+        "startChar": 36,
+        "endLine": 544,
+        "endChar": 63
+      },
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11e2681d_27857b14",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "99b1853c5911f74598e5024391df69502902bafd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e91e66_13577b86",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-26T07:50:08Z",
+      "side": 1,
+      "message": "Thanks Franklin, the exception is for ImageCapture internal used, \nI tried to used the internal defined exception type to distinguish if the error need to be throw in onFailure or not.\nBut from Leo\u0027s comment, I just realized that all the error before we submit the request to camera control can be redirect to OnImageCapturedListener.onError() directly. So I have removed this exception and add an new flag in TakePictureState to handle the callback onError() timing.",
+      "parentUuid": "11e2681d_27857b14",
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
