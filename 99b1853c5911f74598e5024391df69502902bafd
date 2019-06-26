@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "606a4302_13d8fc6b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-26T14:35:26Z",
+      "side": 1,
+      "message": "Update the code and comment again,\nI have updated the code again, the flag is changed to TakePicutreState.mCaptureSuccess.\nAnd I will set the mCaptureSuccess \u003d true after the capture was success, that is, the error in postTakePicture() will be ignored, but the capture failed result will redirect to OnImageCapturedListener.onError().\n\nAnd we still have a working item left: to handle the \"capture failed\" when it have CaptureProcessor. When the CaptureProcessor exists, we will need to clear the SettableImageProxyBundle in ProcessingImageReader or it might keep waiting for all the images (in CaptureBundle) is available.",
+      "parentUuid": "3f37753d_7c652f55",
+      "range": {
+        "startLine": 539,
+        "startChar": 32,
+        "endLine": 539,
+        "endChar": 80
+      },
+      "revId": "99b1853c5911f74598e5024391df69502902bafd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e2bcc41_972a5a40",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
