@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71012184_d0e210c0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T00:35:17Z",
+      "side": 1,
+      "message": "Please add a comment why we need to do it here, but not on line 311.",
+      "range": {
+        "startLine": 298,
+        "startChar": 12,
+        "endLine": 298,
+        "endChar": 26
+      },
+      "revId": "d9a7be4be9928d29d25cd650497ff434f0fab997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
