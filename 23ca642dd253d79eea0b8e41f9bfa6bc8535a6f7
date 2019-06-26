@@ -16,6 +16,24 @@
       "revId": "23ca642dd253d79eea0b8e41f9bfa6bc8535a6f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54304a2f_6b797725",
+        "filename": "core/core/src/main/java/androidx/core/graphics/PaintCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-26T21:28:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e1642d_39c64681",
+      "revId": "23ca642dd253d79eea0b8e41f9bfa6bc8535a6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
