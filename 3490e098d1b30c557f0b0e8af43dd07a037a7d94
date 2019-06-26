@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88c08e0_9cc9e9d4",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:05:55Z",
+      "side": 1,
+      "message": "api",
+      "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e882f2b_056ff1e7",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-26T15:05:55Z",
+      "side": 1,
+      "message": "Is this available from listenablefuture-ktx?",
+      "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
