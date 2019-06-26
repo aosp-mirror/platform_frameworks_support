@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a57048e2_567fd4a5",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintHelperFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-06-26T01:14:48Z",
+      "side": 1,
+      "message": "We actually can\u0027t do this, because we need a final value to pass into the runnable further down. Added a comment explaining this.",
+      "parentUuid": "03fed8e6_766cc03a",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "5dae319eec8157856afe591f34416f8fddabf9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8f5d884_ae5d33ef",
         "filename": "biometric/src/main/java/androidx/biometric/FingerprintHelperFragment.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "5dae319eec8157856afe591f34416f8fddabf9c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca730d59_f2ced3c0",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintHelperFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-06-26T01:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f5d884_ae5d33ef",
+      "range": {
+        "startLine": 101,
+        "startChar": 40,
+        "endLine": 101,
+        "endChar": 41
+      },
+      "revId": "5dae319eec8157856afe591f34416f8fddabf9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
