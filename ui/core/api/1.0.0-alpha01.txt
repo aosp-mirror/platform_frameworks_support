@@ -1344,6 +1344,32 @@ package androidx.ui.input {
     property public final String text;
   }
 
+  public enum EventType {
+    enum_constant public static final androidx.ui.input.EventType KEY_DOWN;
+    enum_constant public static final androidx.ui.input.EventType KEY_UP;
+  }
+
+  public final class KeyCode {
+    ctor public KeyCode(int keyCode);
+    method public int component1();
+    method public androidx.ui.input.KeyCode copy(int keyCode);
+    method public int getKeyCode();
+  }
+
+  public final class KeyCodesKt {
+    ctor public KeyCodesKt();
+    method public static androidx.ui.input.KeyCode getKEYCODE_BACKSPACE();
+  }
+
+  public final class KeyEvent {
+    ctor public KeyEvent(androidx.ui.input.EventType eventType, androidx.ui.input.KeyCode keyCode);
+    method public androidx.ui.input.EventType component1();
+    method public androidx.ui.input.KeyCode component2();
+    method public androidx.ui.input.KeyEvent copy(androidx.ui.input.EventType eventType, androidx.ui.input.KeyCode keyCode);
+    method public androidx.ui.input.EventType getEventType();
+    method public androidx.ui.input.KeyCode getKeyCode();
+  }
+
 }
 
 package androidx.ui.painting {
