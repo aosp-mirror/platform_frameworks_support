@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85cda8f5_548d4a2e",
+        "filename": "ui/studio_versions.properties",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T19:55:49Z",
+      "side": 1,
+      "message": "Missing changes here with the new studio information?",
+      "revId": "74315a74c3839e2c24828675a5fd2c3296c22754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef1f8d0_ae34cafb",
+        "filename": "ui/studio_versions.properties",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T19:55:49Z",
+      "side": 1,
+      "message": "It looks like this is a build based off 3.5 beta 1 - but the version of AGP we use elsewhere in AndroidX is 3.5 beta 4. Is it safe to use this version of Studio, with a newer version of AGP? I thought that they were meant to be used in tandem, and sometimes AGP introduces new features that require a new version of Studio to use.",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "74315a74c3839e2c24828675a5fd2c3296c22754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cec0219_1bb85685",
+        "filename": "ui/studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-26T19:55:49Z",
+      "side": 1,
+      "message": "Remove these like in the other CL :)",
+      "range": {
+        "startLine": 197,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 37
+      },
+      "revId": "74315a74c3839e2c24828675a5fd2c3296c22754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
