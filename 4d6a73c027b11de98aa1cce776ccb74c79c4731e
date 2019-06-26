@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bffc3dd6_49fb3a39",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T16:40:14Z",
+      "side": 1,
+      "message": "We usually don\u0027t create interfaces that only hold constants. Can these just be constants on the top level class?\n\nSPLASH_SCREEN_VERSION\nSPLASH_SCREEN_BACKGROUND_COLOR\n...",
+      "range": {
+        "startLine": 103,
+        "startChar": 3,
+        "endLine": 103,
+        "endChar": 43
+      },
+      "revId": "4d6a73c027b11de98aa1cce776ccb74c79c4731e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024a4c58_cdb2ba6f",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T16:40:14Z",
+      "side": 1,
+      "message": "Same as above, can this just be constant on the top level class?",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 40
+      },
+      "revId": "4d6a73c027b11de98aa1cce776ccb74c79c4731e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f273a32_3baa0d81",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/TrustedWebUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T16:40:14Z",
+      "side": 1,
+      "message": "Can we emulate the checks that webview team started?\nhttps://cs.corp.google.com/aosp-androidx/webkit/src/main/java/androidx/webkit/WebViewFeature.java?l\u003d433\n\nThen we an add something like:\n@RequiresFeature(name \u003d WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,\n            enforcement \u003d \"androidx.webkit.WebViewFeature#isFeatureSupported\")\n\nfor the methods that call into the feature and lint will catch if the calls to them are not guarded with the isFeatureSupported",
+      "revId": "4d6a73c027b11de98aa1cce776ccb74c79c4731e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d66e8de3_e489d0b7",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-26T16:40:14Z",
+      "side": 1,
+      "message": "Given that there is no way to copy the builder, in what cases would developers need a way to reset these values? In general we prefer to have builders with methods that take @NonNull parameters.",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 57
+      },
+      "revId": "4d6a73c027b11de98aa1cce776ccb74c79c4731e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
