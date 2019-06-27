@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7277b384_1ace7cdd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/ApiLocation.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-27T22:14:32Z",
+      "side": 1,
+      "message": "I ended up moving the tempDir argument into MetalavaRunner\u0027s generateApi function",
+      "parentUuid": "5fae5908_7ea52427",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 28
+      },
+      "revId": "f4a04bb33a29d37987565ad7760209956834f89f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a24fe7a_7af67089",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 3
