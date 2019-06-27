@@ -26,11 +26,14 @@ plugins {
 
 dependencies {
     implementation(ANDROIDX_TEST_CORE)
-    implementation("androidx.lifecycle:lifecycle-common:2.0.0", libs.exclude_annotations_transitive)
-    implementation(ARCH_LIFECYCLE_EXTENSIONS, libs.exclude_annotations_transitive)
+    implementation("androidx.lifecycle:lifecycle-runtime:2.0.0")
     implementation("androidx.annotation:annotation:1.0.0")
+    implementation(GUAVA_LISTENABLE_FUTURE)
     implementation(project(":camera:camera-core"))
+    implementation("androidx.core:core:1.1.0-rc01")
+    implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha03")
 }
+
 android {
     defaultConfig {
         minSdkVersion 21
@@ -45,4 +48,5 @@ androidx {
     description = "Testing components for the Jetpack Camera Library, a library providing a " +
             "consistent and reliable camera foundation that enables great camera driven " +"" +
             "experiences across all of Android."
+    failOnDeprecationWarnings = false
 }

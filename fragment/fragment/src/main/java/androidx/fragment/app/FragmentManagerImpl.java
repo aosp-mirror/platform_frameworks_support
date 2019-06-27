@@ -54,6 +54,7 @@ import androidx.collection.ArraySet;
 import androidx.core.util.DebugUtils;
 import androidx.core.util.LogWriter;
 import androidx.core.view.OneShotPreDrawListener;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelStore;
@@ -369,6 +370,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Fragment> getFragments() {
         if (mAdded.isEmpty()) {
             return Collections.emptyList();
@@ -888,6 +890,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                 if (f.mHidden) {
                                     f.mView.setVisibility(View.GONE);
                                 }
+                                ViewCompat.requestApplyInsets(f.mView);
                                 f.onViewCreated(f.mView, f.mSavedFragmentState);
                                 dispatchOnFragmentViewCreated(f, f.mView, f.mSavedFragmentState,
                                         false);
@@ -2800,7 +2803,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     private void dispatchParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
-        if (f != null) {
+        if (f != null && mActive.get(f.mWho) == f) {
             f.performPrimaryNavigationFragmentChanged();
         }
     }

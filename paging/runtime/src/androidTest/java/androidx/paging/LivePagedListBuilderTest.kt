@@ -162,9 +162,7 @@ class LivePagedListBuilderTest {
         val factory = MockDataSourceFactory()
         factory.enqueueRetryableError()
 
-        val livePagedList = LivePagedListBuilder(
-            factory, 2
-        )
+        val livePagedList = LivePagedListBuilder(factory, 2)
             .setFetchExecutor(backgroundExecutor)
             .build()
 
@@ -181,12 +179,13 @@ class LivePagedListBuilderTest {
         assertNotNull(initPagedList!!)
         assertTrue(initPagedList is InitialPagedList<*, *>)
 
-        val loadStateListener = PagedList.LoadStateListener { type, state, error ->
-            if (type == REFRESH) {
-                loadStates.add(LoadState(type, state, error))
+        val loadStateChangedCallback =
+            { type: PagedList.LoadType, state: PagedList.LoadState, error: Throwable? ->
+                if (type == REFRESH) {
+                    loadStates.add(LoadState(type, state, error))
+                }
             }
-        }
-        initPagedList.addWeakLoadStateListener(loadStateListener)
+        initPagedList.addWeakLoadStateListener(loadStateChangedCallback)
 
         // flush loadInitial, done with passed executor
         backgroundExecutor.executeAll()
@@ -216,8 +215,8 @@ class LivePagedListBuilderTest {
         )
 
         // the IDLE result shows up on the next PagedList
-        initPagedList.removeWeakLoadStateListener(loadStateListener)
-        pagedListHolder[0]!!.addWeakLoadStateListener(loadStateListener)
+        initPagedList.removeWeakLoadStateListener(loadStateChangedCallback)
+        pagedListHolder[0]!!.addWeakLoadStateListener(loadStateChangedCallback)
         assertEquals(
             listOf(
                 LoadState(REFRESH, LOADING, null),

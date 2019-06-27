@@ -20,20 +20,21 @@ package androidx.ui.core {
     property public androidx.ui.core.Density density;
   }
 
-  public final class EditableTextKt {
-    ctor public EditableTextKt();
-    method public static void EditableText(androidx.ui.input.EditorState value, androidx.ui.core.EditorStyle editorStyle, kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onValueChange = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onKeyEventForwarded = {});
-  }
-
   public final class EditorStyle {
-    ctor public EditorStyle(androidx.ui.painting.TextStyle textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
-    method public androidx.ui.painting.TextStyle component1();
+    ctor public EditorStyle(androidx.ui.painting.TextStyle? textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
+    ctor public EditorStyle();
+    method public androidx.ui.painting.TextStyle? component1();
     method public androidx.ui.graphics.Color component2();
     method public androidx.ui.graphics.Color component3();
-    method public androidx.ui.core.EditorStyle copy(androidx.ui.painting.TextStyle textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
+    method public androidx.ui.core.EditorStyle copy(androidx.ui.painting.TextStyle? textStyle, androidx.ui.graphics.Color compositionColor, androidx.ui.graphics.Color selectionColor);
     method public androidx.ui.graphics.Color getCompositionColor();
     method public androidx.ui.graphics.Color getSelectionColor();
-    method public androidx.ui.painting.TextStyle getTextStyle();
+    method public androidx.ui.painting.TextStyle? getTextStyle();
+  }
+
+  public final class InputFieldKt {
+    ctor public InputFieldKt();
+    method public static void InputField(androidx.ui.input.EditorState value, androidx.ui.core.EditorStyle editorStyle, kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onValueChange = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onKeyEventForwarded = {});
   }
 
   public final class IntrinsicMeasurementsReceiver implements androidx.ui.core.DensityReceiver {
@@ -119,30 +120,6 @@ package androidx.ui.core {
     method public static void RepaintBoundary(String? name = null, kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
-  public final class Selection {
-    ctor public Selection(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
-    method public androidx.ui.engine.geometry.Offset component1();
-    method public androidx.ui.engine.geometry.Offset component2();
-    method public androidx.ui.core.LayoutCoordinates? component3();
-    method public androidx.ui.core.LayoutCoordinates? component4();
-    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
-    method public androidx.ui.core.LayoutCoordinates? getEndLayoutCoordinates();
-    method public androidx.ui.engine.geometry.Offset getEndOffset();
-    method public androidx.ui.core.LayoutCoordinates? getStartLayoutCoordinates();
-    method public androidx.ui.engine.geometry.Offset getStartOffset();
-  }
-
-  public final class SelectionKt {
-    ctor public SelectionKt();
-    method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public static androidx.compose.Ambient<androidx.ui.core.SelectionRegistrar> getSelectionRegistrarAmbient();
-  }
-
-  public interface SelectionRegistrar {
-    method public Object subscribe(androidx.ui.core.TextSelectionHandler handler);
-    method public void unsubscribe(Object key);
-  }
-
   public final class SemanticsKt {
     ctor public SemanticsKt();
     method public static void Semantics(boolean container = false, boolean explicitChildNodes = false, Boolean? enabled = null, Boolean? checked = null, Boolean? selected = null, Boolean? button = null, Boolean? inMutuallyExclusiveGroup = null, Boolean? hidden = null, String? label = null, String? value = null, androidx.ui.engine.text.TextDirection? textDirection = null, String? testTag = null, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions = emptyList(), kotlin.jvm.functions.Function0<kotlin.Unit> children);
@@ -158,13 +135,10 @@ package androidx.ui.core {
   public final class TextKt {
     ctor public TextKt();
     method public static void CurrentTextStyleProvider(androidx.ui.painting.TextStyle value, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public static void Text(androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
-    method public static void Text(String text, androidx.ui.painting.TextStyle? style = null, androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines);
+    method public static void Text(androidx.ui.painting.TextStyle? style = null, androidx.ui.painting.ParagraphStyle? paragraphStyle = null, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
+    method public static void Text(String text, androidx.ui.painting.TextStyle? style = null, androidx.ui.painting.ParagraphStyle? paragraphStyle = null, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor);
+    method public static void Text(androidx.ui.painting.AnnotatedString text, androidx.ui.painting.TextStyle? style = null, androidx.ui.painting.ParagraphStyle? paragraphStyle = null, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor);
     method public static androidx.compose.Effect<androidx.ui.painting.TextStyle> currentTextStyle();
-  }
-
-  public interface TextSelectionHandler {
-    method public androidx.ui.core.Selection? getSelection(kotlin.Pair<androidx.ui.core.PxPosition,androidx.ui.core.PxPosition> selectionCoordinates, androidx.ui.core.LayoutCoordinates containerLayoutCoordinates);
   }
 
   public final class TextSpanComposeKt {
@@ -175,9 +149,22 @@ package androidx.ui.core {
     method public static void disposeComposition(androidx.ui.painting.TextSpan container, androidx.compose.CompositionReference? parent = null);
   }
 
+  public final class TextSpanComposer extends androidx.compose.Composer<androidx.ui.painting.TextSpan> {
+  }
+
+  public final class TextSpanComposition {
+    ctor public TextSpanComposition(androidx.ui.core.TextSpanComposer composer);
+    method public inline void call(Object key, kotlin.jvm.functions.Function1<? super androidx.compose.ViewValidator,java.lang.Boolean> invalid, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public inline <T> void call(Object key, kotlin.jvm.functions.Function0<? extends T> ctor, kotlin.jvm.functions.Function2<? super androidx.compose.ViewValidator,? super T,java.lang.Boolean> invalid, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> block);
+    method public inline void emit(Object key, kotlin.jvm.functions.Function0<androidx.ui.painting.TextSpan> ctor, kotlin.jvm.functions.Function1<? super androidx.compose.ComposerUpdater<androidx.ui.painting.TextSpan,androidx.ui.painting.TextSpan>,kotlin.Unit> update);
+    method public inline void emit(Object key, kotlin.jvm.functions.Function0<androidx.ui.painting.TextSpan> ctor, kotlin.jvm.functions.Function1<? super androidx.compose.ComposerUpdater<androidx.ui.painting.TextSpan,androidx.ui.painting.TextSpan>,kotlin.Unit> update, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public androidx.ui.core.TextSpanComposer getComposer();
+    method public inline Object joinKey(Object left, Object? right);
+    method public inline operator <V> V! unaryPlus(androidx.compose.Effect<V>);
+  }
+
   public final class TextSpanScope {
-    ctor public TextSpanScope(androidx.ui.painting.TextSpanComposition composer);
-    method public androidx.ui.painting.TextSpanComposition getComposer();
+    method public androidx.ui.core.TextSpanComposition getComposer();
   }
 
   public final class WrapperKt {
@@ -262,15 +249,37 @@ package androidx.ui.core.gesture.util {
 
 }
 
-package androidx.ui.core.input {
+package androidx.ui.core.selection {
 
-  public final class FocusableKt {
-    ctor public FocusableKt();
+  public final class Selection {
+    ctor public Selection(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
+    method public androidx.ui.engine.geometry.Rect component1();
+    method public androidx.ui.engine.geometry.Rect component2();
+    method public androidx.ui.core.LayoutCoordinates? component3();
+    method public androidx.ui.core.LayoutCoordinates? component4();
+    method public androidx.ui.core.selection.Selection copy(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
+    method public androidx.ui.core.LayoutCoordinates? getEndLayoutCoordinates();
+    method public androidx.ui.engine.geometry.Rect getEndOffset();
+    method public androidx.ui.core.LayoutCoordinates? getStartLayoutCoordinates();
+    method public androidx.ui.engine.geometry.Rect getStartOffset();
   }
 
-  public final class TextInputClientKt {
-    ctor public TextInputClientKt();
-    method public static void TextInputClient(androidx.ui.input.EditorState editorState = EditorState(), kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onEditorStateChange = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onKeyEventForwarded = {}, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+  public final class SelectionContainerKt {
+    ctor public SelectionContainerKt();
+    method public static void SelectionContainer(androidx.ui.core.selection.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.selection.Selection,kotlin.Unit> onSelectionChange, androidx.ui.core.selection.SelectionMode mode = SelectionMode.Vertical, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+  }
+
+  public final class SelectionKt {
+    ctor public SelectionKt();
+  }
+
+  public final class SelectionManagerKt {
+    ctor public SelectionManagerKt();
+  }
+
+  public enum SelectionMode {
+    enum_constant public static final androidx.ui.core.selection.SelectionMode Horizontal;
+    enum_constant public static final androidx.ui.core.selection.SelectionMode Vertical;
   }
 
 }

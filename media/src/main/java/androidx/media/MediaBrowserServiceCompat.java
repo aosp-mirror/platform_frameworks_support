@@ -1254,6 +1254,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
     }
 
     @RequiresApi(21)
+    @SuppressWarnings("unchecked")
     static class ResultWrapper<T> {
         MediaBrowserService.Result mResultFwk;
 
@@ -1532,7 +1533,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
      * Gets the session token, or null if it has not yet been created
      * or if it has been destroyed.
      */
-    public @Nullable MediaSessionCompat.Token getSessionToken() {
+    @Nullable
+    public MediaSessionCompat.Token getSessionToken() {
         return mSession;
     }
 
@@ -1562,7 +1564,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *             {@link #onLoadChildren} or {@link #onLoadItem}.
      * @see MediaSessionManager#isTrustedForMediaControl(RemoteUserInfo)
      */
-    public final @NonNull RemoteUserInfo getCurrentBrowserInfo() {
+    @NonNull
+    public final RemoteUserInfo getCurrentBrowserInfo() {
         return mImpl.getCurrentBrowserInfo();
     }
 

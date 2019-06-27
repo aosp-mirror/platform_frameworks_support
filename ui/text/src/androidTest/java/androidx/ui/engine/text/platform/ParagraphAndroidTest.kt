@@ -7,6 +7,7 @@ import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.text.style.LocaleSpan
+import android.text.style.RelativeSizeSpan
 import android.text.style.ScaleXSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
@@ -28,22 +29,21 @@ import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
 import androidx.ui.engine.text.TextGeometricTransform
 import androidx.ui.engine.text.TextIndent
-import androidx.ui.engine.text.TextStyle
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.font.asFontFamily
 import androidx.ui.engine.window.Locale
+import androidx.ui.graphics.Color
 import androidx.ui.matchers.equalToBitmap
 import androidx.ui.matchers.hasSpan
 import androidx.ui.matchers.hasSpanOnTop
-import androidx.ui.matchers.notHasSpan
-import androidx.ui.graphics.Color
+import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Shadow
+import androidx.ui.painting.TextStyle
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
@@ -83,9 +83,11 @@ class ParagraphAndroidTest {
         val fontSize = 50.0f
         for (text in arrayOf("abc\ndef", "\u05D0\u05D1\u05D2\n\u05D3\u05D4\u05D5")) {
             val paragraphAndroid = simpleParagraph(
-                text = StringBuilder(text),
-                fontSize = fontSize,
-                fontFamily = fontFamily
+                text = text,
+                textStyle = TextStyle(
+                    fontSize = fontSize,
+                    fontFamily = fontFamily
+                )
             )
 
             // 2 chars width
@@ -107,13 +109,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setColorOnWholeText() {
+    fun testAnnotatedString_setColorOnWholeText() {
         val text = "abcde"
         val textStyle = TextStyle(color = Color(0xFF0000FF.toInt()))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
 
@@ -121,13 +123,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setColorOnPartOfText() {
+    fun testAnnotatedString_setColorOnPartOfText() {
         val text = "abcde"
         val textStyle = TextStyle(color = Color(0xFF0000FF.toInt()))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -135,7 +137,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setColorTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setColorTwice_lastOneOverwrite() {
         val text = "abcde"
         val textStyle = TextStyle(color = Color(0xFF0000FF.toInt()))
         val textStyleOverwrite = TextStyle(color = Color(0xFF00FF00.toInt()))
@@ -143,8 +145,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(100.0f)
@@ -164,7 +166,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
 
@@ -179,7 +181,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
 
@@ -194,7 +196,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -209,7 +211,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -228,7 +230,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -238,7 +240,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setFontSizeOnWholeText() {
+    fun testAnnotatedString_setFontSizeOnWholeText() {
         val text = "abcde"
         val fontSize = 20.0f
         val paragraphWidth = text.length * fontSize
@@ -246,7 +248,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(paragraphWidth)
 
@@ -254,7 +256,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setFontSizeOnPartText() {
+    fun testAnnotatedString_setFontSizeOnPartText() {
         val text = "abcde"
         val fontSize = 20.0f
         val paragraphWidth = text.length * fontSize
@@ -262,7 +264,7 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(paragraphWidth)
 
@@ -270,7 +272,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setFontSizeTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setFontSizeTwice_lastOneOverwrite() {
         val text = "abcde"
         val fontSize = 20.0f
         val fontSizeOverwrite = 30.0f
@@ -281,8 +283,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(paragraphWidth)
@@ -296,14 +298,54 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingOnWholeText() {
+    fun testAnnotatedString_setFontSizeScaleOnWholeText() {
+        val text = "abcde"
+        val fontSizeScale = 2.0f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
+        )
+        paragraph.layout(100f)
+
+        assertThat(
+            paragraph.underlyingText,
+            hasSpan(RelativeSizeSpan::class, 0, text.length) {
+                it.sizeChange == fontSizeScale
+            }
+        )
+    }
+
+    @Test
+    fun testAnnotatedString_setFontSizeScaleOnPartText() {
+        val text = "abcde"
+        val fontSizeScale = 2.0f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
+        )
+        paragraph.layout(100f)
+
+        assertThat(
+            paragraph.underlyingText,
+            hasSpan(RelativeSizeSpan::class, 0, "abc".length) {
+                it.sizeChange == fontSizeScale
+            }
+        )
+    }
+
+    @Test
+    fun testAnnotatedString_setLetterSpacingOnWholeText() {
         val text = "abcde"
         val letterSpacing = 2.0f
         val textStyle = TextStyle(letterSpacing = letterSpacing)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
@@ -311,13 +353,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingOnPartText() {
+    fun testAnnotatedString_setLetterSpacingOnPartText() {
         val text = "abcde"
         val textStyle = TextStyle(letterSpacing = 2.0f)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
@@ -325,7 +367,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLetterSpacingTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setLetterSpacingTwice_lastOneOverwrite() {
         val text = "abcde"
         val textStyle = TextStyle(letterSpacing = 2.0f)
         val textStyleOverwrite = TextStyle(letterSpacing = 3.0f)
@@ -333,8 +375,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(100.0f)
@@ -348,15 +390,15 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
-    fun textStyle_setWordSpacingOnWholeText() {
+    @SdkSuppress(minSdkVersion = 29)
+    fun testAnnotatedString_setWordSpacingOnWholeText() {
         val text = "ab cd"
         val wordSpacing = 2.0f
         val textStyle = TextStyle(wordSpacing = wordSpacing)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // Notice that the width doesn't matter for this test.
         paragraph.layout(100.0f)
@@ -371,15 +413,15 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
-    fun textStyle_setWordSpacingOnPartText() {
+    @SdkSuppress(minSdkVersion = 29)
+    fun testAnnotatedString_setWordSpacingOnPartText() {
         val text = "abc d"
         val wordSpacing = 2.0f
         val textStyle = TextStyle(wordSpacing = wordSpacing)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         // Notice that the width doesn't matter for this test.
         paragraph.layout(100.0f)
@@ -394,8 +436,8 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 28)
-    fun textStyle_setWordSpacingTwice_lastOneOverwrite() {
+    @SdkSuppress(minSdkVersion = 29)
+    fun testAnnotatedString_setWordSpacingTwice_lastOneOverwrite() {
         val text = "abc d"
         val wordSpacing = 2.0f
         val textStyle = TextStyle(wordSpacing = wordSpacing)
@@ -405,8 +447,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         // Notice that the width doesn't matter for this test.
@@ -434,14 +476,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBackgroundOnWholeText() {
+    fun testAnnotatedString_setBackgroundOnWholeText() {
         val text = "abcde"
         val color = Color(0xFF0000FF.toInt())
         val textStyle = TextStyle(background = color)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
 
@@ -454,14 +496,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBackgroundOnPartText() {
+    fun testAnnotatedString_setBackgroundOnPartText() {
         val text = "abcde"
         val color = Color(0xFF0000FF.toInt())
         val textStyle = TextStyle(background = color)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -474,7 +516,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBackgroundTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setBackgroundTwice_lastOneOverwrite() {
         val text = "abcde"
         val color = Color(0xFF0000FF.toInt())
         val textStyle = TextStyle(background = color)
@@ -484,8 +526,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(100.0f)
@@ -510,14 +552,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLocaleOnWholeText() {
+    fun testAnnotatedString_setLocaleOnWholeText() {
         val text = "abcde"
         val locale = Locale("en", "US")
         val textStyle = TextStyle(locale = locale)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         paragraph.layout(100.0f)
 
@@ -525,14 +567,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLocaleOnPartText() {
+    fun testAnnotatedString_setLocaleOnPartText() {
         val text = "abcde"
         val locale = Locale("en", "US")
         val textStyle = TextStyle(locale = locale)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         paragraph.layout(100.0f)
 
@@ -540,7 +582,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setLocaleTwice_lastOneOverwrite() {
+    fun testAnnotatedString_setLocaleTwice_lastOneOverwrite() {
         val text = "abcde"
         val textStyle = TextStyle(locale = Locale("en", "US"))
         val textStyleOverwrite = TextStyle(locale = Locale("ja", "JP"))
@@ -548,8 +590,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         paragraph.layout(100.0f)
@@ -563,13 +605,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBaselineShiftOnWholeText() {
+    fun testAnnotatedString_setBaselineShiftOnWholeText() {
         val text = "abcde"
         val textStyle = TextStyle(baselineShift = BaselineShift.Subscript)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -578,13 +620,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBaselineShiftOnPartText() {
+    fun testAnnotatedString_setBaselineShiftOnPartText() {
         val text = "abcde"
         val textStyle = TextStyle(baselineShift = BaselineShift.Superscript)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -593,7 +635,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setBaselineShiftTwice_LastOneOnTop() {
+    fun testAnnotatedString_setBaselineShiftTwice_LastOneOnTop() {
         val text = "abcde"
         val textStyle = TextStyle(baselineShift = BaselineShift.Subscript)
         val textStyleOverwrite = TextStyle(baselineShift = BaselineShift.Superscript)
@@ -601,8 +643,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, 0, "abc".length)
+                AnnotatedString.Item(textStyle, 0, text.length),
+                AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
         // width is not important
@@ -617,13 +659,13 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setTextGeometricTransformWithNull_noSpanSet() {
+    fun testAnnotatedString_setTextGeometricTransformWithNull_noSpanSet() {
         val text = "abcde"
         val textStyle = TextStyle(textGeometricTransform = TextGeometricTransform(null, null))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -633,14 +675,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setTextGeometricTransformWithScaleX() {
+    fun testAnnotatedString_setTextGeometricTransformWithScaleX() {
         val text = "abcde"
         val scaleX = 0.5f
         val textStyle = TextStyle(textGeometricTransform = TextGeometricTransform(scaleX, null))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -653,14 +695,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setTextGeometricTransformWithSkewX() {
+    fun testAnnotatedString_setTextGeometricTransformWithSkewX() {
         val text = "aa"
         val skewX = 1f
         val textStyle = TextStyle(textGeometricTransform = TextGeometricTransform(null, skewX))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -673,171 +715,28 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setTextIndent_onWholeParagraph() {
+    fun textIndent_onWholeParagraph() {
         val text = "abc\ndef"
         val firstLine = 40
         val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length)
-            )
+            textIndent = TextIndent(firstLine.px, restLine.px)
         )
         // width is not important
         paragraph.layout(100.0f)
 
         assertThat(
             paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, 0, "abc".length) {
+            hasSpan(LeadingMarginSpan.Standard::class, 0, text.length) {
                 it.getLeadingMargin(true) == firstLine && it.getLeadingMargin(false) == restLine
             }
         )
     }
 
     @Test
-    fun textStyle_setTextIndent_onPartParagraph() {
-        val text = "abc\ndef"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, 1)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, 0, "abc".length) {
-                it.getLeadingMargin(true) == firstLine && it.getLeadingMargin(false) == restLine
-            }
-        )
-    }
-
-    @Test
-    fun textStyle_setTextIndent_lastCharIsLineFeed() {
-        val text = "abc\ndef"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc\n".length)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, 0, "abc".length) {
-                it.getLeadingMargin(true) == firstLine && it.getLeadingMargin(false) == restLine
-            }
-        )
-    }
-
-    @Test
-    fun textStyle_setTextIndent_firstCharIsLineFeed() {
-        val text = "abc\ndef"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, "abc".length, "abc\nd".length)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, "abc\n".length, "abc\ndef".length) {
-                it.getLeadingMargin(true) == firstLine && it.getLeadingMargin(false) == restLine
-            }
-        )
-    }
-
-    @Test
-    fun textStyle_setTextIndent_coverLineFeed() {
-        val text = "abc\ndef"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, "abc".length, "abc\n".length)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            notHasSpan(LeadingMarginSpan.Standard::class, 0, text.length)
-        )
-    }
-
-    @Test
-    fun textStyle_setTextIndent_coverEmptyParagraph() {
-        val text = "abc\n\ndef"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, "abc".length, "abc\n\n".length)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, "abc\n".length, "abc\n\n".length)
-        )
-    }
-
-    @Test
-    fun textStyle_setTextIndent_coverMultiParagraph() {
-        val text = "abc\ndef\nghi"
-        val firstLine = 40
-        val restLine = 20
-        val textStyle = TextStyle(textIndent = TextIndent(firstLine.px, restLine.px))
-
-        val paragraph = simpleParagraph(
-            text = text,
-            textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, "ab".length, "abc\nd".length)
-            )
-        )
-        // width is not important
-        paragraph.layout(100.0f)
-
-        assertThat(
-            paragraph.underlyingText,
-            hasSpan(LeadingMarginSpan.Standard::class, 0, "abc\ndef".length) {
-                it.getLeadingMargin(true) == firstLine && it.getLeadingMargin(false) == restLine
-            }
-        )
-    }
-
-    @Test
-    fun textStyle_setShadow() {
+    fun testAnnotatedString_setShadow() {
         val text = "abcde"
         val color = Color(0xFF00FF00.toInt())
         val offset = Offset(1f, 2f)
@@ -847,7 +746,7 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, start = 0, end = text.length)
+                AnnotatedString.Item(textStyle, start = 0, end = text.length)
             )
         )
         // width is not important
@@ -865,7 +764,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_setShadowTwice_lastOnTop() {
+    fun testAnnotatedString_setShadowTwice_lastOnTop() {
         val text = "abcde"
         val color = Color(0xFF00FF00.toInt())
         val offset = Offset(1f, 2f)
@@ -882,8 +781,8 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(textStyle, start = 0, end = text.length),
-                ParagraphBuilder.TextStyleIndex(textStyleOverwrite, start = 0, end = "abc".length)
+                AnnotatedString.Item(textStyle, start = 0, end = text.length),
+                AnnotatedString.Item(textStyleOverwrite, start = 0, end = "abc".length)
             )
         )
         // width is not important
@@ -910,7 +809,7 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_fontFamily_addsTypefaceSpanWithCorrectTypeface() {
+    fun testAnnotatedString_fontFamily_addsTypefaceSpanWithCorrectTypeface() {
         val text = "abcde"
         val textStyle = TextStyle(
             fontFamily = fontFamily,
@@ -928,7 +827,7 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
+                AnnotatedString.Item(
                     textStyle,
                     expectedStart,
                     expectedEnd
@@ -946,19 +845,19 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_fontFamily_whenFontSynthesizeTurnedOff() {
+    fun testAnnotatedString_fontFamily_whenFontSynthesizeTurnedOff() {
         val text = "abcde"
         val textStyle = TextStyle(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
         val expectedTypeface = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
         val expectedStart = 0
         val expectedEnd = "abc".length
@@ -966,7 +865,7 @@ class ParagraphAndroidTest {
         val paragraph = simpleParagraph(
             text = text,
             textStyles = listOf(
-                ParagraphBuilder.TextStyleIndex(
+                AnnotatedString.Item(
                     textStyle,
                     expectedStart,
                     expectedEnd
@@ -984,14 +883,14 @@ class ParagraphAndroidTest {
     }
 
     @Test
-    fun textStyle_fontFeatureSetting_setSpanOnText() {
+    fun testAnnotatedString_fontFeatureSetting_setSpanOnText() {
         val text = "abc"
         val fontFeatureSettings = "\"kern\" 0"
         val textStyle = TextStyle(fontFeatureSettings = fontFeatureSettings)
 
         val paragraph = simpleParagraph(
             text = text,
-            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, "abc".length))
+            textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         // width is not important
         paragraph.layout(100.0f)
@@ -1027,8 +926,10 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = "abc",
-            fontFamily = null,
-            fontWeight = FontWeight.bold,
+            textStyle = TextStyle(
+                fontFamily = null,
+                fontWeight = FontWeight.bold
+            ),
             typefaceAdapter = typefaceAdapter
         )
         paragraph.layout(Float.MAX_VALUE)
@@ -1037,7 +938,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.bold),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1051,8 +952,10 @@ class ParagraphAndroidTest {
         val typefaceAdapter = spy(TypefaceAdapter())
         val paragraph = simpleParagraph(
             text = "abc",
-            fontFamily = null,
-            fontStyle = FontStyle.Italic,
+            textStyle = TextStyle(
+                fontFamily = null,
+                fontStyle = FontStyle.Italic
+            ),
             typefaceAdapter = typefaceAdapter
         )
         paragraph.layout(Float.MAX_VALUE)
@@ -1061,7 +964,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(null),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Italic),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1077,7 +980,9 @@ class ParagraphAndroidTest {
 
         val paragraph = simpleParagraph(
             text = "abc",
-            fontFamily = fontFamily,
+            textStyle = TextStyle(
+                fontFamily = fontFamily
+            ),
             typefaceAdapter = typefaceAdapter
         )
         paragraph.layout(Float.MAX_VALUE)
@@ -1086,7 +991,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
 
         val typeface = paragraph.textPaint.typeface
@@ -1100,7 +1005,9 @@ class ParagraphAndroidTest {
         val typefaceAdapter = spy(TypefaceAdapter())
         val paragraph = simpleParagraph(
             text = "abc",
-            fontFamily = fontFamily,
+            textStyle = TextStyle(
+                fontFamily = fontFamily
+            ),
             typefaceAdapter = typefaceAdapter
         )
         paragraph.layout(Float.MAX_VALUE)
@@ -1109,7 +1016,7 @@ class ParagraphAndroidTest {
             fontFamily = eq(fontFamily),
             fontWeight = eq(FontWeight.normal),
             fontStyle = eq(FontStyle.Normal),
-            fontSynthesis = eq(FontSynthesis.all)
+            fontSynthesis = eq(FontSynthesis.All)
         )
         val typeface = paragraph.textPaint.typeface
         assertThat(typeface.isBold, equalTo(false))
@@ -1123,8 +1030,10 @@ class ParagraphAndroidTest {
         val paragraphWidth = (text.length - 1) * fontSize
         val paragraph = simpleParagraph(
             text = text,
-            fontFamily = fontFamily,
-            fontSize = fontSize,
+            textStyle = TextStyle(
+                fontFamily = fontFamily,
+                fontSize = fontSize
+            ),
             ellipsis = true
         )
         paragraph.layout(paragraphWidth)
@@ -1141,10 +1050,12 @@ class ParagraphAndroidTest {
         val paragraphWidth = (text.length - 1.5f) * fontSize
         val paragraph = simpleParagraph(
             text = text,
-            fontFamily = fontFamily,
-            fontSize = fontSize,
             ellipsis = true,
-            maxLines = 1
+            maxLines = 1,
+            textStyle = TextStyle(
+                fontFamily = fontFamily,
+                fontSize = fontSize
+            )
         )
         paragraph.layout(paragraphWidth)
 
@@ -1159,10 +1070,12 @@ class ParagraphAndroidTest {
         val maxLines = ceil(text.length * fontSize / paragraphWidth).toInt()
         val paragraph = simpleParagraph(
             text = text,
-            fontFamily = fontFamily,
-            fontSize = fontSize,
             ellipsis = true,
-            maxLines = maxLines
+            maxLines = maxLines,
+            textStyle = TextStyle(
+                fontFamily = fontFamily,
+                fontSize = fontSize
+            )
         )
         paragraph.layout(paragraphWidth)
 
@@ -1171,30 +1084,210 @@ class ParagraphAndroidTest {
         }
     }
 
+    @Test
+    fun testTextStyle_fontSize_appliedOnTextPaint() {
+        val fontSize = 100f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(fontSize = fontSize)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.textSize, equalTo(fontSize))
+    }
+
+    @Test
+    fun testTextStyle_fontSizeScale_appliedOnTextPaint() {
+        val fontSize = 100f
+        val fontSizeScale = 2f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(
+                fontSize = fontSize,
+                fontSizeScale = fontSizeScale
+            )
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.textSize, equalTo(fontSize * fontSizeScale))
+    }
+
+    @Test
+    fun testTextStyle_locale_appliedOnTextPaint() {
+        val systemLocale = java.util.Locale.JAPANESE
+        val locale = Locale(systemLocale.language, systemLocale.country)
+
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(locale = locale)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.textLocale, equalTo(systemLocale))
+    }
+
+    @Test
+    fun testTextStyle_color_appliedOnTextPaint() {
+        val color = Color(0x12345678)
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(color = color)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.color, equalTo(color.toArgb()))
+    }
+
+    @Test
+    fun testTextStyle_letterSpacing_appliedOnTextPaint() {
+        val letterSpacing = 2.0f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(letterSpacing = letterSpacing)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.letterSpacing, equalTo(letterSpacing))
+    }
+
+    @Test
+    fun testTextStyle_fontFeatureSettings_appliedOnTextPaint() {
+        val fontFeatureSettings = "\"kern\" 0"
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(fontFeatureSettings = fontFeatureSettings)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.fontFeatureSettings, equalTo(fontFeatureSettings))
+    }
+
+    @SdkSuppress(minSdkVersion = 29)
+    @Test
+    fun testTextStyle_wordSpacing_appliedOnTextPaint() {
+        val wordSpacing = 1.23f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(wordSpacing = wordSpacing)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.wordSpacing, equalTo(wordSpacing))
+    }
+
+    @Test
+    fun testTextStyle_scaleX_appliedOnTextPaint() {
+        val scaleX = 0.5f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(
+                textGeometricTransform = TextGeometricTransform(
+                    scaleX = scaleX
+                )
+            )
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.textScaleX, equalTo(scaleX))
+    }
+
+    @Test
+    fun testTextStyle_skewX_appliedOnTextPaint() {
+        val skewX = 0.5f
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(
+                textGeometricTransform = TextGeometricTransform(
+                    skewX = skewX
+                )
+            )
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.textSkewX, equalTo(skewX))
+    }
+
+    @Test
+    fun testTextStyle_decoration_underline_appliedOnTextPaint() {
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(decoration = TextDecoration.Underline)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.isUnderlineText, equalTo(true))
+    }
+
+    @Test
+    fun testTextStyle_decoration_lineThrough_appliedOnTextPaint() {
+        val paragraph = simpleParagraph(
+            text = "",
+            textStyle = TextStyle(decoration = TextDecoration.LineThrough)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.textPaint.isStrikeThruText, equalTo(true))
+    }
+
+    @Test
+    fun testTextStyle_background_appliedAsSpan() {
+        // bgColor is reset in the Android Layout constructor.
+        // therefore we cannot apply them on paint, have to use spans.
+        val text = "abc"
+        val color = Color(0x12345678)
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(background = color)
+        )
+        paragraph.layout(0f)
+
+        assertThat(paragraph.underlyingText,
+            hasSpan(BackgroundColorSpan::class, 0, text.length) { span ->
+                span.backgroundColor == color.toArgb()
+            }
+        )
+    }
+
+    @Test
+    fun testTextStyle_baselineShift_appliedAsSpan() {
+        // baselineShift is reset in the Android Layout constructor.
+        // therefore we cannot apply them on paint, have to use spans.
+        val text = "abc"
+        val baselineShift = BaselineShift.Subscript
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(baselineShift = baselineShift)
+        )
+        paragraph.layout(0f)
+
+        assertThat(
+            paragraph.underlyingText,
+            hasSpan(BaselineShiftSpan::class, 0, text.length) { span ->
+                span.multiplier == BaselineShift.Subscript.multiplier
+            }
+        )
+    }
+
     private fun simpleParagraph(
-        text: CharSequence = "",
-        textStyles: List<ParagraphBuilder.TextStyleIndex> = listOf(),
+        text: String = "",
+        textStyles: List<AnnotatedString.Item<TextStyle>> = listOf(),
+        textIndent: TextIndent? = null,
         textAlign: TextAlign? = null,
-        fontSize: Float? = null,
         ellipsis: Boolean? = null,
         maxLines: Int? = null,
-        fontFamily: FontFamily? = null,
-        fontWeight: FontWeight? = null,
-        fontStyle: FontStyle? = null,
+        textStyle: TextStyle? = null,
         typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
     ): ParagraphAndroid {
         return ParagraphAndroid(
-            text = StringBuilder(text),
+            text = text,
             textStyles = textStyles,
             typefaceAdapter = typefaceAdapter,
+            style = TextStyle().merge(textStyle),
             paragraphStyle = ParagraphStyle(
                 textAlign = textAlign,
+                textIndent = textIndent,
                 ellipsis = ellipsis,
-                maxLines = maxLines,
-                fontFamily = fontFamily,
-                fontSize = fontSize,
-                fontWeight = fontWeight,
-                fontStyle = fontStyle
+                maxLines = maxLines
             )
         )
     }

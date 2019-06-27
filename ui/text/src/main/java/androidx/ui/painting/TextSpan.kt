@@ -16,9 +16,7 @@
 
 package androidx.ui.painting
 
-import androidx.ui.engine.text.ParagraphBuilder
-import androidx.ui.engine.text.TextAffinity
-import androidx.ui.engine.text.TextPosition
+import androidx.annotation.RestrictTo
 import androidx.ui.painting.basictypes.RenderComparison
 
 /**
@@ -35,42 +33,14 @@ import androidx.ui.painting.basictypes.RenderComparison
  * @param children Additional spans to include as children. If both [text] and [children] are
  *   non-null, the text will precede the children. The list must not contain any nulls.
  *
- * @param recognizer A gesture recognizer that will receive events that hit this text span.
+ * @hide
  */
-// TODO(haoyuchang) Make TextSpan immutable.
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class TextSpan(
-    var style: TextStyle? = null,
-    var text: String? = null,
-    val children: MutableList<TextSpan> = mutableListOf()/*,
-    val recognizer: GestureRecognizer? = null*/
+    val style: TextStyle? = null,
+    val text: String? = null,
+    val children: MutableList<TextSpan> = mutableListOf()
 ) {
-
-    /**
-     * Apply the [style], [text], and [children] of this object to the given [ParagraphBuilder],
-     * from which a [Paragraph] can be obtained.
-     * [Paragraph] objects can be drawn on [Canvas] objects.
-     *
-     * Rather than using this directly, it's simpler to use the [TextPainter] class to paint
-     * [TextSpan] objects onto [Canvas] objects.
-     */
-    fun build(builder: ParagraphBuilder, textScaleFactor: Float = 1.0f) {
-        val hasStyle: Boolean = style != null
-        if (hasStyle) {
-            builder.pushStyle(style!!.getTextStyle(textScaleFactor))
-        }
-
-        text?.let {
-            builder.addText(it)
-        }
-
-        children.forEach {
-            it.build(builder, textScaleFactor)
-        }
-
-        if (hasStyle) {
-            builder.pop()
-        }
-    }
 
     /**
      * Walks this text span and its descendants in pre-order and calls [visitor]
@@ -90,27 +60,6 @@ class TextSpan(
         return true
     }
 
-    /** Returns the text span that contains the given position in the text. */
-    fun getSpanForPosition(position: TextPosition): TextSpan? {
-        val affinity: TextAffinity = position.affinity
-        val targetOffset: Int = position.offset
-        var offset = 0
-        var result: TextSpan? = null
-        visitTextSpan {
-                span: TextSpan ->
-            assert(result == null)
-            val endOffset: Int = offset + span.text!!.length
-            if (targetOffset == offset && affinity == TextAffinity.downstream ||
-                targetOffset > offset && targetOffset < endOffset ||
-                targetOffset == endOffset && affinity == TextAffinity.upstream) {
-                result = span
-            }
-            offset = endOffset
-            true
-        }
-        return result
-    }
-
     /**
      * Flattens the [TextSpan] tree into a single string.
      *
@@ -127,38 +76,10 @@ class TextSpan(
     }
 
     /**
-     * Returns the UTF-16 code unit at the given index in the flattened string.
-     *
-     * Returns null if the index is out of bounds.
-     */
-    // TODO(Migration/qqd): VERY IMPORTANT the name is weird, and what it does is also weird.
-//    fun codeUnitAt(index: Int): Int? {
-//        if (index < 0)
-//            return null
-//        var offset: Int? = 0
-//        var result: Int? = null
-//        visitTextSpan {
-//                span: TextSpan ->
-//            if (index - offset!! < span.text!!.length) {
-//                // Flutter only considered BMP (Basic Multilingual Plane or Plane 0), so we only
-//                // return the high-surrogate (index 0) in the UTF-16 representation array resulting
-//                // from Character.toChars.
-//                val codePoint = span.text[index - offset]
-//                val utf16Array = Character.toChars(codePoint.toInt())
-//                result = utf16Array[0].toInt()
-//                false
-//            }
-//            offset += span.text?.length
-//            true
-//        }
-//        return result
-//    }
-
-    /**
      * Describe the difference between this text span and another, in terms ofhow much damage it
      * will make to the rendering. The comparison is deep.
      */
-    fun compareTo(other: TextSpan): RenderComparison {
+    internal fun compareTo(other: TextSpan): RenderComparison {
         if (this === other) {
             return RenderComparison.IDENTICAL
         }
@@ -168,9 +89,6 @@ class TextSpan(
             return RenderComparison.LAYOUT
         }
         var result: RenderComparison = RenderComparison.IDENTICAL
-            // TODO(siyamed) add recognizer
-            /*if (recognizer == other.recognizer) RenderComparison.IDENTICAL
-            else RenderComparison.METADATA*/
         style?.let {
             val candidate: RenderComparison = it.compareTo(other.style!!)
             if (candidate.ordinal > result.ordinal) {
@@ -192,4 +110,43 @@ class TextSpan(
         }
         return result
     }
+}
+
+private data class RecordInternal(
+    val style: TextStyle,
+    val start: Int,
+    var end: Int
+)
+
+private fun TextSpan.annotatedStringVisitor(
+    stringBuilder: java.lang.StringBuilder,
+    styles: MutableList<RecordInternal>
+) {
+    val styleSpan = style?.let {
+        val span = RecordInternal(it, stringBuilder.length, -1)
+        styles.add(span)
+        span
+    }
+
+    text?.let { stringBuilder.append(text) }
+    for (child in children) {
+        child.annotatedStringVisitor(stringBuilder, styles)
+    }
+
+    if (styleSpan != null) {
+        styleSpan.end = stringBuilder.length
+    }
+}
+
+/**
+ * Convert a [TextSpan] into an [AnnotatedString].
+ * @hide
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+fun TextSpan.toAnnotatedString(): AnnotatedString {
+    val stringBuilder = java.lang.StringBuilder()
+    val tempRecords = mutableListOf<RecordInternal>()
+    annotatedStringVisitor(stringBuilder, tempRecords)
+    val records = tempRecords.map { AnnotatedString.Item(it.style, it.start, it.end) }
+    return AnnotatedString(stringBuilder.toString(), records)
 }

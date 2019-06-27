@@ -42,7 +42,6 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -90,6 +89,7 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /** @hide */
+    @SuppressWarnings("WeakerAccess")
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({OFFSCREEN_PAGE_LIMIT_DEFAULT})
@@ -122,7 +122,7 @@ public final class ViewPager2 extends ViewGroup {
     public static final int OFFSCREEN_PAGE_LIMIT_DEFAULT = -1;
 
     /** Feature flag while stabilizing enhanced a11y */
-    static boolean sFeatureEnhancedA11yEnabled = false;
+    static boolean sFeatureEnhancedA11yEnabled = true;
 
     // reused in layout(...)
     private final Rect mTmpContainerRect = new Rect();
@@ -202,7 +202,10 @@ public final class ViewPager2 extends ViewGroup {
         final OnPageChangeCallback currentItemUpdater = new OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                mCurrentItem = position;
+                if (mCurrentItem != position) {
+                    mCurrentItem = position;
+                    mAccessibilityProvider.onSetNewCurrentItem();
+                }
             }
         };
 
@@ -247,6 +250,7 @@ public final class ViewPager2 extends ViewGroup {
         };
     }
 
+    @RequiresApi(23)
     @Override
     public CharSequence getAccessibilityClassName() {
         if (mAccessibilityProvider.handlesGetAccessibilityClassName()) {
@@ -268,6 +272,7 @@ public final class ViewPager2 extends ViewGroup {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -280,7 +285,7 @@ public final class ViewPager2 extends ViewGroup {
         if (mPendingAdapterState != null) {
             ss.mAdapterState = mPendingAdapterState;
         } else {
-            Adapter adapter = mRecyclerView.getAdapter();
+            Adapter<?> adapter = mRecyclerView.getAdapter();
             if (adapter instanceof StatefulAdapter) {
                 ss.mAdapterState = ((StatefulAdapter) adapter).saveState();
             }
@@ -307,7 +312,7 @@ public final class ViewPager2 extends ViewGroup {
             // No state to restore, or state is already restored
             return;
         }
-        Adapter adapter = getAdapter();
+        Adapter<?> adapter = getAdapter();
         if (adapter == null) {
             return;
         }
@@ -420,13 +425,15 @@ public final class ViewPager2 extends ViewGroup {
      * @see androidx.viewpager2.adapter.FragmentStateAdapter
      * @see RecyclerView#setAdapter(Adapter)
      */
-    public void setAdapter(@Nullable Adapter adapter) {
+    public void setAdapter(@Nullable @SuppressWarnings("rawtypes") Adapter adapter) {
         mAccessibilityProvider.onDetachAdapter(mRecyclerView.getAdapter());
         mRecyclerView.setAdapter(adapter);
+        mCurrentItem = 0;
         restorePendingState();
         mAccessibilityProvider.onAttachAdapter(adapter);
     }
 
+    @SuppressWarnings("rawtypes")
     public @Nullable Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
@@ -525,14 +532,18 @@ public final class ViewPager2 extends ViewGroup {
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
-
-        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
-
         if (isFakeDragging()) {
             throw new IllegalStateException("Cannot change current item when ViewPager2 is fake "
                     + "dragging");
         }
-        Adapter adapter = getAdapter();
+        setCurrentItemInternal(item, smoothScroll);
+    }
+
+    void setCurrentItemInternal(int item, boolean smoothScroll) {
+
+        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
+
+        Adapter<?> adapter = getAdapter();
         if (adapter == null) {
             // Update the pending current item if we're still waiting for the adapter
             if (mPendingCurrentItem != NO_POSITION) {
@@ -843,6 +854,7 @@ public final class ViewPager2 extends ViewGroup {
         mAccessibilityProvider.onInitializeAccessibilityNodeInfo(info);
     }
 
+    @RequiresApi(16)
     @Override
     public boolean performAccessibilityAction(int action, Bundle arguments) {
         if (mAccessibilityProvider.handlesPerformAccessibilityAction(action, arguments)) {
@@ -860,6 +872,7 @@ public final class ViewPager2 extends ViewGroup {
             super(context);
         }
 
+        @RequiresApi(23)
         @Override
         public CharSequence getAccessibilityClassName() {
             if (mAccessibilityProvider.handlesRvGetAccessibilityClassName()) {
@@ -994,10 +1007,6 @@ public final class ViewPager2 extends ViewGroup {
      * A PageTransformer is invoked whenever a visible/attached page is scrolled.
      * This offers an opportunity for the application to apply a custom transformation
      * to the page views using animation properties.
-     *
-     * <p>As property animation is only supported as of Android 3.0 and forward,
-     * setting a PageTransformer on a ViewPager on earlier platform versions will
-     * be ignored.</p>
      */
     public interface PageTransformer {
 
@@ -1007,9 +1016,13 @@ public final class ViewPager2 extends ViewGroup {
          * @param page Apply the transformation to this page
          * @param position Position of page relative to the current front-and-center
          *                 position of the pager. 0 is front and center. 1 is one full
-         *                 page position to the right, and -1 is one page position to the left.
+         *                 page position to the right, and -2 is two pages to the left.
+         *                 Minimum / maximum observed values depend on how many pages we keep
+         *                 attached, which depends on offscreenPageLimit.
+         *
+         * @see #setOffscreenPageLimit(int)
          */
-        void transformPage(@NonNull View page, @FloatRange(from = -1.0, to = 1.0) float position);
+        void transformPage(@NonNull View page, float position);
     }
 
     /**
@@ -1115,10 +1128,10 @@ public final class ViewPager2 extends ViewGroup {
         void onRestorePendingState() {
         }
 
-        void onAttachAdapter(@Nullable Adapter newAdapter) {
+        void onAttachAdapter(@Nullable Adapter<?> newAdapter) {
         }
 
-        void onDetachAdapter(@Nullable Adapter oldAdapter) {
+        void onDetachAdapter(@Nullable Adapter<?> oldAdapter) {
         }
 
         void onSetOrientation() {
@@ -1214,7 +1227,7 @@ public final class ViewPager2 extends ViewGroup {
                     public boolean perform(@NonNull View view,
                             @Nullable CommandArguments arguments) {
                         ViewPager2 viewPager = (ViewPager2) view;
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+                        setCurrentItemFromAccessibilityCommand(viewPager.getCurrentItem() + 1);
                         return true;
                     }
                 };
@@ -1225,7 +1238,7 @@ public final class ViewPager2 extends ViewGroup {
                     public boolean perform(@NonNull View view,
                             @Nullable CommandArguments arguments) {
                         ViewPager2 viewPager = (ViewPager2) view;
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+                        setCurrentItemFromAccessibilityCommand(viewPager.getCurrentItem() - 1);
                         return true;
                     }
                 };
@@ -1245,17 +1258,6 @@ public final class ViewPager2 extends ViewGroup {
                     updatePageAccessibilityActions();
                 }
             };
-
-            final OnPageChangeCallback accessibilityUpdater = new OnPageChangeCallback() {
-                @Override
-                public void onPageSelected(int position) {
-                    if (mCurrentItem != position) {
-                        updatePageAccessibilityActions();
-                    }
-                }
-            };
-
-            pageChangeEventDispatcher.addOnPageChangeCallback(accessibilityUpdater);
 
             if (ViewCompat.getImportantForAccessibility(ViewPager2.this)
                     == ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
@@ -1283,7 +1285,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         @Override
-        public void onAttachAdapter(@Nullable Adapter newAdapter) {
+        public void onAttachAdapter(@Nullable Adapter<?> newAdapter) {
             updatePageAccessibilityActions();
             if (newAdapter != null) {
                 newAdapter.registerAdapterDataObserver(mAdapterDataObserver);
@@ -1291,7 +1293,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         @Override
-        public void onDetachAdapter(@Nullable Adapter oldAdapter) {
+        public void onDetachAdapter(@Nullable Adapter<?> oldAdapter) {
             if (oldAdapter != null) {
                 oldAdapter.unregisterAdapterDataObserver(mAdapterDataObserver);
             }
@@ -1343,14 +1345,25 @@ public final class ViewPager2 extends ViewGroup {
             int nextItem = (action == AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD)
                     ? getCurrentItem() - 1
                     : getCurrentItem() + 1;
-            setCurrentItem(nextItem, true);
+            setCurrentItemFromAccessibilityCommand(nextItem);
             return true;
         }
 
         @Override
         public void onRvInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
             event.setSource(ViewPager2.this);
-            event.setClassName(ViewPager2.this.getAccessibilityClassName());
+            event.setClassName(onGetAccessibilityClassName());
+        }
+
+        /**
+         * Sets the current item without checking if a fake drag is ongoing. Only call this method
+         * from within an accessibility command or other forms of user input. Call is ignored if
+         * {@link #isUserInputEnabled() user input is disabled}.
+         */
+        void setCurrentItemFromAccessibilityCommand(int item) {
+            if (isUserInputEnabled()) {
+                setCurrentItemInternal(item, true);
+            }
         }
 
         /**
@@ -1424,7 +1437,7 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         private void addScrollActions(AccessibilityNodeInfo info) {
-            final Adapter adapter = getAdapter();
+            final Adapter<?> adapter = getAdapter();
             if (adapter == null) {
                 return;
             }

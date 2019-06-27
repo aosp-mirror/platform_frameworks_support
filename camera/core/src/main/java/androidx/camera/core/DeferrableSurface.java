@@ -25,8 +25,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.VisibleForTesting;
-import androidx.concurrent.ListenableFuture;
 import androidx.core.util.Preconditions;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -41,6 +42,20 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
 public abstract class DeferrableSurface {
+    /**
+     * The exception that is returned by the ListenableFuture of {@link #getSurface()} if the
+     * {@link Surface} backing the DeferrableSurface has already been closed.
+     */
+    final class SurfaceClosedException extends Exception {
+        SurfaceClosedException(String s, Throwable e) {
+            super(s, e);
+        }
+
+        SurfaceClosedException(String s) {
+            super(s);
+        }
+    }
+
     private static final boolean DEBUG = false;
     protected static final String TAG = "DeferrableSurface";
 

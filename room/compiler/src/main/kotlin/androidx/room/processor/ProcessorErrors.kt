@@ -200,6 +200,8 @@ object ProcessorErrors {
 
     val CANNOT_FIND_CURSOR_READER = "Cannot figure out how to read this field from a cursor."
 
+    const val DEFAULT_VALUE_NULLABILITY = "Use of NULL as the default value of a non-null field"
+
     private val MISSING_PARAMETER_FOR_BIND = "Each bind variable in the query must have a" +
             " matching method parameter. Cannot find method parameters for %s."
 
@@ -356,8 +358,6 @@ object ProcessorErrors {
                 " Alternatively, you can set inheritSuperIndices to true in the @Entity annotation."
     }
 
-    val RELATION_NOT_COLLECTION = "Fields annotated with @Relation must be a List or Set."
-
     val NOT_ENTITY_OR_VIEW = "The class must be either @Entity or @DatabaseView."
 
     fun relationCannotFindEntityField(
@@ -378,6 +378,30 @@ object ProcessorErrors {
                 " Options: ${availableColumns.joinToString(", ")}"
     }
 
+    fun relationCannotFindJunctionEntityField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the child entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun relationCannotFindJunctionParentField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
+        return "Cannot find the parent entity referencing column `$columnName` in the junction " +
+                "$entityName. Options: ${availableColumns.joinToString(", ")}"
+    }
+
+    fun junctionColumnWithoutIndex(entityName: String, columnName: String) =
+            "The column $columnName in the junction entity $entityName is being used to resolve " +
+                    "a relationship but it is not covered by any index. This might cause a " +
+                    "full table scan when resolving the relationship, it is highly advised to " +
+                    "create an index that covers this column."
+
     val RELATION_IN_ENTITY = "Entities cannot have relations."
 
     val CANNOT_FIND_TYPE = "Cannot find type."
@@ -391,6 +415,30 @@ object ProcessorErrors {
         return """
         The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
         affinity of the child column ($childColumn : $childAffinity).
+        """.trim()
+    }
+
+    fun relationJunctionParentAffinityMismatch(
+        parentColumn: String,
+        junctionParentColumn: String,
+        parentAffinity: SQLTypeAffinity?,
+        junctionParentAffinity: SQLTypeAffinity?
+    ): String {
+        return """
+        The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
+        affinity of the junction parent column ($junctionParentColumn : $junctionParentAffinity).
+        """.trim()
+    }
+
+    fun relationJunctionChildAffinityMismatch(
+        childColumn: String,
+        junctionChildColumn: String,
+        childAffinity: SQLTypeAffinity?,
+        junctionChildAffinity: SQLTypeAffinity?
+    ): String {
+        return """
+        The affinity of child column ($childColumn : $childAffinity) does not match the type
+        affinity of the junction child column ($junctionChildColumn : $junctionChildAffinity).
         """.trim()
     }
 
@@ -625,6 +673,35 @@ object ProcessorErrors {
             "External Content FTS Entity '$ftsClassName' has a declared content entity " +
                     "'$contentClassName' that is not present in the same @Database. Maybe you " +
                     "forgot to add it to the entities section of the @Database?"
+
+    fun cannotFindAsEntityField(entityName: String) = "Cannot find a column in the entity " +
+            "$entityName that matches with this partial entity field. If you don't wish to use " +
+            "the field then you can annotate it with @Ignore."
+
+    val INVALID_TARGET_ENTITY_IN_SHORTCUT_METHOD = "Target entity declared in @Insert, @Update " +
+            "or @Delete must be annotated with @Entity."
+
+    val INVALID_RELATION_IN_PARTIAL_ENTITY = "Partial entities cannot have relations."
+
+    fun missingPrimaryKeysInPartialEntityForInsert(
+        partialEntityName: String,
+        primaryKeyNames: List<String>
+    ) = "The partial entity $partialEntityName is missing the primary key fields " +
+            "(${primaryKeyNames.joinToString()}) needed to perform an INSERT. If your single " +
+            "primary key is auto generated then the fields are optional."
+
+    fun missingRequiredColumnsInPartialEntity(
+        partialEntityName: String,
+        missingColumnNames: List<String>
+    ) = "The partial entity $partialEntityName is missing required columns " +
+            "(${missingColumnNames.joinToString()}) needed to perform an INSERT. These are " +
+            "NOT NULL columns without default values."
+
+    fun missingPrimaryKeysInPartialEntityForUpdate(
+        partialEntityName: String,
+        primaryKeyNames: List<String>
+    ) = "The partial entity $partialEntityName is missing the primary key fields " +
+            "(${primaryKeyNames.joinToString()}) needed to perform an UPDATE."
 
     fun cannotFindPreparedQueryResultAdapter(
         returnType: String,

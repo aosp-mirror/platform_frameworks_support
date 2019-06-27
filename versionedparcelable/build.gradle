@@ -39,6 +39,10 @@ dependencies {
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
     buildTypes.all {
         consumerProguardFiles("proguard-rules.pro")
     }
@@ -51,6 +55,5 @@ androidx {
     mavenGroup = LibraryGroups.VERSIONEDPARCELABLE
     inceptionYear = "2018"
     description = "Provides a stable but relatively compact binary serialization format that can be passed across processes or persisted safely."
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

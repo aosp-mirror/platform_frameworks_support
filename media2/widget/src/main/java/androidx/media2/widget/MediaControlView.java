@@ -49,7 +49,6 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
@@ -274,6 +273,10 @@ public class MediaControlView extends ViewGroup {
      * Sets {@link MediaController} to control playback with this view.
      * Setting a MediaController will unset any MediaController or SessionPlayer
      * that was previously set.
+     * <p>
+     * Note that MediaControlView allows controlling playback through its UI components, but calling
+     * the corresponding methods (e.g. {@link MediaController#play()},
+     * {@link MediaController#pause()}) will work as well.
      *
      * @param controller the controller
      * @see #setPlayer
@@ -296,6 +299,10 @@ public class MediaControlView extends ViewGroup {
      * Sets {@link SessionPlayer} to control playback with this view.
      * Setting a SessionPlayer will unset any MediaController or SessionPlayer
      * that was previously set.
+     * <p>
+     * Note that MediaControlView allows controlling playback through its UI components, but calling
+     * the corresponding methods (e.g. {@link SessionPlayer#play()}, {@link SessionPlayer#pause()})
+     * will work as well.
      *
      * @param player the player
      * @see #setMediaController
@@ -1206,7 +1213,6 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mFullScreenListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mPlayer == null) return;
             if (mOnFullScreenListener == null) {
                 return;
             }
@@ -1292,7 +1298,7 @@ public class MediaControlView extends ViewGroup {
                 case SETTINGS_MODE_PLAYBACK_SPEED:
                     if (position != mSelectedSpeedIndex) {
                         float speed = mPlaybackSpeedMultBy100List.get(position) / 100.0f;
-                        mPlayer.setSpeed(speed);
+                        mPlayer.setPlaybackSpeed(speed);
                     }
                     dismissSettingsWindow();
                     break;
@@ -1320,13 +1326,27 @@ public class MediaControlView extends ViewGroup {
                 }
             };
 
-    void updateMetadata() {
+    void updateTimeViews(MediaItem item) {
+        if (item == null) {
+            mProgress.setProgress(0);
+            mCurrentTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            mEndTime.setText(mResources.getString(R.string.MediaControlView_time_placeholder));
+            return;
+        }
+
         ensurePlayerIsNotNull();
 
         long duration = mPlayer.getDurationMs();
-        if (duration != 0) {
+        if (duration > 0) {
             mDuration = duration;
             setProgress();
+        }
+    }
+
+    void updateTitleView(MediaItem item) {
+        if (item == null) {
+            mTitleView.setText(null);
+            return;
         }
 
         if (!isCurrentItemMusic()) {
@@ -1475,7 +1495,6 @@ public class MediaControlView extends ViewGroup {
     /**
      * @return true iff the current media item is from network.
      */
-    @VisibleForTesting
     boolean isCurrentMediaItemFromNetwork() {
         ensurePlayerIsNotNull();
 
@@ -1910,6 +1929,8 @@ public class MediaControlView extends ViewGroup {
                 Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
             }
 
+            updateTimeViews(player.getCurrentMediaItem());
+
             // Update pause button depending on playback state for the following two reasons:
             //   1) Need to handle case where app customizes playback state behavior when app
             //      activity is resumed.
@@ -1998,7 +2019,8 @@ public class MediaControlView extends ViewGroup {
             if (DEBUG) {
                 Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
             }
-            updateMetadata();
+            updateTimeViews(mediaItem);
+            updateTitleView(mediaItem);
         }
 
         @Override
@@ -2073,17 +2095,21 @@ public class MediaControlView extends ViewGroup {
             if (player != mPlayer) return;
 
             if (DEBUG) {
-                Log.d(TAG, "onTrackInfoChanged(): trackInfos: " + trackInfos);
+                Log.d(TAG, "onTrackInfoChanged(): " + trackInfos);
             }
 
             updateTracks(player, trackInfos);
-            updateMetadata();
+            updateTimeViews(player.getCurrentMediaItem());
+            updateTitleView(player.getCurrentMediaItem());
         }
 
         @Override
         void onTrackSelected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackSelected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2116,6 +2142,9 @@ public class MediaControlView extends ViewGroup {
         void onTrackDeselected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
             if (player != mPlayer) return;
 
+            if (DEBUG) {
+                Log.d(TAG, "onTrackDeselected(): " + trackInfo);
+            }
             if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
                 for (int i = 0; i < mSubtitleTracks.size(); i++) {
                     if (mSubtitleTracks.get(i).equals(trackInfo)) {
@@ -2137,6 +2166,11 @@ public class MediaControlView extends ViewGroup {
         @Override
         void onVideoSizeChanged(@NonNull PlayerWrapper player, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {
+            if (player != mPlayer) return;
+
+            if (DEBUG) {
+                Log.d(TAG, "onVideoSizeChanged(): " + videoSize);
+            }
             if (mVideoTrackCount == 0 && videoSize.getHeight() > 0 && videoSize.getWidth() > 0) {
                 List<TrackInfo> tracks = player.getTrackInfo();
                 if (tracks != null) {

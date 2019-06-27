@@ -672,7 +672,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     "Illegal null Executor for the EventCallback");
         }
         synchronized (mLock) {
-            mMp2EventCallbackRecord = new Pair(executor, eventCallback);
+            mMp2EventCallbackRecord = new Pair<>(executor, eventCallback);
         }
     }
 
@@ -708,7 +708,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     "Illegal null Executor for the EventCallback");
         }
         synchronized (mLock) {
-            mDrmEventCallbackRecord = new Pair(executor, eventCallback);
+            mDrmEventCallbackRecord = new Pair<>(executor, eventCallback);
         }
     }
 
@@ -1601,6 +1601,17 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             for (int i = 0; i < mQueue.size(); i++) {
                 MediaPlayerSource src = mQueue.get(i);
                 if (mp == src.getPlayer()) {
+                    // The first video/audio tracks are selected tracks.
+                    MediaPlayer.TrackInfo[] tracks = mp.getTrackInfo();
+                    for (int j = 0; j < tracks.length; j++) {
+                        if ((tracks[j].getTrackType()
+                                == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO)
+                                || (tracks[j].getTrackType()
+                                == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO)) {
+                            src.mSelectedTracks.putIfAbsent(tracks[j].getTrackType(), j);
+                        }
+                    }
+
                     if (i == 0) {
                         if (src.mPlayPending) {
                             src.mPlayPending = false;

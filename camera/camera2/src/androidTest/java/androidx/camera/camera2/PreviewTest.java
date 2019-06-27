@@ -33,9 +33,10 @@ import android.os.Looper;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.camera.camera2.impl.Camera2CameraControl;
 import androidx.camera.core.AppConfig;
-import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraControlInternal;
 import androidx.camera.core.CameraFactory;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
@@ -47,6 +48,7 @@ import androidx.camera.core.Preview.OnPreviewOutputUpdateListener;
 import androidx.camera.core.Preview.PreviewOutput;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionConfig;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.testing.CameraUtil;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
@@ -65,6 +67,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -86,7 +89,7 @@ public final class PreviewTest {
     private String mCameraId;
 
     @Before
-    public void setUp()  {
+    public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
         // Instantiates OnPreviewOutputUpdateListener before each test run.
         mMockListener = mock(OnPreviewOutputUpdateListener.class);
@@ -102,7 +105,7 @@ public final class PreviewTest {
         CameraX.init(context, appConfig);
 
         // init CameraX before creating Preview to get preview size with CameraX's context
-        mDefaultConfig = Preview.DEFAULT_CONFIG.getConfig(null);
+        mDefaultConfig = Preview.DEFAULT_CONFIG.getConfig(LensFacing.BACK);
     }
 
     @FlakyTest
@@ -140,7 +143,7 @@ public final class PreviewTest {
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
-        CameraControl cameraControl = mock(CameraControl.class);
+        CameraControlInternal cameraControl = mock(CameraControlInternal.class);
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         Rect rect = new Rect(/*left=*/ 200, /*top=*/ 200, /*right=*/ 800, /*bottom=*/ 800);
@@ -149,7 +152,7 @@ public final class PreviewTest {
         ArgumentCaptor<Rect> rectArgumentCaptor1 = ArgumentCaptor.forClass(Rect.class);
         ArgumentCaptor<Rect> rectArgumentCaptor2 = ArgumentCaptor.forClass(Rect.class);
         verify(cameraControl).focus(rectArgumentCaptor1.capture(), rectArgumentCaptor2.capture(),
-                any(OnFocusListener.class), any(Handler.class));
+                any(Executor.class), any(OnFocusListener.class));
         assertThat(rectArgumentCaptor1.getValue()).isEqualTo(rect);
         assertThat(rectArgumentCaptor2.getValue()).isEqualTo(rect);
     }
@@ -160,7 +163,7 @@ public final class PreviewTest {
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
-        CameraControl cameraControl = mock(CameraControl.class);
+        CameraControlInternal cameraControl = mock(CameraControlInternal.class);
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         Rect rect = new Rect(/*left=*/ 200, /*top=*/ 200, /*right=*/ 800, /*bottom=*/ 800);
@@ -175,7 +178,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void torchModeCanBeSet() {
         Preview useCase = new Preview(mDefaultConfig);
-        CameraControl cameraControl = getFakeCameraControl();
+        CameraControlInternal cameraControl = getFakeCameraControl();
         useCase.attachCameraControl(mCameraId, cameraControl);
 
         useCase.enableTorch(true);
@@ -486,19 +489,22 @@ public final class PreviewTest {
         assertThat(surfaceTexture0).isNotNull();
     }
 
-    private CameraControl getFakeCameraControl() {
+    private CameraControlInternal getFakeCameraControl() {
         return new Camera2CameraControl(
-                new CameraControl.ControlUpdateListener() {
+                new CameraControlInternal.ControlUpdateListener() {
                     @Override
-                    public void onCameraControlUpdateSessionConfig(SessionConfig sessionConfig) {
+                    public void onCameraControlUpdateSessionConfig(
+                            @NonNull SessionConfig sessionConfig) {
                     }
 
                     @Override
-                    public void onCameraControlCaptureRequests(List<CaptureConfig> captureConfigs) {
+                    public void onCameraControlCaptureRequests(
+                            @NonNull List<CaptureConfig> captureConfigs) {
 
                     }
                 },
-                new Handler());
+                CameraXExecutors.mainThreadExecutor(),
+                CameraXExecutors.mainThreadExecutor());
     }
 
     private static final class SurfaceTextureCallable implements Callable<SurfaceTexture> {
