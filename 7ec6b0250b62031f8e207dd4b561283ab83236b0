@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53f3aafe_fdd036fb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T22:47:36Z",
+      "side": 1,
+      "message": "Should this be mergedSteyle?",
+      "range": {
+        "startLine": 201,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 25
+      },
+      "revId": "7ec6b0250b62031f8e207dd4b561283ab83236b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cac290_0756a6fb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T22:47:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 211,
+        "startChar": 24,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "7ec6b0250b62031f8e207dd4b561283ab83236b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f4a2f8_b7f2f9b2",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T22:47:36Z",
+      "side": 1,
+      "message": "Why did you add this class into TextPainter.kt?\n\nThis is used only in Text and not related to text nor painting.\nI think it is natural to put this in next to Text widget as private class.",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 1
+      },
+      "revId": "7ec6b0250b62031f8e207dd4b561283ab83236b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
