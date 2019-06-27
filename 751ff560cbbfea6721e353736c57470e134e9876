@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e13cb56b_7c4d061c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Extracted this into it\u0027s own method to share with the task, this doesn\u0027t play nicely with the block below anymore.",
+      "parentUuid": "86127888_f36934d3",
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a81924a2_81f54c7b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "1c4baee9_5592b8f2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a81924a2_81f54c7b",
+      "range": {
+        "startLine": 644,
+        "startChar": 49,
+        "endLine": 644,
+        "endChar": 73
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cc03a3a_458162d1",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 4
@@ -62,6 +104,30 @@
       "revId": "751ff560cbbfea6721e353736c57470e134e9876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b752fc4_b3c18bba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0cc03a3a_458162d1",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 1
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -108,6 +174,54 @@
       "revId": "751ff560cbbfea6721e353736c57470e134e9876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7165330a_9a0c8fed",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "34ee2f10_237ebaf5",
+      "range": {
+        "startLine": 43,
+        "startChar": 35,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6464588_d36b8d73",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "71f102a5_c08320c1",
+      "range": {
+        "startLine": 43,
+        "startChar": 43,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -158,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "de88eec8_76cf1156",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Tried doing it with Input ListProperty, wasn\u0027t able to get it to accept the types. Went with companion object, and named the method \"getDebugVariants\"",
+      "parentUuid": "c8a9d0e9_2ee58ecd",
+      "range": {
+        "startLine": 56,
+        "startChar": 38,
+        "endLine": 56,
+        "endChar": 66
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8b1ee6a_76cb9961",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
         "patchSetId": 4
@@ -181,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "bcd87602_4cf6d264",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "I\u0027m not 100% certain there\u0027s only 1, that was perhaps a naive assumption. Replaced with something more general.",
+      "parentUuid": "a8b1ee6a_76cb9961",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dffd672d_9307c0ba",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
         "patchSetId": 4
@@ -201,6 +363,30 @@
       "revId": "751ff560cbbfea6721e353736c57470e134e9876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6014be4a_aa8cb703",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetricsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T14:49:51Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "dffd672d_9307c0ba",
+      "range": {
+        "startLine": 59,
+        "startChar": 26,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "751ff560cbbfea6721e353736c57470e134e9876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
