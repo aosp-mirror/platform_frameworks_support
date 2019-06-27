@@ -91,6 +91,29 @@
       "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e02ddaa_b5492924",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T16:13:24Z",
+      "side": 1,
+      "message": "A question about the naming. Is it really a fallback? Maybe just \"alignment\" could be nicer and simpler?\n\nFrom the usage side I don\u0027t think about it as a fallback. I actually just or provide insets or alignment for both axes. Fallbacks are just details of the implementation.\n\nWith the similar logic we can reshuffle everything like this:\nfun positioned(leftInset: Dp? \u003d null, fallbackRightInset: Dp? \u003d null, ...)\nAs we know from the implementation details that the leftInset is more important then the rightInset.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
