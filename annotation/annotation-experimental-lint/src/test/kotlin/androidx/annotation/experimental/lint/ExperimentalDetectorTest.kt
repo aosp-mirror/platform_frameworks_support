@@ -116,6 +116,42 @@ src/sample/UseKtExperimentalFromJava.java:28: Error: This declaration is experim
         check(*input).expect(expected)
     }
 
+    @Test
+    fun useJavaPackageFromJava() {
+        val input = arrayOf(
+            javaSample("sample.foo.package-info"),
+            javaSample("sample.foo.Bar"),
+            javaSample("sample.foo.ExperimentalPackage"),
+            javaSample("sample.UseJavaPackageFromJava")
+        )
+
+        /* ktlint-disable max-line-length */
+        val expected = """
+TODO: Should have 3 errors
+    """.trimIndent()
+        /* ktlint-enable max-line-length */
+
+        check(*input).expect(expected)
+    }
+
+    @Test
+    fun useJavaPackageFromKt() {
+        val input = arrayOf(
+            javaSample("sample.foo.package-info"),
+            javaSample("sample.foo.Bar"),
+            javaSample("sample.foo.ExperimentalPackage"),
+            ktSample("sample.UseJavaPackageFromKt")
+        )
+
+        /* ktlint-disable max-line-length */
+        val expected = """
+TODO: Should have 3 errors
+    """.trimIndent()
+        /* ktlint-enable max-line-length */
+
+        check(*input).expect(expected)
+    }
+
     /**
      * Loads a [TestFile] from Java source code included in the JAR resources.
      */
