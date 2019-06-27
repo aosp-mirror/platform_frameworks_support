@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f80f5643_d6ea680c",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-27T14:59:23Z",
+      "side": 1,
+      "message": "It isn\u0027t clear from this name what you\u0027re trying to test. Add a comment above this test to explain it.",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 26
+      },
+      "revId": "1688b833212df000df76b41e36eac232443241ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16527f82_79478545",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-27T14:59:23Z",
+      "side": 1,
+      "message": "This seems wrong. You shouldn\u0027t be able to add an arbitrary view to a FragmentContainerView. You should be getting an error.",
+      "range": {
+        "startLine": 239,
+        "startChar": 30,
+        "endLine": 239,
+        "endChar": 37
+      },
+      "revId": "1688b833212df000df76b41e36eac232443241ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876af701_2b60c672",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-27T14:59:23Z",
+      "side": 1,
+      "message": "This could be a problem if you catch it in the middle of drawing because it could be that frag1View just drew on this frame, but frag2View hasn\u0027t drawn on this frame yet. You can fix that by activityRule.runOnUiThread {} to ensure that you don\u0027t catch mid-draw.\n\nI *think* nanoTime is accurate enough here to catch the difference in draw order.",
+      "range": {
+        "startLine": 262,
+        "startChar": 8,
+        "endLine": 262,
+        "endChar": 61
+      },
+      "revId": "1688b833212df000df76b41e36eac232443241ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b179d1_cdbd0e0f",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-27T14:59:23Z",
+      "side": 1,
+      "message": "This class is a little scary. Why would you need to view.invalidate() on removeView()?",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 76
+      },
+      "revId": "1688b833212df000df76b41e36eac232443241ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
