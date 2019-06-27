@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "43723e2d_df5eaa29",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-27T07:56:57Z",
+      "side": 1,
+      "message": "Changed \"default\" to \"enabledControlView\".",
+      "parentUuid": "7b67fd40_b90b2dcc",
+      "range": {
+        "startLine": 280,
+        "startChar": 40,
+        "endLine": 280,
+        "endChar": 81
+      },
+      "revId": "7d498e73ce93e4c89c4203da86ca57c4b698b907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb2aae13_fa3f1855",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
