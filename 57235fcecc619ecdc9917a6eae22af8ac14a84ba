@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4ff05e4_4f9b414d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded0ef19_7d6a7974",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 56
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3aef1314_2aeced41",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3bad81c_6ba51cd2",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aef1314_2aeced41",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "81cddd4a_95fc5695",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Yep, for better readability. It\u0027s also very cheap and doesn\u0027t allocate new lambdas / object every time, so I cannot see anything bad about it. \n\nStill removed as you suggested to split CLs with items and with Drawers",
+      "parentUuid": "78555289_e7ae1bd6",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 5
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f4b1771_1ef73e27",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/ModalDrawerActivity.kt",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dfec022_875b5aac",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/ModalDrawerActivity.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f4b1771_1ef73e27",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f89870f3_83d4a4bc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f19f9120_e98ba7aa",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6939207_3e0a4698",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 8
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7d1c6374_e0861f0e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6939207_3e0a4698",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 82,
+        "endChar": 68
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a65a81a4_31752ff3",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 8
@@ -160,6 +304,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8c0dcc_2757c903",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a65a81a4_31752ff3",
+      "range": {
+        "startLine": 106,
+        "startChar": 50,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,54 @@
     },
     {
       "key": {
+        "uuid": "962b6660_fba07b57",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29de84f6_08fd291f",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1da6e166_776ed59d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11fb4c91_edd4e815",
+      "range": {
+        "startLine": 107,
+        "startChar": 61,
+        "endLine": 107,
+        "endChar": 66
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "168e4a40_42f06a76",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 8
@@ -229,6 +445,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0fa6e2_2167f0d6",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "168e4a40_42f06a76",
+      "range": {
+        "startLine": 108,
+        "startChar": 66,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "31deb748_ea32c706",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2080a61d_9f26cced",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbb2269_d169ed7a",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 8
@@ -275,6 +539,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54add317_222a1c15",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbb2269_d169ed7a",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 34
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "67f101af_fe365fcc",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81f359a2_e89606ee",
+      "range": {
+        "startLine": 236,
+        "startChar": 53,
+        "endLine": 236,
+        "endChar": 59
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0039318b_7bf0dd80",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 8
@@ -321,6 +633,30 @@
       "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "765503c6_47305ac7",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0039318b_7bf0dd80",
+      "range": {
+        "startLine": 366,
+        "startChar": 4,
+        "endLine": 366,
+        "endChar": 9
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
