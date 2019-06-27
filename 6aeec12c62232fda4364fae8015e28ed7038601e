@@ -16,6 +16,24 @@
       "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80ac05b_96e8dcda",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-27T08:36:38Z",
+      "side": 1,
+      "message": "As the previously set MediaControlView are going to be detached from VideoView so the MediaControlView is free to allow to call setPlayer/setMediaController.",
+      "parentUuid": "0340d084_0e67b659",
+      "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
