@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7589a6af_9f6af13d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-27T11:12:34Z",
+      "side": 1,
+      "message": "Oh, it make sense. Thanks a lot.",
+      "parentUuid": "a17671e9_0cc2d724",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa900e21_94032b7b",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraRepository.java",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9581c40_01256bd7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-27T11:12:34Z",
+      "side": 1,
+      "message": "Oh, it make sense. Thanks a lot.",
+      "parentUuid": "fa900e21_94032b7b",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f0b3f6cd_44671ffb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-27T11:12:34Z",
+      "side": 1,
+      "message": "Define UseCaseError.USE_CASE_DETACHED.",
+      "parentUuid": "19c4e495_9f3b252e",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6078d2b_9cc777da",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2019-06-26T20:41:06Z",
       "side": 1,
       "message": "Not sure if IllegalStateException is exactly what we want to throw since its description is: \"Signals that a method has been invoked at an illegal or inappropriate time.\"\n\nThe call was made at the right time/state, but its that something else had canceled it.",
+      "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1170c39a_b65fb1ef",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-06-27T11:12:34Z",
+      "side": 1,
+      "message": "Add a RequestFailedException, it can be used for all types of request failed. Not sure if it is suitable, or maybe give a null exception is another thought.",
+      "parentUuid": "a6078d2b_9cc777da",
       "revId": "9d21e962381b3240e769e1463ff5253ac2c6202d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
