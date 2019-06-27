@@ -17,6 +17,7 @@
 package androidx.ui.painting
 
 import androidx.ui.core.Constraints
+import androidx.ui.core.sp
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
@@ -216,7 +217,7 @@ class TextPainterTest() {
 
     @Test
     fun `createParagraphStyle with defaultTextDirection`() {
-        val fontSize = 15.0f
+        val fontSize = 15f.sp
         val scaleFactor = 3.0f
         val maxLines = 5
         val overflow = TextOverflow.Ellipsis
