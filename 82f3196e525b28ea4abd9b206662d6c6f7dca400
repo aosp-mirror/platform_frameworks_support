@@ -70,6 +70,30 @@
       "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a353c61_2e3cab9a",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-27T06:56:31Z",
+      "side": 1,
+      "message": "+1, or what about checking if it\u0027s not idle?",
+      "parentUuid": "640281fc_1407bf18",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
