@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "708601b5_e05549e0",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-27T12:45:03Z",
+      "side": 1,
+      "message": "Ah, we just removed the (captureStages.size() \u003e 1 \u0026\u0026 CaptureProcessor !\u003d null) checking from ImageCapture since the getCaptureStage() in constructor would be invoked before the init().\n\nAnd considering about the capture might change over time, the checkpoint is now located at issueTakePicture().\n\nOr should we add additional check in after bind()? (maybe in onSuggestResolutionUpdate())",
+      "parentUuid": "666ea319_d5ff9394",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26a1375d_030e5732",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "0cb75840dc7c5d460503225f801306f806def948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c7ee0dc_7bf60f71",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-27T12:45:03Z",
+      "side": 1,
+      "message": "Ah, I thought it over.\nThis exception is thrown from ProcessingImageReader,\nIt makes more sense to rewrite the maxCaptureStage test for ProcessingImageReader.\nSo I removed this one and add an additional test in ProcessingImageReaderTest.",
+      "parentUuid": "26a1375d_030e5732",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f67ec711_543018a0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-27T12:45:03Z",
+      "side": 1,
+      "message": "Oh, the \"! state.mCaptureSuccess\" checking is used to make sure we only handle the error in\npreTakePicture() and issueTakePicture()\n\nThe capture flow is \n\"preTakePicture()\" -\u003e \"issueTakePicture()\" -\u003e \"onCaptureCompleted()\" -\u003e \"mCaptureSuccess\u003dtrue\" -\u003e postTakePicture()\n\nIn this CL, we only handle the error when mCaptureSuccess\u003d\u003dfalse, \nand the error in postTakePicture() would not be handled.\n\nOn the other hand, if we got a onCaptureFailed(), \nthe mCaptureSuccess will never set to \"true\", and we will call setException() in line942, \nthat is, the postTakePicture() would never be invoked.\nThe exception at line 942 will finally be redirect to OnImageCapturedListener.onError().\n\nAnd ... the above error handling cannot fully handle the error when extension is enabled. we might need add some additional code for extension. Maybe in another CL.",
+      "parentUuid": "da8963f0_8432ae83",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9e0b198_4f578abe",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "0cb75840dc7c5d460503225f801306f806def948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae5cc6a_eca9fef8",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-06-27T12:45:03Z",
+      "side": 1,
+      "message": "Oh, as I know, the take picture flow is:\n(1)   takePicture() is called.\n(2)   generate the capture request item -\u003e mImageCaptureRequests.offer() ... line487\n(2.1) imvoke issueImageCaptureRequests() to start next request. ... line496\n(3)   takePictureInternal() -\u003e issueTakePicture()\n(4)   ImageReader.onImageAvailable() -\u003e　mImageCaptureRequests.poll() and trigger next capture request by invoke mImageCaptureRequests() ... going to step (2.1) \n\nand the step (1) ~ (4) only handle \"1\" capture request at the same time.\nThe step(3) will not receive anymore request until the step(4) is finished.\nIf we call mImageCaptureRequests.pop() in step(3), we can get the request we are looking for.\n\n\n\nAnd in this CL, we handle 2 type of \"interrupt\" error within step (3), \n1) Exceptions in preTakePicture() and issueTakePicture(). it might interrupt the capture flow. In this case, ImageReader would never get onImageAvailable(), because the capture request didn\u0027t submit yet.\n2) onCaptureFailed() callback. In this case, the ImageReader would never get onImageAvailable() callback.\n\nIn this CL, case 1) \u0026 2) will interrupt the take picture flow, the step(4) will never happen. \nThat\u0027s why we need to invoke the \"mImageCaptureRequests.poll()\" in line 546 and trigger the next capture by invoke the mImageCaptureRequests() in line 552.\n\nThe CL from Leo seems focus in the step(4). The step(1) to step(3) is in the same behavior (it will only submit 1 request at the same time). I think this CL would be OK to work with his CL.",
+      "parentUuid": "a9e0b198_4f578abe",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
