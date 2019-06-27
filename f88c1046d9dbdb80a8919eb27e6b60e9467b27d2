@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "461f315c_d0a0c42d",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001dcc88_09726512",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 40
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5974a683_a582c866",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -93,6 +117,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea622d3_3651ca4c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Removed this for now, it\u0027s hard to visualize the bigger picture at the moment :)",
+      "parentUuid": "5974a683_a582c866",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 1
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "0f15be54_a6a0e81c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Thanks for the input.\n\nFor now I removed TabLayout, and exposed TabRow publicly - when we have some more high level component and a better idea of overall structure, as well as integration with AppBar / ViewPager components, I will revisit this and we can discuss a higher level API.",
+      "parentUuid": "6365cc1f_ef63495e",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 22
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63cf8b79_43b0a050",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -163,6 +235,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c13a3ad_a1215168",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63cf8b79_43b0a050",
+      "range": {
+        "startLine": 103,
+        "startChar": 28,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "c57220fc_15d1a14e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e6fc2f_ea2d7305",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 121,
+        "endChar": 17
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4bb42a2_662b27c0",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -209,6 +329,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0103ca41_987957b7",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "We need the transition state to work out where to position the indicator, shuffled the transition around anyway so it makes more sense now.",
+      "parentUuid": "c4bb42a2_662b27c0",
+      "range": {
+        "startLine": 123,
+        "startChar": 21,
+        "endLine": 123,
+        "endChar": 90
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -258,6 +402,54 @@
     },
     {
       "key": {
+        "uuid": "40966444_45195637",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Discussed offline, absolute position is nice as it gives the indicator a fixed container to draw in, it doesn\u0027t matter if the indicator fills up the full width, or just 1 pixel, it can be drawn relative to the container.\n\nAlso, I think it makes more sense to do any rounding and interpolation inside transition, rather then the component itself - it shouldn\u0027t care about this multiplication.",
+      "parentUuid": "a12605f8_0b9f683a",
+      "range": {
+        "startLine": 138,
+        "startChar": 60,
+        "endLine": 138,
+        "endChar": 78
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "109fa303_d2622ac1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Extracted into composable function",
+      "parentUuid": "6b1b672f_52e9b8e7",
+      "range": {
+        "startLine": 138,
+        "startChar": 12,
+        "endLine": 138,
+        "endChar": 44
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ae71b44_2d033a3c",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -278,6 +470,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49bfb574_a7a14b98",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ae71b44_2d033a3c",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 4
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -316,6 +532,24 @@
     },
     {
       "key": {
+        "uuid": "d50fac0f_f6df5da2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Yes, we should provide a base Tab in the future; for now I want to focus on the main types of tabs, and making sure we get the simple use case right.",
+      "parentUuid": "925efeec_6e980883",
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0609fa8c_a2f510aa",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -336,6 +570,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ac8f7ce_1dd83733",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0609fa8c_a2f510aa",
+      "range": {
+        "startLine": 238,
+        "startChar": 25,
+        "endLine": 238,
+        "endChar": 41
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -362,6 +620,30 @@
     },
     {
       "key": {
+        "uuid": "c3f698f6_599a45a3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Extracted to a custom Transition function",
+      "parentUuid": "9875d703_c43243b1",
+      "range": {
+        "startLine": 291,
+        "startChar": 52,
+        "endLine": 291,
+        "endChar": 65
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6b2fa22_91851f26",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 3
@@ -382,6 +664,30 @@
       "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "427a87d9_757f9f55",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T17:36:09Z",
+      "side": 1,
+      "message": "Yup, my bad. Thanks.",
+      "parentUuid": "c6b2fa22_91851f26",
+      "range": {
+        "startLine": 294,
+        "startChar": 52,
+        "endLine": 294,
+        "endChar": 57
+      },
+      "revId": "f88c1046d9dbdb80a8919eb27e6b60e9467b27d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
