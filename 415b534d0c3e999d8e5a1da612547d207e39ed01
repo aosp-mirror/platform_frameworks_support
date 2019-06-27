@@ -143,6 +143,30 @@
       "revId": "415b534d0c3e999d8e5a1da612547d207e39ed01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440c3da0_7f16b2ec",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-06-27T16:20:07Z",
+      "side": 1,
+      "message": "you need to remove ignore default from hashcode and just add a comment.\nyou cannot have two objects that have different hashcodes but returns true from equals. that is against the API specs.\n\nhttps://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#hashCode()\n\"if two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.\"",
+      "parentUuid": "ef9d0ccd_71c8306d",
+      "range": {
+        "startLine": 455,
+        "startChar": 16,
+        "endLine": 455,
+        "endChar": 35
+      },
+      "revId": "415b534d0c3e999d8e5a1da612547d207e39ed01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
