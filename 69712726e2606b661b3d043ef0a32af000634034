@@ -22,6 +22,30 @@
       "revId": "69712726e2606b661b3d043ef0a32af000634034",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f269ee_95025795",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-27T09:59:59Z",
+      "side": 1,
+      "message": "But we don\u0027t actually return intrinsicHeight, it is used in order to calculate the intrinsic width. Say we have a FlexColumn, and we compute minIntrinsicWidth(h). In order to do that, we take the inflexible children and sum their maxIntrinsicHeight(Infinity) to resemble the way we measure them in the proper measuring. Then we divide (h - inflexible) by the sum of flexes, so we have obtained the height of every measurable. Given these heights, we do minIntrinsicWidth of them, and take the maximum, which will be the minIntrinsicWidth of the FlexColumn. Let me know if this does not make sense.",
+      "parentUuid": "43197bd5_c86a214f",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 47
+      },
+      "revId": "69712726e2606b661b3d043ef0a32af000634034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
