@@ -494,65 +494,70 @@ private fun Flex(
         val constraints = OrientationIndependentConstraints(outerConstraints, orientation)
 
         val totalFlex = children.sumByDouble { it.flex.toDouble() }.toFloat()
-
-        val placeables = mutableMapOf<Measurable, Placeable>()
+        val placeables = arrayOfNulls<Placeable>(children.size)
         // First measure children with zero flex.
-        children.filter { it.flex == 0f }.forEach { child ->
-            placeables[child] = child.measure(
-                // Ask for preferred main axis size.
-                constraints.looseMainAxis().let {
-                    if (crossAxisAlignment == CrossAxisAlignment.Stretch) {
-                        it.stretchCrossAxis()
-                    } else {
-                        it.copy(crossAxisMin = IntPx.Zero)
-                    }
-                }.toBoxConstraints(orientation)
-            )
+        for (index in 0 until children.size) {
+            val measurable = children[index]
+            if (measurable.flex == 0f) {
+                placeables[index] = measurable.measure(
+                    // Ask for preferred main axis size.
+                    constraints.looseMainAxis().let {
+                        if (crossAxisAlignment == CrossAxisAlignment.Stretch) {
+                            it.stretchCrossAxis()
+                        } else {
+                            it.copy(crossAxisMin = IntPx.Zero)
+                        }
+                    }.toBoxConstraints(orientation)
+                )
+            }
         }
 
         // Then measure the rest according to their flexes in the remaining main axis space.
-
-        val inflexibleSpace = children.filter { it.flex == 0f }
-            .fold(IntPx.Zero) { sum, c -> sum + placeables[c]!!.mainAxisSize() }
+        val inflexibleSpace = placeables.fold(IntPx.Zero) { sum, p ->
+            if (p == null) sum else sum + p.mainAxisSize()
+        }
         val targetSpace = if (mainAxisSize == MainAxisSize.Max) {
             constraints.mainAxisMax
         } else {
             constraints.mainAxisMin
         }
-        children.filter { it.flex > 0f }.forEach { child ->
-            val childMainAxisSize = max(
-                IntPx.Zero,
-                (targetSpace - inflexibleSpace) * child.flex / totalFlex
-            )
-            placeables[child] = child.measure(
-                OrientationIndependentConstraints(
-                    if (child.fit == FlexFit.Tight) childMainAxisSize else IntPx.Zero,
-                    childMainAxisSize,
-                    if (crossAxisAlignment == CrossAxisAlignment.Stretch) {
+
+        for (index in 0 until children.size) {
+            val measurable = children[index]
+            val flex = measurable.flex
+            if (flex > 0) {
+                val childMainAxisSize = max(
+                    IntPx.Zero,
+                    (targetSpace - inflexibleSpace) * flex / totalFlex
+                )
+                placeables[index] = measurable.measure(
+                    OrientationIndependentConstraints(
+                        if (measurable.fit == FlexFit.Tight) childMainAxisSize else IntPx.Zero,
+                        childMainAxisSize,
+                        if (crossAxisAlignment == CrossAxisAlignment.Stretch) {
+                            constraints.crossAxisMax
+                        } else {
+                            IntPx.Zero
+                        },
                         constraints.crossAxisMax
-                    } else {
-                        IntPx.Zero
-                    },
-                    constraints.crossAxisMax
-                ).toBoxConstraints(orientation)
-            )
+                    ).toBoxConstraints(orientation)
+                )
+            }
+        }
+
+        var mainAxisLayoutSize = 0.ipx
+        var crossAxisLayoutSize = 0.ipx
+
+        placeables.forEach { p ->
+            mainAxisLayoutSize += p!!.mainAxisSize()
+            crossAxisLayoutSize = max(crossAxisLayoutSize, p.crossAxisSize())
         }
 
         // Compute the Flex size and position the children.
-        val mainAxisLayoutSize = if (constraints.mainAxisMax != IntPx.Infinity &&
-            mainAxisSize == MainAxisSize.Max
-        ) {
-            constraints.mainAxisMax
-        } else {
-            max(
-                children.fold(IntPx.Zero) { a, b -> a + placeables[b]!!.mainAxisSize() },
-                constraints.mainAxisMin
-            )
+        if (constraints.mainAxisMax != IntPx.Infinity && mainAxisSize == MainAxisSize.Max) {
+            mainAxisLayoutSize = constraints.mainAxisMax
         }
-        val crossAxisLayoutSize = max(
-            children.fold(IntPx.Zero) { a, b -> max(a, placeables[b]!!.crossAxisSize()) },
-            constraints.crossAxisMin
-        )
+
         val layoutWidth = if (orientation == FlexOrientation.Horizontal) {
             mainAxisLayoutSize
         } else {
@@ -564,11 +569,11 @@ private fun Flex(
             mainAxisLayoutSize
         }
         layout(layoutWidth, layoutHeight) {
-            val childrenMainAxisSize = children.map { placeables[it]!!.mainAxisSize() }
+            val childrenMainAxisSize = placeables.map { p -> p!!.mainAxisSize() }
             val mainAxisPositions = MainAxisAlignment.values[mainAxisAlignment]
                 .align(mainAxisLayoutSize, childrenMainAxisSize)
-            children.forEachIndexed { index, child ->
-                val placeable = placeables[child]!!
+            placeables.forEachIndexed { index, placeable ->
+                placeable!!
                 val crossAxis = when (crossAxisAlignment) {
                     CrossAxisAlignment.Start -> IntPx.Zero
                     CrossAxisAlignment.Stretch -> IntPx.Zero
