@@ -16,6 +16,24 @@
       "revId": "b50584e9b51d70a0a464e218ae218513cd5d09fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f9ab84_6ec3fde1",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-27T20:12:30Z",
+      "side": 1,
+      "message": "I think it works both ways, onCreateView is called after the fragment is already attached / onCreate, so the getContext() call here should be fine.",
+      "parentUuid": "16d86b37_4a4951b2",
+      "revId": "b50584e9b51d70a0a464e218ae218513cd5d09fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
