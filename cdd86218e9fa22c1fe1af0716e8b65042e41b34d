@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c949694_ff6cd2ad",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-27T14:57:33Z",
+      "side": 1,
+      "message": "Aren\u0027t we doing the same thing twice now?",
+      "range": {
+        "startLine": 169,
+        "startChar": 21,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "cdd86218e9fa22c1fe1af0716e8b65042e41b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac34d223_861119f6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-06-27T14:57:33Z",
+      "side": 1,
+      "message": "based on kotlin style, this would be on the line too.",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "cdd86218e9fa22c1fe1af0716e8b65042e41b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
