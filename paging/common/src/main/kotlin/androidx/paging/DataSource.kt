@@ -95,8 +95,8 @@ typealias OnInvalidated = () -> Unit
  * can differentiate unloaded placeholder items from content that has been paged in.
  *
  * @param Key Unique identifier for item loaded from DataSource. Often an integer to represent
- *            position in data set. Note - this is distinct from e.g. Room's `<Value> Value type
- *            loaded by the DataSource.
+ * position in data set. Note - this is distinct from e.g. Room's `<Value> Value type
+ * loaded by the DataSource.
  */
 abstract class DataSource<Key : Any, Value : Any>
 // Since we currently rely on implementation details of two implementations, prevent external
@@ -177,7 +177,7 @@ internal constructor(internal val type: KeyType) {
          * Same as [mapByPage], but operates on individual items.
          *
          * @param function Function that runs on each loaded item, returning items of a potentially
-         *                 new type.
+         * new type.
          * @param ToValue Type of items produced by the new DataSource, from the passed function.
          * @return A new [DataSource.Factory], which transforms items using the given function.
          *
@@ -191,10 +191,29 @@ internal constructor(internal val type: KeyType) {
         /**
          * Applies the given function to each value emitted by DataSources produced by this Factory.
          *
+         * An overload of [map] that accepts a kotlin function type.
+         *
+         * Same as [mapByPage], but operates on individual items.
+         *
+         * @param function Function that runs on each loaded item, returning items of a potentially
+         * new type.
+         * @param ToValue Type of items produced by the new DataSource, from the passed function.
+         * @return A new [DataSource.Factory], which transforms items using the given function.
+         *
+         * @see mapByPage
+         * @see DataSource.map
+         * @see DataSource.mapByPage
+         */
+        open fun <ToValue : Any> map(function: (Value) -> ToValue): Factory<Key, ToValue> =
+            mapByPage(Function { list -> list.map(function) })
+
+        /**
+         * Applies the given function to each value emitted by DataSources produced by this Factory.
+         *
          * Same as [map], but allows for batch conversions.
          *
          * @param function Function that runs on each loaded page, returning items of a potentially
-         *                 new type.
+         * new type.
          * @param ToValue Type of items produced by the new DataSource, from the passed function.
          * @return A new [DataSource.Factory], which transforms items using the given function.
          *
@@ -208,6 +227,26 @@ internal constructor(internal val type: KeyType) {
             override fun create(): DataSource<Key, ToValue> =
                 this@Factory.create().mapByPage(function)
         }
+
+        /**
+         * Applies the given function to each value emitted by DataSources produced by this Factory.
+         *
+         * An overload of [mapByPage] that accepts a kotlin function type.
+         *
+         * Same as [map], but allows for batch conversions.
+         *
+         * @param function Function that runs on each loaded page, returning items of a potentially
+         * new type.
+         * @param ToValue Type of items produced by the new DataSource, from the passed function.
+         * @return A new [DataSource.Factory], which transforms items using the given function.
+         *
+         * @see map
+         * @see DataSource.map
+         * @see DataSource.mapByPage
+         */
+        open fun <ToValue : Any> mapByPage(
+            function: (List<Value>) -> List<ToValue>
+        ): Factory<Key, ToValue> = mapByPage(Function { function(it) })
     }
 
     /**
@@ -216,7 +255,7 @@ internal constructor(internal val type: KeyType) {
      * Same as [map], but allows for batch conversions.
      *
      * @param function Function that runs on each loaded page, returning items of a potentially
-     *                 new type.
+     * new type.
      * @param ToValue Type of items produced by the new DataSource, from the passed function.
      * @return A new DataSource, which transforms items using the given function.
      *
@@ -231,10 +270,30 @@ internal constructor(internal val type: KeyType) {
     /**
      * Applies the given function to each value emitted by the DataSource.
      *
+     * An overload of [mapByPage] that accepts a kotlin function type.
+     *
+     * Same as [map], but allows for batch conversions.
+     *
+     * @param function Function that runs on each loaded page, returning items of a potentially
+     * new type.
+     * @param ToValue Type of items produced by the new DataSource, from the passed function.
+     * @return A new DataSource, which transforms items using the given function.
+     *
+     * @see map
+     * @see DataSource.Factory.map
+     * @see DataSource.Factory.mapByPage
+     */
+    open fun <ToValue : Any> mapByPage(
+        function: (List<Value>) -> List<ToValue>
+    ): DataSource<Key, ToValue> = mapByPage(Function { function(it) })
+
+    /**
+     * Applies the given function to each value emitted by the DataSource.
+     *
      * Same as [mapByPage], but operates on individual items.
      *
      * @param function Function that runs on each loaded item, returning items of a potentially
-     *                 new type.
+     * new type.
      * @param ToValue Type of items produced by the new DataSource, from the passed function.
      * @return A new DataSource, which transforms items using the given function.
      *
@@ -243,7 +302,27 @@ internal constructor(internal val type: KeyType) {
      * @see DataSource.Factory.mapByPage
      */
     open fun <ToValue : Any> map(function: Function<Value, ToValue>): DataSource<Key, ToValue> =
-        mapByPage(Function { list -> list.map { function.apply(it) } })
+        mapByPage { list -> list.map { function.apply(it) } }
+
+    /**
+     * Applies the given function to each value emitted by the DataSource.
+     *
+     * An overload of [map] that accepts a kotlin function type.
+     *
+     * Same as [mapByPage], but operates on individual items.
+     *
+     * @param function Function that runs on each loaded item, returning items of a potentially
+     * new type.
+     * @param ToValue Type of items produced by the new DataSource, from the passed function.
+     * @return A new DataSource, which transforms items using the given function.
+     *
+     * @see mapByPage
+     * @see DataSource.Factory.map
+     *
+     */
+    open fun <ToValue : Any> map(
+        function: (Value) -> ToValue
+    ): DataSource<Key, ToValue> = map(Function { function(it) })
 
     /**
      * Returns true if the data source guaranteed to produce a contiguous set of items, never
@@ -394,19 +473,6 @@ internal constructor(internal val type: KeyType) {
         val counted: Boolean
     ) {
         init {
-            validate()
-        }
-
-        // only one of leadingNulls / offset may be used
-        private fun position() = leadingNulls + offset
-
-        internal fun totalCount() = when {
-            // only one of leadingNulls / offset may be used
-            counted -> position() + data.size + trailingNulls
-            else -> TOTAL_COUNT_UNKNOWN
-        }
-
-        private fun validate() {
             if (leadingNulls < 0 || offset < 0) {
                 throw IllegalArgumentException("Position must be non-negative")
             }
@@ -422,6 +488,16 @@ internal constructor(internal val type: KeyType) {
             }
         }
 
+        // only one of leadingNulls / offset may be used
+        private fun position() = leadingNulls + offset
+
+        internal fun totalCount() = when {
+            // only one of leadingNulls / offset may be used
+            counted -> position() + data.size + trailingNulls
+            else -> TOTAL_COUNT_UNKNOWN
+        }
+
+        // TODO: Delete now that tiling is gone?
         internal fun validateForInitialTiling(pageSize: Int) {
             if (!counted) {
                 throw IllegalStateException(
@@ -445,6 +521,21 @@ internal constructor(internal val type: KeyType) {
                 )
             }
         }
+
+        /**
+         * Assumes that nextKey and prevKey returned by this [BaseResult] matches the expected type
+         * in [PagedSource.LoadResult].
+         */
+        @Suppress("UNCHECKED_CAST") // Guaranteed to be the correct Key type.
+        internal fun <Key : Any> toLoadResult() = PagedSource.LoadResult(
+            leadingNulls,
+            trailingNulls,
+            nextKey as Key?,
+            prevKey as Key?,
+            data,
+            offset,
+            counted
+        )
 
         override fun equals(other: Any?) = when (other) {
             is BaseResult<*> -> data == other.data &&
@@ -485,10 +576,6 @@ internal constructor(internal val type: KeyType) {
 
     internal abstract fun load(params: Params<Key>): ListenableFuture<out BaseResult<Value>>
 
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     internal abstract fun getKeyInternal(item: Value): Key
 
     /**
