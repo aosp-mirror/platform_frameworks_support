@@ -58,7 +58,7 @@ data class MainFragmentArgs(
         @Suppress("UNCHECKED_CAST")
         fun fromBundle(bundle: Bundle): MainFragmentArgs {
             bundle.setClassLoader(MainFragmentArgs::class.java.classLoader)
-            val __main : String?
+            val __main: String?
             if (bundle.containsKey("main")) {
                 __main = bundle.getString("main")
                 if (__main == null) {
@@ -67,31 +67,31 @@ data class MainFragmentArgs(
             } else {
                 throw IllegalArgumentException("Required argument \"main\" is missing and does not have an android:defaultValue")
             }
-            val __optional : Int
+            val __optional: Int
             if (bundle.containsKey("optional")) {
                 __optional = bundle.getInt("optional")
             } else {
                 __optional = -1
             }
-            val __reference : Int
+            val __reference: Int
             if (bundle.containsKey("reference")) {
                 __reference = bundle.getInt("reference")
             } else {
                 __reference = R.drawable.background
             }
-            val __referenceZeroDefaultValue : Int
+            val __referenceZeroDefaultValue: Int
             if (bundle.containsKey("referenceZeroDefaultValue")) {
                 __referenceZeroDefaultValue = bundle.getInt("referenceZeroDefaultValue")
             } else {
                 __referenceZeroDefaultValue = 0
             }
-            val __floatArg : Float
+            val __floatArg: Float
             if (bundle.containsKey("floatArg")) {
                 __floatArg = bundle.getFloat("floatArg")
             } else {
                 __floatArg = 1F
             }
-            val __floatArrayArg : FloatArray?
+            val __floatArrayArg: FloatArray?
             if (bundle.containsKey("floatArrayArg")) {
                 __floatArrayArg = bundle.getFloatArray("floatArrayArg")
                 if (__floatArrayArg == null) {
@@ -100,7 +100,7 @@ data class MainFragmentArgs(
             } else {
                 throw IllegalArgumentException("Required argument \"floatArrayArg\" is missing and does not have an android:defaultValue")
             }
-            val __objectArrayArg : Array<ActivityInfo>?
+            val __objectArrayArg: Array<ActivityInfo>?
             if (bundle.containsKey("objectArrayArg")) {
                 __objectArrayArg = bundle.getParcelableArray("objectArrayArg")?.map { it as
                         ActivityInfo }?.toTypedArray()
@@ -110,13 +110,13 @@ data class MainFragmentArgs(
             } else {
                 throw IllegalArgumentException("Required argument \"objectArrayArg\" is missing and does not have an android:defaultValue")
             }
-            val __boolArg : Boolean
+            val __boolArg: Boolean
             if (bundle.containsKey("boolArg")) {
                 __boolArg = bundle.getBoolean("boolArg")
             } else {
                 __boolArg = true
             }
-            val __optionalParcelable : ActivityInfo?
+            val __optionalParcelable: ActivityInfo?
             if (bundle.containsKey("optionalParcelable")) {
                 if (Parcelable::class.java.isAssignableFrom(ActivityInfo::class.java) ||
                         Serializable::class.java.isAssignableFrom(ActivityInfo::class.java)) {
@@ -128,7 +128,7 @@ data class MainFragmentArgs(
             } else {
                 __optionalParcelable = null
             }
-            val __enumArg : AccessMode?
+            val __enumArg: AccessMode?
             if (bundle.containsKey("enumArg")) {
                 if (Parcelable::class.java.isAssignableFrom(AccessMode::class.java) ||
                         Serializable::class.java.isAssignableFrom(AccessMode::class.java)) {

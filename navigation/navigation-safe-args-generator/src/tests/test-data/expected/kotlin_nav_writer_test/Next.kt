@@ -43,8 +43,7 @@ private data class Next(
         }
         if (Parcelable::class.java.isAssignableFrom(ActivityInfo.WindowLayout::class.java)) {
             result.putParcelable("innerData", this.innerData as Parcelable)
-        } else if (Serializable::class.java.isAssignableFrom(ActivityInfo.WindowLayout::class.java))
-                {
+        } else if (Serializable::class.java.isAssignableFrom(ActivityInfo.WindowLayout::class.java)) {
             result.putSerializable("innerData", this.innerData as Serializable)
         } else {
             throw UnsupportedOperationException(ActivityInfo.WindowLayout::class.java.name +
