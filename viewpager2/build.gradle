@@ -27,7 +27,7 @@ plugins {
 
 dependencies {
     api(project(":core:core"))
-    api(project(":fragment:fragment"))
+    api("androidx.fragment:fragment:1.1.0-rc01")
     api(project(":recyclerview"))
     implementation("androidx.collection:collection:1.1.0")
 
@@ -59,4 +59,5 @@ androidx {
     mavenGroup = LibraryGroups.VIEWPAGER2
     inceptionYear = "2017"
     description = "AndroidX Widget ViewPager2"
+    failOnDeprecationWarnings = false
 }

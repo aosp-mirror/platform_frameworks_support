@@ -28,6 +28,13 @@ plugins {
     id("kotlin-android")
 }
 
+android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+}
+
 dependencies {
     implementation(project(':work:work-runtime-ktx'))
     implementation(ARCH_LIFECYCLE_LIVEDATA_CORE)
@@ -50,8 +57,8 @@ dependencies {
 androidx {
     name = "Android WorkManager Testing"
     publish = Publish.SNAPSHOT_AND_RELEASE
-    mavenVersion = LibraryVersions.WORKMANAGER
-    mavenGroup = LibraryGroups.WORKMANAGER
+    mavenVersion = LibraryVersions.WORK
+    mavenGroup = LibraryGroups.WORK
     inceptionYear = "2018"
     description = "Android WorkManager testing library"
     url = AndroidXExtension.ARCHITECTURE_URL

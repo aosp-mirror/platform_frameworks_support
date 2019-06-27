@@ -16,11 +16,13 @@
 
 package androidx.camera.core;
 
+import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.util.Rational;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -34,6 +36,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 
 import com.google.auto.value.AutoValue;
 
@@ -76,15 +79,7 @@ public class Preview extends UseCase {
     public static final Defaults DEFAULT_CONFIG = new Defaults();
     private static final String TAG = "Preview";
     private final Handler mMainHandler = new Handler(Looper.getMainLooper());
-    private final CheckedSurfaceTexture.OnTextureChangedListener mSurfaceTextureListener =
-            new CheckedSurfaceTexture.OnTextureChangedListener() {
-                @Override
-                public void onTextureChanged(SurfaceTexture newSurfaceTexture, Size newResolution) {
-                    Preview.this.updateOutput(newSurfaceTexture, newResolution);
-                }
-            };
-    final CheckedSurfaceTexture mCheckedSurfaceTexture =
-            new CheckedSurfaceTexture(mSurfaceTextureListener);
+
     private final PreviewConfig.Builder mUseCaseConfigBuilder;
     @Nullable
     private OnPreviewOutputUpdateListener mSubscribedPreviewOutputListener;
@@ -92,35 +87,77 @@ public class Preview extends UseCase {
     private PreviewOutput mLatestPreviewOutput;
     private boolean mSurfaceDispatched = false;
 
+    private SurfaceTextureHolder mSurfaceTextureHolder;
+
     /**
      * Creates a new preview use case from the given configuration.
      *
      * @param config for this use case instance
      */
     @MainThread
-    public Preview(PreviewConfig config) {
+    public Preview(@NonNull PreviewConfig config) {
         super(config);
         mUseCaseConfigBuilder = PreviewConfig.Builder.fromConfig(config);
     }
 
-    private static SessionConfig.Builder createFrom(
-            final PreviewConfig config, final DeferrableSurface surface, final Preview preview) {
+    private SessionConfig.Builder createFrom(PreviewConfig config, Size resolution) {
         SessionConfig.Builder sessionConfigBuilder = SessionConfig.Builder.createFrom(config);
-        sessionConfigBuilder.addSurface(surface);
 
-        final ImageInfoProcessor processor = config.getImageInfoProcessor(null);
+        DeferrableSurface deferrableSurface;
+        final CaptureProcessor captureProcessor = config.getCaptureProcessor(null);
+        if (captureProcessor != null) {
+            CaptureStage captureStage = new CaptureStage.DefaultCaptureStage();
 
-        if (processor != null) {
-            sessionConfigBuilder.addCameraCaptureCallback(new CameraCaptureCallback() {
-                @Override
-                public void onCaptureCompleted(@NonNull CameraCaptureResult cameraCaptureResult) {
-                    super.onCaptureCompleted(cameraCaptureResult);
-                    if (processor.process(new CameraCaptureResultImageInfo(cameraCaptureResult))) {
-                        preview.notifyUpdated();
+            ProcessingSurfaceTexture processingSurfaceTexture =
+                    new ProcessingSurfaceTexture(
+                            resolution.getWidth(),
+                            resolution.getHeight(),
+                            ImageFormat.YUV_420_888,
+                            config.getCallbackHandler(mMainHandler),
+                            captureStage,
+                            captureProcessor);
+
+            sessionConfigBuilder.addCameraCaptureCallback(
+                    processingSurfaceTexture.getCameraCaptureCallback());
+
+            mSurfaceTextureHolder = new ProcessingSurfaceTextureHolder(processingSurfaceTexture,
+                    this, resolution);
+            deferrableSurface = processingSurfaceTexture;
+            sessionConfigBuilder.setTag(captureStage.getId());
+        } else {
+            final ImageInfoProcessor processor = config.getImageInfoProcessor(null);
+
+            if (processor != null) {
+                sessionConfigBuilder.addCameraCaptureCallback(new CameraCaptureCallback() {
+                    @Override
+                    public void onCaptureCompleted(
+                            @NonNull CameraCaptureResult cameraCaptureResult) {
+                        super.onCaptureCompleted(cameraCaptureResult);
+                        if (processor.process(
+                                new CameraCaptureResultImageInfo(cameraCaptureResult))) {
+                            notifyUpdated();
+                        }
                     }
-                }
-            });
+                });
+            }
+
+            CheckedSurfaceTexture checkedSurfaceTexture = new CheckedSurfaceTexture(
+                    new CheckedSurfaceTexture.OnTextureChangedListener() {
+                        @Override
+                        public void onTextureChanged(SurfaceTexture newSurfaceTexture,
+                                Size newResolution) {
+                            Preview.this.updateOutput(newSurfaceTexture, newResolution);
+                        }
+                    }
+            );
+            checkedSurfaceTexture.setResolution(resolution);
+            mSurfaceTextureHolder = new CheckedSurfaceTextureHolder(checkedSurfaceTexture);
+            deferrableSurface = checkedSurfaceTexture;
         }
+
+        mSurfaceTextureHolder.resetSurfaceTexture();
+        sessionConfigBuilder.addSurface(deferrableSurface);
+
         return sessionConfigBuilder;
     }
 
@@ -200,14 +237,14 @@ public class Preview extends UseCase {
             notifyInactive();
         } else if (oldListener != null && oldListener != newListener) {
             if (mLatestPreviewOutput != null) {
-                mCheckedSurfaceTexture.resetSurfaceTexture();
+                mSurfaceTextureHolder.resetSurfaceTexture();
             }
         }
     }
 
-    // TODO: Timeout may be exposed as a PreviewConfig(moved to CameraControl)
+    // TODO: Timeout may be exposed as a PreviewConfig(moved to CameraControlInternal)
 
-    private CameraControl getCurrentCameraControl() {
+    private CameraControlInternal getCurrentCameraControl() {
         PreviewConfig config = (PreviewConfig) getUseCaseConfig();
         String cameraId = getCameraIdUnchecked(config.getLensFacing());
         return getCameraControl(cameraId);
@@ -242,7 +279,14 @@ public class Preview extends UseCase {
      * @param listener listener for when focus has completed
      */
     public void focus(Rect focus, Rect metering, @Nullable OnFocusListener listener) {
-        getCurrentCameraControl().focus(focus, metering, listener, mMainHandler);
+        // If the listener is not null, we will call it back on the main thread.
+        if (listener == null) {
+            getCurrentCameraControl().focus(focus, metering);
+        } else {
+            getCurrentCameraControl().focus(focus, metering, CameraXExecutors.mainThreadExecutor(),
+                    listener);
+        }
+
     }
 
     /**
@@ -335,10 +379,29 @@ public class Preview extends UseCase {
      *
      * @hide
      */
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void updateUseCaseConfig(UseCaseConfig<?> useCaseConfig) {
+        PreviewConfig config = (PreviewConfig) useCaseConfig;
+        // Checks the device constraints and get the corrected aspect ratio.
+        if (CameraX.getSurfaceManager().requiresCorrectedAspectRatio(config)) {
+            Rational resultRatio = CameraX.getSurfaceManager().getCorrectedAspectRatio(config);
+            PreviewConfig.Builder configBuilder = PreviewConfig.Builder.fromConfig(config);
+            configBuilder.setTargetAspectRatio(resultRatio);
+            config = configBuilder.build();
+        }
+        super.updateUseCaseConfig(config);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public void clear() {
-        mCheckedSurfaceTexture.release();
+        mSurfaceTextureHolder.release();
 
         removePreviewOutputListener();
         notifyInactive();
@@ -371,11 +434,7 @@ public class Preview extends UseCase {
                     "Suggested resolution map missing resolution for camera " + cameraId);
         }
 
-        mCheckedSurfaceTexture.setResolution(resolution);
-        mCheckedSurfaceTexture.resetSurfaceTexture();
-
-        SessionConfig.Builder sessionConfigBuilder = createFrom(config, mCheckedSurfaceTexture,
-                this);
+        SessionConfig.Builder sessionConfigBuilder = createFrom(config, resolution);
         attachToCamera(cameraId, sessionConfigBuilder.build());
 
         return suggestedResolutionMap;
@@ -490,7 +549,14 @@ public class Preview extends UseCase {
 
         @Override
         public PreviewConfig getConfig(LensFacing lensFacing) {
-            return DEFAULT_CONFIG;
+            if (lensFacing != null) {
+                PreviewConfig.Builder configBuilder = PreviewConfig.Builder.fromConfig(
+                        DEFAULT_CONFIG);
+                configBuilder.setLensFacing(lensFacing);
+                return configBuilder.build();
+            } else {
+                return DEFAULT_CONFIG;
+            }
         }
     }
 
@@ -513,6 +579,7 @@ public class Preview extends UseCase {
         public abstract SurfaceTexture getSurfaceTexture();
 
         /** Returns the dimensions of the PreviewOutput. */
+        @NonNull
         public abstract Size getTextureSize();
 
         /**
@@ -523,5 +590,55 @@ public class Preview extends UseCase {
          * PreviewOutput's {@link SurfaceTexture#getTransformMatrix(float[])}.
          */
         public abstract int getRotationDegrees();
+    }
+
+    // Interface for releasing and resetting a SurfaceTexture
+    private interface SurfaceTextureHolder {
+        void release();
+
+        void resetSurfaceTexture();
+    }
+
+    private static class CheckedSurfaceTextureHolder implements SurfaceTextureHolder {
+        private final CheckedSurfaceTexture mCheckedSurfaceTexture;
+
+        CheckedSurfaceTextureHolder(CheckedSurfaceTexture checkedSurfaceTexture) {
+            mCheckedSurfaceTexture = checkedSurfaceTexture;
+        }
+
+        @Override
+        public void release() {
+            mCheckedSurfaceTexture.release();
+        }
+
+        @Override
+        public void resetSurfaceTexture() {
+            mCheckedSurfaceTexture.resetSurfaceTexture();
+        }
+    }
+
+    private static class ProcessingSurfaceTextureHolder implements SurfaceTextureHolder {
+        private final ProcessingSurfaceTexture mProcessingSurfaceTexture;
+        private final Preview mPreview;
+        private final Size mResolution;
+
+        ProcessingSurfaceTextureHolder(ProcessingSurfaceTexture processingSurfaceTexture,
+                Preview preview,
+                Size resolution) {
+            mProcessingSurfaceTexture = processingSurfaceTexture;
+            mPreview = preview;
+            mResolution = resolution;
+        }
+
+        @Override
+        public void release() {
+            mProcessingSurfaceTexture.close();
+        }
+
+        @Override
+        public void resetSurfaceTexture() {
+            mProcessingSurfaceTexture.resetSurfaceTexture();
+            mPreview.updateOutput(mProcessingSurfaceTexture.getSurfaceTexture(), mResolution);
+        }
     }
 }

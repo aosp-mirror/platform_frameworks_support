@@ -18,11 +18,16 @@ package androidx.camera.core.impl.utils.futures;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.concurrent.ListenableFuture;
 import androidx.core.util.Preconditions;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.concurrent.Delayed;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,18 +36,9 @@ import java.util.concurrent.TimeUnit;
  * <p>This implementation is based off of the Guava ImmediateSuccessfulFuture class.
  * @param <V> The type of the value stored in the future.
  */
-class ImmediateFuture<V> implements ListenableFuture<V> {
+abstract class ImmediateFuture<V> implements ListenableFuture<V> {
 
     private static final String TAG = "ImmediateFuture";
-
-    private static final ImmediateFuture<Object> NULL_FUTURE = new ImmediateFuture<>(null);
-
-    @Nullable
-    private final V mValue;
-
-    ImmediateFuture(@Nullable V value) {
-        mValue = value;
-    }
 
     /**
      * Returns a future that contains a null value.
@@ -52,12 +48,12 @@ class ImmediateFuture<V> implements ListenableFuture<V> {
      */
     public static <V> ListenableFuture<V> nullFuture() {
         @SuppressWarnings({"unchecked", "rawtypes"}) // Safe since null can be cast to any type
-        ListenableFuture<V> typedNull = (ListenableFuture) NULL_FUTURE;
+        ListenableFuture<V> typedNull = (ListenableFuture) ImmediateSuccessfulFuture.NULL_FUTURE;
         return typedNull;
     }
 
     @Override
-    public void addListener(Runnable listener, Executor executor) {
+    public void addListener(@NonNull Runnable listener, @NonNull Executor executor) {
         Preconditions.checkNotNull(listener);
         Preconditions.checkNotNull(executor);
 
@@ -89,19 +85,79 @@ class ImmediateFuture<V> implements ListenableFuture<V> {
 
     @Override
     @Nullable
-    public V get() {
-        return mValue;
-    }
+    public abstract V get() throws ExecutionException;
 
     @Override
     @Nullable
-    public V get(long timeout, TimeUnit unit) {
-        return mValue;
+    public V get(long timeout, @NonNull TimeUnit unit) throws ExecutionException {
+        Preconditions.checkNotNull(unit);
+        return get();
     }
 
-    @Override
-    public String toString() {
-        // Behaviour analogous to AbstractResolvableFuture#toString().
-        return super.toString() + "[status=SUCCESS, result=[" + mValue + "]]";
+    static final class ImmediateSuccessfulFuture<V> extends ImmediateFuture<V> {
+
+        static final ImmediateFuture<Object> NULL_FUTURE =
+                new ImmediateSuccessfulFuture<>(null);
+
+        @Nullable
+        private final V mValue;
+
+        ImmediateSuccessfulFuture(@Nullable V value) {
+            mValue = value;
+        }
+
+
+        @Nullable
+        @Override
+        public V get() {
+            return mValue;
+        }
+
+        @Override
+        public String toString() {
+            // Behaviour analogous to AbstractResolvableFuture#toString().
+            return super.toString() + "[status=SUCCESS, result=[" + mValue + "]]";
+        }
+    }
+
+    static class ImmediateFailedFuture<V> extends ImmediateFuture<V> {
+
+        @NonNull
+        private final Throwable mCause;
+
+        ImmediateFailedFuture(@NonNull Throwable cause) {
+            mCause = cause;
+        }
+
+        @Nullable
+        @Override
+        public V get() throws ExecutionException {
+            throw new ExecutionException(mCause);
+        }
+
+        @Override
+        @NonNull
+        public String toString() {
+            // Behaviour analogous to AbstractResolvableFuture#toString().
+            return super.toString() + "[status=FAILURE, cause=[" + mCause + "]]";
+        }
+    }
+
+    static final class ImmediateFailedScheduledFuture<V> extends ImmediateFailedFuture<V> implements
+            ScheduledFuture<V> {
+
+        ImmediateFailedScheduledFuture(@NonNull Throwable cause) {
+            super(cause);
+        }
+
+        @Override
+        public long getDelay(@NonNull TimeUnit timeUnit) {
+            return 0;
+        }
+
+        @Override
+        public int compareTo(@NonNull Delayed delayed) {
+            return -1;
+        }
     }
 }

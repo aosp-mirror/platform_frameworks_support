@@ -362,7 +362,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      */
     static final String TRACE_CREATE_VIEW_TAG = "RV CreateView";
     private static final Class<?>[] LAYOUT_MANAGER_CONSTRUCTOR_SIGNATURE =
-            new Class[]{Context.class, AttributeSet.class, int.class, int.class};
+            new Class<?>[]{Context.class, AttributeSet.class, int.class, int.class};
 
     private final RecyclerViewDataObserver mObserver = new RecyclerViewDataObserver();
 
@@ -5977,6 +5977,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          *                   bind the holder.
          * @return
          */
+        @SuppressWarnings("unchecked")
         private boolean tryBindViewHolderByDeadline(@NonNull ViewHolder holder, int offsetPosition,
                 int position, long deadlineNs) {
             holder.mOwnerRecyclerView = RecyclerView.this;
@@ -6727,6 +6728,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             return null;
         }
 
+        @SuppressWarnings("unchecked")
         void dispatchViewRecycled(@NonNull ViewHolder holder) {
             if (mRecyclerListener != null) {
                 mRecyclerListener.onViewRecycled(holder);
@@ -7499,6 +7501,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         }
     }
 
+    @SuppressWarnings("unchecked")
     void dispatchChildDetached(View child) {
         final ViewHolder viewHolder = getChildViewHolderInt(child);
         onChildDetachedFromWindow(child);
@@ -7513,6 +7516,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         }
     }
 
+    @SuppressWarnings("unchecked")
     void dispatchChildAttached(View child) {
         final ViewHolder viewHolder = getChildViewHolderInt(child);
         onChildAttachedToWindow(child);
@@ -11547,7 +11551,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     @Override
     public final void dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed,
-            int dyUnconsumed, int[] offsetInWindow, int type, int[] consumed) {
+            int dyUnconsumed, int[] offsetInWindow, int type, @NonNull int[] consumed) {
         getScrollingChildHelper().dispatchNestedScroll(dxConsumed, dyConsumed,
                 dxUnconsumed, dyUnconsumed, offsetInWindow, type, consumed);
     }
@@ -12500,7 +12504,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          *                   to
          *                   preserve cross functionality and avoid conflicts.
          */
-        @SuppressWarnings("TypeParameterUnusedInFormals")
+        @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
         public <T> T get(int resourceId) {
             if (mData == null) {
                 return null;

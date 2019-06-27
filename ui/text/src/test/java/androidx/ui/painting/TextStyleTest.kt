@@ -22,10 +22,7 @@ import androidx.ui.engine.text.BaselineShift
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.ParagraphStyle
-import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextGeometricTransform
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.lerp
@@ -50,7 +47,6 @@ class TextStyleTest {
         assertThat(textStyle.fontStyle).isNull()
         assertThat(textStyle.letterSpacing).isNull()
         assertThat(textStyle.wordSpacing).isNull()
-        assertThat(textStyle.height).isNull()
         assertThat(textStyle.locale).isNull()
         assertThat(textStyle.background).isNull()
         assertThat(textStyle.decoration).isNull()
@@ -121,15 +117,6 @@ class TextStyleTest {
     }
 
     @Test
-    fun `constructor with customized height`() {
-        val height = 123.0f
-
-        val textStyle = TextStyle(height = height)
-
-        assertThat(textStyle.height).isEqualTo(height)
-    }
-
-    @Test
     fun `constructor with customized locale`() {
         val locale = Locale("en", "US")
 
@@ -155,15 +142,6 @@ class TextStyleTest {
 
         assertThat(textStyle.decoration).isEqualTo(decoration)
     }
-
-    /*@Test
-    fun `constructor with customized debugLabel`() {
-        val label = "foo"
-
-        val textStyle = TextStyle(debugLabel = label)
-
-        assertThat(textStyle.debugLabel).isEqualTo(label)
-    }*/
 
     @Test
     fun `constructor with customized fontFamily`() {
@@ -300,7 +278,7 @@ class TextStyleTest {
 
     @Test
     fun `merge with other's fontSynthesis is null should use this' fontSynthesis`() {
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
         val otherTextStyle = TextStyle()
 
@@ -311,8 +289,8 @@ class TextStyleTest {
 
     @Test
     fun `merge with other's fontSynthesis is set should use other's fontSynthesis`() {
-        val fontSynthesis = FontSynthesis.style
-        val otherFontSynthesis = FontSynthesis.weight
+        val fontSynthesis = FontSynthesis.Style
+        val otherFontSynthesis = FontSynthesis.Weight
 
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
         val otherTextStyle = TextStyle(fontSynthesis = otherFontSynthesis)
@@ -416,29 +394,6 @@ class TextStyleTest {
     }
 
     @Test
-    fun `merge with other's height is null should use this' height`() {
-        val height = 123.0f
-        val textStyle = TextStyle(height = height)
-        val otherTextStyle = TextStyle()
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.height).isEqualTo(height)
-    }
-
-    @Test
-    fun `merge with other's height is set should use other's height`() {
-        val height = 123.0f
-        val otherHeight = 200.0f
-        val textStyle = TextStyle(height = height)
-        val otherTextStyle = TextStyle(height = otherHeight)
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.height).isEqualTo(otherHeight)
-    }
-
-    @Test
     fun `merge with other's background is null should use this' background`() {
         val color = Color(0xFF00FF00.toInt())
         val textStyle = TextStyle(background = color)
@@ -505,55 +460,6 @@ class TextStyleTest {
         val newTextStyle = textStyle.merge(otherTextStyle)
 
         assertThat(newTextStyle.locale).isEqualTo(otherLocale)
-    }
-
-    @Test
-    fun `merge without debugLabel result's debugLabel should be empty`() {
-        val textStyle = TextStyle()
-        val otherTextStyle = TextStyle()
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.debugLabel).isEmpty()
-    }
-
-    @Test
-    fun `merge with customized this's debugLabel only`() {
-        val textStyle = TextStyle(debugLabel = "foo")
-        val otherTextStyle = TextStyle()
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.debugLabel).isEqualTo("(foo).merge(unknown)")
-    }
-
-    @Test
-    fun `merge with customized other's debugLabel only`() {
-        val textStyle = TextStyle()
-        val otherTextStyle = TextStyle(debugLabel = "bar")
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.debugLabel).isEqualTo("(unknown).merge(bar)")
-    }
-
-    @Test
-    fun `merge with customized this' and other's debugLabel`() {
-        val textStyle = TextStyle(debugLabel = "foo")
-        val otherTextStyle = TextStyle(debugLabel = "bar")
-
-        val newTextStyle = textStyle.merge(otherTextStyle)
-
-        assertThat(newTextStyle.debugLabel).isEqualTo("(foo).merge(bar)")
-    }
-
-    @Test
-    fun `merge with chained debugLabel`() {
-        val bar = TextStyle(debugLabel = "bar", fontSize = 2.0f)
-        val baz = TextStyle(debugLabel = "baz", fontSize = 3.0f)
-        val fo = TextStyle(debugLabel = "foo", fontSize = 1.0f)
-
-        assertThat(fo.merge(bar).merge(baz).debugLabel).isEqualTo("((foo).merge(bar)).merge(baz)")
     }
 
     @Test
@@ -773,6 +679,59 @@ class TextStyleTest {
     }
 
     @Test
+    fun `lerp fontSizeScale with a and b are not Null`() {
+        val fontSizeScale1 = 2.0f
+        val fontSizeScale2 = 4.0f
+        val t = 0.8f
+        val textStyle1 = TextStyle(fontSizeScale = fontSizeScale1)
+        val textStyle2 = TextStyle(fontSizeScale = fontSizeScale2)
+
+        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
+
+        // a + (b - a) * t = 2.0f + (4.0f  - 2.0f) * 0.8f = 3.6f
+        assertThat(newTextStyle?.fontSizeScale).isEqualTo(3.6f)
+    }
+
+    @Test
+    fun `lerp fontSizeScale with a not Null and b is Null`() {
+        val fontSizeScale = 2.0f
+        val t = 0.8f
+        val textStyle1 = TextStyle(fontSizeScale = fontSizeScale)
+        val textStyle2 = TextStyle()
+
+        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
+
+        // b is Null and is considered 1.0f
+        // a + (b - a) * t = 2.0f + (1.0f  - 2.0f) * 0.8f = 1.2f
+        assertThat(newTextStyle?.fontSizeScale).isEqualTo(1.2f)
+    }
+
+    @Test
+    fun `lerp fontSizeScale with a is Null and b not Null`() {
+        val fontSizeScale = 2.0f
+        val t = 0.8f
+        val textStyle1 = TextStyle()
+        val textStyle2 = TextStyle(fontSizeScale = fontSizeScale)
+
+        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
+
+        // a is Null and is considered 1.0f
+        // a + (b - a) * t = 1.0f + (2.0f  - 1.0f) * 0.8f = 1.8f
+        assertThat(newTextStyle?.fontSizeScale).isEqualTo(1.8f)
+    }
+
+    @Test
+    fun `lerp fontSizeScale with a and b are Null`() {
+        val t = 0.8f
+        val textStyle1 = TextStyle()
+        val textStyle2 = TextStyle()
+
+        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
+
+        assertThat(newTextStyle?.fontSizeScale).isNull()
+    }
+
+    @Test
     fun `lerp fontWeight with a is Null and t is smaller than half`() {
         val fontWeight = FontWeight.w700
         val t = 0.3f
@@ -903,7 +862,7 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with a is Null and t is smaller than half`() {
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val t = 0.3f
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
 
@@ -914,7 +873,7 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with a is Null and t is larger than half`() {
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val t = 0.8f
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
 
@@ -925,7 +884,7 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with b is Null and t is smaller than half`() {
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val t = 0.3f
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
 
@@ -936,7 +895,7 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with b is Null and t is larger than half`() {
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val t = 0.8f
         val textStyle = TextStyle(fontSynthesis = fontSynthesis)
 
@@ -947,8 +906,8 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with a and b are not Null and t is smaller than half`() {
-        val fontSynthesis1 = FontSynthesis.style
-        val fontSynthesis2 = FontSynthesis.weight
+        val fontSynthesis1 = FontSynthesis.Style
+        val fontSynthesis2 = FontSynthesis.Weight
 
         val t = 0.3f
         // attributes other than fontSynthesis are required for lerp not to throw an exception
@@ -962,8 +921,8 @@ class TextStyleTest {
 
     @Test
     fun `lerp fontSynthesis with a and b are not Null and t is larger than half`() {
-        val fontSynthesis1 = FontSynthesis.style
-        val fontSynthesis2 = FontSynthesis.weight
+        val fontSynthesis1 = FontSynthesis.Style
+        val fontSynthesis2 = FontSynthesis.Weight
 
         val t = 0.8f
         // attributes other than fontSynthesis are required for lerp not to throw an exception
@@ -1094,30 +1053,6 @@ class TextStyleTest {
     }
 
     @Test
-    fun `lerp letterSpacing with a and b are not Null`() {
-        val letterSpacing1 = 1.0f
-        val letterSpacing2 = 3.0f
-        val t = 0.8f
-        val textStyle1 = TextStyle(
-            fontSize = 4.0f,
-            wordSpacing = 1.0f,
-            letterSpacing = letterSpacing1,
-            height = 123.0f
-        )
-        val textStyle2 = TextStyle(
-            fontSize = 7.0f,
-            wordSpacing = 2.0f,
-            letterSpacing = letterSpacing2,
-            height = 20.0f
-        )
-
-        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
-
-        // a + (b - a) * t = 1.0f + (3.0f - 1.0f) * 0.8f = 2.6f
-        assertThat(newTextStyle?.letterSpacing).isEqualTo(2.6f)
-    }
-
-    @Test
     fun `lerp wordSpacing with a is Null and t is smaller than half`() {
         val wordSpacing = 2.0f
         val t = 0.3f
@@ -1159,30 +1094,6 @@ class TextStyleTest {
         val newTextStyle = TextStyle.lerp(a = textStyle, t = t)
 
         assertThat(newTextStyle?.wordSpacing).isNull()
-    }
-
-    @Test
-    fun `lerp wordSpacing with a and b are not Null`() {
-        val wordSpacing1 = 1.0f
-        val wordSpacing2 = 3.0f
-        val t = 0.8f
-        val textStyle1 = TextStyle(
-            fontSize = 4.0f,
-            wordSpacing = wordSpacing1,
-            letterSpacing = 2.2f,
-            height = 123.0f
-        )
-        val textStyle2 = TextStyle(
-            fontSize = 7.0f,
-            wordSpacing = wordSpacing2,
-            letterSpacing = 3.0f,
-            height = 20.0f
-        )
-
-        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
-
-        // a + (b - a) * t = 1.0f + (3.0f - 1.0f) * 0.8f = 2.6f
-        assertThat(newTextStyle?.wordSpacing).isEqualTo(2.6f)
     }
 
     @Test
@@ -1299,64 +1210,6 @@ class TextStyleTest {
 
         assertThat(newTextStyle?.textGeometricTransform)
             .isEqualTo(lerp(textTransform1, textTransform2, t))
-    }
-
-    @Test
-    fun `lerp height with a is Null and t is smaller than half`() {
-        val height = 88.0f
-        val t = 0.2f
-        val textStyle = TextStyle(height = height)
-
-        val newTextStyle = TextStyle.lerp(b = textStyle, t = t)
-
-        assertThat(newTextStyle?.height).isNull()
-    }
-
-    @Test
-    fun `lerp height with a is Null and t is larger than half`() {
-        val height = 88.0f
-        val t = 0.8f
-        val textStyle = TextStyle(height = height)
-
-        val newTextStyle = TextStyle.lerp(b = textStyle, t = t)
-
-        assertThat(newTextStyle?.height).isEqualTo(height)
-    }
-
-    @Test
-    fun `lerp height with b is Null and t is smaller than half`() {
-        val height = 88.0f
-        val t = 0.2f
-        val textStyle = TextStyle(height = height)
-
-        val newTextStyle = TextStyle.lerp(a = textStyle, t = t)
-
-        assertThat(newTextStyle?.height).isEqualTo(height)
-    }
-
-    @Test
-    fun `lerp height with b is Null and t is larger than half`() {
-        val height = 88.0f
-        val t = 0.8f
-        val textStyle = TextStyle(height = height)
-
-        val newTextStyle = TextStyle.lerp(a = textStyle, t = t)
-
-        assertThat(newTextStyle?.height).isNull()
-    }
-
-    @Test
-    fun `lerp height with a and b are not Null`() {
-        val height1 = 88.0f
-        val height2 = 128.0f
-        val t = 0.8f
-        val textStyle1 = TextStyle(height = height1)
-        val textStyle2 = TextStyle(height = height2)
-
-        val newTextStyle = TextStyle.lerp(a = textStyle1, b = textStyle2, t = t)
-
-        // a + (b - a) * t = 88.0 + (128.0 - 88.0) * 0.8 = 120.0
-        assertThat(newTextStyle?.height).isEqualTo(120.0f)
     }
 
     @Test
@@ -1569,69 +1422,16 @@ class TextStyleTest {
     }
 
     @Test
-    fun `lerp returns debugLabel when both a and b's debugLabel are Null`() {
-        val textStyle1 = TextStyle()
-        val textStyle2 = TextStyle()
-
-        val newTextStyle = TextStyle.lerp(textStyle1, textStyle2, 0.2f)
-
-        assertThat(newTextStyle?.debugLabel).isEqualTo("lerp(unknown ⎯0.2→ unknown)")
-    }
-
-    @Test
-    fun `lerp returns debugLabel when a's debugLabel is Null`() {
-        val textStyle1 = TextStyle()
-        val textStyle2 = TextStyle(debugLabel = "foo")
-
-        val newTextStyle = TextStyle.lerp(textStyle1, textStyle2, 0.2f)
-
-        assertThat(newTextStyle?.debugLabel).isEqualTo("lerp(unknown ⎯0.2→ foo)")
-    }
-
-    @Test
-    fun `lerp returns debugLabel when b's debugLabel is Null`() {
-        val textStyle1 = TextStyle(debugLabel = "foo")
-        val textStyle2 = TextStyle()
-
-        val newTextStyle = TextStyle.lerp(textStyle1, textStyle2, 0.2f)
-
-        assertThat(newTextStyle?.debugLabel).isEqualTo("lerp(foo ⎯0.2→ unknown)")
-    }
-
-    @Test
-    fun `lerp returns debugLabel when both debugLabels are not Null`() {
-        val textStyle1 = TextStyle(debugLabel = "foo")
-        val textStyle2 = TextStyle(debugLabel = "bar")
-
-        val newTextStyle = TextStyle.lerp(textStyle1, textStyle2, 0.2f)
-
-        assertThat(newTextStyle?.debugLabel).isEqualTo("lerp(foo ⎯0.2→ bar)")
-    }
-
-    @Test
-    fun `lerp returns chained debugLabel`() {
-        val other = TextStyle(debugLabel = "foo")
-        val bar = TextStyle(debugLabel = "bar")
-        val baz = TextStyle(debugLabel = "baz")
-
-        val newTextStyle = TextStyle.lerp(TextStyle.lerp(other, bar, 0.2f), baz, 0.8f)
-
-        assertThat(newTextStyle?.debugLabel).isEqualTo("lerp(lerp(foo ⎯0.2→ bar) ⎯0.8→ baz)")
-    }
-
-    @Test
     fun `getTextStyle`() {
         val fontSize = 10.0f
-        val height = 123.0f
         val color = Color(0xFF00FF00.toInt())
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
         val fontFeatureSettings = "\"kern\" 0"
         val baselineShift = BaselineShift.Superscript
         val textStyle = TextStyle(
             fontSize = fontSize,
             fontWeight = FontWeight.w800,
             color = color,
-            height = height,
             fontSynthesis = fontSynthesis,
             fontFeatureSettings = fontFeatureSettings,
             baselineShift = baselineShift
@@ -1640,7 +1440,6 @@ class TextStyleTest {
         assertThat(textStyle.fontFamily).isNull()
         assertThat(textStyle.fontSize).isEqualTo(fontSize)
         assertThat(textStyle.fontWeight).isEqualTo(FontWeight.w800)
-        assertThat(textStyle.height).isEqualTo(height)
         assertThat(textStyle.color).isEqualTo(color)
         assertThat(textStyle.fontFeatureSettings).isEqualTo(fontFeatureSettings)
 
@@ -1651,87 +1450,11 @@ class TextStyleTest {
                 color = color,
                 fontWeight = FontWeight.w800,
                 fontSize = fontSize,
-                height = height,
                 fontSynthesis = fontSynthesis,
                 fontFeatureSettings = fontFeatureSettings,
                 baselineShift = baselineShift
             )
         )
-    }
-
-    @Test
-    fun `getParagraphStyle with text align`() {
-        val fontSize = 10.0f
-        val height = 123.0f
-        val color = Color(0xFF00FF00.toInt())
-        val fontSynthesis = FontSynthesis.style
-        val textStyle = TextStyle(
-            fontSize = fontSize,
-            fontWeight = FontWeight.w800,
-            color = color,
-            height = height,
-            fontSynthesis = fontSynthesis
-        )
-
-        assertThat(textStyle.fontFamily).isNull()
-        assertThat(textStyle.fontSize).isEqualTo(fontSize)
-        assertThat(textStyle.fontWeight).isEqualTo(FontWeight.w800)
-        assertThat(textStyle.height).isEqualTo(height)
-        assertThat(textStyle.color).isEqualTo(color)
-
-        val paragraphStyle = textStyle.getParagraphStyle(textAlign = TextAlign.Center)
-
-        assertThat(paragraphStyle).isEqualTo(
-            ParagraphStyle(
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.w800,
-                fontSize = fontSize,
-                lineHeight = height,
-                fontSynthesis = fontSynthesis
-            )
-        )
-    }
-
-    @Test
-    fun `getParagraphStyle with LTR text direction`() {
-        val defaultFontSize = 14.0f
-
-        val paragraphStyleLTR = TextStyle().getParagraphStyle(textDirection = TextDirection.Ltr)
-
-        assertThat(paragraphStyleLTR).isEqualTo(
-            ParagraphStyle(
-                textDirection = TextDirection.Ltr,
-                fontSize = defaultFontSize
-            )
-        )
-    }
-
-    @Test
-    fun `getParagraphStyle with RTL text direction`() {
-        val defaultFontSize = 14.0f
-
-        val paragraphStyleRTL = TextStyle().getParagraphStyle(textDirection = TextDirection.Rtl)
-
-        assertThat(paragraphStyleRTL).isEqualTo(
-            ParagraphStyle(
-                textDirection = TextDirection.Rtl,
-                fontSize = defaultFontSize
-            )
-        )
-    }
-
-    @Test
-    fun `debugLabel with constructor default values`() {
-        val unknown = TextStyle()
-
-        assertThat(unknown.debugLabel).isNull()
-    }
-
-    @Test
-    fun `debugLabel with constructor customized values`() {
-        val textStyle = TextStyle(debugLabel = "foo", fontSize = 1.0f)
-
-        assertThat(textStyle.debugLabel).isEqualTo("foo")
     }
 
     @Test
@@ -1752,7 +1475,6 @@ class TextStyleTest {
     @Test
     fun `compareTo textStyle with different layout returns LAYOUT`() {
         val fontSize = 10.0f
-        val height = 123.0f
         val bgColor = Color(0xFFFFFF00.toInt())
         val fontFeatureSettings = "\"kern\" 0"
 
@@ -1766,11 +1488,9 @@ class TextStyleTest {
             wordSpacing = 2.0f,
             baselineShift = BaselineShift.Subscript,
             textGeometricTransform = TextGeometricTransform(scaleX = 1.0f),
-            height = height,
             locale = Locale("en", "US"),
             background = bgColor,
             decoration = TextDecoration.Underline,
-            debugLabel = "foo",
             fontFamily = FontFamily(genericFamily = "sans-serif"),
             shadow = Shadow(Color(0xFF0000FF.toInt()), Offset(1f, 2f), 3.px)
         )
@@ -1790,7 +1510,7 @@ class TextStyleTest {
         assertThat(textStyle.compareTo(textStyle.copy(fontStyle = FontStyle.Normal)))
             .isEqualTo(RenderComparison.LAYOUT)
 
-        assertThat(textStyle.compareTo(textStyle.copy(fontSynthesis = FontSynthesis.style)))
+        assertThat(textStyle.compareTo(textStyle.copy(fontSynthesis = FontSynthesis.Style)))
             .isEqualTo(RenderComparison.LAYOUT)
 
         assertThat(textStyle.compareTo(textStyle.copy(fontFeatureSettings = null)))
@@ -1809,9 +1529,6 @@ class TextStyleTest {
             .copy(textGeometricTransform = TextGeometricTransform())))
             .isEqualTo(RenderComparison.LAYOUT)
 
-        assertThat(textStyle.compareTo(textStyle.copy(height = 20.0f)))
-            .isEqualTo(RenderComparison.LAYOUT)
-
         assertThat(textStyle.compareTo(textStyle.copy(locale = Locale("ja", "JP"))))
             .isEqualTo(RenderComparison.LAYOUT)
     }
@@ -1819,7 +1536,6 @@ class TextStyleTest {
     @Test
     fun `compareTo textStyle with different paint returns paint`() {
         val fontSize = 10.0f
-        val height = 123.0f
         val color1 = Color(0xFF00FF00.toInt())
         val color2 = Color(0x00FFFF00)
 
@@ -1835,10 +1551,8 @@ class TextStyleTest {
             wordSpacing = 2.0f,
             baselineShift = BaselineShift.Superscript,
             textGeometricTransform = TextGeometricTransform(null, null),
-            height = height,
             locale = Locale("en", "US"),
             decoration = TextDecoration.Underline,
-            debugLabel = "foo",
             fontFamily = FontFamily(genericFamily = "sans-serif"),
             shadow = shadow1
         )

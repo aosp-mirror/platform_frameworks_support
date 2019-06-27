@@ -252,6 +252,7 @@ import java.util.Map;
     }
 
     public long getDuration() {
+        Preconditions.checkState(getState() != MediaPlayer2.PLAYER_STATE_IDLE);
         long duration = mMediaItemQueue.getCurrentMediaItemDuration();
         return duration == C.TIME_UNSET ? -1 : duration;
     }
@@ -943,6 +944,9 @@ import java.util.Map;
         }
 
         public long getCurrentMediaItemDuration() {
+            if (mMediaItemInfos.isEmpty()) {
+                return C.TIME_UNSET;
+            }
             DurationProvidingMediaSource durationProvidingMediaSource =
                     mMediaItemInfos.peekFirst().mDurationProvidingMediaSource;
             if (durationProvidingMediaSource != null) {

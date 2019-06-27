@@ -18,8 +18,10 @@ package androidx.ui.engine.text
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.platform.ParagraphAndroid
+import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
+import androidx.ui.painting.TextStyle
 import androidx.ui.services.text_editing.TextRange
 
 /**
@@ -28,21 +30,13 @@ import androidx.ui.services.text_editing.TextRange
  * A paragraph retains the size and position of each glyph in the text and can
  * be efficiently resized and painted.
  *
- * To create a [Paragraph] object, use a [ParagraphBuilder].
- *
- * Paragraphs can be displayed on a [Canvas] using the [Canvas.drawParagraph]
- * method.
- *
- * This class is created by the engine, and should not be instantiated
- * or extended directly.
- *
- * To create a [Paragraph] object, use a [ParagraphBuilder].
+ * Paragraphs can be displayed on a [Canvas] using the [paint] method.
  */
-//
 class Paragraph internal constructor(
-    val text: StringBuilder,
-    val paragraphStyle: ParagraphStyle,
-    internal val textStyles: List<ParagraphBuilder.TextStyleIndex>
+    private val text: String,
+    style: TextStyle,
+    paragraphStyle: ParagraphStyle,
+    textStyles: List<AnnotatedString.Item<TextStyle>>
 ) {
     private var needsLayout = true
     /** increased visibility for testing **/
@@ -104,18 +98,13 @@ class Paragraph internal constructor(
         if (paragraphStyle.lineHeight != null && paragraphStyle.lineHeight < 0.0f) {
             throw IllegalArgumentException("lineHeight can't be negative")
         }
-        paragraphImpl = ParagraphAndroid(text, paragraphStyle, textStyles)
+        paragraphImpl = ParagraphAndroid(
+            text = text,
+            style = style,
+            paragraphStyle = paragraphStyle,
+            textStyles = textStyles
+        )
     }
-
-    // void Paragraph::SetFontCollection(
-    // std::shared_ptr<FontCollection> font_collection) {
-    //    font_collection_ = std::move(font_collection);
-    // }
-
-    // void Paragraph::SetParagraphStyle(const ParagraphStyle& style) {
-    //    needs_layout_ = true;
-    //    paragraph_style_ = style;
-    // }
 
     /**
      * Computes the size and position of each glyph in the paragraph.
@@ -142,6 +131,12 @@ class Paragraph internal constructor(
         return paragraphImpl.getPathForRange(start, end)
     }
 
+    /** Returns rectangle of the cursor area. */
+    fun getCursorRect(offset: Int): Rect {
+        assert(offset in (0..text.length))
+        return paragraphImpl.getCursorRect(offset)
+    }
+
     /** Returns the left x Coordinate of the given line. */
     fun getLineLeft(lineIndex: Int): Float = paragraphImpl.getLineLeft(lineIndex)
 
@@ -155,24 +150,15 @@ class Paragraph internal constructor(
     fun getLineWidth(lineIndex: Int): Float = paragraphImpl.getLineWidth(lineIndex)
 
     /** Returns the text position closest to the given offset. */
-    fun getPositionForOffset(offset: Offset): TextPosition {
+    fun getPositionForOffset(offset: Offset): Int {
         return paragraphImpl.getPositionForOffset(offset)
     }
 
     /**
-     * Returns the coordinates of top and bottom end of the Caret for given TextPosition. The Caret
-     * is on the left side of the character at the given TextPosition for LTR text, and on the right
-     * side of the character at the given TextPosition for RTL text.
-     */
-    fun getCaretForTextPosition(textPosition: TextPosition): Pair<Offset, Offset> {
-        return paragraphImpl.getCaretForTextPosition(textPosition)
-    }
-
-    /**
-     * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
+     * Returns the bounding box as Rect of the character for given text position. Rect includes the
      * top, bottom, left and right of a character.
      */
-    internal fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+    internal fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
         return paragraphImpl.getBoundingBoxForTextPosition(textPosition)
     }
 

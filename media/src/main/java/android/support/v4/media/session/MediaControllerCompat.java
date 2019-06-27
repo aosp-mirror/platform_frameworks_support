@@ -544,7 +544,8 @@ public final class MediaControllerCompat {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public @Nullable VersionedParcelable getSession2Token() {
+    @Nullable
+    public VersionedParcelable getSession2Token() {
         return mToken.getSession2Token();
     }
 
@@ -1105,6 +1106,7 @@ public final class MediaControllerCompat {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void handleMessage(Message msg) {
                 if (!mRegistered) {
                     return;
@@ -1453,7 +1455,8 @@ public final class MediaControllerCompat {
          *
          * @return The attributes for this session.
          */
-        public @NonNull AudioAttributesCompat getAudioAttributes() {
+        @NonNull
+        public AudioAttributesCompat getAudioAttributes() {
             return mAudioAttrsCompat;
         }
 
@@ -1798,6 +1801,10 @@ public final class MediaControllerCompat {
                 mSessionInfo = mBinder.getSessionInfo();
             } catch (RemoteException e) {
                 Log.d(TAG, "Dead object in getSessionInfo.", e);
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
             }
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }
@@ -2293,6 +2300,10 @@ public final class MediaControllerCompat {
                     Log.e(TAG, "Dead object in getSessionInfo.", e);
                     mSessionInfo = Bundle.EMPTY;
                 }
+            }
+
+            if (MediaSessionCompat.doesBundleHaveCustomParcelable(mSessionInfo)) {
+                mSessionInfo = Bundle.EMPTY;
             }
             return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }

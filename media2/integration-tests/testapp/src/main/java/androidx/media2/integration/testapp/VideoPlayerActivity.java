@@ -17,16 +17,14 @@
 package androidx.media2.integration.testapp;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -41,9 +39,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.media2.common.MediaMetadata;
-import androidx.media2.common.UriMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.SessionPlayer;
 import androidx.media2.session.MediaController;
+import androidx.media2.session.SessionCommandGroup;
 import androidx.media2.session.SessionToken;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
@@ -62,10 +61,12 @@ public class VideoPlayerActivity extends FragmentActivity {
 
     MyVideoView mVideoView;
     View mResizeHandle;
+    MediaController mMediaController;
+    Uri mUri;
+
     private float mSpeed = 1.0f;
 
     private MediaControlView mMediaControlView = null;
-    private MediaController mMediaController = null;
 
     private int mVideoViewDX;
     private int mVideoViewDY;
@@ -88,6 +89,15 @@ public class VideoPlayerActivity extends FragmentActivity {
                 return onTouchVideoView(event);
             }
         });
+
+        SessionToken token = new SessionToken(this,
+                new ComponentName(this, VideoSessionService.class));
+        Executor executor = ContextCompat.getMainExecutor(this);
+        mMediaController = new MediaController.Builder(this)
+                .setControllerCallback(executor, new ControllerCallback())
+                .setSessionToken(token)
+                .build();
+        mVideoView.setMediaController(mMediaController);
 
         mResizeHandle = findViewById(R.id.resize_handle);
         mResizeHandle.setOnTouchListener(new View.OnTouchListener() {
@@ -133,21 +143,11 @@ public class VideoPlayerActivity extends FragmentActivity {
         if (intent == null || (videoUri = intent.getData()) == null || !videoUri.isAbsolute()) {
             errorString = "Invalid intent";
         } else {
-            UriMediaItem mediaItem = new UriMediaItem.Builder(videoUri).build();
-            mVideoView.setMediaItem(mediaItem);
-            MetadataExtractTask task = new MetadataExtractTask(mediaItem, this);
-            task.execute();
-
             mMediaControlView = new MediaControlView(this);
             mVideoView.setMediaControlView(mMediaControlView, 2000);
             mMediaControlView.setOnFullScreenListener(new FullScreenListener());
-            SessionToken token = mVideoView.getSessionToken();
 
-            Executor executor = ContextCompat.getMainExecutor(this);
-            mMediaController = new MediaController.Builder(this)
-                    .setSessionToken(token)
-                    .setControllerCallback(executor, new ControllerCallback())
-                    .build();
+            mUri = videoUri;
         }
         if (errorString != null) {
             showErrorDialog(errorString);
@@ -158,6 +158,7 @@ public class VideoPlayerActivity extends FragmentActivity {
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
+        mMediaController.close();
     }
 
     @Override
@@ -196,6 +197,23 @@ public class VideoPlayerActivity extends FragmentActivity {
         public void onPlaybackSpeedChanged(
                 @NonNull MediaController controller, float speed) {
             mSpeed = speed;
+        }
+
+        @Override
+        public void onConnected(@NonNull MediaController controller,
+                @NonNull SessionCommandGroup allowedCommands) {
+            MediaItem currentItem = controller.getCurrentMediaItem();
+            // Return if current media item exists and it is the same as the one that is selected
+            // to play.
+            if (currentItem != null
+                    && TextUtils.equals(currentItem.getMediaId(), mUri.toString())
+                    && controller.getPlayerState() != SessionPlayer.PLAYER_STATE_IDLE
+                    && controller.getPlayerState() != SessionPlayer.PLAYER_STATE_ERROR) {
+                return;
+            }
+
+            controller.setMediaItem(mUri.toString());
+            controller.prepare();
         }
     }
 
@@ -359,61 +377,5 @@ public class VideoPlayerActivity extends FragmentActivity {
             return "TextureView";
         }
         return "Unknown";
-    }
-
-    private class MetadataExtractTask extends AsyncTask<Void, Void, MediaMetadata> {
-        private UriMediaItem mItem;
-        private Context mContext;
-
-        MetadataExtractTask(UriMediaItem mediaItem, Context context) {
-            mItem = mediaItem;
-            mContext = context;
-        }
-
-        @Override
-        protected MediaMetadata doInBackground(Void... params) {
-            return extractMetadata(mItem.getUri());
-        }
-
-        @Override
-        protected void onPostExecute(MediaMetadata metadata) {
-            if (metadata != null) {
-                mItem.setMetadata(metadata);
-            }
-        }
-
-        private MediaMetadata extractMetadata(Uri uri) {
-            MediaMetadataRetriever retriever = null;
-            try {
-                // TODO: Investigate using different API to cover for both content and remote Uris.
-                retriever = new MediaMetadataRetriever();
-                retriever.setDataSource(mContext, uri);
-            } catch (IllegalArgumentException e) {
-                Log.v(TAG, "Cannot retrieve metadata for this media file.");
-                retriever = null;
-            }
-
-            if (retriever != null) {
-                MediaMetadata.Builder builder = new MediaMetadata.Builder();
-                String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-                if (title != null) {
-                    builder.putString(MediaMetadata.METADATA_KEY_TITLE, title);
-                }
-                String artist = retriever.extractMetadata(
-                        MediaMetadataRetriever.METADATA_KEY_ARTIST);
-                if (artist != null) {
-                    builder.putString(MediaMetadata.METADATA_KEY_ARTIST, artist);
-                }
-                byte[] album = retriever.getEmbeddedPicture();
-                if (album != null) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
-                    builder.putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, bitmap);
-                }
-
-                MediaMetadata metadata = builder.build();
-                return metadata;
-            }
-            return null;
-        }
     }
 }

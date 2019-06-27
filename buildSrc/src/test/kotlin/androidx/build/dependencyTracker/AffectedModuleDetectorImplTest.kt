@@ -17,6 +17,7 @@
 package androidx.build.dependencyTracker
 
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.testfixtures.ProjectBuilder
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -88,10 +89,14 @@ class AffectedModuleDetectorImplTest {
                 .withProjectDir(tmpDir)
                 .withName("root")
                 .build()
+        // Project Graph expects supportRootFolder.
+        (root.properties.get("ext") as ExtraPropertiesExtension).set("supportRootFolder", tmpDir)
         root2 = ProjectBuilder.builder()
             .withProjectDir(tmpDir2)
             .withName("root2/ui")
             .build()
+        // Project Graph expects supportRootFolder.
+        (root2.properties.get("ext") as ExtraPropertiesExtension).set("supportRootFolder", tmpDir2)
         p1 = ProjectBuilder.builder()
                 .withProjectDir(tmpDir.resolve("p1"))
                 .withName("p1")
@@ -370,6 +375,40 @@ class AffectedModuleDetectorImplTest {
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
             setOf(p10)
+        ))
+    }
+
+    @Test
+    fun changeInRootAndSubproject_onlyChanged() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf("foo.java", convertToFilePath("p7", "bar.java")))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p7, p10)
+        ))
+    }
+
+    @Test
+    fun changeInRootAndSubproject_onlyDependent() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf("foo.java", convertToFilePath("p7", "bar.java")))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
         ))
     }
 
@@ -702,7 +741,7 @@ class AffectedModuleDetectorImplTest {
                     convertToFilePath("compose", "foo.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p12)
+            setOf(p11, p12)
         ))
     }
 
@@ -756,7 +795,7 @@ class AffectedModuleDetectorImplTest {
                     convertToFilePath("compose", "foo.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p10)
+            setOf(p7, p10)
         ))
     }
 

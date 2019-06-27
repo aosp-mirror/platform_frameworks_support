@@ -63,8 +63,8 @@ public class TypefaceCompatApi26Impl extends TypefaceCompatApi21Impl {
     private static final String ABORT_CREATION_METHOD = "abortCreation";
     private static final int RESOLVE_BY_FONT_TABLE = -1;
 
-    protected final Class mFontFamily;
-    protected final Constructor mFontFamilyCtor;
+    protected final Class<?> mFontFamily;
+    protected final Constructor<?> mFontFamilyCtor;
     protected final Method mAddFontFromAssetManager;
     protected final Method mAddFontFromBuffer;
     protected final Method mFreeze;
@@ -72,8 +72,8 @@ public class TypefaceCompatApi26Impl extends TypefaceCompatApi21Impl {
     protected final Method mCreateFromFamiliesWithDefault;
 
     public TypefaceCompatApi26Impl() {
-        Class fontFamily;
-        Constructor fontFamilyCtor;
+        Class<?> fontFamily;
+        Constructor<?> fontFamilyCtor;
         Method addFontFromAssetManager;
         Method addFontFromBuffer;
         Method freeze;
@@ -192,8 +192,7 @@ public class TypefaceCompatApi26Impl extends TypefaceCompatApi21Impl {
     private void abortCreation(Object family) {
         try {
             mAbortCreation.invoke(family);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-        }
+        } catch (IllegalAccessException | InvocationTargetException ignored) { }
     }
 
     @Override
@@ -313,36 +312,38 @@ public class TypefaceCompatApi26Impl extends TypefaceCompatApi21Impl {
     // across different API versions, inheriting classes should override these getters in order to
     // reflect the method definitions in the API versions they represent.
     //===========================================================================================
-    protected Class obtainFontFamily() throws ClassNotFoundException {
+    protected Class<?> obtainFontFamily() throws ClassNotFoundException {
         return Class.forName(FONT_FAMILY_CLASS);
     }
 
-    protected Constructor obtainFontFamilyCtor(Class fontFamily) throws NoSuchMethodException {
+    protected Constructor<?> obtainFontFamilyCtor(Class<?> fontFamily)
+            throws NoSuchMethodException {
         return fontFamily.getConstructor();
     }
 
-    protected Method obtainAddFontFromAssetManagerMethod(Class fontFamily)
+    protected Method obtainAddFontFromAssetManagerMethod(Class<?> fontFamily)
             throws NoSuchMethodException {
         return fontFamily.getMethod(ADD_FONT_FROM_ASSET_MANAGER_METHOD,
                 AssetManager.class, String.class, Integer.TYPE, Boolean.TYPE, Integer.TYPE,
                 Integer.TYPE, Integer.TYPE, FontVariationAxis[].class);
     }
 
-    protected Method obtainAddFontFromBufferMethod(Class fontFamily) throws NoSuchMethodException {
+    protected Method obtainAddFontFromBufferMethod(Class<?> fontFamily)
+            throws NoSuchMethodException {
         return fontFamily.getMethod(ADD_FONT_FROM_BUFFER_METHOD,
                 ByteBuffer.class, Integer.TYPE, FontVariationAxis[].class, Integer.TYPE,
                 Integer.TYPE);
     }
 
-    protected Method obtainFreezeMethod(Class fontFamily) throws NoSuchMethodException {
+    protected Method obtainFreezeMethod(Class<?> fontFamily) throws NoSuchMethodException {
         return fontFamily.getMethod(FREEZE_METHOD);
     }
 
-    protected Method obtainAbortCreationMethod(Class fontFamily) throws NoSuchMethodException {
+    protected Method obtainAbortCreationMethod(Class<?> fontFamily) throws NoSuchMethodException {
         return fontFamily.getMethod(ABORT_CREATION_METHOD);
     }
 
-    protected Method obtainCreateFromFamiliesWithDefaultMethod(Class fontFamily)
+    protected Method obtainCreateFromFamiliesWithDefaultMethod(Class<?> fontFamily)
             throws NoSuchMethodException {
         Object familyArray = Array.newInstance(fontFamily, 1);
         Method m =  Typeface.class.getDeclaredMethod(CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD,

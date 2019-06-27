@@ -50,6 +50,7 @@ abstract class CreateAggregateLibraryBuildInfoFileTask : DefaultTask() {
     }
 
     private data class AllLibraryBuildInfoFiles(
+<<<<<<< HEAD   (2cbeb6 Merge "Merge cherrypicks of [988983] into androidx-jetifier-)
         val Artifacts: ArrayList<LibraryBuildInfoFile>
     )
 
@@ -84,6 +85,42 @@ abstract class CreateAggregateLibraryBuildInfoFileTask : DefaultTask() {
         // data from each of these $groupId-$artifactId-_build_info.txt files
         var output = StringBuilder()
         output.append("{ \"Artifacts\": [\n")
+=======
+        val artifacts: ArrayList<LibraryBuildInfoFile>
+    )
+
+    /**
+     * Reads in file and checks that json is valid
+     */
+    private fun jsonFileIsValid(jsonFile: File, artifactList: MutableList<String>): Boolean {
+        if (!jsonFile.exists()) {
+            return false
+        }
+        val gson = Gson()
+        val jsonString: String = jsonFile.readText(Charsets.UTF_8)
+        val aggregateBuildInfoFile = gson.fromJson(jsonString, AllLibraryBuildInfoFiles::class.java)
+        aggregateBuildInfoFile.artifacts.forEach { artifact ->
+            if (!artifactList.contains("${artifact.groupId}_${artifact.artifactId}")) {
+                println("Failed to find ${artifact.artifactId} in artifact list!")
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * Create the output file to contain the final complete AndroidX project build info graph
+     * file.  Iterate through the list of project-specific build info files, and collects
+     * all dependencies as a JSON string. Finally, write this complete dependency graph to a text
+     * file as a json list of every project's build information
+     */
+    @TaskAction
+    fun createAndroidxAggregateBuildInfoFile() {
+        // Loop through each file in the list of libraryBuildInfoFiles and collect all build info
+        // data from each of these $groupId-$artifactId-_build_info.txt files
+        var output = StringBuilder()
+        output.append("{ \"artifacts\": [\n")
+>>>>>>> BRANCH (0ed9ab Merge "Fix build due to CL race." into androidx-master-dev)
         var artifactList = mutableListOf<String>()
         for (infoFile in libraryBuildInfoFiles.get()) {
             if ((infoFile.isFile and (infoFile.name != outputFile.name))

@@ -35,7 +35,7 @@ object LibraryGroups {
     val CAR = LibraryGroup("androidx.car", false)
     val CARDVIEW = LibraryGroup("androidx.cardview")
     val COLLECTION = LibraryGroup("androidx.collection")
-    val CONCURRENT = LibraryGroup("androidx.concurrent", false)
+    val CONCURRENT = LibraryGroup("androidx.concurrent")
     val CONTENTPAGER = LibraryGroup("androidx.contentpager")
     val COORDINATORLAYOUT = LibraryGroup("androidx.coordinatorlayout")
     val COMPOSE = LibraryGroup("androidx.compose", false)
@@ -51,6 +51,7 @@ object LibraryGroups {
     val FRAGMENT = LibraryGroup("androidx.fragment")
     val GRIDLAYOUT = LibraryGroup("androidx.gridlayout")
     val HEIFWRITER = LibraryGroup("androidx.heifwriter")
+    val INSPECTION = LibraryGroup("androidx.inspection")
     val INTERPOLATOR = LibraryGroup("androidx.interpolator")
     val JETIFIER = LibraryGroup("com.android.tools.build.jetifier", false)
     val LEANBACK = LibraryGroup("androidx.leanback", false)
@@ -89,7 +90,7 @@ object LibraryGroups {
     val VIEWPAGER2 = LibraryGroup("androidx.viewpager2")
     val WEAR = LibraryGroup("androidx.wear")
     val WEBKIT = LibraryGroup("androidx.webkit")
-    val WORKMANAGER = LibraryGroup("androidx.work")
+    val WORK = LibraryGroup("androidx.work")
 }
 
 /**

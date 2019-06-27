@@ -37,6 +37,7 @@ internal object ResultWriter {
             // Ideally, append for efficiency
             val packageName =
                 InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
+            @Suppress("DEPRECATION") // b/134925431
             val filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
             val file = File(filePath, "$packageName-benchmarkData.json")
             writeReport(file, reports)
@@ -47,7 +48,7 @@ internal object ResultWriter {
     internal fun writeReport(file: File, reports: List<BenchmarkState.Report>) {
         file.run {
             if (!exists()) {
-                parentFile.mkdirs()
+                parentFile?.mkdirs()
                 createNewFile()
             }
 
@@ -58,7 +59,10 @@ internal object ResultWriter {
 
             writer.name("context").beginObject()
                 .name("build").buildInfoObject()
-                .name("cpuLocked").value(Clocks.areLocked)
+                .name("cpuCoreCount").value(CpuInfo.coreDirs.size)
+                .name("cpuLocked").value(CpuInfo.locked)
+                .name("cpuMaxFreqHz").value(CpuInfo.maxFreqHz)
+                .name("memTotalBytes").value(MemInfo.memTotalBytes)
                 .name("sustainedPerformanceModeEnabled")
                 .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
             writer.endObject()
@@ -90,6 +94,7 @@ internal object ResultWriter {
             .name("metrics").metricsObject(report)
             .name("warmupIterations").value(report.warmupIterations)
             .name("repeatIterations").value(report.repeatIterations)
+            .name("thermalThrottleSleepSeconds").value(report.thermalThrottleSleepSeconds)
 
         return endObject()
     }

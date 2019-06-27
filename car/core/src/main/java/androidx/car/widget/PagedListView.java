@@ -35,6 +35,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +48,7 @@ import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
 import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -296,10 +299,10 @@ public class PagedListView extends FrameLayout {
 
             int listDividerColorRes = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
+            int listDividerColor = ContextCompat.getColor(context, listDividerColorRes);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
-                    dividerEndMargin, dividerStartId, dividerEndId,
-                    context.getColor(listDividerColorRes)));
+                    dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
         }
 
         int itemSpacing = a.getDimensionPixelSize(R.styleable.PagedListView_itemSpacing, 0);
@@ -534,7 +537,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param enabled {@code true} to enable the scroll bar.
      */
-    public void setScrollBarEnabled(boolean enabled) {
+    public final void setScrollBarEnabled(boolean enabled) {
         mScrollBarEnabled = enabled;
         mScrollBarView.setVisibility(mScrollBarEnabled ? VISIBLE : GONE);
     }
@@ -542,7 +545,7 @@ public class PagedListView extends FrameLayout {
     /**
      * Returns {@code true} if the scroll bar is enabled.
      */
-    public boolean isScrollBarEnabled() {
+    public final boolean isScrollBarEnabled() {
         return mScrollBarEnabled;
     }
 
@@ -883,6 +886,34 @@ public class PagedListView extends FrameLayout {
                 ((DividerDecoration) decor).setDividerColor(dividerColor);
             }
         }
+    }
+
+    /**
+     * Sets the color of the scrollbar thumb.
+     *
+     * @param color Resource identifier of the color.
+     */
+    public void setScrollbarThumbColor(@ColorRes int color) {
+        mScrollBarView.setScrollbarThumbColor(color);
+    }
+
+    /**
+     * Sets the tint color for the up and down buttons of the scrollbar.
+     *
+     * @param tintResId Resource identifier of the tint color.
+     */
+    public void setScrollBarButtonTintColor(@ColorRes int tintResId) {
+        mScrollBarView.setButtonTintColor(tintResId);
+    }
+
+    /**
+     * Sets the drawable that will function as the background for the buttons of the scrollbar. This
+     * background should provide the ripple.
+     *
+     * @param backgroundResId The drawable resource identifier for the ripple background.
+     */
+    public void setScrollBarButtonRippleBackground(@DrawableRes int backgroundResId) {
+        mScrollBarView.setButtonRippleBackground(backgroundResId);
     }
 
     /**

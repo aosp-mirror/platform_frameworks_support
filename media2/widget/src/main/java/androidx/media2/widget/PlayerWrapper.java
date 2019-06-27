@@ -16,8 +16,11 @@
 
 package androidx.media2.widget;
 
+import android.view.Surface;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.media2.common.BaseResult;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
@@ -28,6 +31,9 @@ import androidx.media2.session.MediaController;
 import androidx.media2.session.SessionCommand;
 import androidx.media2.session.SessionCommandGroup;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -35,13 +41,15 @@ import java.util.concurrent.Executor;
  * Wrapper for MediaController and SessionPlayer
  */
 class PlayerWrapper {
-    private final MediaController mController;
-    private final SessionPlayer mPlayer;
+    final MediaController mController;
+    final SessionPlayer mPlayer;
 
     private final Executor mCallbackExecutor;
 
-    private final MediaController.ControllerCallback mControllerCallback;
-    private final SessionPlayer.PlayerCallback mPlayerCallback;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final PlayerCallback mWrapperCallback;
+    private final MediaControllerCallback mControllerCallback;
+    private final SessionPlayerCallback mPlayerCallback;
 
     private boolean mCallbackAttached;
 
@@ -53,6 +61,8 @@ class PlayerWrapper {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaMetadata mMediaMetadata;
 
+    private final SessionCommandGroup mAllCommands;
+
     PlayerWrapper(@NonNull MediaController controller, @NonNull Executor executor,
             @NonNull PlayerCallback callback) {
         if (controller == null) throw new NullPointerException("controller must not be null");
@@ -60,10 +70,13 @@ class PlayerWrapper {
         if (callback == null) throw new NullPointerException("callback must not be null");
         mController = controller;
         mCallbackExecutor = executor;
-        mControllerCallback = new MediaControllerCallback(callback);
+        mWrapperCallback = callback;
+        mControllerCallback = new MediaControllerCallback();
 
         mPlayer = null;
         mPlayerCallback = null;
+
+        mAllCommands = null;
     }
 
     PlayerWrapper(@NonNull SessionPlayer player, @NonNull Executor executor,
@@ -73,10 +86,15 @@ class PlayerWrapper {
         if (callback == null) throw new NullPointerException("callback must not be null");
         mPlayer = player;
         mCallbackExecutor = executor;
-        mPlayerCallback = new SessionPlayerCallback(callback);
+        mWrapperCallback = callback;
+        mPlayerCallback = new SessionPlayerCallback();
 
         mController = null;
         mControllerCallback = null;
+
+        mAllCommands = new SessionCommandGroup.Builder()
+                .addAllPredefinedCommands(SessionCommand.COMMAND_VERSION_1)
+                .build();
     }
 
     void attachCallback() {
@@ -86,7 +104,7 @@ class PlayerWrapper {
         } else if (mPlayer != null) {
             mPlayer.registerPlayerCallback(mCallbackExecutor, mPlayerCallback);
         }
-        updateCachedStates();
+        updateAndNotifyCachedStates();
         mCallbackAttached = true;
     }
 
@@ -105,6 +123,9 @@ class PlayerWrapper {
     }
 
     long getCurrentPosition() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return 0;
+        }
         long position = 0;
         if (mController != null) {
             position = mController.getCurrentPosition();
@@ -115,6 +136,9 @@ class PlayerWrapper {
     }
 
     long getBufferPercentage() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return 0;
+        }
         long duration = getDurationMs();
         if (duration == 0) return 0;
         long bufferedPos = 0;
@@ -123,7 +147,7 @@ class PlayerWrapper {
         } else if (mPlayer != null) {
             bufferedPos = mPlayer.getBufferedPosition();
         }
-        return (bufferedPos < 0) ? -1 : (bufferedPos * 100 / duration);
+        return (bufferedPos < 0) ? 0 : (bufferedPos * 100 / duration);
     }
 
     int getPlayerState() {
@@ -211,7 +235,16 @@ class PlayerWrapper {
         }
     }
 
-    void setSpeed(float speed) {
+    private float getPlaybackSpeed() {
+        if (mController != null) {
+            return mController.getPlaybackSpeed();
+        } else if (mPlayer != null) {
+            return mPlayer.getPlaybackSpeed();
+        }
+        return 1f;
+    }
+
+    void setPlaybackSpeed(float speed) {
         if (mController != null) {
             mController.setPlaybackSpeed(speed);
         } else if (mPlayer != null) {
@@ -236,12 +269,16 @@ class PlayerWrapper {
     }
 
     long getDurationMs() {
-        if (mController != null) {
-            return mController.getDuration();
-        } else if (mPlayer != null) {
-            return mPlayer.getDuration();
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return 0;
         }
-        return SessionPlayer.UNKNOWN_TIME;
+        long duration = 0;
+        if (mController != null) {
+            duration = mController.getDuration();
+        } else if (mPlayer != null) {
+            duration = mPlayer.getDuration();
+        }
+        return (duration < 0) ? 0 : duration;
     }
 
     CharSequence getTitle() {
@@ -278,22 +315,51 @@ class PlayerWrapper {
             return mController.getAllowedCommands();
         } else if (mPlayer != null) {
             // We can assume direct players allow all commands since no MediaSession is involved.
-            return new SessionCommandGroup.Builder()
-                    .addAllPredefinedCommands(SessionCommand.COMMAND_VERSION_CURRENT)
-                    .build();
+            return mAllCommands;
         }
         return null;
     }
 
-    private void updateCachedStates() {
-        mSavedPlayerState = getPlayerState();
-        mAllowedCommands = getAllowedCommands();
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void updateAndNotifyCachedStates() {
+        boolean playerStateChanged = false;
+        int playerState = getPlayerState();
+        if (mSavedPlayerState != playerState) {
+            mSavedPlayerState = playerState;
+            playerStateChanged = true;
+        }
+
+        boolean allowedCommandsChanged = false;
+        SessionCommandGroup allowedCommands = getAllowedCommands();
+        if (mAllowedCommands != allowedCommands) {
+            mAllowedCommands = allowedCommands;
+            allowedCommandsChanged = true;
+        }
+
         MediaItem item = getCurrentMediaItem();
         mMediaMetadata = item == null ? null : item.getMetadata();
+
+        if (playerStateChanged) {
+            mWrapperCallback.onPlayerStateChanged(this, playerState);
+        }
+        if (allowedCommands != null && allowedCommandsChanged) {
+            mWrapperCallback.onAllowedCommandsChanged(this, allowedCommands);
+        }
+        mWrapperCallback.onCurrentMediaItemChanged(this, item);
+
+        // notify other non-cached states
+        mWrapperCallback.onPlaybackSpeedChanged(this, getPlaybackSpeed());
+        List<TrackInfo> trackInfos = getTrackInfo();
+        if (trackInfos != null) {
+            mWrapperCallback.onTrackInfoChanged(this, trackInfos);
+        }
     }
 
     @NonNull
     VideoSize getVideoSize() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return new VideoSize(0, 0);
+        }
         if (mController != null) {
             return mController.getVideoSize();
         } else if (mPlayer != null) {
@@ -302,18 +368,24 @@ class PlayerWrapper {
         return new VideoSize(0, 0);
     }
 
-    @Nullable
+    @NonNull
     List<TrackInfo> getTrackInfo() {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return null;
+        }
         if (mController != null) {
             return mController.getTrackInfo();
         } else if (mPlayer != null) {
             return mPlayer.getTrackInfoInternal();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Nullable
     TrackInfo getSelectedTrack(int trackType) {
+        if (mSavedPlayerState == SessionPlayer.PLAYER_STATE_IDLE) {
+            return null;
+        }
         if (mController != null) {
             return mController.getSelectedTrack(trackType);
         } else if (mPlayer != null) {
@@ -322,23 +394,30 @@ class PlayerWrapper {
         return null;
     }
 
-    private class MediaControllerCallback extends MediaController.ControllerCallback {
-        private final PlayerCallback mWrapperCallback;
+    ListenableFuture<? extends BaseResult> setSurface(Surface surface) {
+        if (mController != null) {
+            return mController.setSurface(surface);
+        } else if (mPlayer != null) {
+            return mPlayer.setSurfaceInternal(surface);
+        }
+        return null;
+    }
 
-        MediaControllerCallback(@NonNull PlayerCallback callback) {
-            mWrapperCallback = callback;
+    private class MediaControllerCallback extends MediaController.ControllerCallback {
+        MediaControllerCallback() {
         }
 
         @Override
         public void onConnected(@NonNull MediaController controller,
                 @NonNull SessionCommandGroup allowedCommands) {
-            onAllowedCommandsChanged(controller, allowedCommands);
-            onCurrentMediaItemChanged(controller, controller.getCurrentMediaItem());
+            mWrapperCallback.onConnected(PlayerWrapper.this);
+            updateAndNotifyCachedStates();
         }
 
         @Override
         public void onAllowedCommandsChanged(@NonNull MediaController controller,
                 @NonNull SessionCommandGroup commands) {
+            if (mAllowedCommands == commands) return;
             mAllowedCommands = commands;
             mWrapperCallback.onAllowedCommandsChanged(PlayerWrapper.this, commands);
         }
@@ -404,10 +483,7 @@ class PlayerWrapper {
     }
 
     private class SessionPlayerCallback extends SessionPlayer.PlayerCallback {
-        private final PlayerCallback mWrapperCallback;
-
-        SessionPlayerCallback(@NonNull PlayerCallback callback) {
-            mWrapperCallback = callback;
+        SessionPlayerCallback() {
         }
 
         @Override
@@ -430,7 +506,7 @@ class PlayerWrapper {
         @Override
         public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
                 @NonNull MediaItem item) {
-            mMediaMetadata = item.getMetadata();
+            mMediaMetadata = item == null ? null : item.getMetadata();
             mWrapperCallback.onCurrentMediaItemChanged(PlayerWrapper.this, item);
         }
 
@@ -469,6 +545,8 @@ class PlayerWrapper {
     }
 
     abstract static class PlayerCallback {
+        void onConnected(@NonNull PlayerWrapper player) {
+        }
         void onAllowedCommandsChanged(@NonNull PlayerWrapper player,
                 @NonNull SessionCommandGroup commands) {
         }
