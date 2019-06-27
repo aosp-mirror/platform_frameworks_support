@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d86b37_4a4951b2",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-06-27T20:05:48Z",
+      "side": 1,
+      "message": "Should this line be changed to use mContext instead of getContext(), too?",
+      "revId": "b50584e9b51d70a0a464e218ae218513cd5d09fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
