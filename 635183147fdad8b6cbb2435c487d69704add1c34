@@ -71,6 +71,23 @@
     },
     {
       "key": {
+        "uuid": "bb33643a_3ffa7b09",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:27:38Z",
+      "side": 1,
+      "message": "I think this one is a tricky one. Because if you don\u0027t wait for a little bit, then the verify will run immediately after the Runnable is posted.\n\nThis means that it is likely the use case hasn\u0027t even been bound nor has the camera even started up yet.\n\nTwo possible solutions:\n1) Create an ImageCapture and call take a picture then wait for that to return. Once that returns then the camera must have started to stream images. It is at this time you can call the verify.\n2) Create a second ImageAnalysis. Wait until the second ImageAnalysis gets some Images then call verify, because it means the camera has started to stream.",
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4558251_61808ee0",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 7
@@ -88,6 +105,23 @@
         "endLine": 145,
         "endChar": 96
       },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848ce351_6541e95b",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:27:38Z",
+      "side": 1,
+      "message": "Why was the order of open() and addOnlineUSeCase() changed?\n\nWe should be able to call addOnlineUseCase() after a camera has opened. If you had to change the order of the calls in order to make the test pass, then it means there is something going wrong.",
       "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
