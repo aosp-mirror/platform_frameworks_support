@@ -165,3 +165,5 @@ inline fun Sp.coerceAtMost(maximumValue: Sp): Sp =
 fun lerp(a: Sp, b: Sp, t: Float): Sp {
     return Sp(androidx.ui.lerp(a.value, b.value, t))
 }
+
+inline fun Sp.toPx(density: Density): Px = Px(value * density.fontScale * density.density)

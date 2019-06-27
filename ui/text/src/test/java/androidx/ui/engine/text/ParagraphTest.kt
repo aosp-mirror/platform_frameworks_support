@@ -125,10 +125,12 @@ class ParagraphTest {
     }
 
     private fun createParagraph(paragraphStyle: ParagraphStyle): Paragraph {
-        return Paragraph(text = "",
+        return Paragraph(
+            text = "",
             style = TextStyle(),
             paragraphStyle = paragraphStyle,
-            textStyles = listOf())
+            textStyles = listOf()
+        )
     }
 
     private fun createParagraphStyle(): ParagraphStyle {

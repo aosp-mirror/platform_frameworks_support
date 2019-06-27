@@ -96,6 +96,7 @@ package androidx.ui.core {
 
   public final class Density {
     ctor public Density(float density, float fontScale);
+    ctor public Density();
     method public float component1();
     method public float component2();
     method public androidx.ui.core.Density copy(float density, float fontScale);
@@ -227,6 +228,7 @@ package androidx.ui.core {
     method public static inline operator androidx.ui.core.Dp times(double, androidx.ui.core.Dp other);
     method public static inline operator androidx.ui.core.Dp times(int, androidx.ui.core.Dp other);
     method public static androidx.ui.core.Bounds toBounds(androidx.ui.core.Size);
+    method public static inline androidx.ui.core.Px toPx(androidx.ui.core.Dp, androidx.ui.core.Density density);
     method public static inline androidx.ui.core.Size toSize(androidx.ui.core.Bounds);
   }
 
@@ -652,6 +654,7 @@ package androidx.ui.core {
     method public static inline operator androidx.ui.core.Sp times(float, androidx.ui.core.Sp other);
     method public static inline operator androidx.ui.core.Sp times(double, androidx.ui.core.Sp other);
     method public static inline operator androidx.ui.core.Sp times(int, androidx.ui.core.Sp other);
+    method public static inline androidx.ui.core.Px toPx(androidx.ui.core.Sp, androidx.ui.core.Density density);
   }
 
   public final class TextRange {

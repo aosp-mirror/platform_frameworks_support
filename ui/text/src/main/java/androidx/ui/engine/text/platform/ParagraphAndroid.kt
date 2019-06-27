@@ -53,7 +53,9 @@ import androidx.text.style.ShadowSpan
 import androidx.text.style.SkewXSpan
 import androidx.text.style.TypefaceSpan
 import androidx.text.style.WordSpacingSpan
+import androidx.ui.core.Density
 import androidx.ui.core.px
+import androidx.ui.core.toPx
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.FontStyle
@@ -77,7 +79,8 @@ internal class ParagraphAndroid constructor(
     val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
     val textStyles: List<AnnotatedString.Item<TextStyle>>,
-    val typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
+    val typefaceAdapter: TypefaceAdapter = TypefaceAdapter(),
+    val density: Density = Density()
 ) {
     @VisibleForTesting
     internal val textPaint = TextPaint(android.graphics.Paint.ANTI_ALIAS_FLAG)
@@ -138,12 +141,19 @@ internal class ParagraphAndroid constructor(
     fun layout(width: Float) {
         val floorWidth = floor(width)
 
-        val newStyle = style.applyTextStyle(textPaint, typefaceAdapter)
+        val newStyle = style.applyTextStyle(textPaint, typefaceAdapter, density)
 
         val charSequence = applyTextStyle(
-            text,
-            paragraphStyle.textIndent,
-            listOf(AnnotatedString.Item<TextStyle>(newStyle, 0, text.length)) + textStyles
+            text = text,
+            textIndent = paragraphStyle.textIndent,
+            textStyles = listOf(
+                AnnotatedString.Item<TextStyle>(
+                    newStyle,
+                    0,
+                    text.length
+                )
+            ) + textStyles,
+            density = density
         )
 
         val alignment = toLayoutAlign(paragraphStyle.textAlign)
@@ -257,7 +267,7 @@ internal class ParagraphAndroid constructor(
         canvas.translate(-x, -y)
     }
 
-    private fun createTypeface(style: androidx.ui.engine.text.TextStyle): Typeface {
+    private fun createTypeface(style: TextStyle): Typeface {
         return typefaceAdapter.create(
             fontFamily = style.fontFamily,
             fontWeight = style.fontWeight ?: FontWeight.normal,
@@ -269,7 +279,8 @@ internal class ParagraphAndroid constructor(
     private fun applyTextStyle(
         text: String,
         textIndent: TextIndent?,
-        textStyles: List<AnnotatedString.Item<TextStyle>>
+        textStyles: List<AnnotatedString.Item<TextStyle>>,
+        density: Density
     ): CharSequence {
         if (textStyles.isEmpty() && textIndent == null) return text
         val spannableString = SpannableString(text)
@@ -290,7 +301,7 @@ internal class ParagraphAndroid constructor(
         for (textStyle in textStyles) {
             val start = textStyle.start
             val end = textStyle.end
-            val style = textStyle.style.getTextStyle()
+            val style = textStyle.style
 
             if (start < 0 || start >= text.length || end <= start || end > text.length) continue
 
@@ -335,7 +346,7 @@ internal class ParagraphAndroid constructor(
 
             style.fontSize?.let {
                 spannableString.setSpan(
-                    AbsoluteSizeSpan(it.roundToInt()),
+                    AbsoluteSizeSpan(it.toPx(density).value.roundToInt()),
                     start,
                     end,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -444,11 +455,12 @@ internal class ParagraphAndroid constructor(
 
 private fun TextStyle.applyTextStyle(
     textPaint: TextPaint,
-    typefaceAdapter: TypefaceAdapter
+    typefaceAdapter: TypefaceAdapter,
+    density: Density
 ): TextStyle {
     // TODO(haoyuchang) remove this engine.ParagraphStyle
     fontSize?.let {
-        textPaint.textSize = it
+        textPaint.textSize = it.toPx(density).value
     }
 
     // fontSizeScale must be applied after fontSize is applied.
@@ -459,7 +471,7 @@ private fun TextStyle.applyTextStyle(
     // TODO(siyamed): This default values are problem here. If the user just gives a single font
     // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
     // call as FontWeight.normal (which is the default value)
-    if (getTextStyle().hasFontAttributes()) {
+    if (hasFontAttributes()) {
         textPaint.typeface = typefaceAdapter.create(
             fontFamily = fontFamily,
             fontWeight = fontWeight ?: FontWeight.normal,
@@ -530,7 +542,7 @@ private fun TextStyle.applyTextStyle(
 /**
  * Returns true if this [TextStyle] contains any font style attributes set.
  */
-private fun androidx.ui.engine.text.TextStyle.hasFontAttributes(): Boolean {
+private fun TextStyle.hasFontAttributes(): Boolean {
     return fontFamily != null || fontStyle != null || fontWeight != null
 }
 
