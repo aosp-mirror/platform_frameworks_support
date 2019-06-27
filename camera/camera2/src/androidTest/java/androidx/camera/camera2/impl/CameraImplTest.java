@@ -53,7 +53,6 @@ import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
@@ -233,7 +232,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void addOnline_OneUseCase() {
         blockHandler();
 
@@ -252,7 +251,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void addOnline_SameUseCases() {
         blockHandler();
 
@@ -269,7 +268,7 @@ public class CameraImplTest {
 
 
     @Test
-    @MediumTest
+    @LargeTest
     public void addOnline_alreadyOnline() {
         blockHandler();
 
@@ -299,7 +298,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void addOnline_twoUseCases() {
         blockHandler();
 
@@ -323,7 +322,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void addOnline_fromPendingOffline() {
         blockHandler();
 
@@ -353,7 +352,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void removeOnline_notOnline() {
         blockHandler();
 
@@ -370,7 +369,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void removeOnline_fromPendingOnline() {
         blockHandler();
 
@@ -388,7 +387,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void removeOnline_fromOnlineUseCases() {
         blockHandler();
 
@@ -424,7 +423,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void removeOnline_twoSameUseCase() {
         blockHandler();
 
@@ -452,7 +451,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void onlineUseCase_changeSurface_onUseCaseUpdated_correctAttachCount() {
         blockHandler();
 
@@ -481,7 +480,7 @@ public class CameraImplTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void onlineUseCase_changeSurface_onUseCaseReset_correctAttachCount() {
         blockHandler();
 
@@ -539,7 +538,7 @@ public class CameraImplTest {
 
 
     @Test
-    @MediumTest
+    @LargeTest
     public void offlineUseCase_changeSurface_onUseCaseUpdated_correctAttachCount() {
         blockHandler();
 
