@@ -70,6 +70,30 @@
       "revId": "aefabddc72d77bbee7c964cdcbcdb0853cc12d60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6793665_457fe6fd",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlView_WithSthTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-27T03:54:54Z",
+      "side": 1,
+      "message": "Talked offline. It\u0027s confusing because of the name of the tests.\n\nChanged the name and added comments. PTAL.",
+      "parentUuid": "c8ebadc5_349c8dcd",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 5
+      },
+      "revId": "aefabddc72d77bbee7c964cdcbcdb0853cc12d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
