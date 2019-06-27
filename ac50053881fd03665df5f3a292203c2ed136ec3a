@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a20cd46c_cbca24c9",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/DrawShape.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T16:07:05Z",
+      "side": 1,
+      "message": "I think shape.createOutline will be more readable. You are not saving much with this, but for unfamiliar reader it\u0027s much harder to understand what\u0027s going on.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8438403f_fe6fc8d7",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/DrawShape.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T16:07:05Z",
+      "side": 1,
+      "message": "Draw instead of Fill, as it still draws",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 7
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1ed1e7_29412036",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T16:07:05Z",
+      "side": 1,
+      "message": "Why Border is nullable in the widget called DrawBorder? It seems like when I want to draw the border, I should pass the Border, isn\u0027t it?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8aa5c1f_b19c7565",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T16:07:05Z",
+      "side": 1,
+      "message": "Do you really need this with(shape)? it\u0027s only for createOutline, right? I don\u0027t see anything bad in calling shape.createOutline, especially in components such DrawBorder, where Border is the main actor and Shape is just for outline. What do you think?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
