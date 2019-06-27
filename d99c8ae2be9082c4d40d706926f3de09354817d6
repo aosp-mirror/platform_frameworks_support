@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "39d613dd_1797aff2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-27T15:53:49Z",
+      "side": 1,
+      "message": "nit^2 :) I think this would be better:\nran StackTest#testStackWithPositionedChildren and StackUsage in ComplexLayoutDemos",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca69a448_fc8df94e",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-27T15:53:49Z",
+      "side": 1,
+      "message": "I think it would also be great to add an additional test with two positioned children, where one positioned child uses the default fallbackAlignment and one uses a specified one.",
+      "range": {
+        "startLine": 195,
+        "startChar": 56,
+        "endLine": 195,
+        "endChar": 97
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efe3bf1f_616fe67b",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
         "patchSetId": 2
