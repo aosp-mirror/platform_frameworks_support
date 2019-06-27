@@ -17,6 +17,7 @@
 package androidx.biometric;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,6 +49,9 @@ import java.util.concurrent.Executor;
 public class BiometricFragment extends Fragment {
 
     private static final String TAG = "BiometricFragment";
+
+    // Re-set in onAttach
+    private Context mContext;
 
     // Set whenever the support library's authenticate is called.
     private Bundle mBundle;
@@ -87,7 +91,7 @@ public class BiometricFragment extends Fragment {
                         public void run() {
                             CharSequence error = errString;
                             if (error == null) {
-                                error = getContext().getString(R.string.default_error_msg) + " "
+                                error = mContext.getString(R.string.default_error_msg) + " "
                                         + errorCode;
                             }
                             mClientAuthenticationCallback
@@ -213,6 +217,12 @@ public class BiometricFragment extends Fragment {
 
     public boolean isDeviceCredentialAllowed() {
         return mBundle.getBoolean(BiometricPrompt.KEY_ALLOW_DEVICE_CREDENTIAL, false);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Override
