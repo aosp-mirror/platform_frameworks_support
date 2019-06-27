@@ -23,7 +23,7 @@ import androidx.ui.painting.Canvas
 /**
  * A density of the screen. Used for convert [Dp] to pixels.
  */
-data class Density(val density: Float, val fontScale: Float = 1f)
+data class Density(val density: Float = 1f, val fontScale: Float = 1f)
 
 /**
  * Creates a [Density] from this [Context]
@@ -69,7 +69,7 @@ interface DensityReceiver {
     /**
      * Convert [Dp] to [Px]. Pixels are used to paint to [Canvas].
      */
-    fun Dp.toPx(): Px = Px(value * density.density)
+    fun Dp.toPx(): Px = toPx(density)
 
     /**
      * Convert [Dp] to [IntPx] by rounding
@@ -84,7 +84,7 @@ interface DensityReceiver {
     /**
      * Convert [Sp] to [Px]. Pixels are used to paint to [Canvas].
      */
-    fun Sp.toPx(): Px = Px(value * density.fontScale * density.density)
+    fun Sp.toPx(): Px = toPx(density)
 
     /**
      * Convert [Sp] to [IntPx] by rounding

@@ -191,8 +191,12 @@ fun Text(
     // TODO(Migration/siyamed): This is temporary and should be removed when resource
     //  system is resolved.
     val context = composer.composer.context
+    val density = +ambient(DensityAmbient)
+
     mergedStyle.fontFamily?.context = context
-    text.textStyles.forEach { it.style.fontFamily?.context = context }
+    text.textStyles.forEach {
+        it.style.fontFamily?.context = context
+    }
 
     Semantics(label = text.text) {
         val textPainter = TextPainter(
@@ -202,7 +206,8 @@ fun Text(
             softWrap = softWrap,
             overflow = overflow,
             textScaleFactor = textScaleFactor,
-            maxLines = maxLines
+            maxLines = maxLines,
+            density = density
         )
         val children = @Composable {
             // Get the layout coordinates of the text widget. This is for hit test of cross-widget

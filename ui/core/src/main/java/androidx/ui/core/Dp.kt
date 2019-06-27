@@ -197,6 +197,8 @@ inline fun Dp.coerceAtMost(maximumValue: Dp): Dp =
  */
 inline fun Dp.isFinite(): Boolean = value != Float.POSITIVE_INFINITY
 
+inline fun Dp.toPx(density: Density): Px = Px(value * density.density)
+
 /**
  * Linearly interpolate between two [Dp]s.
  *

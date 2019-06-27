@@ -22,6 +22,7 @@ import android.graphics.Typeface
 import android.text.Layout
 import android.text.TextPaint
 import androidx.text.TextLayout
+import androidx.ui.core.Sp
 import kotlin.math.ceil
 
 internal fun ParagraphAndroid.bitmap(): Bitmap {
@@ -61,3 +62,5 @@ fun Typeface.bitmap(text: String): Bitmap {
     )
     return layout.layout.bitmap()
 }
+
+internal fun Sp.px(): Float = value

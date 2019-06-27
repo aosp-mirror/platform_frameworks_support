@@ -21,6 +21,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.ui.core.Constraints
 import androidx.ui.core.ipx
+import androidx.ui.core.sp
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
@@ -28,6 +29,7 @@ import androidx.ui.engine.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.font.asFontFamily
+import androidx.ui.engine.text.platform.px
 import androidx.ui.graphics.Color
 import androidx.ui.matchers.equalToBitmap
 import androidx.ui.rendering.paragraph.TextOverflow
@@ -53,12 +55,12 @@ class TextPainterIntegrationTest {
 
     @Test
     fun preferredLineHeight_style_set() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val textPainter = TextPainter(style = textStyle)
         val preferredHeight = textPainter.preferredLineHeight
 
-        assertThat(preferredHeight).isEqualTo(fontSize)
+        assertThat(preferredHeight).isEqualTo(fontSize.px())
     }
 
     // TODO(Migration/qqd): The default font size should be 14.0 but it returns 15.0. Need further
@@ -75,7 +77,7 @@ class TextPainterIntegrationTest {
 
     @Test
     fun minIntrinsicWidth_getter() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -94,7 +96,7 @@ class TextPainterIntegrationTest {
 
     @Test
     fun maxIntrinsicWidth_getter() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -108,12 +110,12 @@ class TextPainterIntegrationTest {
 
         textPainter.layout(Constraints())
 
-        assertThat(textPainter.maxIntrinsicWidth).isEqualTo(fontSize * text.length)
+        assertThat(textPainter.maxIntrinsicWidth).isEqualTo(fontSize.px() * text.length)
     }
 
     @Test
     fun width_getter() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -127,15 +129,14 @@ class TextPainterIntegrationTest {
 
         textPainter.layout(Constraints(0.ipx, 200.ipx))
 
-        assertThat(textPainter.width).isEqualTo(fontSize * text.length)
+        assertThat(textPainter.width).isEqualTo(fontSize.px() * text.length)
     }
 
     @Test
     fun width_getter_with_small_width() {
-        val fontSize = 20.0f
         val text = "Hello"
         val width = 80.ipx
-        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textStyle = TextStyle(fontSize = 20.sp, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
@@ -152,7 +153,7 @@ class TextPainterIntegrationTest {
 
     @Test
     fun height_getter() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val text = "hello"
         val annotatedString = AnnotatedString(
@@ -166,12 +167,12 @@ class TextPainterIntegrationTest {
 
         textPainter.layout(Constraints())
 
-        assertThat(textPainter.height).isEqualTo(fontSize)
+        assertThat(textPainter.height).isEqualTo(fontSize.px())
     }
 
     @Test
     fun size_getter() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -185,8 +186,12 @@ class TextPainterIntegrationTest {
 
         textPainter.layout(Constraints())
 
-        assertThat(textPainter.size)
-            .isEqualTo(Size(width = fontSize * text.length, height = fontSize))
+        assertThat(textPainter.size).isEqualTo(
+            Size(
+                width = fontSize.px() * text.length,
+                height = fontSize.px()
+            )
+        )
     }
 
     @Test
@@ -233,13 +238,12 @@ class TextPainterIntegrationTest {
 
     @Test
     fun getPositionForOffset_First_Character() {
-        val fontSize = 20.0f
         val text = "Hello"
         val annotatedString = AnnotatedString(
             text = text,
             textStyles = listOf(
                 AnnotatedString.Item(
-                    TextStyle(fontSize = fontSize, fontFamily = fontFamily),
+                    TextStyle(fontSize = 20.sp, fontFamily = fontFamily),
                     0,
                     text.length
                 )
@@ -258,7 +262,7 @@ class TextPainterIntegrationTest {
 
     @Test
     fun getPositionForOffset_other_Character() {
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val characterIndex = 2 // Start from 0.
         val text = "Hello"
         val annotatedString = AnnotatedString(
@@ -278,7 +282,7 @@ class TextPainterIntegrationTest {
         textPainter.layout(Constraints())
 
         val selection = textPainter.getPositionForOffset(
-            offset = Offset(dx = fontSize * characterIndex + 1f, dy = 0f)
+            offset = Offset(dx = fontSize.px() * characterIndex + 1f, dy = 0f)
         )
 
         assertThat(selection).isEqualTo(characterIndex)
@@ -286,9 +290,8 @@ class TextPainterIntegrationTest {
 
     @Test
     fun hasOverflowShaderFalse() {
-        val fontSize = 20.0f
         val text = "Hello"
-        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textStyle = TextStyle(fontSize = 20.sp, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
@@ -305,12 +308,11 @@ class TextPainterIntegrationTest {
 
     @Test
     fun hasOverflowShaderFadeHorizontallyTrue() {
-        val fontSize = 20.0f
         var text = ""
         for (i in 1..15) {
             text = text + "Hello World"
         }
-        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textStyle = TextStyle(fontSize = 20.sp, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
@@ -330,12 +332,11 @@ class TextPainterIntegrationTest {
 
     @Test
     fun hasOverflowShaderFadeVerticallyTrue() {
-        val fontSize = 20.0f
         var text = ""
         for (i in 1..30) {
             text = text + "Hello World"
         }
-        val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
+        val textStyle = TextStyle(fontSize = 20.sp, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
@@ -355,7 +356,7 @@ class TextPainterIntegrationTest {
     @Test
     fun testBackgroundPaint_paint_wrap_multiLines() {
         // Setup test.
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "HelloHello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -383,13 +384,13 @@ class TextPainterIntegrationTest {
         val firstLineRight = textPainter.paragraph?.getLineRight(0)
         val secondLineRight = textPainter.paragraph?.getLineRight(1)
         expectedCanvas.drawRect(
-            Rect(firstLineLeft!!, 0f, firstLineRight!!, fontSize),
+            Rect(firstLineLeft!!, 0f, firstLineRight!!, fontSize.px()),
             expectedPaint
         )
         expectedCanvas.drawRect(
             Rect(
                 secondLineLeft!!,
-                fontSize,
+                fontSize.px(),
                 secondLineRight!!,
                 textPainter.paragraph!!.height
             ),
@@ -422,7 +423,7 @@ class TextPainterIntegrationTest {
         // Setup test.
         val selectionStart = 0
         val selectionEnd = 3
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -448,8 +449,8 @@ class TextPainterIntegrationTest {
             Rect(
                 left = 0f,
                 top = 0f,
-                right = fontSize * (selectionEnd - selectionStart),
-                bottom = fontSize
+                right = fontSize.px() * (selectionEnd - selectionStart),
+                bottom = fontSize.px()
             ),
             expectedPaint
         )
@@ -483,7 +484,7 @@ class TextPainterIntegrationTest {
         val text = textLTR + textRTL
         val selectionLTRStart = 2
         val selectionRTLEnd = 2
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
             text = text,
@@ -506,10 +507,10 @@ class TextPainterIntegrationTest {
         // Select "llo".
         expectedCanvas.drawRect(
             Rect(
-                left = fontSize * selectionLTRStart,
+                left = fontSize.px() * selectionLTRStart,
                 top = 0f,
-                right = textLTR.length * fontSize,
-                bottom = fontSize
+                right = textLTR.length * fontSize.px(),
+                bottom = fontSize.px()
             ),
             expectedPaint
         )
@@ -517,10 +518,10 @@ class TextPainterIntegrationTest {
         // Select "של"
         expectedCanvas.drawRect(
             Rect(
-                left = (textLTR.length + textRTL.length - selectionRTLEnd) * fontSize,
+                left = (textLTR.length + textRTL.length - selectionRTLEnd) * fontSize.px(),
                 top = 0f,
-                right = (textLTR.length + textRTL.length) * fontSize,
-                bottom = fontSize
+                right = (textLTR.length + textRTL.length) * fontSize.px(),
+                bottom = fontSize.px()
             ),
             expectedPaint
         )
@@ -550,7 +551,7 @@ class TextPainterIntegrationTest {
         // Setup test.
         val selectionStart = 0
         val selectionEnd = 3
-        val fontSize = 20.0f
+        val fontSize = 20.sp
         val text = "Hello"
         val textStyle = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
         val annotatedString = AnnotatedString(
@@ -576,8 +577,8 @@ class TextPainterIntegrationTest {
             Rect(
                 left = 0f,
                 top = 0f,
-                right = fontSize * (selectionEnd - selectionStart),
-                bottom = fontSize
+                right = fontSize.px() * (selectionEnd - selectionStart),
+                bottom = fontSize.px()
             ),
             expectedPaint
         )
