@@ -545,3 +545,16 @@ class TextPainter(
         return paragraph!!.getWordBoundary(position)
     }
 }
+
+/** @hide */
+@RestrictTo(LIBRARY_GROUP)
+data class TextPainterConfig(
+    val text: AnnotatedString?,
+    val style: TextStyle?,
+    val paragraphStyle: androidx.ui.painting.ParagraphStyle?,
+    val textScaleFactor: Float,
+    val maxLines: Int?,
+    val softWrap: Boolean,
+    val overflow: TextOverflow,
+    val locale: Locale? = null
+)

@@ -37,6 +37,7 @@ import androidx.ui.painting.ParagraphStyle
 import androidx.ui.core.selection.TextSelectionHandler
 import androidx.ui.core.selection.TextSelectionProcessor
 import androidx.ui.painting.TextPainter
+import androidx.ui.painting.TextPainterConfig
 import androidx.ui.painting.TextSpan
 import androidx.ui.painting.TextStyle
 import androidx.ui.painting.toAnnotatedString
@@ -195,15 +196,27 @@ fun Text(
     text.textStyles.forEach { it.style.fontFamily?.context = context }
 
     Semantics(label = text.text) {
-        val textPainter = TextPainter(
+        val textPainterConfig = TextPainterConfig(
             text = text,
-            style = mergedStyle,
+            style = style,
             paragraphStyle = paragraphStyle,
             softWrap = softWrap,
             overflow = overflow,
             textScaleFactor = textScaleFactor,
             maxLines = maxLines
         )
+        val textPainter = +memo(textPainterConfig) {
+            TextPainter(
+                text = text,
+                style = style,
+                paragraphStyle = paragraphStyle,
+                softWrap = softWrap,
+                overflow = overflow,
+                textScaleFactor = textScaleFactor,
+                maxLines = maxLines
+            )
+        }
+
         val children = @Composable {
             // Get the layout coordinates of the text widget. This is for hit test of cross-widget
             // selection.
@@ -221,7 +234,7 @@ fun Text(
             layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
         })
 
-        +onCommit(textPainter) {
+        +onCommit(textPainterConfig) {
             val id = registrar.subscribe(
                 object : TextSelectionHandler {
                     override fun getSelection(
