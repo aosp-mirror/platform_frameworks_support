@@ -15,7 +15,6 @@
  */
 package androidx.ui.core
 
-import androidx.compose.composer
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.ambient
@@ -91,11 +90,14 @@ fun InputField(
     val processor = +memo { EditProcessor() }
     processor.onNewState(value)
 
+    val density = +ambient(DensityAmbient)
+
     // TODO(nona): Add parameter for text direction, softwrap, etc.
     val delegate = InputFieldDelegate(
         TextPainter(
             text = AnnotatedString(text = value.text),
-            style = mergedStyle
+            style = mergedStyle,
+            density = density
         ),
         processor,
         onValueChange
