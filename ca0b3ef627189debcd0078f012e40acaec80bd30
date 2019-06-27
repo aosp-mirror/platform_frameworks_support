@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39ce73d5_2329ccdd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-27T18:41:48Z",
+      "side": 1,
+      "message": "I\u0027d add \"Task\" to the filename to get \"ReportLibrarMetricsTask.kt\" even though it\u0027s getting removed from the name of the instance of the task ( as described in https://android-review.googlesource.com/c/platform/frameworks/support/+/987928/4/buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt#644 )\n\n(with the reasoning being that not all .kt files are tasks but that all Gradle tasks are tasks)",
+      "revId": "ca0b3ef627189debcd0078f012e40acaec80bd30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14085f39_2c9115d3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-27T18:41:48Z",
+      "side": 1,
+      "message": "It it more convenient for the test runner to have these in separate files? I think that the library build info files we recently consolidated to make them faster and more convenient to fetch",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "ca0b3ef627189debcd0078f012e40acaec80bd30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
