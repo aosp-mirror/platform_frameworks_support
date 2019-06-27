@@ -76,8 +76,12 @@ open class CheckExternalDependencyLicensesTask : DefaultTask() {
 
     private fun findLicenseFile(dependency: File, prebuiltsRoot: File): File? {
         if (!dependency.absolutePath.startsWith(prebuiltsRoot.absolutePath)) {
-            throw GradleException("prebuilts should come from prebuilts folder. $dependency is" +
-                    " not there")
+            // IDE plugins use dependencies bundled with the IDE itself,
+            // so we can ignore this warning
+            if (!project.plugins.hasPlugin("org.jetbrains.intellij")) {
+                throw GradleException("prebuilts should come from prebuilts folder. " +
+                        "$dependency is not there")
+            }
         }
         fun recurse(folder: File): File? {
             if (folder == prebuiltsRoot) {

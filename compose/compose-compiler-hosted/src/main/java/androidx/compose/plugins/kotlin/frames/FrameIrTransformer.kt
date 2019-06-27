@@ -113,8 +113,10 @@ import org.jetbrains.kotlin.psi2ir.generators.GeneratorContext
 import androidx.compose.plugins.kotlin.frames.analysis.FrameMetadata
 import androidx.compose.plugins.kotlin.frames.analysis.FrameWritableSlices
 import androidx.compose.plugins.kotlin.frames.analysis.FrameWritableSlices.FRAMED_DESCRIPTOR
+import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
+import org.jetbrains.kotlin.resolve.descriptorUtil.getAllSuperclassesWithoutAny
 import org.jetbrains.kotlin.resolve.descriptorUtil.getSuperClassNotAny
 import org.jetbrains.kotlin.resolve.scopes.DescriptorKindFilter
 import org.jetbrains.kotlin.resolve.scopes.MemberScope
@@ -140,8 +142,7 @@ import org.jetbrains.kotlin.utils.Printer
  *
  * The frame runtime will which value record is current for the frame.
  */
-class FrameIrTransformer(val context: JvmBackendContext) :
-    IrElementTransformerVoidWithContext(),
+class FrameIrTransformer(val context: JvmBackendContext) : IrElementTransformerVoidWithContext(),
     FileLoweringPass {
 
     override fun lower(irFile: IrFile) {
@@ -171,7 +172,7 @@ class FrameIrTransformer(val context: JvmBackendContext) :
 
         val framedDescriptor =
             bindingContext.get(FRAMED_DESCRIPTOR, declaration.descriptor.fqNameSafe)
-            ?: error("Could not find framed class descriptor")
+                ?: error("Could not find framed class descriptor")
 
         val metadata =
             FrameMetadata(framedDescriptor)
@@ -181,7 +182,7 @@ class FrameIrTransformer(val context: JvmBackendContext) :
 
         val framedType =
             context.state.module.findClassAcrossModuleDependencies(ClassId.topLevel(framedTypeName))
-            ?: error("Cannot find the Framed interface")
+                ?: error("Cannot find the Framed interface")
 
         val classBuilder = IrClassBuilder(
             context,
@@ -205,7 +206,7 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                 // Create the state record constructor
                 val recordConstructorDescriptor =
                     recordClassDescriptor.unsubstitutedPrimaryConstructor
-                    ?: error("Record class constructor not found")
+                        ?: error("Record class constructor not found")
                 recordCtorSymbol = symbol(recordConstructorDescriptor)
 
                 +constructor(recordCtorSymbol!!) {
@@ -243,7 +244,7 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                     // TODO(lmr): this expression seems to cause IntelliJ to freeze analysis. Comment out if you are editing this
                     // file and need analysis to work
                     +irReturn(
-                        syntheticCall(
+                        syntheticConstructorCall(
                             recordClassDescriptor.defaultType.toIrType(),
                             recordCtorSymbol!!,
                             recordConstructorDescriptor
@@ -258,15 +259,21 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                     ).single()
 
                 +method(assignMethod) { irFunction ->
-                    val thisParameterSymbol = this@innerClass.irClass.thisReceiver!!.symbol
-                    val valueParameterSymbol = irFunction.valueParameters[0].symbol
+                    val thisParameterReceiver =
+                        irFunction.dispatchReceiverParameter
+                            ?: error("No receiver found for assign method")
+                    val valueParameter = irFunction.valueParameters[0]
                     for (i in 0 until attributes.count()) {
                         val field = fields[i]
-                        val thisParameter = syntheticGetValue(thisParameterSymbol)
-                        val valueParameter = toRecord(syntheticGetValue(valueParameterSymbol))
-                        val otherField = syntheticGetField(field, valueParameter)
+                        val thisParameter = syntheticGetValue(
+                            thisParameterReceiver.symbol,
+                            thisParameterReceiver.type
+                        )
+                        val other =
+                            toRecord(syntheticGetValue(valueParameter.symbol, valueParameter.type))
+                        val otherValue = syntheticGetField(field, other)
 
-                        +syntheticSetField(field, thisParameter, otherField)
+                        +syntheticSetField(field, thisParameter, otherValue)
                     }
                 }
             }
@@ -274,9 +281,11 @@ class FrameIrTransformer(val context: JvmBackendContext) :
             // augment this class with the Framed interface
             addInterface(framedType)
 
-            val thisSymbol = declaration.thisReceiver?.symbol
+            val thisReceiver = declaration.thisReceiver
                 ?: error("No this receiver found for class ${declaration.name}")
-            val thisValue = syntheticGetValue(thisSymbol)
+            val thisSymbol = thisReceiver.symbol
+            val thisType = thisReceiver.type
+            val thisValue = syntheticGetValue(thisSymbol, thisType)
 
             val recordPropertyDescriptor = PropertyDescriptorImpl.create(
                 /* containingDeclaration = */ framedDescriptor,
@@ -309,15 +318,21 @@ class FrameIrTransformer(val context: JvmBackendContext) :
             +fieldReference
 
             +method(metadata.firstFrameDescriptor(recordTypeDescriptor)) {
-                val dispatchReceiver = syntheticGetValue(it.dispatchReceiverParameter!!.symbol)
+                val receiverParameter =
+                    it.dispatchReceiverParameter ?: error("Expected receiver for $metadata")
+                val dispatchReceiver =
+                    syntheticGetValue(receiverParameter.symbol, receiverParameter.type)
 
-                // TODO(lmr): this expression seems to cause IntelliJ to freeze analysis. Comment out if you are editing this
-                // file and need analysis to work
+                // TODO(lmr): this expression seems to cause IntelliJ to freeze analysis.
+                //  Comment out if you are editing this file and need analysis to work
                 +irReturn(syntheticGetField(fieldReference, dispatchReceiver))
             }
 
             +method(metadata.prependFrameRecordDescriptor(recordTypeDescriptor)) {
-                val dispatchReceiver = syntheticGetValue(it.dispatchReceiverParameter!!.symbol)
+                val receiverParameter =
+                    it.dispatchReceiverParameter ?: error("Expected receiver for $metadata")
+                val dispatchReceiver =
+                    syntheticGetValue(receiverParameter.symbol, receiverParameter.type)
 
                 val nextField =
                     recordTypeDescriptor.unsubstitutedMemberScope.getContributedVariables(
@@ -326,11 +341,12 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                     ).singleOrNull() ?: error("Could not find Record.next field")
 
                 val setNextSymbol =
-                    symbolTable.referenceFunction(nextField.setter
-                        ?: error("Expected setter for Record.next"))
+                    symbolTable.referenceFunction(
+                        nextField.setter
+                            ?: error("Expected setter for Record.next")
+                    )
                 val valueParameter = it.valueParameters[0]
-                val valueParameterSymbol = valueParameter.symbol
-                val value = syntheticGetValue(valueParameterSymbol)
+                val value = syntheticGetValue(valueParameter.symbol, valueParameter.type)
 
                 +syntheticSetterCall(
                     setNextSymbol,
@@ -345,20 +361,24 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                 )
             }
 
-            val recordGetter = syntheticGetField(fieldReference, thisValue)
+            fun recordGetter(thisSymbol: IrValueSymbol, thisType: IrType) =
+                syntheticGetField(fieldReference, syntheticGetValue(thisSymbol, thisType))
 
-            fun getRecord() = toRecord(recordGetter)
+            fun getRecord(thisSymbol: IrValueSymbol, thisType: IrType) =
+                toRecord(recordGetter(thisSymbol, thisType))
 
             +initializer {
                 // Create the initial state record
                 +syntheticSetField(
-                    fieldReference, thisValue, syntheticCall(
+                    fieldReference, thisValue, syntheticConstructorCall(
                         recordClassDescriptor.defaultType.toIrType(),
                         recordCtorSymbol!!,
                         // Non-null was already validated when the record class was constructed
                         recordClassDescriptor.unsubstitutedPrimaryConstructor!!
                     )
                 )
+
+                val unitType: IrType? = context.irBuiltIns.unitType
 
                 // Assign the fields
                 metadata.getFramedProperties(bindingContext).forEach { propertyDescriptor ->
@@ -374,28 +394,31 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                         ?: TODO("Properties without a backing field are not supported yet")
                     backingField.initializer?.let { initializer ->
                         // (this.next as <record>).<field> = <initializer>
-                        +syntheticSetField(irRecordField, getRecord(), initializer.expression)
+                        +syntheticSetField(
+                            irRecordField,
+                            getRecord(thisSymbol, thisType),
+                            initializer.expression
+                        )
                     }
                 }
 
-                // TODO(lmr): this expression seems to cause IntelliJ to freeze analysis. Comment out if you are editing this
-                // file and need analysis to work
-                val unitType: IrType? = context.irBuiltIns.unitType
-
                 // Notify the runtime a new framed object was created
-                val createdDescriptor = framesPackageDescriptor.memberScope.getContributedFunctions(
-                    Name.identifier("_created"),
-                    NoLookupLocation.FROM_BACKEND
-                ).single()
+                val createdDescriptor =
+                    framesPackageDescriptor.memberScope.getContributedFunctions(
+                        Name.identifier("_created"),
+                        NoLookupLocation.FROM_BACKEND
+                    ).single()
 
                 +syntheticCall(
                     unitType!!,
                     symbolTable.referenceSimpleFunction(createdDescriptor),
-                    createdDescriptor).apply {
-                        putValueArgument(0, thisValue)
-                    }
+                    createdDescriptor
+                ).apply {
+                    putValueArgument(0, thisValue)
+                }
 
-                // TODO(http://b/79588393): Determine if the order is important here. Should this be added before, all other initializers, after, be before the property
+                // TODO(http://b/79588393): Determine if the order is important here. Should this
+                //  be added before, all other initializers, after, be before the property
             }
 
             // Replace property getter/setters with _readable/_writable calls (this, indirectly, removes the backing field)
@@ -423,6 +446,11 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                 irFramedProperty.backingField = null
                 irFramedProperty.getter?.let { getter ->
                     // replace this.field with (_readable(this.next) as <record>).<field>
+                    val getterThisReceiver =
+                        getter.dispatchReceiverParameter
+                            ?: error("No dispatch receiver found for getter")
+                    val getterThisSymbol = getterThisReceiver.symbol
+                    val getterThisType = getterThisReceiver.type
                     getter.origin = IrDeclarationOrigin.DEFINED
                     getter.body?.transform(object : IrElementTransformer<Nothing?> {
                         override fun visitGetField(
@@ -430,15 +458,22 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                             data: Nothing?
                         ): IrExpression {
                             val newExpression = if (expression.descriptor ==
-                                irFramedProperty.descriptor) {
+                                irFramedProperty.descriptor
+                            ) {
                                 syntheticGetField(irRecordField,
                                     toRecord(syntheticCall(
                                         recordClass!!.defaultType,
                                         readableSymbol,
                                         readableDescriptor
                                     ).also {
-                                        it.putValueArgument(0, recordGetter)
-                                        it.putValueArgument(1, syntheticGetValue(thisSymbol))
+                                        it.putValueArgument(
+                                            0,
+                                            recordGetter(getterThisSymbol, getterThisType)
+                                        )
+                                        it.putValueArgument(
+                                            1,
+                                            syntheticGetValue(getterThisSymbol, getterThisType)
+                                        )
                                     }
                                     )
                                 )
@@ -449,6 +484,11 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                 }
 
                 irFramedProperty.setter?.let { setter ->
+                    val setterThisReceiver =
+                        setter.dispatchReceiverParameter
+                            ?: error("No dispatch receiver found for setter")
+                    val setterThisSymbol = setterThisReceiver.symbol
+                    val setterThisType = setterThisReceiver.type
                     setter.origin = IrDeclarationOrigin.DEFINED
                     // replace "this.field = value" with "(_writable(this.next) as <record>).<field> = value"
                     setter.body?.transform(object : IrElementTransformer<Nothing?> {
@@ -457,7 +497,8 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                             data: Nothing?
                         ): IrExpression {
                             val newExpression = if (expression.descriptor ==
-                                irFramedProperty.descriptor) {
+                                irFramedProperty.descriptor
+                            ) {
                                 syntheticSetField(
                                     irRecordField,
                                     toRecord(syntheticCall(
@@ -466,9 +507,12 @@ class FrameIrTransformer(val context: JvmBackendContext) :
                                         writableDescriptor
                                     ).also {
                                         it.putValueArgument(
-                                            0, recordGetter
+                                            0, recordGetter(setterThisSymbol, setterThisType)
                                         )
-                                        it.putValueArgument(1, syntheticGetValue(thisSymbol))
+                                        it.putValueArgument(
+                                            1,
+                                            syntheticGetValue(setterThisSymbol, setterThisType)
+                                        )
                                     }),
                                     expression.value
                                 )
@@ -520,7 +564,8 @@ fun augmentClassWithInterface(irClass: IrClass, interfaceDescriptor: ClassDescri
         }
     }
 
-// TODO(chuckj): This is copied from ComposeSyntheticExtension. Consider moving it to a location that can be shared.
+// TODO(chuckj): This is copied from ComposeSyntheticExtension.
+//  Consider moving it to a location that can be shared.
 fun IrElement.find(filter: (descriptor: IrElement) -> Boolean): Collection<IrElement> {
     val elements = mutableListOf<IrElement>()
     accept(object : IrElementVisitorVoid {
@@ -581,10 +626,7 @@ class IrClassBuilder(
     }
 
     fun addInterface(interfaceDescriptor: ClassDescriptor) {
-        irClass = augmentClassWithInterface(
-            irClass,
-            interfaceDescriptor
-        )
+        irClass.superTypes.add(interfaceDescriptor.defaultType.toIrType())
     }
 
     fun initializer(
@@ -622,6 +664,9 @@ class IrClassBuilder(
         classSymbol
     ).also {
         it.thisReceiver = syntheticValueParameter(receiverParameterDescriptor)
+        it.descriptor.getAllSuperclassesWithoutAny().forEach { superClass ->
+            it.superTypes.add(superClass.defaultType.toIrType())
+        }
         IrClassBuilder(context, it, it.descriptor).block(it)
     }
 
@@ -757,8 +802,24 @@ class IrClassBuilder(
             typeArgumentsCount = 0
         )
 
-    fun syntheticGetValue(symbol: IrValueSymbol) =
-        IrGetValueImpl(UNDEFINED_OFFSET, UNDEFINED_OFFSET, symbol)
+    fun syntheticConstructorCall(
+        kotlinType: IrType,
+        symbol: IrConstructorSymbol,
+        descriptor: ClassConstructorDescriptor
+    ) =
+        IrConstructorCallImpl(
+            UNDEFINED_OFFSET,
+            UNDEFINED_OFFSET,
+            kotlinType,
+            symbol,
+            descriptor,
+            typeArgumentsCount = 0,
+            constructorTypeArgumentsCount = 0,
+            valueArgumentsCount = 0
+        )
+
+    fun syntheticGetValue(symbol: IrValueSymbol, type: IrType) =
+        IrGetValueImpl(UNDEFINED_OFFSET, UNDEFINED_OFFSET, type, symbol)
 
     fun syntheticImplicitCast(
         fromType: KotlinType,
@@ -767,8 +828,8 @@ class IrClassBuilder(
         argument: IrExpression
     ) =
         IrTypeOperatorCallImpl(
-            UNDEFINED_OFFSET, UNDEFINED_OFFSET, fromType.toIrType(), IrTypeOperator.IMPLICIT_CAST,
-            toType, classifier, argument
+            UNDEFINED_OFFSET, UNDEFINED_OFFSET, toType, IrTypeOperator.IMPLICIT_CAST,
+            fromType.toIrType(), classifier, argument
         )
 }
 
@@ -776,13 +837,13 @@ fun IrBlockBodyBuilder.syntheticConstructorDelegatingCall(
     symbol: IrConstructorSymbol,
     descriptor: ClassConstructorDescriptor
 ) = IrDelegatingConstructorCallImpl(
-        UNDEFINED_OFFSET,
-        UNDEFINED_OFFSET,
-        context.irBuiltIns.unitType,
-        symbol,
-        descriptor,
-        typeArgumentsCount = 0
-    )
+    UNDEFINED_OFFSET,
+    UNDEFINED_OFFSET,
+    context.irBuiltIns.unitType,
+    symbol,
+    descriptor,
+    typeArgumentsCount = 0
+)
 
 inline fun <T : IrDeclaration> T.buildWithScope(
     context: GeneratorContext,
@@ -831,7 +892,8 @@ class SyntheticFramePackageDescriptor(
             location: LookupLocation
         ): ClassifierDescriptor? =
             if (classDescriptor.fqNameSafe ==
-                FqName(fqName.toString() + "" + name.identifier)) classDescriptor else null
+                FqName(fqName.toString() + "" + name.identifier)
+            ) classDescriptor else null
 
         override fun printScopeStructure(p: Printer) {
             p.println(this::class.java.simpleName)
@@ -860,12 +922,14 @@ class FrameRecordClassDescriptor(
     override fun getSource() = SourceElement.NO_SOURCE!!
     override fun getMemberScope(typeArguments: MutableList<out TypeProjection>): MemberScope =
         myScope
+
     override fun getMemberScope(typeSubstitution: TypeSubstitution): MemberScope = myScope
     override fun getUnsubstitutedMemberScope(): MemberScope = myScope
     override fun getUnsubstitutedInnerClassesScope(): MemberScope = myScope
     override fun getStaticScope(): MemberScope = myScope
     override fun getConstructors(): Collection<ClassConstructorDescriptor> =
         listOf(myUnsubstitutedPrimaryConstructor)
+
     override fun getContainingDeclaration() = myContainingDeclaration
     override fun getDefaultType() = myDefaultType
     override fun getCompanionObjectDescriptor(): ClassDescriptor? = null
@@ -876,6 +940,7 @@ class FrameRecordClassDescriptor(
     override fun getThisAsReceiverParameter() = thisAsReceiverParameter
     override fun getUnsubstitutedPrimaryConstructor(): ClassConstructorDescriptor? =
         myUnsubstitutedPrimaryConstructor
+
     override fun getSealedSubclasses(): Collection<ClassDescriptor> = emptyList()
     override fun getOriginal(): ClassDescriptor = this
     override fun isExpect() = false
