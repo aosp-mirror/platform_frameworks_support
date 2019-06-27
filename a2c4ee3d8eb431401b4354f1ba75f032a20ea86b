@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f6f49e_c8b01597",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T20:13:56Z",
+      "side": 1,
+      "message": "let\u0027s leave this for follow-up CLs: I thing it\u0027s worth for us to think how we can make this reusable and available for TabRow users without having to type clickables and ripples every time. \n\nIt\u0027s not top priority maybe, but it\u0027s worth to provide people ways to do something custom without having to retype everything",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 28
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e300e8dc_6a99e6ed",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T20:13:56Z",
+      "side": 1,
+      "message": ":) \"Tab\" here",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be200a0_3a028d13",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T20:13:56Z",
+      "side": 1,
+      "message": "Nit: this is the default, right? So probably you don\u0027t need it",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 87
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
