@@ -91,6 +91,57 @@
       "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12e35677_1326a165",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-27T17:01:56Z",
+      "side": 1,
+      "message": "Path creation is expensive. Would it be possible to also memoize the path parameters based on the given parent size or result of createOutline instead of re-creating the path each time that this DrawNode is invoked?",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1406bf2_7d82e452",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-27T17:01:56Z",
+      "side": 1,
+      "message": "Same here. Would it be possible to memoize these path parameters based on the inputs used to construct the path?",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7d0dbd_2a3010d7",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-27T17:01:56Z",
+      "side": 1,
+      "message": "Can we memoize this paint here?",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
