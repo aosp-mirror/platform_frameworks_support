@@ -65,6 +65,7 @@ package androidx.ui.engine.text {
 
   public final class Paragraph {
     method public float getBaseline();
+    method public androidx.ui.engine.geometry.Rect getCursorRect(int offset);
     method public boolean getDidExceedMaxLines();
     method public float getHeight();
     method public float getLineHeight(int lineIndex);
@@ -76,7 +77,8 @@ package androidx.ui.engine.text {
     method public androidx.ui.engine.text.ParagraphStyle getParagraphStyle();
     method public androidx.ui.painting.Path getPathForRange(int start, int end);
     method public androidx.ui.engine.text.TextPosition getPositionForOffset(androidx.ui.engine.geometry.Offset offset);
-    method public StringBuilder getText();
+    method public String getText();
+    method public java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> getTextStyles();
     method public float getWidth();
     method public androidx.ui.services.text_editing.TextRange getWordBoundary(int offset);
     method public void layout(androidx.ui.engine.text.ParagraphConstraints constraints);
@@ -89,15 +91,6 @@ package androidx.ui.engine.text {
     property public final float width;
   }
 
-  public final class ParagraphBuilder {
-    ctor public ParagraphBuilder(androidx.ui.engine.text.ParagraphStyle paragraphStyle);
-    method public void addText(String text);
-    method public androidx.ui.engine.text.Paragraph build();
-    method public androidx.ui.engine.text.ParagraphStyle getParagraphStyle();
-    method public void pop();
-    method public void pushStyle(androidx.ui.engine.text.TextStyle textStyle);
-  }
-
   public final class ParagraphConstraints {
     ctor public ParagraphConstraints(float width);
     method public float component1();
@@ -106,20 +99,21 @@ package androidx.ui.engine.text {
   }
 
   public final class ParagraphStyle {
-    ctor public ParagraphStyle(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, Integer? maxLines, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? lineHeight, Boolean? ellipsis, androidx.ui.engine.window.Locale? locale, androidx.ui.engine.text.FontSynthesis? fontSynthesis);
+    ctor public ParagraphStyle(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, androidx.ui.engine.text.TextIndent? textIndent, Float? lineHeight, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, Integer? maxLines, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, androidx.ui.engine.text.FontSynthesis? fontSynthesis, Boolean? ellipsis, androidx.ui.engine.window.Locale? locale);
     ctor public ParagraphStyle();
     method public androidx.ui.engine.text.TextAlign? component1();
-    method public androidx.ui.engine.window.Locale? component10();
-    method public androidx.ui.engine.text.FontSynthesis? component11();
+    method public androidx.ui.engine.text.FontSynthesis? component10();
+    method public Boolean? component11();
+    method public androidx.ui.engine.window.Locale? component12();
     method public androidx.ui.engine.text.TextDirection? component2();
-    method public androidx.ui.engine.text.FontWeight? component3();
-    method public androidx.ui.engine.text.FontStyle? component4();
-    method public Integer? component5();
-    method public androidx.ui.engine.text.font.FontFamily? component6();
-    method public Float? component7();
-    method public Float? component8();
-    method public Boolean? component9();
-    method public androidx.ui.engine.text.ParagraphStyle copy(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, Integer? maxLines, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? lineHeight, Boolean? ellipsis, androidx.ui.engine.window.Locale? locale, androidx.ui.engine.text.FontSynthesis? fontSynthesis);
+    method public androidx.ui.engine.text.TextIndent? component3();
+    method public Float? component4();
+    method public androidx.ui.engine.text.FontWeight? component5();
+    method public androidx.ui.engine.text.FontStyle? component6();
+    method public Integer? component7();
+    method public androidx.ui.engine.text.font.FontFamily? component8();
+    method public Float? component9();
+    method public androidx.ui.engine.text.ParagraphStyle copy(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, androidx.ui.engine.text.TextIndent? textIndent, Float? lineHeight, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, Integer? maxLines, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, androidx.ui.engine.text.FontSynthesis? fontSynthesis, Boolean? ellipsis, androidx.ui.engine.window.Locale? locale);
     method public Boolean? getEllipsis();
     method public androidx.ui.engine.text.font.FontFamily? getFontFamily();
     method public Float? getFontSize();
@@ -131,7 +125,7 @@ package androidx.ui.engine.text {
     method public Integer? getMaxLines();
     method public androidx.ui.engine.text.TextAlign? getTextAlign();
     method public androidx.ui.engine.text.TextDirection? getTextDirection();
-    method public androidx.ui.engine.text.TextStyle getTextStyle();
+    method public androidx.ui.engine.text.TextIndent? getTextIndent();
   }
 
   public final class ParagraphStyleKt {
@@ -229,19 +223,16 @@ package androidx.ui.engine.text {
   }
 
   public final class TextStyle {
-    ctor public TextStyle(androidx.ui.graphics.Color? color, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? fontSizeScale, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, Float? lineHeight, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.FontSynthesis? fontSynthesis, androidx.ui.engine.text.TextIndent? textIndent, androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.painting.Shadow? shadow);
+    ctor public TextStyle(androidx.ui.graphics.Color? color, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? fontSizeScale, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.FontSynthesis? fontSynthesis, androidx.ui.painting.Shadow? shadow);
     ctor public TextStyle();
     method public androidx.ui.graphics.Color? component1();
     method public Float? component10();
     method public androidx.ui.engine.text.BaselineShift? component11();
     method public androidx.ui.engine.text.TextGeometricTransform? component12();
-    method public Float? component13();
-    method public androidx.ui.engine.window.Locale? component14();
-    method public androidx.ui.graphics.Color? component15();
-    method public androidx.ui.engine.text.FontSynthesis? component16();
-    method public androidx.ui.engine.text.TextIndent? component17();
-    method public androidx.ui.engine.text.TextAlign? component18();
-    method public androidx.ui.painting.Shadow? component19();
+    method public androidx.ui.engine.window.Locale? component13();
+    method public androidx.ui.graphics.Color? component14();
+    method public androidx.ui.engine.text.FontSynthesis? component15();
+    method public androidx.ui.painting.Shadow? component16();
     method public androidx.ui.engine.text.TextDecoration? component2();
     method public androidx.ui.engine.text.FontWeight? component3();
     method public androidx.ui.engine.text.FontStyle? component4();
@@ -250,7 +241,7 @@ package androidx.ui.engine.text {
     method public Float? component7();
     method public String? component8();
     method public Float? component9();
-    method public androidx.ui.engine.text.TextStyle copy(androidx.ui.graphics.Color? color, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? fontSizeScale, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, Float? lineHeight, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.FontSynthesis? fontSynthesis, androidx.ui.engine.text.TextIndent? textIndent, androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.painting.Shadow? shadow);
+    method public androidx.ui.engine.text.TextStyle copy(androidx.ui.graphics.Color? color, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.font.FontFamily? fontFamily, Float? fontSize, Float? fontSizeScale, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.FontSynthesis? fontSynthesis, androidx.ui.painting.Shadow? shadow);
     method public androidx.ui.graphics.Color? getBackground();
     method public androidx.ui.engine.text.BaselineShift? getBaselineShift();
     method public androidx.ui.graphics.Color? getColor();
@@ -263,12 +254,9 @@ package androidx.ui.engine.text {
     method public androidx.ui.engine.text.FontSynthesis? getFontSynthesis();
     method public androidx.ui.engine.text.FontWeight? getFontWeight();
     method public Float? getLetterSpacing();
-    method public Float? getLineHeight();
     method public androidx.ui.engine.window.Locale? getLocale();
     method public androidx.ui.painting.Shadow? getShadow();
-    method public androidx.ui.engine.text.TextAlign? getTextAlign();
     method public androidx.ui.engine.text.TextGeometricTransform? getTextGeometricTransform();
-    method public androidx.ui.engine.text.TextIndent? getTextIndent();
     method public Float? getWordSpacing();
   }
 
@@ -379,52 +367,69 @@ package androidx.ui.engine.window {
 
 package androidx.ui.painting {
 
+  public final class AnnotatedString {
+    ctor public AnnotatedString(String text, java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> textStyles);
+    method public String component1();
+    method public java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> component2();
+    method public androidx.ui.painting.AnnotatedString copy(String text, java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> textStyles);
+    method public String getText();
+    method public java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> getTextStyles();
+  }
+
+  public static final class AnnotatedString.Item<T> {
+    ctor public AnnotatedString.Item(T! style, int start, int end);
+    method public T! component1();
+    method public int component2();
+    method public int component3();
+    method public androidx.ui.painting.AnnotatedString.Item<T> copy(T! style, int start, int end);
+    method public int getEnd();
+    method public int getStart();
+    method public T! getStyle();
+  }
+
+  public final class ParagraphStyle {
+    ctor public ParagraphStyle(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, Float? lineHeight, androidx.ui.engine.text.TextIndent? textIndent);
+    ctor public ParagraphStyle();
+    method public androidx.ui.engine.text.TextAlign? component1();
+    method public androidx.ui.engine.text.TextDirection? component2();
+    method public Float? component3();
+    method public androidx.ui.engine.text.TextIndent? component4();
+    method public androidx.ui.painting.ParagraphStyle copy(androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.engine.text.TextDirection? textDirection, Float? lineHeight, androidx.ui.engine.text.TextIndent? textIndent);
+    method public Float? getLineHeight();
+    method public androidx.ui.engine.text.TextAlign? getTextAlign();
+    method public androidx.ui.engine.text.TextDirection? getTextDirection();
+    method public androidx.ui.engine.text.TextIndent? getTextIndent();
+  }
+
   public final class TextPainter {
-    ctor public TextPainter(androidx.ui.painting.TextSpan? text, androidx.ui.engine.text.TextAlign textAlign, androidx.ui.engine.text.TextDirection? textDirection, float textScaleFactor, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale);
+    ctor public TextPainter(androidx.ui.painting.AnnotatedString? text, androidx.ui.painting.TextStyle? style, androidx.ui.painting.ParagraphStyle? paragraphStyle, float textScaleFactor, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale);
     ctor public TextPainter();
-    method public androidx.ui.engine.text.ParagraphStyle createParagraphStyle(androidx.ui.engine.text.TextDirection? defaultTextDirection = null);
     method public boolean getDidExceedMaxLines();
     method public float getHeight();
-    method public androidx.ui.engine.window.Locale? getLocale();
     method public float getMaxIntrinsicWidth();
-    method public Integer? getMaxLines();
     method public float getMinIntrinsicWidth();
-    method public androidx.ui.rendering.paragraph.TextOverflow? getOverflow();
+    method public androidx.ui.painting.ParagraphStyle? getParagraphStyle();
     method public androidx.ui.engine.text.TextPosition getPositionForOffset(androidx.ui.engine.geometry.Offset offset);
     method public float getPreferredLineHeight();
     method public androidx.ui.engine.geometry.Size getSize();
-    method public boolean getSoftWrap();
-    method public androidx.ui.painting.TextSpan? getText();
-    method public androidx.ui.engine.text.TextAlign getTextAlign();
-    method public androidx.ui.engine.text.TextDirection? getTextDirection();
-    method public float getTextScaleFactor();
+    method public androidx.ui.painting.AnnotatedString? getText();
+    method public androidx.ui.painting.TextStyle? getTextStyle();
     method public float getWidth();
     method public androidx.ui.services.text_editing.TextRange getWordBoundary(androidx.ui.engine.text.TextPosition position);
     method public void layout(androidx.ui.core.Constraints constraints);
     method public void paint(androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
     method public void paintBackground(int start, int end, androidx.ui.graphics.Color color, androidx.ui.painting.Canvas canvas, androidx.ui.engine.geometry.Offset offset);
-    method public void setLocale(androidx.ui.engine.window.Locale? value);
-    method public void setMaxLines(Integer? value);
-    method public void setOverflow(androidx.ui.rendering.paragraph.TextOverflow? value);
-    method public void setSoftWrap(boolean value);
-    method public void setText(androidx.ui.painting.TextSpan? value);
-    method public void setTextAlign(androidx.ui.engine.text.TextAlign value);
-    method public void setTextDirection(androidx.ui.engine.text.TextDirection? value);
-    method public void setTextScaleFactor(float value);
+    method public void paintCursor(int offset, androidx.ui.painting.Canvas canvas);
+    method public void setText(androidx.ui.painting.AnnotatedString? value);
+    method public void setTextStyle(androidx.ui.painting.TextStyle? value);
     property public final boolean didExceedMaxLines;
     property public final float height;
-    property public final androidx.ui.engine.window.Locale? locale;
     property public final float maxIntrinsicWidth;
-    property public final Integer? maxLines;
     property public final float minIntrinsicWidth;
-    property public final androidx.ui.rendering.paragraph.TextOverflow? overflow;
     property public final float preferredLineHeight;
     property public final androidx.ui.engine.geometry.Size size;
-    property public final boolean softWrap;
-    property public final androidx.ui.painting.TextSpan? text;
-    property public final androidx.ui.engine.text.TextAlign textAlign;
-    property public final androidx.ui.engine.text.TextDirection? textDirection;
-    property public final float textScaleFactor;
+    property public final androidx.ui.painting.AnnotatedString? text;
+    property public final androidx.ui.painting.TextStyle? textStyle;
     property public final float width;
   }
 
@@ -433,67 +438,24 @@ package androidx.ui.painting {
     method public static float applyFloatingPointHack(float layoutValue);
   }
 
-  public final class TextSpan {
-    ctor public TextSpan(androidx.ui.painting.TextStyle? style, String? text, java.util.List<androidx.ui.painting.TextSpan> children);
-    ctor public TextSpan();
-    method public void build(androidx.ui.engine.text.ParagraphBuilder builder, float textScaleFactor = 1.0f);
-    method public androidx.ui.painting.basictypes.RenderComparison compareTo(androidx.ui.painting.TextSpan other);
-    method public java.util.List<androidx.ui.painting.TextSpan> getChildren();
-    method public androidx.ui.painting.TextSpan? getSpanForPosition(androidx.ui.engine.text.TextPosition position);
-    method public androidx.ui.painting.TextStyle? getStyle();
-    method public String? getText();
-    method public void setStyle(androidx.ui.painting.TextStyle? p);
-    method public void setText(String? p);
-    method public String toPlainText();
-    method public boolean visitTextSpan(kotlin.jvm.functions.Function1<? super androidx.ui.painting.TextSpan,java.lang.Boolean> visitor);
-  }
-
-  public final class TextSpanApplyAdapter implements androidx.compose.ApplyAdapter<androidx.ui.painting.TextSpan> {
-    ctor public TextSpanApplyAdapter();
-    method public void end(androidx.ui.painting.TextSpan, androidx.ui.painting.TextSpan instance, androidx.ui.painting.TextSpan parent);
-    method public void insertAt(androidx.ui.painting.TextSpan, int index, androidx.ui.painting.TextSpan instance);
-    method public void move(androidx.ui.painting.TextSpan, int from, int to, int count);
-    method public void removeAt(androidx.ui.painting.TextSpan, int index, int count);
-    method public void start(androidx.ui.painting.TextSpan, androidx.ui.painting.TextSpan instance);
-  }
-
-  public final class TextSpanComposeNonIRKt {
-    ctor public TextSpanComposeNonIRKt();
-  }
-
-  public final class TextSpanComposer extends androidx.compose.Composer<androidx.ui.painting.TextSpan> {
-    ctor public TextSpanComposer(androidx.ui.painting.TextSpan root, androidx.compose.Recomposer recomposer);
-    method public androidx.ui.painting.TextSpan getRoot();
-  }
-
-  public final class TextSpanComposition {
-    ctor public TextSpanComposition(androidx.ui.painting.TextSpanComposer composer);
-    method public inline void call(Object key, kotlin.jvm.functions.Function1<? super androidx.compose.ViewValidator,java.lang.Boolean> invalid, kotlin.jvm.functions.Function0<kotlin.Unit> block);
-    method public inline <T> void call(Object key, kotlin.jvm.functions.Function0<? extends T> ctor, kotlin.jvm.functions.Function2<? super androidx.compose.ViewValidator,? super T,java.lang.Boolean> invalid, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> block);
-    method public inline void emit(Object key, kotlin.jvm.functions.Function0<androidx.ui.painting.TextSpan> ctor, kotlin.jvm.functions.Function1<? super androidx.compose.ComposerUpdater<androidx.ui.painting.TextSpan,androidx.ui.painting.TextSpan>,kotlin.Unit> update);
-    method public inline void emit(Object key, kotlin.jvm.functions.Function0<androidx.ui.painting.TextSpan> ctor, kotlin.jvm.functions.Function1<? super androidx.compose.ComposerUpdater<androidx.ui.painting.TextSpan,androidx.ui.painting.TextSpan>,kotlin.Unit> update, kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public androidx.ui.painting.TextSpanComposer getComposer();
-    method public inline Object joinKey(Object left, Object? right);
-    method public inline operator <V> V! unaryPlus(androidx.compose.Effect<V>);
+  public final class TextSpanKt {
+    ctor public TextSpanKt();
   }
 
   public final class TextStyle {
-    ctor public TextStyle(androidx.ui.graphics.Color? color, Float? fontSize, Float? fontSizeScale, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.FontSynthesis? fontSynthesis, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, Float? lineHeight, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.font.FontFamily? fontFamily, androidx.ui.engine.text.TextIndent? textIndent, androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.painting.Shadow? shadow, String? debugLabel);
+    ctor public TextStyle(androidx.ui.graphics.Color? color, Float? fontSize, Float? fontSizeScale, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.FontSynthesis? fontSynthesis, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.font.FontFamily? fontFamily, androidx.ui.painting.Shadow? shadow, String? debugLabel);
     ctor public TextStyle();
     method public androidx.ui.painting.basictypes.RenderComparison compareTo(androidx.ui.painting.TextStyle other);
     method public androidx.ui.graphics.Color? component1();
     method public androidx.ui.engine.text.BaselineShift? component10();
     method public androidx.ui.engine.text.TextGeometricTransform? component11();
-    method public Float? component12();
-    method public androidx.ui.engine.window.Locale? component13();
-    method public androidx.ui.graphics.Color? component14();
-    method public androidx.ui.engine.text.TextDecoration? component15();
-    method public androidx.ui.engine.text.font.FontFamily? component16();
-    method public androidx.ui.engine.text.TextIndent? component17();
-    method public androidx.ui.engine.text.TextAlign? component18();
-    method public androidx.ui.painting.Shadow? component19();
+    method public androidx.ui.engine.window.Locale? component12();
+    method public androidx.ui.graphics.Color? component13();
+    method public androidx.ui.engine.text.TextDecoration? component14();
+    method public androidx.ui.engine.text.font.FontFamily? component15();
+    method public androidx.ui.painting.Shadow? component16();
+    method public String? component17();
     method public Float? component2();
-    method public String? component20();
     method public Float? component3();
     method public androidx.ui.engine.text.FontWeight? component4();
     method public androidx.ui.engine.text.FontStyle? component5();
@@ -501,7 +463,7 @@ package androidx.ui.painting {
     method public String? component7();
     method public Float? component8();
     method public Float? component9();
-    method public androidx.ui.painting.TextStyle copy(androidx.ui.graphics.Color? color, Float? fontSize, Float? fontSizeScale, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.FontSynthesis? fontSynthesis, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, Float? lineHeight, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.font.FontFamily? fontFamily, androidx.ui.engine.text.TextIndent? textIndent, androidx.ui.engine.text.TextAlign? textAlign, androidx.ui.painting.Shadow? shadow, String? debugLabel);
+    method public androidx.ui.painting.TextStyle copy(androidx.ui.graphics.Color? color, Float? fontSize, Float? fontSizeScale, androidx.ui.engine.text.FontWeight? fontWeight, androidx.ui.engine.text.FontStyle? fontStyle, androidx.ui.engine.text.FontSynthesis? fontSynthesis, String? fontFeatureSettings, Float? letterSpacing, Float? wordSpacing, androidx.ui.engine.text.BaselineShift? baselineShift, androidx.ui.engine.text.TextGeometricTransform? textGeometricTransform, androidx.ui.engine.window.Locale? locale, androidx.ui.graphics.Color? background, androidx.ui.engine.text.TextDecoration? decoration, androidx.ui.engine.text.font.FontFamily? fontFamily, androidx.ui.painting.Shadow? shadow, String? debugLabel);
     method public androidx.ui.graphics.Color? getBackground();
     method public androidx.ui.engine.text.BaselineShift? getBaselineShift();
     method public androidx.ui.graphics.Color? getColor();
@@ -515,13 +477,10 @@ package androidx.ui.painting {
     method public androidx.ui.engine.text.FontSynthesis? getFontSynthesis();
     method public androidx.ui.engine.text.FontWeight? getFontWeight();
     method public Float? getLetterSpacing();
-    method public Float? getLineHeight();
     method public androidx.ui.engine.window.Locale? getLocale();
-    method public androidx.ui.engine.text.ParagraphStyle getParagraphStyle(androidx.ui.engine.text.TextAlign? textAlign = null, androidx.ui.engine.text.TextDirection? textDirection = null, float textScaleFactor = 1.0f, Boolean? ellipsis = null, Integer? maxLines = null, androidx.ui.engine.window.Locale? locale = null);
+    method public androidx.ui.engine.text.ParagraphStyle getParagraphStyle(androidx.ui.engine.text.TextAlign? textAlign = null, androidx.ui.engine.text.TextDirection? textDirection = null, androidx.ui.engine.text.TextIndent? textIndent = null, Float? lineHeight = null, float textScaleFactor = 1.0f, Boolean? ellipsis = null, Integer? maxLines = null, androidx.ui.engine.window.Locale? locale = null);
     method public androidx.ui.painting.Shadow? getShadow();
-    method public androidx.ui.engine.text.TextAlign? getTextAlign();
     method public androidx.ui.engine.text.TextGeometricTransform? getTextGeometricTransform();
-    method public androidx.ui.engine.text.TextIndent? getTextIndent();
     method public androidx.ui.engine.text.TextStyle getTextStyle(float textScaleFactor = 1.0f);
     method public Float? getWordSpacing();
     method public androidx.ui.painting.TextStyle merge(androidx.ui.painting.TextStyle? other = null);
