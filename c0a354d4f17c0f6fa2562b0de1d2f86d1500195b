@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb0e7c9f_21c4838e",
+        "filename": "webkit/api/1.1.0-alpha02.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "This stuff missed alpha02, so you might need to sync your checkout and re-run \"updateApi\" to get this into the alpha03 file.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b643efc3_099c22cc",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "suggestion: \"current list of proxy rules\"",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 85
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47375c7c_3ab80399",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "suggestion: \"the URL schemes for which this proxy is used (one of MATCH_HTTP, MATCH_HTTPS, MATCH_ALL_SCHEMES)\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 57,
+        "endLine": 83,
+        "endChar": 74
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7b4ca1_edfb9788",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Needs \"\u003cp\u003e\"",
+      "range": {
+        "startLine": 85,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8f4625_ab75fcd2",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Needs @return",
+      "range": {
+        "startLine": 87,
+        "startChar": 5,
+        "endLine": 87,
+        "endChar": 7
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf62f46_03575eac",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Why is List\u003cPair\u003e the right type? From the description, it seems this is Map\u003cUri,ProxyScheme\u003e.\n\nI don\u0027t understand what happens if you call `addProxyRule(myUrl, MATCH_HTTP).addProxyRule(myUrl, MATCH_ALL_SCHEMES)` (with respect to webview behavior, or with respect to what this List\u003cPair\u003e would look like)",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aee7bba4_e328069e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "\u003cp\u003e",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 9
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea120acb_ece4cfd9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Needs @return",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc0b6c4_587d0dc0",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Maybe this should say \"called multiple times to add fallback rules,\" to clarify later calls have lower precedence? Should also clarify the conditions upon which we fallback. Could probably copy http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/ProxyConfig.java?l\u003d33\u0026rcl\u003d32488a5de9624ba6e5a2972a94a342efe13de7ec",
+      "range": {
+        "startLine": 141,
+        "startChar": 90,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d53febcb_4ab8d764",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Builder APIs probably also need @return?",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 11
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5c8b81_214dde72",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Need to explain what \"direct connection\" means - you should just copy http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/ProxyConfig.java?l\u003d48\u0026rcl\u003d32488a5de9624ba6e5a2972a94a342efe13de7ec. Also: why does this have MATCH_ALL_SCHEMES based in? What if someone wants to proxy HTTP traffic but make a direct connection for HTTPS?",
+      "range": {
+        "startLine": 205,
+        "startChar": 35,
+        "endLine": 205,
+        "endChar": 53
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e602b4da_5f3eb82d",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/ProxyControllerImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-06-27T22:44:12Z",
+      "side": 1,
+      "message": "Can we leave a comment to explain why we need a 2D String array as an intermediate representation? Is this required by reflection, or just required because it eventually plumbs to JNI?",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 78
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
