@@ -34,6 +34,8 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.ReportFragment;
+import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.savedstate.SavedStateRegistry;
@@ -64,6 +66,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
+    private ViewModelProvider.Factory mDefaultFactory;
 
     private final OnBackPressedDispatcher mOnBackPressedDispatcher =
             new OnBackPressedDispatcher(new Runnable() {
@@ -270,6 +273,29 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
             }
         }
         return mViewModelStore;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The extras of {@link #getIntent()} when this is first called will be used as
+     * the defaults to any {@link androidx.lifecycle.SavedStateHandle} passed to a view model
+     * created using this factory.</p>
+     */
+    @NonNull
+    @Override
+    public ViewModelProvider.Factory getDefaultViewModelProviderFactory() {
+        if (getApplication() == null) {
+            throw new IllegalStateException("Your activity is not yet attached to the "
+                    + "Application instance. You can't request ViewModel before onCreate call.");
+        }
+        if (mDefaultFactory == null) {
+            mDefaultFactory = new SavedStateVMFactory(
+                    getApplication(),
+                    this,
+                    getIntent() != null ? getIntent().getExtras() : null);
+        }
+        return mDefaultFactory;
     }
 
     /**

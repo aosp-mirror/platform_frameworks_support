@@ -534,6 +534,7 @@ package androidx.ui.core {
     method public static inline operator float div(int, androidx.ui.core.Px other);
     method public static androidx.ui.core.Px getDistance(androidx.ui.core.PxPosition);
     method public static inline androidx.ui.core.Px getHeight(androidx.ui.core.PxBounds);
+    method public static androidx.ui.core.Px! getMinDimension(androidx.ui.core.PxSize);
     method public static inline androidx.ui.core.Px getPx(int);
     method public static inline androidx.ui.core.Px getPx(double);
     method public static inline androidx.ui.core.Px getPx(float);
@@ -657,11 +658,16 @@ package androidx.ui.core {
     ctor public TextRange(int start, int end);
     method public int component1();
     method public int component2();
+    method public boolean contains(androidx.ui.core.TextRange other);
+    method public boolean contains(int offset);
     method public androidx.ui.core.TextRange copy(int start, int end);
     method public boolean getCollapsed();
     method public int getEnd();
+    method public int getLength();
     method public int getStart();
+    method public boolean intersects(androidx.ui.core.TextRange other);
     property public final boolean collapsed;
+    property public final int length;
   }
 
   public final class TextRangeKt {
@@ -827,6 +833,36 @@ package androidx.ui.engine.geometry {
   public final class OffsetKt {
     ctor public OffsetKt();
     method public static androidx.ui.core.PxPosition toPxPosition(androidx.ui.engine.geometry.Offset);
+  }
+
+  public abstract sealed class Outline {
+  }
+
+  public static final class Outline.Generic extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Generic(androidx.ui.painting.Path path);
+    method public androidx.ui.painting.Path component1();
+    method public androidx.ui.engine.geometry.Outline.Generic copy(androidx.ui.painting.Path path);
+    method public androidx.ui.painting.Path getPath();
+  }
+
+  public static final class Outline.Rectangle extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Rectangle(androidx.ui.engine.geometry.Rect rect);
+    method public androidx.ui.engine.geometry.Rect component1();
+    method public androidx.ui.engine.geometry.Outline.Rectangle copy(androidx.ui.engine.geometry.Rect rect);
+    method public androidx.ui.engine.geometry.Rect getRect();
+  }
+
+  public static final class Outline.Rounded extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Rounded(androidx.ui.engine.geometry.RRect rrect);
+    method public androidx.ui.engine.geometry.RRect component1();
+    method public androidx.ui.engine.geometry.Outline.Rounded copy(androidx.ui.engine.geometry.RRect rrect);
+    method public androidx.ui.engine.geometry.RRect getRrect();
+  }
+
+  public final class OutlineKt {
+    ctor public OutlineKt();
+    method public static void drawOutline(androidx.ui.painting.Canvas, androidx.ui.engine.geometry.Outline outline, androidx.ui.painting.Paint paint);
+    method public static androidx.ui.painting.Path toPath(androidx.ui.engine.geometry.Outline);
   }
 
   public final class RRect {
@@ -1313,20 +1349,13 @@ package androidx.ui.graphics {
 package androidx.ui.input {
 
   public final class EditorState {
-    ctor public EditorState(String text, androidx.ui.core.TextRange selection, androidx.ui.core.TextRange? composition);
-    ctor public EditorState();
-    method public String component1();
-    method public androidx.ui.core.TextRange component2();
-    method public androidx.ui.core.TextRange? component3();
-    method public androidx.ui.input.EditorState copy(String text, androidx.ui.core.TextRange selection, androidx.ui.core.TextRange? composition);
+    ctor public EditorState(String text, androidx.ui.core.TextRange selection);
     method public androidx.ui.core.TextRange? getComposition();
     method public androidx.ui.core.TextRange getSelection();
     method public String getText();
-  }
-
-  public interface TextInputService {
-    method public void startInput(androidx.ui.input.EditorState initState, kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onUpdateEditorState, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onKeyEventForwarded);
-    method public void stopInput();
+    property public final androidx.ui.core.TextRange? composition;
+    property public final androidx.ui.core.TextRange selection;
+    property public final String text;
   }
 
 }
@@ -1411,7 +1440,7 @@ package androidx.ui.painting {
     method public void drawVertices(androidx.ui.Vertices vertices, androidx.ui.painting.BlendMode blendMode, androidx.ui.painting.Paint paint);
     method public android.graphics.Canvas getNativeCanvas();
     method public void restore();
-    method public void rotate(float radians);
+    method public void rotate(float degrees);
     method public void save();
     method public void saveLayer(androidx.ui.engine.geometry.Rect? bounds, androidx.ui.painting.Paint paint);
     method public void scale(float sx, float sy = sx);
@@ -1580,6 +1609,8 @@ package androidx.ui.painting {
     method public void extendWithPath(androidx.ui.painting.Path path, androidx.ui.engine.geometry.Offset offset, androidx.ui.vectormath64.Matrix4 matrix);
     method public androidx.ui.engine.geometry.Rect getBounds();
     method public androidx.ui.painting.PathFillType getFillType();
+    method public boolean isConvex();
+    method public boolean isEmpty();
     method public void lineTo(float dx, float dy);
     method public void moveTo(float dx, float dy);
     method public boolean op(androidx.ui.painting.Path path1, androidx.ui.painting.Path path2, androidx.ui.painting.PathOperation operation);
@@ -1595,6 +1626,8 @@ package androidx.ui.painting {
     method public androidx.ui.painting.Path shift(androidx.ui.engine.geometry.Offset offset);
     method public android.graphics.Path toFrameworkPath();
     method public androidx.ui.painting.Path transform(androidx.ui.vectormath64.Matrix4 matrix);
+    property public final boolean isConvex;
+    property public final boolean isEmpty;
     field public static final androidx.ui.painting.Path.Companion! Companion;
   }
 
