@@ -26,7 +26,7 @@ import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
 import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getCurrentApiLocation
-import androidx.build.checkapi.getLastReleasedApiFileFromDir
+import androidx.build.checkapi.getRequiredCompatibilityApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.dokka.Dokka.configureAndroidProjectForDokka
@@ -80,7 +80,6 @@ import java.util.concurrent.ConcurrentHashMap
  * compatibility.
  */
 const val USE_MAX_DEP_VERSIONS = "useMaxDepVersions"
-const val BUILD_INFO_DIR = "build-info"
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -584,7 +583,7 @@ class AndroidXPlugin : Plugin<Project> {
                     CREATE_LIBRARY_BUILD_INFO_FILES_TASK,
                     CreateLibraryBuildInfoFileTask::class.java
                 ) {
-                    it.outputFile.set(File(project.getBuildInfoDirectory(),
+                    it.outputFile.set(File(project.getDistributionDirectory(),
                         "${project.group}_${project.name}_build_info.txt"))
                 }
                 project.rootProject.tasks.named(CREATE_LIBRARY_BUILD_INFO_FILES_TASK).configure {
@@ -687,8 +686,8 @@ private fun Project.createCheckReleaseReadyTask(taskProviderList: List<TaskProvi
 private fun Project.createUpdateResourceApiTask(): DefaultTask {
     return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
-        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
-                project.version(), true, false, ApiType.RESOURCEAPI)
+        oldApiFile = getRequiredCompatibilityApiFileFromDir(File(project.projectDir, "api/"),
+                project.version(), ApiType.RESOURCEAPI)
         destApiFile = project.getCurrentApiLocation().resourceFile
     }
 }
