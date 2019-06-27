@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "556b5b50_beba9ecd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-27T15:29:48Z",
+      "side": 1,
+      "message": "nit: We usually struggle to keep this line up to 50 chars. Maybe something like \"Add fallbackAlignment argument to Stack\" would work.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe3bf1f_616fe67b",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-27T15:29:48Z",
+      "side": 1,
+      "message": "I think API-wise it might be better to keep this non-null, and provide a reasonable default e.g. Center. Then the require you have added below can be removed.\nIn general we are considering good practice to have non-null defaults when they make sense, and I think Center is a good default here. The null default for insets has to stay unfortunately, due to its meaning that we discussed offline.\nWhat do you think?",
+      "range": {
+        "startLine": 50,
+        "startChar": 36,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
