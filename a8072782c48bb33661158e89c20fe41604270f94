@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "def2887e_7f0142f4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/EffectHelper.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "The name EffectHelper isn\u0027t very descriptive of what exactly this class is doing.\n\nAll it tells me is that it is \"helping\" the effect. But what does that mean.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9da2eb1_64fabf4b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "What happens when the use case is used a second time, but the effect has been disabled?\n\nBecause from what I can tell, the second time it will still have the effect because the mConfig, mCaptureProcessor, etc have been modified.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dacb913b_86bf422e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "If updateUseCaseConfig() is called then the UseCase will be permanently modified. How will the UseCase be returned to the original state when the effect has been removed?",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1955112_309a58fe",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "We should have documentation on what the purpose of updateEffectParameters is meant for.\n\nOtherwise in the future we won\u0027t know when and why this gets called.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82cbe03f_897a36ca",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "Why does the user need to care about the lifecycle of the mode?\n\nWhy is it not simply a turn on/off?\n\nThe reason we have lifecycle for use cases is because of the difficultly of starting/stopping the camera during the lifecycle of an app.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e968b3_9fd30024",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T18:12:08Z",
+      "side": 1,
+      "message": "Why do we need this restriction?\n\nIt would be much easier for a user to turn on/off an extensions whenever they want to.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
