@@ -310,4 +310,108 @@ class TextPainterTest() {
 
         textPainter.paint(canvas, Offset(0.0f, 0.0f))
     }
+
+    @Test
+    fun `equals return true when compare default TextPainters`() {
+        val textPainter1 = TextPainter()
+        val textPainter2 = TextPainter()
+
+        assertThat(textPainter1).isEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return true when compare same TextPainters`() {
+        val text = AnnotatedString(text = "hello world")
+        val textStyle = TextStyle(fontSize = 10f)
+        val paragraphStyle = ParagraphStyle(lineHeight = 2f)
+        val textScale = 2f
+        val softWrap = false
+        val overflow = TextOverflow.Ellipsis
+        val locale = Locale("en", "US")
+
+        val textPainter1 = TextPainter(
+            text = text,
+            style = textStyle,
+            paragraphStyle = paragraphStyle,
+            textScaleFactor = textScale,
+            softWrap = softWrap,
+            overflow = overflow,
+            locale = locale
+        )
+        val textPainter2 = TextPainter(
+            text = text,
+            style = textStyle,
+            paragraphStyle = paragraphStyle,
+            textScaleFactor = textScale,
+            softWrap = softWrap,
+            overflow = overflow,
+            locale = locale
+        )
+
+        assertThat(textPainter1).isEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when text is different`() {
+        val textPainter1 = TextPainter(text = AnnotatedString(text = "abc"))
+        val textPainter2 = TextPainter(text = AnnotatedString(text = "cde"))
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when textStyle is different`() {
+        val textPainter1 = TextPainter(style = TextStyle())
+        val textPainter2 = TextPainter(style = TextStyle(fontSize = 1f))
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when paragraphStyle is different`() {
+        val textPainter1 = TextPainter(paragraphStyle = ParagraphStyle())
+        val textPainter2 = TextPainter(paragraphStyle = ParagraphStyle(textAlign = TextAlign.Right))
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when textScaleFactor is different`() {
+        val textPainter1 = TextPainter(textScaleFactor = 2f)
+        val textPainter2 = TextPainter(textScaleFactor = 3f)
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when maxLines is different`() {
+        val textPainter1 = TextPainter(maxLines = 1)
+        val textPainter2 = TextPainter(maxLines = 2)
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when softWrap is different`() {
+        val textPainter1 = TextPainter(softWrap = true)
+        val textPainter2 = TextPainter(softWrap = false)
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when overflow is different`() {
+        val textPainter1 = TextPainter(overflow = TextOverflow.Clip)
+        val textPainter2 = TextPainter(overflow = TextOverflow.Fade)
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
+
+    @Test
+    fun `equals return false when locale is different`() {
+        val textPainter1 = TextPainter(locale = Locale("ja", "JP"))
+        val textPainter2 = TextPainter(locale = Locale("en", "US"))
+
+        assertThat(textPainter1).isNotEqualTo(textPainter2)
+    }
 }

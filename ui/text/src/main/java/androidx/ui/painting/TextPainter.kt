@@ -209,6 +209,21 @@ class TextPainter(
             needsLayout = true
         }
 
+    override fun equals(other: Any?): Boolean {
+        return when {
+            other !is TextPainter -> false
+            text != other.text -> false
+            textStyle != other.textStyle -> false
+            paragraphStyle != other.paragraphStyle -> false
+            textScaleFactor != other.textScaleFactor -> false
+            maxLines != other.maxLines -> false
+            softWrap != other.softWrap -> false
+            overflow != other.overflow -> false
+            locale != other.locale -> false
+            else -> true
+        }
+    }
+
     private fun createTextStyle(): TextStyle {
         return textStyle.copy(fontSize = (textStyle.fontSize ?: DefaultFontSize) * textScaleFactor)
     }
