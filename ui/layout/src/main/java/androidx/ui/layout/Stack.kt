@@ -47,15 +47,28 @@ class StackChildren {
         topInset: Dp? = null,
         rightInset: Dp? = null,
         bottomInset: Dp? = null,
+        fallbackAlignment: Alignment? = null,
         children: @Composable() () -> Unit
     ) {
         require(
             leftInset != null || topInset != null || rightInset != null ||
                     bottomInset != null
         ) { "Please specify at least one inset for a positioned." }
+        require(
+            fallbackAlignment != null || ((leftInset != null || rightInset != null)
+                    && (topInset != null || bottomInset != null))
+        ) {
+            if (leftInset == null && rightInset == null) {
+                "Please specify a vertical alignment."
+            }
+            else {
+                "Please specify a horizontal alignment."
+            }
+        }
         val data = StackChildData(
             leftInset = leftInset, topInset = topInset,
-            rightInset = rightInset, bottomInset = bottomInset
+            rightInset = rightInset, bottomInset = bottomInset,
+            alignment = fallbackAlignment ?: Alignment.Center
         )
         _stackChildren += { ParentData(data = data, children = children) }
     }
@@ -78,7 +91,7 @@ class StackChildren {
  * - [positioned], which are positioned in the box defined as above, according to
  * their specified insets. When the positioning of these is ambiguous in one direction (the
  * component has [null] left and right or top and bottom insets), the positioning in this direction
- * will be resolved according to the [Stack]'s defaultAlignment argument.
+ * will be resolved according to the positioned child's fallbackAlignment argument.
  *
  * Example usage:
  *     Stack {
@@ -99,7 +112,6 @@ class StackChildren {
  */
 @Composable
 fun Stack(
-    defaultAlignment: Alignment = Alignment.Center,
     @Children(composable = false) block: StackChildren.() -> Unit
 ) {
     val children: @Composable() () -> Unit = with(StackChildren()) {
@@ -165,7 +177,7 @@ fun Stack(
                 val placeable = placeables[i]!!
 
                 if (!measurable.positioned) {
-                    val position = (childData.alignment ?: defaultAlignment).align(
+                    val position = childData.alignment.align(
                         IntPxSize(
                             stackWidth - placeable.width,
                             stackHeight - placeable.height
@@ -173,25 +185,22 @@ fun Stack(
                     )
                     placeable.place(position.x, position.y)
                 } else {
-                    val x = if (childData.leftInset != null) {
-                        childData.leftInset.toIntPx()
-                    } else if (childData.rightInset != null) {
-                        stackWidth - childData.rightInset.toIntPx() - placeable.width
-                    } else {
-                        (childData.alignment ?: defaultAlignment).align(
+                    val x = when {
+                        childData.leftInset != null -> childData.leftInset.toIntPx()
+                        childData.rightInset != null ->
+                            stackWidth - childData.rightInset.toIntPx() - placeable.width
+                        else -> childData.alignment.align(
                             IntPxSize(
                                 stackWidth - placeable.width,
                                 stackHeight - placeable.height
                             )
                         ).x
                     }
-
-                    val y = if (childData.topInset != null) {
-                        childData.topInset.toIntPx()
-                    } else if (childData.bottomInset != null) {
-                        stackHeight - childData.bottomInset.toIntPx() - placeable.height
-                    } else {
-                        (childData.alignment ?: defaultAlignment).align(
+                    val y = when {
+                        childData.topInset != null -> childData.topInset.toIntPx()
+                        childData.bottomInset != null ->
+                            stackHeight - childData.bottomInset.toIntPx() - placeable.height
+                        else -> childData.alignment.align(
                             IntPxSize(
                                 stackWidth - placeable.width,
                                 stackHeight - placeable.height
@@ -206,7 +215,7 @@ fun Stack(
 }
 
 internal data class StackChildData(
-    val alignment: Alignment? = null,
+    val alignment: Alignment,
     val leftInset: Dp? = null,
     val topInset: Dp? = null,
     val rightInset: Dp? = null,
