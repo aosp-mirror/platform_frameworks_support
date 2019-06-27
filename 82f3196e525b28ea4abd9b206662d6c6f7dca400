@@ -94,6 +94,30 @@
       "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e61a9134_3fab41cf",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-27T07:38:06Z",
+      "side": 1,
+      "message": "Added code to check that it\u0027s not idle and error states.",
+      "parentUuid": "0a353c61_2e3cab9a",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
