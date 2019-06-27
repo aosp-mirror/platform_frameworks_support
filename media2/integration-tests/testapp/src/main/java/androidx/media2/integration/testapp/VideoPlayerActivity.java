@@ -47,6 +47,8 @@ import androidx.media2.session.SessionToken;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
@@ -212,7 +214,11 @@ public class VideoPlayerActivity extends FragmentActivity {
                 return;
             }
 
-            controller.setMediaItem(mUri.toString());
+            List<String> list = new ArrayList<>();
+            list.add(mUri.toString());
+            list.add(mUri.toString());
+            list.add(mUri.toString());
+            controller.setPlaylist(list, null);
             controller.prepare();
         }
     }

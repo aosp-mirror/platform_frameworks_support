@@ -3164,6 +3164,7 @@ public final class MediaPlayer extends SessionPlayer {
                         }
                     });
                     break;
+
             }
             if (sInfoCodeMap.containsKey(mp2What)) {
                 final int what = sInfoCodeMap.get(mp2What);

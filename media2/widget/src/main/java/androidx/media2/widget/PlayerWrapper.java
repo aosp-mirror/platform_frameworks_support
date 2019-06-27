@@ -403,6 +403,24 @@ class PlayerWrapper {
         return null;
     }
 
+    int getPreviousMediaItemIndex() {
+        if (mController != null) {
+            return mController.getPreviousMediaItemIndex();
+        } else if (mPlayer != null) {
+            return mPlayer.getPreviousMediaItemIndex();
+        }
+        return SessionPlayer.INVALID_ITEM_INDEX;
+    }
+
+    int getNextMediaItemIndex() {
+        if (mController != null) {
+            return mController.getNextMediaItemIndex();
+        } else if (mPlayer != null) {
+            return mPlayer.getNextMediaItemIndex();
+        }
+        return SessionPlayer.INVALID_ITEM_INDEX;
+    }
+
     private class MediaControllerCallback extends MediaController.ControllerCallback {
         MediaControllerCallback() {
         }
@@ -444,6 +462,12 @@ class PlayerWrapper {
                 @Nullable MediaItem item) {
             mMediaMetadata = item == null ? null : item.getMetadata();
             mWrapperCallback.onCurrentMediaItemChanged(PlayerWrapper.this, item);
+        }
+
+        @Override
+        public void onPlaylistChanged(@NonNull MediaController controller,
+                @Nullable List<MediaItem> list, @Nullable MediaMetadata metadata) {
+            mWrapperCallback.onPlaylistChanged(PlayerWrapper.this, list, metadata);
         }
 
         @Override
@@ -511,6 +535,12 @@ class PlayerWrapper {
         }
 
         @Override
+        public void onPlaylistChanged(@NonNull SessionPlayer player, @Nullable List<MediaItem> list,
+                @Nullable MediaMetadata metadata) {
+            mWrapperCallback.onPlaylistChanged(PlayerWrapper.this, list, metadata);
+        }
+
+        @Override
         public void onPlaybackCompleted(@NonNull SessionPlayer player) {
             mWrapperCallback.onPlaybackCompleted(PlayerWrapper.this);
         }
@@ -551,6 +581,9 @@ class PlayerWrapper {
                 @NonNull SessionCommandGroup commands) {
         }
         void onCurrentMediaItemChanged(@NonNull PlayerWrapper player, @Nullable MediaItem item) {
+        }
+        void onPlaylistChanged(@NonNull PlayerWrapper player, @Nullable List<MediaItem> list,
+                @Nullable MediaMetadata metadata) {
         }
         void onPlayerStateChanged(@NonNull PlayerWrapper player, int state) {
         }
