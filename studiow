@@ -4,7 +4,8 @@ set -m
 
 # This is a wrapper script that runs the specific version of Android Studio that is recommended for developing in this repository.
 # (This serves a similar purpose to gradlew)
-
+#
+# NOTE: if you are changing this file, consider applying the changes to ui/studiow, used for the compose project.
 
 function getStudioUrl() {
   propertiesFile="${scriptDir}/buildSrc/studio_versions.properties"
