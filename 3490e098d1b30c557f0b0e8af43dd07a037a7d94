@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0621b46b_eb8fad2a",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-27T00:24:08Z",
+      "side": 1,
+      "message": "The basic premise is:\n - if it\u0027s exposed in public API, it must be api\n - if it\u0027s not expose in public API, it should be implementation\n\nkotlin_stdlib should be api as well. Figured I\u0027d start slow.\n\nIt\u0027s stupid we have to deal with this manually. https://issuetracker.google.com/issues/77234248 tracks a lint check for this",
+      "parentUuid": "090226f8_c05fc8bb",
+      "revId": "3490e098d1b30c557f0b0e8af43dd07a037a7d94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e882f2b_056ff1e7",
         "filename": "paging/common/src/main/kotlin/androidx/paging/futures/Futures.kt",
         "patchSetId": 9
