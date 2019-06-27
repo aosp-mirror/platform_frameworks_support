@@ -46,6 +46,30 @@
       "revId": "a8e88f15005c79b088683ff8f68cd8fa162c4e37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abdcfed0_397b6123",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-27T22:42:03Z",
+      "side": 1,
+      "message": "Thanks for your review Nonasan! \nJust as a note, we think that SelectionHandler uses TextPainter to identify whether the text layout has been changed is improper. So TextPainterConfig is introduced to be the wrapped state of the Text widget. It\u0027s now used to identify whether TextPainter should be recreated, and whether SelectionHandler should be unsubscribed. But please also notice that SelectionHandler should be unsubscribed whenever text has been changed, this isn\u0027t necessarily the case where the TextPainter needs recreate.",
+      "parentUuid": "ef79e431_035053ce",
+      "range": {
+        "startLine": 199,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 13
+      },
+      "revId": "a8e88f15005c79b088683ff8f68cd8fa162c4e37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
