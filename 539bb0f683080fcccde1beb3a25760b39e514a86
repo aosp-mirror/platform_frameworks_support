@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8858c8dd_ded58c26",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-27T07:38:24Z",
+      "side": 1,
+      "message": "How about adding the default interval?",
+      "range": {
+        "startLine": 97,
+        "startChar": 71,
+        "endLine": 97,
+        "endChar": 83
+      },
+      "revId": "539bb0f683080fcccde1beb3a25760b39e514a86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
