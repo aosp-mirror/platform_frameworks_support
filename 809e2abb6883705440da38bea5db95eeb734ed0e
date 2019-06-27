@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f64d1a8a_c6faa1f7",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaWidgetTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-06-27T08:04:59Z",
+      "side": 1,
+      "message": "Q) why is this added?",
+      "revId": "809e2abb6883705440da38bea5db95eeb734ed0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
