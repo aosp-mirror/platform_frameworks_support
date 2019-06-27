@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8eb9921_892360ad",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-27T01:41:26Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be public.",
+      "range": {
+        "startLine": 1007,
+        "startChar": 4,
+        "endLine": 1007,
+        "endChar": 10
+      },
+      "revId": "ee154d250759d12310bc1bc9feb44188b5a0e6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
