@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "6f0c6955_381b9728",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-06-27T11:12:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dac22c66_25c1d307",
+      "range": {
+        "startLine": 86,
+        "startChar": 38,
+        "endLine": 86,
+        "endChar": 51
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85a01b43_eeba5e29",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 3
@@ -285,6 +309,30 @@
       "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdcc0111_87099d73",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-06-27T11:12:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b850d6b_0b8257da",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "519c113b37f6f27d75ecf9339978aec15392b60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
