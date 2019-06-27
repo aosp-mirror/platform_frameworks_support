@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a796a1ff_6e515365",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T15:13:00Z",
+      "side": 1,
+      "message": "Whoops, not enough coffee. The second one needed deleting.",
+      "parentUuid": "6c949694_ff6cd2ad",
+      "range": {
+        "startLine": 169,
+        "startChar": 21,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "cdd86218e9fa22c1fe1af0716e8b65042e41b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac34d223_861119f6",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "cdd86218e9fa22c1fe1af0716e8b65042e41b34d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93b949a_5a4236e2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-27T15:13:00Z",
+      "side": 1,
+      "message": "You mean a new line? Done. Won\u0027t fit on the same line.",
+      "parentUuid": "ac34d223_861119f6",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "cdd86218e9fa22c1fe1af0716e8b65042e41b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
