@@ -27,7 +27,6 @@ import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
-import androidx.ui.engine.text.ParagraphBuilder
 import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
@@ -38,6 +37,9 @@ import androidx.ui.graphics.Color
 import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.ui.services.text_editing.TextRange
 import kotlin.math.ceil
+
+private val DefaultTextAlign: TextAlign = TextAlign.Start
+private val DefaultTextDirection: TextDirection = TextDirection.Ltr
 
 /**
  * Unfortunately, using full precision floating point here causes bad layouts because floating
@@ -69,13 +71,13 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  *   before the next call to [paint]. This and [textDirection] must be non-null before you call
  *   [layout].
  *
- * @param textAlign How the text should be aligned horizontally. After this is set, you must call
- *    [layout] before the next call to [paint]. The [textAlign] property must not be null.
+ * @param style The text style specified to render the text. Notice that you can also set text style
+ *  on the given [AnnotatedString], and the style set on [text] always has higher priority than this
+ *  setting. But if only one gobal text style is needed, passing it to [TextPainter] is always
+ *  preferred.
  *
- * @param textDirection The default directionality of the text. This controls how the
- *   [TextAlign.start], [TextAlign.end], and [TextAlign.justify] values of [textAlign] are resolved.
- *   After this is set, you must call [layout] before the next call to [paint]. This and [text] must
- *   be non-null before you call [layout].
+ * @param paragraphStyle Style configuration that applies only to paragraphs such as text alignment,
+ * or text direction.
  *
  * @param textScaleFactor The number of font pixels for each logical pixel.
  *   After this is set, you must call [layout] before the next call to [paint].
@@ -97,9 +99,9 @@ fun applyFloatingPointHack(layoutValue: Float): Float {
  * @param locale The locale used to select region-specific glyphs.
  */
 class TextPainter(
-    text: TextSpan? = null,
-    textAlign: TextAlign = TextAlign.Start,
-    textDirection: TextDirection? = null,
+    text: AnnotatedString? = null,
+    style: TextStyle? = null,
+    val paragraphStyle: androidx.ui.painting.ParagraphStyle? = null,
     textScaleFactor: Float = 1.0f,
     maxLines: Int? = null,
     softWrap: Boolean = true,
@@ -131,16 +133,7 @@ class TextPainter(
     private var lastMinWidth: Float = 0.0f
     private var lastMaxWidth: Float = 0.0f
 
-    var text: TextSpan? = text
-        set(value) {
-            if (field == value) return
-            if (field?.style != value?.style) layoutTemplate = null
-            field = value
-            paragraph = null
-            needsLayout = true
-        }
-
-    var textAlign: TextAlign = textAlign
+    var text: AnnotatedString? = text
         set(value) {
             if (field == value) return
             field = value
@@ -148,7 +141,26 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textDirection: TextDirection? = textDirection
+    var textStyle: TextStyle? = style
+        set(value) {
+            if (field == value) return
+            layoutTemplate = null
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    internal var textAlign: TextAlign =
+        if (paragraphStyle?.textAlign != null) paragraphStyle.textAlign else DefaultTextAlign
+        set(value) {
+            if (field == value) return
+            field = value
+            paragraph = null
+            needsLayout = true
+        }
+
+    internal var textDirection: TextDirection? =
+        paragraphStyle?.textDirection ?: DefaultTextDirection
         set(value) {
             if (field == value) return
             field = value
@@ -157,7 +169,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var textScaleFactor: Float = textScaleFactor
+    internal var textScaleFactor: Float = textScaleFactor
         set(value) {
             if (field == value) return
             field = value
@@ -166,7 +178,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var maxLines: Int? = maxLines
+    internal var maxLines: Int? = maxLines
         set(value) {
             assert(value == null || value > 0)
             if (field == value) return
@@ -175,7 +187,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var softWrap: Boolean = softWrap
+    internal var softWrap: Boolean = softWrap
         set(value) {
             if (field == value) return
             field = value
@@ -183,7 +195,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var overflow: TextOverflow? = overflow
+    internal var overflow: TextOverflow? = overflow
         set(value) {
             if (field == value) return
             field = value
@@ -191,7 +203,7 @@ class TextPainter(
             needsLayout = true
         }
 
-    var locale: Locale? = locale
+    internal var locale: Locale? = locale
         set(value) {
             if (field == value) return
             field = value
@@ -199,24 +211,19 @@ class TextPainter(
             needsLayout = true
         }
 
-    fun createParagraphStyle(defaultTextDirection: TextDirection? = null): ParagraphStyle {
-        // The defaultTextDirection argument is used for preferredLineHeight in case
-        // textDirection hasn't yet been set.
-        assert(textDirection != null || defaultTextDirection != null) {
-            "TextPainter.textDirection must be set to a non-null value before using the " +
-                    "TextPainter."
-        }
-        return text?.style?.getParagraphStyle(
+    internal fun createParagraphStyle(): ParagraphStyle {
+        return textStyle?.getParagraphStyle(
             textAlign = textAlign,
-            textDirection = textDirection ?: defaultTextDirection,
+            textDirection = textDirection,
             textScaleFactor = textScaleFactor,
+            lineHeight = paragraphStyle?.lineHeight,
+            textIndent = paragraphStyle?.textIndent,
             maxLines = maxLines,
             ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
-
         ) ?: ParagraphStyle(
             textAlign = textAlign,
-            textDirection = textDirection ?: defaultTextDirection,
+            textDirection = textDirection,
             maxLines = maxLines,
             ellipsis = overflow == TextOverflow.Ellipsis,
             locale = locale
@@ -232,21 +239,20 @@ class TextPainter(
      * Obtaining this value does not require calling [layout].
      *
      * The style of the [text] property is used to determine the font settings that contribute to
-     * the [preferredLineHeight]. If [text] is null or if it specifies no styles, the default
-     * [TextStyle] values are used (a 10 pixel sans-serif font).
+     * the [preferredLineHeight]. If [textStyle] is null, the default [TextStyle] values are used.
      */
     val preferredLineHeight: Float
         get() {
             if (layoutTemplate == null) {
-                val builder = ParagraphBuilder(
-                    // TODO(Migration/qqd): The textDirection below used to be RTL.
-                    createParagraphStyle(TextDirection.Ltr)
-                ) // direction doesn't matter, text is just a space
-                if (text?.style != null) {
-                    builder.pushStyle(text?.style!!.getTextStyle(textScaleFactor = textScaleFactor))
-                }
-                builder.addText(" ")
-                layoutTemplate = builder.build()
+                // TODO(Migration/qqd): The textDirection below used to be RTL.
+                layoutTemplate = Paragraph(
+                    text = " ",
+                    // direction doesn't matter, text is just a space
+                    paragraphStyle = createParagraphStyle(),
+                    textStyles = textStyle?.let {
+                        listOf(AnnotatedString.Item(it, 0, 1))
+                    } ?: listOf()
+                )
                 layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
             }
             return layoutTemplate!!.height
@@ -357,9 +363,7 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            val builder = ParagraphBuilder(createParagraphStyle())
-            text!!.build(builder, textScaleFactor = textScaleFactor)
-            paragraph = builder.build()
+            paragraph = Paragraph(text!!.text, createParagraphStyle(), text!!.textStyles)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -390,8 +394,9 @@ class TextPainter(
         hasVisualOverflow = didOverflowWidth || didOverflowHeight
         overflowShader = if (hasVisualOverflow && overflow == TextOverflow.Fade) {
             val fadeSizePainter = TextPainter(
-                text = TextSpan(style = text?.style, text = "\u2026"),
-                textDirection = textDirection,
+                text = AnnotatedString(text = "\u2026", textStyles = listOf()),
+                style = textStyle,
+                paragraphStyle = paragraphStyle,
                 textScaleFactor = textScaleFactor
             )
             fadeSizePainter.layoutText()
@@ -495,6 +500,20 @@ class TextPainter(
         val selectionPath = paragraph!!.getPathForRange(start, end)
         // TODO(haoyuchang): check if move this paint to parameter is better
         canvas.drawPath(selectionPath.shift(offset), Paint().apply { this.color = color })
+    }
+
+    /**
+     * Draws the cursor at the given offset.
+     *
+     * TODO(nona): Make cursor customizable.
+     *
+     * @param offset the cursor offset in the text.
+     * @param canvas the target canvas.
+     */
+    fun paintCursor(offset: Int, canvas: Canvas) {
+        assert(!needsLayout)
+        val cursorRect = paragraph!!.getCursorRect(offset)
+        canvas.drawRect(cursorRect, Paint().apply { this.color = Color.Black })
     }
 
     /** Returns the position within the text for the given pixel offset. */
