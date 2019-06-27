@@ -28,7 +28,7 @@ open class AndroidXExtension(val project: Project) {
     var mavenVersion: Version? = null
         set(value) {
             field = if (isSnapshotBuild()) value?.copy(extra = "-SNAPSHOT") else value
-            project.version = field?.toString() as Any
+            project.version = field as Any
         }
     var mavenGroup: LibraryGroup? = null
     var description: String? = null
@@ -36,7 +36,6 @@ open class AndroidXExtension(val project: Project) {
     var url = SUPPORT_URL
     private var licenses: MutableCollection<License> = ArrayList()
     var publish: Publish = Publish.NONE
-    var failOnUncheckedWarnings = true
     var failOnDeprecationWarnings = true
 
     var compilationTarget: CompilationTarget = CompilationTarget.DEVICE

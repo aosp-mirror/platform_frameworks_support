@@ -17,15 +17,14 @@
 package androidx.biometric;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.RestrictTo;
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.core.os.CancellationSignal;
 import androidx.fragment.app.Fragment;
 
@@ -41,7 +40,7 @@ import java.util.concurrent.Executor;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 public class FingerprintHelperFragment extends Fragment {
 
-    private static final String TAG = "FingerprintHelperFragment";
+    private static final String TAG = "fh_fragment";
 
     protected static final int USER_CANCELED_FROM_NONE = 0;
     protected static final int USER_CANCELED_FROM_USER = 1;
@@ -65,8 +64,10 @@ public class FingerprintHelperFragment extends Fragment {
     private CancellationSignal mCancellationSignal;
 
     // Also created once and retained.
-    private final FingerprintManagerCompat.AuthenticationCallback mAuthenticationCallback =
-            new FingerprintManagerCompat.AuthenticationCallback() {
+    @SuppressWarnings("deprecation")
+    private final androidx.core.hardware.fingerprint.FingerprintManagerCompat.AuthenticationCallback
+            mAuthenticationCallback = new androidx.core.hardware.fingerprint
+            .FingerprintManagerCompat.AuthenticationCallback() {
 
                 private void dismissAndForwardResult(final int errMsgId,
                         final CharSequence errString) {
@@ -83,7 +84,7 @@ public class FingerprintHelperFragment extends Fragment {
 
                 @Override
                 public void onAuthenticationError(final int errMsgId,
-                        final CharSequence errString) {
+                        CharSequence errString) {
                     if (errMsgId == BiometricPrompt.ERROR_CANCELED) {
                         if (mCanceledFrom == USER_CANCELED_FROM_NONE) {
                             dismissAndForwardResult(errMsgId, errString);
@@ -92,9 +93,19 @@ public class FingerprintHelperFragment extends Fragment {
                             || errMsgId == BiometricPrompt.ERROR_LOCKOUT_PERMANENT) {
                         dismissAndForwardResult(errMsgId, errString);
                     } else {
+                        // Avoid passing a null error string to the client callback. This needs to
+                        // be a final copy, since it's accessed in the runnable below.
+                        final CharSequence errStringNonNull;
+                        if (errString != null) {
+                            errStringNonNull = errString;
+                        } else {
+                            Log.e(TAG, "Got null string for error message: " + errMsgId);
+                            errStringNonNull =
+                                    mContext.getResources().getString(R.string.default_error_msg);
+                        }
+
                         mHandler.obtainMessage(FingerprintDialogFragment.MSG_SHOW_ERROR, errMsgId,
-                                0,
-                                errString).sendToTarget();
+                                0, errStringNonNull).sendToTarget();
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -102,8 +113,7 @@ public class FingerprintHelperFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         mClientAuthenticationCallback.onAuthenticationError(
-                                                errMsgId,
-                                                errString);
+                                                errMsgId, errStringNonNull);
                                     }
                                 });
                             }
@@ -121,8 +131,8 @@ public class FingerprintHelperFragment extends Fragment {
                 }
 
                 @Override
-                public void onAuthenticationSucceeded(
-                        final FingerprintManagerCompat.AuthenticationResult result) {
+                public void onAuthenticationSucceeded(final androidx.core.hardware.fingerprint
+                        .FingerprintManagerCompat.AuthenticationResult result) {
                     mHandler.obtainMessage(
                             FingerprintDialogFragment.MSG_DISMISS_DIALOG_AUTHENTICATED)
                             .sendToTarget();
@@ -175,13 +185,14 @@ public class FingerprintHelperFragment extends Fragment {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         if (!mShowing) {
             mCancellationSignal = new CancellationSignal();
             mCanceledFrom = USER_CANCELED_FROM_NONE;
-            FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(
-                    mContext);
+            androidx.core.hardware.fingerprint.FingerprintManagerCompat fingerprintManagerCompat =
+                    androidx.core.hardware.fingerprint.FingerprintManagerCompat.from(mContext);
             if (handlePreAuthenticationErrors(fingerprintManagerCompat)) {
                 mHandler.obtainMessage(
                         FingerprintDialogFragment.MSG_DISMISS_DIALOG_ERROR).sendToTarget();
@@ -247,11 +258,10 @@ public class FingerprintHelperFragment extends Fragment {
      * Check before starting authentication for basic conditions, notifies client and returns true
      * if conditions are not met
      */
-    private boolean handlePreAuthenticationErrors(FingerprintManagerCompat fingerprintManager) {
-        if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-            sendErrorToClient(BiometricPrompt.ERROR_HW_NOT_PRESENT);
-            return true;
-        } else if (!fingerprintManager.isHardwareDetected()) {
+    @SuppressWarnings("deprecation")
+    private boolean handlePreAuthenticationErrors(androidx.core.hardware.fingerprint
+            .FingerprintManagerCompat fingerprintManager) {
+        if (!fingerprintManager.isHardwareDetected()) {
             sendErrorToClient(BiometricPrompt.ERROR_HW_UNAVAILABLE);
             return true;
         } else if (!fingerprintManager.hasEnrolledFingerprints()) {
@@ -284,12 +294,15 @@ public class FingerprintHelperFragment extends Fragment {
                 return context.getString(R.string.fingerprint_error_no_fingerprints);
             case BiometricPrompt.ERROR_USER_CANCELED:
                 return context.getString(R.string.fingerprint_error_user_canceled);
+            default:
+                Log.e(TAG, "Unknown error code: " + errorCode);
+                return context.getString(R.string.default_error_msg);
         }
-        return null;
     }
 
+    @SuppressWarnings("deprecation")
     static BiometricPrompt.CryptoObject unwrapCryptoObject(
-            FingerprintManagerCompat.CryptoObject cryptoObject) {
+            androidx.core.hardware.fingerprint.FingerprintManagerCompat.CryptoObject cryptoObject) {
         if (cryptoObject == null) {
             return null;
         } else if (cryptoObject.getCipher() != null) {
@@ -303,16 +316,20 @@ public class FingerprintHelperFragment extends Fragment {
         }
     }
 
-    static FingerprintManagerCompat.CryptoObject wrapCryptoObject(
-            BiometricPrompt.CryptoObject cryptoObject) {
+    @SuppressWarnings("deprecation")
+    static androidx.core.hardware.fingerprint.FingerprintManagerCompat.CryptoObject
+            wrapCryptoObject(BiometricPrompt.CryptoObject cryptoObject) {
         if (cryptoObject == null) {
             return null;
         } else if (cryptoObject.getCipher() != null) {
-            return new FingerprintManagerCompat.CryptoObject(cryptoObject.getCipher());
+            return new androidx.core.hardware.fingerprint.FingerprintManagerCompat.CryptoObject(
+                    cryptoObject.getCipher());
         } else if (cryptoObject.getSignature() != null) {
-            return new FingerprintManagerCompat.CryptoObject(cryptoObject.getSignature());
+            return new androidx.core.hardware.fingerprint.FingerprintManagerCompat.CryptoObject(
+                    cryptoObject.getSignature());
         } else if (cryptoObject.getMac() != null) {
-            return new FingerprintManagerCompat.CryptoObject(cryptoObject.getMac());
+            return new androidx.core.hardware.fingerprint.FingerprintManagerCompat.CryptoObject(
+                    cryptoObject.getMac());
         } else {
             return null;
         }

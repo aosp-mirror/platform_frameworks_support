@@ -25,6 +25,7 @@ import android.os.PowerManager
 import androidx.annotation.CallSuper
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnitRunner
+import kotlin.concurrent.thread
 
 /**
  * Instrumentation runner for benchmarks, used to increase stability of measurements and minimize
@@ -77,7 +78,7 @@ open class AndroidBenchmarkRunner : AndroidJUnitRunner() {
         // as possible, before WarningState gets lazily initialized. Otherwise we may print false
         // warnings about needing the runner, when the runner simply hasn't initialized yet.
         runnerInUse = true
-        sustainedPerformanceModeInUse = !Clocks.areLocked && isSustainedPerformanceModeSupported()
+        sustainedPerformanceModeInUse = !CpuInfo.locked && isSustainedPerformanceModeSupported()
 
         if (sustainedPerformanceModeInUse) {
             // Keep at least one core busy. Together with a single threaded benchmark, this makes
@@ -87,12 +88,10 @@ open class AndroidBenchmarkRunner : AndroidJUnitRunner() {
             // to avoid any benchmarks running at higher clocks than any others.
             //
             // Note, thread names have 15 char max in Systrace
-            object : Thread("BenchSpinThread") {
-                override fun run() {
-                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_LOWEST)
-                    while (true) {}
-                }
-            }.start()
+            thread(name = "BenchSpinThread") {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_LOWEST)
+                while (true) {}
+            }
         }
     }
 

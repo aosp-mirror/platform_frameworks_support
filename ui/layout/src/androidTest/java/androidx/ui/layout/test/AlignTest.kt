@@ -17,7 +17,10 @@
 package androidx.ui.layout.test
 
 import androidx.test.filters.SmallTest
+import androidx.compose.Composable
+import androidx.compose.composer
 import androidx.ui.core.Constraints
+import androidx.ui.core.IntPx
 import androidx.ui.core.IntPxPosition
 import androidx.ui.core.IntPxSize
 import androidx.ui.core.Layout
@@ -30,9 +33,8 @@ import androidx.ui.core.px
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Align
 import androidx.ui.layout.Alignment
+import androidx.ui.layout.AspectRatio
 import androidx.ui.layout.Container
-import androidx.compose.Composable
-import androidx.compose.composer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -143,5 +145,43 @@ class AlignTest : LayoutTest() {
         assertEquals(IntPxPosition(0.ipx, 2.ipx), Alignment.BottomLeft.align(size))
         assertEquals(IntPxPosition(1.ipx, 2.ipx), Alignment.BottomCenter.align(size))
         assertEquals(IntPxPosition(2.ipx, 2.ipx), Alignment.BottomRight.align(size))
+    }
+
+    @Test
+    fun testAlign_hasCorrectIntrinsicMeasurements() = withDensity(density) {
+        testIntrinsics(@Composable {
+            Align(alignment = Alignment.TopLeft) {
+                AspectRatio(2f) { }
+            }
+        }) { minIntrinsicWidth, minIntrinsicHeight, maxIntrinsicWidth, maxIntrinsicHeight ->
+            // Min width.
+            assertEquals(25.dp.toIntPx() * 2, minIntrinsicWidth(25.dp.toIntPx()))
+            assertEquals(0.dp.toIntPx(), minIntrinsicWidth(IntPx.Infinity))
+            // Min height.
+            assertEquals(50.dp.toIntPx() / 2, minIntrinsicHeight(50.dp.toIntPx()))
+            assertEquals(0.dp.toIntPx(), minIntrinsicHeight(IntPx.Infinity))
+            // Max width.
+            assertEquals(25.dp.toIntPx() * 2, maxIntrinsicWidth(25.dp.toIntPx()))
+            assertEquals(0.dp.toIntPx(), maxIntrinsicWidth(IntPx.Infinity))
+            // Max height.
+            assertEquals(50.dp.toIntPx() / 2, maxIntrinsicHeight(50.dp.toIntPx()))
+            assertEquals(0.dp.toIntPx(), maxIntrinsicHeight(IntPx.Infinity))
+        }
+    }
+
+    @Test
+    fun testAlign_hasCorrectIntrinsicMeasurements_whenNoChildren() = withDensity(density) {
+        testIntrinsics(@Composable {
+            Align(alignment = Alignment.TopLeft) { }
+        }) { minIntrinsicWidth, minIntrinsicHeight, maxIntrinsicWidth, maxIntrinsicHeight ->
+            // Min width.
+            assertEquals(0.dp.toIntPx(), minIntrinsicWidth(25.dp.toIntPx()))
+            // Min height.
+            assertEquals(0.dp.toIntPx(), minIntrinsicHeight(25.dp.toIntPx()))
+            // Max width.
+            assertEquals(0.dp.toIntPx(), maxIntrinsicWidth(25.dp.toIntPx()))
+            // Max height.
+            assertEquals(0.dp.toIntPx(), maxIntrinsicHeight(25.dp.toIntPx()))
+        }
     }
 }

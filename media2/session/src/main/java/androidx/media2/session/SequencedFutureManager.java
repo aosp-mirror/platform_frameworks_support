@@ -22,8 +22,9 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
-import androidx.concurrent.ListenableFuture;
-import androidx.concurrent.callback.AbstractResolvableFuture;
+import androidx.concurrent.futures.AbstractResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ class SequencedFutureManager implements AutoCloseable {
      * @param seq sequence number to find future
      * @param result result to set
      */
+    @SuppressWarnings("unchecked")
     public <T> void setFutureResult(int seq, T result) {
         synchronized (mLock) {
             SequencedFuture future = mSeqToFutureMap.remove(seq);
@@ -103,6 +105,7 @@ class SequencedFutureManager implements AutoCloseable {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void close() {
         List<SequencedFuture> pendingResults = new ArrayList<>();
         synchronized (mLock) {
@@ -122,7 +125,6 @@ class SequencedFutureManager implements AutoCloseable {
          * Creates a new {@code ResolvableFuture} that can be completed or cancelled by a later
          * method call.
          */
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
         static <T> SequencedFuture<T> create(int seq, @NonNull T resultWhenClosed) {
             return new SequencedFuture<T>(seq, resultWhenClosed);
         }

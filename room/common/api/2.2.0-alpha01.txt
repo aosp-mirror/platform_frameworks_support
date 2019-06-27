@@ -3,6 +3,7 @@ package androidx.room {
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface ColumnInfo {
     method @androidx.room.ColumnInfo.Collate public abstract int collate() default androidx.room.ColumnInfo.UNSPECIFIED;
+    method public abstract String defaultValue() default androidx.room.ColumnInfo.VALUE_UNSPECIFIED;
     method public abstract boolean index() default false;
     method public abstract String name() default androidx.room.ColumnInfo.INHERIT_FIELD_NAME;
     method @androidx.room.ColumnInfo.SQLiteTypeAffinity public abstract int typeAffinity() default androidx.room.ColumnInfo.UNDEFINED;
@@ -18,6 +19,7 @@ package androidx.room {
     field public static final int UNDEFINED = 1; // 0x1
     field @RequiresApi(21) public static final int UNICODE = 6; // 0x6
     field public static final int UNSPECIFIED = 1; // 0x1
+    field public static final String VALUE_UNSPECIFIED = "[value-unspecified]";
   }
 
   @IntDef({androidx.room.ColumnInfo.UNSPECIFIED, androidx.room.ColumnInfo.BINARY, androidx.room.ColumnInfo.NOCASE, androidx.room.ColumnInfo.RTRIM, androidx.room.ColumnInfo.LOCALIZED, androidx.room.ColumnInfo.UNICODE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public static @interface ColumnInfo.Collate {
@@ -30,10 +32,10 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Database {
-    method public abstract Class[] entities();
+    method public abstract Class<?>[] entities();
     method public abstract boolean exportSchema() default true;
     method public abstract int version();
-    method public abstract Class[] views() default {};
+    method public abstract Class<?>[] views() default {};
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface DatabaseView {
@@ -42,6 +44,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.METHOD) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Delete {
+    method public abstract Class<?> entity() default java.lang.Object.class;
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Embedded {
@@ -60,7 +63,7 @@ package androidx.room {
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface ForeignKey {
     method public abstract String[] childColumns();
     method public abstract boolean deferred() default false;
-    method public abstract Class entity();
+    method public abstract Class<?> entity();
     method @androidx.room.ForeignKey.Action public abstract int onDelete() default androidx.room.ForeignKey.NO_ACTION;
     method @androidx.room.ForeignKey.Action public abstract int onUpdate() default androidx.room.ForeignKey.NO_ACTION;
     method public abstract String[] parentColumns();
@@ -80,7 +83,7 @@ package androidx.room {
   }
 
   @RequiresApi(16) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) @java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE) public @interface Fts4 {
-    method public abstract Class contentEntity() default java.lang.Object.class;
+    method public abstract Class<?> contentEntity() default java.lang.Object.class;
     method public abstract String languageId() default "";
     method public abstract androidx.room.FtsOptions.MatchInfo matchInfo() default androidx.room.FtsOptions.MatchInfo.FTS4;
     method public abstract String[] notIndexed() default {};
@@ -117,7 +120,14 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Insert {
+    method public abstract Class<?> entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
+  }
+
+  @java.lang.annotation.Target({}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Junction {
+    method public abstract String entityColumn() default "";
+    method public abstract String parentColumn() default "";
+    method public abstract Class<?> value();
   }
 
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) @IntDef({androidx.room.OnConflictStrategy.REPLACE, androidx.room.OnConflictStrategy.ROLLBACK, androidx.room.OnConflictStrategy.ABORT, androidx.room.OnConflictStrategy.FAIL, androidx.room.OnConflictStrategy.IGNORE}) public @interface OnConflictStrategy {
@@ -137,11 +147,12 @@ package androidx.room {
   }
 
   @java.lang.annotation.Target(java.lang.annotation.ElementType.METHOD) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface RawQuery {
-    method public abstract Class[] observedEntities() default {};
+    method public abstract Class<?>[] observedEntities() default {};
   }
 
   @java.lang.annotation.Target({java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.METHOD}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Relation {
-    method public abstract Class entity() default java.lang.Object.class;
+    method public abstract androidx.room.Junction associateBy() default @androidx.room.Junction;
+    method public abstract Class<?> entity() default java.lang.Object.class;
     method public abstract String entityColumn();
     method public abstract String parentColumn();
     method public abstract String[] projection() default {};
@@ -178,6 +189,7 @@ package androidx.room {
   }
 
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.CLASS) public @interface Update {
+    method public abstract Class<?> entity() default java.lang.Object.class;
     method @androidx.room.OnConflictStrategy public abstract int onConflict() default androidx.room.OnConflictStrategy.ABORT;
   }
 

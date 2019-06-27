@@ -29,14 +29,15 @@ plugins {
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
     buildTypes {
         debug {
             // Breaks Kotlin compiler
             testCoverageEnabled = false
         }
-    }
-    lintOptions {
-        fatal("UnknownNullness")
     }
 }
 
@@ -68,9 +69,10 @@ dependencies {
 androidx {
     name = "Android WorkManager GCMNetworkManager Support"
     publish = Publish.NONE
-    mavenVersion = LibraryVersions.WORKMANAGER
-    mavenGroup = LibraryGroups.WORKMANAGER
+    mavenVersion = LibraryVersions.WORK
+    mavenGroup = LibraryGroups.WORK
     inceptionYear = "2019"
     description = "Android WorkManager GCMNetworkManager Support"
     url = AndroidXExtension.ARCHITECTURE_URL
+    failOnDeprecationWarnings = false
 }

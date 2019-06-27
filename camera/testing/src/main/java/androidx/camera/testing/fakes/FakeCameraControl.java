@@ -16,23 +16,25 @@
 
 package androidx.camera.testing.fakes;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
-import android.os.Handler;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraControlInternal;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.SessionConfig;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
- * A fake implementation for the CameraControl interface.
+ * A fake implementation for the CameraControlInternal interface.
  */
-public final class FakeCameraControl implements CameraControl {
+public final class FakeCameraControl implements CameraControlInternal {
     private static final String TAG = "FakeCameraControl";
     private final ControlUpdateListener mControlUpdateListener;
     private final SessionConfig.Builder mSessionConfigBuilder = new SessionConfig.Builder();
@@ -45,31 +47,33 @@ public final class FakeCameraControl implements CameraControl {
     }
 
     @Override
-    public void setCropRegion(final Rect crop) {
+    public void setCropRegion(@Nullable final Rect crop) {
         Log.d(TAG, "setCropRegion(" + crop + ")");
     }
 
+    @SuppressLint("LambdaLast") // Remove after https://issuetracker.google.com/135275901
     @Override
     public void focus(
-            final Rect focus,
-            final Rect metering,
-            @Nullable final OnFocusListener listener,
-            @Nullable final Handler listenerHandler) {
+            @NonNull final Rect focus,
+            @NonNull final Rect metering,
+            @NonNull final Executor listenerExecutor,
+            @NonNull final OnFocusListener listener) {
+        focus(focus, metering);
+    }
+
+    @Override
+    public void focus(@NonNull Rect focus, @NonNull Rect metering) {
         Log.d(TAG, "focus(\n    " + focus + ",\n    " + metering + ")");
     }
 
-    @Override
-    public void focus(Rect focus, Rect metering) {
-        focus(focus, metering, null, null);
-    }
-
+    @NonNull
     @Override
     public FlashMode getFlashMode() {
         return mFlashMode;
     }
 
     @Override
-    public void setFlashMode(FlashMode flashMode) {
+    public void setFlashMode(@NonNull FlashMode flashMode) {
         mFlashMode = flashMode;
         Log.d(TAG, "setFlashMode(" + mFlashMode + ")");
     }
@@ -108,7 +112,7 @@ public final class FakeCameraControl implements CameraControl {
     }
 
     @Override
-    public void submitCaptureRequests(List<CaptureConfig> captureConfigs) {
+    public void submitCaptureRequests(@NonNull List<CaptureConfig> captureConfigs) {
         mControlUpdateListener.onCameraControlCaptureRequests(captureConfigs);
     }
 

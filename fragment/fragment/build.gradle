@@ -10,8 +10,9 @@ plugins {
 }
 
 android {
-    lintOptions {
-        fatal("UnknownNullness")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
     }
 }
 
@@ -41,13 +42,6 @@ dependencies {
     }
 }
 
-android {
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_7
-        targetCompatibility = JavaVersion.VERSION_1_7
-    }
-}
-
 androidx {
     name = "Android Support Library fragment"
     publish = Publish.SNAPSHOT_AND_RELEASE
@@ -55,6 +49,5 @@ androidx {
     mavenGroup = LibraryGroups.FRAGMENT
     inceptionYear = "2011"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
-    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

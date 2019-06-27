@@ -17,10 +17,8 @@
 package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
-import android.util.Pair;
 
 import androidx.annotation.GuardedBy;
 import androidx.camera.camera2.Camera2Config;
@@ -32,13 +30,13 @@ import androidx.camera.core.CameraCaptureResults;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.CaptureStage;
-import androidx.camera.core.Config;
 import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageInfoProcessor;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.UseCase;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.PreviewExtenderImpl;
+import androidx.camera.extensions.impl.PreviewImageProcessorImpl;
 import androidx.camera.extensions.impl.RequestUpdateProcessorImpl;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,34 +66,16 @@ public abstract class PreviewExtender {
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
+    /**
+     */
+    @SuppressWarnings("unchecked")
     public void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        mImpl.enableExtension(cameraId, cameraCharacteristics);
+        mImpl.init(cameraId, cameraCharacteristics);
 
         switch (mImpl.getProcessorType()) {
-            case PROCESSOR_TYPE_NONE:
-                CaptureStageImpl captureStage = mImpl.getCaptureStage();
-
-                Camera2Config.Builder camera2ConfigurationBuilder =
-                        new Camera2Config.Builder();
-
-                for (Pair<CaptureRequest.Key, Object> captureParameter :
-                        captureStage.getParameters()) {
-                    camera2ConfigurationBuilder.setCaptureRequestOption(captureParameter.first,
-                            captureParameter.second);
-                }
-
-                final Camera2Config camera2Config = camera2ConfigurationBuilder.build();
-
-                for (Config.Option<?> option : camera2Config.listOptions()) {
-                    @SuppressWarnings("unchecked") // Options/values are being copied directly
-                            Config.Option<Object> objectOpt = (Config.Option<Object>) option;
-                    mBuilder.getMutableConfig().insertOption(objectOpt,
-                            camera2Config.retrieveOption(objectOpt));
-                }
-                break;
             case PROCESSOR_TYPE_REQUEST_UPDATE_ONLY:
                 mBuilder.setImageInfoProcessor(new ImageInfoProcessor() {
                     @Override
@@ -128,6 +108,12 @@ public abstract class PreviewExtender {
                         return captureStageImpl != null;
                     }
                 });
+                break;
+            case PROCESSOR_TYPE_IMAGE_PROCESSOR:
+                mBuilder.setCaptureProcessor(new
+                        AdaptingPreviewProcessor((PreviewImageProcessorImpl) mImpl.getProcessor()));
+                break;
+            default: // fall out
         }
 
         PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);

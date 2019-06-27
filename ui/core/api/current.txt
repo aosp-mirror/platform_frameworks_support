@@ -534,6 +534,7 @@ package androidx.ui.core {
     method public static inline operator float div(int, androidx.ui.core.Px other);
     method public static androidx.ui.core.Px getDistance(androidx.ui.core.PxPosition);
     method public static inline androidx.ui.core.Px getHeight(androidx.ui.core.PxBounds);
+    method public static androidx.ui.core.Px! getMinDimension(androidx.ui.core.PxSize);
     method public static inline androidx.ui.core.Px getPx(int);
     method public static inline androidx.ui.core.Px getPx(double);
     method public static inline androidx.ui.core.Px getPx(float);
@@ -657,11 +658,16 @@ package androidx.ui.core {
     ctor public TextRange(int start, int end);
     method public int component1();
     method public int component2();
+    method public boolean contains(androidx.ui.core.TextRange other);
+    method public boolean contains(int offset);
     method public androidx.ui.core.TextRange copy(int start, int end);
     method public boolean getCollapsed();
     method public int getEnd();
+    method public int getLength();
     method public int getStart();
+    method public boolean intersects(androidx.ui.core.TextRange other);
     property public final boolean collapsed;
+    property public final int length;
   }
 
   public final class TextRangeKt {
@@ -827,6 +833,36 @@ package androidx.ui.engine.geometry {
   public final class OffsetKt {
     ctor public OffsetKt();
     method public static androidx.ui.core.PxPosition toPxPosition(androidx.ui.engine.geometry.Offset);
+  }
+
+  public abstract sealed class Outline {
+  }
+
+  public static final class Outline.Generic extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Generic(androidx.ui.painting.Path path);
+    method public androidx.ui.painting.Path component1();
+    method public androidx.ui.engine.geometry.Outline.Generic copy(androidx.ui.painting.Path path);
+    method public androidx.ui.painting.Path getPath();
+  }
+
+  public static final class Outline.Rectangle extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Rectangle(androidx.ui.engine.geometry.Rect rect);
+    method public androidx.ui.engine.geometry.Rect component1();
+    method public androidx.ui.engine.geometry.Outline.Rectangle copy(androidx.ui.engine.geometry.Rect rect);
+    method public androidx.ui.engine.geometry.Rect getRect();
+  }
+
+  public static final class Outline.Rounded extends androidx.ui.engine.geometry.Outline {
+    ctor public Outline.Rounded(androidx.ui.engine.geometry.RRect rrect);
+    method public androidx.ui.engine.geometry.RRect component1();
+    method public androidx.ui.engine.geometry.Outline.Rounded copy(androidx.ui.engine.geometry.RRect rrect);
+    method public androidx.ui.engine.geometry.RRect getRrect();
+  }
+
+  public final class OutlineKt {
+    ctor public OutlineKt();
+    method public static void drawOutline(androidx.ui.painting.Canvas, androidx.ui.engine.geometry.Outline outline, androidx.ui.painting.Paint paint);
+    method public static androidx.ui.painting.Path toPath(androidx.ui.engine.geometry.Outline);
   }
 
   public final class RRect {
@@ -1043,23 +1079,9 @@ package androidx.ui.engine.geometry {
 
 package androidx.ui.engine.text {
 
-  public enum TextAffinity {
-    enum_constant public static final androidx.ui.engine.text.TextAffinity downstream;
-    enum_constant public static final androidx.ui.engine.text.TextAffinity upstream;
-  }
-
   public enum TextDirection {
     enum_constant public static final androidx.ui.engine.text.TextDirection Ltr;
     enum_constant public static final androidx.ui.engine.text.TextDirection Rtl;
-  }
-
-  public final class TextPosition {
-    ctor public TextPosition(int offset, androidx.ui.engine.text.TextAffinity affinity);
-    method public int component1();
-    method public androidx.ui.engine.text.TextAffinity component2();
-    method public androidx.ui.engine.text.TextPosition copy(int offset, androidx.ui.engine.text.TextAffinity affinity);
-    method public androidx.ui.engine.text.TextAffinity getAffinity();
-    method public int getOffset();
   }
 
 }
@@ -1313,25 +1335,33 @@ package androidx.ui.graphics {
 package androidx.ui.input {
 
   public final class EditorState {
-    ctor public EditorState(String text, androidx.ui.core.TextRange selection, androidx.ui.core.TextRange? composition);
-    ctor public EditorState();
-    method public String component1();
-    method public androidx.ui.core.TextRange component2();
-    method public androidx.ui.core.TextRange? component3();
-    method public androidx.ui.input.EditorState copy(String text, androidx.ui.core.TextRange selection, androidx.ui.core.TextRange? composition);
+    ctor public EditorState(String text, androidx.ui.core.TextRange selection);
     method public androidx.ui.core.TextRange? getComposition();
     method public androidx.ui.core.TextRange getSelection();
     method public String getText();
-  }
-
-  public interface TextInputService {
-    method public void startInput(androidx.ui.input.EditorState initState, kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onUpdateEditorState, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onKeyEventForwarded);
-    method public void stopInput();
+    property public final androidx.ui.core.TextRange? composition;
+    property public final androidx.ui.core.TextRange selection;
+    property public final String text;
   }
 
 }
 
 package androidx.ui.painting {
+
+  public final class AndroidCanvasKt {
+    ctor public AndroidCanvasKt();
+    method public static androidx.ui.painting.Canvas Canvas(androidx.ui.painting.Image image);
+    method public static androidx.ui.painting.Canvas Canvas(androidx.ui.painting.PictureRecorder recorder, androidx.ui.engine.geometry.Rect cullRect = Rect.largest);
+    method public static androidx.ui.painting.Canvas Canvas(android.graphics.Canvas c);
+    method public static inline void withSave(androidx.ui.painting.Canvas, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static inline void withSaveLayer(androidx.ui.painting.Canvas, androidx.ui.engine.geometry.Rect? bounds, androidx.ui.painting.Paint paint, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+  }
+
+  public final class AndroidImageKt {
+    ctor public AndroidImageKt();
+    method public static androidx.ui.painting.Image Image(int width, int height, androidx.ui.painting.ImageConfig config = ImageConfig.Argb8888, boolean hasAlpha = true, androidx.ui.graphics.ColorSpace colorSpace = ColorSpace.get(ColorSpace.Named.Srgb));
+    method public static androidx.ui.painting.Image imageFromResource(android.content.res.Resources res, int resId);
+  }
 
   public enum BlendMode {
     method public final android.graphics.PorterDuff.Mode toPorterDuffMode();
@@ -1373,17 +1403,16 @@ package androidx.ui.painting {
     enum_constant public static final androidx.ui.painting.BlurStyle solid;
   }
 
-  public final class Canvas {
-    ctor public Canvas(androidx.ui.painting.PictureRecorder recorder, androidx.ui.engine.geometry.Rect cullRect);
-    ctor public Canvas(android.graphics.Canvas frameworkCanvas);
+  public interface Canvas {
     method public void clipPath(androidx.ui.painting.Path path);
     method public void clipRRect(androidx.ui.engine.geometry.RRect rrect);
     method public void clipRect(androidx.ui.engine.geometry.Rect rect, androidx.ui.painting.ClipOp clipOp = ClipOp.intersect);
+    method public void concat(androidx.ui.vectormath64.Matrix4 matrix4);
     method public void drawArc(androidx.ui.engine.geometry.Rect rect, float startAngle, float sweepAngle, boolean useCenter, androidx.ui.painting.Paint paint);
-    method public void drawCircle(androidx.ui.engine.geometry.Offset c, float radius, androidx.ui.painting.Paint paint);
+    method public void drawCircle(androidx.ui.engine.geometry.Offset center, float radius, androidx.ui.painting.Paint paint);
     method public void drawColor(androidx.ui.graphics.Color color, androidx.ui.painting.BlendMode blendMode);
     method public void drawDRRect(androidx.ui.engine.geometry.RRect outer, androidx.ui.engine.geometry.RRect inner, androidx.ui.painting.Paint paint);
-    method public void drawImage(androidx.ui.painting.Image image, androidx.ui.engine.geometry.Offset p, androidx.ui.painting.Paint paint);
+    method public void drawImage(androidx.ui.painting.Image image, androidx.ui.engine.geometry.Offset topLeftOffset, androidx.ui.painting.Paint paint);
     method public void drawImageRect(androidx.ui.painting.Image image, androidx.ui.engine.geometry.Rect src, androidx.ui.engine.geometry.Rect dst, androidx.ui.painting.Paint paint);
     method public void drawLine(androidx.ui.engine.geometry.Offset p1, androidx.ui.engine.geometry.Offset p2, androidx.ui.painting.Paint paint);
     method public void drawOval(androidx.ui.engine.geometry.Rect rect, androidx.ui.painting.Paint paint);
@@ -1395,16 +1424,19 @@ package androidx.ui.painting {
     method public void drawRawPoints(androidx.ui.painting.PointMode pointMode, float[] points, androidx.ui.painting.Paint paint);
     method public void drawRect(androidx.ui.engine.geometry.Rect rect, androidx.ui.painting.Paint paint);
     method public void drawVertices(androidx.ui.Vertices vertices, androidx.ui.painting.BlendMode blendMode, androidx.ui.painting.Paint paint);
-    method public int getSaveCount();
+    method public android.graphics.Canvas getNativeCanvas();
     method public void restore();
-    method public void rotate(float radians);
+    method public void rotate(float degrees);
     method public void save();
     method public void saveLayer(androidx.ui.engine.geometry.Rect? bounds, androidx.ui.painting.Paint paint);
     method public void scale(float sx, float sy = sx);
     method public void skew(float sx, float sy);
-    method public android.graphics.Canvas toFrameworkCanvas();
-    method public void transform(androidx.ui.vectormath64.Matrix4 matrix4);
     method public void translate(float dx, float dy);
+    property public abstract android.graphics.Canvas nativeCanvas;
+  }
+
+  public final class CanvasKt {
+    ctor public CanvasKt();
   }
 
   public enum ClipOp {
@@ -1439,20 +1471,38 @@ package androidx.ui.painting {
     method public androidx.ui.painting.Gradient sweep(androidx.ui.engine.geometry.Offset center, java.util.List<androidx.ui.graphics.Color> colors, java.util.List<java.lang.Float> colorStops, androidx.ui.painting.TileMode tileMode = TileMode.clamp, float startAngle, float endAngle = 6.2831855f, androidx.ui.vectormath64.Matrix4 matrix4);
   }
 
-  public final class Image {
-    ctor public Image(internal android.graphics.Bitmap bitmap);
-    method public void dispose();
+  public interface Image {
+    method public androidx.ui.graphics.ColorSpace getColorSpace();
+    method public androidx.ui.painting.ImageConfig getConfig();
+    method public boolean getHasAlpha();
     method public int getHeight();
+    method public android.graphics.Bitmap getNativeImage();
     method public int getWidth();
-    method public kotlinx.coroutines.Deferred<java.nio.ByteBuffer> toByteData(kotlinx.coroutines.CoroutineScope, androidx.ui.painting.ImageByteFormat format = ImageByteFormat.rawRgba);
-    property public final int height;
-    property public final int width;
+    method public void prepareToDraw();
+    property public abstract androidx.ui.graphics.ColorSpace colorSpace;
+    property public abstract androidx.ui.painting.ImageConfig config;
+    property public abstract boolean hasAlpha;
+    property public abstract int height;
+    property public abstract android.graphics.Bitmap nativeImage;
+    property public abstract int width;
   }
 
   public enum ImageByteFormat {
     enum_constant public static final androidx.ui.painting.ImageByteFormat png;
     enum_constant public static final androidx.ui.painting.ImageByteFormat rawRgba;
     enum_constant public static final androidx.ui.painting.ImageByteFormat rawUnmodified;
+  }
+
+  public enum ImageConfig {
+    enum_constant public static final androidx.ui.painting.ImageConfig Alpha8;
+    enum_constant public static final androidx.ui.painting.ImageConfig Argb8888;
+    enum_constant public static final androidx.ui.painting.ImageConfig F16;
+    enum_constant public static final androidx.ui.painting.ImageConfig Gpu;
+    enum_constant public static final androidx.ui.painting.ImageConfig Rgb565;
+  }
+
+  public final class ImageKt {
+    ctor public ImageKt();
   }
 
   public enum ImageRepeat {
@@ -1479,6 +1529,7 @@ package androidx.ui.painting {
 
   public final class Paint {
     ctor public Paint();
+    method public android.graphics.Paint asFrameworkPaint();
     method public float getAlpha();
     method public androidx.ui.painting.BlendMode getBlendMode();
     method public androidx.ui.graphics.Color getColor();
@@ -1544,6 +1595,8 @@ package androidx.ui.painting {
     method public void extendWithPath(androidx.ui.painting.Path path, androidx.ui.engine.geometry.Offset offset, androidx.ui.vectormath64.Matrix4 matrix);
     method public androidx.ui.engine.geometry.Rect getBounds();
     method public androidx.ui.painting.PathFillType getFillType();
+    method public boolean isConvex();
+    method public boolean isEmpty();
     method public void lineTo(float dx, float dy);
     method public void moveTo(float dx, float dy);
     method public boolean op(androidx.ui.painting.Path path1, androidx.ui.painting.Path path2, androidx.ui.painting.PathOperation operation);
@@ -1559,6 +1612,8 @@ package androidx.ui.painting {
     method public androidx.ui.painting.Path shift(androidx.ui.engine.geometry.Offset offset);
     method public android.graphics.Path toFrameworkPath();
     method public androidx.ui.painting.Path transform(androidx.ui.vectormath64.Matrix4 matrix);
+    property public final boolean isConvex;
+    property public final boolean isEmpty;
     field public static final androidx.ui.painting.Path.Companion! Companion;
   }
 
@@ -1665,26 +1720,20 @@ package androidx.ui.services.text_editing {
   }
 
   public final class TextSelection extends androidx.ui.services.text_editing.TextRange {
-    ctor public TextSelection(int baseOffset, int extentOffset, androidx.ui.engine.text.TextAffinity affinity, boolean isDirectional);
+    ctor public TextSelection(int baseOffset, int extentOffset, boolean isDirectional);
     method public int component1();
     method public int component2();
-    method public androidx.ui.engine.text.TextAffinity component3();
-    method public boolean component4();
-    method public androidx.ui.services.text_editing.TextSelection copy(int baseOffset, int extentOffset, androidx.ui.engine.text.TextAffinity affinity, boolean isDirectional);
-    method public androidx.ui.engine.text.TextAffinity getAffinity();
-    method public androidx.ui.engine.text.TextPosition getBase();
+    method public boolean component3();
+    method public androidx.ui.services.text_editing.TextSelection copy(int baseOffset, int extentOffset, boolean isDirectional);
     method public int getBaseOffset();
-    method public androidx.ui.engine.text.TextPosition getExtent();
     method public int getExtentOffset();
     method public boolean isDirectional();
-    property public final androidx.ui.engine.text.TextPosition base;
-    property public final androidx.ui.engine.text.TextPosition extent;
     field public static final androidx.ui.services.text_editing.TextSelection.Companion! Companion;
   }
 
   public static final class TextSelection.Companion {
-    method public androidx.ui.services.text_editing.TextSelection collapsed(int offset, androidx.ui.engine.text.TextAffinity affinity = TextAffinity.downstream);
-    method public androidx.ui.services.text_editing.TextSelection fromPosition(androidx.ui.engine.text.TextPosition position);
+    method public androidx.ui.services.text_editing.TextSelection collapsed(int offset);
+    method public androidx.ui.services.text_editing.TextSelection fromPosition(int position);
   }
 
 }

@@ -36,7 +36,7 @@ import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 
-import androidx.concurrent.ListenableFuture;
+import androidx.annotation.NonNull;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.CallbackMediaItem;
 import androidx.media2.common.DataSourceCallback;
@@ -53,6 +53,8 @@ import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +65,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -82,10 +83,10 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     private Object mPlayerCbArg1;
     private Object mPlayerCbArg2;
 
-    private final Vector<Integer> mVideoTrackIndices = new Vector<>();
-    private final Vector<Integer> mAudioTrackIndices = new Vector<>();
-    private final Vector<Integer> mSubtitleTrackIndices = new Vector<>();
-    private int mSelectedSubtitleIndex;
+    private final List<TrackInfo> mVideoTrackInfos = new ArrayList<>();
+    private final List<TrackInfo> mAudioTrackInfos = new ArrayList<>();
+    private final List<TrackInfo> mSubtitleTrackInfos = new ArrayList<>();
+    private TrackInfo mSelectedTrack = null;
     private final Monitor mOnSubtitleDataCalled = new Monitor();
     private final Monitor mOnInfoCalled = new Monitor();
     private final Monitor mOnTrackInfoChangedCalled = new Monitor();
@@ -117,7 +118,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor playing = new TestUtils.Monitor();
         mPlayer.registerPlayerCallback(mExecutor, new SessionPlayer.PlayerCallback() {
             @Override
-            public void onPlayerStateChanged(SessionPlayer player, int playerState) {
+            public void onPlayerStateChanged(@NonNull SessionPlayer player, int playerState) {
                 playing.signal();
             }
         });
@@ -556,53 +557,50 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     }
 
     private void readTracks() {
-        mVideoTrackIndices.clear();
-        mAudioTrackIndices.clear();
-        mSubtitleTrackIndices.clear();
+        mVideoTrackInfos.clear();
+        mAudioTrackInfos.clear();
+        mSubtitleTrackInfos.clear();
         List<MediaPlayer.TrackInfo> trackInfos = mPlayer.getTrackInfo();
         if (trackInfos == null || trackInfos.size() == 0) {
             return;
         }
 
-        Vector<Integer> videoTrackIndices = new Vector<>();
-        Vector<Integer> audioTrackIndices = new Vector<>();
-        Vector<Integer> subtitleTrackIndices = new Vector<>();
-        for (int i = 0; i < trackInfos.size(); ++i) {
-            assertNotNull(trackInfos.get(i));
-            switch (trackInfos.get(i).getTrackType()) {
+        for (MediaPlayer.TrackInfo track: trackInfos) {
+            assertNotNull(track);
+            switch (track.getTrackType()) {
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
-                    mVideoTrackIndices.add(i);
+                    mVideoTrackInfos.add(track);
                     break;
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
-                    mAudioTrackIndices.add(i);
+                    mAudioTrackInfos.add(track);
                     break;
                 case MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
-                    mSubtitleTrackIndices.add(i);
+                    mSubtitleTrackInfos.add(track);
                     break;
             }
         }
-
-        mVideoTrackIndices.addAll(videoTrackIndices);
-        mAudioTrackIndices.addAll(audioTrackIndices);
-        mSubtitleTrackIndices.addAll(subtitleTrackIndices);
     }
 
-    private void selectSubtitleTrack(int index) throws Exception {
-        int trackIndex = mSubtitleTrackIndices.get(index);
-        List<TrackInfo> tracks = mPlayer.getTrackInfo();
-        ListenableFuture<PlayerResult> future = mPlayer.selectTrack(tracks.get(trackIndex));
-        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
-        mSelectedSubtitleIndex = index;
+    private int selectSubtitleTrack(int index) throws Exception {
+        assertTrue(index < mSubtitleTrackInfos.size());
+        final TrackInfo track = mSubtitleTrackInfos.get(index);
+        ListenableFuture<PlayerResult> future = mPlayer.selectTrack(track);
+        int result = future.get().getResultCode();
+        if (result == RESULT_SUCCESS) {
+            mSelectedTrack = track;
+        }
+        return result;
     }
 
     private int deselectSubtitleTrack(int index) throws Exception {
-        int trackIndex = mSubtitleTrackIndices.get(index);
-        List<TrackInfo> tracks = mPlayer.getTrackInfo();
-        ListenableFuture<PlayerResult> future = mPlayer.deselectTrack(tracks.get(trackIndex));
-        if (mSelectedSubtitleIndex == index) {
-            mSelectedSubtitleIndex = -1;
+        assertTrue(index < mSubtitleTrackInfos.size());
+        final TrackInfo track = mSubtitleTrackInfos.get(index);
+        ListenableFuture<PlayerResult> future = mPlayer.deselectTrack(track);
+        int result = future.get().getResultCode();
+        if (result == RESULT_SUCCESS) {
+            mSelectedTrack = null;
         }
-        return future.get().getResultCode();
+        return result;
     }
 
     @Test
@@ -625,8 +623,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             }
 
             @Override
-            public void onSubtitleData(SessionPlayer player, MediaItem item,
-                    SessionPlayer.TrackInfo track, SubtitleData data) {
+            public void onSubtitleData(@NonNull SessionPlayer player, @NonNull MediaItem item,
+                    @NonNull SessionPlayer.TrackInfo track, @NonNull SubtitleData data) {
                 if (track != null && data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -650,7 +648,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         // Run twice to check if repeated selection-deselection on the same track works well.
         for (int i = 0; i < 2; i++) {
             // Waits until at least one subtitle is fired. Timeout is 2.5 seconds.
-            selectSubtitleTrack(i);
+            assertEquals(RESULT_SUCCESS, selectSubtitleTrack(i));
             mOnSubtitleDataCalled.reset();
             assertTrue(mOnSubtitleDataCalled.waitForSignal(2500));
 
@@ -659,7 +657,6 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             mOnSubtitleDataCalled.reset();
             assertFalse(mOnSubtitleDataCalled.waitForSignal(1500));
         }
-
         // Deselecting unselected track: expected error status
         assertNotEquals(RESULT_SUCCESS, deselectSubtitleTrack(0));
         mPlayer.reset();
@@ -683,8 +680,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             }
 
             @Override
-            public void onSubtitleData(SessionPlayer player, MediaItem item,
-                    SessionPlayer.TrackInfo track, SubtitleData data) {
+            public void onSubtitleData(@NonNull SessionPlayer player, @NonNull MediaItem item,
+                    @NonNull SessionPlayer.TrackInfo track, @NonNull SubtitleData data) {
                 if (track != null && data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -704,14 +701,20 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mOnInfoCalled.waitForSignal(1500);
 
         readTracks();
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         // Waits until at least two captions are fired. Timeout is 2.5 sec.
-        selectSubtitleTrack(0);
+        assertEquals(RESULT_SUCCESS, selectSubtitleTrack(0));
         assertTrue(mOnSubtitleDataCalled.waitForCountedSignals(2, 2500) >= 2);
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         mOnSubtitleDataCalled.reset();
-        selectSubtitleTrack(1);
+        assertEquals(RESULT_SUCCESS, selectSubtitleTrack(1));
         assertTrue(mOnSubtitleDataCalled.waitForCountedSignals(2, 2500) >= 2);
+        assertEquals(mSelectedTrack,
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
 
         mPlayer.reset();
     }
@@ -748,7 +751,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mOnInfoCalled.waitForSignal(1500);
 
         readTracks();
-        assertEquals(2, mSubtitleTrackIndices.size());
+        assertEquals(2, mSubtitleTrackInfos.size());
 
         mPlayer.reset();
     }
@@ -763,8 +766,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onTrackInfoChanged(SessionPlayer player,
-                    List<SessionPlayer.TrackInfo> trackInfos) {
+            public void onTrackInfoChanged(@NonNull SessionPlayer player,
+                    @NonNull List<SessionPlayer.TrackInfo> trackInfos) {
                 mOnTrackInfoChangedCalled.signal();
             }
         };
@@ -778,10 +781,16 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         // R.raw.testvideo contains the following tracks:
         //  MEDIA_TRACK_TYPE_VIDEO: 1
         //  MEDIA_TRACK_TYPE_AUDIO: 1
-        assertEquals(1, mVideoTrackIndices.size());
-        assertEquals(1, mAudioTrackIndices.size());
-        assertEquals(0, mSubtitleTrackIndices.size());
+        assertEquals(1, mVideoTrackInfos.size());
+        assertEquals(1, mAudioTrackInfos.size());
+        assertEquals(0, mSubtitleTrackInfos.size());
 
+        // Test getSelectedTrack
+        assertEquals(mVideoTrackInfos.get(0),
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_VIDEO));
+        assertEquals(mAudioTrackInfos.get(0),
+                mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_AUDIO));
+        assertNull(mPlayer.getSelectedTrack(MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
         mPlayer.reset();
     }
 
@@ -973,7 +982,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final Monitor onCompletionCalled = new Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onPlaybackCompleted(SessionPlayer player) {
+            public void onPlaybackCompleted(@NonNull SessionPlayer player) {
                 onCompletionCalled.signal();
             }
         };
@@ -1125,26 +1134,26 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onPlayerStateChanged(SessionPlayer player, int state) {
+            public void onPlayerStateChanged(@NonNull SessionPlayer player, int state) {
                 playerState.set(state);
                 onPlayerStateChangedCalled.signal();
             }
 
             @Override
-            public void onBufferingStateChanged(SessionPlayer player, MediaItem item,
+            public void onBufferingStateChanged(@NonNull SessionPlayer player, MediaItem item,
                     int buffState) {
                 bufferingState.set(buffState);
                 onBufferingStateChangedCalled.signal();
             }
 
             @Override
-            public void onPlaybackSpeedChanged(SessionPlayer player, float speed) {
+            public void onPlaybackSpeedChanged(@NonNull SessionPlayer player, float speed) {
                 playbackSpeed.set(speed);
                 onPlaybackSpeedChanged.signal();
             }
 
             @Override
-            public void onSeekCompleted(SessionPlayer player, long position) {
+            public void onSeekCompleted(@NonNull SessionPlayer player, long position) {
                 onSeekCompleteCalled.signal();
             }
         };
@@ -1308,7 +1317,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onShuffleModeChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onShuffleModeChanged(SessionPlayer player, int shuffleMode) {
+            public void onShuffleModeChanged(@NonNull SessionPlayer player, int shuffleMode) {
                 mPlayerCbArg1 = player;
                 mPlayerCbArg2 = new Integer(shuffleMode);
                 onShuffleModeChangedMonitor.signal();
@@ -1365,7 +1374,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onRepeatModeChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onRepeatModeChanged(SessionPlayer player, int repeatMode) {
+            public void onRepeatModeChanged(@NonNull SessionPlayer player, int repeatMode) {
                 mPlayerCbArg1 = player;
                 mPlayerCbArg2 = new Integer(repeatMode);
                 onRepeatModeChangedMonitor.signal();
@@ -1648,7 +1657,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer player, MediaItem item) {
+            public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
+                    @NonNull MediaItem item) {
                 assertEquals(currentIdx, mPlayer.getCurrentMediaItemIndex());
                 onCurrentMediaItemChangedMonitor.signal();
             }
@@ -1671,7 +1681,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer player, MediaItem item) {
+            public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
+                    @NonNull MediaItem item) {
                 assertEquals(currentIdx, mPlayer.getCurrentMediaItemIndex());
                 onCurrentMediaItemChangedMonitor.signal();
             }

@@ -1304,11 +1304,12 @@ public class ViewCompat {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static List<AccessibilityActionCompat> getActionList(View view) {
         ArrayList<AccessibilityActionCompat> actions =
                 (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
         if (actions == null) {
-            actions = new ArrayList<AccessibilityActionCompat>();
+            actions = new ArrayList<>();
             view.setTag(R.id.tag_accessibility_actions, actions);
         }
         return actions;
@@ -2437,9 +2438,10 @@ public class ViewCompat {
             v.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
-                    WindowInsetsCompat compatInsets = WindowInsetsCompat.wrap(insets);
+                    WindowInsetsCompat compatInsets = WindowInsetsCompat
+                            .toWindowInsetsCompat(insets);
                     compatInsets = listener.onApplyWindowInsets(view, compatInsets);
-                    return WindowInsetsCompat.unwrap(compatInsets);
+                    return compatInsets.toWindowInsets();
                 }
             });
         }
@@ -2460,12 +2462,12 @@ public class ViewCompat {
     public static WindowInsetsCompat onApplyWindowInsets(@NonNull View view,
             WindowInsetsCompat insets) {
         if (Build.VERSION.SDK_INT >= 21) {
-            WindowInsets unwrapped = WindowInsetsCompat.unwrap(insets);
+            WindowInsets unwrapped = insets.toWindowInsets();
             WindowInsets result = view.onApplyWindowInsets(unwrapped);
             if (!result.equals(unwrapped)) {
                 unwrapped = new WindowInsets(result);
             }
-            return WindowInsetsCompat.wrap(unwrapped);
+            return WindowInsetsCompat.toWindowInsetsCompat(unwrapped);
         }
         return insets;
     }
@@ -2485,12 +2487,12 @@ public class ViewCompat {
     public static WindowInsetsCompat dispatchApplyWindowInsets(@NonNull View view,
             WindowInsetsCompat insets) {
         if (Build.VERSION.SDK_INT >= 21) {
-            WindowInsets unwrapped = WindowInsetsCompat.unwrap(insets);
+            WindowInsets unwrapped = insets.toWindowInsets();
             WindowInsets result = view.dispatchApplyWindowInsets(unwrapped);
             if (!result.equals(unwrapped)) {
                 unwrapped = new WindowInsets(result);
             }
-            return WindowInsetsCompat.wrap(unwrapped);
+            return WindowInsetsCompat.toWindowInsetsCompat(unwrapped);
         }
         return insets;
     }
@@ -3701,6 +3703,7 @@ public class ViewCompat {
      * @param listener a receiver of unhandled {@link KeyEvent}s.
      * @see #removeOnUnhandledKeyEventListener
      */
+    @SuppressWarnings("unchecked")
     public static void addOnUnhandledKeyEventListener(@NonNull View v,
             final @NonNull OnUnhandledKeyEventListenerCompat listener) {
         if (Build.VERSION.SDK_INT >= 28) {
@@ -3744,6 +3747,7 @@ public class ViewCompat {
      * @param listener a receiver of unhandled {@link KeyEvent}s.
      * @see #addOnUnhandledKeyEventListener
      */
+    @SuppressWarnings("unchecked")
     public static void removeOnUnhandledKeyEventListener(@NonNull View v,
             @NonNull OnUnhandledKeyEventListenerCompat listener) {
         if (Build.VERSION.SDK_INT >= 28) {
@@ -4032,6 +4036,7 @@ public class ViewCompat {
             }
         }
 
+        @SuppressWarnings("unchecked")
         T get(View view) {
             if (frameworkAvailable()) {
                 return frameworkGet(view);

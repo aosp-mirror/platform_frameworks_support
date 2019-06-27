@@ -20,12 +20,8 @@ import androidx.ui.engine.text.BaselineShift
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.ParagraphStyle
-import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.engine.text.TextGeometricTransform
-import androidx.ui.engine.text.TextIndent
 import androidx.ui.engine.text.font.FontFamily
 import androidx.ui.engine.text.lerp
 import androidx.ui.engine.window.Locale
@@ -33,87 +29,69 @@ import androidx.ui.graphics.Color
 import androidx.ui.graphics.lerp
 import androidx.ui.lerp
 import androidx.ui.painting.basictypes.RenderComparison
-import androidx.ui.toStringAsFixed
-
-private const val _kDefaultDebugLabel: String = "unknown"
-
-/** The default font size if none is specified. */
-private const val _defaultFontSize: Float = 14.0f
 
 /**
  * Configuration object to define the text style.
  *
- * @param color The color to use when painting the text. If this is specified, `foreground` must be null.
+ * @param color The color to use when painting the text.
  * @param fontSize The size of glyphs (in logical pixels) to use when painting the text.
+ * @param fontSizeScale The scale factor of the font size. When [fontSize] is also given in this
+ *  TextStyle, the final fontSize will be the [fontSize] times this value.
+ *  Otherwise, the final fontSize will be the current fontSize times this value.
  * @param fontWeight The typeface thickness to use when painting the text (e.g., bold).
- * @param fontStyle The typeface variant to use when drawing the letters (e.g., italics).
+ * @param fontStyle The typeface variant to use when drawing the letters (e.g., italic).
  * @param fontSynthesis Whether to synthesize font weight and/or style when the requested weight or
- *                      style cannot be found in the provided custom font family.
- * @param fontFeatureSettings The advanced typography settings provided by font. The format is the same as the CSS font-feature-settings attribute:
- *                            https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
+ *  style cannot be found in the provided custom font family.
+ * @param fontFamily font family to be used when rendering the text.
+ * @param fontFeatureSettings The advanced typography settings provided by font. The format is the
+ *  same as the CSS font-feature-settings attribute: https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
  * @param letterSpacing The amount of space (in logical pixels) to add between each letter.
- * @param wordSpacing The amount of space (in logical pixels) to add at each sequence of white-space (i.e. between each word). Only works on Android Q and above.
- * @param baselineShift This parameter specifies how much the baseline is shifted from the current position.
+ * @param wordSpacing The amount of space (in logical pixels) to add at each sequence of white-space
+ *  (i.e. between each word). Only works on Android Q and above.
+ * @param baselineShift This parameter specifies how much the baseline is shifted from the current
+ *  position.
  * @param textGeometricTransform The geometric transformation applied the text.
- * @param height The height of this text span, as a multiple of the font size.
  * @param locale The locale used to select region-specific glyphs.
  * @param background The background color for the text.
  * @param decoration The decorations to paint near the text (e.g., an underline).
- * @param fontFamily The name of the font to use when painting the text (e.g., Roboto).
- * @param textIndent Specify how much a paragraph is indented.
- * @param textAlign Specify how a paragraph is aligned.
  * @param shadow The shadow effect applied on the text.
- * @param debugLabel A human-readable description of this text style.
  */
 data class TextStyle(
     val color: Color? = null,
     val fontSize: Float? = null,
+    val fontSizeScale: Float? = null,
     val fontWeight: FontWeight? = null,
     val fontStyle: FontStyle? = null,
     val fontSynthesis: FontSynthesis? = null,
+    var fontFamily: FontFamily? = null,
     val fontFeatureSettings: String? = null,
     val letterSpacing: Float? = null,
     val wordSpacing: Float? = null,
     val baselineShift: BaselineShift? = null,
     val textGeometricTransform: TextGeometricTransform? = null,
-    val height: Float? = null,
     val locale: Locale? = null,
     val background: Color? = null,
     val decoration: TextDecoration? = null,
-    var fontFamily: FontFamily? = null,
-    val textIndent: TextIndent? = null,
-    val textAlign: TextAlign? = null,
-    val shadow: Shadow? = null,
-    val debugLabel: String? = null
+    val shadow: Shadow? = null
 ) {
 
     /**
      * Returns a new text style that is a combination of this style and the given [other] style.
      *
-     * If the given [other] text style has its [TextStyle.inherit] set to true, its null properties
-     * are replaced with the non-null properties of this text style. The [other] style
-     * _inherits_ the properties of this style. Another way to think of it is that the "missing"
-     * properties of the [other] style are _filled_ by the properties of this style.
-     *
-     * If the given [other] text style has its [TextStyle.inherit] set to false, returns the given
-     * [other] style unchanged. The [other] style does not inherit properties of this style.
+     * [other] text style's null properties are replaced with the non-null properties of this text
+     * style. Another way to think of it is that the "missing" properties of the [other] style are
+     * _filled_ by the properties of this style.
      *
      * If the given text style is null, returns this text style.
      */
     fun merge(other: TextStyle? = null): TextStyle {
         if (other == null) return this
 
-        // TODO(siyamed) remove debug labels
-        var mergedDebugLabel = ""
-        if (other.debugLabel != null || debugLabel != null) {
-            mergedDebugLabel = "(${debugLabel ?: _kDefaultDebugLabel}).merge(" +
-                    "${other.debugLabel ?: _kDefaultDebugLabel})"
-        }
-
         return TextStyle(
             color = other.color ?: this.color,
             fontFamily = other.fontFamily ?: this.fontFamily,
             fontSize = other.fontSize ?: this.fontSize,
+            fontSizeScale = other.fontSizeScale ?: this.fontSizeScale,
             fontWeight = other.fontWeight ?: this.fontWeight,
             fontStyle = other.fontStyle ?: this.fontStyle,
             fontSynthesis = other.fontSynthesis ?: this.fontSynthesis,
@@ -122,34 +100,14 @@ data class TextStyle(
             wordSpacing = other.wordSpacing ?: this.wordSpacing,
             baselineShift = other.baselineShift ?: this.baselineShift,
             textGeometricTransform = other.textGeometricTransform ?: this.textGeometricTransform,
-            height = other.height ?: this.height,
             locale = other.locale ?: this.locale,
             background = other.background ?: this.background,
             decoration = other.decoration ?: this.decoration,
-            textIndent = other.textIndent ?: this.textIndent,
-            textAlign = other.textAlign ?: this.textAlign,
-            shadow = other.shadow ?: this.shadow,
-            debugLabel = mergedDebugLabel
+            shadow = other.shadow ?: this.shadow
         )
     }
 
-    /**
-     * Interpolate between two text styles.
-     *
-     * This will not work well if the styles don't set the same fields.
-     *
-     * The `t` argument represents position on the timeline, with 0.0 meaning that the interpolation
-     * has not started, returning `a` (or something equivalent to `a`), 1.0 meaning that the
-     * interpolation has finished, returning `b` (or something equivalent to `b`), and values in
-     * between meaning that the interpolation is at the relevant point on the timeline between `a`
-     * and `b`. The interpolation can be extrapolated beyond 0.0 and 1.0, so negative values and
-     * values greater than 1.0 are valid (and can easily be generated by curves such as
-     * [Curves.elasticInOut]).
-     *
-     * Values for `t` are usually obtained from an [Animation<Float>], such as an
-     * [AnimationController].
-     */
-    companion object {
+    internal companion object {
         private fun lerpColor(a: Color?, b: Color?, t: Float): Color? {
             if (a == null && b == null) {
                 return null
@@ -168,24 +126,34 @@ data class TextStyle(
 
         private fun <T> lerpDiscrete(a: T?, b: T?, t: Float): T? = if (t < 0.5) a else b
 
+        /**
+         * Interpolate between two text styles.
+         *
+         * This will not work well if the styles don't set the same fields.
+         *
+         * The `t` argument represents position on the timeline, with 0.0 meaning that the interpolation
+         * has not started, returning `a` (or something equivalent to `a`), 1.0 meaning that the
+         * interpolation has finished, returning `b` (or something equivalent to `b`), and values in
+         * between meaning that the interpolation is at the relevant point on the timeline between `a`
+         * and `b`. The interpolation can be extrapolated beyond 0.0 and 1.0, so negative values and
+         * values greater than 1.0 are valid (and can easily be generated by curves such as
+         * [Curves.elasticInOut]).
+         *
+         * Values for `t` are usually obtained from an [Animation<Float>], such as an
+         * [AnimationController].
+         */
         fun lerp(a: TextStyle? = null, b: TextStyle? = null, t: Float): TextStyle? {
             val aIsNull = a == null
             val bIsNull = b == null
 
             if (aIsNull && bIsNull) return null
-            // TODO(siyamed) remove debug labels
-            val lerpDebugLabel = "lerp(${a?.debugLabel
-                ?: _kDefaultDebugLabel} ⎯${t.toStringAsFixed(1)}→ ${b?.debugLabel
-                ?: _kDefaultDebugLabel})"
 
             if (a == null) {
-                val newB =
-                    b?.copy(debugLabel = lerpDebugLabel) ?: TextStyle(debugLabel = lerpDebugLabel)
+                val newB = b?.copy() ?: TextStyle()
                 return if (t < 0.5) {
                     TextStyle(
                         color = lerpColor(null, newB.color, t),
-                        fontWeight = FontWeight.lerp(null, newB.fontWeight, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(null, newB.fontWeight, t)
                     )
                 } else {
                     newB.copy(
@@ -199,14 +167,12 @@ data class TextStyle(
                 return if (t < 0.5) {
                     a.copy(
                         color = lerpColor(a.color, null, t),
-                        fontWeight = FontWeight.lerp(a.fontWeight, null, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(a.fontWeight, null, t)
                     )
                 } else {
                     TextStyle(
                         color = lerpColor(a.color, null, t),
-                        fontWeight = FontWeight.lerp(a.fontWeight, null, t),
-                        debugLabel = lerpDebugLabel
+                        fontWeight = FontWeight.lerp(a.fontWeight, null, t)
                     )
                 }
             }
@@ -215,6 +181,7 @@ data class TextStyle(
                 color = lerpColor(a.color, b.color, t),
                 fontFamily = lerpDiscrete(a.fontFamily, b.fontFamily, t),
                 fontSize = lerpFloat(a.fontSize, b.fontSize, t),
+                fontSizeScale = lerpFloat(a.fontSizeScale, b.fontSizeScale, t, 1f),
                 fontWeight = FontWeight.lerp(a.fontWeight, b.fontWeight, t),
                 fontStyle = lerpDiscrete(a.fontStyle, b.fontStyle, t),
                 fontSynthesis = lerpDiscrete(a.fontSynthesis, b.fontSynthesis, t),
@@ -227,28 +194,20 @@ data class TextStyle(
                     b.textGeometricTransform ?: TextGeometricTransform.None,
                     t
                 ),
-                height = lerpFloat(a.height, b.height, t),
                 locale = lerpDiscrete(a.locale, b.locale, t),
                 background = lerpDiscrete(a.background, b.background, t),
                 decoration = lerpDiscrete(a.decoration, b.decoration, t),
-                textIndent = lerp(
-                    a.textIndent ?: TextIndent.NONE,
-                    b.textIndent ?: TextIndent.NONE,
-                    t
-                ),
-                textAlign = if (t < 0.5) a.textAlign else b.textAlign,
                 shadow = lerp(
                     a.shadow ?: Shadow(),
                     b.shadow ?: Shadow(),
                     t
-                ),
-                debugLabel = lerpDebugLabel
+                )
             )
         }
     }
 
     /** The style information for text runs, encoded for use by ui. */
-    fun getTextStyle(textScaleFactor: Float = 1.0f): androidx.ui.engine.text.TextStyle {
+    internal fun getTextStyle(textScaleFactor: Float = 1.0f): androidx.ui.engine.text.TextStyle {
         return androidx.ui.engine.text.TextStyle(
             color = color,
             decoration = decoration,
@@ -258,48 +217,14 @@ data class TextStyle(
             fontFeatureSettings = fontFeatureSettings,
             fontFamily = fontFamily,
             fontSize = if (fontSize == null) null else (fontSize * textScaleFactor),
+            fontSizeScale = fontSizeScale,
             letterSpacing = letterSpacing,
             wordSpacing = wordSpacing,
             baselineShift = baselineShift,
             textGeometricTransform = textGeometricTransform,
-            textAlign = textAlign,
-            height = height,
             locale = locale,
             background = background,
             shadow = shadow
-        )
-    }
-
-    /**
-     * The style information for paragraphs, encoded for use by `ui`.
-     * The `textScaleFactor` argument must not be null. If omitted, it defaults
-     * to 1.0. The other arguments may be null. The `maxLines` argument, if
-     * specified and non-null, must be greater than zero.
-     *
-     * If the font size on this style isn't set, it will default to 14 logical
-     * pixels.
-     */
-    fun getParagraphStyle(
-        textAlign: TextAlign? = null,
-        textDirection: TextDirection? = null,
-        textScaleFactor: Float = 1.0f,
-        ellipsis: Boolean? = null,
-        maxLines: Int? = null,
-        locale: Locale? = null
-    ): ParagraphStyle {
-        assert(maxLines == null || maxLines > 0)
-        return ParagraphStyle(
-            textAlign = textAlign,
-            textDirection = textDirection,
-            fontWeight = fontWeight,
-            fontStyle = fontStyle,
-            maxLines = maxLines,
-            fontFamily = fontFamily,
-            fontSize = (fontSize ?: _defaultFontSize) * textScaleFactor,
-            lineHeight = height,
-            ellipsis = ellipsis,
-            locale = locale,
-            fontSynthesis = fontSynthesis
         )
     }
 
@@ -311,7 +236,7 @@ data class TextStyle(
      *
      *  * [TextSpan.compareTo], which does the same thing for entire [TextSpan]s.
      */
-    fun compareTo(other: TextStyle): RenderComparison {
+    internal fun compareTo(other: TextStyle): RenderComparison {
         if (this == other) {
             return RenderComparison.IDENTICAL
         }
@@ -325,7 +250,6 @@ data class TextStyle(
             wordSpacing != other.wordSpacing ||
             baselineShift != other.baselineShift ||
             textGeometricTransform != other.textGeometricTransform ||
-            height != other.height ||
             locale != other.locale ||
             background != other.background
         ) {
