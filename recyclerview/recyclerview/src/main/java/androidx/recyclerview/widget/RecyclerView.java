@@ -541,6 +541,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     private OnFlingListener mOnFlingListener;
     private final int mMinFlingVelocity;
     private final int mMaxFlingVelocity;
+    private int mDeltaX;
+    private int mDeltaY;
 
     // This value is used when handling rotary encoder generic motion events.
     private float mScaledHorizontalScrollFactor = Float.MIN_VALUE;
@@ -2378,12 +2380,14 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     // Should be considered private. Not private to avoid synthetic accessor.
     void smoothScrollBy(@Px int dx, @Px int dy, @Nullable Interpolator interpolator,
             int duration, boolean withNestedScrolling) {
+        Log.d(TAG, " I am here");
         if (mLayout == null) {
             Log.e(TAG, "Cannot smooth scroll without a LayoutManager set. "
                     + "Call setLayoutManager with a non-null argument.");
             return;
         }
         if (mLayoutSuppressed) {
+            Log.d(TAG, " layoutsupressed");
             return;
         }
         if (!mLayout.canScrollHorizontally()) {
@@ -2392,9 +2396,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         if (!mLayout.canScrollVertically()) {
             dy = 0;
         }
+        Log.d(TAG, " dx is " + dx + " dy is " + dy);
         if (dx != 0 || dy != 0) {
             boolean durationSuggestsAnimation = duration == UNDEFINED_DURATION || duration > 0;
             if (durationSuggestsAnimation) {
+                Log.d(TAG, "duringsusggested animation");
                 if (withNestedScrolling) {
                     int nestedScrollAxis = ViewCompat.SCROLL_AXIS_NONE;
                     if (dx != 0) {
@@ -5133,13 +5139,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     void dispatchOnScrolled(int hresult, int vresult) {
         mDispatchScrollCounter++;
-        // Pass the current scrollX/scrollY values; no actual change in these properties occurred
-        // but some general-purpose code may choose to respond to changes this way.
-        final int scrollX = getScrollX();
-        final int scrollY = getScrollY();
-        onScrollChanged(scrollX, scrollY, scrollX, scrollY);
+        onScrollChanged(mDeltaX + hresult, mDeltaY + vresult, mDeltaX, mDeltaY);
+        mDeltaX += hresult;
+        mDeltaY += vresult;
 
-        // Pass the real deltas to onScrolled, the RecyclerView-specific method.
+                // Pass the real deltas to onScrolled, the RecyclerView-specific method.
         onScrolled(hresult, vresult);
 
         // Invoke listeners last. Subclassed view methods always handle the event first.
