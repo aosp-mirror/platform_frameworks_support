@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "43a7d0d1_82133f05",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T20:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7a8c3d4_d75dfb59",
+      "range": {
+        "startLine": 103,
+        "startChar": 23,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "283ba7a7c87eb97afc2c61db930863d7f9cb8a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8d945b3_71a8d49f",
         "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5c04b392_6f550738",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T20:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8d945b3_71a8d49f",
+      "range": {
+        "startLine": 113,
+        "startChar": 23,
+        "endLine": 113,
+        "endChar": 24
+      },
+      "revId": "283ba7a7c87eb97afc2c61db930863d7f9cb8a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e24a66e_6bc6a303",
         "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "283ba7a7c87eb97afc2c61db930863d7f9cb8a48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af8fded_0cc99bf5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T20:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e24a66e_6bc6a303",
+      "range": {
+        "startLine": 123,
+        "startChar": 23,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "283ba7a7c87eb97afc2c61db930863d7f9cb8a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
