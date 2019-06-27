@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e424cb53_fecefc89",
+        "filename": "navigation/navigation-ui/src/main/java/androidx/navigation/ui/AbstractAppBarOnDestinationChangedListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-27T23:13:07Z",
+      "side": 1,
+      "message": "Let\u0027s pass animate here, rather than negating showAsDrawerIndicator. We really just want to prevent the very first animation (which is exactly what the animate variable does)",
+      "range": {
+        "startLine": 127,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 37
+      },
+      "revId": "70853c98741dc5ba5f0624a0c7fec68746efa3b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
