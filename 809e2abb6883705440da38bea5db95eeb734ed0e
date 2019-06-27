@@ -16,6 +16,24 @@
       "revId": "809e2abb6883705440da38bea5db95eeb734ed0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cbb137a_2290a102",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaWidgetTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-06-27T08:15:45Z",
+      "side": 1,
+      "message": "When creating multiple MediaSessions, their ids must be unique. The existing tests are creating only one MediaSession at a time but the newly added test creates many.",
+      "parentUuid": "f64d1a8a_c6faa1f7",
+      "revId": "809e2abb6883705440da38bea5db95eeb734ed0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
