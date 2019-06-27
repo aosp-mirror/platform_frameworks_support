@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b343c20_045e8ca9",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/UseCaseCombinationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-27T10:10:49Z",
+      "side": 1,
+      "message": "\"Instead of XXXX\" means XXXX is the one to be replaced.  You can say use CountDownLatch and DeviceState.Callback instead of thread.sleep. But this is too verbose and unnecessary I think. \n\nYou can simply say \"Wait camera to be closed\". That is enough. The code should already explain how we do it exactly.",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 88
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d968dbf_cd931d1a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-27T10:10:49Z",
+      "side": 1,
+      "message": "\"Instead of XXXX\" means XXXX is the one to be replaced.  You can say use CountDownLatch and DeviceState.Callback instead of thread.sleep. But this is too verbose and unnecessary I think. \n\nYou can simply say \"Wait camera to be closed\". That is enough. The code should already explain how we do it exactly.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 88
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5d58df_4bc3b6b7",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-27T10:10:49Z",
+      "side": 1,
+      "message": "no waiting for camera close here.  Any reason you believe this is not necessary ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4558251_61808ee0",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-27T10:10:49Z",
+      "side": 1,
+      "message": "\"Wait camera to be closed\" should be enough. The code should already explain how we do it exactly.",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 96
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
