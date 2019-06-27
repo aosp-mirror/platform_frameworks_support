@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70a2e1c8_373ebafc",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/DrawShape.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "I currently need this as Shape.createOutline() is a function of DensityReceiver. I am going to experiment with this in the further CL, probably to pass a density as a param instead.",
+      "parentUuid": "a20cd46c_cbca24c9",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8438403f_fe6fc8d7",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/DrawShape.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15dd1620_212305ef",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/DrawShape.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8438403f_fe6fc8d7",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 7
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e3652eb5_05acacc3",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "depends on where do you want to have if expression. but yeah, probably will be more clear to have it nonnull here. updated",
+      "parentUuid": "fb1ed1e7_29412036",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8aa5c1f_b19c7565",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8422227d_941111e6",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "I answered below the other comment.",
+      "parentUuid": "e8aa5c1f_b19c7565",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12e35677_1326a165",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
         "patchSetId": 2
@@ -108,6 +204,24 @@
       "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13cd3ef4_00a9f80e",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "I added some fancy caching based on shape and parentSize. please let me know wdyt",
+      "parentUuid": "12e35677_1326a165",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "ac270c99_a554ddc0",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "this widget is temporary, I will add some caching into the real implementation based on OutlineProvider",
+      "parentUuid": "c1406bf2_7d82e452",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f7d0dbd_2a3010d7",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
         "patchSetId": 2
@@ -142,6 +274,24 @@
       "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2a884a_3127d283",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-27T17:52:31Z",
+      "side": 1,
+      "message": "I will send your feedback to haoyuchang@, as I am not the owner of this file and don\u0027t want to change the api for the text classes.",
+      "parentUuid": "9f7d0dbd_2a3010d7",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
