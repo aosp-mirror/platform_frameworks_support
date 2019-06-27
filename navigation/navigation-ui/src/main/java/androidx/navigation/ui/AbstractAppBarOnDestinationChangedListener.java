@@ -68,7 +68,9 @@ abstract class AbstractAppBarOnDestinationChangedListener
 
     protected abstract void setTitle(CharSequence title);
 
-    protected abstract void setNavigationIcon(Drawable icon, @StringRes int contentDescription);
+    protected abstract void setNavigationIcon(Drawable icon,
+            @StringRes int contentDescription,
+            boolean showAsDrawerIndicator);
 
     @Override
     public void onDestinationChanged(@NonNull NavController controller,
@@ -106,7 +108,7 @@ abstract class AbstractAppBarOnDestinationChangedListener
         boolean isTopLevelDestination = NavigationUI.matchDestinations(destination,
                 mTopLevelDestinations);
         if (drawerLayout == null && isTopLevelDestination) {
-            setNavigationIcon(null, 0);
+            setNavigationIcon(null, 0, false);
         } else {
             setActionBarUpIndicator(drawerLayout != null && isTopLevelDestination);
         }
@@ -121,7 +123,8 @@ abstract class AbstractAppBarOnDestinationChangedListener
         }
         setNavigationIcon(mArrowDrawable, showAsDrawerIndicator
                 ? R.string.nav_app_bar_open_drawer_description
-                : R.string.nav_app_bar_navigate_up_description);
+                : R.string.nav_app_bar_navigate_up_description,
+                showAsDrawerIndicator);
         float endValue = showAsDrawerIndicator ? 0f : 1f;
         if (animate) {
             float startValue = mArrowDrawable.getProgress();

@@ -26,6 +26,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.transition.TransitionManager;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -76,11 +77,15 @@ class CollapsingToolbarOnDestinationChangedListener
 
     @Override
     protected void setNavigationIcon(Drawable icon,
-            @StringRes int contentDescription) {
+            @StringRes int contentDescription,
+            boolean showAsDrawerIndicator) {
         Toolbar toolbar = mToolbarWeakReference.get();
         if (toolbar != null) {
             toolbar.setNavigationIcon(icon);
             toolbar.setNavigationContentDescription(contentDescription);
+            if (!showAsDrawerIndicator) {
+                TransitionManager.beginDelayedTransition(toolbar);
+            }
         }
     }
 }

@@ -50,7 +50,8 @@ class ActionBarOnDestinationChangedListener extends
 
     @Override
     protected void setNavigationIcon(Drawable icon,
-            @StringRes int contentDescription) {
+            @StringRes int contentDescription,
+            boolean showAsDrawerIndicator) {
         ActionBar actionBar = mActivity.getSupportActionBar();
         if (icon == null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
