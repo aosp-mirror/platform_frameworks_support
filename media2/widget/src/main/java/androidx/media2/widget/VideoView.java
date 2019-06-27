@@ -285,6 +285,7 @@ public class VideoView extends SelectiveLayout {
                 "enableControlView", true);
         if (enableControlView) {
             mMediaControlView = new MediaControlView(context);
+            mMediaControlView.markAttachedToVideoView();
             addView(mMediaControlView, mSelectiveLayoutParams);
         }
 
@@ -343,7 +344,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         if (mMediaControlView != null) {
-            mMediaControlView.setMediaController(controller);
+            mMediaControlView.setMediaControllerInternal(controller);
         }
     }
 
@@ -380,7 +381,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         if (mMediaControlView != null) {
-            mMediaControlView.setPlayer(player);
+            mMediaControlView.setPlayerInternal(player);
         }
     }
 
@@ -398,15 +399,16 @@ public class VideoView extends SelectiveLayout {
     public void setMediaControlView(@NonNull MediaControlView mediaControlView, long intervalMs) {
         removeView(mMediaControlView);
         addView(mediaControlView, mSelectiveLayoutParams);
+        mediaControlView.markAttachedToVideoView();
 
         mMediaControlView = mediaControlView;
         mMediaControlView.setDelayedAnimationInterval(intervalMs);
 
         if (mPlayer != null) {
             if (mPlayer.mController != null) {
-                mMediaControlView.setMediaController(mPlayer.mController);
+                mMediaControlView.setMediaControllerInternal(mPlayer.mController);
             } else if (mPlayer.mPlayer != null) {
-                mMediaControlView.setPlayer(mPlayer.mPlayer);
+                mMediaControlView.setPlayerInternal(mPlayer.mPlayer);
             }
         }
     }
