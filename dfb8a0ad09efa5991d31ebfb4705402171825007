@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78b5bd83_bef0c941",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-27T16:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d56d085_f98393b9",
+      "range": {
+        "startLine": 581,
+        "startChar": 10,
+        "endLine": 581,
+        "endChar": 30
+      },
+      "revId": "dfb8a0ad09efa5991d31ebfb4705402171825007",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7932de8e_edbbc785",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9bb9c5aa_be368560",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-27T16:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7932de8e_edbbc785",
+      "range": {
+        "startLine": 593,
+        "startChar": 25,
+        "endLine": 593,
+        "endChar": 40
+      },
+      "revId": "dfb8a0ad09efa5991d31ebfb4705402171825007",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c00cb96_d5e4de39",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "dfb8a0ad09efa5991d31ebfb4705402171825007",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c6ae64_6c7a111a",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-06-27T16:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c00cb96_d5e4de39",
+      "range": {
+        "startLine": 632,
+        "startChar": 20,
+        "endLine": 634,
+        "endChar": 21
+      },
+      "revId": "dfb8a0ad09efa5991d31ebfb4705402171825007",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
