@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0340d084_0e67b659",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-27T08:27:56Z",
+      "side": 1,
+      "message": "Q) Why do we need to do this?",
+      "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
