@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "8a0f6edc_3301dcb3",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T17:26:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c9d48a6_83f9d526",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4b0e564_72ac0f85",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
         "patchSetId": 2

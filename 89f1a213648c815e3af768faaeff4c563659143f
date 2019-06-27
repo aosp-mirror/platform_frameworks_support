@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "194760ad_277d2baa",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T17:26:56Z",
+      "side": 1,
+      "message": "I actually have overload that accepts dp. The problem is sometimes (2dp + 2.dp).toPx is not equals 2dp.toPx + 2.dp.toPx, because of rounding, that\u0027s why we should be aware of it and that\u0027s why we need px overloads...\n\nIf you have any ideas how to avoid this rounding confusion, we can discuss and make this even better!",
+      "parentUuid": "7b59be25_7bfc738f",
+      "range": {
+        "startLine": 149,
+        "startChar": 10,
+        "endLine": 149,
+        "endChar": 32
+      },
+      "revId": "89f1a213648c815e3af768faaeff4c563659143f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b77dd854_a7e5616f",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/ColoredRectUiTest.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "89f1a213648c815e3af768faaeff4c563659143f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac0a5594_16df0304",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ColoredRectUiTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-06-27T17:26:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b77dd854_a7e5616f",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "89f1a213648c815e3af768faaeff4c563659143f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
