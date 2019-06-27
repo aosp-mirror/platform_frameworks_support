@@ -22,6 +22,30 @@
       "revId": "a8e88f15005c79b088683ff8f68cd8fa162c4e37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef79e431_035053ce",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-06-27T22:11:44Z",
+      "side": 1,
+      "message": "Sorry this is my misunderstanding. You can use memo without thinking thread safeness since it is just a local memorization.\nHowever, I still don\u0027t think creating TextPainter object and passing to memo argument makes sense here.",
+      "parentUuid": "796f28d5_ef0edeef",
+      "range": {
+        "startLine": 199,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 13
+      },
+      "revId": "a8e88f15005c79b088683ff8f68cd8fa162c4e37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
