@@ -22,6 +22,30 @@
       "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb6d7e3_9ebcaf96",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-06-27T04:17:59Z",
+      "side": 1,
+      "message": "Yes, since the media will be in playing or paused state, not idle state.",
+      "parentUuid": "2a33c751_d64d5a5d",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
