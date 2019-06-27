@@ -5137,7 +5137,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         // but some general-purpose code may choose to respond to changes this way.
         final int scrollX = getScrollX();
         final int scrollY = getScrollY();
-        onScrollChanged(scrollX, scrollY, scrollX, scrollY);
+        onScrollChanged(scrollX, scrollY, scrollX - hresult, scrollY - vresult);
 
         // Pass the real deltas to onScrolled, the RecyclerView-specific method.
         onScrolled(hresult, vresult);
