@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ded0ef19_7d6a7974",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "consider making this a separate CL",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 56
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aef1314_2aeced41",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "why the empty lambda? seems like the demo can be refactored a bit? (think of this as the potential sample)",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78555289_e7ae1bd6",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/DrawerDemo.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "declaring functions inside a function?",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 5
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4b1771_1ef73e27",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/ModalDrawerActivity.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "separate into lines and indent",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19f9120_e98ba7aa",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "add docs",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6939207_3e0a4698",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "add a couple of @see tags with the other versions of drawer to point people in the right direction",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 82,
+        "endChar": 68
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a65a81a4_31752ff3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "nit: the drawer",
+      "range": {
+        "startLine": 106,
+        "startChar": 50,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11fb4c91_edd4e815",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "the scrim",
+      "range": {
+        "startLine": 107,
+        "startChar": 61,
+        "endLine": 107,
+        "endChar": 66
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29de84f6_08fd291f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "the drawer",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "168e4a40_42f06a76",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "the drawer",
+      "range": {
+        "startLine": 108,
+        "startChar": 66,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2080a61d_9f26cced",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "what does this mean? the app body? I don\u0027t think that should be nested under drawer, only it\u0027s content should",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cbb2269_d169ed7a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "I think this should be the responsability of the parent",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 34
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f359a2_e89606ee",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "add @see to the drawer composables",
+      "range": {
+        "startLine": 236,
+        "startChar": 53,
+        "endLine": 236,
+        "endChar": 59
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0039318b_7bf0dd80",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-27T10:33:19Z",
+      "side": 1,
+      "message": "children?",
+      "range": {
+        "startLine": 366,
+        "startChar": 4,
+        "endLine": 366,
+        "endChar": 9
+      },
+      "revId": "57235fcecc619ecdc9917a6eae22af8ac14a84ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
