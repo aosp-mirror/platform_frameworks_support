@@ -553,6 +553,24 @@
     },
     {
       "key": {
+        "uuid": "0dd4fbcf_db7036e9",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-27T10:45:26Z",
+      "side": 1,
+      "message": "Concurrency added in https://android-review.googlesource.com/c/platform/frameworks/support/+/989208",
+      "parentUuid": "615b7475_e61f99c8",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43b15d23_21e84804",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -1255,6 +1273,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0900db3_b0f0ed31",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-27T10:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4e23b14_9f9371a1",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

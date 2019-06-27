@@ -455,6 +455,24 @@
     },
     {
       "key": {
+        "uuid": "bc546c5e_8d806bbd",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-27T10:45:26Z",
+      "side": 1,
+      "message": "Will done in later cl.",
+      "parentUuid": "ccfac13b_e2bb061b",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c39b7841_193cf46f",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 8
@@ -736,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "5a0a6911_542ab3b8",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-27T10:45:26Z",
+      "side": 1,
+      "message": "Mark as Resolved.",
+      "parentUuid": "7ea55209_65b6f2e5",
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26e270d6_a26fd0a8",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 8
@@ -927,6 +963,30 @@
       "revId": "4839c6a4561331838370c24a761f673090707643",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7a8528_f4392f21",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/BlockingServiceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-27T10:45:26Z",
+      "side": 1,
+      "message": "CountDownLatch and BlockingQueue both works, and one advance of BlockingQueue is it can pass data directly.",
+      "parentUuid": "ba192dda_e6e534fe",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 39
+      },
+      "revId": "4839c6a4561331838370c24a761f673090707643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
