@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3dd9556_aab3f664",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Ktlint.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-06-27T18:35:22Z",
+      "side": 1,
+      "message": "Should I assume that it was intentional not to add it as a dependency of buildOnServer (due to not passing yet)?",
+      "revId": "0ea0c5a60e1bdb86a7381e548e8016e35b2f74f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
