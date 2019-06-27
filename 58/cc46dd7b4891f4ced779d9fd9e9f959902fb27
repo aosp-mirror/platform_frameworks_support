@@ -1,0 +1,8 @@
+API-Review+1: Sergey Vasilinets <sergeyv@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Yigit Boyar <yboyar@google.com>
+Submitted-by: Sergey Vasilinets <sergeyv@google.com>
+Submitted-at: Thu, 27 Jun 2019 22:44:33 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1006698
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
