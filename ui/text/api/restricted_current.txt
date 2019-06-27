@@ -4,6 +4,27 @@ package androidx.ui.painting {
   public final class TextPainter {
   }
 
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class TextPainterConfig {
+    ctor public TextPainterConfig(androidx.ui.painting.AnnotatedString? text, androidx.ui.painting.TextStyle? style, androidx.ui.painting.ParagraphStyle? paragraphStyle, float textScaleFactor, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale);
+    method public androidx.ui.painting.AnnotatedString? component1();
+    method public androidx.ui.painting.TextStyle? component2();
+    method public androidx.ui.painting.ParagraphStyle? component3();
+    method public float component4();
+    method public Integer? component5();
+    method public boolean component6();
+    method public androidx.ui.rendering.paragraph.TextOverflow component7();
+    method public androidx.ui.engine.window.Locale? component8();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.ui.painting.TextPainterConfig copy(androidx.ui.painting.AnnotatedString? text, androidx.ui.painting.TextStyle? style, androidx.ui.painting.ParagraphStyle? paragraphStyle, float textScaleFactor, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale);
+    method public androidx.ui.engine.window.Locale? getLocale();
+    method public Integer? getMaxLines();
+    method public androidx.ui.rendering.paragraph.TextOverflow getOverflow();
+    method public androidx.ui.painting.ParagraphStyle? getParagraphStyle();
+    method public boolean getSoftWrap();
+    method public androidx.ui.painting.TextStyle? getStyle();
+    method public androidx.ui.painting.AnnotatedString? getText();
+    method public float getTextScaleFactor();
+  }
+
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class TextSpan {
     ctor public TextSpan(androidx.ui.painting.TextStyle? style, String? text, java.util.List<androidx.ui.painting.TextSpan> children);
     ctor public TextSpan();
