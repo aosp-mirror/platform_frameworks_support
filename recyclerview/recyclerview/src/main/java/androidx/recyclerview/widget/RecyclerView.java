@@ -541,6 +541,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     private OnFlingListener mOnFlingListener;
     private final int mMinFlingVelocity;
     private final int mMaxFlingVelocity;
+    private int mDeltaX;
+    private int mDeltaY;
 
     // This value is used when handling rotary encoder generic motion events.
     private float mScaledHorizontalScrollFactor = Float.MIN_VALUE;
@@ -5133,11 +5135,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     void dispatchOnScrolled(int hresult, int vresult) {
         mDispatchScrollCounter++;
-        // Pass the current scrollX/scrollY values; no actual change in these properties occurred
-        // but some general-purpose code may choose to respond to changes this way.
-        final int scrollX = getScrollX();
-        final int scrollY = getScrollY();
-        onScrollChanged(scrollX, scrollY, scrollX, scrollY);
+        onScrollChanged(mDeltaX + hresult, mDeltaY + vresult, mDeltaX, mDeltaY);
+        mDeltaX += hresult;
+        mDeltaY += vresult;
 
         // Pass the real deltas to onScrolled, the RecyclerView-specific method.
         onScrolled(hresult, vresult);
