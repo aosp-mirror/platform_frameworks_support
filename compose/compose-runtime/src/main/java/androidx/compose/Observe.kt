@@ -31,7 +31,7 @@ package androidx.compose
  */
 @Composable
 @Suppress("PLUGIN_ERROR")
-fun Observe(@Children body: @Composable() () -> Unit) =
+fun Observe(@Children body: @Composable() () -> Unit) {
     currentComposerNonNull.let { composer ->
         composer.startGroup(observer)
         composer.startJoin(false) { body() }
@@ -39,5 +39,6 @@ fun Observe(@Children body: @Composable() () -> Unit) =
         composer.doneJoin(false)
         composer.endGroup()
     }
+}
 
 private val observer = Object()

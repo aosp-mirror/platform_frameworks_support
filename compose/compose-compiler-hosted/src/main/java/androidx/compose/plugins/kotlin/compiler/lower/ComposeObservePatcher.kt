@@ -48,6 +48,9 @@ import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.psi.KtFunctionLiteral
 import androidx.compose.plugins.kotlin.ComposableAnnotationChecker
 import androidx.compose.plugins.kotlin.ComposeUtils.generateComposePackageName
+import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.IrReturn
+import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.resolve.DelegatingBindingTrace
 import org.jetbrains.kotlin.resolve.descriptorUtil.module
 import org.jetbrains.kotlin.resolve.inline.InlineUtil
@@ -141,8 +144,24 @@ class ComposeObservePatcher(val context: JvmBackendContext) :
                     IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA,
                     IrSimpleFunctionSymbolImpl(lambdaDescriptor),
                     context.irBuiltIns.unitType
-                ).also {
-                    it.body = declaration.body
+                ).also { fn ->
+                    fn.body = declaration.body.apply {
+                        // Move the target for the returns to avoid introducing a non-local return.
+                        transformChildrenVoid(object : IrElementTransformerVoid() {
+                            override fun visitReturn(expression: IrReturn): IrExpression {
+                                if (expression.returnTargetSymbol === declaration.symbol) {
+                                    return IrReturnImpl(
+                                        startOffset = expression.startOffset,
+                                        endOffset = expression.endOffset,
+                                        type = expression.type,
+                                        returnTargetSymbol = fn.symbol,
+                                        value = expression.value
+                                    )
+                                }
+                                return expression
+                            }
+                        })
+                    }
                 }
                 +fn
                 +irCall(

@@ -26,21 +26,34 @@ import static androidx.build.dependencies.DependenciesKt.*
 plugins {
     id("AndroidXPlugin")
     id("kotlin")
+    id("org.jetbrains.intellij") version("0.4.8")
+}
+
+// more info on options for this DSL here:
+// https://github.com/JetBrains/gradle-intellij-plugin
+intellij {
+    pluginName = "compose-ide-plugin"
+    downloadSources = false
+    localPath = "${project.rootDir}/studio/android-studio-ide-$STUDIO_VERSION-mac/Android Studio.app"
+}
+
+runIde {
+    maxHeapSize = "2g"
 }
 
 dependencies {
-    implementation(KOTLIN_STDLIB)
+    compileOnly(KOTLIN_STDLIB)
     implementation project(":compose:compose-compiler-hosted")
 
-    implementation("org.jetbrains.kotlin:kotlin-compiler")
-    implementation("org.jetbrains.kotlin:kotlin-plugin")
-    implementation("org.jetbrains.kotlin:kotlin-intellij-core")
-    implementation("org.jetbrains.kotlin:kotlin-platform-api")
-    implementation("org.jetbrains.kotlin:kotlin-platform-impl")
-    implementation("org.jetbrains.kotlin:kotlin-j2k")
-    implementation("org.jetbrains.kotlin:kotlin-java-impl")
-    implementation("org.jetbrains.kotlin:kotlin-openapi")
-    implementation("org.jetbrains.kotlin:kotlin-jps-common-ide")
+    compileOnly("org.jetbrains.kotlin:kotlin-compiler:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-plugin:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-intellij-core:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-platform-api:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-platform-impl:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-j2k:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-java-impl:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-openapi:$COMPOSE_VERSION")
+    compileOnly("org.jetbrains.kotlin:kotlin-jps-common-ide:$COMPOSE_VERSION")
 }
 
 compileKotlin {
