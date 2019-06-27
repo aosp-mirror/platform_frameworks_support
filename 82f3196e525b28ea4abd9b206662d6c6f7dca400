@@ -46,6 +46,30 @@
       "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "640281fc_1407bf18",
+        "filename": "media2/integration-tests/testapp/src/main/java/androidx/media2/integration/testapp/VideoPlayerActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-06-27T05:01:50Z",
+      "side": 1,
+      "message": "Please leave a comment that the connected controller will be always either playing or paused state.",
+      "parentUuid": "dbb6d7e3_9ebcaf96",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "82f3196e525b28ea4abd9b206662d6c6f7dca400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
