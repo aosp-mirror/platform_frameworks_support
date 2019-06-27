@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4874d629_7f240bb1",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-27T17:54:26Z",
+      "side": 1,
+      "message": "Looking at this it might be more informative to have an error code that is something to the effect of MISMATCHED_EXTENSIONS_ENABLED.\n\nBecause in this case both preview \u0026 image capture extensions have been enabled, but they aren\u0027t for the same extension type.",
+      "revId": "ab3a6709c42bc7800287209325dba5418132ce31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
