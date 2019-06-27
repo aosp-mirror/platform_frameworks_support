@@ -98,6 +98,30 @@
     },
     {
       "key": {
+        "uuid": "d1cc30e1_24cdff16",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-27T17:29:43Z",
+      "side": 1,
+      "message": "Let\u0027s approach whitelisting Fragment managed Views in a follow up CL.",
+      "parentUuid": "795ac5a9_318975f3",
+      "range": {
+        "startLine": 239,
+        "startChar": 30,
+        "endLine": 239,
+        "endChar": 37
+      },
+      "revId": "1688b833212df000df76b41e36eac232443241ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "876af701_2b60c672",
         "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentContainerViewTest.kt",
         "patchSetId": 9
