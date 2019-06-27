@@ -164,7 +164,7 @@ class StackTest : LayoutTest() {
                     stackSize.value = coordinates.size
                     positionedLatch.countDown()
                 }) {
-                    Stack(defaultAlignment = Alignment.BottomRight) {
+                    Stack {
                         aligned(Alignment.Center) {
                             Container(width = sizeDp, height = sizeDp) {
                                 SaveLayoutInfo(
@@ -192,7 +192,7 @@ class StackTest : LayoutTest() {
                                 )
                             }
                         }
-                        positioned(leftInset = insetDp) {
+                        positioned(leftInset = insetDp, fallbackAlignment = Alignment.BottomRight) {
                             Container(width = halfSizeDp, height = halfSizeDp) {
                                 SaveLayoutInfo(
                                     size = childSize[3],
@@ -201,7 +201,7 @@ class StackTest : LayoutTest() {
                                 )
                             }
                         }
-                        positioned(topInset = insetDp) {
+                        positioned(topInset = insetDp, fallbackAlignment = Alignment.BottomRight) {
                             Container(width = halfSizeDp, height = halfSizeDp) {
                                 SaveLayoutInfo(
                                     size = childSize[4],
@@ -210,7 +210,7 @@ class StackTest : LayoutTest() {
                                 )
                             }
                         }
-                        positioned(rightInset = insetDp) {
+                        positioned(rightInset = insetDp, fallbackAlignment = Alignment.BottomRight) {
                             Container(width = halfSizeDp, height = halfSizeDp) {
                                 SaveLayoutInfo(
                                     size = childSize[5],
@@ -219,7 +219,7 @@ class StackTest : LayoutTest() {
                                 )
                             }
                         }
-                        positioned(bottomInset = insetDp) {
+                        positioned(bottomInset = insetDp, fallbackAlignment = Alignment.BottomRight) {
                             Container(width = halfSizeDp, height = halfSizeDp) {
                                 SaveLayoutInfo(
                                     size = childSize[6],
