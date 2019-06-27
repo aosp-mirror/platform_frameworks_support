@@ -26,7 +26,7 @@ import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
 import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getCurrentApiLocation
-import androidx.build.checkapi.getLastReleasedApiFileFromDir
+import androidx.build.checkapi.getRequiredCompatibilityApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.dokka.Dokka.configureAndroidProjectForDokka
@@ -39,8 +39,8 @@ import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
 import androidx.build.license.CheckExternalDependencyLicensesTask
 import androidx.build.license.configureExternalDependencyLicenseCheck
-import androidx.build.metalava.Metalava.configureAndroidProjectForMetalava
-import androidx.build.metalava.Metalava.configureJavaProjectForMetalava
+import androidx.build.metalava.MetalavaTasks.configureAndroidProjectForMetalava
+import androidx.build.metalava.MetalavaTasks.configureJavaProjectForMetalava
 import androidx.build.metalava.UpdateApiTask
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
@@ -373,8 +373,9 @@ class AndroidXPlugin : Plugin<Project> {
             project.configurations.all { configuration ->
                 configuration.resolutionStrategy.eachDependency { dep ->
                     val target = dep.target
+                    val version = target.version
                     // Enforce the ban on declaring dependencies with version ranges.
-                    if (isDependencyRange(target.version)) {
+                    if (version != null && Version.isDependencyRange(version)) {
                         throw IllegalArgumentException(
                                 "Dependency ${dep.target} declares its version as " +
                                         "version range ${dep.target.version} however the use of " +
@@ -666,18 +667,6 @@ fun Project.addToProjectMap(extension: AndroidXExtension) {
     }
 }
 
-private fun isDependencyRange(version: String?): Boolean {
-    if ((version!!.startsWith("[") || version.startsWith("(")) &&
-        version.contains(",") &&
-        (version.endsWith("]") || version.endsWith(")"))) {
-        return true
-    }
-    if (version.endsWith("+")) {
-        return true
-    }
-    return false
-}
-
 private fun Project.createCheckResourceApiTask(): DefaultTask {
     return project.tasks.createWithConfig("checkResourceApi",
             CheckResourceApiTask::class.java) {
@@ -697,8 +686,8 @@ private fun Project.createCheckReleaseReadyTask(taskProviderList: List<TaskProvi
 private fun Project.createUpdateResourceApiTask(): DefaultTask {
     return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
-        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
-                project.version(), true, false, ApiType.RESOURCEAPI)
+        oldApiFile = getRequiredCompatibilityApiFileFromDir(File(project.projectDir, "api/"),
+                project.version(), ApiType.RESOURCEAPI)
         destApiFile = project.getCurrentApiLocation().resourceFile
     }
 }
