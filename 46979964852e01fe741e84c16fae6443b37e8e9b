@@ -518,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "92a4fd88_31577fec",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "I got the idea you want the service to be able to just drop in and use without changing anything.\n\nI\u0027d like not to register it in application, although we have module entry where we can do this. I think this way it\u0027s harder to maintain. But I can\u0027t come up with a better solution now. :(",
+      "parentUuid": "a3d77656_37f417b7",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb690858_d78dcf98",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -571,6 +595,24 @@
     },
     {
       "key": {
+        "uuid": "df7f5926_d67af4c9",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0dd4fbcf_db7036e9",
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43b15d23_21e84804",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -615,6 +657,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fcd964_f21bd696",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bfb545c0_37ca8512",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -806,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "3f4ca2b8_b3702a56",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3b8bf667_462d36af",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 13
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23767711_433cbb4d",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -944,6 +1034,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22180ba0_ec6499a6",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9f433bbf_ca7c2b56",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1088,6 +1202,30 @@
     },
     {
       "key": {
+        "uuid": "0a94a33a_44c4bd37",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "I checked other GMS Core code, we are not doing so. I think this is not necessary.\n\nAnd even if it throws, we can handle it at the code entry.",
+      "parentUuid": "b3044977_2bf0b4f4",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 187,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09b3ad3c_d17f6583",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
@@ -1123,6 +1261,30 @@
       "side": 1,
       "message": "Copied from gmscore AdvertisingIdClient, and it is added in cl \nhttp://cr/#review/109390137/depot/google3/third_party/java/android_libs/gcore/migration_libs/oneup/ub-gcore-master/client/ads/src/com/google/android/gms/ads/identifier/AdvertisingIdClient.java\u0026l\u003dFIRST_DIFF_OR_COMMENT\n\nTimeoutException is throwed by getServiceWithTimeout and wrapped IOException here.",
       "parentUuid": "09b3ad3c_d17f6583",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f583d384_4c9d0b7c",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "I\u0027d like to add TimeoutException and InterruptedException to function signature.\n\nThen we don\u0027t need to catch anything.\n\nWe don\u0027t need to wrap TimeoutException to IOException from getServiceWithTimeout.",
+      "parentUuid": "e10ac24b_bb08fb62",
       "range": {
         "startLine": 204,
         "startChar": 8,
@@ -1226,6 +1388,30 @@
       "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ef9450_6fac8a79",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-27T21:56:40Z",
+      "side": 1,
+      "message": "Just FYI, I believe the AutoValue annotation will create class that extends AdvertisingIdInfo and class that entends the builder. So there\u0027s at least two classes overhead.",
+      "parentUuid": "e0e63324_24ec1bd0",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
