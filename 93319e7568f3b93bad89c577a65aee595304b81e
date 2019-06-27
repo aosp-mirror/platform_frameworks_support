@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc285ee7_489afb58",
+        "filename": "ui/studiow",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-27T20:59:32Z",
+      "side": 1,
+      "message": "nit: can remove these comments, but maybe it\u0027s worth filing a bug and add a new comment saying that we override the plugin version here as compose-studio is behind normal studio in versions?\n\nWe should keep track of this, as it will cause issues in the future now that we are starting to pull in project dependencies from outside of UI, such as benchmark, as projects there might only work with the newest AGP versions.",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 34
+      },
+      "revId": "93319e7568f3b93bad89c577a65aee595304b81e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
