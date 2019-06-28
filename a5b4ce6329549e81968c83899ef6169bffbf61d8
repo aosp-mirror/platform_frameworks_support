@@ -1,0 +1,505 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7062e952_46762b8b",
+        "filename": "ads/ads-identifier-common/src/main/aidl/androidx/ads/identifier/provider/IAdvertisingIdService.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "The Advertising ID service used to communicate between an ID Provider and the developer library.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf6b87b2_7022270c",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Make sure all your terms are consistent:\n- \"Advertising ID\", \"Ads Identifier\", \"Ad ID\"\n- \"ID Provider\", \"Ads Identifier Provider\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51f14c5c_b570c00a",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Internal utilities for Advertising ID.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb22ebc_7a0836be",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "The Intent action used to identify an ID Provider. The ID Provider Service should declare this as an intent-filter, so that clients can find it.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121b3883_53b44254",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "The permission used to indicate which ID Provider should be used in case there are multiple ID Providers on the device. Device manufacturer (OEM) should only grant this permission to the designated ID Provider.",
+      "range": {
+        "startLine": 45,
+        "startChar": 51,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7916b30_58179a88",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "... by looking up which packages can handle {@link #GET_AD_ID_ACTION} intent action.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef644fe_2121998e",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Selects the Service of an ID Provider which should be used by developer library when requesting an Advertising ID. It will return the same ID Provider for all apps which use the developer library, using this priority:\n1. System-level apps (ApplicationInfo.FLAG_SYSTEM) with HIGH_PRIORITY_PERMISSION permission\n2. Other system-level apps\n3. All apps\n\nIf there are ties in any of the above categories, it will use this priority:\n1. First app by install time\n2. First app by package name alphabetically sorted\n\n\n@chaohui: link the appropriate values like System.FLAG",
+      "range": {
+        "startLine": 58,
+        "startChar": 36,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c96953_35c5d0a8",
+        "filename": "ads/ads-identifier-provider/integration-tests/testapp/src/main/java/androidx/ads/identifier/provider/testapp/AdsIdentifierProviderApplication.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "This will show you how to make your own ID Provider for providing the developer library an Advertising ID when requested by apps.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e7ae60_6959ae8e",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProvider.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "The class for the AndroidX Advertising ID Provider that should provide the resettable ID and LAT preference should implement this interface.\n\nSee {@link AdvertisingIdProviderManager} for more details.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5781c4de_a9ab3945",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProvider.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Retrieves the Advertising ID.\nThis ID will be normalized to UUID format by the developer library if it isn\u0027t already.",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "745bf20b_1d76d748",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProvider.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Retrieves whether the user has chosen to limit ad tracking (ads personalization).",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d5150df_992f7dbc",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Used in cases when there are multiple ID Providers on the device. See {@link AdvertisingIdProviderManager#getAdvertisingIdProviders()} for more details.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca2462de_785b79d8",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Retrieves the {@link Intent} to open the ID settings page for a given ID Provider. This page should allow the user to reset IDs and change Limit Ad Tracking preference.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b32f51_189dcc6b",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "This package contains an implementation of the ID Provider Service that supports IAdvertisingIdService.aidl for communication with the developer library, allowing you to easily make your own ID Provider. Simply do the following:\n[copy your three steps from your design doc, but formatted nicely]",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50ad339d_8ebcc74d",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "\"The\" AdvertisingIdProviderManager...\n\nsince there is only one Manager",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59cd2369_c84ab88c",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "to create an instance of {@link AdvertisingIdProvider}. This is used to lazy load the {@link AdvertisingIdProvider} when the Service is started.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57483fcd_89752574",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "javadoc: The implementation of the IAdvertisingIdService.aidl which retrieves values from {@link AdvertisingIdProvider} and replies to the client.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f5c87e_a8095213",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/internal/AdvertisingIdServiceImpl.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "rename class to AdvertisingIdAidlServiceImpl?\nas this is not the Impl of your AdvertisingIdService",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a202d4ae_1895176b",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Client for retrieving Advertising ID related info from an AndroidX ID Provider installed on the device.\n\nTypical usage would be:\n1. Call isAdvertisingIdProviderAvailable() to make sure there is an ID Provider available.\n2. Call getAdvertisingIdInfo() to get ID info (the Avertising ID and LAT setting)",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "661f5cf0_55615e4e",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "... info as {@link AdvertisingIdInfo}.\n\nPlease see [link to selectServiceByPriority] for priority when multiple ID Providers are installed on the device.",
+      "range": {
+        "startLine": 85,
+        "startChar": 34,
+        "endLine": 85,
+        "endChar": 35
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5591cdcc_296ef669",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "rename to getInfoInternal()?",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed89945_33a82c00",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Closes the connection to the ID Provider Service.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c67026ce_7c4b42a1",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "reason (singular)",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c04fc8_94577080",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "whether there is an Advertising ID Provider available on the device.",
+      "range": {
+        "startLine": 203,
+        "startChar": 32,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc90388_3eb9cc40",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Retrieves the Advertising ID.\nThis will be in UUID format, either ID Provider provided an ID in UUID format, or this developer library will normalize the ID to UUID format.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8988443_3ebd26d0",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Retrieves whether the user has set Limit Ad Tracking.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649155ca_98aa5b3a",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdNotAvailableException.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-06-28T12:41:05Z",
+      "side": 1,
+      "message": "Indicates an AndroidX Advertising ID is not available, as no ID Provider was found.",
+      "revId": "a5b4ce6329549e81968c83899ef6169bffbf61d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
