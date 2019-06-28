@@ -30,6 +30,7 @@ import androidx.paging.PagedList.Config.Companion.MAX_SIZE_UNBOUNDED
 import androidx.paging.PagedList.LoadState
 import androidx.paging.PagedList.LoadType
 import androidx.paging.futures.DirectExecutor
+import androidx.paging.futures.await
 import androidx.paging.futures.future
 import androidx.paging.futures.transform
 import com.google.common.util.concurrent.ListenableFuture
@@ -441,7 +442,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             }
 
             try {
-                return create(DirectExecutor).get()
+                return coroutineScope.future { create(DirectExecutor) }.get()
             } catch (e: InterruptedException) {
                 throw RuntimeException(e)
             } catch (e: ExecutionException) {
@@ -468,10 +469,10 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 throw IllegalArgumentException("BackgroundThreadExecutor required")
             }
 
-            return create(fetchExecutor!!)
+            return coroutineScope.future { create(fetchExecutor!!) }
         }
 
-        private fun create(initialFetchExecutor: Executor): ListenableFuture<PagedList<Value>> =
+        private suspend fun create(initialFetchExecutor: Executor): PagedList<Value> =
             create(
                 dataSource,
                 coroutineScope,
@@ -481,7 +482,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 boundaryCallback,
                 config,
                 initialKey
-            )
+            ).await()
     }
 
     /**
