@@ -57,6 +57,6 @@ dependencies {
     implementation(project(":lifecycle:lifecycle-livedata"))
 
     // Android Support Library
-    implementation(project(":appcompat"))
+    implementation(project(":appcompat:appcompat"))
 }
 

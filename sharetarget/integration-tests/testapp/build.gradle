@@ -24,6 +24,6 @@ plugins {
 dependencies {
     api(project(":core:core"))
     api(project(":sharetarget"))
-    api(project(":appcompat"))
+    api(project(":appcompat:appcompat"))
     api(CONSTRAINT_LAYOUT, { transitive = true })
 }

@@ -21,7 +21,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":appcompat"))
+    implementation(project(":appcompat:appcompat"))
     implementation(project(":webkit"))
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)

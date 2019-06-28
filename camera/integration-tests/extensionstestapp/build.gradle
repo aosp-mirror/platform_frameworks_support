@@ -44,7 +44,7 @@ dependencies {
 
     // Android Support Library
     api(CONSTRAINT_LAYOUT, { transitive = true })
-    implementation(project(":appcompat"))
+    implementation(project(":appcompat:appcompat"))
 
     // Guava
     implementation(GUAVA_ANDROID)
