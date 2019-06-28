@@ -55,12 +55,22 @@ public class ExplodeTest extends BaseTransitionTest {
     }
 
     @Before
+<<<<<<< HEAD   (7912e2 Merge "Merge empty history for sparse-5690912-L0970000033495)
     public void prepareViews() {
         mRedSquare = spy(new View(rule.getActivity()));
         mGreenSquare = spy(new View(rule.getActivity()));
         mBlueSquare = spy(new View(rule.getActivity()));
         mYellowSquare = spy(new View(rule.getActivity()));
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+=======
+    public void prepareViews() throws Throwable {
+        final Context context = rule.getActivity();
+        mRedSquare = new TranslationView(context);
+        mGreenSquare = new TranslationView(context);
+        mBlueSquare = new TranslationView(context);
+        mYellowSquare = new TranslationView(context);
+        rule.runOnUiThread(new Runnable() {
+>>>>>>> BRANCH (939c53 Merge "Merge cherrypicks of [1008260, 1008261, 1008262] into)
             @Override
             public void run() {
                 final FrameLayout frame = new FrameLayout(rule.getActivity());
@@ -129,7 +139,10 @@ public class ExplodeTest extends BaseTransitionTest {
             }
         });
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+<<<<<<< HEAD   (7912e2 Merge "Merge empty history for sparse-5690912-L0970000033495)
 
+=======
+>>>>>>> BRANCH (939c53 Merge "Merge cherrypicks of [1008260, 1008261, 1008262] into)
         rule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
