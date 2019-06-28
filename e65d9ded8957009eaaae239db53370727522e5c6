@@ -16,6 +16,24 @@
       "revId": "e65d9ded8957009eaaae239db53370727522e5c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef0c5f4_11389ba4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-06-28T09:25:51Z",
+      "side": 1,
+      "message": "I check the state.mPreCaptureState first so that it don\u0027t have to wait for the next CaptureResult.",
+      "parentUuid": "9e202d54_3a9a2f51",
+      "revId": "e65d9ded8957009eaaae239db53370727522e5c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
