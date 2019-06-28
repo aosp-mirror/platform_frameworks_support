@@ -18,6 +18,7 @@ package androidx.media2.session;
 
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_CUSTOM;
 import static androidx.media2.session.SessionCommand.COMMAND_VERSION_1;
+import static androidx.media2.session.SessionCommand.COMMAND_VERSION_CURRENT;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -166,7 +167,7 @@ public final class SessionCommandGroup implements VersionedParcelable {
          */
         @NonNull
         public Builder addAllPredefinedCommands(@CommandVersion int version) {
-            if (version != COMMAND_VERSION_1) {
+            if (version < COMMAND_VERSION_1 || version > COMMAND_VERSION_CURRENT) {
                 throw new IllegalArgumentException("Unknown command version " + version);
             }
             addAllPlayerCommands(version, /* includeHidden= */ true);
@@ -237,8 +238,10 @@ public final class SessionCommandGroup implements VersionedParcelable {
         private void addCommands(@CommandVersion int version, ArrayMap<Integer, Range> map) {
             for (int i = COMMAND_VERSION_1; i <= version; i++) {
                 Range range = map.get(i);
-                for (int code = range.lower; code <= range.upper; code++) {
-                    addCommand(new SessionCommand(code));
+                if (range != null) {
+                    for (int code = range.lower; code <= range.upper; code++) {
+                        addCommand(new SessionCommand(code));
+                    }
                 }
             }
         }
