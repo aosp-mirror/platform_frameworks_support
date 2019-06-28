@@ -46,6 +46,53 @@
       "revId": "69712726e2606b661b3d043ef0a32af000634034",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915dfdc3_72ff5b6f",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T13:47:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92f269ee_95025795",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 47
+      },
+      "revId": "69712726e2606b661b3d043ef0a32af000634034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6ba5b2d_fc75cec3",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T13:47:54Z",
+      "side": 1,
+      "message": "I just learned about the importance of watching how we use kotlin for performance reasons. This line will create 2 lists. I\u0027m sure you can write this more efficiently so that it doesn\u0027t use any allocations.\n\nPlease look through this code. I see several examples where you can improve the performance.",
+      "range": {
+        "startLine": 682,
+        "startChar": 29,
+        "endLine": 682,
+        "endChar": 44
+      },
+      "revId": "69712726e2606b661b3d043ef0a32af000634034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
