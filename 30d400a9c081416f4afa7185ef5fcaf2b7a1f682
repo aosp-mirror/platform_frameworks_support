@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c752e79_f7ef4dc5",
+        "filename": "work/workmanager-testing/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-06-28T16:55:37Z",
+      "side": 1,
+      "message": "This should be WORK_ARCH_ROOM_COMPILER",
+      "range": {
+        "startLine": 51,
+        "startChar": 24,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "30d400a9c081416f4afa7185ef5fcaf2b7a1f682",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
