@@ -162,6 +162,30 @@
       "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf2477e_6a02c53b",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T10:58:34Z",
+      "side": 1,
+      "message": "Mihai explained me how it will work for positioned(leftInset \u003d 10.dp, rightInset \u003d 10.dp) so now I am convinced the fallback name seems reasonable, thanks",
+      "parentUuid": "b8ac7dad_f58111a5",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
