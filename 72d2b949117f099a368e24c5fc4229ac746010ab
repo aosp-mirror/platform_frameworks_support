@@ -45,6 +45,30 @@
       "revId": "72d2b949117f099a368e24c5fc4229ac746010ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3333a0_0c1b599c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T16:52:37Z",
+      "side": 1,
+      "message": "I thought the default was a good option because we don\u0027t have any real examples where we need it.",
+      "parentUuid": "4ca7711b_17d0ca3e",
+      "range": {
+        "startLine": 45,
+        "startChar": 17,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "72d2b949117f099a368e24c5fc4229ac746010ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
