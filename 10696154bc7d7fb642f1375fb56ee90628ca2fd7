@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b34eeaf_3fce4727",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-06-28T22:28:36Z",
+      "side": 1,
+      "message": "Should this respect the value from our extension in case someone wants to opt out?",
+      "revId": "10696154bc7d7fb642f1375fb56ee90628ca2fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
