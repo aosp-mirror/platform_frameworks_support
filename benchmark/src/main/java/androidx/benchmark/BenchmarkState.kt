@@ -76,6 +76,8 @@ class BenchmarkState internal constructor() {
     private var pausedDurationNs: Long = 0 // The duration of paused state in nano sec.
     private var thermalThrottleSleepSeconds: Long =
         0 // The duration of sleep due to thermal throttling.
+    private var totalRunTimeStart: Long = 0 // System.nanoTime() at start of benchmark.
+    private var totalRunTime: Long = 0 // Total run time of a benchmark.
 
     private var repeatCount = 0
 
@@ -211,6 +213,11 @@ class BenchmarkState internal constructor() {
         thermalThrottleSleepSeconds = 0
         state = RUNNING
         startTimeNs = System.nanoTime()
+        if (totalRunTimeStart == 0L) {
+            // This is the beginning of the benchmark, we remember it.
+            totalRunTimeStart = System.nanoTime()
+        }
+
     }
 
     private fun startNextTestRun(): Boolean {
@@ -235,6 +242,7 @@ class BenchmarkState internal constructor() {
                 }
                 internalStats = Stats(results)
                 state = FINISHED
+                totalRunTime = System.nanoTime() - totalRunTimeStart
                 return false
             }
         }
@@ -333,6 +341,7 @@ class BenchmarkState internal constructor() {
     internal data class Report(
         val className: String,
         val testName: String,
+        val totalRunTime: Long,
         val data: List<Long>,
         val repeatIterations: Int,
         val thermalThrottleSleepSeconds: Long,
@@ -344,6 +353,7 @@ class BenchmarkState internal constructor() {
     internal fun getReport(testName: String, className: String) = Report(
         className = className,
         testName = testName,
+        totalRunTime = totalRunTime,
         data = results,
         repeatIterations = maxIterations,
         thermalThrottleSleepSeconds = thermalThrottleSleepSeconds,
@@ -435,6 +445,7 @@ class BenchmarkState internal constructor() {
         fun reportData(
             className: String,
             testName: String,
+            totalRunTime: Long,
             dataNs: List<Long>,
             @IntRange(from = 0) warmupIterations: Int,
             @IntRange(from = 0) thermalThrottleSleepSeconds: Long,
@@ -443,6 +454,7 @@ class BenchmarkState internal constructor() {
             val report = Report(
                 className = className,
                 testName = testName,
+                totalRunTime = totalRunTime,
                 data = dataNs,
                 repeatIterations = repeatIterations,
                 thermalThrottleSleepSeconds = thermalThrottleSleepSeconds,
