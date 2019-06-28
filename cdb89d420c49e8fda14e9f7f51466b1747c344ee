@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d241e5a_ac9cfdb6",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T09:05:06Z",
+      "side": 1,
+      "message": "tiny nit: capital letters here and below",
+      "range": {
+        "startLine": 73,
+        "startChar": 7,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "cdb89d420c49e8fda14e9f7f51466b1747c344ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
