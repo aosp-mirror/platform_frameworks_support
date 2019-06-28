@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a399f75_902c7906",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-28T21:22:35Z",
+      "side": 1,
+      "message": "We also need density here.",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 20
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bbc04e_ca303590",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-28T21:22:35Z",
+      "side": 1,
+      "message": "Sp has its own lerp(), maybe use that one?",
+      "range": {
+        "startLine": 132,
+        "startChar": 19,
+        "endLine": 132,
+        "endChar": 54
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
