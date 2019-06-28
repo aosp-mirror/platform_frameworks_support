@@ -260,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "16894779_b34d743e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-28T15:36:52Z",
+      "side": 1,
+      "message": "Sounds good. Thanks!",
+      "parentUuid": "ac270c99_a554ddc0",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f7d0dbd_2a3010d7",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
         "patchSetId": 2
@@ -289,6 +307,24 @@
       "side": 1,
       "message": "I will send your feedback to haoyuchang@, as I am not the owner of this file and don\u0027t want to change the api for the text classes.",
       "parentUuid": "9f7d0dbd_2a3010d7",
+      "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5b90062_1affb32a",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextPainter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-28T15:36:52Z",
+      "side": 1,
+      "message": "That sounds good. Thanks Andrey!",
+      "parentUuid": "5b2a884a_3127d283",
       "revId": "ac50053881fd03665df5f3a292203c2ed136ec3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

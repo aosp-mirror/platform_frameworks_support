@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a307e371_05e10d8b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-06-28T15:36:52Z",
+      "side": 1,
+      "message": "Would it be possible to cache/memoize this path calculation as well?",
+      "revId": "4e3146440211cffdac3a4953f471cb6b85e68e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
