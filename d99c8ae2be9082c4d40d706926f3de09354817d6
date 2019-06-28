@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9c4a1ccc_795a6bc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-28T14:01:34Z",
+      "side": 1,
+      "message": "Done (resolving myself as Calin does not yet have Gerrit access).",
+      "parentUuid": "39d613dd_1797aff2",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca69a448_fc8df94e",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
         "patchSetId": 2
