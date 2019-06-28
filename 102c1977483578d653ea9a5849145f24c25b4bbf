@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d6228c9_41b4c0dc",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Path.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T11:00:47Z",
+      "side": 1,
+      "message": "It was just following the pattern of immutability here, but I think the performance is more important for us with the heavy classes like Path, so I suggest to reuse the object.",
+      "parentUuid": "3a0f6a68_9afca987",
+      "range": {
+        "startLine": 512,
+        "startChar": 7,
+        "endLine": 512,
+        "endChar": 17
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01cf8ba4_e0ab8f1a",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "628c2019_8d68fac9",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T11:00:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01cf8ba4_e0ab8f1a",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "919efce4_b8b8360e",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-28T09:02:11Z",
       "side": 1,
       "message": "I\u0027m intrigued about the Kotlin behind this, can you help me understand? I can see how the which(+memo...) places the caches as your this and enables easier code, but what is the purpose of the which(shape)? seems like you immediately move on, what are the effects of it?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb4af45_3dae3a2d",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T11:00:47Z",
+      "side": 1,
+      "message": "we need this as a consequence of the signature of Shape.createOutline(). I experimented with defining it like this:\ninterface Shape {\n    fun DensityReceiver.createOutline(size: PxSize): Outline\n}\nThat gives us two receivers, Shape and DensityReceiver. so we can\u0027t just call shape.createOutline at the moment.\n\nWhich proved to me to be the bad decision and is not readable enough, so I am preparing the next CL where I would change the signature to fun createOutline(size: PxSize, density: Density): Outline.\nThanks",
+      "parentUuid": "919efce4_b8b8360e",
       "range": {
         "startLine": 38,
         "startChar": 4,
@@ -91,6 +163,30 @@
       "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c39d53f_e0e8addf",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T11:00:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314eff35_e3760e48",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
