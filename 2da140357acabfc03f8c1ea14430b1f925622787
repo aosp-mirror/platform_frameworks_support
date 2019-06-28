@@ -46,6 +46,30 @@
       "revId": "2da140357acabfc03f8c1ea14430b1f925622787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a39dfb50_0c840810",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-28T06:52:41Z",
+      "side": 1,
+      "message": "The bind/unbindService does not need to catch Throwables, we have lots of example of not catching, and by our monitoring, there\u0027s no exception in normal cycle is thrown.\nDeadObjectException and uncatched exception thrown by server does not need to be catched.\nSo you can just remove the try-catch for bind/unbindservie.\n\nBack to the 4 kinds of exceptions, they are different meaning to developers, if they don\u0027t care about it, they can catch them together (although InterruptedException should be handled seperatedly if they want the cancellation runs faster).",
+      "parentUuid": "c2d4cbba_126be695",
+      "range": {
+        "startLine": 198,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 9
+      },
+      "revId": "2da140357acabfc03f8c1ea14430b1f925622787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
