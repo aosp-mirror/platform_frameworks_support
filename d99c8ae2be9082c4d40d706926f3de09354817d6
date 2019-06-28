@@ -138,6 +138,30 @@
       "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ac7dad_f58111a5",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T10:43:05Z",
+      "side": 1,
+      "message": "yeah, I see what you mean and is totally valid. \n\nmy point was that now you can write:\npositioned(leftInset \u003d 10.dp, rightInset \u003d 10.dp)\nwhich seems valid. It reads to me like a replacement for wrapping a child into Padding(left \u003d 10.dp, right \u003d 10.dp). But it is not how it works, the rightInset will be ignored. So by having the \"fallback\" naming rule for defining the priorities we should also rename rightInset to fallbackRightInset. \nlooks like we need at least some runtime checks to manage the expectations/ so if the user will provide both insets we throw an exception describing how it works.",
+      "parentUuid": "4e8100db_03122685",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
