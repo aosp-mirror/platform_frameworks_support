@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "336f3752_449e8da4",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Density.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdf43514_baf43566",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 42
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ee1630f_e494d59f",
         "filename": "ui/core/src/main/java/androidx/ui/core/Dp.kt",
         "patchSetId": 5
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ca6cb051_c8a2fa2c",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Dp.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:00:28Z",
+      "side": 1,
+      "message": "Thanks! Done.",
+      "parentUuid": "e4ff24e8_8ee4a3f3",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 70
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e253a5d6_6d48186b",
         "filename": "ui/core/src/main/java/androidx/ui/core/Sp.kt",
         "patchSetId": 5
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4b720e7f_60e8abb7",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Sp.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:00:28Z",
+      "side": 1,
+      "message": "Done. using withDensity resolved this issue.",
+      "parentUuid": "e253a5d6_6d48186b",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 36
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca33d63d_51a55f85",
         "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/platform/TextTestExtensions.kt",
         "patchSetId": 5
@@ -115,6 +187,30 @@
       "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "533646b9_f8e51200",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/platform/TextTestExtensions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca33d63d_51a55f85",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
