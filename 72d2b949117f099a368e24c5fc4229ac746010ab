@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63a42eb1_ad8ebc8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-28T14:31:05Z",
+      "side": 1,
+      "message": "I am not sure about this actually. Looking at the current layout models, we have at least Align, AspectRatio, Flex, Container when expanded\u003dtrue which are sizing themselves to the constraints. I believe this CL make these layout models buggy now. If I understand correctly, the CL breaks the assumption that measuring a layout hierarchy with some constraints is equivalent to measuring the same hierarchy with the same constraints at some point in the future, which makes me think that we should be careful with this CL. What do you think?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "72d2b949117f099a368e24c5fc4229ac746010ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca7711b_17d0ca3e",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-28T14:31:05Z",
+      "side": 1,
+      "message": "Hmm, I feel making this optimization the default might be quite dangerous. I think it will be easy for developers to get confused on why their custom layouts are not getting measured if overriding shouldRemeasureBlock is not obvious.",
+      "range": {
+        "startLine": 45,
+        "startChar": 17,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "72d2b949117f099a368e24c5fc4229ac746010ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
