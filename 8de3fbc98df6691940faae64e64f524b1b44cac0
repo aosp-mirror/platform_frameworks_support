@@ -22,6 +22,30 @@
       "revId": "8de3fbc98df6691940faae64e64f524b1b44cac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57618267_da186176",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingSurfaceTexture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-06-28T18:58:34Z",
+      "side": 1,
+      "message": "Sure changing it back to java 7.",
+      "parentUuid": "b57b60e0_07e8a178",
+      "range": {
+        "startLine": 235,
+        "startChar": 37,
+        "endLine": 236,
+        "endChar": 88
+      },
+      "revId": "8de3fbc98df6691940faae64e64f524b1b44cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
