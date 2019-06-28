@@ -17,11 +17,13 @@
 package androidx.ui.layout.test
 
 import androidx.test.filters.SmallTest
+import androidx.ui.core.Constraints
 import androidx.ui.core.OnChildPositioned
 import androidx.ui.core.IntPx
 import androidx.ui.core.PxPosition
 import androidx.ui.core.PxSize
 import androidx.ui.core.Ref
+import androidx.ui.core.WithConstraints
 import androidx.ui.core.dp
 import androidx.ui.core.ipx
 import androidx.ui.core.px
@@ -33,6 +35,7 @@ import androidx.ui.layout.ConstrainedBox
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.layout.Stack
+import androidx.ui.layout.StackFit
 import androidx.compose.Composable
 import androidx.compose.composer
 import org.junit.Test
@@ -252,6 +255,85 @@ class StackTest : LayoutTest() {
         assertEquals(PxPosition(size - inset - halfSize, halfSize), childPosition[5].value)
         assertEquals(PxSize(halfSize, halfSize), childSize[6].value)
         assertEquals(PxPosition(halfSize, size - inset - halfSize), childPosition[6].value)
+    }
+
+    @Test
+    fun testStack_fit() = withDensity(density) {
+        val sizeDp = 50.dp
+        val size = sizeDp.toIntPx()
+        val halfSizeDp = sizeDp / 2
+        val halfSize = (sizeDp / 2).toIntPx()
+
+        val positionedLatch = CountDownLatch(4)
+        val stackSize = Ref<PxSize>()
+        val childSize = Array(3) { Ref<PxSize>() }
+        val childPosition = Array(3) { Ref<PxPosition>() }
+        val childConstraints = Array(3) { Constraints() }
+        show {
+            Align(alignment = Alignment.TopLeft) {
+                ConstrainedBox(constraints = DpConstraints(minWidth = halfSizeDp, maxWidth = sizeDp,
+                    minHeight = halfSizeDp, maxHeight = sizeDp)) {
+                    OnChildPositioned(onPositioned = { coordinates ->
+                        stackSize.value = coordinates.size
+                        positionedLatch.countDown()
+                    }) {
+                        Stack(defaultAlignment = Alignment.BottomRight) {
+                            aligned(Alignment.Center, fit = StackFit.Loose) {
+                                WithConstraints { constraints ->
+                                    childConstraints[0] = constraints
+                                    SaveLayoutInfo(
+                                        size = childSize[0],
+                                        position = childPosition[0],
+                                        positionedLatch = positionedLatch
+                                    )
+                                }
+                            }
+                            aligned(Alignment.Center, fit = StackFit.Expand) {
+                                WithConstraints { constraints ->
+                                    childConstraints[1] = constraints
+                                    SaveLayoutInfo(
+                                        size = childSize[1],
+                                        position = childPosition[1],
+                                        positionedLatch = positionedLatch
+                                    )
+                                }
+                            }
+                            aligned(Alignment.Center, fit = StackFit.PassThrough) {
+                                WithConstraints { constraints ->
+                                    childConstraints[2] = constraints
+                                    SaveLayoutInfo(
+                                        size = childSize[2],
+                                        position = childPosition[2],
+                                        positionedLatch = positionedLatch
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        positionedLatch.await(1, TimeUnit.SECONDS)
+
+        assertEquals(PxSize(size, size), stackSize.value)
+        assertEquals(0.ipx, childConstraints[0].minWidth)
+        assertEquals(size, childConstraints[0].maxWidth)
+        assertEquals(0.ipx, childConstraints[0].minHeight)
+        assertEquals(size, childConstraints[0].maxHeight)
+        assertEquals(PxSize(0.px, 0.px), childSize[0].value)
+        assertEquals(PxPosition(halfSize, halfSize), childPosition[0].value)
+        assertEquals(size, childConstraints[1].minWidth)
+        assertEquals(size, childConstraints[1].maxWidth)
+        assertEquals(size, childConstraints[1].minHeight)
+        assertEquals(size, childConstraints[1].maxHeight)
+        assertEquals(PxSize(size, size), childSize[1].value)
+        assertEquals(PxPosition(0.ipx, 0.ipx), childPosition[1].value)
+        assertEquals(halfSize, childConstraints[2].minWidth)
+        assertEquals(size, childConstraints[2].maxWidth)
+        assertEquals(halfSize, childConstraints[2].minHeight)
+        assertEquals(size, childConstraints[2].maxHeight)
+        assertEquals(PxSize(halfSize, halfSize), childSize[2].value)
+        assertEquals(PxPosition(halfSize / 2, halfSize / 2), childPosition[2].value)
     }
 
     @Test
