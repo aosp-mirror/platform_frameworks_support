@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f90157a7_534c0d47",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Will revisit in the future when we have a better idea for naming in general",
+      "parentUuid": "246e536d_29e5c0b5",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 14
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c876967_0211e08b",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 1
@@ -327,6 +351,30 @@
       "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efaa3c86_221f0d86",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "614152f4_162a4b57",
+      "range": {
+        "startLine": 420,
+        "startChar": 16,
+        "endLine": 420,
+        "endChar": 26
+      },
+      "revId": "c4f65af5eb0064902a2ff4121d28609c6ee586cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

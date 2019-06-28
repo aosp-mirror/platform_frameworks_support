@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ca903adc_9cf58823",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Yeah, we should expose BaseTab or something once we figure out our layers of separation between fully implemented components, and the base components.",
+      "parentUuid": "33f6f49e_c8b01597",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 28
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7de8b65e_da021424",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2019-06-28T08:34:46Z",
       "side": 1,
       "message": "sample missing",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4d61f21_70737b9f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Added, any thoughts on this setup?",
+      "parentUuid": "7de8b65e_da021424",
       "range": {
         "startLine": 55,
         "startChar": 3,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d775440c_725fb1ac",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e300e8dc_6a99e6ed",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a66a7c5_edc2a9ba",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -115,6 +187,30 @@
       "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753ef6c1_c8465210",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a66a7c5_edc2a9ba",
+      "range": {
+        "startLine": 82,
+        "startChar": 75,
+        "endLine": 82,
+        "endChar": 83
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "44ceaa4e_4b0453d3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d44ddb2a_30276b9b",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 87
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b15638d_05c6bbb1",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -176,6 +296,30 @@
       "writtenOn": "2019-06-28T13:00:45Z",
       "side": 1,
       "message": "my suggestion could make this code a bit more complicated, but it could be reasonable to add this:\nright now your first initial state will always be the first item. so if for some reasons you would initially provide the second item selected you would see the animation of indicator moving from the first item to the second, not the second item straight away.\nthe reason is transitionDefinition marks the first provided state a default(initial) one. \nit should work fine if you first define the state for your selectedIndex and then all others. probably it worth reconsidering this default state selection and make this use cases easier.",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 13
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96aa2426_bdb98a75",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Thanks for the context!\n\nAdded this for now, and for the one below - any thoughts?\n\nnote: we should support this in transitions natively in the future.",
+      "parentUuid": "2b15638d_05c6bbb1",
       "range": {
         "startLine": 120,
         "startChar": 12,
@@ -208,6 +352,30 @@
       "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8423fbb4_93949df9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "I tried adding a sample, but I don\u0027t think it\u0027s very helpful for a tab - it requires a surface (because it has ripples), and it doesn\u0027t have any color by default, so to make a useful sample essentially requires re implementing a lot of TabRow anyway :)",
+      "parentUuid": "82e8b44c_24095b5b",
+      "range": {
+        "startLine": 153,
+        "startChar": 3,
+        "endLine": 154,
+        "endChar": 75
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

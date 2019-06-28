@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2c592f54_34e181bd",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eaec9ea1_76a64459",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56a82a2e_1fb6b048",
         "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
         "patchSetId": 2
@@ -198,6 +222,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84bb23df_38ed0add",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e77284dd_470d787b",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 13
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -435,6 +483,30 @@
       "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "386a4eae_b1268cc2",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-06-28T16:57:48Z",
+      "side": 1,
+      "message": "I guess this should normally be used like:\n\nval tabs \u003d listOf(PAGE_ONE, PAGE_TWO),\n\nval myCurrentTab \u003d +state { PAGE_ONE }\n\nTabRow(items \u003d tabs, selectedIndex \u003d tabs.indexOf(PAGE_ONE)...)\n\nSo this might not be that important to assert here - can consider it in the future.",
+      "parentUuid": "1f780d4a_b704306d",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 147,
+        "endChar": 3
+      },
+      "revId": "9fc5fba0aebf3425b6942460bb1862c7b4be3e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
