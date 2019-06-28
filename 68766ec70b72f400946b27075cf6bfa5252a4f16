@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdf43514_baf43566",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Density.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:02:39Z",
+      "side": 1,
+      "message": "I\u0027m a little concerned about having a default value here. Developers may accidentally create one instead of using the one from the Ambient.",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 42
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee1630f_e494d59f",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Dp.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:02:39Z",
+      "side": 1,
+      "message": "I feel like this should be in the Density file since I think Density depends on Dp, but Dp doesn\u0027t depend on Density.\n\nPlease give documentation that we expect people to use DensityReceiver +withDensity() instead of using these methods directly. These should only really be used internally when we don\u0027t want to pass a DensityReceiver around.\n\nCould you accept a DensityReceiver instead of Density?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 70
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e253a5d6_6d48186b",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Sp.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:02:39Z",
+      "side": 1,
+      "message": "Same comment here as for Dp.toPx(density)",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 36
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca33d63d_51a55f85",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/platform/TextTestExtensions.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:02:39Z",
+      "side": 1,
+      "message": "Can you be explicit (.value) instead of using this extension method? I would like it to be clear that you\u0027re doing something wrong than to have people in tests think that you\u0027re actually converting Sp to Px with the px() method.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
