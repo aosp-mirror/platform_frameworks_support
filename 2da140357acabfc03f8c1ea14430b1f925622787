@@ -22,6 +22,30 @@
       "revId": "2da140357acabfc03f8c1ea14430b1f925622787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d4cbba_126be695",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-06-28T06:39:00Z",
+      "side": 1,
+      "message": "Make sense, propagated. One concerns of my is now the getAdvertisingIdInfo() can throws 4 kinds of exception, will it be too much? And do we need to change the other two catch Throwables?",
+      "parentUuid": "24d96e37_c3505507",
+      "range": {
+        "startLine": 198,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 9
+      },
+      "revId": "2da140357acabfc03f8c1ea14430b1f925622787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
