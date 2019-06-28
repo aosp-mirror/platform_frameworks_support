@@ -21,8 +21,6 @@ import androidx.ui.core.PointerInputChange
 import androidx.ui.core.PxPosition
 import androidx.ui.core.anyPositionChangeConsumed
 import androidx.ui.core.changedToDown
-import androidx.ui.core.changedToDownIgnoreConsumed
-import androidx.ui.core.changedToUpIgnoreConsumed
 import androidx.ui.core.consumeDownChange
 import androidx.ui.engine.geometry.Offset
 import androidx.compose.Children
@@ -31,6 +29,7 @@ import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
 import androidx.ui.core.PointerInputWrapper
+import androidx.ui.core.changedToUp
 
 /**
  * This gesture detector has callbacks for when a press gesture starts and ends for the purposes of
@@ -92,50 +91,50 @@ internal class PressIndicatorGestureRecognizer {
      */
     var onCancel: (() -> Unit)? = null
 
-    private var pointerCount = 0
     private var started = false
 
     val pointerInputHandler =
         { changes: List<PointerInputChange>, pass: PointerEventPass ->
-            changes.map { processChange(it, pass) }
-        }
 
-    private fun processChange(
-        pointerInputChange: PointerInputChange,
-        pass: PointerEventPass
-    ): PointerInputChange {
-        var change = pointerInputChange
+            var internalChanges = changes
 
-        if (pass == PointerEventPass.InitialDown && change.changedToDownIgnoreConsumed()) {
-            pointerCount++
-        }
-
-        if (pass == PointerEventPass.PostUp &&
-            pointerCount == 1
-        ) {
-            if (change.changedToDown()) {
-                started = true
-                onStart?.invoke(change.current.position!!)
-                change = change.consumeDownChange()
+            if (pass == PointerEventPass.InitialDown && started) {
+                // If we have started, we should consume the down change on all changes.
+                internalChanges = internalChanges.map {
+                    if (it.changedToDown()) {
+                        it.consumeDownChange()
+                    } else {
+                        it
+                    }
+                }
             }
-            if (started && change.changedToUpIgnoreConsumed()) {
+
+            if (pass == PointerEventPass.PostUp) {
+
+                if (!started && internalChanges.all { it.changedToDown() }) {
+                    // If we have not yet started and all of the changes changed to down, we are
+                    // starting.
+                    started = true
+                    onStart?.invoke(internalChanges.first().current.position!!)
+                    internalChanges = internalChanges.map { it.consumeDownChange() }
+                } else if (started && internalChanges.all { it.changedToUp() }) {
+                    // If we have started and all of the changes changed to up, we are stopping.
+                    started = false
+                    onStop?.invoke()
+                }
+            }
+
+            if (pass == PointerEventPass.PostDown &&
+                started &&
+                internalChanges
+                    .any { it.anyPositionChangeConsumed() }
+            ) {
+                // On the final pass, if we have started and any of the changes had consumed
+                // position changes, we cancel.
                 started = false
-                onStop?.invoke()
+                onCancel?.invoke()
             }
-        }
 
-        if (pass == PointerEventPass.PostDown && started && change.anyPositionChangeConsumed()) {
-            started = false
-            onCancel?.invoke()
+            internalChanges
         }
-
-        if (pass == PointerEventPass.PostDown && change.changedToUpIgnoreConsumed()) {
-            pointerCount--
-            if (pointerCount == 0) {
-                started = false
-            }
-        }
-
-        return change
-    }
 }

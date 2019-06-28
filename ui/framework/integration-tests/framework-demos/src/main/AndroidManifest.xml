@@ -37,6 +37,14 @@
         </activity>
 
         <!-- Gestures -->
+        <activity android:name=".gestures.PressIndicatorGestureDetectorDemo"
+            android:configChanges="orientation|screenSize"
+            android:label="Gestures/Single GestureDetectors/PressIndicatorGestureDetector">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".gestures.DragGestureDetectorDemo"
             android:configChanges="orientation|screenSize"
             android:label="Gestures/Single GestureDetectors/DragGestureDetector">

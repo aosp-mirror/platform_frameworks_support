@@ -30,6 +30,7 @@ import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.composer
 import androidx.ui.core.Draw
+import androidx.ui.core.IntPx
 
 /**
  * A simple layout composable that matches the size of it's parent layout.
@@ -59,12 +60,26 @@ internal fun Center(@Children children: @Composable() () -> Unit) {
  * A simple composable that pads items by [padding].
  */
 @Composable
-private fun Padding(padding: Dp?, @Children children: @Composable() () -> Unit) {
+private fun Padding(padding: Dp, @Children children: @Composable() () -> Unit) {
+    Padding(padding, padding, padding, padding, children)
+}
+
+@Composable
+internal fun Padding(
+    paddingLeft: Dp? = null,
+    paddingTop: Dp? = null,
+    paddingRight: Dp? = null,
+    paddingBottom: Dp? = null,
+    @Children children: @Composable() () -> Unit
+) {
     Layout(children) { measurables, constraints ->
-        val paddingPx = padding?.toIntPx() ?: 0.ipx
-        val doublePadding = paddingPx * 2
-        val maxWidth = constraints.maxWidth - doublePadding
-        val maxHeight = constraints.maxHeight - doublePadding
+        println(constraints)
+        val paddingLeftIpx = paddingLeft?.toIntPx() ?: IntPx.Zero
+        val paddingTopIpx = paddingTop?.toIntPx() ?: IntPx.Zero
+        val paddingRightIpx = paddingRight?.toIntPx() ?: IntPx.Zero
+        val paddingBottomIpx = paddingBottom?.toIntPx() ?: IntPx.Zero
+        val maxWidth = constraints.maxWidth - paddingLeftIpx - paddingRightIpx
+        val maxHeight = constraints.maxHeight - paddingTopIpx - paddingBottomIpx
         val minWidth =
             if (constraints.minWidth > maxWidth) {
                 maxWidth
@@ -77,20 +92,21 @@ private fun Padding(padding: Dp?, @Children children: @Composable() () -> Unit) 
             } else {
                 constraints.minHeight
             }
-        val placeable = measurables.first().measure(
-            Constraints(minWidth, maxWidth, minHeight, maxHeight)
-        )
+
+        val placeable = if (measurables.size > 0) {
+            measurables.first().measure(Constraints(minWidth, maxWidth, minHeight, maxHeight))
+        } else {
+            null
+        }
+
         layout(constraints.maxWidth, constraints.maxHeight) {
-            placeable.place(paddingPx, paddingPx)
+            placeable?.place(paddingLeftIpx, paddingTopIpx)
         }
     }
 }
 
-/**
- * A simple composable that draws a border around it's children.
- */
 @Composable
-private fun Border(color: Color, width: Dp, @Children children: @Composable() () -> Unit) {
+internal fun Border(color: Color, width: Dp, @Children children: @Composable() () -> Unit) {
     Layout(
         children = {
             children()
@@ -125,16 +141,6 @@ private fun Border(color: Color, width: Dp, @Children children: @Composable() ()
         })
 }
 
-/**
- * A simple composable that contains items within optional [width] and [height] dimensions, wraps
- * the contents in a border (with [borderColor] and [borderWidth]), and optionally pads everything
- * with [padding],
- *
- * If [width] or [height] are not set, the parent's min and max constraints are passed through for
- * the given dimension.  If [padding] is not set, no padding will be applied. If
- * [borderColor] is not set, a reasonable default will be used, and if [borderWidth] is not set,
- * no border will be drawn.
- */
 @Composable
 internal fun SimpleContainer(
     width: Dp,
@@ -144,7 +150,7 @@ internal fun SimpleContainer(
 ) {
 
     val borderWidth: Dp = 2.dp
-    val borderColor: Color = Color(0f, 0f, 0f, .12f)
+    val borderColor = Color(0f, 0f, 0f, .12f)
 
     Layout({
         Padding(padding) {
