@@ -681,10 +681,29 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                 return createFutureWithResult(RESULT_ERROR_SESSION_DISCONNECTED);
             }
             if (mPlaylist == null || index < 0 || mPlaylist.size() <= index) {
-                return createFutureWithResult(RESULT_ERROR_SESSION_DISCONNECTED);
+                return createFutureWithResult(RESULT_ERROR_BAD_VALUE);
             }
             removePlaylistItem(index);
             addPlaylistItem(index, mediaId);
+        }
+        return createFutureWithResult(RESULT_SUCCESS);
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> movePlaylistItem(int index1, int index2) {
+        synchronized (mLock) {
+            if (!mConnected) {
+                Log.w(TAG, "Session isn't active", new IllegalStateException());
+                return createFutureWithResult(RESULT_ERROR_SESSION_DISCONNECTED);
+            }
+            if (mPlaylist == null || index1 < 0 || mPlaylist.size() <= index1
+                    || index2 < 0 || mPlaylist.size() <= index2) {
+                return createFutureWithResult(RESULT_ERROR_BAD_VALUE);
+            }
+            MediaItem item1 = mPlaylist.get(index1);
+            MediaItem item2 = mPlaylist.get(index2);
+            replacePlaylistItem(index1, item2.getMediaId());
+            replacePlaylistItem(index2, item1.getMediaId());
         }
         return createFutureWithResult(RESULT_SUCCESS);
     }

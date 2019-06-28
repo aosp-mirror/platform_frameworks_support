@@ -18,6 +18,7 @@ package androidx.media2.common;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.media2.common.BaseResult.RESULT_ERROR_UNKNOWN;
 
 import android.media.MediaFormat;
 import android.os.Bundle;
@@ -528,7 +529,8 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * Gets the {@link AudioAttributesCompat} that media player has.
      */
-    public abstract @Nullable AudioAttributesCompat getAudioAttributes();
+    @Nullable
+    public abstract AudioAttributesCompat getAudioAttributes();
 
     /**
      * Sets a {@link MediaItem} for playback. Use this or {@link #setPlaylist} to specify which
@@ -628,6 +630,27 @@ public abstract class SessionPlayer implements AutoCloseable {
     @NonNull
     public abstract ListenableFuture<PlayerResult> replacePlaylistItem(int index,
             @NonNull MediaItem item);
+
+    /**
+     * Moves the media item at {@code fromIdx} to {@code toIdx} in the playlist.
+     * <p>
+     * The implementation must notify registered callbacks with
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
+     * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with {@code item} set.
+     *
+     * @param fromIdx the media item's initial index in the playlist
+     * @param toIdx the media item's target index in the playlist
+     * @see PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)
+     */
+    @NonNull
+    public ListenableFuture<PlayerResult> movePlaylistItem(int fromIdx, int toIdx) {
+        ResolvableFuture<PlayerResult> future = ResolvableFuture.<PlayerResult>create();
+        future.set(new PlayerResult(RESULT_ERROR_UNKNOWN, getCurrentMediaItem()));
+        return future;
+
+    }
 
     /**
      * Skips to the previous item in the playlist.
@@ -1515,7 +1538,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          */
         @RestrictTo(LIBRARY_GROUP)
         public static ListenableFuture<PlayerResult> createFuture(int resultCode) {
-            ResolvableFuture<PlayerResult> result = ResolvableFuture.create();
+            ResolvableFuture<PlayerResult> result = ResolvableFuture.<PlayerResult>create();
             result.set(new PlayerResult(resultCode, null));
             return result;
         }

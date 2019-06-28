@@ -607,9 +607,11 @@ public final class MediaPlayer extends SessionPlayer {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         void cancelFutures() {
-            for (ResolvableFuture<V> future : mFutures) {
-                if (!future.isCancelled() && !future.isDone()) {
-                    future.cancel(true);
+            if (mFutures != null) {
+                for (ResolvableFuture<V> future : mFutures) {
+                    if (!future.isCancelled() && !future.isDone()) {
+                        future.cancel(true);
+                    }
                 }
             }
         }
@@ -642,7 +644,7 @@ public final class MediaPlayer extends SessionPlayer {
     ArrayList<MediaItem> mShuffledList = new ArrayList<>();
     @GuardedBy("mPlaylistLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-            MediaMetadata mPlaylistMetadata;
+    MediaMetadata mPlaylistMetadata;
     @GuardedBy("mPlaylistLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRepeatMode;
@@ -654,10 +656,10 @@ public final class MediaPlayer extends SessionPlayer {
     int mCurrentShuffleIdx;
     @GuardedBy("mPlaylistLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-            MediaItem mCurPlaylistItem;
+    MediaItem mCurPlaylistItem;
     @GuardedBy("mPlaylistLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-            MediaItem mNextPlaylistItem;
+    MediaItem mNextPlaylistItem;
     @GuardedBy("mPlaylistLock")
     private boolean mSetMediaItemCalled;
 
@@ -1192,7 +1194,7 @@ public final class MediaPlayer extends SessionPlayer {
                     }
                 });
 
-                if (updatedCurNextItem.second == null) {
+                if (updatedCurNextItem == null || updatedCurNextItem.second == null) {
                     return createFuturesForResultCode(RESULT_SUCCESS);
                 }
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
@@ -1233,9 +1235,13 @@ public final class MediaPlayer extends SessionPlayer {
                     if (removedItemShuffleIdx < mCurrentShuffleIdx) {
                         mCurrentShuffleIdx--;
                     }
+
                     updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
                     curItem = mCurPlaylistItem;
                     nextItem = mNextPlaylistItem;
+                    Log.e(TAG, "xxx current media item: " + mCurPlaylistItem);
+                    Log.e(TAG, "xxx next media item: " + mNextPlaylistItem);
+                    Log.e(TAG, "xxx updatedCurNextItem: " + updatedCurNextItem);
                 }
                 final List<MediaItem> playlist = getPlaylist();
                 final MediaMetadata metadata = getPlaylistMetadata();
@@ -1299,6 +1305,73 @@ public final class MediaPlayer extends SessionPlayer {
                     int shuffleIdx = mShuffledList.indexOf(mPlaylist.get(index));
                     mShuffledList.set(shuffleIdx, item);
                     mPlaylist.set(index, item);
+                    updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
+                    curItem = mCurPlaylistItem;
+                    nextItem = mNextPlaylistItem;
+                }
+                // TODO: Should we notify current media item changed if it is replaced?
+                final List<MediaItem> playlist = getPlaylist();
+                final MediaMetadata metadata = getPlaylistMetadata();
+                notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                    @Override
+                    public void callCallback(
+                            SessionPlayer.PlayerCallback callback) {
+                        callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
+                    }
+                });
+
+                ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
+                if (updatedCurNextItem != null) {
+                    if (updatedCurNextItem.first != null) {
+                        futures.addAll(setMediaItemsInternal(curItem, nextItem));
+                    } else if (updatedCurNextItem.second != null) {
+                        futures.add(setNextMediaItemInternal(nextItem));
+                    }
+                } else {
+                    futures.add(createFutureForResultCode(RESULT_SUCCESS));
+                }
+                return futures;
+            }
+        };
+        addPendingFuture(pendingFuture);
+        return pendingFuture;
+    }
+
+    /** @hide */
+    // TODO: unhide this once media2-session 1.1.0 alpha created (b/122875547)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Override
+    @NonNull
+    public ListenableFuture<PlayerResult> movePlaylistItem(final int fromIdx, final int toIdx) {
+        if (fromIdx < 0 || toIdx < 0) {
+            throw new IllegalArgumentException("indexes shouldn't be negative");
+        }
+        synchronized (mStateLock) {
+            if (mClosed) {
+                return createFutureForClosed();
+            }
+        }
+
+        PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
+            @Override
+            List<ResolvableFuture<PlayerResult>> onExecute() {
+                MediaItem curItem;
+                MediaItem nextItem;
+                Pair<MediaItem, MediaItem> updatedCurNextItem = null;
+                synchronized (mPlaylistLock) {
+                    if (fromIdx >= mPlaylist.size() || toIdx >= mPlaylist.size()) {
+                        return createFuturesForResultCode(RESULT_ERROR_BAD_VALUE);
+                    }
+
+                    MediaItem item = mPlaylist.remove(fromIdx);
+                    mPlaylist.add(toIdx, item);
+                    if (mShuffleMode == SessionPlayer.SHUFFLE_MODE_NONE) {
+                        mShuffledList.remove(fromIdx);
+                        mShuffledList.add(toIdx, item);
+                        if (item == mCurPlaylistItem) {
+                            mCurrentShuffleIdx = toIdx;
+                        }
+                    }
                     updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
                     curItem = mCurPlaylistItem;
                     nextItem = mNextPlaylistItem;
@@ -1529,6 +1602,7 @@ public final class MediaPlayer extends SessionPlayer {
                 synchronized (mPlaylistLock) {
                     changed = mShuffleMode != shuffleMode;
                     mShuffleMode = shuffleMode;
+                    applyShuffleModeLocked();
                 }
                 if (changed) {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
@@ -2793,6 +2867,7 @@ public final class MediaPlayer extends SessionPlayer {
     private ResolvableFuture<PlayerResult> setMediaItemInternal(MediaItem item) {
         ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
         synchronized (mPendingCommands) {
+            Log.e(TAG, "xxx player.setMediaItem: " + item);
             Object token = mPlayer.setMediaItem(item);
             addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE, future, token);
         }
@@ -2806,6 +2881,7 @@ public final class MediaPlayer extends SessionPlayer {
     ResolvableFuture<PlayerResult> setNextMediaItemInternal(MediaItem item) {
         ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
         synchronized (mPendingCommands) {
+            Log.e(TAG, "xxx player.setNextMediaItem: " + item);
             Object token = mPlayer.setNextMediaItem(item);
             addPendingCommandLocked(
                     MediaPlayer2.CALL_COMPLETED_SET_NEXT_DATA_SOURCE, future, token);
@@ -2817,6 +2893,7 @@ public final class MediaPlayer extends SessionPlayer {
     ResolvableFuture<PlayerResult> skipToNextInternal() {
         ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
         synchronized (mPendingCommands) {
+            Log.e(TAG, "xxx player.skipToNext");
             Object token = mPlayer.skipToNext();
             addPendingCommandLocked(
                     MediaPlayer2.CALL_COMPLETED_SKIP_TO_NEXT, future, token);
@@ -2940,6 +3017,8 @@ public final class MediaPlayer extends SessionPlayer {
             return;
         }
 
+        Log.e(TAG, "xxx calltype : actual=" + what + " expected=" + expected.mCallType
+                + " status=" + status);
         final TrackInfo trackInfo = expected.mTrackInfo;
         if (what != expected.mCallType) {
             Log.w(TAG, "Call type does not match. expeced:" + expected.mCallType
