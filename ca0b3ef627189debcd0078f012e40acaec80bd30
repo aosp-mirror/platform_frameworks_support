@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "387ee63d_a094a7f8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-28T14:08:27Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "39ce73d5_2329ccdd",
+      "revId": "ca0b3ef627189debcd0078f012e40acaec80bd30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14085f39_2c9115d3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "ca0b3ef627189debcd0078f012e40acaec80bd30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84824852_2c0687c8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ReportLibraryMetrics.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-06-28T14:08:27Z",
+      "side": 1,
+      "message": "From what I can tell it will be simpler to digest these if they are in their own files, but I don\u0027t have the reporter working yet. That\u0027s what I\u0027m tackling next week. The output here will likely change to xml, and I will explore the possibility of consolidation then.",
+      "parentUuid": "14085f39_2c9115d3",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "ca0b3ef627189debcd0078f012e40acaec80bd30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
