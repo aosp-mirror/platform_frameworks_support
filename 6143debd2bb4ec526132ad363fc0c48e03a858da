@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4105dec_f72c6275",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-28T04:23:28Z",
+      "side": 1,
+      "message": "Am I correct in assuming that these methods will be moved out of the BiometricPromptDemo, and into the following \n1) new FragmentActivity host\n2) new Fragment host",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "6143debd2bb4ec526132ad363fc0c48e03a858da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8de19a3_d688bc95",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-28T04:23:28Z",
+      "side": 1,
+      "message": "Is the reason for having 2 constructors here because of the following (me awkward grammar)\n\nAre we planning on making the controller abstract (and this constructor moved), and have subclasses that create a BiometricPrompt with\n1) A FragmentActivity \n2) A Fragment",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "6143debd2bb4ec526132ad363fc0c48e03a858da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
