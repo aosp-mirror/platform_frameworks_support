@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a0f6a68_9afca987",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/Path.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T09:02:11Z",
+      "side": 1,
+      "message": "was there a reason why this always returned a copy instead of modifying the original?",
+      "range": {
+        "startLine": 512,
+        "startChar": 7,
+        "endLine": 512,
+        "endChar": 17
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01cf8ba4_e0ab8f1a",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T09:02:11Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919efce4_b8b8360e",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T09:02:11Z",
+      "side": 1,
+      "message": "I\u0027m intrigued about the Kotlin behind this, can you help me understand? I can see how the which(+memo...) places the caches as your this and enables easier code, but what is the purpose of the which(shape)? seems like you immediately move on, what are the effects of it?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "314eff35_e3760e48",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T09:02:11Z",
+      "side": 1,
+      "message": "nit: outerPathIsCached? at first reading the code above I thought this would be computing whether the path was feasible or some check like that. same for the variable below",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
