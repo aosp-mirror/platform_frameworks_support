@@ -93,6 +93,30 @@
       "revId": "69712726e2606b661b3d043ef0a32af000634034",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e060919b_e21fa56e",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:14:50Z",
+      "side": 1,
+      "message": "Actually, let\u0027s fix this after.",
+      "parentUuid": "d6ba5b2d_fc75cec3",
+      "range": {
+        "startLine": 682,
+        "startChar": 29,
+        "endLine": 682,
+        "endChar": 44
+      },
+      "revId": "69712726e2606b661b3d043ef0a32af000634034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
