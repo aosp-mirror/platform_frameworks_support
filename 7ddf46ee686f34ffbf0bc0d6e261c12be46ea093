@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5a4c018_cd3cce7c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-06-28T21:26:52Z",
+      "side": 1,
+      "message": "nit: There is a +ambientDensity() function as a short cut.",
+      "range": {
+        "startLine": 194,
+        "startChar": 18,
+        "endLine": 194,
+        "endChar": 37
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a399f75_902c7906",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
