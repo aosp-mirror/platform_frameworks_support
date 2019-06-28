@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "e4ff24e8_8ee4a3f3",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Dp.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-06-28T14:48:26Z",
+      "side": 1,
+      "message": "I just saw a CL from andreykulikov@ and he used a withDensity(density){} block so that we didn\u0027t have to expose this API.",
+      "parentUuid": "4ee1630f_e494d59f",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 70
+      },
+      "revId": "68766ec70b72f400946b27075cf6bfa5252a4f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e253a5d6_6d48186b",
         "filename": "ui/core/src/main/java/androidx/ui/core/Sp.kt",
         "patchSetId": 5
