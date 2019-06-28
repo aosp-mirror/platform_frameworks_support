@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f4b2a27_b2f3af3f",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-06-28T16:07:03Z",
+      "side": 1,
+      "message": "Yup, probably. And then this activity would become the landing page that lets you pick whether to host the biometric prompt in either an activity or fragment. But for this CL, I just wanted to preserve the existing behavior.",
+      "parentUuid": "e4105dec_f72c6275",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "6143debd2bb4ec526132ad363fc0c48e03a858da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8de19a3_d688bc95",
         "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-28T04:23:28Z",
       "side": 1,
       "message": "Is the reason for having 2 constructors here because of the following (me awkward grammar)\n\nAre we planning on making the controller abstract (and this constructor moved), and have subclasses that create a BiometricPrompt with\n1) A FragmentActivity \n2) A Fragment",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "6143debd2bb4ec526132ad363fc0c48e03a858da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2644289e_cc569925",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-06-28T16:07:03Z",
+      "side": 1,
+      "message": "Actually, I was thinking of adding a second package-private constructor that takes a Fragment instead of a FragmentActivity. Then the private constructor would handle all of the common initialization.\n\nBut now that I think about it, that\u0027s not really related to this change. In that case, I might just use one constructor for now and split it up in a later CL that adds the fragment constructor, since it\u0027ll make more sense in that context.",
+      "parentUuid": "a8de19a3_d688bc95",
       "range": {
         "startLine": 152,
         "startChar": 4,
