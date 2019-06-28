@@ -22,6 +22,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5305df87_3b113595",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-06-28T16:26:07Z",
+      "side": 1,
+      "message": "It is more than just the highlighting nodes for inspection though the information provided by this API is required for that.\n\nThe intent of this project is for all the designer related classes.\n\nThe first candidate is the preview pane that Diego Perez is working on. We intent to expand that to allow a editing. The first step is to surround the composition with a Design { } component which will be done in by the designer (the user doesn\u0027t need to do it).",
+      "parentUuid": "83f796a6_bc96b453",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
