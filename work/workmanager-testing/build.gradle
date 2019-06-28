@@ -25,6 +25,13 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+}
+
 dependencies {
     // @aar and { transitive = true } are needed as a workaround for
     // https://github.com/gradle/gradle/issues/3170
