@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bd478e0f_aeb08922",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/TabActivity.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T13:00:45Z",
+      "side": 1,
+      "message": "yes, agree. let\u0027s consider slots in the follow up CLs. would be nice to be consistent and use slots for similar cases everywhere in our components",
+      "parentUuid": "33f6f49e_c8b01597",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 28
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7de8b65e_da021424",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -71,6 +95,29 @@
     },
     {
       "key": {
+        "uuid": "8a66a7c5_edc2a9ba",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T13:00:45Z",
+      "side": 1,
+      "message": "nit: you can go even further and have here not a state, but already resolved state[IndicatorPosition], will look even more nice and will keep the transitions logic inside.",
+      "range": {
+        "startLine": 82,
+        "startChar": 75,
+        "endLine": 82,
+        "endChar": 83
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9be200a0_3a028d13",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -87,6 +134,53 @@
         "startChar": 69,
         "endLine": 96,
         "endChar": 87
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d44ddb2a_30276b9b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T13:00:45Z",
+      "side": 1,
+      "message": "it is null by default, so looks like it is needed",
+      "parentUuid": "9be200a0_3a028d13",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 87
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b15638d_05c6bbb1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-06-28T13:00:45Z",
+      "side": 1,
+      "message": "my suggestion could make this code a bit more complicated, but it could be reasonable to add this:\nright now your first initial state will always be the first item. so if for some reasons you would initially provide the second item selected you would see the animation of indicator moving from the first item to the second, not the second item straight away.\nthe reason is transitionDefinition marks the first provided state a default(initial) one. \nit should work fine if you first define the state for your selectedIndex and then all others. probably it worth reconsidering this default state selection and make this use cases easier.",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 13
       },
       "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
