@@ -130,6 +130,13 @@ class ConstraintsTest {
         constraints.looseMax().assertEquals(2.ipx, 2.ipx, IntPx.Infinity, IntPx.Infinity)
     }
 
+    @Test
+    fun tight() {
+        val constraints = Constraints(2.ipx, 2.ipx, 5.ipx, 5.ipx)
+        constraints.tightMin().assertEquals(2.ipx, 2.ipx, 2.ipx, 2.ipx)
+        constraints.tightMax().assertEquals(5.ipx, 5.ipx, 5.ipx, 5.ipx)
+    }
+
     fun offset() {
         val constraints = Constraints(2.ipx, 2.ipx, 5.ipx, 5.ipx)
         constraints.offset(horizontal = 2.ipx, vertical = 3.ipx).assertEquals(

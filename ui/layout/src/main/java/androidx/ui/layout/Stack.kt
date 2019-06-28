@@ -32,6 +32,7 @@ import androidx.compose.composer
 import androidx.ui.core.coerceAtLeast
 import androidx.ui.core.ipx
 import androidx.ui.core.isFinite
+import androidx.ui.core.tightMax
 
 /**
  * Collects information about the children of a [Stack] when its body is executed
@@ -60,8 +61,12 @@ class StackChildren {
         _stackChildren += { ParentData(data = data, children = children) }
     }
 
-    fun aligned(alignment: Alignment, children: @Composable() () -> Unit) {
-        val data = StackChildData(alignment = alignment)
+    fun aligned(
+        alignment: Alignment,
+        fit: StackFit = StackFit.Loose,
+        children: @Composable() () -> Unit
+    ) {
+        val data = StackChildData(alignment = alignment, fit = fit)
         _stackChildren += { ParentData(data = data, children = children) }
     }
 }
@@ -115,7 +120,12 @@ fun Stack(
         val placeables = arrayOfNulls<Placeable>(measurables.size)
         // First measure aligned children to get the size of the layout.
         (0 until measurables.size).filter { i -> !measurables[i].positioned }.forEach { i ->
-            placeables[i] = measurables[i].measure(constraints.looseMin())
+            val childConstraints = when(measurables[i].stackChildData.fit) {
+                StackFit.Loose -> constraints.looseMin()
+                StackFit.Expand -> constraints.tightMax()
+                StackFit.PassThrough -> constraints
+            }
+            placeables[i] = measurables[i].measure(childConstraints)
         }
 
         val (stackWidth, stackHeight) = with(placeables.filterNotNull()) {
@@ -205,6 +215,24 @@ fun Stack(
     })
 }
 
+/**
+ * Used to control how the constraints of a [Stack] are passed to its aligned children.
+ */
+enum class StackFit {
+    /**
+     * The constraints passed to the [Stack] from its parent are loosened.
+     */
+    Loose,
+    /**
+     * The constraints passed to the [Stack] from its parent are tightened to the biggest size allowed.
+     */
+    Expand,
+    /**
+     * The constraints passed to the [Stack] from its parent are passed unmodified to the aligned children.
+     */
+    PassThrough
+}
+
 internal data class StackChildData(
     val alignment: Alignment? = null,
     val leftInset: Dp? = null,
@@ -212,7 +240,8 @@ internal data class StackChildData(
     val rightInset: Dp? = null,
     val bottomInset: Dp? = null,
     val width: Dp? = null,
-    val height: Dp? = null
+    val height: Dp? = null,
+    val fit: StackFit = StackFit.Loose
 )
 
 internal val Measurable.stackChildData: StackChildData get() = this.parentData as StackChildData
