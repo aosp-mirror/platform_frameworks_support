@@ -20,6 +20,7 @@ import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.LiveData
 import androidx.paging.futures.FutureCallback
 import androidx.paging.futures.addCallback
+import androidx.paging.futures.future
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import java.util.concurrent.Executor
@@ -88,16 +89,18 @@ internal class LivePagedList<Key : Any, Value : Any>(
 
         @Suppress("UNCHECKED_CAST") // getLastKey guaranteed to be of 'Key' type
         val lastKey = currentData.lastKey as Key?
-        return PagedList.create(
-            dataSource,
-            coroutineScope,
-            notifyExecutor,
-            fetchExecutor,
-            fetchExecutor,
-            boundaryCallback,
-            config,
-            lastKey
-        )
+        return coroutineScope.future {
+            PagedList.create(
+                dataSource,
+                coroutineScope,
+                notifyExecutor,
+                fetchExecutor,
+                fetchExecutor,
+                boundaryCallback,
+                config,
+                lastKey
+            )
+        }
     }
 }
 
