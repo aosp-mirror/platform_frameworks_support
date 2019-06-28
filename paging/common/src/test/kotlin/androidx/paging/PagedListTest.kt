@@ -19,6 +19,7 @@ package androidx.paging
 import androidx.paging.futures.DirectExecutor
 import androidx.testutils.TestExecutor
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -49,7 +50,7 @@ class PagedListTest {
     private val backgroundThread = TestExecutor()
 
     @Test
-    fun createLegacy() {
+    fun createLegacy() = runBlocking {
         @Suppress("DEPRECATION")
         val pagedList = PagedList.Builder(ListDataSource(ITEMS), 100)
             .setNotifyExecutor(mainThread)
@@ -126,7 +127,7 @@ class PagedListTest {
     }
 
     @Test
-    fun defaults() {
+    fun defaults() = runBlocking {
         val pagedList = PagedList(
             dataSource = dataSource,
             config = config,
