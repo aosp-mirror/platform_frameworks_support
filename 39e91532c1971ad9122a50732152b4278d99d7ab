@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b43fc1_b3db87fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-06-28T08:41:38Z",
+      "side": 1,
+      "message": "Include in a note that this update the compiler version to 0620 and includes changes that update the compiler plugin for changes in Kotlin. We might not find this commit right away if there is an issue introduced by the new compiler.",
+      "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
