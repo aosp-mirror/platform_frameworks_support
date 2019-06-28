@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d8b62378_a64df2e5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a4c018_cd3cce7c",
+      "range": {
+        "startLine": 194,
+        "startChar": 18,
+        "endLine": 194,
+        "endChar": 37
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a399f75_902c7906",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5dbbd6fe_b9fbd0bd",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:54:15Z",
+      "side": 1,
+      "message": "Ooops! Thanks so much!",
+      "parentUuid": "6a399f75_902c7906",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 20
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7bbc04e_ca303590",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb00693_69550b08",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-06-28T21:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7bbc04e_ca303590",
+      "range": {
+        "startLine": 132,
+        "startChar": 19,
+        "endLine": 132,
+        "endChar": 54
+      },
+      "revId": "7ddf46ee686f34ffbf0bc0d6e261c12be46ea093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
