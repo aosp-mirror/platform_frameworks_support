@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4e84408_c3059df2",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T23:07:56Z",
+      "side": 1,
+      "message": "Similar to the other fields here, please add the unit of time (Ns) to the name and make sure that the json output key also reflects the new name.",
+      "revId": "41219b272de930f94de985d2d5e13458727b4f01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d515e00a_98be654e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T23:07:56Z",
+      "side": 1,
+      "message": "Need to add @param to kdoc above.",
+      "revId": "41219b272de930f94de985d2d5e13458727b4f01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
