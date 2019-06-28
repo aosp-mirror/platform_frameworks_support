@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0da5a908_59feac2d",
+        "filename": "navigation/navigation-ui/src/main/java/androidx/navigation/ui/CollapsingToolbarOnDestinationChangedListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-06-28T16:42:51Z",
+      "side": 1,
+      "message": "We\u0027re only getting this dependency as a transitive dependency through MDC. Can we explicitly add this dependency to avoid changes in their transition version affecting us? Using explicitly 1.0.0 would be fine.",
+      "range": {
+        "startLine": 29,
+        "startChar": 27,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "54385bb8d93956f6afd43d207bc433385d95beed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
