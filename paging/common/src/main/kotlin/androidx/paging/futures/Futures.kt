@@ -171,7 +171,7 @@ internal inline fun <I, O> ListenableFuture<out I>.transform(
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY) // Redundant to hide from Metalava b/135947782.
-internal suspend fun <T> ListenableFuture<T>.await(): T {
+suspend fun <T> ListenableFuture<T>.await(): T {
     try {
         if (isDone) return get() as T
     } catch (e: ExecutionException) {
@@ -209,7 +209,7 @@ private class ContinuationCallback<T>(@Volatile @JvmField var cont: Continuation
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY) // Redundant to hide from Metalava b/135947782.
-internal fun <T> CoroutineScope.future(
+fun <T> CoroutineScope.future(
     coroutineContext: CoroutineContext = EmptyCoroutineContext,
     block: suspend CoroutineScope.() -> T
 ): ListenableFuture<T> {
