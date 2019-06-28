@@ -32,9 +32,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import java.io.IOException;
@@ -84,6 +86,7 @@ class BiometricPromptDemoController {
     private static final int MODE_CANCEL_AFTER_THREE_FAILURES = 3;
 
     private FragmentActivity mActivity;
+    private Fragment mFragment;
 
     private BiometricPrompt mBiometricPrompt;
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -124,7 +127,7 @@ class BiometricPromptDemoController {
                                     "hello".getBytes(Charset.defaultCharset()));
                             Toast.makeText(getApplicationContext(), "Message: "
                                             + Arrays.toString(Base64.encode(encrypted, 0 /* flags
-                                             */)),
+                                     */)),
                                     Toast.LENGTH_SHORT).show();
                         } catch (BadPaddingException | IllegalBlockSizeException e) {
                             Toast.makeText(getApplicationContext(), "Error encrypting",
@@ -167,8 +170,27 @@ class BiometricPromptDemoController {
         mRadioGroup = radioGroup;
     }
 
+    BiometricPromptDemoController(
+            @NonNull Fragment fragment,
+            @NonNull Button createKeysButton,
+            @NonNull Button authenticateButton,
+            @NonNull Button canAuthenticateButton,
+            @NonNull CheckBox useCryptoCheckbox,
+            @NonNull CheckBox confirmationRequiredCheckbox,
+            @NonNull CheckBox deviceCredentialAllowedCheckbox,
+            @NonNull RadioGroup radioGroup) {
+        mFragment = fragment;
+        mCreateKeysButton = createKeysButton;
+        mAuthenticateButton = authenticateButton;
+        mCanAuthenticateButton = canAuthenticateButton;
+        mUseCryptoCheckbox = useCryptoCheckbox;
+        mConfirmationRequiredCheckbox = confirmationRequiredCheckbox;
+        mDeviceCredentialAllowedCheckbox = deviceCredentialAllowedCheckbox;
+        mRadioGroup = radioGroup;
+    }
+
     /** Sets up button callbacks and other state for the biometric prompt demo controller. */
-    void init(Bundle savedInstanceState) {
+    void init(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             mCounter = savedInstanceState.getInt(KEY_COUNTER);
         }
@@ -222,7 +244,13 @@ class BiometricPromptDemoController {
     }
 
     private Context getApplicationContext() {
-        return mActivity.getApplicationContext();
+        if (mActivity != null) {
+            return mActivity.getApplicationContext();
+        } else if (mFragment != null && mFragment.getContext() != null) {
+            return mFragment.getContext().getApplicationContext();
+        } else {
+            throw new IllegalStateException("No valid context from activity or fragment");
+        }
     }
 
     void onResume() {
@@ -230,7 +258,14 @@ class BiometricPromptDemoController {
         // This is necessary because it is possible for the executor and callback to be GC'd.
         // Instantiating the prompt here allows the library to handle things such as configuration
         // changes.
-        mBiometricPrompt = new BiometricPrompt(mActivity, mExecutor, mAuthenticationCallback);
+        if (mActivity != null) {
+            mBiometricPrompt = new BiometricPrompt(mActivity, mExecutor, mAuthenticationCallback);
+        } else if (mFragment != null && mFragment.getActivity() != null) {
+            mBiometricPrompt = new BiometricPrompt(mFragment.getActivity(), mExecutor,
+                    mAuthenticationCallback);
+        } else {
+            throw new IllegalStateException("Need an activity to initialize biometric prompt");
+        }
     }
 
     void onPause() {
