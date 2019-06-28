@@ -16,6 +16,9 @@
 
 package androidx.appcompat.app;
 
+import static android.view.View.GONE;
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+import static android.view.View.VISIBLE;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.view.Window.FEATURE_OPTIONS_PANEL;
@@ -103,6 +106,7 @@ import androidx.appcompat.widget.ViewUtils;
 import androidx.collection.ArrayMap;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.KeyEventDispatcher;
 import androidx.core.view.LayoutInflaterCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
@@ -147,16 +151,17 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                 @Override
-                public void uncaughtException(Thread thread, final Throwable thowable) {
-                    if (shouldWrapException(thowable)) {
+                public void uncaughtException(@NonNull Thread thread,
+                        final @NonNull Throwable throwable) {
+                    if (shouldWrapException(throwable)) {
                         // Now wrap the throwable, but append some extra information to the message
                         final Throwable wrapped = new Resources.NotFoundException(
-                                thowable.getMessage() + EXCEPTION_HANDLER_MESSAGE_SUFFIX);
-                        wrapped.initCause(thowable.getCause());
-                        wrapped.setStackTrace(thowable.getStackTrace());
+                                throwable.getMessage() + EXCEPTION_HANDLER_MESSAGE_SUFFIX);
+                        wrapped.initCause(throwable.getCause());
+                        wrapped.setStackTrace(throwable.getStackTrace());
                         defHandler.uncaughtException(thread, wrapped);
                     } else {
-                        defHandler.uncaughtException(thread, thowable);
+                        defHandler.uncaughtException(thread, throwable);
                     }
                 }
 
@@ -772,7 +777,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                             public WindowInsetsCompat onApplyWindowInsets(View v,
                                     WindowInsetsCompat insets) {
                                 final int top = insets.getSystemWindowInsetTop();
-                                final int newTop = updateStatusGuard(top);
+                                final int newTop = updateStatusGuard(insets, null);
 
                                 if (top != newTop) {
                                     insets = insets.replaceSystemWindowInsets(
@@ -792,7 +797,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         new FitWindowsViewGroup.OnFitSystemWindowsListener() {
                             @Override
                             public void onFitSystemWindows(Rect insets) {
-                                insets.top = updateStatusGuard(insets.top);
+                                insets.top = updateStatusGuard(null, insets);
                             }
                         });
             }
@@ -1134,7 +1139,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                                 mFadeAnim.setListener(new ViewPropertyAnimatorListenerAdapter() {
                                     @Override
                                     public void onAnimationStart(View view) {
-                                        mActionModeView.setVisibility(View.VISIBLE);
+                                        mActionModeView.setVisibility(VISIBLE);
                                     }
 
                                     @Override
@@ -1146,7 +1151,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                                 });
                             } else {
                                 mActionModeView.setAlpha(1f);
-                                mActionModeView.setVisibility(View.VISIBLE);
+                                mActionModeView.setVisibility(VISIBLE);
                             }
                         }
                     };
@@ -1177,7 +1182,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         mFadeAnim.setListener(new ViewPropertyAnimatorListenerAdapter() {
                             @Override
                             public void onAnimationStart(View view) {
-                                mActionModeView.setVisibility(View.VISIBLE);
+                                mActionModeView.setVisibility(VISIBLE);
                                 mActionModeView.sendAccessibilityEvent(
                                         AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
                                 if (mActionModeView.getParent() instanceof View) {
@@ -1194,7 +1199,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         });
                     } else {
                         mActionModeView.setAlpha(1f);
-                        mActionModeView.setVisibility(View.VISIBLE);
+                        mActionModeView.setVisibility(VISIBLE);
                         mActionModeView.sendAccessibilityEvent(
                                 AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
                         if (mActionModeView.getParent() instanceof View) {
@@ -1442,6 +1447,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     /**
      * From {@link LayoutInflater.Factory2}.
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public final View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return createView(parent, name, context, attrs);
@@ -1450,6 +1456,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     /**
      * From {@link LayoutInflater.Factory2}.
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
         return onCreateView(null, name, context, attrs);
@@ -2021,11 +2028,15 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     /**
      * Updates the status bar guard
      *
-     * @param insetTop the current top system window inset
+     * @param insets the current system window insets, or null if not available
+     * @param rectInsets the current system window insets if {@code insets} is not available
      * @return the new top system window inset
      */
-    int updateStatusGuard(int insetTop) {
+    private int updateStatusGuard(@Nullable WindowInsetsCompat insets, @Nullable Rect rectInsets) {
+        int systemWindowInsetTop = insets == null
+                ? rectInsets.top : insets.getSystemWindowInsetTop();
         boolean showStatusGuard = false;
+
         // Show the status guard when the non-overlay contextual action bar is showing
         if (mActionModeView != null) {
             if (mActionModeView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
@@ -2038,29 +2049,57 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         mTempRect1 = new Rect();
                         mTempRect2 = new Rect();
                     }
-                    final Rect insets = mTempRect1;
-                    final Rect localInsets = mTempRect2;
-                    insets.set(0, insetTop, 0, 0);
+                    final Rect innerInsets = mTempRect1;
+                    final Rect rect = mTempRect2;
+                    if (insets == null) {
+                        innerInsets.set(rectInsets);
+                    } else {
+                        innerInsets.set(
+                                insets.getSystemWindowInsetLeft(),
+                                insets.getSystemWindowInsetTop(),
+                                insets.getSystemWindowInsetRight(),
+                                insets.getSystemWindowInsetBottom());
+                    }
 
-                    ViewUtils.computeFitSystemWindows(mSubDecor, insets, localInsets);
-                    final int newMargin = localInsets.top == 0 ? insetTop : 0;
-                    if (mlp.topMargin != newMargin) {
+                    ViewUtils.computeFitSystemWindows(mSubDecor, innerInsets, rect);
+                    int newTopMargin = innerInsets.top;
+                    int newLeftMargin = innerInsets.left;
+                    int newRightMargin = innerInsets.right;
+
+                    // Must use root window insets for the guard, because the color views consume
+                    // the navigation bar inset if the window does not request LAYOUT_HIDE_NAV - but
+                    // the status guard is attached at the root.
+                    WindowInsetsCompat rootInsets = ViewCompat.getRootWindowInsets(mSubDecor);
+                    int newGuardLeftMargin =
+                            rootInsets == null ? 0 : rootInsets.getSystemWindowInsetLeft();
+                    int newGuardRightMargin =
+                            rootInsets == null ? 0 : rootInsets.getSystemWindowInsetRight();
+
+                    if (mlp.topMargin != newTopMargin || mlp.leftMargin != newLeftMargin
+                            || mlp.rightMargin != newRightMargin) {
                         mlpChanged = true;
-                        mlp.topMargin = insetTop;
+                        mlp.topMargin = newTopMargin;
+                        mlp.leftMargin = newLeftMargin;
+                        mlp.rightMargin = newRightMargin;
+                    }
 
-                        if (mStatusGuard == null) {
-                            mStatusGuard = new View(mContext);
-                            mStatusGuard.setBackgroundColor(mContext.getResources()
-                                    .getColor(R.color.abc_input_method_navigation_guard));
-                            mSubDecor.addView(mStatusGuard, -1,
-                                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                            insetTop));
-                        } else {
-                            ViewGroup.LayoutParams lp = mStatusGuard.getLayoutParams();
-                            if (lp.height != insetTop) {
-                                lp.height = insetTop;
-                                mStatusGuard.setLayoutParams(lp);
-                            }
+                    if (newTopMargin > 0 && mStatusGuard == null) {
+                        mStatusGuard = new View(mContext);
+                        mStatusGuard.setVisibility(GONE);
+                        final FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                                MATCH_PARENT, mlp.topMargin, Gravity.LEFT | Gravity.TOP);
+                        lp.leftMargin = newGuardLeftMargin;
+                        lp.rightMargin = newGuardRightMargin;
+                        mSubDecor.addView(mStatusGuard, -1, lp);
+                    } else if (mStatusGuard != null) {
+                        final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)
+                                mStatusGuard.getLayoutParams();
+                        if (lp.height != mlp.topMargin || lp.leftMargin != newGuardLeftMargin
+                                || lp.rightMargin != newGuardRightMargin) {
+                            lp.height = mlp.topMargin;
+                            lp.leftMargin = newGuardLeftMargin;
+                            lp.rightMargin = newGuardRightMargin;
+                            mStatusGuard.setLayoutParams(lp);
                         }
                     }
 
@@ -2068,12 +2107,17 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                     // always show the status guard above it.
                     showStatusGuard = mStatusGuard != null;
 
+                    if (showStatusGuard && mStatusGuard.getVisibility() != VISIBLE) {
+                        // If it wasn't previously shown, the color may be stale
+                        updateStatusGuardColor(mStatusGuard);
+                    }
+
                     // We only need to consume the insets if the action
                     // mode is overlaid on the app content (e.g. it's
                     // sitting in a FrameLayout, see
                     // screen_simple_overlay_action_mode.xml).
                     if (!mOverlayActionMode && showStatusGuard) {
-                        insetTop = 0;
+                        systemWindowInsetTop = 0;
                     }
                 } else {
                     // reset top margin
@@ -2088,10 +2132,18 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
         if (mStatusGuard != null) {
-            mStatusGuard.setVisibility(showStatusGuard ? View.VISIBLE : View.GONE);
+            mStatusGuard.setVisibility(showStatusGuard ? VISIBLE : GONE);
         }
 
-        return insetTop;
+        return systemWindowInsetTop;
+    }
+
+    private void updateStatusGuardColor(View v) {
+        boolean lightStatusBar = (ViewCompat.getWindowSystemUiVisibility(mStatusGuard)
+                & SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+        mStatusGuard.setBackgroundColor(lightStatusBar
+                ? ContextCompat.getColor(mContext, R.color.abc_decor_view_status_guard_light)
+                : ContextCompat.getColor(mContext, R.color.abc_decor_view_status_guard));
     }
 
     private void throwFeatureRequestIfSubDecorInstalled() {
@@ -2455,7 +2507,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 mFadeAnim.setListener(new ViewPropertyAnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(View view) {
-                        mActionModeView.setVisibility(View.GONE);
+                        mActionModeView.setVisibility(GONE);
                         if (mActionModePopup != null) {
                             mActionModePopup.dismiss();
                         } else if (mActionModeView.getParent() instanceof View) {
