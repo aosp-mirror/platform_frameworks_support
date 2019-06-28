@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24d96e37_c3505507",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-28T04:11:47Z",
+      "side": 1,
+      "message": "For TimeoutException and InterruptedException, we\u0027d better propagate to developer to handle.\n\nAnd I think you need not to catch Throwable here.\n\n\nThen developer can handle them differently.\nTimeoutException means the connection timeout.\nInterruptedException means the thread is interrupted by developer. (like developer no longer need the information and cancelled this thread.)",
+      "range": {
+        "startLine": 198,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 9
+      },
+      "revId": "2da140357acabfc03f8c1ea14430b1f925622787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

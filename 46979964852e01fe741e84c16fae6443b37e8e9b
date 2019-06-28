@@ -1297,6 +1297,30 @@
     },
     {
       "key": {
+        "uuid": "7d61c033_68f8ff6c",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1217756
+      },
+      "writtenOn": "2019-06-28T04:11:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f583d384_4c9d0b7c",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 9
+      },
+      "revId": "46979964852e01fe741e84c16fae6443b37e8e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68ca7b25_7037a680",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 17
