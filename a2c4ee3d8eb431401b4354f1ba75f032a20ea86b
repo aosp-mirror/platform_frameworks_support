@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "7de8b65e_da021424",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T08:34:46Z",
+      "side": 1,
+      "message": "sample missing",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e300e8dc_6a99e6ed",
         "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
         "patchSetId": 5
@@ -64,6 +87,29 @@
         "startChar": 69,
         "endLine": 96,
         "endChar": 87
+      },
+      "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e8b44c_24095b5b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Tab.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-06-28T08:34:46Z",
+      "side": 1,
+      "message": "sample",
+      "range": {
+        "startLine": 153,
+        "startChar": 3,
+        "endLine": 154,
+        "endChar": 75
       },
       "revId": "a2c4ee3d8eb431401b4354f1ba75f032a20ea86b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
