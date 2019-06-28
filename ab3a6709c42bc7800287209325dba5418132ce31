@@ -16,6 +16,24 @@
       "revId": "ab3a6709c42bc7800287209325dba5418132ce31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20a1603_4d5a6dd2",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionsErrorListenerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-06-28T04:01:45Z",
+      "side": 1,
+      "message": "I have added new MISMATCHED_EXTENSIONS_ENABLED error code. Please take a look and I will merge this CL next week if there is no concern. Thanks.",
+      "parentUuid": "4874d629_7f240bb1",
+      "revId": "ab3a6709c42bc7800287209325dba5418132ce31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
