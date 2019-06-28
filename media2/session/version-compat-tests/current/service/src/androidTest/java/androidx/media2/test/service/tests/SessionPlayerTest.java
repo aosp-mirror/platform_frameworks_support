@@ -328,6 +328,32 @@ public class SessionPlayerTest extends MediaSessionTestBase {
     }
 
     @Test
+    public void testMovePlaylistItemsBySession() throws InterruptedException {
+        prepareLooper();
+        final int fromIdx = 3;
+        final int toIdx = 20;
+        final MediaItem testMediaItem = MediaTestUtils.createMediaItemWithMetadata();
+        mSession.getPlayer().movePlaylistItem(fromIdx, toIdx);
+        assertTrue(mPlayer.mMovePlaylistItemCalled);
+        assertEquals(fromIdx, mPlayer.mIndex);
+        assertSame(toIdx, mPlayer.mIndex2);
+    }
+
+    @Test
+    public void testMovePlaylistItemByController() throws InterruptedException {
+        final int testIndex1 = 3;
+        final int testIndex2 = 20;
+        final String testMediaId = "testReplacePlaylistItemByController";
+
+        mController.movePlaylistItem(testIndex1, testIndex2);
+        assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        assertTrue(mPlayer.mMovePlaylistItemCalled);
+        assertEquals(testIndex1, mPlayer.mIndex);
+        assertSame(testIndex2, mPlayer.mIndex2);
+    }
+
+    @Test
     public void testSkipToPreviousItemBySession() {
         prepareLooper();
         mSession.getPlayer().skipToPreviousPlaylistItem();

@@ -69,6 +69,7 @@ class MediaInterface {
         ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item);
         ListenableFuture<PlayerResult> removePlaylistItem(int index);
         ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem item);
+        ListenableFuture<PlayerResult> movePlaylistItem(int index1, int index2);
 
         int getRepeatMode();
         ListenableFuture<PlayerResult> setRepeatMode(int repeatMode);

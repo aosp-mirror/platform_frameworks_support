@@ -237,8 +237,10 @@ public final class SessionCommandGroup implements VersionedParcelable {
         private void addCommands(@CommandVersion int version, ArrayMap<Integer, Range> map) {
             for (int i = COMMAND_VERSION_1; i <= version; i++) {
                 Range range = map.get(i);
-                for (int code = range.lower; code <= range.upper; code++) {
-                    addCommand(new SessionCommand(code));
+                if (range != null) {
+                    for (int code = range.lower; code <= range.upper; code++) {
+                        addCommand(new SessionCommand(code));
+                    }
                 }
             }
         }

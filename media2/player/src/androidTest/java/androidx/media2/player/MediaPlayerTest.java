@@ -42,6 +42,7 @@ import androidx.media2.common.CallbackMediaItem;
 import androidx.media2.common.DataSourceCallback;
 import androidx.media2.common.FileMediaItem;
 import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.common.SubtitleData;
@@ -1499,6 +1500,56 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @Test
     @MediumTest
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    public void testPlaylistModification() throws Exception {
+        List<MediaItem> playlist = createPlaylist(3);
+        MediaItem item0 = playlist.get(0);
+        MediaItem item1 = playlist.get(1);
+        MediaItem item2 = playlist.get(2);
+        MediaItem item3 = createMediaItem(3);
+        ListenableFuture<PlayerResult> future = mPlayer.setPlaylist(playlist, null);
+        PlayerResult result = future.get();
+        // mPlayer's playlist will be [0 (current) 1 2]
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        assertEquals(playlist.size(), mPlayer.getPlaylist().size());
+        assertEquals(item0, mPlayer.getCurrentMediaItem());
+        assertEquals(1, mPlayer.getNextMediaItemIndex());
+
+        future = mPlayer.addPlaylistItem(0, item3);
+        result = future.get();
+        // mPlayer's playlist will be [3 0 (current) 1 2]
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        assertEquals(playlist.size() + 1, mPlayer.getPlaylist().size());
+        assertEquals(item0, mPlayer.getCurrentMediaItem());
+        assertEquals(2, mPlayer.getNextMediaItemIndex());
+
+        future = mPlayer.removePlaylistItem(1);
+        result = future.get();
+        // mPlayer's playlist will be [3 1 (current) 2]
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        assertEquals(playlist.size(), mPlayer.getPlaylist().size());
+        assertEquals(item1, mPlayer.getCurrentMediaItem());
+        assertEquals(2, mPlayer.getNextMediaItemIndex());
+
+        future = mPlayer.movePlaylistItem(1, 0);
+        result = future.get();
+        // mPlayer's playlist will be [1 (current), 3, 2]
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        assertEquals(playlist.size(), mPlayer.getPlaylist().size());
+        assertEquals(item1, mPlayer.getCurrentMediaItem());
+        assertEquals(1, mPlayer.getNextMediaItemIndex());
+
+        future = mPlayer.skipToNextPlaylistItem();
+        result = future.get();
+        // mPlayer's playlist will be [1, 3 (current), 2]
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        assertEquals(playlist.size(), mPlayer.getPlaylist().size());
+        assertEquals(item3, mPlayer.getCurrentMediaItem());
+        assertEquals(2, mPlayer.getNextMediaItemIndex());
+    }
+
+    @Test
+    @MediumTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testSkipToPlaylistItems() throws Exception {
         int listSize = 5;
         List<MediaItem> playlist = createPlaylist(listSize);
@@ -1696,10 +1747,13 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
     private MediaItem createMediaItem(int key) throws Exception {
         try (AssetFileDescriptor afd = mResources.openRawResourceFd(R.raw.testvideo)) {
+            MediaMetadata metadata = new MediaMetadata.Builder().putString(
+                    MediaMetadata.METADATA_KEY_MEDIA_ID, "id" + key).build();
             return new FileMediaItem.Builder(
                     ParcelFileDescriptor.dup(afd.getFileDescriptor()))
                     .setFileDescriptorOffset(afd.getStartOffset())
                     .setFileDescriptorLength(afd.getLength())
+                    .setMetadata(metadata)
                     .build();
         }
     }

@@ -925,6 +925,24 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
+     * Moves the media item at {@code fromIdx} to {@code toIdx} in the playlist.
+     *
+     * @param fromIdx the media item's initial index in the playlist
+     * @param toIdx the media item's target index in the playlist
+     */
+    @NonNull
+    public ListenableFuture<SessionResult> movePlaylistItem(@IntRange(from = 0) int fromIdx,
+            @IntRange(from = 0) int toIdx) {
+        if (fromIdx < 0 || toIdx < 0) {
+            throw new IllegalArgumentException("indexes shouldn't be negative");
+        }
+        if (isConnected()) {
+            return getImpl().movePlaylistItem(fromIdx, toIdx);
+        }
+        return createDisconnectedFuture();
+    }
+
+    /**
      * Gets the lastly cached current item from
      * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)}.
      *
@@ -1397,6 +1415,7 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<SessionResult> removePlaylistItem(int index);
         ListenableFuture<SessionResult> replacePlaylistItem(int index,
                 @NonNull String mediaId);
+        ListenableFuture<SessionResult> movePlaylistItem(int index1, int index2);
         MediaItem getCurrentMediaItem();
         int getCurrentMediaItemIndex();
         int getPreviousMediaItemIndex();
@@ -1413,7 +1432,7 @@ public class MediaController implements AutoCloseable {
         @NonNull
         VideoSize getVideoSize();
         ListenableFuture<SessionResult> setSurface(@Nullable Surface surface);
-        @Nullable
+        @NonNull
         List<TrackInfo> getTrackInfo();
         ListenableFuture<SessionResult> selectTrack(TrackInfo trackInfo);
         ListenableFuture<SessionResult> deselectTrack(TrackInfo trackInfo);

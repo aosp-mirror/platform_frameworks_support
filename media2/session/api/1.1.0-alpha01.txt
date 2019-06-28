@@ -75,6 +75,7 @@ package androidx.media2.session {
     method public android.app.PendingIntent? getSessionActivity();
     method @androidx.media2.common.SessionPlayer.ShuffleMode public int getShuffleMode();
     method public boolean isConnected();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.session.SessionResult!> movePlaylistItem(@IntRange(from=0) int, @IntRange(from=0) int);
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.session.SessionResult!> pause();
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.session.SessionResult!> play();
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.session.SessionResult!> prepare();
