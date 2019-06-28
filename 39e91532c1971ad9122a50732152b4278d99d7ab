@@ -16,6 +16,24 @@
       "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f880e928_dee0a45e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-06-28T20:01:44Z",
+      "side": 1,
+      "message": "Good call!",
+      "parentUuid": "79b43fc1_b3db87fc",
+      "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
