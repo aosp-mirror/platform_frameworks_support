@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63283530_412267df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "The test here should be a runnable command and you should make sure your changes are accounted for in the unit tests:\n\nTest: ./gradlew benchmark:cC",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b18d7eb_fbcd54af",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "Don\u0027t need this @JvmField annotation here!",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1011371d_e92ef332",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "I don\u0027t think this needs to be internal (and also marked @PublishedApi) since ResultWriter should be accessing this metric from the Report object directly.",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe668105_b0c046c8",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "This comment is redundant with the one above when entering this else case, probably no need for this comment here as it re-states things just above it.",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efcb3ee0_b60f751a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "Should move this initialize out of this block and into `beginBenchmark` where our other initialization is done - otherwise this check gets called in every loop of the benchmark and it\u0027s important this stays extremely fast !!",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8403a890_d74d39f9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "Don\u0027t need a second init here if you do it in beginBenchmark above.",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4070cdf_4e30c5d1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-06-28T17:59:25Z",
+      "side": 1,
+      "message": "I think the name of this could be shortened since we\u0027re already in the context of a benchmark here:\n\nHow about just `totalRunTime`?",
+      "revId": "adc161910511b17c0062a1e644699642745fdc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
