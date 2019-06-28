@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Sumir Kataria <sumir@google.com>
+Code-Review+2: John Reck <jreck@google.com>
+API-Review+1: Sumir Kataria <sumir@google.com>
+Submitted-by: Nader Jawad <njawad@google.com>
+Submitted-at: Fri, 28 Jun 2019 16:31:08 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/987260
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
