@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f053dff_3b2df883",
+        "filename": "ui/material/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-28T14:17:08Z",
+      "side": 1,
+      "message": "We want material tests to stay debuggable.",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "2b38074cb3d9eec5115c12e072dabf7b3896913d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3071b642_4ac3ed03",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxPerf.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-06-28T14:17:08Z",
+      "side": 1,
+      "message": "These should go to ui-benchmark module (to also get all the special setup we do in AndroidxUiPlugin (the module needs to end with \"benchmark\"). But I will be adding that module plus some of these benchmarks over the next week. So you can either wait for me on Monday when I add that module, or go ahead and add it yourself. Up to you :)",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "2b38074cb3d9eec5115c12e072dabf7b3896913d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
