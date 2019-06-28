@@ -22,7 +22,6 @@ import androidx.annotation.MainThread
 import androidx.annotation.RestrictTo
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
-import androidx.arch.core.util.Function
 import androidx.paging.PagedList.Callback
 import androidx.paging.PagedList.Config
 import androidx.paging.PagedList.Config.Builder
@@ -30,8 +29,8 @@ import androidx.paging.PagedList.Config.Companion.MAX_SIZE_UNBOUNDED
 import androidx.paging.PagedList.LoadState
 import androidx.paging.PagedList.LoadType
 import androidx.paging.futures.DirectExecutor
+import androidx.paging.futures.await
 import androidx.paging.futures.future
-import androidx.paging.futures.transform
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -161,16 +160,16 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          *
          * @param dataSource DataSource providing data to the PagedList
          * @param notifyExecutor Thread tat will use and consume data from the PagedList. Generally,
-         *                       this is the UI/main thread.
+         * this is the UI/main thread.
          * @param fetchExecutor Data loading will be done via this executor - should be a background
-         *                      thread.
+         * thread.
          * @param boundaryCallback Optional boundary callback to attach to the list.
          * @param config PagedList Config, which defines how the PagedList will load data.
          * @param K Key type that indicates to the DataSource what data to load.
          * @param T Type of items to be held and loaded by the PagedList.
          *
-         * @return [ListenableFuture] for newly created [PagedList], which will page in data from
-         * the [DataSource] as needed.
+         * @return The newly created [PagedList], which will page in data from the [DataSource] as
+         * needed.
          *
          * @hide
          */
@@ -201,26 +200,20 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 config.pageSize
             )
 
-            val future = coroutineScope.future(initialLoadExecutor.asCoroutineDispatcher()) {
-                dataSource.load(params)
+            return coroutineScope.future(initialLoadExecutor.asCoroutineDispatcher()) {
+                val initialResult = dataSource.load(params)
+                dataSource.initExecutor(fetchExecutor)
+                ContiguousPagedList(
+                    dataSource,
+                    coroutineScope,
+                    notifyExecutor,
+                    fetchExecutor,
+                    boundaryCallback,
+                    config,
+                    initialResult,
+                    lastLoad
+                )
             }
-
-            return future.transform(
-                Function { initialResult ->
-                    dataSource.initExecutor(fetchExecutor)
-                    ContiguousPagedList(
-                        dataSource,
-                        coroutineScope,
-                        notifyExecutor,
-                        fetchExecutor,
-                        boundaryCallback,
-                        config,
-                        initialResult,
-                        lastLoad
-                    )
-                },
-                DirectExecutor
-            )
         }
     }
 
@@ -334,7 +327,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          *
          * @param dataSource [DataSource] the [PagedList] will load from.
          * @param pageSize [Config] that defines how the [PagedList] loads data from its
-         *                 [DataSource].
+         * [DataSource].
          */
         constructor(dataSource: DataSource<Key, Value>, pageSize: Int) : this(
             dataSource,
@@ -361,7 +354,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * The executor defining where page loading updates are dispatched.
          *
          * @param notifyExecutor Executor that receives [PagedList] updates, and where [Callback]
-         *                       calls are dispatched. Generally, this is the ui/main thread.
+         * calls are dispatched. Generally, this is the ui/main thread.
          * @return this
          */
         fun setNotifyExecutor(notifyExecutor: Executor) = apply {
@@ -375,7 +368,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * [PagedList] is created on.
          *
          * @param fetchExecutor [Executor] used to fetch from [DataSources], generally a background
-         *                      thread pool for e.g. I/O or network loading.
+         * thread pool for e.g. I/O or network loading.
          * @return this
          */
         fun setFetchExecutor(fetchExecutor: Executor) = apply {
@@ -424,6 +417,9 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * the [PagedList] will be immediately [detached][PagedList.isDetached], and you can retry
          * construction (including setting a new [DataSource]).
          *
+         * @throws IllegalArgumentException if [notifyExecutor] or [fetchExecutor] are not set.
+         * @throws RuntimeException if [PagedList] is interrupted or cancelled.
+         *
          * @return The newly constructed [PagedList]
          */
         @WorkerThread
@@ -431,7 +427,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             "This method has no means of handling errors encountered during initial load, and" +
                     " blocks on the initial load result. Use {@link #buildAsync()} instead."
         )
-        fun build(): PagedList<Value> {
+        suspend fun build(): PagedList<Value> {
             // TODO: define defaults, once they can be used in module without android dependency
             if (notifyExecutor == null) {
                 throw IllegalArgumentException("MainThreadExecutor required")
@@ -441,7 +437,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             }
 
             try {
-                return create(DirectExecutor).get()
+                return create(DirectExecutor)
             } catch (e: InterruptedException) {
                 throw RuntimeException(e)
             } catch (e: ExecutionException) {
@@ -456,6 +452,8 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * `ListenableFuture<PagedList<T>>` that will resolve (triggering
          * [loadStateListeners]) once the initial load is completed (success or failure).
          *
+         * @throws IllegalArgumentException if [notifyExecutor] or [fetchExecutor] are not set.
+         *
          * @return The newly constructed PagedList
          */
         @Suppress("unused")
@@ -468,10 +466,10 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 throw IllegalArgumentException("BackgroundThreadExecutor required")
             }
 
-            return create(fetchExecutor!!)
+            return coroutineScope.future { create(fetchExecutor!!) }
         }
 
-        private fun create(initialFetchExecutor: Executor): ListenableFuture<PagedList<Value>> =
+        private suspend fun create(initialFetchExecutor: Executor): PagedList<Value> =
             create(
                 dataSource,
                 coroutineScope,
@@ -481,7 +479,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
                 boundaryCallback,
                 config,
                 initialKey
-            )
+            ).await()
     }
 
     /**
@@ -496,7 +494,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * data that hasn't been used in a while has been dropped, and swapped back to null.
          *
          * @param position Position of first newly loaded items, out of total number of items
-         *                 (including padded nulls).
+         * (including padded nulls).
          * @param count Number of items loaded.
          */
         abstract fun onChanged(position: Int, count: Int)
@@ -505,7 +503,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * Called when new items have been loaded at the end or beginning of the list.
          *
          * @param position Position of the first newly loaded item (in practice, either `0` or
-         *                 `size - 1`.
+         * `size - 1`.
          * @param count Number of items loaded.
          */
         abstract fun onInserted(position: Int, count: Int)
@@ -515,7 +513,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
          * been replaced by padded nulls.
          *
          * @param position Position of the first newly loaded item (in practice, either `0` or
-         *                 `size - 1`.
+         * `size - 1`.
          * @param count Number of items loaded.
          */
         abstract fun onRemoved(position: Int, count: Int)
@@ -624,7 +622,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
             }
 
             /**
-             * Pass false to disable null placeholders in [PagedLists] using this [Config].
+             * Pass false to disable null placeholders in [PagedList]s using this [Config].
              *
              * If not set, defaults to true.
              *
@@ -666,7 +664,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
              * If not set, defaults to three times page size.
              *
              * @param initialLoadSizeHint Number of items to load while initializing the
-             *                            [PagedList].
+             * [PagedList].
              * @return this
              */
             fun setInitialLoadSizeHint(@IntRange(from = 1) initialLoadSizeHint: Int) = apply {
@@ -698,7 +696,7 @@ abstract class PagedList<T : Any> : AbstractList<T> {
              * If not set, defaults to [MAX_SIZE_UNBOUNDED], which disables page dropping.
              *
              * @param maxSize Maximum number of items to keep in memory, or [MAX_SIZE_UNBOUNDED] to
-             *                disable page dropping.
+             * disable page dropping.
              * @return this
              *
              * @see Config.MAX_SIZE_UNBOUNDED
@@ -1379,14 +1377,14 @@ abstract class PagedList<T : Any> : AbstractList<T> {
  * @param dataSource DataSource the PagedList will load from.
  * @param config Config that defines how the PagedList loads data from its DataSource.
  * @param notifyExecutor Executor that receives PagedList updates, and where [PagedList.Callback]
- *                       calls are dispatched. Generally, this is the UI/main thread.
+ * calls are dispatched. Generally, this is the UI/main thread.
  * @param fetchExecutor Executor used to fetch from DataSources, generally a background thread pool
- *                      for e.g. I/O or network loading.
+ * for e.g. I/O or network loading.
  * @param boundaryCallback BoundaryCallback for listening to out-of-data events.
  * @param initialKey Key the DataSource should load around as part of initialization.
  */
 @Suppress("FunctionName")
-fun <Key : Any, Value : Any> PagedList(
+suspend fun <Key : Any, Value : Any> PagedList(
     dataSource: DataSource<Key, Value>,
     config: Config,
     notifyExecutor: Executor,
