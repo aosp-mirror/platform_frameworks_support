@@ -29,6 +29,15 @@ plugins {
 }
 
 android {
+    buildTypes {
+        //TODO: b/130307237 test coverage breaks robolectric
+        debug {
+            testCoverageEnabled = false
+        }
+        release {
+            testCoverageEnabled = false
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_7
         targetCompatibility = JavaVersion.VERSION_1_7
@@ -38,7 +47,7 @@ android {
 dependencies {
     implementation(project(':work:work-runtime-ktx'))
     implementation(ARCH_LIFECYCLE_LIVEDATA_CORE)
-    implementation(ARCH_ROOM_RUNTIME)
+    implementation(WORK_ARCH_ROOM_RUNTIME)
     annotationProcessor(ARCH_ROOM_COMPILER)
 
     androidTestImplementation(WORK_ARCH_CORE_TESTING)
