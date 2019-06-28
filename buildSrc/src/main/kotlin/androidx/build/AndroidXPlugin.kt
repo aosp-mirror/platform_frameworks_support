@@ -78,6 +78,9 @@ import java.util.concurrent.ConcurrentHashMap
  * compatibility.
  */
 const val USE_MAX_DEP_VERSIONS = "useMaxDepVersions"
+/**
+ * Sub directory to use for build-info files used by release service.
+ */
 const val BUILD_INFO_DIR = "build-info"
 
 /**
