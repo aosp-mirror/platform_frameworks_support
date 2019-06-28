@@ -114,6 +114,30 @@
       "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8100db_03122685",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-06-28T10:22:48Z",
+      "side": 1,
+      "message": "I felt fallback would be appropriate to emphasize that alignment is only used when no inset is provided on either axis. I could be convinced to rename it to simply \"alignment\", although I feel this might confuse developers into thinking that for positioned children the algorithm works by insetting the available space by the provided insets, and then aligning the child into that - which is not how it works.\n\nWhat do you mean that we can reshuffle as fun positioned(leftInset: Dp? \u003d null, fallbackRightInset: Dp? \u003d null, ...)? I don\u0027t see how the leftInset is more important than the rightInset.\n\nBtw, Calin\u0027s Gerrit account is still not working, so he cannot comment here for the moment :)",
+      "parentUuid": "5e02ddaa_b5492924",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "d99c8ae2be9082c4d40d706926f3de09354817d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
