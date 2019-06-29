@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7b3a06e_a258e3cf",
+        "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "All the classes which override merge have to also override this function.\n\nCan we instead replace merge with \nopen val merge: ((T, T)-\u003eT)? \u003d null\n\nThen the child classes just have to override this lambda, and canMerge() can be an extension function that checks if merge\u003d\u003dnull.",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df6313f_131b0053",
+        "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "Why do we need a getter here? The developers should only be able to \"set\" properties.",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b338d7be_882bc5a6",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "The default value is false, why do we need to set it here?",
+      "range": {
+        "startLine": 41,
+        "startChar": 77,
+        "endLine": 41,
+        "endChar": 82
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8fbc89_1eb6681b",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5af52f3_36f81382",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "I\u0027m not sold on the idea of using a string here. Not part of this CL, but we should have a discussion about this.",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "366667cc_8b1d9827",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsNode.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "nit: replace 0 by generateNewId\n\nDon\u0027t know if we will ever have multiple semantic trees, but if we do, then using 0 here would result in the root nodes of all trees having the same id.\n\n(The rest of the nodes would be unique)",
+      "range": {
+        "startLine": 61,
+        "startChar": 37,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b543c1f_5a96a1f6",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "add the  TODO(i18n) here also.",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f2eb85_b2df23e5",
+        "filename": "ui/test/src/main/java/androidx/ui/test/GoldenSemantics.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "Nit: This is a little hard to read. You could replace this with\n\nSemanticsConfiguration().also{\n    isEnabled?.run { it.enabled \u003d isEnabled }\n}\n\nor\n\nSemanticsConfiguration().apply {\n    enabled \u003d isEnabled ?: enabled\n}",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 23
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd5c46c_e9ac560e",
+        "filename": "ui/test/src/main/java/androidx/ui/test/GoldenSemantics.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-06-29T00:03:48Z",
+      "side": 1,
+      "message": "Nit: This logic is hard to read. \n\nfor ((key, expectedValue) in expected) {\n    when {\n        !containsKey(key) -\u003e assertMessage.append(...)\n        this[key] !\u003d expectedValue -\u003e assertMessage.append(...)\n    }\n}",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
