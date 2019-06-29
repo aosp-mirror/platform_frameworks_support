@@ -46,6 +46,30 @@
       "revId": "30d400a9c081416f4afa7185ef5fcaf2b7a1f682",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f548113f_a7fad439",
+        "filename": "work/workmanager-testing/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-06-29T11:11:37Z",
+      "side": 1,
+      "message": "removed compiler because it isn\u0027t needed. Can\u0027t remove runtime because workDatabase is RoomDatabase, but because \"room_runtime\" is \"implementation\" in work runtime we can\u0027t access it as transitive dependency.",
+      "parentUuid": "666f3c19_8c8996b7",
+      "range": {
+        "startLine": 51,
+        "startChar": 24,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "30d400a9c081416f4afa7185ef5fcaf2b7a1f682",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
