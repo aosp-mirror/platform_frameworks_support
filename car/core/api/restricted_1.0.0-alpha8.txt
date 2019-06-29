@@ -10,10 +10,10 @@ package androidx.car.navigation.utils {
     ctor public BundleMarshaller();
     method public void applyDelta(android.os.Bundle!);
     method public boolean getBoolean(String);
-    method public <T extends androidx.car.navigation.utils.Bundlable> T? getBundlable(String, T?, java.util.function.Supplier<T!>);
-    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T!>? getBundlableList(String, java.util.List<T!>?, java.util.function.Supplier<T!>);
-    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T!> getBundlableListNonNull(String, java.util.List<T!>, java.util.function.Supplier<T!>);
-    method public <T extends androidx.car.navigation.utils.Bundlable> T getBundlableNonNull(String, T, java.util.function.Supplier<T!>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> T? getBundlable(String, T?, androidx.core.util.Supplier<T!>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T!>? getBundlableList(String, java.util.List<T!>?, androidx.core.util.Supplier<T!>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T!> getBundlableListNonNull(String, java.util.List<T!>, androidx.core.util.Supplier<T!>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> T getBundlableNonNull(String, T, androidx.core.util.Supplier<T!>);
     method public android.os.Bundle! getBundle();
     method public android.os.Bundle! getDelta();
     method public double getDouble(String);

@@ -33,6 +33,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.arch.core.util.Function;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsHelper;
 import androidx.car.util.ListItemBackgroundResolver;
@@ -43,7 +44,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.function.Function;
 
 /**
  * Adapter for {@link PagedListView} to display {@link ListItem}.
@@ -276,6 +276,44 @@ public class ListItemAdapter extends
         }
 
         registerListItemViewTypeInternal(viewType, layoutResId, function);
+    }
+
+    /**
+     * Registers a custom {@link ListItem} that this adapter will handle. The custom list item will
+     * be identified by the unique view id that is passed to this method. The {@code function}
+     * should a reference to the method that will create the {@link ListItem.ViewHolder} that houses
+     * the custom {@link ListItem}.
+     *
+     * <pre>{@code
+     * int viewType = -1;
+     *
+     * registerListItemViewType(
+     *     viewType,
+     *     R.layout.custom_view_layout,
+     *     CustomListItem::createViewHolder);
+     * }</pre>
+     *
+     * <p>The function will receive a view as {@link ListItem.ViewHolder#itemView}.
+     *
+     * <p>Subclasses of {@link ListItem} in package {@code androidx.car.widget} are already
+     * registered.
+     *
+     * @param viewType    A unique id for the custom view. Use negative values for custom view type.
+     * @param layoutResId The layout structure that will bs used for the custom view type.
+     * @param function    function to create ViewHolder for {@code viewType}.
+     *
+     * @deprecated Use {@link #registerListItemViewType(int, int, Function)} instead.
+     */
+    @Deprecated
+    public void registerListItemViewType(
+            @IntRange(from = Integer.MIN_VALUE, to = -1) int viewType,
+            @LayoutRes int layoutResId,
+            java.util.function.Function<View, ListItem.ViewHolder> function) {
+        if (viewType >= 0) {
+            throw new IllegalArgumentException("Custom view types should use negative values.");
+        }
+
+        registerListItemViewTypeInternal(viewType, layoutResId, input -> function.apply(input));
     }
 
     /**

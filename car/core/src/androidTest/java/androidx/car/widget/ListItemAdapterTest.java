@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.arch.core.util.Function;
 import androidx.car.test.R;
 import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -109,7 +110,8 @@ public final class ListItemAdapterTest {
         int layoutRes = R.layout.activity_column_card_view;
 
         adapter.registerListItemViewType(
-                viewType, layoutRes, CustomListItem::createViewHolder);
+                viewType, layoutRes,
+                (Function<View, ListItem.ViewHolder>) CustomListItem::createViewHolder);
     }
 
     @Test
@@ -120,7 +122,8 @@ public final class ListItemAdapterTest {
         int layoutRes = R.layout.activity_column_card_view;
 
         adapter.registerListItemViewType(
-                CustomListItem.LIST_ITEM_ID, layoutRes, CustomListItem::createViewHolder);
+                CustomListItem.LIST_ITEM_ID, layoutRes,
+                (Function<View, ListItem.ViewHolder>) CustomListItem::createViewHolder);
 
         // Note that the type of parent in this case does not matter.
         ListItem.ViewHolder viewHolder = adapter.onCreateViewHolder(
