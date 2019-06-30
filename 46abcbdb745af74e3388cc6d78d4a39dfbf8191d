@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ac1eafb_c77da5e5",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-30T04:42:27Z",
+      "side": 1,
+      "message": "nit: better to put whole thing on next line",
+      "range": {
+        "startLine": 129,
+        "startChar": 87,
+        "endLine": 129,
+        "endChar": 97
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be0f0bb_9d0acabb",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-30T04:42:27Z",
+      "side": 1,
+      "message": "may be better to have the common constructor like before. also makes it easier if we want to initialize more things in the future.",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 33
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf224014_004ce882",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-06-30T04:42:27Z",
+      "side": 1,
+      "message": "suggest having BiometricPromptDemo be abstract with abstract getApplicationContext, onResume methods. if / else if feels a little weird here",
+      "range": {
+        "startLine": 246,
+        "startChar": 20,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
