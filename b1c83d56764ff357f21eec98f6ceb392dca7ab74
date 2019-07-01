@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8044727b_07209fcb",
+        "filename": "core/core-role/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2019-07-01T20:15:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ea6d38_564f2b1f",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 81
+      },
+      "revId": "b1c83d56764ff357f21eec98f6ceb392dca7ab74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "def07859_4772e901",
         "filename": "core/core-role/README.md",
         "patchSetId": 1
