@@ -34,6 +34,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraCaptureCallback;
+import androidx.camera.core.CameraCaptureFailure;
+import androidx.camera.core.CameraCaptureResult;
 import androidx.camera.core.CameraCaptureSessionStateCallbacks;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
@@ -75,6 +77,11 @@ final class CaptureSession {
     private final Executor mExecutor;
     /** The configuration for the currently issued single capture requests. */
     private final List<CaptureConfig> mCaptureConfigs = new ArrayList<>();
+    /** CaptureConfigCallbacks that is executing and waiting for its callback to be called */
+    @GuardedBy("mExecutingCaptureConfigCallbacks")
+    private final List<CaptureConfigCaptureCallback> mExecutingCaptureConfigCallbacks =
+            new ArrayList<>();
+
     /** Lock on whether the camera is open or closed. */
     final Object mStateLock = new Object();
     /** Callback for handling image captures. */
@@ -446,6 +453,12 @@ final class CaptureSession {
         }
     }
 
+    void clearCaptureConfigs() {
+        synchronized (mStateLock) {
+            mCaptureConfigs.clear();
+        }
+    }
+
     /** Returns the current state of the session. */
     State getState() {
         synchronized (mStateLock) {
@@ -549,9 +562,16 @@ final class CaptureSession {
                 }
 
                 List<CameraCaptureSession.CaptureCallback> cameraCallbacks = new ArrayList<>();
-                for (CameraCaptureCallback callback : captureConfig.getCameraCaptureCallbacks()) {
-                    CaptureCallbackConverter.toCaptureCallback(callback, cameraCallbacks);
-                }
+                // captureConfigCaptureCallback now contains all callback in one CaptureConfig
+                CaptureConfigCaptureCallback captureConfigCaptureCallback =
+                        new CaptureConfigCaptureCallback(captureConfig.getCameraCaptureCallbacks());
+                CaptureCallbackConverter.toCaptureCallback(captureConfigCaptureCallback,
+                        cameraCallbacks);
+
+                // Save the captureConfigCaptureCallback so that we can keep track of which callback
+                // havn't been called.
+                addExecutingCaptureConfigCallback(captureConfigCaptureCallback);
+
                 callbackAggregator.addCamera2Callbacks(captureRequest, cameraCallbacks);
                 captureRequests.add(captureRequest);
 
@@ -564,6 +584,89 @@ final class CaptureSession {
             Thread.dumpStack();
         } finally {
             mCaptureConfigs.clear();
+        }
+    }
+
+    /**
+     * Saves the {@link CaptureConfigCaptureCallback} to the list to keep track on which callback
+     * should be called when the request is to be cancelled.
+     *
+     * <p>This method also clears those which is already done (callback was called).
+     */
+    private void addExecutingCaptureConfigCallback(CaptureConfigCaptureCallback callback) {
+        synchronized (mExecutingCaptureConfigCallbacks) {
+            // Removes callbacks that is already done from the list.
+            List<CaptureConfigCaptureCallback> toRemove = new ArrayList<>();
+            for (CaptureConfigCaptureCallback configCallback : mExecutingCaptureConfigCallbacks) {
+                if (configCallback.isDone()) {
+                    toRemove.add(configCallback);
+                }
+            }
+            if (!toRemove.isEmpty()) {
+                for (CaptureConfigCaptureCallback configCallback : toRemove) {
+                    mExecutingCaptureConfigCallbacks.remove(configCallback);
+                }
+            }
+
+            mExecutingCaptureConfigCallbacks.add(callback);
+        }
+    }
+
+    /**
+     * A {@link CameraCaptureCallback} that represents the list of CameraCaptureCallback inside one
+     * {@link CaptureConfig}.
+     *
+     * <p>Besides calling the corresponding callback method for all its element, it also guarantees
+     * that they are only called once. Once onCaptureCompleted or onCaptureFailed or
+     * onRequestCancelled is called, it will not be called again. The guarantee is required when
+     * camera device is closing, we want to call onRequestCancelled on those who didn't get callback
+     * called but we want to prevent from callback being called later when the capture result
+     * still returned later.
+     */
+    private class CaptureConfigCaptureCallback extends CameraCaptureCallback {
+        List<CameraCaptureCallback> mCallbacks;
+        boolean mIsDone = false;
+
+        CaptureConfigCaptureCallback(List<CameraCaptureCallback> callbacks) {
+            mCallbacks = callbacks;
+        }
+
+        public boolean isDone() {
+            return mIsDone;
+        }
+
+        @Override
+        public void onCaptureCompleted(@NonNull CameraCaptureResult cameraCaptureResult) {
+            if (mIsDone) {
+                return;
+            }
+            mIsDone = true;
+            for (CameraCaptureCallback callback : mCallbacks) {
+                callback.onCaptureCompleted(cameraCaptureResult);
+            }
+        }
+
+        @Override
+        public void onCaptureFailed(@NonNull CameraCaptureFailure failure) {
+            if (mIsDone) {
+                return;
+            }
+            mIsDone = true;
+
+            for (CameraCaptureCallback callback : mCallbacks) {
+                callback.onCaptureFailed(failure);
+            }
+        }
+
+        @Override
+        public void onRequestCancelled() {
+            if (mIsDone) {
+                return;
+            }
+            mIsDone = true;
+            for (CameraCaptureCallback callback : mCallbacks) {
+                callback.onRequestCancelled();
+            }
         }
     }
 
@@ -764,6 +867,12 @@ final class CaptureSession {
 
     /** Also notify the surface detach event if receives camera device close event */
     public void notifyCameraDeviceClose() {
+        synchronized (mExecutingCaptureConfigCallbacks) {
+            for (CaptureConfigCaptureCallback callback : mExecutingCaptureConfigCallbacks) {
+                callback.onRequestCancelled();
+            }
+            mExecutingCaptureConfigCallbacks.clear();
+        }
         notifySurfaceDetached();
     }
 

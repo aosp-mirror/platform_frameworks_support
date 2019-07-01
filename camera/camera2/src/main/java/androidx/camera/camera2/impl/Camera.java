@@ -35,6 +35,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.BaseCamera;
+import androidx.camera.core.CameraCaptureCallback;
 import androidx.camera.core.CameraControlInternal;
 import androidx.camera.core.CameraDeviceStateCallbacks;
 import androidx.camera.core.CameraInfo;
@@ -652,7 +653,11 @@ final class Camera implements BaseCamera {
         // When the previous capture session has not reached the open state, the issued single
         // capture requests will still be in request queue and will need to be passed to the next
         // capture session.
-        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
+        List<CaptureConfig> unissuedCaptureConfigs = new ArrayList<>(
+                mCaptureSession.getCaptureConfigs());
+        // We need to clear CaptureConfigs because resetCaptureSession will call onRequestCancelled
+        // on unissued CaptureConfigs.
+        mCaptureSession.clearCaptureConfigs();
         resetCaptureSession();
 
         SessionConfig sessionConfig = validatingBuilder.build();
@@ -688,6 +693,16 @@ final class Camera implements BaseCamera {
 
         // Recreate an initialized (but not opened) capture session from the previous configuration
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
+
+        // Call onRequestCancelled on unissued CaptureConfig.
+        if (!mCaptureSession.getCaptureConfigs().isEmpty()) {
+            for (CaptureConfig captureConfig : mCaptureSession.getCaptureConfigs()) {
+                for (CameraCaptureCallback cameraCaptureCallback :
+                        captureConfig.getCameraCaptureCallbacks()) {
+                    cameraCaptureCallback.onRequestCancelled();
+                }
+            }
+        }
 
         mCaptureSession.close();
         mCaptureSession.release();
