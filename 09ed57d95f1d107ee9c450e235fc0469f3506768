@@ -22,6 +22,30 @@
       "revId": "09ed57d95f1d107ee9c450e235fc0469f3506768",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83940ae6_be0a49aa",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/android/support/mediacompat/client/MediaBrowserCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-01T05:58:53Z",
+      "side": 1,
+      "message": "As we talked in offline, I agree to make it wait no longer than it needs. However, we need refactoring since callbacks have its own CountDownLatch and we want to share a latch across callbacks. Do you mind if we keep it as-is? It may not wait too much time as it terminates once a latch fails.",
+      "parentUuid": "f69e70ec_9c4dbeca",
+      "range": {
+        "startLine": 637,
+        "startChar": 16,
+        "endLine": 637,
+        "endChar": 68
+      },
+      "revId": "09ed57d95f1d107ee9c450e235fc0469f3506768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
