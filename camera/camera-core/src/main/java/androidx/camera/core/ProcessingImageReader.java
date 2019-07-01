@@ -19,6 +19,7 @@ package androidx.camera.core;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
@@ -91,7 +92,7 @@ class ProcessingImageReader implements ImageReaderProxy {
 
                 @Override
                 public void onFailure(Throwable throwable) {
-
+                    Log.w(TAG, "CaptureStageReadyCallback onFailure: " + throwable.getMessage());
                 }
             };
 
@@ -119,6 +120,8 @@ class ProcessingImageReader implements ImageReaderProxy {
     SettableImageProxyBundle mSettableImageProxyBundle = null;
 
     private final List<Integer> mCaptureIdList = new ArrayList<>();
+
+    private final List<Integer> mImageToSkip = new ArrayList<>();
 
     /**
      * Create a {@link ProcessingImageReader} with specific configurations.
@@ -280,9 +283,53 @@ class ProcessingImageReader implements ImageReaderProxy {
                 }
             }
 
+            if (mSettableImageProxyBundle != null) {
+                mSettableImageProxyBundle.close();
+            }
             mSettableImageProxyBundle = new SettableImageProxyBundle(mCaptureIdList);
             setupSettableImageProxyBundleCallbacks();
         }
+    }
+
+    /**
+     * To close all the received or incoming {@link ImageProxy} that was set in the capture bundle.
+     */
+    public void clearCaptureResult(@NonNull final List<Boolean> result) {
+        if (mHandler != null && Looper.myLooper() != mHandler.getLooper()) {
+            boolean posted = mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ProcessingImageReader.this.clearCaptureResult(result);
+                }
+            });
+            if (!posted) {
+                Log.e(TAG, "Unable to post to the supplied handler.");
+            }
+            return;
+        }
+
+        for (int i = 0; i < result.size(); i++) {
+            Integer id = mCaptureIdList.get(i);
+            Boolean b = result.get(i);
+            if (b != null && b) {
+                if (!mSettableImageProxyBundle.getImageProxy(id).isDone()) {
+                    // Add the capture id into the mImageToSkip list and close the Image when it is
+                    // coming.
+                    mImageToSkip.add(mCaptureIdList.get(i));
+                    Log.d(TAG, "Image " + id + " will be skip");
+                }
+            } else {
+                Log.d(TAG, "Image " + id + " was canceled");
+            }
+            // Cancel all the waiting future.
+            mSettableImageProxyBundle.getImageProxy(id).cancel(true);
+        }
+
+        // Close all exist ImageProxy.
+        mSettableImageProxyBundle.reset();
+
+        // Clear the mCaptureIdList and drop all incoming Images before next capture bundle set up.
+        mCaptureIdList.clear();
     }
 
     /** Returns necessary camera callbacks to retrieve metadata from camera result. */
@@ -319,6 +366,14 @@ class ProcessingImageReader implements ImageReaderProxy {
             } finally {
                 if (image != null) {
                     Integer tag = (Integer) image.getImageInfo().getTag();
+                    if (mImageToSkip.contains(tag)) {
+                        Log.w(TAG, "ImageProxy" + tag
+                                + " was closed since capture bundle contains fail");
+                        mImageToSkip.remove(tag);
+                        image.close();
+                        return;
+                    }
+
                     if (!mCaptureIdList.contains(tag)) {
                         Log.w(TAG, "ImageProxyBundle does not contain this id: " + tag);
                         image.close();
