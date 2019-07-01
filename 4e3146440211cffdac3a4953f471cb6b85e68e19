@@ -16,6 +16,24 @@
       "revId": "4e3146440211cffdac3a4953f471cb6b85e68e19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d507be8_b439521b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-01T10:59:31Z",
+      "side": 1,
+      "message": "you already asked this for exact this line :). this widget is temporary, I will add some caching into the real implementation based on OutlineProvider",
+      "parentUuid": "a307e371_05e10d8b",
+      "revId": "4e3146440211cffdac3a4953f471cb6b85e68e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

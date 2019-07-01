@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "b1fabc29_05cfc94c",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-01T10:59:31Z",
+      "side": 1,
+      "message": "updated in http://aosp/1007997",
+      "parentUuid": "7eb4af45_3dae3a2d",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "102c1977483578d653ea9a5849145f24c25b4bbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "314eff35_e3760e48",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/shape/border/DrawBorder.kt",
         "patchSetId": 5
