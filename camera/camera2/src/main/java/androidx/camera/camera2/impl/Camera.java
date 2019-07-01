@@ -652,7 +652,11 @@ final class Camera implements BaseCamera {
         // When the previous capture session has not reached the open state, the issued single
         // capture requests will still be in request queue and will need to be passed to the next
         // capture session.
-        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
+        List<CaptureConfig> unissuedCaptureConfigs = new ArrayList<>(
+                mCaptureSession.getCaptureConfigs());
+        // We need to clear CaptureConfigs because resetCaptureSession will call onRequestCancelled
+        // on unissued CaptureConfigs.
+        mCaptureSession.clearCaptureConfigs();
         resetCaptureSession();
 
         SessionConfig sessionConfig = validatingBuilder.build();
