@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c09caddf_354aef82",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "It isn\u0027t clear what this is used for.\n\nYou can already compose() and recomposeSync() without this.\n\nSee ScrollerPerformance.benchmarkScrollComposition() and ScrollerPerformance.benchmarkLargeComposition() for examples.",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 22
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b668866d_05217b67",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "floatArrayOf(1)?",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee7a2d1_2a28bc97",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "This forces composition without using any of the composition avoidance. You probably intend recomposeSync() here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 48,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32ea491_5ccdb312",
+        "filename": "ui/integration-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "You need a dependency on project(\":benchmark\")",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22be030b_60d7c6d4",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "712f8596_b805bc52",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T19:56:18Z",
+      "side": 1,
+      "message": "You have a comment in Recomposer that defaultChoreographer should be internal. Since this is Android-specific code and not meant for host-side testing, you can directly use Choreographer here without any repercussions if it simplifies your life.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
