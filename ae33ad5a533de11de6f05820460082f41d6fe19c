@@ -140,6 +140,30 @@
       "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a26cf708_a9055535",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T21:55:53Z",
+      "side": 1,
+      "message": "For example, when a DPAD left key is pressed down, will this action trigger both \"ACTION_DOWN\" and \"KEYCODE_DAPD_LEFT\" at the same time?",
+      "parentUuid": "7c597387_27fb2d2e",
+      "range": {
+        "startLine": 151,
+        "startChar": 27,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
