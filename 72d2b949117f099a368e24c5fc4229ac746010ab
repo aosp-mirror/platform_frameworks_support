@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88aad6d9_365439ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T20:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "63a42eb1_ad8ebc8a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "72d2b949117f099a368e24c5fc4229ac746010ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ca7711b_17d0ca3e",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
         "patchSetId": 4
