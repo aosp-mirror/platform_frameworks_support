@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ad90577_fc42be01",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkTypeConverters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-01T20:35:52Z",
+      "side": 1,
+      "message": "None of these are needed.",
+      "range": {
+        "startLine": 85,
+        "startChar": 21,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "fcdd5195cdd338ab807959266f6c48060ad0b2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0044b9de_ac07d1d8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkerType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-01T20:35:52Z",
+      "side": 1,
+      "message": "Make these static ints inside WorkSpec.  There is no need to pay the cost of an enum here, and no need to expose it at the top-level of this package.",
+      "range": {
+        "startLine": 25,
+        "startChar": 12,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "fcdd5195cdd338ab807959266f6c48060ad0b2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
