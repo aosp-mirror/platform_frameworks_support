@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db74ad19_43c30f89",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T22:40:16Z",
+      "side": 1,
+      "message": "kchyn@google.com: Does this seem like the right place for this? It\u0027s possible that I was overly pessimistic here, and it could be set once and retained instead.",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3113831e_0d0d906a",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T22:40:16Z",
+      "side": 1,
+      "message": "kchyn@google.com: I recognize that this conditional branching is pretty similar to what I had done previously with BiometricPromptDemoController before making the methods abstract instead. I could still do that here if you think it makes sense, but I was trying to avoid complicating the API with two concrete BiometricPrompt classes, with the only difference being that one is for a FragmentActivity and one is for a Fragment.\n\nMaybe if I went that route, I could provide factory constructors for the concrete implementations which would be accessed through this class? Curious to hear your thoughts on this.",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34167c1_6b4add71",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T22:40:16Z",
+      "side": 1,
+      "message": "kcyhn@google.com: Adding this constructor triggered a lint error about not having the Executor be the last argument, since that plays more nicely with Kotlin\u0027s lambda syntax. I left it as-is for consistency with the existing constructor, but should we maybe consider reordering these?",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "315909e2_a0b74079",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T22:40:16Z",
+      "side": 1,
+      "message": "More conditional branching based on whether we have an activity or a fragment. See my comment above.",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
