@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68849bb1_0d49844e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T21:47:31Z",
+      "side": 1,
+      "message": "Why it\u0027s \"Maybe\"? It may not be 0 when no token was specified?",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "e7dd292572fcf4291b608658947294ddb052b690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5046daf_cb53ffc6",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T21:47:31Z",
+      "side": 1,
+      "message": "Either \"tells it to\" or \"tells\".",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "e7dd292572fcf4291b608658947294ddb052b690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
