@@ -22,6 +22,30 @@
       "revId": "fe04e95bb4e1dd7b86917e1b5c96309cb424c98b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559236aa_a9c2a419",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/TabTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T14:44:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b7f44b_7e8f1d5c",
+      "range": {
+        "startLine": 100,
+        "startChar": 47,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "fe04e95bb4e1dd7b86917e1b5c96309cb424c98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
