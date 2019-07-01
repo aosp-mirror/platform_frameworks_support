@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e06a323a_3250cb27",
+        "filename": "ui/core/src/androidTest/java/androidx/ui/core/input/BackspaceKeyEditOpTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T19:25:41Z",
+      "side": 1,
+      "message": "Please add comments to indicate this is a emoji, and which emoji is it. Apply to all. It\u0027s not straightforward now.",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "471e60f6_0f74a04f",
+        "filename": "ui/core/src/androidTest/java/androidx/ui/core/input/BackspaceKeyEditOpTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T19:25:41Z",
+      "side": 1,
+      "message": "Why it\u0027s called FAMILY?",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50a586c_e9498b47",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T19:25:41Z",
+      "side": 1,
+      "message": "Is this temporary? If it\u0027s not, why only interested in ACTION_DOWN?\n\nHow do KEYCODE_DEL/DAPAD_LEFT/DPAD_RIGHT connect to ACTION_DOWN?",
+      "range": {
+        "startLine": 151,
+        "startChar": 27,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
