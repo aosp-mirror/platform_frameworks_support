@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b179520_ad6877e4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-01T20:06:45Z",
+      "side": 1,
+      "message": "In theory I hoped we could start using this one. I wanted to avoid subcomposition that we do in the CraneWrapper above. It was also something Leland was suggesting. WDYT?",
+      "parentUuid": "c09caddf_354aef82",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 22
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b668866d_05217b67",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2019-07-01T19:56:18Z",
       "side": 1,
       "message": "This forces composition without using any of the composition avoidance. You probably intend recomposeSync() here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 48,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0123eb23_7eb87e91",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-01T20:06:45Z",
+      "side": 1,
+      "message": "I actually want to use the choreographer ... Should have commented here that this is not actually final. Sorry.",
+      "parentUuid": "9ee7a2d1_2a28bc97",
       "range": {
         "startLine": 79,
         "startChar": 48,
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "0c6e8938_4d54c8fd",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-01T20:06:45Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure. So let\u0027s say I use fake choreographer to drive all the benchmarks (including measure, layout, draw). If this one is still using the Android\u0027s one (thus never called). Will it affect correctness of the benchmarks?",
+      "parentUuid": "712f8596_b805bc52",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "290f57ea_2fe18b51",
         "filename": "ui/settings.gradle",
         "patchSetId": 1
@@ -151,6 +223,30 @@
       "writtenOn": "2019-07-01T20:02:53Z",
       "side": 1,
       "message": "This module structure seems wrong, I don\u0027t think we should have a top level integration test module like this.\n\nShouldn\u0027t it be:\n\n1. Test utils such as DefaultTestActivity live in :ui-test\n2. The benchmarks and tests just move to androidTest in :ui-core or even :compose:compose-runtime",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544ccfaa_3f8c4c29",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-01T20:06:45Z",
+      "side": 1,
+      "message": "These tests / benchmarks rely on the whole codebase of ui and compose. Thus putting them under specific module did not seem right.",
+      "parentUuid": "290f57ea_2fe18b51",
       "range": {
         "startLine": 49,
         "startChar": 0,
