@@ -137,6 +137,29 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "290f57ea_2fe18b51",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T20:02:53Z",
+      "side": 1,
+      "message": "This module structure seems wrong, I don\u0027t think we should have a top level integration test module like this.\n\nShouldn\u0027t it be:\n\n1. Test utils such as DefaultTestActivity live in :ui-test\n2. The benchmarks and tests just move to androidTest in :ui-core or even :compose:compose-runtime",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
