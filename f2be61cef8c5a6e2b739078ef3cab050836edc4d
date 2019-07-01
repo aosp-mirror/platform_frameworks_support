@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6fd7199_373806f3",
+        "filename": "work/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-01T18:15:11Z",
+      "side": 1,
+      "message": "lowercase c, since you haven\u0027t introduced this as a concept yet.",
+      "range": {
+        "startLine": 3,
+        "startChar": 106,
+        "endLine": 3,
+        "endChar": 117
+      },
+      "revId": "f2be61cef8c5a6e2b739078ef3cab050836edc4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28481dfa_fc0b56da",
+        "filename": "work/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-01T18:15:11Z",
+      "side": 1,
+      "message": "Replace with \"will\" - we\u0027re moving away from \"guaranteed\".",
+      "range": {
+        "startLine": 3,
+        "startChar": 62,
+        "endLine": 3,
+        "endChar": 78
+      },
+      "revId": "f2be61cef8c5a6e2b739078ef3cab050836edc4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c926eb0_fce974c3",
+        "filename": "work/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-01T18:15:11Z",
+      "side": 1,
+      "message": "Does this belong in the same paragraph?  Or should there be a newline between the two?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 95
+      },
+      "revId": "f2be61cef8c5a6e2b739078ef3cab050836edc4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
