@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "68ea6d38_564f2b1f",
+        "filename": "core/core-role/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2019-07-01T20:02:58Z",
+      "side": 1,
+      "message": "Not sure if there will be such a link",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 81
+      },
+      "revId": "b1c83d56764ff357f21eec98f6ceb392dca7ab74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "def07859_4772e901",
         "filename": "core/core-role/README.md",
         "patchSetId": 1
@@ -22,6 +45,30 @@
       "revId": "b1c83d56764ff357f21eec98f6ceb392dca7ab74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f79740_dcd55115",
+        "filename": "core/core-role/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2019-07-01T20:02:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def07859_4772e901",
+      "range": {
+        "startLine": 13,
+        "startChar": 74,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "b1c83d56764ff357f21eec98f6ceb392dca7ab74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
