@@ -84,9 +84,10 @@ fun InputField(
 ) {
     val style = +ambient(CurrentTextStyleAmbient)
     val mergedStyle = style.merge(editorStyle.textStyle)
+    val textInputService = +ambient(TextInputServiceAmbient)
 
     val processor = +memo { EditProcessor() }
-    processor.onNewState(value)
+    processor.onNewState(value, textInputService)
 
     // TODO(nona): Add parameter for text direction, softwrap, etc.
     val delegate = InputFieldDelegate(
@@ -98,7 +99,6 @@ fun InputField(
         onValueChange
     )
 
-    val textInputService = +ambient(TextInputServiceAmbient)
     TextInputEventObserver(
         onPress = { delegate.onPress(it) },
         onFocus = {
