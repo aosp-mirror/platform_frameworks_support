@@ -164,6 +164,30 @@
       "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fea0f0c_d38530bf",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-01T22:07:11Z",
+      "side": 1,
+      "message": "Ah, okay.\nKeyEvent object has both action and keyCode field. Action holds the key button state change info: \"Down or Up\", then keyCode holds an key identifier integer. Probably, following examples are good for understanding the key sequence.\n\nExample 1: Simply hitting DPAD_LEFT key.\n1: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_DPAD_LEFT)\n2: KeyEvent(action \u003d KeyEvent.ACTION_UP, keyCode \u003d KeyEvent.KEYCODE_DPAD_LEFT)\n\nExample 2: Complex key sequence: \"Ctrl+C\"\n1: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_CTRL_LEFT)\n2: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_C)\n3: KeyEvent(action \u003d KeyEvent.ACTION_UP, keyCode \u003d KeyEvent.KEYCODE_C)\n4: KeyEvent(action \u003d KeyEvent.ACTION_UP, keyCode \u003d KeyEvent.KEYCODE_CTRL_LEFT)\n\nExample 3: Key repeat by holding SPACE key\n1: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_SPACE)\n2: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_SPACE)\n3: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_SPACE)\n4: KeyEvent(action \u003d KeyEvent.ACTION_DOWN, keyCode \u003d KeyEvent.KEYCODE_SPACE)\n...\nX: KeyEvent(action \u003d KeyEvent.ACTION_UP, keyCode \u003d KeyEvent.KEYCODE_SPACE)",
+      "parentUuid": "a26cf708_a9055535",
+      "range": {
+        "startLine": 151,
+        "startChar": 27,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
