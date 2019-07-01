@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08788961_e2833c16",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "I would prefer that you use compose\u0027s versions as the import and then use android.graphics.* full namespace for android\u0027s conflicting names.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b06f89e4_864487b4",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "clipToOutline should be sufficient, right?",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 730,
+        "endChar": 45
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea94e8e_dab15859",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "This isn\u0027t the right size to use with the RepaintBoundary. It has its own size that (just) contains all children.",
+      "range": {
+        "startLine": 878,
+        "startChar": 12,
+        "endLine": 878,
+        "endChar": 48
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa0fbcf_867411fe",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "What happens if you go from shape !\u003d null to shape \u003d\u003d null? Won\u0027t you want to clear the outline provider?",
+      "range": {
+        "startLine": 891,
+        "startChar": 12,
+        "endLine": 891,
+        "endChar": 26
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822dc12b_7bf8ac45",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure instanceof checks are the most efficient. We may want to use an abstract method here and setConvexPath(). It is good to test efficiency of this as performance has been a big concern.",
+      "range": {
+        "startLine": 900,
+        "startChar": 8,
+        "endLine": 900,
+        "endChar": 21
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a87b35_189ef448",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 1,
+      "message": "It doesn\u0027t require recording the rendernode again. It just requires updating the rendernode/view.",
+      "range": {
+        "startLine": 297,
+        "startChar": 23,
+        "endLine": 297,
+        "endChar": 35
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

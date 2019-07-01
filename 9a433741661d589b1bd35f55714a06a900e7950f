@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f2bd044_469faaae",
+        "filename": "ui/material/src/main/java/androidx/ui/material/surface/Surface.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T21:44:15Z",
+      "side": 0,
+      "message": "Do you think this is still useful as a convenience construct?",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 16
+      },
+      "revId": "9a433741661d589b1bd35f55714a06a900e7950f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
