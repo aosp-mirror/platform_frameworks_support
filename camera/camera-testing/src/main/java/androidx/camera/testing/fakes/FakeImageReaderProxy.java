@@ -204,6 +204,15 @@ public class FakeImageReaderProxy implements ImageReaderProxy {
         return false;
     }
 
+    /**
+     * Get the number of the future for ImageProxys which have not yet been closed.
+     *
+     * @return the number of the ImageProxys that not been closed.
+     */
+    public int getOccupiedImageProxyCount() {
+        return mImageProxyBlockingQueue.size();
+    }
+
     private FakeImageProxy generateFakeImageProxy(Object tag, long timestamp) {
         FakeImageProxy fakeImageProxy = new FakeImageProxy();
         fakeImageProxy.setFormat(mImageFormat);

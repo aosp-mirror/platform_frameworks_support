@@ -91,7 +91,7 @@ class ProcessingImageReader implements ImageReaderProxy {
 
                 @Override
                 public void onFailure(Throwable throwable) {
-
+                    Log.w(TAG, "CaptureStageReadyCallback onFailure: " + throwable.getMessage());
                 }
             };
 
@@ -119,6 +119,8 @@ class ProcessingImageReader implements ImageReaderProxy {
     SettableImageProxyBundle mSettableImageProxyBundle = null;
 
     private final List<Integer> mCaptureIdList = new ArrayList<>();
+
+    private final List<Integer> mImageToSkip = new ArrayList<>();
 
     /**
      * Create a {@link ProcessingImageReader} with specific configurations.
@@ -280,8 +282,42 @@ class ProcessingImageReader implements ImageReaderProxy {
                 }
             }
 
+            if (mSettableImageProxyBundle != null) {
+                mSettableImageProxyBundle.close();
+            }
             mSettableImageProxyBundle = new SettableImageProxyBundle(mCaptureIdList);
             setupSettableImageProxyBundleCallbacks();
+        }
+    }
+
+    /**
+     * To close all the received or incoming {@link ImageProxy} that was set in the capture bundle.
+     */
+    public void clearCaptureResult(@NonNull List<Boolean> result) {
+        synchronized (mLock) {
+            for (int i = 0; i < result.size(); i++) {
+                Integer id = mCaptureIdList.get(i);
+                Boolean b = result.get(i);
+                if (b != null && b) {
+                    if (!mSettableImageProxyBundle.getImageProxy(id).isDone()) {
+                        // Only add the succeed capture id into the mImageToSkip list and close
+                        // the Image when it is coming.
+                        mImageToSkip.add(mCaptureIdList.get(i));
+                        Log.d(TAG, "Image " + id + " will be skipped");
+                    }
+                } else {
+                    Log.d(TAG, "Image " + id + " was canceled");
+                }
+                // Cancel all the waiting future.
+                mSettableImageProxyBundle.getImageProxy(id).cancel(true);
+            }
+
+            // Close all exist ImageProxy.
+            mSettableImageProxyBundle.reset();
+
+            // Clear the mCaptureIdList and drop all incoming Images before next capture bundle
+            // set up.
+            mCaptureIdList.clear();
         }
     }
 
@@ -319,6 +355,14 @@ class ProcessingImageReader implements ImageReaderProxy {
             } finally {
                 if (image != null) {
                     Integer tag = (Integer) image.getImageInfo().getTag();
+                    if (mImageToSkip.contains(tag)) {
+                        Log.w(TAG, "ImageProxy" + tag
+                                + " was closed since capture bundle contains fail");
+                        mImageToSkip.remove(tag);
+                        image.close();
+                        return;
+                    }
+
                     if (!mCaptureIdList.contains(tag)) {
                         Log.w(TAG, "ImageProxyBundle does not contain this id: " + tag);
                         image.close();
