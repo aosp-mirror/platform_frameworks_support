@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dd292ca_a67001b4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-01T18:01:36Z",
+      "side": 1,
+      "message": "maybe instead make this \"displayValue: String?\" and skip when null?",
+      "range": {
+        "startLine": 456,
+        "startChar": 8,
+        "endLine": 456,
+        "endChar": 21
+      },
+      "revId": "da387cb57149fa4132e11f117e17105f26c2ff66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
