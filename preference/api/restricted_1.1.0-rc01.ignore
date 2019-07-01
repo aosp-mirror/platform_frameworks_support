@@ -1,0 +1,9 @@
+// Baseline format: 1.0
+AddedAbstractMethod: androidx.preference.PreferenceDialogFragment#onDialogClosed(boolean):
+    Added method androidx.preference.PreferenceDialogFragment.onDialogClosed(boolean)
+AddedAbstractMethod: androidx.preference.PreferenceDialogFragmentCompat#onDialogClosed(boolean):
+    Added method androidx.preference.PreferenceDialogFragmentCompat.onDialogClosed(boolean)
+AddedAbstractMethod: androidx.preference.PreferenceFragment#onCreatePreferences(android.os.Bundle, String):
+    Added method androidx.preference.PreferenceFragment.onCreatePreferences(android.os.Bundle,String)
+AddedAbstractMethod: androidx.preference.PreferenceFragmentCompat#onCreatePreferences(android.os.Bundle, String):
+    Added method androidx.preference.PreferenceFragmentCompat.onCreatePreferences(android.os.Bundle,String)
