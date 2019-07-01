@@ -34,6 +34,24 @@
       "revId": "10696154bc7d7fb642f1375fb56ee90628ca2fd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a5874af_20e9b459",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-01T13:26:25Z",
+      "side": 1,
+      "message": "Yeah probably not worth it.",
+      "parentUuid": "e40974a3_de19ceb1",
+      "revId": "10696154bc7d7fb642f1375fb56ee90628ca2fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
