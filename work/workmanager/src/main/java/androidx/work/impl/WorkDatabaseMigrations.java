@@ -46,6 +46,7 @@ public class WorkDatabaseMigrations {
     public static final int VERSION_4 = 4;
     public static final int VERSION_5 = 5;
     public static final int VERSION_6 = 6;
+    public static final int VERSION_7 = 7;
 
     private static final String CREATE_SYSTEM_ID_INFO =
             "CREATE TABLE IF NOT EXISTS `SystemIdInfo` (`work_spec_id` TEXT NOT NULL, `system_id`"
@@ -71,6 +72,9 @@ public class WorkDatabaseMigrations {
     private static final String WORKSPEC_ADD_TRIGGER_MAX_CONTENT_DELAY =
             "ALTER TABLE workspec ADD COLUMN `trigger_max_content_delay` INTEGER NOT NULL DEFAULT"
                     + " -1";
+
+    private static final String WORKSPEC_ADD_WORKER_TYPE =
+            "ALTER TABLE workspec ADD COLUMN `worker_type` INTEGER NOT NULL DEFAULT 0";
 
     /**
      * Removes the {@code alarmInfo} table and substitutes it for a more general
@@ -127,6 +131,16 @@ public class WorkDatabaseMigrations {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL(WORKSPEC_ADD_TRIGGER_UPDATE_DELAY);
             database.execSQL(WORKSPEC_ADD_TRIGGER_MAX_CONTENT_DELAY);
+        }
+    };
+
+    /**
+     * Adds the {@link androidx.work.impl.model.WorkerType} to the WorkSpec table.
+     */
+    public static Migration MIGRATION_6_7 = new Migration(VERSION_6, VERSION_7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(WORKSPEC_ADD_WORKER_TYPE);
         }
     };
 }

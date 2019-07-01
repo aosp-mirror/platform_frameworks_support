@@ -20,12 +20,14 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_FAIL;
 
 import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_3_4;
 import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_4_5;
+import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_6_7;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_1;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_2;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_3;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_4;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_5;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_6;
+import static androidx.work.impl.WorkDatabaseMigrations.VERSION_7;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -87,6 +89,7 @@ public class WorkDatabaseMigrationTest {
     private static final String NAME = "name";
     private static final String TRIGGER_CONTENT_UPDATE_DELAY = "trigger_content_update_delay";
     private static final String TRIGGER_MAX_CONTENT_DELAY = "trigger_max_content_delay";
+    private static final String WORKER_TYPE = "worker_type";
 
     private Context mContext;
     private File mDatabasePath;
@@ -280,6 +283,33 @@ public class WorkDatabaseMigrationTest {
 
         Preferences preferences = new Preferences(mContext);
         assertThat(preferences.needsReschedule(), is(true));
+        database.close();
+    }
+
+    @Test
+    @MediumTest
+    public void testMigrationVersion6To7() throws IOException {
+        SupportSQLiteDatabase database =
+                mMigrationTestHelper.createDatabase(TEST_DATABASE, VERSION_6);
+
+        String id = UUID.randomUUID().toString();
+        ContentValues values = contentValues(id);
+        // add trigger_max_content_delay, trigger_content_update_delay introduced in version 5
+        values.put("trigger_max_content_delay", -1);
+        values.put("trigger_content_update_delay", -1);
+        database.insert("workspec", CONFLICT_FAIL, values);
+
+        database = mMigrationTestHelper.runMigrationsAndValidate(
+                TEST_DATABASE,
+                VERSION_7,
+                VALIDATE_DROPPED_TABLES,
+                MIGRATION_6_7);
+
+        assertThat(checkColumnExists(database, TABLE_WORKSPEC, WORKER_TYPE), is(true));
+        Cursor cursor = database.query("SELECT * from workspec");
+        assertThat(cursor.getCount(), is(1));
+        cursor.moveToFirst();
+        assertThat(cursor.getInt(cursor.getColumnIndex(WORKER_TYPE)), is(0));
         database.close();
     }
 

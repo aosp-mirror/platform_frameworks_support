@@ -27,6 +27,7 @@ import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.room.TypeConverter;
 import androidx.work.BackoffPolicy;
 import androidx.work.ContentUriTriggers;
@@ -76,6 +77,14 @@ public class WorkTypeConverters {
         int UNMETERED = 2;
         int NOT_ROAMING = 3;
         int METERED = 4;
+    }
+
+    /**
+     * Integer identifiers that map to {@link WorkerType}.
+     */
+    public interface WorkerTypeIds {
+        int BACKGROUND = 0;
+        int FOREGROUND = 1;
     }
 
     /**
@@ -243,6 +252,45 @@ public class WorkTypeConverters {
             default:
                 throw new IllegalArgumentException(
                         "Could not convert " + value + " to NetworkType");
+        }
+    }
+
+    /**
+     * Typeconverter for a {@link WorkerType} to int.
+     *
+     * @param workerType The input {@link WorkerType}
+     * @return the associated int constant
+     */
+    @TypeConverter
+    public static int workerTypeToInt(@NonNull WorkerType workerType) {
+        switch (workerType) {
+            case BACKGROUND:
+                return WorkerTypeIds.BACKGROUND;
+            case FOREGROUND:
+                return WorkerTypeIds.FOREGROUND;
+            default:
+                throw new IllegalArgumentException(
+                        "Could not convert " + workerType + " to int");
+        }
+    }
+
+    /**
+     * Typeconverter for an int to WorkerType.
+     *
+     * @param value The input integer
+     * @return The associated {@link WorkerType} enum value
+     */
+    @TypeConverter
+    @NonNull
+    public static WorkerType intToWorkerType(int value) {
+        switch (value) {
+            case WorkerTypeIds.BACKGROUND:
+                return WorkerType.BACKGROUND;
+            case WorkerTypeIds.FOREGROUND:
+                return WorkerType.FOREGROUND;
+            default:
+                throw new IllegalArgumentException(
+                        "Could not convert " + value + " to WorkerType");
         }
     }
 

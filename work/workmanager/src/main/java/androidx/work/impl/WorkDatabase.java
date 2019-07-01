@@ -18,6 +18,7 @@ package androidx.work.impl;
 
 import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_3_4;
 import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_4_5;
+import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_6_7;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_2;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_3;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_5;
@@ -61,7 +62,7 @@ import java.util.concurrent.TimeUnit;
         WorkTag.class,
         SystemIdInfo.class,
         WorkName.class},
-        version = 6)
+        version = 7)
 @TypeConverters(value = {Data.class, WorkTypeConverters.class})
 public abstract class WorkDatabase extends RoomDatabase {
 
@@ -112,6 +113,7 @@ public abstract class WorkDatabase extends RoomDatabase {
                 .addMigrations(MIGRATION_4_5)
                 .addMigrations(
                         new WorkDatabaseMigrations.WorkMigration(context, VERSION_5, VERSION_6))
+                .addMigrations(MIGRATION_6_7)
                 .fallbackToDestructiveMigration()
                 .build();
     }

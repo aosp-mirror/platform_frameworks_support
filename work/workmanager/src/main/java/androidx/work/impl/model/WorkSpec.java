@@ -114,6 +114,10 @@ public class WorkSpec {
     @ColumnInfo(name = "minimum_retention_duration")
     public long minimumRetentionDuration;
 
+    @ColumnInfo(name = "worker_type")
+    @NonNull
+    public WorkerType mWorkerType = WorkerType.BACKGROUND;
+
     /**
      * This field tells us if this {@link WorkSpec} instance, is actually currently scheduled and
      * being counted against the {@code SCHEDULER_LIMIT}. This bit is reset for PeriodicWorkRequests
@@ -147,6 +151,7 @@ public class WorkSpec {
         periodStartTime = other.periodStartTime;
         minimumRetentionDuration = other.minimumRetentionDuration;
         scheduleRequestedAt = other.scheduleRequestedAt;
+        mWorkerType = other.mWorkerType;
     }
 
     /**
