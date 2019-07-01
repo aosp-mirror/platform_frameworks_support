@@ -182,7 +182,9 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         } else if (mAdapterState == STATE_IDLE) {
             // onScrolled while IDLE means RV has just been populated after an adapter has been set.
             // Contract requires us to fire onPageSelected as well.
-            dispatchSelected(mScrollValues.mPosition);
+            int position = mScrollValues.mPosition;
+            // Contract forbids us to send position = -1 though
+            dispatchSelected(position == NO_POSITION ? 0 : position);
         }
 
         dispatchScrolled(mScrollValues.mPosition, mScrollValues.mOffset, mScrollValues.mOffsetPx);
