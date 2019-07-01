@@ -77,7 +77,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 
@@ -494,7 +493,6 @@ public class MediaBrowserCompatTest {
                 metadataOut.getRating(MediaMetadataCompat.METADATA_KEY_USER_RATING));
     }
 
-    @FlakyTest(bugId = 112290465)
     @Test
     @MediumTest
     public void testSubscribeDelayedItems() throws Exception {
@@ -502,13 +500,13 @@ public class MediaBrowserCompatTest {
 
         mSubscriptionCallback.reset(1);
         mMediaBrowser.subscribe(MEDIA_ID_CHILDREN_DELAYED, mSubscriptionCallback);
-        mSubscriptionCallback.await(WAIT_TIME_FOR_NO_RESPONSE_MS);
+        assertFalse(mSubscriptionCallback.await(WAIT_TIME_FOR_NO_RESPONSE_MS));
         assertEquals(0, mSubscriptionCallback.mChildrenLoadedCount);
 
         callMediaBrowserServiceMethod(
                 SEND_DELAYED_NOTIFY_CHILDREN_CHANGED, MEDIA_ID_CHILDREN_DELAYED,
                 getApplicationContext());
-        mSubscriptionCallback.await(TIME_OUT_MS);
+        assertTrue(mSubscriptionCallback.await(TIME_OUT_MS));
         assertEquals(1, mSubscriptionCallback.mChildrenLoadedCount);
     }
 
