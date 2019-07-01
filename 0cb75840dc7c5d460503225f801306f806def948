@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "d0f7162d_2aa8f6fc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-01T08:46:33Z",
+      "side": 1,
+      "message": "I think by current design, postTakePicture ListenableFuture will never fail.  It basically fire a async operation and don\u0027t care the result.  Hence we don\u0027t need the mCaptureSuccess check.",
+      "parentUuid": "f67ec711_543018a0",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9e0b198_4f578abe",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 4
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "Oh, as I know, the take picture flow is:\n(1)   takePicture() is called.\n(2)   generate the capture request item -\u003e mImageCaptureRequests.offer() ... line487\n(2.1) imvoke issueImageCaptureRequests() to start next request. ... line496\n(3)   takePictureInternal() -\u003e issueTakePicture()\n(4)   ImageReader.onImageAvailable() -\u003e　mImageCaptureRequests.poll() and trigger next capture request by invoke mImageCaptureRequests() ... going to step (2.1) \n\nand the step (1) ~ (4) only handle \"1\" capture request at the same time.\nThe step(3) will not receive anymore request until the step(4) is finished.\nIf we call mImageCaptureRequests.pop() in step(3), we can get the request we are looking for.\n\n\n\nAnd in this CL, we handle 2 type of \"interrupt\" error within step (3), \n1) Exceptions in preTakePicture() and issueTakePicture(). it might interrupt the capture flow. In this case, ImageReader would never get onImageAvailable(), because the capture request didn\u0027t submit yet.\n2) onCaptureFailed() callback. In this case, the ImageReader would never get onImageAvailable() callback.\n\nIn this CL, case 1) \u0026 2) will interrupt the take picture flow, the step(4) will never happen. \nThat\u0027s why we need to invoke the \"mImageCaptureRequests.poll()\" in line 546 and trigger the next capture by invoke the mImageCaptureRequests() in line 552.\n\nThe CL from Leo seems focus in the step(4). The step(1) to step(3) is in the same behavior (it will only submit 1 request at the same time). I think this CL would be OK to work with his CL.",
       "parentUuid": "a9e0b198_4f578abe",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "081d5822_02741a1d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-01T08:46:33Z",
+      "side": 1,
+      "message": "I think we can make it simpler by passing the ImageCaptureRequest instance to takePictureInternal() to make it clear we are executing THIS ImageCaptureRequest instance.",
+      "parentUuid": "2ae5cc6a_eca9fef8",
       "revId": "0cb75840dc7c5d460503225f801306f806def948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
