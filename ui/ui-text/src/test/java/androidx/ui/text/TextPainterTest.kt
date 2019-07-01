@@ -128,7 +128,7 @@ class TextPainterTest() {
         textPainter.text = text
 
         assertThat(textPainter.text).isEqualTo(text)
-        assertThat(textPainter.paragraph).isNull()
+        assertThat(textPainter.textLayout).isNull()
         assertThat(textPainter.needsLayout).isTrue()
     }
 

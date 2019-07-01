@@ -23,13 +23,13 @@ import androidx.ui.text.style.TextIndent
 /**
  * Creates a new ParagraphStyle object.
  *
- * @param textAlign The alignment of the text within the lines of the paragraph.
+ * @param textAlign The alignment of the text within the lines of the textLayout.
  *
  * @param textDirection The directionality of the text, Left to Right (LTR) or Right To Left (RTL).
- * This controls the overall directionality of the paragraph, as well as the meaning of
+ * This controls the overall directionality of the textLayout, as well as the meaning of
  * [TextAlign.Start] and [TextAlign.End] in the `textAlign` field.
  *
- * @param textIndent Specify how much a paragraph is indented.
+ * @param textIndent Specify how much a textLayout is indented.
  *
  * @param lineHeight The minimum height of the line boxes, as a multiple of the font size.
  */
@@ -47,19 +47,19 @@ data class ParagraphStyle constructor(
         }
     }
     // TODO(siyamed) uncomment
-//    /**
-//     * Returns a new paragraph style that is a combination of this style and the given [other] style.
-//     *
-//     * If the given paragraph style is null, returns this paragraph style.
-//     */
-//    fun merge(other: ParagraphStyle? = null): ParagraphStyle {
-//        if (other == null) return this
-//
-//        return ParagraphStyle(
-//            lineHeight = other.lineHeight ?: this.lineHeight,
-//            textIndent = other.textIndent ?: this.textIndent,
-//            textAlign = other.textAlign ?: this.textAlign,
-//            textDirection = other.textDirection ?: this.textDirection
-//        )
-//    }
+    /**
+     * Returns a new textLayout style that is a combination of this style and the given [other] style.
+     *
+     * If the given textLayout style is null, returns this textLayout style.
+     */
+    fun merge(other: ParagraphStyle? = null): ParagraphStyle {
+        if (other == null) return this
+
+        return ParagraphStyle(
+            lineHeight = other.lineHeight ?: this.lineHeight,
+            textIndent = other.textIndent ?: this.textIndent,
+            textAlign = other.textAlign ?: this.textAlign,
+            textDirection = other.textDirection ?: this.textDirection
+        )
+    }
 }

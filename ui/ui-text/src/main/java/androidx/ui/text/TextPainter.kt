@@ -66,9 +66,9 @@ internal fun applyFloatingPointHack(layoutValue: Float): Float {
  *
  * 1. Create a [TextSpan] tree and pass it to the [TextPainter] constructor.
  *
- * 2. Call [layout] to prepare the paragraph.
+ * 2. Call [layout] to prepare the textLayout.
  *
- * 3. Call [paint] as often as desired to paint the paragraph.
+ * 3. Call [paint] as often as desired to paint the textLayout.
  *
  * If the width of the area into which the text is being painted changes, return to step 2. If the
  *  text to be painted changes, return to step 1.
@@ -117,7 +117,7 @@ class TextPainter(
     }
 
     @VisibleForTesting
-    internal var paragraph: Paragraph? = null
+    internal var textLayout: AggregatedTextLayout? = null
         private set
 
     @VisibleForTesting
@@ -142,7 +142,7 @@ class TextPainter(
         set(value) {
             if (field == value) return
             field = value
-            paragraph = null
+            textLayout = null
             needsLayout = true
         }
 
@@ -218,7 +218,7 @@ class TextPainter(
     val minIntrinsicWidth: Float
         get() {
             assertNeedsLayout("minIntrinsicWidth")
-            return applyFloatingPointHack(paragraph!!.minIntrinsicWidth)
+            return applyFloatingPointHack(textLayout!!.minIntrinsicWidth)
         }
 
     /**
@@ -229,7 +229,7 @@ class TextPainter(
     val maxIntrinsicWidth: Float
         get() {
             assertNeedsLayout("maxIntrinsicWidth")
-            return applyFloatingPointHack(paragraph!!.maxIntrinsicWidth)
+            return applyFloatingPointHack(textLayout!!.maxIntrinsicWidth)
         }
 
     /**
@@ -280,7 +280,7 @@ class TextPainter(
     val didExceedMaxLines: Boolean
         get() {
             assertNeedsLayout("didExceedMaxLines")
-            return paragraph!!.didExceedMaxLines
+            return textLayout!!.didExceedMaxLines
         }
 
     /**
@@ -307,25 +307,25 @@ class TextPainter(
 
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
-        if (paragraph == null) {
-            paragraph = Paragraph(
-                text = text!!.text,
-                style = createTextStyle(),
-                paragraphStyle = createParagraphStyle(),
-                textStyles = text!!.textStyles,
-                maxLines = maxLines,
-                ellipsis = isEllipsis,
-                density = density,
-                resourceLoader = resourceLoader
+
+        if (textLayout == null) {
+            textLayout = AggregatedTextLayout(
+                text!!,
+                createTextStyle(),
+                paragraphStyle,
+                maxLines,
+                isEllipsis,
+                density,
+                resourceLoader
             )
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
-        paragraph!!.layout(ParagraphConstraints(width = finalMaxWidth))
+        textLayout!!.layout(width = finalMaxWidth)
         if (minWidth != finalMaxWidth) {
             val newWidth = maxIntrinsicWidth.coerceIn(minWidth, finalMaxWidth)
-            if (newWidth != paragraph!!.width) {
-                paragraph!!.layout(ParagraphConstraints(width = newWidth))
+            if (newWidth != textLayout!!.width) {
+                textLayout!!.layout(width = newWidth)
             }
         }
     }
@@ -335,11 +335,11 @@ class TextPainter(
 
         val didOverflowHeight = didExceedMaxLines
         size = constraints.constrain(
-            IntPxSize(paragraph!!.width.px.round(), paragraph!!.height.px.round())
+            IntPxSize(textLayout!!.width.px.round(), textLayout!!.height.px.round())
         ).let {
             Size(it.width.value.toFloat(), it.height.value.toFloat())
         }
-        val didOverflowWidth = size.width < paragraph!!.width
+        val didOverflowWidth = size.width < textLayout!!.width
         // TODO(abarth): We're only measuring the sizes of the line boxes here. If
         // the glyphs draw outside the line boxes, we might think that there isn't
         // visual overflow when there actually is visual overflow. This can become
@@ -355,8 +355,8 @@ class TextPainter(
                 resourceLoader = resourceLoader
             )
             fadeSizePainter.layoutText()
-            val fadeWidth = fadeSizePainter.paragraph!!.width
-            val fadeHeight = fadeSizePainter.paragraph!!.height
+            val fadeWidth = fadeSizePainter.textLayout!!.width
+            val fadeHeight = fadeSizePainter.textLayout!!.height
             if (didOverflowWidth) {
                 val (fadeStart, fadeEnd) = if (textDirection == TextDirection.Rtl) {
                     Pair(fadeWidth, 0.0f)
@@ -425,7 +425,7 @@ class TextPainter(
             }
             canvas.clipRect(bounds)
         }
-        paragraph!!.paint(canvas, offset.dx, offset.dy)
+        textLayout!!.paint(canvas, offset)
         if (hasVisualOverflow) {
             if (overflowShader != null) {
                 canvas.translate(offset.dx, offset.dy)
@@ -452,10 +452,7 @@ class TextPainter(
     fun paintBackground(start: Int, end: Int, color: Color, canvas: Canvas, offset: Offset) {
         assert(!needsLayout)
         if (start == end) return
-        val selectionPath = paragraph!!.getPathForRange(start, end)
-        selectionPath.shift(offset)
-        // TODO(haoyuchang): check if move this paint to parameter is better
-        canvas.drawPath(selectionPath, Paint().apply { this.color = color })
+        textLayout!!.paintBackground(start, end, color, canvas, offset)
     }
 
     /**
@@ -468,14 +465,14 @@ class TextPainter(
      */
     fun paintCursor(offset: Int, canvas: Canvas) {
         assert(!needsLayout)
-        val cursorRect = paragraph!!.getCursorRect(offset)
+        val cursorRect = textLayout!!.getCursorRect(offset)
         canvas.drawRect(cursorRect, Paint().apply { this.color = Color.Black })
     }
 
     /** Returns the position within the text for the given pixel offset. */
     fun getPositionForOffset(offset: Offset): Int {
         assert(!needsLayout)
-        return paragraph!!.getPositionForOffset(offset)
+        return textLayout!!.getPositionForOffset(offset)
     }
 
     /**
@@ -489,7 +486,7 @@ class TextPainter(
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     fun getBoundingBox(offset: Int): Rect {
         assert(!needsLayout)
-        return paragraph!!.getBoundingBox(offset)
+        return textLayout!!.getBoundingBox(offset)
     }
 
     /**
@@ -502,6 +499,6 @@ class TextPainter(
      */
     fun getWordBoundary(position: Int): TextRange {
         assert(!needsLayout)
-        return paragraph!!.getWordBoundary(position)
+        return textLayout!!.getWordBoundary(position)
     }
 }

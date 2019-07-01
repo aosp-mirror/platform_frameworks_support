@@ -48,6 +48,7 @@ import androidx.ui.text.TextStyle
 import androidx.ui.text.style.TextOverflow
 import androidx.ui.core.Sp
 import androidx.ui.core.sp
+import androidx.ui.text.AnnotatedString
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
@@ -101,6 +102,8 @@ fun TextDemo() {
                 TextDemoComposableTextSpan()
                 TagLine(tag = "fontSizeScale")
                 TextDemoFontSizeScale()
+                TagLine(tag = "Multi textLayout render")
+                TextDemoParagraph()
             }
         }
     }
@@ -688,5 +691,31 @@ fun TextDemoFontSizeScale() {
                 Span("fontSizeScale=$scale\n", style = TextStyle(fontSizeScale = scale))
             }
         }
+    }
+}
+
+@Composable
+fun TextDemoParagraph() {
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }
+    ) {
+        val text1 = "paragraph1 paragraph1 paragraph1 paragraph1 paragraph1"
+        val text2 = "paragraph2 paragraph2 paragraph2 paragraph2 paragraph2"
+        Text(
+            text = AnnotatedString(
+                text = text1 + text2,
+                textStyles = listOf(
+                    AnnotatedString.Item(
+                        TextStyle(fontSize = 40.sp), text1.length - 5, text1.length + 5
+                    )
+                ),
+                paragraphStyles = listOf(
+                    AnnotatedString.Item(ParagraphStyle(), 0, text1.length)
+                )
+            ),
+            style = TextStyle(fontSize = fontSize8)
+        )
     }
 }
