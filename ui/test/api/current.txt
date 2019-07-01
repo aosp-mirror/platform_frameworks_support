@@ -87,7 +87,7 @@ package androidx.ui.test.android {
     ctor public AndroidComposeTestRule(boolean disableTransitions, boolean shouldThrowOnRecomposeTimeout);
     ctor public AndroidComposeTestRule();
     method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description? description);
-    method public androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> getActivityTestRule();
+    method public androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> getкule();
     method public androidx.ui.core.Density getDensity();
     method public android.util.DisplayMetrics getDisplayMetrics();
     method public void runOnUiThread(kotlin.jvm.functions.Function0<kotlin.Unit> action);
