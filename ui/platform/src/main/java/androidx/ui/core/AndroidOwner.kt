@@ -21,7 +21,6 @@ import android.graphics.RenderNode
 import android.os.Build
 import android.os.Looper
 import android.os.Trace
-import android.view.Choreographer
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.annotation.RestrictTo
 import androidx.compose.ObserverMap
+import androidx.compose.defaultChoreographer
 import androidx.ui.core.input.TextInputServiceAndroid
 import androidx.ui.core.pointerinput.PointerInputEventProcessor
 import androidx.ui.core.pointerinput.toPointerInputEvent
@@ -227,7 +227,7 @@ class AndroidCraneView constructor(context: Context)
         if (layoutNode == root || constraints.isZero) {
             requestLayout()
         } else if (relayoutNodes.isEmpty()) {
-            Choreographer.getInstance().postFrameCallback {
+            defaultChoreographer.postFrameCallback {
                 measureAndLayout()
             }
         }

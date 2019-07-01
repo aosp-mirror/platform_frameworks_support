@@ -102,19 +102,34 @@ abstract class Recomposer {
     }
 }
 
+
+interface ComposeChoreographer {
+
+    fun postFrameCallback(callback: () -> Unit)
+
+}
+
+object AndroidChoreographer : ComposeChoreographer {
+    override fun postFrameCallback(callback: () -> Unit) {
+        Choreographer.getInstance().postFrameCallback { Choreographer.FrameCallback { callback() } }
+    }
+
+}
+
+// TODO(pavlis): This should be internal (maybe move ChoreographerTestRule to Compose directly)?
+var defaultChoreographer: ComposeChoreographer = AndroidChoreographer
+
 private class AndroidRecomposer : Recomposer() {
 
     private var frameScheduled = false
 
-    private val frameCallback = Choreographer.FrameCallback {
-        frameScheduled = false
-        dispatchRecomposes()
-    }
-
     override fun scheduleChangesDispatch() {
         if (!frameScheduled) {
             frameScheduled = true
-            Choreographer.getInstance().postFrameCallback(frameCallback)
+            defaultChoreographer.postFrameCallback {
+                frameScheduled = false
+                dispatchRecomposes()
+            }
         }
     }
 

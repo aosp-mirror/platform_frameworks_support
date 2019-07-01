@@ -17,7 +17,10 @@
 package androidx.ui.material
 
 import androidx.compose.Composable
+import androidx.compose.CompositionContext
 import androidx.compose.composer
+import androidx.ui.core.AndroidCraneView
+import androidx.ui.core.ComposeIntoWrapper
 import androidx.ui.core.Density
 import androidx.ui.core.DensityReceiver
 import androidx.ui.core.Dp
