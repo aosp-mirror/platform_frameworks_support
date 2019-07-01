@@ -17,6 +17,8 @@
 package androidx.ui.core.input
 
 import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.test.filters.SmallTest
 import androidx.ui.core.TextRange
 import androidx.ui.input.BackspaceKeyEditOp
@@ -32,6 +34,7 @@ import androidx.ui.input.SetComposingTextEditOp
 import androidx.ui.input.SetSelectionEditOp
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.times
@@ -53,7 +56,7 @@ class RecordingInputConnectionTest {
     @Before
     fun setup() {
         listener = mock()
-        ic = RecordingInputConnection(listener)
+        ic = RecordingInputConnection(InputState("", TextRange(0, 0)), listener)
     }
 
     @Test
@@ -505,5 +508,18 @@ class RecordingInputConnectionTest {
     fun key_event_right_up() {
         ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_RIGHT))
         verify(listener, never()).onEditOperations(any())
+    }
+
+    @Test
+    fun test_update_input_state() {
+        val imm: InputMethodManager = mock()
+        val view: View = mock()
+
+        val inputState = InputState(text = "Hello, World.", selection = TextRange(0, 0))
+
+        ic.updateInputState(inputState, imm, view)
+
+        verify(imm, times(1)).updateSelection(eq(view), eq(0), eq(0), eq(-1), eq(-1))
+        verify(imm, never()).updateExtractedText(any(), any(), any())
     }
 }

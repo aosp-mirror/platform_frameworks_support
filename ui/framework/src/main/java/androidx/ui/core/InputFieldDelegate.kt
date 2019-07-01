@@ -85,6 +85,7 @@ internal class InputFieldDelegate(
                 Offset.zero
             )
         }
+
         textPainter.paint(canvas, Offset.zero)
     }
 

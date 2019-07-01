@@ -37,4 +37,9 @@ interface TextInputService {
      * Stop text input session.
      */
     fun stopInput()
+
+    /**
+     * Notify the new editor state to IME.
+     */
+    fun onStateUpdated(state: EditorState)
 }
