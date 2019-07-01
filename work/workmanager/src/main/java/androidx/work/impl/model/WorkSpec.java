@@ -192,7 +192,7 @@ public class WorkSpec {
      * Sets the periodic interval for this unit of work.
      *
      * @param intervalDuration The interval in milliseconds
-     * @param flexDuration The flex duration in milliseconds
+     * @param flexDuration     The flex duration in milliseconds
      */
     public void setPeriodic(long intervalDuration, long flexDuration) {
         if (intervalDuration < MIN_PERIODIC_INTERVAL_MILLIS) {
@@ -210,7 +210,7 @@ public class WorkSpec {
         if (flexDuration > intervalDuration) {
             Logger.get().warning(TAG,
                     String.format("Flex duration greater than interval duration; Changed to %s",
-                    intervalDuration));
+                            intervalDuration));
             flexDuration = intervalDuration;
         }
         this.intervalDuration = intervalDuration;
@@ -229,7 +229,8 @@ public class WorkSpec {
      * increases at an linear rate with respect to the run attempt count and is capped at
      * {@link WorkRequest#MAX_BACKOFF_MILLIS}.
      *
-     * Based on {@see https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/job/JobSchedulerService.java#1125}
+     * Based on {@see https://android.googlesource.com/platform/frameworks/base/+/master/services
+     * /core/java/com/android/server/job/JobSchedulerService.java#1125}
      *
      * Note that this runtime is for WorkManager internal use and may not match what the OS
      * considers to be the next runtime.
