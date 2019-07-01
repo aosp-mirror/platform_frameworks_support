@@ -25,6 +25,10 @@ import androidx.annotation.NonNull;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
 
+/**
+ * Implementation of {@link com.example.android.biometric.BiometricPromptDemoController} that
+ * handles launching the biometric prompt from within an activity host.
+ */
 class BiometricPromptDemoActivityController extends BiometricPromptDemoController {
 
     private final FragmentActivity mActivity;

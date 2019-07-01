@@ -18,6 +18,7 @@ package androidx.biometric;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -50,6 +52,7 @@ import javax.crypto.Mac;
  * canceled by the client. For security reasons, the prompt will automatically dismiss when the
  * activity is no longer in the foreground.
  */
+@SuppressLint("SyntheticAccessor")
 public class BiometricPrompt implements BiometricConstants {
 
     private static final String TAG = "BiometricPromptCompat";
@@ -375,7 +378,8 @@ public class BiometricPrompt implements BiometricConstants {
     }
 
     // Passed in from the client.
-    final FragmentActivity mFragmentActivity;
+    FragmentActivity mFragmentActivity;
+    Fragment mFragment;
     final Executor mExecutor;
     final AuthenticationCallback mAuthenticationCallback;
 
@@ -433,7 +437,7 @@ public class BiometricPrompt implements BiometricConstants {
     private final LifecycleObserver mLifecycleObserver = new LifecycleObserver() {
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         void onPause() {
-            if (!mFragmentActivity.isChangingConfigurations()) {
+            if (!isChangingConfigurations()) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
                     // May be null if no authentication is occurring.
                     if (mFingerprintDialogFragment != null) {
@@ -470,18 +474,21 @@ public class BiometricPrompt implements BiometricConstants {
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         void onResume() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                mBiometricFragment = (BiometricFragment) mFragmentActivity
-                        .getSupportFragmentManager().findFragmentByTag(BIOMETRIC_FRAGMENT_TAG);
+                mBiometricFragment =
+                        (BiometricFragment) getFragmentManager().findFragmentByTag(
+                                BIOMETRIC_FRAGMENT_TAG);
                 if (DEBUG) Log.v(TAG, "BiometricFragment: " + mBiometricFragment);
                 if (mBiometricFragment != null) {
+                    mBiometricFragment.setClientFragmentManager(getFragmentManager());
                     mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                             mAuthenticationCallback);
                 }
             } else {
-                mFingerprintDialogFragment = (FingerprintDialogFragment) mFragmentActivity
-                        .getSupportFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG);
-                mFingerprintHelperFragment = (FingerprintHelperFragment) mFragmentActivity
-                        .getSupportFragmentManager().findFragmentByTag(
+                mFingerprintDialogFragment =
+                        (FingerprintDialogFragment) getFragmentManager().findFragmentByTag(
+                                DIALOG_FRAGMENT_TAG);
+                mFingerprintHelperFragment =
+                        (FingerprintHelperFragment) getFragmentManager().findFragmentByTag(
                                 FINGERPRINT_HELPER_FRAGMENT_TAG);
 
                 if (DEBUG) Log.v(TAG, "FingerprintDialogFragment: " + mFingerprintDialogFragment);
@@ -494,6 +501,12 @@ public class BiometricPrompt implements BiometricConstants {
             }
         }
     };
+
+    private boolean isChangingConfigurations() {
+        return (mFragmentActivity != null && mFragmentActivity.isChangingConfigurations())
+                || (mFragment != null && mFragment.getActivity() != null
+                && mFragment.getActivity().isChangingConfigurations());
+    }
 
     /**
      * Constructs a {@link BiometricPrompt} which can be used to prompt the user for
@@ -529,6 +542,40 @@ public class BiometricPrompt implements BiometricConstants {
     }
 
     /**
+     * Constructs a {@link BiometricPrompt} which can be used to prompt the user for
+     * authentication. The authenticaton prompt created by
+     * {@link BiometricPrompt#authenticate(PromptInfo, CryptoObject)} and
+     * {@link BiometricPrompt#authenticate(PromptInfo)} will persist across device
+     * configuration changes by default. If authentication is in progress, re-creating
+     * the {@link BiometricPrompt} can be used to update the {@link Executor} and
+     * {@link AuthenticationCallback}. This should be used to update the
+     * {@link AuthenticationCallback} after configuration changes.
+     * such as {@link Fragment#onCreate(Bundle)}.
+     *
+     * @param fragment A reference to the client's fragment.
+     * @param executor An executor to handle callback events.
+     * @param callback An object to receive authentication events.
+     */
+    @SuppressLint("LambdaLast")
+    public BiometricPrompt(@NonNull Fragment fragment,
+            @NonNull Executor executor, @NonNull AuthenticationCallback callback) {
+        if (fragment == null) {
+            throw new IllegalArgumentException("FragmentActivity must not be null");
+        }
+        if (executor == null) {
+            throw new IllegalArgumentException("Executor must not be null");
+        }
+        if (callback == null) {
+            throw new IllegalArgumentException("AuthenticationCallback must not be null");
+        }
+        mFragment = fragment;
+        mExecutor = executor;
+        mAuthenticationCallback = callback;
+
+        mFragment.getLifecycle().addObserver(mLifecycleObserver);
+    }
+
+    /**
      * Shows the biometric prompt. The prompt survives lifecycle changes by default. To cancel the
      * authentication, use {@link #cancelAuthentication()}.
      * @param info The information that will be displayed on the prompt. Create this object using
@@ -561,7 +608,7 @@ public class BiometricPrompt implements BiometricConstants {
 
     private void authenticateInternal(@NonNull PromptInfo info, @Nullable CryptoObject crypto) {
         final Bundle bundle = info.getBundle();
-        final FragmentManager fragmentManager = mFragmentActivity.getSupportFragmentManager();
+        final FragmentManager fragmentManager = getFragmentManager();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             mPausedOnce = false;
@@ -574,6 +621,7 @@ public class BiometricPrompt implements BiometricConstants {
             } else {
                 mBiometricFragment = BiometricFragment.newInstance();
             }
+            mBiometricFragment.setClientFragmentManager(fragmentManager);
             mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                     mAuthenticationCallback);
             // Set the crypto object.
@@ -639,6 +687,12 @@ public class BiometricPrompt implements BiometricConstants {
         // For the case when onResume() is being called right after authenticate,
         // we need to make sure that all fragment transactions have been committed.
         fragmentManager.executePendingTransactions();
+    }
+
+    private FragmentManager getFragmentManager() {
+        return mFragmentActivity != null
+                ? mFragmentActivity.getSupportFragmentManager()
+                : mFragment.getChildFragmentManager();
     }
 
     /**
