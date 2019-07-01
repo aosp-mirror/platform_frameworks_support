@@ -49,8 +49,6 @@ import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.api.ApkVariant
 import org.gradle.api.DefaultTask
-import org.gradle.api.JavaVersion
-import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -118,12 +116,6 @@ class AndroidXPlugin : Plugin<Project> {
                     convention.apply {
                         sourceCompatibility = VERSION_1_8
                         targetCompatibility = VERSION_1_8
-                    }
-                    project.afterEvaluate {
-                        verifyJava7Targeting(
-                            project.version as String,
-                            convention.sourceCompatibility
-                        )
                     }
 
                     project.hideJavadocTask()
@@ -488,21 +480,10 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
-    private fun verifyJava7Targeting(libraryVersion: String, javaVersion: JavaVersion) {
-        if (javaVersion == VERSION_1_7) {
-            if (libraryVersion.contains("alpha")) {
-                throw IllegalStateException("You moved a library that was targeting " +
-                        "Java 7 to alpha version. Please remove " +
-                        "`sourceCompatibility = VERSION_1_7` from build.gradle")
-            }
-        }
-    }
-
     private fun LibraryExtension.configureAndroidLibraryOptions(
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
-
         project.configurations.all { config ->
             val isTestConfig = config.name.toLowerCase().contains("test")
 
@@ -522,8 +503,6 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            verifyJava7Targeting(project.version as String, compileOptions.sourceCompatibility)
-
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->
