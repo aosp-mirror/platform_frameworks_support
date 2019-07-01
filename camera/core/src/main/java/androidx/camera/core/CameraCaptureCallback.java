@@ -45,4 +45,11 @@ public abstract class CameraCaptureCallback {
      */
     public void onCaptureFailed(@NonNull CameraCaptureFailure failure) {
     }
+
+    /**
+     * Called when the capture request is not submitted to camera device due to camera device is
+     * closed or in other inappropriate states .
+     */
+    public void onRequestCancelled() {
+    }
 }

@@ -81,7 +81,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * <p>When capturing to memory, the captured image is made available through an {@link ImageProxy}
  * via an {@link ImageCapture.OnImageCapturedListener}.
- *
  */
 public class ImageCapture extends UseCase {
     /**
@@ -528,23 +527,41 @@ public class ImageCapture extends UseCase {
                         return ImageCapture.this.postTakePicture(state);
                     }
                 }, mExecutor)
-                .addCallback(
-                        new FutureCallback<Void>() {
-                            @Override
-                            public void onSuccess(Void result) {
-                            }
+                .addCallback(new FutureCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void result) {
+                    }
 
+                    @Override
+                    public void onFailure(final Throwable t) {
+                        Log.e(TAG, "takePictureInternal onFailure", t);
+                        // mImageCaptureRequests need to be accessed in main thread.
+                        mMainHandler.post(new Runnable() {
                             @Override
-                            public void onFailure(Throwable t) {
-                                Log.e(TAG, "takePictureInternal onFailure", t);
+                            public void run() {
+                                for (ImageCaptureRequest request : mImageCaptureRequests) {
+                                    request.mListener.onError(getError(t), "", t);
+                                }
+                                mImageCaptureRequests.clear();
                             }
-                        },
-                        mExecutor);
+                        });
+                    }
+                }, mExecutor);
     }
 
     @Override
     public String toString() {
         return TAG + ":" + getName();
+    }
+
+    private UseCaseError getError(Throwable throwable) {
+        if (throwable instanceof CameraClosedException) {
+            return UseCaseError.CAMERA_CLOSED;
+        } else if (throwable instanceof CaptureFailedException) {
+            return UseCaseError.CAPTURE_FAILED;
+        } else {
+            return UseCaseError.UNKNOWN_ERROR;
+        }
     }
 
     /**
@@ -906,7 +923,12 @@ public class ImageCapture extends UseCase {
                                     Log.e(TAG,
                                             "capture picture get onCaptureFailed with reason "
                                                     + failure.getReason());
-                                    completer.set(null);
+                                    completer.setException(new CaptureFailedException());
+                                }
+
+                                @Override
+                                public void onRequestCancelled() {
+                                    completer.setException(new CameraClosedException());
                                 }
                             };
                             builder.addCameraCaptureCallback(completerCallback);
@@ -920,29 +942,20 @@ public class ImageCapture extends UseCase {
         }
 
         getCurrentCameraControl().submitCaptureRequests(captureConfigs);
-        return CallbackToFutureAdapter.getFuture(new CallbackToFutureAdapter.Resolver<Void>() {
+        return Futures.transform(Futures.allAsList(futureList), new Function<List<Void>, Void>() {
             @Override
-            public Object attachCompleter(
-                    @NonNull final CallbackToFutureAdapter.Completer<Void> completer) {
-                ListenableFuture<List<Void>> combinedFuture = Futures.successfulAsList(futureList);
-
-                Futures.addCallback(combinedFuture, new FutureCallback<List<Void>>() {
-                    @Override
-                    public void onSuccess(@Nullable List<Void> result) {
-                        completer.set(null);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        completer.setException(t);
-                    }
-                }, CameraXExecutors.directExecutor());
-
-
-                return "issueTakePicture";
+            public Void apply(List<Void> input) {
+                return null;
             }
-        });
+        }, CameraXExecutors.directExecutor());
     }
+
+    static final class CameraClosedException extends RuntimeException {
+    }
+
+    static final class CaptureFailedException extends RuntimeException {
+    }
+
 
     private CaptureBundle getCaptureBundle(CaptureBundle defaultCaptureBundle) {
         List<CaptureStage> captureStages = mCaptureBundle.getCaptureStages();
@@ -971,7 +984,17 @@ public class ImageCapture extends UseCase {
          * An error occurred while attempting to read or write a file, such as when saving an image
          * to a File.
          */
-        FILE_IO_ERROR
+        FILE_IO_ERROR,
+
+        /**
+         * An error indicating the onCaptureFailed occurs on this request.
+         */
+        CAPTURE_FAILED,
+
+        /**
+         * An error indicating the request cannot be done due to camera is closed.
+         */
+        CAMERA_CLOSED,
     }
 
     /**
@@ -1029,7 +1052,7 @@ public class ImageCapture extends UseCase {
          * <p>See also {@link ImageCaptureConfig.Builder#setTargetRotation(int)} and
          * {@link #setTargetRotation(int)}.
          *
-         * @param image The captured image
+         * @param image           The captured image
          * @param rotationDegrees The rotation which if applied to the image will make it match the
          *                        current target rotation. rotationDegrees is expressed as one of
          *                        {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
