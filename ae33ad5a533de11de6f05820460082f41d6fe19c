@@ -188,6 +188,30 @@
       "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e65eaf1_e30af68f",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/RecordingInputConnection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-07-01T22:33:27Z",
+      "side": 1,
+      "message": "Ah, I see. Thank you for the clean and detailed explanation!",
+      "parentUuid": "6fea0f0c_d38530bf",
+      "range": {
+        "startLine": 151,
+        "startChar": 27,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "ae33ad5a533de11de6f05820460082f41d6fe19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
