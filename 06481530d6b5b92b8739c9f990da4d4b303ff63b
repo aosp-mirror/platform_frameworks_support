@@ -46,6 +46,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fd08641_188708c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-01T10:15:39Z",
+      "side": 1,
+      "message": "I still think \"design\" is the wrong term here. IDE support is probably what you mean? not sure what the role of designers here is as they don\u0027t usually interact with studio",
+      "parentUuid": "5305df87_3b113595",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
