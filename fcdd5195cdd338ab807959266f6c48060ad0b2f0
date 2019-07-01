@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a1fb6c8_58b10f60",
+        "filename": "work/workmanager-foreground/src/main/java/ForegroundWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-07-01T20:36:02Z",
+      "side": 1,
+      "message": "I think making this an abstract class instead of an interface that any ListenableWorker subclass can implement is going to mean you have to maintain a lot of ForegroundWorker subclasses. Composition over inheritance?",
+      "range": {
+        "startLine": 27,
+        "startChar": 39,
+        "endLine": 27,
+        "endChar": 63
+      },
+      "revId": "fcdd5195cdd338ab807959266f6c48060ad0b2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ad90577_fc42be01",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkTypeConverters.java",
         "patchSetId": 1
