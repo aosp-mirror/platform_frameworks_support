@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd86e202_da165261",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T16:49:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0ac1eafb_c77da5e5",
+      "range": {
+        "startLine": 129,
+        "startChar": 87,
+        "endLine": 129,
+        "endChar": 97
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6be0f0bb_9d0acabb",
         "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1cdaa5a7_2491ad6e",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T16:49:37Z",
+      "side": 1,
+      "message": "Interestingly, when I tried to use a common constructor, the code was failing to set view callbacks correctly, which is why I ended up switching back to two separate ones (though I admit that\u0027s dodging the issue a bit). This should hopefully be irrelevant anyway, since I\u0027m going to make this controller abstract per your other comment and then give each concrete implementation its own constructor.",
+      "parentUuid": "6be0f0bb_9d0acabb",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 33
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf224014_004ce882",
         "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5429db2b_a68b0c9f",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-01T16:49:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf224014_004ce882",
+      "range": {
+        "startLine": 246,
+        "startChar": 20,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
