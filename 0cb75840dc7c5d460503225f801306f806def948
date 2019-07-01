@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "014f003c_b31abcca",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-01T09:15:55Z",
+      "side": 1,
+      "message": "Thanks Scott,\n\nThe mCaptureSuccess is used to identify the capture is success or not.\nThe basic idea is: \nThe mCaptureSuccess result is used to indicate the capture result. \nWhen the capture result is fail, the ImageReader.onImageAvailable will not be invoked. \nSo we would need to poll() ImageCaptureRequests and invoke the issueImageCaptureRequests() to continue the next request.\n\nBy the way, I have changed the mCaptureSuccess to a list to record all capture results \n(ex: 3 capture results for HDR)",
+      "parentUuid": "d0f7162d_2aa8f6fc",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9e0b198_4f578abe",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 4
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "I think we can make it simpler by passing the ImageCaptureRequest instance to takePictureInternal() to make it clear we are executing THIS ImageCaptureRequest instance.",
       "parentUuid": "2ae5cc6a_eca9fef8",
+      "revId": "0cb75840dc7c5d460503225f801306f806def948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2df403_00475df4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-01T09:15:55Z",
+      "side": 1,
+      "message": "Ah, I think we can use mImageCaptureRequests.poll() here.\nThis code section is used to callback the error and poll() the ImageCaptureRequests item and issueImageCaptureRequests (the same like the operations in onImageClose())\n\nThe poll() is needed to remove the failed request, because the mageReader.onImageAvailable might not be invoked when the capture is fail.\n\nAnd I just notice that I need to invoked the poll() and issueImageCaptureRequests() in main thread. Will update a little bit more on this code.",
+      "parentUuid": "081d5822_02741a1d",
       "revId": "0cb75840dc7c5d460503225f801306f806def948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
