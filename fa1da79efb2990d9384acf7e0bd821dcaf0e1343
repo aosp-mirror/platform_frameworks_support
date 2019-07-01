@@ -119,6 +119,52 @@
     },
     {
       "key": {
+        "uuid": "aef10cd3_b32361e2",
+        "filename": "ui/integration-tests/benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "nit: can be\n\n\u003cmanifest package\u003d\"androidx.ui.benchmark\" xmlns:android\u003d\"http://schemas.android.com/apk/res/android\"\u003e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d0edacb_e9d9936d",
+        "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/DefaultBenchmarkActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b32ea491_5ccdb312",
         "filename": "ui/integration-tests/build.gradle",
         "patchSetId": 1
@@ -142,6 +188,29 @@
     },
     {
       "key": {
+        "uuid": "6bd293e5_e2cd5ae7",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "nit: suppressing what? If this is still needed, make it explicit",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22be030b_60d7c6d4",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 1
@@ -158,6 +227,52 @@
         "startChar": 0,
         "endLine": 88,
         "endChar": 28
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ec7296_4eb236c3",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/RectanglesInColumnTestCase.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "nit: maybe `repeat(amountOfRectangles) { index -\u003e`",
+      "range": {
+        "startLine": 49,
+        "startChar": 16,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b110c5de_85bb18c5",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "See other comment, do we need this?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
       },
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -247,6 +362,30 @@
       "side": 1,
       "message": "These tests / benchmarks rely on the whole codebase of ui and compose. Thus putting them under specific module did not seem right.",
       "parentUuid": "290f57ea_2fe18b51",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d597ab_a65130d9",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T21:25:23Z",
+      "side": 1,
+      "message": "I don\u0027t think they need to, do you actually need ComposeMaterialIntoWrapper? You\u0027re just using ColoredRect, no? Also, it seems bad to depend on material just to use ColoredRect, you can also just draw your own rectangle, so then you don\u0027t need material.",
+      "parentUuid": "544ccfaa_3f8c4c29",
       "range": {
         "startLine": 49,
         "startChar": 0,
