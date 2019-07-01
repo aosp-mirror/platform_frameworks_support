@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a8287dd5_8251ded0",
+        "filename": "compose/compose-runtime/src/main/java/androidx/compose/Recomposer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-01T23:09:43Z",
+      "side": 1,
+      "message": "Is it valid to assume there\u0027s a single, global Choreographer?  The Android platform choreographer doesn\u0027t seem to follow that assumption (there\u0027s one per Looper thread): https://developer.android.com/reference/android/view/Choreographer.html\n\nSemi-relatedly, global \"static\" stuff like this makes me a little nervous, though I\u0027m not sure what the right solution is...maybe it could be part of creating the Owner somehow?  I don\u0027t know if I\u0027ve got a good solution here, though.",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09caddf_354aef82",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
         "patchSetId": 1
@@ -181,6 +198,29 @@
         "startChar": 0,
         "endLine": 38,
         "endChar": 50
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ce677a8_7203aa2e",
+        "filename": "ui/integration-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-01T23:09:43Z",
+      "side": 1,
+      "message": "Aren\u0027t these six redundant?  You already depend on them via implementation.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 29
       },
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
