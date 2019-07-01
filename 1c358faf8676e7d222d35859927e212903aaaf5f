@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "525a7535_ed507613",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-01T12:03:40Z",
+      "side": 1,
+      "message": "nit: shall this be moved at the end of the file, to keep public API at the start of the file? :)",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "1c358faf8676e7d222d35859927e212903aaaf5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
