@@ -20,6 +20,7 @@ import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.painting.Canvas
 import androidx.compose.Emittable
+import androidx.ui.engine.geometry.Shape
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -30,11 +31,11 @@ import kotlin.reflect.KProperty
  */
 interface Owner {
     /**
-     * Called from a [DrawNode], this registers with the underlying view system that a
-     * redraw of the given [drawNode] is required. It may cause other nodes to redraw, if
-     * necessary.
+     * Called from a [DrawNode] or [RepaintBoundaryNode], this registers with the underlying
+     * view system that a redraw of the given [node] is required. It may cause other nodes
+     * to redraw, if necessary.
      */
-    fun onInvalidate(drawNode: DrawNode)
+    fun onInvalidate(node: ComponentNode)
 
     /**
      * Called by [LayoutNode] to indicate the new size of [layoutNode].
@@ -285,6 +286,28 @@ class RepaintBoundaryNode(val name: String?) : ComponentNode() {
      * The vertical position relative to its containing RepaintBoundary or root container
      */
     var containerY: IntPx = 0.ipx
+
+    /**
+     * The shape used to calculate an outline of the RepaintBoundary.
+     */
+    var shape: Shape? = null
+        set(value) {
+            if (field != value) {
+                field = value
+                owner?.onInvalidate(this)
+            }
+        }
+
+    /**
+     * If true RepaintBoundary will be clipped by the outline of it's [shape]
+     */
+    var clipToShape: Boolean = false
+        set(value) {
+            if (field != value) {
+                field = value
+                owner?.onInvalidate(this)
+            }
+        }
 
     override val repaintBoundary: RepaintBoundaryNode? get() = this
 }
