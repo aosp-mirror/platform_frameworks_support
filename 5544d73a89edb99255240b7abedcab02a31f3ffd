@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b165dc_f3d3e89d",
+        "filename": "core/core/src/main/java/androidx/core/util/Predicate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-01T13:30:57Z",
+      "side": 1,
+      "message": "What about the other methods from java.util.function.Predicate?",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
