@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed293ef3_29a47549",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-01T23:52:41Z",
+      "side": 1,
+      "message": "These can now be private to the enum",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 12
+      },
+      "revId": "cd5ad099b6330c5152d2a464912811a127557439",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
