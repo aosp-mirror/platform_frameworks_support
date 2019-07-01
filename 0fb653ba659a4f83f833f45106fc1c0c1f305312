@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2456cf9_d2a461a8",
+        "filename": "ui/text/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-01T23:11:54Z",
+      "side": 1,
+      "message": "(not related to this CL) note for all of us: it makes me worried to see that the whole API changes when we make changes  Data classes because of component functions.",
+      "range": {
+        "startLine": 388,
+        "startChar": 2,
+        "endLine": 393,
+        "endChar": 61
+      },
+      "revId": "0fb653ba659a4f83f833f45106fc1c0c1f305312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
