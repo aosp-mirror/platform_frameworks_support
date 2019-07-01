@@ -416,6 +416,8 @@ final class CaptureSession {
      * @param captureConfigs which is used to construct {@link CaptureRequest}.
      */
     void issueCaptureRequests(List<CaptureConfig> captureConfigs) {
+        Log.d(TAG, "issueCaptureRequests in capture session, state=" + mState);
+
         synchronized (mStateLock) {
             switch (mState) {
                 case UNINITIALIZED:
@@ -443,6 +445,12 @@ final class CaptureSession {
     List<CaptureConfig> getCaptureConfigs() {
         synchronized (mStateLock) {
             return Collections.unmodifiableList(mCaptureConfigs);
+        }
+    }
+
+    void clearCaptureConfigs() {
+        synchronized (mStateLock) {
+            mCaptureConfigs.clear();
         }
     }
 
