@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f38d1c6_f4f3e962",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-07-01T16:36:04Z",
+      "side": 1,
+      "message": "You should specify a thread factory that names the threads created by these objects",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "a320aeddf73488d3187de887e7391363cfef4184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
