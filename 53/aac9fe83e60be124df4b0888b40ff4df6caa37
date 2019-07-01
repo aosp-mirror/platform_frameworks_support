@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Autosubmit+1: Bill Yi <byi@google.com>
+Build-Cop-Override+1: Bill Yi <byi@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Mon, 01 Jul 2019 06:43:26 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1008360
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
