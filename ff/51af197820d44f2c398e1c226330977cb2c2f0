@@ -1,0 +1,9 @@
+Autosubmit+1: Seigo Nonaka <nona@google.com>
+Presubmit-Verified-1: Treehugger Robot <treehugger-gerrit@google.com>
+Presubmit-Ready+1: Seigo Nonaka <nona@google.com>
+Code-Review+2: Siyamed Sinir <siyamed@google.com>
+Submitted-by: Seigo Nonaka <nona@google.com>
+Submitted-at: Mon, 01 Jul 2019 18:34:00 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1007818
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
