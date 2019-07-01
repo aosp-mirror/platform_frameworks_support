@@ -285,6 +285,15 @@ class ProcessingImageReader implements ImageReaderProxy {
         }
     }
 
+    /** Clear all {@link ImageProxy} that have been added and reset the captureIdList */
+    public void resetCaptureBundle() {
+        // Close all exist ImageProxy.
+        mSettableImageProxyBundle.reset();
+
+        // Clear the mCaptureIdList and drop all incoming Images before next capture bundle set up.
+        mCaptureIdList.clear();
+    }
+
     /** Returns necessary camera callbacks to retrieve metadata from camera result. */
     @Nullable
     CameraCaptureCallback getCameraCaptureCallback() {
