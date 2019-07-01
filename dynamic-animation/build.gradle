@@ -7,9 +7,14 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (080d80 Merge "Merge empty history for sparse-5700539-L3160000033558)
     api(project(":core"))
     api(project(":collection"))
     api(project(":legacy-support-core-utils"))
+=======
+    api("androidx.core:core:1.1.0-rc01")
+    api("androidx.collection:collection:1.1.0")
+>>>>>>> BRANCH (383871 Merge "Merge cherrypicks of [1008164, 1008165, 1008166] into)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
