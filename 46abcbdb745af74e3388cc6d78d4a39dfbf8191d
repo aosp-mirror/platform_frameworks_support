@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "01630c66_bfa8deea",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-01T17:31:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1cdaa5a7_2491ad6e",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 33
+      },
+      "revId": "46abcbdb745af74e3388cc6d78d4a39dfbf8191d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf224014_004ce882",
         "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
         "patchSetId": 1

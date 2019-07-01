@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45287069_07fab5b9",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-01T17:31:55Z",
+      "side": 1,
+      "message": "nit: move abstract method up (after local variables and before first function)",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 201,
+        "endChar": 12
+      },
+      "revId": "7cb22135bfd8694386f7d1084e16de12349300bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
