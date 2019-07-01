@@ -27,13 +27,10 @@ import static androidx.media2.session.SessionCommand.COMMAND_CODE_LIBRARY_SEARCH
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_LIBRARY_SUBSCRIBE;
 import static androidx.media2.session.SessionCommand.COMMAND_CODE_LIBRARY_UNSUBSCRIBE;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.session.MediaBrowser.BrowserCallback;
 import androidx.media2.session.MediaBrowser.BrowserCallbackRunnable;
@@ -45,19 +42,19 @@ import com.google.common.util.concurrent.ListenableFuture;
 /**
  * Base implementation of MediaBrowser.
  */
-class MediaBrowserImplBase extends MediaControllerImplBase implements
-        MediaBrowser.MediaBrowserImpl {
+class MediaBrowserImplBase implements MediaBrowser.MediaBrowserImpl {
+    static final String TAG = "MediaBrowserImplBase";
+
     private static final LibraryResult RESULT_WHEN_CLOSED =
             new LibraryResult(RESULT_INFO_SKIPPED);
 
-    MediaBrowserImplBase(Context context, MediaController instance, SessionToken token,
-            @Nullable Bundle connectionHints) {
-        super(context, instance, token, connectionHints);
-    }
+    final MediaController.MediaControllerImpl mControllerImpl;
+    final MediaBrowser mInstance;
 
-    @NonNull
-    MediaBrowser getMediaBrowser() {
-        return (MediaBrowser) mInstance;
+    MediaBrowserImplBase(MediaBrowser instance,
+            @NonNull MediaController.MediaControllerImpl controllerImpl) {
+        mInstance = instance;
+        mControllerImpl = controllerImpl;
     }
 
     @Override
@@ -66,7 +63,7 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.getLibraryRoot(mControllerStub, seq,
+                        iSession.getLibraryRoot(mControllerImpl.getControllerStub(), seq,
                                 MediaParcelUtils.toParcelable(params));
                     }
                 });
@@ -79,7 +76,7 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.subscribe(mControllerStub, seq, parentId,
+                        iSession.subscribe(mControllerImpl.getControllerStub(), seq, parentId,
                                 MediaParcelUtils.toParcelable(params));
                     }
                 });
@@ -91,7 +88,7 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.unsubscribe(mControllerStub, seq, parentId);
+                        iSession.unsubscribe(mControllerImpl.getControllerStub(), seq, parentId);
                     }
                 });
     }
@@ -103,8 +100,8 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.getChildren(mControllerStub, seq, parentId, page, pageSize,
-                                MediaParcelUtils.toParcelable(params));
+                        iSession.getChildren(mControllerImpl.getControllerStub(), seq, parentId,
+                                page, pageSize, MediaParcelUtils.toParcelable(params));
                     }
                 });
     }
@@ -115,7 +112,7 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.getItem(mControllerStub, seq, mediaId);
+                        iSession.getItem(mControllerImpl.getControllerStub(), seq, mediaId);
                     }
                 });
     }
@@ -126,7 +123,7 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.search(mControllerStub, seq, query,
+                        iSession.search(mControllerImpl.getControllerStub(), seq, query,
                                 MediaParcelUtils.toParcelable(params));
                     }
                 });
@@ -140,38 +137,39 @@ class MediaBrowserImplBase extends MediaControllerImplBase implements
                 new RemoteLibrarySessionTask() {
                     @Override
                     public void run(IMediaSession iSession, int seq) throws RemoteException {
-                        iSession.getSearchResult(mControllerStub, seq, query, page, pageSize,
-                                MediaParcelUtils.toParcelable(params));
+                        iSession.getSearchResult(mControllerImpl.getControllerStub(), seq, query,
+                                page, pageSize, MediaParcelUtils.toParcelable(params));
                     }
                 });
     }
 
     void notifySearchResultChanged(final String query, final int itemCount,
             final LibraryParams libraryParams) {
-        getMediaBrowser().notifyBrowserCallback(new BrowserCallbackRunnable() {
+        mInstance.notifyBrowserCallback(new BrowserCallbackRunnable() {
             @Override
             public void run(@NonNull BrowserCallback callback) {
-                callback.onSearchResultChanged(getMediaBrowser(), query, itemCount, libraryParams);
+                callback.onSearchResultChanged(mInstance, query, itemCount, libraryParams);
             }
         });
     }
 
     void notifyChildrenChanged(final String parentId, final int itemCount,
             final LibraryParams libraryParams) {
-        getMediaBrowser().notifyBrowserCallback(new BrowserCallbackRunnable() {
+        mInstance.notifyBrowserCallback(new BrowserCallbackRunnable() {
             @Override
             public void run(@NonNull BrowserCallback callback) {
-                callback.onChildrenChanged(getMediaBrowser(), parentId, itemCount, libraryParams);
+                callback.onChildrenChanged(mInstance, parentId, itemCount, libraryParams);
             }
         });
     }
 
     private ListenableFuture<LibraryResult> dispatchRemoteLibrarySessionTask(int commandCode,
             RemoteLibrarySessionTask task) {
-        final IMediaSession iSession = getSessionInterfaceIfAble(commandCode);
+        final IMediaSession iSession = mControllerImpl.getSessionInterfaceIfAble(commandCode);
         if (iSession != null) {
             final SequencedFuture<LibraryResult> result =
-                    mSequencedFutureManager.createSequencedFuture(RESULT_WHEN_CLOSED);
+                    mControllerImpl.getSequencedFutureManager()
+                            .createSequencedFuture(RESULT_WHEN_CLOSED);
             try {
                 task.run(iSession, result.getSequenceNumber());
             } catch (RemoteException e) {

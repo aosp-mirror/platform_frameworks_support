@@ -864,6 +864,18 @@ class MediaControllerImplBase implements MediaControllerImpl {
         return null;
     }
 
+    @Override
+    @NonNull
+    public MediaControllerStub getControllerStub() {
+        return mControllerStub;
+    }
+
+    @NonNull
+    @Override
+    public SequencedFutureManager getSequencedFutureManager() {
+        return mSequencedFutureManager;
+    }
+
     private boolean requestConnectToService() {
         // Service. Needs to get fresh binder whenever connection is needed.
         final Intent intent = new Intent(MediaSessionService.SERVICE_INTERFACE);
@@ -912,7 +924,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     // Returns session interface if the controller can send the command.
-    IMediaSession getSessionInterfaceIfAble(@SessionCommand.CommandCode int commandCode) {
+    @Override
+    public IMediaSession getSessionInterfaceIfAble(@SessionCommand.CommandCode int commandCode) {
         synchronized (mLock) {
             if (!mAllowedCommands.hasCommand(commandCode)) {
                 // Cannot send because isn't allowed to.

@@ -36,6 +36,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
@@ -129,9 +130,9 @@ public class MediaController implements AutoCloseable {
     @Retention(RetentionPolicy.SOURCE)
     public @interface VolumeFlags {}
 
-    final Object mLock = new Object();
-    @GuardedBy("mLock")
     MediaControllerImpl mControllerImpl;
+
+    final Object mLock = new Object();
     @GuardedBy("mLock")
     boolean mClosed;
 
@@ -163,9 +164,7 @@ public class MediaController implements AutoCloseable {
         }
         mCallback = callback;
         mCallbackExecutor = executor;
-        synchronized (mLock) {
-            mControllerImpl = createImpl(context, token, connectionHints);
-        }
+        initImpl(context, token, connectionHints);
     }
 
     /**
@@ -194,7 +193,7 @@ public class MediaController implements AutoCloseable {
                             SessionToken token2) {
                         synchronized (mLock) {
                             if (!mClosed) {
-                                mControllerImpl = createImpl(context, token2, connectionHints);
+                                initImpl(context, token2, connectionHints);
                             } else {
                                 notifyControllerCallback(new ControllerCallbackRunnable() {
                                     @Override
@@ -208,12 +207,13 @@ public class MediaController implements AutoCloseable {
                 });
     }
 
-    MediaControllerImpl createImpl(@NonNull Context context, @NonNull SessionToken token,
+    @CallSuper
+    void initImpl(@NonNull Context context, @NonNull SessionToken token,
             @Nullable Bundle connectionHints) {
         if (token.isLegacySession()) {
-            return new MediaControllerImplLegacy(context, this, token);
+            mControllerImpl = new MediaControllerImplLegacy(context, this, token);
         } else {
-            return new MediaControllerImplBase(context, this, token, connectionHints);
+            mControllerImpl = new MediaControllerImplBase(context, this, token, connectionHints);
         }
     }
 
@@ -1427,6 +1427,12 @@ public class MediaController implements AutoCloseable {
         Context getContext();
         @Nullable
         MediaBrowserCompat getBrowserCompat();
+        @NonNull
+        MediaControllerStub getControllerStub();
+        @Nullable
+        IMediaSession getSessionInterfaceIfAble(@SessionCommand.CommandCode int commandCode);
+        @NonNull
+        SequencedFutureManager getSequencedFutureManager();
     }
 
 

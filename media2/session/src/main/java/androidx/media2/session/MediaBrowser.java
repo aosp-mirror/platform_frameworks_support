@@ -90,29 +90,22 @@ public class MediaBrowser extends MediaController {
             @Nullable Bundle connectionHints, @Nullable Executor executor,
             @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
-        synchronized (mLock) {
-            mBrowserImpl = createBrowserImpl(context, token, connectionHints);
-        }
     }
 
     MediaBrowser(@NonNull Context context, @NonNull MediaSessionCompat.Token token,
             @Nullable Bundle connectionHints, @Nullable Executor executor,
             @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
-        synchronized (mLock) {
-            // What if the session is MediaLibrarySession? How can we handle that?
-            // Maybe we want to bring the SessionToken from MediaController constructor,
-            // asynchronously.
-            mBrowserImpl = createBrowserImpl(context, token, connectionHints);
-        }
     }
 
-    MediaBrowserImpl createBrowserImpl(@NonNull Context context, @NonNull SessionToken token,
+    @Override
+    void initImpl(@NonNull Context context, @NonNull SessionToken token,
             @Nullable Bundle connectionHints) {
+        super.initImpl(context, token, connectionHints);
         if (token.isLegacySession()) {
-            return new MediaBrowserImplLegacy(context, this, token);
+            mBrowserImpl = new MediaBrowserImplLegacy(context, this, token);
         } else {
-            return new MediaBrowserImplBase(context, this, token, connectionHints);
+            mBrowserImpl = new MediaBrowserImplBase(this, mControllerImpl);
         }
     }
 
