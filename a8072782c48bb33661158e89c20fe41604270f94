@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4dd8864d_f8ee4a8d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/EffectHelper.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "I update the name as EffectEnabler now. Not sure whether it is better than original one. Other names were ever considered - EffectInjector, EffectConfigConverter. Thanks.",
+      "parentUuid": "def2887e_7f0142f4",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9da2eb1_64fabf4b",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 13
@@ -30,6 +48,24 @@
       "writtenOn": "2019-06-27T18:12:08Z",
       "side": 1,
       "message": "What happens when the use case is used a second time, but the effect has been disabled?\n\nBecause from what I can tell, the second time it will still have the effect because the mConfig, mCaptureProcessor, etc have been modified.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7810c788_3c216a93",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "Currently, use case can\u0027t be reused. There might be some problem related to DeferrableSurface encountered. We may also need to recover all things after UseCase#clear() is called when unbinding use cases. Do you mean that we need to make use cases reusable? If yes, this may be another issue we need to resolve to make use cases reusable.\n\nFor the extensions part, I add ImageCaptureExtender#removeEffectConfigs and PreviewExtender#removeEffectConfigs. If use cases can be reused, the effect configs can be removed and updated when ImageCapture/Preview#updateEffectParameters are called.",
+      "parentUuid": "a9da2eb1_64fabf4b",
       "revId": "a8072782c48bb33661158e89c20fe41604270f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4d0cbd68_a67ebf07",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "I add ImageCaptureExtender#removeEffectConfigs and PreviewExtender#removeEffectConfigs. If use cases can be reused, the effect configs can be removed and updated when ImageCapture/Preview#updateEffectParameters are called.",
+      "parentUuid": "dacb913b_86bf422e",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1955112_309a58fe",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
         "patchSetId": 13
@@ -67,6 +121,24 @@
       "revId": "a8072782c48bb33661158e89c20fe41604270f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8de12f22_946fb603",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "javadoc is added. Thanks.",
+      "parentUuid": "e1955112_309a58fe",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "769bfb16_cab268ea",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "Besides controlling the camera to get started and shut down, I think lifecycle owner will also be used for switching different supported effect functions. Developers may create fragments for bokeh, HDR, beauty functions one time in the beginning in their design. By connecting effect mode info to lifecycle owner, it allows developers to do that.\n\nIf there is only one global setting for all LifecycleOwner, developers may need to update effect mode when switching fragments for different effects and there are some info will be updated after applying effect mode to use cases. It will increase complexity in the fragments design case.",
+      "parentUuid": "82cbe03f_897a36ca",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86e968b3_9fd30024",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
         "patchSetId": 13
@@ -98,6 +188,24 @@
       "writtenOn": "2019-06-27T18:12:08Z",
       "side": 1,
       "message": "Why do we need this restriction?\n\nIt would be much easier for a user to turn on/off an extensions whenever they want to.",
+      "revId": "a8072782c48bb33661158e89c20fe41604270f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0288843f_29304003",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-01T15:41:53Z",
+      "side": 1,
+      "message": "Currently, the restriction is to make sure all effect configs can be applied before use cases are bound and CaptureSession is created. The restrict may be able to remove if 1) use cases are reusable ,or 2) can update CaptureSession without undbind/bind use cases again. Need more time to study.",
+      "parentUuid": "86e968b3_9fd30024",
       "revId": "a8072782c48bb33661158e89c20fe41604270f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
