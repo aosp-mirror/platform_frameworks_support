@@ -22,6 +22,30 @@
       "revId": "09585f5dc3a66030c854fa06ec53e37a97286937",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a3207c_b6f77deb",
+        "filename": "ui/studio_versions.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-01T19:16:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62e7e977_00f418a6",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "09585f5dc3a66030c854fa06ec53e37a97286937",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
