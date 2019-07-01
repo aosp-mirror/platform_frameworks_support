@@ -61,17 +61,21 @@ class BenchmarkPlugin : Plugin<Project> {
     }
 
     private fun configureWithAndroidExtension(project: Project, extension: BaseExtension) {
+        val defaultConfig = extension.defaultConfig
+        val testInstrumentationRunnerArguments = defaultConfig.testInstrumentationRunnerArguments
+
         // Registering this block as a configureEach callback is only necessary because Studio skips
         // Gradle if there are no changes, which stops this plugin from being re-applied.
         var enabledOutput = false
-        project.tasks.configureEach {
+        project.configurations.configureEach {
             if (!enabledOutput &&
-                !project.rootProject.hasProperty("android.injected.invoked.from.ide")
+                !project.rootProject.hasProperty("android.injected.invoked.from.ide") &&
+                !testInstrumentationRunnerArguments.containsKey("androidx.benchmark.output.enable")
             ) {
                 enabledOutput = true
 
                 // NOTE: This argument is checked by ResultWriter to enable CI reports.
-                extension.defaultConfig.testInstrumentationRunnerArgument(
+                defaultConfig.testInstrumentationRunnerArgument(
                     "androidx.benchmark.output.enable",
                     "true"
                 )
