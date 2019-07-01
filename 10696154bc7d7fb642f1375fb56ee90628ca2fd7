@@ -16,6 +16,24 @@
       "revId": "10696154bc7d7fb642f1375fb56ee90628ca2fd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e40974a3_de19ceb1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-01T13:05:57Z",
+      "side": 1,
+      "message": "Do you think we should support it? I assumed the concerns of slow build speeds are lost in noise when you pull in kotlin.",
+      "parentUuid": "6b34eeaf_3fce4727",
+      "revId": "10696154bc7d7fb642f1375fb56ee90628ca2fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
