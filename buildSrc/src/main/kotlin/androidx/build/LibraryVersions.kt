@@ -86,7 +86,12 @@ object LibraryVersions {
     val SLICE_BENCHMARK = Version("1.1.0-alpha01")
     val SLICE_BUILDERS_KTX = Version("1.0.0-alpha07")
     val SLIDINGPANELAYOUT = Version("1.1.0-alpha01")
+<<<<<<< HEAD   (5133a8 Merge "Merge empty history for sparse-5700539-L4900000033556)
     val SWIPE_REFRESH_LAYOUT = Version("1.1.0-alpha01")
+=======
+    val SWIPE_REFRESH_LAYOUT = Version("1.1.0-alpha02")
+    val TEST_SCREENSHOT = Version("1.0.0-alpha01")
+>>>>>>> BRANCH (86a6c9 Merge "Merge cherrypicks of [1008426, 1008427] into sparse-5)
     val TEXTCLASSIFIER = Version("1.0.0-alpha03")
     val TRANSITION = Version("1.1.0-alpha02")
     val TVPROVIDER = Version("1.1.0-alpha01")
