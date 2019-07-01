@@ -380,7 +380,6 @@ public class MediaBrowserTest {
 
     @Test
     @MediumTest
-    @FlakyTest(bugId = 115820189)
     @SdkSuppress(minSdkVersion = 26)
     public void testSubscribeWithOptions() throws Exception {
         connectMediaBrowserService();
@@ -393,7 +392,7 @@ public class MediaBrowserTest {
             mSubscriptionCallback.reset(1);
             options.putInt(MediaBrowser.EXTRA_PAGE, page);
             mMediaBrowser.subscribe(MEDIA_ID_ROOT, options, mSubscriptionCallback);
-            mSubscriptionCallback.await(TIME_OUT_MS);
+            assertTrue(mSubscriptionCallback.await(TIME_OUT_MS));
             assertEquals(1, mSubscriptionCallback.mChildrenLoadedWithOptionCount);
             assertEquals(MEDIA_ID_ROOT, mSubscriptionCallback.mLastParentId);
             if (page != lastPage) {
@@ -412,7 +411,7 @@ public class MediaBrowserTest {
             mSubscriptionCallback.reset(page + 1);
             callMediaBrowserServiceMethod(NOTIFY_CHILDREN_CHANGED, MEDIA_ID_ROOT,
                     getApplicationContext());
-            mSubscriptionCallback.await(TIME_OUT_MS);
+            assertTrue(mSubscriptionCallback.await(TIME_OUT_MS * (page + 1)));
             assertEquals(page + 1, mSubscriptionCallback.mChildrenLoadedWithOptionCount);
         }
 
