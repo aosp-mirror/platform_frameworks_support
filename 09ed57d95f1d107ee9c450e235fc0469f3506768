@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f69e70ec_9c4dbeca",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/android/support/mediacompat/client/MediaBrowserCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-01T05:13:58Z",
+      "side": 1,
+      "message": "How about using the CountDownLatch and adjust the values each time (3, 2, 1, ...)?",
+      "range": {
+        "startLine": 637,
+        "startChar": 16,
+        "endLine": 637,
+        "endChar": 68
+      },
+      "revId": "09ed57d95f1d107ee9c450e235fc0469f3506768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
