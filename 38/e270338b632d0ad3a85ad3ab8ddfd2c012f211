@@ -1,0 +1,7 @@
+Code-Review+2: Jake Wharton <jakew@google.com>
+Presubmit-Ready+1: Android Presubmit Service Prod User <android-test-infra-android-presubmit-service@system.gserviceaccount.com>
+Submitted-by: Aurimas Liutikas <aurimas@google.com>
+Submitted-at: Mon, 01 Jul 2019 14:24:02 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1008423
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
