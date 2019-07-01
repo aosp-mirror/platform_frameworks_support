@@ -38,8 +38,11 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.DefaultTask
+<<<<<<< HEAD   (88e4c7 Merge "Merge empty history for sparse-5698899-L4090000033551)
 import org.gradle.api.Task
 import org.gradle.api.JavaVersion.VERSION_1_7
+=======
+>>>>>>> BRANCH (735273 Merge "Merge cherrypicks of [1008421] into sparse-5700539-L4)
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -84,6 +87,11 @@ class AndroidXPlugin : Plugin<Project> {
                         sourceCompatibility = VERSION_1_7
                         targetCompatibility = VERSION_1_7
                     }
+<<<<<<< HEAD   (88e4c7 Merge "Merge empty history for sparse-5698899-L4090000033551)
+=======
+
+                    project.hideJavadocTask()
+>>>>>>> BRANCH (735273 Merge "Merge cherrypicks of [1008421] into sparse-5700539-L4)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     verifyDependencyVersionsTask.configure {
                         it.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
@@ -289,10 +297,50 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
+<<<<<<< HEAD   (88e4c7 Merge "Merge empty history for sparse-5698899-L4090000033551)
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
             targetSdkVersion(TARGET_SDK_VERSION)
 
+=======
+    private fun LibraryExtension.configureAndroidLibraryOptions(
+        project: Project,
+        androidXExtension: AndroidXExtension
+    ) {
+        project.configurations.all { config ->
+            val isTestConfig = config.name.toLowerCase().contains("test")
+
+            config.dependencyConstraints.configureEach { dependencyConstraint ->
+                dependencyConstraint.apply {
+                    // Remove strict constraints on test dependencies and listenablefuture:1.0
+                    if (isTestConfig ||
+                        group == "com.google.guava" &&
+                        name == "listenablefuture" &&
+                        version == "1.0") {
+                        version { versionConstraint ->
+                            versionConstraint.strictly("")
+                        }
+                    }
+                }
+            }
+        }
+
+        project.afterEvaluate {
+            libraryVariants.all { libraryVariant ->
+                if (libraryVariant.buildType.name == "debug") {
+                    libraryVariant.javaCompileProvider.configure { javaCompile ->
+                        if (androidXExtension.failOnDeprecationWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:deprecation")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun AppExtension.configureAndroidApplicationOptions(project: Project) {
+        defaultConfig.apply {
+>>>>>>> BRANCH (735273 Merge "Merge cherrypicks of [1008421] into sparse-5700539-L4)
             versionCode = 1
             versionName = "1.0"
         }
