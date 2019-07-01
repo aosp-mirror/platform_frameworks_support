@@ -22,6 +22,7 @@ import androidx.ui.input.EditOperation
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
 import androidx.ui.input.SetSelectionEditOp
+import androidx.ui.input.TextInputService
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.TextPainter
 import com.nhaarman.mockitokotlin2.any
@@ -138,5 +139,12 @@ class InputFieldDelegateTest {
         assertEquals(1, captor.firstValue.size)
         assertTrue(captor.firstValue[0] is SetSelectionEditOp)
         verify(onValueChange, times(1)).invoke(eq(dummyEditorState))
+    }
+
+    @Test
+    fun show_soft_input() {
+        val textInputService: TextInputService = mock()
+        delegate.onPress(textInputService)
+        verify(textInputService).showSoftwareKeyboard()
     }
 }
