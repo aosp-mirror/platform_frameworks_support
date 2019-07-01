@@ -18,7 +18,10 @@ package androidx.camera.core;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import android.graphics.ImageFormat;
 import android.os.Handler;
@@ -37,6 +40,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.internal.DoNotInstrument;
 import org.robolectric.shadows.ShadowLooper;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -77,7 +81,7 @@ public final class ProcessingImageReaderTest {
     private final CaptureStage mCaptureStage1 = new FakeCaptureStage(CAPTURE_ID_1, null);
     private final CaptureStage mCaptureStage2 = new FakeCaptureStage(CAPTURE_ID_2, null);
     private final CaptureStage mCaptureStage3 = new FakeCaptureStage(CAPTURE_ID_3, null);
-    private final FakeImageReaderProxy mImageReaderProxy = new FakeImageReaderProxy(8);
+    private FakeImageReaderProxy mImageReaderProxy;
     private CaptureBundle mCaptureBundle;
     private Handler mMainHandler;
 
@@ -85,6 +89,7 @@ public final class ProcessingImageReaderTest {
     public void setUp() {
         mMainHandler = new Handler(Looper.getMainLooper());
         mCaptureBundle = CaptureBundles.createCaptureBundle(mCaptureStage0, mCaptureStage1);
+        mImageReaderProxy = new FakeImageReaderProxy(8);
     }
 
     @Test
@@ -168,6 +173,80 @@ public final class ProcessingImageReaderTest {
         processingImageReader.setCaptureBundle(
                 CaptureBundles.createCaptureBundle(mCaptureStage1, mCaptureStage2, mCaptureStage3));
     }
+
+    @Test
+    public void testClearCaptureResult()
+            throws InterruptedException, TimeoutException, ExecutionException {
+        // Sets the callback from ProcessingImageReader to start processing
+        CaptureProcessor mockCaptureProcessor = mock(CaptureProcessor.class);
+        ProcessingImageReader processingImageReader = new ProcessingImageReader(
+                mImageReaderProxy, mMainHandler,
+                CaptureBundles.createCaptureBundle(mCaptureStage0, mCaptureStage1, mCaptureStage2),
+                mockCaptureProcessor);
+
+        // Trigger the ImageAvailable before clearCaptureResult() and the image should be closed
+        // once the clearCaptureResult() was invoked.
+        triggerImageAvailable(CAPTURE_ID_0, TIMESTAMP_0);
+
+        // Assume the third capture result fail.
+        processingImageReader.clearCaptureResult(Arrays.asList(true, true, false));
+
+        // To verify all received ImageProxys should be closed.
+        assertThat(mImageReaderProxy.getRemainingImageSize()).isEqualTo(0);
+
+        // Trigger the ImageAvailable after clearCaptureResult().
+        triggerImageAvailable(CAPTURE_ID_1, TIMESTAMP_1);
+
+        // To verify the CAPTURE_ID_1 was closed.
+        assertThat(mImageReaderProxy.getRemainingImageSize()).isEqualTo(0);
+
+        // Never invoke the processor.process() since the capture result was cleared.
+        verify(mockCaptureProcessor, never()).process(any());
+    }
+
+    @Test
+    public void testClearCaptureResult_nextCaptureBundleCanWork()
+            throws InterruptedException, TimeoutException, ExecutionException {
+        final AtomicReference<ImageProxyBundle> bundleRef = new AtomicReference<>();
+        // Sets the callback from ProcessingImageReader to start processing
+        CaptureProcessor captureProcessor = new CaptureProcessor() {
+            @Override
+            public void onOutputSurface(Surface surface, int imageFormat) {
+
+            }
+
+            @Override
+            public void process(ImageProxyBundle bundle) {
+                bundleRef.set(bundle);
+            }
+
+            @Override
+            public void onResolutionUpdate(Size size) {
+
+            }
+        };
+
+        ProcessingImageReader processingImageReader = new ProcessingImageReader(
+                mImageReaderProxy, mMainHandler, mCaptureBundle, captureProcessor);
+
+        // Assume the first capture result fail.
+        processingImageReader.clearCaptureResult(Arrays.asList(false, true));
+
+        // To set the secondary capture bundle immediately after clearCaptureResult().
+        // The secondary capture bundle should work fine.
+        processingImageReader.setCaptureBundle(mCaptureBundle);
+
+        // Trigger the ImageAvailable for the ImageProxy which belong to the first capture bundle.
+        // The image should be closed.
+        triggerImageAvailable(CAPTURE_ID_1, TIMESTAMP_1);
+
+        // To verify the secondary capture bundle result should work fine.
+        Map<Integer, Long> resultMap = new HashMap<>();
+        resultMap.put(CAPTURE_ID_0, TIMESTAMP_2);
+        resultMap.put(CAPTURE_ID_1, TIMESTAMP_3);
+        triggerAndVerify(bundleRef, resultMap);
+    }
+
 
     private void triggerImageAvailable(int captureId, long timestamp) throws InterruptedException {
         mImageReaderProxy.triggerImageAvailable(captureId, timestamp);
