@@ -70,11 +70,17 @@ class BenchmarkPlugin : Plugin<Project> {
             ) {
                 enabledOutput = true
 
-                // NOTE: This argument is checked by ResultWriter to enable CI reports.
-                extension.defaultConfig.testInstrumentationRunnerArgument(
-                    "androidx.benchmark.output.enable",
-                    "true"
-                )
+                val defaultConfig = extension.defaultConfig
+                if (!defaultConfig.testInstrumentationRunnerArguments.containsKey(
+                        "androidx.benchmark.output.enable"
+                    )
+                ) {
+                    // NOTE: This argument is checked by ResultWriter to enable CI reports.
+                    defaultConfig.testInstrumentationRunnerArgument(
+                        "androidx.benchmark.output.enable",
+                        "true"
+                    )
+                }
             }
         }
 
