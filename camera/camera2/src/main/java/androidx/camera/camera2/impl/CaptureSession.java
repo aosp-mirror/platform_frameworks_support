@@ -32,8 +32,11 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraCaptureCallback;
+import androidx.camera.core.CameraCaptureFailure;
+import androidx.camera.core.CameraCaptureResult;
 import androidx.camera.core.CameraCaptureSessionStateCallbacks;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
@@ -57,6 +60,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A session for capturing images from the camera which is tied to a specific {@link CameraDevice}.
@@ -75,6 +79,11 @@ final class CaptureSession {
     private final Executor mExecutor;
     /** The configuration for the currently issued single capture requests. */
     private final List<CaptureConfig> mCaptureConfigs = new ArrayList<>();
+    /** ExecutingCaptureCallback list that is executing and waiting for its callback to be called */
+    @VisibleForTesting
+    @GuardedBy("mExecutingCaptureCallbacks")
+    final List<ExecutingCaptureCallback> mExecutingCaptureCallbacks = new ArrayList<>();
+
     /** Lock on whether the camera is open or closed. */
     final Object mStateLock = new Object();
     /** Callback for handling image captures. */
@@ -303,6 +312,28 @@ final class CaptureSession {
      */
     void close() {
         synchronized (mStateLock) {
+            // Call onRequestCancelled on unissued CaptureConfigs.
+            if (!mCaptureConfigs.isEmpty()) {
+                for (CaptureConfig captureConfig : mCaptureConfigs) {
+                    for (CameraCaptureCallback cameraCaptureCallback :
+                            captureConfig.getCameraCaptureCallbacks()) {
+                        cameraCaptureCallback.onRequestCancelled();
+                    }
+                }
+                mCaptureConfigs.clear();
+            }
+
+            // Call onRequestCancelled on executing CaptureConfigs whose callback is not called yet.
+            synchronized (mExecutingCaptureCallbacks) {
+                // Clone the list because onRequestCancelled will remove the item.
+                List<ExecutingCaptureCallback> executingList =
+                        new ArrayList<>(mExecutingCaptureCallbacks);
+                for (ExecutingCaptureCallback callback : executingList) {
+                    // onRequestCancelled will trigger the item removal from the list.
+                    callback.onRequestCancelled();
+                }
+            }
+
             switch (mState) {
                 case UNINITIALIZED:
                     throw new IllegalStateException(
@@ -446,6 +477,12 @@ final class CaptureSession {
         }
     }
 
+    void clearCaptureConfigs() {
+        synchronized (mStateLock) {
+            mCaptureConfigs.clear();
+        }
+    }
+
     /** Returns the current state of the session. */
     State getState() {
         synchronized (mStateLock) {
@@ -550,8 +587,18 @@ final class CaptureSession {
 
                 List<CameraCaptureSession.CaptureCallback> cameraCallbacks = new ArrayList<>();
                 for (CameraCaptureCallback callback : captureConfig.getCameraCaptureCallbacks()) {
+                    // Save the callback so that we can keep track of which callback
+                    // haven't been called. Also use ExecutingCaptureCallback to wrap the callback
+                    // to that we can ensure the callback is called for just once.
+                    // CaptureCallbackContainer is not required because it is simply to pass the
+                    // raw capture callback and we have no way to redirect the method.
+                    if (!(callback instanceof CaptureCallbackContainer)) {
+                        callback = new ExecutingCaptureCallback(callback);
+                        addExecutingCaptureCallback((ExecutingCaptureCallback) callback);
+                    }
                     CaptureCallbackConverter.toCaptureCallback(callback, cameraCallbacks);
                 }
+
                 callbackAggregator.addCamera2Callbacks(captureRequest, cameraCallbacks);
                 captureRequests.add(captureRequest);
 
@@ -564,6 +611,76 @@ final class CaptureSession {
             Thread.dumpStack();
         } finally {
             mCaptureConfigs.clear();
+        }
+    }
+
+    /**
+     * Saves the {@link ExecutingCaptureCallback} to the list to keep track on which callback
+     * should be called when the request is to be cancelled.
+     */
+    private void addExecutingCaptureCallback(ExecutingCaptureCallback callback) {
+        synchronized (mExecutingCaptureCallbacks) {
+            mExecutingCaptureCallbacks.add(callback);
+        }
+    }
+
+    /**
+     * A {@link CameraCaptureCallback} represents those which are executing and waiting for the
+     * result.
+     *
+     * <p>Besides calling the corresponding callback method for contained callback, it guarantees
+     * that they are only called once. Once onCaptureCompleted or onCaptureFailed or
+     * onRequestCancelled is called, it will not be called again. The guarantee is required when
+     * camera device is closing, we want to call onRequestCancelled on those who didn't get callback
+     * called but we want to prevent from callback being called later when the capture result
+     * still returned later.
+     */
+    private class ExecutingCaptureCallback extends CameraCaptureCallback {
+        private final CameraCaptureCallback mCallback;
+        private AtomicBoolean mIsDone = new AtomicBoolean(false);
+
+        ExecutingCaptureCallback(CameraCaptureCallback callback) {
+            mCallback = callback;
+        }
+
+        @Override
+        public void onCaptureCompleted(@NonNull CameraCaptureResult cameraCaptureResult) {
+            boolean isDone = mIsDone.getAndSet(true);
+            if (isDone) {
+                return;
+            }
+
+            mCallback.onCaptureCompleted(cameraCaptureResult);
+            removeSelfFromExecutingList();
+        }
+
+        @Override
+        public void onCaptureFailed(@NonNull CameraCaptureFailure failure) {
+            boolean isDone = mIsDone.getAndSet(true);
+            if (isDone) {
+                return;
+            }
+
+            mCallback.onCaptureFailed(failure);
+            removeSelfFromExecutingList();
+        }
+
+        @Override
+        public void onRequestCancelled() {
+            boolean isDone = mIsDone.getAndSet(true);
+            if (isDone) {
+                return;
+            }
+
+            mCallback.onRequestCancelled();
+            removeSelfFromExecutingList();
+        }
+
+        void removeSelfFromExecutingList() {
+            // Remove it directly could cause ConcurrentModificationException
+            synchronized (mExecutingCaptureCallbacks) {
+                mExecutingCaptureCallbacks.remove(ExecutingCaptureCallback.this);
+            }
         }
     }
 

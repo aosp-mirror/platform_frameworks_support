@@ -69,7 +69,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -345,6 +347,7 @@ public final class CaptureSessionTest {
         assertThat(captureResult.getRequest().get(CaptureRequest.CONTROL_AE_MODE)).isEqualTo(
                 CaptureRequest.CONTROL_AE_MODE_ON);
     }
+
     @Test
     public void issueCaptureRequestAcrossCaptureSessions()
             throws CameraAccessException, InterruptedException {
@@ -355,11 +358,15 @@ public final class CaptureSessionTest {
                 Collections.singletonList(mTestParameters0.mCaptureConfig));
         captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
 
+        List<CaptureConfig> unissuedCaptureConfigs = new ArrayList<>(
+                captureSession.getCaptureConfigs());
+        captureSession.clearCaptureConfigs();
         captureSession.close();
+
         CaptureSession captureSession2 = new CaptureSession(mTestParameters0.mHandler);
         captureSession2.setSessionConfig(captureSession.getSessionConfig());
-        if (!captureSession.getCaptureConfigs().isEmpty()) {
-            captureSession2.issueCaptureRequests(captureSession.getCaptureConfigs());
+        if (!unissuedCaptureConfigs.isEmpty()) {
+            captureSession2.issueCaptureRequests(unissuedCaptureConfigs);
         }
         captureSession2.open(mTestParameters0.mSessionConfig, mCameraDevice);
 
@@ -490,6 +497,90 @@ public final class CaptureSessionTest {
         // The onEnableSession should not been invoked in close().
         verify(mTestParameters0.mTestCameraEventCallback.mEnableCallback,
                 never()).onCaptureCompleted(any(CameraCaptureResult.class));
+    }
+
+    @Test
+    public void issueCaptureCancelledBeforeExecuting() {
+
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+
+        captureSession.close();
+
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(1))
+                .onRequestCancelled();
+    }
+
+
+    @Test
+    public void captureOnCompleted_NoRequestCancelledIsCalledWhenClose()
+            throws InterruptedException,
+            CameraAccessException {
+
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+
+        mTestParameters0.waitForCameraCaptureCallback();
+        captureSession.close();
+
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(1))
+                .onCaptureCompleted(any(CameraCaptureResult.class));
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(0))
+                .onRequestCancelled();
+    }
+
+    @Test
+    public void requestCancelledBeforeCaptureCompleted() throws InterruptedException,
+            CameraAccessException {
+
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        mTestParameters0.waitForData();
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+        captureSession.close();
+
+        // wait a while to verify if onCaptureComplete is not called.
+        Thread.sleep(500);
+
+        // only onRequestCancelled is called ,  onCaptureCompleted is not called.
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(1))
+                .onRequestCancelled();
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(0))
+                .onCaptureCompleted(any(CameraCaptureResult.class));
+        assertThat(captureSession.mExecutingCaptureCallbacks.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void requestCancelledOnTwoCaptureConfig() throws InterruptedException,
+            CameraAccessException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+        mTestParameters0.waitForData();
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+        captureSession.close();
+
+        // wait a while to wait for onDisableSession request to finish.
+        Thread.sleep(500);
+
+        assertThat(captureSession.mExecutingCaptureCallbacks.size()).isEqualTo(0);
+        // and no ConcurrentModificationException.
+
     }
 
     /**

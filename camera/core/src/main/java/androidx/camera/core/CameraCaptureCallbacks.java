@@ -94,6 +94,13 @@ public final class CameraCaptureCallbacks {
             }
         }
 
+        @Override
+        public void onRequestCancelled() {
+            for (CameraCaptureCallback callback : mCallbacks) {
+                callback.onRequestCancelled();
+            }
+        }
+
         @NonNull
         public List<CameraCaptureCallback> getCallbacks() {
             return mCallbacks;
