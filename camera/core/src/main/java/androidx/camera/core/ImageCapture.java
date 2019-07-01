@@ -549,14 +549,22 @@ public class ImageCapture extends UseCase {
                                 if (failed) {
                                     // To handle the error and issue the next capture request
                                     // when the capture stages have any fail.
-                                    // TODO: Need to notify the ProcessingImageReader the capture
-                                    //  request was failed (if the CaptureProcessor exists)
+
+                                    if (mImageReader instanceof ProcessingImageReader
+                                            && state.mCaptureSuccess.size() > 1) {
+                                        // Clear the ProcessingImageReader before issue the next
+                                        // capture request.
+                                        ((ProcessingImageReader) mImageReader)
+                                                .clearCaptureResult(state.mCaptureSuccess);
+                                    }
+
                                     final Throwable error = state.mError != null ? state.mError : t;
                                     mMainHandler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             ImageCaptureRequest request =
                                                     mImageCaptureRequests.poll();
+
                                             if (request != null) {
                                                 request.callbackError(UseCaseError.UNKNOWN_ERROR,
                                                         (error != null) ? error.getMessage()
@@ -566,8 +574,6 @@ public class ImageCapture extends UseCase {
                                             }
                                         }
                                     });
-
-
                                 }
                             }
                         },
