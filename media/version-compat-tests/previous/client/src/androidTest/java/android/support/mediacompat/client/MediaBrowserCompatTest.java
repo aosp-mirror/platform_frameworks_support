@@ -580,10 +580,11 @@ public class MediaBrowserCompatTest {
                     getApplicationContext());
 
             // Remaining subscriptionCallbacks should be called.
+            int remaining = orderOfRemovingCallbacks.length - i - 1;
             for (int j = i + 1; j < orderOfRemovingCallbacks.length; j++) {
                 StubSubscriptionCallback callback = subscriptionCallbacks
                         .get(orderOfRemovingCallbacks[j]);
-                assertTrue(callback.await(TIME_OUT_MS));
+                assertTrue(callback.await(TIME_OUT_MS * remaining));
                 assertEquals(1, callback.mChildrenLoadedWithOptionCount);
             }
 
