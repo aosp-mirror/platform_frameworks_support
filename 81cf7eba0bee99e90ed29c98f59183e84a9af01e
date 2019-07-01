@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c112b1bc_0b7bd7d4",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlView_WithSthTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-07-01T03:36:53Z",
+      "side": 1,
+      "message": "Q) What does this do?",
+      "range": {
+        "startLine": 68,
+        "startChar": 30,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "81cf7eba0bee99e90ed29c98f59183e84a9af01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
