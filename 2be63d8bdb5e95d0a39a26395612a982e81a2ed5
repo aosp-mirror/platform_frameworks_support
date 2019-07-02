@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "901c9e35_082b83d8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiCompatibilityTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-07-02T14:36:18Z",
+      "side": 1,
+      "message": "nit: line wrap",
+      "revId": "2be63d8bdb5e95d0a39a26395612a982e81a2ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
