@@ -45,7 +45,6 @@ import androidx.camera.extensions.impl.PreviewImageProcessorImpl;
 import androidx.camera.extensions.impl.RequestUpdateProcessorImpl;
 
 import java.util.Collection;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Class for using an OEM provided extension on preview.
@@ -85,56 +84,28 @@ public abstract class PreviewExtender {
      * IMAGE_CAPTURE_EXTENSION_REQUIRED error will be thrown if corresponding image capture
      * extension is not enabled together.
      */
-    @SuppressWarnings("unchecked")
     public void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.init(cameraId, cameraCharacteristics);
 
+        PreviewExtenderAdapter previewExtenderAdapter = null;
         switch (mImpl.getProcessorType()) {
             case PROCESSOR_TYPE_REQUEST_UPDATE_ONLY:
-                mBuilder.setImageInfoProcessor(new ImageInfoProcessor() {
-                    @Override
-                    public CaptureStage getCaptureStage() {
-                        return new AdaptingCaptureStage(mImpl.getCaptureStage());
-                    }
-
-                    @Override
-                    public boolean process(ImageInfo imageInfo) {
-                        CameraCaptureResult result =
-                                CameraCaptureResults.retrieveCameraCaptureResult(imageInfo);
-                        if (result == null) {
-                            return false;
-                        }
-
-                        CaptureResult captureResult =
-                                Camera2CameraCaptureResultConverter.getCaptureResult(result);
-                        if (captureResult == null) {
-                            return false;
-                        }
-
-                        TotalCaptureResult totalCaptureResult = (TotalCaptureResult) captureResult;
-                        if (totalCaptureResult == null) {
-                            return false;
-                        }
-
-                        CaptureStageImpl captureStageImpl =
-                                ((RequestUpdateProcessorImpl) mImpl.getProcessor()).process(
-                                        totalCaptureResult);
-                        return captureStageImpl != null;
-                    }
-                });
+                RequestUpdateProcessingExtenderAdapter requestUpdateProcessingExtenderAdapter =
+                        new RequestUpdateProcessingExtenderAdapter(mImpl, mEffectMode);
+                mBuilder.setImageInfoProcessor(requestUpdateProcessingExtenderAdapter);
+                previewExtenderAdapter = requestUpdateProcessingExtenderAdapter;
                 break;
             case PROCESSOR_TYPE_IMAGE_PROCESSOR:
                 mBuilder.setCaptureProcessor(new
                         AdaptingPreviewProcessor((PreviewImageProcessorImpl) mImpl.getProcessor()));
+                previewExtenderAdapter = new PreviewExtenderAdapter(mImpl, mEffectMode);
                 break;
             default: // fall out
         }
 
-        PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl,
-                mEffectMode);
         new Camera2Config.Extender(mBuilder).setCameraEventCallback(
                 new CameraEventCallbacks(previewExtenderAdapter));
         mBuilder.setUseCaseEventListener(previewExtenderAdapter);
@@ -169,12 +140,16 @@ public abstract class PreviewExtender {
     /**
      * An implementation to adapt the OEM provided implementation to core.
      */
-    static class PreviewExtenderAdapter extends CameraEventCallback implements
+    private static class PreviewExtenderAdapter extends CameraEventCallback implements
             UseCase.EventListener {
         final EffectMode mEffectMode;
-        private final PreviewExtenderImpl mImpl;
-        private final AtomicBoolean mActive = new AtomicBoolean(true);
-        private final Object mLock = new Object();
+
+        final PreviewExtenderImpl mImpl;
+
+        // Once the adapter has set mActive to false a new instance needs to be created
+        @GuardedBy("mLock")
+        volatile boolean mActive = true;
+        final Object mLock = new Object();
         @GuardedBy("mLock")
         private volatile int mEnabledSessionCount = 0;
         @GuardedBy("mLock")
@@ -187,7 +162,7 @@ public abstract class PreviewExtender {
 
         @Override
         public void onBind(String cameraId) {
-            if (mActive.get()) {
+            if (mActive) {
                 CameraCharacteristics cameraCharacteristics =
                         CameraUtil.getCameraCharacteristics(cameraId);
                 mImpl.onInit(cameraId, cameraCharacteristics, CameraX.getContext());
@@ -205,21 +180,25 @@ public abstract class PreviewExtender {
         }
 
         private void callDeInit() {
-            if (mActive.get()) {
-                mImpl.onDeInit();
-                mActive.set(false);
+            synchronized (mLock) {
+                if (mActive) {
+                    mImpl.onDeInit();
+                    mActive = false;
+                }
             }
         }
 
         @Override
         public CaptureConfig onPresetSession() {
-            if (mActive.get()) {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    public void run() {
-                        checkImageCaptureEnabled(mEffectMode, CameraX.getActiveUseCases());
-                    }
-                });
+            synchronized (mLock) {
+                if (mActive) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            checkImageCaptureEnabled(mEffectMode, CameraX.getActiveUseCases());
+                        }
+                    });
+                }
                 CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
                 if (captureStageImpl != null) {
                     return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
@@ -232,10 +211,12 @@ public abstract class PreviewExtender {
         @Override
         public CaptureConfig onEnableSession() {
             try {
-                if (mActive.get()) {
-                    CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
-                    if (captureStageImpl != null) {
-                        return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+                synchronized (mLock) {
+                    if (mActive) {
+                        CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
+                        if (captureStageImpl != null) {
+                            return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+                        }
                     }
                 }
 
@@ -250,10 +231,12 @@ public abstract class PreviewExtender {
         @Override
         public CaptureConfig onDisableSession() {
             try {
-                if (mActive.get()) {
-                    CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
-                    if (captureStageImpl != null) {
-                        return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+                synchronized (mLock) {
+                    if (mActive) {
+                        CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
+                        if (captureStageImpl != null) {
+                            return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+                        }
                     }
                 }
 
@@ -270,10 +253,12 @@ public abstract class PreviewExtender {
 
         @Override
         public CaptureConfig onRepeating() {
-            if (mActive.get()) {
-                CaptureStageImpl captureStageImpl = mImpl.getCaptureStage();
-                if (captureStageImpl != null) {
-                    return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+            synchronized (mLock) {
+                if (mActive) {
+                    CaptureStageImpl captureStageImpl = mImpl.getCaptureStage();
+                    if (captureStageImpl != null) {
+                        return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();
+                    }
                 }
             }
 
@@ -281,4 +266,54 @@ public abstract class PreviewExtender {
         }
     }
 
+    // Prevents the implementation from being accessed after deInit() has been called
+    private static final class RequestUpdateProcessingExtenderAdapter extends
+            PreviewExtenderAdapter implements ImageInfoProcessor {
+
+        private final RequestUpdateProcessorImpl mProcessor;
+
+        RequestUpdateProcessingExtenderAdapter(PreviewExtenderImpl impl, EffectMode effectMode) {
+            super(impl, effectMode);
+            mProcessor = ((RequestUpdateProcessorImpl) mImpl.getProcessor());
+        }
+
+        @Override
+        public CaptureStage getCaptureStage() {
+            synchronized (mLock) {
+                if (mActive) {
+                    return new AdaptingCaptureStage(mImpl.getCaptureStage());
+                }
+                return null;
+            }
+        }
+
+        @Override
+        public boolean process(ImageInfo imageInfo) {
+            CameraCaptureResult result =
+                    CameraCaptureResults.retrieveCameraCaptureResult(imageInfo);
+            if (result == null) {
+                return false;
+            }
+
+            CaptureResult captureResult =
+                    Camera2CameraCaptureResultConverter.getCaptureResult(result);
+            if (captureResult == null) {
+                return false;
+            }
+
+            if (captureResult instanceof TotalCaptureResult) {
+                synchronized (mLock) {
+                    if (mActive) {
+                        CaptureStageImpl captureStageImpl =
+                                mProcessor.process((TotalCaptureResult) captureResult);
+                        return captureStageImpl != null;
+                    }
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    }
 }
