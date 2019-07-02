@@ -1344,6 +1344,15 @@ package androidx.ui.input {
     property public final String text;
   }
 
+  public enum KeyboardType {
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_ASCII;
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_EMAIL;
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_NUMBER;
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_PHONE;
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_TEXT;
+    enum_constant public static final androidx.ui.input.KeyboardType KEYBOARD_TYPE_URI;
+  }
+
 }
 
 package androidx.ui.painting {
