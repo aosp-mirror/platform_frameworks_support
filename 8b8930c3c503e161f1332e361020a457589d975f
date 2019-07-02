@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f9371b5_04e8f1c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-02T01:06:58Z",
+      "side": 1,
+      "message": "Please also check on other APIs",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "8b8930c3c503e161f1332e361020a457589d975f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
