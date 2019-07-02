@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddbd5b61_d1b6f15f",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-07-02T18:18:28Z",
+      "side": 1,
+      "message": "Instead of a boolean check, instead we could do something like:\n\npublic static void assumeCompatibleDevice() {\n   ...\n}\n\nInside the check, we can throw an AssumptionViolatedException if the device is not compatible. This will allow us to put a message inside the exception that will show up in the test results. We can put in the reason the device isn\u0027t compatible along with a bug number if appropriate.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
