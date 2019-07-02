@@ -22,6 +22,30 @@
       "revId": "18944460f6a1b4855170af9b49eda678cff50990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c57409_3929aea0",
+        "filename": "ui/test/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T20:21:16Z",
+      "side": 1,
+      "message": "TestRule dependency. This package provides ComposeTestRule that implements junit\u0027s TestRule.",
+      "parentUuid": "fbdfbff2_f92cba81",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 14
+      },
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
