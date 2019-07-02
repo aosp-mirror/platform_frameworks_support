@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb0754f3_95aa010c",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-07-02T22:52:21Z",
+      "side": 1,
+      "message": "This breaks the symmetric property of equals (x.equals(y) no longer returns true if and only if y.equals(x)). I think this would be more clear if you moved this equals() logic to a validateAgainst(TableInfo expected) function, then have equals() call that method with a specific code that you need to keep this behavior to handle old generated code despite it breaking symmetry.",
+      "range": {
+        "startLine": 425,
+        "startChar": 16,
+        "endLine": 425,
+        "endChar": 28
+      },
+      "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
