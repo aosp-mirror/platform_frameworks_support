@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8511356f_ffacf73a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-02T09:50:57Z",
+      "side": 1,
+      "message": "Would it be more readable if we setException here then directly clear CaptureBundle in FutureCallback#OnFailure?",
+      "revId": "a0132f383d0ebf674c8924f54b838623652e52c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
