@@ -16,16 +16,20 @@
 
 package androidx.ui.material
 
+import android.util.Log
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
+import androidx.ui.baseui.Clickable
 import androidx.ui.baseui.ColoredRect
+import androidx.ui.baseui.SimpleImage
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.Dp
 import androidx.ui.core.Semantics
 import androidx.ui.core.Text
 import androidx.ui.core.dp
+import androidx.ui.core.sp
 import androidx.ui.layout.Container
 import androidx.ui.layout.FlexRow
 import androidx.ui.layout.MainAxisAlignment
@@ -35,6 +39,9 @@ import androidx.ui.material.surface.Surface
 import androidx.ui.graphics.Color
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.MainAxisSize
+import androidx.ui.material.ripple.Ripple
+import androidx.ui.painting.Image
+import androidx.ui.painting.TextStyle
 
 /**
  * A Top App Bar displays information and actions relating to the current screen and is placed at
@@ -50,24 +57,25 @@ import androidx.ui.layout.MainAxisSize
  *
  * @param title An optional title to display
  * @param color An optional color for the App Bar. By default [MaterialColors.primary] will be used.
- * @param icons An optional list of icons to display on the App Bar.
+ * @param actions An optional list of actions to display on the App Bar.
  */
 @Composable
 fun TopAppBar(
     title: String? = null,
     color: Color = +themeColor { primary },
-    // TODO: work on menus
-    icons: List<Dp> = emptyList()
+    // TODO: maybe we just expose onClick here, and provide the default navigation icon?
+    navigationAction: AppBarAction? = null,
+    actions: List<AppBarAction> = emptyList()
 ) {
     TopAppBar(
         color = color,
-        leadingIcon = { AppBarLeadingIcon() },
-        titleTextLabel = {
-            if (title != null) {
-                TopAppBarTitleTextLabel(title)
-            }
+        leadingIcon = {
+            navigationAction?.let { AppBarIcon(it) }
         },
-        trailingIcons = { TopAppBarTrailingIcons(icons) }
+        titleTextLabel = {
+           title?.let { TopAppBarTitleTextLabel(it) }
+        },
+        trailingIcons = { AppBarActions(MaxIconsInTopAppBar, actions) }
     )
 }
 
@@ -80,7 +88,7 @@ fun TopAppBar(
  *         color = +themeColor{ secondary },
  *         leadingIcon = { MyNavIcon() },
  *         titleTextLabel = { Text(text = "Title") },
- *         trailingIcons = { TopAppBarTrailingIcons(icons) }
+ *         trailingIcons = { AppBarActions(icons) }
  *     )
  *
  * @param color An optional color for the App Bar. By default [MaterialColors.primary] will be used.
@@ -90,7 +98,7 @@ fun TopAppBar(
  * [Text] element. A standard implementation is provided by [TopAppBarTitleTextLabel]. Default text
  * styling [MaterialTypography.h6] will be used.
  * @param trailingIcons A composable lambda to be inserted at the end of the bar, usually containing
- * a collection of menu icons. A standard implementation is provided by [TopAppBarTrailingIcons].
+ * a collection of menu icons. A standard implementation is provided by [AppBarActions].
  */
 @Composable
 fun TopAppBar(
@@ -102,6 +110,7 @@ fun TopAppBar(
     AppBar(color) {
         FlexRow(mainAxisAlignment = MainAxisAlignment.SpaceBetween) {
             inflexible {
+                // TODO: what should the spacing be when there is no icon provided here?
                 leadingIcon()
                 WidthSpacer(width = 32.dp)
             }
@@ -136,17 +145,37 @@ fun AppBar(color: Color, @Children children: @Composable() () -> Unit) {
     }
 }
 
-/**
- * A component that displays a leading icon for an App Bar following Material spec guidelines.
- *
- * @see [AppBar]
- * @see [TopAppBar]
- */
 @Composable
-fun AppBarLeadingIcon() {
-    // TODO: Replace with real icon button
-    Semantics(testTag = "Leading icon") {
-        FakeIcon(24.dp)
+fun BottomAppBar(
+    color: Color = +themeColor { primary },
+    // TODO: maybe we just expose onClick here, and provide the default navigation icon?
+    navigationAction: AppBarAction? = null,
+    actions: List<AppBarAction> = emptyList()
+) {
+    BottomAppBar(
+        color = color,
+        leadingIcon = {
+            navigationAction?.let { AppBarIcon(it) }
+        },
+        trailingIcons = { AppBarActions(MaxIconsInBottomAppBar, actions) }
+    )
+}
+
+// TODO: support a FAB and its alignment
+@Composable
+fun BottomAppBar(
+    color: Color = +themeColor { primary },
+    leadingIcon: @Composable() () -> Unit,
+    trailingIcons: @Composable() () -> Unit
+) {
+    AppBar(color) {
+        FlexRow(mainAxisAlignment = MainAxisAlignment.SpaceBetween) {
+            inflexible {
+                leadingIcon()
+                WidthSpacer(width = 32.dp)
+            }
+            inflexible { trailingIcons() }
+        }
     }
 }
 
@@ -172,55 +201,47 @@ fun TopAppBarTitleTextLabel(title: String) {
  * @param icons A list of icons to display
  */
 @Composable
-fun TopAppBarTrailingIcons(icons: List<Dp>) {
-    TrailingIcons(
-        numIcons = icons.size,
-        maxIcons = MaxIconsInTopAppBar,
-        icons = { index ->
-            Semantics(testTag = "Trailing icon") {
-                // TODO: Replace with real icon button
-                FakeIcon(icons[index])
-            }
-        },
-        overflowIcon = {
-            Semantics(testTag = "Overflow icon") {
-                FakeIcon(12.dp)
+private fun AppBarActions(actionsToDisplay: Int, actions: List<AppBarAction>) {
+    // Split the list depending on how many actions we are displaying - if actionsToDisplay is
+    // greater than or equal to the number of actions provided, menuActions will be empty.
+    val (iconActions, menuActions) = actions.withIndex().partition {
+        it.index < actionsToDisplay
+    }
+
+    Row {
+        iconActions.forEach { (index, action) ->
+            AppBarIcon(action)
+            if (index != iconActions.lastIndex) {
+                WidthSpacer(width = 24.dp)
             }
         }
-    )
-}
-
-// TODO: make public
-@Composable
-internal fun TrailingIcons(
-    numIcons: Int,
-    maxIcons: Int,
-    icons: @Composable() (index: Int) -> Unit,
-    overflowIcon: @Composable() () -> Unit
-) {
-    if (numIcons > 0) {
-        Row(mainAxisSize = MainAxisSize.Min) {
-            val needsOverflow = numIcons > maxIcons
-            val iconsToDisplay = if (needsOverflow) maxIcons else numIcons
-            for (index in 0 until iconsToDisplay) {
-                WidthSpacer(width = 24.dp)
-                icons(index)
-            }
-            if (needsOverflow) {
-                WidthSpacer(width = 24.dp)
-                overflowIcon()
+        if (menuActions.isNotEmpty()) {
+            WidthSpacer(width = 24.dp)
+            // TODO: use menuActions to build menu here
+            Container(width = 12.dp) {
+                Text(text = "${menuActions.size}", style = TextStyle(fontSize = 15.sp))
             }
         }
     }
 }
 
-// TODO: remove
 @Composable
-internal fun FakeIcon(size: Dp) {
-    ColoredRect(color = Color(0xFFFFFFFF.toInt()), width = size, height = 24.dp)
+private fun AppBarIcon(action: AppBarAction) {
+    Ripple(bounded = true) {
+        Clickable(onClick = action.onClick) {
+            Container(width = ActionIconDiameter, height = ActionIconDiameter) {
+                SimpleImage(action.icon)
+            }
+        }
+    }
 }
+
+data class AppBarAction(val icon: Image, val text: String, val onClick: () -> Unit)
+
+private val ActionIconDiameter = 24.dp
 
 private val RegularHeight = 56.dp
 private val Padding = 16.dp
-// TODO: IR compiler bug avoids this being const
+// TODO: b/123936606 (IR bug) prevents using constants in a closure
 private val MaxIconsInTopAppBar = 2
+private val MaxIconsInBottomAppBar = 4
