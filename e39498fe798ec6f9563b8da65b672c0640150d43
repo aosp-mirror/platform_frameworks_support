@@ -22,6 +22,30 @@
       "revId": "e39498fe798ec6f9563b8da65b672c0640150d43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a64fcccf_ac3f0a49",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-07-02T17:45:27Z",
+      "side": 1,
+      "message": "CATEGORY_COLOR_SCHEME_CUSTOMIZATION tells whether the browser takes into account color scheme specific parameters, whereas CATEGORY_NAVBAR_COLOR_CUSTOMIZATION - whether browser has implemented changing navigation bar color. \n\nSay a developer does this:\nnew CustomTabIntent.Builder()\n   .setNavigationBarColor(...) // 1\n   .setColorSchemeParams(COLOR_SHEME_DARK, darkParams) // 2\nwhere darkParams contain a different navigation bar color.\n\nIf CATEGORY_NAVBAR_COLOR_CUSTOMIZATION is not present, neither \"1\" nor \"2\" should have effect on the navbar color. If CATEGORY_NAVBAR_COLOR_CUSTOMIZATION is present, but not CATEGORY_COLOR_SCHEME_CUSTOMIZATION, then \"1\" should have effect, but not \"2\". If both categories are present, both should have effect.",
+      "parentUuid": "8366eeb1_ee74a16d",
+      "range": {
+        "startLine": 67,
+        "startChar": 31,
+        "endLine": 67,
+        "endChar": 66
+      },
+      "revId": "e39498fe798ec6f9563b8da65b672c0640150d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
