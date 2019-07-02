@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73a19bac_2ece9e43",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Can this be moved into CaptureSession.release() or CameraSession.close()?\n\nIt really should be the CaptureSession that handles what happens to the unissued CaptureConfigs.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3714b7_2cdf1baa",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Is this guaranteed to run on a single thread? Because this can be called by camera2 or by Camera.\n\nIf it isn\u0027t guaranteed to be single threaded then its not thread safe.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b99089c_d3eee379",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Should this just call the StateCallback.onClosed() method? And should the onClosed() method aslo have the request canceling?",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a17d149_5b684a4c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraCaptureCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Called when the capture request is not submitted to camera device due to camera device is closed or in other inappropriate states.\n-\u003e\nThis method is called when the capture request was not submitted to camera device, because it is in an inappropriate state (such as closed).",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb50de56_e9d98760",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "If a single capture fails, how come all of the requests in mImageCaptureRequests fail?\n\nEach takePictureInternal() chain should only cause a single ImageCaptureRequest to fail.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2bc3a18_fd2f287a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Please add a description of when this should be thrown",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce171d2_1bb9636a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "Please add a description of when this should be thrown",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a19fcdca_e47319ee",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T22:44:03Z",
+      "side": 1,
+      "message": "User doesn\u0027t need to know onCaptureFailed has occurred. But maybe something to the effect of \"a capture couldn\u0027t be issued\" or \"the camera failed to focus in time\". I\u0027m not sure what circumstance onCaptureFailed gets called, but it would be good to give an idea to the developer so they know how to handle this.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
