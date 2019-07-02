@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26686e5f_68911642",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "a minimal explanation of the class would be useful.",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9583afd9_b552a1b7",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "we use CamelCase for enums",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f07a1f9_98c7c5d9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "For example, some IME",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ce5f21_f05d8d96",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "send",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec31a8ac_51e33edb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "put a reference instead of plain text.",
+      "range": {
+        "startLine": 84,
+        "startChar": 74,
+        "endLine": 84,
+        "endChar": 93
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6dbe127_6f3f8984",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/TextInputServiceAndroid.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T21:45:56Z",
+      "side": 1,
+      "message": "nit: I dont think you need the blocks",
+      "range": {
+        "startLine": 121,
+        "startChar": 47,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
