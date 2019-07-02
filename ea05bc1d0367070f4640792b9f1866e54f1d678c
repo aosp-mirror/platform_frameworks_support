@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b703862_8b7a3df6",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T23:59:02Z",
+      "side": 1,
+      "message": "Can you use @Parameterized.Parameters to make LensFacing and EffectMode parameterized? This way you don\u0027t need to have exact duplicates of everything. In addition adding new modes (or LensFacing) would be simply adding to parameter set.",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadc063e_47191e4d",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T23:59:02Z",
+      "side": 1,
+      "message": "is it not easier to just directly call hasCameraWithLensFacing(CameraX.LensFacing.BACK)?",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "017f2e73_1fc18612",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T23:59:02Z",
+      "side": 1,
+      "message": "Better to split verifyEventCallbackInConfig() and verifyCanBindToLifeCycleAndTakePicture()\n\nThat way each test is more specific about what it is testing.",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17239548_c0a0ee14",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-02T23:59:02Z",
+      "side": 1,
+      "message": "Would be good to move this into androidx.camera.testing.CameraUtil",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
