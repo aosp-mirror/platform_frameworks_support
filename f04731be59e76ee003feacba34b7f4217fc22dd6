@@ -46,6 +46,30 @@
       "revId": "f04731be59e76ee003feacba34b7f4217fc22dd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa60228e_ea4bd0bf",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T21:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac489c69_410175cf",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "f04731be59e76ee003feacba34b7f4217fc22dd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
