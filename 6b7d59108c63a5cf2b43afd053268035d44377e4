@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fff2e7d_e0dc17d3",
+        "filename": "webkit/api/1.1.0-alpha02.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-02T21:29:09Z",
+      "side": 1,
+      "message": "I think this should be renamed to \"DOMAIN\" for consistency with \"onDomain()\", wdyt?",
+      "range": {
+        "startLine": 127,
+        "startChar": 37,
+        "endLine": 127,
+        "endChar": 59
+      },
+      "revId": "6b7d59108c63a5cf2b43afd053268035d44377e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7d8d25e_8231deb6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-02T21:29:09Z",
+      "side": 1,
+      "message": "Utility",
+      "range": {
+        "startLine": 291,
+        "startChar": 11,
+        "endLine": 291,
+        "endChar": 15
+      },
+      "revId": "6b7d59108c63a5cf2b43afd053268035d44377e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
