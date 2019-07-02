@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "386501cb_9edab200",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-02T16:57:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "499c70be_1179d43a",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "315909e2_a0b74079",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
         "patchSetId": 1
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "Let\u0027s just put these two methods close by each other for now. If it gets to be too complicated / difficult to understand we can consider other options.",
       "parentUuid": "315909e2_a0b74079",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2f243d5_b6a42984",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-02T16:57:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b8fe396_b6905732",
       "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
