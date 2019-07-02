@@ -29,7 +29,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.annotation.RestrictTo
 import androidx.compose.ObserverMap
-import androidx.ui.core.input.TextInputServiceAndroid
+import androidx.ui.text.input.TextInputServiceAndroid
 import androidx.ui.core.pointerinput.PointerInputEventProcessor
 import androidx.ui.core.pointerinput.toPointerInputEvent
 import androidx.ui.input.TextInputService

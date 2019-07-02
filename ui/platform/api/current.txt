@@ -325,14 +325,6 @@ package androidx.ui.core {
 
 }
 
-package androidx.ui.core.input {
-
-  public final class RecordingInputConnectionKt {
-    ctor public RecordingInputConnectionKt();
-  }
-
-}
-
 package androidx.ui.core.pointerinput {
 
   public final class MotionEventAdapterKt {
@@ -557,6 +549,14 @@ package androidx.ui.core.semantics {
   public final class SemanticsOwner {
     ctor public SemanticsOwner();
     method public void performAction(int id, androidx.ui.core.semantics.SemanticsActionType<?> action, Object? args = null);
+  }
+
+}
+
+package androidx.ui.text.input {
+
+  public final class RecordingInputConnectionKt {
+    ctor public RecordingInputConnectionKt();
   }
 
 }
