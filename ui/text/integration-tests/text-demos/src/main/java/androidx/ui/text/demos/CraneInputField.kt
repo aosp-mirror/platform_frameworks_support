@@ -28,7 +28,7 @@ import androidx.ui.input.EditorState
 import androidx.ui.layout.Column
 import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.VerticalScroller
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.TextStyle
 
 @Composable
 fun InputFieldDemo() {

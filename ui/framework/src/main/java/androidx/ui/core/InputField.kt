@@ -29,9 +29,9 @@ import androidx.ui.core.input.FocusManager
 import androidx.ui.graphics.Color
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
-import androidx.ui.painting.AnnotatedString
-import androidx.ui.painting.TextPainter
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.AnnotatedString
+import androidx.ui.text.TextPainter
+import androidx.ui.text.TextStyle
 
 /**
  * Data class holding text display attributes used for editors.
