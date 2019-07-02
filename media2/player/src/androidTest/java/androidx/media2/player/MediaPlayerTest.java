@@ -1454,7 +1454,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @MediumTest
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testSetFileMediaItem() throws Exception {
-        MediaItem closedItem = createMediaItem(0);
+        MediaItem closedItem = createMediaItem();
         ((FileMediaItem) closedItem).close();
         try {
             mPlayer.setMediaItem(closedItem);
@@ -1652,7 +1652,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testCurrentMediaItemChangedCalledAfterSetMediaItem() throws Exception {
         final int currentIdx = -1;
-        MediaItem item = createMediaItem(100);
+        MediaItem item1 = createMediaItem();
+        MediaItem item2 = createMediaItem();
 
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
@@ -1665,8 +1666,14 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         };
         mPlayer.registerPlayerCallback(mExecutor, callback);
 
-        PlayerResult result = mPlayer.setMediaItem(item).get();
-        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        PlayerResult result1 = mPlayer.setMediaItem(item1).get();
+        assertEquals(RESULT_SUCCESS, result1.getResultCode());
+        assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
+
+        // Test if multiple calls to setMediaItem calls onCurrentMediaItemChanged.
+        onCurrentMediaItemChangedMonitor.reset();
+        PlayerResult result2 = mPlayer.setMediaItem(item2).get();
+        assertEquals(RESULT_SUCCESS, result2.getResultCode());
         assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
     }
 
@@ -1694,7 +1701,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
     }
 
-    private MediaItem createMediaItem(int key) throws Exception {
+    private MediaItem createMediaItem() throws Exception {
         try (AssetFileDescriptor afd = mResources.openRawResourceFd(R.raw.testvideo)) {
             return new FileMediaItem.Builder(
                     ParcelFileDescriptor.dup(afd.getFileDescriptor()))
@@ -1707,7 +1714,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     private List<MediaItem> createPlaylist(int size) throws Exception {
         List<MediaItem> items = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
-            items.add(createMediaItem(i));
+            items.add(createMediaItem());
         }
         return items;
     }
