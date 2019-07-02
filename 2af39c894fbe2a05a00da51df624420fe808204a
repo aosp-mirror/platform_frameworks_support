@@ -16,6 +16,24 @@
       "revId": "2af39c894fbe2a05a00da51df624420fe808204a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b63e2b63_246bc418",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-02T18:20:02Z",
+      "side": 0,
+      "message": "Yes - it was deleted along with Future.kt in the test src dir.",
+      "parentUuid": "65ede12f_f0955e30",
+      "revId": "2af39c894fbe2a05a00da51df624420fe808204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

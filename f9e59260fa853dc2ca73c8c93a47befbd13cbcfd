@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b73da474_74f20606",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-02T18:20:02Z",
+      "side": 1,
+      "message": "It\u0027s still needed for - import androidx.arch.core.util.Function\n\nwhich I would like to replace fully with kotlin function types, but I think we need to keep for source compatibility - we could actually just break it though since it\u0027s a pretty minimal change.",
+      "parentUuid": "7a29359c_6ec4d620",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68b4d603_d51b188b",
         "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708feb39_09c82b9e",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-02T18:20:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68b4d603_d51b188b",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "00783ad8_72f5cc92",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-02T18:20:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4d4ac5f_ef072ee6",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2208e05_4dcde24f",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 14
@@ -67,6 +121,24 @@
       "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fb4b51_22686659",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-02T18:20:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2208e05_4dcde24f",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
