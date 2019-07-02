@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Jake Wharton <jakew@google.com>
+API-Review+1: Jake Wharton <jakew@google.com>
+Submitted-by: Dustin Lam <dustinlam@google.com>
+Submitted-at: Tue, 02 Jul 2019 19:46:04 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1007918
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
