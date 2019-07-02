@@ -17,6 +17,7 @@
 package androidx.work.impl.utils;
 
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -24,7 +25,11 @@ import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
+import androidx.work.WorkInfo;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility methods for {@link LiveData}.
@@ -81,6 +86,100 @@ public class LiveDataUtils {
             }
         });
         return outputLiveData;
+    }
+
+    /**
+     * Flatten {@link LiveData<WorkInfo>} with a {@link LiveData<Object>} for progress tracking.
+     *
+     * @param input    The {@link LiveData<WorkInfo>} to be flattened
+     * @param progress The {@link LiveData<Object>} progress to be flattened
+     * @return The flattened {@link LiveData<WorkInfo>}
+     */
+    @NonNull
+    @MainThread
+    public static LiveData<WorkInfo> flatten(
+            @NonNull LiveData<WorkInfo> input,
+            @Nullable LiveData<Object> progress) {
+
+        final MediatorLiveData<WorkInfo> flattened = new MediatorLiveData<>();
+        final Observer<Object> observer = new Observer<Object>() {
+            private WorkInfo mLastWorkInfo = null;
+            private Object mLastProgress = null;
+
+            @Override
+            public void onChanged(Object object) {
+                if (object == null) {
+                    flattened.postValue(null);
+                } else if (object instanceof WorkInfo) {
+                    mLastWorkInfo = (WorkInfo) object;
+                } else {
+                    mLastProgress = object;
+                }
+
+                List<String> tags = new ArrayList<>(mLastWorkInfo.getTags());
+                // We are on the main thread so it's safe to call setValue() here.
+                flattened.setValue(new WorkInfo(
+                        mLastWorkInfo.getId(),
+                        mLastWorkInfo.getState(),
+                        mLastWorkInfo.getOutputData(),
+                        tags,
+                        mLastWorkInfo.getRunAttemptCount(),
+                        mLastProgress));
+            }
+        };
+
+        flattened.addSource(input, observer);
+        if (progress != null) {
+            flattened.addSource(progress, observer);
+        }
+
+        return flattened;
+    }
+
+    /**
+     * Converts a {@link List<LiveData>} to a {@link LiveData<List>}.
+     *
+     * @param input The input {@link List<LiveData>}
+     * @param <T>   The input {@link LiveData} type
+     * @return The {@link List<LiveData>}
+     */
+    @NonNull
+    @MainThread
+    public static <T> LiveData<List<T>> flattenList(@NonNull List<LiveData<T>> input) {
+        final List<T> slots = new ArrayList<>(input.size());
+        final MediatorLiveData<List<T>> flattened = new MediatorLiveData<>();
+        for (int i = 0; i < slots.size(); i++) {
+            LiveData<T> source = input.get(i);
+            if (source != null) {
+                flattened.addSource(source, new PositionAwareObserver<>(flattened, slots, i));
+            }
+        }
+        return flattened;
+    }
+
+    /**
+     * An observer that helps convert a a {@link List<LiveData>} to a {@link LiveData<List>}.
+     */
+    static class PositionAwareObserver<T> implements Observer<T> {
+        private final MediatorLiveData<List<T>> mMediator;
+        private final List<T> mList;
+        private final int mIndex;
+
+        PositionAwareObserver(
+                @NonNull MediatorLiveData<List<T>> mediator,
+                @NonNull List<T> list,
+                int index) {
+
+            mMediator = mediator;
+            mList = list;
+            mIndex = index;
+        }
+
+        @Override
+        public void onChanged(T t) {
+            mList.set(mIndex, t);
+            mMediator.setValue(mList);
+        }
     }
 
     private LiveDataUtils() {
