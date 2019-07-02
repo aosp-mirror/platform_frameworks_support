@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d298c8_f47ff0bb",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-07-02T09:41:01Z",
+      "side": 1,
+      "message": "Unfortunately this value and the one below are already in use (they used to be in TrustedWebUtils but hidden, moved over now).",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "3666b8fc9358d876080783bf000caf9e67baf7b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
