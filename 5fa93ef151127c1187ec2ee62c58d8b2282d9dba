@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cef7e05c_3be002e8",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-02T19:38:09Z",
+      "side": 0,
+      "message": "It\u0027s happy to remove this :P",
+      "range": {
+        "startLine": 707,
+        "startChar": 36,
+        "endLine": 707,
+        "endChar": 50
+      },
+      "revId": "5fa93ef151127c1187ec2ee62c58d8b2282d9dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

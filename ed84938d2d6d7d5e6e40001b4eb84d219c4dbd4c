@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b4d7bd1_4a20ff40",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/Paragraph.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-02T19:38:09Z",
+      "side": 1,
+      "message": "nit: Should we unify the parameter naming? \n\"offset\" has two meanings now, it can be an index in text, or an Offset on canvas.\nThis is the same for \"position\", \"textPosition\" is an index, but \"position\" is an Offset on canvas.\nIt turned out that I need to check docs for several times to figure out what exactly it is. Having a much cleaner guideline on term usage should be much better. WDYT?",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 62
+      },
+      "revId": "ed84938d2d6d7d5e6e40001b4eb84d219c4dbd4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379468ba_f4fce668",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-02T19:38:09Z",
+      "side": 1,
+      "message": "I think this comment doesn\u0027t make sense anymore. We can already test everything we need with those getters.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 89
+      },
+      "revId": "ed84938d2d6d7d5e6e40001b4eb84d219c4dbd4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
