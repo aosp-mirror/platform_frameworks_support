@@ -31,6 +31,7 @@ import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.integration.core.idlingresource.ElapsedTimeIdlingResource;
 import androidx.camera.testing.CameraUtil;
+import androidx.camera.testing.CoreAppTestUtil;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
@@ -83,6 +84,7 @@ public final class BasicUITest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+        assumeTrue(CoreAppTestUtil.isCompatibleDevice());
 
         // In case the lock screen on top, the action to dismiss it.
         mDevice.pressKeyCode(DISMISS_LOCK_SCREEN_CODE);
