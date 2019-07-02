@@ -46,6 +46,30 @@
       "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6037258_4acdd16e",
+        "filename": "core/core/src/main/java/androidx/core/util/Predicate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T20:19:19Z",
+      "side": 1,
+      "message": "Is there a motivating use case for this?\n\nIn general I\u0027m opposed to this:\n- Core is for APIs in android.* not java.* (we should have never put Consumer or Supplier in here)\n- There\u0027s also arch common which inexplicably has Function but nothing else\n- The cost of defining your own, semantically-named interface in your library is small.\n- D8 is about to ship Java 8 library desugaring of the java.util.functional.* package in the AGP 3.6 timeframe.",
+      "parentUuid": "37c50340_4ce7d968",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
