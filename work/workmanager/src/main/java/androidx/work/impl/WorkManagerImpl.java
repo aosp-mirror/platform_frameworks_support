@@ -324,9 +324,7 @@ public class WorkManagerImpl extends WorkManager {
 
     @Override
     @NonNull
-    public Operation enqueue(
-            @NonNull List<? extends WorkRequest> workRequests) {
-
+    public Operation enqueue(@NonNull List<? extends WorkRequest> workRequests) {
         // This error is not being propagated as part of the Operation, as we want the
         // app to crash during development. Having no workRequests is always a developer error.
         if (workRequests.isEmpty()) {
@@ -460,7 +458,7 @@ public class WorkManagerImpl extends WorkManager {
         WorkSpecDao dao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
                 dao.getWorkStatusPojoLiveDataForIds(Collections.singletonList(id.toString()));
-        return LiveDataUtils.dedupedMappedLiveDataFor(inputLiveData,
+        LiveData<WorkInfo> workInfoLiveData = LiveDataUtils.dedupedMappedLiveDataFor(inputLiveData,
                 new Function<List<WorkSpec.WorkInfoPojo>, WorkInfo>() {
                     @Override
                     public WorkInfo apply(List<WorkSpec.WorkInfoPojo> input) {
@@ -472,6 +470,9 @@ public class WorkManagerImpl extends WorkManager {
                     }
                 },
                 mWorkTaskExecutor);
+
+        LiveData<Object> progressLiveData = getProcessor().getProgress(id.toString());
+        return LiveDataUtils.flatten(workInfoLiveData, progressLiveData);
     }
 
     @Override
@@ -535,7 +536,7 @@ public class WorkManagerImpl extends WorkManager {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public void startWork(String workSpecId) {
+    public void startWork(@NonNull String workSpecId) {
         startWork(workSpecId, null);
     }
 
@@ -545,7 +546,9 @@ public class WorkManagerImpl extends WorkManager {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public void startWork(String workSpecId, WorkerParameters.RuntimeExtras runtimeExtras) {
+    public void startWork(
+            @NonNull String workSpecId,
+            @Nullable WorkerParameters.RuntimeExtras runtimeExtras) {
         mWorkTaskExecutor
                 .executeOnBackgroundThread(
                         new StartWorkRunnable(this, workSpecId, runtimeExtras));

@@ -43,6 +43,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -100,6 +101,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     private Context mContext;
     private Scheduler mMockScheduler;
     private Executor mSynchronousExecutor = new SynchronousExecutor();
+    private MutableLiveData<Object> mProgress;
 
     @Before
     public void setUp() {
@@ -112,6 +114,7 @@ public class WorkerWrapperTest extends DatabaseTest {
         mWorkSpecDao = mDatabase.workSpecDao();
         mDependencyDao = mDatabase.dependencyDao();
         mMockScheduler = mock(Scheduler.class);
+        mProgress = new MutableLiveData<>();
     }
 
     @Test
@@ -195,7 +198,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                                 1,
                                 mSynchronousExecutor,
                                 mWorkTaskExecutor,
-                                mConfiguration.getWorkerFactory()));
+                                mConfiguration.getWorkerFactory(),
+                                mProgress));
 
         WorkerWrapper workerWrapper = createBuilder(work.getStringId())
                 .withWorker(usedWorker)
@@ -770,7 +774,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getApplicationContext(), is(equalTo(mContext.getApplicationContext())));
@@ -796,7 +801,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getInputData().getString(key), is(expectedValue));
@@ -813,7 +819,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getInputData().size(), is(0));
@@ -839,7 +846,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getTags(), containsInAnyOrder("one", "two", "three"));
@@ -865,7 +873,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker.getTriggeredContentAuthorities(),
@@ -949,7 +958,8 @@ public class WorkerWrapperTest extends DatabaseTest {
                                 1,
                                 Executors.newSingleThreadExecutor(),
                                 mWorkTaskExecutor,
-                                mConfiguration.getWorkerFactory()));
+                                mConfiguration.getWorkerFactory(),
+                                mProgress));
 
         WorkerWrapper workerWrapper =
                 createBuilder(work.getStringId())
@@ -990,7 +1000,9 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
+
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
 
@@ -1022,7 +1034,9 @@ public class WorkerWrapperTest extends DatabaseTest {
                         1,
                         mSynchronousExecutor,
                         mWorkTaskExecutor,
-                        mConfiguration.getWorkerFactory()));
+                        mConfiguration.getWorkerFactory(),
+                        mProgress));
+
         assertThat(worker, is(notNullValue()));
         assertThat(worker.isStopped(), is(false));
 
@@ -1117,6 +1131,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 mConfiguration,
                 mWorkTaskExecutor,
                 mDatabase,
+                mProgress,
                 workSpecId);
     }
 
