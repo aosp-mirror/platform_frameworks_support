@@ -1344,6 +1344,16 @@ package androidx.ui.input {
     property public final String text;
   }
 
+  public final class KeyboardTypesKt {
+    ctor public KeyboardTypesKt();
+    field public static final int KEYBOARD_TYPE_ASCII = 1; // 0x1
+    field public static final int KEYBOARD_TYPE_EMAIL = 5; // 0x5
+    field public static final int KEYBOARD_TYPE_NUMBER = 2; // 0x2
+    field public static final int KEYBOARD_TYPE_PHONE = 3; // 0x3
+    field public static final int KEYBOARD_TYPE_TEXT = 0; // 0x0
+    field public static final int KEYBOARD_TYPE_URI = 4; // 0x4
+  }
+
 }
 
 package androidx.ui.painting {
