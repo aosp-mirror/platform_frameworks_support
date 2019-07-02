@@ -89,6 +89,57 @@
     },
     {
       "key": {
+        "uuid": "14f2454b_92a9f159",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "Why do you need the activity rule? You dont seem to be using it. Shouldn\u0027t compose work fine on the test thread?\n\nAlso, even if you do need it, you can use @UiThreadTest instead of runOnUiThread {} to simplify",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0befe31_a9d23e53",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "lambda",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237dd5d3_5c64a5a8",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "don\u0027t extract the block this way, just do:\n\n    benchmarkRule.measureRepeated {\n        // stuff to measure\n    }\n\nLooking at it, this way may break inlining (doesn\u0027t matter much in a relatively large benchmark like this, but not a good habit)",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ee7a2d1_2a28bc97",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -182,6 +233,30 @@
     },
     {
       "key": {
+        "uuid": "162cadb7_acc35fcc",
+        "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/DefaultBenchmarkActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "No, you can just use Activity, and declare android.app.Activity in the manifest",
+      "parentUuid": "5d0edacb_e9d9936d",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b32ea491_5ccdb312",
         "filename": "ui/integration-tests/build.gradle",
         "patchSetId": 1
@@ -205,6 +280,30 @@
     },
     {
       "key": {
+        "uuid": "ddeb6d66_0fd732ed",
+        "filename": "ui/integration-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "The benchmarks are in a separate module, so he doesn\u0027t need that here.",
+      "parentUuid": "b32ea491_5ccdb312",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ce677a8_7203aa2e",
         "filename": "ui/integration-tests/build.gradle",
         "patchSetId": 1
@@ -222,6 +321,40 @@
         "endLine": 43,
         "endChar": 29
       },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163d8c09_ac644e7d",
+        "filename": "ui/integration-tests/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "only need this in benchmark module.",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248dc85f_ff71b403",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-07-02T17:00:32Z",
+      "side": 1,
+      "message": "same as in benchmark - not needed",
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
