@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
@@ -261,7 +262,8 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
                         1,
                         executor,
                         mWorkTaskExecutor,
-                        workerFactory));
+                        workerFactory,
+                        new MutableLiveData<>()));
 
         assertThat(worker, is(notNullValue()));
         assertThat(worker,
@@ -276,6 +278,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
                 mConfiguration,
                 mWorkTaskExecutor,
                 mDatabase,
+                new MutableLiveData<>(),
                 mWork.getStringId());
     }
 }

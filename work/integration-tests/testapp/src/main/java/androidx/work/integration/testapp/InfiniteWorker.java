@@ -33,6 +33,7 @@ public class InfiniteWorker extends Worker {
         while (true) {
             try {
                 Thread.sleep(5000L);
+                setProgress(System.currentTimeMillis());
             } catch (InterruptedException e) {
                 return Result.retry();
             } finally {

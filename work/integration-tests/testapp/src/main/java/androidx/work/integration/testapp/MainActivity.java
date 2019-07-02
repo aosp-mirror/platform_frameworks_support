@@ -39,6 +39,7 @@ import androidx.lifecycle.Observer;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
+import androidx.work.Logger;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
@@ -58,7 +59,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "WM-MainActivity";
     private static final String UNIQUE_WORK_NAME = "importantUniqueWork";
     private static final String REPLACE_COMPLETED_WORK = "replaceCompletedWork";
     private static final int NUM_WORKERS = 150;
@@ -72,12 +73,23 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WorkManager.getInstance(MainActivity.this).enqueue(
+                        OneTimeWorkRequest request =
                                 new OneTimeWorkRequest.Builder(InfiniteWorker.class)
                                         .setConstraints(new Constraints.Builder()
                                                 .setRequiresCharging(true)
                                                 .build())
-                                        .build());
+                                        .build();
+                        WorkManager.getInstance(MainActivity.this).enqueue(request);
+                        WorkManager.getInstance(MainActivity.this)
+                                .getWorkInfoByIdLiveData(request.getId())
+                                .observe(MainActivity.this, new Observer<WorkInfo>() {
+                                    @Override
+                                    public void onChanged(WorkInfo workInfo) {
+                                        Logger.get().info(TAG,
+                                                String.format("WorkInfo (%s)", workInfo));
+                                    }
+                                });
+
                     }
                 });
 

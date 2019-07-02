@@ -18,6 +18,7 @@ package androidx.work;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
 import java.util.HashSet;
@@ -38,6 +39,7 @@ public final class WorkInfo {
     private @NonNull Data mOutputData;
     private @NonNull Set<String> mTags;
     private int mRunAttemptCount;
+    private @Nullable Object mProgress;
 
     /**
      * @hide
@@ -49,11 +51,26 @@ public final class WorkInfo {
             @NonNull Data outputData,
             @NonNull List<String> tags,
             int runAttemptCount) {
+        this(id, state, outputData, tags, runAttemptCount, null);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public WorkInfo(
+            @NonNull UUID id,
+            @NonNull State state,
+            @NonNull Data outputData,
+            @NonNull List<String> tags,
+            int runAttemptCount,
+            @Nullable Object progress) {
         mId = id;
         mState = state;
         mOutputData = outputData;
         mTags = new HashSet<>(tags);
         mRunAttemptCount = runAttemptCount;
+        mProgress = progress;
     }
 
     /**
@@ -104,6 +121,14 @@ public final class WorkInfo {
         return mRunAttemptCount;
     }
 
+    /**
+     * @return The progress of the {@link WorkRequest}.
+     */
+    @Nullable
+    public Object getProgress() {
+        return mProgress;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,7 +140,10 @@ public final class WorkInfo {
         if (!mId.equals(workInfo.mId)) return false;
         if (mState != workInfo.mState) return false;
         if (!mOutputData.equals(workInfo.mOutputData)) return false;
-        return mTags.equals(workInfo.mTags);
+        if (!mTags.equals(workInfo.mTags)) return false;
+        return mProgress != null ? mProgress.equals(workInfo.mProgress)
+                : workInfo.mProgress == null;
+
     }
 
     @Override
@@ -125,6 +153,7 @@ public final class WorkInfo {
         result = 31 * result + mOutputData.hashCode();
         result = 31 * result + mTags.hashCode();
         result = 31 * result + mRunAttemptCount;
+        result = 31 * result + (mProgress != null ? mProgress.hashCode() : 0);
         return result;
     }
 
@@ -135,6 +164,7 @@ public final class WorkInfo {
                 +   ", mState=" + mState
                 +   ", mOutputData=" + mOutputData
                 +   ", mTags=" + mTags
+                +   ", mProgress=" + mProgress
                 + '}';
     }
 
