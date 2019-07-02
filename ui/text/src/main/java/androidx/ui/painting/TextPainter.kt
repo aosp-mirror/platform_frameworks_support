@@ -19,6 +19,7 @@ package androidx.ui.painting
 import androidx.annotation.RestrictTo
 import androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP
 import androidx.annotation.VisibleForTesting
+import androidx.ui.androidx.ui.text.ParagraphFactory
 import androidx.ui.core.Constraints
 import androidx.ui.core.Density
 import androidx.ui.core.IntPxSize
@@ -108,7 +109,8 @@ class TextPainter(
     val softWrap: Boolean = true,
     val overflow: TextOverflow = TextOverflow.Clip,
     val locale: Locale? = null,
-    val density: Density
+    val density: Density,
+    val paragraphFactory: ParagraphFactory
 ) {
     init {
         assert(maxLines == null || maxLines > 0)
@@ -190,7 +192,8 @@ class TextPainter(
                     // direction doesn't matter, text is just a space
                     paragraphStyle = createParagraphStyle(),
                     textStyles = listOf(),
-                    density = density
+                    density = density,
+                    paragraphFactory = paragraphFactory
                 )
                 layoutTemplate?.layout(ParagraphConstraints(width = Float.POSITIVE_INFINITY))
             }
@@ -307,7 +310,8 @@ class TextPainter(
                 style = createTextStyle(),
                 paragraphStyle = createParagraphStyle(),
                 textStyles = text!!.textStyles,
-                density = density)
+                density = density,
+                paragraphFactory = paragraphFactory)
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -341,7 +345,8 @@ class TextPainter(
                 text = AnnotatedString(text = "\u2026", textStyles = listOf()),
                 style = textStyle,
                 paragraphStyle = paragraphStyle,
-                density = density
+                density = density,
+                paragraphFactory = paragraphFactory
             )
             fadeSizePainter.layoutText()
             val fadeWidth = fadeSizePainter.paragraph!!.width

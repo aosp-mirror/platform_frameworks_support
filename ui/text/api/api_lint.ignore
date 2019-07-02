@@ -45,7 +45,7 @@ AutoBoxing: androidx.ui.painting.ParagraphStyle#copy(androidx.ui.engine.text.Tex
     Must avoid boxed primitives (`java.lang.Float`)
 AutoBoxing: androidx.ui.painting.ParagraphStyle#getLineHeight():
     Must avoid boxed primitives (`java.lang.Float`)
-AutoBoxing: androidx.ui.painting.TextPainter#TextPainter(androidx.ui.painting.AnnotatedString, androidx.ui.painting.TextStyle, androidx.ui.painting.ParagraphStyle, Integer, boolean, androidx.ui.rendering.paragraph.TextOverflow, androidx.ui.engine.window.Locale, androidx.ui.core.Density) parameter #3:
+AutoBoxing: androidx.ui.painting.TextPainter#TextPainter(androidx.ui.painting.AnnotatedString, androidx.ui.painting.TextStyle, androidx.ui.painting.ParagraphStyle, Integer, boolean, androidx.ui.rendering.paragraph.TextOverflow, androidx.ui.engine.window.Locale, androidx.ui.core.Density, androidx.ui.androidx.ui.text.ParagraphFactory) parameter #3:
     Must avoid boxed primitives (`java.lang.Integer`)
 AutoBoxing: androidx.ui.painting.TextPainter#getMaxLines():
     Must avoid boxed primitives (`java.lang.Integer`)

@@ -58,7 +58,6 @@ import org.hamcrest.Matchers.nullValue
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -67,18 +66,16 @@ import kotlin.math.ceil
 @RunWith(JUnit4::class)
 @SmallTest
 class ParagraphAndroidTest {
-    private lateinit var fontFamily: FontFamily
+    /**
+     * This sample font provides the following features:
+     *
+     * 1. The width of most of visible characters equals to font size.
+     * 2. The LTR/RTL characters are rendered as ▶/◀.
+     * 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
+     */
+    private val fontFamily: FontFamily = BASIC_MEASURE_FONT.asFontFamily()
     private val defaultDensity = Density(density = 1f)
-
-    @Before
-    fun setup() {
-        // This sample font provides the following features:
-        // 1. The width of most of visible characters equals to font size.
-        // 2. The LTR/RTL characters are rendered as ▶/◀.
-        // 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
-        fontFamily = BASIC_MEASURE_FONT.asFontFamily()
-        fontFamily.context = InstrumentationRegistry.getInstrumentation().context
-    }
+    private val context = InstrumentationRegistry.getInstrumentation().context
 
     @Test
     fun draw_with_newline_and_line_break_default_values() {
@@ -98,7 +95,7 @@ class ParagraphAndroidTest {
 
                 val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
                 textPaint.textSize = fontSize.toPx().value
-                textPaint.typeface = TypefaceAdapter().create(fontFamily)
+                textPaint.typeface = TypefaceAdapter(context).create(fontFamily)
 
                 val staticLayout = StaticLayoutCompat.Builder(
                     text,
@@ -529,6 +526,61 @@ class ParagraphAndroidTest {
     }
 
     @Test
+    fun locale_isDefaultLocaleIfNotProvided() {
+        val text = "abc"
+        val paragraph = simpleParagraph(text = text)
+
+        paragraph.layout(Float.MAX_VALUE)
+
+        assertThat(
+            paragraph.textLocale.toLanguageTag(),
+            equalTo(java.util.Locale.getDefault().toLanguageTag())
+        )
+    }
+
+    @Test
+    fun locale_isSetOnParagraphImpl_enUS() {
+        val locale = Locale(_languageCode = "en", _countryCode = "US")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(Float.MAX_VALUE)
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("en-US"))
+    }
+
+    @Test
+    fun locale_isSetOnParagraphImpl_jpJP() {
+        val locale = Locale(_languageCode = "ja", _countryCode = "JP")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(Float.MAX_VALUE)
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("ja-JP"))
+    }
+
+    @Test
+    fun locale_noCountryCode_isSetOnParagraphImpl() {
+        val locale = Locale(_languageCode = "ja")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(Float.MAX_VALUE)
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("ja"))
+    }
+
+    @Test
     fun testAnnotatedString_setBaselineShiftOnWholeText() {
         val text = "abcde"
         val textStyle = TextStyle(baselineShift = BaselineShift.Subscript)
@@ -740,7 +792,7 @@ class ParagraphAndroidTest {
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
-        val expectedTypeface = TypefaceAdapter().create(
+        val expectedTypeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
@@ -777,7 +829,7 @@ class ParagraphAndroidTest {
             fontWeight = FontWeight.bold,
             fontSynthesis = FontSynthesis.None
         )
-        val expectedTypeface = TypefaceAdapter().create(
+        val expectedTypeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
@@ -846,7 +898,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testEmptyFontFamily_withBoldFontWeightSelection() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
 
         val paragraph = simpleParagraph(
             text = "abc",
@@ -873,7 +925,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testEmptyFontFamily_withFontStyleSelection() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val paragraph = simpleParagraph(
             text = "abc",
             textStyle = TextStyle(
@@ -899,7 +951,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testFontFamily_withGenericFamilyName() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val fontFamily = FontFamily("sans-serif")
 
         val paragraph = simpleParagraph(
@@ -926,7 +978,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testFontFamily_withCustomFont() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val paragraph = simpleParagraph(
             text = "abc",
             textStyle = TextStyle(
@@ -1197,7 +1249,7 @@ class ParagraphAndroidTest {
         ellipsis: Boolean? = null,
         maxLines: Int? = null,
         textStyle: TextStyle? = null,
-        typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
+        typefaceAdapter: TypefaceAdapter = TypefaceAdapter(context)
     ): ParagraphAndroid {
         return ParagraphAndroid(
             text = text,
