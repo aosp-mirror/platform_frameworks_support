@@ -70,6 +70,30 @@
       "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2f0a3e4_db5328de",
+        "filename": "core/core/src/main/java/androidx/core/util/Predicate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-02T20:22:27Z",
+      "side": 1,
+      "message": "b/135217011 has background on why I wanted to define a new functional interface. Can move this into the car library (and same it something specific to its use-case) if that that\u0027s something you would prefer.",
+      "parentUuid": "d6037258_4acdd16e",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
