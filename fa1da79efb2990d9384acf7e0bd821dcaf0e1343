@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "73b56dbb_e72f62f2",
+        "filename": "compose/compose-runtime/src/main/java/androidx/compose/Recomposer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "So FakeChoreographer is gonne :) Problem solved.",
+      "parentUuid": "a8287dd5_8251ded0",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c09caddf_354aef82",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
         "patchSetId": 1
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "f432f8a3_6fb0a445",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "So I changed it so we don\u0027t expose the CraneWrapper anymore. But not sure where to put this function. Could you take a look?",
+      "parentUuid": "9b179520_ad6877e4",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 22
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b668866d_05217b67",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "d18a5d14_293013ad",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Nice :)",
+      "parentUuid": "b668866d_05217b67",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14f2454b_92a9f159",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -103,6 +169,24 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfd390a_286c0431",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Compose is quite hardwired to have the Activity present (to even compose itself). This might be later solved once we start playing with host side testing.\n\nAlso UiThreadTest annotation does not work with Parametrized tests.",
+      "parentUuid": "14f2454b_92a9f159",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "e7cabdc2_61fd47fc",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "I can\u0027t use lambda here. The compiler we have chokes on casting these to anonymous objects.",
+      "parentUuid": "a0befe31_a9d23e53",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "237dd5d3_5c64a5a8",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -137,6 +239,24 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89305f2e_90df78b4",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Sorry I just copied this from somewhere. Fixed.",
+      "parentUuid": "237dd5d3_5c64a5a8",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a2917c29_0882b9a7",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Moved away from Choreographer and using recomposeSync with assert added now.",
+      "parentUuid": "0123eb23_7eb87e91",
+      "range": {
+        "startLine": 79,
+        "startChar": 48,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aef10cd3_b32361e2",
         "filename": "ui/integration-tests/benchmark/src/main/AndroidManifest.xml",
         "patchSetId": 1
@@ -207,6 +351,30 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257dc201_79cad144",
+        "filename": "ui/integration-tests/benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef10cd3_b32361e2",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "dd43bca2_730b2e9b",
+        "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/DefaultBenchmarkActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Oh, that makes life easier :)",
+      "parentUuid": "162cadb7_acc35fcc",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b32ea491_5ccdb312",
         "filename": "ui/integration-tests/build.gradle",
         "patchSetId": 1
@@ -304,6 +496,30 @@
     },
     {
       "key": {
+        "uuid": "aa5e75be_1354b885",
+        "filename": "ui/integration-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "This is the integration-tests module that does not run benchmarks. The integration-tests:benchmark module has the depenendecy.",
+      "parentUuid": "b32ea491_5ccdb312",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ce677a8_7203aa2e",
         "filename": "ui/integration-tests/build.gradle",
         "patchSetId": 1
@@ -327,6 +543,30 @@
     },
     {
       "key": {
+        "uuid": "6f3892bd_3a82edb2",
+        "filename": "ui/integration-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ce677a8_7203aa2e",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "163d8c09_ac644e7d",
         "filename": "ui/integration-tests/src/androidTest/AndroidManifest.xml",
         "patchSetId": 1
@@ -344,6 +584,24 @@
     },
     {
       "key": {
+        "uuid": "4a737fab_1b396ec7",
+        "filename": "ui/integration-tests/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163d8c09_ac644e7d",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "248dc85f_ff71b403",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 1
@@ -358,6 +616,24 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d93e74b_9e364ac0",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Need to keep it.",
+      "parentUuid": "248dc85f_ff71b403",
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -384,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "7cddaa8b_7d274709",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Want to guess? This remained from previous experimenting due to unsued variables :)",
+      "parentUuid": "6bd293e5_e2cd5ae7",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22be030b_60d7c6d4",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 1
@@ -404,6 +704,30 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a1e309_0926b1f8",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22be030b_60d7c6d4",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -430,6 +754,30 @@
     },
     {
       "key": {
+        "uuid": "b6ab7086_6e558a92",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/RectanglesInColumnTestCase.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ec7296_4eb236c3",
+      "range": {
+        "startLine": 49,
+        "startChar": 16,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b110c5de_85bb18c5",
         "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
         "patchSetId": 1
@@ -450,6 +798,30 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a04e99_d3ce0ea5",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "I will move this to material in next cls.",
+      "parentUuid": "b110c5de_85bb18c5",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -497,6 +869,30 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74885bb9_ad12a0e2",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "Solved as moved away from Choreographer.",
+      "parentUuid": "0c6e8938_4d54c8fd",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -568,6 +964,30 @@
       "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d78bf7_4d9ae7c2",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-02T19:41:52Z",
+      "side": 1,
+      "message": "I think you are just forming this based on the content of this CL which was my mistake of not explaining what this module will contain. This was explained in the perfomance testing design doc where I originally proposed this. So this module will contain benchmarks that span across several modules. E.g. there is already a benchmark pending from George that measures layout on \n a row of checkboxes. And that perfectly fits here. Just by definition this is integration test across several modules thus not belonging to specific module. And if we would decide on putting this to specific modules we would have to arbitrarily decide on where to put it, as for instance does benchmark of layout of checkboxes belong to material or layout? And let\u0027s not forget on the duplication we would have to copy this to individual modules. Also I don\u0027t think there is anything bad on depending on stuff here. This is not library that is going to ship to devices. I would recommend checking other projects on github that use similar structure (e.g. flutter).",
+      "parentUuid": "d3d597ab_a65130d9",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
