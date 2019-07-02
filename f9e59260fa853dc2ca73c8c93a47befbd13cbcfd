@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a29359c_6ec4d620",
+        "filename": "paging/common/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T15:52:43Z",
+      "side": 1,
+      "message": "Is this still used?",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b4d603_d51b188b",
+        "filename": "paging/common/src/main/kotlin/androidx/paging/PagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T15:52:43Z",
+      "side": 1,
+      "message": "You can remove the try/catch as well",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d4ac5f_ef072ee6",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T15:52:43Z",
+      "side": 1,
+      "message": "This should be able to be `launch`. Instead of launching again inside this coroutine, use `withContext` to move the coroutine to execute on the notifyExecutor. This also means the property should change to just `Job` instead of `Deferred\u003cJob\u003e`.",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2208e05_4dcde24f",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T15:52:43Z",
+      "side": 1,
+      "message": "We should leave a TODO here. The Observable can be converted to be async instead of blocking with a subscribeOn.",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

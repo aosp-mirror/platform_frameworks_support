@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65ede12f_f0955e30",
+        "filename": "paging/common/src/test/kotlin/androidx/paging/PageKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T15:52:43Z",
+      "side": 0,
+      "message": "Has this become unused now?",
+      "revId": "2af39c894fbe2a05a00da51df624420fe808204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
