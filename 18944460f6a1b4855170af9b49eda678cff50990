@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "901696d5_4891f2f1",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-02T21:30:37Z",
+      "side": 1,
+      "message": "Why do we need this when we already have CraneWrapper?",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ea30f0_c4c46c10",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-02T21:30:37Z",
+      "side": 1,
+      "message": "Consider using @UiThreadTest here",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b7a690_69de2f6b",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-02T21:30:37Z",
+      "side": 1,
+      "message": "Consider `assertFalse` here",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17efe71_f7bf0849",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-02T21:30:37Z",
+      "side": 1,
+      "message": "Consider `assertTrue` here",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "161bce89_18abf3fa",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-02T21:30:37Z",
+      "side": 1,
+      "message": "Still needed?",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbdfbff2_f92cba81",
         "filename": "ui/test/build.gradle",
         "patchSetId": 2
