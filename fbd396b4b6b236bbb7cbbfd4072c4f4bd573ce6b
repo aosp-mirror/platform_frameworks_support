@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34a3ea69_990c1d5e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08788961_e2833c16",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b06f89e4_864487b4",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c27dea5c_c1ca4c09",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "unfortunately clipToOutline works only for Rects and RoundedRects with uniform radiused. so as a compatibility mode for other shapes I have to clip it manually. that why I have to rerecord RenderNode\u0027s content when the clipping path has been changed",
+      "parentUuid": "b06f89e4_864487b4",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 730,
+        "endChar": 45
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7e92a5cd_a1407495",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "updated to use the same of RepaintBoundary",
+      "parentUuid": "0ea94e8e_dab15859",
+      "range": {
+        "startLine": 878,
+        "startChar": 12,
+        "endLine": 878,
+        "endChar": 48
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fa0fbcf_867411fe",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1c5740b8_88d4f60d",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "it will be cleared: on line 761 in Views implementation and on line 844 in RenderNodes.\nthe reason for this check is to restrict usage of this method when hasShape returns false, as instead of applying outline we need to provide null ViewOutlineProvider for View or null Outline for RenderNodes.",
+      "parentUuid": "4fa0fbcf_867411fe",
+      "range": {
+        "startLine": 891,
+        "startChar": 12,
+        "endLine": 891,
+        "endChar": 26
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "822dc12b_7bf8ac45",
         "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-07-01T21:44:15Z",
       "side": 1,
       "message": "I\u0027m not sure instanceof checks are the most efficient. We may want to use an abstract method here and setConvexPath(). It is good to test efficiency of this as performance has been a big concern.",
+      "range": {
+        "startLine": 900,
+        "startChar": 8,
+        "endLine": 900,
+        "endChar": 21
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc83113_08de941b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "I am not sure it is possible to replace this with abstract methods. I am using Outline sealed classes as holders for the values basically. and here I just take rect if it contains rect, take rrect if it contains rrect.\nwe can\u0027t add method \nclass Outline {\n   abstract fun applyToAndroidOutline(outline: android.graphic.Outline)\n}\nas this will add the Android dependency for Outline.\n\nwe can add\nclass Outline {\n   abstract val rect: Rect?\n   abstract val rrect: RRect?\n   abstract val path: Path?\n}\nbut this would pollute Outline implementations quite a lot, not sure we want it.\ninstanceof for classes should be fast enough.\nWith benchmarkRule.measureRepeated it takes 19 ns on my Pixel 2",
+      "parentUuid": "822dc12b_7bf8ac45",
       "range": {
         "startLine": 900,
         "startChar": 8,
@@ -137,6 +257,30 @@
       "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc1e4b32_be186691",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-02T17:46:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a87b35_189ef448",
+      "range": {
+        "startLine": 297,
+        "startChar": 23,
+        "endLine": 297,
+        "endChar": 35
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
