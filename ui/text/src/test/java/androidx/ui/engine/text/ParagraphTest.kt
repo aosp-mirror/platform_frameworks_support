@@ -15,10 +15,14 @@
  */
 package androidx.ui.engine.text
 
+import androidx.ui.androidx.ui.text.ParagraphFactory
+import androidx.ui.androidx.ui.text.ParagraphInterface
 import androidx.ui.core.Density
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.painting.TextStyle
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -33,7 +37,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        assertThat(paragraph.width, equalTo(-1.0f))
+        assertThat(paragraph.width, equalTo(0f))
     }
 
     @Test
@@ -41,7 +45,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        assertThat(paragraph.height, equalTo(0.0f))
+        assertThat(paragraph.height, equalTo(0f))
     }
 
     @Test
@@ -49,7 +53,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        assertThat(paragraph.minIntrinsicWidth, equalTo(0.0f))
+        assertThat(paragraph.minIntrinsicWidth, equalTo(0f))
     }
 
     @Test
@@ -57,7 +61,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        assertThat(paragraph.maxIntrinsicWidth, equalTo(0.0f))
+        assertThat(paragraph.maxIntrinsicWidth, equalTo(0f))
     }
 
     @Test
@@ -65,7 +69,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        assertThat(paragraph.baseline, equalTo(Float.MAX_VALUE))
+        assertThat(paragraph.baseline, equalTo(0f))
     }
 
     @Test
@@ -81,7 +85,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        paragraph.paint(mock(), 0.0f, 0.0f)
+        paragraph.paint(mock(), 0f, 0f)
     }
 
     @Test(expected = IllegalStateException::class)
@@ -89,7 +93,7 @@ class ParagraphTest {
         val paragraphStyle = createParagraphStyle()
         val paragraph = createParagraph(paragraphStyle)
 
-        paragraph.getPositionForOffset(Offset(0.0f, 0.0f))
+        paragraph.getPositionForOffset(Offset(0f, 0f))
     }
 
     @Test(expected = AssertionError::class)
@@ -126,12 +130,18 @@ class ParagraphTest {
     }
 
     private fun createParagraph(paragraphStyle: ParagraphStyle): Paragraph {
+        val paragraphFactory = mock<ParagraphFactory>()
+        whenever(
+            paragraphFactory.createParagraph(any(), any(), any(), any(), any())
+        ).thenReturn(mock<ParagraphInterface>())
+
         return Paragraph(
             text = "",
             style = TextStyle(),
             paragraphStyle = paragraphStyle,
             textStyles = listOf(),
-            density = Density(density = 1f)
+            density = Density(density = 1f),
+            paragraphFactory = paragraphFactory
         )
     }
 
