@@ -57,7 +57,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.CoreMatchers.not
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -67,16 +66,11 @@ import org.mockito.junit.MockitoJUnitRunner
 class TypefaceAdapterTest {
     // TODO(Migration/siyamed): These native calls should be removed after the
     // counterparts are implemented in crane.
-    private lateinit var context: Context
-
-    @Before
-    fun setup() {
-        context = InstrumentationRegistry.getInstrumentation().context
-    }
+    private var context: Context = InstrumentationRegistry.getInstrumentation().context
 
     @Test
     fun createDefaultTypeface() {
-        val typeface = TypefaceAdapter().create()
+        val typeface = TypefaceAdapter(context).create()
 
         assertThat(typeface).isNotNull()
         assertThat(typeface.isBold).isFalse()
@@ -85,7 +79,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun fontWeightItalicCreatesItalicFont() {
-        val typeface = TypefaceAdapter().create(fontStyle = FontStyle.Italic)
+        val typeface = TypefaceAdapter(context).create(fontStyle = FontStyle.Italic)
 
         assertThat(typeface).isNotNull()
         assertThat(typeface.isBold).isFalse()
@@ -94,7 +88,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun fontWeightBoldCreatesBoldFont() {
-        val typeface = TypefaceAdapter().create(fontWeight = FontWeight.bold)
+        val typeface = TypefaceAdapter(context).create(fontWeight = FontWeight.bold)
 
         assertThat(typeface).isNotNull()
         assertThat(typeface.isBold).isTrue()
@@ -103,7 +97,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun fontWeightBoldFontStyleItalicCreatesBoldItalicFont() {
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
@@ -115,8 +109,8 @@ class TypefaceAdapterTest {
 
     @Test
     fun serifAndSansSerifPaintsDifferent() {
-        val typefaceSans = TypefaceAdapter().create(FontFamily("sans-serif"))
-        val typefaceSerif = TypefaceAdapter().create(FontFamily("serif"))
+        val typefaceSans = TypefaceAdapter(context).create(FontFamily("sans-serif"))
+        val typefaceSerif = TypefaceAdapter(context).create(FontFamily("serif"))
 
         assertThat(typefaceSans).isNotNull()
         assertThat(typefaceSans).isNotNull()
@@ -135,7 +129,7 @@ class TypefaceAdapterTest {
 
         for (fontWeight in fontWeights) {
             for (fontStyle in FontStyle.values()) {
-                val typefaceStyle = TypefaceAdapter().getTypefaceStyle(
+                val typefaceStyle = TypefaceAdapter(context).getTypefaceStyle(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle
                 )
@@ -160,7 +154,7 @@ class TypefaceAdapterTest {
 
         for (fontWeight in fontWeights) {
             for (fontStyle in FontStyle.values()) {
-                val typefaceStyle = TypefaceAdapter().getTypefaceStyle(
+                val typefaceStyle = TypefaceAdapter(context).getTypefaceStyle(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle
                 )
@@ -187,7 +181,7 @@ class TypefaceAdapterTest {
 
         for (fontWeight in fontWeights) {
             for (fontStyle in FontStyle.values()) {
-                val typeface = TypefaceAdapter().create(
+                val typeface = TypefaceAdapter(context).create(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle
                 )
@@ -211,7 +205,7 @@ class TypefaceAdapterTest {
 
         for (fontWeight in fontWeights) {
             for (fontStyle in FontStyle.values()) {
-                val typeface = TypefaceAdapter().create(
+                val typeface = TypefaceAdapter(context).create(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle
                 )
@@ -228,7 +222,7 @@ class TypefaceAdapterTest {
     fun typefaceCreatedWithCorrectFontWeightAndFontStyle() {
         for (fontWeight in FontWeight.values) {
             for (fontStyle in FontStyle.values()) {
-                val typeface = TypefaceAdapter().create(
+                val typeface = TypefaceAdapter(context).create(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle
                 )
@@ -242,12 +236,11 @@ class TypefaceAdapterTest {
 
     @Test
     fun customSingleFont() {
-        val defaultTypeface = TypefaceAdapter().create()
+        val defaultTypeface = TypefaceAdapter(context).create()
 
         val fontFamily = Font(name = FONT_100_REGULAR.name).asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(fontFamily = fontFamily)
+        val typeface = TypefaceAdapter(context).create(fontFamily = fontFamily)
 
         assertThat(typeface).isNotNull()
         Assert.assertThat(typeface.bitmap(), not(equalToBitmap(defaultTypeface.bitmap())))
@@ -258,12 +251,11 @@ class TypefaceAdapterTest {
 
     @Test
     fun customSingleFontBoldItalic() {
-        val defaultTypeface = TypefaceAdapter().create()
+        val defaultTypeface = TypefaceAdapter(context).create()
 
         val fontFamily = Font(name = FONT_100_REGULAR.name).asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
@@ -297,11 +289,10 @@ class TypefaceAdapterTest {
             FONT_900_REGULAR,
             FONT_900_ITALIC
         )
-        fontFamily.context = context
 
         for (fontWeight in FontWeight.values) {
             for (fontStyle in FontStyle.values()) {
-                val typeface = TypefaceAdapter().create(
+                val typeface = TypefaceAdapter(context).create(
                     fontWeight = fontWeight,
                     fontStyle = fontStyle,
                     fontFamily = fontFamily
@@ -324,12 +315,11 @@ class TypefaceAdapterTest {
         val fontWeight = FontWeight.w300
         val fontStyle = FontStyle.Italic
         val fontFamily = FontFamily(FONT_200_ITALIC)
-        fontFamily.context = context
 
         val fontMatcher = mock<FontMatcher>()
         whenever(fontMatcher.matchFont(any(), any(), any()))
             .thenReturn(FONT_200_ITALIC)
-        TypefaceAdapter(fontMatcher).create(
+        TypefaceAdapter(context, fontMatcher).create(
             fontWeight = fontWeight,
             fontStyle = fontStyle,
             fontFamily = fontFamily
@@ -344,7 +334,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun resultsAreCached_defaultTypeface() {
-        val typefaceAdapter = TypefaceAdapter()
+        val typefaceAdapter = TypefaceAdapter(context)
         val typeface = typefaceAdapter.create()
 
         // getting typeface with same parameters should hit the cache
@@ -356,7 +346,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun resultsNotSame_forDifferentFontWeight() {
-        val typefaceAdapter = TypefaceAdapter()
+        val typefaceAdapter = TypefaceAdapter(context)
         val typeface = typefaceAdapter.create(fontWeight = FontWeight.normal)
 
         // getting typeface with different parameters should not hit the cache
@@ -368,7 +358,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun resultsNotSame_forDifferentFontStyle() {
-        val typefaceAdapter = TypefaceAdapter()
+        val typefaceAdapter = TypefaceAdapter(context)
 
         val typeface = typefaceAdapter.create(fontStyle = FontStyle.Normal)
         val otherTypeface = typefaceAdapter.create(fontStyle = FontStyle.Italic)
@@ -382,7 +372,7 @@ class TypefaceAdapterTest {
         val fontWeight = FontWeight.normal
         val fontStyle = FontStyle.Italic
 
-        val typefaceAdapter = TypefaceAdapter()
+        val typefaceAdapter = TypefaceAdapter(context)
         val typeface = typefaceAdapter.create(fontFamily, fontWeight, fontStyle)
         val otherTypeface = typefaceAdapter.create(fontFamily, fontWeight, fontStyle)
 
@@ -391,7 +381,7 @@ class TypefaceAdapterTest {
 
     @Test
     fun cacheCanHoldTwoResults() {
-        val typefaceAdapter = TypefaceAdapter()
+        val typefaceAdapter = TypefaceAdapter(context)
 
         val serifTypeface = typefaceAdapter.create(FontFamily("serif"))
         val otherSerifTypeface = typefaceAdapter.create(FontFamily("serif"))
@@ -406,25 +396,22 @@ class TypefaceAdapterTest {
     @Test(expected = IllegalStateException::class)
     fun throwsExceptionIfFontIsNotIncludedInTheApp() {
         val fontFamily = FontFamily(Font("nonexistent.ttf"))
-        fontFamily.context = context
 
-        TypefaceAdapter().create(fontFamily)
+        TypefaceAdapter(context).create(fontFamily)
     }
 
     @Test(expected = IllegalStateException::class)
     fun throwsExceptionIfFontIsNotReadable() {
         val fontFamily = FontFamily(Font("invalid_font.ttf"))
-        fontFamily.context = context
 
-        TypefaceAdapter().create(fontFamily)
+        TypefaceAdapter(context).create(fontFamily)
     }
 
     @Test
     fun fontSynthesisDefault_synthesizeTheFontToItalicBold() {
         val fontFamily = FONT_100_REGULAR.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.Italic,
@@ -440,9 +427,8 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisStyle_synthesizeTheFontToItalic() {
         val fontFamily = FONT_100_REGULAR.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.Italic,
@@ -458,9 +444,8 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisWeight_synthesizeTheFontToBold() {
         val fontFamily = FONT_100_REGULAR.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.Italic,
@@ -476,9 +461,8 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisStyle_forMatchingItalicDoesNotSynthesize() {
         val fontFamily = FONT_100_ITALIC.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
             fontStyle = FontStyle.Italic,
@@ -492,9 +476,8 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisAll_doesNotSynthesizeIfFontIsTheSame_beforeApi28() {
         val fontFamily = FONT_700_ITALIC.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
             fontStyle = FontStyle.Italic,
@@ -516,9 +499,8 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisNone_doesNotSynthesize() {
         val fontFamily = FONT_100_REGULAR.asFontFamily()
-        fontFamily.context = context
 
-        val typeface = TypefaceAdapter().create(
+        val typeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.Italic,
@@ -532,16 +514,15 @@ class TypefaceAdapterTest {
     @Test
     fun fontSynthesisWeight_doesNotSynthesizeIfRequestedWeightIsLessThan600() {
         val fontFamily = FONT_100_REGULAR.asFontFamily()
-        fontFamily.context = context
 
         // Less than 600 is not synthesized
-        val typeface500 = TypefaceAdapter().create(
+        val typeface500 = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w500,
             fontSynthesis = FontSynthesis.Weight
         )
         // 600 or more is synthesized
-        val typeface600 = TypefaceAdapter().create(
+        val typeface600 = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w600,
             fontSynthesis = FontSynthesis.Weight

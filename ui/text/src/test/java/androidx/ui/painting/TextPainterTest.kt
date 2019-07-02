@@ -16,6 +16,7 @@
 
 package androidx.ui.painting
 
+import androidx.ui.androidx.ui.text.ParagraphFactory
 import androidx.ui.core.Constraints
 import androidx.ui.core.Density
 import androidx.ui.core.sp
@@ -33,10 +34,11 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class TextPainterTest() {
     private val density = Density(density = 1f)
+    private val paragraphFactory: ParagraphFactory = mock()
 
     @Test
     fun `constructor with default values`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         assertThat(textPainter.text).isNull()
         assertThat(textPainter.textAlign).isEqualTo(TextAlign.Start)
@@ -49,7 +51,11 @@ class TextPainterTest() {
     @Test
     fun `constructor with customized text(TextSpan)`() {
         val text = AnnotatedString("Hello")
-        val textPainter = TextPainter(text = text, density = density)
+        val textPainter = TextPainter(
+            text = text,
+            density = density,
+            paragraphFactory = paragraphFactory
+        )
 
         assertThat(textPainter.text).isEqualTo(text)
     }
@@ -58,7 +64,8 @@ class TextPainterTest() {
     fun `constructor with customized textAlign`() {
         val textPainter = TextPainter(
             paragraphStyle = ParagraphStyle(textAlign = TextAlign.Left),
-            density = density
+            density = density,
+            paragraphFactory = paragraphFactory
         )
 
         assertThat(textPainter.textAlign).isEqualTo(TextAlign.Left)
@@ -68,7 +75,8 @@ class TextPainterTest() {
     fun `constructor with customized textDirection`() {
         val textPainter = TextPainter(
             paragraphStyle = ParagraphStyle(textDirection = TextDirection.Rtl),
-            density = density
+            density = density,
+            paragraphFactory = paragraphFactory
         )
 
         assertThat(textPainter.textDirection).isEqualTo(TextDirection.Rtl)
@@ -78,7 +86,11 @@ class TextPainterTest() {
     fun `constructor with customized maxLines`() {
         val maxLines = 8
 
-        val textPainter = TextPainter(maxLines = maxLines, density = density)
+        val textPainter = TextPainter(
+            maxLines = maxLines,
+            density = density,
+            paragraphFactory = paragraphFactory
+        )
 
         assertThat(textPainter.maxLines).isEqualTo(maxLines)
     }
@@ -87,7 +99,11 @@ class TextPainterTest() {
     fun `constructor with customized overflow`() {
         val overflow = TextOverflow.Ellipsis
 
-        val textPainter = TextPainter(overflow = overflow, density = density)
+        val textPainter = TextPainter(
+            overflow = overflow,
+            density = density,
+            paragraphFactory = paragraphFactory
+        )
 
         assertThat(textPainter.overflow).isEqualTo(overflow)
     }
@@ -96,14 +112,18 @@ class TextPainterTest() {
     fun `constructor with customized locale`() {
         val locale = Locale("en", "US")
 
-        val textPainter = TextPainter(locale = locale, density = density)
+        val textPainter = TextPainter(
+            locale = locale,
+            density = density,
+            paragraphFactory = paragraphFactory
+        )
 
         assertThat(textPainter.locale).isEqualTo(locale)
     }
 
     @Test
     fun `text setter`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
         val text = AnnotatedString(text = "Hello")
 
         textPainter.text = text
@@ -128,7 +148,8 @@ class TextPainterTest() {
             maxLines = maxLines,
             overflow = overflow,
             locale = locale,
-            density = Density(density = 1f)
+            density = Density(density = 1f),
+            paragraphFactory = paragraphFactory
         )
 
         val paragraphStyle = textPainter.createParagraphStyle()
@@ -157,7 +178,8 @@ class TextPainterTest() {
             maxLines = maxLines,
             overflow = overflow,
             locale = locale,
-            density = density
+            density = density,
+            paragraphFactory = paragraphFactory
         )
 
         val paragraphStyle = textPainter.createParagraphStyle()
@@ -185,35 +207,35 @@ class TextPainterTest() {
 
     @Test(expected = AssertionError::class)
     fun `minIntrinsicWidth without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         textPainter.minIntrinsicWidth
     }
 
     @Test(expected = AssertionError::class)
     fun `maxIntrinsicWidth without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         textPainter.maxIntrinsicWidth
     }
 
     @Test(expected = AssertionError::class)
     fun `width without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         textPainter.width
     }
 
     @Test(expected = AssertionError::class)
     fun `height without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         textPainter.height
     }
 
     @Test(expected = AssertionError::class)
     fun `size without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
 
         textPainter.size
     }
@@ -222,7 +244,8 @@ class TextPainterTest() {
     fun `layout without text assertion should fail`() {
         val textPainter = TextPainter(
             paragraphStyle = ParagraphStyle(textDirection = TextDirection.Ltr),
-            density = density
+            density = density,
+            paragraphFactory = paragraphFactory
         )
 
         textPainter.layout(Constraints())
@@ -230,7 +253,7 @@ class TextPainterTest() {
 
     @Test(expected = AssertionError::class)
     fun `paint without layout assertion should fail`() {
-        val textPainter = TextPainter(density = density)
+        val textPainter = TextPainter(density = density, paragraphFactory = paragraphFactory)
         val canvas = mock<Canvas>()
 
         textPainter.paint(canvas, Offset(0.0f, 0.0f))

@@ -15,10 +15,11 @@
  */
 package androidx.ui.engine.text
 
+import androidx.ui.androidx.ui.text.ParagraphFactory
+import androidx.ui.androidx.ui.text.ParagraphInterface
 import androidx.ui.core.Density
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.engine.text.platform.ParagraphAndroid
 import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
@@ -38,11 +39,12 @@ class Paragraph internal constructor(
     style: TextStyle,
     paragraphStyle: ParagraphStyle,
     textStyles: List<AnnotatedString.Item<TextStyle>>,
-    density: Density
+    density: Density,
+    paragraphFactory: ParagraphFactory
 ) {
     private var needsLayout = true
     /** increased visibility for testing **/
-    internal val paragraphImpl: ParagraphAndroid
+    private val paragraphImpl: ParagraphInterface
 
     /**
      * The amount of horizontal space this paragraph occupies.
@@ -96,11 +98,14 @@ class Paragraph internal constructor(
     val didExceedMaxLines: Boolean
         get() = paragraphImpl.didExceedMaxLines
 
+    val lineCount: Int
+        get() = paragraphImpl.lineCount
+
     init {
         if (paragraphStyle.lineHeight != null && paragraphStyle.lineHeight < 0.0f) {
             throw IllegalArgumentException("lineHeight can't be negative")
         }
-        paragraphImpl = ParagraphAndroid(
+        paragraphImpl = paragraphFactory.createParagraph(
             text = text,
             style = style,
             paragraphStyle = paragraphStyle,
@@ -126,34 +131,57 @@ class Paragraph internal constructor(
         paragraphImpl.layout(width)
     }
 
+    private fun ensureLayout() {
+        if (needsLayout) {
+            throw java.lang.IllegalStateException(
+                "layout() should be called first"
+            )
+        }
+    }
+
     /** Returns path that enclose the given text range. */
     fun getPathForRange(start: Int, end: Int): Path {
         assert(start <= end && start >= 0 && end <= text.length) {
             "Start($start) or End($end) is out of Range(0..${text.length}), or start > end!"
         }
+        ensureLayout()
         return paragraphImpl.getPathForRange(start, end)
     }
 
     /** Returns rectangle of the cursor area. */
     fun getCursorRect(offset: Int): Rect {
         assert(offset in (0..text.length))
+        ensureLayout()
         return paragraphImpl.getCursorRect(offset)
     }
 
     /** Returns the left x Coordinate of the given line. */
-    fun getLineLeft(lineIndex: Int): Float = paragraphImpl.getLineLeft(lineIndex)
+    fun getLineLeft(lineIndex: Int): Float {
+        ensureLayout()
+        return paragraphImpl.getLineLeft(lineIndex)
+    }
 
     /** Returns the right x Coordinate of the given line. */
-    fun getLineRight(lineIndex: Int): Float = paragraphImpl.getLineRight(lineIndex)
+    fun getLineRight(lineIndex: Int): Float {
+        ensureLayout()
+        return paragraphImpl.getLineRight(lineIndex)
+    }
 
     /** Returns the height of the given line. */
-    fun getLineHeight(lineIndex: Int): Float = paragraphImpl.getLineHeight(lineIndex)
+    fun getLineHeight(lineIndex: Int): Float {
+        ensureLayout()
+        return paragraphImpl.getLineHeight(lineIndex)
+    }
 
     /** Returns the width of the given line. */
-    fun getLineWidth(lineIndex: Int): Float = paragraphImpl.getLineWidth(lineIndex)
+    fun getLineWidth(lineIndex: Int): Float {
+        ensureLayout()
+        return paragraphImpl.getLineWidth(lineIndex)
+    }
 
     /** Returns the text position closest to the given offset. */
     fun getPositionForOffset(offset: Offset): Int {
+        ensureLayout()
         return paragraphImpl.getPositionForOffset(offset)
     }
 
@@ -162,6 +190,7 @@ class Paragraph internal constructor(
      * top, bottom, left and right of a character.
      */
     internal fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
+        ensureLayout()
         return paragraphImpl.getBoundingBoxForTextPosition(textPosition)
     }
 
@@ -173,6 +202,7 @@ class Paragraph internal constructor(
      * http://www.unicode.org/reports/tr29/#Word_Boundaries
      */
     fun getWordBoundary(offset: Int): TextRange {
+        ensureLayout()
         val (start, end) = paragraphImpl.getWordBoundary(offset)
         return TextRange(start, end)
     }
@@ -181,6 +211,7 @@ class Paragraph internal constructor(
     // in the C++ code. If we straighten out the C++ dependencies, we can remove
     // this indirection.
     fun paint(canvas: Canvas, x: Float, y: Float) {
+        ensureLayout()
         paragraphImpl.paint(canvas, x, y)
     }
 }

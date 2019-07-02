@@ -28,6 +28,7 @@ import androidx.compose.onCommit
 import androidx.compose.onDispose
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.androidx.ui.text.ParagraphFactoryAndroid
 import androidx.ui.core.selection.Selection
 import androidx.ui.core.selection.SelectionMode
 import androidx.ui.core.selection.SelectionRegistrarAmbient
@@ -187,16 +188,9 @@ fun Text(
 
     val themeStyle = +ambient(CurrentTextStyleAmbient)
     val mergedStyle = themeStyle.merge(style)
-
-    // TODO(Migration/siyamed): This is temporary and should be removed when resource
-    //  system is resolved.
-    val context = composer.composer.context
     val density = +ambientDensity()
 
-    mergedStyle.fontFamily?.context = context
-    text.textStyles.forEach {
-        it.style.fontFamily?.context = context
-    }
+    val paragraphFactory = ParagraphFactoryAndroid(composer.composer.context)
 
     Semantics(label = text.text) {
         val textPainter = +memo(
@@ -215,7 +209,8 @@ fun Text(
                 softWrap = softWrap,
                 overflow = overflow,
                 maxLines = maxLines,
-                density = density
+                density = density,
+                paragraphFactory = paragraphFactory
             )
         }
 

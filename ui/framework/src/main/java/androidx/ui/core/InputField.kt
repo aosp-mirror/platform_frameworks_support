@@ -22,6 +22,7 @@ import androidx.compose.ambient
 import androidx.compose.memo
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.androidx.ui.text.ParagraphFactoryAndroid
 import androidx.ui.core.gesture.DragGestureDetector
 import androidx.ui.core.gesture.DragObserver
 import androidx.ui.core.gesture.PressGestureDetector
@@ -92,13 +93,15 @@ fun InputField(
     processor.onNewState(value)
 
     val density = +ambient(DensityAmbient)
+    val paragraphFactory = ParagraphFactoryAndroid(composer.composer.context)
 
     // TODO(nona): Add parameter for text direction, softwrap, etc.
     val delegate = InputFieldDelegate(
         TextPainter(
             text = AnnotatedString(text = value.text),
             style = mergedStyle,
-            density = density
+            density = density,
+            paragraphFactory = paragraphFactory
         ),
         processor,
         onValueChange
