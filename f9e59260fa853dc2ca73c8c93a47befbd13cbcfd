@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "59bde92e_6e88cbb2",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T18:21:09Z",
+      "side": 1,
+      "message": "Also can you change the name to `currentJob`?",
+      "parentUuid": "d4d4ac5f_ef072ee6",
+      "revId": "f9e59260fa853dc2ca73c8c93a47befbd13cbcfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2208e05_4dcde24f",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.kt",
         "patchSetId": 14
