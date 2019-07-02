@@ -1652,7 +1652,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testCurrentMediaItemChangedCalledAfterSetMediaItem() throws Exception {
         final int currentIdx = -1;
-        MediaItem item = createMediaItem(100);
+        MediaItem item1 = createMediaItem(100);
+        MediaItem item2 = createMediaItem(100);
 
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
@@ -1665,8 +1666,14 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         };
         mPlayer.registerPlayerCallback(mExecutor, callback);
 
-        PlayerResult result = mPlayer.setMediaItem(item).get();
-        assertEquals(RESULT_SUCCESS, result.getResultCode());
+        PlayerResult result1 = mPlayer.setMediaItem(item1).get();
+        assertEquals(RESULT_SUCCESS, result1.getResultCode());
+        assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
+
+        // Test if multiple calls to setMediaItem calls onCurrentMediaItemChanged.
+        onCurrentMediaItemChangedMonitor.reset();
+        PlayerResult result2 = mPlayer.setMediaItem(item2).get();
+        assertEquals(RESULT_SUCCESS, result2.getResultCode());
         assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
     }
 
