@@ -100,7 +100,7 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             addStatement("final $T $L = $T.read($N, $S)",
                     RoomTypeNames.TABLE_INFO, existingVar, RoomTypeNames.TABLE_INFO,
                     dbParam, entity.tableName)
-
+            // The order of validation (gen code info vs db read info) is important.
             beginControlFlow("if (! $L.equals($L))", expectedInfoVar, existingVar).apply {
                 addStatement("return new $T(false, $S + $L + $S + $L)",
                         RoomTypeNames.OPEN_HELPER_VALIDATION_RESULT,

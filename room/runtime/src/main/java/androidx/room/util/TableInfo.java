@@ -349,22 +349,13 @@ public class TableInfo {
          * The default value of this column.
          */
         public final String defaultValue;
-        // Whether to ignore default value or not during equality check. This is set based on which
-        // constructor was called by generated code.
-        private final boolean mIgnoreDefaultValue;
 
         /**
          * @deprecated Use {@link Column#Column(String, String, boolean, int, String)} instead.
          */
         @Deprecated
         public Column(String name, String type, boolean notNull, int primaryKeyPosition) {
-            this.name = name;
-            this.type = type;
-            this.notNull = notNull;
-            this.primaryKeyPosition = primaryKeyPosition;
-            this.affinity = findAffinity(type);
-            this.defaultValue = null;
-            this.mIgnoreDefaultValue = true;
+            this(name, type, notNull, primaryKeyPosition, null);
         }
 
         // if you change this constructor, you must change TableInfoWriter.kt
@@ -376,7 +367,6 @@ public class TableInfo {
             this.primaryKeyPosition = primaryKeyPosition;
             this.affinity = findAffinity(type);
             this.defaultValue = defaultValue;
-            this.mIgnoreDefaultValue = false;
         }
 
         /**
@@ -427,12 +417,12 @@ public class TableInfo {
             if (!name.equals(column.name)) return false;
             //noinspection SimplifiableIfStatement
             if (notNull != column.notNull) return false;
-            if (!mIgnoreDefaultValue && !column.mIgnoreDefaultValue) {
-                //noinspection EqualsReplaceableByObjectsCall
-                if (defaultValue != null ? !defaultValue.equals(column.defaultValue)
-                        : column.defaultValue != null) {
-                    return false;
-                }
+            if (defaultValue != null && !defaultValue.equals(column.defaultValue)) {
+                // We only care for default value if this info object has a non null default value.
+                // Due to the order validation is done (expected info vs db read info), then in
+                // practice if no default value is in the Room schema, then it is ignored for
+                // validation. b/136019383
+                return false;
             }
             return affinity == column.affinity;
         }
