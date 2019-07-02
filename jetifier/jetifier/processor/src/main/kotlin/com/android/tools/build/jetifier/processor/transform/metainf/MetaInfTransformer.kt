@@ -38,7 +38,6 @@ class MetaInfTransformer internal constructor(
         const val VERSION_FILE_SUFFIX = ".version"
 
         val FILES_TO_IGNORE = setOf(
-            "androidx.car_car-cluster.version",
             "androidx.car_car-moderator.version",
             "androidx.activity_activity-ktx.version",
             "androidx.lifecycle_lifecycle-runtime-ktx.version",

@@ -36,7 +36,6 @@ object LibraryVersions {
     val BROWSER = Version("1.2.0-alpha04")
     val CAMERA = Version("1.0.0-alpha03")
     val CAR = Version("1.0.0-alpha8")
-    val CAR_CLUSTER = Version("1.0.0-alpha6")
     val CAR_MODERATOR = Version("1.0.0-alpha1")
     val CARDVIEW = Version("1.1.0-alpha01")
     val COLLECTION = Version("1.2.0-alpha01")

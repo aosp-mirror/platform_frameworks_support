@@ -45,7 +45,6 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.CAMERA.group, "camera-testlib-extensions")
     prebuilts(LibraryGroups.CAMERA, "1.0.0-alpha03")
     ignore(LibraryGroups.CAR.group, "car-moderator")
-    prebuilts(LibraryGroups.CAR, "car-cluster", "1.0.0-alpha5")
     prebuilts(LibraryGroups.CAR, "car", "1.0.0-alpha7")
             .addStubs("car/stubs/android.car.jar")
     prebuilts(LibraryGroups.CARDVIEW, "1.0.0")
