@@ -30,6 +30,7 @@ import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.engine.text.FontWeight
+import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
@@ -58,7 +59,6 @@ import org.hamcrest.Matchers.nullValue
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -67,18 +67,16 @@ import kotlin.math.ceil
 @RunWith(JUnit4::class)
 @SmallTest
 class ParagraphAndroidTest {
-    private lateinit var fontFamily: FontFamily
+    /**
+     * This sample font provides the following features:
+     *
+     * 1. The width of most of visible characters equals to font size.
+     * 2. The LTR/RTL characters are rendered as ▶/◀.
+     * 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
+     */
+    private val fontFamily: FontFamily = BASIC_MEASURE_FONT.asFontFamily()
     private val defaultDensity = Density(density = 1f)
-
-    @Before
-    fun setup() {
-        // This sample font provides the following features:
-        // 1. The width of most of visible characters equals to font size.
-        // 2. The LTR/RTL characters are rendered as ▶/◀.
-        // 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
-        fontFamily = BASIC_MEASURE_FONT.asFontFamily()
-        fontFamily.context = InstrumentationRegistry.getInstrumentation().context
-    }
+    private val context = InstrumentationRegistry.getInstrumentation().context
 
     @Test
     fun draw_with_newline_and_line_break_default_values() {
@@ -94,11 +92,11 @@ class ParagraphAndroidTest {
                 )
 
                 // 2 chars width
-                paragraphAndroid.layout(width = 2 * fontSize.toPx().value)
+                paragraphAndroid.layout(ParagraphConstraints(width = 2 * fontSize.toPx().value))
 
                 val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
                 textPaint.textSize = fontSize.toPx().value
-                textPaint.typeface = TypefaceAdapter().create(fontFamily)
+                textPaint.typeface = TypefaceAdapter(context).create(fontFamily)
 
                 val staticLayout = StaticLayoutCompat.Builder(
                     text,
@@ -121,7 +119,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(ForegroundColorSpan::class, 0, text.length))
     }
@@ -135,7 +133,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(ForegroundColorSpan::class, 0, "abc".length))
     }
@@ -153,7 +151,7 @@ class ParagraphAndroidTest {
                 AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(ForegroundColorSpan::class, 0, text.length))
         assertThat(paragraph.underlyingText, hasSpan(ForegroundColorSpan::class, 0, "abc".length))
@@ -172,7 +170,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(StrikethroughSpan::class, 0, text.length))
@@ -187,7 +185,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(UnderlineSpan::class, 0, text.length))
@@ -202,7 +200,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(StrikethroughSpan::class, 0, "abc".length))
@@ -217,7 +215,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(UnderlineSpan::class, 0, "abc".length))
@@ -236,7 +234,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(UnderlineSpan::class, 0, "abc".length))
@@ -255,7 +253,7 @@ class ParagraphAndroidTest {
                 text = text,
                 textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
             assertThat(paragraph.underlyingText, hasSpan(AbsoluteSizeSpan::class, 0, text.length))
         }
@@ -273,7 +271,7 @@ class ParagraphAndroidTest {
                 text = text,
                 textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
             assertThat(paragraph.underlyingText, hasSpan(AbsoluteSizeSpan::class, 0, "abc".length))
         }
@@ -296,7 +294,7 @@ class ParagraphAndroidTest {
                     AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
                 )
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
             assertThat(paragraph.underlyingText, hasSpan(AbsoluteSizeSpan::class, 0, text.length))
             assertThat(paragraph.underlyingText, hasSpan(AbsoluteSizeSpan::class, 0, "abc".length))
@@ -317,7 +315,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(
             paragraph.underlyingText,
@@ -337,7 +335,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(
             paragraph.underlyingText,
@@ -357,7 +355,8 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
+
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(LetterSpacingSpan::class, 0, text.length))
     }
@@ -371,7 +370,8 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
+
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(LetterSpacingSpan::class, 0, "abc".length))
     }
@@ -389,7 +389,8 @@ class ParagraphAndroidTest {
                 AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
+
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText, hasSpan(LetterSpacingSpan::class, 0, text.length))
         assertThat(paragraph.underlyingText, hasSpan(LetterSpacingSpan::class, 0, "abc".length))
@@ -409,7 +410,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText,
@@ -429,7 +430,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText,
@@ -454,7 +455,7 @@ class ParagraphAndroidTest {
                 AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(paragraph.underlyingText,
@@ -485,7 +486,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText, hasSpan(LocaleSpan::class, 0, text.length))
     }
@@ -500,7 +501,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText, hasSpan(LocaleSpan::class, 0, "abc".length))
     }
@@ -518,7 +519,7 @@ class ParagraphAndroidTest {
                 AnnotatedString.Item(textStyleOverwrite, 0, "abc".length)
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100f))
 
         assertThat(paragraph.underlyingText, hasSpan(LocaleSpan::class, 0, text.length))
         assertThat(paragraph.underlyingText, hasSpan(LocaleSpan::class, 0, "abc".length))
@@ -526,6 +527,61 @@ class ParagraphAndroidTest {
             paragraph.underlyingText,
             hasSpanOnTop(LocaleSpan::class, 0, "abc".length)
         )
+    }
+
+    @Test
+    fun locale_isDefaultLocaleIfNotProvided() {
+        val text = "abc"
+        val paragraph = simpleParagraph(text = text)
+
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
+        assertThat(
+            paragraph.textLocale.toLanguageTag(),
+            equalTo(java.util.Locale.getDefault().toLanguageTag())
+        )
+    }
+
+    @Test
+    fun locale_isSetOnParagraphImpl_enUS() {
+        val locale = Locale(_languageCode = "en", _countryCode = "US")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("en-US"))
+    }
+
+    @Test
+    fun locale_isSetOnParagraphImpl_jpJP() {
+        val locale = Locale(_languageCode = "ja", _countryCode = "JP")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("ja-JP"))
+    }
+
+    @Test
+    fun locale_noCountryCode_isSetOnParagraphImpl() {
+        val locale = Locale(_languageCode = "ja")
+        val text = "abc"
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyle = TextStyle(locale = locale)
+        )
+
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
+        assertThat(paragraph.textLocale.toLanguageTag(), equalTo("ja"))
     }
 
     @Test
@@ -538,7 +594,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(BaselineShiftSpan::class, 0, text.length))
     }
@@ -553,7 +609,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(BaselineShiftSpan::class, 0, "abc".length))
     }
@@ -572,7 +628,7 @@ class ParagraphAndroidTest {
             )
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, hasSpan(BaselineShiftSpan::class, 0, text.length))
         assertThat(paragraph.underlyingText, hasSpan(BaselineShiftSpan::class, 0, "abc".length))
@@ -592,7 +648,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText, not(hasSpan(ScaleXSpan::class, 0, text.length)))
         assertThat(paragraph.underlyingText, not(hasSpan(SkewXSpan::class, 0, text.length)))
@@ -609,7 +665,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -629,7 +685,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -649,7 +705,7 @@ class ParagraphAndroidTest {
             textIndent = TextIndent(firstLine.px, restLine.px)
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -674,7 +730,7 @@ class ParagraphAndroidTest {
             )
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -710,7 +766,7 @@ class ParagraphAndroidTest {
             )
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -740,7 +796,7 @@ class ParagraphAndroidTest {
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
         )
-        val expectedTypeface = TypefaceAdapter().create(
+        val expectedTypeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold
@@ -758,7 +814,7 @@ class ParagraphAndroidTest {
                 )
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(
@@ -777,7 +833,7 @@ class ParagraphAndroidTest {
             fontWeight = FontWeight.bold,
             fontSynthesis = FontSynthesis.None
         )
-        val expectedTypeface = TypefaceAdapter().create(
+        val expectedTypeface = TypefaceAdapter(context).create(
             fontFamily = fontFamily,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.bold,
@@ -796,7 +852,7 @@ class ParagraphAndroidTest {
                 )
             )
         )
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(paragraph.underlyingText.toString(), equalTo(text))
         assertThat(
@@ -817,7 +873,7 @@ class ParagraphAndroidTest {
             textStyles = listOf(AnnotatedString.Item(textStyle, 0, "abc".length))
         )
         // width is not important
-        paragraph.layout(100.0f)
+        paragraph.layout(ParagraphConstraints(width = 100.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -833,7 +889,7 @@ class ParagraphAndroidTest {
             text = "abc",
             typefaceAdapter = typefaceAdapter
         )
-        paragraph.layout(Float.MAX_VALUE)
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
         verify(typefaceAdapter, never()).create(
             fontFamily = any(),
@@ -846,7 +902,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testEmptyFontFamily_withBoldFontWeightSelection() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
 
         val paragraph = simpleParagraph(
             text = "abc",
@@ -856,7 +912,7 @@ class ParagraphAndroidTest {
             ),
             typefaceAdapter = typefaceAdapter
         )
-        paragraph.layout(Float.MAX_VALUE)
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(null),
@@ -873,7 +929,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testEmptyFontFamily_withFontStyleSelection() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val paragraph = simpleParagraph(
             text = "abc",
             textStyle = TextStyle(
@@ -882,7 +938,7 @@ class ParagraphAndroidTest {
             ),
             typefaceAdapter = typefaceAdapter
         )
-        paragraph.layout(Float.MAX_VALUE)
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(null),
@@ -899,7 +955,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testFontFamily_withGenericFamilyName() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val fontFamily = FontFamily("sans-serif")
 
         val paragraph = simpleParagraph(
@@ -909,7 +965,7 @@ class ParagraphAndroidTest {
             ),
             typefaceAdapter = typefaceAdapter
         )
-        paragraph.layout(Float.MAX_VALUE)
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(fontFamily),
@@ -926,7 +982,7 @@ class ParagraphAndroidTest {
 
     @Test
     fun testFontFamily_withCustomFont() {
-        val typefaceAdapter = spy(TypefaceAdapter())
+        val typefaceAdapter = spy(TypefaceAdapter(context))
         val paragraph = simpleParagraph(
             text = "abc",
             textStyle = TextStyle(
@@ -934,7 +990,7 @@ class ParagraphAndroidTest {
             ),
             typefaceAdapter = typefaceAdapter
         )
-        paragraph.layout(Float.MAX_VALUE)
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
         verify(typefaceAdapter, times(1)).create(
             fontFamily = eq(fontFamily),
@@ -961,7 +1017,8 @@ class ParagraphAndroidTest {
                 ),
                 ellipsis = true
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
+
             for (i in 0 until paragraph.lineCount) {
                 assertFalse(paragraph.isEllipsisApplied(i))
             }
@@ -984,7 +1041,7 @@ class ParagraphAndroidTest {
                     fontSize = fontSize
                 )
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
             assertTrue(paragraph.isEllipsisApplied(0))
         }
@@ -1006,7 +1063,7 @@ class ParagraphAndroidTest {
                     fontSize = fontSize
                 )
             )
-            paragraph.layout(paragraphWidth)
+            paragraph.layout(ParagraphConstraints(width = paragraphWidth))
 
             for (i in 0 until paragraph.lineCount) {
                 assertFalse(paragraph.isEllipsisApplied(i))
@@ -1022,7 +1079,7 @@ class ParagraphAndroidTest {
                 text = "",
                 textStyle = TextStyle(fontSize = fontSize)
             )
-            paragraph.layout(0f)
+            paragraph.layout(ParagraphConstraints(width = 0.0f))
 
             assertThat(paragraph.textPaint.textSize, equalTo(fontSize.toPx().value))
         }
@@ -1040,7 +1097,7 @@ class ParagraphAndroidTest {
                     fontSizeScale = fontSizeScale
                 )
             )
-            paragraph.layout(0f)
+            paragraph.layout(ParagraphConstraints(width = 0.0f))
 
             assertThat(paragraph.textPaint.textSize, equalTo(fontSize.toPx().value * fontSizeScale))
         }
@@ -1055,7 +1112,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(locale = locale)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.textLocale, equalTo(systemLocale))
     }
@@ -1067,7 +1124,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(color = color)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.color, equalTo(color.toArgb()))
     }
@@ -1079,7 +1136,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(letterSpacing = letterSpacing)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.letterSpacing, equalTo(letterSpacing))
     }
@@ -1091,7 +1148,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(fontFeatureSettings = fontFeatureSettings)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.fontFeatureSettings, equalTo(fontFeatureSettings))
     }
@@ -1107,7 +1164,7 @@ class ParagraphAndroidTest {
                 )
             )
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.textScaleX, equalTo(scaleX))
     }
@@ -1123,7 +1180,7 @@ class ParagraphAndroidTest {
                 )
             )
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.textSkewX, equalTo(skewX))
     }
@@ -1134,7 +1191,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(decoration = TextDecoration.Underline)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.isUnderlineText, equalTo(true))
     }
@@ -1145,7 +1202,7 @@ class ParagraphAndroidTest {
             text = "",
             textStyle = TextStyle(decoration = TextDecoration.LineThrough)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.textPaint.isStrikeThruText, equalTo(true))
     }
@@ -1160,7 +1217,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyle = TextStyle(background = color)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(paragraph.underlyingText,
             hasSpan(BackgroundColorSpan::class, 0, text.length) { span ->
@@ -1179,7 +1236,7 @@ class ParagraphAndroidTest {
             text = text,
             textStyle = TextStyle(baselineShift = baselineShift)
         )
-        paragraph.layout(0f)
+        paragraph.layout(ParagraphConstraints(width = 0.0f))
 
         assertThat(
             paragraph.underlyingText,
@@ -1197,7 +1254,7 @@ class ParagraphAndroidTest {
         ellipsis: Boolean? = null,
         maxLines: Int? = null,
         textStyle: TextStyle? = null,
-        typefaceAdapter: TypefaceAdapter = TypefaceAdapter()
+        typefaceAdapter: TypefaceAdapter = TypefaceAdapter(context)
     ): ParagraphAndroid {
         return ParagraphAndroid(
             text = text,

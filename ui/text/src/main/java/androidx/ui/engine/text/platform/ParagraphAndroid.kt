@@ -53,13 +53,14 @@ import androidx.text.style.SkewXSpan
 import androidx.text.style.TypefaceSpan
 import androidx.ui.core.Density
 import androidx.ui.core.px
-import androidx.ui.core.toPx
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
+import androidx.ui.engine.text.Paragraph
+import androidx.ui.engine.text.ParagraphConstraints
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDecoration
@@ -69,28 +70,32 @@ import androidx.ui.painting.AnnotatedString
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
 import androidx.ui.painting.TextStyle
+import androidx.ui.services.text_editing.TextRange
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
+/**
+ * Android specific ParagraphInterface implementation
+ */
 internal class ParagraphAndroid constructor(
     val text: String,
     val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
     val textStyles: List<AnnotatedString.Item<TextStyle>>,
-    val typefaceAdapter: TypefaceAdapter = TypefaceAdapter(),
+    val typefaceAdapter: TypefaceAdapter,
     val density: Density
-) {
+) : Paragraph {
+
     @VisibleForTesting
     internal val textPaint = TextPaint(android.graphics.Paint.ANTI_ALIAS_FLAG)
+
     private var layout: TextLayout? = null
 
-    // TODO(Migration/siyamed): width having -1 but others having 0 as default value is counter
-    // intuitive
-    var width: Float = -1.0f
-        get() = layout?.let { field } ?: -1.0f
+    override var width: Float = 0f
+        get() = layout?.let { field } ?: 0f
 
-    val height: Float
+    override val height: Float
         get() = layout?.let {
             // TODO(Migration/haoyuchang): Figure out a way to add bottomPadding properly
             val lineCount = it.lineCount
@@ -107,24 +112,27 @@ internal class ParagraphAndroid constructor(
     // TODO(Migration/siyamed): we do not have this concept. they limit to the max word size.
     // it didn't make sense to me. I believe we might be able to do it. if we can use
     // wordbreaker.
-    val minIntrinsicWidth: Float
+    override val minIntrinsicWidth: Float
         get() = 0.0f
 
-    val maxIntrinsicWidth: Float
+    override val maxIntrinsicWidth: Float
         get() = layout?.let { it.maxIntrinsicWidth } ?: 0.0f
 
-    val baseline: Float
-        get() = layout?.let { it.layout.getLineBaseline(0).toFloat() } ?: Float.MAX_VALUE
+    override val baseline: Float
+        get() = layout?.let { it.layout.getLineBaseline(0).toFloat() } ?: 0f
 
-    val didExceedMaxLines: Boolean
+    override val didExceedMaxLines: Boolean
         get() = layout?.let { it.didExceedMaxLines } ?: false
 
     // TODO(Migration/haoyuchang): more getters needed to access the values in textPaint.
-    val textLocale: Locale
+    internal val textLocale: Locale
         get() = textPaint.textLocale
 
-    val lineCount: Int
+    override val lineCount: Int
         get() = ensureLayout.lineCount
+
+    internal val underlyingText: CharSequence
+        get() = ensureLayout.text
 
     private val ensureLayout: TextLayout
         get() {
@@ -134,10 +142,9 @@ internal class ParagraphAndroid constructor(
             return tmpLayout
         }
 
-    val underlyingText: CharSequence
-        get() = ensureLayout.text
+    override fun layout(constraints: ParagraphConstraints) {
+        val width = constraints.width
 
-    fun layout(width: Float) {
         val floorWidth = floor(width)
 
         val newStyle = style.applyTextStyle(textPaint, typefaceAdapter, density)
@@ -193,7 +200,7 @@ internal class ParagraphAndroid constructor(
         this.width = floorWidth
     }
 
-    fun getPositionForOffset(offset: Offset): Int {
+    override fun getPositionForOffset(offset: Offset): Int {
         val line = ensureLayout.getLineForVertical(offset.dy.toInt())
         return ensureLayout.getOffsetForHorizontal(line, offset.dx)
     }
@@ -203,7 +210,7 @@ internal class ParagraphAndroid constructor(
      * top, bottom, left and right of a character.
      */
     // TODO:(qqd) Implement RTL case.
-    fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
+    override fun getBoundingBoxForTextPosition(textPosition: Int): Rect {
         val left = ensureLayout.getPrimaryHorizontal(textPosition)
         val right = ensureLayout.getPrimaryHorizontal(textPosition + 1)
 
@@ -214,13 +221,21 @@ internal class ParagraphAndroid constructor(
         return Rect(top = top, bottom = bottom, left = left, right = right)
     }
 
-    fun getPathForRange(start: Int, end: Int): Path {
+    override fun getPathForRange(start: Int, end: Int): Path {
+        if (!(start <= end && start >= 0 && end <= text.length)) {
+            throw AssertionError(
+                "Start($start) or End($end) is out of Range(0..${text.length}), or start > end!"
+            )
+        }
         val path = android.graphics.Path()
         ensureLayout.getSelectionPath(start, end, path)
         return Path(path)
     }
 
-    fun getCursorRect(offset: Int): Rect {
+    override fun getCursorRect(offset: Int): Rect {
+        if ((offset in (0..text.length))) {
+            throw AssertionError("offset($offset) is out of bounds (0,${text.length}")
+        }
         // TODO(nona): Support cursor drawable.
         val cursorWidth = 4.0f
         val layout = ensureLayout
@@ -237,28 +252,29 @@ internal class ParagraphAndroid constructor(
 
     private var wordBoundary: WordBoundary? = null
 
-    fun getWordBoundary(offset: Int): Pair<Int, Int> {
+    override fun getWordBoundary(offset: Int): TextRange {
         if (wordBoundary == null) {
             wordBoundary = WordBoundary(textLocale, ensureLayout.text)
         }
 
-        return Pair(wordBoundary!!.getWordStart(offset), wordBoundary!!.getWordEnd(offset))
+        return TextRange(wordBoundary!!.getWordStart(offset), wordBoundary!!.getWordEnd(offset))
     }
 
-    fun getLineLeft(lineIndex: Int): Float = ensureLayout.getLineLeft(lineIndex)
+    override fun getLineLeft(lineIndex: Int): Float = ensureLayout.getLineLeft(lineIndex)
 
-    fun getLineRight(lineIndex: Int): Float = ensureLayout.getLineRight(lineIndex)
+    override fun getLineRight(lineIndex: Int): Float = ensureLayout.getLineRight(lineIndex)
 
-    fun getLineHeight(lineIndex: Int): Float = ensureLayout.getLineHeight(lineIndex)
+    override fun getLineHeight(lineIndex: Int): Float = ensureLayout.getLineHeight(lineIndex)
 
-    fun getLineWidth(lineIndex: Int): Float = ensureLayout.getLineWidth(lineIndex)
+    override fun getLineWidth(lineIndex: Int): Float = ensureLayout.getLineWidth(lineIndex)
 
     /**
      * @return true if the given line is ellipsized, else false.
      */
-    fun isEllipsisApplied(lineIndex: Int): Boolean = ensureLayout.isEllipsisApplied(lineIndex)
+    fun isEllipsisApplied(lineIndex: Int): Boolean =
+        ensureLayout.isEllipsisApplied(lineIndex)
 
-    fun paint(canvas: Canvas, x: Float, y: Float) {
+    override fun paint(canvas: Canvas, x: Float, y: Float) {
         val tmpLayout = layout ?: throw IllegalStateException("paint cannot be " +
                 "called before layout() is called")
         canvas.translate(x, y)

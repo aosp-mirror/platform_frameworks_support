@@ -18,6 +18,7 @@ package androidx.ui.engine.text
 import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.ui.androidx.ui.text.ParagraphFactoryAndroid
 import androidx.ui.core.Density
 import androidx.ui.core.Sp
 import androidx.ui.core.px
@@ -39,10 +40,10 @@ import androidx.ui.painting.Path
 import androidx.ui.painting.PathOperation
 import androidx.ui.painting.Shadow
 import androidx.ui.painting.TextStyle
+import com.nhaarman.mockitokotlin2.mock
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.not
 import org.junit.Assert.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -52,30 +53,119 @@ import org.junit.runners.JUnit4
 class ParagraphIntegrationTest {
     // TODO(Migration/haoyuchang): These native calls should be removed after the
     // counterparts are implemented in crane.
-    private lateinit var fontFamilyMeasureFont: FontFamily
-    private lateinit var fontFamilyKernFont: FontFamily
-    private lateinit var fontFamilyCustom100: FontFamily
-    private lateinit var fontFamilyCustom200: FontFamily
+
+    /**
+     * This sample font provides the following features:
+     *
+     * 1. The width of most of visible characters equals to font size.
+     * 2. The LTR/RTL characters are rendered as ▶/◀.
+     * 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
+     */
+    private var fontFamilyMeasureFont = BASIC_MEASURE_FONT.asFontFamily()
+
+    /**
+     * The kern_font provides the following features:
+     *
+     * 1. Characters from A to Z are rendered as ▲ while a to z are rendered as ▼.
+     * 2. When kerning is off, the width of each character is equal to font size.
+     * 3. When kerning is on, it will reduce the space between two characters by 0.4 * width.
+     */
+    private var fontFamilyKernFont = BASIC_KERN_FONT.asFontFamily()
+
+    private var fontFamilyCustom100 = FONT_100_REGULAR.asFontFamily()
+
+    private var fontFamilyCustom200 = FONT_200_REGULAR.asFontFamily()
+
     private val defaultDensity = Density(density = 1f)
 
-    @Before
-    fun setup() {
-        // This sample font provides the following features:
-        // 1. The width of most of visible characters equals to font size.
-        // 2. The LTR/RTL characters are rendered as ▶/◀.
-        // 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
-        fontFamilyMeasureFont = BASIC_MEASURE_FONT.asFontFamily()
-        fontFamilyMeasureFont.context = InstrumentationRegistry.getInstrumentation().context
-        // The kern_font provides the following features:
-        // 1. Characters from A to Z are rendered as ▲ while a to z are rendered as ▼.
-        // 2. When kerning is off, the width of each character is equal to font size.
-        // 3. When kerning is on, it will reduce the space between two characters by 0.4 * width.
-        fontFamilyKernFont = BASIC_KERN_FONT.asFontFamily()
-        fontFamilyKernFont.context = InstrumentationRegistry.getInstrumentation().context
-        fontFamilyCustom100 = FONT_100_REGULAR.asFontFamily()
-        fontFamilyCustom200 = FONT_200_REGULAR.asFontFamily()
-        fontFamilyCustom100.context = fontFamilyMeasureFont.context
-        fontFamilyCustom200.context = fontFamilyMeasureFont.context
+    private val paragraphFactory = ParagraphFactoryAndroid(
+        context = InstrumentationRegistry.getInstrumentation().context
+    )
+
+    @Test
+    fun width_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.width, equalTo(0.0f))
+    }
+
+    @Test
+    fun height_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.height, equalTo(0.0f))
+    }
+
+    @Test
+    fun minIntrinsicWidth_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.minIntrinsicWidth, equalTo(0.0f))
+    }
+
+    @Test
+    fun maxIntrinsicWidth_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.maxIntrinsicWidth, equalTo(0.0f))
+    }
+
+    @Test
+    fun alphabeticBaseline_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.baseline, equalTo(0.0f))
+    }
+
+    @Test
+    fun didExceedMaxLines_default_value() {
+        val paragraph = simpleParagraph()
+
+        assertThat(paragraph.didExceedMaxLines, equalTo(false))
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun paint_throws_exception_if_layout_is_not_called() {
+        val paragraph = simpleParagraph()
+
+        paragraph.paint(mock(), 0.0f, 0.0f)
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun getPositionForOffset_throws_exception_if_layout_is_not_called() {
+        val paragraph = simpleParagraph()
+
+        paragraph.getPositionForOffset(Offset(0.0f, 0.0f))
+    }
+
+    @Test(expected = AssertionError::class)
+    fun getPathForRange_throws_exception_if_start_larger_than_end() {
+        val text = "ab"
+        val textStart = 0
+        val textEnd = text.length
+        val paragraph = simpleParagraph(text = text)
+
+        paragraph.getPathForRange(textEnd, textStart)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun getPathForRange_throws_exception_if_start_is_smaller_than_zero() {
+        val text = "ab"
+        val textStart = 0
+        val textEnd = text.length
+        val paragraph = simpleParagraph(text = text)
+
+        paragraph.getPathForRange(textStart - 2, textEnd - 1)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun getPathForRange_throws_exception_if_end_is_larger_than_text_length() {
+        val text = "ab"
+        val textStart = 0
+        val textEnd = text.length
+        val paragraph = simpleParagraph(text = text)
+
+        paragraph.getPathForRange(textStart, textEnd + 1)
     }
 
     @Test
@@ -89,7 +179,6 @@ class ParagraphIntegrationTest {
             paragraph.layout(ParagraphConstraints(width = 100.0f))
 
             assertThat(paragraph.width, equalTo(100.0f))
-
             assertThat(paragraph.height, equalTo(fontSizeInPx))
             // defined in sample_font
             assertThat(paragraph.baseline, equalTo(fontSizeInPx * 0.8f))
@@ -171,7 +260,6 @@ class ParagraphIntegrationTest {
                 paragraph.layout(ParagraphConstraints(width = 3 * fontSizeInpx))
 
                 // 3 chars
-
                 assertThat(text, paragraph.width, equalTo(3 * fontSizeInpx))
                 // 2 lines, 1 line gap
                 assertThat(
@@ -201,7 +289,6 @@ class ParagraphIntegrationTest {
                 val paragraph = simpleParagraph(text = text, fontSize = fontSize)
 
                 // 2 chars width
-
                 paragraph.layout(ParagraphConstraints(width = 2 * fontSizeInPx))
 
                 // 2 chars
@@ -233,6 +320,7 @@ class ParagraphIntegrationTest {
             val paragraph = simpleParagraph(text = text, fontSize = fontSize)
 
             paragraph.layout(ParagraphConstraints(width = text.length * fontSizeInPx))
+
             // test positions that are 1, fontSize+1, 2fontSize+1 which maps to chars 0, 1, 2 ...
             for (i in 0..text.length) {
                 val offset = Offset(i * fontSizeInPx + 1, fontSizeInPx / 2)
@@ -374,6 +462,7 @@ class ParagraphIntegrationTest {
             val paragraph = simpleParagraph(text = text, fontSize = fontSize)
 
             paragraph.layout(ParagraphConstraints(width = text.length * fontSizeInPx))
+
             // test positions that are 0, 1, 2 ... which maps to chars 0, 1, 2 ...
             for (i in 0..text.length - 1) {
                 val box = paragraph.getBoundingBoxForTextPosition(i)
@@ -459,7 +548,7 @@ class ParagraphIntegrationTest {
             )
 
             val bitmaps = locales.map { locale ->
-                val paragraph = Paragraph(
+                val paragraph = paragraphFactory.createParagraph(
                     text = text,
                     textStyles = listOf(),
                     style = TextStyle(
@@ -485,52 +574,6 @@ class ParagraphIntegrationTest {
     }
 
     @Test
-    fun locale_isDefaultLocaleIfNotProvided() {
-        val text = "abc"
-        val paragraph = simpleParagraph(text = text)
-
-        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-
-        assertThat(
-            paragraph.paragraphImpl.textLocale.toLanguageTag(),
-            equalTo(java.util.Locale.getDefault().toLanguageTag())
-        )
-    }
-
-    @Test
-    fun locale_isSetOnParagraphImpl_enUS() {
-        val locale = Locale(_languageCode = "en", _countryCode = "US")
-        val text = "abc"
-        val paragraph = simpleParagraph(text = text, locale = locale)
-
-        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-
-        assertThat(paragraph.paragraphImpl.textLocale.toLanguageTag(), equalTo("en-US"))
-    }
-
-    @Test
-    fun locale_isSetOnParagraphImpl_jpJP() {
-        val locale = Locale(_languageCode = "ja", _countryCode = "JP")
-        val text = "abc"
-        val paragraph = simpleParagraph(text = text, locale = locale)
-
-        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-
-        assertThat(paragraph.paragraphImpl.textLocale.toLanguageTag(), equalTo("ja-JP"))
-    }
-
-    @Test
-    fun locale_noCountryCode_isSetOnParagraphImpl() {
-        val locale = Locale(_languageCode = "ja")
-        val text = "abc"
-        val paragraph = simpleParagraph(text = text, locale = locale)
-
-        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-
-        assertThat(paragraph.paragraphImpl.textLocale.toLanguageTag(), equalTo("ja"))
-    }
-
-    @Test
     fun maxLines_withMaxLineEqualsZero() {
         val text = "a\na\na"
         val maxLines = 0
@@ -540,6 +583,7 @@ class ParagraphIntegrationTest {
             maxLines = maxLines
         )
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
         assertThat(paragraph.height, equalTo(0f))
     }
 
@@ -569,6 +613,7 @@ class ParagraphIntegrationTest {
                 maxLines = maxLines
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
             val expectHeight = (lineCount + (lineCount - 1) * 0.2f) * fontSizeInPx
             assertThat(paragraph.height, equalTo(expectHeight))
         }
@@ -587,6 +632,7 @@ class ParagraphIntegrationTest {
                 maxLines = maxLines
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
             val expectHeight = (maxLines + (maxLines - 1) * 0.2f) * fontSizeInPx
             assertThat(paragraph.height, equalTo(expectHeight))
         }
@@ -606,6 +652,7 @@ class ParagraphIntegrationTest {
                 maxLines = maxLines
             )
             paragraph.layout(ParagraphConstraints(width = 200f))
+
             val expectHeight = (lineCount + (lineCount - 1) * 0.2f) * fontSizeInPx
             assertThat(paragraph.height, equalTo(expectHeight))
         }
@@ -618,6 +665,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(text = text, maxLines = maxLines)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
         assertThat(paragraph.didExceedMaxLines, equalTo(true))
     }
 
@@ -628,6 +676,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(text = text, maxLines = maxLines)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
         assertThat(paragraph.didExceedMaxLines, equalTo(false))
     }
 
@@ -638,6 +687,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(text = text, maxLines = maxLines)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
         assertThat(paragraph.didExceedMaxLines, equalTo(false))
     }
 
@@ -652,6 +702,7 @@ class ParagraphIntegrationTest {
 
             // One line can only contain 1 character
             paragraph.layout(ParagraphConstraints(width = fontSizeInPx))
+
             assertThat(paragraph.didExceedMaxLines, equalTo(true))
         }
     }
@@ -663,6 +714,7 @@ class ParagraphIntegrationTest {
         val paragraph = simpleParagraph(text = text, fontSize = 50.sp, maxLines = maxLines)
 
         paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+
         assertThat(paragraph.didExceedMaxLines, equalTo(false))
     }
 
@@ -677,6 +729,7 @@ class ParagraphIntegrationTest {
 
             // One line can only contain 1 character
             paragraph.layout(ParagraphConstraints(width = fontSizeInPx))
+
             assertThat(paragraph.didExceedMaxLines, equalTo(false))
         }
     }
@@ -704,8 +757,8 @@ class ParagraphIntegrationTest {
             paragraphRTL.layout(ParagraphConstraints(width = layoutRTLWidth))
 
             // When textAlign is TextAlign.start, LTR aligns to left, RTL aligns to right.
-            assertThat(paragraphLTR.paragraphImpl.getLineLeft(0), equalTo(0.0f))
-            assertThat(paragraphRTL.paragraphImpl.getLineRight(0), equalTo(layoutRTLWidth))
+            assertThat(paragraphLTR.getLineLeft(0), equalTo(0.0f))
+            assertThat(paragraphRTL.getLineRight(0), equalTo(layoutRTLWidth))
         }
     }
 
@@ -724,8 +777,8 @@ class ParagraphIntegrationTest {
                 )
                 val layoutWidth = (text.length + 2) * fontSizeInPx
                 paragraph.layout(ParagraphConstraints(width = layoutWidth))
-                val paragraphImpl = paragraph.paragraphImpl
-                assertThat(paragraphImpl.getLineLeft(0), equalTo(0.0f))
+
+                assertThat(paragraph.getLineLeft(0), equalTo(0.0f))
             }
         }
     }
@@ -745,8 +798,8 @@ class ParagraphIntegrationTest {
                 )
                 val layoutWidth = (text.length + 2) * fontSizeInPx
                 paragraph.layout(ParagraphConstraints(width = layoutWidth))
-                val paragraphImpl = paragraph.paragraphImpl
-                assertThat(paragraphImpl.getLineRight(0), equalTo(layoutWidth))
+
+                assertThat(paragraph.getLineRight(0), equalTo(layoutWidth))
             }
         }
     }
@@ -766,14 +819,14 @@ class ParagraphIntegrationTest {
                 )
                 val layoutWidth = (text.length + 2) * fontSizeInPx
                 paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
                 val textWidth = text.length * fontSizeInPx
-                val paragraphImpl = paragraph.paragraphImpl
                 assertThat(
-                    paragraphImpl.getLineLeft(0),
+                    paragraph.getLineLeft(0),
                     equalTo(layoutWidth / 2 - textWidth / 2)
                 )
                 assertThat(
-                    paragraphImpl.getLineRight(0),
+                    paragraph.getLineRight(0),
                     equalTo(layoutWidth / 2 + textWidth / 2)
                 )
             }
@@ -794,8 +847,8 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
-            assertThat(paragraphImpl.getLineLeft(0), equalTo(0.0f))
+
+            assertThat(paragraph.getLineLeft(0), equalTo(0.0f))
         }
     }
 
@@ -813,8 +866,8 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
-            assertThat(paragraphImpl.getLineRight(0), equalTo(layoutWidth))
+
+            assertThat(paragraph.getLineRight(0), equalTo(layoutWidth))
         }
     }
 
@@ -832,8 +885,8 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
-            assertThat(paragraphImpl.getLineRight(0), equalTo(layoutWidth))
+
+            assertThat(paragraph.getLineRight(0), equalTo(layoutWidth))
         }
     }
 
@@ -851,8 +904,8 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
-            assertThat(paragraphImpl.getLineLeft(0), equalTo(0.0f))
+
+            assertThat(paragraph.getLineLeft(0), equalTo(0.0f))
         }
     }
 
@@ -873,11 +926,11 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
-            assertThat(paragraphImpl.getLineLeft(0), equalTo(0.0f))
-            assertThat(paragraphImpl.getLineRight(0), equalTo(layoutWidth))
+
+            assertThat(paragraph.getLineLeft(0), equalTo(0.0f))
+            assertThat(paragraph.getLineRight(0), equalTo(layoutWidth))
             // Last line should align start
-            assertThat(paragraphImpl.getLineLeft(1), equalTo(0.0f))
+            assertThat(paragraph.getLineLeft(1), equalTo(0.0f))
         }
     }
 
@@ -895,9 +948,11 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
             // The offset of the last character in display order.
             val offset = Offset("a.".length * fontSizeInPx + 1, fontSizeInPx / 2)
             val charIndex = paragraph.getPositionForOffset(offset = offset)
+
             assertThat(charIndex, equalTo(2))
         }
     }
@@ -916,6 +971,7 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
             // The offset of the first character in display order.
             val offset = Offset(fontSizeInPx / 2 + 1, fontSizeInPx / 2)
             val charIndex = paragraph.getPositionForOffset(offset = offset)
@@ -936,6 +992,7 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
             for (i in 0..text.length) {
                 // The offset of the i-th character in display order.
                 val offset = Offset(i * fontSizeInPx + 1, fontSizeInPx / 2)
@@ -958,6 +1015,7 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
             for (i in 0 until text.length) {
                 // The offset of the i-th character in display order.
                 val offset = Offset(i * fontSizeInPx + 1, fontSizeInPx / 2)
@@ -980,6 +1038,7 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
+
             // The first character in display order should be '.'
             val offset = Offset(fontSizeInPx / 2 + 1, fontSizeInPx / 2)
             val index = paragraph.getPositionForOffset(offset = offset)
@@ -1003,13 +1062,12 @@ class ParagraphIntegrationTest {
                 lineHeight = lineHeight
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
-            assertThat(paragraphImpl.lineCount, equalTo(4))
+            assertThat(paragraph.lineCount, equalTo(4))
             // TODO(Migration/haoyuchang): Due to bug b/120530738, the height of the first line is
             // wrong in the framework. Will fix it when the lineHeight in TextSpan is implemented.
-            for (i in 1 until paragraphImpl.lineCount - 1) {
-                val actualHeight = paragraphImpl.getLineHeight(i)
+            for (i in 1 until paragraph.lineCount - 1) {
+                val actualHeight = paragraph.getLineHeight(i)
                 // In the sample_font.ttf, the height of the line should be
                 // fontSize + 0.2f * fontSize(line gap)
                 assertThat(
@@ -1036,26 +1094,12 @@ class ParagraphIntegrationTest {
                 lineHeight = lineHeight
             )
             paragraph.layout(ParagraphConstraints(width = layoutWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
-            val lastLine = paragraphImpl.lineCount - 1
+            val lastLine = paragraph.lineCount - 1
             // In the sample_font.ttf, the height of the line should be
             // fontSize + 0.2 * fontSize(line gap)
-            assertThat(paragraphImpl.getLineHeight(lastLine), equalTo(1.2f * fontSizeInPx))
+            assertThat(paragraph.getLineHeight(lastLine), equalTo(1.2f * fontSizeInPx))
         }
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun lineHeight_whenNegative_throwsIAE() {
-        Paragraph(
-            text = "",
-            textStyles = listOf(),
-            style = TextStyle(),
-            paragraphStyle = ParagraphStyle(
-                lineHeight = -1.0f
-            ),
-            density = defaultDensity
-        )
     }
 
     @Test
@@ -1072,12 +1116,11 @@ class ParagraphIntegrationTest {
                 textStyles = listOf(AnnotatedString.Item(textStyle, 0, text.length))
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(fontSizeInPx * text.length))
+            assertThat(paragraph.getLineWidth(0), equalTo(fontSizeInPx * text.length))
         }
     }
 
@@ -1098,14 +1141,13 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
             val expectedLineRight =
                 "abc".length * textStyleFontSizeInPx + "de".length * fontSizeInPx
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedLineRight))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedLineRight))
         }
     }
 
@@ -1130,13 +1172,12 @@ class ParagraphIntegrationTest {
                 )
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
             val expectedWidth = "abc".length * fontSizeOverwriteInPx + "de".length * fontSizeInPx
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedWidth))
         }
     }
 
@@ -1155,10 +1196,9 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             assertThat(
-                paragraphImpl.getLineRight(0),
+                paragraph.getLineRight(0),
                 equalTo(text.length * fontSizeInPx * fontSizeScale)
             )
         }
@@ -1185,10 +1225,9 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             assertThat(
-                paragraphImpl.getLineRight(0),
+                paragraph.getLineRight(0),
                 equalTo(text.length * fontSizeInPx * fontSizeScale * fontSizeScaleNested)
             )
         }
@@ -1216,10 +1255,9 @@ class ParagraphIntegrationTest {
                 fontSize = paragraphFontSize
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             assertThat(
-                paragraphImpl.getLineRight(0),
+                paragraph.getLineRight(0),
                 equalTo(text.length * fontSizeInPx * fontSizeScale)
             )
         }
@@ -1247,10 +1285,9 @@ class ParagraphIntegrationTest {
                 fontSize = paragraphFontSize
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             assertThat(
-                paragraphImpl.getLineRight(0),
+                paragraph.getLineRight(0),
                 equalTo(text.length * fontSizeInPx)
             )
         }
@@ -1282,10 +1319,9 @@ class ParagraphIntegrationTest {
                 fontSize = paragraphFontSize
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             assertThat(
-                paragraphImpl.getLineRight(0),
+                paragraph.getLineRight(0),
                 equalTo(text.length * fontSizeInPx * fontSizeScale2)
             )
         }
@@ -1307,13 +1343,12 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
             assertThat(
-                paragraphImpl.getLineWidth(0),
+                paragraph.getLineWidth(0),
                 equalTo(fontSizeInPx * text.length * (1 + letterSpacing))
             )
         }
@@ -1335,13 +1370,12 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
             val expectedWidth = ("abc".length * letterSpacing + text.length) * fontSizeInPx
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedWidth))
         }
     }
 
@@ -1367,14 +1401,13 @@ class ParagraphIntegrationTest {
                 fontSize = fontSize
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Make sure there is only one line, so that we can use getLineRight to test fontSize.
-            assertThat(paragraphImpl.lineCount, equalTo(1))
+            assertThat(paragraph.lineCount, equalTo(1))
             // Notice that in this test font, the width of character equals to fontSize.
             val expectedWidth = "abc".length * (1 + letterSpacingOverwrite) * fontSizeInPx +
                     "de".length * (1 + letterSpacing) * fontSizeInPx
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedWidth))
         }
     }
 
@@ -1393,13 +1426,12 @@ class ParagraphIntegrationTest {
                 fontFamily = fontFamilyMeasureFont
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // This offset should point to the first character 'a' if indent is applied.
             // Otherwise this offset will point to the second character 'b'.
             val offset = Offset(indent + 1, fontSizeInPx / 2)
             // The position corresponding to the offset should be the first char 'a'.
-            assertThat(paragraphImpl.getPositionForOffset(offset), equalTo(0))
+            assertThat(paragraph.getPositionForOffset(offset), equalTo(0))
         }
     }
 
@@ -1419,14 +1451,13 @@ class ParagraphIntegrationTest {
                 fontFamily = fontFamilyMeasureFont
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
 
-            assertThat(paragraphImpl.lineCount, equalTo(2))
+            assertThat(paragraph.lineCount, equalTo(2))
             // This offset should point to the first character of the first line if indent is
             // applied. Otherwise this offset will point to the second character of the second line.
             val offset = Offset(indent + 1, fontSizeInPx / 2)
             // The position corresponding to the offset should be the first char 'a'.
-            assertThat(paragraphImpl.getPositionForOffset(offset), equalTo(0))
+            assertThat(paragraph.getPositionForOffset(offset), equalTo(0))
         }
     }
 
@@ -1446,13 +1477,13 @@ class ParagraphIntegrationTest {
                 fontFamily = fontFamilyMeasureFont
             )
             paragraph.layout(ParagraphConstraints(width = paragraphWidth))
-            val paragraphImpl = paragraph.paragraphImpl
+
             // This offset should point to the first character of the second line if indent is
             // applied. Otherwise this offset will point to the second character of the second line.
             val offset = Offset(indent + 1, fontSizeInPx / 2 + fontSizeInPx)
             // The position corresponding to the offset should be the 'd' in the second line.
             assertThat(
-                paragraphImpl.getPositionForOffset(offset),
+                paragraph.getPositionForOffset(offset),
                 equalTo("abcd".length - 1)
             )
         }
@@ -1480,10 +1511,9 @@ class ParagraphIntegrationTest {
                 fontFamily = fontFamilyCustom100
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
-            assertThat(paragraphImpl.lineCount, equalTo(1))
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+            assertThat(paragraph.lineCount, equalTo(1))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedWidth))
         }
     }
 
@@ -1505,12 +1535,11 @@ class ParagraphIntegrationTest {
                 fontFamily = fontFamilyKernFont
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
-            val paragraphImpl = paragraph.paragraphImpl
 
             // Two characters are kerning, so minus 0.4 * fontSize
             val expectedWidth = text.length * fontSizeInPx - 0.4f * fontSizeInPx
-            assertThat(paragraphImpl.lineCount, equalTo(1))
-            assertThat(paragraphImpl.getLineWidth(0), equalTo(expectedWidth))
+            assertThat(paragraph.lineCount, equalTo(1))
+            assertThat(paragraph.getLineWidth(0), equalTo(expectedWidth))
         }
     }
 
@@ -1606,10 +1635,9 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineLeft = paragraphImpl.getLineLeft(0)
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineLeft = paragraph.getLineLeft(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(
                 Rect(
                     lineLeft,
@@ -1640,12 +1668,11 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val firstLineLeft = paragraphImpl.getLineLeft(0)
-            val secondLineLeft = paragraphImpl.getLineLeft(1)
-            val firstLineRight = paragraphImpl.getLineRight(0)
-            val secondLineRight = paragraphImpl.getLineRight(1)
+            val firstLineLeft = paragraph.getLineLeft(0)
+            val secondLineLeft = paragraph.getLineLeft(1)
+            val firstLineRight = paragraph.getLineRight(0)
+            val secondLineRight = paragraph.getLineRight(1)
             expectedPath.addRect(
                 Rect(
                     firstLineLeft + fontSizeInPx,
@@ -1688,10 +1715,9 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineLeft = paragraphImpl.getLineLeft(0)
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineLeft = paragraph.getLineLeft(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(
                 Rect(
                     lineLeft + selectionLTRStart * fontSizeInPx,
@@ -1761,9 +1787,8 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(Rect(lineRight / 2, 0f, lineRight, fontSizeInPx))
 
             // Try to select "\uDD1E\uD834\uDD1F", only "\uD834\uDD1F" is selected.
@@ -1787,9 +1812,8 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(Rect(lineRight / 2, 0f, lineRight, fontSizeInPx))
 
             // Try to select "\uDD1E\uD834", actually "\uD834\uDD1F" is selected.
@@ -1813,9 +1837,8 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(Rect(lineRight / 2, 0f, lineRight / 2, fontSizeInPx))
 
             // Try to select "\uDD1E", get vertical line segment after this character.
@@ -1839,10 +1862,9 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineLeft = paragraphImpl.getLineLeft(0)
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineLeft = paragraph.getLineLeft(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(
                 Rect(
                     lineLeft + fontSizeInPx,
@@ -1873,10 +1895,9 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineLeft = paragraphImpl.getLineLeft(0)
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineLeft = paragraph.getLineLeft(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(Rect(lineLeft, 0f, lineRight, fontSizeInPx))
 
             val actualPath = paragraph.getPathForRange(0, 1)
@@ -1900,10 +1921,9 @@ class ParagraphIntegrationTest {
             )
             paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
 
-            val paragraphImpl = paragraph.paragraphImpl
             val expectedPath = Path()
-            val lineLeft = paragraphImpl.getLineLeft(0)
-            val lineRight = paragraphImpl.getLineRight(0)
+            val lineLeft = paragraph.getLineLeft(0)
+            val lineRight = paragraph.getLineRight(0)
             expectedPath.addRect(Rect(lineLeft, 0f, lineRight, fontSizeInPx))
 
             val actualPath = paragraph.getPathForRange(0, 1)
@@ -1990,7 +2010,7 @@ class ParagraphIntegrationTest {
         textStyle: TextStyle? = null,
         density: Density? = null
     ): Paragraph {
-        return Paragraph(
+        return paragraphFactory.createParagraph(
             text = text,
             textStyles = textStyles,
             style = TextStyle(

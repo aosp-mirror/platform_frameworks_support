@@ -32,6 +32,7 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
 import androidx.ui.engine.text.ParagraphConstraints
+import androidx.ui.engine.text.ParagraphFactory
 import androidx.ui.engine.text.ParagraphStyle
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
@@ -108,7 +109,8 @@ class TextPainter(
     val softWrap: Boolean = true,
     val overflow: TextOverflow = TextOverflow.Clip,
     val locale: Locale? = null,
-    val density: Density
+    val density: Density,
+    val paragraphFactory: ParagraphFactory
 ) {
     init {
         assert(maxLines == null || maxLines > 0)
@@ -184,7 +186,7 @@ class TextPainter(
         get() {
             if (layoutTemplate == null) {
                 // TODO(Migration/qqd): The textDirection below used to be RTL.
-                layoutTemplate = Paragraph(
+                layoutTemplate = paragraphFactory.createParagraph(
                     text = " ",
                     style = createTextStyle(),
                     // direction doesn't matter, text is just a space
@@ -302,12 +304,13 @@ class TextPainter(
         if (!needsLayout && minWidth == lastMinWidth && finalMaxWidth == lastMaxWidth) return
         needsLayout = false
         if (paragraph == null) {
-            paragraph = Paragraph(
+            paragraph = paragraphFactory.createParagraph(
                 text = text!!.text,
                 style = createTextStyle(),
                 paragraphStyle = createParagraphStyle(),
                 textStyles = text!!.textStyles,
-                density = density)
+                density = density
+            )
         }
         lastMinWidth = minWidth
         lastMaxWidth = finalMaxWidth
@@ -341,7 +344,8 @@ class TextPainter(
                 text = AnnotatedString(text = "\u2026", textStyles = listOf()),
                 style = textStyle,
                 paragraphStyle = paragraphStyle,
-                density = density
+                density = density,
+                paragraphFactory = paragraphFactory
             )
             fadeSizePainter.layoutText()
             val fadeWidth = fadeSizePainter.paragraph!!.width

@@ -1,4 +1,9 @@
 // Signature format: 3.0
+package androidx.ui.androidx.ui.text {
+
+
+}
+
 package androidx.ui.painting {
 
   public final class TextPainter {

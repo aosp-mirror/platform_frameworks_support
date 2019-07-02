@@ -37,6 +37,7 @@ import androidx.ui.engine.text.font.FontMatcher
 // TODO(Migration/siyamed): font matcher should be at an upper layer such as Paragraph, whoever
 // will call TypefaceAdapter can know about a single font
 internal open class TypefaceAdapter constructor(
+    val context: Context,
     val fontMatcher: FontMatcher = FontMatcher()
 ) {
 
@@ -79,8 +80,7 @@ internal open class TypefaceAdapter constructor(
                 fontFamily = fontFamily,
                 fontWeight = fontWeight,
                 fontStyle = fontStyle,
-                fontSynthesis = fontSynthesis,
-                context = fontFamily.context
+                fontSynthesis = fontSynthesis
             )
         } else {
             // there is no option to control fontSynthesis in framework for system fonts
@@ -166,7 +166,6 @@ internal open class TypefaceAdapter constructor(
         fontStyle: FontStyle = FontStyle.Normal,
         fontWeight: FontWeight = FontWeight.normal,
         fontFamily: FontFamily,
-        context: Context,
         fontSynthesis: FontSynthesis = FontSynthesis.All
     ): Typeface {
         // TODO(Migration/siyamed): add genericFontFamily : String? = null for fallback

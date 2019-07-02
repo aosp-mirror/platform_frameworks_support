@@ -63,29 +63,32 @@ package androidx.ui.engine.text {
     property public final androidx.ui.engine.text.FontWeight w900;
   }
 
-  public final class Paragraph {
-    method public float getBaseline();
+  public interface Paragraph {
+    method public default float getBaseline();
+    method public androidx.ui.engine.geometry.Rect getBoundingBoxForTextPosition(int textPosition);
     method public androidx.ui.engine.geometry.Rect getCursorRect(int offset);
-    method public boolean getDidExceedMaxLines();
-    method public float getHeight();
+    method public default boolean getDidExceedMaxLines();
+    method public default float getHeight();
+    method public default int getLineCount();
     method public float getLineHeight(int lineIndex);
     method public float getLineLeft(int lineIndex);
     method public float getLineRight(int lineIndex);
     method public float getLineWidth(int lineIndex);
-    method public float getMaxIntrinsicWidth();
-    method public float getMinIntrinsicWidth();
+    method public default float getMaxIntrinsicWidth();
+    method public default float getMinIntrinsicWidth();
     method public androidx.ui.painting.Path getPathForRange(int start, int end);
     method public int getPositionForOffset(androidx.ui.engine.geometry.Offset offset);
-    method public float getWidth();
+    method public default float getWidth();
     method public androidx.ui.services.text_editing.TextRange getWordBoundary(int offset);
     method public void layout(androidx.ui.engine.text.ParagraphConstraints constraints);
     method public void paint(androidx.ui.painting.Canvas canvas, float x, float y);
-    property public final float baseline;
-    property public final boolean didExceedMaxLines;
-    property public final float height;
-    property public final float maxIntrinsicWidth;
-    property public final float minIntrinsicWidth;
-    property public final float width;
+    property public default float baseline;
+    property public default boolean didExceedMaxLines;
+    property public default float height;
+    property public default int lineCount;
+    property public default float maxIntrinsicWidth;
+    property public default float minIntrinsicWidth;
+    property public default float width;
   }
 
   public final class ParagraphConstraints {
@@ -93,6 +96,10 @@ package androidx.ui.engine.text {
     method public float component1();
     method public androidx.ui.engine.text.ParagraphConstraints copy(float width);
     method public float getWidth();
+  }
+
+  public interface ParagraphFactory {
+    method public androidx.ui.engine.text.Paragraph createParagraph(String text, androidx.ui.painting.TextStyle style, androidx.ui.engine.text.ParagraphStyle paragraphStyle, java.util.List<androidx.ui.painting.AnnotatedString.Item<androidx.ui.painting.TextStyle>> textStyles, androidx.ui.core.Density density);
   }
 
   public final class ParagraphStyle {
@@ -233,7 +240,6 @@ package androidx.ui.engine.text.font {
     method public boolean containsAll(java.util.Collection<?> elements);
     method public androidx.ui.engine.text.font.FontFamily copy(String? genericFamily, java.util.List<androidx.ui.engine.text.font.Font> fonts);
     method public androidx.ui.engine.text.font.Font get(int index);
-    method public android.content.Context getContext();
     method public java.util.List<androidx.ui.engine.text.font.Font> getFonts();
     method public String? getGenericFamily();
     method public int getSize();
@@ -243,10 +249,7 @@ package androidx.ui.engine.text.font {
     method public int lastIndexOf(androidx.ui.engine.text.font.Font element);
     method public java.util.ListIterator<androidx.ui.engine.text.font.Font> listIterator();
     method public java.util.ListIterator<androidx.ui.engine.text.font.Font> listIterator(int index);
-    method public void setContext(android.content.Context p);
     method public java.util.List<androidx.ui.engine.text.font.Font> subList(int fromIndex, int toIndex);
-    property public final android.content.Context context;
-    field public android.content.Context context;
   }
 
   public final class FontFamilyList implements kotlin.jvm.internal.markers.KMappedMarker java.util.List<androidx.ui.engine.text.font.FontFamily> {
@@ -344,7 +347,7 @@ package androidx.ui.painting {
   }
 
   public final class TextPainter {
-    ctor public TextPainter(androidx.ui.painting.AnnotatedString? text, androidx.ui.painting.TextStyle? style, androidx.ui.painting.ParagraphStyle? paragraphStyle, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale, androidx.ui.core.Density density);
+    ctor public TextPainter(androidx.ui.painting.AnnotatedString? text, androidx.ui.painting.TextStyle? style, androidx.ui.painting.ParagraphStyle? paragraphStyle, Integer? maxLines, boolean softWrap, androidx.ui.rendering.paragraph.TextOverflow overflow, androidx.ui.engine.window.Locale? locale, androidx.ui.core.Density density, androidx.ui.engine.text.ParagraphFactory paragraphFactory);
     method public androidx.ui.core.Density getDensity();
     method public boolean getDidExceedMaxLines();
     method public float getHeight();
@@ -353,6 +356,7 @@ package androidx.ui.painting {
     method public Integer? getMaxLines();
     method public float getMinIntrinsicWidth();
     method public androidx.ui.rendering.paragraph.TextOverflow getOverflow();
+    method public androidx.ui.engine.text.ParagraphFactory getParagraphFactory();
     method public androidx.ui.painting.ParagraphStyle? getParagraphStyle();
     method public int getPositionForOffset(androidx.ui.engine.geometry.Offset offset);
     method public float getPreferredLineHeight();
