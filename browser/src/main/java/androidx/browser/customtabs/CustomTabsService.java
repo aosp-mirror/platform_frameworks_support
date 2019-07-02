@@ -60,6 +60,14 @@ public abstract class CustomTabsService extends Service {
             "androidx.browser.trusted.category.NavBarColorCustomization";
 
     /**
+     * An Intent filter category to signify that the Custom Tabs provider supports selecting and
+     * customizing color schemes via {@link CustomTabsIntent.Builder#setColorScheme} and
+     * {@link CustomTabsIntent.Builder#setColorSchemeParams}.
+     */
+    public static final String CATEGORY_COLOR_SCHEME_CUSTOMIZATION =
+            "androidx.browser.trusted.category.ColorSchemeCustomization";
+
+    /**
      * An Intent filter category to signify that the Custom Tabs provider supports Trusted Web
      * Activities.
      *
