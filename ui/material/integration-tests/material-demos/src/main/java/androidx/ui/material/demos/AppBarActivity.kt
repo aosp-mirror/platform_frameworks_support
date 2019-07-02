@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.compose.Composable
 import androidx.compose.setContent
 import androidx.compose.composer
+import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Text
@@ -31,6 +32,13 @@ import androidx.ui.material.MaterialTheme
 import androidx.ui.material.TopAppBar
 import androidx.ui.material.themeTextStyle
 import androidx.ui.graphics.Color
+import androidx.ui.layout.FlexColumn
+import androidx.ui.material.AppBarIcon
+import androidx.ui.material.BottomAppBar
+import androidx.ui.material.Button
+import androidx.ui.material.FloatingActionButton
+import androidx.ui.material.FloatingActionButtonPosition
+import androidx.ui.painting.imageFromResource
 
 class AppBarActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,25 +46,124 @@ class AppBarActivity : Activity() {
         setContent {
             CraneWrapper {
                 MaterialTheme {
-                    AppBarDemo()
+                    val favouriteImage = imageFromResource(resources, R.drawable.ic_favorite)
+                    val navigationImage = imageFromResource(resources, R.drawable.ic_menu)
+                    val navigationIcon: @Composable() () -> Unit = { AppBarIcon(navigationImage) {} }
+                    val smallActionsList = (0..1).map { favouriteImage }
+                    val largeActionsList = (0..5).map { favouriteImage }
+                    FlexColumn {
+                        val showingTopAppBars = +state { true }
+                        val showingSmallActions = +state { true }
+                        val actionItems = if (showingSmallActions.value) smallActionsList else largeActionsList
+                        inflexible {
+                            HeightSpacer(15.dp)
+                            Text("Currently showing: ${if (showingTopAppBars.value) "top" else "bottom"} app bars")
+                            HeightSpacer(15.dp)
+                            Text("Number of actions: ${if (showingSmallActions.value) smallActionsList.size else largeActionsList.size}")
+                            HeightSpacer(15.dp)
+                        }
+                        expanded(1f) {
+                            if (showingTopAppBars.value) {
+                                Column {
+                                    TopAppBar(title = { Text("Default") })
+                                    HeightSpacer(height = 24.dp)
+                                    TopAppBar(
+                                        title = { Text("Custom color") },
+                                        color = Color(0xFFE91E63.toInt())
+                                    )
+                                    HeightSpacer(height = 24.dp)
+                                    TopAppBar(
+                                        title = { Text("With icons") },
+                                        navigationIcon = navigationIcon,
+                                        actionItems = actionItems
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+                                    HeightSpacer(height = 12.dp)
+                                    Text(text = "No title", style = +themeTextStyle { h6 })
+                                    TopAppBar(
+                                        navigationIcon = navigationIcon,
+                                        actionItems = actionItems
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+                                }
+                            } else {
+                                Column {
+                                    Text(text = "Empty", style = +themeTextStyle { h6 })
+                                    BottomAppBar()
+                                    HeightSpacer(height = 12.dp)
+                                    Text(text = "Custom color", style = +themeTextStyle { h6 })
+                                    BottomAppBar(color = Color(0xFFE91E63.toInt()))
+                                    HeightSpacer(height = 12.dp)
+                                    Text(text = "With icons", style = +themeTextStyle { h6 })
+                                    BottomAppBar(
+                                        navigationIcon = navigationIcon,
+                                        actionItems = actionItems
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+                                    HeightSpacer(height = 12.dp)
+                                    Text(text = "Center FAB", style = +themeTextStyle { h6 })
+                                    BottomAppBar(
+                                        navigationIcon = navigationIcon,
+                                        floatingActionButton = {
+                                            FloatingActionButton(color = Color.Black, icon = favouriteImage, onClick = {})
+                                        },
+                                        floatingActionButtonPosition = FloatingActionButtonPosition.CENTER,
+                                        actionItems = actionItems
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+                                    HeightSpacer(height = 12.dp)
+                                    Text(text = "End FAB", style = +themeTextStyle { h6 })
+                                    BottomAppBar(
+                                        floatingActionButton = {
+                                            FloatingActionButton(color = Color.Black, icon = favouriteImage, onClick = {})
+                                        },
+                                        floatingActionButtonPosition = FloatingActionButtonPosition.END,
+                                        actionItems = actionItems
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+                                    /** Menu items could either have a separate lambda for them:
+                                     *
+                                    BottomAppBar(
+                                        navigationIcon = navigationIcon,
+                                        actionItems = largeActionsList,
+                                        menuItem = { icon -> MenuListItem(icon) { launchSomething() } }
+                                    ) { icon ->
+                                        AppBarIcon(icon) {}
+                                    }
+
+                                     Or alternatively it could be a parameter inside the action lambda:
+
+                                    BottomAppBar(
+                                        navigationIcon = navigationIcon,
+                                        actionItems = largeActionsList
+                                    ) { icon, isMenu ->
+                                        if (isMenu) {
+                                            MenuListItem(icon) { launchSomething() }
+                                        } else {
+                                            AppBarIcon(icon) { launchSomethingElse() }
+                                        }
+                                    }
+                                     */
+                                }
+                            }
+                        }
+                        inflexible {
+                            Button(
+                                "Toggle between top/bottom app bars",
+                                onClick = { showingTopAppBars.value = !showingTopAppBars.value })
+                            HeightSpacer(10.dp)
+                            Button(
+                                "Toggle between 2 and 6 actions",
+                                onClick = { showingSmallActions.value = !showingSmallActions.value })
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun AppBarDemo() {
-    Column {
-        TopAppBar(title = "Default")
-        HeightSpacer(height = 24.dp)
-        TopAppBar(title = "Custom color", color = Color(0xFFE91E63.toInt()))
-        HeightSpacer(height = 24.dp)
-        TopAppBar(title = "Custom icons", icons = listOf(24.dp, 24.dp))
-        HeightSpacer(height = 12.dp)
-        Text(text = "No title", style = +themeTextStyle { h6 })
-        TopAppBar(icons = listOf(24.dp, 24.dp))
-        HeightSpacer(height = 24.dp)
-        TopAppBar(title = "Too many icons", icons = listOf(24.dp, 24.dp, 24.dp, 24.dp))
     }
 }
