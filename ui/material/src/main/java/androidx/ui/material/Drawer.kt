@@ -28,8 +28,6 @@ import androidx.compose.memo
 import androidx.compose.onCommit
 import androidx.compose.unaryPlus
 import androidx.ui.animation.animatedFloat
-import androidx.ui.baseui.Clickable
-import androidx.ui.baseui.ColoredRect
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.Direction
 import androidx.ui.core.Dp
@@ -47,6 +45,8 @@ import androidx.ui.core.hasBoundedWidth
 import androidx.ui.core.min
 import androidx.ui.core.px
 import androidx.ui.core.withDensity
+import androidx.ui.foundation.Clickable
+import androidx.ui.foundation.ColoredRect
 import androidx.ui.graphics.Color
 import androidx.ui.layout.Alignment
 import androidx.ui.layout.Column
