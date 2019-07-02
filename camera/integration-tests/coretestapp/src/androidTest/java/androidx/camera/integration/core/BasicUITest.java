@@ -83,6 +83,7 @@ public final class BasicUITest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+        assumeTrue(CoreAppTestUtil.isCompatibleDevice());
 
         // In case the lock screen on top, the action to dismiss it.
         mDevice.pressKeyCode(DISMISS_LOCK_SCREEN_CODE);
