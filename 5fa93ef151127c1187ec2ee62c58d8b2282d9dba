@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "368f200f_a6c0e453",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T20:22:20Z",
+      "side": 0,
+      "message": "moved to paragraph android test since it used android textLocale.",
+      "range": {
+        "startLine": 488,
+        "startChar": 8,
+        "endLine": 488,
+        "endChar": 43
+      },
+      "revId": "5fa93ef151127c1187ec2ee62c58d8b2282d9dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cef7e05c_3be002e8",
         "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
         "patchSetId": 2
@@ -19,6 +42,47 @@
         "endLine": 707,
         "endChar": 50
       },
+      "revId": "5fa93ef151127c1187ec2ee62c58d8b2282d9dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff1c3cb3_bdd12945",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T20:22:20Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "cef7e05c_3be002e8",
+      "range": {
+        "startLine": 707,
+        "startChar": 36,
+        "endLine": 707,
+        "endChar": 50
+      },
+      "revId": "5fa93ef151127c1187ec2ee62c58d8b2282d9dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "298b7b84_bd7433f1",
+        "filename": "ui/text/src/test/java/androidx/ui/engine/text/ParagraphTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T20:22:20Z",
+      "side": 0,
+      "message": "moved to paragraph integration test",
       "revId": "5fa93ef151127c1187ec2ee62c58d8b2282d9dba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dab2eb79_e83fb0cc",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/Paragraph.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T20:22:20Z",
+      "side": 1,
+      "message": "since the remaining is offset, lets use offset.",
+      "parentUuid": "0b4d7bd1_4a20ff40",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 62
+      },
+      "revId": "ed84938d2d6d7d5e6e40001b4eb84d219c4dbd4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "379468ba_f4fce668",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ed84938d2d6d7d5e6e40001b4eb84d219c4dbd4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "614ade0f_a2c4fb09",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-02T20:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "379468ba_f4fce668",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 89
+      },
+      "revId": "ed84938d2d6d7d5e6e40001b4eb84d219c4dbd4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
