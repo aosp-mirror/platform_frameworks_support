@@ -22,6 +22,30 @@
       "revId": "f04731be59e76ee003feacba34b7f4217fc22dd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac489c69_410175cf",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T19:51:31Z",
+      "side": 1,
+      "message": "Sorry for my newbie question. Is enum allowed in Crane? If yes, only for public API? or in general?\n\nThank you.",
+      "parentUuid": "aa2ad2d3_f1e25042",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "f04731be59e76ee003feacba34b7f4217fc22dd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
