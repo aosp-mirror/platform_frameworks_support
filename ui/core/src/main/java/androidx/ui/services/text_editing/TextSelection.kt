@@ -45,9 +45,6 @@ data class TextSelection(
      * extent and is adjusted.
      */
     val isDirectional: Boolean = false
-) : TextRange(
-    start = if (baseOffset < extentOffset) baseOffset else extentOffset,
-    end = if (baseOffset < extentOffset) extentOffset else baseOffset
 ) {
     companion object {
         /**
