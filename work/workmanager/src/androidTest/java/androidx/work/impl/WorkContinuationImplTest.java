@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.MutableLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -298,6 +299,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
                 mConfiguration,
                 new InstantWorkTaskExecutor(),
                 mDatabase,
+                new MutableLiveData<>(),
                 joinId)
                 .build()
                 .run();

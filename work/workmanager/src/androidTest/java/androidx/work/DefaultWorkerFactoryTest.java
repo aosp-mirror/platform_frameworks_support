@@ -22,6 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
@@ -66,7 +67,8 @@ public class DefaultWorkerFactoryTest extends DatabaseTest {
                         1,
                         executor,
                         new WorkManagerTaskExecutor(executor),
-                        mDefaultWorkerFactory));
+                        mDefaultWorkerFactory,
+                        new MutableLiveData<>()));
         assertThat(worker, is(notNullValue()));
         assertThat(worker,
                 is(CoreMatchers.<ListenableWorker>instanceOf(TestWorker.class)));

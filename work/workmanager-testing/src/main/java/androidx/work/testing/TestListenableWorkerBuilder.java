@@ -23,6 +23,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.lifecycle.MutableLiveData;
 import androidx.work.Data;
 import androidx.work.ListenableWorker;
 import androidx.work.WorkRequest;
@@ -56,6 +57,7 @@ public class TestListenableWorkerBuilder<W extends ListenableWorker> {
     private WorkerFactory mWorkerFactory;
     private TaskExecutor mTaskExecutor;
     private Executor mExecutor;
+    private MutableLiveData<Object> mProgress;
 
     TestListenableWorkerBuilder(@NonNull Context context, @NonNull Class<W> workerClass) {
         mContext = context;
@@ -69,6 +71,7 @@ public class TestListenableWorkerBuilder<W extends ListenableWorker> {
         mWorkerFactory = WorkerFactory.getDefaultWorkerFactory();
         mTaskExecutor = new InstantWorkTaskExecutor();
         mExecutor = mTaskExecutor.getBackgroundExecutor();
+        mProgress = new MutableLiveData<>();
     }
 
     /**
@@ -158,6 +161,14 @@ public class TestListenableWorkerBuilder<W extends ListenableWorker> {
     @NonNull
     Executor getExecutor() {
         return mExecutor;
+    }
+
+    /**
+     * @return The {@link MutableLiveData} which can be used to track progress of this unit of work.
+     */
+    @NonNull
+    MutableLiveData<Object> getProgress() {
+        return mProgress;
     }
 
     /**
@@ -292,7 +303,8 @@ public class TestListenableWorkerBuilder<W extends ListenableWorker> {
                         // This is unused for ListenableWorker
                         getExecutor(),
                         getTaskExecutor(),
-                        getWorkerFactory()
+                        getWorkerFactory(),
+                        getProgress()
                 );
 
         WorkerFactory workerFactory = parameters.getWorkerFactory();
