@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8366eeb1_ee74a16d",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-02T16:57:14Z",
+      "side": 1,
+      "message": "How is this related to navbar color thing above?",
+      "range": {
+        "startLine": 67,
+        "startChar": 31,
+        "endLine": 67,
+        "endChar": 66
+      },
+      "revId": "e39498fe798ec6f9563b8da65b672c0640150d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
