@@ -118,6 +118,30 @@
       "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e9d4c2_481ffe04",
+        "filename": "core/core/src/main/java/androidx/core/util/Predicate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-02T20:43:47Z",
+      "side": 1,
+      "message": "Thanks!\n\nI think it\u0027s unclear how long it will take before we can actually leverage the AGP 3.6 desugaring of the java.util.function APIs. Certainly on the order of 3-5 months at minimum, but maybe even longer since consumers need to also be using AGP 3.6+.\n\nThis is certainly one of the more common interfaces so maybe we just close our eyes and add it and not worry too much, despite it being the sad state of things.\n\nI sorta hijacked this thread. Thought it was the comment about adding the type. We can\u0027t add the other methods because they rely on default or static methods and we don\u0027t have Java 8 bytecode targeting weeeeeee...",
+      "parentUuid": "a9335960_49b5aaa6",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "5544d73a89edb99255240b7abedcab02a31f3ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
