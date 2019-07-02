@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa2ad2d3_f1e25042",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-02T19:17:42Z",
+      "side": 1,
+      "message": "Is there any reason to use Int instead of enum? Since it\u0027s public API, I kind of worries that developer can pass an invalid value without a compile-time error.",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "f04731be59e76ee003feacba34b7f4217fc22dd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
