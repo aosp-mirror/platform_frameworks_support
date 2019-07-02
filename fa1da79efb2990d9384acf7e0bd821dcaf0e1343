@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "01a83db5_f09d11b8",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-02T20:11:58Z",
+      "side": 1,
+      "message": "Actually, can\u0027t this just be:\n\nfun initParameters(): Array\u003cInt\u003e {\n    return arrayOf(1, 10)\n}\n\nSince you\u0027re only using one parameter here, right?",
+      "parentUuid": "d18a5d14_293013ad",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14f2454b_92a9f159",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1
@@ -979,6 +1003,30 @@
       "side": 1,
       "message": "I think you are just forming this based on the content of this CL which was my mistake of not explaining what this module will contain. This was explained in the perfomance testing design doc where I originally proposed this. So this module will contain benchmarks that span across several modules. E.g. there is already a benchmark pending from George that measures layout on \n a row of checkboxes. And that perfectly fits here. Just by definition this is integration test across several modules thus not belonging to specific module. And if we would decide on putting this to specific modules we would have to arbitrarily decide on where to put it, as for instance does benchmark of layout of checkboxes belong to material or layout? And let\u0027s not forget on the duplication we would have to copy this to individual modules. Also I don\u0027t think there is anything bad on depending on stuff here. This is not library that is going to ship to devices. I would recommend checking other projects on github that use similar structure (e.g. flutter).",
       "parentUuid": "d3d597ab_a65130d9",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea7f9e8a_b7ab3665",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-02T20:11:58Z",
+      "side": 1,
+      "message": "Thanks for clarifying, makes sense when we have more cross-module benchmarks here.",
+      "parentUuid": "e0d78bf7_4d9ae7c2",
       "range": {
         "startLine": 49,
         "startChar": 0,
