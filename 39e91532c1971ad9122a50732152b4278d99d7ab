@@ -34,6 +34,23 @@
       "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e44453_904747ee",
+        "filename": "compose/compose-ide-plugin/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1383730
+      },
+      "writtenOn": "2019-07-02T22:32:59Z",
+      "side": 1,
+      "message": "What about Linux?  Also, the binaries from lorry don\u0027t follow this `-mac` pattern.",
+      "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
