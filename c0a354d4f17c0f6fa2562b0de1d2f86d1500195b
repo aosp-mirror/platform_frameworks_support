@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b69ce10a_c24088ed",
+        "filename": "webkit/api/1.1.0-alpha02.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "We don\u0027t actually have an alpha03 file yet?",
+      "parentUuid": "bb0e7c9f_21c4838e",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b643efc3_099c22cc",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17225d8_1eb51a82",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b643efc3_099c22cc",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 85
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b02fe9e8_ea832e5e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47375c7c_3ab80399",
+      "range": {
+        "startLine": 83,
+        "startChar": 57,
+        "endLine": 83,
+        "endChar": 74
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff7b4ca1_edfb9788",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f68393ce_1d50dd08",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7b4ca1_edfb9788",
+      "range": {
+        "startLine": 85,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "57ef05f8_b7532e60",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e8f4625_ab75fcd2",
+      "range": {
+        "startLine": 87,
+        "startChar": 5,
+        "endLine": 87,
+        "endChar": 7
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bf62f46_03575eac",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-27T22:44:12Z",
       "side": 1,
       "message": "Why is List\u003cPair\u003e the right type? From the description, it seems this is Map\u003cUri,ProxyScheme\u003e.\n\nI don\u0027t understand what happens if you call `addProxyRule(myUrl, MATCH_HTTP).addProxyRule(myUrl, MATCH_ALL_SCHEMES)` (with respect to webview behavior, or with respect to what this List\u003cPair\u003e would look like)",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da125c4_f80e0bf7",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "This can\u0027t be a map as it is valid for developers to add (url,MATCH_HTTP) and subsequently (url,MATCH_HTTPS). The order matters, and the first rule that is a match is applied. It\u0027s not a problem if they add MATCH_HTTP and MATCH_ALL_SCHEMES later.\n\nWe don\u0027t use Uri but could replace the pair with Pair\u003cString, ProxyScheme\u003e, WDYT?",
+      "parentUuid": "7bf62f46_03575eac",
       "range": {
         "startLine": 89,
         "startChar": 11,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "609dfb1e_95afce9e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aee7bba4_e328069e",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 9
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea120acb_ece4cfd9",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "b47a7b7f_8774ad70",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea120acb_ece4cfd9",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbc0b6c4_587d0dc0",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -197,6 +389,30 @@
       "writtenOn": "2019-06-27T22:44:12Z",
       "side": 1,
       "message": "Maybe this should say \"called multiple times to add fallback rules,\" to clarify later calls have lower precedence? Should also clarify the conditions upon which we fallback. Could probably copy http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/ProxyConfig.java?l\u003d33\u0026rcl\u003d32488a5de9624ba6e5a2972a94a342efe13de7ec",
+      "range": {
+        "startLine": 141,
+        "startChar": 90,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e41e573_bca7de94",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "While this is true, new rules aren\u0027t always added as fallback (for example, if adding different rules for HTTP and HTTPS)",
+      "parentUuid": "dbc0b6c4_587d0dc0",
       "range": {
         "startLine": 141,
         "startChar": 90,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "3f559e5d_44d65316",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53febcb_4ab8d764",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 11
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca5c8b81_214dde72",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "4fb53fb8_ed99547b",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "I added a new method that accepts a scheme filter to handle this case and rephrased the doc.",
+      "parentUuid": "ca5c8b81_214dde72",
+      "range": {
+        "startLine": 205,
+        "startChar": 35,
+        "endLine": 205,
+        "endChar": 53
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e602b4da_5f3eb82d",
         "filename": "webkit/src/main/java/androidx/webkit/internal/ProxyControllerImpl.java",
         "patchSetId": 5
@@ -275,6 +539,30 @@
       "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1efc3b7_88985bbd",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/ProxyControllerImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-02T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e602b4da_5f3eb82d",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 78
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
