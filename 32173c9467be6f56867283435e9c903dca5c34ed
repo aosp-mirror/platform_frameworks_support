@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ecaaf93_8f7ba167",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-02T08:10:08Z",
+      "side": 1,
+      "message": "I think it\u0027s safer to do it the way you have it right now, so we can release any potential resources tied to the previous activity.\n\nThe implementation in FragmentActivity etc saves/restores the states of any existing fragments to a \"new\" instance so it should be safe unless there are bugs in our code where we don\u0027t restore state. I think we use setRetainInstance for simple data, and just have the clients re-establish executor+callback so it should be safe from our perspective too.",
+      "parentUuid": "db74ad19_43c30f89",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3113831e_0d0d906a",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63fa7aca_60364262",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-02T08:10:08Z",
+      "side": 1,
+      "message": "This is fine :)",
+      "parentUuid": "3113831e_0d0d906a",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "499c70be_1179d43a",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-02T08:10:08Z",
+      "side": 1,
+      "message": "Ah, I suspect when we try to release the API we\u0027ll get some feedback from API council.\n\nI\u0027d prefer to have both APIs in the same order (maybe the requirement was added after we released our API?)\n\nIn any case, if we must have the executor be last, we should just re-order both. Let\u0027s add alanv@ once we\u0027re ready for API review",
+      "parentUuid": "e34167c1_6b4add71",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "315909e2_a0b74079",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b8fe396_b6905732",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-07-02T08:10:08Z",
+      "side": 1,
+      "message": "Let\u0027s just put these two methods close by each other for now. If it gets to be too complicated / difficult to understand we can consider other options.",
+      "parentUuid": "315909e2_a0b74079",
+      "revId": "32173c9467be6f56867283435e9c903dca5c34ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
