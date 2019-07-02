@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01d6730a_0916a282",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26686e5f_68911642",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9583afd9_b552a1b7",
         "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe530ef3_f7d64d96",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done\nAnd redundant KEYBOARD_TYPE prefix.",
+      "parentUuid": "9583afd9_b552a1b7",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +165,78 @@
     },
     {
       "key": {
+        "uuid": "599d718b_32e9dc9f",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7ce5f21_f05d8d96",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "409430e7_27b03970",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f07a1f9_98c7c5d9",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "330be288_776f5bb3",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec31a8ac_51e33edb",
+      "range": {
+        "startLine": 84,
+        "startChar": 74,
+        "endLine": 84,
+        "endChar": 93
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6dbe127_6f3f8984",
         "filename": "ui/platform/src/main/java/androidx/ui/core/input/TextInputServiceAndroid.kt",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "decb83b5_c23a6385",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/input/TextInputServiceAndroid.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-02T22:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6dbe127_6f3f8984",
+      "range": {
+        "startLine": 121,
+        "startChar": 47,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "64d296f271fa05e41dd44b95ed57d66e0e96336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
