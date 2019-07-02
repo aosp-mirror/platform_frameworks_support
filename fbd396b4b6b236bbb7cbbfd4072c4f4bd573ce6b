@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "793fc390_bfae7907",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-02T17:59:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5fc83113_08de941b",
+      "range": {
+        "startLine": 900,
+        "startChar": 8,
+        "endLine": 900,
+        "endChar": 21
+      },
+      "revId": "fbd396b4b6b236bbb7cbbfd4072c4f4bd573ce6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07a87b35_189ef448",
         "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
         "patchSetId": 1
