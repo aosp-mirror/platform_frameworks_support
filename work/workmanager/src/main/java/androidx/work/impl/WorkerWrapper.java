@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
+import androidx.lifecycle.MutableLiveData;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
@@ -72,6 +73,7 @@ public class WorkerWrapper implements Runnable {
 
     private Context mAppContext;
     private String mWorkSpecId;
+    private MutableLiveData<Object> mProgress;
     private List<Scheduler> mSchedulers;
     private WorkerParameters.RuntimeExtras mRuntimeExtras;
     // Avoid Synthetic accessor
@@ -104,6 +106,7 @@ public class WorkerWrapper implements Runnable {
         mAppContext = builder.mAppContext;
         mWorkTaskExecutor = builder.mWorkTaskExecutor;
         mWorkSpecId = builder.mWorkSpecId;
+        mProgress = builder.mProgress;
         mSchedulers = builder.mSchedulers;
         mRuntimeExtras = builder.mRuntimeExtras;
         mWorker = builder.mWorker;
@@ -220,7 +223,8 @@ public class WorkerWrapper implements Runnable {
                 mWorkSpec.runAttemptCount,
                 mConfiguration.getExecutor(),
                 mWorkTaskExecutor,
-                mConfiguration.getWorkerFactory());
+                mConfiguration.getWorkerFactory(),
+                mProgress);
 
         // Not always creating a worker here, as the WorkerWrapper.Builder can set a worker override
         // in test mode.
@@ -597,6 +601,7 @@ public class WorkerWrapper implements Runnable {
         @NonNull TaskExecutor mWorkTaskExecutor;
         @NonNull Configuration mConfiguration;
         @NonNull WorkDatabase mWorkDatabase;
+        @NonNull MutableLiveData<Object> mProgress;
         @NonNull String mWorkSpecId;
         List<Scheduler> mSchedulers;
         @NonNull
@@ -606,11 +611,13 @@ public class WorkerWrapper implements Runnable {
                 @NonNull Configuration configuration,
                 @NonNull TaskExecutor workTaskExecutor,
                 @NonNull WorkDatabase database,
+                @NonNull MutableLiveData<Object> progress,
                 @NonNull String workSpecId) {
             mAppContext = context.getApplicationContext();
             mWorkTaskExecutor = workTaskExecutor;
             mConfiguration = configuration;
             mWorkDatabase = database;
+            mProgress = progress;
             mWorkSpecId = workSpecId;
         }
 

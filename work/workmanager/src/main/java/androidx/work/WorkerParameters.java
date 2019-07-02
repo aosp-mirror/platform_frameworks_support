@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.lifecycle.MutableLiveData;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.Collection;
@@ -48,6 +49,7 @@ public final class WorkerParameters {
     private @NonNull Executor mBackgroundExecutor;
     private @NonNull TaskExecutor mWorkTaskExecutor;
     private @NonNull WorkerFactory mWorkerFactory;
+    private @NonNull MutableLiveData<Object> mProgress;
 
     /**
      * @hide
@@ -61,7 +63,8 @@ public final class WorkerParameters {
             @IntRange(from = 0) int runAttemptCount,
             @NonNull Executor backgroundExecutor,
             @NonNull TaskExecutor workTaskExecutor,
-            @NonNull WorkerFactory workerFactory) {
+            @NonNull WorkerFactory workerFactory,
+            @NonNull MutableLiveData<Object> progress) {
         mId = id;
         mInputData = inputData;
         mTags = new HashSet<>(tags);
@@ -70,6 +73,7 @@ public final class WorkerParameters {
         mBackgroundExecutor = backgroundExecutor;
         mWorkTaskExecutor = workTaskExecutor;
         mWorkerFactory = workerFactory;
+        mProgress = progress;
     }
 
     /**
@@ -170,6 +174,15 @@ public final class WorkerParameters {
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public @NonNull WorkerFactory getWorkerFactory() {
         return mWorkerFactory;
+    }
+
+    /**
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public MutableLiveData<Object> getProgress() {
+        return mProgress;
     }
 
     /**
