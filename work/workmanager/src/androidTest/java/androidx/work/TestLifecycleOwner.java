@@ -16,6 +16,7 @@
 
 package androidx.work;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
@@ -32,6 +33,7 @@ public class TestLifecycleOwner implements LifecycleOwner {
     }
 
     @Override
+    @NonNull
     public Lifecycle getLifecycle() {
         return mLifecycleRegistry;
     }

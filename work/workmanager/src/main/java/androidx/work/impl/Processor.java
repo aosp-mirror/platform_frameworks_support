@@ -18,10 +18,14 @@ package androidx.work.impl;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.work.Configuration;
 import androidx.work.Logger;
 import androidx.work.WorkerParameters;
+import androidx.work.impl.utils.LiveDataUtils;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -48,6 +52,7 @@ public class Processor implements ExecutionListener {
     private TaskExecutor mWorkTaskExecutor;
     private WorkDatabase mWorkDatabase;
     private Map<String, WorkerWrapper> mEnqueuedWorkMap;
+    private ProgressTracker mProgressTracker;
     private List<Scheduler> mSchedulers;
 
     private Set<String> mCancelledIds;
@@ -66,6 +71,7 @@ public class Processor implements ExecutionListener {
         mWorkTaskExecutor = workTaskExecutor;
         mWorkDatabase = workDatabase;
         mEnqueuedWorkMap = new HashMap<>();
+        mProgressTracker = new ProgressTracker();
         mSchedulers = schedulers;
         mCancelledIds = new HashSet<>();
         mOuterListeners = new ArrayList<>();
@@ -101,16 +107,19 @@ public class Processor implements ExecutionListener {
                 return false;
             }
 
+            MutableLiveData<Object> progress = mProgressTracker.startTracking(id);
             workWrapper =
                     new WorkerWrapper.Builder(
                             mAppContext,
                             mConfiguration,
                             mWorkTaskExecutor,
                             mWorkDatabase,
+                            progress,
                             id)
                             .withSchedulers(mSchedulers)
                             .withRuntimeExtras(runtimeExtras)
                             .build();
+
             ListenableFuture<Boolean> future = workWrapper.getFuture();
             future.addListener(
                     new FutureListener(this, id, future),
@@ -216,6 +225,45 @@ public class Processor implements ExecutionListener {
         }
     }
 
+    /**
+     * @return The {@link ProgressTracker}.
+     */
+    @NonNull
+    ProgressTracker getProgressTracker() {
+        return mProgressTracker;
+    }
+
+    /**
+     * Gets {@link androidx.work.ListenableWorker} progress by id.
+     *
+     * @param workSpecId The {@link String} workSpecId
+     * @return The instance of {@link LiveData}
+     */
+    @Nullable
+    public LiveData<Object> getProgress(@NonNull String workSpecId) {
+        synchronized (mLock) {
+            // There is an inherent race between tracking of work that has not started yet.
+            // startTracking is therefore idempotent.
+            return mProgressTracker.startTracking(workSpecId);
+        }
+    }
+
+    /**
+     * Gets progress for a list of {@link androidx.work.ListenableWorker}s given their workSpecIds.
+     *
+     * @param workSpecIds The {@link List} of  workSpec ids.
+     * @return The instance of {@link LiveData}
+     */
+    @NonNull
+    public LiveData<Map<String, Object>> getProgress(@NonNull List<String> workSpecIds) {
+        List<LiveData<Object>> progressList = new ArrayList<>(workSpecIds.size());
+        for (String workSpecId : workSpecIds) {
+            LiveData<Object> progress = getProgress(workSpecId);
+            progressList.add(progress);
+        }
+        return LiveDataUtils.flattenToMap(workSpecIds, progressList);
+    }
+
     @Override
     public void onExecuted(
             @NonNull final String workSpecId,
@@ -223,6 +271,7 @@ public class Processor implements ExecutionListener {
 
         synchronized (mLock) {
             mEnqueuedWorkMap.remove(workSpecId);
+            mProgressTracker.stopTracking(workSpecId);
             Logger.get().debug(TAG, String.format("%s %s executed; reschedule = %s",
                     getClass().getSimpleName(), workSpecId, needsReschedule));
 

@@ -17,6 +17,7 @@
 package androidx.work
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
@@ -87,7 +88,8 @@ class DelegatingWorkerFactoryTest : DatabaseTest() {
         1,
         SynchronousExecutor(),
         WorkManagerTaskExecutor(SynchronousExecutor()),
-        factory
+        factory,
+        MutableLiveData()
     )
 }
 
