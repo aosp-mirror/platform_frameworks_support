@@ -16,7 +16,7 @@
 
 package androidx.ui.services.text_editing
 
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 
 /** A range of text that represents a selection. */
 data class TextSelection(
