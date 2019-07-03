@@ -332,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "c999b4d0_f05cfb32",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "I actually couldn\u0027t annotate this, AS says \"Type annotations are not supported at language level \u00277\u0027\"",
+      "parentUuid": "ba9b63ff_58ed8672",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee7bba4_e328069e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -494,6 +518,54 @@
       "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "295a418f_d21a1c09",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38da6ae7_6f33fbb9",
+      "range": {
+        "startLine": 141,
+        "startChar": 90,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb887a73_3eed708c",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38da6ae7_6f33fbb9",
+      "range": {
+        "startLine": 141,
+        "startChar": 90,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

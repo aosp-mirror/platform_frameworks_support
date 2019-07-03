@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e33ac96d_5c114218",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86407a2c_1ed55390",
+      "range": {
+        "startLine": 208,
+        "startChar": 9,
+        "endLine": 208,
+        "endChar": 10
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caba7be3_1ebdaaf1",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "42992672_ce7e0483",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any em dashes in our docs, so instead I rephrased this.",
+      "parentUuid": "caba7be3_1ebdaaf1",
+      "range": {
+        "startLine": 232,
+        "startChar": 52,
+        "endLine": 232,
+        "endChar": 55
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61d54129_0b0df0fb",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "e2328677090f367e587089b4077aa4c55e678db0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d9ccf2_d4dfc431",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-03T13:36:05Z",
+      "side": 1,
+      "message": "I rephrased both this and above methods\u0027s doc.",
+      "parentUuid": "61d54129_0b0df0fb",
+      "range": {
+        "startLine": 239,
+        "startChar": 29,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
