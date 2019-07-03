@@ -1,0 +1,9 @@
+Autosubmit+1: Mihai Popa <popam@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Andrey Kulikov <andreykulikov@google.com>
+API-Review+1: George Mount <mount@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 03 Jul 2019 14:51:37 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1009033
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
