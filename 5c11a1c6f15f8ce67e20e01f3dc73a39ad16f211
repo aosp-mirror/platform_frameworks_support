@@ -22,6 +22,30 @@
       "revId": "5c11a1c6f15f8ce67e20e01f3dc73a39ad16f211",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d3977e_83ab2b60",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-03T18:14:23Z",
+      "side": 1,
+      "message": "As far as I know, there is no method assertEquals(Constraints, Constraints). If you meant Constraints.assertEquals(IntPx, IntPx, IntPx, IntPx), that is private in ConstraintsTest.",
+      "parentUuid": "51902e7d_bc47c045",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 57
+      },
+      "revId": "5c11a1c6f15f8ce67e20e01f3dc73a39ad16f211",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
