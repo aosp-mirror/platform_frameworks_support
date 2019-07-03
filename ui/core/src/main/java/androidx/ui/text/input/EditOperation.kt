@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.input
+package androidx.ui.text.input
 
 import androidx.annotation.RestrictTo
 import androidx.annotation.RestrictTo.Scope.LIBRARY

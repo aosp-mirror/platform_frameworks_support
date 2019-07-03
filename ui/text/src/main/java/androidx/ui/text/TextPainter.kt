@@ -23,7 +23,6 @@ import androidx.ui.core.Constraints
 import androidx.ui.core.Density
 import androidx.ui.core.IntPxSize
 import androidx.ui.core.Sp
-import androidx.ui.core.TextRange
 import androidx.ui.core.constrain
 import androidx.ui.core.px
 import androidx.ui.core.round
@@ -33,7 +32,7 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.text.style.ParagraphStyle
 import androidx.ui.text.style.TextAlign
-import androidx.ui.engine.text.TextDirection
+import androidx.ui.text.style.TextDirection
 import androidx.ui.graphics.Color
 import androidx.ui.painting.BlendMode
 import androidx.ui.painting.Canvas

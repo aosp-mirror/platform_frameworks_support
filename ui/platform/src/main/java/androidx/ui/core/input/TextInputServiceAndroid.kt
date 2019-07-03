@@ -22,12 +22,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
-import androidx.ui.core.TextRange
-import androidx.ui.input.EditOperation
-import androidx.ui.input.EditorState
-import androidx.ui.input.InputEventListener
-import androidx.ui.input.KeyboardType
-import androidx.ui.input.TextInputService
+import androidx.ui.text.TextRange
+import androidx.ui.text.input.KeyboardType
+import androidx.ui.text.input.EditOperation
+import androidx.ui.text.input.EditorState
+import androidx.ui.text.input.InputEventListener
+import androidx.ui.text.input.TextInputService
 
 /**
  * Provide Android specific input service with the Operating System.

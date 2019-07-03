@@ -22,8 +22,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.test.filters.SmallTest
-import androidx.ui.input.EditorState
-import androidx.ui.input.KeyboardType
+import androidx.ui.text.input.EditorState
+import androidx.ui.text.input.KeyboardType
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
