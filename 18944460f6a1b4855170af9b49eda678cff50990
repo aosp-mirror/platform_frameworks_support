@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "e8a601c4_b4c7a3d8",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T19:14:41Z",
+      "side": 1,
+      "message": "So I will just remove the usages of ComposeWrapper in the next CL. And move forward with this one so we have can keep iterating and add more stuff.",
+      "parentUuid": "6fbe47f2_29d870c4",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
