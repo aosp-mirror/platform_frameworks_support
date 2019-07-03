@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c6b4c42_c688b1a2",
+        "filename": "ui/core/src/main/java/androidx/ui/input/KeyboardType.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-03T00:21:19Z",
+      "side": 1,
+      "message": "I believe this should be Ascii\nat least on Java Acronyms are CamelCased like that, i.e. it would not be getXML but getXml.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 9
+      },
+      "revId": "6e6e2ee14057b37f8358e58873b42b172a3d92ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
