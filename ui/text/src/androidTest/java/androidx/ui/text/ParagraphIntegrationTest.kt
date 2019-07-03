@@ -25,7 +25,6 @@ import androidx.ui.core.sp
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.text.FontTestData.Companion.BASIC_KERN_FONT
 import androidx.ui.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.text.FontTestData.Companion.FONT_100_REGULAR
@@ -40,6 +39,7 @@ import androidx.ui.painting.Shadow
 import androidx.ui.text.style.ParagraphStyle
 import androidx.ui.text.style.TextAlign
 import androidx.ui.text.style.TextIndent
+import androidx.ui.text.style.TextDirection
 import com.nhaarman.mockitokotlin2.mock
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.not

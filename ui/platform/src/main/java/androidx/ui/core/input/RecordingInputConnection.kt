@@ -30,17 +30,17 @@ import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputContentInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
-import androidx.ui.input.BackspaceKeyEditOp
-import androidx.ui.input.CommitTextEditOp
-import androidx.ui.input.DeleteSurroundingTextEditOp
-import androidx.ui.input.DeleteSurroundingTextInCodePointsEditOp
-import androidx.ui.input.EditOperation
-import androidx.ui.input.FinishComposingTextEditOp
-import androidx.ui.input.InputEventListener
-import androidx.ui.input.MoveCursorEditOp
-import androidx.ui.input.SetComposingRegionEditOp
-import androidx.ui.input.SetComposingTextEditOp
-import androidx.ui.input.SetSelectionEditOp
+import androidx.ui.text.input.BackspaceKeyEditOp
+import androidx.ui.text.input.CommitTextEditOp
+import androidx.ui.text.input.DeleteSurroundingTextEditOp
+import androidx.ui.text.input.DeleteSurroundingTextInCodePointsEditOp
+import androidx.ui.text.input.EditOperation
+import androidx.ui.text.input.FinishComposingTextEditOp
+import androidx.ui.text.input.InputEventListener
+import androidx.ui.text.input.MoveCursorEditOp
+import androidx.ui.text.input.SetComposingRegionEditOp
+import androidx.ui.text.input.SetComposingTextEditOp
+import androidx.ui.text.input.SetSelectionEditOp
 
 private val DEBUG = false
 private val TAG = "RecordingIC"

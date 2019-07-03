@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package androidx.ui.input
+package androidx.ui.text.input
 
 import androidx.annotation.RestrictTo
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 
 /**
  * The core editing implementation
@@ -46,7 +46,8 @@ class EditProcessor {
         if (mPreviousState !== state) {
             mBuffer = EditingBuffer(
                 initialText = state.text,
-                initialSelection = state.selection)
+                initialSelection = state.selection
+            )
         }
 
         textInputService?.onStateUpdated(state)
@@ -68,7 +69,8 @@ class EditProcessor {
                 TextRange(mBuffer.compositionStart, mBuffer.compositionEnd)
             } else {
                 null
-            })
+            }
+        )
 
         mPreviousState = newState
         return newState

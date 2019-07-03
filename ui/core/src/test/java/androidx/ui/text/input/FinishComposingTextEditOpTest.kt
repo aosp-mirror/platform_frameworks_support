@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package androidx.ui.input
+package androidx.ui.text.input
 
 import androidx.test.filters.SmallTest
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test

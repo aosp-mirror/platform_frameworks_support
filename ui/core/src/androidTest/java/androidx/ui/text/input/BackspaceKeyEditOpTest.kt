@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package androidx.ui.core.input
+package androidx.ui.text.input
 
 import androidx.test.filters.SmallTest
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import androidx.ui.input.BackspaceKeyEditOp
 import androidx.ui.input.EditingBuffer
 import org.junit.Assert.assertEquals
