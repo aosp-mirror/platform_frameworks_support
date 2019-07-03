@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51902e7d_bc47c045",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T17:29:49Z",
+      "side": 1,
+      "message": "nit: maybe just:\nassertEquals(Constraints(0.ipx, size, 0.ipx, size), childConstraints[0])\nhere and below",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 57
+      },
+      "revId": "5c11a1c6f15f8ce67e20e01f3dc73a39ad16f211",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

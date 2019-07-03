@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "6d308b77_a94e8d71",
+        "filename": "ui/core/src/test/java/androidx/ui/core/ConstraintsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T17:29:49Z",
+      "side": 1,
+      "message": "I think you should keep this test and add the @Test annotation to it.. not sure why the annotation is missing, but it means the test is currently not ran.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c51bfc1d_02f33105",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
         "patchSetId": 3
