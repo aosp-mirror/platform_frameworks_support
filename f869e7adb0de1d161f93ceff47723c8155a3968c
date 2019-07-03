@@ -87,6 +87,40 @@
     },
     {
       "key": {
+        "uuid": "b80360c4_54cbbff9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T02:27:40Z",
+      "side": 1,
+      "message": "Maybe we can code like\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/989207/7/camera/core/src/main/java/androidx/camera/core/ImageCapture.java\n\n^^ please see the callbackError() at the end of the file\n(you can copy this if you need)\n\nThe callback handler assigned by user, we should callback to the handle if user assign it.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b7bcdb_dd56667b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T02:27:40Z",
+      "side": 1,
+      "message": "Yo, the code in this CL is ok for me.\nJust would like let you know, I\u0027m trying to keep the capture complete/fail list.\nthe complete/fail list will be used to clear the ProcessingImageReader.",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2bc3a18_fd2f287a",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 3
