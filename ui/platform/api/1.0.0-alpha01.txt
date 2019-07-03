@@ -17,6 +17,7 @@ package androidx.ui.core {
     method public void onEndMeasure(androidx.ui.core.LayoutNode layoutNode);
     method public void onInvalidate(androidx.ui.core.DrawNode drawNode);
     method public void onPositionChange(androidx.ui.core.LayoutNode layoutNode);
+    method public void onRepaintBoundaryParamsChange(androidx.ui.core.RepaintBoundaryNode repaintBoundaryNode);
     method public void onRequestMeasure(androidx.ui.core.LayoutNode layoutNode);
     method public void onSizeChange(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartLayout(androidx.ui.core.LayoutNode layoutNode);
@@ -169,6 +170,7 @@ package androidx.ui.core {
     method public void onEndMeasure(androidx.ui.core.LayoutNode layoutNode);
     method public void onInvalidate(androidx.ui.core.DrawNode drawNode);
     method public void onPositionChange(androidx.ui.core.LayoutNode layoutNode);
+    method public void onRepaintBoundaryParamsChange(androidx.ui.core.RepaintBoundaryNode repaintBoundaryNode);
     method public void onRequestMeasure(androidx.ui.core.LayoutNode layoutNode);
     method public void onSizeChange(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartLayout(androidx.ui.core.LayoutNode layoutNode);
@@ -192,24 +194,30 @@ package androidx.ui.core {
 
   public final class RepaintBoundaryNode extends androidx.ui.core.ComponentNode {
     ctor public RepaintBoundaryNode(String? name);
+    method public boolean getClipToShape();
     method public androidx.ui.core.IntPx getContainerX();
     method public androidx.ui.core.IntPx getContainerY();
     method public androidx.ui.core.IntPx getLayoutX();
     method public androidx.ui.core.IntPx getLayoutY();
     method public String? getName();
+    method public androidx.ui.engine.geometry.Shape? getShape();
+    method public void setClipToShape(boolean value);
     method public void setContainerX(androidx.ui.core.IntPx p);
     method public void setContainerY(androidx.ui.core.IntPx p);
     method public void setLayoutX(androidx.ui.core.IntPx p);
     method public void setLayoutY(androidx.ui.core.IntPx p);
+    method public void setShape(androidx.ui.engine.geometry.Shape? value);
+    property public final boolean clipToShape;
     property public final androidx.ui.core.IntPx containerX;
     property public final androidx.ui.core.IntPx containerY;
     property public final androidx.ui.core.IntPx layoutX;
     property public final androidx.ui.core.IntPx layoutY;
     property public androidx.ui.core.RepaintBoundaryNode? repaintBoundary;
+    property public final androidx.ui.engine.geometry.Shape? shape;
   }
 
   public final class SemanticsComponentNode extends androidx.ui.core.ComponentNode {
-    ctor public SemanticsComponentNode(boolean container, boolean explicitChildNodes, Boolean? enabled, Boolean? checked, Boolean? selected, Boolean? button, Boolean? header, Boolean? textField, Boolean? focused, Boolean? inMutuallyExclusiveGroup, Boolean? obscured, Boolean? scopesRoute, Boolean? namesRoute, Boolean? hidden, String? label, String? value, String? hint, androidx.ui.engine.text.TextDirection? textDirection, String? testTag, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions);
+    ctor public SemanticsComponentNode(boolean container, boolean explicitChildNodes, Boolean? enabled, Boolean? checked, Boolean? selected, Boolean? button, Boolean? header, Boolean? textField, Boolean? focused, Boolean? inMutuallyExclusiveGroup, Boolean? obscured, Boolean? scopesRoute, Boolean? namesRoute, Boolean? hidden, String? label, String? value, String? hint, androidx.ui.text.style.TextDirection? textDirection, String? testTag, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions);
     ctor public SemanticsComponentNode();
     method public java.util.List<androidx.ui.core.semantics.SemanticsAction<?>> getActions();
     method public Boolean? getButton();
@@ -229,7 +237,7 @@ package androidx.ui.core {
     method public Boolean? getSelected();
     method public androidx.ui.core.semantics.SemanticsConfiguration getSemanticsConfiguration();
     method public String? getTestTag();
-    method public androidx.ui.engine.text.TextDirection? getTextDirection();
+    method public androidx.ui.text.style.TextDirection? getTextDirection();
     method public Boolean? getTextField();
     method public String? getValue();
     method public void setActions(java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> p);
@@ -249,7 +257,7 @@ package androidx.ui.core {
     method public void setScopesRoute(Boolean? p);
     method public void setSelected(Boolean? p);
     method public void setTestTag(String? p);
-    method public void setTextDirection(androidx.ui.engine.text.TextDirection? p);
+    method public void setTextDirection(androidx.ui.text.style.TextDirection? p);
     method public void setTextField(Boolean? p);
     method public void setValue(String? p);
     property public final java.util.List<androidx.ui.core.semantics.SemanticsAction<?>> actions;
@@ -270,7 +278,7 @@ package androidx.ui.core {
     property public final Boolean? selected;
     property public final androidx.ui.core.semantics.SemanticsConfiguration semanticsConfiguration;
     property public final String? testTag;
-    property public final androidx.ui.engine.text.TextDirection? textDirection;
+    property public final androidx.ui.text.style.TextDirection? textDirection;
     property public final Boolean? textField;
     property public final String? value;
   }
@@ -331,6 +339,10 @@ package androidx.ui.core.input {
     ctor public RecordingInputConnectionKt();
   }
 
+  public final class TextInputServiceAndroidKt {
+    ctor public TextInputServiceAndroidKt();
+  }
+
 }
 
 package androidx.ui.core.pointerinput {
@@ -373,8 +385,8 @@ package androidx.ui.core.semantics {
     method public Float? getScrollExtentMin();
     method public Float? getScrollPosition();
     method public String? getTestTag();
-    method public androidx.ui.engine.text.TextDirection? getTextDirection();
-    method public androidx.ui.services.text_editing.TextSelection? getTextSelection();
+    method public androidx.ui.text.style.TextDirection? getTextDirection();
+    method public androidx.ui.text.TextSelection? getTextSelection();
     method public String? getValue();
     method public boolean isBlockingSemanticsOfPreviouslyPaintedNodes();
     method public boolean isButton();
@@ -419,9 +431,9 @@ package androidx.ui.core.semantics {
     method public void setSelected(boolean p);
     method public void setSemanticBoundary(boolean value);
     method public void setTestTag(String? p);
-    method public void setTextDirection(androidx.ui.engine.text.TextDirection? p);
+    method public void setTextDirection(androidx.ui.text.style.TextDirection? p);
     method public void setTextField(boolean p);
-    method public void setTextSelection(androidx.ui.services.text_editing.TextSelection? p);
+    method public void setTextSelection(androidx.ui.text.TextSelection? p);
     method public void setToggled(Boolean? value);
     method public void setValue(String? p);
     property public final java.util.List<androidx.ui.core.semantics.SemanticsAction<?>> actions;
@@ -453,8 +465,8 @@ package androidx.ui.core.semantics {
     property public final Float? scrollExtentMin;
     property public final Float? scrollPosition;
     property public final String? testTag;
-    property public final androidx.ui.engine.text.TextDirection? textDirection;
-    property public final androidx.ui.services.text_editing.TextSelection? textSelection;
+    property public final androidx.ui.text.style.TextDirection? textDirection;
+    property public final androidx.ui.text.TextSelection? textSelection;
     property public final String? value;
   }
 

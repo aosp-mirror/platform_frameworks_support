@@ -17,6 +17,7 @@
 package androidx.biometric;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,9 +30,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.concurrent.Executor;
 
@@ -49,13 +53,17 @@ public class BiometricFragment extends Fragment {
 
     private static final String TAG = "BiometricFragment";
 
+    // Re-set in onAttach
+    private Context mContext;
+
     // Set whenever the support library's authenticate is called.
     private Bundle mBundle;
 
     // Re-set by the application, through BiometricPromptCompat upon orientation changes.
-    Executor mClientExecutor;
-    DialogInterface.OnClickListener mClientNegativeButtonListener;
-    BiometricPrompt.AuthenticationCallback mClientAuthenticationCallback;
+    private FragmentManager mClientFragmentManager;
+    private Executor mClientExecutor;
+    private DialogInterface.OnClickListener mClientNegativeButtonListener;
+    private BiometricPrompt.AuthenticationCallback mClientAuthenticationCallback;
 
     // Set once and retained.
     private BiometricPrompt.CryptoObject mCryptoObject;
@@ -66,6 +74,7 @@ public class BiometricFragment extends Fragment {
     private android.hardware.biometrics.BiometricPrompt mBiometricPrompt;
     private CancellationSignal mCancellationSignal;
     private boolean mStartRespectingCancel;
+
     // Do not rely on the application's executor when calling into the framework's code.
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private final Executor mExecutor = new Executor() {
@@ -87,7 +96,7 @@ public class BiometricFragment extends Fragment {
                         public void run() {
                             CharSequence error = errString;
                             if (error == null) {
-                                error = getContext().getString(R.string.default_error_msg) + " "
+                                error = mContext.getString(R.string.default_error_msg) + " "
                                         + errorCode;
                             }
                             mClientAuthenticationCallback
@@ -147,6 +156,10 @@ public class BiometricFragment extends Fragment {
         return biometricFragment;
     }
 
+    protected void setClientFragmentManager(FragmentManager clientFragmentManager) {
+        mClientFragmentManager = clientFragmentManager;
+    }
+
     /**
      * Sets the client's callback. This should be done whenever the lifecycle changes (orientation
      * changes).
@@ -192,8 +205,7 @@ public class BiometricFragment extends Fragment {
     void cleanup() {
         mShowing = false;
         if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().beginTransaction().detach(this)
-                    .commitAllowingStateLoss();
+            mClientFragmentManager.beginTransaction().detach(this).commitAllowingStateLoss();
         }
     }
 
@@ -216,8 +228,14 @@ public class BiometricFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         // Start the actual authentication when the fragment is attached.
         if (!mShowing) {
             mNegativeButtonText = mBundle.getCharSequence(BiometricPrompt.KEY_NEGATIVE_TEXT);

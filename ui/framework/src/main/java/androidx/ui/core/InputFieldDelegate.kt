@@ -18,9 +18,13 @@ package androidx.ui.core
 
 import android.util.Log
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.input.EditOperation
+import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
+import androidx.ui.input.SetSelectionEditOp
+import androidx.ui.input.TextInputService
 import androidx.ui.painting.Canvas
-import androidx.ui.painting.TextPainter
+import androidx.ui.text.TextPainter
 
 /**
  * Delegate class of the UI implementation of the InputField.
@@ -29,7 +33,17 @@ internal class InputFieldDelegate(
     /**
      * A text painter used for this InputField
      */
-    val textPainter: TextPainter
+    private val textPainter: TextPainter,
+
+    /**
+     * An edit processor used for this InputField
+     */
+    private val editProcessor: EditProcessor,
+
+    /**
+     * A callback called when new editor state is created.
+     */
+    private val onValueChange: (EditorState) -> Unit
 ) {
 
     /**
@@ -50,19 +64,7 @@ internal class InputFieldDelegate(
      * @param value the editor state.
      * @param editorStyle the editor style.
      */
-    fun draw(canvas: Canvas, value: EditorState, editorStyle: EditorStyle) {
-        if (value.selection.collapsed) {
-            textPainter.paintCursor(value.selection.start, canvas)
-        } else {
-            textPainter.paintBackground(
-                value.selection.start,
-                value.selection.end,
-                editorStyle.selectionColor,
-                canvas,
-                Offset.zero
-            )
-        }
-
+    fun draw(canvas: Canvas, value: EditorState, editorStyle: EditorStyle, drawCursor: Boolean) {
         value.composition?.let {
             textPainter.paintBackground(
                 it.start,
@@ -72,21 +74,57 @@ internal class InputFieldDelegate(
                 Offset.zero
             )
         }
+        if (value.selection.collapsed) {
+            if (drawCursor) {
+                textPainter.paintCursor(value.selection.start, canvas)
+            }
+        } else {
+            textPainter.paintBackground(
+                value.selection.start,
+                value.selection.end,
+                editorStyle.selectionColor,
+                canvas,
+                Offset.zero
+            )
+        }
         textPainter.paint(canvas, Offset.zero)
     }
 
-    fun onPress(position: PxPosition) {
-        // TODO(nona): Implement this function
-        Log.d("InputFieldDelegate", "onPress: $position")
+    /**
+     * Called when edit operations are passed from TextInputService
+     *
+     * @param ops A list of edit operations.
+     */
+    fun onEditCommand(ops: List<EditOperation>) {
+        onValueChange(editProcessor.onEditCommands(ops))
     }
 
+    /**
+     * Called when onPress event is fired.
+     *
+     * @param position The event position in widget coordinate.
+     */
+    fun onPress(textInputService: TextInputService?) {
+        textInputService?.showSoftwareKeyboard()
+    }
+
+    /**
+     * Called when onDrag event is fired.
+     *
+     * @param position The event position in widget coordinate.
+     */
     fun onDragAt(position: PxPosition) {
         // TODO(nona): Implement this function
         Log.d("InputFieldDelegate", "onDrag: $position")
     }
 
+    /**
+     * Called when onRelease event is fired.
+     *
+     * @param position The event position in widget coordinate.
+     */
     fun onRelease(position: PxPosition) {
-        // TODO(nona): Implement this function
-        Log.d("InputFieldDelegate", "onRelease: $position")
+        val offset = textPainter.getPositionForOffset(position.toOffset())
+        onEditCommand(listOf(SetSelectionEditOp(offset, offset)))
     }
 }

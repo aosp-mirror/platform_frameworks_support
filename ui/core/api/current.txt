@@ -580,6 +580,12 @@ package androidx.ui.core {
     method public androidx.ui.core.PxSize copy(androidx.ui.core.Px width, androidx.ui.core.Px height);
     method public androidx.ui.core.Px getHeight();
     method public androidx.ui.core.Px getWidth();
+    field public static final androidx.ui.core.PxSize.Companion! Companion;
+  }
+
+  public static final class PxSize.Companion {
+    method public androidx.ui.core.PxSize getZero();
+    property public final androidx.ui.core.PxSize Zero;
   }
 
   public final inline class PxSquared {
@@ -652,27 +658,6 @@ package androidx.ui.core {
     method public static inline operator androidx.ui.core.Sp times(float, androidx.ui.core.Sp other);
     method public static inline operator androidx.ui.core.Sp times(double, androidx.ui.core.Sp other);
     method public static inline operator androidx.ui.core.Sp times(int, androidx.ui.core.Sp other);
-  }
-
-  public final class TextRange {
-    ctor public TextRange(int start, int end);
-    method public int component1();
-    method public int component2();
-    method public boolean contains(androidx.ui.core.TextRange other);
-    method public boolean contains(int offset);
-    method public androidx.ui.core.TextRange copy(int start, int end);
-    method public boolean getCollapsed();
-    method public int getEnd();
-    method public int getLength();
-    method public int getStart();
-    method public boolean intersects(androidx.ui.core.TextRange other);
-    property public final boolean collapsed;
-    property public final int length;
-  }
-
-  public final class TextRangeKt {
-    ctor public TextRangeKt();
-    method public static String substring(CharSequence, androidx.ui.core.TextRange range);
   }
 
   public final class Timestamp implements java.lang.Comparable<androidx.ui.core.Timestamp> {
@@ -751,7 +736,7 @@ package androidx.ui.core.semantics {
     method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> getScrollLeft();
     method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> getScrollRight();
     method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> getScrollUp();
-    method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function1<androidx.ui.services.text_editing.TextSelection,kotlin.Unit>> getSetSelection();
+    method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function1<androidx.ui.text.TextSelection,kotlin.Unit>> getSetSelection();
     method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> getShowOnScreen();
     method public androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> getTap();
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> Copy;
@@ -772,7 +757,7 @@ package androidx.ui.core.semantics {
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> ScrollLeft;
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> ScrollRight;
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> ScrollUp;
-    property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function1<androidx.ui.services.text_editing.TextSelection,kotlin.Unit>> SetSelection;
+    property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function1<androidx.ui.text.TextSelection,kotlin.Unit>> SetSelection;
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> ShowOnScreen;
     property public final androidx.ui.core.semantics.SemanticsActionType<kotlin.jvm.functions.Function0<kotlin.Unit>> Tap;
   }
@@ -861,8 +846,8 @@ package androidx.ui.engine.geometry {
 
   public final class OutlineKt {
     ctor public OutlineKt();
+    method public static void addOutline(androidx.ui.painting.Path, androidx.ui.engine.geometry.Outline outline);
     method public static void drawOutline(androidx.ui.painting.Canvas, androidx.ui.engine.geometry.Outline outline, androidx.ui.painting.Paint paint);
-    method public static androidx.ui.painting.Path toPath(androidx.ui.engine.geometry.Outline);
   }
 
   public final class RRect {
@@ -1030,6 +1015,10 @@ package androidx.ui.engine.geometry {
     method public static androidx.ui.engine.geometry.Rect lerp(androidx.ui.engine.geometry.Rect a, androidx.ui.engine.geometry.Rect b, float t);
   }
 
+  public interface Shape {
+    method public androidx.ui.engine.geometry.Outline createOutline(androidx.ui.core.PxSize size, androidx.ui.core.Density density);
+  }
+
   public class Size implements androidx.ui.engine.geometry.OffsetBase {
     ctor public Size(float width, float height);
     method public final androidx.ui.engine.geometry.Offset bottomCenter(androidx.ui.engine.geometry.Offset origin);
@@ -1073,15 +1062,6 @@ package androidx.ui.engine.geometry {
     method public androidx.ui.engine.geometry.Size square(float dimension);
     property public final androidx.ui.engine.geometry.Size infinite;
     property public final androidx.ui.engine.geometry.Size zero;
-  }
-
-}
-
-package androidx.ui.engine.text {
-
-  public enum TextDirection {
-    enum_constant public static final androidx.ui.engine.text.TextDirection Ltr;
-    enum_constant public static final androidx.ui.engine.text.TextDirection Rtl;
   }
 
 }
@@ -1332,20 +1312,6 @@ package androidx.ui.graphics {
 
 }
 
-package androidx.ui.input {
-
-  public final class EditorState {
-    ctor public EditorState(String text, androidx.ui.core.TextRange selection);
-    method public androidx.ui.core.TextRange? getComposition();
-    method public androidx.ui.core.TextRange getSelection();
-    method public String getText();
-    property public final androidx.ui.core.TextRange? composition;
-    property public final androidx.ui.core.TextRange selection;
-    property public final String text;
-  }
-
-}
-
 package androidx.ui.painting {
 
   public final class AndroidCanvasKt {
@@ -1582,7 +1548,7 @@ package androidx.ui.painting {
     method public void _addRect(float left, float top, float right, float bottom);
     method public void addArc(androidx.ui.engine.geometry.Rect oval, float startAngle, float sweepAngle);
     method public void addOval(androidx.ui.engine.geometry.Rect oval);
-    method public void addPath(androidx.ui.painting.Path path, androidx.ui.engine.geometry.Offset offset, androidx.ui.vectormath64.Matrix4? matrix = null);
+    method public void addPath(androidx.ui.painting.Path path, androidx.ui.engine.geometry.Offset offset = Offset.zero, androidx.ui.vectormath64.Matrix4? matrix = null);
     method public void addPolygon(java.util.List<androidx.ui.engine.geometry.Offset> points, boolean close);
     method public void addRRect(androidx.ui.engine.geometry.RRect rrect);
     method public void addRect(androidx.ui.engine.geometry.Rect rect);
@@ -1609,7 +1575,7 @@ package androidx.ui.painting {
     method public void relativeQuadraticBezierTo(float x1, float y1, float x2, float y2);
     method public void reset();
     method public void setFillType(androidx.ui.painting.PathFillType value);
-    method public androidx.ui.painting.Path shift(androidx.ui.engine.geometry.Offset offset);
+    method public void shift(androidx.ui.engine.geometry.Offset offset);
     method public android.graphics.Path toFrameworkPath();
     method public androidx.ui.painting.Path transform(androidx.ui.vectormath64.Matrix4 matrix);
     property public final boolean isConvex;
@@ -1695,49 +1661,6 @@ package androidx.ui.painting {
 
 }
 
-package androidx.ui.services.text_editing {
-
-  public class TextRange {
-    ctor public TextRange(int start, int end);
-    method public final int getEnd();
-    method public final int getStart();
-    method public final boolean isCollapsed();
-    method public final boolean isNormalized();
-    method public final boolean isValid();
-    method public final String textAfter(String text);
-    method public final String textBefore(String text);
-    method public final String textInside(String text);
-    property public final boolean isCollapsed;
-    property public final boolean isNormalized;
-    property public final boolean isValid;
-    field public static final androidx.ui.services.text_editing.TextRange.Companion! Companion;
-  }
-
-  public static final class TextRange.Companion {
-    method public androidx.ui.services.text_editing.TextRange collapsed(int offset);
-    method public androidx.ui.services.text_editing.TextRange getEmpty();
-    property public final androidx.ui.services.text_editing.TextRange empty;
-  }
-
-  public final class TextSelection extends androidx.ui.services.text_editing.TextRange {
-    ctor public TextSelection(int baseOffset, int extentOffset, boolean isDirectional);
-    method public int component1();
-    method public int component2();
-    method public boolean component3();
-    method public androidx.ui.services.text_editing.TextSelection copy(int baseOffset, int extentOffset, boolean isDirectional);
-    method public int getBaseOffset();
-    method public int getExtentOffset();
-    method public boolean isDirectional();
-    field public static final androidx.ui.services.text_editing.TextSelection.Companion! Companion;
-  }
-
-  public static final class TextSelection.Companion {
-    method public androidx.ui.services.text_editing.TextSelection collapsed(int offset);
-    method public androidx.ui.services.text_editing.TextSelection fromPosition(int position);
-  }
-
-}
-
 package androidx.ui.testutils {
 
   public final class PointerInputTestUtilKt {
@@ -1749,6 +1672,61 @@ package androidx.ui.testutils {
     method public static androidx.ui.core.PointerInputChange moveBy(androidx.ui.core.PointerInputChange, androidx.ui.core.Duration duration, float dx = 0f, float dy = 0f);
     method public static androidx.ui.core.PointerInputChange moveTo(androidx.ui.core.PointerInputChange, androidx.ui.core.Timestamp timestamp, float x = 0f, float y = 0f);
     method public static androidx.ui.core.PointerInputChange up(androidx.ui.core.PointerInputChange, androidx.ui.core.Timestamp timestamp);
+  }
+
+}
+
+package androidx.ui.text {
+
+  public final class TextRange {
+    ctor public TextRange(int start, int end);
+    method public int component1();
+    method public int component2();
+    method public boolean contains(androidx.ui.text.TextRange other);
+    method public boolean contains(int offset);
+    method public androidx.ui.text.TextRange copy(int start, int end);
+    method public boolean getCollapsed();
+    method public int getEnd();
+    method public int getLength();
+    method public int getStart();
+    method public boolean intersects(androidx.ui.text.TextRange other);
+    property public final boolean collapsed;
+    property public final int length;
+  }
+
+  public final class TextRangeKt {
+    ctor public TextRangeKt();
+    method public static String substring(CharSequence, androidx.ui.text.TextRange range);
+  }
+
+  public final class TextSelection {
+    ctor public TextSelection(int baseOffset, int extentOffset, boolean isDirectional);
+    method public int component1();
+    method public int component2();
+    method public boolean component3();
+    method public androidx.ui.text.TextSelection copy(int baseOffset, int extentOffset, boolean isDirectional);
+    method public int getBaseOffset();
+    method public int getEnd();
+    method public int getExtentOffset();
+    method public int getStart();
+    method public boolean isDirectional();
+    property public final int end;
+    property public final int start;
+    field public static final androidx.ui.text.TextSelection.Companion! Companion;
+  }
+
+  public static final class TextSelection.Companion {
+    method public androidx.ui.text.TextSelection collapsed(int offset);
+    method public androidx.ui.text.TextSelection fromPosition(int position);
+  }
+
+}
+
+package androidx.ui.text.style {
+
+  public enum TextDirection {
+    enum_constant public static final androidx.ui.text.style.TextDirection Ltr;
+    enum_constant public static final androidx.ui.text.style.TextDirection Rtl;
   }
 
 }

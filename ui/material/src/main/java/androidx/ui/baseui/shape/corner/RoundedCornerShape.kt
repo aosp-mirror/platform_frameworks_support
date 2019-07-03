@@ -16,28 +16,24 @@
 
 package androidx.ui.baseui.shape.corner
 
-import androidx.ui.baseui.shape.Border
-import androidx.ui.baseui.shape.Shape
-import androidx.ui.core.DensityReceiver
 import androidx.ui.core.Px
 import androidx.ui.core.PxSize
 import androidx.ui.core.toRect
 import androidx.ui.engine.geometry.Outline
 import androidx.ui.engine.geometry.RRect
 import androidx.ui.engine.geometry.Radius
+import androidx.ui.engine.geometry.Shape
 
 /**
  * A shape describing the rectangle with rounded corners.
  *
  * @param corners define all four corner sizes
- * @param border optional border to draw on top of the shape
  */
 data class RoundedCornerShape(
-    val corners: CornerSizes,
-    override val border: Border? = null
+    val corners: CornerSizes
 ) : CornerBasedShape(corners) {
 
-    override fun DensityReceiver.createOutline(corners: PxCornerSizes, size: PxSize) =
+    override fun createOutline(corners: PxCornerSizes, size: PxSize) =
         Outline.Rounded(
             RRect(
                 rect = size.toRect(),
@@ -55,15 +51,11 @@ data class RoundedCornerShape(
  * A shape describing the rectangle with rounded corners.
  *
  * @param corner size to apply for all four corners
- * @param border optional border to draw on top of the shape
  */
-fun RoundedCornerShape(corner: CornerSize, border: Border? = null) =
-    RoundedCornerShape(CornerSizes(corner), border)
+/*inline*/ fun RoundedCornerShape(corner: CornerSize) =
+    RoundedCornerShape(CornerSizes(corner))
 
 /**
  * Circular [Shape] with all the corners sized as the 50 percent of the shape size.
- *
- * @param border optional border to draw on top of the shape
  */
-fun CircleShape(border: Border? = null) =
-    RoundedCornerShape(CornerSizes(CornerSize(50)), border)
+val CircleShape = RoundedCornerShape(CornerSizes(CornerSize(50)))

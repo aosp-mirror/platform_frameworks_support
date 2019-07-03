@@ -16,11 +16,9 @@
 
 package androidx.ui.material.shape
 
-import androidx.ui.baseui.shape.Border
 import androidx.ui.baseui.shape.corner.CornerBasedShape
 import androidx.ui.baseui.shape.corner.CornerSizes
 import androidx.ui.baseui.shape.corner.PxCornerSizes
-import androidx.ui.core.DensityReceiver
 import androidx.ui.core.PxSize
 import androidx.ui.engine.geometry.Outline
 import androidx.ui.painting.Path
@@ -30,14 +28,12 @@ import androidx.ui.painting.Path
  * Corner size is representing the cut length - the size of both legs of the cut's right triangle.
  *
  * @param corners define all four corner sizes
- * @param border optional border to draw on top of the shape
  */
 data class CutCornerShape(
-    val corners: CornerSizes,
-    override val border: Border? = null
+    val corners: CornerSizes
 ) : CornerBasedShape(corners) {
 
-    override fun DensityReceiver.createOutline(corners: PxCornerSizes, size: PxSize) =
+    override fun createOutline(corners: PxCornerSizes, size: PxSize) =
         Outline.Generic(Path().apply {
             var cornerSize = corners.topLeft.value
             moveTo(0f, cornerSize)

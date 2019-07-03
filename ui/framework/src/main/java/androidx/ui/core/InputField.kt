@@ -29,9 +29,10 @@ import androidx.ui.core.input.FocusManager
 import androidx.ui.graphics.Color
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
-import androidx.ui.painting.AnnotatedString
-import androidx.ui.painting.TextPainter
-import androidx.ui.painting.TextStyle
+import androidx.ui.input.KeyboardType
+import androidx.ui.text.AnnotatedString
+import androidx.ui.text.TextPainter
+import androidx.ui.text.TextStyle
 
 /**
  * Data class holding text display attributes used for editors.
@@ -76,43 +77,54 @@ fun InputField(
     /** The editor style */
     editorStyle: EditorStyle,
 
+    /**
+     * The keyboard type to be used in this text field.
+     *
+     * Note that this input type is honored by IME and shows corresponding keyboard but this is not
+     * guaranteed. For example, some IME may send non-ASCII character even if you set
+     * {@link KeyboardType.KEYBOARD_TYPE_ASCII}
+     */
+    keyboardType: KeyboardType = KeyboardType.Text,
+
     /** Called when the InputMethodService update the editor state */
     onValueChange: (EditorState) -> Unit = {},
 
     /** Called when the InputMethod requested an editor action */
-    onEditorActionPerformed: (Any) -> Unit = {}, // TODO(nona): Define argument type
-
-    /** Called when the InputMethod forwarded a key event */
-    onKeyEventForwarded: (Any) -> Unit = {} // TODO(nona): Define argument type
+    onEditorActionPerformed: (Any) -> Unit = {} // TODO(nona): Define argument type
 ) {
     val style = +ambient(CurrentTextStyleAmbient)
     val mergedStyle = style.merge(editorStyle.textStyle)
+    val textInputService = +ambient(TextInputServiceAmbient)
+    val hasFocus = +state { false }
 
     val processor = +memo { EditProcessor() }
-    processor.onNewState(value)
+    processor.onNewState(value, textInputService)
+
+    val density = +ambient(DensityAmbient)
 
     // TODO(nona): Add parameter for text direction, softwrap, etc.
     val delegate = InputFieldDelegate(
         TextPainter(
             text = AnnotatedString(text = value.text),
-            style = mergedStyle
-        )
+            style = mergedStyle,
+            density = density
+        ),
+        processor,
+        onValueChange
     )
 
-    val textInputService = +ambient(TextInputServiceAmbient)
     TextInputEventObserver(
-        onPress = { delegate.onPress(it) },
+        onPress = { delegate.onPress(textInputService) },
         onFocus = {
+            hasFocus.value = true
             textInputService?.startInput(
                 initState = value,
-                onEditCommand = {
-                    onValueChange(processor.onEditCommands(it))
-                },
-                onEditorActionPerformed = onEditorActionPerformed,
-                onKeyEventForwarded = onKeyEventForwarded
-            )
+                keyboardType = keyboardType,
+                onEditCommand = { delegate.onEditCommand(it) },
+                onEditorActionPerformed = onEditorActionPerformed)
         },
         onBlur = {
+            hasFocus.value = false
             textInputService?.stopInput()
         },
         onDragAt = { delegate.onDragAt(it) },
@@ -120,14 +132,10 @@ fun InputField(
     ) {
         Layout(
             children = @Composable {
-                Draw { canvas, _ ->
-                    delegate.draw(canvas, value, editorStyle)
-                }
+                Draw { canvas, _ -> delegate.draw(canvas, value, editorStyle, hasFocus.value) }
             },
             layoutBlock = { _, constraints ->
-                delegate.layout(constraints).let {
-                    layout(it.first, it.second) {}
-                }
+                delegate.layout(constraints).let { layout(it.first, it.second) {} }
             }
         )
     }

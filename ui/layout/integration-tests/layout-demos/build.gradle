@@ -37,6 +37,7 @@ dependencies {
     implementation project(":ui-framework")
     implementation project(":ui-layout")
     implementation project(":ui-text")
+    implementation project(":ui-layout:integration-tests:samples")
 }
 
 android {

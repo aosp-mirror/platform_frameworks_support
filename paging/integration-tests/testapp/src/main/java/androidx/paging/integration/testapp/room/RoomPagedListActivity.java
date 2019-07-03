@@ -42,7 +42,9 @@ public class RoomPagedListActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_recycler_view);
-        final CustomerViewModel viewModel = new ViewModelProvider(this)
+        // TODO use by viewModels() once this class switches to Kotlin
+        final CustomerViewModel viewModel = new ViewModelProvider(this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
                 .get(CustomerViewModel.class);
 
         mRecyclerView = findViewById(R.id.recyclerview);
