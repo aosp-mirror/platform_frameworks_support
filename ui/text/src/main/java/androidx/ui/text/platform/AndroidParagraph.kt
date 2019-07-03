@@ -75,6 +75,8 @@ import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
+typealias FontHandler = Typeface
+
 /**
  * Android specific implementation for [Paragraph]
  */
