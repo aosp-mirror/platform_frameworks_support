@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17213c38_815106b3",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/FakeDragTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T16:08:45Z",
+      "side": 1,
+      "message": "1. maybe add a check that viewPager.isFakeDrag \u003d\u003d false here.. or when setting isInterrupted to true\n2. maybe let\u0027s force people to reset fakedragger to force consumers to ack this edge state\n3. maybe let\u0027s sanity check isInterrupted\u003d\u003dfalse in other tests",
+      "range": {
+        "startLine": 532,
+        "startChar": 21,
+        "endLine": 532,
+        "endChar": 46
+      },
+      "revId": "8c41dce5adf86f635810c7bdf845f3d3cb4ecb6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
