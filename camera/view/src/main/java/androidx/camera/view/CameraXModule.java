@@ -28,7 +28,6 @@ import android.hardware.camera2.CameraManager;
 import android.os.Looper;
 import android.util.Log;
 import android.util.Rational;
-import android.util.Size;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -37,6 +36,7 @@ import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraOrientationUtil;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraX.AspectRatioMode;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.ImageCapture;
@@ -67,10 +67,6 @@ final class CameraXModule {
     private static final int MAX_VIEW_DIMENSION = 2000;
     private static final float UNITY_ZOOM_SCALE = 1f;
     private static final float ZOOM_NOT_SUPPORTED = UNITY_ZOOM_SCALE;
-    private static final Rational ASPECT_RATIO_16_9 = new Rational(16, 9);
-    private static final Rational ASPECT_RATIO_4_3 = new Rational(4, 3);
-    private static final Rational ASPECT_RATIO_9_16 = new Rational(9, 16);
-    private static final Rational ASPECT_RATIO_3_4 = new Rational(3, 4);
 
     private final CameraManager mCameraManager;
     private final PreviewConfig.Builder mPreviewConfigBuilder;
@@ -218,22 +214,14 @@ final class CameraXModule {
 
         // Set the preferred aspect ratio as 4:3 if it is IMAGE only mode. Set the preferred aspect
         // ratio as 16:9 if it is VIDEO or MIXED mode. Then, it will be WYSIWYG when the view finder
-        // is
-        // in CENTER_INSIDE mode.
-
-        boolean isDisplayPortrait = getDisplayRotationDegrees() == 0
-                || getDisplayRotationDegrees() == 180;
+        // is in CENTER_INSIDE mode.
 
         if (getCaptureMode() == CaptureMode.IMAGE) {
-            mImageCaptureConfigBuilder.setTargetAspectRatio(
-                    isDisplayPortrait ? ASPECT_RATIO_3_4 : ASPECT_RATIO_4_3);
-            mPreviewConfigBuilder.setTargetAspectRatio(
-                    isDisplayPortrait ? ASPECT_RATIO_3_4 : ASPECT_RATIO_4_3);
+            mImageCaptureConfigBuilder.setTargetAspectRatioMode(AspectRatioMode.RATIO_4_3);
+            mPreviewConfigBuilder.setTargetAspectRatioMode(AspectRatioMode.RATIO_4_3);
         } else {
-            mImageCaptureConfigBuilder.setTargetAspectRatio(
-                    isDisplayPortrait ? ASPECT_RATIO_9_16 : ASPECT_RATIO_16_9);
-            mPreviewConfigBuilder.setTargetAspectRatio(
-                    isDisplayPortrait ? ASPECT_RATIO_9_16 : ASPECT_RATIO_16_9);
+            mImageCaptureConfigBuilder.setTargetAspectRatioMode(AspectRatioMode.RATIO_16_9);
+            mPreviewConfigBuilder.setTargetAspectRatioMode(AspectRatioMode.RATIO_16_9);
         }
 
         mImageCaptureConfigBuilder.setTargetRotation(getDisplaySurfaceRotation());
@@ -244,16 +232,6 @@ final class CameraXModule {
         mVideoCaptureConfigBuilder.setLensFacing(mCameraLensFacing);
         mVideoCapture = new VideoCapture(mVideoCaptureConfigBuilder.build());
         mPreviewConfigBuilder.setLensFacing(mCameraLensFacing);
-
-        int relativeCameraOrientation = getRelativeCameraOrientation(false);
-
-        if (relativeCameraOrientation == 90 || relativeCameraOrientation == 270) {
-            mPreviewConfigBuilder.setTargetResolution(
-                    new Size(getMeasuredHeight(), getMeasuredWidth()));
-        } else {
-            mPreviewConfigBuilder.setTargetResolution(
-                    new Size(getMeasuredWidth(), getMeasuredHeight()));
-        }
 
         mPreview = new Preview(mPreviewConfigBuilder.build());
         mPreview.setOnPreviewOutputUpdateListener(
@@ -631,7 +609,7 @@ final class CameraXModule {
     // Update view related information used in use cases
     private void updateViewInfo() {
         if (mImageCapture != null) {
-            mImageCapture.setTargetAspectRatio(new Rational(getWidth(), getHeight()));
+            mImageCapture.setTargetAspectRatioRational(new Rational(getWidth(), getHeight()));
             mImageCapture.setTargetRotation(getDisplaySurfaceRotation());
         }
 

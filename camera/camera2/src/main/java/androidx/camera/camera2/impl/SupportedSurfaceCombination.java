@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import androidx.camera.core.CameraDeviceConfig;
 import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraX.AspectRatioMode;
 import androidx.camera.core.ImageFormatConstants;
 import androidx.camera.core.ImageOutputConfig;
 import androidx.camera.core.SurfaceCombination;
@@ -69,6 +70,10 @@ final class SupportedSurfaceCombination {
     private static final Size QUALITY_1080P_SIZE = new Size(1920, 1080);
     private static final Size QUALITY_720P_SIZE = new Size(1280, 720);
     private static final Size QUALITY_480P_SIZE = new Size(720, 480);
+    private static final Rational ASPECT_RATIO_4_3 = new Rational(4, 3);
+    private static final Rational ASPECT_RATIO_3_4 = new Rational(3, 4);
+    private static final Rational ASPECT_RATIO_16_9 = new Rational(16, 9);
+    private static final Rational ASPECT_RATIO_9_16 = new Rational(9, 16);
     private final List<SurfaceCombination> mSurfaceCombinations = new ArrayList<>();
     private final Map<Integer, Size> mMaxSizeCache = new HashMap<>();
     private String mCameraId;
@@ -379,9 +384,36 @@ final class SupportedSurfaceCombination {
         List<Size> sizesMatchAspectRatio = new ArrayList<>();
         List<Size> sizesNotMatchAspectRatio = new ArrayList<>();
 
-        Rational aspectRatio = config.getTargetAspectRatio(null);
-        int targetRotation = config.getTargetRotation(Surface.ROTATION_0);
-        aspectRatio = rotateAspectRatioByRotation(aspectRatio, targetRotation);
+        Rational aspectRatio = null;
+        AspectRatioMode aspectRatioMode = config.getTargetAspectRatioMode(null);
+        if (aspectRatioMode != null) {
+            int sensorRotationDegrees;
+            try {
+                sensorRotationDegrees = CameraX.getCameraInfo(mCameraId).getSensorRotationDegrees(
+                        Surface.ROTATION_0);
+            } catch (CameraInfoUnavailableException e) {
+                throw new IllegalArgumentException("Unable to retrieve camera sensor orientation.",
+                        e);
+            }
+            boolean isSensorLandscapeOrientation =
+                    (sensorRotationDegrees == 90 || sensorRotationDegrees == 270);
+            switch (aspectRatioMode) {
+                case RATIO_4_3:
+                    aspectRatio =
+                            (isSensorLandscapeOrientation) ? ASPECT_RATIO_4_3 : ASPECT_RATIO_3_4;
+                    break;
+                case RATIO_16_9:
+                    aspectRatio =
+                            (isSensorLandscapeOrientation) ? ASPECT_RATIO_16_9 : ASPECT_RATIO_9_16;
+                    break;
+                default:
+                    // Unhandled event.
+            }
+        } else {
+            aspectRatio = config.getTargetAspectRatioRational(null);
+            int targetRotation = config.getTargetRotation(Surface.ROTATION_0);
+            aspectRatio = rotateAspectRatioByRotation(aspectRatio, targetRotation);
+        }
 
         for (Size outputSize : outputSizeCandidates) {
             // If target aspect ratio is set, moves the matched results to the front of the list.
