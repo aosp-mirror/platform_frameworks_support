@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0f317a14_f213b94a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-03T15:27:50Z",
+      "side": 1,
+      "message": "That would explain the 2 recomposes I am seeing in my tests. We should use CraneWrapper in our tests as that is what users are going to use. We should then fix it to not require a nested composition. It doesn\u0027t need one. Right now your test is hiding this by not using CraneWrapper.",
+      "parentUuid": "6c9ab942_c0d9619c",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Parametrized runner does not support UiThreadTest annotation.",
       "parentUuid": "81ea30f0_c4c46c10",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0707ebf6_8adbe7c8",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-03T15:27:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "039f44d8_ce4d3ee9",
       "revId": "18944460f6a1b4855170af9b49eda678cff50990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
