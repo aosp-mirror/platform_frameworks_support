@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "074c4f78_945c88c0",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Make sense. move it to CaptureSession.close()",
+      "parentUuid": "73a19bac_2ece9e43",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa3714b7_2cdf1baa",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185b8f07_44e0af33",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "The callback is executed in the same handler as the Camera. We pass the handler in the captureBurst call. However to make it more flexible, I\u0027ve made it thread-safe.",
+      "parentUuid": "aa3714b7_2cdf1baa",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "37073c5e_8dd97c59",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "yes made more sense. I move it to CaptureSession.close() as well.",
+      "parentUuid": "8b99089c_d3eee379",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a17d149_5b684a4c",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraCaptureCallback.java",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9048b8fe_97d1e421",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraCaptureCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a17d149_5b684a4c",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2d8b88c9_cf90c50a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "If the request is cancelled due to camera close, then all remaining requests cannot run at this moment. Submitting the requests at this state will cause the request to be run when camera is opened again which could be minutes after. So I think we\u0027d better cancel all the requests . \n\nfor for other error, I change it to submit the next request .",
+      "parentUuid": "eb50de56_e9d98760",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b80360c4_54cbbff9",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31b7c02_45b1d6d0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Yes, thanks for the hint. I\u0027ve just copy your callbackError() method to use the user assigned handler.",
+      "parentUuid": "b80360c4_54cbbff9",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "cd282bf1_fccb5cc2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "We can discuss more, but I think if you use successfulAsList here.  the error may not be able to propagated back to outer ListenableFuture.",
+      "parentUuid": "29b7bcdb_dd56667b",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2bc3a18_fd2f287a",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89cbef58_8710612d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2bc3a18_fd2f287a",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "7b80c658_bccbbd6f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dce171d2_1bb9636a",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a19fcdca_e47319ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 3
@@ -169,6 +331,24 @@
       "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3912d33_e6503a83",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-03T10:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a19fcdca_e47319ee",
+      "revId": "f869e7adb0de1d161f93ceff47723c8155a3968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
