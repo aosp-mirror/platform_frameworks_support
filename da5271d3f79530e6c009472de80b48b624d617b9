@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bc63e2a_12f6bf7a",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/ImageCaptureConfigProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-03T11:05:14Z",
+      "side": 1,
+      "message": "Is there a reason we don\u0027t use setTargetAspectRatio here?",
+      "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13bc4b7_0cef295d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-03T11:05:14Z",
+      "side": 1,
+      "message": "Don\u0027t we need to fix ratio with rotation for this bracket?",
+      "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66860766_acbcd582",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageOutputConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-03T11:05:14Z",
+      "side": 1,
+      "message": "It seems a little bit confused to me that we have two options with equal meaning. Can we just keep targetAspectRatioRational here? And by setting targetAspectRatio it\u0027s automatically transformed to rational.",
+      "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
