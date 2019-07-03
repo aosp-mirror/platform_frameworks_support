@@ -356,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "08b1f4e1_46844ef2",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T22:58:12Z",
+      "side": 1,
+      "message": "Did you rebase? Aurimas landed a CL 2-ish weeks ago to allow Java 8 syntax (aosp/982864 depended on his CL). If it doesn\u0027t work with a rebase, I think the current docs are sufficient.",
+      "parentUuid": "c999b4d0_f05cfb32",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee7bba4_e328069e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
