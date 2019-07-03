@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.text.platform
+package androidx.ui.core.text
 
 import android.content.Context
 import android.graphics.Typeface
@@ -38,17 +38,6 @@ class AndroidFontResourceLoader(val context: Context) : Font.ResourceLoader<Type
             context.packageName
         )
 
-        val typeface = try {
-            ResourcesCompat.getFont(context, resId)
-        } catch (e: Throwable) {
-            null
-        }
-
-        if (typeface == null) {
-            throw IllegalStateException(
-                "Cannot create Typeface from $font with resource id $resId"
-            )
-        }
-        return typeface
+        return ResourcesCompat.getFont(context, resId)!!
     }
 }
