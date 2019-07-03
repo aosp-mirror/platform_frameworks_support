@@ -1281,6 +1281,6 @@ class AndroidParagraphTest {
     }
 
     private fun TypefaceAdapter() = TypefaceAdapter(
-        resourceLoader = AndroidFontResourceLoader(context)
+        resourceLoader = TestFontResourceLoader(context)
     )
 }
