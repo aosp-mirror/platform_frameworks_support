@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "261fbc64_276a2ba8",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T17:48:05Z",
+      "side": 1,
+      "message": "Yep, we should. Created b/136662535 and assigned it to Calin to take care of it in a different CL if you\u0027re alright with this :)",
+      "parentUuid": "7e6edcd7_115355f0",
+      "range": {
+        "startLine": 193,
+        "startChar": 36,
+        "endLine": 193,
+        "endChar": 49
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23024607_44fd3af8",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-03T17:39:41Z",
       "side": 1,
       "message": "It is probably more the comment for Mihai, but this three public methods have no documentation. Let\u0027s add them? Can be added later in a separate CL",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9f4624_f836e69a",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T17:48:05Z",
+      "side": 1,
+      "message": "Indeed we should add docs. Yeah, let\u0027s keep the scope of this CL small and do it in a different one. Calin could you please file a bug to remind us to do it? Let me know if you need help with this.",
+      "parentUuid": "23024607_44fd3af8",
       "range": {
         "startLine": 78,
         "startChar": 8,
