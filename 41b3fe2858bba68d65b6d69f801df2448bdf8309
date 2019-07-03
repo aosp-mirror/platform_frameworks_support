@@ -16,6 +16,24 @@
       "revId": "41b3fe2858bba68d65b6d69f801df2448bdf8309",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2576a4cf_bb710e9b",
+        "filename": "compose/compose-ide-plugin/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-07-03T01:53:56Z",
+      "side": 1,
+      "message": "This is currently the exact logic of studiow... so i\u0027m thinking we just keep it identical to that?",
+      "parentUuid": "8b7fe188_5377a202",
+      "revId": "41b3fe2858bba68d65b6d69f801df2448bdf8309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
