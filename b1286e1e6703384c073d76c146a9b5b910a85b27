@@ -22,6 +22,30 @@
       "revId": "b1286e1e6703384c073d76c146a9b5b910a85b27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "674196a2_21beb9c4",
+        "filename": "ui/text/src/main/java/androidx/ui/text/platform/TypefaceAdapter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-03T21:52:28Z",
+      "side": 1,
+      "message": "you are right in the sense that we should rethink since it contains:\n- a cache\n- system font loading\n- custom font loading\n- synthesize rules\n\nThe current change handles only custom font loading. \n\nCaching can be in compose side. However system and synthesize part are highly platform dependent. \n\nI agree it is a little off.",
+      "parentUuid": "250ce272_5378fe4d",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "b1286e1e6703384c073d76c146a9b5b910a85b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
