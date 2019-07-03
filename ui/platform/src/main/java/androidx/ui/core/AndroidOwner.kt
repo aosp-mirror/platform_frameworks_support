@@ -44,6 +44,8 @@ import androidx.compose.frames.registerCommitObserver
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.RRect
 import androidx.ui.engine.geometry.Shape
+import androidx.ui.text.font.Font
+import androidx.ui.core.text.AndroidFontResourceLoader
 import kotlin.math.roundToInt
 import java.util.TreeSet
 
@@ -556,6 +558,14 @@ class AndroidCraneView constructor(context: Context)
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         get() = textInputServiceAndroid
+
+    /**
+     * Resource loader for Fonts
+     * @hide
+     */
+    val fontLoader: Font.ResourceLoader<Any> by lazy {
+        AndroidFontResourceLoader(context)
+    }
 
     private val textInputServiceAndroid = TextInputServiceAndroid(this)
 
