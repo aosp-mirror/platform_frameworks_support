@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "50a4d7b8_715c0769",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T16:07:23Z",
+      "side": 1,
+      "message": "Actually we don\u0027t want users to use CraneWrapper. We could even just go ahead now and start using composeIntoActivity / composeIntoView everywhere. Essentially we only need to change few places in the codebase.",
+      "parentUuid": "0f317a14_f213b94a",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
