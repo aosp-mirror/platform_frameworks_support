@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "6fbe47f2_29d870c4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T17:20:58Z",
+      "side": 1,
+      "message": "I just realized I can\u0027t even do it. Because I need the CompositionContext and the CraneWrapper does not give it to me. Other approach would be to make Recomposer.current() public. What we sometimes do is that we look for AndroidCraneView to get the context, but that\u0027s even more hacky.",
+      "parentUuid": "1caf3588_80e1999d",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
