@@ -641,6 +641,14 @@ public final class CameraX {
         BACK
     }
 
+    /** The aspect ratio of the use case. */
+    public enum AspectRatio {
+        /** 4:3 standard aspect ratio. */
+        RATIO_4_3,
+        /** 16:9 standard aspect ratio. */
+        RATIO_16_9
+    }
+
     /** Listener called whenever an error condition occurs within CameraX. */
     public interface ErrorListener {
 
