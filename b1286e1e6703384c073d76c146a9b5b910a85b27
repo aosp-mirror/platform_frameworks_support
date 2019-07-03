@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "250ce272_5378fe4d",
+        "filename": "ui/text/src/main/java/androidx/ui/text/platform/TypefaceAdapter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-03T21:48:42Z",
+      "side": 1,
+      "message": "With this CL, all the loading logic will be moved into FontLoader. Then this class looks more like a font cache to me than an adapter. We probably need to rethink responsibility of this class. WDYT?",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "b1286e1e6703384c073d76c146a9b5b910a85b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
