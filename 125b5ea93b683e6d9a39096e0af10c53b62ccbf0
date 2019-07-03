@@ -102,6 +102,24 @@
       "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb25e9d_4aad9ce2",
+        "filename": "core/core-ktx/src/main/java/androidx/core/view/Surface.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T12:57:50Z",
+      "side": 1,
+      "message": "I suppose so. That\u0027s fair.",
+      "parentUuid": "2a1d2ef4_7eaac52a",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
