@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c57cd94a_12d459e2",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "\"intent\" filter",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea29be9_d70b5ba6",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "which \"is\" before",
+      "range": {
+        "startLine": 71,
+        "startChar": 55,
+        "endLine": 71,
+        "endChar": 61
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c61f67_cf152b09",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "Even \"if\"\nThere is still a possibility",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 20
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be8fc9c_c9561c8b",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "let\u0027s add IllegalStateException to the list below",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cce023e5_c3df5b64",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "r/as well as/and",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e52639d8_79a212da",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdNotAvailableException.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T09:17:08Z",
+      "side": 1,
+      "message": "Provider?",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
