@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55191906_2dc97909",
+        "filename": "ui/android-text/src/main/java/androidx/text/CharSequenceCharacterIterator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-03T18:26:26Z",
+      "side": 1,
+      "message": "looks like @link does not work for external links. \nStudio gives error for them, and they are not clickable.",
+      "parentUuid": "f5c65bd3_0e79bac9",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 20
+      },
+      "revId": "cf04e9e16bcd59d0cb5b80f314a7bba51bdb7160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22b5c430_eff3f953",
         "filename": "ui/android-text/src/main/java/androidx/text/CharSequenceCharacterIterator.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "cf04e9e16bcd59d0cb5b80f314a7bba51bdb7160",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b185ffe3_648847b5",
+        "filename": "ui/android-text/src/main/java/androidx/text/CharSequenceCharacterIterator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-03T18:26:26Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "22b5c430_eff3f953",
+      "range": {
+        "startLine": 190,
+        "startChar": 5,
+        "endLine": 190,
+        "endChar": 12
+      },
+      "revId": "cf04e9e16bcd59d0cb5b80f314a7bba51bdb7160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
