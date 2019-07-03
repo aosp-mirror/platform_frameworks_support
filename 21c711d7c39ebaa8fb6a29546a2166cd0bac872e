@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d130eb9_e89fc1c8",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c57cd94a_12d459e2",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fea29be9_d70b5ba6",
         "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
         "patchSetId": 29
@@ -45,6 +69,30 @@
       "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eab61e0_0a747870",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea29be9_d70b5ba6",
+      "range": {
+        "startLine": 71,
+        "startChar": 55,
+        "endLine": 71,
+        "endChar": 61
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "43a05c70_703de9cf",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c61f67_cf152b09",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 20
+      },
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3be8fc9c_c9561c8b",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
         "patchSetId": 29
@@ -85,6 +157,24 @@
       "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870d8c7b_b4152166",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "The lint has been updated, which no longer allow list RuntimeException in the throws list.",
+      "parentUuid": "3be8fc9c_c9561c8b",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "352081fc_168493b4",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cce023e5_c3df5b64",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e52639d8_79a212da",
         "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdNotAvailableException.java",
         "patchSetId": 29
@@ -119,6 +227,24 @@
       "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "389fab6c_e095e3d7",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdNotAvailableException.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1501264
+      },
+      "writtenOn": "2019-07-03T11:31:01Z",
+      "side": 1,
+      "message": "No provider found, provider returns null or provider throws exception all share this exception.",
+      "parentUuid": "e52639d8_79a212da",
+      "revId": "21c711d7c39ebaa8fb6a29546a2166cd0bac872e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
