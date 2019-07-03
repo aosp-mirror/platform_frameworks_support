@@ -22,6 +22,30 @@
       "revId": "a320aeddf73488d3187de887e7391363cfef4184",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e9b9c7_2fca8689",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/DefaultKeyedAppStatesReporter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-07-03T09:37:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this means. Can you give an example?",
+      "parentUuid": "9f38d1c6_f4f3e962",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "a320aeddf73488d3187de887e7391363cfef4184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
