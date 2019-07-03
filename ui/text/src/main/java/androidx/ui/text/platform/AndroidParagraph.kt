@@ -83,7 +83,8 @@ internal class AndroidParagraph constructor(
     val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
     val textStyles: List<AnnotatedString.Item<TextStyle>>,
-    val typefaceAdapter: TypefaceAdapter = TypefaceAdapter(),
+    val resourceLoader: AndroidFontResourceLoader = AndroidFontResourceLoader(context = null),
+    val typefaceAdapter: TypefaceAdapter = TypefaceAdapter(resourceLoader = resourceLoader),
     val density: Density
 ) : Paragraph {
 

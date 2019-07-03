@@ -15,7 +15,6 @@
  */
 package androidx.ui.text.platform
 
-import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import androidx.test.filters.SdkSuppress
@@ -57,7 +56,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.CoreMatchers.not
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -67,12 +65,10 @@ import org.mockito.junit.MockitoJUnitRunner
 class TypefaceAdapterTest {
     // TODO(Migration/siyamed): These native calls should be removed after the
     // counterparts are implemented in crane.
-    private lateinit var context: Context
+    private val context = InstrumentationRegistry.getInstrumentation().context
+    private val fontLoader = AndroidFontResourceLoader(context)
 
-    @Before
-    fun setup() {
-        context = InstrumentationRegistry.getInstrumentation().context
-    }
+    private fun TypefaceAdapter() = TypefaceAdapter(resourceLoader = fontLoader)
 
     @Test
     fun createDefaultTypeface() {
@@ -329,7 +325,7 @@ class TypefaceAdapterTest {
         val fontMatcher = mock<FontMatcher>()
         whenever(fontMatcher.matchFont(any(), any(), any()))
             .thenReturn(FONT_200_ITALIC)
-        TypefaceAdapter(fontMatcher).create(
+        TypefaceAdapter(fontMatcher = fontMatcher, resourceLoader = fontLoader).create(
             fontWeight = fontWeight,
             fontStyle = fontStyle,
             fontFamily = fontFamily

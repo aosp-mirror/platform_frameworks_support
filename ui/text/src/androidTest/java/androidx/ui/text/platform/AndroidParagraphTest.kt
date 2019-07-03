@@ -25,27 +25,27 @@ import androidx.ui.core.px
 import androidx.ui.core.sp
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
-import androidx.ui.text.style.BaselineShift
+import androidx.ui.graphics.Color
+import androidx.ui.painting.Shadow
+import androidx.ui.text.AnnotatedString
+import androidx.ui.text.FontTestData.Companion.BASIC_MEASURE_FONT
+import androidx.ui.text.Locale
+import androidx.ui.text.ParagraphConstraints
+import androidx.ui.text.TextStyle
+import androidx.ui.text.font.FontFamily
 import androidx.ui.text.font.FontStyle
 import androidx.ui.text.font.FontSynthesis
-import androidx.ui.text.FontTestData.Companion.BASIC_MEASURE_FONT
 import androidx.ui.text.font.FontWeight
-import androidx.ui.text.ParagraphConstraints
+import androidx.ui.text.font.asFontFamily
+import androidx.ui.text.matchers.equalToBitmap
+import androidx.ui.text.matchers.hasSpan
+import androidx.ui.text.matchers.hasSpanOnTop
+import androidx.ui.text.style.BaselineShift
 import androidx.ui.text.style.ParagraphStyle
 import androidx.ui.text.style.TextAlign
 import androidx.ui.text.style.TextDecoration
 import androidx.ui.text.style.TextGeometricTransform
 import androidx.ui.text.style.TextIndent
-import androidx.ui.text.font.FontFamily
-import androidx.ui.text.font.asFontFamily
-import androidx.ui.text.Locale
-import androidx.ui.graphics.Color
-import androidx.ui.text.matchers.equalToBitmap
-import androidx.ui.text.matchers.hasSpan
-import androidx.ui.text.matchers.hasSpanOnTop
-import androidx.ui.text.AnnotatedString
-import androidx.ui.painting.Shadow
-import androidx.ui.text.TextStyle
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
@@ -70,6 +70,7 @@ import kotlin.math.ceil
 class AndroidParagraphTest {
     private lateinit var fontFamily: FontFamily
     private val defaultDensity = Density(density = 1f)
+    private val context = InstrumentationRegistry.getInstrumentation().context
 
     @Before
     fun setup() {
@@ -78,7 +79,7 @@ class AndroidParagraphTest {
         // 2. The LTR/RTL characters are rendered as ▶/◀.
         // 3. The fontMetrics passed to TextPaint has descend - ascend equal to 1.2 * fontSize.
         fontFamily = BASIC_MEASURE_FONT.asFontFamily()
-        fontFamily.context = InstrumentationRegistry.getInstrumentation().context
+        fontFamily.context = context
     }
 
     @Test
@@ -1285,4 +1286,8 @@ class AndroidParagraphTest {
             density = Density(density = 1f)
         )
     }
+
+    private fun TypefaceAdapter() = TypefaceAdapter(
+        resourceLoader = AndroidFontResourceLoader(context)
+    )
 }
