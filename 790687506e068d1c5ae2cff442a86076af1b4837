@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09c1e8a7_d41c1bef",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-03T13:56:25Z",
+      "side": 0,
+      "message": "nit: this seems of the formatting?",
+      "range": {
+        "startLine": 588,
+        "startChar": 16,
+        "endLine": 588,
+        "endChar": 20
+      },
+      "revId": "790687506e068d1c5ae2cff442a86076af1b4837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
