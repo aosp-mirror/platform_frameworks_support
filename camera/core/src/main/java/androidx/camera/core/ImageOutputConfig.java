@@ -21,9 +21,11 @@ import android.util.Size;
 import android.view.Surface;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
+import androidx.camera.core.CameraX.AspectRatio;
 import androidx.camera.core.Config.Option;
 
 import java.lang.annotation.Retention;
@@ -48,13 +50,23 @@ public interface ImageOutputConfig {
     // *********************************************************************************************
 
     /**
+     * Option: camerax.core.imageOutput.targetAspectRatioRational
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    Option<Rational> OPTION_TARGET_ASPECT_RATIO_RATIONAL =
+            Option.create("camerax.core.imageOutput.targetAspectRatioRational", Rational.class);
+
+    /**
      * Option: camerax.core.imageOutput.targetAspectRatio
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Rational> OPTION_TARGET_ASPECT_RATIO =
-            Option.create("camerax.core.imageOutput.targetAspectRatio", Rational.class);
+    Option<AspectRatio> OPTION_TARGET_ASPECT_RATIO =
+            Option.create("camerax.core.imageOutput.targetAspectRatio", AspectRatio.class);
+
     /**
      * Option: camerax.core.imageOutput.targetRotation
      *
@@ -92,9 +104,11 @@ public interface ImageOutputConfig {
      * @param valueIfMissing The value to return if this configuration option has not been set.
      * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
      * configuration.
+     * @hide
      */
     @Nullable
-    Rational getTargetAspectRatio(@Nullable Rational valueIfMissing);
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    Rational getTargetAspectRatioRational(@Nullable Rational valueIfMissing);
 
     /**
      * Retrieves the aspect ratio of the target intending to use images from this configuration.
@@ -105,8 +119,34 @@ public interface ImageOutputConfig {
      *
      * @return The stored value, if it exists in this configuration.
      * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
      */
-    Rational getTargetAspectRatio();
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    Rational getTargetAspectRatioRational();
+
+    /**
+     * Retrieves the aspect ratio of the target intending to use images from this configuration.
+     *
+     * <p>Valid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+     * {@link AspectRatio#RATIO_16_9}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     */
+    @Nullable
+    AspectRatio getTargetAspectRatio(@Nullable AspectRatio valueIfMissing);
+
+    /**
+     * Retrieves the aspect ratio of the target intending to use images from this configuration.
+     *
+     * <p>Valid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+     * {@link AspectRatio#RATIO_16_9}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     */
+    AspectRatio getTargetAspectRatio();
 
     /**
      * Retrieves the rotation of the target intending to use images from this configuration.
@@ -198,8 +238,25 @@ public interface ImageOutputConfig {
          * @param aspectRatio A {@link Rational} representing the ratio of the target's width and
          *                    height.
          * @return The current Builder.
+         * @hide
          */
-        B setTargetAspectRatio(Rational aspectRatio);
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        B setTargetAspectRatioRational(Rational aspectRatio);
+
+        /**
+         * Sets the aspect ratio of the intended target for images from this configuration.
+         *
+         * <p>TValid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+         * {@link AspectRatio#RATIO_16_9}.
+         *
+         * <p>It is not allowed to set both target aspect ratio and target resolution on the same
+         * use case.
+         *
+         * @param aspectRatio A {@link AspectRatio} representing the ratio of the
+         *                    target's width and height.
+         * @return The current Builder.
+         */
+        B setTargetAspectRatio(AspectRatio aspectRatio);
 
         /**
          * Sets the rotation of the intended target for images from this configuration.
@@ -216,11 +273,15 @@ public interface ImageOutputConfig {
         /**
          * Sets the resolution of the intended target from this configuration.
          *
+         * <p>It is not allowed to set both target aspect ratio and target resolution on the same
+         * use case.
+         *
          * @param resolution The target resolution to choose from supported output sizes list.
          * @return The current Builder.
          * @hide
          */
         @RestrictTo(Scope.LIBRARY_GROUP)
+        @NonNull
         B setTargetResolution(Size resolution);
 
         /**
@@ -232,7 +293,8 @@ public interface ImageOutputConfig {
          * @hide
          */
         @RestrictTo(Scope.LIBRARY_GROUP)
-        B setMaxResolution(Size resolution);
+        @NonNull
+        B setMaxResolution(@Nullable Size resolution);
     }
 
     /**
