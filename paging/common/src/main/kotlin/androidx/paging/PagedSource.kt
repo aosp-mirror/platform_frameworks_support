@@ -206,4 +206,15 @@ abstract class PagedSource<Key : Any, Value : Any> {
     companion object {
         const val COUNT_UNDEFINED = -1
     }
+
+    abstract class Factory<Key : Any, Value : Any> {
+        abstract fun create(): PagedSource<Key, Value>
+
+        companion object {
+            fun <Key : Any, Value : Any> from(dataSourceFactory: DataSource.Factory<Key, Value>) =
+                object : Factory<Key, Value>() {
+                    override fun create() = PagedSourceWrapper(dataSourceFactory.create())
+                }
+        }
+    }
 }

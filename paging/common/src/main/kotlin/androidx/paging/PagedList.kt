@@ -38,6 +38,8 @@ import java.util.ArrayList
 import java.util.concurrent.Executor
 
 /**
+ * TODO: Write an implementation of this that uses [PagedSource].
+ *
  * Callback for changes to loading state - whether the refresh, prepend, or append is idle, loading,
  * or has an error.
  *
