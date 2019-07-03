@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fb10655_6c216dc8",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Constraints.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T11:08:26Z",
+      "side": 1,
+      "message": "This will try to produce invalid constraints (and crash) if maxWidth or maxHeight are infinite. I think you should check for this, and use the min constraint if that happens. Also update the test.",
+      "range": {
+        "startLine": 177,
+        "startChar": 29,
+        "endLine": 177,
+        "endChar": 81
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d15fc1a4_154d704a",
+        "filename": "ui/core/src/test/java/androidx/ui/core/ConstraintsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T11:08:26Z",
+      "side": 1,
+      "message": "nit: I see loose() uses these values as well, but if I were to write that test again, I would use 4 different values here, just to make sure\nfun Constraints.tightMax() \u003d this.withTight(width \u003d maxWidth, height \u003d maxWidth)\nwould fail :) would you mind changing this and loose() as well?",
+      "range": {
+        "startLine": 135,
+        "startChar": 38,
+        "endLine": 135,
+        "endChar": 64
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51bfc1d_02f33105",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T11:08:26Z",
+      "side": 1,
+      "message": "I don\u0027t think testing the WithConstraints layout behavior brings much value to the test - this is the responsibility of WithConstraintsTest. In StackTest I think making sure that the children are measured with the right constraints according to the fit (which you already do) is enough. So I would remove these SaveLayoutInfos and the checks below which are based on them.",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 288,
+        "endChar": 37
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
