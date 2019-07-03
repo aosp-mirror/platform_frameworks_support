@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e6edcd7_115355f0",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/DpConstraints.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-03T17:39:41Z",
+      "side": 1,
+      "message": "seems like we forgot to add IntPx.toDp() into DensityReceiver. let\u0027s add it there instead?",
+      "range": {
+        "startLine": 193,
+        "startChar": 36,
+        "endLine": 193,
+        "endChar": 49
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23024607_44fd3af8",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-03T17:39:41Z",
+      "side": 1,
+      "message": "It is probably more the comment for Mihai, but this three public methods have no documentation. Let\u0027s add them? Can be added later in a separate CL",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b500d134_c3ee5d66",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-03T17:39:41Z",
+      "side": 1,
+      "message": "can be private, right? it can if used only inside this file. The same for StackChildData and two vals at the bottom. we originally were writing everything as internal to not create synthetic accessors, but then decided it is fine for us and disabled this lint inspection.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 8
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
