@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.input
+package androidx.ui.text.input
 
 import android.view.KeyEvent
 import androidx.test.filters.SmallTest
 import androidx.ui.text.TextRange
-import androidx.ui.text.input.BackspaceKeyEditOp
-import androidx.ui.text.input.CommitTextEditOp
-import androidx.ui.text.input.DeleteSurroundingTextEditOp
-import androidx.ui.text.input.DeleteSurroundingTextInCodePointsEditOp
-import androidx.ui.text.input.EditOperation
-import androidx.ui.text.input.FinishComposingTextEditOp
-import androidx.ui.text.input.InputEventListener
-import androidx.ui.text.input.MoveCursorEditOp
-import androidx.ui.text.input.SetComposingRegionEditOp
-import androidx.ui.text.input.SetComposingTextEditOp
-import androidx.ui.text.input.SetSelectionEditOp
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
@@ -64,7 +53,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor at the beginning of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(0, 0))
+            selection = TextRange(0, 0)
+        )
 
         assertEquals("", ic.getTextBeforeCursor(100, 0))
         assertEquals("Hello, World", ic.getTextAfterCursor(100, 0))
@@ -72,7 +62,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor between "H" and "e".
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(1, 1))
+            selection = TextRange(1, 1)
+        )
 
         assertEquals("H", ic.getTextBeforeCursor(100, 0))
         assertEquals("ello, World", ic.getTextAfterCursor(100, 0))
@@ -80,7 +71,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor at the end of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(12, 12))
+            selection = TextRange(12, 12)
+        )
 
         assertEquals("Hello, World", ic.getTextBeforeCursor(100, 0))
         assertEquals("", ic.getTextAfterCursor(100, 0))
@@ -91,7 +83,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor at the beginning of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(0, 0))
+            selection = TextRange(0, 0)
+        )
 
         assertEquals("", ic.getTextBeforeCursor(5, 0))
         assertEquals("Hello", ic.getTextAfterCursor(5, 0))
@@ -99,7 +92,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor between "H" and "e".
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(1, 1))
+            selection = TextRange(1, 1)
+        )
 
         assertEquals("H", ic.getTextBeforeCursor(5, 0))
         assertEquals("ello,", ic.getTextAfterCursor(5, 0))
@@ -107,7 +101,8 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor at the end of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(12, 12))
+            selection = TextRange(12, 12)
+        )
 
         assertEquals("World", ic.getTextBeforeCursor(5, 0))
         assertEquals("", ic.getTextAfterCursor(5, 0))
@@ -118,21 +113,24 @@ class RecordingInputConnectionTest {
         // Set "Hello, World", and place the cursor at the beginning of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(0, 0))
+            selection = TextRange(0, 0)
+        )
 
         assertEquals("", ic.getSelectedText(0))
 
         // Set "Hello, World", and place the cursor between "H" and "e".
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(0, 1))
+            selection = TextRange(0, 1)
+        )
 
         assertEquals("H", ic.getSelectedText(0))
 
         // Set "Hello, World", and place the cursor at the end of the text.
         ic.inputState = InputState(
             text = "Hello, World",
-            selection = TextRange(0, 12))
+            selection = TextRange(0, 12)
+        )
 
         assertEquals("Hello, World", ic.getSelectedText(0))
     }
