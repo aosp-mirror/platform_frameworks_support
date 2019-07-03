@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fdcbba3_545e82a2",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T10:16:11Z",
+      "side": 1,
+      "message": "this would make AdvertisingIdClient single-threaded",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 30
+      },
+      "revId": "c36cde8b9022c12155f3111fd84f8a430a6ebfd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a050bb2e_2b9174ce",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T10:16:11Z",
+      "side": 1,
+      "message": "change name",
+      "range": {
+        "startLine": 85,
+        "startChar": 37,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "c36cde8b9022c12155f3111fd84f8a430a6ebfd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e79b2f4e_9491406b",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/internal/HoldingConnectionClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-03T10:16:11Z",
+      "side": 1,
+      "message": "what\u0027s the resource usage of this connection? i\u0027m thinking a longer timeout would be better, maybe a minute or more",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "c36cde8b9022c12155f3111fd84f8a430a6ebfd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
