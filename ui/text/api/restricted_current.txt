@@ -20,3 +20,24 @@ package androidx.ui.text {
 
 }
 
+package androidx.ui.text.input {
+
+
+
+
+
+
+
+
+  public final class EditorState {
+  }
+
+
+
+
+
+
+
+
+}
+
