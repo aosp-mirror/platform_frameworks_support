@@ -594,6 +594,30 @@
     },
     {
       "key": {
+        "uuid": "dd537625_25b28ae5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-03T14:10:10Z",
+      "side": 1,
+      "message": "Markign as done because this components were removed",
+      "parentUuid": "216bd767_816a4ffc",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "48a2092698381cf25bb63f577f4fdc4f04f4afa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db65b388_297d0140",
         "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
         "patchSetId": 2
