@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0114ab71_d974ede0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-03T20:30:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f880e928_dee0a45e",
+      "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6e44453_904747ee",
         "filename": "compose/compose-ide-plugin/build.gradle",
         "patchSetId": 1
