@@ -22,6 +22,30 @@
       "revId": "790687506e068d1c5ae2cff442a86076af1b4837",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d78f29c_9b325a63",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T13:58:13Z",
+      "side": 0,
+      "message": "Done, thanks for spotting.",
+      "parentUuid": "09c1e8a7_d41c1bef",
+      "range": {
+        "startLine": 588,
+        "startChar": 16,
+        "endLine": 588,
+        "endChar": 20
+      },
+      "revId": "790687506e068d1c5ae2cff442a86076af1b4837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
