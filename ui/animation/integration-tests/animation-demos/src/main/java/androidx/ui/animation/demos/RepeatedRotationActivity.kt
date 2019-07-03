@@ -28,20 +28,20 @@ import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.core.gesture.PressReleasedGestureDetector
 import androidx.ui.core.toRect
-import androidx.ui.core.withDensity
 import androidx.ui.layout.Center
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.MainAxisAlignment
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
-import androidx.ui.painting.TextStyle
 import androidx.ui.vectormath64.radians
+import androidx.ui.text.TextStyle
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.setContent
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.sp
 
 class RepeatedRotationActivity : Activity() {
 
@@ -57,7 +57,7 @@ fun RepeatedRotation() {
         Center {
             val state = +state { RotationStates.Original }
             Column(mainAxisAlignment = MainAxisAlignment.SpaceEvenly) {
-                val textStyle = TextStyle(fontSize = +withDensity { 18.dp.toPx().value })
+                val textStyle = TextStyle(fontSize = 18.sp)
                 PressReleasedGestureDetector(onRelease = {
                     state.value = RotationStates.Rotated
                 }) {

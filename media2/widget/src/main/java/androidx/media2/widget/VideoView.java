@@ -87,7 +87,7 @@ import java.util.concurrent.Executor;
  * <li> If a developer wants to attach a custom {@link MediaControlView},
  * assign the custom media control widget using {@link #setMediaControlView}.
  * <li> If {@link VideoView} communicates with {@link MediaSession} by calling
- * {@link #setMediaController(MediaController)}, it will responds to media key events.
+ * {@link #setMediaController(MediaController)}, it will respond to media key events.
  * </ul>
  *
  * <p>
@@ -163,7 +163,7 @@ public class VideoView extends SelectiveLayout {
     private final VideoViewInterface.SurfaceListener mSurfaceListener =
             new VideoViewInterface.SurfaceListener() {
         @Override
-        public void onSurfaceCreated(View view, int width, int height) {
+        public void onSurfaceCreated(@NonNull View view, int width, int height) {
             if (DEBUG) {
                 Log.d(TAG, "onSurfaceCreated()"
                         + ", width/height: " + width + "/" + height
@@ -175,14 +175,14 @@ public class VideoView extends SelectiveLayout {
         }
 
         @Override
-        public void onSurfaceDestroyed(View view) {
+        public void onSurfaceDestroyed(@NonNull View view) {
             if (DEBUG) {
                 Log.d(TAG, "onSurfaceDestroyed(). " + view.toString());
             }
         }
 
         @Override
-        public void onSurfaceChanged(View view, int width, int height) {
+        public void onSurfaceChanged(@NonNull View view, int width, int height) {
             if (DEBUG) {
                 Log.d(TAG, "onSurfaceChanged(). width/height: " + width + "/" + height
                         + ", " + view.toString());
@@ -190,7 +190,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         @Override
-        public void onSurfaceTakeOverDone(VideoViewInterface view) {
+        public void onSurfaceTakeOverDone(@NonNull VideoViewInterface view) {
             if (view != mTargetView) {
                 if (DEBUG) {
                     Log.d(TAG, "onSurfaceTakeOverDone(). view is not targetView. ignore.: " + view);
@@ -285,6 +285,7 @@ public class VideoView extends SelectiveLayout {
                 "enableControlView", true);
         if (enableControlView) {
             mMediaControlView = new MediaControlView(context);
+            mMediaControlView.setAttachedToVideoView(true);
             addView(mMediaControlView, mSelectiveLayoutParams);
         }
 
@@ -343,7 +344,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         if (mMediaControlView != null) {
-            mMediaControlView.setMediaController(controller);
+            mMediaControlView.setMediaControllerInternal(controller);
         }
     }
 
@@ -380,7 +381,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         if (mMediaControlView != null) {
-            mMediaControlView.setPlayer(player);
+            mMediaControlView.setPlayerInternal(player);
         }
     }
 
@@ -392,21 +393,26 @@ public class VideoView extends SelectiveLayout {
      * {@link VideoView}, the same instance will be set to {@link MediaControlView}.
      *
      * @param mediaControlView a {@link MediaControlView} instance.
-     * @param intervalMs a time interval in milliseconds until {@link VideoView} hides
-     *                   {@link MediaControlView}.
+     * @param intervalMs time interval in milliseconds until {@link MediaControlView} transitions
+     *                   into a different mode. -1 can be set to disable all UI transitions. See
+     *                   {@link MediaControlView} Javadoc Section "UI transitions" for details.
      */
     public void setMediaControlView(@NonNull MediaControlView mediaControlView, long intervalMs) {
-        removeView(mMediaControlView);
+        if (mMediaControlView != null) {
+            removeView(mMediaControlView);
+            mMediaControlView.setAttachedToVideoView(false);
+        }
         addView(mediaControlView, mSelectiveLayoutParams);
+        mediaControlView.setAttachedToVideoView(true);
 
         mMediaControlView = mediaControlView;
         mMediaControlView.setDelayedAnimationInterval(intervalMs);
 
         if (mPlayer != null) {
             if (mPlayer.mController != null) {
-                mMediaControlView.setMediaController(mPlayer.mController);
+                mMediaControlView.setMediaControllerInternal(mPlayer.mController);
             } else if (mPlayer.mPlayer != null) {
-                mMediaControlView.setPlayer(mPlayer.mPlayer);
+                mMediaControlView.setPlayerInternal(mPlayer.mPlayer);
             }
         }
     }

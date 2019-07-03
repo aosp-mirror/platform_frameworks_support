@@ -39,13 +39,14 @@ import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.core.gesture.DragGestureDetector
 import androidx.ui.core.gesture.DragObserver
+import androidx.ui.core.sp
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.graphics.Color
 import androidx.ui.layout.Column
 import androidx.ui.layout.Padding
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Paint
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.TextStyle
 import kotlin.math.roundToInt
 
 class FancyScrolling : Activity() {
@@ -63,7 +64,7 @@ class FancyScrolling : Activity() {
     fun FancyScrollingExample() {
         Column {
             Padding(40.dp) {
-                Text("<== Scroll horizontally ==>", style = TextStyle(fontSize = 80f))
+                Text("<== Scroll horizontally ==>", style = TextStyle(fontSize = 80.sp))
             }
             val animScroll = +animatedFloat(0f)
             val itemWidth = +state { 0f }

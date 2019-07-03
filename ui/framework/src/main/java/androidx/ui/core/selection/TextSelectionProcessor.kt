@@ -20,8 +20,8 @@ import androidx.ui.core.PxPosition
 import androidx.ui.core.px
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.painting.TextPainter
-import androidx.ui.services.text_editing.TextSelection
+import androidx.ui.text.TextSelection
+import androidx.ui.text.TextPainter
 import kotlin.math.max
 
 /**
@@ -108,8 +108,8 @@ internal class TextSelectionProcessor(
         // behaviour.
         textSelectionEnd = textSelectionEnd - 1
 
-        startOffset = textPainter.getBoundingBoxForTextPosition(textSelectionStart)
-        endOffset = textPainter.getBoundingBoxForTextPosition(textSelectionEnd)
+        startOffset = textPainter.getBoundingBox(textSelectionStart)
+        endOffset = textPainter.getBoundingBox(textSelectionEnd)
 
         this.containsWholeSelectionStart = containsWholeSelectionStart
         this.containsWholeSelectionEnd = containsWholeSelectionEnd

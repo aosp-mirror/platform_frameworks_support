@@ -31,12 +31,13 @@ import androidx.ui.layout.Row
 import androidx.ui.layout.WidthSpacer
 import androidx.ui.layout.Wrap
 import androidx.ui.graphics.Color
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.TextStyle
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.setContent
-import androidx.ui.core.Span
+import androidx.ui.core.sp
+import androidx.ui.layout.samples.DrawRectangle
 
 class LayoutActivity : Activity() {
 
@@ -72,7 +73,7 @@ fun LayoutDemo() {
         mainAxisAlignment = MainAxisAlignment.Start,
         crossAxisAlignment = CrossAxisAlignment.Start
     ) {
-        Text(text = "Row", style = TextStyle(fontSize = 48f))
+        Text(text = "Row", style = TextStyle(fontSize = 48.sp))
         ContainerWithBackground(width = ExampleSize, color = lightGrey) {
             Row {
                 PurpleSquare()
@@ -108,7 +109,7 @@ fun LayoutDemo() {
             }
         }
         HeightSpacer(height = 24.dp)
-        Text(text = "Column", style = TextStyle(fontSize = 48f))
+        Text(text = "Column", style = TextStyle(fontSize = 48.sp))
         Row {
             ContainerWithBackground(height = ExampleSize, color = lightGrey) {
                 Column {

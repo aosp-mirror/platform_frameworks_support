@@ -50,18 +50,27 @@ const val KOTLINPOET = "com.squareup:kotlinpoet:1.1.0"
 private const val KOTLIN_VERSION = "1.3.40"
 const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 const val KOTLIN_TEST_COMMON = "org.jetbrains.kotlin:kotlin-test:$KOTLIN_VERSION"
-const val COMPOSE_VERSION = "1.3.30-compose-20190503"
+const val COMPOSE_VERSION = "1.3.30-compose-20190520"
 const val KOTLIN_COMPOSE_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$COMPOSE_VERSION"
 const val KOTLIN_COMPOSE_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:$COMPOSE_VERSION"
 
 const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
 const val KOTLIN_METADATA_JVM = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
-const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-const val KOTLIN_COMPOSE_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-const val KOTLIN_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-const val KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1"
+
+private const val KOTLIN_COROUTINES_VERSION = "1.1.1"
+const val KOTLIN_COROUTINES =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COMPOSE_COROUTINES =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_CORE =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_GUAVA =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-guava:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_TEST =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINES_VERSION"
+
 const val LEAKCANARY_INSTRUMENTATION =
-        "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
+    "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
 const val LINT_API_MIN = "com.android.tools.lint:lint-api:26.3.0"
 const val LINT_API_LATEST = "com.android.tools.lint:lint-api:26.5.0-beta04"
 const val LINT_CORE = "com.android.tools.lint:lint:26.5.0-beta04"

@@ -27,35 +27,36 @@ import androidx.ui.core.selection.Selection
 import androidx.ui.core.selection.SelectionContainer
 import androidx.ui.core.selection.SelectionMode
 import androidx.ui.engine.geometry.Offset
-import androidx.ui.engine.text.BaselineShift
-import androidx.ui.engine.text.FontStyle
-import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.TextAlign
-import androidx.ui.engine.text.TextDecoration
-import androidx.ui.engine.text.TextDirection
-import androidx.ui.engine.text.font.FontFamily
-import androidx.ui.engine.window.Locale
+import androidx.ui.text.style.BaselineShift
+import androidx.ui.text.font.FontStyle
+import androidx.ui.text.font.FontWeight
+import androidx.ui.text.style.TextAlign
+import androidx.ui.text.style.TextDecoration
+import androidx.ui.text.style.TextDirection
+import androidx.ui.text.font.FontFamily
+import androidx.ui.text.Locale
 import androidx.ui.graphics.Color
 import androidx.ui.graphics.lerp
 import androidx.ui.layout.Column
 import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.Row
 import androidx.ui.layout.VerticalScroller
-import androidx.ui.painting.ParagraphStyle
+import androidx.ui.text.ParagraphStyle
 import androidx.ui.painting.Shadow
-import androidx.ui.painting.TextStyle
-import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.compose.composer
+import androidx.ui.text.TextStyle
+import androidx.ui.text.style.TextOverflow
+import androidx.ui.core.Sp
+import androidx.ui.core.sp
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
 val displayTextArabic = "عرض النص"
 val displayTextHindi = "पाठ डेमो"
-val fontSize4: Float = 40.0.toFloat()
-val fontSize6: Float = 60.0.toFloat()
-val fontSize7: Float = 70.0.toFloat()
-val fontSize8: Float = 80.0.toFloat()
-val fontSize10: Float = 100.0.toFloat()
+val fontSize4: Sp = 16.sp
+val fontSize6: Sp = 20.sp
+val fontSize8: Sp = 25.sp
+val fontSize10: Sp = 30.sp
 
 @Composable
 fun TextDemo() {
@@ -72,8 +73,6 @@ fun TextDemo() {
                 TextDemoTextDecoration()
                 TagLine(tag = "letterSpacing")
                 TextDemoLetterSpacing()
-                TagLine(tag = "wordSpacing")
-                TextDemoWordSpacing()
                 TagLine(tag = "baselineShift")
                 TextDemoBaselineShift()
                 TagLine(tag = "lineHeight")
@@ -86,14 +85,14 @@ fun TextDemo() {
                 TextDemoTextAlign()
                 TagLine(tag = "softWrap: on and off")
                 TextDemoSoftWrap()
-                TagLine(tag = "textScaleFactor: default and 2.0")
-                TextDemoTextScaleFactor()
                 TagLine(tag = "TextOverFlow: Fade")
                 TexDemoTextOverflowFade()
                 TagLine(tag = "shadow")
                 TextDemoShadowEffect()
                 TagLine(tag = "selection")
                 TextDemoSelection()
+                TagLine(tag = "selection with string input")
+                TextDemoSelectionWithStringInput()
                 TagLine(tag = "selection in 2D Array Vertical")
                 TextDemoSelection2DArrayVertical()
                 TagLine(tag = "selection in 2D Array Horizontal")
@@ -113,7 +112,10 @@ fun TagLine(tag: String) {
         Span(text = "\n", style = TextStyle(fontSize = fontSize8))
         Span(
             text = tag,
-            style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize6)
+            style = TextStyle(
+                color = Color(0xFFAAAAAA.toInt()),
+                fontSize = fontSize6
+            )
         )
     }
 }
@@ -123,7 +125,10 @@ fun SecondTagLine(tag: String) {
     Text {
         Span(
             text = tag,
-            style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize4)
+            style = TextStyle(
+                color = Color(0xFFAAAAAA.toInt()),
+                fontSize = fontSize4
+            )
         )
     }
 }
@@ -266,22 +271,10 @@ fun TextDemoLetterSpacing() {
     // This group of text widgets show different letterSpacing.
     Text {
         Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
-        Span(text = displayText, style = TextStyle(fontSize = fontSize8, letterSpacing = 0.5f))
-    }
-}
-
-@Composable
-fun TextDemoWordSpacing() {
-    // This group of text widgets show different wordSpacing.
-    Text {
-        Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
-
-        Span(
-            text = displayText,
-            style = TextStyle(
-                fontSize = fontSize8,
-                wordSpacing = 100.0f
-            )
+        Span(text = displayText, style = TextStyle(
+            fontSize = fontSize8,
+            letterSpacing = 0.5f
+        )
         )
     }
 }
@@ -472,7 +465,8 @@ fun TextDemoSoftWrap() {
     for (i in 1..10) {
         text = "$text$displayText"
     }
-    val textStyle = TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
+    val textStyle =
+        TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
 
     Column(crossAxisAlignment = CrossAxisAlignment.Start) {
         Text {
@@ -485,27 +479,6 @@ fun TextDemoSoftWrap() {
 }
 
 // TODO(Migration/qqd): Impelement text demo for overflow and maxLines.
-@Composable
-fun TextDemoOverflow() {
-}
-
-@Composable
-fun TextDemoMaxLines() {
-}
-
-@Composable
-fun TextDemoTextScaleFactor() {
-    // This group of text widgets show the different textScaleFactor.
-    Column(crossAxisAlignment = CrossAxisAlignment.Start) {
-        Text {
-            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-        }
-
-        Text(textScaleFactor = 2.0f) {
-            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-        }
-    }
-}
 
 @Composable
 fun TexDemoTextOverflowFade() {
@@ -513,7 +486,8 @@ fun TexDemoTextOverflowFade() {
     for (i in 1..15) {
         text = text + displayText
     }
-    val textSytle = TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
+    val textSytle =
+        TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
     SecondTagLine(tag = "horizontally fading edge")
     Text(
         maxLines = 1,
@@ -581,6 +555,24 @@ fun TextDemoSelection() {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun TextDemoSelectionWithStringInput() {
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }) {
+        Text(
+            text = "$displayText    $displayTextChinese    $displayTextHindi",
+            style = TextStyle(
+                color = Color(0xFFFF0000.toInt()),
+                fontSize = fontSize6,
+                fontWeight = FontWeight.w200,
+                fontStyle = FontStyle.Italic
+            )
+        )
     }
 }
 
