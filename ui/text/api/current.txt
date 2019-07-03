@@ -91,6 +91,10 @@ package androidx.ui.text {
     property public abstract float width;
   }
 
+  public static interface Paragraph.Factory {
+    method public androidx.ui.text.Paragraph create(String text, androidx.ui.text.TextStyle style, androidx.ui.text.style.ParagraphStyle paragraphStyle, java.util.List<androidx.ui.text.AnnotatedString.Item<androidx.ui.text.TextStyle>> textStyles, androidx.ui.core.Density density);
+  }
+
   public final class ParagraphConstraints {
     ctor public ParagraphConstraints(float width);
     method public float component1();
@@ -318,8 +322,8 @@ package androidx.ui.text.font {
 
 package androidx.ui.text.platform {
 
-  public final class ParagraphAndroidKt {
-    ctor public ParagraphAndroidKt();
+  public final class AndroidParagraphKt {
+    ctor public AndroidParagraphKt();
   }
 
 }

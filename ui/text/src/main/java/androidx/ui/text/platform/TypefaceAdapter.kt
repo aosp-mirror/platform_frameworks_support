@@ -31,12 +31,14 @@ import androidx.ui.text.font.FontMatcher
 /**
  * Creates a Typeface based on generic font family or a custom [FontFamily].
  *
+ * @param context Android Context used to load font resources.
  * @param fontMatcher [FontMatcher] class to be used to match given [FontWeight] and [FontStyle]
  *                    constraints to select a [Font] from a [FontFamily]
  */
 // TODO(Migration/siyamed): font matcher should be at an upper layer such as Paragraph, whoever
 // will call TypefaceAdapter can know about a single font
-internal open class TypefaceAdapter constructor(
+internal open class TypefaceAdapter(
+    val context: Context? = null,
     val fontMatcher: FontMatcher = FontMatcher()
 ) {
 

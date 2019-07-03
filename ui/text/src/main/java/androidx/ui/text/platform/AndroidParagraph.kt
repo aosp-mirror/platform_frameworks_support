@@ -15,6 +15,7 @@
  */
 package androidx.ui.text.platform
 
+import android.content.Context
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
@@ -29,6 +30,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.ScaleXSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
+import androidx.annotation.RestrictTo
 import androidx.annotation.VisibleForTesting
 import androidx.text.LayoutCompat.ALIGN_CENTER
 import androidx.text.LayoutCompat.ALIGN_LEFT
@@ -52,30 +54,33 @@ import androidx.text.style.ShadowSpan
 import androidx.text.style.SkewXSpan
 import androidx.text.style.TypefaceSpan
 import androidx.ui.core.Density
-import androidx.ui.text.TextRange
 import androidx.ui.core.px
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
+import androidx.ui.painting.Canvas
+import androidx.ui.painting.Path
+import androidx.ui.text.AnnotatedString
+import androidx.ui.text.Paragraph
+import androidx.ui.text.ParagraphConstraints
+import androidx.ui.text.TextRange
+import androidx.ui.text.TextStyle
 import androidx.ui.text.font.FontStyle
 import androidx.ui.text.font.FontSynthesis
 import androidx.ui.text.font.FontWeight
-import androidx.ui.text.Paragraph
-import androidx.ui.text.ParagraphConstraints
 import androidx.ui.text.style.ParagraphStyle
 import androidx.ui.text.style.TextAlign
 import androidx.ui.text.style.TextDecoration
 import androidx.ui.text.style.TextDirection
 import androidx.ui.text.style.TextIndent
-import androidx.ui.text.AnnotatedString
-import androidx.ui.painting.Canvas
-import androidx.ui.painting.Path
-import androidx.ui.text.TextStyle
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-internal class ParagraphAndroid constructor(
+/**
+ * Android specific implementation for [Paragraph]
+ */
+internal class AndroidParagraph constructor(
     val text: String,
     val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
@@ -454,6 +459,29 @@ internal class ParagraphAndroid constructor(
             }
         }
         return spannableString
+    }
+
+    /**
+     * Paragraph.Factory implementation for Android.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    class Factory(private val context: Context) : Paragraph.Factory {
+        override fun create(
+            text: String,
+            style: TextStyle,
+            paragraphStyle: ParagraphStyle,
+            textStyles: List<AnnotatedString.Item<TextStyle>>,
+            density: Density
+        ): Paragraph = AndroidParagraph(
+            text = text,
+            style = style,
+            paragraphStyle = paragraphStyle,
+            textStyles = textStyles,
+            typefaceAdapter = TypefaceAdapter(context = context),
+            density = density
+        )
     }
 }
 

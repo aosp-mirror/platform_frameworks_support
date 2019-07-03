@@ -18,10 +18,10 @@ package androidx.ui.text
 import androidx.ui.core.Density
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.text.style.ParagraphStyle
-import androidx.ui.text.platform.ParagraphAndroid
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
+import androidx.ui.text.platform.AndroidParagraph
+import androidx.ui.text.style.ParagraphStyle
 
 /**
  * A paragraph of text.
@@ -130,6 +130,16 @@ interface Paragraph {
      * Paint the paragraph to canvas
      */
     fun paint(canvas: Canvas, x: Float, y: Float)
+
+    interface Factory {
+        fun create(
+            text: String,
+            style: TextStyle,
+            paragraphStyle: ParagraphStyle,
+            textStyles: List<AnnotatedString.Item<TextStyle>>,
+            density: Density
+        ): Paragraph
+    }
 }
 
 fun Paragraph(
@@ -138,7 +148,7 @@ fun Paragraph(
     paragraphStyle: ParagraphStyle,
     textStyles: List<AnnotatedString.Item<TextStyle>>,
     density: Density
-): Paragraph = ParagraphAndroid(
+): Paragraph = AndroidParagraph(
     text = text,
     style = style,
     paragraphStyle = paragraphStyle,
