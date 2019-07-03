@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "763f46a5_99f70f3c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-03T22:42:06Z",
+      "side": 1,
+      "message": "Is there a reason that the front camera doesn\u0027t need to be tested?",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210784df_80bdc06c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-03T22:42:06Z",
+      "side": 1,
+      "message": "Why are we verifying the onUpdated() is called?\n\nThis isn\u0027t really testing the binding behavior.",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc011306_7b9f81fd",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-03T22:42:06Z",
+      "side": 1,
+      "message": "Is there a reason we test the closing behavior? If this is meant as a wait for close in order to clean up state, then it might be better to use a CountDownLatch to wait for it. That way we differentiate waiting behavior from testing behavior. Also can this be moved to @After because it is meant as cleanup behavior (I assume)?",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
