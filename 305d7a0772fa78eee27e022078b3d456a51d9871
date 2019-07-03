@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdb2e12d_8600f671",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "nit: maybe remove in favour of fetching it from viewpager every time?",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3114e9ce_cfe01113",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe add assertBasicState in all tests? after each change",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7839eaa3_dcb65a3f",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe rename to expectedPageEvents?",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91335f54_6e0f678d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe use stringSequence(pageCount).toMutableList()",
+      "range": {
+        "startLine": 124,
+        "startChar": 18,
+        "endLine": 124,
+        "endChar": 50
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba8f5234_988bac7a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "nit: check precondition of size \u003e 0",
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0e25ba_903b9418",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe extract from initial size of dataSet",
+      "range": {
+        "startLine": 136,
+        "startChar": 46,
+        "endLine": 136,
+        "endChar": 55
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc9cdac_681ec420",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "nit: check precondition of size \u003d\u003d 0",
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7250c476_956d5a38",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe use stringSequence(pageCount)",
+      "range": {
+        "startLine": 142,
+        "startChar": 27,
+        "endLine": 142,
+        "endChar": 52
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cebe98d_1394c57b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T14:46:43Z",
+      "side": 1,
+      "message": "maybe extract from initial size of dataSet",
+      "range": {
+        "startLine": 143,
+        "startChar": 47,
+        "endLine": 143,
+        "endChar": 56
+      },
+      "revId": "305d7a0772fa78eee27e022078b3d456a51d9871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
