@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "d408b15a_c9661917",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-07-03T17:39:12Z",
+      "side": 1,
+      "message": "Probably would be good to mention here that we mean the assets directory inside the APK specifically and not a directory on the FS?",
+      "revId": "6b7d59108c63a5cf2b43afd053268035d44377e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dff40f8_7b4c0133",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-07-03T17:39:12Z",
+      "side": 1,
+      "message": "comment needs updating",
+      "revId": "6b7d59108c63a5cf2b43afd053268035d44377e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7d8d25e_8231deb6",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 17
