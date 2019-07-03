@@ -51,6 +51,24 @@
       "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3e8b533_d029b592",
+        "filename": "compose/compose-ide-plugin/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1383730
+      },
+      "writtenOn": "2019-07-03T00:27:43Z",
+      "side": 1,
+      "message": "Err, `-mac` pattern is correct, I got confused because studio_version is a single identifier is instead of ${ideaMajorVersion}.${buildNumber}.  I suppose we just need to support linux binary too.",
+      "parentUuid": "d6e44453_904747ee",
+      "revId": "39e91532c1971ad9122a50732152b4278d99d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
