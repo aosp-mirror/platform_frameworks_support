@@ -1,0 +1,10 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Autosubmit+1: Matvei Malkov <malkov@google.com>
+Code-Review+2: Clara Bayarri <clarabayarri@google.com>
+Code-Review+2: Andrey Kulikov <andreykulikov@google.com>
+API-Review+1: Clara Bayarri <clarabayarri@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 03 Jul 2019 14:10:17 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/987052
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
