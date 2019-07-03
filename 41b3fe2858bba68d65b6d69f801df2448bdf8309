@@ -34,6 +34,24 @@
       "revId": "41b3fe2858bba68d65b6d69f801df2448bdf8309",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d714fcfa_ce86bf8a",
+        "filename": "compose/compose-ide-plugin/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1383730
+      },
+      "writtenOn": "2019-07-03T01:55:23Z",
+      "side": 1,
+      "message": "Yeah, sounds good.",
+      "parentUuid": "2576a4cf_bb710e9b",
+      "revId": "41b3fe2858bba68d65b6d69f801df2448bdf8309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
