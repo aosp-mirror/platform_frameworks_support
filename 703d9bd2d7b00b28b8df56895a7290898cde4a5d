@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8cda280_67c03d7b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T15:02:25Z",
+      "side": 1,
+      "message": "maybe parameterize with setUp: () -\u003e Unit",
+      "range": {
+        "startLine": 86,
+        "startChar": 37,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "703d9bd2d7b00b28b8df56895a7290898cde4a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93bb370b_2ad12361",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/AdapterTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-07-03T15:02:25Z",
+      "side": 1,
+      "message": "maybe prepend with test_",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "703d9bd2d7b00b28b8df56895a7290898cde4a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
