@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.text.platform
+package androidx.ui.core.text
 
 import android.content.Context
 import android.graphics.Typeface
