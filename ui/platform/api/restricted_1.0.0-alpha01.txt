@@ -6,3 +6,13 @@ package androidx.ui.core {
 
 }
 
+package androidx.ui.core.text {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class AndroidFontResourceLoader implements androidx.ui.text.font.Font.ResourceLoader<android.graphics.Typeface> {
+    ctor public AndroidFontResourceLoader(android.content.Context context);
+    method public android.content.Context getContext();
+    method public android.graphics.Typeface load(androidx.ui.text.font.Font font);
+  }
+
+}
+
