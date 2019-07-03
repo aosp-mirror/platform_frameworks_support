@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e3195e8_02e15944",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ExistingActivityLifecycleTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-03T06:52:27Z",
+      "side": 1,
+      "message": "Do we still need to suppress test by SDK version, because these is assumption method for that?",
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddbd5b61_d1b6f15f",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
         "patchSetId": 2
@@ -19,6 +36,23 @@
         "endLine": 31,
         "endChar": 48
       },
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "403b3dbb_4348fc3e",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-03T06:52:27Z",
+      "side": 1,
+      "message": "That means, setup() will use assumeNoException().\nI think developer can catch the exception message when test runs only in local.\nIf the test is running on some post submit test system and once the assumption is failed, the test will noted with \"Skipped\", then the system might not keep log for kipped tests.\nIt seems the customized exception message is not practical.",
       "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
