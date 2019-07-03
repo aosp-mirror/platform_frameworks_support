@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.input
+package androidx.ui.text.input
 
 import android.os.Bundle
 import android.os.Handler
@@ -30,17 +30,6 @@ import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputContentInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
-import androidx.ui.text.input.BackspaceKeyEditOp
-import androidx.ui.text.input.CommitTextEditOp
-import androidx.ui.text.input.DeleteSurroundingTextEditOp
-import androidx.ui.text.input.DeleteSurroundingTextInCodePointsEditOp
-import androidx.ui.text.input.EditOperation
-import androidx.ui.text.input.FinishComposingTextEditOp
-import androidx.ui.text.input.InputEventListener
-import androidx.ui.text.input.MoveCursorEditOp
-import androidx.ui.text.input.SetComposingRegionEditOp
-import androidx.ui.text.input.SetComposingTextEditOp
-import androidx.ui.text.input.SetSelectionEditOp
 
 private val DEBUG = false
 private val TAG = "RecordingIC"
