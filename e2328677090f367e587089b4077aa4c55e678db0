@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86407a2c_1ed55390",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s supposed to be an empty line between @param \u0026 @return",
+      "range": {
+        "startLine": 208,
+        "startChar": 9,
+        "endLine": 208,
+        "endChar": 10
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caba7be3_1ebdaaf1",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "I think you want this to be an \"em dash\", see https://getitwriteonline.com/articles/en-dashes-em-dashes/. Should double-check if you need to HTML-encode that entity.",
+      "range": {
+        "startLine": 232,
+        "startChar": 52,
+        "endLine": 232,
+        "endChar": 55
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d54129_0b0df0fb",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "Can you document this method applies to all schemes?",
+      "range": {
+        "startLine": 239,
+        "startChar": 29,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "e2328677090f367e587089b4077aa4c55e678db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

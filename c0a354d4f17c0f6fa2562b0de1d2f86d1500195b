@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a79eff32_1e095ad3",
+        "filename": "webkit/api/1.1.0-alpha02.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "I guess we got dropped from the July release, so alpha02 is the right spot unless we hear otherwise.",
+      "parentUuid": "b69ce10a_c24088ed",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b643efc3_099c22cc",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -284,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "ba9b63ff_58ed8672",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "Yeah, if we can annotate the return type uses @ProxyScheme, that would be good.",
+      "parentUuid": "8da125c4_f80e0bf7",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee7bba4_e328069e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
@@ -413,6 +461,30 @@
       "side": 1,
       "message": "While this is true, new rules aren\u0027t always added as fallback (for example, if adding different rules for HTTP and HTTPS)",
       "parentUuid": "dbc0b6c4_587d0dc0",
+      "range": {
+        "startLine": 141,
+        "startChar": 90,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38da6ae7_6f33fbb9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-03T00:05:42Z",
+      "side": 1,
+      "message": "Ok, could you just mention additional rules have decreasing precedence?",
+      "parentUuid": "5e41e573_bca7de94",
       "range": {
         "startLine": 141,
         "startChar": 90,
