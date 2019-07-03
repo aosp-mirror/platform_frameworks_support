@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17244d7b_854b1691",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-03T03:17:05Z",
+      "side": 1,
+      "message": "What\u0027s this parameter for?",
+      "range": {
+        "startLine": 1655,
+        "startChar": 42,
+        "endLine": 1655,
+        "endChar": 45
+      },
+      "revId": "f35949134968ebc4bb1ef1fe818c2321419a583d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
