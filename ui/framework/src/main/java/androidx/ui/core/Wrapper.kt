@@ -18,7 +18,7 @@ package androidx.ui.core
 import android.content.Context
 import androidx.annotation.CheckResult
 import androidx.ui.core.input.FocusManager
-import androidx.ui.input.TextInputService
+import androidx.ui.text.input.TextInputService
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable

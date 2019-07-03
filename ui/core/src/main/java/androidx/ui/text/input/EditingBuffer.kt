@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package androidx.ui.input
+package androidx.ui.text.input
 
 import androidx.annotation.RestrictTo
 import androidx.annotation.RestrictTo.Scope.LIBRARY
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import java.lang.IllegalArgumentException
 
 /**
