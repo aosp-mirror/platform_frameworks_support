@@ -18,11 +18,11 @@ package androidx.ui.core
 
 import android.util.Log
 import androidx.ui.engine.geometry.Offset
-import androidx.ui.input.EditOperation
-import androidx.ui.input.EditProcessor
-import androidx.ui.input.EditorState
-import androidx.ui.input.SetSelectionEditOp
-import androidx.ui.input.TextInputService
+import androidx.ui.text.input.EditOperation
+import androidx.ui.text.input.EditProcessor
+import androidx.ui.text.input.EditorState
+import androidx.ui.text.input.SetSelectionEditOp
+import androidx.ui.text.input.TextInputService
 import androidx.ui.painting.Canvas
 import androidx.ui.text.TextPainter
 

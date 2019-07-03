@@ -52,7 +52,7 @@ import androidx.text.style.ShadowSpan
 import androidx.text.style.SkewXSpan
 import androidx.text.style.TypefaceSpan
 import androidx.ui.core.Density
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import androidx.ui.core.px
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
@@ -65,9 +65,9 @@ import androidx.ui.text.ParagraphConstraints
 import androidx.ui.text.style.ParagraphStyle
 import androidx.ui.text.style.TextAlign
 import androidx.ui.text.style.TextDecoration
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.text.style.TextIndent
 import androidx.ui.text.AnnotatedString
+import androidx.ui.text.style.TextDirection
 import androidx.ui.painting.Canvas
 import androidx.ui.painting.Path
 import androidx.ui.text.TextStyle

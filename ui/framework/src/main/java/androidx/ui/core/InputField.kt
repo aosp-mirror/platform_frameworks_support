@@ -27,12 +27,12 @@ import androidx.ui.core.gesture.DragObserver
 import androidx.ui.core.gesture.PressGestureDetector
 import androidx.ui.core.input.FocusManager
 import androidx.ui.graphics.Color
-import androidx.ui.input.EditProcessor
-import androidx.ui.input.EditorState
-import androidx.ui.input.KeyboardType
+import androidx.ui.text.input.KeyboardType
 import androidx.ui.text.AnnotatedString
 import androidx.ui.text.TextPainter
 import androidx.ui.text.TextStyle
+import androidx.ui.text.input.EditProcessor
+import androidx.ui.text.input.EditorState
 
 /**
  * Data class holding text display attributes used for editors.

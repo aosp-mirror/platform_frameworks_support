@@ -17,14 +17,15 @@
 package androidx.ui.core
 
 import androidx.ui.graphics.Color
-import androidx.ui.input.CommitTextEditOp
-import androidx.ui.input.EditOperation
-import androidx.ui.input.EditProcessor
-import androidx.ui.input.EditorState
-import androidx.ui.input.SetSelectionEditOp
-import androidx.ui.input.TextInputService
+import androidx.ui.text.input.CommitTextEditOp
+import androidx.ui.text.input.EditOperation
+import androidx.ui.text.input.EditProcessor
+import androidx.ui.text.input.EditorState
+import androidx.ui.text.input.SetSelectionEditOp
+import androidx.ui.text.input.TextInputService
 import androidx.ui.painting.Canvas
 import androidx.ui.text.TextPainter
+import androidx.ui.text.TextRange
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.eq

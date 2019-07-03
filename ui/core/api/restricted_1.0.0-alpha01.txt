@@ -1,5 +1,5 @@
 // Signature format: 3.0
-package androidx.ui.input {
+package androidx.ui.text.input {
 
 
 
