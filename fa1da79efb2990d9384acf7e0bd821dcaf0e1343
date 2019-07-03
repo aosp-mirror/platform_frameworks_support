@@ -203,6 +203,30 @@
     },
     {
       "key": {
+        "uuid": "caf6ddd4_dc9a320d",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "So actually it works with the single array. I was just doing something wrong previously.",
+      "parentUuid": "356e580c_02884586",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "fa1da79efb2990d9384acf7e0bd821dcaf0e1343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14f2454b_92a9f159",
         "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/ColoredRectBenchmark.kt",
         "patchSetId": 1

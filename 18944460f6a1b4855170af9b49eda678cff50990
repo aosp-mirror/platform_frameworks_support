@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6c9ab942_c0d9619c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "AFAIK we were trying to eliminate CraneWrapper as it introduces a second composition that we don\u0027t need. Could you please sync on this with Leland and let me know what is consensus on this in r4a?",
+      "parentUuid": "901696d5_4891f2f1",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "18944460f6a1b4855170af9b49eda678cff50990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039f44d8_ce4d3ee9",
+        "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "Parametrized runner does not support UiThreadTest annotation.",
+      "parentUuid": "81ea30f0_c4c46c10",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d38de92d_3ef37432",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b7a690_69de2f6b",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f17efe71_f7bf0849",
         "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "bd3ba893_4c181895",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f17efe71_f7bf0849",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "161bce89_18abf3fa",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "18944460f6a1b4855170af9b49eda678cff50990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d01984f9_89d7a521",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T12:19:19Z",
+      "side": 1,
+      "message": "Removed.Thanks.",
+      "parentUuid": "161bce89_18abf3fa",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
