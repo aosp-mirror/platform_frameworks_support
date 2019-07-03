@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac0fe57e_18e9f6cf",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T10:10:07Z",
+      "side": 1,
+      "message": "Thanks! \nTo use the @parameterized to reduce the duplicates.",
+      "parentUuid": "1b703862_8b7a3df6",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cadc063e_47191e4d",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e323bfcd_f1befebd",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T10:10:07Z",
+      "side": 1,
+      "message": "Ah, yes, we should only keep the hasCameraWithLensFacing.",
+      "parentUuid": "cadc063e_47191e4d",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "21dbb79c_ab79c9bb",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T10:10:07Z",
+      "side": 1,
+      "message": "Okay, to use the Parameterized and put the ventCallbackInConfig and CanBindToLifeCycleAndTakePicture to separated test.",
+      "parentUuid": "017f2e73_1fc18612",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17239548_c0a0ee14",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b554b3d0_f8215c68",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T10:10:07Z",
+      "side": 1,
+      "message": "Got it!",
+      "parentUuid": "17239548_c0a0ee14",
+      "revId": "ea05bc1d0367070f4640792b9f1866e54f1d678c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
