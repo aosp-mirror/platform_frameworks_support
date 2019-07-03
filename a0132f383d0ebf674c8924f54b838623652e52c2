@@ -16,6 +16,24 @@
       "revId": "a0132f383d0ebf674c8924f54b838623652e52c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d18500_9568e1ac",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T02:07:50Z",
+      "side": 1,
+      "message": "Oh, thanks TY,\nI think both setException or set(false) can have the similar result in this change.\nBut there is a reason that I would not like to use setException is....\nthe setException might redirect to onFailure when the line 962 using Futures.AllAsList.\n(Currently, we use the Futures.successfulAsList, it will always callback onSuccess with a result \u003d\u003d null. So the change should be ok now)\nThe onFailure might interrupt tasks in FluentFuture, in case the line973 onFailure was invoked and setException for the issueTakePicture future , the postTakePicture will not execute.\n\nAnd there is an important key point for the takePictureInternal() section: Once we execute the preTakePicture, the postTakePicture most should be executed too. Because we will need to invoke the cancelAfAeTrigger() in postTakePicture to reset the setting in preTakePicture().\n\nThat\u0027s why I would like to use the completer.set(false) instead the setException(), which means the FluentFuture process in takePictureInternal should not be interrupted.",
+      "parentUuid": "8511356f_ffacf73a",
+      "revId": "a0132f383d0ebf674c8924f54b838623652e52c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
