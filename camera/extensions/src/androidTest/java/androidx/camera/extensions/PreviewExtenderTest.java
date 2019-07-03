@@ -41,6 +41,7 @@ import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraCaptureResult;
 import androidx.camera.core.CameraCaptureResults;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CaptureCharacteristics;
 import androidx.camera.core.ImageInfo;
 import androidx.camera.core.ImageInfoProcessor;
 import androidx.camera.core.Preview;
@@ -51,6 +52,7 @@ import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.Before;
@@ -168,4 +170,17 @@ public class PreviewExtenderTest {
         verify(mockPreviewExtenderImpl, timeout(3000)).onDeInit();
     }
 
+    @Test
+    @SmallTest
+    public void canApplyCaptureCharacteristics_afterEnableExtension() {
+        PreviewConfig.Builder builder = new PreviewConfig.Builder().setLensFacing(
+                CameraX.LensFacing.BACK);
+        BokehPreviewExtender previewExtender = BokehPreviewExtender.create(builder);
+        CaptureCharacteristics captureCharacteristics = builder.build().getCaptureCharacteristics(
+                null);
+        assertThat(captureCharacteristics).isNull();
+        previewExtender.enableExtension();
+        captureCharacteristics = builder.build().getCaptureCharacteristics(null);
+        assertThat(captureCharacteristics).isNotNull();
+    }
 }

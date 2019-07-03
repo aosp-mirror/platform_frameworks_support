@@ -16,6 +16,8 @@
 
 package androidx.camera.extensions;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
@@ -35,6 +37,7 @@ import android.util.Pair;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CaptureCharacteristics;
 import androidx.camera.core.CaptureProcessor;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
@@ -44,6 +47,7 @@ import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.Before;
@@ -156,6 +160,20 @@ public class ImageCaptureExtenderTest {
 
         // To verify there is no any other calls on the mock.
         verifyNoMoreInteractions(mMockImageCaptureExtenderImpl);
+    }
+
+    @Test
+    @SmallTest
+    public void canApplyCaptureCharacteristics_afterEnableExtension() {
+        ImageCaptureConfig.Builder builder = new ImageCaptureConfig.Builder().setLensFacing(
+                CameraX.LensFacing.BACK);
+        BokehImageCaptureExtender imageCaptureExtender = BokehImageCaptureExtender.create(builder);
+        CaptureCharacteristics captureCharacteristics = builder.build().getCaptureCharacteristics(
+                null);
+        assertThat(captureCharacteristics).isNull();
+        imageCaptureExtender.enableExtension();
+        captureCharacteristics = builder.build().getCaptureCharacteristics(null);
+        assertThat(captureCharacteristics).isNotNull();
     }
 
     final class FakeCaptureStage implements CaptureStageImpl {
