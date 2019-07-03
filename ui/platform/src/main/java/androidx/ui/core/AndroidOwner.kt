@@ -69,11 +69,6 @@ class AndroidCraneView constructor(context: Context)
     // is kept separate from dirtyRepaintBoundaryNodes.
     private val repaintBoundaryChanges = TreeSet<RepaintBoundaryNode>(DepthComparator)
 
-    // RepaintBoundaryNodes that are dirty and should be redrawn. This is only
-    // used when RenderNodes are active in Q+. When Views are used, the View
-    // system tracks the dirty RenderNodes.
-    internal val dirtyRepaintBoundaryNodes = mutableListOf<RepaintBoundaryNode>()
-
     var ref: Ref<AndroidCraneView>? = null
         set(value) {
             field = value
@@ -491,10 +486,6 @@ class AndroidCraneView constructor(context: Context)
             val frame = currentFrame()
             frame.observeReads(frameReadObserver) {
                 callChildDraw(canvas, node)
-                dirtyRepaintBoundaryNodes.forEach { node ->
-                    node.container.updateDisplayList()
-                }
-                dirtyRepaintBoundaryNodes.clear()
             }
             currentNode = null
         }
@@ -630,12 +621,6 @@ private interface RepaintBoundary {
     fun callDraw(canvas: Canvas)
 
     /**
-     * For RenderNodes, this updates the RenderNode in place. After this, [dirty] must
-     * be `false`.
-     */
-    fun updateDisplayList()
-
-    /**
      * This is not causing re-recording of the RepaintBoundary, but updates params
      * like outline, clipping, elevation or alpha.
      */
@@ -747,11 +732,6 @@ private class RepaintBoundaryView(
         }
     }
 
-    override fun updateDisplayList() {
-        // Don't need to do anything here. This is handled by View
-        throw IllegalStateException("updateDisplayList should not be called on RepaintBoundaryView")
-    }
-
     override fun onParamsChange() {
         outlineResolver.update(repaintBoundaryNode, PxSize(width.px, height.px))
         clipToOutline = outlineResolver.clipToOutline
@@ -760,6 +740,7 @@ private class RepaintBoundaryView(
             clipPath = outlineResolver.manualClipPath
             dirty = true
         }
+        alpha = repaintBoundaryNode.opacity
     }
 }
 
@@ -775,7 +756,6 @@ private class RepaintBoundaryRenderNode(
         set(value) {
             if (value && !field) {
                 ownerView.invalidate()
-                ownerView.dirtyRepaintBoundaryNodes += repaintBoundaryNode
             }
             field = value
         }
@@ -809,20 +789,22 @@ private class RepaintBoundaryRenderNode(
     }
 
     override fun callDraw(canvas: Canvas) {
-        val androidCanvas = canvas.nativeCanvas
-        if (androidCanvas.isHardwareAccelerated) {
-            updateDisplayList()
-            androidCanvas.drawRenderNode(renderNode)
-        } else {
-            canvas.save()
-            canvas.translate(renderNode.left.toFloat(), renderNode.top.toFloat())
-            ownerView.callChildDraw(androidCanvas, repaintBoundaryNode)
-            canvas.restore()
-            dirty = false
+        if (renderNode.alpha > 0f) {
+            val androidCanvas = canvas.nativeCanvas
+            if (androidCanvas.isHardwareAccelerated) {
+                updateDisplayList()
+                androidCanvas.drawRenderNode(renderNode)
+            } else {
+                canvas.save()
+                canvas.translate(renderNode.left.toFloat(), renderNode.top.toFloat())
+                ownerView.callChildDraw(androidCanvas, repaintBoundaryNode)
+                canvas.restore()
+                dirty = false
+            }
         }
     }
 
-    override fun updateDisplayList() {
+    private fun updateDisplayList() {
         if (dirty || !renderNode.hasDisplayList()) {
             val canvas = renderNode.beginRecording()
             canvas.translate(-repaintBoundaryNode.layoutX.value.toFloat(),
@@ -847,6 +829,7 @@ private class RepaintBoundaryRenderNode(
             clipPath = outlineResolver.manualClipPath
             dirty = true
         }
+        renderNode.alpha = repaintBoundaryNode.opacity
         ownerView.invalidate()
     }
 }
