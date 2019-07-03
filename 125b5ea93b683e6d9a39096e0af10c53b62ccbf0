@@ -84,6 +84,24 @@
       "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a1d2ef4_7eaac52a",
+        "filename": "core/core-ktx/src/main/java/androidx/core/view/Surface.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-03T12:41:22Z",
+      "side": 1,
+      "message": "That\u0027s true of any resource, though, and the built-in `use` function does not behave that way.",
+      "parentUuid": "0d7438b9_f9c48859",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
