@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
+import androidx.camera.core.CameraX.AspectRatio;
 
 import java.util.Set;
 import java.util.UUID;
@@ -190,11 +191,13 @@ public final class PreviewConfig
      * @param valueIfMissing The value to return if this configuration option has not been set.
      * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
      * configuration.
+     * @hide
      */
+    @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public Rational getTargetAspectRatio(@Nullable Rational valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
+    public Rational getTargetAspectRatioRational(@Nullable Rational valueIfMissing) {
+        return retrieveOption(OPTION_TARGET_ASPECT_RATIO_RATIONAL, valueIfMissing);
     }
 
     /**
@@ -206,9 +209,41 @@ public final class PreviewConfig
      *
      * @return The stored value, if it exists in this configuration.
      * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public Rational getTargetAspectRatioRational() {
+        return retrieveOption(OPTION_TARGET_ASPECT_RATIO_RATIONAL);
+    }
+
+    /**
+     * Retrieves the aspect ratio of the target intending to use images from this configuration.
+     *
+     * <p>Valid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+     * {@link AspectRatio#RATIO_16_9}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     */
+    @Nullable
+    @Override
+    public AspectRatio getTargetAspectRatio(@Nullable AspectRatio valueIfMissing) {
+        return retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
+    }
+
+    /**
+     * Retrieves the aspect ratio of the target intending to use images from this configuration.
+     *
+     * <p>Valid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+     * {@link AspectRatio#RATIO_16_9}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
-    public Rational getTargetAspectRatio() {
+    public AspectRatio getTargetAspectRatio() {
         return retrieveOption(OPTION_TARGET_ASPECT_RATIO);
     }
 
@@ -499,6 +534,12 @@ public final class PreviewConfig
          * @return A {@link PreviewConfig} populated with the current state.
          */
         public PreviewConfig build() {
+            // Error at runtime for using both setResolution and setAspectRatio on the same config.
+            if (getMutableConfig().retrieveOption(OPTION_TARGET_ASPECT_RATIO, null) != null
+                    && getMutableConfig().retrieveOption(OPTION_TARGET_RESOLUTION, null) != null) {
+                throw new IllegalArgumentException(
+                        "Cannot use both setResolution and setAspectRatio on the same config.");
+            }
             return new PreviewConfig(OptionsBundle.from(mMutableConfig));
         }
 
@@ -571,9 +612,37 @@ public final class PreviewConfig
          * @param aspectRatio A {@link Rational} representing the ratio of the target's width and
          *                    height.
          * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setTargetAspectRatioRational(Rational aspectRatio) {
+            getMutableConfig().insertOption(OPTION_TARGET_ASPECT_RATIO_RATIONAL, aspectRatio);
+            return this;
+        }
+
+        /**
+         * Sets the aspect ratio of the intended target for images from this configuration.
+         *
+         * <p>Valid values for the relative aspect ratio are: {@link AspectRatio#RATIO_4_3},
+         * {@link AspectRatio#RATIO_16_9}.
+         *
+         * <p>It is not allowed to set both target aspect ratio and target resolution on the same
+         * use case.
+         *
+         * <p>The target aspect ratio is used as a hint when determining the resulting output aspect
+         * ratio which may differ from the request, possibly due to device constraints.
+         * Application code should check the resulting output's resolution.
+         *
+         * <p>For Preview, the output is the SurfaceTexture of the
+         * {@link androidx.camera.core.Preview.PreviewOutput}.
+         *
+         * @param aspectRatio A {@link AspectRatio} representing the ratio of the target's width and
+         *                    height.
+         * @return The current Builder.
          */
         @Override
-        public Builder setTargetAspectRatio(Rational aspectRatio) {
+        public Builder setTargetAspectRatio(AspectRatio aspectRatio) {
             getMutableConfig().insertOption(OPTION_TARGET_ASPECT_RATIO, aspectRatio);
             return this;
         }
@@ -604,17 +673,27 @@ public final class PreviewConfig
          * target resolution, the nearest available resolution smaller than the target resolution
          * will be chosen.
          *
+         * <p>It is not allowed to set both target aspect ratio and target resolution on the same
+         * use case.
+         *
          * @param resolution The target resolution to choose from supported output sizes list.
          * @return The current Builder.
          */
+        @NonNull
         @Override
         public Builder setTargetResolution(Size resolution) {
             getMutableConfig()
                     .insertOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION, resolution);
+            if (resolution != null) {
+                getMutableConfig().insertOption(
+                        ImageOutputConfig.OPTION_TARGET_ASPECT_RATIO_RATIONAL,
+                        new Rational(resolution.getWidth(), resolution.getHeight()));
+            }
             return this;
         }
 
         /** @hide */
+        @NonNull
         @RestrictTo(Scope.LIBRARY_GROUP)
         @Override
         public Builder setMaxResolution(Size resolution) {
@@ -680,8 +759,10 @@ public final class PreviewConfig
 
         /** @hide */
         @RestrictTo(Scope.LIBRARY_GROUP)
+        @NonNull
         @Override
-        public Builder setUseCaseEventListener(UseCase.EventListener useCaseEventListener) {
+        public Builder setUseCaseEventListener(
+                @NonNull UseCase.EventListener useCaseEventListener) {
             getMutableConfig().insertOption(OPTION_USE_CASE_EVENT_LISTENER, useCaseEventListener);
             return this;
         }

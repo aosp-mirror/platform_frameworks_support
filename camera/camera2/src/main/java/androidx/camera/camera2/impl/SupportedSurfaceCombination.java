@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import androidx.camera.core.CameraDeviceConfig;
 import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraX.AspectRatio;
 import androidx.camera.core.ImageFormatConstants;
 import androidx.camera.core.ImageOutputConfig;
 import androidx.camera.core.SurfaceCombination;
@@ -69,6 +70,8 @@ final class SupportedSurfaceCombination {
     private static final Size QUALITY_1080P_SIZE = new Size(1920, 1080);
     private static final Size QUALITY_720P_SIZE = new Size(1280, 720);
     private static final Size QUALITY_480P_SIZE = new Size(720, 480);
+    private static final Rational ASPECT_RATIO_4_3 = new Rational(4, 3);
+    private static final Rational ASPECT_RATIO_16_9 = new Rational(16, 9);
     private final List<SurfaceCombination> mSurfaceCombinations = new ArrayList<>();
     private final Map<Integer, Size> mMaxSizeCache = new HashMap<>();
     private String mCameraId;
@@ -379,9 +382,16 @@ final class SupportedSurfaceCombination {
         List<Size> sizesMatchAspectRatio = new ArrayList<>();
         List<Size> sizesNotMatchAspectRatio = new ArrayList<>();
 
-        Rational aspectRatio = config.getTargetAspectRatio(null);
-        int targetRotation = config.getTargetRotation(Surface.ROTATION_0);
-        aspectRatio = rotateAspectRatioByRotation(aspectRatio, targetRotation);
+        Rational aspectRatio;
+        AspectRatio AspectRatioEnum = config.getTargetAspectRatio(null);
+        if (AspectRatioEnum != null) {
+            aspectRatio = (AspectRatioEnum == AspectRatio.RATIO_4_3) ? ASPECT_RATIO_4_3
+                    : ASPECT_RATIO_16_9;
+        } else {
+            aspectRatio = config.getTargetAspectRatioRational(null);
+            int targetRotation = config.getTargetRotation(Surface.ROTATION_0);
+            aspectRatio = rotateAspectRatioByRotation(aspectRatio, targetRotation);
+        }
 
         for (Size outputSize : outputSizeCandidates) {
             // If target aspect ratio is set, moves the matched results to the front of the list.
