@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.services.text_editing
-
-import androidx.ui.core.TextRange
+package androidx.ui.text
 
 /** A range of text that represents a selection. */
 data class TextSelection(

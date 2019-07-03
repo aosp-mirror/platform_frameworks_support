@@ -32,7 +32,7 @@ import androidx.compose.ObserverMap
 import androidx.ui.core.input.TextInputServiceAndroid
 import androidx.ui.core.pointerinput.PointerInputEventProcessor
 import androidx.ui.core.pointerinput.toPointerInputEvent
-import androidx.ui.input.TextInputService
+import androidx.ui.text.input.TextInputService
 import androidx.ui.painting.Canvas
 import androidx.compose.frames.FrameCommitObserver
 import androidx.compose.frames.FrameReadObserver
