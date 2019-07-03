@@ -68,6 +68,29 @@
       "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd59453_5856af92",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-03T11:36:31Z",
+      "side": 1,
+      "message": "looks like the combination of StackFit.Expand and alignment never makes sense. if you expand you fill all the space which means top_left alignment even if you specified the other alignment. \nI guess it is worth to introduce separate \"fun expanded(children: @Composable() () -\u003e Unit)\" and keep only two options in StackFit: Loose and PassThrough",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
