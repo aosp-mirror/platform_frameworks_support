@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "6716c7b0_ae2e149f",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-03T20:48:33Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "52bae327_754d6b92",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "5088f1494dba21422050e295391941429808f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b500d134_c3ee5d66",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
         "patchSetId": 6
