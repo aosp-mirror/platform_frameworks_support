@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "053e98f7_dd6fe440",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-03T03:39:06Z",
+      "side": 1,
+      "message": "nit: maybe fakeCaptureStageImpl",
+      "revId": "3f91ec5b999d46b2002d566ffb55f5a49318f916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
