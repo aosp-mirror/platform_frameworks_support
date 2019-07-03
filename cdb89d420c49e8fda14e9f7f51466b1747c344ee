@@ -22,6 +22,30 @@
       "revId": "cdb89d420c49e8fda14e9f7f51466b1747c344ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "900a66d9_9e2e0fec",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Drawer.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-03T13:08:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d241e5a_ac9cfdb6",
+      "range": {
+        "startLine": 73,
+        "startChar": 7,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "cdb89d420c49e8fda14e9f7f51466b1747c344ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
