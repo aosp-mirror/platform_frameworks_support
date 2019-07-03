@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.core.input
+package androidx.ui.text.input
 
 import android.view.inputmethod.ExtractedText
 import androidx.ui.text.TextRange
