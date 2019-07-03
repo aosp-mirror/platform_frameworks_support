@@ -17,7 +17,7 @@
 package androidx.ui.core.semantics
 
 import androidx.ui.core.Unicode
-import androidx.ui.engine.text.TextDirection
+import androidx.ui.text.style.TextDirection
 import androidx.ui.services.text_editing.TextSelection
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
