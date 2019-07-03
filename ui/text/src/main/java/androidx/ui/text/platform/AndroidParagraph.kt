@@ -75,7 +75,7 @@ import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-internal class ParagraphAndroid constructor(
+internal class AndroidParagraph constructor(
     val text: String,
     val style: TextStyle,
     val paragraphStyle: ParagraphStyle,
