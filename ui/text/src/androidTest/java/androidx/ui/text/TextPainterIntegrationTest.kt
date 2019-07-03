@@ -28,9 +28,9 @@ import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.text.FontTestData.Companion.BASIC_MEASURE_FONT
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.text.font.FontFamily
 import androidx.ui.text.font.asFontFamily
+import androidx.ui.text.style.TextDirection
 import androidx.ui.graphics.Color
 import androidx.ui.text.matchers.equalToBitmap
 import androidx.ui.painting.Canvas

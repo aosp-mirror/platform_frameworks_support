@@ -34,7 +34,7 @@ package androidx.ui.core {
 
   public final class InputFieldKt {
     ctor public InputFieldKt();
-    method public static void InputField(androidx.ui.input.EditorState value, androidx.ui.core.EditorStyle editorStyle, androidx.ui.input.KeyboardType keyboardType = KeyboardType.Text, kotlin.jvm.functions.Function1<? super androidx.ui.input.EditorState,kotlin.Unit> onValueChange = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed = {});
+    method public static void InputField(androidx.ui.text.input.EditorState value, androidx.ui.core.EditorStyle editorStyle, androidx.ui.text.input.KeyboardType keyboardType = KeyboardType.Text, kotlin.jvm.functions.Function1<? super androidx.ui.text.input.EditorState,kotlin.Unit> onValueChange = {}, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onEditorActionPerformed = {});
   }
 
   public final class IntrinsicMeasurementsReceiver implements androidx.ui.core.DensityReceiver {
@@ -122,7 +122,7 @@ package androidx.ui.core {
 
   public final class SemanticsKt {
     ctor public SemanticsKt();
-    method public static void Semantics(boolean container = false, boolean explicitChildNodes = false, Boolean? enabled = null, Boolean? checked = null, Boolean? selected = null, Boolean? button = null, Boolean? inMutuallyExclusiveGroup = null, Boolean? hidden = null, String? label = null, String? value = null, androidx.ui.engine.text.TextDirection? textDirection = null, String? testTag = null, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions = emptyList(), kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static void Semantics(boolean container = false, boolean explicitChildNodes = false, Boolean? enabled = null, Boolean? checked = null, Boolean? selected = null, Boolean? button = null, Boolean? inMutuallyExclusiveGroup = null, Boolean? hidden = null, String? label = null, String? value = null, androidx.ui.text.style.TextDirection? textDirection = null, String? testTag = null, java.util.List<? extends androidx.ui.core.semantics.SemanticsAction<?>> actions = emptyList(), kotlin.jvm.functions.Function0<kotlin.Unit> children);
   }
 
   public final class TestTagProviderKt {
