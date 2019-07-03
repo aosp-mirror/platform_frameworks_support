@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d5de36d5_b4dcb863",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ExistingActivityLifecycleTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-03T10:31:12Z",
+      "side": 1,
+      "message": "No need. build.gradle define the minSDK. Remove this.",
+      "parentUuid": "2e3195e8_02e15944",
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddbd5b61_d1b6f15f",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
         "patchSetId": 2
@@ -56,6 +74,48 @@
       "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72cf1559_c5708361",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-03T10:31:12Z",
+      "side": 1,
+      "message": "Thanks the good suggestion. I make a generic version to check if ignoring the tests.",
+      "parentUuid": "ddbd5b61_d1b6f15f",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1cd6bb0_d23ccd7b",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-03T10:31:12Z",
+      "side": 1,
+      "message": "Thanks the sync and have the same worry. The version just check a little conditions to ignore the tests.",
+      "parentUuid": "403b3dbb_4348fc3e",
+      "revId": "bc91f1336a0f450aecca0bd0a3d6ff7c22a67a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
