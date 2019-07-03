@@ -70,6 +70,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b02a289e_71f83d0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-03T13:14:29Z",
+      "side": 1,
+      "message": "I also feel that design might be too general term here. What about \"inspection\"? Also isn\u0027t the Design basically a Preview?",
+      "parentUuid": "9fd08641_188708c7",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
