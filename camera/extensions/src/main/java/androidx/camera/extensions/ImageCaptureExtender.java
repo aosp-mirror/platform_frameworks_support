@@ -26,6 +26,7 @@ import androidx.camera.camera2.impl.CameraEventCallback;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
+import androidx.camera.core.CaptureCharacteristics;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
@@ -100,6 +101,13 @@ abstract class ImageCaptureExtender {
         mBuilder.setUseCaseEventListener(imageCaptureAdapter);
         mBuilder.setCaptureBundle(imageCaptureAdapter);
         mBuilder.getMutableConfig().insertOption(OPTION_IMAGE_CAPTURE_EXTENDER_MODE, mEffectMode);
+
+        CaptureCharacteristics captureCharacteristics = ExtensionsManager.getCaptureCharacteristics(
+                mImpl.getClass(), cameraId, cameraCharacteristics);
+
+        if (captureCharacteristics != null) {
+            mBuilder.setCaptureCharacteristics(captureCharacteristics);
+        }
     }
 
     static void checkPreviewEnabled(EffectMode effectMode, Collection<UseCase> activeUseCases) {
