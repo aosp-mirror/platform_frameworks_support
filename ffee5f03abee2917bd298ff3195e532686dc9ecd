@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34e29fc1_dc8b8d4e",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Constraints.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-03T17:15:12Z",
+      "side": 1,
+      "message": "Done. I now check if the constraint is bounded before tightening it.",
+      "parentUuid": "9fb10655_6c216dc8",
+      "range": {
+        "startLine": 177,
+        "startChar": 29,
+        "endLine": 177,
+        "endChar": 81
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d15fc1a4_154d704a",
         "filename": "ui/core/src/test/java/androidx/ui/core/ConstraintsTest.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2374d70b_a01ba2c3",
+        "filename": "ui/core/src/test/java/androidx/ui/core/ConstraintsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-03T17:15:12Z",
+      "side": 1,
+      "message": "Done. I added tests to check that loose and tight behave correctly on unbounded constraints.",
+      "parentUuid": "d15fc1a4_154d704a",
+      "range": {
+        "startLine": 135,
+        "startChar": 38,
+        "endLine": 135,
+        "endChar": 64
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3665c3a7_f2899108",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/StackTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-03T17:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c51bfc1d_02f33105",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 288,
+        "endChar": 37
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cd59453_5856af92",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0882fda_9f5dc523",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Stack.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-03T17:15:12Z",
+      "side": 1,
+      "message": "Done. I implemented expanded children as suggested and replaced the fit property with a boolean called \u0027loose\u0027 (where true corresponds to StackFit.Loose and false to StackFit.PassThrough). I kept the StackFit enum because it makes the implementation easier but it is no longer public.",
+      "parentUuid": "2cd59453_5856af92",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "ffee5f03abee2917bd298ff3195e532686dc9ecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
