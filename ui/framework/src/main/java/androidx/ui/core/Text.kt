@@ -15,6 +15,7 @@
  */
 package androidx.ui.core
 
+import android.annotation.SuppressLint
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable
@@ -32,16 +33,16 @@ import androidx.ui.core.selection.SelectionMode
 import androidx.ui.core.selection.SelectionRegistrarAmbient
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
-import androidx.ui.painting.AnnotatedString
-import androidx.ui.painting.ParagraphStyle
+import androidx.ui.text.AnnotatedString
+import androidx.ui.text.ParagraphStyle
 import androidx.ui.core.selection.TextSelectionHandler
 import androidx.ui.core.selection.TextSelectionProcessor
-import androidx.ui.painting.TextPainter
-import androidx.ui.painting.TextSpan
-import androidx.ui.painting.TextStyle
-import androidx.ui.painting.toAnnotatedString
-import androidx.ui.rendering.paragraph.TextOverflow
-import androidx.ui.services.text_editing.TextSelection
+import androidx.ui.text.TextSelection
+import androidx.ui.text.TextPainter
+import androidx.ui.text.TextSpan
+import androidx.ui.text.TextStyle
+import androidx.ui.text.toAnnotatedString
+import androidx.ui.text.style.TextOverflow
 
 private val DefaultSoftWrap: Boolean = true
 private val DefaultOverflow: TextOverflow = TextOverflow.Clip
@@ -76,14 +77,14 @@ fun Text(
     softWrap: Boolean = DefaultSoftWrap,
     /** How visual overflow should be handled. */
     overflow: TextOverflow = DefaultOverflow,
-    /** The number of font pixels for each logical pixel. */
-    textScaleFactor: Float = 1.0f,
     /**
      *  An optional maximum number of lines for the text to span, wrapping if necessary.
      *  If the text exceeds the given number of lines, it will be truncated according to [overflow]
      *  and [softWrap].
      *  The value may be null. If it is not null, then it must be greater than zero.
      */
+    // TODO(siyamed): remove suppress
+    @SuppressLint("AutoBoxing")
     maxLines: Int? = DefaultMaxLines,
     /**
      *  The color used to draw selected region.
@@ -105,7 +106,6 @@ fun Text(
         paragraphStyle = paragraphStyle,
         softWrap = softWrap,
         overflow = overflow,
-        textScaleFactor = textScaleFactor,
         maxLines = maxLines,
         selectionColor = selectionColor
     )
@@ -124,7 +124,8 @@ fun Text(
     paragraphStyle: ParagraphStyle? = null,
     softWrap: Boolean = DefaultSoftWrap,
     overflow: TextOverflow = DefaultOverflow,
-    textScaleFactor: Float = 1.0f,
+    // TODO(siyamed): remove suppress
+    @SuppressLint("AutoBoxing")
     maxLines: Int? = DefaultMaxLines,
     selectionColor: Color = DefaultSelectionColor
 ) {
@@ -134,7 +135,6 @@ fun Text(
         paragraphStyle = paragraphStyle,
         softWrap = softWrap,
         overflow = overflow,
-        textScaleFactor = textScaleFactor,
         maxLines = maxLines,
         selectionColor = selectionColor
     )
@@ -167,14 +167,14 @@ fun Text(
     softWrap: Boolean = DefaultSoftWrap,
     /** How visual overflow should be handled. */
     overflow: TextOverflow = DefaultOverflow,
-    /** The number of font pixels for each logical pixel. */
-    textScaleFactor: Float = 1.0f,
     /**
      *  An optional maximum number of lines for the text to span, wrapping if necessary.
      *  If the text exceeds the given number of lines, it will be truncated according to [overflow]
      *  and [softWrap].
      *  The value may be null. If it is not null, then it must be greater than zero.
      */
+    // TODO(siyamed): remove suppress
+    @SuppressLint("AutoBoxing")
     maxLines: Int? = DefaultMaxLines,
     /**
      *  The color used to draw selected region.
@@ -191,19 +191,34 @@ fun Text(
     // TODO(Migration/siyamed): This is temporary and should be removed when resource
     //  system is resolved.
     val context = composer.composer.context
+    val density = +ambientDensity()
+
     mergedStyle.fontFamily?.context = context
-    text.textStyles.forEach { it.style.fontFamily?.context = context }
+    text.textStyles.forEach {
+        it.style.fontFamily?.context = context
+    }
 
     Semantics(label = text.text) {
-        val textPainter = TextPainter(
-            text = text,
-            style = mergedStyle,
-            paragraphStyle = paragraphStyle,
-            softWrap = softWrap,
-            overflow = overflow,
-            textScaleFactor = textScaleFactor,
-            maxLines = maxLines
-        )
+        val textPainter = +memo(
+            text,
+            mergedStyle,
+            paragraphStyle,
+            softWrap,
+            overflow,
+            maxLines,
+            density
+        ) {
+            TextPainter(
+                text = text,
+                style = mergedStyle,
+                paragraphStyle = paragraphStyle,
+                softWrap = softWrap,
+                overflow = overflow,
+                maxLines = maxLines,
+                density = density
+            )
+        }
+
         val children = @Composable {
             // Get the layout coordinates of the text widget. This is for hit test of cross-widget
             // selection.
@@ -221,7 +236,15 @@ fun Text(
             layout(textPainter.width.px.round(), textPainter.height.px.round()) {}
         })
 
-        +onCommit(textPainter) {
+        +onCommit(
+            text,
+            mergedStyle,
+            paragraphStyle,
+            softWrap,
+            overflow,
+            maxLines,
+            density
+        ) {
             val id = registrar.subscribe(
                 object : TextSelectionHandler {
                     override fun getSelection(

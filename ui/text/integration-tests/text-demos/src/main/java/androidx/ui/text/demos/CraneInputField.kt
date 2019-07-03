@@ -23,12 +23,21 @@ import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.EditorStyle
 import androidx.ui.core.InputField
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import androidx.ui.input.EditorState
+import androidx.ui.input.KeyboardType
 import androidx.ui.layout.Column
 import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.VerticalScroller
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.TextStyle
+
+val KEYBOARD_TYPES = listOf(
+    Pair(KeyboardType.Text, "Text"),
+    Pair(KeyboardType.ASCII, "ASCII"),
+    Pair(KeyboardType.Number, "Number"),
+    Pair(KeyboardType.Email, "Email"),
+    Pair(KeyboardType.Phone, "Phone")
+)
 
 @Composable
 fun InputFieldDemo() {
@@ -36,17 +45,25 @@ fun InputFieldDemo() {
         VerticalScroller {
             Column(crossAxisAlignment = CrossAxisAlignment.Start) {
                 TagLine(tag = "simple editing")
-                EditLine()
+                EditLine("Simple Input Field")
+                TagLine(tag = "simple editing2")
+                EditLine("Another Simple Input Field")
+
+                for ((type, name) in KEYBOARD_TYPES) {
+                    TagLine(tag = "Keyboard Type: $name")
+                    EditLine(initText = "Keyboard Type: $name", keyboardType = type)
+                }
             }
         }
     }
 }
 
 @Composable
-fun EditLine() {
-    val state = +state { EditorState(text = "Hello, Editor", selection = TextRange(2, 2)) }
+fun EditLine(initText: String, keyboardType: KeyboardType = KeyboardType.Text) {
+    val state = +state { EditorState(text = initText, selection = TextRange(2, 2)) }
     InputField(
         value = state.value,
+        keyboardType = keyboardType,
         onValueChange = { state.value = it },
         editorStyle = EditorStyle(textStyle = TextStyle(fontSize = fontSize8))
     )

@@ -18,28 +18,32 @@ package androidx.paging
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.LiveData
-import androidx.paging.futures.FutureCallback
-import androidx.paging.futures.addCallback
-import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 
 internal class LivePagedList<Key : Any, Value : Any>(
+    private val coroutineScope: CoroutineScope,
     initialKey: Key?,
     private val config: PagedList.Config,
     private val boundaryCallback: PagedList.BoundaryCallback<Value>?,
     private val dataSourceFactory: DataSource.Factory<Key, Value>,
     private val notifyExecutor: Executor,
     private val fetchExecutor: Executor
-) : LiveData<PagedList<Value>>(), FutureCallback<PagedList<Value>> {
+) : LiveData<PagedList<Value>>() {
     private var currentData: PagedList<Value>
-    private var currentFuture: ListenableFuture<PagedList<Value>>? = null
+    private var currentJob: Job? = null
 
     private val callback = { invalidate(true) }
 
     private val refreshRetryCallback = Runnable { invalidate(true) }
 
     init {
-        currentData = InitialPagedList(dataSourceFactory.create(), config, initialKey)
+        currentData =
+            InitialPagedList(dataSourceFactory.create(), coroutineScope, config, initialKey)
         onSuccess(currentData)
     }
 
@@ -48,7 +52,7 @@ internal class LivePagedList<Key : Any, Value : Any>(
         invalidate(false)
     }
 
-    override fun onError(throwable: Throwable) {
+    private fun onError(throwable: Throwable) {
         val loadState = if (currentData.dataSource.isRetryableError(throwable)) {
             PagedList.LoadState.RETRYABLE_ERROR
         } else {
@@ -58,18 +62,28 @@ internal class LivePagedList<Key : Any, Value : Any>(
         currentData.setInitialLoadState(loadState, throwable)
     }
 
-    override fun onSuccess(value: PagedList<Value>) {
+    private fun onSuccess(value: PagedList<Value>) {
         onItemUpdate(currentData, value)
         currentData = value
         setValue(value)
     }
 
-    fun invalidate(force: Boolean) {
+    private fun invalidate(force: Boolean) {
         // work is already ongoing, not forcing, so skip invalidate
-        if (currentFuture != null && !force) return
+        if (currentJob != null && !force) return
 
-        currentFuture?.cancel(false)
-        currentFuture = createPagedList().also { it.addCallback(this, notifyExecutor) }
+        currentJob?.cancel()
+        currentJob = coroutineScope.launch(fetchExecutor.asCoroutineDispatcher()) {
+            try {
+                withContext(notifyExecutor.asCoroutineDispatcher()) {
+                    onSuccess(createPagedList())
+                }
+            } catch (throwable: Throwable) {
+                withContext(notifyExecutor.asCoroutineDispatcher()) {
+                    onError(throwable)
+                }
+            }
+        }
     }
 
     private fun onItemUpdate(previous: PagedList<Value>, next: PagedList<Value>) {
@@ -77,7 +91,7 @@ internal class LivePagedList<Key : Any, Value : Any>(
         next.setRetryCallback(refreshRetryCallback)
     }
 
-    private fun createPagedList(): ListenableFuture<PagedList<Value>> {
+    private suspend fun createPagedList(): PagedList<Value> {
         val dataSource = dataSourceFactory.create()
         currentData.dataSource.removeInvalidatedCallback(callback)
         dataSource.addInvalidatedCallback(callback)
@@ -87,6 +101,7 @@ internal class LivePagedList<Key : Any, Value : Any>(
         val lastKey = currentData.lastKey as Key?
         return PagedList.create(
             dataSource,
+            coroutineScope,
             notifyExecutor,
             fetchExecutor,
             fetchExecutor,

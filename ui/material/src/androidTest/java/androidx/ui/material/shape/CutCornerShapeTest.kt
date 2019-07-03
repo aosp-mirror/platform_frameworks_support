@@ -17,16 +17,16 @@
 package androidx.ui.material.shape
 
 import androidx.test.filters.SmallTest
-import androidx.ui.baseui.shape.Shape
 import androidx.ui.baseui.shape.corner.CornerSize
 import androidx.ui.baseui.shape.corner.CornerSizes
 import androidx.ui.core.Density
 import androidx.ui.core.PxSize
 import androidx.ui.core.px
-import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Outline
+import androidx.ui.engine.geometry.Shape
 import androidx.ui.painting.Path
 import androidx.ui.painting.PathOperation
+import com.google.common.truth.Truth.assertThat
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -92,9 +92,13 @@ class CutCornerShapeTest {
         })
     }
 
-    private fun Shape.toOutline() = withDensity(density) {
-        createOutline(size)
+    @Test
+    fun cutCornerShapesAreEquals() {
+        assertThat(CutCornerShape(CornerSizes(10.px)))
+            .isEqualTo(CutCornerShape(CornerSizes(10.px)))
     }
+
+    private fun Shape.toOutline() = createOutline(size, density)
 }
 
 fun assertPathsEquals(path1: Path, path2: Path) {

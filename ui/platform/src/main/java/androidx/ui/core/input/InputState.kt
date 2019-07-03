@@ -16,8 +16,9 @@
 
 package androidx.ui.core.input
 
-import androidx.ui.core.TextRange
-import androidx.ui.core.substring
+import android.view.inputmethod.ExtractedText
+import androidx.ui.text.TextRange
+import androidx.ui.text.substring
 
 /**
  * Stores an input state for IME
@@ -62,4 +63,16 @@ internal data class InputState(
      * Helper function for getting text currently selected.
      */
     fun getSelectedText(): String = text.substring(selection)
+
+    /**
+     * Make to ExtractedText
+     */
+    fun toExtractedText(): ExtractedText = ExtractedText().apply {
+        text = this@InputState.text
+        partialEndOffset = this@InputState.text.length
+        partialStartOffset = -1 // -1 means full text
+        selectionStart = selection.start
+        selectionEnd = selection.end
+        flags = ExtractedText.FLAG_SINGLE_LINE // TODO(nona): Support multiline text.
+    }
 }

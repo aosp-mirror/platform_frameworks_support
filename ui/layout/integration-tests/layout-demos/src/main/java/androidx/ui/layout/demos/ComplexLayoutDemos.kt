@@ -20,7 +20,6 @@ import android.os.Handler
 import androidx.ui.core.ComplexLayout
 import androidx.ui.core.Constraints
 import androidx.ui.core.CraneWrapper
-import androidx.ui.core.Dp
 import androidx.ui.core.Draw
 import androidx.ui.core.IntPx
 import androidx.ui.core.IntPxSize
@@ -51,23 +50,11 @@ import androidx.compose.composer
 import androidx.compose.effectOf
 import androidx.compose.memo
 import androidx.compose.onCommit
-import androidx.compose.unaryPlus
 import androidx.ui.layout.AspectRatio
 import androidx.ui.layout.Container
 import androidx.ui.layout.EdgeInsets
-
-/**
- * Draws a rectangle of a specified dimension, or to its max incoming constraints if
- * dimensions are not specified.
- */
-@Composable
-fun SizedRectangle(color: Color, width: Dp? = null, height: Dp? = null) {
-    Layout(children = { DrawRectangle(color = color) }, layoutBlock = { _, constraints ->
-        val widthPx = width?.toIntPx() ?: constraints.maxWidth
-        val heightPx = height?.toIntPx() ?: constraints.maxHeight
-        layout(widthPx, heightPx) {}
-    })
-}
+import androidx.ui.layout.samples.DrawRectangle
+import androidx.ui.layout.samples.SizedRectangle
 
 /**
  * A widget that forces its only child to be as wide as its min intrinsic width.
@@ -187,7 +174,7 @@ fun AlignUsage() {
 
 @Composable
 fun StackUsage() {
-    Stack(defaultAlignment = Alignment.BottomRight) {
+    Stack {
         aligned(Alignment.Center) {
             SizedRectangle(color = Color(0xFF0000FF.toInt()), width = 300.dp, height = 300.dp)
         }
@@ -197,15 +184,23 @@ fun StackUsage() {
         aligned(Alignment.BottomRight) {
             SizedRectangle(color = Color(0xFFFF0000.toInt()), width = 150.dp, height = 150.dp)
         }
-        // TODO(popam): insets should be named arguments
-        positioned(null, 20.dp, null, 20.dp) {
+        positioned(
+            leftInset = null, topInset = 20.dp, rightInset = null, bottomInset = 20.dp,
+            fallbackAlignment = Alignment.BottomRight
+        ) {
             SizedRectangle(color = Color(0xFFFFA500.toInt()), width = 80.dp)
             SizedRectangle(color = Color(0xFFA52A2A.toInt()), width = 20.dp)
         }
-        positioned(40.dp, null, null, null) {
+        positioned(
+            leftInset = 40.dp, topInset = null, rightInset = null, bottomInset = null,
+            fallbackAlignment = Alignment.BottomRight
+        ) {
             SizedRectangle(color = Color(0xFFB22222.toInt()), width = 20.dp)
         }
-        positioned(null, null, 40.dp, null) {
+        positioned(
+            leftInset = null, topInset = null, rightInset = 40.dp, bottomInset = null,
+            fallbackAlignment = Alignment.BottomRight
+        ) {
             SizedRectangle(color = Color(0xFFFFFF00.toInt()), width = 40.dp)
         }
     }
@@ -410,13 +405,4 @@ fun Collection<IntPx>.max(): IntPx {
         result = max(result, item)
     }
     return result
-}
-
-@Composable
-fun DrawRectangle(color: Color) {
-    val paint = Paint()
-    paint.color = color
-    Draw { canvas, parentSize ->
-        canvas.drawRect(parentSize.toRect(), paint)
-    }
 }

@@ -20,7 +20,6 @@ import androidx.paging.PagedSource.KeyProvider
 import androidx.paging.PagedSource.KeyProvider.ItemKey
 import androidx.paging.PagedSource.KeyProvider.PageKey
 import androidx.paging.PagedSource.KeyProvider.Positional
-import com.google.common.util.concurrent.ListenableFuture
 
 /**
  * Base class for an abstraction of pageable static data from some source, where loading pages data
@@ -176,7 +175,8 @@ abstract class PagedSource<Key : Any, Value : Any> {
     abstract val keyProvider: KeyProvider<Key, Value>
 
     /**
-     * Whether this [PagedSource] has been invalidated, which should happen when
+     * Whether this [PagedSource] has been invalidated, which should happen when the data this
+     * [PagedSource] represents changes since it was first instantiated.
      */
     abstract val invalid: Boolean
 
@@ -193,9 +193,12 @@ abstract class PagedSource<Key : Any, Value : Any> {
      *
      * Implement this method to trigger your async load (e.g. from database or network).
      */
-    abstract fun load(params: LoadParams<Key>): ListenableFuture<LoadResult<Key, Value>>
+    abstract suspend fun load(params: LoadParams<Key>): LoadResult<Key, Value>
 
     /**
+     * Determine whether an error passed to a loading method is retryable.
+     *
+     * @param error Throwable returned from an attempted load from this [PagedSource].
      * @return `false` if the observed error should never be retried, `true` otherwise.
      */
     abstract fun isRetryableError(error: Throwable): Boolean

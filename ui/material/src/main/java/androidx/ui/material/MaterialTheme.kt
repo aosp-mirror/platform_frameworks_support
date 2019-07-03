@@ -25,19 +25,20 @@ import androidx.compose.ambient
 import androidx.compose.effectOf
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.baseui.shape.corner.CornerSizes
+import androidx.ui.baseui.shape.corner.RoundedCornerShape
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.dp
+import androidx.ui.core.sp
 import androidx.ui.core.withDensity
-import androidx.ui.engine.text.FontWeight
-import androidx.ui.engine.text.font.FontFamily
+import androidx.ui.engine.geometry.Shape
+import androidx.ui.text.font.FontWeight
+import androidx.ui.text.font.FontFamily
 import androidx.ui.graphics.Color
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.RoundedRectangleBorder
-import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.DefaultRippleEffectFactory
 import androidx.ui.material.ripple.RippleTheme
-import androidx.ui.painting.TextStyle
+import androidx.ui.text.TextStyle
 
 /**
  * This Component defines the styling principles from the Material design specification. It must be
@@ -165,55 +166,55 @@ data class MaterialTypography(
     val h1: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.w100,
-        fontSize = 96f),
+        fontSize = 96.sp),
     val h2: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.w100,
-        fontSize = 60f),
+        fontSize = 60.sp),
     val h3: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 48f),
+        fontSize = 48.sp),
     val h4: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 34f),
+        fontSize = 34.sp),
     val h5: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 24f),
+        fontSize = 24.sp),
     val h6: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.w500,
-        fontSize = 20f),
+        fontSize = 20.sp),
     val subtitle1: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 16f),
+        fontSize = 16.sp),
     val subtitle2: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.w500,
-        fontSize = 14f),
+        fontSize = 14.sp),
     val body1: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 16f),
+        fontSize = 16.sp),
     val body2: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 14f),
+        fontSize = 14.sp),
     val button: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.w500,
-        fontSize = 14f),
+        fontSize = 14.sp),
     val caption: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 12f),
+        fontSize = 12.sp),
     val overline: TextStyle = TextStyle(
         fontFamily = FontFamily("Roboto"),
         fontWeight = FontWeight.normal,
-        fontSize = 10f)
+        fontSize = 10.sp)
 )
 
 /**
@@ -255,15 +256,7 @@ fun themeColor(
 fun themeTextStyle(
     choosingBlock: MaterialTypography.() -> TextStyle
 ) = effectOf<TextStyle> {
-    var style = (+ambient(Typography)).choosingBlock()
-
-    // TODO Text is working with pixels, but we define our theme in dps, let's convert here for now.
-    // b/127345041
-    if (style.fontSize != null) {
-        style = style.copy(fontSize = +withDensity { style.fontSize!!.dp.toPx().value })
-    }
-
-    style
+    (+ambient(Typography)).choosingBlock()
 }
 
 // Shapes
@@ -277,7 +270,7 @@ data class Shapes(
     /**
      * Shape used for [Button]
      */
-    val button: ShapeBorder
+    val button: Shape
     // TODO(Andrey): Add shapes for Card, other surfaces? will see what we need.
 )
 
@@ -291,24 +284,22 @@ val CurrentShapeAmbient = Ambient.of<Shapes> {
 }
 
 /**
- * Applies the default [ShapeBorder]s for all the surfaces.
+ * Applies the default [Shape]s for all the surfaces.
  */
 @Composable
 fun MaterialButtonShapeTheme(@Children children: @Composable() () -> Unit) {
     val value = +withDensity {
         Shapes(
-            button = RoundedRectangleBorder(
-                borderRadius = BorderRadius.circular(4.dp.toPx().value)
-            )
+            button = RoundedCornerShape(CornerSizes(4.dp))
         )
     }
     CurrentShapeAmbient.Provider(value = value, children = children)
 }
 
 /**
- * Helps to resolve the [ShapeBorder] by applying [choosingBlock] for the [Shapes].
+ * Helps to resolve the [Shape] by applying [choosingBlock] for the [Shapes].
  */
 @CheckResult(suggest = "+")
 fun themeShape(
-    choosingBlock: Shapes.() -> ShapeBorder
-) = effectOf<ShapeBorder> { (+ambient(CurrentShapeAmbient)).choosingBlock() }
+    choosingBlock: Shapes.() -> Shape
+) = effectOf<Shape> { (+ambient(CurrentShapeAmbient)).choosingBlock() }
