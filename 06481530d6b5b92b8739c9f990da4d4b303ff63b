@@ -94,6 +94,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d415e22f_eeb7cb94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-03T16:14:58Z",
+      "side": 1,
+      "message": "Any word we choose will be ambiguous. The most common term for this in my experience is design mode. The is analogous to what you would luse https://developer.android.com/reference/android/view/View.html#isInEditMode()  for.\n\nI don\u0027t like inspection. It can be used to create an inspector but that is just one very limited use case. It is the new hotness but this API is more general and can be used for any tooling, not just inspectors..\n\nSome candidates include,\n\n  EditMode\n  DesignMode\n  Toolable\n\nAs for Design vs. Preview, a layout editor or a form designer is really just a preview with adorners that translate user gestures to changes to the underlying view specification. You can say it is just a preview, but the same mechanism that is used to preview is used to edit or design or whatever name you call the using gestures to change the UI specification.",
+      "parentUuid": "b02a289e_71f83d0c",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
