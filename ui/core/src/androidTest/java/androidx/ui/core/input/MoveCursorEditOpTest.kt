@@ -17,7 +17,7 @@
 package androidx.ui.core.input
 
 import androidx.test.filters.SmallTest
-import androidx.ui.core.TextRange
+import androidx.ui.text.TextRange
 import androidx.ui.input.EditingBuffer
 import androidx.ui.input.MoveCursorEditOp
 import org.junit.Assert.assertEquals
