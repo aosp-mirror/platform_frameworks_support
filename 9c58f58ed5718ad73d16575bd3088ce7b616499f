@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18105886_2222f437",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-03T03:25:30Z",
+      "side": 1,
+      "message": "indices",
+      "range": {
+        "startLine": 779,
+        "startChar": 51,
+        "endLine": 779,
+        "endChar": 55
+      },
+      "revId": "9c58f58ed5718ad73d16575bd3088ce7b616499f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13c8b5fa_d21c9f8e",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/SessionPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-03T03:25:30Z",
+      "side": 1,
+      "message": "testMovePlaylistItemByController",
+      "range": {
+        "startLine": 346,
+        "startChar": 36,
+        "endLine": 346,
+        "endChar": 71
+      },
+      "revId": "9c58f58ed5718ad73d16575bd3088ce7b616499f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2432af8f_aab6f594",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/SessionPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-03T03:25:30Z",
+      "side": 1,
+      "message": "Equals?",
+      "range": {
+        "startLine": 353,
+        "startChar": 14,
+        "endLine": 353,
+        "endChar": 18
+      },
+      "revId": "9c58f58ed5718ad73d16575bd3088ce7b616499f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
