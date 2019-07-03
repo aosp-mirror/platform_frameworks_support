@@ -37,6 +37,7 @@ import androidx.camera.core.AppConfig;
 import androidx.camera.core.CameraDeviceSurfaceManager;
 import androidx.camera.core.CameraFactory;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraX.AspectRatio;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ExtendableUseCaseConfigFactory;
 import androidx.camera.core.ImageAnalysisConfig;
@@ -304,14 +305,13 @@ public final class Camera2DeviceSurfaceManagerTest {
 
     @Test
     public void suggestedResolutionsForMixedUseCaseNotSupportedInLegacyDevice() {
-        Rational aspectRatio = new Rational(16, 9);
         PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
         VideoCaptureConfig.Builder videoCaptureConfigBuilder = new VideoCaptureConfig.Builder();
         ImageCaptureConfig.Builder imageCaptureConfigBuilder = new ImageCaptureConfig.Builder();
 
-        previewConfigBuilder.setTargetAspectRatio(aspectRatio);
-        videoCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-        imageCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
+        previewConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
+        videoCaptureConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
+        imageCaptureConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
 
         imageCaptureConfigBuilder.setLensFacing(LensFacing.FRONT);
         ImageCapture imageCapture = new ImageCapture(imageCaptureConfigBuilder.build());
@@ -339,14 +339,13 @@ public final class Camera2DeviceSurfaceManagerTest {
 
     @Test
     public void getSuggestedResolutionsForMixedUseCaseInLimitedDevice() {
-        Rational aspectRatio = new Rational(16, 9);
         PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
         VideoCaptureConfig.Builder videoCaptureConfigBuilder = new VideoCaptureConfig.Builder();
         ImageCaptureConfig.Builder imageCaptureConfigBuilder = new ImageCaptureConfig.Builder();
 
-        previewConfigBuilder.setTargetAspectRatio(aspectRatio);
-        videoCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-        imageCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
+        previewConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
+        videoCaptureConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
+        imageCaptureConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
 
         imageCaptureConfigBuilder.setLensFacing(LensFacing.BACK);
         ImageCapture imageCapture = new ImageCapture(imageCaptureConfigBuilder.build());
@@ -485,7 +484,7 @@ public final class Camera2DeviceSurfaceManagerTest {
         Rational targetAspectRatio = new Rational(9, 16);
         PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
 
-        previewConfigBuilder.setTargetAspectRatio(targetAspectRatio);
+        previewConfigBuilder.setTargetAspectRatio(AspectRatio.RATIO_16_9);
         previewConfigBuilder.setLensFacing(LensFacing.FRONT);
         PreviewConfig previewConfig = previewConfigBuilder.build();
 
