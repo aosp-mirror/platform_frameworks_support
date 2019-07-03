@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "1caf3588_80e1999d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-03T16:23:25Z",
+      "side": 1,
+      "message": "My point was not that CraneWidget is the right design. What you propose is better. My point was we should be using what the users are using which, for now, is a CraneWidget. When we fix this in the framework we should refactor this test to use it.",
+      "parentUuid": "50a4d7b8_715c0769",
+      "revId": "18944460f6a1b4855170af9b49eda678cff50990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81ea30f0_c4c46c10",
         "filename": "ui/integration-tests/src/androidTest/java/androidx/ui/test/ColoredRectTest.kt",
         "patchSetId": 2
