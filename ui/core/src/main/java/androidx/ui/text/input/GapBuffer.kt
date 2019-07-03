@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.ui.input
+package androidx.ui.text.input
 
 import android.util.Log
 
@@ -250,9 +250,11 @@ internal class PartialGapBuffer(var text: String) {
             // Copy given text into buffer
             buf.toCharArray(charArray, leftCopyCount)
 
-            this.buffer = GapBuffer(charArray,
+            this.buffer = GapBuffer(
+                charArray,
                 leftCopyCount + buf.length, // gap start
-                charArray.size - rightCopyCount) // gap end
+                charArray.size - rightCopyCount
+            ) // gap end
             bufStart = start - leftCopyCount
             bufEnd = end + rightCopyCount
             return

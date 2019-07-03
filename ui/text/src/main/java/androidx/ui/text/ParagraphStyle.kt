@@ -17,8 +17,8 @@
 package androidx.ui.text
 
 import androidx.ui.text.style.TextAlign
-import androidx.ui.engine.text.TextDirection
 import androidx.ui.text.style.TextIndent
+import androidx.ui.text.style.TextDirection
 
 /**
  * Creates a new ParagraphStyle object.

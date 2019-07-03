@@ -37,12 +37,12 @@ import androidx.ui.text.AnnotatedString
 import androidx.ui.text.ParagraphStyle
 import androidx.ui.core.selection.TextSelectionHandler
 import androidx.ui.core.selection.TextSelectionProcessor
-import androidx.ui.services.text_editing.TextSelection
 import androidx.ui.text.TextPainter
 import androidx.ui.text.TextSpan
 import androidx.ui.text.TextStyle
 import androidx.ui.text.toAnnotatedString
 import androidx.ui.text.style.TextOverflow
+import androidx.ui.text.TextSelection
 
 private val DefaultSoftWrap: Boolean = true
 private val DefaultOverflow: TextOverflow = TextOverflow.Clip
