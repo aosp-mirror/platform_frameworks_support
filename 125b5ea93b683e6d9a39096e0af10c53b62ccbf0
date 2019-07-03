@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9be45318_01fbcbe9",
+        "filename": "core/core-ktx/src/androidTest/java/androidx/core/view/SurfaceTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T03:57:35Z",
+      "side": 1,
+      "message": "Maybe just call `surface.lockCanvas(null)` inside the block to ensure you get a `IllegalArgumentException` (to verify that the canvas was, in fact, locked).\n\nAnother option is to call `texture.setDefaultBufferSize()` before `withLockedCanvas`, then verify that the supplied canvas has the same dimensions as the buffer size.",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d85976_cb4ecbe8",
+        "filename": "core/core-ktx/src/androidTest/java/androidx/core/view/SurfaceTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T03:57:35Z",
+      "side": 1,
+      "message": "Calling a second time would verify that `unlockAndPost` was called.  If it wasn\u0027t you\u0027ll get an IllegalArgumentException.",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13bc091a_0a6b1d6b",
+        "filename": "core/core-ktx/src/androidTest/java/androidx/core/view/SurfaceTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T03:57:35Z",
+      "side": 1,
+      "message": "The rect gets set as the clipRect on the canvas (https://android.googlesource.com/platform/frameworks/base/+/0e40462e11d27eb859b829b112cecb8c6f0d7afb/core/jni/android_view_Surface.cpp#250), so you could always check that to ensure that the rect was appropriately set.\n\nI **think** you could do that with `assertFalse(canvas.clipOutRect(rect))` since `clipOutRect` sets the clip rect to the difference of the supplied rect and the current clip rect, which should be empty if you supply the same rect, meaning it\u0027ll return false.",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5afe4d1c_cbb9e37c",
+        "filename": "core/core-ktx/src/androidTest/java/androidx/core/view/SurfaceTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T03:57:35Z",
+      "side": 1,
+      "message": "Maybe just verify that the canvas is hardware accelerated?\n\n```\nassertTrue(it.isHardwareAccelerated)\n```",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d7438b9_f9c48859",
+        "filename": "core/core-ktx/src/main/java/androidx/core/view/Surface.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1524693
+      },
+      "writtenOn": "2019-07-03T03:57:35Z",
+      "side": 1,
+      "message": "I\u0027m not so sure this is a great extension. Releasing the surface makes it invalid, and failing to release the surface will leak resources, so ideally the construction of the surface is also captured in the try/catch block.\n\nMight this be better as a factory method? Something like `inline fun \u003cR\u003e makeSurface(texture: SurfaceTexture, block: (Surface) -\u003e R): R`.",
+      "revId": "125b5ea93b683e6d9a39096e0af10c53b62ccbf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
