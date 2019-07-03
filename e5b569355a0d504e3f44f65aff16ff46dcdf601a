@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f267cc9_ce73d306",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ToggleButtonUITest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-07-03T17:50:51Z",
+      "side": 1,
+      "message": "Is this a Nexus 5 specific issue? If not it should be in another CL.",
+      "range": {
+        "startLine": 204,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 42
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ce2f737_6dda23e1",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ToggleButtonUITest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-07-03T17:50:51Z",
+      "side": 1,
+      "message": "You should be using Assume.assumeTrue(message, condition) instead of overloading assumeCompatibleDevice().",
+      "range": {
+        "startLine": 205,
+        "startChar": 12,
+        "endLine": 205,
+        "endChar": 51
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21830bc9_30418406",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-07-03T17:50:51Z",
+      "side": 1,
+      "message": "assumeCompatibleDevice() should only be used to check for compatibility. It shouldn\u0027t be used as a generic way to throw an AssumptionViolationException. It does not need to take a \"message\" parameter. The message should be generated from within the method.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
