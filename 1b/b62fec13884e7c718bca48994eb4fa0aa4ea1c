@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Chuck Jazdzewski <chuckj@google.com>
+Code-Review+2: Mihai Popa <popam@google.com>
+Submitted-by: Filip Pavlis <pavlis@google.com>
+Submitted-at: Thu, 04 Jul 2019 14:54:21 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1011071
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
