@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "baa87155_d52f3653",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-04T00:31:41Z",
+      "side": 1,
+      "message": "yes! will remove in aosp/1011510",
+      "parentUuid": "e8aa88e8_c1916710",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 27
+      },
+      "revId": "481e4a2b2cc4be989dc55deb5908f3f13639fa9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4763f742_0722d83f",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "481e4a2b2cc4be989dc55deb5908f3f13639fa9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c95a1537_529d06d3",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-04T00:31:41Z",
+      "side": 1,
+      "message": "the CL is already ~ready aosp/1011510",
+      "parentUuid": "4763f742_0722d83f",
+      "range": {
+        "startLine": 196,
+        "startChar": 25,
+        "endLine": 196,
+        "endChar": 50
+      },
+      "revId": "481e4a2b2cc4be989dc55deb5908f3f13639fa9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
