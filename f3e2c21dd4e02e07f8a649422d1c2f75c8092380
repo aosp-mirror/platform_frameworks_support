@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a89b8b8d_ae97f594",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/DrawerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-04T15:03:09Z",
+      "side": 1,
+      "message": "it is incorrect actually. \nlocal is a position within this container. so the topleft corner of the Container is [0, 0] in local coordinates. \ncoords.position is a position of Container inside it\u0027s parent local coordinates. \ncoords.localToGlobal(PxPosition.Origin) will return the position of the topleft of the Container within the activity.\nso coords.localToGlobal(coords.position) makes no sense as your coords.position is not inside a local coordinates of the Container, it is within the local coordinates of it\u0027s parent. \nI guess we need to add coords.globalPosition which would return coords.localToGlobal(PxPosition.Origin)",
+      "range": {
+        "startLine": 50,
+        "startChar": 35,
+        "endLine": 50,
+        "endChar": 72
+      },
+      "revId": "f3e2c21dd4e02e07f8a649422d1c2f75c8092380",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
