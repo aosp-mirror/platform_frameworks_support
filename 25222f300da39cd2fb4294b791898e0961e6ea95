@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a76317ba_ebbd1621",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/BottomDrawerActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-04T15:06:09Z",
+      "side": 1,
+      "message": "why is this relevant to the demo?",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "062dcfe5_7e09dbba",
+        "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-04T15:06:09Z",
+      "side": 1,
+      "message": "this can be extracted into its own method and hidden from the sample, e.g. MyAppContent(String text)",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 9
+      },
+      "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
