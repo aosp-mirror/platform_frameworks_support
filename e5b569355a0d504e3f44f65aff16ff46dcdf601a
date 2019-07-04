@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95703011_f831e27e",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ToggleButtonUITest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-04T03:16:07Z",
+      "side": 1,
+      "message": "Got it and would do this check in another CL.",
+      "parentUuid": "5f267cc9_ce73d306",
+      "range": {
+        "startLine": 204,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 42
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ce2f737_6dda23e1",
         "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ToggleButtonUITest.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4a8ae915_98833d01",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/ToggleButtonUITest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-04T03:16:07Z",
+      "side": 1,
+      "message": "Thanks. Leaned it and would add in another CL. Remove it now.",
+      "parentUuid": "9ce2f737_6dda23e1",
+      "range": {
+        "startLine": 205,
+        "startChar": 12,
+        "endLine": 205,
+        "endChar": 51
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21830bc9_30418406",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "defee06f_f564808b",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CoreAppTestUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-07-04T03:16:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21830bc9_30418406",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "e5b569355a0d504e3f44f65aff16ff46dcdf601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
