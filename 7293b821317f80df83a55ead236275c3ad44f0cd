@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "4ef60f62_2e0e1493",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "I would say it is not very intuitive to test the sizes at the same time, as the main axis and cross axis sizes are independently computed. Duplication is not great either but it doesn\u0027t really bother me in tests. However, I could be convinced to +2 this if you think it\u0027s better :) Andrey what do you think?",
+      "range": {
+        "startLine": 686,
+        "startChar": 8,
+        "endLine": 686,
+        "endChar": 25
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c913b3b1_736788b6",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "Not completely sure, but there is a chance this will make the test fail on certain devices because of different rounding behavior. If sizeDp.toPx() returns 1.5, the test was checking against 3.ipx before, but now it will check against 4.ipx :) these are very painful and annoying bugs when writing layouts and tests",
+      "range": {
+        "startLine": 734,
+        "startChar": 29,
+        "endLine": 734,
+        "endChar": 37
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb021695_a773483b",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "Nice!",
+      "range": {
+        "startLine": 740,
+        "startChar": 8,
+        "endLine": 740,
+        "endChar": 64
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7031d3f5_334044ae",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "Was this test non-sense before? :)",
+      "range": {
+        "startLine": 841,
+        "startChar": 8,
+        "endLine": 841,
+        "endChar": 66
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afcca5aa_399ae2eb",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "nit: I would move this above CrossAxisAlignment",
+      "range": {
+        "startLine": 403,
+        "startChar": 11,
+        "endLine": 403,
+        "endChar": 24
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c36625f8_2284e95f",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
         "patchSetId": 1
@@ -13,6 +128,30 @@
       "writtenOn": "2019-07-04T15:09:56Z",
       "side": 1,
       "message": "does it make sense to unify this and MainAxisSize into one enum?",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 0
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc94d52_ec36ef86",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-04T15:27:04Z",
+      "side": 1,
+      "message": "I\u0027d say yes if Calin agrees.",
+      "parentUuid": "c36625f8_2284e95f",
       "range": {
         "startLine": 403,
         "startChar": 0,
