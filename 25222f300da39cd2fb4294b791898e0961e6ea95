@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6494e334_9f6403a8",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/BottomDrawerActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-04T15:45:07Z",
+      "side": 1,
+      "message": "Oh yes, you are right, it fixes it. Removed",
+      "parentUuid": "ee201c7c_23f6d40d",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "062dcfe5_7e09dbba",
         "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
         "patchSetId": 1
