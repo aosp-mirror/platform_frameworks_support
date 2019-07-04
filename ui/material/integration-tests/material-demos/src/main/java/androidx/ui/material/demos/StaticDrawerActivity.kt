@@ -20,8 +20,12 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.compose.setContent
 import androidx.compose.composer
+import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
+import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.material.MaterialTheme
+import androidx.ui.material.samples.StaticDrawerSample
+import androidx.ui.material.themeTextStyle
 
 class StaticDrawerActivity : Activity() {
 
@@ -30,7 +34,9 @@ class StaticDrawerActivity : Activity() {
         setContent {
             CraneWrapper {
                 MaterialTheme {
-                    StaticDrawerDemo()
+                    CurrentTextStyleProvider(+themeTextStyle { h5 }) {
+                        StaticDrawerSample()
+                    }
                 }
             }
         }

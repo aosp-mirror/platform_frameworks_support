@@ -20,8 +20,12 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.compose.setContent
 import androidx.compose.composer
+import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
+import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.material.MaterialTheme
+import androidx.ui.material.samples.BottomDrawerSample
+import androidx.ui.material.themeTextStyle
 
 class BottomDrawerActivity : Activity() {
 
@@ -30,7 +34,9 @@ class BottomDrawerActivity : Activity() {
         setContent {
             CraneWrapper {
                 MaterialTheme {
-                    BottomDrawerDemo()
+                    CurrentTextStyleProvider(+themeTextStyle { h5 }) {
+                        BottomDrawerSample()
+                    }
                 }
             }
         }

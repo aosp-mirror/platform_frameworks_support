@@ -20,8 +20,12 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.compose.setContent
 import androidx.compose.composer
+import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
+import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.material.MaterialTheme
+import androidx.ui.material.samples.ModalDrawerSample
+import androidx.ui.material.themeTextStyle
 
 class ModalDrawerActivity : Activity() {
 
@@ -30,7 +34,9 @@ class ModalDrawerActivity : Activity() {
         setContent {
             CraneWrapper {
                 MaterialTheme {
-                    ModalDrawerDemo()
+                    CurrentTextStyleProvider(+themeTextStyle { h5 }) {
+                        ModalDrawerSample()
+                    }
                 }
             }
         }
