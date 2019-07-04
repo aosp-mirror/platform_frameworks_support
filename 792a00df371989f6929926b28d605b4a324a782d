@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2db67a49_0a37528e",
+        "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-04T15:45:32Z",
+      "side": 1,
+      "message": "Note that this will appear as just \u0027AppContent\u0027 in the documentation, which can be confusing. I would recommend renaming this to make it obvious that this isn\u0027t some Material component, i.e maybe YourAppContent, and adding a comment explaining that this is the rest of your app, and where you would change the state of the drawer.\n\nI also think that this is the wrong layer for this, since this isn\u0027t really related to the sample. Maybe you could add a parameter into this function, that accepts appContent, so then you can move the AppContent() function into the drawer demo? Feel free to keep it like this for the moment, since in the future we will have some higher level function that handles displaying content like this without needing a stack",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "792a00df371989f6929926b28d605b4a324a782d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
