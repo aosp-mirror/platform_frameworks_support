@@ -22,6 +22,30 @@
       "revId": "d881eeb6938b2ee2424e5b59638f9f3791785912",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d16506_0e409194",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2969,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-07-04T07:26:16Z",
+      "side": 1,
+      "message": "Because there is no separate call for skipping to previous item in MediaPlayer2 because it is all handled through CALL_COMPLETED_SKIP_TO_NEXT.\n\nBasically, when skipToPreviousMediaItem is called, XMediaPlayer calculates the index value of the previous item, sets it as the next media item, and skips to that next media item (which is essentially the previous item).",
+      "parentUuid": "6ce68ec9_f449b842",
+      "range": {
+        "startLine": 2969,
+        "startChar": 34,
+        "endLine": 2969,
+        "endChar": 61
+      },
+      "revId": "d881eeb6938b2ee2424e5b59638f9f3791785912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
