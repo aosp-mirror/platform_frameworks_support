@@ -1265,7 +1265,11 @@ public class ViewCompat {
     public static void replaceAccessibilityAction(@NonNull View view, @NonNull
             AccessibilityActionCompat replacedAction,  @Nullable CharSequence label,
             @Nullable AccessibilityViewCommand command) {
-        addAccessibilityAction(view, replacedAction.createReplacementAction(label, command));
+        if (command == null && label == null) {
+            ViewCompat.removeAccessibilityAction(view, replacedAction.getId());
+        } else {
+            addAccessibilityAction(view, replacedAction.createReplacementAction(label, command));
+        }
     }
 
     private static void addAccessibilityAction(@NonNull View view,
