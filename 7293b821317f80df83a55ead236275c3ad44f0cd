@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c36625f8_2284e95f",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-04T15:09:56Z",
+      "side": 1,
+      "message": "does it make sense to unify this and MainAxisSize into one enum?",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 0
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
