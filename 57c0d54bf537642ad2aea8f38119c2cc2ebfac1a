@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc1811b2_fab47fc4",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "A -\u003e a",
+      "range": {
+        "startLine": 386,
+        "startChar": 20,
+        "endLine": 386,
+        "endChar": 21
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcf9babd_7ea4792f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "Do we suppose that the sensor resolution is always landscape so don\u0027t need to calibrate?",
+      "range": {
+        "startLine": 388,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 40
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe43520a_7c8d7f28",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "Should the function name also be changed as setTargetAspectRatioRational to be consistent?",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 36
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ddf8aa_0c1bf100",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "Should the description only exist in PreviewConfig? Same in ImageAnalysisConfig and VideoCaptureConfig.",
+      "range": {
+        "startLine": 844,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 62
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b9fb389_ef47d5a0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "Could this use setTargetAspectRatioRational directly? Same in other *Config.java. Now, target resolution has order, so, should add some description that the size is width*height and target rotation should also be set correctly.",
+      "range": {
+        "startLine": 893,
+        "startChar": 16,
+        "endLine": 895,
+        "endChar": 85
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c1c5a66_b7de08b6",
+        "filename": "camera/view/src/main/java/androidx/camera/view/CameraXModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-04T09:24:38Z",
+      "side": 1,
+      "message": "May need to double check whether the setting is correct now. setTargetResolution will call setTargetAspectRatioRational. And then target aspect ratio rational will be calibrated by target rotation.",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
