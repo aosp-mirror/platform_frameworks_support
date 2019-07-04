@@ -42,9 +42,11 @@ import androidx.ui.layout.MainAxisSize
 import androidx.ui.layout.Row
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.DensityReceiver
 import androidx.ui.core.IntPx
 import androidx.ui.core.ipx
 import androidx.ui.layout.AspectRatio
+import androidx.ui.layout.CrossAxisSize
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -681,68 +683,28 @@ class FlexTest : LayoutTest() {
 
     @Test
     fun testRow_withMaxMainAxisSize() = withDensity(density) {
-        val sizeDp = 50.dp
-
-        val drawLatch = CountDownLatch(1)
-        lateinit var rowSize: PxSize
-        show {
-            Center {
-                Row(mainAxisSize = MainAxisSize.Max) {
-                    FixedSpacer(width = sizeDp, height = sizeDp)
-                    FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
-
-                    OnPositioned(onPositioned = { coordinates ->
-                        rowSize = coordinates.size
-                        drawLatch.countDown()
-                    })
-                }
-            }
-        }
-        drawLatch.await(1, TimeUnit.SECONDS)
-
-        val root = findAndroidCraneView()
-        waitForDraw(root)
-
-        assertEquals(
-            PxSize(root.width.px, (sizeDp * 2).toIntPx().toPx()),
-            rowSize
-        )
+        testRow_withSizes(mainAxisSize = MainAxisSize.Max, crossAxisSize = CrossAxisSize.Min)
     }
 
     @Test
     fun testRow_withMinMainAxisSize() = withDensity(density) {
-        val sizeDp = 50.dp
-        val size = sizeDp.toIntPx()
+        testRow_withSizes(mainAxisSize = MainAxisSize.Min, crossAxisSize = CrossAxisSize.Min)
+    }
 
-        val drawLatch = CountDownLatch(1)
-        lateinit var rowSize: PxSize
-        show {
-            Center {
-                Row(mainAxisSize = MainAxisSize.Min) {
-                    FixedSpacer(width = sizeDp, height = sizeDp)
-                    FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
+    @Test
+    fun testRow_withMaxMainAxisSize_maxCrossAxisSize() = withDensity(density) {
+        testRow_withSizes(mainAxisSize = MainAxisSize.Max, crossAxisSize = CrossAxisSize.Max)
+    }
 
-                    OnPositioned(onPositioned = { coordinates ->
-                        rowSize = coordinates.size
-                        drawLatch.countDown()
-                    })
-                }
-            }
-        }
-        drawLatch.await(1, TimeUnit.SECONDS)
-
-        val root = findAndroidCraneView()
-        waitForDraw(root)
-
-        assertEquals(
-            PxSize(size + (sizeDp * 2).toIntPx(), (sizeDp * 2).toIntPx()),
-            rowSize
-        )
+    @Test
+    fun testRow_withMinMainAxisSize_maxCrossAxisSize() = withDensity(density) {
+        testRow_withSizes(mainAxisSize = MainAxisSize.Min, crossAxisSize = CrossAxisSize.Max)
     }
 
     @Test
     fun testRow_withMinMainAxisSize_respectsMinWidthConstraint() = withDensity(density) {
         val sizeDp = 50.dp
+        val size = sizeDp.toIntPx()
         val rowWidthDp = 250.dp
         val rowWidth = rowWidthDp.toIntPx()
 
@@ -753,7 +715,7 @@ class FlexTest : LayoutTest() {
                 ConstrainedBox(constraints = DpConstraints(minWidth = rowWidthDp)) {
                     Row(mainAxisSize = MainAxisSize.Min) {
                         FixedSpacer(width = sizeDp, height = sizeDp)
-                        FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
+                        FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
 
                         OnPositioned(onPositioned = { coordinates ->
                             rowSize = coordinates.size
@@ -769,7 +731,41 @@ class FlexTest : LayoutTest() {
         waitForDraw(root)
 
         assertEquals(
-            PxSize(rowWidth, (sizeDp.toPx() * 2).round()),
+            PxSize(rowWidth, size * 2),
+            rowSize
+        )
+    }
+
+    @Test
+    fun testRow_withMaxCrossAxisSize_respectsMaxHeightConstraint() = withDensity(density) {
+        val sizeDp = 50.dp
+        val rowHeightDp = 250.dp
+        val rowHeight = rowHeightDp.toIntPx()
+
+        val drawLatch = CountDownLatch(1)
+        lateinit var rowSize: PxSize
+        show {
+            Center {
+                ConstrainedBox(constraints = DpConstraints(maxHeight = rowHeightDp)) {
+                    Row(crossAxisSize = CrossAxisSize.Max) {
+                        FixedSpacer(width = sizeDp, height = sizeDp)
+                        FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
+
+                        OnPositioned(onPositioned = { coordinates ->
+                            rowSize = coordinates.size
+                            drawLatch.countDown()
+                        })
+                    }
+                }
+            }
+        }
+        drawLatch.await(1, TimeUnit.SECONDS)
+
+        val root = findAndroidCraneView()
+        waitForDraw(root)
+
+        assertEquals(
+            PxSize(root.width.ipx, rowHeight),
             rowSize
         )
     }
@@ -823,20 +819,45 @@ class FlexTest : LayoutTest() {
 
     @Test
     fun testColumn_withMaxMainAxisSize() = withDensity(density) {
+        testColumn_withSizes(mainAxisSize = MainAxisSize.Max, crossAxisSize = CrossAxisSize.Min)
+    }
+
+    @Test
+    fun testColumn_withMinMainAxisSize() = withDensity(density) {
+        testColumn_withSizes(mainAxisSize = MainAxisSize.Min, crossAxisSize = CrossAxisSize.Min)
+    }
+
+    @Test
+    fun testColumn_withMaxMainAxisSize_maxCrossAxisSize() = withDensity(density) {
+        testColumn_withSizes(mainAxisSize = MainAxisSize.Max, crossAxisSize = CrossAxisSize.Max)
+    }
+
+    @Test
+    fun testColumn_withMinMainAxisSize_maxCrossAxisSize() = withDensity(density) {
+        testColumn_withSizes(mainAxisSize = MainAxisSize.Min, crossAxisSize = CrossAxisSize.Max)
+    }
+
+    @Test
+    fun testColumn_withMinMainAxisSize_respectsMinHeightConstraint() = withDensity(density) {
         val sizeDp = 50.dp
+        val size = sizeDp.toIntPx()
+        val columnHeightDp = 250.dp
+        val columnHeight = columnHeightDp.toIntPx()
 
         val drawLatch = CountDownLatch(1)
         lateinit var columnSize: PxSize
         show {
             Center {
-                Column(mainAxisSize = MainAxisSize.Max) {
-                    FixedSpacer(width = sizeDp, height = sizeDp)
-                    FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
+                ConstrainedBox(constraints = DpConstraints(minHeight = columnHeightDp)) {
+                    Column(mainAxisSize = MainAxisSize.Min) {
+                        FixedSpacer(width = sizeDp, height = sizeDp)
+                        FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
 
-                    OnPositioned(onPositioned = { coordinates ->
-                        columnSize = coordinates.size
-                        drawLatch.countDown()
-                    })
+                        OnPositioned(onPositioned = { coordinates ->
+                            columnSize = coordinates.size
+                            drawLatch.countDown()
+                        })
+                    }
                 }
             }
         }
@@ -846,28 +867,31 @@ class FlexTest : LayoutTest() {
         waitForDraw(root)
 
         assertEquals(
-            PxSize((sizeDp * 2).toIntPx().toPx(), root.height.px),
+            PxSize(size * 2, columnHeight),
             columnSize
         )
     }
 
     @Test
-    fun testColumn_withMinMainAxisSize() = withDensity(density) {
+    fun testColumn_withMaxCrossAxisSize_respectsMaxWidthConstraint() = withDensity(density) {
         val sizeDp = 50.dp
-        val size = sizeDp.toIntPx()
+        val columnWidthDp = 250.dp
+        val columnWidth = columnWidthDp.toIntPx()
 
         val drawLatch = CountDownLatch(1)
         lateinit var columnSize: PxSize
         show {
             Center {
-                Column(mainAxisSize = MainAxisSize.Min) {
-                    FixedSpacer(width = sizeDp, height = sizeDp)
-                    FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
+                ConstrainedBox(constraints = DpConstraints(maxWidth = columnWidthDp)) {
+                    Column(crossAxisSize = CrossAxisSize.Max) {
+                        FixedSpacer(width = sizeDp, height = sizeDp)
+                        FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
 
-                    OnPositioned(onPositioned = { coordinates ->
-                        columnSize = coordinates.size
-                        drawLatch.countDown()
-                    })
+                        OnPositioned(onPositioned = { coordinates ->
+                            columnSize = coordinates.size
+                            drawLatch.countDown()
+                        })
+                    }
                 }
             }
         }
@@ -877,7 +901,7 @@ class FlexTest : LayoutTest() {
         waitForDraw(root)
 
         assertEquals(
-            PxSize((sizeDp * 2).toIntPx(), size + (sizeDp * 2).toIntPx()),
+            PxSize(columnWidth, root.height.ipx),
             columnSize
         )
     }
@@ -926,40 +950,6 @@ class FlexTest : LayoutTest() {
         assertEquals(
             PxSize(size, columnHeight),
             expandedChildSize
-        )
-    }
-
-    @Test
-    fun testColumn_withMinMainAxisSize_respectsMinHeightConstraint() = withDensity(density) {
-        val sizeDp = 50.dp
-        val columnHeightDp = 250.dp
-        val columnHeight = columnHeightDp.toIntPx()
-
-        val drawLatch = CountDownLatch(1)
-        lateinit var columnSize: PxSize
-        show {
-            Center {
-                ConstrainedBox(constraints = DpConstraints(minHeight = columnHeightDp)) {
-                    Column(mainAxisSize = MainAxisSize.Min) {
-                        FixedSpacer(width = sizeDp, height = sizeDp)
-                        FixedSpacer(width = (sizeDp * 2), height = (sizeDp * 2))
-
-                        OnPositioned(onPositioned = { coordinates ->
-                            columnSize = coordinates.size
-                            drawLatch.countDown()
-                        })
-                    }
-                }
-            }
-        }
-        drawLatch.await(1, TimeUnit.SECONDS)
-
-        val root = findAndroidCraneView()
-        waitForDraw(root)
-
-        assertEquals(
-            PxSize((sizeDp.toPx() * 2).round(), columnHeight),
-            columnSize
         )
     }
 
@@ -2031,5 +2021,75 @@ class FlexTest : LayoutTest() {
                 maxIntrinsicHeight(IntPx.Infinity)
             )
         }
+    }
+
+    private fun DensityReceiver.testRow_withSizes(mainAxisSize: MainAxisSize, crossAxisSize: CrossAxisSize) {
+        val sizeDp = 50.dp
+        val size = sizeDp.toIntPx()
+
+        val drawLatch = CountDownLatch(1)
+        lateinit var rowSize: PxSize
+        show {
+            Center {
+                Row(mainAxisSize = mainAxisSize, crossAxisSize = crossAxisSize) {
+                    FixedSpacer(width = sizeDp, height = sizeDp)
+                    FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
+
+                    OnPositioned(onPositioned = { coordinates ->
+                        rowSize = coordinates.size
+                        drawLatch.countDown()
+                    })
+                }
+            }
+        }
+        drawLatch.await(1, TimeUnit.SECONDS)
+
+        val root = findAndroidCraneView()
+        waitForDraw(root)
+
+        val expectedWidth = when (mainAxisSize) {
+            MainAxisSize.Min -> size * 3
+            MainAxisSize.Max -> root.width.ipx
+        }
+        val expectedHeight = when (crossAxisSize) {
+            CrossAxisSize.Min -> size * 2
+            CrossAxisSize.Max -> root.height.ipx
+        }
+        assertEquals(PxSize(expectedWidth, expectedHeight), rowSize)
+    }
+
+    private fun DensityReceiver.testColumn_withSizes(mainAxisSize: MainAxisSize, crossAxisSize: CrossAxisSize) {
+        val sizeDp = 50.dp
+        val size = sizeDp.toIntPx()
+
+        val drawLatch = CountDownLatch(1)
+        lateinit var rowSize: PxSize
+        show {
+            Center {
+                Column(mainAxisSize = mainAxisSize, crossAxisSize = crossAxisSize) {
+                    FixedSpacer(width = sizeDp, height = sizeDp)
+                    FixedSpacer(width = sizeDp * 2, height = sizeDp * 2)
+
+                    OnPositioned(onPositioned = { coordinates ->
+                        rowSize = coordinates.size
+                        drawLatch.countDown()
+                    })
+                }
+            }
+        }
+        drawLatch.await(1, TimeUnit.SECONDS)
+
+        val root = findAndroidCraneView()
+        waitForDraw(root)
+
+        val expectedWidth = when (crossAxisSize) {
+            CrossAxisSize.Min -> size * 2
+            CrossAxisSize.Max -> root.width.ipx
+        }
+        val expectedHeight = when (mainAxisSize) {
+            MainAxisSize.Min -> size * 3
+            MainAxisSize.Max -> root.height.ipx
+        }
+        assertEquals(PxSize(expectedWidth, expectedHeight), rowSize)
     }
 }

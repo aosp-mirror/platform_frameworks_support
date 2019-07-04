@@ -99,6 +99,7 @@ fun FlexRow(
     mainAxisAlignment: MainAxisAlignment = MainAxisAlignment.Start,
     mainAxisSize: MainAxisSize = MainAxisSize.Max,
     crossAxisAlignment: CrossAxisAlignment = CrossAxisAlignment.Center,
+    crossAxisSize: CrossAxisSize = CrossAxisSize.Min,
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
     Flex(
@@ -106,6 +107,7 @@ fun FlexRow(
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
         crossAxisAlignment = crossAxisAlignment,
+        crossAxisSize = crossAxisSize,
         block = block
     )
 }
@@ -142,6 +144,7 @@ fun FlexColumn(
     mainAxisAlignment: MainAxisAlignment = MainAxisAlignment.Start,
     mainAxisSize: MainAxisSize = MainAxisSize.Max,
     crossAxisAlignment: CrossAxisAlignment = CrossAxisAlignment.Center,
+    crossAxisSize: CrossAxisSize = CrossAxisSize.Min,
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
     Flex(
@@ -149,6 +152,7 @@ fun FlexColumn(
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
         crossAxisAlignment = crossAxisAlignment,
+        crossAxisSize = crossAxisSize,
         block = block
     )
 }
@@ -168,12 +172,14 @@ fun Row(
     mainAxisAlignment: MainAxisAlignment = MainAxisAlignment.Start,
     mainAxisSize: MainAxisSize = MainAxisSize.Max,
     crossAxisAlignment: CrossAxisAlignment = CrossAxisAlignment.Center,
+    crossAxisSize: CrossAxisSize = CrossAxisSize.Min,
     @Children block: @Composable() () -> Unit
 ) {
     FlexRow(
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
-        crossAxisAlignment = crossAxisAlignment
+        crossAxisAlignment = crossAxisAlignment,
+        crossAxisSize = crossAxisSize
     ) {
         inflexible {
             block()
@@ -196,12 +202,14 @@ fun Column(
     mainAxisAlignment: MainAxisAlignment = MainAxisAlignment.Start,
     mainAxisSize: MainAxisSize = MainAxisSize.Max,
     crossAxisAlignment: CrossAxisAlignment = CrossAxisAlignment.Center,
+    crossAxisSize: CrossAxisSize = CrossAxisSize.Min,
     @Children block: @Composable() () -> Unit
 ) {
     FlexColumn(
         mainAxisAlignment = mainAxisAlignment,
         mainAxisSize = mainAxisSize,
-        crossAxisAlignment = crossAxisAlignment
+        crossAxisAlignment = crossAxisAlignment,
+        crossAxisSize = crossAxisSize
     ) {
         inflexible {
             block()
@@ -390,6 +398,20 @@ enum class CrossAxisAlignment {
 }
 
 /**
+ * Used to specify how a layout chooses its own size when multiple behaviors are possible.
+ */
+enum class CrossAxisSize {
+    /**
+     * Minimize the amount of cross axis free space, subject to the incoming layout constraints.
+     */
+    Min,
+    /**
+     * Maximize the amount of cross axis free space, subject to the incoming layout constraints.
+     */
+    Max
+}
+
+/**
  * Box [Constraints], but which abstract away width and height in favor of main axis and cross axis.
  */
 private data class OrientationIndependentConstraints(
@@ -455,6 +477,7 @@ private fun Flex(
     orientation: FlexOrientation,
     mainAxisSize: MainAxisSize = MainAxisSize.Max,
     mainAxisAlignment: MainAxisAlignment = MainAxisAlignment.Start,
+    crossAxisSize: CrossAxisSize = CrossAxisSize.Min,
     crossAxisAlignment: CrossAxisAlignment = CrossAxisAlignment.Center,
     @Children(composable = false) block: FlexChildren.() -> Unit
 ) {
@@ -541,14 +564,20 @@ private fun Flex(
             }
 
             // Compute the Flex size and position the children.
-            val mainAxisLayoutSize = if (constraints.mainAxisMax != IntPx.Infinity &&
+            val mainAxisLayoutSize = if (constraints.mainAxisMax.isFinite() &&
                 mainAxisSize == MainAxisSize.Max
             ) {
                 constraints.mainAxisMax
             } else {
                 max(inflexibleSpace + flexibleSpace, constraints.mainAxisMin)
             }
-            val crossAxisLayoutSize = max(crossAxisSpace, constraints.crossAxisMin)
+            val crossAxisLayoutSize = if (constraints.crossAxisMax.isFinite() &&
+                crossAxisSize == CrossAxisSize.Max
+            ) {
+                constraints.crossAxisMax
+            } else {
+                max(crossAxisSpace, constraints.crossAxisMin)
+            }
             val layoutWidth = if (orientation == FlexOrientation.Horizontal) {
                 mainAxisLayoutSize
             } else {
