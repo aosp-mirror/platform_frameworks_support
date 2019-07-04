@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6a506a2_aac8167a",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-07-04T12:32:18Z",
+      "side": 0,
+      "message": "The \"trusted\" part was an error, navbar customization is not only for Trusted Web Activities, but for Custom Tabs in general.",
+      "revId": "5ad0dcb2ccfab311253041cdda6e43a1135f30d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
