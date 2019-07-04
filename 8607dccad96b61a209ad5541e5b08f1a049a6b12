@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b174c120_6e9505c5",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-04T14:39:44Z",
+      "side": 1,
+      "message": "This should ideally just be overriding the `onApplyWindowInsets()` method (from View.java). Something could set a listener on this view, and wipe out this logic.",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 72
+      },
+      "revId": "8607dccad96b61a209ad5541e5b08f1a049a6b12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d16904_b5a8974c",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-04T14:39:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this is right for the container view to declare. The fragment views themselves should set this is they wish, we shouldn\u0027t be forcing apps to do this.",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 57
+      },
+      "revId": "8607dccad96b61a209ad5541e5b08f1a049a6b12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
