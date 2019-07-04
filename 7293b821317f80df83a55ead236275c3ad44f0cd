@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52d71d4e_459ec787",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "I agree. I made the tests for mainAxisSize and crossAxisSize independent of each other by only testing the size in the appropriate direction (instead of both as before). Let me know what you think.",
+      "parentUuid": "4ef60f62_2e0e1493",
+      "range": {
+        "startLine": 686,
+        "startChar": 8,
+        "endLine": 686,
+        "endChar": 25
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c913b3b1_736788b6",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "998f3a66_00e2bde4",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "Yes, it\u0027s wrong to multiply after rounding. I\u0027ve changed these now.",
+      "parentUuid": "c913b3b1_736788b6",
+      "range": {
+        "startLine": 734,
+        "startChar": 29,
+        "endLine": 734,
+        "endChar": 37
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dcca4411_204367c0",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "I also added testRow_withMinCrossAxisSize_respectsMinHeightConstraint().",
+      "parentUuid": "fb021695_a773483b",
+      "range": {
+        "startLine": 740,
+        "startChar": 8,
+        "endLine": 740,
+        "endChar": 64
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7031d3f5_334044ae",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-07-04T15:27:04Z",
       "side": 1,
       "message": "Was this test non-sense before? :)",
+      "range": {
+        "startLine": 841,
+        "startChar": 8,
+        "endLine": 841,
+        "endChar": 66
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf7004c_04a4e58c",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "No, the diff is just weird.",
+      "parentUuid": "7031d3f5_334044ae",
       "range": {
         "startLine": 841,
         "startChar": 8,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "03b325eb_ec15252c",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08443fe2_59ffd9b1",
+      "range": {
+        "startLine": 403,
+        "startChar": 11,
+        "endLine": 403,
+        "endChar": 24
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c36625f8_2284e95f",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
         "patchSetId": 1
@@ -185,6 +305,30 @@
       "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14651bdb_8bbcd426",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-04T17:58:32Z",
+      "side": 1,
+      "message": "Done. The new enum is called FlexSize.",
+      "parentUuid": "6cc94d52_ec36ef86",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 0
+      },
+      "revId": "7293b821317f80df83a55ead236275c3ad44f0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
