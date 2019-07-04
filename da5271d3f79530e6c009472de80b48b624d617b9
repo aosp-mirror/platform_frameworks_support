@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "ff5087b0_d0b17cfb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-04T03:46:09Z",
+      "side": 1,
+      "message": "When will useCaseEventListener be null?",
+      "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66860766_acbcd582",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageOutputConfig.java",
         "patchSetId": 3
