@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "254953ac_4e253c64",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/BottomDrawerActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-04T15:24:27Z",
+      "side": 1,
+      "message": "Unfortunately, without it right now our texts will be 16px instead of 16dp, which makes demos looks very strange and text unreadable. I decided to move it away from samples, as it\u0027s just our implementation bug that hopefully will be sovled soon.",
+      "parentUuid": "a76317ba_ebbd1621",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "062dcfe5_7e09dbba",
         "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3306bd2_2e2f63db",
+        "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-04T15:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "062dcfe5_7e09dbba",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 9
+      },
+      "revId": "25222f300da39cd2fb4294b791898e0961e6ea95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
