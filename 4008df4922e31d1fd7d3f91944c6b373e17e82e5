@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9eecb0fb_37506c2c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-04T07:46:23Z",
+      "side": 1,
+      "message": "Oh, to remove the front camera test is because the presubmit fail ...\n\nThe fake camera in cuttlefish will callback onError() when taking picture:\n///////////\nEmulatedCamera_FakeCamera3: doFakeAF: Front camera doesn\u0027t support AF mode 4\nCamera  : CameraDevice.onError(): 1 with error: ERROR_CAMERA_DEVICE\nCaptureSession: Unable to access camera: CAMERA_ERROR (3): The camera device has encountered a serious error\n/////////// \nThe primary reason is: we will set AF_MODE in camera control fake front camera in presubmit cannot support AF.\nhttps://cs.corp.google.com/aosp-androidx/camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java?q\u003d%22?+CaptureRequest.CONTROL_AF_MODE_AUTO%22\u0026dr\u003dC\u0026l\u003d548\n\nhttps://cs.corp.google.com/pi-arc-dev/device/google/cuttlefish_common/guest/hals/camera/EmulatedFakeCamera3.cpp?q\u003d%22Front+camera+doesn%27t+support+AF+mode%22\u0026dr\u003dC\u0026l\u003d2123\n\n\nThere is a update to use the following code to identify the AF feature of camera\n///////////\nint[] afModes \u003d characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES);\n///////////\n\nWe can the code like\n////////////\nassumeTrue(supportAFMode(LensFacing.FRONT))\n////////////\nto filter the environment and run the test. \n\nBut ... it seems many (real device such like pixel3) front camera not support AF mode too. \n(The real device didn\u0027t callback onError when using the front camera to take picture with AF mode.)\nSo ... the front camera test might be ignored in many devices.",
+      "parentUuid": "763f46a5_99f70f3c",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "210784df_80bdc06c",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "49fd1fbe_74c79476",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-04T07:46:23Z",
+      "side": 1,
+      "message": "Ah yes, not really need to verify the onUpdate(), \nlet me remove the verify.",
+      "parentUuid": "210784df_80bdc06c",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc011306_7b9f81fd",
         "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
         "patchSetId": 8
@@ -50,6 +86,24 @@
       "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afeac7c7_efb11e31",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/ExtensionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-04T07:46:23Z",
+      "side": 1,
+      "message": "Yes, this is for the state clean up, \nI have put this to after and to use CountDownLatch instead the verify().",
+      "parentUuid": "bc011306_7b9f81fd",
+      "revId": "4008df4922e31d1fd7d3f91944c6b373e17e82e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
