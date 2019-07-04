@@ -22,6 +22,30 @@
       "revId": "792a00df371989f6929926b28d605b4a324a782d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d9a7b3_11bb90d4",
+        "filename": "ui/material/integration-tests/samples/src/main/java/androidx/ui/material/samples/DrawerSamples.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-04T15:52:43Z",
+      "side": 1,
+      "message": "Fixed Your_AppContent and added comment.\n\nAgain, just for Drawers and without Scaffold I think we need to provide guidance of how to use it, because it has a stack and not usual for original android",
+      "parentUuid": "2db67a49_0a37528e",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "792a00df371989f6929926b28d605b4a324a782d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
