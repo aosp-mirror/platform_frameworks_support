@@ -34,6 +34,23 @@
       "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05a488f2_151bc8f6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1031677
+      },
+      "writtenOn": "2019-07-04T21:26:27Z",
+      "side": 1,
+      "message": "Aside:\n\nIf someone sets the player on mediaControlView before passing it to setMediaControlView, and if mPlayer is null here, then you can end up with a VideoView without a player bound to it, containing a MediaControlView that does have a player bound to it. Which seems a bit odd.\n\nIn the converged world I think we\u0027ll want to allow clearing the player from both view types, which would let you clear the player from mMediaControlView here.",
+      "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
