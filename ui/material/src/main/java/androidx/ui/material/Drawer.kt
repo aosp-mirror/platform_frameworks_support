@@ -56,7 +56,6 @@ import androidx.ui.layout.DpConstraints
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.HeightSpacer
 import androidx.ui.layout.MainAxisAlignment
-import androidx.ui.layout.MainAxisSize
 import androidx.ui.layout.Row
 import androidx.ui.layout.Stack
 import androidx.ui.layout.WidthSpacer
