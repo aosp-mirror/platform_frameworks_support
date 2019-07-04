@@ -18,8 +18,6 @@
 
 package androidx.compose
 
-import android.view.Choreographer
-import androidx.annotation.CheckResult
 import androidx.compose.annotations.Hide
 import androidx.compose.frames.AbstractRecord
 import androidx.compose.frames.Framed
@@ -33,7 +31,8 @@ import kotlin.reflect.KProperty
  * This is just a sentinel object that represents the absence of an explicit key being defined. This is necessary because
  * we want `null` to be a valid key, and not the absence of one.
  */
-private val absentKey = object {}
+// TODO delete the explicit type after https://youtrack.jetbrains.com/issue/KT-20996
+private val absentKey: Any = object {}
 
 /**
  * This creates a composite key of any value to be used as the key for the group of an effect
@@ -167,7 +166,7 @@ internal class PreCommitScopeImpl(
     private var disposeCallback = emptyDispose
 
     override fun onDispose(callback: () -> Unit) {
-        assert(disposeCallback === emptyDispose) {
+        assertState(disposeCallback === emptyDispose) {
             "onDispose(...) should only be called once"
         }
         disposeCallback = callback
@@ -185,26 +184,26 @@ internal class PreCommitScopeImpl(
 @PublishedApi
 internal class PostCommitScopeImpl(
     internal val onCommit: CommitScope.() -> Unit
-) : CommitScope, CompositionLifecycleObserver, Choreographer.FrameCallback {
+) : CommitScope, CompositionLifecycleObserver {
 
     private var disposeCallback = emptyDispose
     private var hasRun = false
 
     override fun onDispose(callback: () -> Unit) {
-        assert(disposeCallback === emptyDispose) {
+        assertState(disposeCallback === emptyDispose) {
             "onDispose(...) should only be called once"
         }
         disposeCallback = callback
     }
 
-    override fun doFrame(frameTimeNanos: Long) {
+    private fun doFrame() {
         hasRun = true
         onCommit(this)
     }
 
     override fun onEnter() {
         // TODO(lmr): we should eventually move this to an expect/actual "scheduler" of some sort
-        Choreographer.getInstance().postFrameCallback(this)
+        Choreographer.postFrameCallback({ doFrame() })
     }
 
     override fun onLeave() {
@@ -213,7 +212,7 @@ internal class PostCommitScopeImpl(
         if (hasRun) {
             disposeCallback()
         } else {
-            Choreographer.getInstance().removeFrameCallback(this)
+            Choreographer.removeFrameCallback({ doFrame() })
         }
     }
 }
@@ -233,7 +232,7 @@ internal class PostCommitScopeImpl(
  * @param v1 The value to use as the key. This will be compared to its previous value using `Object.equals`
  * @param block The block to execute other effects in
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun <T, V1> key(v1: V1, block: Effect<T>.() -> T) =
     Effect(block, v1)
 
@@ -255,7 +254,7 @@ fun <T, V1> key(v1: V1, block: Effect<T>.() -> T) =
  * @param v2 The second value to use as a key. This will be compared to its previous value using `Object.equals`
  * @param block The block to execute other effects in
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun <T, V1, V2> key(v1: V1, v2: V2, block: Effect<T>.() -> T) =
     Effect(block, joinKey(v1, v2))
 
@@ -274,7 +273,7 @@ fun <T, V1, V2> key(v1: V1, v2: V2, block: Effect<T>.() -> T) =
  * @param inputs The set of values to be used to create a compound key. This will be compared to its previous value using `Object.equals`
  * @param block The block to execute other effects in
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun <T> key(vararg inputs: Any?, block: Effect<T>.() -> T) =
     Effect(
         block,
@@ -286,7 +285,7 @@ fun <T> key(vararg inputs: Any?, block: Effect<T>.() -> T) =
  * @param calculation A function to produce the result
  * @return The result of the calculation, or the cached value from the composition
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T> memo(/* crossinline */ calculation: () -> T) = effectOf<T> {
     context.remember(calculation)
 }
@@ -298,7 +297,7 @@ fun <T> key(vararg inputs: Any?, block: Effect<T>.() -> T) =
  * @param calculation A function to produce the result
  * @return The result of the calculation, or the cached value from the composition
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T, /* reified */ V1> memo(
     v1: V1,
     /* crossinline */
@@ -315,7 +314,7 @@ fun <T> key(vararg inputs: Any?, block: Effect<T>.() -> T) =
  * @param calculation A function to produce the result
  * @return The result of the calculation, or the cached value from the composition
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T, /* reified */ V1, /* reified */ V2> memo(
     v1: V1,
     v2: V2,
@@ -332,7 +331,7 @@ fun <T> key(vararg inputs: Any?, block: Effect<T>.() -> T) =
  * @param calculation A function to produce the result
  * @return The result of the calculation, or the cached value from the composition
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun <T> memo(vararg inputs: Any?, calculation: () -> T) = effectOf<T> {
     context.remember(*inputs) { calculation() }
 }
@@ -351,7 +350,7 @@ fun <T> memo(vararg inputs: Any?, calculation: () -> T) = effectOf<T> {
  * @see [onPreCommit]
  * @see [onDispose]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onActive(callback: CommitScope.() -> Unit) = effectOf<Unit> {
     context.remember { PostCommitScopeImpl(callback) }
 }
@@ -367,7 +366,7 @@ fun onActive(callback: CommitScope.() -> Unit) = effectOf<Unit> {
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onDispose(callback: () -> Unit) = onActive { onDispose(callback) }
 
 /**
@@ -382,7 +381,7 @@ fun onDispose(callback: () -> Unit) = onActive { onDispose(callback) }
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onCommit(callback: CommitScope.() -> Unit) = effectOf<Unit> {
     context.changed(PostCommitScopeImpl(callback))
 }
@@ -400,7 +399,7 @@ fun onCommit(callback: CommitScope.() -> Unit) = effectOf<Unit> {
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun </* reified */ V1> onCommit(
     v1: V1,
     /* noinline */
@@ -423,7 +422,7 @@ fun onCommit(callback: CommitScope.() -> Unit) = effectOf<Unit> {
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun </* reified */ V1, /* reified */ V2> onCommit(
     v1: V1,
     v2: V2,
@@ -446,7 +445,7 @@ fun onCommit(callback: CommitScope.() -> Unit) = effectOf<Unit> {
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
     effectOf<Unit> {
         context.remember(*inputs) { PostCommitScopeImpl(callback) }
@@ -466,7 +465,7 @@ fun onCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
  * @see [onPreCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onPreCommit(callback: CommitScope.() -> Unit) =
     effectOf<Unit> {
         context.changed(PreCommitScopeImpl(callback))
@@ -487,7 +486,7 @@ fun onPreCommit(callback: CommitScope.() -> Unit) =
  * @see [onCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun </* reified */ V1> onPreCommit(
     v1: V1,
     /* noinline */
@@ -512,7 +511,7 @@ fun onPreCommit(callback: CommitScope.() -> Unit) =
  * @see [onCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun </* reified */ V1, /* reified */ V2> onPreCommit(
     v1: V1,
     v2: V2,
@@ -537,7 +536,7 @@ fun onPreCommit(callback: CommitScope.() -> Unit) =
  * @see [onCommit]
  * @see [onActive]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun onPreCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
     effectOf<Unit> {
         context.remember(*inputs) { PreCommitScopeImpl(callback) }
@@ -604,7 +603,7 @@ fun onPreCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
  * @see [model]
  * @see [modelFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T> state(/* crossinline */ init: () -> T) =
     memo { State(init()) }
 
@@ -625,7 +624,7 @@ fun onPreCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
  * @see [model]
  * @see [modelFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T, /* reified */ V1> stateFor(v1: V1, /* crossinline */ init: () -> T) =
     memo(v1) { State(init()) }
 
@@ -647,7 +646,7 @@ fun onPreCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
  * @see [model]
  * @see [modelFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T, /* reified */ V1, /* reified */ V2> stateFor(
     v1: V1,
     v2: V2,
@@ -672,7 +671,7 @@ fun onPreCommit(vararg inputs: Any?, callback: CommitScope.() -> Unit) =
  * @see [model]
  * @see [modelFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T> stateFor(vararg inputs: Any?, /* crossinline */ init: () -> T) =
     memo(*inputs) { State(init()) }
 
@@ -784,7 +783,7 @@ class State<T> @PublishedApi internal constructor(value: T) : Framed {
  * @see [state]
  * @see [stateFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T> model(/* crossinline */ init: () -> T) = memo { init() }
 
 /**
@@ -802,7 +801,7 @@ class State<T> @PublishedApi internal constructor(value: T) : Framed {
  * @see [state]
  * @see [stateFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T, /* reified */ V1> modelFor(v1: V1, /* crossinline */ init: () -> T) =
     memo(v1) { init() }
 
@@ -822,7 +821,7 @@ class State<T> @PublishedApi internal constructor(value: T) : Framed {
  * @see [state]
  * @see [stateFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <
         T,
         /* reified */ V1,
@@ -845,7 +844,7 @@ class State<T> @PublishedApi internal constructor(value: T) : Framed {
  * @see [state]
  * @see [stateFor]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 /* inline */ fun <T> modelFor(vararg inputs: Any?, /* crossinline */ init: () -> T) =
     memo(*inputs) { init() }
 
@@ -857,7 +856,7 @@ class State<T> @PublishedApi internal constructor(value: T) : Framed {
  *
  * @see [Ambient]
  */
-@CheckResult(suggest = "+")
+@CheckResult("+")
 fun <T> ambient(key: Ambient<T>) = effectOf<T> {
     context.consume(key)
 }

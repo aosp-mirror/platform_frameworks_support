@@ -16,7 +16,13 @@
 
 package androidx.compose
 
-import java.util.Stack
+import kotlin.collections.isNotEmpty
+
+internal fun assertState(value: Boolean, message: () -> String) {
+    if (!value) {
+        throw AssertionError(message())
+    }
+}
 
 internal typealias Change<N> = (
     applier: Applier<N>,
@@ -56,7 +62,7 @@ private class Pending(
     var groupIndex: Int = 0
 
     init {
-        assert(startIndex >= 0) { "Invalid start index" }
+        assertState(startIndex >= 0) { "Invalid start index" }
     }
 
     var nodeCount = parentKeyInfo.nodes
@@ -355,7 +361,7 @@ open class Composer<N>(
     }
 
     override fun emitNode(node: N) {
-        assert(inserting) { "emitNode() called when not inserting" }
+        assertState(inserting) { "emitNode() called when not inserting" }
         val insertIndex = nodeIndexStack.peek()
         pending!!.nodeCount++
         groupNodeCount++
@@ -368,7 +374,7 @@ open class Composer<N>(
     }
 
     override fun useNode(): N {
-        assert(!inserting) { "useNode() called while inserting" }
+        assertState(!inserting) { "useNode() called while inserting" }
         recordDown()
         val result = slots.next()
         childrenAllowed = true
@@ -471,11 +477,11 @@ open class Composer<N>(
 
     internal fun <T> parentAmbient(key: Ambient<T>): T {
         // Enumerate the parents that have been inserted
-        if (insertedProviders.isNotEmpty()) {
+        if (!insertedProviders.isEmpty()) {
             var current = insertedProviders.size - 1
             while (current >= 0) {
                 val element = insertedProviders[current]
-                if (element is Ambient.Holder<*> && element.ambient === key) {
+                if (element.ambient === key) {
                     @Suppress("UNCHECKED_CAST")
                     return element.value as? T ?: key.defaultValue
                 }
@@ -594,10 +600,10 @@ open class Composer<N>(
 
     internal val currentInvalidate: RecomposeScope?
         get() =
-            invalidateStack.let { if (it.isNotEmpty()) it.peek() else null }
+            invalidateStack.let { if (!it.isEmpty()) it.peek() else null }
 
     private fun start(key: Any, action: SlotAction) {
-        assert(childrenAllowed) { "A call to createNode(), emitNode() or useNode() expected" }
+        assertState(childrenAllowed) { "A call to createNode(), emitNode() or useNode() expected" }
         if (pending == null) {
             val slotKey = slots.next()
             if (slotKey == key) {
@@ -865,7 +871,7 @@ open class Composer<N>(
         trace("Compose:recordEnters") {
             while (true) {
                 skipToGroupContaining(location)
-                assert(
+                assertState(
                     slots.isGroup && location >= slots.current &&
                             location < slots.current + slots.groupSize
                 ) {
@@ -949,7 +955,7 @@ open class Composer<N>(
 
     private fun invalidate(scope: RecomposeScope, sync: Boolean) {
         val location = scope.anchor?.location(slotTable) ?: return
-        assert(location >= 0) { "Invalid anchor" }
+        assertState(location >= 0) { "Invalid anchor" }
         invalidations.insertIfMissing(location, scope)
         if (isComposing && location > slots.current) {
             // if we are invalidating a scope that is going to be traversed during this
@@ -1113,14 +1119,14 @@ open class Composer<N>(
 
     internal fun finalizeCompose() {
         finalRealizeSlots()
-        assert(pendingStack.isEmpty()) { "Start end imbalance" }
+        assertState(pendingStack.isEmpty()) { "Start end imbalance" }
         pending = null
         nodeIndex = 0
         groupNodeCount = 0
     }
 
     private fun recordSlotNext(count: Int = 1) {
-        assert(count >= 1) { "Invalid call to recordSlotNext()" }
+        assertState(count >= 1) { "Invalid call to recordSlotNext()" }
         val actionsSize = slotActions.size
         if (actionsSize > 0) {
             // If the last action was also a skip just add this one to the last one
@@ -1173,7 +1179,7 @@ open class Composer<N>(
 
     private fun recordRemoveNode(nodeIndex: Int, count: Int) {
         if (count > 0) {
-            assert(nodeIndex >= 0) { "Invalid remove index $nodeIndex" }
+            assertState(nodeIndex >= 0) { "Invalid remove index $nodeIndex" }
             if (previousRemove == nodeIndex) previousCount += count
             else {
                 realizeMovement()
@@ -1323,13 +1329,13 @@ private class SlotActions(var actions: IntArray = IntArray(DEFAULT_SLOT_ACTIONS_
 
     fun add(action: SlotAction) {
         if (size >= actions.size) {
-            actions = actions.copyOf(Math.max(size, actions.size * 2))
+            actions = actions.copyOf(kotlin.math.max(size, actions.size * 2))
         }
         actions[size++] = action
     }
 
     fun remove(count: Int) {
-        assert(count <= size) { "Removing too many actions" }
+        assertState(count <= size) { "Removing too many actions" }
         size -= count
     }
 

@@ -39,6 +39,7 @@ object LibraryGroups {
     val CONTENTPAGER = LibraryGroup("androidx.contentpager")
     val COORDINATORLAYOUT = LibraryGroup("androidx.coordinatorlayout")
     val COMPOSE = LibraryGroup("androidx.compose", false)
+    val COMPOSEMPP = LibraryGroup("androidx.compose", false)
     val CORE = LibraryGroup("androidx.core", false)
     val CURSORADAPTER = LibraryGroup("androidx.cursoradapter")
     val CUSTOMVIEW = LibraryGroup("androidx.customview")

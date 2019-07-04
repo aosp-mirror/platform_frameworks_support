@@ -20,6 +20,7 @@ import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.test.helpers.FakeSemanticsTreeInteraction
 import com.google.common.truth.Truth
+import mppsample.message
 import org.junit.Test
 
 class FindersTests {

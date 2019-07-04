@@ -1,9 +1,47 @@
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package androidx.compose.frames
 
-import java.util.BitSet
-import java.util.HashSet
+import androidx.compose.BitSet
+import androidx.compose.Recomposer
+import androidx.compose.ThreadLocal
+import androidx.compose.synchronized
 
 class FrameAborted(val frame: Frame) : RuntimeException("Frame aborted")
+
+/**
+ * The frame records are created with frame ID CREATION_FRAME when not in a frame.
+ * This allows framed object to be created in the in static initializers when a
+ * frame could not have been created yet.
+ *
+ * The value 2 was chosen because it must be greater than 0, as 0 is reserved to
+ * indicated an invalid frame (in order to avoid an uninitialized record begin
+ * treated a valid record) and 1 is odd and treated as a speculation frame. That
+ * leaves 2 as the lowest valid frame.
+ */
+private const val CREATION_FRAME = 2
+
+/**
+ * Base implementation of a frame record
+ */
+abstract class AbstractRecord : Record {
+    override var frameId: Int = threadFrame.get()?.id ?: CREATION_FRAME
+    override var next: Record? = null
+}
 
 /**
  * Frame local values of a framed object.
@@ -30,31 +68,16 @@ interface Record {
     fun create(): Record
 }
 
-/**
- * The frame records are created with frame ID CREATION_FRAME when not in a frame.
- * This allows framed object to be created in the in static initializers when a
- * frame could not have been created yet.
- *
- * The value 2 was chosen because it must be greater than 0, as 0 is reserved to
- * indicated an invalid frame (in order to avoid an uninitialized record begin
- * treated a valid record) and 1 is odd and treated as a speculation frame. That
- * leaves 2 as the lowest valid frame.
- */
-private const val CREATION_FRAME = 2
-
-/**
- * Base implementation of a frame record
- */
-abstract class AbstractRecord : Record {
-    override var frameId: Int = threadFrame.get()?.id ?: CREATION_FRAME
-    override var next: Record? = null
+interface Framed {
+    val firstFrameRecord: Record
+    fun prependFrameRecord(value: Record)
 }
-
-internal val threadFrame = ThreadLocal<Frame>()
 
 typealias FrameReadObserver = (read: Any) -> Unit
 typealias FrameWriteObserver = (write: Any) -> Unit
 typealias FrameCommitObserver = (committed: Set<Any>) -> Unit
+
+private val threadFrame = ThreadLocal<Frame>()
 
 /**
  * Information about a frame including the frame id and whether or not it is read only.
@@ -129,7 +152,7 @@ fun currentFrame(): Frame {
 val inFrame: Boolean get() = threadFrame.get() != null
 
 // A global synchronization object
-private val sync = Object()
+private val sync = Any()
 
 // The following variables should only be written when sync is taken
 private val openFrames = BitSet()
@@ -418,11 +441,6 @@ fun _readable(r: Record, framed: Framed): Record = r.readable(framed)
 fun _writable(r: Record, framed: Framed): Record = r.writable(framed)
 fun _created(framed: Framed) = threadFrame.get()?.writeObserver?.let { it(framed) }
 
-interface Framed {
-    val firstFrameRecord: Record
-    fun prependFrameRecord(value: Record)
-}
-
 fun <T : Record> T.writable(framed: Framed): T {
     return this.writable(framed, currentFrame())
 }
@@ -494,8 +512,8 @@ fun <T : Record> T.writable(framed: Framed, frame: Frame): T {
         @Suppress("UNCHECKED_CAST")
         (used(framed, id, frame.invalid) as T?)?.apply { frameId = Int.MAX_VALUE }
             ?: readData.create().apply {
-            frameId = Int.MAX_VALUE; framed.prependFrameRecord(this as T)
-        } as T
+                frameId = Int.MAX_VALUE; framed.prependFrameRecord(this as T)
+            } as T
     }
     newData.assign(readData)
     newData.frameId = id

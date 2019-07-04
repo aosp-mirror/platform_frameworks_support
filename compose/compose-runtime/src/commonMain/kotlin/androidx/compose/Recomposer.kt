@@ -16,10 +16,6 @@
 
 package androidx.compose
 
-import android.annotation.SuppressLint
-import android.os.Looper
-import android.view.Choreographer
-
 abstract class Recomposer {
 
     companion object {
@@ -31,17 +27,20 @@ abstract class Recomposer {
          */
         fun hasPendingChanges() = current().hasPendingChanges()
 
-        @SuppressLint("SyntheticAccessor")
+//        @SuppressLint("SyntheticAccessor")
         internal fun current(): Recomposer {
-            assert(Looper.myLooper() == Looper.getMainLooper())
+            assertState(LooperWrapper.myLooper() == LooperWrapper.getMainLooper()) {
+                "No Recomposer for this Thread"
+            }
             return threadRecomposer.get() ?: error("No Recomposer for this Thread")
         }
 
         internal fun recompose(component: Component, composer: Composer<*>) =
             current().recompose(component, composer)
 
-        private val threadRecomposer = object : ThreadLocal<Recomposer>() {
-            override fun initialValue(): Recomposer? = AndroidRecomposer()
+        // TODO delete the explicit type after https://youtrack.jetbrains.com/issue/KT-20996
+        private val threadRecomposer: ThreadLocal<Recomposer> = object : ThreadLocal<Recomposer>() {
+            override fun initialValue(): Recomposer? = createRecomposer()
         }
     }
 
@@ -104,21 +103,4 @@ abstract class Recomposer {
     }
 }
 
-private class AndroidRecomposer : Recomposer() {
-
-    private var frameScheduled = false
-
-    private val frameCallback = Choreographer.FrameCallback {
-        frameScheduled = false
-        dispatchRecomposes()
-    }
-
-    override fun scheduleChangesDispatch() {
-        if (!frameScheduled) {
-            frameScheduled = true
-            Choreographer.getInstance().postFrameCallback(frameCallback)
-        }
-    }
-
-    override fun hasPendingChanges(): Boolean = frameScheduled
-}
+internal expect fun createRecomposer(): Recomposer

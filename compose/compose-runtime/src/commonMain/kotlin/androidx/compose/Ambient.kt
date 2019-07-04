@@ -87,7 +87,7 @@ internal constructor(private val key: String, private val defaultFactory: (() ->
          *  will be thrown. This factory will not be executed more than once.
          */
         inline fun <reified T> of(
-            key: String = T::class.java.simpleName,
+            key: String = T::class.simpleName!!,
             noinline defaultFactory: (() -> T)? = null
         ) = Ambient(key, defaultFactory)
     }
@@ -114,7 +114,7 @@ internal constructor(private val key: String, private val defaultFactory: (() ->
     fun Provider(
         value: T,
         @Children
-                children: @Composable() () -> Unit
+        children: @Composable() () -> Unit
     ) {
         with(currentComposerNonNull) {
             val holder = +memo {

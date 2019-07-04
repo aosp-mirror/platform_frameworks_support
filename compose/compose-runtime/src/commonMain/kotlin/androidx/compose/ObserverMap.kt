@@ -16,8 +16,6 @@
 
 package androidx.compose
 
-import java.lang.ref.WeakReference
-
 /**
  * A map from a key to a set of values used for keeping the relation between some
  * entities and a models changes of which this entities are observing.
@@ -104,7 +102,7 @@ class ObserverMap<K : Any, V : Any> {
  */
 private class WeakIdentity<T : Any>(value: T) {
     // Save the hash code of value as it might be reclaimed making value.hashCode inaccessible
-    private val myHc = System.identityHashCode(value)
+    private val myHc = identityHashCode(value)
 
     // Preserve a weak reference to the value to prevent read observers from leaking observed values
     private val weakValue = WeakReference(value)

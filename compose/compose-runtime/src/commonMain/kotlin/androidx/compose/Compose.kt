@@ -16,15 +16,6 @@
 
 package androidx.compose
 
-import android.app.Activity
-import android.content.Context
-import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.annotation.MainThread
-import org.jetbrains.annotations.TestOnly
-import java.util.WeakHashMap
-
 // TODO(lmr): consider moving this to the ViewComposer directly
 /**
  * A global namespace to hold some Compose utility methods, such as [Compose.composeInto] and
@@ -59,7 +50,7 @@ object Compose {
         while (node != null) {
             val cc = node.getTag(TAG_ROOT_COMPONENT) as? Component
             if (cc != null) return cc
-            node = node.parent as? View
+            node = node.getParent() as? View
         }
         return null
     }
@@ -128,7 +119,7 @@ object Compose {
             root.composable = composable
             setRoot(container, root)
             val cc = CompositionContext.prepare(
-                container.context,
+                container.getContext(),
                 container,
                 root,
                 parent
@@ -245,11 +236,7 @@ fun Activity.setContent(composable: @Composable() () -> Unit): CompositionContex
     // If there is already a FrameLayout in the root, we assume we want to compose
     // into it instead of create a new one. This allows for `setContent` to be
     // called multiple times.
-    val root = window
-        .decorView
-        .findViewById<ViewGroup>(android.R.id.content)
-        .getChildAt(0) as? ViewGroup
-    ?: FrameLayout(this).also { setContentView(it) }
+    val root = getRootViewWithFallback()
     return root.compose(composable)
 }
 
@@ -261,10 +248,7 @@ fun Activity.setContent(composable: @Composable() () -> Unit): CompositionContex
  * @see Compose.disposeComposition
  */
 fun Activity.disposeComposition() {
-    val view = window
-        .decorView
-        .findViewById<ViewGroup>(android.R.id.content)
-        .getChildAt(0) as? ViewGroup
+    val view = getRootView()
         ?: error("No root view found")
     Compose.disposeComposition(view, null)
 }

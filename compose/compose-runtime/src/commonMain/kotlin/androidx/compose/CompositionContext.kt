@@ -16,8 +16,6 @@
 
 package androidx.compose
 
-import android.content.Context
-
 // TODO(lmr): this is really only needed for "composition management", but that could maybe move
 // somewhere else. Consider ways to remove this class. Maybe should merge with FrameManager?
 class CompositionContext private constructor(val component: Component, val composer: Composer<*>) {
@@ -30,7 +28,7 @@ class CompositionContext private constructor(val component: Component, val compo
         ) = prepare(
             component,
             compositionReference
-        ) { ViewComposer(root, context, this) }
+        ) { createComposer(root, context, this) }
 
         fun prepare(
             component: Component,

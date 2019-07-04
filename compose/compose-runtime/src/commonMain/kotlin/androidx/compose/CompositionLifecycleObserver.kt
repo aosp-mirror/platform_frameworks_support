@@ -43,5 +43,5 @@ internal class CompositionLifecycleObserverHolder(val instance: CompositionLifec
     override fun equals(other: Any?): Boolean =
         other === instance || other is CompositionLifecycleObserverHolder &&
                 instance === other.instance
-    override fun hashCode(): Int = System.identityHashCode(instance)
+    override fun hashCode(): Int = identityHashCode(instance)
 }

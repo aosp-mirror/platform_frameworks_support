@@ -1,4 +1,22 @@
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package androidx.compose.frames
+
+import kotlin.jvm.JvmField
 
 class ModelList<T> : MutableList<T>, Framed {
     private var myFirst: Record =
@@ -12,16 +30,16 @@ class ModelList<T> : MutableList<T>, Framed {
 
     @Suppress("UNCHECKED_CAST") private val readable: ArrayContainer<T>
         get() =
-        _readable(
-            myFirst,
-            this
-        ) as ArrayContainer<T>
+            _readable(
+                myFirst,
+                this
+            ) as ArrayContainer<T>
     @Suppress("UNCHECKED_CAST") private val writable: ArrayContainer<T>
         get() =
-        _writable(
-            myFirst,
-            this
-        ) as ArrayContainer<T>
+            _writable(
+                myFirst,
+                this
+            ) as ArrayContainer<T>
 
     fun asMutable(): MutableList<T> = writable.list
 
@@ -53,12 +71,14 @@ class ModelList<T> : MutableList<T>, Framed {
         writable.list.subList(fromIndex, toIndex)
 
     private class ArrayContainer<T> : AbstractRecord() {
-        @JvmField var list: ArrayList<T> = arrayListOf<T>()
+        @JvmField
+        var list: ArrayList<T> = arrayListOf<T>()
 
         override fun assign(value: Record) {
             @Suppress("UNCHECKED_CAST")
             (value as? ArrayContainer<T>)?.let {
-                this.list = it.list.clone() as ArrayList<T>
+                this.list = it.list.toList() as ArrayList<T>
+//                this.list = it.list.clone() as ArrayList<T>
             }
         }
 
@@ -145,23 +165,26 @@ private fun <T> immutableSet(set: MutableSet<T>): MutableSet<T> = object : Mutab
     override fun retainAll(elements: Collection<T>): Boolean = error()
 }
 
+// TODO delete the explicit type after https://youtrack.jetbrains.com/issue/KT-20996
 private fun <T> immutableIterator(
     iterator: MutableIterator<T>
-) = object : MutableIterator<T> by iterator {
+): MutableIterator<T> = object : MutableIterator<T> by iterator {
     override fun remove() = error()
 }
 
+// TODO delete the explicit type after https://youtrack.jetbrains.com/issue/KT-20996
 private fun <T> immutableListIterator(
     iterator: MutableListIterator<T>
-) = object : MutableListIterator<T> by iterator {
+): MutableListIterator<T> = object : MutableListIterator<T> by iterator {
     override fun add(element: T) = error()
     override fun remove() = error()
     override fun set(element: T) = error()
 }
 
+// TODO delete the explicit type after https://youtrack.jetbrains.com/issue/KT-20996
 private fun <T> immutableCollection(
     collection: MutableCollection<T>
-) = object : MutableCollection<T> by collection {
+): MutableCollection<T> = object : MutableCollection<T> by collection {
     override fun add(element: T): Boolean = error()
     override fun addAll(elements: Collection<T>): Boolean = error()
     override fun clear() = error()

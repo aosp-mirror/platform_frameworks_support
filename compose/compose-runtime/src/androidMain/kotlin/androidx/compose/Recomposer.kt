@@ -16,17 +16,27 @@
 
 package androidx.compose
 
-import android.os.Trace
+import android.view.Choreographer
 
-/**
- * Wrap the specified [block] in calls to [Trace.beginSection] (with the supplied [sectionName])
- * and [Trace.endSection].
- */
-inline fun <T> trace(sectionName: String, block: () -> T): T {
-    Trace.beginSection(sectionName)
-    try {
-        return block()
-    } finally {
-        Trace.endSection()
+private class AndroidRecomposer : Recomposer() {
+
+    private var frameScheduled = false
+
+    private val frameCallback = Choreographer.FrameCallback {
+        frameScheduled = false
+        dispatchRecomposes()
     }
+
+    override fun scheduleChangesDispatch() {
+        if (!frameScheduled) {
+            frameScheduled = true
+            Choreographer.getInstance().postFrameCallback(frameCallback)
+        }
+    }
+
+    override fun hasPendingChanges(): Boolean = frameScheduled
+}
+
+internal actual fun createRecomposer(): Recomposer {
+    return AndroidRecomposer()
 }

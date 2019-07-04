@@ -16,8 +16,6 @@
 
 package androidx.compose
 
-import android.os.Handler
-import android.os.Looper
 import androidx.compose.frames.open
 import androidx.compose.frames.commit
 import androidx.compose.frames.suspend
@@ -40,7 +38,7 @@ object FrameManager {
     private var invalidations = ObserverMap<Any, RecomposeScope>()
     private var removeCommitObserver: (() -> Unit)? = null
 
-    private val handler by lazy { Handler(Looper.getMainLooper()) }
+    private val handler by lazy { Handler(LooperWrapper.getMainLooper()) }
 
     fun ensureStarted() {
         if (!started) {

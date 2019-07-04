@@ -42,4 +42,4 @@ fun Observe(@Children body: @Composable() () -> Unit) =
         }
     }
 
-private val observer = Object()
+private val observer = Any()

@@ -172,7 +172,7 @@ open class SlotEditor internal constructor(val table: SlotTable) {
         nodeCount = 0
         if (validate) {
             val groupStart = advance().asGroupStart
-            assert(groupStart.kind == kind) { "Group kind changed" }
+            assertState(groupStart.kind == kind) { "Group kind changed" }
             currentEnd = current + groupStart.slots
         }
     }
@@ -197,16 +197,16 @@ open class SlotEditor internal constructor(val table: SlotTable) {
 
     internal fun recordEndGroup(writing: Boolean, inserting: Boolean, uncertain: Boolean): Int {
         var count = nodeCount
-        assert(!startStack.isEmpty()) {
+        assertState(!startStack.isEmpty()) {
             "Invalid state. Unbalanced calls to startGroup() and endGroup()"
         }
-        assert(inserting || current == currentEnd) { "Expected to be at the end of a group" }
+        assertState(inserting || current == currentEnd) { "Expected to be at the end of a group" }
 
         // Update group length
         val startLocation = startStack.pop()
         val groupKind = groupKindStack.pop()
         val effectiveStartLocation = effectiveIndex(startLocation)
-        assert(slots[effectiveStartLocation] === SlotTable.EMPTY ||
+        assertState(slots[effectiveStartLocation] === SlotTable.EMPTY ||
                 slots[effectiveStartLocation] is GroupStart
         ) {
             "Invalid state. Start location stack doesn't refer to a start location"
@@ -217,7 +217,7 @@ open class SlotEditor internal constructor(val table: SlotTable) {
         } else {
             val start = slots[effectiveStartLocation].asGroupStart
             // A node count < 0 means that it was reported as uncertain while reading
-            assert(start.slots == len && (nodeCount == start.nodes || uncertain)) {
+            assertState(start.slots == len && (nodeCount == start.nodes || uncertain)) {
                 "Invalid endGroup call, expected ${start.slots} slots and ${
                 start.nodes} nodes but received, $len slots and $nodeCount nodes"
             }
@@ -261,7 +261,7 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
      */
     fun previous() {
         if (emptyCount <= 0) {
-            assert(current > 0) { "Invalid call to previous" }
+            assertState(current > 0) { "Invalid call to previous" }
             current--
         }
     }
@@ -280,7 +280,7 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
      * End reporting empty for calls to net() and get().
      */
     fun endEmpty() {
-        assert(emptyCount > 0) { "Unbalanced begin/end empty" }
+        assertState(emptyCount > 0) { "Unbalanced begin/end empty" }
         emptyCount--
     }
 
@@ -302,7 +302,7 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
      *  Skip a group. Must be called at the start of a group.
      */
     fun skipGroup(): Int {
-        assert(emptyCount == 0) { "Cannot skip while in an empty region" }
+        assertState(emptyCount == 0) { "Cannot skip while in an empty region" }
         return advanceToNextGroup()
     }
 
@@ -310,8 +310,8 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
      * Skip the to the end of the group.
      */
     fun skipEnclosingGroup(): Int {
-        assert(emptyCount == 0) { "Cannot skip the enclosing group while in an empty region" }
-        assert(startStack.isNotEmpty()) { "No enclosing group to skip" }
+        assertState(emptyCount == 0) { "Cannot skip the enclosing group while in an empty region" }
+        assertState(startStack.isNotEmpty()) { "No enclosing group to skip" }
         val startLocation = startStack.peek()
         val start = get(startLocation).asGroupStart
         current = currentEnd
@@ -347,7 +347,7 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
      * Skip the current item
      */
     fun skipItem(): Int {
-        assert(emptyCount == 0) { "Cannot skip an item in an empty region" }
+        assertState(emptyCount == 0) { "Cannot skip an item in an empty region" }
         return advanceToNextItem()
     }
 
@@ -376,7 +376,7 @@ class SlotReader internal constructor(table: SlotTable) : SlotEditor(table) {
     }
 
     override fun toString(): String {
-        return "${javaClass.simpleName}(current=$current, size=${slots.size - table.gapLen}, gap=${
+        return "${this::class.simpleName}(current=$current, size=${slots.size - table.gapLen}, gap=${
         if (table.gapLen > 0) "$table.gapStart-${table.gapStart + table.gapLen - 1}" else "none"}${
         if (inEmpty) ", in empty" else ""})"
     }
@@ -420,7 +420,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
      * current to be before the key.
      */
     fun previous() {
-        assert(current > 0) { "Invalid call to previous" }
+        assertState(current > 0) { "Invalid call to previous" }
         current--
     }
 
@@ -436,7 +436,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
      * Ends inserting.
      */
     fun endInsert() {
-        assert(insertCount > 0) { "Unbalenced begin/end insert" }
+        assertState(insertCount > 0) { "Unbalenced begin/end insert" }
         insertCount--
     }
 
@@ -458,7 +458,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
      *  Skip a group. Must be called at the start of a group.
      */
     fun skipGroup(): Int {
-        assert(insertCount == 0) { "Cannot skip while inserting" }
+        assertState(insertCount == 0) { "Cannot skip while inserting" }
         return advanceToNextGroup()
     }
 
@@ -473,7 +473,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
      * a keyed group is expected.
      */
     fun moveItem(offset: Int) {
-        assert(insertCount == 0) { "Cannot move an item while inserting" }
+        assertState(insertCount == 0) { "Cannot move an item while inserting" }
         val oldCurrent = current
         val oldNodeCount = nodeCount
 
@@ -495,7 +495,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
         val newMoveLocation = moveLocation + moveLen
         current = oldCurrent
         nodeCount = oldNodeCount
-        System.arraycopy(
+        arraycopy(
             slots,
             effectiveIndex(newMoveLocation),
             slots,
@@ -508,14 +508,14 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
 
         // Remove the now duplicate entries
         val anchorsRemoved = remove(moveLocation + moveLen, moveLen)
-        assert(!anchorsRemoved) { "Unexpectedly removed anchors" }
+        assertState(!anchorsRemoved) { "Unexpectedly removed anchors" }
     }
 
     /**
      * Remove an item. Must be called at the startGroup of an item.
      */
     fun removeItem(): Boolean {
-        assert(insertCount == 0) { "Cannot remove and item while inserting" }
+        assertState(insertCount == 0) { "Cannot remove and item while inserting" }
         val oldCurrent = current
         val count = advanceToNextItem()
         val anchorsRemoved = remove(oldCurrent, current - oldCurrent)
@@ -560,7 +560,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
      * Skip the current item
      */
     fun skipItem(): Int {
-        assert(insertCount == 0) { "Cannot skip an item while inserting" }
+        assertState(insertCount == 0) { "Cannot skip an item while inserting" }
         return advanceToNextItem()
     }
 
@@ -579,10 +579,10 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
                 if (table.anchors.isNotEmpty()) table.updateAnchors(index)
                 if (index < table.gapStart) {
                     val len = table.gapStart - index
-                    System.arraycopy(slots, index, slots, index + table.gapLen, len)
+                    arraycopy(slots, index, slots, index + table.gapLen, len)
                 } else {
                     val len = index - table.gapStart
-                    System.arraycopy(
+                    arraycopy(
                         slots,
                         table.gapStart + table.gapLen,
                         slots,
@@ -607,8 +607,8 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
                     val oldCapacity = slots.size
                     val oldSize = slots.size - table.gapLen
                     // Double the size of the array, but at least MIN_GROWTH_SIZE and >= size
-                    val newCapacity = Math.max(
-                        Math.max(oldCapacity * 2, oldSize + size),
+                    val newCapacity = kotlin.math.max(
+                        kotlin.math.max(oldCapacity * 2, oldSize + size),
                         MIN_GROWTH_SIZE
                     )
                     val newSlots = arrayOfNulls<Any?>(newCapacity)
@@ -616,8 +616,8 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
                     val oldGapEnd = table.gapStart + table.gapLen
                     val newGapEnd = table.gapStart + newGapLen
                     // Copy the old array into the new array
-                    System.arraycopy(slots, 0, newSlots, 0, table.gapStart)
-                    System.arraycopy(slots, oldGapEnd, newSlots, newGapEnd, oldCapacity - oldGapEnd)
+                    arraycopy(slots, 0, newSlots, 0, table.gapStart)
+                    arraycopy(slots, oldGapEnd, newSlots, newGapEnd, oldCapacity - oldGapEnd)
 
                     // Update the anchors
                     if (table.anchors.isNotEmpty()) table.anchorGapResize(newGapLen - table.gapLen)
@@ -637,6 +637,8 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
             pendingClear = true
         }
     }
+
+
 
     internal fun remove(start: Int, len: Int): Boolean {
         return if (len > 0) {
@@ -667,7 +669,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
             pendingClear = false
             table.clearGap()
         }
-        return "${javaClass.simpleName}(current=$current, size=${slots.size - table.gapLen}, gap=${
+        return "${this::class.simpleName}(current=$current, size=${slots.size - table.gapLen}, gap=${
         if (table.gapLen > 0) "$table.gapStart-${table.gapStart + table.gapLen - 1}" else "none"}${
         if (insertCount > 0) ", inserting" else ""})"
     }
@@ -708,12 +710,12 @@ class SlotTable(internal var slots: Array<Any?> = arrayOf()) {
     }
 
     internal fun close(reader: SlotReader) {
-        assert(reader.table === this && readers > 0) { "Unexpected reader close()" }
+        assertState(reader.table === this && readers > 0) { "Unexpected reader close()" }
         readers--
     }
 
     internal fun close(writer: SlotWriter) {
-        assert(writer.table === this && this.writer) { "Unexpected writer close()" }
+        assertState(writer.table === this && this.writer) { "Unexpected writer close()" }
         this.writer = false
         clearGap()
     }

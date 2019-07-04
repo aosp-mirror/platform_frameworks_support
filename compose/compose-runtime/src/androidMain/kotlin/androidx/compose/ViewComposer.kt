@@ -384,7 +384,7 @@ class ViewComposer(
     }
 }
 
-internal val currentComposerNonNull
+internal actual val currentComposerNonNull
     get() = currentComposer ?: emptyComposition()
 
 private fun emptyComposition(): Nothing =
@@ -392,10 +392,10 @@ private fun emptyComposition(): Nothing =
 
 val composer get() = ViewComposition(currentComposerNonNull as ViewComposer)
 
-internal var currentComposer: Composer<*>? = null
+internal actual var currentComposer: Composer<*>? = null
     private set
 
-fun <T> Composer<*>.runWithCurrent(block: () -> T): T {
+actual fun <T> Composer<*>.runWithCurrent(block: () -> T): T {
     val prev = currentComposer
     try {
         currentComposer = this
@@ -411,14 +411,6 @@ fun ViewComposition.registerAdapter(
 
 typealias ViewUpdater<T> = ComposerUpdater<Any, T>
 
-@PublishedApi
-internal val invocation = Object()
-
-@PublishedApi
-internal val provider = Object()
-
-@PublishedApi
-internal val consumer = Object()
-
-@PublishedApi
-internal val reference = Object()
+internal actual fun createComposer(root: Any, context: Context, recomposer: Recomposer): Composer<*> {
+    return ViewComposer(root, context, recomposer)
+}

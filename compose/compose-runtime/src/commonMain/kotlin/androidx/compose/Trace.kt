@@ -16,7 +16,20 @@
 
 package androidx.compose
 
-internal data class JoinedKey(
-    @JvmField val left: Any?,
-    @JvmField val right: Any?
-)
+expect object Trace {
+    fun beginSection(name: String)
+    fun endSection()
+}
+
+/**
+ * Wrap the specified [block] in calls to [Trace.beginSection] (with the supplied [sectionName])
+ * and [Trace.endSection].
+ */
+inline fun <T> trace(sectionName: String, block: () -> T): T {
+    Trace.beginSection(sectionName)
+    try {
+        return block()
+    } finally {
+        Trace.endSection()
+    }
+}
