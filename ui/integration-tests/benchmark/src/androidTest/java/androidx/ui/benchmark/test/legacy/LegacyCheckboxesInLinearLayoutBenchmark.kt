@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-package androidx.ui.test
+package androidx.ui.benchmark.test.legacy
 
 import android.app.Activity
-import androidx.compose.composer
-import androidx.test.filters.MediumTest
+import androidx.benchmark.BenchmarkRule
+import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import androidx.ui.benchmark.measureDrawPerf
+import androidx.ui.benchmark.measureLayoutPerf
+import androidx.ui.test.cases.CheckboxesInRowsTestCase
+import androidx.ui.test.DisableTransitions
+import androidx.ui.test.cases.legacy.LegacyCheckboxesInLinearLayoutTestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 /**
- * Ensure correctness of [RectanglesInColumnTestCase].
+ * Benchmark that runs [CheckboxesInRowsTestCase].
  */
-@MediumTest
+@LargeTest
 @RunWith(Parameterized::class)
-class ColoredRectTest(private val numberOfRectangles: Int) {
+class LegacyCheckboxesInLinearLayoutBenchmark(private val numberOfCheckboxes: Int) {
 
     companion object {
         @JvmStatic
@@ -39,30 +44,25 @@ class ColoredRectTest(private val numberOfRectangles: Int) {
     }
 
     @get:Rule
+    val benchmarkRule = BenchmarkRule()
+
+    @get:Rule
     val activityRule = ActivityTestRule(Activity::class.java)
 
     @get:Rule
     val disableAnimationRule = DisableTransitions()
 
     @Test
-    fun toggleRectangleColor_compose() {
-        activityRule.runOnUiThread(object : Runnable {
-            override fun run() {
-                val testCase = RectanglesInColumnTestCase(activityRule.activity, numberOfRectangles)
-                    .apply { runSetup() }
-
-                testCase.compositionContext.recomposeSyncAssertNoChanges()
-
-                // Change state
-                testCase.toggleState()
-
-                // Recompose our changes
-                testCase.compositionContext.recomposeSyncAssertHadChanges()
-
-                // No other compositions should be pending
-                testCase.compositionContext.recomposeSyncAssertNoChanges()
-            }
-        })
+    fun layout() {
+        val testCase = LegacyCheckboxesInLinearLayoutTestCase(activityRule.activity,
+            numberOfCheckboxes)
+        benchmarkRule.measureLayoutPerf(activityRule.activity, testCase)
     }
 
+    @Test
+    fun draw() {
+        val testCase = LegacyCheckboxesInLinearLayoutTestCase(activityRule.activity,
+            numberOfCheckboxes)
+        benchmarkRule.measureDrawPerf(activityRule.activity, testCase)
+    }
 }

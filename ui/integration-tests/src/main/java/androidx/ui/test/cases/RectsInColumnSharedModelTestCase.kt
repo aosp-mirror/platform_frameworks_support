@@ -14,34 +14,37 @@
  * limitations under the License.
  */
 
-package androidx.ui.test
+package androidx.ui.test.cases
 
-import androidx.compose.composer
 import android.app.Activity
-import androidx.compose.CompositionContext
+import androidx.compose.composer
 import androidx.compose.FrameManager
 import androidx.compose.Model
 import androidx.ui.core.dp
 import androidx.ui.foundation.ColoredRect
 import androidx.ui.graphics.Color
 import androidx.ui.layout.Column
+import androidx.ui.test.ComposeMaterialIntoActivity
+import androidx.ui.test.ComposeTestCase
 
 @Model
-class RectanglesInColumnTestCaseColorModel(var color: Color)
+private class RectanglesInColumnTestCaseColorModel(var color: Color)
 
 /**
  * Test case that puts the given amount of rectangles into a column layout and makes changes by
  * modifying the color used in the model.
+ *
+ * Note: Rectangle are created in for loop that reference a single model. Currently it will happen
+ * that the whole loop has to be re-run when model changes.
  */
-class RectanglesInColumnTestCase(
-    private val activity: Activity,
+class RectsInColumnSharedModelTestCase(
+    activity: Activity,
     private val amountOfRectangles: Int
-) {
+) : ComposeTestCase(activity) {
 
     private val model = RectanglesInColumnTestCaseColorModel(Color.Black)
-    lateinit var compositionContext: CompositionContext
 
-    fun runSetup() {
+    override fun runSetup() {
         compositionContext = ComposeMaterialIntoActivity(activity) {
             Column {
                 repeat(amountOfRectangles) { i ->
@@ -54,6 +57,12 @@ class RectanglesInColumnTestCase(
             }
         }!!
         FrameManager.nextFrame()
+
+        view = activity.findViewById(android.R.id.content)
+
+        measure()
+        layout()
+        drawSlow()
     }
 
     fun toggleState() {
