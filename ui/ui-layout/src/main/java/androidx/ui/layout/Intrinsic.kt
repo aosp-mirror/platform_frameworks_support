@@ -91,6 +91,17 @@ fun MinIntrinsicHeight(@Children children: @Composable() () -> Unit) {
 /**
  * Layout widget that forces its child to be as wide as its max intrinsic width.
  * If incoming constraints do not allow this, the closest possible width will be used.
+ *
+ * Example usage:
+ *
+ * @sample androidx.ui.layout.samples.SameWidthButtons
+ *
+ * The sample is a layout containing three widgets having the same width as the widest one.
+ * Here [MaxIntrinsicWidth] is adding a speculative width measurement pass for the [Column],
+ * whose maximum intrinsic width will correspond to the width of the largest [Text]. Then
+ * [MaxIntrinsicWidth] will measure the [Column] with tight width, the same as the premeasured
+ * maximum intrinsic width, which due to [CrossAxisAlignment.Stretch] will force the [Text] [Wrap]s
+ * to use the same width.
  */
 @Composable
 fun MaxIntrinsicWidth(@Children children: @Composable() () -> Unit) {
@@ -123,13 +134,25 @@ fun MaxIntrinsicWidth(@Children children: @Composable() () -> Unit) {
 /**
  * Layout widget that forces its child to be as tall as its max intrinsic height.
  * If incoming constraints do not allow this, the closest possible height will be used.
+ *
+ * Example usage:
+ *
+ * @sample androidx.ui.layout.samples.MatchParentDivider
+ *
+ * The sample is a layout containing two pieces of text separated by a divider, where the divider
+ * is sized according to the height of the longest text.
+ * Here [MaxIntrinsicHeight] is adding a speculative height measurement pass for the [FlexRow],
+ * whose maximum intrinsic height will correspond to the height of the largest [Text]. Then
+ * [MaxIntrinsicHeight] will measure the [FlexRow] with tight height, the same as the premeasured
+ * maximum intrinsic height, which due to [CrossAxisAlignment.Stretch] will force the [Text]s and
+ * the divider to use the same height.
  */
 @Composable
 fun MaxIntrinsicHeight(@Children children: @Composable() () -> Unit) {
     ComplexLayout(children) {
         layout { measurables, constraints ->
             val measurable = measurables.firstOrNull()
-            val height = measurable?.maxIntrinsicHeight(constraints.maxHeight) ?: 0.ipx
+            val height = measurable?.maxIntrinsicHeight(constraints.maxWidth) ?: 0.ipx
             val placeable = measurable?.measure(
                 Constraints.tightConstraintsForHeight(height).enforce(constraints)
             )
