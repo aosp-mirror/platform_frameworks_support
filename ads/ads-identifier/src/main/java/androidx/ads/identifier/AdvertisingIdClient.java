@@ -33,6 +33,7 @@ import androidx.ads.identifier.internal.BlockingServiceConnection;
 import androidx.ads.identifier.provider.IAdvertisingIdService;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.core.util.Preconditions;
@@ -220,6 +221,14 @@ public class AdvertisingIdClient {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalStateException("Calling this from your main thread can lead to ANR.");
         }
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @VisibleForTesting
+    public static void clearForTesting() {
     }
 
     /**
