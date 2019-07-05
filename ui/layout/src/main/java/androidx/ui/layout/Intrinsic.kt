@@ -91,6 +91,10 @@ fun MinIntrinsicHeight(@Children children: @Composable() () -> Unit) {
 /**
  * Layout widget that forces its child to be as wide as its max intrinsic width.
  * If incoming constraints do not allow this, the closest possible width will be used.
+ *
+ * Example usage:
+ *
+ * @sample androidx.ui.layout.samples.SameWidthButtons
  */
 @Composable
 fun MaxIntrinsicWidth(@Children children: @Composable() () -> Unit) {
@@ -123,13 +127,17 @@ fun MaxIntrinsicWidth(@Children children: @Composable() () -> Unit) {
 /**
  * Layout widget that forces its child to be as tall as its max intrinsic height.
  * If incoming constraints do not allow this, the closest possible height will be used.
+ *
+ * Example usage:
+ *
+ * @sample androidx.ui.layout.samples.MatchParentDivider
  */
 @Composable
 fun MaxIntrinsicHeight(@Children children: @Composable() () -> Unit) {
     ComplexLayout(children) {
         layout { measurables, constraints ->
             val measurable = measurables.firstOrNull()
-            val height = measurable?.maxIntrinsicHeight(constraints.maxHeight) ?: 0.ipx
+            val height = measurable?.maxIntrinsicHeight(constraints.maxWidth) ?: 0.ipx
             val placeable = measurable?.measure(
                 Constraints.tightConstraintsForHeight(height).enforce(constraints)
             )

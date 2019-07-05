@@ -22,16 +22,23 @@ import androidx.compose.composer
 import androidx.ui.core.Dp
 import androidx.ui.core.Draw
 import androidx.ui.core.Layout
+import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.core.toRect
 import androidx.ui.graphics.Color
 import androidx.ui.layout.Alignment
 import androidx.ui.layout.Center
 import androidx.ui.layout.Column
+import androidx.ui.layout.Container
+import androidx.ui.layout.CrossAxisAlignment
 import androidx.ui.layout.FlexColumn
 import androidx.ui.layout.FlexRow
+import androidx.ui.layout.MaxIntrinsicHeight
+import androidx.ui.layout.MaxIntrinsicWidth
 import androidx.ui.layout.Row
 import androidx.ui.layout.Stack
+import androidx.ui.layout.Wrap
+import androidx.ui.material.Button
 import androidx.ui.painting.Paint
 
 /**
@@ -131,5 +138,59 @@ fun SimpleColumn() {
         SizedRectangle(color = Color(0xFF0000FF.toInt()), width = 40.dp, height = 40.dp)
         SizedRectangle(color = Color(0xFFFF0000.toInt()), width = 40.dp, height = 80.dp)
         SizedRectangle(color = Color(0xFF00FF00.toInt()), width = 80.dp, height = 70.dp)
+    }
+}
+
+/**
+ * Builds a layout containing three buttons having the same width as the widest one.
+ *
+ * Here [MaxIntrinsicWidth] is adding a speculative width measurement pass for the [Column],
+ * whose maximum intrinsic width will correspond to the width of the largest [Button]. Then
+ * [MaxIntrinsicWidth] will measure the [Column] with tight width, the same as the premeasured
+ * maximum intrinsic width, which due to [CrossAxisAlignment.Stretch] will force the [Button]s
+ * to use the same width.
+ */
+@Sampled
+@Composable
+fun SameWidthButtons() {
+    Wrap {
+        MaxIntrinsicWidth {
+            Column(crossAxisAlignment = CrossAxisAlignment.Stretch) {
+                Button("Text button")
+                Button("Extremely long text button")
+                Button("Longer text button")
+            }
+        }
+    }
+}
+
+/*
+ * Builds a layout containing two pieces of text separated by a divider, where the divider
+ * is sized according to the height of the longest text.
+ *
+ * Here [MaxIntrinsicHeight] is adding a speculative height measurement pass for the [FlexRow],
+ * whose maximum intrinsic height will correspond to the height of the largest [Text]. Then
+ * [MaxIntrinsicHeight] will measure the [FlexRow] with tight height, the same as the premeasured
+ * maximum intrinsic height, which due to [CrossAxisAlignment.Stretch] will force the [Text]s and
+ * the divider to use the same height.
+ */
+@Sampled
+@Composable
+fun MatchParentDivider() {
+    Wrap {
+        MaxIntrinsicHeight {
+            FlexRow(crossAxisAlignment = CrossAxisAlignment.Stretch) {
+                expanded(flex = 1f) {
+                    Text("This is a really short text")
+                }
+                inflexible {
+                    Container(width = 1.dp) { DrawRectangle(Color.Black) }
+                }
+                expanded(flex = 1f) {
+                    Text("This is a much much much much much much much much much much much " +
+                            "much much much much longer text")
+                }
+            }
+        }
     }
 }
