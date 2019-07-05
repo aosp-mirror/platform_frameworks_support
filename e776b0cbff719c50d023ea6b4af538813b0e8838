@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a6a769c6_40c68e14",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T15:11:28Z",
+      "side": 1,
+      "message": "I think the part that complicates this API is that all these actions need onClick as well - so if we wanted a \u0027simpler\u0027 API where we enforce types, we would have to expose something like List\u003cActionData\u003e, where ActionData has a param for text:String, icon: Image, onClick: () -\u003e Unit. The same applies for navigation icon, we would need to expose both an icon and an onclick - this to me seems more complex than the \u003cT\u003e api.\n\nThe other concern I have is that I don\u0027t think it makes sense to mix slots and simple params, if we could have a simple API like Tab, where you just pass a String and an Icon, I think it makes sense to accept a String, but in this case since I think it makes more sense to accept lambdas for icons, to me it seems strange to write something like:\n\nAppBar(title \u003d \"Hello\", button \u003d { NavigationIcon(...) })",
+      "parentUuid": "ac2b1cae_f1432d23",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -367,6 +391,30 @@
       "side": 1,
       "message": "there may be a specific use case where the null default makes sense, but I want to challenge this becoming a pattern. if you provide no navigationIcon, the default icon should kick into place I think, as you may be trying to just overload the FAB without having to reinvent a nav icon or figure out what goes in there to fill the gap\n\nyou have a point with the empty lambdas, might be good to raise with the compiler team on whether this would be a problem we cause",
       "parentUuid": "b4a022b8_0fd0af6f",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54569fc6_bb219f8b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T15:11:28Z",
+      "side": 1,
+      "message": "The problem then is that the navigation icon needs some onClick as well, if we just provide a default icon that doesn\u0027t do anything, it\u0027s not really helpful. And since there isn\u0027t an navigationIconOnClick param, then it can\u0027t even be customized, so I don\u0027t think there\u0027s any value in provided a default one at all. \n\nI imagine we would provide an AppBarNavigationIcon(onClick: () -\u003e Unit) composable that we would recommend as the normal material navigation icon button, but developers are free to provide their own custom composables for this slot. Alternatively we could have another overload, that just accepts a navigationIconOnClick or similar, but then it\u0027s strange because if this is provided, and we are in end-fab mode, then it won\u0027t be applied, so we probably also want to throw in that case, which is not much different from here.",
+      "parentUuid": "b47dcac1_d24d4037",
       "range": {
         "startLine": 174,
         "startChar": 84,
