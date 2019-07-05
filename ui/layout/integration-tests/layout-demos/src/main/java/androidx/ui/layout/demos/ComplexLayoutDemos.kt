@@ -53,7 +53,9 @@ import androidx.compose.onCommit
 import androidx.ui.layout.AspectRatio
 import androidx.ui.layout.Container
 import androidx.ui.layout.EdgeInsets
+import androidx.ui.layout.Wrap
 import androidx.ui.layout.samples.DrawRectangle
+import androidx.ui.layout.samples.SameWidthButtons
 import androidx.ui.layout.samples.SizedRectangle
 
 /**
@@ -361,16 +363,21 @@ fun FillWithRectangles() {
 @Composable
 fun ComplexLayoutDemos() {
     CraneWrapper {
-        Center {
-            ConstrainedBox(DpConstraints(maxWidth = 100.dp)) {
-                AspectRatio(2f) {
-                    DrawRectangle(color = Color.Blue)
-                    Container(padding = EdgeInsets(20.dp)) {
-                        SizedRectangle(color = Color.Black)
-                    }
-                }
+        MaterialTheme {
+            Wrap {
+                SameWidthButtons()
             }
         }
+//        Center {
+//            ConstrainedBox(DpConstraints(maxWidth = 100.dp)) {
+//                AspectRatio(2f) {
+//                    DrawRectangle(color = Color.Blue)
+//                    Container(padding = EdgeInsets(20.dp)) {
+//                        SizedRectangle(color = Color.Black)
+//                    }
+//                }
+//            }
+//        }
     }
 }
 

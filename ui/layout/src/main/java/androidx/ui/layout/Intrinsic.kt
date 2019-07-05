@@ -129,7 +129,7 @@ fun MaxIntrinsicHeight(@Children children: @Composable() () -> Unit) {
     ComplexLayout(children) {
         layout { measurables, constraints ->
             val measurable = measurables.firstOrNull()
-            val height = measurable?.maxIntrinsicHeight(constraints.maxHeight) ?: 0.ipx
+            val height = measurable?.maxIntrinsicHeight(constraints.maxWidth) ?: 0.ipx
             val placeable = measurable?.measure(
                 Constraints.tightConstraintsForHeight(height).enforce(constraints)
             )
