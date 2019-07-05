@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5d2a411_b7088d47",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "I think here you\u0027ve changed the use case. this was trying to target the simplest use case of a top app bar, where you just have a title and some MenuItems (which are still to be designed in the new system). I don\u0027t think the nav icon belongs in the level of api that this was, or Text as a slot, as per what we chatted about this morning. To customize the nav icon, I think you need to go down to the component below this one.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26965ec0_a26e12e7",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "I find this an interesting approach, seems to provide a lot of flexibility. I think there is a common \"data\" class that appears in things like this, buttons and tabs that is text+icon combos, but I like that you leave the door open for any other kind of structure",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b395bd4d_bd592b2f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "rename",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6722b961_ffe7db5d",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "interesting how you changed the names here, these were from material params, which I know do not fully agree with the public Material spec site but this seems like a 3rd set of names? let\u0027s stick with either public spec or Material params and work with Farheen to get those unified",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2053df_2c1f5db1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 1
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c923c38_520919a1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "interesting use case. this is a slotted approach that only exposes the nav icon and FAB, and assumes no actions. let\u0027s rethink what you want to enable here, as I think the \"beginner\" use case is more FAB + actions",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 3
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438da66b_5b995ff8",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "consider instead of null having the default implementation kick in",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "492b03d3_f04d3458",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T13:12:22Z",
+      "side": 1,
+      "message": "this was regular because I was playing around with the extended TopAppBar at one point, note your height may vary in the future :)",
+      "range": {
+        "startLine": 319,
+        "startChar": 12,
+        "endLine": 319,
+        "endChar": 24
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
