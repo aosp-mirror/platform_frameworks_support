@@ -54,6 +54,10 @@ import androidx.ui.layout.AspectRatio
 import androidx.ui.layout.Container
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.samples.DrawRectangle
+import androidx.ui.layout.samples.MatchParentDividerForAspectRatio
+import androidx.ui.layout.samples.MatchParentDividerForText
+import androidx.ui.layout.samples.SameWidthBoxes
+import androidx.ui.layout.samples.SameWidthTextBoxes
 import androidx.ui.layout.samples.SizedRectangle
 
 /**
