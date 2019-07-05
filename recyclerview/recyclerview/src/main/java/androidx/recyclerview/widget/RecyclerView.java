@@ -219,8 +219,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     private static final int[]  NESTED_SCROLLING_ATTRS =
             {16843830 /* android.R.attr.nestedScrollingEnabled */};
 
-    private static final int[] CLIP_TO_PADDING_ATTR = {android.R.attr.clipToPadding};
-
     /**
      * On Kitkat and JB MR2, there is a bug which prevents DisplayList from being invalidated if
      * a View is two levels deep(wrt to ViewHolder.itemView). DisplayList can be invalidated by
@@ -649,18 +647,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     }
 
     public RecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, R.attr.recyclerViewStyle);
     }
 
-    public RecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, CLIP_TO_PADDING_ATTR, defStyle, 0);
-            mClipToPadding = a.getBoolean(0, true);
-            a.recycle();
-        } else {
-            mClipToPadding = true;
-        }
+    public RecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         setScrollContainer(true);
         setFocusableInTouchMode(true);
 
@@ -694,10 +685,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         if (attrs != null) {
             int defStyleRes = 0;
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RecyclerView,
-                    defStyle, defStyleRes);
+                    defStyleAttr, defStyleRes);
             if (Build.VERSION.SDK_INT >= 29) {
                 saveAttributeDataForStyleable(
-                        context, R.styleable.RecyclerView, attrs, a, defStyle, defStyleRes);
+                        context, R.styleable.RecyclerView, attrs, a, defStyleAttr, defStyleRes);
             }
             String layoutManagerName = a.getString(R.styleable.RecyclerView_layoutManager);
             int descendantFocusability = a.getInt(
@@ -705,6 +696,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             if (descendantFocusability == -1) {
                 setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
             }
+            mClipToPadding = a.getBoolean(R.styleable.RecyclerView_android_clipToPadding, true);
             mEnableFastScroller = a.getBoolean(R.styleable.RecyclerView_fastScrollEnabled, false);
             if (mEnableFastScroller) {
                 StateListDrawable verticalThumbDrawable = (StateListDrawable) a
@@ -719,19 +711,20 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         horizontalThumbDrawable, horizontalTrackDrawable);
             }
             a.recycle();
-            createLayoutManager(context, layoutManagerName, attrs, defStyle, defStyleRes);
+            createLayoutManager(context, layoutManagerName, attrs, defStyleAttr, defStyleRes);
 
             if (Build.VERSION.SDK_INT >= 21) {
                 a = context.obtainStyledAttributes(attrs, NESTED_SCROLLING_ATTRS,
-                        defStyle, defStyleRes);
+                        defStyleAttr, defStyleRes);
                 if (Build.VERSION.SDK_INT >= 29) {
                     saveAttributeDataForStyleable(
-                            context, NESTED_SCROLLING_ATTRS, attrs, a, defStyle, defStyleRes);
+                            context, NESTED_SCROLLING_ATTRS, attrs, a, defStyleAttr, defStyleRes);
                 }
                 nestedScrollingEnabled = a.getBoolean(0, true);
                 a.recycle();
             }
         } else {
+            mClipToPadding = true;
             setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         }
 
