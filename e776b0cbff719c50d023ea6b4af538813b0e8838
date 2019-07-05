@@ -475,6 +475,30 @@
     },
     {
       "key": {
+        "uuid": "8018a920_869ddd23",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T17:12:16Z",
+      "side": 1,
+      "message": "Ah, you\u0027re right - that\u0027s more about communication. For now then, do you think it makes sense to ignore the simple use case? As it doesn\u0027t seem that useful outside of that coordination anyway - if you just want a title doing TopAppBar({ Text(\"Title) }) isn\u0027t much more complicated until we have a more complete solution :)",
+      "parentUuid": "f8c86a3c_e3985fb5",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "492b03d3_f04d3458",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
