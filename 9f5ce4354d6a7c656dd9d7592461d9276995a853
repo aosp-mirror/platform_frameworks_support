@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e86446f0_cb68d690",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-05T01:11:33Z",
+      "side": 1,
+      "message": "misc) l? (lowercase) for consistency",
+      "range": {
+        "startLine": 1761,
+        "startChar": 39,
+        "endLine": 1761,
+        "endChar": 40
+      },
+      "revId": "9f5ce4354d6a7c656dd9d7592461d9276995a853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
