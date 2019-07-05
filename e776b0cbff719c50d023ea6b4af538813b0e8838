@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "23dae829_13f7a14f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "The only reason for this overload and the one in BottomAppBar is to remove the generic parameter - without these overloads if you want a Top/BottomAppBar without any actions, it gets messy as you need to still specify a type, as this whole function is typed on the type of data in the list. For example, if you just want a TopAppBar with a title, and no actions, without this overload it would become:\n\nTopAppBar\u003cNothing\u003e(title \u003d { Text(\"Default\") })\n\n(or \u003cAny\u003e or any other type)\n\nWhich to me seems really unfortunate, and I\u0027m not aware of a nice way of avoiding this, other than a separate overload. This is less of a \u0027text and navigation icon\u0027 AppBar and more of a \u0027I don\u0027t have any actions\u0027 AppBar if that makes sense :)",
+      "parentUuid": "d5d2a411_b7088d47",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-05T13:12:22Z",
       "side": 1,
       "message": "I find this an interesting approach, seems to provide a lot of flexibility. I think there is a common \"data\" class that appears in things like this, buttons and tabs that is text+icon combos, but I like that you leave the door open for any other kind of structure",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c69ae6e_5f9635e1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "This was originally Matvei\u0027s suggestion, I really like it because even in the case of \u0027text\u0027, it\u0027s still bad for us to enforce a specific type of representation. Developers could choose to represent text as a String, a i18TextResource, or a MyCustomText, and there aren\u0027t really any advantages from our side to enforce these choices, it just allows for a more flexible API :)",
+      "parentUuid": "26965ec0_a26e12e7",
       "range": {
         "startLine": 68,
         "startChar": 22,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7101e7a9_a4f81538",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "Thanks for the context! My understanding was that this \u0027slotted\u0027 API is a base component that doesn\u0027t have opinions on content, it just provides the slots where content can be inserted. In which case I thought that specifying exactly what should be placed in the start/end content is unnecessarily restrictive, and can be misleading. This is similar to what we have for components like FloatingActionButton, where we have overloads with opinionated content areas like \u0027text\u0027 and \u0027icon\u0027, and then a more generic one like \u0027children\u0027. To me this is the second one, where we just have an AppBar with some slots for \u0027children\u0027 - happy to revert this but I was just trying to align more with our \u0027base\u0027 layer components",
+      "parentUuid": "6722b961_ffe7db5d",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f2053df_2c1f5db1",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "9acf9a9b_1e3f0b17",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "See my comment for TopAppBar above, this is only here to allow writing BottomAppBar(myFab()) without needing to specify BottomAppBar\u003cNothing\u003e(myFab())",
+      "parentUuid": "5c923c38_520919a1",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 3
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "438da66b_5b995ff8",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "b4a022b8_0fd0af6f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "The null is here so we can enforce that there is no navigation icon when the FAB is end-aligned, the alternative is just not dropping it on the floor, and ignoring this parameter, but that seems less intuitive to me. Do you have a preference here?\n\nAlso maybe a topic for separate discussion, but I\u0027m concerned that all our optional parameters are becoming empty lambdas, instead of null by default. This means that we are still emitting a lot of lambdas, which could be a performance issue, since they still have to be emitted through the tree and executed, just to find out that there is nothing to layout / measure.",
+      "parentUuid": "438da66b_5b995ff8",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "492b03d3_f04d3458",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -174,6 +294,30 @@
       "writtenOn": "2019-07-05T13:12:22Z",
       "side": 1,
       "message": "this was regular because I was playing around with the extended TopAppBar at one point, note your height may vary in the future :)",
+      "range": {
+        "startLine": 319,
+        "startChar": 12,
+        "endLine": 319,
+        "endChar": 24
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10cec213_375221c1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:30:19Z",
+      "side": 1,
+      "message": "Yup :) We will need a separate height for an extended one, I just changed this to make it clear that this is the height of the AppBar, so it can also be used for the Fab height and make a bit more sense.",
+      "parentUuid": "492b03d3_f04d3458",
       "range": {
         "startLine": 319,
         "startChar": 12,
