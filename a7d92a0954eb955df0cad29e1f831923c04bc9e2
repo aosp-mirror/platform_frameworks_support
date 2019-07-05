@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1264a952_5d004286",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureCharacteristics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-05T01:50:43Z",
+      "side": 1,
+      "message": "Could you provide more description on what this is used for ?   It is specifically for extension ?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "a7d92a0954eb955df0cad29e1f831923c04bc9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
