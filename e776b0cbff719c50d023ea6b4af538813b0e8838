@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "3f1f04b2_5f0207d6",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T15:34:09Z",
+      "side": 1,
+      "message": "I definitely agree that mixing slots and params is a bad idea, and we should just do one or the other for each option.",
+      "parentUuid": "a6a769c6_40c68e14",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -415,6 +439,30 @@
       "side": 1,
       "message": "The problem then is that the navigation icon needs some onClick as well, if we just provide a default icon that doesn\u0027t do anything, it\u0027s not really helpful. And since there isn\u0027t an navigationIconOnClick param, then it can\u0027t even be customized, so I don\u0027t think there\u0027s any value in provided a default one at all. \n\nI imagine we would provide an AppBarNavigationIcon(onClick: () -\u003e Unit) composable that we would recommend as the normal material navigation icon button, but developers are free to provide their own custom composables for this slot. Alternatively we could have another overload, that just accepts a navigationIconOnClick or similar, but then it\u0027s strange because if this is provided, and we are in end-fab mode, then it won\u0027t be applied, so we probably also want to throw in that case, which is not much different from here.",
       "parentUuid": "b47dcac1_d24d4037",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c86a3c_e3985fb5",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T15:34:09Z",
+      "side": 1,
+      "message": "I think at this point you are stepping into Scaffold design :)\nYou can imagine one setup where we have some communication channel between the app bar and the scaffold, by which we know whether to show the icon or not depending on whether there is a nav drawer to show and we can communicate with the scaffold to show it instead of taking a manual lambda\n\nfor the slightly lower level API, having a base AppBarNavigation(Icon? ToggleButton?) that takes an onClick sounds right",
+      "parentUuid": "54569fc6_bb219f8b",
       "range": {
         "startLine": 174,
         "startChar": 84,
