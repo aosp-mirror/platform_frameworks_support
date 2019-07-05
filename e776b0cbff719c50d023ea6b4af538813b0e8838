@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ac2b1cae_f1432d23",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T14:14:00Z",
+      "side": 1,
+      "message": "I think then you\u0027ve removed the initial use case this was covering, which is the non-slots beginner developer. For that one it is fine to assume the shape of data the items are (string+icon in some way) and assume the title is a string. showing/hiding the nav icon may be something we figure out automatically further down the line based on whether there is a nav drawer or not.\n\nfor the case covered here, would it be better to make BaseTopAppBar public and therefore if you have no actions and want something more custom for the title you can fall down to that level, where the end content is just a lambda that can be empty?\n\nso the layers become\n1. Beginner API with String and action data\n2. Slot API with actions as T\n3. Slot API that knows nothing about actions",
+      "parentUuid": "23dae829_13f7a14f",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -93,6 +117,30 @@
       "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c490ce_7a2a32f1",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T14:14:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c69ae6e_5f9635e1",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -154,6 +202,30 @@
       "side": 1,
       "message": "Thanks for the context! My understanding was that this \u0027slotted\u0027 API is a base component that doesn\u0027t have opinions on content, it just provides the slots where content can be inserted. In which case I thought that specifying exactly what should be placed in the start/end content is unnecessarily restrictive, and can be misleading. This is similar to what we have for components like FloatingActionButton, where we have overloads with opinionated content areas like \u0027text\u0027 and \u0027icon\u0027, and then a more generic one like \u0027children\u0027. To me this is the second one, where we just have an AppBar with some slots for \u0027children\u0027 - happy to revert this but I was just trying to align more with our \u0027base\u0027 layer components",
       "parentUuid": "6722b961_ffe7db5d",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3087ccb_0ec25e97",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T14:14:00Z",
+      "side": 1,
+      "message": "yup I understand your approach from above now and then this is fine for this layer, but try and clarify the other 2 layers I mention above, one of which should keep these names as slots",
+      "parentUuid": "7101e7a9_a4f81538",
       "range": {
         "startLine": 103,
         "startChar": 4,
@@ -283,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "b47dcac1_d24d4037",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T14:14:00Z",
+      "side": 1,
+      "message": "there may be a specific use case where the null default makes sense, but I want to challenge this becoming a pattern. if you provide no navigationIcon, the default icon should kick into place I think, as you may be trying to just overload the FAB without having to reinvent a nav icon or figure out what goes in there to fill the gap\n\nyou have a point with the empty lambdas, might be good to raise with the compiler team on whether this would be a problem we cause",
+      "parentUuid": "b4a022b8_0fd0af6f",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "492b03d3_f04d3458",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -327,6 +423,30 @@
       "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b151a1fb_25cd6550",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-05T14:14:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10cec213_375221c1",
+      "range": {
+        "startLine": 319,
+        "startChar": 12,
+        "endLine": 319,
+        "endChar": 24
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
