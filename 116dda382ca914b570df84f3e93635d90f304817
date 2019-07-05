@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d37c141_dc1bbb72",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Flex.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-05T16:46:33Z",
+      "side": 1,
+      "message": "it is outdated a bit, as this enum is used not only for the main axis",
+      "range": {
+        "startLine": 235,
+        "startChar": 30,
+        "endLine": 235,
+        "endChar": 34
+      },
+      "revId": "116dda382ca914b570df84f3e93635d90f304817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
