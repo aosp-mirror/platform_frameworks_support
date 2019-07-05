@@ -118,6 +118,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df9f052_b5d1376a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1054756
+      },
+      "writtenOn": "2019-07-05T12:29:32Z",
+      "side": 1,
+      "message": "We do expect this library to grow with APIs that are needed from the tooling side. I agree with Chuck that any word will be ambiguous.\nDesign might be too specific so I think something with Tools in the name might be best.\n\nMaybe tooling for the library name and Toolable for the compose wrapper.",
+      "parentUuid": "83f796a6_bc96b453",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
