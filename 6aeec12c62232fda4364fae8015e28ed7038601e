@@ -51,6 +51,24 @@
       "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a05b749_d324b9c0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-05T01:22:24Z",
+      "side": 1,
+      "message": "Thank you for pointing it out. Then, we should make the widgets take @Nullable players. Filed b/136770795.",
+      "parentUuid": "05a488f2_151bc8f6",
+      "revId": "6aeec12c62232fda4364fae8015e28ed7038601e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
