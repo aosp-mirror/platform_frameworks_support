@@ -1,0 +1,7 @@
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Yuichi Araki <yaraki@google.com>
+Submitted-at: Fri, 05 Jul 2019 01:55:47 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1008367
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
