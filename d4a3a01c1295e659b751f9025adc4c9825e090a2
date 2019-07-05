@@ -94,6 +94,30 @@
       "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "305ba997_a51cd36b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-05T11:11:36Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "02d7ccac_2a361fc9",
+      "range": {
+        "startLine": 482,
+        "startChar": 15,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "d4a3a01c1295e659b751f9025adc4c9825e090a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
