@@ -142,6 +142,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447e4ebd_fb9c2257",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-05T13:10:18Z",
+      "side": 1,
+      "message": "+1 for \u0027tooling\u0027, I think it\u0027s important to make the distinction that this isn\u0027t part of the normal runtime, and not something that a typical user should think about.",
+      "parentUuid": "7df9f052_b5d1376a",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
