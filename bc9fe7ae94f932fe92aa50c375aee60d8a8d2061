@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68e6cd42_08f667fe",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-06T02:04:12Z",
+      "side": 1,
+      "message": "A question: How many times do you think this would be called? 1 per compose? or does it depend n the configuration of the boxes.\n\nIs there a document describing the behavior?\n\nAfter the questions here is what I did:\n\nChecked CSS and found a related  description :\nhttps://www.w3.org/TR/css-sizing-3/#max-content-inline-size\nAccording to that description min - content - inline size is the size where all \"soft wrap\" opportunities are taken. \n\nI do not think we can do that with current static layout, but we can improve static lyaout after Q for that. Need to ask Nona@ \n\n\nI just wrote the following test to see if we can do it per grapheme.\n\n            val text \u003d \"hellow world\" +\n                \"שלום עולם\" +\n                \"مرحبا بالعالم\" +\n                \"你好，世界\" +\n                \"こんにちは世界\" +\n                \"안녕 세상\"\n\n            val build \u003d\n                StaticLayout.Builder.obtain(text, 0, text.length, TextPaint().apply { textSize \u003d 30.0f }, 0).build()\n\n            for(i in 0..build.lineCount) {\n                Log.e(\"SSS\", \"\" + build.getLineWidth(i));\n            }\n\nAs you can see I provided 0 as the width to static layout, and looped through the line widths. Maybe we can use that and min content size becomes the max grapheme size. \n\nThough this would be very expensive if we went through all of the lines (which basically will be all grapheme clusters). Maybe we can have a shortcut which checks the first X lines. \n \n\n\n17.0\n16.0\n7.0\n7.0\n17.0\n23.0\n7.0\n23.0\n17.0\n10.0\n7.0\n17.0\n22.0\n16.0\n9.0\n21.0\n7.0\n18.0\n9.0\n16.0\n21.0\n15.0\n12.0\n19.0\n23.0\n7.0\n7.0\n23.0\n7.0\n18.0\n18.0\n7.0\n18.0\n15.0\n0.0\n30.0\n0.0\n30.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n28.0\n0.0\n28.0\n7.0\n28.0\n0.0\n28.0\n0.0\n17.0\n16.0\n7.0\n7.0\n17.0\n23.0\n7.0\n23.0\n17.0\n10.0\n7.0\n17.0\n22.0\n16.0\n9.0\n21.0\n7.0\n18.0\n9.0\n16.0\n21.0\n15.0\n12.0\n19.0\n23.0\n7.0\n7.0\n23.0\n7.0\n18.0\n18.0\n7.0\n18.0\n15.0\n0.0\n30.0\n0.0\n30.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n28.0\n0.0\n28.0\n7.0\n28.0\n0.0\n28.0\n0.0",
+      "range": {
+        "startLine": 239,
+        "startChar": 22,
+        "endLine": 239,
+        "endChar": 51
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36bfc112_001436ae",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-06T02:04:12Z",
+      "side": 1,
+      "message": "would be awesome if you can describe us what min/maxIntrinsic Width/Height means in the current layout system.",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "317966dc_3709f535",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-06T02:04:12Z",
+      "side": 1,
+      "message": "I am having a difficulty in understanding what the max content \"height\" would be. \n\nProbably max content width assumes height is not important. where as I do not know how this would apply to max content height. \n\nit would be awesome to know what those means for the layout system with examples etc.",
+      "range": {
+        "startLine": 253,
+        "startChar": 28,
+        "endLine": 253,
+        "endChar": 34
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
