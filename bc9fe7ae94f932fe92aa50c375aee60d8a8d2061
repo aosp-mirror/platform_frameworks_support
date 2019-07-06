@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "20903389_9a84e228",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/TextLayoutTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-06T18:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c71e16a_00424df4",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 44
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68e6cd42_08f667fe",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-06T02:04:12Z",
       "side": 1,
       "message": "A question: How many times do you think this would be called? 1 per compose? or does it depend n the configuration of the boxes.\n\nIs there a document describing the behavior?\n\nAfter the questions here is what I did:\n\nChecked CSS and found a related  description :\nhttps://www.w3.org/TR/css-sizing-3/#max-content-inline-size\nAccording to that description min - content - inline size is the size where all \"soft wrap\" opportunities are taken. \n\nI do not think we can do that with current static layout, but we can improve static lyaout after Q for that. Need to ask Nona@ \n\n\nI just wrote the following test to see if we can do it per grapheme.\n\n            val text \u003d \"hellow world\" +\n                \"שלום עולם\" +\n                \"مرحبا بالعالم\" +\n                \"你好，世界\" +\n                \"こんにちは世界\" +\n                \"안녕 세상\"\n\n            val build \u003d\n                StaticLayout.Builder.obtain(text, 0, text.length, TextPaint().apply { textSize \u003d 30.0f }, 0).build()\n\n            for(i in 0..build.lineCount) {\n                Log.e(\"SSS\", \"\" + build.getLineWidth(i));\n            }\n\nAs you can see I provided 0 as the width to static layout, and looped through the line widths. Maybe we can use that and min content size becomes the max grapheme size. \n\nThough this would be very expensive if we went through all of the lines (which basically will be all grapheme clusters). Maybe we can have a shortcut which checks the first X lines. \n \n\n\n17.0\n16.0\n7.0\n7.0\n17.0\n23.0\n7.0\n23.0\n17.0\n10.0\n7.0\n17.0\n22.0\n16.0\n9.0\n21.0\n7.0\n18.0\n9.0\n16.0\n21.0\n15.0\n12.0\n19.0\n23.0\n7.0\n7.0\n23.0\n7.0\n18.0\n18.0\n7.0\n18.0\n15.0\n0.0\n30.0\n0.0\n30.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n28.0\n0.0\n28.0\n7.0\n28.0\n0.0\n28.0\n0.0\n17.0\n16.0\n7.0\n7.0\n17.0\n23.0\n7.0\n23.0\n17.0\n10.0\n7.0\n17.0\n22.0\n16.0\n9.0\n21.0\n7.0\n18.0\n9.0\n16.0\n21.0\n15.0\n12.0\n19.0\n23.0\n7.0\n7.0\n23.0\n7.0\n18.0\n18.0\n7.0\n18.0\n15.0\n0.0\n30.0\n0.0\n30.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n30.0\n0.0\n28.0\n0.0\n28.0\n7.0\n28.0\n0.0\n28.0\n0.0",
+      "range": {
+        "startLine": 239,
+        "startChar": 22,
+        "endLine": 239,
+        "endChar": 51
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e72e3245_cb3db4cc",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-06T18:49:44Z",
+      "side": 1,
+      "message": "Most apps/layout hierarchies will not use the method at all; I think the use case for minIntrinsicWidth in text is very limited. The use cases for the rest of intrinsics are quite limited as well. However, if minIntrinsicWidth is used, the method should not be called more than once per layout pass, which should not happen more then once per composition.\n\nYour analysis is very interesting, thanks for looking into it! The idea to measure the largest grapheme by setting line width 0 is great, and would probably be the \"mathematically\" correct way of doing it. In practice, I am wondering whether developers would be interested to layout their text this way (one grapheme per line), or maybe others (one word per line?) would be more useful in practice.\n\nAlso, there is one more dimension here - the available height h. Using your idea, we assume that the height available space is unlimited. However, we might want to put multiple graphemes per line in order to fit in the available h. This sounds like a binary search problem :) this might not be too expensive as long as we do not relayout text every binary search step, but rather use the grapheme widths and heights as you have computed them above.\n\n(Btw I did not mean to throw exception in this method long term, I was just tempted to postpone taking a decision maybe until you visit us, while still being able to write some samples using intrinsics in the meantime).",
+      "parentUuid": "68e6cd42_08f667fe",
       "range": {
         "startLine": 239,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "31fa9ddb_07b118e6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-06T18:49:44Z",
+      "side": 1,
+      "message": "Sure.\nminIntrinsicWidth -\u003e the smallest width the layout can take assuming the height is fixed to h, such that the widget paints its content correctly. In case of text, we should decide on the definition of \"painting correctly\".\nmaxIntrinsicWidth -\u003e the smallest width the layout can take assuming the height is fixed to h, such that increasing the width does not decrease the preferred height. In case of text, the preferred height corresponds to the height of one line, so maxIntrinsicWidth becomes the width of putting text of one line (as increasing it would not decrease the preferred height). The parameter h is not really used here in the case of text.\nminIntrinsicHeight -\u003e similar general definition to minIntrinsicWidth. In case of text, since text is width-in-height-out and we know the available width, we can layout the text using that and take the height of the text layout.\nmaxIntrinsicHeight -\u003e similar to above",
+      "parentUuid": "36bfc112_001436ae",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "317966dc_3709f535",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-07-06T02:04:12Z",
       "side": 1,
       "message": "I am having a difficulty in understanding what the max content \"height\" would be. \n\nProbably max content width assumes height is not important. where as I do not know how this would apply to max content height. \n\nit would be awesome to know what those means for the layout system with examples etc.",
+      "range": {
+        "startLine": 253,
+        "startChar": 28,
+        "endLine": 253,
+        "endChar": 34
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ea3882_cd21a51b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-06T18:49:44Z",
+      "side": 1,
+      "message": "I think you are right here, this does not look correct. This should be the converse of minIntrinsicWidth. Made this throw exception. I am going to add some examples soon.",
+      "parentUuid": "317966dc_3709f535",
       "range": {
         "startLine": 253,
         "startChar": 28,
