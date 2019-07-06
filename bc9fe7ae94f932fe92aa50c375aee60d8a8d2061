@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5c71e16a_00424df4",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/TextLayoutTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-06T02:06:10Z",
+      "side": 1,
+      "message": "not sure what you test here but it would be best to use the predefined fonts for testing things that are highly related to font size (such as this one). \n\nIf you check ParagraphIntegrationTest or AndroidParagraphTest you will see the instantiation of the fonts.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 44
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68e6cd42_08f667fe",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 1
