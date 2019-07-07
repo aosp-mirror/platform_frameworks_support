@@ -155,7 +155,7 @@ class AndroidCraneView constructor(context: Context)
     override fun onSizeChange(layoutNode: LayoutNode) {
         // TODO(mount): use ownerScope. This isn't supported by IR compiler yet
 //        ownerScope.launch {
-        markRepaintBoundaryBoundsChanged(layoutNode)
+        layoutNode.visitChildren(::collectChildrenRepaintBoundaries)
         invalidateRepaintBoundary(layoutNode)
 //        }
     }
@@ -175,7 +175,8 @@ class AndroidCraneView constructor(context: Context)
     override fun onPositionChange(layoutNode: LayoutNode) {
         // TODO(mount): use ownerScope. This isn't supported by IR compiler yet
 //        ownerScope.launch {
-        markRepaintBoundaryBoundsChanged(layoutNode)
+        layoutNode.visitChildren(::collectChildrenRepaintBoundaries)
+        invalidateRepaintBoundary(layoutNode)
 //        }
     }
 
@@ -184,23 +185,16 @@ class AndroidCraneView constructor(context: Context)
     }
 
     /**
-     * If layoutNode is a child of a repaint boundary, this sets up the repaint boundary
-     * to be resized/repositioned after layout completes.
+     * Adds all repaint boundaries with the same parent LayoutNode into [repaintBoundaryChanges].
+     * When the size or the position of the LayoutNode has been changed all the children
+     * [RepaintBoundaryNode] should be repositioned.
      */
-    private fun markRepaintBoundaryBoundsChanged(layoutNode: LayoutNode) {
-        val repaintBoundaryNode = layoutNode.repaintBoundary
-        // If the repaint boundary has this layoutNode as a child, the repaint boundary
-        // position and size may have changed, so set it up for resetting its bounds after the
-        // layout pass completes.
-        if (repaintBoundaryNode == null) {
-            invalidate() // The main view needs to be redrawn
-        } else if (layoutNode.parentLayoutNode == repaintBoundaryNode.parentLayoutNode) {
-            var boundary: RepaintBoundaryNode? = repaintBoundaryNode
-            val parentLayoutNode = repaintBoundaryNode.parentLayoutNode
-            while (boundary != null && boundary.parentLayoutNode == parentLayoutNode) {
-                repaintBoundaryChanges += boundary
-                boundary = boundary.parent?.repaintBoundary
-            }
+    private fun collectChildrenRepaintBoundaries(node: ComponentNode) {
+        if (node is RepaintBoundaryNode) {
+            repaintBoundaryChanges += node
+        }
+        if (node !is LayoutNode) {
+            node.visitChildren(::collectChildrenRepaintBoundaries)
         }
     }
 
@@ -292,15 +286,13 @@ class AndroidCraneView constructor(context: Context)
                     }
                 }
                 repaintBoundaryChanges.forEach { node ->
-                    var bounds = node.calculateChildrenBoundingBox()
-                    node.layoutX = bounds.left
-                    node.layoutY = bounds.top
+                    val parent = node.parentLayoutNode!!
                     calculateRepaintBoundaryNodePosition(node)
 
                     val left = node.containerX.value
                     val top = node.containerY.value
-                    val right = left + bounds.width.value
-                    val bottom = top + bounds.height.value
+                    val right = left + parent.width.value
+                    val bottom = top + parent.height.value
                     val container = node.container
                     container.setBounds(left, top, right, bottom)
                 }
@@ -315,8 +307,8 @@ class AndroidCraneView constructor(context: Context)
      * [RepaintBoundaryNode.containerY].
      */
     private fun calculateRepaintBoundaryNodePosition(node: RepaintBoundaryNode) {
-        var left = node.layoutX
-        var top = node.layoutY
+        var left = 0.ipx
+        var top = 0.ipx
         val repaintBoundary = node.parent?.repaintBoundary
         val containingLayoutNode = repaintBoundary?.parentLayoutNode
         var layoutNode = node.parentLayoutNode
@@ -325,10 +317,6 @@ class AndroidCraneView constructor(context: Context)
             left += layoutNode.x
             top += layoutNode.y
             layoutNode = layoutNode.parentLayoutNode
-        }
-        if (containingLayoutNode != null) {
-            left -= repaintBoundary.layoutX
-            top -= repaintBoundary.layoutY
         }
         node.containerX = left
         node.containerY = top
@@ -417,8 +405,8 @@ class AndroidCraneView constructor(context: Context)
                     currentNode = previousNode
                 }
                 is RepaintBoundaryNode -> {
-                    val x = (node.containerX.value - node.layoutX.value).toFloat()
-                    val y = (node.containerY.value - node.layoutY.value).toFloat()
+                    val x = node.containerX.value.toFloat()
+                    val y = node.containerY.value.toFloat()
                     val doTranslate = x != 0f || y != 0f
                     if (doTranslate) {
                         canvas.save()
@@ -710,11 +698,11 @@ private class RepaintBoundaryView(
     }
 
     override fun dispatchDraw(canvas: android.graphics.Canvas) {
-        // We have to pretend that we're at the position of the enclosing LayoutNode
-        canvas.save()
-        canvas.translate(-repaintBoundaryNode.layoutX.value.toFloat(),
-            -repaintBoundaryNode.layoutY.value.toFloat())
-        clipPath?.let { canvas.clipPath(it) }
+        val clipPath = clipPath
+        if (clipPath != null) {
+            canvas.save()
+            canvas.clipPath(clipPath)
+        }
         if (ownerView.currentNode == null) {
             // Only this repaint boundary was invalidated and nothing higher in the view hierarchy.
             // We must observe changes
@@ -723,7 +711,9 @@ private class RepaintBoundaryView(
             // We don't have to observe changes
             ownerView.callChildDraw(canvas, repaintBoundaryNode)
         }
-        canvas.restore()
+        if (clipPath != null) {
+            canvas.restore()
+        }
         dirty = false
     }
 
@@ -810,8 +800,6 @@ private class RepaintBoundaryRenderNode(
     private fun updateDisplayList() {
         if (dirty || !renderNode.hasDisplayList()) {
             val canvas = renderNode.beginRecording()
-            canvas.translate(-repaintBoundaryNode.layoutX.value.toFloat(),
-                -repaintBoundaryNode.layoutY.value.toFloat())
             clipPath?.let { canvas.clipPath(it) }
             ownerView.callChildDraw(canvas, repaintBoundaryNode)
             renderNode.endRecording()
