@@ -407,6 +407,29 @@
     },
     {
       "key": {
+        "uuid": "d39502f5_76182638",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-08T05:05:56Z",
+      "side": 1,
+      "message": "How about mentioning ControllerCallback#onPlaylistChanged here like SessionPlayer? (addPlaylistItem, removePlaylistItem, and replacePlaylistItem as well)",
+      "range": {
+        "startLine": 927,
+        "startChar": 0,
+        "endLine": 932,
+        "endChar": 7
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "503bcd65_8f8a1358",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 3
@@ -423,6 +446,92 @@
         "startChar": 48,
         "endLine": 937,
         "endChar": 55
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09df8da4_03b9f923",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-08T05:05:56Z",
+      "side": 1,
+      "message": "It\u0027s not releated to this CL but replacePlaylistItem returns RESULT_SUCCESS regardless of the result of these two methods.",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 687,
+        "endChar": 44
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3578c7b3_5e480b51",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-08T05:05:56Z",
+      "side": 1,
+      "message": "How about adding a little optimization in the case of index1 \u003d\u003d index2?",
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd4faa8_01dbe8f8",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-08T05:05:56Z",
+      "side": 1,
+      "message": "movePlaylistItem return RESULT_SUCCESS regardless of the result of these two methods.",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 60
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666414a6_3ea89e86",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-08T05:05:56Z",
+      "side": 1,
+      "message": "The parameter \"version\" is annotated by @CommandVersion and @CommandVersion doesn\u0027t have COMMAND_VERSION_CURRENT. It may cause lint error. Please refer to aosp/999451.",
+      "range": {
+        "startLine": 450,
+        "startChar": 21,
+        "endLine": 450,
+        "endChar": 85
       },
       "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
