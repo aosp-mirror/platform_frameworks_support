@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "963cbc7c_f8a4ffb3",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-08T16:55:12Z",
+      "side": 1,
+      "message": "nit: These docs won\u0027t actually be exposed anywhere, not sure if you were intended them to be published :) You can also add these as inline comments to the function, if it is important to understand the sample.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ee9e824_0a02c9d7",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
@@ -18,6 +41,52 @@
         "startChar": 16,
         "endLine": 161,
         "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3035898f_eaa1eaad",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-08T16:55:12Z",
+      "side": 1,
+      "message": "nit: can these also be Text? I don\u0027t really have a strong opinion here, but I don\u0027t want every sample module to depend on every other module, unless button is explicitly needed for this example, I would rather avoid the Material dependency :)",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "595950f8_c4deab51",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-08T16:55:12Z",
+      "side": 1,
+      "message": "I think there are enough samples in here now that it might make sense to split them up into separate files - WDYT? Stack/row/column samples seem like they can be one file, and intrinsic measurements seem like they are separate to those.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 26
       },
       "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
