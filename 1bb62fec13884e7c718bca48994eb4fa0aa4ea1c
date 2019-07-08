@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a89ab2c_a2b21ea7",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:14:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t need a trace",
+      "range": {
+        "startLine": 213,
+        "startChar": 15,
+        "endLine": 213,
+        "endChar": 44
+      },
+      "revId": "1bb62fec13884e7c718bca48994eb4fa0aa4ea1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c403e39_ea4bcd6c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:14:03Z",
+      "side": 1,
+      "message": "please don\u0027t expose AndroidOwner here. Please use Compose. Here and below.",
+      "range": {
+        "startLine": 279,
+        "startChar": 15,
+        "endLine": 279,
+        "endChar": 44
+      },
+      "revId": "1bb62fec13884e7c718bca48994eb4fa0aa4ea1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8c8d20_e816f525",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:14:03Z",
+      "side": 1,
+      "message": "Don\u0027t trace here. This is called recursively.",
+      "range": {
+        "startLine": 406,
+        "startChar": 15,
+        "endLine": 406,
+        "endChar": 36
+      },
+      "revId": "1bb62fec13884e7c718bca48994eb4fa0aa4ea1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
