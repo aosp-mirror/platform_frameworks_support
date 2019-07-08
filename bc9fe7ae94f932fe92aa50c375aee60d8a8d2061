@@ -187,6 +187,30 @@
       "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52bf2e6_90548f52",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-08T13:43:04Z",
+      "side": 1,
+      "message": "Actually I think in case of text, because it is fundamentally a width in height out algorithm, it makes sense for maxIntrinsicHeight to be equal to minIntrinsicHeight, since we know the width we have to use.",
+      "parentUuid": "f9ea3882_cd21a51b",
+      "range": {
+        "startLine": 253,
+        "startChar": 28,
+        "endLine": 253,
+        "endChar": 34
+      },
+      "revId": "bc9fe7ae94f932fe92aa50c375aee60d8a8d2061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
