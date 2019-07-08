@@ -16,6 +16,24 @@
       "revId": "6d0d6007d84f5bd0c39424b625ab5a0abe23a870",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ce4f1ce_a8b1b2da",
+        "filename": "car/core/src/main/java/androidx/car/navigation/utils/BundleMarshaller.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-08T18:31:06Z",
+      "side": 1,
+      "message": "The entire navigation submodule will be removed in a follow up CL.",
+      "parentUuid": "c22eb08f_993f4e51",
+      "revId": "6d0d6007d84f5bd0c39424b625ab5a0abe23a870",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
