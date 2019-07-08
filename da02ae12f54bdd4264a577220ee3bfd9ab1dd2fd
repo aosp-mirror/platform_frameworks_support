@@ -22,6 +22,30 @@
       "revId": "da02ae12f54bdd4264a577220ee3bfd9ab1dd2fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6529cc2d_7a33921c",
+        "filename": "ui/text/src/main/java/androidx/ui/text/platform/TypefaceAdapter.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-08T20:58:43Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "411d0f6d_48b5b523",
+      "range": {
+        "startLine": 41,
+        "startChar": 43,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "da02ae12f54bdd4264a577220ee3bfd9ab1dd2fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
