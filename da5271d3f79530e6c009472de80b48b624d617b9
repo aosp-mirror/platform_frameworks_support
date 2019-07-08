@@ -139,6 +139,24 @@
       "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97ba3fb_a14c30e7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageOutputConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "I have changed the AspectRatio to AspectRatioMode, which is easier to use.",
+      "parentUuid": "6131c21d_d422e7a5",
+      "revId": "da5271d3f79530e6c009472de80b48b624d617b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

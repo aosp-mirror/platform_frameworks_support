@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "508062bb_680dc3e6",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1811b2_fab47fc4",
+      "range": {
+        "startLine": 386,
+        "startChar": 20,
+        "endLine": 386,
+        "endChar": 21
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcf9babd_7ea4792f",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e75bf1f5_74b1ce24",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "Thanks for review.\nI have updated to check the the sensor orientation.",
+      "parentUuid": "bcf9babd_7ea4792f",
+      "range": {
+        "startLine": 388,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 40
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "11a4b6bf_b5ce30e2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe43520a_7c8d7f28",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 36
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62ddf8aa_0c1bf100",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca7ba0dd_b2c4b553",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62ddf8aa_0c1bf100",
+      "range": {
+        "startLine": 844,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 62
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "abf181fc_b71d19ce",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9fb389_ef47d5a0",
+      "range": {
+        "startLine": 893,
+        "startChar": 16,
+        "endLine": 895,
+        "endChar": 85
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c1c5a66_b7de08b6",
         "filename": "camera/view/src/main/java/androidx/camera/view/CameraXModule.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405847eb_a840c70c",
+        "filename": "camera/view/src/main/java/androidx/camera/view/CameraXModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-08T12:45:29Z",
+      "side": 1,
+      "message": "The aspect ratio as 4:3 if it is IMAGE only mode. Set the aspect ratio as 16:9 if it is VIDEO or MIXED mode. setTargetResolution will change the aspect ratio, so I remove this part and let the logic of SupportedSurfaceCombination select the suggested resolution with the same aspect ratio.",
+      "parentUuid": "6c1c5a66_b7de08b6",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
