@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f679c60_2ec67583",
+        "filename": "room/integration-tests/testapp/src/main/java/androidx/room/integration/testapp/database/ProductDao.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-08T15:43:37Z",
+      "side": 1,
+      "message": "can we add a test that actually runs this getProductReviews code ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 27
+      },
+      "revId": "4e8701dd45dd598464c7ea13a14c93d09198f8f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
