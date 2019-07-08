@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "502af39d_6ce0c6dd",
+        "filename": "fragment/fragment/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-08T18:33:50Z",
+      "side": 1,
+      "message": "@AllAnnotations?",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "5c26346135ab721b111109cffe4b2ef7f2ec3ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
