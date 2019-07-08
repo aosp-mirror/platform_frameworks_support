@@ -602,8 +602,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return new AnimationOrAnimator(anim);
     }
 
-    AnimationOrAnimator loadAnimation(Fragment fragment, int transit, boolean enter,
-                                      int transitionStyle) {
+    AnimationOrAnimator loadAnimation(Fragment fragment, int transit, boolean enter) {
         int nextAnim = fragment.getNextAnim();
         // Clear the Fragment animation
         fragment.setNextAnim(0);
@@ -685,24 +684,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 return makeFadeAnimation(1, 0);
         }
 
-        // TODO: remove or fix transitionStyle -- it apparently never worked.
-        if (transitionStyle == 0 && mHost.onHasWindowAnimations()) {
-            transitionStyle = mHost.onGetWindowAnimations();
-        }
-        if (transitionStyle == 0) {
-            return null;
-        }
-
-        //TypedArray attrs = mActivity.obtainStyledAttributes(transitionStyle,
-        //        com.android.internal.R.styleable.FragmentAnimation);
-        //int anim = attrs.getResourceId(styleIndex, 0);
-        //attrs.recycle();
-
-        //if (anim == 0) {
-        //    return null;
-        //}
-
-        //return AnimatorInflater.loadAnimator(mActivity, anim);
         return null;
     }
 
@@ -714,7 +695,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 return;
             }
             f.mDeferStart = false;
-            moveToState(f, mCurState, 0, 0, false);
+            moveToState(f, mCurState, 0, false);
         }
     }
 
@@ -723,8 +704,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     @SuppressWarnings("ReferenceEquality")
-    void moveToState(Fragment f, int newState, int transit, int transitionStyle,
-                     boolean keepActive) {
+    void moveToState(Fragment f, int newState, int transit, boolean keepActive) {
         // Fragments that are not currently added will sit in the onCreate() state.
         if ((!f.mAdded || f.mDetached) && newState > Fragment.CREATED) {
             newState = Fragment.CREATED;
@@ -764,7 +744,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 // the animation is done, and then we can proceed from there.
                 f.setAnimatingAway(null);
                 f.setAnimator(null);
-                moveToState(f, f.getStateAfterAnimating(), 0, 0, true);
+                moveToState(f, f.getStateAfterAnimating(), 0, true);
             }
             switch (f.mState) {
                 case Fragment.INITIALIZING:
@@ -811,7 +791,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                         + " that does not belong to this FragmentManager!");
                             }
                             if (f.mTarget.mState < Fragment.CREATED) {
-                                moveToState(f.mTarget, Fragment.CREATED, 0, 0, true);
+                                moveToState(f.mTarget, Fragment.CREATED, 0, true);
                             }
                             f.mTargetWho = f.mTarget.mWho;
                             f.mTarget = null;
@@ -824,7 +804,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                         + " that does not belong to this FragmentManager!");
                             }
                             if (target.mState < Fragment.CREATED) {
-                                moveToState(target, Fragment.CREATED, 0, 0, true);
+                                moveToState(target, Fragment.CREATED, 0, true);
                             }
                         }
 
@@ -968,8 +948,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                 if (mCurState > Fragment.INITIALIZING && !mDestroyed
                                         && f.mView.getVisibility() == View.VISIBLE
                                         && f.mPostponedAlpha >= 0) {
-                                    anim = loadAnimation(f, transit, false,
-                                            transitionStyle);
+                                    anim = loadAnimation(f, transit, false);
                                 }
                                 f.mPostponedAlpha = 0;
                                 if (anim != null) {
@@ -1101,8 +1080,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         public void run() {
                             if (fragment.getAnimatingAway() != null) {
                                 fragment.setAnimatingAway(null);
-                                moveToState(fragment, fragment.getStateAfterAnimating(), 0, 0,
-                                        false);
+                                moveToState(fragment, fragment.getStateAfterAnimating(), 0, false);
                             }
                         }
                     });
@@ -1125,7 +1103,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     Animator animator = fragment.getAnimator();
                     fragment.setAnimator(null);
                     if (animator != null && container.indexOfChild(viewToAnimate) < 0) {
-                        moveToState(fragment, fragment.getStateAfterAnimating(), 0, 0, false);
+                        moveToState(fragment, fragment.getStateAfterAnimating(), 0, false);
                     }
                 }
             });
@@ -1135,7 +1113,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     void moveToState(Fragment f) {
-        moveToState(f, mCurState, 0, 0, false);
+        moveToState(f, mCurState, 0, false);
     }
 
     void ensureInflatedFragmentView(Fragment f) {
@@ -1167,7 +1145,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     void completeShowHideFragment(final Fragment fragment) {
         if (fragment.mView != null) {
             AnimationOrAnimator anim = loadAnimation(fragment, fragment.getNextTransition(),
-                    !fragment.mHidden, fragment.getNextTransitionStyle());
+                    !fragment.mHidden);
             if (anim != null && anim.animator != null) {
                 anim.animator.setTarget(fragment.mView);
                 if (fragment.mHidden) {
@@ -1240,7 +1218,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 nextState = Math.min(nextState, Fragment.INITIALIZING);
             }
         }
-        moveToState(f, nextState, f.getNextTransition(), f.getNextTransitionStyle(), false);
+        moveToState(f, nextState, f.getNextTransition(), false);
 
         if (f.mView != null) {
             // Move the view if it is out of order
@@ -1264,8 +1242,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 f.mPostponedAlpha = 0f;
                 f.mIsNewlyAdded = false;
                 // run animations:
-                AnimationOrAnimator anim = loadAnimation(f, f.getNextTransition(), true,
-                        f.getNextTransitionStyle());
+                AnimationOrAnimator anim = loadAnimation(f, f.getNextTransition(), true);
                 if (anim != null) {
                     if (anim.animation != null) {
                         f.mView.startAnimation(anim.animation);
@@ -2099,8 +2076,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         for (int i = 0; i < numAdded; i++) {
             Fragment fragment = mAdded.get(i);
             if (fragment.mState < state) {
-                moveToState(fragment, state, fragment.getNextAnim(), fragment.getNextTransition(),
-                        false);
+                moveToState(fragment, state, fragment.getNextAnim(), false);
                 if (fragment.mView != null && !fragment.mHidden && fragment.mIsNewlyAdded) {
                     added.add(fragment);
                 }
@@ -2138,7 +2114,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         animatingAway.clearAnimation();
                     }
                     fragment.setAnimatingAway(null);
-                    moveToState(fragment, stateAfterAnimating, 0, 0, false);
+                    moveToState(fragment, stateAfterAnimating, 0, false);
                 } else if (fragment.getAnimator() != null) {
                     fragment.getAnimator().end();
                 }
@@ -2462,9 +2438,9 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 // We need to ensure that onDestroy and any other clean up is done
                 // so move the Fragment up to CREATED, then mark it as being removed, then
                 // destroy it.
-                moveToState(f, Fragment.CREATED, 0, 0, false);
+                moveToState(f, Fragment.CREATED, 0, false);
                 f.mRemoving = true;
-                moveToState(f, Fragment.INITIALIZING, 0, 0, false);
+                moveToState(f, Fragment.INITIALIZING, 0, false);
                 continue;
             }
             fs.mInstance = f;
@@ -3227,7 +3203,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         // at the right phase of the lifecycle so that we will have mView populated
         // for compliant fragments below.
         if (mCurState < Fragment.CREATED && fragment.mFromLayout) {
-            moveToState(fragment, Fragment.CREATED, 0, 0, false);
+            moveToState(fragment, Fragment.CREATED, 0, false);
         } else {
             moveToState(fragment);
         }
