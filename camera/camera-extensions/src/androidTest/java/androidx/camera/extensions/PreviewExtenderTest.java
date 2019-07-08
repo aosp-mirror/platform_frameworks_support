@@ -33,6 +33,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
+import android.media.Image;
 import android.util.Pair;
 
 import androidx.camera.core.CameraX;
@@ -48,6 +49,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.GrantPermissionRule;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,6 +63,9 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class PreviewExtenderTest {
 
+    private Preview mPreview;
+    private FakeLifecycleOwner mFakeLifecycle;
+
     @Rule
     public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
             Manifest.permission.CAMERA);
@@ -68,13 +73,21 @@ public class PreviewExtenderTest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+        assumeTrue(CameraUtil.hasCameraWithLensFacing(CameraX.LensFacing.BACK));
+        mFakeLifecycle = new FakeLifecycleOwner();
+        mFakeLifecycle.startAndResume();
+    }
+
+    @After
+    public void cleanUp() {
+        if (mPreview != null && CameraX.isBound(mPreview)) {
+            CameraX.unbind(mPreview);
+        }
     }
 
     @Test
     @MediumTest
     public void extenderLifeCycleTest_noMoreInvokeBeforeAndAfterInitDeInit() {
-        FakeLifecycleOwner lifecycle = new FakeLifecycleOwner();
-
         PreviewExtenderImpl mockPreviewExtenderImpl = mock(PreviewExtenderImpl.class);
         when(mockPreviewExtenderImpl.getProcessorType()).thenReturn(
                 PreviewExtenderImpl.ProcessorType.PROCESSOR_TYPE_IMAGE_PROCESSOR);
@@ -90,8 +103,7 @@ public class PreviewExtenderTest {
 
         Preview useCase = new Preview(configBuilder.build());
 
-        CameraX.bindToLifecycle(lifecycle, useCase);
-        lifecycle.startAndResume();
+        CameraX.bindToLifecycle(mFakeLifecycle, useCase);
 
         // To set the update listener and Preview will change to active state.
         useCase.setOnPreviewOutputUpdateListener(mock(Preview.OnPreviewOutputUpdateListener.class));
@@ -127,8 +139,6 @@ public class PreviewExtenderTest {
     @Test
     @MediumTest
     public void getCaptureStagesTest_shouldSetToRepeatingRequest() throws InterruptedException {
-        FakeLifecycleOwner lifecycle = new FakeLifecycleOwner();
-
         // Set up a result for getCaptureStages() testing.
         CaptureStageImpl fakeCaptureStageImpl = new FakeCaptureStageImpl();
 
@@ -150,13 +160,13 @@ public class PreviewExtenderTest {
                 mockPreviewExtenderImpl);
         fakePreviewExtender.enableExtension();
 
-        Preview useCase = new Preview(configBuilder.build());
+        mPreview = new Preview(configBuilder.build());
 
-        CameraX.bindToLifecycle(lifecycle, useCase);
-        lifecycle.startAndResume();
+        CameraX.bindToLifecycle(mFakeLifecycle, mPreview);
 
         // To set the update listener and Preview will change to active state.
-        useCase.setOnPreviewOutputUpdateListener(mock(Preview.OnPreviewOutputUpdateListener.class));
+        mPreview.setOnPreviewOutputUpdateListener(
+                mock(Preview.OnPreviewOutputUpdateListener.class));
 
         ArgumentCaptor<TotalCaptureResult> captureResultArgumentCaptor = ArgumentCaptor.forClass(
                 TotalCaptureResult.class);
@@ -175,6 +185,34 @@ public class PreviewExtenderTest {
                     (CaptureRequest.Key<Object>) parameter.first).equals(
                     parameter.second));
         }
+    }
+
+    @Test
+    @MediumTest
+    public void processShouldBeInvoked_typeImageProcessor() {
+        // The type image processor will invoke PreviewImageProcessor.process()
+        PreviewImageProcessorImpl mockPreviewImageProcessorImpl = mock(
+                PreviewImageProcessorImpl.class);
+
+        PreviewExtenderImpl mockPreviewExtenderImpl = mock(PreviewExtenderImpl.class);
+        when(mockPreviewExtenderImpl.getProcessor()).thenReturn(mockPreviewImageProcessorImpl);
+        when(mockPreviewExtenderImpl.getProcessorType()).thenReturn(
+                PreviewExtenderImpl.ProcessorType.PROCESSOR_TYPE_IMAGE_PROCESSOR);
+
+        PreviewConfig.Builder configBuilder = new PreviewConfig.Builder().setLensFacing(
+                CameraX.LensFacing.BACK);
+        FakePreviewExtender fakePreviewExtender = new FakePreviewExtender(configBuilder,
+                mockPreviewExtenderImpl);
+        fakePreviewExtender.enableExtension();
+        mPreview = new Preview(configBuilder.build());
+        CameraX.bindToLifecycle(mFakeLifecycle, mPreview);
+        // To set the update listener and Preview will change to active state.
+        mPreview.setOnPreviewOutputUpdateListener(
+                mock(Preview.OnPreviewOutputUpdateListener.class));
+
+        // To verify the process() method was invoked with non-null TotalCaptureResult input.
+        verify(mockPreviewImageProcessorImpl, timeout(3000).atLeastOnce()).process(any(Image.class),
+                any(TotalCaptureResult.class));
     }
 
     private class FakePreviewExtender extends PreviewExtender {
