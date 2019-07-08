@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "411d0f6d_48b5b523",
+        "filename": "ui/text/src/main/java/androidx/ui/text/platform/TypefaceAdapter.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-08T20:29:53Z",
+      "side": 1,
+      "message": "I don\u0027t see any motivation of using generics here.\nCan we use typealias or platform wrapper here?\nor just the interface can be\n\ninterface ResourceLoader {\n  fun load(font: Font): Any  // Returns platform specific font handler.\n}",
+      "range": {
+        "startLine": 41,
+        "startChar": 43,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "da02ae12f54bdd4264a577220ee3bfd9ab1dd2fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
