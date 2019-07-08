@@ -24,6 +24,102 @@ package androidx.ui.foundation {
 
 }
 
+package androidx.ui.foundation.gestures {
+
+  public final class AnchorsFlingConfig implements androidx.ui.foundation.gestures.FlingConfig {
+    ctor public AnchorsFlingConfig(java.util.List<java.lang.Float> animationAnchors, androidx.animation.AnimationBuilder<java.lang.Float> animationBuilder, kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onAnimationFinished, androidx.animation.DecayAnimation decayAnimation);
+    method public java.util.List<java.lang.Float> component1();
+    method public androidx.animation.AnimationBuilder<java.lang.Float> component2();
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> component3();
+    method public androidx.animation.DecayAnimation component4();
+    method public androidx.ui.foundation.gestures.AnchorsFlingConfig copy(java.util.List<java.lang.Float> animationAnchors, androidx.animation.AnimationBuilder<java.lang.Float> animationBuilder, kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onAnimationFinished, androidx.animation.DecayAnimation decayAnimation);
+    method public void fling(androidx.animation.AnimatedFloat value, float startVelocity);
+    method public java.util.List<java.lang.Float> getAnimationAnchors();
+    method public androidx.animation.AnimationBuilder<java.lang.Float> getAnimationBuilder();
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> getOnAnimationFinished();
+  }
+
+  public final class AnimatedDraggableKt {
+    ctor public AnimatedDraggableKt();
+    method public static void AnimatedDraggable(float startValue, float minValue, float maxValue, androidx.ui.foundation.gestures.AxisProjection axisProjection, androidx.ui.foundation.gestures.FlingConfig flingConfig = DefaultFlingConfig, kotlin.jvm.functions.Function1<? super androidx.animation.AnimatedFloat,kotlin.Unit> children);
+  }
+
+  public abstract sealed class AxisProjection {
+    method public abstract kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection();
+    method public abstract kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection();
+    property public abstract kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public abstract kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+  }
+
+  public static final class AxisProjection.AngleProjection extends androidx.ui.foundation.gestures.AxisProjection {
+    ctor public AxisProjection.AngleProjection(float angle);
+    method public float component1();
+    method public androidx.ui.foundation.gestures.AxisProjection.AngleProjection copy(float angle);
+    method public float getAngle();
+    method public int getX1();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection();
+    method public float getY1();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection();
+    method public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection$lintWithKotlin();
+    method public float project$lintWithKotlin(androidx.ui.core.PxPosition pos);
+    property public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection;
+    property public final int x1;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public final float y1;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+  }
+
+  public static final class AxisProjection.X extends androidx.ui.foundation.gestures.AxisProjection {
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection();
+    method public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection$lintWithKotlin();
+    property public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+    field public static final androidx.ui.foundation.gestures.AxisProjection.X! INSTANCE;
+  }
+
+  public static final class AxisProjection.Y extends androidx.ui.foundation.gestures.AxisProjection {
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection();
+    method public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection$lintWithKotlin();
+    property public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+    field public static final androidx.ui.foundation.gestures.AxisProjection.Y! INSTANCE;
+  }
+
+  public final class DecayFlingConfig implements androidx.ui.foundation.gestures.FlingConfig {
+    ctor public DecayFlingConfig(androidx.animation.DecayAnimation decayAnimation, kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onAnimationFinished);
+    method public androidx.animation.DecayAnimation component1();
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> component2();
+    method public androidx.ui.foundation.gestures.DecayFlingConfig copy(androidx.animation.DecayAnimation decayAnimation, kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onAnimationFinished);
+    method public void fling(androidx.animation.AnimatedFloat value, float startVelocity);
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> getOnAnimationFinished();
+  }
+
+  public final class DefaultFlingConfig implements androidx.ui.foundation.gestures.FlingConfig {
+    method public void fling(androidx.animation.AnimatedFloat value, float startVelocity);
+    field public static final androidx.ui.foundation.gestures.DefaultFlingConfig! INSTANCE;
+  }
+
+  public interface FlingConfig {
+    method public void fling(androidx.animation.AnimatedFloat value, float startVelocity);
+  }
+
+  public final class NoFlingConfig implements androidx.ui.foundation.gestures.FlingConfig {
+    ctor public NoFlingConfig(kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onDragEnded);
+    ctor public NoFlingConfig();
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> component1();
+    method public androidx.ui.foundation.gestures.NoFlingConfig copy(kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onDragEnded);
+    method public void fling(androidx.animation.AnimatedFloat value, float startVelocity);
+    method public kotlin.jvm.functions.Function2<java.lang.Float,java.lang.Boolean,kotlin.Unit> getOnDragEnded();
+  }
+
+}
+
 package androidx.ui.foundation.selection {
 
   public final class MutuallyExclusiveSetItemKt {
