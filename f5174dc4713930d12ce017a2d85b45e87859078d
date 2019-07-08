@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62f276fe_87ab9e2e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/TableInfoValidationWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-08T22:44:53Z",
+      "side": 1,
+      "message": "move to a constant.",
+      "range": {
+        "startLine": 55,
+        "startChar": 67,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "f5174dc4713930d12ce017a2d85b45e87859078d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d4da8a_e5f44679",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-08T22:44:53Z",
+      "side": 1,
+      "message": "couldnt\u0027 we simply this if checks by just doing something like:\n\nboolean checkDefaultValue \u003d mCreatedFrom !\u003d UKNOWN \u0026\u0026 column.mCreatedFrom !\u003d UNKNOWN\n\nif (checkDefaultValue \u0026\u0026 (defaultValue !\u003d null \u0026\u0026 !defaultValue.equals(column.defaultValue))) {\n    return false;\n}\n\nalso default check seems wrong since if defaultValue is null and other is not null, it does not check.",
+      "range": {
+        "startLine": 452,
+        "startChar": 12,
+        "endLine": 452,
+        "endChar": 20
+      },
+      "revId": "f5174dc4713930d12ce017a2d85b45e87859078d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
