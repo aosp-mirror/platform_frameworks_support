@@ -166,6 +166,30 @@
       "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44c2607_3bfe21ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-08T19:16:01Z",
+      "side": 1,
+      "message": "Changed the package name to `ui-tooling`.\nChanged the name of the component to `Inspectable` and the mode to `InspectionMode`.",
+      "parentUuid": "447e4ebd_fb9c2257",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "06481530d6b5b92b8739c9f990da4d4b303ff63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
