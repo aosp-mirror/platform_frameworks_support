@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "4eef0d88_c4cee9be",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-08T12:49:59Z",
+      "side": 1,
+      "message": "The main reason for the current API is that in the future we will show the other items in a menu, providing a lambda that allows building the menu. This makes the AppBar resilient to FAB position changes / orientation changes / window size changes, where the max number of items could change. I think it\u0027s fine to abstract these away, although in the future maybe it would be nice to expose a simple app bar actions that just displays the items in a row, and doesn\u0027t have a max number to make it easier to jump to using the lower level API.",
+      "parentUuid": "3adba9ee_18de73ff",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -582,6 +606,30 @@
       "side": 1,
       "message": "I personally think having nulls here is ok as this slot is fully optional and we need a way to check whether it was provided or not. we can do it with some\nval defaultLambdaValue \u003d {}\nif (slot !\u003d\u003d defaultLambdaValue)\nbut not sure it is better then just null",
       "parentUuid": "73b00348_9b94ff20",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f960898_a871a31f",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-08T12:49:59Z",
+      "side": 1,
+      "message": "Yeah, I prefer null here as it makes it easier for developers to make components with different states, for example:\n\nfun MySwitchingBottomAppBar(showNavigationIcon: Boolean) { \n    val icon \u003d if (showNavigationIcon) someComposable else null\n    BottomAppBar(navigationIcon \u003d icon)\n}\n\nIf we have some hidden default value, then developers can\u0027t use this and they need to declare everything again instead of just changing a parameter. I think null is also more natural in cases like this",
+      "parentUuid": "d6e20b01_f047da9a",
       "range": {
         "startLine": 174,
         "startChar": 84,
