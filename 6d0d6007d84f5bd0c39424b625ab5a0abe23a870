@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c22eb08f_993f4e51",
+        "filename": "car/core/src/main/java/androidx/car/navigation/utils/BundleMarshaller.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-08T18:23:02Z",
+      "side": 1,
+      "message": "Hmm.. I think you can actually get rid of this class. I don\u0027t see it being used.\n\nNothing to be done in this CL. Maybe remove it in a follow-up.",
+      "revId": "6d0d6007d84f5bd0c39424b625ab5a0abe23a870",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
