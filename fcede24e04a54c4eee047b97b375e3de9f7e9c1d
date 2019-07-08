@@ -45,6 +45,30 @@
       "revId": "fcede24e04a54c4eee047b97b375e3de9f7e9c1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "314554d1_2fa3fc9a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2309,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-08T19:57:22Z",
+      "side": 1,
+      "message": "\"getAnimator\" takes an integer parameter where the constants defined are in the inclusive range of 0 to 4.  Maybe a comment explaining this would be nice for future readers.",
+      "parentUuid": "5787ae7a_535ff9dc",
+      "range": {
+        "startLine": 2309,
+        "startChar": 32,
+        "endLine": 2309,
+        "endChar": 33
+      },
+      "revId": "fcede24e04a54c4eee047b97b375e3de9f7e9c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
