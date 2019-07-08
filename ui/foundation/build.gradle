@@ -34,6 +34,7 @@ dependencies {
     api project(":compose:compose-runtime")
     api project(":ui-core")
     api project(':ui-framework')
+    api project(':ui-animation')
     api project(':ui-layout')
     api project(':ui-text')
     api(KOTLIN_COMPOSE_STDLIB)

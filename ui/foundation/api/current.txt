@@ -24,6 +24,71 @@ package androidx.ui.foundation {
 
 }
 
+package androidx.ui.foundation.gestures {
+
+  public final class AnchorsAnimationAdjustment implements androidx.ui.foundation.gestures.AnimationAdjustment {
+    ctor public AnchorsAnimationAdjustment(java.util.List<java.lang.Float> animationAnchors, androidx.animation.AnimationBuilder<java.lang.Float> animationBuilder, androidx.animation.DecayAnimation decayAnimation);
+    method public androidx.animation.TargetAnimation? adjust(float target);
+    method public java.util.List<java.lang.Float> component1();
+    method public androidx.animation.AnimationBuilder<java.lang.Float> component2();
+    method public androidx.animation.DecayAnimation component3();
+    method public androidx.ui.foundation.gestures.AnchorsAnimationAdjustment copy(java.util.List<java.lang.Float> animationAnchors, androidx.animation.AnimationBuilder<java.lang.Float> animationBuilder, androidx.animation.DecayAnimation decayAnimation);
+    method public java.util.List<java.lang.Float> getAnimationAnchors();
+    method public androidx.animation.AnimationBuilder<java.lang.Float> getAnimationBuilder();
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+  }
+
+  public final class AnimatedDraggableKt {
+    ctor public AnimatedDraggableKt();
+    method public static void AnimatedDraggable(float startValue, float minValue, float maxValue, androidx.ui.foundation.gestures.AxisProjection axisProjection, kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit> onAnimationFinished, androidx.ui.foundation.gestures.AnimationAdjustment animationAdjustment = DefaultAnimationAdjustment, kotlin.jvm.functions.Function1<? super androidx.animation.AnimatedFloat,kotlin.Unit> children);
+  }
+
+  public interface AnimationAdjustment {
+    method public androidx.animation.TargetAnimation? adjust(float target);
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+    property public abstract androidx.animation.DecayAnimation decayAnimation;
+  }
+
+  public abstract sealed class AxisProjection {
+  }
+
+  public static final class AxisProjection.X extends androidx.ui.foundation.gestures.AxisProjection {
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection$lintWithKotlin();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection$lintWithKotlin();
+    method public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection$lintWithKotlin();
+    property public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+    field public static final androidx.ui.foundation.gestures.AxisProjection.X! INSTANCE;
+  }
+
+  public static final class AxisProjection.Y extends androidx.ui.foundation.gestures.AxisProjection {
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getXProjection$lintWithKotlin();
+    method public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> getYProjection$lintWithKotlin();
+    method public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection$lintWithKotlin();
+    property public kotlin.jvm.functions.Function4<androidx.ui.core.Direction,java.lang.Float,java.lang.Float,java.lang.Float,java.lang.Boolean> isDraggableInDirection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> xProjection;
+    property public kotlin.jvm.functions.Function1<androidx.ui.core.Px,java.lang.Float> yProjection;
+    field public static final androidx.ui.foundation.gestures.AxisProjection.Y! INSTANCE;
+  }
+
+  public final class DecayAdjustment implements androidx.ui.foundation.gestures.AnimationAdjustment {
+    ctor public DecayAdjustment(androidx.animation.DecayAnimation decayAnimation);
+    method public androidx.animation.TargetAnimation? adjust(float target);
+    method public androidx.animation.DecayAnimation component1();
+    method public androidx.ui.foundation.gestures.DecayAdjustment copy(androidx.animation.DecayAnimation decayAnimation);
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+  }
+
+  public final class DefaultAnimationAdjustment implements androidx.ui.foundation.gestures.AnimationAdjustment {
+    method public androidx.animation.TargetAnimation? adjust(float target);
+    method public androidx.animation.DecayAnimation getDecayAnimation();
+    property public androidx.animation.DecayAnimation decayAnimation;
+    field public static final androidx.ui.foundation.gestures.DefaultAnimationAdjustment! INSTANCE;
+  }
+
+}
+
 package androidx.ui.foundation.selection {
 
   public final class MutuallyExclusiveSetItemKt {
