@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea3d48b5_c6286ad3",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimationAdjustment.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-08T17:53:18Z",
+      "side": 1,
+      "message": "I don\u0027t really like this abstraction, but it seems good enough for now. Please, if you have suggestions around how to make this logic more friendly -- I will be happy.\n\nThe other ideas I\u0027ve tried: \n1. split it to Adjuster and Flinger. Seems to verbose and I still need to make sure one knows around the other. Also Flinger is not really needed to anchored logic.\n2. Split AnimatedDraggable to AnchoredAnimatedDraggable and just AnimatedDraggable. \nSeems like they share a lot in common, but it\u0027s still a potentially nice option, but it will be a little bit harder to discover.\n\nFeel free to write your suggestion as well.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
