@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82bbe9af_1e3c9f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-08T11:18:34Z",
+      "side": 1,
+      "message": "You can reference b/136475531 here :)",
+      "revId": "a41bd882a08e351224d6d0c33713f3f0d78f09e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
