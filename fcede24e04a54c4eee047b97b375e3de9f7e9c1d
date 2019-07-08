@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1df57dbb_5530042d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-08T18:28:54Z",
+      "side": 1,
+      "message": "Is this also here for compatibility reasons?  If so, can you please comment for future readers.",
+      "range": {
+        "startLine": 2303,
+        "startChar": 12,
+        "endLine": 2303,
+        "endChar": 34
+      },
+      "revId": "fcede24e04a54c4eee047b97b375e3de9f7e9c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
