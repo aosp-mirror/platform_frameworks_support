@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Preconditions;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -175,7 +174,8 @@ public abstract class DeferrableSurface {
         });
     }
 
-    @VisibleForTesting
+    /** @hide */
+    @RestrictTo(Scope.TESTS)
     public int getAttachedCount() {
         synchronized (mLock) {
             return mAttachedCount;
