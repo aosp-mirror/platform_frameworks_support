@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94ebc6ec_5c3b9d87",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/AndroidLayoutDrawTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:11:49Z",
+      "side": 1,
+      "message": "Why minimum O?",
+      "range": {
+        "startLine": 688,
+        "startChar": 17,
+        "endLine": 688,
+        "endChar": 38
+      },
+      "revId": "a3dd90361045758df5e19694e67ccb855c668719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be61aadf_18a385e5",
+        "filename": "ui/framework/src/androidTest/java/androidx/ui/core/test/AndroidLayoutDrawTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:11:49Z",
+      "side": 1,
+      "message": "Not all of the Draw {} were doing drawLatch.countDown(). I\u0027d like it if you passed in whether it should count down to make sure the tests are acting as expected.",
+      "range": {
+        "startLine": 871,
+        "startChar": 16,
+        "endLine": 871,
+        "endChar": 25
+      },
+      "revId": "a3dd90361045758df5e19694e67ccb855c668719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5201f51f_367a41c4",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-08T23:11:49Z",
+      "side": 1,
+      "message": "I want to think that there is a way to optimize this a bit. If a LayoutNode only moves, its child RepaintBoundaries don\u0027t need to re-record.\n\nIn fact a LayoutNode changing positions only needs to invalidate if it has a child DrawNode, right?\n\nMaybe fruit for a later optimization?",
+      "range": {
+        "startLine": 182,
+        "startChar": 17,
+        "endLine": 182,
+        "endChar": 33
+      },
+      "revId": "a3dd90361045758df5e19694e67ccb855c668719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
