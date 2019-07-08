@@ -60,6 +60,7 @@ import androidx.mediarouter.app.MediaRouteControllerDialogFragment;
 import androidx.mediarouter.app.MediaRouteDialogFactory;
 import androidx.mediarouter.app.MediaRouteDiscoveryFragment;
 import androidx.mediarouter.media.MediaControlIntent;
+import androidx.mediarouter.media.MediaHttpServer;
 import androidx.mediarouter.media.MediaItemStatus;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -70,6 +71,7 @@ import androidx.mediarouter.media.MediaRouter.RouteInfo;
 import com.example.android.supportv7.R;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * <h3>Media Router Support Activity</h3>
@@ -84,6 +86,7 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
     private static final String TAG = "SampleMediaRouterActivity";
     private static final String DISCOVERY_FRAGMENT_TAG = "DiscoveryFragment";
     private static final boolean ENABLE_DEFAULT_CONTROL_CHECK_BOX = false;
+    private static final int REQUEST_CODE_OPEN_LOCAL_FILE = 42;
 
     private MediaRouter mMediaRouter;
     private MediaRouteSelector mSelector;
@@ -212,6 +215,9 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
             }
         }
     };
+
+    private MediaHttpServer mServer;
+    private int mLocalItemSeq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -408,6 +414,33 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
         });
 
         updateUi();
+
+        startServer();
+    }
+
+    private void startServer() {
+        mServer = new MediaHttpServer(this);
+        try {
+            mServer.start();
+        } catch (IOException ex) {
+            Log.d("SGM", "fail to start server", ex);
+            mServer = null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_OPEN_LOCAL_FILE && resultCode == RESULT_OK) {
+            if (mServer != null) {
+                String id = "item" + (mLocalItemSeq++);
+                Uri contentUri = data.getData();
+                mServer.addContent(id, contentUri);
+                Uri httpUri = mServer.getUriForId(id);
+                MediaItem item = new MediaItem("[local] " + id, httpUri, "video/mp4");
+                mLibraryItems.add(item);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void createMediaSession() {
@@ -520,6 +553,9 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        if (mServer != null) {
+            mServer.stop();
+        }
         mSessionManager.stop();
         mPlayer.release();
         mMediaSession.release();
@@ -543,6 +579,18 @@ public class SampleMediaRouterActivity extends AppCompatActivity {
             @Override
             public MediaRouteControllerDialogFragment onCreateControllerDialogFragment() {
                 return new ControllerDialogFragment(mPlayer, mUseDefaultControlCheckBox);
+            }
+        });
+
+        MenuItem openLocalFileMenuItem = menu.findItem(R.id.open_local_file);
+        openLocalFileMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("video/mp4");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, REQUEST_CODE_OPEN_LOCAL_FILE);
+                return true;
             }
         });
 
