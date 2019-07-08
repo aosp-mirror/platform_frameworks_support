@@ -2300,10 +2300,23 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     public void setLayoutTransition(LayoutTransition transition) {
         if (transition == null) {
             super.setLayoutTransition(null);
+            suppressLayout(false);
         } else {
-            throw new IllegalArgumentException("Providing a LayoutTransition into RecyclerView is "
-                    + "not supported. Please use setItemAnimator() instead for animating changes "
-                    + "to the items in this RecyclerView");
+            // Transitions on APIs below 18 are using an empty LayoutTransition as
+            // a replacement for suppressLayout(). We can detect this and use our
+            // suppressLayout() implementation instead.
+            boolean emptyTransition = true;
+            for (int i = 0; i < 5; i++) {
+                emptyTransition = emptyTransition && transition.getAnimator(i) == null;
+            }
+            if (emptyTransition) {
+                suppressLayout(true);
+            } else {
+                throw new IllegalArgumentException(
+                        "Providing a LayoutTransition into RecyclerView is not supported. Please "
+                                + "use setItemAnimator() instead for animating changes "
+                                + "to the items in this RecyclerView");
+            }
         }
     }
 
