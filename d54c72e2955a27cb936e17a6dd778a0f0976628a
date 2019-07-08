@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88b184ba_22d02550",
+        "filename": "ui/settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-08T15:44:52Z",
+      "side": 1,
+      "message": "per the guidelines, should this be ui-material-demos or just demos?",
+      "range": {
+        "startLine": 48,
+        "startChar": 53,
+        "endLine": 48,
+        "endChar": 61
+      },
+      "revId": "d54c72e2955a27cb936e17a6dd778a0f0976628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
