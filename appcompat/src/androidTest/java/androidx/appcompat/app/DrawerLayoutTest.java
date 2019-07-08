@@ -41,6 +41,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.os.Build;
+import android.os.SystemClock;
 import android.view.View;
 
 import androidx.appcompat.custom.CustomDrawerLayout;
@@ -338,6 +339,7 @@ public class DrawerLayoutTest {
     @Test
     @MediumTest
     public void testDrawerListenerCallbacksOnOpeningNoAnimationViaAPI() {
+        SystemClock.sleep(2000);
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);
         mDrawerLayout.addDrawerListener(mockedListener);
