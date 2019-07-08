@@ -22,6 +22,30 @@
       "revId": "a7d92a0954eb955df0cad29e1f831923c04bc9e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f3740fd_15b479bc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureCharacteristics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-08T05:57:21Z",
+      "side": 1,
+      "message": "The description is incorrect and I have updated it. I do not directly mention extension here due to this may be re-use for other purpose if it also needs to inject customized camera characteristics values. I also update more detailed info about what could OEM implement to return customized characteristics values in another CL - https://android-review.googlesource.com/c/platform/frameworks/support/+/1010793/4/camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/CaptureCharacteristicsImpls.java.\n\nThanks.",
+      "parentUuid": "1264a952_5d004286",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "a7d92a0954eb955df0cad29e1f831923c04bc9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
