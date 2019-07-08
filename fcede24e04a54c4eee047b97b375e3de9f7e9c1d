@@ -93,6 +93,30 @@
       "revId": "fcede24e04a54c4eee047b97b375e3de9f7e9c1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea37f8d9_e7f866c6",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2309,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-08T20:37:16Z",
+      "side": 1,
+      "message": "I actually agree.  I was thinking the same thing but leaned towards being ok with it, so yeah, maybe list the constants and iterate through that list so that the clarity is in the code itself (then no need for a comment).\n\nWould be cool of final arrays were inlined where used (maybe that is already the case?)",
+      "parentUuid": "b01041a9_623af732",
+      "range": {
+        "startLine": 2309,
+        "startChar": 32,
+        "endLine": 2309,
+        "endChar": 33
+      },
+      "revId": "fcede24e04a54c4eee047b97b375e3de9f7e9c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
