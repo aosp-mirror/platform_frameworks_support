@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f886a169_8af0d75c",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-07-08T20:07:09Z",
+      "side": 1,
+      "message": "Why not use ArgumentCaptor\u003cTotalCaptureResult\u003e and a verify with timeout here?",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "69d3bf565a2207dfca8fca926c6b1f30c1fc3a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
