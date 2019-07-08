@@ -46,6 +46,30 @@
       "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9489b1fd_c65a86d7",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-07-08T17:23:28Z",
+      "side": 1,
+      "message": "It does break symmetry but old gen code uses equals and we can\u0027t change that. Ideally I wish I could add a property to tell whether the table info was created from the PRAGMA vs generated.\n\n\u0027validateAgainst\u0027 is nice but I don\u0027t know if its worth it given this is a library restricted class. I would need to change a bunch of other code to keep things consistent, FtsTableInfo, ViewInfo and the inner classes would also need to not use equals() but this new method. Then there is the issue that we rely on HashSet, HashMap and ArrayList equals, we would need to stop using those in favor of our own methods that use validateAgainst().",
+      "parentUuid": "ed21b17e_83e4eb13",
+      "range": {
+        "startLine": 425,
+        "startChar": 16,
+        "endLine": 425,
+        "endChar": 28
+      },
+      "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
