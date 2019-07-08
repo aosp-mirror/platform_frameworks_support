@@ -22,6 +22,30 @@
       "revId": "69d3bf565a2207dfca8fca926c6b1f30c1fc3a56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212fdec1_ac84d2b8",
+        "filename": "camera/extensions/src/androidTest/java/androidx/camera/extensions/PreviewExtenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-08T21:29:02Z",
+      "side": 1,
+      "message": "Thanks. That actually makes it much cleaner.",
+      "parentUuid": "f886a169_8af0d75c",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "69d3bf565a2207dfca8fca926c6b1f30c1fc3a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
