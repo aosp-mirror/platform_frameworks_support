@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc77117e_1e5c8333",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-08T17:23:48Z",
+      "side": 1,
+      "message": "In the comments for onParamsChanged, it indicates that the parameters that are modified would not cause a re-recording of the repaint boundary, however, it looks like ownerView here is being invalidated which would end up causing a displaylist to be recreated. Should we cache the results for onParamsChanged and conditionally invalidate the ownerView if necessary?",
+      "revId": "4423eb2e4cae7d2720aa5837db8de1b7810649e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
