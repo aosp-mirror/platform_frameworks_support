@@ -16,6 +16,24 @@
       "revId": "4423eb2e4cae7d2720aa5837db8de1b7810649e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee72c99_463d6491",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-08T17:30:58Z",
+      "side": 1,
+      "message": "we are not rerecording this renderNode. onwerView is AndroidCraneView, and we need to invalidate it, so the renderNode would be redrawn with new params applied. no renderNode.beginRecording() would be called, as this renderNode wasn\u0027t marked as dirty. \nthere is no need for adding some conditional invalidation for ownerView here I guess, as if something called onParamsChange it means at least something has been changed, as we call this only when the param really has been changed on the ComponentNode class side, like this:\n        set(value) {\n            if (field !\u003d value) {\n                field \u003d value\n                owner?.onRepaintBoundaryParamsChange(this)\n            }\n        }",
+      "parentUuid": "cc77117e_1e5c8333",
+      "revId": "4423eb2e4cae7d2720aa5837db8de1b7810649e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
