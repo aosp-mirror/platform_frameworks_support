@@ -103,8 +103,10 @@ class DrawerTest {
                 }
             }
         }
+        val width = composeTestRule.displayMetrics.widthPixels
         val height = composeTestRule.displayMetrics.heightPixels
-        Truth.assertThat(position!!.y.round().value).isEqualTo((height / 2f).roundToInt())
+        val expectedHeight = if (width > height) height else (height / 2f).roundToInt()
+        Truth.assertThat(position!!.y.round().value).isEqualTo(expectedHeight)
     }
 
     @Test
