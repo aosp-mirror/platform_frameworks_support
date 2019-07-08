@@ -642,6 +642,30 @@
     },
     {
       "key": {
+        "uuid": "78cafe0d_ea79c0ca",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-08T14:10:46Z",
+      "side": 1,
+      "message": "Sgtm, just make sure we double check nulls to ensure they make sense",
+      "parentUuid": "7f960898_a871a31f",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "492b03d3_f04d3458",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
