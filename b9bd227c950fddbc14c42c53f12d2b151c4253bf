@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ee9e824_0a02c9d7",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-08T16:55:05Z",
+      "side": 1,
+      "message": "food for thought: should layout samples pull you toward using Material? would something more simple be enough?",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
