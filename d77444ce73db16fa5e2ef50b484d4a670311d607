@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40cee16b_77369887",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "Q) What is the effect of this change?",
+      "range": {
+        "startLine": 1541,
+        "startChar": 69,
+        "endLine": 1541,
+        "endChar": 82
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8521bab_afb7a7da",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "If the new test methods in Version-compat-test can cover the new tests here, then let\u0027s not add new tests in androidTest.",
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdd6cf7_29464496",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "Let\u0027s also check the value of getCurrentMediaItemIndex(), here and below.",
+      "range": {
+        "startLine": 1514,
+        "startChar": 36,
+        "endLine": 1514,
+        "endChar": 55
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d499f3c4_e0a081e7",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "remove logs, here and below",
+      "range": {
+        "startLine": 1242,
+        "startChar": 20,
+        "endLine": 1244,
+        "endChar": 80
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ee474c_7ca88dbb",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 1340,
+        "startChar": 4,
+        "endLine": 1342,
+        "endChar": 37
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bb77ce_fccc4247",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "indices",
+      "range": {
+        "startLine": 1347,
+        "startChar": 48,
+        "endLine": 1347,
+        "endChar": 55
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fd693e_3b5d52ba",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "!\u003d (here and L1174)\n\nQ) Is it possible to add test cases on shuffle mode too?",
+      "range": {
+        "startLine": 1368,
+        "startChar": 37,
+        "endLine": 1368,
+        "endChar": 40
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fab93665_54fe6147",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "Q) What does it mean?",
+      "range": {
+        "startLine": 1379,
+        "startChar": 16,
+        "endLine": 1379,
+        "endChar": 87
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "503bcd65_8f8a1358",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "indices",
+      "range": {
+        "startLine": 937,
+        "startChar": 48,
+        "endLine": 937,
+        "endChar": 55
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "234b8c1e_d02e8395",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "remove empty line",
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82ff0071_af1ceb4f",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/SessionPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-07-08T02:16:37Z",
+      "side": 1,
+      "message": "Let\u0027s resolve this TODO",
+      "range": {
+        "startLine": 352,
+        "startChar": 7,
+        "endLine": 353,
+        "endChar": 93
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
