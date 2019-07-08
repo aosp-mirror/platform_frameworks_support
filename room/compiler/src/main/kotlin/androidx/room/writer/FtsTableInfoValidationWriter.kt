@@ -51,7 +51,6 @@ class FtsTableInfoValidationWriter(val entity: FtsEntity) : ValidationWriter() {
             addStatement("final $T $L = $T.read($N, $S)",
                     RoomTypeNames.FTS_TABLE_INFO, existingVar, RoomTypeNames.FTS_TABLE_INFO,
                     dbParam, entity.tableName)
-
             beginControlFlow("if (!$L.equals($L))", expectedInfoVar, existingVar).apply {
                 addStatement("return new $T(false, $S + $L + $S + $L)",
                         RoomTypeNames.OPEN_HELPER_VALIDATION_RESULT,

@@ -45,13 +45,14 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             addStatement("final $T $L = new $T($L)", columnListType, columnListVar,
                     columnListType, entity.fields.size)
             entity.fields.forEach { field ->
-                addStatement("$L.put($S, new $T($S, $S, $L, $L, $S))",
+                addStatement("$L.put($S, new $T($S, $S, $L, $L, $S, $T.CREATE_FROM_COMPILER))",
                         columnListVar, field.columnName, RoomTypeNames.TABLE_INFO_COLUMN,
                         /*name*/ field.columnName,
                         /*type*/ field.affinity?.name ?: SQLTypeAffinity.TEXT.name,
                         /*nonNull*/ field.nonNull,
                         /*pkeyPos*/ entity.primaryKey.fields.indexOf(field) + 1,
-                        /*defaultValue*/ field.defaultValue)
+                        /*defaultValue*/ field.defaultValue,
+                        RoomTypeNames.TABLE_INFO)
             }
 
             val foreignKeySetVar = scope.getTmpVar("_foreignKeys$suffix")
@@ -100,7 +101,6 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             addStatement("final $T $L = $T.read($N, $S)",
                     RoomTypeNames.TABLE_INFO, existingVar, RoomTypeNames.TABLE_INFO,
                     dbParam, entity.tableName)
-
             beginControlFlow("if (! $L.equals($L))", expectedInfoVar, existingVar).apply {
                 addStatement("return new $T(false, $S + $L + $S + $L)",
                         RoomTypeNames.OPEN_HELPER_VALIDATION_RESULT,

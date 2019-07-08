@@ -19,6 +19,7 @@ package androidx.room.util;
 import android.database.Cursor;
 import android.os.Build;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -51,6 +52,31 @@ import java.util.TreeMap;
         "SimplifiableIfStatement"})
 // if you change this class, you must change TableInfoWriter.kt
 public class TableInfo {
+
+    /**
+     * Identifies from where the info object was created.
+     */
+    @IntDef(value = {CREATE_FROM_UNKNOWN, CREATE_FROM_COMPILER, CREATE_FROM_PRAGMA})
+    @interface CreatedFrom {
+    }
+
+    /**
+     * Identifier for when the info is created from an unknown source.
+     */
+    public static final int CREATE_FROM_UNKNOWN = 0;
+
+    /**
+     * Identifier for when the info is created by the compiler, i.e. generated code or by a schema
+     * bundle (read from schema JSON file).
+     */
+    public static final int CREATE_FROM_COMPILER = 1;
+
+    /**
+     * Identifier for when the info is created by reading information from a PRAGMA,
+     * such as table_info.
+     */
+    public static final int CREATE_FROM_PRAGMA = 2;
+
     /**
      * The table name.
      */
@@ -227,7 +253,8 @@ public class TableInfo {
                     final int primaryKeyPosition = cursor.getInt(pkIndex);
                     final String defaultValue = cursor.getString(defaultValueIndex);
                     columns.put(name,
-                            new Column(name, type, notNull, primaryKeyPosition, defaultValue));
+                            new Column(name, type, notNull, primaryKeyPosition, defaultValue,
+                                    CREATE_FROM_PRAGMA));
                 }
             }
         } finally {
@@ -349,34 +376,28 @@ public class TableInfo {
          * The default value of this column.
          */
         public final String defaultValue;
-        // Whether to ignore default value or not during equality check. This is set based on which
-        // constructor was called by generated code.
-        private final boolean mIgnoreDefaultValue;
+
+        @CreatedFrom
+        private final int mCreatedFrom;
 
         /**
-         * @deprecated Use {@link Column#Column(String, String, boolean, int, String)} instead.
+         * @deprecated Use {@link Column#Column(String, String, boolean, int, String, int)} instead.
          */
         @Deprecated
         public Column(String name, String type, boolean notNull, int primaryKeyPosition) {
-            this.name = name;
-            this.type = type;
-            this.notNull = notNull;
-            this.primaryKeyPosition = primaryKeyPosition;
-            this.affinity = findAffinity(type);
-            this.defaultValue = null;
-            this.mIgnoreDefaultValue = true;
+            this(name, type, notNull, primaryKeyPosition, null, CREATE_FROM_UNKNOWN);
         }
 
         // if you change this constructor, you must change TableInfoWriter.kt
         public Column(String name, String type, boolean notNull, int primaryKeyPosition,
-                String defaultValue) {
+                String defaultValue, int createdFrom) {
             this.name = name;
             this.type = type;
             this.notNull = notNull;
             this.primaryKeyPosition = primaryKeyPosition;
             this.affinity = findAffinity(type);
             this.defaultValue = defaultValue;
-            this.mIgnoreDefaultValue = false;
+            this.mCreatedFrom = createdFrom;
         }
 
         /**
@@ -427,13 +448,24 @@ public class TableInfo {
             if (!name.equals(column.name)) return false;
             //noinspection SimplifiableIfStatement
             if (notNull != column.notNull) return false;
-            if (!mIgnoreDefaultValue && !column.mIgnoreDefaultValue) {
-                //noinspection EqualsReplaceableByObjectsCall
-                if (defaultValue != null ? !defaultValue.equals(column.defaultValue)
-                        : column.defaultValue != null) {
-                    return false;
-                }
+
+            // Only validate default value if it was defined in an entity, i.e. if the info
+            // from the compiler itself has it. b/136019383
+            if (mCreatedFrom == CREATE_FROM_COMPILER
+                    && column.mCreatedFrom == CREATE_FROM_PRAGMA
+                    && (defaultValue != null && !defaultValue.equals(column.defaultValue))) {
+                return false;
+            } else if (mCreatedFrom == CREATE_FROM_PRAGMA
+                    && column.mCreatedFrom == CREATE_FROM_COMPILER
+                    && (column.defaultValue != null && !column.defaultValue.equals(defaultValue))) {
+                return false;
+            } else if (mCreatedFrom != CREATE_FROM_UNKNOWN
+                    && mCreatedFrom == column.mCreatedFrom
+                    && (defaultValue != null ? defaultValue.equals(column.defaultValue)
+                    : column.defaultValue == null)) {
+                return false;
             }
+
             return affinity == column.affinity;
         }
 
