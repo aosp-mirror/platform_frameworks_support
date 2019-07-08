@@ -70,6 +70,30 @@
       "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36517bbf_5ea3f99c",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-08T18:10:49Z",
+      "side": 1,
+      "message": "\u003e It does break symmetry but old gen code uses equals and we can\u0027t change that. Ideally I wish I could add a property to tell whether the table info was created from the PRAGMA vs generated.\n\nWhy is it hard (besides being a ton of code :) ) We can add an overload constructor that defaults to false (or an enum might be better).",
+      "parentUuid": "9489b1fd_c65a86d7",
+      "range": {
+        "startLine": 425,
+        "startChar": 16,
+        "endLine": 425,
+        "endChar": 28
+      },
+      "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
