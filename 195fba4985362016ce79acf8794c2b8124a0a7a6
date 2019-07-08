@@ -22,6 +22,30 @@
       "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed21b17e_83e4eb13",
+        "filename": "room/runtime/src/main/java/androidx/room/util/TableInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-08T15:49:50Z",
+      "side": 1,
+      "message": "+1 to ian.",
+      "parentUuid": "cb0754f3_95aa010c",
+      "range": {
+        "startLine": 425,
+        "startChar": 16,
+        "endLine": 425,
+        "endChar": 28
+      },
+      "revId": "195fba4985362016ce79acf8794c2b8124a0a7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
