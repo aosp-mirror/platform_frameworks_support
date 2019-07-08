@@ -72,7 +72,7 @@ public class TrustedWebActivityServiceConnectionManagerTest {
         mManager.unbindAllConnections();
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void testConnection() {
         final AtomicBoolean connected = new AtomicBoolean();
         boolean delegated = mManager.execute(GOOD_SCOPE, ORIGIN,
