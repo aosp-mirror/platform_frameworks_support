@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e281b40_3fd41c02",
+        "filename": "settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-08T22:50:13Z",
+      "side": 1,
+      "message": "If you keep the name :camera:integration-tests:camera-testapp-core, then this should stay in camera/integration-tests/*",
+      "range": {
+        "startLine": 68,
+        "startChar": 71,
+        "endLine": 68,
+        "endChar": 80
+      },
+      "revId": "7097d32c9c7551b9cef71ed407df1094f8536aab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
