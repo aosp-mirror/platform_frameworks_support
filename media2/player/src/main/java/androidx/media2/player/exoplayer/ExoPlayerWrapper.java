@@ -515,7 +515,8 @@ import java.util.Map;
             mVideoWidth = width;
         }
         mVideoHeight = height;
-        mListener.onVideoSizeChanged(mMediaItemQueue.getCurrentMediaItem(), width, height);
+        mListener.onVideoSizeChanged(
+                mMediaItemQueue.getCurrentMediaItem(), mVideoWidth, mVideoHeight);
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -758,7 +759,10 @@ import java.util.Map;
         public void onDroppedFrames(int count, long elapsedMs) {}
 
         @Override
-        public void onVideoDisabled(DecoderCounters counters) {}
+        public void onVideoDisabled(DecoderCounters counters) {
+            handleVideoSizeChanged(
+                    /* width= */ 0, /* height= */ 0, /* pixelWidthHeightRatio= */ 1f);
+        }
 
         // AudioListener implementation.
 
