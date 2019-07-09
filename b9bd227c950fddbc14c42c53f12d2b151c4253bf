@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5a4d35df_cebe3724",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-09T13:56:44Z",
+      "side": 1,
+      "message": "I actually liked the idea we use our real widgets in samples. Why not to use material components in samples? Everyone knows what is button, you don\u0027t have to think what is TextWithBackground and how is it implemented. \nAlso this samples can be something you copy/paste into your code when you try the widget. And it wouldn\u0027t compile as you also have to copypaste your helper components you provided for the sample.\nMaybe let\u0027s use exact primitives we would use in the real app? \nNot SizedRectangle, but Container;\nNot TextWithBackground, but Button;\nNot DrawRectangle, but DrawShape(RectangleShape).\nIt will help to learn our framework.\nWdyt?",
+      "parentUuid": "56e0743a_89af24e6",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
