@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2edf5785_f9405a1a",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentContainerView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-09T04:30:30Z",
+      "side": 1,
+      "message": "Nit: I think the team decided to use hardcoded numbers, i.e. 20",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "5489a714c000000f4b34caff9b726a849e6e3383",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
