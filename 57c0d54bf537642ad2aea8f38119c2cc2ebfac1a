@@ -281,6 +281,30 @@
       "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7fc8f0_6051fd3e",
+        "filename": "camera/view/src/main/java/androidx/camera/view/CameraXModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:10:45Z",
+      "side": 1,
+      "message": "The reason we set resolution here is we want the preview resolution to be closer to view size. That way the memory usage is optimized without too much quality reduction. I wonder how user can achieve that with new logic?",
+      "parentUuid": "405847eb_a840c70c",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

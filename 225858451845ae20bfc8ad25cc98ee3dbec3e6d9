@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3439443b_2d20bbe5",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:10:45Z",
+      "side": 1,
+      "message": "nit: Is there a reason we don\u0027t use rotateAspectRatioByRotation here? It feels a bit redundant to me.",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
