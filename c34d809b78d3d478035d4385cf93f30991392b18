@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b30ee0c0_8b686287",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-09T19:57:27Z",
+      "side": 1,
+      "message": "Why is this needed, why cannot we check shouldRelease directly?",
+      "range": {
+        "startLine": 135,
+        "startChar": 24,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f217ec4_79d6e92b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-09T19:57:27Z",
+      "side": 1,
+      "message": "I am not a huge fan of using extras, it is not type safe.",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 50
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
