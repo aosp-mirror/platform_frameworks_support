@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d763018_8bd0eb4b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-07-09T21:29:32Z",
+      "side": 1,
+      "message": "Because you can only check for shouldRelease after evaluation when it was determined. However calling afterEvaluate after evaluation does nothing (it does not error but it does not run or that is my understanding after reading a bit following our discussion yesterday.) We run evaluationDependsOnChildren before it so the project map (projectModules) gets populated. The afterEvaluate block must have been needed in aosp/940060 otherwise you\u0027ll get an androidx extension missing error message I believe.",
+      "parentUuid": "b30ee0c0_8b686287",
+      "range": {
+        "startLine": 135,
+        "startChar": 24,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f217ec4_79d6e92b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "801cfa6d_a84d01e4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-07-09T21:29:32Z",
+      "side": 1,
+      "message": "We don\u0027t check its content, we only check if it\u0027s there. If your only concern is type safety, then you don\u0027t have to worry about it.",
+      "parentUuid": "1f217ec4_79d6e92b",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 50
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
