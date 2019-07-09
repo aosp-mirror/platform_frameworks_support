@@ -72,6 +72,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.app.BundleCompat;
+import androidx.media.MediaParceledListSlice;
 import androidx.media.MediaSessionManager;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media.VolumeProviderCompat;
@@ -3140,6 +3141,11 @@ public class MediaSessionCompat {
             }
 
             @Override
+            public void setQueue(MediaParceledListSlice queue) {
+                postToHandler(MessageHandler.MSG_SET_QUEUE, queue.getList());
+            }
+
+            @Override
             public void addQueueItem(MediaDescriptionCompat description) {
                 postToHandler(MessageHandler.MSG_ADD_QUEUE_ITEM, description);
             }
@@ -3239,7 +3245,7 @@ public class MediaSessionCompat {
         }
 
         class MessageHandler extends Handler {
-            // Next ID: 33
+            // Next ID: 34
             private static final int MSG_COMMAND = 1;
             private static final int MSG_ADJUST_VOLUME = 2;
             private static final int MSG_PREPARE = 3;
@@ -3269,6 +3275,7 @@ public class MediaSessionCompat {
             private static final int MSG_ADD_QUEUE_ITEM_AT = 26;
             private static final int MSG_REMOVE_QUEUE_ITEM = 27;
             private static final int MSG_REMOVE_QUEUE_ITEM_AT = 28;
+            private static final int MSG_SET_QUEUE = 33;
             private static final int MSG_SET_CAPTIONING_ENABLED = 29;
             private static final int MSG_SET_SHUFFLE_MODE = 30;
 
@@ -3281,6 +3288,7 @@ public class MediaSessionCompat {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void handleMessage(Message msg) {
                 MediaSessionCompat.Callback cb = mCallback;
                 if (cb == null) {
@@ -3388,6 +3396,9 @@ public class MediaSessionCompat {
                                     cb.onRemoveQueueItem(item.getDescription());
                                 }
                             }
+                            break;
+                        case MSG_SET_QUEUE:
+                            setQueue((List<QueueItem>) msg.obj);
                             break;
                         case MSG_ADJUST_VOLUME:
                             adjustVolume(msg.arg1, 0);
@@ -4118,6 +4129,13 @@ public class MediaSessionCompat {
             public List<QueueItem> getQueue() {
                 // Will not be called.
                 return null;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public void setQueue(MediaParceledListSlice queue) {
+                MediaSessionImplApi21.this.setQueue(
+                        queue == null ? null : (List<QueueItem>) queue.getList());
             }
 
             @Override

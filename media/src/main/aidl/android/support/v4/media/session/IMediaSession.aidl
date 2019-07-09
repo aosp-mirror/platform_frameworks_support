@@ -27,6 +27,8 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import androidx.media.MediaParceledListSlice;
+
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ import java.util.List;
  * @hide
  */
 interface IMediaSession {
-    // Next ID: 50
+    // Next ID: 52
     void sendCommand(String command, in Bundle args, in MediaSessionCompat.ResultReceiverWrapper cb) = 0;
     boolean sendMediaButton(in KeyEvent mediaButton) = 1;
     void registerCallbackListener(in IMediaControllerCallback cb) = 2;
@@ -50,6 +52,7 @@ interface IMediaSession {
     MediaMetadataCompat getMetadata() = 26;
     PlaybackStateCompat getPlaybackState() = 27;
     List<MediaSessionCompat.QueueItem> getQueue() = 28;
+    void setQueue(in MediaParceledListSlice queue) = 51;
     CharSequence getQueueTitle() = 29;
     Bundle getExtras() = 30;
     int getRatingType() = 31;
