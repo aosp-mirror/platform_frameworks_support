@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84f0540c_6f1d2cc6",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T16:34:32Z",
+      "side": 1,
+      "message": "Hm, not sure if this is a problem now, but this looks a bit dangerous in case the lambda is composed multiple times.",
+      "range": {
+        "startLine": 40,
+        "startChar": 45,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a67e7da1_6cd38068",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T16:34:32Z",
+      "side": 1,
+      "message": "You could write this as:\nLayout(children) { measurables, constraints -\u003e\n    ...\n}\nI know there are many places using the version you used, but these should be fixed (they were caused by a large non-manual refactoring we did a while ago).",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 75
+      },
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7723f65f_ba73336c",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T16:34:32Z",
+      "side": 1,
+      "message": "Maybe not needed for the prototype, but here we could handle the case when maxWidth or maxHeight are infinite.",
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
