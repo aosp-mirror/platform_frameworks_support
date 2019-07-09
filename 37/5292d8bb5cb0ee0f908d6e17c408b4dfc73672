@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Siyamed Sinir <siyamed@google.com>
+Submitted-by: Mihai Popa <popam@google.com>
+Submitted-at: Tue, 09 Jul 2019 09:53:06 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1012039
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
