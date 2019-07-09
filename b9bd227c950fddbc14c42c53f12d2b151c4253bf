@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "0d845c17_b88616a2",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T15:09:57Z",
+      "side": 1,
+      "message": "The sample will not work if we just remove Text. Text is appropriate here being the most familiar for developers widget with an intrinsic width. We could replace it with layout primitives, but this will make the sample even more confusing.",
+      "parentUuid": "411ad08a_95985bc9",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4

@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "024e9b70_c41af214",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T15:09:57Z",
+      "side": 1,
+      "message": "Hm, I don\u0027t really agree with this. There are ways to implement TextWithBackground that will break the sample.\n@Composable\nfun TextWithBackground(text: String) {\n  DrawBackground(Color.Purple)\n  Text(text)\n}\nis one of them, because the background will be now drawn in the layout space of Column.\nWrap { Wrap { DrawRectangle(Color.Purple); Text(text) } } will be wrong as well from not extremely obvious for developers reason.\nI think that we should not make assumptions that the implementation of these dummy components is obvious.",
+      "parentUuid": "029bd624_69ba14c5",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb5a5683_ff9a391b",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
         "patchSetId": 8
