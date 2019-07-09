@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "266b0a73_060a5d19",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2306,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-09T21:01:32Z",
+      "side": 1,
+      "message": "Maybe your comment is meant to say \"Transitions on APIs below 18 are using the emptiness vs nullness of the provided LayoutTransition as a replacement for calling suppressLayout directly.  We can detect if the transition is null or empty and call through to suppressLayout so this compatibility technique still works\"\n\nIs that accurate?  If so, could you use this comment or modify yours to include the reasoning behind calling suppressLayout(false) when transition \u003d\u003d null?",
+      "range": {
+        "startLine": 2306,
+        "startChar": 16,
+        "endLine": 2306,
+        "endChar": 37
+      },
+      "revId": "b690d9961129086229a403a7d488f53030216473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
