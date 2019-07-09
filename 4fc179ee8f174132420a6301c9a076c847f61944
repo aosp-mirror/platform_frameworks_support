@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d508b50_8f503666",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/legacy/LegacyCheckboxesInLinearLayoutBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T00:08:55Z",
+      "side": 1,
+      "message": "I think \"Legacy\" has a negative connotation that we don\u0027t want.",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d99668e4_d470c7c0",
+        "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/BenchmarksExtensions.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T00:08:55Z",
+      "side": 1,
+      "message": "I think we shouldn\u0027t bother with this. It is a bug in the original code. We really want to test what happens when the size changes and we should compare apples-to-apples with views and compose.",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe66852d_e00c447e",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T00:08:55Z",
+      "side": 1,
+      "message": "I found that my class didn\u0027t load on older devices when I referenced RenderNode.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94b72f9_e23bd9ff",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T00:08:55Z",
+      "side": 1,
+      "message": "With RepaintBoundary, this isn\u0027t sufficient anymore :(\n\nI think we want to know how long it takes to repaint the entire screen, so we have to invalidate repaint boundaries also.\n\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/1007770/9/ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/CheckboxBenchmark.kt#251",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc559dc9_29f94ebe",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/cases/CheckboxesInRowsTestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T00:08:55Z",
+      "side": 1,
+      "message": "You\u0027re doing some backdoor work to make the state accessible. You should be able to create an @Model data class and have a reference to an instance here and use the reference in CheckboxWithState()",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
