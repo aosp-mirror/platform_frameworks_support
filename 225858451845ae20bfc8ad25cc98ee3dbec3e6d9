@@ -16,6 +16,91 @@
       "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "126cb8f0_a11b72d0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:31:48Z",
+      "side": 1,
+      "message": "It\u0027s setAspectRatioMode now.",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf00b34_79c7566b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:31:48Z",
+      "side": 1,
+      "message": "It\u0027s setAspectRatioMode now.",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53af4bf1_92f709e3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageOutputConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:31:48Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e271a376_c57b8218",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:31:48Z",
+      "side": 1,
+      "message": "It\u0027s setAspectRatioMode now.",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3884ee8_8496482d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-09T07:31:48Z",
+      "side": 1,
+      "message": "It\u0027s setAspectRatioMode now.",
+      "revId": "225858451845ae20bfc8ad25cc98ee3dbec3e6d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
