@@ -284,7 +284,7 @@ package android.support.v4.media.session {
     method public abstract void rewind();
     method public abstract void seekTo(long);
     method public abstract void sendCustomAction(android.support.v4.media.session.PlaybackStateCompat.CustomAction!, android.os.Bundle!);
-    method public abstract void sendCustomAction(String!, android.os.Bundle!);
+    method public abstract void sendCustomAction(String!, android.os.Bundle?);
     method public abstract void setCaptioningEnabled(boolean);
     method public void setPlaybackSpeed(float);
     method public abstract void setRating(android.support.v4.media.RatingCompat!);
