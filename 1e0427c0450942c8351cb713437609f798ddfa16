@@ -39,6 +39,29 @@
       "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb5a5683_ff9a391b",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T14:11:23Z",
+      "side": 1,
+      "message": "nit: if we decide to keep using this, and not using Button, then maybe change the text to no longer reference button, it might be confusing otherwise since this isn\u0027t a button",
+      "range": {
+        "startLine": 56,
+        "startChar": 34,
+        "endLine": 56,
+        "endChar": 49
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
