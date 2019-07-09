@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b48c73c_8c87fdf7",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Opacity.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-09T11:53:20Z",
+      "side": 1,
+      "message": "nit: add a sample usage?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 3
+      },
+      "revId": "527c9cf8b06ccc3837a21ea23d7948af4faca905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
