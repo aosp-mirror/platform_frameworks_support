@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e5a4fff_14f6f960",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/UseCaseCombinationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "Done.\nThank you for your corrections.",
+      "parentUuid": "3b343c20_045e8ca9",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 88
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d968dbf_cd931d1a",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4702dab1_da2d2b63",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "Done.\nThank you for your corrections.",
+      "parentUuid": "4d968dbf_cd931d1a",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 88
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed5d58df_4bc3b6b7",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-27T10:10:49Z",
       "side": 1,
       "message": "no waiting for camera close here.  Any reason you believe this is not necessary ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9b3e76_2338a118",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "My original thought is the verify() should be take effect.\nThat seems not enough to remove Thread.Sleep() direction based on verify reason.\n\nI spy a DeviceState callback to check camera close() is called or not.\n\nBut some test methods do not need device state call back because it has verified by close().\nAnd there is a flag mWaitCameraCloseAtTearDown to skip checking the count down latch.",
+      "parentUuid": "ed5d58df_4bc3b6b7",
       "range": {
         "startLine": 112,
         "startChar": 0,
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "84d1fbca_9ce52cc3",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "Franklin, Thank you for your suggestion.\nSolution 2 seems better for this test.",
+      "parentUuid": "bb33643a_3ffa7b09",
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4558251_61808ee0",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 7
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ca2cf3aa_ac27e7c6",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4558251_61808ee0",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 96
+      },
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848ce351_6541e95b",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 7
@@ -122,6 +236,24 @@
       "writtenOn": "2019-06-27T18:27:38Z",
       "side": 1,
       "message": "Why was the order of open() and addOnlineUSeCase() changed?\n\nWe should be able to call addOnlineUseCase() after a camera has opened. If you had to change the order of the calls in order to make the test pass, then it means there is something going wrong.",
+      "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c5e4fd2_69185319",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-09T00:22:49Z",
+      "side": 1,
+      "message": "Yes, the order is changed for pass the result. It\u0027s also a tricky one.\nIn that way, camera can get the DevceState call back.\n\nOnce the camera opened and then associate Device state callback to camera, there is no chance to let the callback get the onOpen() event.\nIt might something wrong or thinking about that is it might need to add something into BaseCamera ??\nSo I tend to keep Thread.sleep() in CameraTest before there is a good to way to associate device state callback with camera.",
+      "parentUuid": "848ce351_6541e95b",
       "revId": "635183147fdad8b6cbb2435c487d69704add1c34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
