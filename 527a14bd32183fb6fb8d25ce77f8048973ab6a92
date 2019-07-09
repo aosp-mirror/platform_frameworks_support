@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cff18b29_e2c052cd",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-09T06:34:53Z",
+      "side": 1,
+      "message": "I think we can replace mMockStateCallback with mDeviceStateCallback totally for the sake of removing unnecessary codes.",
+      "range": {
+        "startLine": 380,
+        "startChar": 67,
+        "endLine": 380,
+        "endChar": 85
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be92465f_4305922f",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-09T06:34:53Z",
+      "side": 1,
+      "message": "if you replace mMockStateCallback with mDeviceStateCallback, I think we can remove mWaitCameraCloseAtTearDown ( always wait camera close at tearDown)",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 34
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3d613e_be4b7cf4",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-09T06:34:53Z",
+      "side": 1,
+      "message": "if you replace mMockStateCallback with mDeviceStateCallback, I think we can remove mWaitCameraCloseAtTearDown ( always wait camera close at tearDown)",
+      "range": {
+        "startLine": 411,
+        "startChar": 7,
+        "endLine": 413,
+        "endChar": 43
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b72773_d4d2e29d",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-09T06:34:53Z",
+      "side": 1,
+      "message": "This test unbinds one use case out of 2 use case so the camera is still opened in the end of the test.  You still need to close it and wait for the close signal.",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 0
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dcdd1ae_024960f6",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-07-09T06:34:53Z",
+      "side": 1,
+      "message": "if you replace mMockStateCallback with mDeviceStateCallback, I think we can remove mWaitCameraCloseAtTearDown ( always wait camera close at tearDown)",
+      "range": {
+        "startLine": 469,
+        "startChar": 8,
+        "endLine": 470,
+        "endChar": 35
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
