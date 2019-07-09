@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "029bd624_69ba14c5",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T14:40:31Z",
+      "side": 1,
+      "message": "Actually this is maybe harder to read, but I don\u0027t think we should be putting this whole implementation in this sample, since it\u0027s not necessary to understand how MaxIntrinsicWidth works.",
+      "parentUuid": "893b1a08_d7b35d7a",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb5a5683_ff9a391b",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
         "patchSetId": 8

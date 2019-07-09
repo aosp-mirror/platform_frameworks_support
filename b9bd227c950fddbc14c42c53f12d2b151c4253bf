@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "411ad08a_95985bc9",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T14:40:31Z",
+      "side": 1,
+      "message": "I\u0027m just worried that maybe in the future Button has a max width, and then this sample no longer works, because we\u0027re using an opinionated high level API. I agree that button is easier to read in this sample, but maybe this could also just be DrawRectangle, does it need text here as well?\n\nIn hindsight my suggestion is quite hard to read :) You are right that we should avoid these in samples.\n\nIdeally samples should be using the simplest, lowest common denominator API, to avoid detracting from the actual API that is trying to be demonstrated.",
+      "parentUuid": "83fe0340_0112c50f",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
