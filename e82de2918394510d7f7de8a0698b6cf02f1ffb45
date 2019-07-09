@@ -16,6 +16,24 @@
       "revId": "e82de2918394510d7f7de8a0698b6cf02f1ffb45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb343044_5fd9ddba",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/text/platform/AndroidParagraphTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T02:05:48Z",
+      "side": 1,
+      "message": "Thanks Nonasan.",
+      "parentUuid": "fb3bb026_91c13c15",
+      "revId": "e82de2918394510d7f7de8a0698b6cf02f1ffb45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
