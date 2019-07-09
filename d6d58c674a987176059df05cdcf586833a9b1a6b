@@ -22,6 +22,30 @@
       "revId": "d6d58c674a987176059df05cdcf586833a9b1a6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a92e3aaf_062e8a25",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5138,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-09T21:05:15Z",
+      "side": 1,
+      "message": "Is there some integer that would reasonably represent undefined for you here? That feels like it might be a bit dangerous to change.",
+      "parentUuid": "2742161a_a552e42f",
+      "range": {
+        "startLine": 5138,
+        "startChar": 62,
+        "endLine": 5138,
+        "endChar": 78
+      },
+      "revId": "d6d58c674a987176059df05cdcf586833a9b1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
