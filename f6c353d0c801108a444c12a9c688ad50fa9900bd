@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e47be51_2854807c",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-09T18:23:27Z",
+      "side": 1,
+      "message": "By using the same strings in both exceptions these will be de-duplicated in the final dex",
+      "revId": "f6c353d0c801108a444c12a9c688ad50fa9900bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec05978c_1b29bccd",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-07-09T18:23:27Z",
+      "side": 1,
+      "message": "Small tweak to avoid needlessly wrapping errors",
+      "revId": "f6c353d0c801108a444c12a9c688ad50fa9900bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
