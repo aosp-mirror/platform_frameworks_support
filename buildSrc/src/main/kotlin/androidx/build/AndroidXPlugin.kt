@@ -131,6 +131,11 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureJavaProjectForDokka(androidXExtension)
                     project.configureJavaProjectForMetalava(androidXExtension)
                     project.configureJacoco()
+                    project.afterEvaluate {
+                        if (androidXExtension.publish.shouldRelease()) {
+                            project.extra.set("publish", true)
+                        }
+                    }
                     project.addToProjectMap(androidXExtension)
                     // workaround for b/120487939
                     project.configurations.all { configuration ->
@@ -169,8 +174,10 @@ class AndroidXPlugin : Plugin<Project> {
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
                         libraryVariant.javaCompileProvider.configure { task ->
-                            task.options.compilerArgs.add("-Werror")
-                            task.options.compilerArgs.add("-Xlint:unchecked")
+                            if (!project.rootProject.hasProperty(USE_MAX_DEP_VERSIONS)) {
+                                task.options.compilerArgs.add("-Werror")
+                                task.options.compilerArgs.add("-Xlint:unchecked")
+                            }
                         }
                     }
                     project.configureLint(extension.lintOptions, androidXExtension)
@@ -333,13 +340,10 @@ class AndroidXPlugin : Plugin<Project> {
             evaluationDependsOnChildren()
             subprojects { project ->
                 project.configurations.all { configuration ->
-                    project.afterEvaluate {
-                        val androidXExtension =
-                            project.extensions.getByType(AndroidXExtension::class.java)
                         // Substitute only for debug configurations/tasks only because we can not
                         // change release dependencies after evaluation. Test hooks, buildOnServer
                         // and buildTestApks use the debug configurations as well.
-                        if (androidXExtension.publish.shouldRelease() &&
+                        if (project.extra.has("publish") &&
                             configuration.name.toLowerCase().contains("debug")
                         ) {
                             configuration.resolutionStrategy.dependencySubstitution.apply {
@@ -348,7 +352,6 @@ class AndroidXPlugin : Plugin<Project> {
                                 }
                             }
                         }
-                    }
                 }
             }
         }
@@ -518,10 +521,14 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
+            if (androidXExtension.publish.shouldRelease()) {
+                project.extra.set("publish", true)
+            }
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->
-                        if (androidXExtension.failOnDeprecationWarnings) {
+                        if (androidXExtension.failOnDeprecationWarnings &&
+                            !project.rootProject.hasProperty(USE_MAX_DEP_VERSIONS)) {
                             javaCompile.options.compilerArgs.add("-Xlint:deprecation")
                         }
                     }
