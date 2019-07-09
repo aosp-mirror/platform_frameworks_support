@@ -140,6 +140,29 @@
     },
     {
       "key": {
+        "uuid": "39a3bf4b_85910a15",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:12:34Z",
+      "side": 1,
+      "message": "is it the same as paragraphIndex++\n\ncam we write it in a more kotlin friendly way",
+      "range": {
+        "startLine": 170,
+        "startChar": 16,
+        "endLine": 170,
+        "endChar": 32
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2249faba_ebb75ef3",
         "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
         "patchSetId": 1
