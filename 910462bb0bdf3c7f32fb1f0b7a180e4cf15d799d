@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386e79fd_641c32f5",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-09T23:36:17Z",
+      "side": 0,
+      "message": "nit: I think deleting this would cause some troubles; is it a mistake?",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 32
+      },
+      "revId": "910462bb0bdf3c7f32fb1f0b7a180e4cf15d799d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
