@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede31c2c_a6a13f8a",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/FlexSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T14:04:56Z",
+      "side": 1,
+      "message": "You will need to move these into ui-layout",
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893b1a08_d7b35d7a",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T14:04:56Z",
+      "side": 1,
+      "message": "I\u0027m wondering if this might look strange when the samples are generated, since there will be some code and then a floating function. Would it be better just to capture this as a val?\n\nval textWithBackground \u003d { text: String -\u003e @Composable { \n        Wrap(Alignment.Center) {\n        DrawRectangle(Color.Purple)\n        Text(text)\n    } \n}",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
