@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00f63322_a92f57eb",
+        "filename": "ui/ui-text/integration-tests/text-demos/src/main/java/androidx/ui/text/demos/CraneText.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "nit: another step is probably supporting the Span like structure (for future)",
+      "range": {
+        "startLine": 707,
+        "startChar": 19,
+        "endLine": 707,
+        "endChar": 34
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373cebb8_9f8745c8",
+        "filename": "ui/ui-text/src/androidTest/java/androidx/ui/text/TextPainterIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "nit: this probably needs delegating functions in text painter. if we need it now, people will need it too.",
+      "range": {
+        "startLine": 461,
+        "startChar": 32,
+        "endLine": 461,
+        "endChar": 56
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daaf4d48_80cc4bdf",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "nit: paragraph/layout naming",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed6bb7e_4a919f19",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "i did not understand what exactly it means.",
+      "range": {
+        "startLine": 34,
+        "startChar": 69,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95c3c434_7059b51e",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "lets not do this. lets pass \nAnnotatedString with Start and End.",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 76
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d312352e_1edf9f4c",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "not sure about the performance side effects of this.",
+      "range": {
+        "startLine": 140,
+        "startChar": 12,
+        "endLine": 140,
+        "endChar": 44
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2249faba_ebb75ef3",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "nit: I believe this is a place where Paragraph Spacing get into the equation (in the near future)",
+      "range": {
+        "startLine": 182,
+        "startChar": 33,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52226b40_59c9be9e",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "for follow up work: we might need another structure to find the correct text styles.\ni.e. Android uses Interval Tree. \nwarning: I am not suggesting to use an Interval Tree but we have to check it. Text length and styles in the text might be a lot.",
+      "range": {
+        "startLine": 327,
+        "startChar": 4,
+        "endLine": 327,
+        "endChar": 62
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54579bea_82fb3a07",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AnnotatedString.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "test for logic",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964f4dce_786b94f7",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AnnotatedString.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "test for logic",
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9296b2dd_8b9b6653",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/ParagraphStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "revert doc changes.",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ced12c11_86a0cacd",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/ParagraphStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-09T23:10:32Z",
+      "side": 1,
+      "message": "need test",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
