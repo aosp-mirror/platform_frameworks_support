@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb3bb026_91c13c15",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/text/platform/AndroidParagraphTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-09T00:09:55Z",
+      "side": 1,
+      "message": "unnecessary linebreak?",
+      "revId": "e82de2918394510d7f7de8a0698b6cf02f1ffb45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
