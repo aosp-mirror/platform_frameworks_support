@@ -311,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "1302a81c_7f91c33f",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T15:27:56Z",
+      "side": 1,
+      "message": "The dependency on text did not exist before this CL, so if we are against the Material dependency we will probably need to remove the text dependency as well.\nThen this sample could probably become something like:\nWrap {\n        MaxIntrinsicWidth {\n            Column(crossAxisAlignment \u003d CrossAxisAlignment.Stretch) {\n                ConstrainedBox(width \u003d 20.dp, height \u003d 10.dp) { }\n                ConstrainedBox(width \u003d 30.dp, height \u003d 10.dp) { }\n                ConstrainedBox(width \u003d 10.dp, height \u003d 10.dp) { }\n            }\n         }\n}\nand then we could tell developers that all ConstrainedBoxes will actually be 30.dp wide. Or draw a background inside them, to make it visual if developers are copy-pasting the code, as I was trying initially?\nI am okey to go with this option (eventually replace ConstrainedBox with SizedRectangle and tell developers that intrinsic measurements have to be implemented in order for it to work), but in my opinion this is less useful than the initial version using text. Using dummy components in layout samples is not great if developers cannot at least see their implementation. Assuming that the way they work is obvious for developers is quite risky in my opinionn.",
+      "parentUuid": "0d845c17_b88616a2",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
