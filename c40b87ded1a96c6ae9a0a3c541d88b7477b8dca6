@@ -46,6 +46,30 @@
       "revId": "c40b87ded1a96c6ae9a0a3c541d88b7477b8dca6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2340ceba_5e1e262a",
+        "filename": "ui/ui-android-text/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-09T20:25:26Z",
+      "side": 1,
+      "message": "That\u0027s fine. Just wanted to make sure this was not accidental.",
+      "parentUuid": "129d5dc1_8b8e661f",
+      "range": {
+        "startLine": 33,
+        "startChar": 51,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "c40b87ded1a96c6ae9a0a3c541d88b7477b8dca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
