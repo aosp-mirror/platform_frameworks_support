@@ -380,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "fd2a1074_735a5150",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-07-09T12:15:57Z",
+      "side": 1,
+      "message": "Even after a rebase I couldn\u0027t add the annotations. @aurimas, do you know if these are still not supported?",
+      "parentUuid": "08b1f4e1_46844ef2",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "c0a354d4f17c0f6fa2562b0de1d2f86d1500195b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee7bba4_e328069e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 5
