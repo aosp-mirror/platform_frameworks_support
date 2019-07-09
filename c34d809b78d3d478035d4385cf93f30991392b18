@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "2785e971_47a8c432",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-09T22:05:44Z",
+      "side": 1,
+      "message": "How do we know that this has been set in time? We are not in after evaluate, but the setting of the property is.",
+      "range": {
+        "startLine": 346,
+        "startChar": 27,
+        "endLine": 346,
+        "endChar": 56
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f217ec4_79d6e92b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 3
@@ -93,6 +116,30 @@
       "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3df41d0_1e647b55",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-09T22:05:44Z",
+      "side": 1,
+      "message": "I also worry about timing. What you mentioned in the other comment where it kind of works now, but only in the right afterEvaluates makes me feel like we will break again and not know about it.",
+      "parentUuid": "801cfa6d_a84d01e4",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 50
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
