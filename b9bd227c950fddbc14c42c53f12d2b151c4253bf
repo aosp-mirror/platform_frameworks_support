@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "83fe0340_0112c50f",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-09T14:18:27Z",
+      "side": 1,
+      "message": "You just suggested to write\nval textWithBackground \u003d { text: String -\u003e @Composable { \n        Wrap(Alignment.Center) {\n        DrawRectangle(Color.Purple)\n        Text(text)\n    } \n}\ninstead of just Button. Is it how nice and understandable samples look like?\n\nThe majority of our users would have material dependency, others probably advanced developers who definitely at least know basic material components.\n\nAnd we are not demonstrating the material module, we just use it here in a simplest possible way.",
+      "parentUuid": "da9b1c54_c25f45b2",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
