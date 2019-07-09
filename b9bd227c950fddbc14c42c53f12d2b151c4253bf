@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8dbbefd8_343cbbd5",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T13:42:29Z",
+      "side": 1,
+      "message": "Moved them after the @sample usage as we chatted.",
+      "parentUuid": "963cbc7c_f8a4ffb3",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee9e824_0a02c9d7",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "f335e516_22e743e0",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T13:42:29Z",
+      "side": 1,
+      "message": "I added a TextWithBackground component and removed the Material dependency :)",
+      "parentUuid": "3035898f_eaa1eaad",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56e0743a_89af24e6",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T13:42:29Z",
+      "side": 1,
+      "message": "My thinking was that it would be nice for these samples to contain UI components that are familiar to developers, as this would make the samples a bit easier to understand (otherwise developers have to spend more time understanding our custom component). However, I added inline a TextWithBackground widget and removed the Material dependency. Wdyt?",
+      "parentUuid": "7ee9e824_0a02c9d7",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a59258_011f4b58",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-09T13:42:29Z",
+      "side": 1,
+      "message": "Yep, I agree. Actually I think we should have a samples file per layout file: FlexSamples, StackSamples, IntrinsicSamples, AlignSamples, etc. Created FlexSamples.kt, StackSamples.kt, IntrinsicSamples.kt.",
+      "parentUuid": "595950f8_c4deab51",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 26
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
