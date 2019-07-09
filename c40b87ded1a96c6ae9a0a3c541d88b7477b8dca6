@@ -22,6 +22,30 @@
       "revId": "c40b87ded1a96c6ae9a0a3c541d88b7477b8dca6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "129d5dc1_8b8e661f",
+        "filename": "ui/ui-android-text/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-09T20:07:11Z",
+      "side": 1,
+      "message": "1.0.2 seems to contain some proguard bug fixes, so I figured it would be useful to include, and then 1.1.0 also contains restrictto LIBRARY_GROUP_PREFIX which I thought might be useful at some point. Happy to revert though, it shouldn\u0027t make a difference either way. WDYT?",
+      "parentUuid": "ca666e23_b2afdf19",
+      "range": {
+        "startLine": 33,
+        "startChar": 51,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "c40b87ded1a96c6ae9a0a3c541d88b7477b8dca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
