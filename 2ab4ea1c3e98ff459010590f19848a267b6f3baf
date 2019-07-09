@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "933cb167_d0b629d3",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-09T21:05:23Z",
+      "side": 1,
+      "message": "When you have multiple objects to lock, you can get into a deadlock situation. Did you verify that you don\u0027t have that possibility?",
+      "range": {
+        "startLine": 1578,
+        "startChar": 22,
+        "endLine": 1578,
+        "endChar": 39
+      },
+      "revId": "2ab4ea1c3e98ff459010590f19848a267b6f3baf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
