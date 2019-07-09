@@ -94,6 +94,30 @@
       "revId": "d6d58c674a987176059df05cdcf586833a9b1a6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1c47d5_48eb4e9c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5138,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-07-09T23:51:24Z",
+      "side": 1,
+      "message": "I don\u0027t think we should pass them into onScrollChanged, but we should consider sending the Accessibility scroll events here in RV (as opposed to in View.onScrollChanged), and indicate we don\u0027t know the scroll position.\nThat being said looking at it, the AccessibilityEvent only needs hResult and vResult, so we may not need the current scroll position at all.\n\nWe would need a way of suppressing the scroll accessibility events sent by view, so this may be too complicated, but it\u0027s worth looking into",
+      "parentUuid": "7c0d6909_d102d11c",
+      "range": {
+        "startLine": 5138,
+        "startChar": 62,
+        "endLine": 5138,
+        "endChar": 78
+      },
+      "revId": "d6d58c674a987176059df05cdcf586833a9b1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
