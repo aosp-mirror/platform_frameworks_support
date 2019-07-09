@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2742161a_a552e42f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5138,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-07-09T18:24:21Z",
+      "side": 1,
+      "message": "Based on what Shep said, I guess these values should be UNDEFINED, so at least the service can know not to rely on this. I think there is also some code where talkback won\u0027t check for updates if the scroll hasn\u0027t changed... we should dig up that code, and file a bug against talkback for that.",
+      "range": {
+        "startLine": 5138,
+        "startChar": 62,
+        "endLine": 5138,
+        "endChar": 78
+      },
+      "revId": "d6d58c674a987176059df05cdcf586833a9b1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
