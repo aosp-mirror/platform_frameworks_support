@@ -55,6 +55,7 @@ import androidx.annotation.RestrictTo;
 import androidx.core.app.BundleCompat;
 import androidx.core.app.ComponentActivity;
 import androidx.media.AudioAttributesCompat;
+import androidx.media.MediaParceledListSlice;
 import androidx.media.VolumeProviderCompat;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -333,6 +334,15 @@ public final class MediaControllerCompat {
      */
     public List<QueueItem> getQueue() {
         return mImpl.getQueue();
+    }
+
+    /**
+     * Sets the current play queue for this session.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public void setQueue(List<QueueItem> queue) {
+        mImpl.setQueue(queue);
     }
 
     /**
@@ -1493,6 +1503,7 @@ public final class MediaControllerCompat {
         MediaMetadataCompat getMetadata();
 
         List<QueueItem> getQueue();
+        void setQueue(List<QueueItem> queue);
         void addQueueItem(MediaDescriptionCompat description);
         void addQueueItem(MediaDescriptionCompat description, int index);
         void removeQueueItem(MediaDescriptionCompat description);
@@ -1603,6 +1614,15 @@ public final class MediaControllerCompat {
                 Log.e(TAG, "Dead object in getQueue.", e);
             }
             return null;
+        }
+
+        @Override
+        public void setQueue(List<QueueItem> queue) {
+            try {
+                mBinder.setQueue(new MediaParceledListSlice<QueueItem>(queue));
+            } catch (RemoteException e) {
+                Log.e(TAG, "Dead object in setQueue.", e);
+            }
         }
 
         @Override
@@ -2127,6 +2147,18 @@ public final class MediaControllerCompat {
         public List<QueueItem> getQueue() {
             List<MediaSession.QueueItem> queueFwks = mControllerFwk.getQueue();
             return queueFwks != null ? QueueItem.fromQueueItemList(queueFwks) : null;
+        }
+
+        @Override
+        public void setQueue(List<QueueItem> queue) {
+            if (mSessionToken.getExtraBinder() != null) {
+                try {
+                    mSessionToken.getExtraBinder().setQueue(
+                            queue == null ? null : new MediaParceledListSlice<QueueItem>(queue));
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Dead object in isCaptioningEnabled.", e);
+                }
+            }
         }
 
         @Override

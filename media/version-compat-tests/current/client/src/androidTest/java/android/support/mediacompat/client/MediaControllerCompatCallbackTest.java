@@ -46,6 +46,7 @@ import static android.support.mediacompat.testlib.MediaSessionConstants.TEST_QUE
 import static android.support.mediacompat.testlib.MediaSessionConstants.TEST_SESSION_EVENT;
 import static android.support.mediacompat.testlib.MediaSessionConstants.TEST_VALUE;
 import static android.support.mediacompat.testlib.VersionConstants.KEY_SERVICE_VERSION;
+import static android.support.mediacompat.testlib.VersionConstants.VERSION_PREVIOUS;
 import static android.support.mediacompat.testlib.VersionConstants.VERSION_TOT;
 import static android.support.mediacompat.testlib.util.IntentUtil.SERVICE_PACKAGE_NAME;
 import static android.support.mediacompat.testlib.util.IntentUtil.callMediaSessionMethod;
@@ -82,6 +83,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.MediaSessionCompat.QueueItem;
 import android.support.v4.media.session.ParcelableVolumeInfo;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.media.VolumeProviderCompat;
@@ -210,7 +212,7 @@ public class MediaControllerCompatCallbackTest {
                 @Override
                 public boolean check() {
                     int expectedFlags = TEST_FLAGS;
-                    if (VERSION_TOT.equals(mServiceVersion)) {
+                    if (TextUtils.equals(VERSION_TOT, mServiceVersion)) {
                         expectedFlags |= MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS;
                         expectedFlags |= MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS;
                     }
@@ -366,6 +368,45 @@ public class MediaControllerCompatCallbackTest {
             assertNull(mMediaControllerCallback.mTitle);
             assertNull(mMediaControllerCallback.mQueue);
             assertNull(mController.getQueueTitle());
+            assertNull(mController.getQueue());
+        }
+    }
+
+    // TODO: add this test inti previous test once media 1.2.0 is released.
+    /**
+     * Tests {@link MediaControllerCompat#setQueue}.
+     */
+    @Test
+    @SmallTest
+    public void testSetQueueByController() throws Exception {
+        // // TODO: run test with privous version once media 1.2.0 is released.
+        if (TextUtils.equals(VERSION_PREVIOUS, mServiceVersion)) {
+            return;
+        }
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            List<QueueItem> queue = new ArrayList<>();
+
+            MediaDescriptionCompat description1 =
+                    new MediaDescriptionCompat.Builder().setMediaId(TEST_MEDIA_ID_1).build();
+            MediaDescriptionCompat description2 =
+                    new MediaDescriptionCompat.Builder().setMediaId(TEST_MEDIA_ID_2).build();
+            QueueItem item1 = new MediaSessionCompat.QueueItem(description1, TEST_QUEUE_ID_1);
+            QueueItem item2 = new MediaSessionCompat.QueueItem(description2, TEST_QUEUE_ID_2);
+            queue.add(item1);
+            queue.add(item2);
+
+            mController.setQueue(queue);
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnQueueChangedCalled);
+            assertQueueEquals(queue, mMediaControllerCallback.mQueue);
+            assertQueueEquals(queue, mController.getQueue());
+
+            mMediaControllerCallback.resetLocked();
+            mController.setQueue(null);
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnQueueChangedCalled);
+            assertNull(mMediaControllerCallback.mQueue);
             assertNull(mController.getQueue());
         }
     }
