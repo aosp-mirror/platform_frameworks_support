@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fcb6acb_210af1f2",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkProgressDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-09T17:53:00Z",
+      "side": 1,
+      "message": "Your method names don\u0027t match the style of the rest of our DAOs.  Please make them consistent.",
+      "range": {
+        "startLine": 38,
+        "startChar": 17,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "f46b836b0327c4d93d2744629507927a2dab8bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7803d7_d3ba8923",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkProgressDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-09T17:53:00Z",
+      "side": 1,
+      "message": "Nit: capitalize.",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "f46b836b0327c4d93d2744629507927a2dab8bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f2cf3c_1257663e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkProgressDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-09T17:53:00Z",
+      "side": 1,
+      "message": "Does this work in Dokka?  Pretty sure it doesn\u0027t work in Metalava.",
+      "range": {
+        "startLine": 57,
+        "startChar": 20,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "f46b836b0327c4d93d2744629507927a2dab8bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
