@@ -305,6 +305,30 @@
       "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c2b616_9c68067f",
+        "filename": "camera/view/src/main/java/androidx/camera/view/CameraXModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-09T07:47:16Z",
+      "side": 1,
+      "message": "This should not be removed. This will be used to find a closest upper bound resolution. If this is removed, a maximum supported resolution will be selected.\n\ngetRelativeCameraOrientation function has considered both display and sensor rotation degrees. PreviewConfigProvider will set target rotation automatically. Finally, original code should work correctly.",
+      "parentUuid": "405847eb_a840c70c",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "57c0d54bf537642ad2aea8f38119c2cc2ebfac1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
