@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f8bdf25_df62f90c",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-09T23:46:28Z",
+      "side": 1,
+      "message": "Nit: split across multiple lines for readability.",
+      "range": {
+        "startLine": 140,
+        "startChar": 36,
+        "endLine": 141,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e53aef86_e135e2bd",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-07-09T23:46:28Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 153,
+        "startChar": 22,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
