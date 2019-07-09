@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6b7f6cf_bbde6786",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-09T17:15:22Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment explaining why a lambda isn\u0027t/can\u0027t be used here.",
+      "revId": "d5c576d05d17b9b56aa61e039789765c54a1ff8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
