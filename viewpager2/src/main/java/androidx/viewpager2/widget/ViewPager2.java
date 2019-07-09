@@ -17,11 +17,11 @@
 package androidx.viewpager2.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_DOWN;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_LEFT;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_RIGHT;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_PAGE_UP;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
+import static androidx.viewpager2.widget.AccessibilityPageActions.ACTION_PAGE_DOWN;
+import static androidx.viewpager2.widget.AccessibilityPageActions.ACTION_PAGE_LEFT;
+import static androidx.viewpager2.widget.AccessibilityPageActions.ACTION_PAGE_RIGHT;
+import static androidx.viewpager2.widget.AccessibilityPageActions.ACTION_PAGE_UP;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
