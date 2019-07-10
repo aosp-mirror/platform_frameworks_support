@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d53bf55b_99a6e155",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-07-10T16:17:02Z",
+      "side": 1,
+      "message": "What\u0027s this for? The attrs param is nullable, so we might as well call obtainStyledAttributes below and get our default values.",
+      "range": {
+        "startLine": 685,
+        "startChar": 8,
+        "endLine": 685,
+        "endChar": 28
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164be9ac_f8ae3dd0",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-07-10T16:17:02Z",
+      "side": 1,
+      "message": "But _why_?",
+      "range": {
+        "startLine": 686,
+        "startChar": 12,
+        "endLine": 686,
+        "endChar": 32
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
