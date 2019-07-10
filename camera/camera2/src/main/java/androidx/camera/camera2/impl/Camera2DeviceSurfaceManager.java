@@ -304,7 +304,8 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
         CameraDeviceConfig config = (CameraDeviceConfig) useCaseConfig;
         String cameraId;
         try {
-            cameraId = CameraX.getCameraWithLensFacing(config.getLensFacing());
+            CameraX.LensFacing lensFacing = CameraX.checkLensFacing(config.getLensFacing(null));
+            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
         } catch (Exception e) {
             throw new IllegalArgumentException(
                     "Unable to get camera ID for use case " + useCaseConfig.getTargetName(), e);
