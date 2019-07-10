@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d1b6f388_b102bebf",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-10T16:25:47Z",
+      "side": 1,
+      "message": "If this is the preferred way, why are we making this public?",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "3666b8fc9358d876080783bf000caf9e67baf7b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68d298c8_f47ff0bb",
         "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityBuilder.java",
         "patchSetId": 7
