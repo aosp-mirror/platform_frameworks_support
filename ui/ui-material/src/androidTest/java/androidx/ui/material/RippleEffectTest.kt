@@ -17,6 +17,7 @@ package androidx.ui.material
 
 import androidx.compose.Children
 import androidx.compose.Composable
+import androidx.compose.Model
 import androidx.compose.composer
 import androidx.test.filters.MediumTest
 
@@ -142,6 +143,44 @@ class RippleEffectTest {
         assertEquals(expectedMatrix, matrix)
     }
 
+    @Test
+    fun twoEffectsDrawnAndDisposedCorrectly() {
+        val drawLatch = CountDownLatch(2)
+        val disposeLatch = CountDownLatch(2)
+        val emit = DoEmit(true)
+
+        composeTestRule.setMaterialContent {
+            RippleCallback(
+                onRippleDrawn = { drawLatch.countDown() },
+                onDispose = { disposeLatch.countDown() }
+            ) {
+                Card {
+                    if (emit.emit) {
+                        Row {
+                            TestTag(tag = "ripple") {
+                                RippleButton(10.dp)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // create two effects
+        findByTag("ripple")
+            .doClick()
+        findByTag("ripple")
+            .doClick()
+
+        // wait for drawEffect to be called
+        assertTrue(drawLatch.await(1, TimeUnit.SECONDS))
+
+        composeTestRule.runOnUiThread { emit.emit = false }
+
+        // wait for dispose to be called
+        assertTrue(disposeLatch.await(1, TimeUnit.SECONDS))
+    }
+
     private fun RippleButton(size: Dp? = null) {
         Ripple(bounded = false) {
             Clickable(onClick = {}) {
@@ -152,14 +191,18 @@ class RippleEffectTest {
 
     @Composable
     private fun RippleCallback(
-        onRippleDrawn: (Matrix4) -> Unit,
+        onRippleDrawn: (Matrix4) -> Unit = {},
+        onDispose: () -> Unit = {},
         @Children children: @Composable() () -> Unit
     ) {
-        val theme = RippleTheme(testRippleEffect(onRippleDrawn)) { Color(0) }
+        val theme = RippleTheme(testRippleEffect(onRippleDrawn, onDispose)) { Color(0) }
         CurrentRippleTheme.Provider(value = theme, children = children)
     }
 
-    private fun testRippleEffect(onDraw: (Matrix4) -> Unit): RippleEffectFactory =
+    private fun testRippleEffect(
+        onDraw: (Matrix4) -> Unit,
+        onDispose: () -> Unit
+    ): RippleEffectFactory =
         object : RippleEffectFactory {
             override fun create(
                 rippleSurface: RippleSurfaceOwner,
@@ -173,14 +216,27 @@ class RippleEffectTest {
             ): RippleEffect {
                 return object : RippleEffect(rippleSurface, coordinates, color, onRemoved) {
 
+                    private var onDrawCalled: Boolean = false
+
                     init {
                         rippleSurface.addEffect(this)
                     }
 
                     override fun drawEffect(canvas: Canvas, transform: Matrix4) {
-                        onDraw(transform)
+                        if (!onDrawCalled) {
+                            onDraw(transform)
+                            onDrawCalled = true
+                        }
+                    }
+
+                    override fun dispose() {
+                        super.dispose()
+                        onDispose()
                     }
                 }
             }
         }
 }
+
+@Model
+private data class DoEmit(var emit: Boolean)

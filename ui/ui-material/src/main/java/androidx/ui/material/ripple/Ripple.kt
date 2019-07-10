@@ -83,8 +83,12 @@ fun Ripple(
     }
 
     +onDispose {
-        state.effects.forEach { it.dispose() }
-        state.effects.clear()
+        if (state.effects.isNotEmpty()) {
+            state.effects
+                .toList() // we need to create a copy of the list as dispose() will remove
+                // the item from the original list causing ConcurrentModificationException
+                .forEach { it.dispose() }
+        }
         state.currentEffect = null
     }
 }
