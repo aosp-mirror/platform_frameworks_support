@@ -299,6 +299,44 @@ public class CarListDialog extends Dialog {
     }
 
     /**
+     * A struct that holds data for a multiple choice item. A multiple choice item is a
+     * combination of the item title and optional body text.
+     */
+    public static class Item {
+
+        final CharSequence mTitle;
+        final CharSequence mBody;
+        final boolean mIsChecked;
+
+        /**
+         * Creates a Item.
+         *
+         * @param title   The title of the item. This value must be non-empty.
+         * @param checked Whether the item is selected.
+         */
+        public Item(@NonNull CharSequence title, boolean checked) {
+            this(title,  /* body= */ null, checked);
+        }
+
+        /**
+         * Creates a Item.
+         *
+         * @param title   The title of the item. This value must be non-empty.
+         * @param body    The secondary body text of the item.
+         * @param checked Whether the item is selected.
+         */
+        public Item(@NonNull CharSequence title, @Nullable CharSequence body, boolean checked) {
+            if (TextUtils.isEmpty(title)) {
+                throw new IllegalArgumentException("Title cannot be empty.");
+            }
+
+            mTitle = title;
+            mBody = body;
+            mIsChecked = checked;
+        }
+    }
+
+    /**
      * Builder class that can be used to create a {@link CarListDialog} by configuring the
      * options for the list and behavior of the dialog.
      */
