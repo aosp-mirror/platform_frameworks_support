@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71fef42f_1a16e17d",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/CborPrettyPrintingUnitTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "This feature - encoding/decoding of several data items - is what RFC 7049 section 1.2 calls a \"Data Stream\".",
+      "parentUuid": "cfccb529_6d5ee21d",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f103a85d_ed0e146d",
         "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc6c9e8_b64fb849",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Opted to keep it this really long method for now... if it wasn\u0027t test-code I\u0027d agree with you.",
+      "parentUuid": "f103a85d_ed0e146d",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "c46a1ce7_046ceda7",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "It\u0027s non-public and only used from a single call-site so not worth the effort I think.",
+      "parentUuid": "cd4a2198_b8348bf2",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c8150df_94e714a0",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialException.java",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aba980a5_bbece35d",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Yup, added a constructor for cause as well.",
+      "parentUuid": "4c8150df_94e714a0",
+      "revId": "65024d176ef7e20ac4ee46a328621119aba09d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

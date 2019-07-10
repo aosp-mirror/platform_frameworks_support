@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d93dbec_67626f3f",
+        "filename": "security/identity-credential/src/androidTest/java/androidx/security/identity_credential/DynamicAuthTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "676f1c8b_e9d6e675",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 45
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8e531e6_f4f39d1c",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-20T10:13:36Z",
       "side": 1,
       "message": "Nit:  Maps.newHashMap() avoids the need to specify generic args.  Less verbose.  Ditto for Lists.newArrayList() above and below.  Also, it\u0027s slightly nicer to instantiate field defaults in the field declaration.",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 74
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3ac027_83dc7d63",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Sure, moving the defaults to where they are declared.\n\nThe newHashMap() method seems to be in com.google.common.collect.Maps which I don\u0027t think we want to depend on. Anyway, it ends up being\n\n Map\u003cInteger, AccessControlProfile\u003e mProfileIdToAcpMap \u003d new HashMap\u003c\u003e();\n\nwhich seems to be even more readable (reader won\u0027t have to figure out what Maps.newHashMap() means).",
+      "parentUuid": "c8e531e6_f4f39d1c",
       "range": {
         "startLine": 115,
         "startChar": 29,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1ca8f059_b1f18cf1",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e8e7e25_3477fc7e",
+      "range": {
+        "startLine": 162,
+        "startChar": 7,
+        "endLine": 162,
+        "endChar": 50
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "563fb50f_bdf9e643",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -85,6 +157,24 @@
       "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0187de70_b10b224d",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "563fb50f_bdf9e643",
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "580cb853_9bc29ebd",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "That\u0027s literally what the TODO is about. Leaving the TODO in place and revisiting later.",
+      "parentUuid": "14e86762_dc3e9bff",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b35818c6_9c2d8ef1",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -131,6 +245,30 @@
       "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5261616_9874cb87",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done, here and elsewhere.",
+      "parentUuid": "b35818c6_9c2d8ef1",
+      "range": {
+        "startLine": 291,
+        "startChar": 11,
+        "endLine": 291,
+        "endChar": 31
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "b52eef3c_253f3467",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Nice catch, fixed. This also uncovered a bug in the deleteCredential() unit test which I also fixed (trying to use a Credential after deletion, to check the signature of the deletion receipt).",
+      "parentUuid": "c1d74ee1_ae22368b",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 22
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b83106c0_bbd47aac",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "33863d59_348264fe",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Agree. Fixed.",
+      "parentUuid": "b83106c0_bbd47aac",
+      "range": {
+        "startLine": 320,
+        "startChar": 20,
+        "endLine": 320,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1902372_09561f81",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -191,6 +377,30 @@
       "writtenOn": "2019-06-20T10:13:36Z",
       "side": 1,
       "message": "AtomicFile is unsafe in concurrent contexts, per the docs.",
+      "range": {
+        "startLine": 436,
+        "startChar": 30,
+        "endLine": 436,
+        "endChar": 40
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc7a647_cb18d5ca",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Well, to be precise, it\u0027s not thread-safe on a per file basis. I\u0027m inclined to just say that the caller is responsible for locking if using the same IdentityCredential from multiple threads. Thoughts?",
+      "parentUuid": "c1902372_09561f81",
       "range": {
         "startLine": 436,
         "startChar": 30,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "42c72d0e_51c46da8",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c79fc00_5e44f704",
+      "range": {
+        "startLine": 451,
+        "startChar": 17,
+        "endLine": 451,
+        "endChar": 29
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "073666c0_8c71b987",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -246,6 +480,30 @@
       "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f5f587_5bf88e10",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "073666c0_8c71b987",
+      "range": {
+        "startLine": 690,
+        "startChar": 12,
+        "endLine": 690,
+        "endChar": 24
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "c8b9c001_822bcebf",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "That\u0027s clearer, yeah.",
+      "parentUuid": "a6f9d6c1_19ee629c",
+      "range": {
+        "startLine": 762,
+        "startChar": 20,
+        "endLine": 762,
+        "endChar": 39
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08e5690e_6aad0178",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "d1aa059a_e4bb5112",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "I think it\u0027s just as simple doing this... plus it has the advantage of being deterministic and may provide clues when debugging.",
+      "parentUuid": "08e5690e_6aad0178",
+      "range": {
+        "startLine": 768,
+        "startChar": 20,
+        "endLine": 773,
+        "endChar": 21
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d60cfadc_137db6a9",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -306,6 +612,30 @@
       "writtenOn": "2019-06-20T10:13:36Z",
       "side": 1,
       "message": "Nit: Range for would work here.",
+      "range": {
+        "startLine": 896,
+        "startChar": 7,
+        "endLine": 896,
+        "endChar": 49
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5582d5c_e2c102ca",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Exactly how? I didn\u0027t find a nicer, more concise way to do this with foreach.",
+      "parentUuid": "d60cfadc_137db6a9",
       "range": {
         "startLine": 896,
         "startChar": 7,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "63ca6121_31760e52",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Nice catch. Thanks.",
+      "parentUuid": "225b1c06_7b880fa1",
+      "range": {
+        "startLine": 898,
+        "startChar": 38,
+        "endLine": 898,
+        "endChar": 77
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519f2011_5d19b758",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -364,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "a48a3cb7_24f3640c",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Each data item can be protected by multiple ACPs so we\u0027d have multiple different keys to choose from.",
+      "parentUuid": "519f2011_5d19b758",
+      "range": {
+        "startLine": 1006,
+        "startChar": 20,
+        "endLine": 1006,
+        "endChar": 50
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "680812c9_538656c0",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
         "patchSetId": 3
@@ -375,6 +753,30 @@
       "writtenOn": "2019-06-20T10:13:36Z",
       "side": 1,
       "message": "This seems more complicated than necessary.  There\u0027s no need to track which existing key a pending key is intended to replace.  Why not just add pending keys as entries in a pending auth key list, then when you get a certificate, pick some existing key and delete it (ideally, the one with the highest use count) and move the no-longer-pending key into its place?  That way you wouldn\u0027t need the extra state with special semantics, and you could eliminate a bunch of status-checking in various places above -- no need to check if mAlias is empty; if a key is in the active list it\u0027s usable, if it\u0027s pending it\u0027s in the pending list.",
+      "range": {
+        "startLine": 1057,
+        "startChar": 3,
+        "endLine": 1059,
+        "endChar": 98
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c1c6acb_eb490b02",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/CredentialData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Hmm, yeah, that might work but IIRC I did try something like that but ran into problems.... let me think about it again.",
+      "parentUuid": "680812c9_538656c0",
       "range": {
         "startLine": 1057,
         "startChar": 3,
@@ -410,6 +812,30 @@
     },
     {
       "key": {
+        "uuid": "59f4e885_0b4f1593",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "I agree, I\u0027ve changed the default to true.",
+      "parentUuid": "5b20eacc_89f99b23",
+      "range": {
+        "startLine": 107,
+        "startChar": 33,
+        "endLine": 107,
+        "endChar": 38
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b537272_475106b4",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialStore.java",
         "patchSetId": 3
@@ -430,6 +856,30 @@
       "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cbf0b5d_f74220c8",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "OK, done. Removed the TODO.",
+      "parentUuid": "8b537272_475106b4",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 60
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -456,6 +906,30 @@
     },
     {
       "key": {
+        "uuid": "809f58b5_c924dfb2",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/IdentityCredentialStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "\u003e proofOfDeletion, for consistency with other keys.\n\nActually we\u0027re already using \"ProofOfProvisioning\" and ISO-18013-5 is also following this scheme e.g. \"ItemsRequest\", \"DocType\", \"RequestInfo\" literal strings in the CDDL/CBOR.\n\n\u003e More importantly...  [...]\n\nHead + desk, doh! Nice catch, thanks. I\u0027ve changed this so the deletion receipt is now\n\n     ProofOfDeletion \u003d [\n         DeletionSignedData,\n         bstr                       ; ECDSA signature over SignedData\n     ]\n\n     DeletionSignedData \u003d [\n          \"ProofOfDeletion\",            ; tstr\n          tstr,                         ; DocType\n          bool                          ; true if this is a test credential, should\n                                        ; always be false.\n      ]",
+      "parentUuid": "6d1bddda_0e025b18",
+      "range": {
+        "startLine": 168,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 32
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d0b14d6_15d890e8",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
         "patchSetId": 3
@@ -479,6 +953,30 @@
     },
     {
       "key": {
+        "uuid": "38a1f54d_403d11fb",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Well, he _did_ say that but when I later talked to him he said it\u0027s fine to use empty. There\u0027s a comment open in the CD draft of 18013-5 to make sure the standard specify exactly how this should work.",
+      "parentUuid": "3d0b14d6_15d890e8",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 59
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fa76ec1_177c2631",
         "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
         "patchSetId": 3
@@ -499,6 +997,30 @@
       "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86aa3252_5198fe86",
+        "filename": "security/identity-credential/src/main/java/androidx/security/identity_credential/SoftwareIdentityCredential.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1076971
+      },
+      "writtenOn": "2019-07-10T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fa76ec1_177c2631",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "762d47ac64f1bd68802d7167cac75a6b3733a4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
