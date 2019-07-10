@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7205a8e8_d8364b00",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T19:58:16Z",
+      "side": 1,
+      "message": "Is there a reason that this needs to be here instead of initializing captureStages all at the beginning together?",
+      "revId": "a0132f383d0ebf674c8924f54b838623652e52c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8511356f_ffacf73a",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 7
