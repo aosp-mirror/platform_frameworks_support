@@ -89,7 +89,7 @@ import java.util.Set;
  * done from the main thread of the process.
  * </p>
  */
-public final class MediaRouter {
+public class MediaRouter {
     static final String TAG = "MediaRouter";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 

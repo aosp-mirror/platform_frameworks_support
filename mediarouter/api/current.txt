@@ -336,7 +336,7 @@ package androidx.mediarouter.media {
     method public androidx.mediarouter.media.MediaRouteSelector build();
   }
 
-  public final class MediaRouter {
+  public class MediaRouter {
     method public void addCallback(androidx.mediarouter.media.MediaRouteSelector!, androidx.mediarouter.media.MediaRouter.Callback!);
     method public void addCallback(androidx.mediarouter.media.MediaRouteSelector, androidx.mediarouter.media.MediaRouter.Callback, int);
     method public void addProvider(androidx.mediarouter.media.MediaRouteProvider);
