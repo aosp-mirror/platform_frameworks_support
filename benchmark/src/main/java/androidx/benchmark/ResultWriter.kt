@@ -90,6 +90,7 @@ internal object ResultWriter {
     private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
         beginObject()
             .name("name").value(report.testName)
+            .name("params").paramsArray(report)
             .name("className").value(report.className)
             .name("totalRunTimeNs").value(report.totalRunTimeNs)
             .name("metrics").metricsObject(report)
@@ -98,6 +99,33 @@ internal object ResultWriter {
             .name("thermalThrottleSleepSeconds").value(report.thermalThrottleSleepSeconds)
 
         return endObject()
+    }
+
+    private fun JsonWriter.paramsArray(report: BenchmarkState.Report): JsonWriter {
+        beginArray()
+        getParams(report.testName).forEach { param ->
+            beginObject()
+                .name(param.first).value(param.second)
+            endObject()
+        }
+        return endArray()
+    }
+
+    private fun getParams(testName: String): List<Pair<String, String>> {
+        val index1 = testName.indexOf('[')
+        var params: java.util.ArrayList<Pair<String, String>> = java.util.ArrayList()
+        if (index1 >= 0) {
+            val parameterizationString = testName.substring(index1 + 1, testName.lastIndexOf(']'))
+            parameterizationString.split(Regex("(?<!\\\\),")).forEachIndexed { i, string ->
+                val index = string.indexOfAny(charArrayOf('=', ':'))
+                if (index >= 0) {
+                    params.add(Pair(string.substring(0, index).trim(), string.substring(index + 1).trim()))
+                } else {
+                    params.add(Pair("{$i}", string.trim()))
+                }
+            }
+        }
+        return params
     }
 
     private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
