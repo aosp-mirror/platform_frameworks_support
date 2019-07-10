@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cdbb75d_22e265e4",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T17:12:04Z",
+      "side": 1,
+      "message": "maybe we should use method require() from kotlin stdlib?",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 19
+      },
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc6c6bd_6751b08b",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T17:12:04Z",
+      "side": 1,
+      "message": "this will not work as you have to remove exactly the same object you provided in postFrameCallback, but you are creating a new lambda every time.",
+      "range": {
+        "startLine": 215,
+        "startChar": 46,
+        "endLine": 215,
+        "endChar": 59
+      },
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
