@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "e9bf8dd7_dca401e2",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T16:18:26Z",
+      "side": 1,
+      "message": "Resolving",
+      "parentUuid": "024e9b70_c41af214",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5a5683_ff9a391b",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
         "patchSetId": 8
@@ -128,6 +152,30 @@
       "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b392e246_316b5014",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/IntrinsicSamples.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T16:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb5a5683_ff9a391b",
+      "range": {
+        "startLine": 56,
+        "startChar": 34,
+        "endLine": 56,
+        "endChar": 49
+      },
+      "revId": "1e0427c0450942c8351cb713437609f798ddfa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

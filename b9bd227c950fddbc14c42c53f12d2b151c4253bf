@@ -335,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "b9e632c7_a20674a1",
+        "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T16:18:26Z",
+      "side": 1,
+      "message": "Resolving",
+      "parentUuid": "1302a81c_7f91c33f",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b9bd227c950fddbc14c42c53f12d2b151c4253bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "595950f8_c4deab51",
         "filename": "ui/layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/LayoutSamples.kt",
         "patchSetId": 4
