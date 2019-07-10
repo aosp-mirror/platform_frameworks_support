@@ -22,6 +22,53 @@
       "revId": "0292b8853d58268b03f1df41469a850b15943090",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d98666_255b07b5",
+        "filename": "ui/ui-layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/StackSamples.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:07:50Z",
+      "side": 1,
+      "message": "+1 I think it\u0027s fine to rely on ui-foundation here, it\u0027s a common opinionated base layer that developers will probably need to know at some point, so it\u0027s reasonable to use it here.",
+      "parentUuid": "7927daa4_b2c7ac59",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 1
+      },
+      "revId": "0292b8853d58268b03f1df41469a850b15943090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adae9433_a4384549",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Intrinsic.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:07:50Z",
+      "side": 1,
+      "message": "I think these docs are out of date since you updated samples, same with any doc in the sample files themselves",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 25
+      },
+      "revId": "0292b8853d58268b03f1df41469a850b15943090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
