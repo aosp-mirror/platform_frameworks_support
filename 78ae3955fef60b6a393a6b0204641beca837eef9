@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee6d9f7b_e074d5b4",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/Draw.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-10T21:22:30Z",
+      "side": 1,
+      "message": "whoops! I don\u0027t know how this got called mOnPaintWithChildren.",
+      "range": {
+        "startLine": 67,
+        "startChar": 14,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "78ae3955fef60b6a393a6b0204641beca837eef9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
