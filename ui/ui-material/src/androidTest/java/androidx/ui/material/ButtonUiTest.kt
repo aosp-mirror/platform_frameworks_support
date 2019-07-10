@@ -18,16 +18,22 @@ package androidx.ui.material
 
 import androidx.test.filters.MediumTest
 import androidx.compose.composer
+import androidx.ui.core.OnChildPositioned
+import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
+import androidx.ui.core.sp
+import androidx.ui.core.withDensity
 import androidx.ui.layout.Center
 import androidx.ui.layout.Column
+import androidx.ui.layout.Wrap
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
 import androidx.ui.test.findByText
+import androidx.ui.text.TextStyle
 import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
@@ -150,11 +156,38 @@ class ButtonUiTest {
     }
 
     @Test
-    fun buttonTest_ButtonHeightIsFromSpec(): Unit {
+    fun buttonTest_ButtonHeightIsFromSpec() {
+        if (composeTestRule.density.fontScale > 1f) {
+            // This test can be reasonable failing on the non default font scales
+            // so lets skip it.
+            return
+        }
         composeTestRule
             .setMaterialContentAndTestSizes {
                 Button(onClick = {}, text = "Test button")
             }
             .assertHeightEqualsTo(36.dp)
+    }
+
+    @Test
+    fun buttonTest_ButtonWithLargeFontSizeIsLargerThenMinHeight() {
+        var realSize: PxSize? = null
+        composeTestRule.setMaterialContent {
+            Wrap {
+                OnChildPositioned(onPositioned = { coordinates ->
+                    realSize = coordinates.size
+                }) {
+                    Button(
+                        onClick = {},
+                        text = "Test button",
+                        textStyle = TextStyle(fontSize = 50.sp)
+                    )
+                }
+            }
+        }
+
+        withDensity(composeTestRule.density) {
+            Truth.assertThat(realSize!!.height.value).isGreaterThan(36.dp.toPx().value)
+        }
     }
 }
