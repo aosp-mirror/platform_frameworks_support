@@ -62,7 +62,7 @@ public class CarListDialog extends Dialog {
     private ListItemAdapter mAdapter;
     private final int mInitialPosition;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    PagedListView mList;
+            PagedListView mList;
 
     @Nullable
     private final DialogInterface.OnClickListener mOnClickListener;
