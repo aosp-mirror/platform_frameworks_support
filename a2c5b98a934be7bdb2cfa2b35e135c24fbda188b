@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e28f91fe_dec41752",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "I copied the method you linked to. Are we generally okay with recursion in our code?",
+      "parentUuid": "f0568f48_c807ae55",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 9
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7edcfa9_bb1295c0",
         "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "71a33c87_17490d26",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7edcfa9_bb1295c0",
+      "range": {
+        "startLine": 153,
+        "startChar": 55,
+        "endLine": 153,
+        "endChar": 64
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31011208_4d6bfc5b",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 14
@@ -68,6 +116,30 @@
       "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2244f67_b0e4dd86",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31011208_4d6bfc5b",
+      "range": {
+        "startLine": 230,
+        "startChar": 7,
+        "endLine": 230,
+        "endChar": 11
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "6729af17_c3753c0d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67222c4_1aa7d2f2",
+      "range": {
+        "startLine": 237,
+        "startChar": 18,
+        "endLine": 237,
+        "endChar": 25
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c2ccc7b_8e7ad091",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 14
@@ -128,6 +224,30 @@
       "writtenOn": "2019-06-19T21:22:36Z",
       "side": 1,
       "message": "I think we know this is \"utf-8\", right?",
+      "range": {
+        "startLine": 264,
+        "startChar": 57,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eab8f6d_666d4314",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "How we would know that?",
+      "parentUuid": "8c2ccc7b_8e7ad091",
       "range": {
         "startLine": 264,
         "startChar": 57,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "03b91b70_3fe60911",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "I had the same thought, I just made it like this for consistency with other methods in this class (catch IOException and return null which indicates a missing file). I introduced the new exception because, unlike assets or resources the file might exist but it\u0027s outside the mounted directory and the caller may want to know this.\n\nI will keep it as it is for now and will move handling exceptions out of this class in a following clean-up CL. (b/135675670).",
+      "parentUuid": "328c550c_4b3afbbf",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 76
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ea9937e_86d9b431",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
         "patchSetId": 14
@@ -183,6 +327,30 @@
       "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9a6d68b_c8ce2686",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-07-10T15:10:36Z",
+      "side": 1,
+      "message": "well, it\u0027ll always work doesn\u0027t matter if it\u0027s a directory or a file, so there was no need to check for it being a directory, it\u0027ll be redundant when it is added to the end of file path.\n\nThe thing is I wanted this method to work for both child files and directories without assuming that the child is always a file.\n\nSince it caused confusion for you and torne, I\u0027ll remove this line, with the assumption that the first argument is always a directory and the second file is always a file.",
+      "parentUuid": "3ea9937e_86d9b431",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 73
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
