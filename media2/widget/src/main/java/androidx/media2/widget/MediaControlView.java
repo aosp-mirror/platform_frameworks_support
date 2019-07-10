@@ -142,7 +142,6 @@ public class MediaControlView extends ViewGroup {
     private static final int SETTINGS_MODE_MAIN = 3;
     private static final int PLAYBACK_SPEED_1x_INDEX = 3;
 
-    private static final int SIZE_TYPE_UNDEFINED = -1;
     private static final int SIZE_TYPE_EMBEDDED = 0;
     private static final int SIZE_TYPE_FULL = 1;
     private static final int SIZE_TYPE_MINIMAL = 2;
@@ -185,7 +184,7 @@ public class MediaControlView extends ViewGroup {
     int mSelectedSubtitleTrackIndex;
     int mSelectedAudioTrackIndex;
     int mSelectedSpeedIndex;
-    int mSizeType = SIZE_TYPE_UNDEFINED;
+    int mSizeType = SIZE_TYPE_FULL;
     int mUxState;
     long mDuration;
     long mDelayedAnimationIntervalMs;
@@ -521,10 +520,8 @@ public class MediaControlView extends ViewGroup {
             sizeType = SIZE_TYPE_MINIMAL;
         }
 
-        if (mSizeType != sizeType) {
-            mSizeType = sizeType;
-            updateLayoutForSizeChange(sizeType);
-        }
+        mSizeType = sizeType;
+        updateLayoutForSizeChange(sizeType);
 
         mTitleBar.setVisibility(
                 sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
