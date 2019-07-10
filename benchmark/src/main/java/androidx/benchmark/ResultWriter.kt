@@ -23,6 +23,7 @@ import android.util.JsonWriter
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
+import java.util.regex.Pattern
 
 internal object ResultWriter {
     @VisibleForTesting
@@ -90,6 +91,7 @@ internal object ResultWriter {
     private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
         beginObject()
             .name("name").value(report.testName)
+            .name("params").paramsArray(report)
             .name("className").value(report.className)
             .name("totalRunTimeNs").value(report.totalRunTimeNs)
             .name("metrics").metricsObject(report)
@@ -98,6 +100,35 @@ internal object ResultWriter {
             .name("thermalThrottleSleepSeconds").value(report.thermalThrottleSleepSeconds)
 
         return endObject()
+    }
+
+    private fun JsonWriter.paramsArray(report: BenchmarkState.Report): JsonWriter {
+        beginArray()
+        getParams(report.testName).forEach { param ->
+            beginObject()
+                .name(param.first).value(param.second)
+            endObject()
+        }
+        return endArray()
+    }
+
+    private fun getParams(testName: String): List<Pair<String, String>> {
+        val index = testName.indexOf('[')
+        val params: MutableList<Pair<String, String>> = ArrayList<Pair<String, String>>()
+        if (index >= 0) {
+            val parameterizationString = testName.substring(index + 1, testName.lastIndexOf(']'))
+            parameterizationString.split(Regex("(?<!\\\\),")).forEachIndexed { i, string ->
+                val regex = Regex("(.*[^=:])[=:](.*)")
+                val matchResult = regex.matchEntire(string)
+                if (matchResult != null) {
+                    val (key, value) = matchResult.destructured
+                    params.add(Pair(key, value))
+                } else {
+                    params.add(Pair("{$i}", string))
+                }
+            }
+        }
+        return params
     }
 
     private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
