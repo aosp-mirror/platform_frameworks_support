@@ -1,0 +1,9 @@
+Code-Review+2: Nader Jawad <njawad@google.com>
+Code-Review+2: Andrey Kulikov <andreykulikov@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Autosubmit+1: George Mount <mount@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 10 Jul 2019 23:34:05 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1014130
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
