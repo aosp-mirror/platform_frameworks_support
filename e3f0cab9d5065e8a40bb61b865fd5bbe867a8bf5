@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "440eea32_842d9a0f",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:16:40Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd1c9cbf_046661d9",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:16:40Z",
+      "side": 1,
+      "message": "These should be implementation dependencies:\n\nimplementation(KOTLIN_COMPOSE_STDLIB)\n\nimplementation project(\":compose:compose-runtime\")\nimplementation project(\":ui:ui-core\")\nimplementation project(\":ui:ui-framework\")\nimplementation project(\":ui:ui-platform\")\n\nAt a bare minimum the above may work, but you might have extra dependencies that were previously being brought in transitively.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 30
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c38181df_11e01cfd",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:16:40Z",
+      "side": 1,
+      "message": "You don\u0027t have any unit tests, so you should be able to remove these",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa48f40_9b5ae247",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:16:40Z",
+      "side": 1,
+      "message": "I think you should be able to remove mockito*, espresso, and truth related dependencies here.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4940f854_8a2aac63",
         "filename": "ui/ui-tooling/build.gradle",
         "patchSetId": 6
@@ -18,6 +110,29 @@
         "startChar": 4,
         "endLine": 58,
         "endChar": 56
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f90056a6_5a15ce7f",
+        "filename": "ui/ui-tooling/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:16:40Z",
+      "side": 1,
+      "message": "nit: we should probably extract this somewhere reusable, but at least for now I would recommend setting some extra styles:\n\n\u003cstyle name\u003d\"TestTheme\" parent\u003d\"@android:style/Theme.Material.Light.NoActionBar\"\u003e\n        \u003citem name\u003d\"android:windowBackground\"\u003e#ffffff\u003c/item\u003e\n        \u003citem name\u003d\"android:windowActionBar\"\u003efalse\u003c/item\u003e\n        \u003citem name\u003d\"android:windowAnimationStyle\"\u003e@null\u003c/item\u003e\n        \u003citem name\u003d\"android:windowContentOverlay\"\u003e@null\u003c/item\u003e\n        \u003citem name\u003d\"android:windowFullscreen\"\u003etrue\u003c/item\u003e\n        \u003citem name\u003d\"android:windowNoTitle\"\u003etrue\u003c/item\u003e\n\u003c/style\u003e\n\nHelps speed up tests and reduce flakiness with animations",
+      "range": {
+        "startLine": 26,
+        "startChar": 27,
+        "endLine": 26,
+        "endChar": 79
       },
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
