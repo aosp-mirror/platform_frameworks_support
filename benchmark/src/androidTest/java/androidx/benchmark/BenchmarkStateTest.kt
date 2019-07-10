@@ -129,6 +129,7 @@ class BenchmarkStateTest {
         val expectedReport = BenchmarkState.Report(
             className = "className",
             testName = "testName",
+            params = emptyList(),
             totalRunTimeNs = 900000000,
             data = listOf(100),
             repeatIterations = 1,

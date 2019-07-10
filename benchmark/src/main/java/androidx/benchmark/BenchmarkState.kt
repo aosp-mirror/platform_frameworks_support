@@ -340,6 +340,7 @@ class BenchmarkState internal constructor() {
     internal data class Report(
         val className: String,
         val testName: String,
+        val params: List<Array<String>>,
         val totalRunTimeNs: Long,
         val data: List<Long>,
         val repeatIterations: Int,
@@ -352,6 +353,7 @@ class BenchmarkState internal constructor() {
     internal fun getReport(testName: String, className: String) = Report(
         className = className,
         testName = testName,
+        params = getParams(testName),
         totalRunTimeNs = totalRunTimeNs,
         data = results,
         repeatIterations = maxIterations,
@@ -424,6 +426,24 @@ class BenchmarkState internal constructor() {
         private const val THROTTLE_MAX_RETRIES = 3
         private const val THROTTLE_BACKOFF_S = 90L
 
+        @JvmStatic
+        fun getParams(testName: String): List<Array<String>> {
+            val index1 = testName.indexOf('[')
+            var params: ArrayList<Array<String>> = ArrayList()
+            if (index1 >= 0) {
+                val parameterizationString = testName.substring(index1 + 1, testName.lastIndexOf(']'))
+                parameterizationString.split(Regex("(?<!\\\\),")).forEachIndexed { i, string ->
+                    val index = string.indexOfAny(charArrayOf('=', ':'))
+                    if (index >= 0) {
+                        params.add(arrayOf(string.substring(0, index).trim(), string.substring(index + 1).trim()))
+                    } else {
+                        params.add(arrayOf("{$i}", string.trim()))
+                    }
+                }
+            }
+            return params
+        }
+
         /**
          * Hooks for benchmarks not using [BenchmarkRule] to register results.
          *
@@ -454,6 +474,7 @@ class BenchmarkState internal constructor() {
             val report = Report(
                 className = className,
                 testName = testName,
+                params = getParams(testName),
                 totalRunTimeNs = totalRunTimeNs,
                 data = dataNs,
                 repeatIterations = repeatIterations,

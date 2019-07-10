@@ -90,6 +90,7 @@ internal object ResultWriter {
     private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
         beginObject()
             .name("name").value(report.testName)
+            .name("params").paramsArray(report)
             .name("className").value(report.className)
             .name("totalRunTimeNs").value(report.totalRunTimeNs)
             .name("metrics").metricsObject(report)
@@ -98,6 +99,16 @@ internal object ResultWriter {
             .name("thermalThrottleSleepSeconds").value(report.thermalThrottleSleepSeconds)
 
         return endObject()
+    }
+
+    private fun JsonWriter.paramsArray(report: BenchmarkState.Report): JsonWriter {
+        beginArray()
+        report.params.forEach { param ->
+            beginArray()
+            param.forEach { value(it) }
+            endArray()
+        }
+        return endArray()
     }
 
     private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
