@@ -1533,6 +1533,9 @@ public class MediaControlView extends ViewGroup {
     }
 
     ImageButton findControlButton(int sizeType, @IdRes int id) {
+        if (sizeType == SIZE_TYPE_UNDEFINED) {
+            sizeType = SIZE_TYPE_FULL;
+        }
         return mTransportControlsMap.get(sizeType).findViewById(id);
     }
 
