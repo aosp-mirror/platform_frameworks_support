@@ -398,14 +398,14 @@ public class WorkSpec {
                 projection = {"tag"})
         public List<String> tags;
 
-        /**
-         * Converts this POJO to a {@link WorkInfo}.
-         *
-         * @return The {@link WorkInfo} represented by this POJO
-         */
-        public WorkInfo toWorkInfo() {
-            return new WorkInfo(UUID.fromString(id), state, output, tags, runAttemptCount);
-        }
+        // This is actually a 1-1 relationship. However Room 2.1 models the type as a List.
+        // This will change in Room 2.2
+        @Relation(
+                parentColumn = "id",
+                entityColumn = "work_spec_id",
+                entity = WorkProgress.class,
+                projection = {"progress"})
+        public List<Data> progress;
 
         @Override
         public boolean equals(Object o) {
@@ -418,7 +418,8 @@ public class WorkSpec {
             if (id != null ? !id.equals(that.id) : that.id != null) return false;
             if (state != that.state) return false;
             if (output != null ? !output.equals(that.output) : that.output != null) return false;
-            return tags != null ? tags.equals(that.tags) : that.tags == null;
+            if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
+            return progress != null ? progress.equals(that.progress) : that.progress == null;
         }
 
         @Override
@@ -428,8 +429,32 @@ public class WorkSpec {
             result = 31 * result + (output != null ? output.hashCode() : 0);
             result = 31 * result + runAttemptCount;
             result = 31 * result + (tags != null ? tags.hashCode() : 0);
+            result = 31 * result + (progress != null ? progress.hashCode() : 0);
             return result;
         }
+
+        /**
+         * Converts this POJO to a {@link WorkInfo}.
+         *
+         * @return The {@link WorkInfo} represented by this POJO
+         */
+        @NonNull
+        public WorkInfo toWorkInfo() {
+            Data progress = this.progress != null && !this.progress.isEmpty()
+                    ? this.progress.get(0)
+                    : null;
+
+            progress = progress == null ? Data.EMPTY : progress;
+
+            return new WorkInfo(
+                    UUID.fromString(id),
+                    state,
+                    output,
+                    tags,
+                    progress,
+                    runAttemptCount);
+        }
+
     }
 
     public static final Function<List<WorkInfoPojo>, List<WorkInfo>> WORK_INFO_MAPPER =
