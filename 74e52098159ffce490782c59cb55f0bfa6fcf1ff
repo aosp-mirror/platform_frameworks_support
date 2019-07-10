@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d59c7e0_1ee48135",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-10T08:20:00Z",
+      "side": 1,
+      "message": "Will the function name getDefaultLensFacing(@Nullable LensFacing preferredLensFacing) be better? checkLensFacing can\u0027t explain why LensFacing.BACK is returned if the input parameter is LensFacing.FRONT or null.\n\nMay also need to add test somewhere to make sure the reported issue won\u0027t happen again when there is no LensFacing set to Builders.",
+      "range": {
+        "startLine": 319,
+        "startChar": 18,
+        "endLine": 319,
+        "endChar": 77
+      },
+      "revId": "74e52098159ffce490782c59cb55f0bfa6fcf1ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
