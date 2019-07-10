@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1220b9c4_46bffb6d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2LensFacingCameraIdFilter.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "nit:\nlensFacingToLensFacingInteger\n-\u003e\nCameraXLensFacingToCamera2LensFacing",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c3ae54_87cad276",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraFactory.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "This looks to be redundant functionality that the implementation detail doesn\u0027t need. Internally CameraX can call cameraIdForLensFacing() and check for existence. This will reduce the amount of code to maintain.",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c466644_2d01215d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "Why do you need to build() the config in order to retrieve the filter? You should just retrieve the option.\n\nBut also its not strictly necessary to provide the addCameraIdFilter method. This seems like an additional interface that we might not need to maintain. Everything else we strictly set or get.",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df0d41b5_1e66fd3b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "Having the Config explicitly use a FilterSet is really forcing an implementation detail. We can make it simply a CameraIdFilter to make it much simpler. If the user wants to have a set they can choose to do so as their implementation detail.",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3247661_552aad4a",
+        "filename": "camera/core/src/test/java/androidx/camera/core/LensFacingCameraIdFilterTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "What is this test for?\n\nThis is just testing that our fake objects do what they do?",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8cfae1a_60579fa7",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraFactory.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-07-10T07:05:22Z",
+      "side": 1,
+      "message": "The javadoc doesn\u0027t say it throws IllegalArgument exception. In fact looking at the Camera2 implementation it returns null if it doesn\u0027t exist.\n\nWe should not have 2 different behaviors.",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
