@@ -46,6 +46,30 @@
       "revId": "910462bb0bdf3c7f32fb1f0b7a180e4cf15d799d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "260f8a32_d2ee545c",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/InputField.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-07-10T00:59:33Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "a54cdb6d_f82b3c16",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 32
+      },
+      "revId": "910462bb0bdf3c7f32fb1f0b7a180e4cf15d799d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
