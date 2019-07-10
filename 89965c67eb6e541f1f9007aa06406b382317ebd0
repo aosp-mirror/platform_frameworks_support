@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "40b3910e_bedefde8",
+        "filename": "ui/ui-material/src/androidTest/java/androidx/ui/material/RippleEffectTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-10T15:47:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6d348db_ed44d481",
+      "range": {
+        "startLine": 238,
+        "startChar": 19,
+        "endLine": 238,
+        "endChar": 25
+      },
+      "revId": "89965c67eb6e541f1f9007aa06406b382317ebd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52113b01_556a9db6",
         "filename": "ui/ui-material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "89965c67eb6e541f1f9007aa06406b382317ebd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26f7557_146c7e84",
+        "filename": "ui/ui-material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-10T15:47:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "115fd10d_2145fb57",
+      "range": {
+        "startLine": 144,
+        "startChar": 18,
+        "endLine": 144,
+        "endChar": 30
+      },
+      "revId": "89965c67eb6e541f1f9007aa06406b382317ebd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
