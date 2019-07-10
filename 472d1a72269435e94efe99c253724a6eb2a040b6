@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bfcef40_272e1945",
+        "filename": "ui/ui-framework/src/test/java/androidx/ui/core/InputFieldDelegateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-10T19:08:05Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 220,
+        "startChar": 8,
+        "endLine": 220,
+        "endChar": 13
+      },
+      "revId": "472d1a72269435e94efe99c253724a6eb2a040b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21bd476c_6ee8b777",
+        "filename": "ui/ui-framework/src/test/java/androidx/ui/core/InputFieldDelegateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-07-10T19:08:05Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 13
+      },
+      "revId": "472d1a72269435e94efe99c253724a6eb2a040b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
