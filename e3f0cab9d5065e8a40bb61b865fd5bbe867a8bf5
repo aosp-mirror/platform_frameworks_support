@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "327f6c70_740c2422",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "440eea32_842d9a0f",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd1c9cbf_046661d9",
         "filename": "ui/ui-tooling/build.gradle",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c4d37d8_5c89a534",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd1c9cbf_046661d9",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 30
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "63948070_91929f79",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c38181df_11e01cfd",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fa48f40_9b5ae247",
         "filename": "ui/ui-tooling/build.gradle",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76aa788_32a498dd",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa48f40_9b5ae247",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3630bc69_4afa9e36",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4940f854_8a2aac63",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f90056a6_5a15ce7f",
         "filename": "ui/ui-tooling/src/androidTest/AndroidManifest.xml",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19270f9e_0ca4c1bc",
+        "filename": "ui/ui-tooling/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f90056a6_5a15ce7f",
+      "range": {
+        "startLine": 26,
+        "startChar": 27,
+        "endLine": 26,
+        "endChar": 79
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4cd61cd6_f64bdb0e",
+        "filename": "ui/ui-tooling/src/androidTest/java/androidx/ui/tooling/InspectableTests.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cffbfcc_553f15d4",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cb01fcd_546fc87f",
         "filename": "ui/ui-tooling/src/main/AndroidManifest.xml",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175854ec_d25ad5c7",
+        "filename": "ui/ui-tooling/src/main/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-10T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cb01fcd_546fc87f",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
