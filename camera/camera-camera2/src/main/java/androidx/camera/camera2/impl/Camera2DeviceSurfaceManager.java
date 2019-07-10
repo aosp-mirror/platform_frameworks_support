@@ -49,6 +49,7 @@ import java.util.Map;
  * of surface configuration type and size pairs can be supported for different hardware level camera
  * devices. This structure is used to store the guaranteed supported stream capabilities related
  * info.
+ *
  * @hide
  */
 @RestrictTo(Scope.LIBRARY)
@@ -304,7 +305,10 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
         CameraDeviceConfig config = (CameraDeviceConfig) useCaseConfig;
         String cameraId;
         try {
-            cameraId = CameraX.getCameraWithLensFacing(config.getLensFacing());
+            // Add default lensFacing if we can
+            CameraX.LensFacing lensFacing = CameraX.getDefaultLensFacing(
+                    config.getLensFacing(null));
+            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
         } catch (Exception e) {
             throw new IllegalArgumentException(
                     "Unable to get camera ID for use case " + useCaseConfig.getTargetName(), e);
