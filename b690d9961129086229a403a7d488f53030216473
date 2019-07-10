@@ -46,6 +46,30 @@
       "revId": "b690d9961129086229a403a7d488f53030216473",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03984e79_fa85b57e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2306,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T17:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9051b60e_1d8245ad",
+      "range": {
+        "startLine": 2306,
+        "startChar": 16,
+        "endLine": 2306,
+        "endChar": 37
+      },
+      "revId": "b690d9961129086229a403a7d488f53030216473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
