@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0fab20dc_9debab00",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T15:11:21Z",
+      "side": 1,
+      "message": "I think it\u0027s ok for now :) we can polish later.",
+      "parentUuid": "613cc242_2c29cdd8",
+      "range": {
+        "startLine": 40,
+        "startChar": 45,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a67e7da1_6cd38068",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
         "patchSetId": 2
