@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "613cc242_2c29cdd8",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-10T14:49:33Z",
+      "side": 1,
+      "message": "It should be fine as long as rowIndex is only used for grouping measurables into rows and *not* for accessing individual rows (since its value will not match the \u0027real\u0027 row index if the lambda is composed multiple times). I fixed this in the latest patch and renamed rowIndex to rowGroup (couldn\u0027t think of a better name). Please let me know what you think.",
+      "parentUuid": "84f0540c_6f1d2cc6",
+      "range": {
+        "startLine": 40,
+        "startChar": 45,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a67e7da1_6cd38068",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7a7146c6_e1078be8",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-10T14:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a67e7da1_6cd38068",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 75
+      },
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7723f65f_ba73336c",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
         "patchSetId": 2
@@ -62,6 +110,24 @@
       "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0601fa0_841ee5cc",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-10T14:49:33Z",
+      "side": 1,
+      "message": "Done. Now if maxWidth is infinite, then the table will just default to wrap content.",
+      "parentUuid": "7723f65f_ba73336c",
+      "revId": "3855a1e10b22f139532523d39a77e319a8aa7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
