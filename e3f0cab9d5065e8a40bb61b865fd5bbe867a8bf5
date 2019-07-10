@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4940f854_8a2aac63",
+        "filename": "ui/ui-tooling/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-10T08:42:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure you are using this dependency, coloredrect is in ui-foundation",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cffbfcc_553f15d4",
+        "filename": "ui/ui-tooling/src/androidTest/java/androidx/ui/tooling/InspectableTests.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-10T08:42:17Z",
+      "side": 1,
+      "message": "import order",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
