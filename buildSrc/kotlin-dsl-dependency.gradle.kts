@@ -15,5 +15,5 @@
  */
 
 dependencies {
-    "compileOnly"(gradleKotlinDsl())
+    "compileOnly"(project.gradleKotlinDsl())
 }

@@ -15,5 +15,5 @@
  */
 
 dependencies {
-    "implementation"(gradleKotlinDsl())
+    "implementation"(project.gradleKotlinDsl())
 }
