@@ -24,15 +24,13 @@ import android.view.WindowManager;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.CameraFactory;
+import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.ConfigProvider;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionConfig;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Provides defaults for {@link PreviewConfig} in the Camera2 implementation.
@@ -68,24 +66,11 @@ public final class PreviewConfigProvider implements ConfigProvider<PreviewConfig
         builder.setDefaultCaptureConfig(captureBuilder.build());
         builder.setCaptureOptionUnpacker(Camera2CaptureOptionUnpacker.INSTANCE);
 
-        List<LensFacing> lensFacingList;
-
-        // Add default lensFacing if we can
-        if (lensFacing == LensFacing.FRONT) {
-            lensFacingList = Arrays.asList(LensFacing.FRONT, LensFacing.BACK);
-        } else {
-            lensFacingList = Arrays.asList(LensFacing.BACK, LensFacing.FRONT);
-        }
-
         try {
-            String defaultId = null;
-
-            for (LensFacing lensFacingCandidate : lensFacingList) {
-                defaultId = mCameraFactory.cameraIdForLensFacing(lensFacingCandidate);
-                if (defaultId != null) {
-                    builder.setLensFacing(lensFacingCandidate);
-                    break;
-                }
+            LensFacing checkedLensFacing = CameraX.checkLensFacing(lensFacing);
+            String defaultId = mCameraFactory.cameraIdForLensFacing(checkedLensFacing);
+            if (defaultId != null) {
+                builder.setLensFacing(checkedLensFacing);
             }
 
             int targetRotation = mWindowManager.getDefaultDisplay().getRotation();

@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.util.Size;
 
 import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -28,6 +29,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -298,6 +300,38 @@ public final class CameraX {
     public static String getCameraWithLensFacing(LensFacing lensFacing)
             throws CameraInfoUnavailableException {
         return INSTANCE.getCameraFactory().cameraIdForLensFacing(lensFacing);
+    }
+
+    /**
+     * Checks the provided {@link LensFacing} is existent.
+     *
+     * <p>Returns the default lens facing if the provided {@link LensFacing} is not existent or
+     * {@code null}.
+     *
+     * @param lensFacing the lens facing of the camera
+     * @return The provided lens facing if camera exists, or the default lens facing.
+     * @throws CameraInfoUnavailableException if unable to access cameras, perhaps due to
+     *                                        insufficient permissions.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public static LensFacing checkLensFacing(@Nullable LensFacing lensFacing)
+            throws CameraInfoUnavailableException {
+        List<LensFacing> lensFacingList;
+        if (lensFacing == LensFacing.FRONT) {
+            lensFacingList = Arrays.asList(LensFacing.FRONT, LensFacing.BACK);
+        } else {
+            lensFacingList = Arrays.asList(LensFacing.BACK, LensFacing.FRONT);
+        }
+        for (LensFacing lensFacingCandidate : lensFacingList) {
+            String cameraId = INSTANCE.getCameraFactory().cameraIdForLensFacing(
+                    lensFacingCandidate);
+            if (cameraId != null) {
+                return lensFacingCandidate;
+            }
+        }
+        return null;
     }
 
     /**
@@ -607,6 +641,6 @@ public final class CameraX {
          * @param error   the type of error that occurred
          * @param message detailed message of the error condition
          */
-        void onError(ErrorCode error, String message);
+        void onError(@NonNull ErrorCode error, @NonNull String message);
     }
 }
