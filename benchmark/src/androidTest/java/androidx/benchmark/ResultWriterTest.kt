@@ -33,7 +33,8 @@ class ResultWriterTest {
     val tempFolder = TemporaryFolder()
 
     private val reportA = BenchmarkState.Report(
-        testName = "MethodA",
+        testName = "MethodA[number=2, primeNumber=true, message=2 is a prime number\\, since it " +
+                "is divisible only by one and by itself.]",
         className = "package.Class1",
         data = listOf(100, 101, 102),
         repeatIterations = 100000,
@@ -87,7 +88,18 @@ class ResultWriterTest {
                 },
                 "benchmarks": [
                     {
-                        "name": "MethodA",
+                        "name": "MethodA[number=2, primeNumber=true, message=2 is a prime number\\, since it is divisible only by one and by itself.]",
+                        "params": [
+                            {
+                                "number": "2"
+                            },
+                            {
+                                "primeNumber": "true"
+                            },
+                            {
+                                "message": "2 is a prime number\\, since it is divisible only by one and by itself."
+                            }
+                        ],
                         "className": "package.Class1",
                         "metrics": {
                             "timeNs": {
@@ -107,6 +119,7 @@ class ResultWriterTest {
                     },
                     {
                         "name": "MethodB",
+                        "params": [],
                         "className": "package.Class2",
                         "metrics": {
                             "timeNs": {
