@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bf33542_8e924a25",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Scroller.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T22:54:39Z",
+      "side": 1,
+      "message": "created b/137222372",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 22
+      },
+      "revId": "c88979805fba74c109625a4bfaa7998ab38b3a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
