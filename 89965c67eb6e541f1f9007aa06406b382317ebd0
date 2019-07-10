@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6d348db_ed44d481",
+        "filename": "ui/ui-material/src/androidTest/java/androidx/ui/material/RippleEffectTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T15:44:05Z",
+      "side": 1,
+      "message": "we already use this pattern in tests, AndroidLayoutDrawTest.DoDraw. not ideal, but still, it is only for tests",
+      "parentUuid": "0c86e5b3_2acc01b3",
+      "range": {
+        "startLine": 238,
+        "startChar": 19,
+        "endLine": 238,
+        "endChar": 25
+      },
+      "revId": "89965c67eb6e541f1f9007aa06406b382317ebd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52113b01_556a9db6",
         "filename": "ui/ui-material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-10T15:09:08Z",
       "side": 1,
       "message": "do you want to call dispose here? Even if it\u0027s empty right now. It can be something more than just animation stopping, e.g. state reset or something like that",
+      "range": {
+        "startLine": 144,
+        "startChar": 18,
+        "endLine": 144,
+        "endChar": 30
+      },
+      "revId": "89965c67eb6e541f1f9007aa06406b382317ebd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115fd10d_2145fb57",
+        "filename": "ui/ui-material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T15:44:05Z",
+      "side": 1,
+      "message": "I decided I don\u0027t want to call dispose here. dispose can be more for stopping in progress animation. here the animation already finished. if there would be something important to be reset we can add it later",
+      "parentUuid": "52113b01_556a9db6",
       "range": {
         "startLine": 144,
         "startChar": 18,
