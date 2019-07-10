@@ -19,6 +19,7 @@ package androidx.appcompat.widget;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.appcompat.widget.SuggestionsAdapter.getColumnString;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -1067,7 +1068,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
                 mSearchSrcTextView.setSelection(selPoint);
                 mSearchSrcTextView.setListSelection(0);
                 mSearchSrcTextView.clearListSelection();
-                HIDDEN_METHOD_INVOKER.ensureImeVisible(mSearchSrcTextView, true);
+                mSearchSrcTextView.ensureImeVisible();
 
                 return true;
             }
@@ -1694,7 +1695,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
     }
 
     void forceSuggestionQuery() {
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             mSearchSrcTextView.refreshAutoCompleteResults();
         } else {
             HIDDEN_METHOD_INVOKER.doBeforeTextChanged(mSearchSrcTextView);
@@ -1911,7 +1912,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
 
                 // If in landscape mode, then make sure that the ime is in front of the dropdown.
                 if (isLandscapeMode(getContext())) {
-                    HIDDEN_METHOD_INVOKER.ensureImeVisible(this, true);
+                    ensureImeVisible();
                 }
             }
         }
@@ -2020,58 +2021,75 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
             // onCreateInputConnection().
             mHasPendingShowSoftInputRequest = true;
         }
+
+        void ensureImeVisible() {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                HIDDEN_METHOD_INVOKER.ensureImeVisible(this);
+            } else {
+                setInputMethodMode(ListPopupWindow.INPUT_METHOD_NEEDED);
+                if (enoughToFilter()) {
+                    showDropDown();
+                }
+            }
+        }
     }
 
     private static class AutoCompleteTextViewReflector {
-        private Method doBeforeTextChanged, doAfterTextChanged;
-        private Method ensureImeVisible;
+        private Method mDoBeforeTextChanged = null;
+        private Method mDoAfterTextChanged = null;
+        private Method mEnsureImeVisible = null;
 
+
+        @SuppressWarnings("JavaReflectionMemberAccess")
+        @SuppressLint("DiscouragedPrivateApi")
         AutoCompleteTextViewReflector() {
-            try {
-                doBeforeTextChanged = AutoCompleteTextView.class
-                        .getDeclaredMethod("doBeforeTextChanged");
-                doBeforeTextChanged.setAccessible(true);
-            } catch (NoSuchMethodException e) {
-                // Ah well.
-            }
-            try {
-                doAfterTextChanged = AutoCompleteTextView.class
-                        .getDeclaredMethod("doAfterTextChanged");
-                doAfterTextChanged.setAccessible(true);
-            } catch (NoSuchMethodException e) {
-                // Ah well.
-            }
-            try {
-                ensureImeVisible = AutoCompleteTextView.class
-                        .getMethod("ensureImeVisible", boolean.class);
-                ensureImeVisible.setAccessible(true);
-            } catch (NoSuchMethodException e) {
-                // Ah well.
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                try {
+                    mDoBeforeTextChanged = AutoCompleteTextView.class
+                            .getDeclaredMethod("doBeforeTextChanged");
+                    mDoBeforeTextChanged.setAccessible(true);
+                } catch (NoSuchMethodException e) {
+                    // Ah well.
+                }
+                try {
+                    mDoAfterTextChanged = AutoCompleteTextView.class
+                            .getDeclaredMethod("doAfterTextChanged");
+                    mDoAfterTextChanged.setAccessible(true);
+                } catch (NoSuchMethodException e) {
+                    // Ah well.
+                }
+                try {
+                    mEnsureImeVisible = AutoCompleteTextView.class
+                            .getMethod("ensureImeVisible", boolean.class);
+                    mEnsureImeVisible.setAccessible(true);
+                } catch (NoSuchMethodException e) {
+                    // Ah well.
+                }
             }
         }
 
         void doBeforeTextChanged(AutoCompleteTextView view) {
-            if (doBeforeTextChanged != null) {
+            if (mDoBeforeTextChanged != null) {
                 try {
-                    doBeforeTextChanged.invoke(view);
+                    mDoBeforeTextChanged.invoke(view);
                 } catch (Exception e) {
                 }
             }
         }
 
         void doAfterTextChanged(AutoCompleteTextView view) {
-            if (doAfterTextChanged != null) {
+            if (mDoAfterTextChanged != null) {
                 try {
-                    doAfterTextChanged.invoke(view);
+                    mDoAfterTextChanged.invoke(view);
                 } catch (Exception e) {
                 }
             }
         }
 
-        void ensureImeVisible(AutoCompleteTextView view, boolean visible) {
-            if (ensureImeVisible != null) {
+        void ensureImeVisible(AutoCompleteTextView view) {
+            if (mEnsureImeVisible != null) {
                 try {
-                    ensureImeVisible.invoke(view, visible);
+                    mEnsureImeVisible.invoke(view, /* visible = */ true);
                 } catch (Exception e) {
                 }
             }
