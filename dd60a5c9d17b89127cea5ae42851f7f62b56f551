@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73e43edc_27fd0bd4",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/InputFieldDelegate.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-10T23:42:49Z",
+      "side": 1,
+      "message": "We will have an issue if there is some sort of scaling/rotation done on this item. To get this right, I suspect you\u0027re going to have to find all the points of the bounding box. We really need a \"localToRoot(PxBounds)\" call.\n\nTBD",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 70
+      },
+      "revId": "dd60a5c9d17b89127cea5ae42851f7f62b56f551",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
