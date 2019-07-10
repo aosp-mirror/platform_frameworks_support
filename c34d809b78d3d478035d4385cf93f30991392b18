@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "42b412be_76f8c06c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-07-10T17:55:21Z",
+      "side": 1,
+      "message": "because we ran evaluationDependsOnChildren() few lines above, which is why we can\u0027t run afterEvaluate now. The thing is, all projects need to have evaluated before any of them run this, if you put it simply in a project\u0027s afterEvaluate and remove evaluationDependsOnChildren() you\u0027d have projects running it before the map finishes populating (or so I remember...)",
+      "parentUuid": "2785e971_47a8c432",
+      "range": {
+        "startLine": 346,
+        "startChar": 27,
+        "endLine": 346,
+        "endChar": 56
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f217ec4_79d6e92b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "I also worry about timing. What you mentioned in the other comment where it kind of works now, but only in the right afterEvaluates makes me feel like we will break again and not know about it.",
       "parentUuid": "801cfa6d_a84d01e4",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 50
+      },
+      "revId": "c34d809b78d3d478035d4385cf93f30991392b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b1f038f_5ddda1d6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-07-10T17:55:21Z",
+      "side": 1,
+      "message": "As long as we have evaluationDependsOnChildren before running max dep versions, this should be fine I believe",
+      "parentUuid": "e3df41d0_1e647b55",
       "range": {
         "startLine": 525,
         "startChar": 16,
