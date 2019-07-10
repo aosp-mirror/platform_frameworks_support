@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cc3584ba_5959f81e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-10T23:59:37Z",
+      "side": 1,
+      "message": "I noticed the same, but didn\u0027t want to change too much. Done.",
+      "parentUuid": "d53bf55b_99a6e155",
+      "range": {
+        "startLine": 685,
+        "startChar": 8,
+        "endLine": 685,
+        "endChar": 28
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "164be9ac_f8ae3dd0",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
@@ -92,6 +116,30 @@
       "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244759b1_18420ea6",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-10T23:59:37Z",
+      "side": 1,
+      "message": "¯\\_(ツ)_/¯\nDone.",
+      "parentUuid": "164be9ac_f8ae3dd0",
+      "range": {
+        "startLine": 686,
+        "startChar": 12,
+        "endLine": 686,
+        "endChar": 32
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
