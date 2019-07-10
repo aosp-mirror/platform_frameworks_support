@@ -2,6 +2,230 @@
   "comments": [
     {
       "key": {
+        "uuid": "c59e1906_23b303a1",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Brush.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "actually inline here makes no sense as this class will anyway be later used as an interface Brush - this requires boxing.\ninstead I propose to mark this as data class so when compose runtime would start comparing complex objects by equals providing a new brush object with the same color will not cause recomposition.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660c718a_280240d3",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Vector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "nit: can be just Path",
+      "range": {
+        "startLine": 296,
+        "startChar": 26,
+        "endLine": 296,
+        "endChar": 47
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519d1533_86d299c0",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Vector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "nit: can be just Path",
+      "range": {
+        "startLine": 311,
+        "startChar": 29,
+        "endLine": 311,
+        "endChar": 50
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77bc1979_b6d165c5",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/shape/border/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "would be nice to also later move brushes somewhere outside of vectorgraphics package",
+      "range": {
+        "startLine": 21,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da820c0_b058c883",
+        "filename": "ui/ui-framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/VectorGraphicsActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "you can use Container(width \u003d 480.dp, height \u003d 480.dp) instead",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "840d9da2_ce29f3a8",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "it would be easier to use this function if you move an optional param to the end of params list, otherwise you force everyone to use named arguments",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b29ded9_73b4ba6c",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "just an idea: maybe if this params wasn\u0027t provided explicitly we should use parentSize - the second param of Draw lambda? this seems logically correct for me to use the real available size provided by the parent layout",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 42
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2308d5dd_544993f9",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "I am not sure about this exact usage, but do we need to memoize the vector object here?",
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa5139f_60105a46",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "the same question about memoization here and in path()",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30fc123_8de8d284",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T16:29:22Z",
+      "side": 1,
+      "message": "I guess we currently have the code style of using PascalCase for constants",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f8bdf25_df62f90c",
         "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
         "patchSetId": 3
