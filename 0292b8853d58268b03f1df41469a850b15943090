@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7927daa4_b2c7ac59",
+        "filename": "ui/ui-layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/StackSamples.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-07-10T12:52:29Z",
+      "side": 1,
+      "message": "How about at least using ColoredRect and DrawShape(RectangleShape) instead of this two?\nIt would add a dependency on ui-foundation, not ui-material, but would give us the samples you you can copypaste and which help users to learn our real basic components, not the mocked ones.\nClara, what do you think?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 1
+      },
+      "revId": "0292b8853d58268b03f1df41469a850b15943090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
