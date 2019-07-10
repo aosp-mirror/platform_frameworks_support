@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb1530fb_d5019b62",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T15:10:54Z",
+      "side": 1,
+      "message": "Not needed in the prototype for the moment but I think we should keep in mind to support this case in the future.",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 40
+      },
+      "revId": "743fff367be8f9926724c829f80113def62e27f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c423b6ff_6638381c",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T15:10:54Z",
+      "side": 1,
+      "message": "tableHeight will not respect a maxHeight constraint.",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 23
+      },
+      "revId": "743fff367be8f9926724c829f80113def62e27f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
