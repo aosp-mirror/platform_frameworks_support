@@ -160,6 +160,29 @@
       "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb01fcd_546fc87f",
+        "filename": "ui/ui-tooling/src/main/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-10T13:45:04Z",
+      "side": 1,
+      "message": "tiny nit: should just be:\n\n\u003cmanifest package\u003d\"androidx.ui.tooling\" /\u003e\n\n:)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "e3f0cab9d5065e8a40bb61b865fd5bbe867a8bf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
