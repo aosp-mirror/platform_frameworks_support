@@ -94,6 +94,167 @@
     },
     {
       "key": {
+        "uuid": "ec1bfa3a_ae2101c6",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "maybe the name can be MultiParagraph :P",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2052b7_f7c81209",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "question: shall we keep this private for now?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13221970_3cced715",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "a good portion of the logic in this class is probably tested by TextPainterIntegration test. \n\nit might be a good idea to write separate unit tests for the class.\n\nalso some \"integration\" tests (i.e in TextPainterIntegrationTest) at a higher level to guard the support for new functionality (multi paragraph)",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4650c88e_14c98054",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "future work/idea: (not for this CL) I wonder if we need layout() in this class and in Paragraph class. I wonder if we should create the layout when the object is constructed.",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 62
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d82a5183_d6750e97",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "if initialized in the constructor looks like all these getters can be val\u0027s",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc8fecd_f75ed2ae",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "very nit: i wonder if this is fillInParagraphRanges",
+      "range": {
+        "startLine": 76,
+        "startChar": 30,
+        "endLine": 76,
+        "endChar": 53
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d93686_c1dd555f",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "lets try not to return null",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95c3c434_7059b51e",
         "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
         "patchSetId": 1
@@ -110,6 +271,122 @@
         "startChar": 34,
         "endLine": 92,
         "endChar": 76
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3631aa19_eb640db8",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "you can do it in a followup CL.",
+      "parentUuid": "95c3c434_7059b51e",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 76
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf502c7_8ab426c5",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "TODO(haoyuchang)\n\ncan you describe more what the todo is for?",
+      "range": {
+        "startLine": 95,
+        "startChar": 15,
+        "endLine": 95,
+        "endChar": 19
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb36e830_f4b86e49",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "delete commented out code",
+      "range": {
+        "startLine": 99,
+        "startChar": 18,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557242cb_8148f19b",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "dont you do this already in the completePAragRange function?",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 64
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aa437d8_c6f90897",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "TODO(haoyuchang)",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 119,
+        "endChar": 19
       },
       "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -140,6 +417,76 @@
     },
     {
       "key": {
+        "uuid": "6fbca602_57dff85e",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "cannot think another way, and this comment is invalid.",
+      "parentUuid": "d312352e_1edf9f4c",
+      "range": {
+        "startLine": 140,
+        "startChar": 12,
+        "endLine": 140,
+        "endChar": 44
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c96bf287_572a2a04",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "nit: is Path a reusable object? does this have any performance issues?",
+      "range": {
+        "startLine": 158,
+        "startChar": 23,
+        "endLine": 158,
+        "endChar": 29
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f847c81b_3a1daddf",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "with(it[paragraphIndex])",
+      "range": {
+        "startLine": 160,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 37
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39a3bf4b_85910a15",
         "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
         "patchSetId": 1
@@ -156,6 +503,29 @@
         "startChar": 16,
         "endLine": 170,
         "endChar": 32
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe9ab46_54d32c4f",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "looks like you don\u0027t need a new paint every time since the paint and color stays the same.",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 31
       },
       "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -186,6 +556,122 @@
     },
     {
       "key": {
+        "uuid": "87c4ad8e_b659059d",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "it was a note",
+      "parentUuid": "2249faba_ebb75ef3",
+      "range": {
+        "startLine": 182,
+        "startChar": 33,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32d2fac6_4942a961",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "add unit tests for the logic",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 7
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "635cd374_8cb1db4c",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "nit: rename as returnValue, list etc? ret does not sound like a good name.",
+      "range": {
+        "startLine": 296,
+        "startChar": 8,
+        "endLine": 296,
+        "endChar": 11
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7cb6104_2b4a982c",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "just curious do we have to copy?",
+      "range": {
+        "startLine": 301,
+        "startChar": 35,
+        "endLine": 301,
+        "endChar": 40
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fff43f_b7cc4a9b",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "this seems to belong to AnnotatedString class.",
+      "range": {
+        "startLine": 319,
+        "startChar": 28,
+        "endLine": 319,
+        "endChar": 42
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52226b40_59c9be9e",
         "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
         "patchSetId": 1
@@ -202,6 +688,52 @@
         "startChar": 4,
         "endLine": 327,
         "endChar": 62
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5aea8ef_e62d7d73",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "change variable name.",
+      "range": {
+        "startLine": 339,
+        "startChar": 11,
+        "endLine": 339,
+        "endChar": 14
+      },
+      "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5234de4_93919cfc",
+        "filename": "ui/ui-text/src/main/java/androidx/ui/text/AggregatedTextLayout.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-07-10T03:26:34Z",
+      "side": 1,
+      "message": "since it is internal and if we dont copy it, or add to a set let make it non-data.",
+      "range": {
+        "startLine": 353,
+        "startChar": 9,
+        "endLine": 353,
+        "endChar": 13
       },
       "revId": "9b03abeef8199b558a7b9a66840ce8ca53f0683b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
