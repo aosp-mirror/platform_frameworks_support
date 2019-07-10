@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2f523f36_1999f25d",
+        "filename": "ui/ui-layout/integration-tests/samples/src/main/java/androidx/ui/layout/samples/StackSamples.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-10T13:19:56Z",
+      "side": 1,
+      "message": "I would like to be able to use public API widgets instead, as this would be more helpful than using these dummy components, which are hidden to developers unless they look up the code in AOSP. On the other hand, it feels like a compromise. Why not use text as well then? Is text more opinionated than ui-foundation? :)",
+      "parentUuid": "37d98666_255b07b5",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 1
+      },
+      "revId": "0292b8853d58268b03f1df41469a850b15943090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adae9433_a4384549",
         "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Intrinsic.kt",
         "patchSetId": 9
