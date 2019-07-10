@@ -2951,6 +2951,11 @@ public final class MediaPlayer extends SessionPlayer {
         if (status == MediaPlayer2.CALL_STATUS_NO_ERROR) {
             switch (what) {
                 case MediaPlayer2.CALL_COMPLETED_PREPARE:
+                    final List<SessionPlayer.TrackInfo> infos = getTrackInfoInternal();
+                    notifySessionPlayerCallback((callback) ->
+                            callback.onTrackInfoChanged(MediaPlayer.this, infos));
+                    setState(PLAYER_STATE_PAUSED);
+                    break;
                 case MediaPlayer2.CALL_COMPLETED_PAUSE:
                     setState(PLAYER_STATE_PAUSED);
                     break;
@@ -3134,14 +3139,6 @@ public final class MediaPlayer extends SessionPlayer {
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_STARVED);
                     break;
                 case MediaPlayer2.MEDIA_INFO_PREPARED:
-                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-                        @Override
-                        public void callCallback(SessionPlayer.PlayerCallback callback) {
-                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
-                        }
-                    });
-                    setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
-                    break;
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_END:
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                     break;
@@ -3160,12 +3157,11 @@ public final class MediaPlayer extends SessionPlayer {
                     });
                     break;
                 case MediaPlayer2.MEDIA_INFO_METADATA_UPDATE:
-                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
-                        @Override
-                        public void callCallback(SessionPlayer.PlayerCallback callback) {
-                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
-                        }
-                    });
+                    if (item == getCurrentMediaItem()) {
+                        final List<SessionPlayer.TrackInfo> infos = getTrackInfoInternal();
+                        notifySessionPlayerCallback((callback) ->
+                                callback.onTrackInfoChanged(MediaPlayer.this, infos));
+                    }
                     break;
             }
             if (sInfoCodeMap.containsKey(mp2What)) {

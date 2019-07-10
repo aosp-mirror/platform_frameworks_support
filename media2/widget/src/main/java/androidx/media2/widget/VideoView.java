@@ -539,7 +539,7 @@ public class VideoView extends SelectiveLayout {
         return !hasActualVideo() && mAudioTrackCount > 0;
     }
 
-    void updateTracks(PlayerWrapper player, List<TrackInfo> trackInfos) {
+    void updateTracks(PlayerWrapper player, @NonNull List<TrackInfo> trackInfos) {
         mSubtitleTracks = new LinkedHashMap<>();
         mVideoTrackCount = 0;
         mAudioTrackCount = 0;
@@ -688,6 +688,10 @@ public class VideoView extends SelectiveLayout {
             }
             if (shouldIgnoreCallback(player)) return;
 
+            List<SessionPlayer.TrackInfo> infos = player.getTrackInfo();
+            if (infos != null) {
+                updateTracks(player, player.getTrackInfo());
+            }
             updateMusicView(item);
         }
 

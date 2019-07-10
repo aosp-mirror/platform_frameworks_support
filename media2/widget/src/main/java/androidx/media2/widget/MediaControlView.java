@@ -2063,6 +2063,10 @@ public class MediaControlView extends ViewGroup {
             if (DEBUG) {
                 Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
             }
+            List<SessionPlayer.TrackInfo> infos = player.getTrackInfo();
+            if (infos != null) {
+                updateTracks(player, player.getTrackInfo());
+            }
             updateTimeViews(mediaItem);
             updateTitleView(mediaItem);
         }
