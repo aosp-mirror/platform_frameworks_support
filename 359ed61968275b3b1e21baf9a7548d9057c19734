@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "513d3106_93e6a88e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryInterpreter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-11T21:42:15Z",
+      "side": 1,
+      "message": "probably better to match this:\n\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/775005/17/room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt#b119\n\nalso having these two interpret calls makes me sad :/...",
+      "range": {
+        "startLine": 118,
+        "startChar": 15,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328e21e8_40ec87fc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-11T21:42:15Z",
+      "side": 1,
+      "message": "not needed because if the is check inside.",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e571885f_bad7a8a1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-11T21:42:15Z",
+      "side": 1,
+      "message": "you can just do is here as well. (no need for !null)",
+      "range": {
+        "startLine": 156,
+        "startChar": 50,
+        "endLine": 156,
+        "endChar": 76
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c444b0_a98fa226",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-11T21:42:15Z",
+      "side": 1,
+      "message": "this is very bad. why do we have a public variable in ParsedQUery...\nI know it is not from this CL but we should\u0027ve encapsulated it better.",
+      "range": {
+        "startLine": 168,
+        "startChar": 18,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
