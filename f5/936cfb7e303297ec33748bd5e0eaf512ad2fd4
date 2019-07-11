@@ -1,0 +1,9 @@
+Autosubmit+1: Chris Banes <chrisbanes@google.com>
+Code-Review+1: Shep Shapard <shepshapard@google.com>
+Code-Review+2: Alan Viverette <alanv@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 11 Jul 2019 19:05:54 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1013429
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
