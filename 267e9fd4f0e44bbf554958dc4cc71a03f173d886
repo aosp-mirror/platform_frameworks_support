@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dcfefae_14d876ad",
+        "filename": "camera/camera-extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-11T07:06:28Z",
+      "side": 1,
+      "message": "Maybe \nactiveUseCases \u003d\u003d null || activeUseCases.isEmpty()\nTo avoid it goes to line141 when activeUseCases is empty.",
+      "revId": "267e9fd4f0e44bbf554958dc4cc71a03f173d886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
