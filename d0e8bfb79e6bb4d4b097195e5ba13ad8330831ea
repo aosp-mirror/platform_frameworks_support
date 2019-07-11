@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af4c3038_0fd9efdf",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-07-11T20:11:09Z",
+      "side": 1,
+      "message": "Use viewLifecycleOwner.lifecycle.currentState !\u003d Lifecycle.State.DESTROYED",
+      "range": {
+        "startLine": 710,
+        "startChar": 16,
+        "endLine": 710,
+        "endChar": 95
+      },
+      "revId": "d0e8bfb79e6bb4d4b097195e5ba13ad8330831ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7543321_4aef9071",
+        "filename": "fragment/fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-07-11T20:11:09Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these.",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 729,
+        "endChar": 9
+      },
+      "revId": "d0e8bfb79e6bb4d4b097195e5ba13ad8330831ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
