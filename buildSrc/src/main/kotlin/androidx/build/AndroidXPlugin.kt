@@ -42,6 +42,7 @@ import androidx.build.license.configureExternalDependencyLicenseCheck
 import androidx.build.metalava.MetalavaTasks.configureAndroidProjectForMetalava
 import androidx.build.metalava.MetalavaTasks.configureJavaProjectForMetalava
 import androidx.build.metalava.UpdateApiTask
+import androidx.build.releasenotes.GenerateReleaseNotes
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
@@ -110,6 +111,8 @@ class AndroidXPlugin : Plugin<Project> {
             when (plugin) {
                 is JavaPlugin,
                 is JavaLibraryPlugin -> {
+                    // hello
+                    project.tasks.register("generateReleaseNotes", GenerateReleaseNotes::class.java)
                     project.configureErrorProneForJava()
                     project.configureSourceJarForJava()
                     val convention = project.convention.getPlugin<JavaPluginConvention>()
@@ -138,6 +141,8 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
                 is LibraryPlugin -> {
+                    // hello
+                    project.tasks.register("generateReleaseNotes", GenerateReleaseNotes::class.java)
                     val extension = project.extensions.getByType<LibraryExtension>().apply {
                         configureAndroidCommonOptions(project, androidXExtension)
                         configureAndroidLibraryOptions(project, androidXExtension)
