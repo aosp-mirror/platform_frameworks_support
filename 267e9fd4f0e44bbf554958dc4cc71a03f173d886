@@ -16,6 +16,24 @@
       "revId": "267e9fd4f0e44bbf554958dc4cc71a03f173d886",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba172832_bb8e92cd",
+        "filename": "camera/camera-extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-07-11T09:56:01Z",
+      "side": 1,
+      "message": "Thanks for review. Done.",
+      "parentUuid": "8dcfefae_14d876ad",
+      "revId": "267e9fd4f0e44bbf554958dc4cc71a03f173d886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
