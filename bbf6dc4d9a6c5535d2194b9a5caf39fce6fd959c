@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c04ef68_45cf3e7e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T22:10:27Z",
+      "side": 1,
+      "message": "Let\u0027s add something in the javadoc about how this method does a measure pass and should be used sparingly.",
+      "revId": "bbf6dc4d9a6c5535d2194b9a5caf39fce6fd959c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3df60e8_b8829bc4",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T22:10:27Z",
+      "side": 1,
+      "message": "Maybe:\n\nreturn Math.min(\n    buttonMinWidth - textWidth - button.getPaddingLeft() - button.getPaddingRight(), 0)",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 95
+      },
+      "revId": "bbf6dc4d9a6c5535d2194b9a5caf39fce6fd959c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
