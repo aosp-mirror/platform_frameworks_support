@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ed2f0874_6507f964",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T18:31:24Z",
+      "side": 1,
+      "message": "per f2f discussion -- let\u0027s make this defaults :)",
+      "parentUuid": "335308ad_3beb7089",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c898064c_18bfc41d",
         "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
         "patchSetId": 1
@@ -211,6 +235,30 @@
       "revId": "ef00652fb242212be6ba9a389d91da570211029e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44e5f82e_6d87ca5e",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T18:31:24Z",
+      "side": 1,
+      "message": "Renamed to DragDirection. A little bit too verbose naming, but let\u0027s leave it and see how it goes.",
+      "parentUuid": "ca85069e_3cc183d4",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
