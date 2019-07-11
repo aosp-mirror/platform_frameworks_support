@@ -17,58 +17,57 @@
 package androidx.appcompat.app
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.location.LocationManager
+import android.webkit.WebView
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO_TIME
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals
-import androidx.appcompat.testutils.NightModeUtils.isSystemNightThemeEnabled
-import androidx.appcompat.testutils.NightModeUtils.setNightModeAndWait
-import androidx.appcompat.testutils.NightModeUtils.setNightModeAndWaitForDestroy
+import androidx.appcompat.test.R
+import androidx.appcompat.testutils.NightSetMode
 import androidx.appcompat.testutils.TestUtilsMatchers.isBackground
+import androidx.appcompat.testutils.assertConfigurationNightModeEquals
+import androidx.appcompat.testutils.isSystemNightThemeEnabled
+import androidx.appcompat.testutils.setNightModeAndWait
+import androidx.appcompat.testutils.setNightModeAndWaitForRecreate
+import androidx.core.content.ContextCompat
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.testutils.LifecycleOwnerUtils.waitForRecreation
-
+import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.testutils.currentActivity
+import androidx.testutils.runOnActivityUiThread
+import androidx.testutils.runOnUiThreadBlocking
+import androidx.testutils.waitForRecreation
+import androidx.testutils.withActivity
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
-
-import android.content.res.Configuration
-import android.location.LocationManager
-import android.webkit.WebView
-
-import androidx.appcompat.test.R
-import androidx.appcompat.testutils.NightModeUtils.NightSetMode
-import androidx.core.content.ContextCompat
-import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.ActivityTestRule
-
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-
 import java.util.concurrent.CountDownLatch
 
 @Suppress("DEPRECATION")
 @LargeTest
 @RunWith(Parameterized::class)
 class NightModeTestCase(private val setMode: NightSetMode) {
-    @get:Rule
-    val rule = ActivityTestRule(NightModeActivity::class.java, false, false)
+    private lateinit var scenario: ActivityScenario<NightModeActivity>
 
     @Before
     fun setup() {
         // By default we'll set the night mode to NO, which allows us to make better
-        // assumptions in the test below
+        // assumptions in the tests below
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-        // Now launch the test activity
-        rule.launchActivity(null)
+        // Launch the test currentActivity
+        scenario = ActivityScenario.launch(NightModeActivity::class.java)
     }
 
     @Test
@@ -82,10 +81,14 @@ class NightModeTestCase(private val setMode: NightSetMode) {
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
 
         // Now force the local night mode to be yes (aka night mode)
-        setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
+        scenario.onActivity {
+            setNightModeAndWaitForRecreate(it, MODE_NIGHT_YES, setMode)
+        }
 
         // Assert that the new local night mode is returned
-        assertEquals(MODE_NIGHT_YES, rule.activity.delegate.localNightMode)
+        scenario.onActivity {
+            assertEquals(MODE_NIGHT_YES, it.delegate.localNightMode)
+        }
 
         // Now check the text has changed, signifying that night resources are being used
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
@@ -94,62 +97,73 @@ class NightModeTestCase(private val setMode: NightSetMode) {
     @Test
     fun testSwitchingYesDoesNotAffectApplication() {
         // This test is only useful when the dark system theme is not enabled
-        if (!isSystemNightThemeEnabled(rule.activity)) {
-            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO,
-                rule.activity.applicationContext.resources.configuration)
-
-            // Force the night mode to be yes (aka night mode)
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
-
-            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO,
-                rule.activity.applicationContext.resources.configuration)
+        if (isSystemNightThemeEnabled(scenario.currentActivity)) {
+            return
         }
+
+        // Assert the current configuration
+        assertConfigurationNightModeEquals(
+            Configuration.UI_MODE_NIGHT_NO,
+            scenario.withActivity { applicationContext }
+        )
+
+        // Force the night mode to be yes (aka night mode)
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_YES, setMode)
+
+        // Assert that the configuration was not modified
+        assertConfigurationNightModeEquals(
+            Configuration.UI_MODE_NIGHT_NO,
+            scenario.withActivity { applicationContext }
+        )
     }
 
     @Test
     fun testSwitchingYesToFollowSystem() {
-        // This test is only useful when the dark system theme is enabled
-        if (!isSystemNightThemeEnabled(rule.activity)) {
-            // Now force the night mode to be YES, so we're in dark theme
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
-            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
-
-            // Now force the local night mode to be FOLLOW_SYSTEM (which we know is dark)
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_FOLLOW_SYSTEM, setMode)
-            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
+        // This test is only useful when the dark system theme is not enabled
+        if (isSystemNightThemeEnabled(scenario.currentActivity)) {
+            return
         }
+
+        // Now force the night mode to be YES, so we're in dark theme
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_YES, setMode)
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
+
+        // Now force the local night mode to be FOLLOW_SYSTEM (which we know is dark)
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_FOLLOW_SYSTEM, setMode)
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
     }
 
     @Test
     fun testSwitchingNoToFollowSystem() {
         // This test is only useful when the dark system theme is enabled
-        if (isSystemNightThemeEnabled(rule.activity)) {
-            // Now force the night mode to be NO, so we're in light theme
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_NO, setMode)
-            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
-
-            // Now force the night mode to be FOLLOW_SYSTEM (which we know is dark)
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_FOLLOW_SYSTEM, setMode)
-            onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
+        if (!isSystemNightThemeEnabled(scenario.currentActivity)) {
+            return
         }
+
+        // Now force the night mode to be NO, so we're in light theme
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_NO, setMode)
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
+
+        // Now force the night mode to be FOLLOW_SYSTEM (which we know is dark)
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_FOLLOW_SYSTEM, setMode)
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
     }
 
     @Test
     fun testColorConvertedDrawableChangesWithNightMode() {
-        val activity = rule.activity
-        val dayColor = ContextCompat.getColor(activity, R.color.color_sky_day)
-        val nightColor = ContextCompat.getColor(activity, R.color.color_sky_night)
+        val dayColor = ContextCompat.getColor(scenario.currentActivity, R.color.color_sky_day)
+        val nightColor = ContextCompat.getColor(scenario.currentActivity, R.color.color_sky_night)
 
         // Loop through and switching from day to night and vice-versa multiple times. It needs
         // to be looped since the issue is with drawable caching, therefore we need to prime the
         // cache for the issue to happen
         for (i in 0 until 5) {
             // First force it to be night mode and assert the color
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
+            setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_YES, setMode)
             onView(withId(R.id.view_background)).check(matches(isBackground(nightColor)))
 
             // Now force the local night mode to be no (aka day mode) and assert the color
-            setNightModeAndWaitForDestroy(rule, MODE_NIGHT_NO, setMode)
+            setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_NO, setMode)
             onView(withId(R.id.view_background)).check(matches(isBackground(dayColor)))
         }
     }
@@ -157,24 +171,23 @@ class NightModeTestCase(private val setMode: NightSetMode) {
     @Test
     fun testNightModeAutoTimeRecreatesOnTimeChange() {
         // Create a fake TwilightManager and set it as the app instance
-        val twilightManager = FakeTwilightManager(rule.activity)
+        val twilightManager = FakeTwilightManager(scenario.currentActivity)
         TwilightManager.setInstance(twilightManager)
 
         // Verify that we're currently in day mode
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
 
         // Set MODE_NIGHT_AUTO so that we will change to night mode automatically
-        setNightModeAndWait(rule, AppCompatDelegate.MODE_NIGHT_AUTO_TIME, setMode)
-        val newDelegate = rule.activity.delegate as AppCompatDelegateImpl
+        setNightModeAndWait(scenario.currentActivity, MODE_NIGHT_AUTO_TIME, setMode)
+        val newDelegate = scenario.withActivity { delegate as AppCompatDelegateImpl }
 
         // Update the fake twilight manager to be in night and trigger a fake 'time' change
-        rule.runOnUiThread {
-            twilightManager.isNightForTest = true
-            newDelegate.autoTimeNightModeManager.onChange()
+        waitForRecreation(scenario.currentActivity) {
+            it.runOnUiThreadBlocking {
+                twilightManager.isNightForTest = true
+                newDelegate.autoTimeNightModeManager.onChange()
+            }
         }
-
-        // Now wait until the Activity is destroyed (thus recreated)
-        waitForRecreation(rule)
 
         // Check that the text has changed, signifying that night resources are being used
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)))
@@ -183,19 +196,18 @@ class NightModeTestCase(private val setMode: NightSetMode) {
     @Test
     fun testNightModeAutoTimeRecreatesOnResume() {
         // Create a fake TwilightManager and set it as the app instance
-        val twilightManager = FakeTwilightManager(rule.activity)
+        val twilightManager = FakeTwilightManager(scenario.currentActivity)
         TwilightManager.setInstance(twilightManager)
 
         // Set MODE_NIGHT_AUTO_TIME so that we will change to night mode automatically
-        setNightModeAndWait(rule, AppCompatDelegate.MODE_NIGHT_AUTO_TIME, setMode)
+        setNightModeAndWait(scenario.currentActivity, MODE_NIGHT_AUTO_TIME, setMode)
 
         // Verify that we're currently in day mode
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)))
 
         val resumeCompleteLatch = CountDownLatch(1)
 
-        rule.runOnUiThread {
-            val activity = rule.activity
+        scenario.runOnActivityUiThread { activity ->
             val instrumentation = InstrumentationRegistry.getInstrumentation()
             // Now fool the Activity into thinking that it has gone into the background
             instrumentation.callActivityOnPause(activity)
@@ -218,83 +230,97 @@ class NightModeTestCase(private val setMode: NightSetMode) {
 
     @Test
     fun testOnNightModeChangedCalled() {
-        val activity = rule.activity
-        // Set local night mode to YES
-        setNightModeAndWait(rule, MODE_NIGHT_YES, setMode)
-        // Assert that the Activity received a new value
-        assertEquals(MODE_NIGHT_YES, activity.lastNightModeAndReset)
+        scenario.onActivity { activity ->
+            // Set local night mode to YES
+            setNightModeAndWait(activity, MODE_NIGHT_YES, setMode)
+            // Assert that the Activity received a new value
+            assertEquals(MODE_NIGHT_YES, activity.lastNightModeAndReset)
+        }
     }
 
     @Test
     fun testDialogDoesNotOverrideActivityConfiguration() {
         // Set Activity local night mode to YES
-        setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_YES, setMode)
 
         // Assert that the uiMode is as expected
-        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, rule.activity)
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
+            scenario.currentActivity)
 
         // Now show a AppCompatDialog
-        rule.runOnUiThread {
-            AppCompatDialog(rule.activity).show()
+        scenario.runOnActivityUiThread {
+            AppCompatDialog(scenario.currentActivity).show()
         }
 
         // Assert that the uiMode is unchanged
-        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, rule.activity)
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
+            scenario.currentActivity)
     }
 
     @Test
     fun testLoadingWebViewMaintainsConfiguration() {
         // Set night mode and wait for the new Activity
-        setNightModeAndWaitForDestroy(rule, MODE_NIGHT_YES, setMode)
+        setNightModeAndWaitForRecreate(scenario.currentActivity, MODE_NIGHT_YES, setMode)
 
         // Assert that the context still has a night themed configuration
-        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, rule.activity)
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
+            scenario.currentActivity)
 
         // Now load a WebView into the Activity
-        rule.runOnUiThread { WebView(rule.activity) }
+        scenario.runOnActivityUiThread {
+            try {
+                WebView(scenario.currentActivity)
+            } catch (t: Throwable) {
+                when (t) {
+                    // Swallow thrown Resources.NotFoundException. Really old versions of
+                    // Chromium WebView crash if we use applyOverrideConfiguration().
+                    // Unfortunately emulators of older platforms tend to come with those versions.
+                    is Resources.NotFoundException -> return@runOnActivityUiThread
+                    else -> throw t
+                }
+            }
+        }
 
         // Now assert that the context still has a night themed configuration
-        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, rule.activity)
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
+            scenario.currentActivity)
     }
 
     @Test
-    fun testDialogCleansUpAutoMode() {
-        rule.runOnUiThread {
-            val dialog = AppCompatDialog(rule.activity)
-            val delegate = dialog.delegate as AppCompatDelegateImpl
+    fun testDialogCleansUpAutoMode() = scenario.runOnActivityUiThread { activity ->
+        val dialog = AppCompatDialog(activity)
+        val delegate = dialog.delegate as AppCompatDelegateImpl
 
-            // Set the local night mode of the Dialog to be an AUTO mode
-            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_TIME
+        // Set the local night mode of the Dialog to be an AUTO mode
+        delegate.localNightMode = MODE_NIGHT_AUTO_TIME
 
-            // Now show and dismiss the dialog
-            dialog.show()
-            dialog.dismiss()
+        // Now show and dismiss the dialog
+        dialog.show()
+        dialog.dismiss()
 
-            // Assert that the auto manager is destroyed (not listening)
-            assertFalse(delegate.autoTimeNightModeManager.isListening)
-        }
+        // Assert that the auto manager is destroyed (not listening)
+        assertFalse(delegate.autoTimeNightModeManager.isListening)
     }
 
     @Test
     fun testOnConfigurationChangeNotCalled() {
-        var activity = rule.activity
-        // Set local night mode to YES
-        setNightModeAndWait(rule, MODE_NIGHT_YES, setMode)
-        // Assert that onConfigurationChange was not called on the original activity
-        assertNull(activity.lastConfigurationChangeAndClear)
-
-        activity = rule.activity
-        // Set local night mode back to NO
-        setNightModeAndWait(rule, MODE_NIGHT_NO, setMode)
-        // Assert that onConfigurationChange was not called
-        assertNull(activity.lastConfigurationChangeAndClear)
+        scenario.onActivity { activity ->
+            // Set local night mode to YES
+            setNightModeAndWait(activity, MODE_NIGHT_YES, setMode)
+            // Assert that onConfigurationChange was not called on the original currentActivity
+            assertNull(activity.lastConfigurationChangeAndClear)
+        }
+        scenario.onActivity { activity ->
+            // Set local night mode back to NO
+            setNightModeAndWait(activity, MODE_NIGHT_NO, setMode)
+            // Assert that onConfigurationChange was not called
+            assertNull(activity.lastConfigurationChangeAndClear)
+        }
     }
 
     @After
     fun cleanup() {
-        rule.finishActivity()
-        // Reset the default night mode
-        setNightModeAndWait(rule, MODE_NIGHT_NO, NightSetMode.DEFAULT)
+        scenario.close()
     }
 
     private class FakeTwilightManager(context: Context) : TwilightManager(

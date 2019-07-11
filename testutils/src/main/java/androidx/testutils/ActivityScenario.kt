@@ -31,3 +31,27 @@ inline fun <reified A : Activity, T : Any> ActivityScenario<A>.withActivity(
     }
     return value
 }
+
+/**
+ * Run [block] using [ActivityScenario.onActivity] on the UI thread via
+ * [Activity.runOnUiThreadBlocking].
+ */
+inline fun <reified A : Activity> ActivityScenario<A>.runOnActivityUiThread(
+    crossinline block: (A) -> Unit
+) {
+    onActivity { activity ->
+        activity.runOnUiThreadBlocking {
+            block(activity)
+        }
+    }
+}
+
+/**
+ * Gets the current activity using [ActivityScenario.onActivity]. Should be used sparingly.
+ */
+inline val <reified A : Activity> ActivityScenario<A>.currentActivity: A
+    get() {
+        lateinit var value: A
+        onActivity { value = it }
+        return value
+    }
