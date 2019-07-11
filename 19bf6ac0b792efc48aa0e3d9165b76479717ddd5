@@ -42,6 +42,52 @@
     },
     {
       "key": {
+        "uuid": "5b5f9ef8_464a6891",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-07-11T23:02:42Z",
+      "side": 1,
+      "message": "Brackets(\u0027{\u0027) don\u0027t match and no \u0027,\u0027 before \u0027{mMetadata\u0027",
+      "range": {
+        "startLine": 137,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84861a16_f949a1ba",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-07-11T23:02:42Z",
+      "side": 1,
+      "message": "Two questions\n\nQuestion 1) Why does the default implementation returns an error instead of remove + add?\nQuestion 2) Why not RESULT_ERROR_NOT_SUPPORTED?",
+      "range": {
+        "startLine": 648,
+        "startChar": 36,
+        "endLine": 648,
+        "endChar": 56
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e92bdba_af553b44",
         "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
         "patchSetId": 4
@@ -104,6 +150,29 @@
         "startChar": 42,
         "endLine": 1341,
         "endChar": 58
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4bc814_cd3f5622",
+        "filename": "media2/session/version-compat-tests/common/src/main/aidl/androidx/media2/test/common/IRemoteMediaController.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-07-11T23:02:42Z",
+      "side": 1,
+      "message": "fromIndex / toIndex?",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 69
       },
       "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
