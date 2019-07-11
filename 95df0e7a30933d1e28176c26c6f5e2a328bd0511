@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11a853f4_ac3958b6",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/semantics/FoundationSemanticsProperties.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T05:58:11Z",
+      "side": 1,
+      "message": "In response to feedback outside of Gerrit, the keys are now, themselves, property delegates, allowing the more concise syntax of\n\n   var SemanticsPropertyReceiver.label by SemanticsProperties.Label\n\nrather than\n\n   var SemanticsPropertyReceiver.label by SemanticsProperty(SemanticsProperties.Label)",
+      "revId": "95df0e7a30933d1e28176c26c6f5e2a328bd0511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7126ce_8fafe06b",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/Semantics.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T05:58:11Z",
+      "side": 1,
+      "message": "Added these properties",
+      "revId": "95df0e7a30933d1e28176c26c6f5e2a328bd0511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d17daef_d8d223f5",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/Semantics.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T05:58:11Z",
+      "side": 1,
+      "message": "This now supports tri-state Toggleable items - an advantage of these not needing to match the needs of a11y.",
+      "revId": "95df0e7a30933d1e28176c26c6f5e2a328bd0511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b68caa6b_88fe5242",
+        "filename": "ui/ui-test/src/test/java/androidx/ui/test/AssertsTests.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T05:58:11Z",
+      "side": 1,
+      "message": "More tests",
+      "revId": "95df0e7a30933d1e28176c26c6f5e2a328bd0511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
