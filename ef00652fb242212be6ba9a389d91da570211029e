@@ -259,6 +259,30 @@
       "revId": "ef00652fb242212be6ba9a389d91da570211029e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7e77747_8a2c7cc9",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-11T18:48:59Z",
+      "side": 1,
+      "message": "Ha, right now DragGestureDetector has canDrag directions for up, down, left, and right, but I too was thinking that perhaps that is actually too specific for the concept of Drag.  I think it might be best to actually call canDrag with radians, and then we might have something like ScrollGestureDetector that makes that less abstract and checks for up, down, left, right.\n\nDetails not important... just sharing that I too was thinking we should be considering more than up, down, left, right even if those are the 99% use case.",
+      "parentUuid": "44e5f82e_6d87ca5e",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
