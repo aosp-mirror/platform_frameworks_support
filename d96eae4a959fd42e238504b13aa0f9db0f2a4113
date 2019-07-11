@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2fc5fc8_b7b669bf",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Brush.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c59e1906_23b303a1",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "660c718a_280240d3",
         "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Vector.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b1675a5_0607aa4e",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Vector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660c718a_280240d3",
+      "range": {
+        "startLine": 296,
+        "startChar": 26,
+        "endLine": 296,
+        "endChar": 47
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ecdaa2ce_e869b697",
+        "filename": "ui/ui-core/src/main/java/androidx/ui/graphics/vectorgraphics/Vector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519d1533_86d299c0",
+      "range": {
+        "startLine": 311,
+        "startChar": 29,
+        "endLine": 311,
+        "endChar": 50
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77bc1979_b6d165c5",
         "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/shape/border/Border.kt",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-07-10T16:29:22Z",
       "side": 1,
       "message": "would be nice to also later move brushes somewhere outside of vectorgraphics package",
+      "range": {
+        "startLine": 21,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d50a232f_1c207cee",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/shape/border/Border.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "I agree. This really shouldn\u0027t live here but instead be shared with the rest of the graphics primitives. In the spirit of having less moving parts, I was wondering if it would be okay to move the Brush APIs to a different package in a followup CL.",
+      "parentUuid": "77bc1979_b6d165c5",
       "range": {
         "startLine": 21,
         "startChar": 28,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "384d9128_26e1226e",
+        "filename": "ui/ui-framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/VectorGraphicsActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da820c0_b058c883",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "840d9da2_ce29f3a8",
         "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "87029bd7_e2cd58d7",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "840d9da2_ce29f3a8",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b29ded9_73b4ba6c",
         "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
         "patchSetId": 3
@@ -151,6 +295,30 @@
       "writtenOn": "2019-07-10T16:29:22Z",
       "side": 1,
       "message": "just an idea: maybe if this params wasn\u0027t provided explicitly we should use parentSize - the second param of Draw lambda? this seems logically correct for me to use the real available size provided by the parent layout",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 42
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6fd2cf5_9bd35e54",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "I need to think about that one a bit more. The Vector drawing operations are done as part of the composition instead of separated out like DrawNode so the sizing needs to be known upfront instead of when layout/measurement happens. Having these parameters also helps inform other layouts to wrap their size to the vector\u0027s default bounds. I would like to revisit this change in a subsequent CL if possible, does that sound reasonable?",
+      "parentUuid": "0b29ded9_73b4ba6c",
       "range": {
         "startLine": 64,
         "startChar": 4,
@@ -180,6 +348,24 @@
     },
     {
       "key": {
+        "uuid": "4db70bb1_eded301f",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2308d5dd_544993f9",
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa5139f_60105a46",
         "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
         "patchSetId": 3
@@ -197,6 +383,47 @@
         "endLine": 100,
         "endChar": 34
       },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39983f95_bd972a37",
+        "filename": "ui/ui-framework/src/main/java/androidx/ui/core/vectorgraphics/VectorCompose.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa5139f_60105a46",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c03c7b67_fe42aae8",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "While a portion of this CL involves moving code from from the Vector.kt to the VectorCompose.kt files to support IR use cases, this file has the logic to support subcomposition fo vector graphics APIs",
       "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -226,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "04c97924_ac2f8d32",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f30fc123_8de8d284",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f8bdf25_df62f90c",
         "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
         "patchSetId": 3
@@ -249,6 +500,30 @@
     },
     {
       "key": {
+        "uuid": "26266852_6bf4a70e",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f8bdf25_df62f90c",
+      "range": {
+        "startLine": 140,
+        "startChar": 36,
+        "endLine": 141,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e53aef86_e135e2bd",
         "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
         "patchSetId": 3
@@ -269,6 +544,30 @@
       "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c6d67b_4ecd558b",
+        "filename": "ui/ui-vector/src/main/java/androidx/ui/vector/VectorComposeNonIR.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-11T22:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e53aef86_e135e2bd",
+      "range": {
+        "startLine": 153,
+        "startChar": 22,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "d96eae4a959fd42e238504b13aa0f9db0f2a4113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
