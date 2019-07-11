@@ -22,6 +22,30 @@
       "revId": "74e52098159ffce490782c59cb55f0bfa6fcf1ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31970d98_25eca7d4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-07-11T06:26:24Z",
+      "side": 1,
+      "message": "Thanks for reviewing.\nI have changed the function name to getDefaultLensFacing(@Nullable LensFacing preferredLensFacing).\n\nAdds a new test checkDefaultLensFacingForMixedUseCase() for checking the default lensfacing and no error when builds the preview use case.\nptal",
+      "parentUuid": "1d59c7e0_1ee48135",
+      "range": {
+        "startLine": 319,
+        "startChar": 18,
+        "endLine": 319,
+        "endChar": 77
+      },
+      "revId": "74e52098159ffce490782c59cb55f0bfa6fcf1ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
