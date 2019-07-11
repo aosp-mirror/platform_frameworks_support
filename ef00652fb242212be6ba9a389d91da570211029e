@@ -283,6 +283,30 @@
       "revId": "ef00652fb242212be6ba9a389d91da570211029e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1369ae83_0d455a52",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T19:07:11Z",
+      "side": 1,
+      "message": "Wow, interesting :) I agree that we can add some granularity here, might be very powerful! Thanks for sharing and I\u0027m happy to discuss it more when you will decide to revisit it.",
+      "parentUuid": "a7e77747_8a2c7cc9",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
