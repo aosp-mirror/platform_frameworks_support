@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "335308ad_3beb7089",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T16:57:33Z",
+      "side": 1,
+      "message": "Good suggestion! I have hard times coming up with examples where devs don\u0027t want to specify min and max bounds. Do you have examples in mind? \n\nEvent with swipe-to-dismiss you want to set max as itemHeight or smth to have proper animation timings and expected behaviour, right? The one is endless scrolling maybe, but even this will have some underlying bounds, because when velocity is very high we can reach the end of \"endless \" list, can\u0027t we?\n\nMaybe we can just remove this \"Use MIN_VALUE if there\u0027s no bounds\", what do you think?",
+      "parentUuid": "7060cea4_862ace8f",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c898064c_18bfc41d",
         "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ef00652fb242212be6ba9a389d91da570211029e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc49237a_d4699064",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T16:57:33Z",
+      "side": 1,
+      "message": "Oh, so I though about \"Flinger\" or \"FLingStrategy\", but found them too abstract and potentially hard for people to think about. But your comment made me think again about it and I think we can go with FlingConfig as fling is the concept that is familiar and exists for a long time, as opposed to \"Adjustment\". Thanks Doris :)",
+      "parentUuid": "c898064c_18bfc41d",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6d7e98f5_c2f8fec6",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimationAdjustment.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T16:57:33Z",
+      "side": 1,
+      "message": "Done. Decided to go with NoFlingConfig instead of null, as I think this is a better specified and explicit solution.",
+      "parentUuid": "9ffcbb55_869c329d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0cede4a_6d059696",
         "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2019-07-11T00:54:54Z",
       "side": 1,
       "message": "I\u0027m not convinced that this class is necessary beyond Direction info, as in most cases you want to consume all and only horizontal or vertical movement. In the cases where movements on both X and Y axis are of interest, you\u0027d need to have two AnimatedValue to track the velocity on on both axis, or a 2D AnimatedFloat. I\u0027d simplify this as just Direction.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca85069e_3cc183d4",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-11T16:57:33Z",
+      "side": 1,
+      "message": "Good point! I actually think pretty much the same, that\u0027s why it\u0027s a sealed class. My idea is that it actually possible to make \"AngleProjection\" and allow potential SeekBar to be 45 degrees in the screen. It will probably require some API changes (maybe x(y)Projection will take then PxPosition instead of Px), but it\u0027s doable and it might be handy to have it, what do you think? \n\nIf you think we don\u0027t need it, do you think we need to provide ability to rewrite \"isDraggableInDirection\" check? Or just rename it to Direction.Vertical and Direction.Horizontal and leave all api internal/private?\n\nI\u0027ve added experimental support for AngleProjection, feel free to take a look!",
+      "parentUuid": "a0cede4a_6d059696",
       "range": {
         "startLine": 34,
         "startChar": 13,
