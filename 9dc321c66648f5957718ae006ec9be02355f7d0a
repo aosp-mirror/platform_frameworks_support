@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8a06497a_fa6129c2",
+        "filename": "swiperefreshlayout/src/androidTest/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayoutTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ee48a22_bfa5455d",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 29
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fa6159_fc60f6ee",
         "filename": "swiperefreshlayout/src/androidTest/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayoutTest.java",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "647c5003_6ed40c8e",
+        "filename": "swiperefreshlayout/src/androidTest/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayoutTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48fa6159_fc60f6ee",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 29
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "91b057ae_443cb9b8",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "Thanks for explaining the back story related to the shadows. I removed the fill shadow and key shadow attributes.",
+      "parentUuid": "a92105bd_58a37d02",
+      "range": {
+        "startLine": 74,
+        "startChar": 59,
+        "endLine": 74,
+        "endChar": 75
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2752d6c6_df2ff417",
         "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
         "patchSetId": 14
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8ab8573e_257e8493",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "I felt the colorArray.... colorArray.recycle() block was too much information in the constructor, so I moved it here. I don\u0027t have any strong opinions about this, so I went ahead and inlined this code in the constructor.",
+      "parentUuid": "2752d6c6_df2ff417",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 5
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc7c42e9_e9824693",
         "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
         "patchSetId": 14
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-05T22:25:18Z",
       "side": 1,
       "message": "Is this \"shadowing\" a super.mShadowRadious (as in making a super class\u0027s mShadowRadius only accessible via super.mShadowRadious)?",
+      "range": {
+        "startLine": 165,
+        "startChar": 20,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ef24b1_9c827a0b",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "No it doesn\u0027t. I just didn\u0027t like the inner private class using state from the main class, so I passed it via the constructor. I don\u0027t have any strong feelings about this either. if you think I should just use the values from CircleImageView, I can remove the constructor parameters.\n\nWhat do you think?",
+      "parentUuid": "dc7c42e9_e9824693",
       "range": {
         "startLine": 165,
         "startChar": 20,
@@ -137,6 +257,30 @@
       "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951cd220_008d71a7",
+        "filename": "swiperefreshlayout/src/main/res-public/values/attrs.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-07-11T21:19:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6214d0b9_1760de53",
+      "range": {
+        "startLine": 19,
+        "startChar": 30,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
