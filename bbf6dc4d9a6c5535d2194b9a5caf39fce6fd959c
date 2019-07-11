@@ -81,6 +81,30 @@
       "revId": "bbf6dc4d9a6c5535d2194b9a5caf39fce6fd959c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d532f466_aa3f737e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T22:20:23Z",
+      "side": 1,
+      "message": "Sorry, meant to type \"Math.max\" :P",
+      "parentUuid": "718a5706_a2c72ac5",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 95
+      },
+      "revId": "bbf6dc4d9a6c5535d2194b9a5caf39fce6fd959c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
