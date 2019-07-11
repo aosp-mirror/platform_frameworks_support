@@ -31,3 +31,13 @@ inline fun <reified A : Activity, T : Any> ActivityScenario<A>.withActivity(
     }
     return value
 }
+
+/**
+ * Gets the current activity using [ActivityScenario.onActivity]. Should be used sparingly.
+ */
+inline val <reified A : Activity> ActivityScenario<A>.currentActivity: A
+    get() {
+        lateinit var value: A
+        onActivity { value = it }
+        return value
+    }
