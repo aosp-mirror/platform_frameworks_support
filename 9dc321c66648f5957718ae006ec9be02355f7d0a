@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "ce07438f_56722a1f",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-11T23:07:10Z",
+      "side": 1,
+      "message": "Ah, that is what I meant by \"shadowing\", but yeah, I think it is fine.  Though honestly, doesn\u0027t seem like this needs to be an OvalShape anymore... but some super class.  Not sure if anything from OvalShape is actually being used.  Mind simplifying this a bit further?",
+      "parentUuid": "f0ef24b1_9c827a0b",
+      "range": {
+        "startLine": 165,
+        "startChar": 20,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "9dc321c66648f5957718ae006ec9be02355f7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6214d0b9_1760de53",
         "filename": "swiperefreshlayout/src/main/res-public/values/attrs.xml",
         "patchSetId": 14

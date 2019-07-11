@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a2dd09f_acbc916b",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-11T23:07:10Z",
+      "side": 1,
+      "message": "Given that there is also a \"setBackgroundColor\", can you update the value of mBackgroundColor here?",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 34
+      },
+      "revId": "0abc8af20101ecf6ee23cd48c6a978cfdb41987e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950a9330_8a4ea6a4",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-11T23:07:10Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to serve much of a purpose given that this is an inner class... and actually, that being said, shouldn\u0027t this be a private static class?",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 36
+      },
+      "revId": "0abc8af20101ecf6ee23cd48c6a978cfdb41987e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
