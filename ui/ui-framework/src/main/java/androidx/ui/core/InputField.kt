@@ -29,6 +29,7 @@ import androidx.ui.core.input.FocusManager
 import androidx.ui.graphics.Color
 import androidx.ui.input.EditProcessor
 import androidx.ui.input.EditorState
+import androidx.ui.input.ImeAction
 import androidx.ui.input.KeyboardType
 import androidx.ui.text.AnnotatedString
 import androidx.ui.text.TextPainter
@@ -86,11 +87,13 @@ fun InputField(
      */
     keyboardType: KeyboardType = KeyboardType.Text,
 
+    imeAction: ImeAction = ImeAction.Unspecified,
+
     /** Called when the InputMethodService update the editor state */
     onValueChange: (EditorState) -> Unit = {},
 
     /** Called when the InputMethod requested an editor action */
-    onEditorActionPerformed: (Any) -> Unit = {} // TODO(nona): Define argument type
+    onImeActionPerformed: (ImeAction) -> Unit = {} // TODO(nona): Define argument type
 ) {
     // Ambients
     val style = +ambient(CurrentTextStyleAmbient)
@@ -124,8 +127,9 @@ fun InputField(
                 value,
                 processor,
                 keyboardType,
+                imeAction,
                 onValueChange,
-                onEditorActionPerformed)
+                onImeActionPerformed)
         },
         onBlur = {
             hasFocus.value = false
