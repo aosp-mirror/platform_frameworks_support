@@ -6284,8 +6284,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 }
                 AccessibilityDelegateCompat delegate =
                         ViewCompat.getAccessibilityDelegate(itemView);
-                if (delegate == null
-                        || delegate.getClass().equals(AccessibilityDelegateCompat.class)) {
+                if (delegate == null) {
                     holder.addFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
                     ViewCompat.setAccessibilityDelegate(itemView,
                             mAccessibilityDelegate.getItemDelegate());
@@ -6500,7 +6499,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             clearNestedRecyclerViewIfNotNested(holder);
             if (holder.hasAnyOfTheFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE)) {
                 holder.setFlags(0, ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
-                ViewCompat.setAccessibilityDelegate(holder.itemView, null);
+                holder.itemView.setAccessibilityDelegate(null);
             }
             if (dispatchRecycled) {
                 dispatchViewRecycled(holder);
