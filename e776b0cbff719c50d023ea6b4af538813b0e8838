@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "248f0a15_b01b9b1b",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Removing this for now, will think more in this space when we have some higher level scaffolding component.",
+      "parentUuid": "4eef0d88_c4cee9be",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26965ec0_a26e12e7",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -263,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "94e324cf_f0fe6218",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b395bd4d_bd592b2f",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6722b961_ffe7db5d",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -334,6 +382,30 @@
     },
     {
       "key": {
+        "uuid": "8f851d58_ab6a740e",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Ack, will think about this when we have a higher level integrated component.",
+      "parentUuid": "e3087ccb_0ec25e97",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26445770_1c31d1a8",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -357,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "18f92c3e_7c479beb",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26445770_1c31d1a8",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 10
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f2053df_2c1f5db1",
         "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
         "patchSetId": 3
@@ -377,6 +473,30 @@
       "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "180b861c_19ee07c0",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f2053df_2c1f5db1",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 1
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -424,6 +544,30 @@
       "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48ee87ac_6591ccc9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9acf9a9b_1e3f0b17",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 3
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -663,6 +807,30 @@
       "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93da4c2d_7c5d8b17",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-11T19:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78cafe0d_ea79c0ca",
+      "range": {
+        "startLine": 174,
+        "startChar": 84,
+        "endLine": 174,
+        "endChar": 85
+      },
+      "revId": "e776b0cbff719c50d023ea6b4af538813b0e8838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
