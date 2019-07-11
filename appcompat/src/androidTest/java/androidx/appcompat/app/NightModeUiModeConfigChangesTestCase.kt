@@ -19,9 +19,9 @@ package androidx.appcompat.app
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.appcompat.testutils.NightModeUtils.NightSetMode
-import androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals
-import androidx.appcompat.testutils.NightModeUtils.setNightMode
+import androidx.appcompat.testutils.NightSetMode
+import androidx.appcompat.testutils.assertConfigurationNightModeEquals
+import androidx.appcompat.testutils.setNightMode
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.filters.LargeTest
@@ -59,7 +59,7 @@ class NightModeUiModeConfigChangesTestCase(private val setMode: NightSetMode) {
         scenario.onActivity {
             val lastConfig = it.lastConfigurationChangeAndClear
             assertNotNull(lastConfig)
-            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, lastConfig)
+            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, lastConfig!!)
         }
 
         // Set local night mode back to NO
@@ -68,7 +68,7 @@ class NightModeUiModeConfigChangesTestCase(private val setMode: NightSetMode) {
         scenario.onActivity {
             val lastConfig = it.lastConfigurationChangeAndClear
             assertNotNull(lastConfig)
-            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO, lastConfig)
+            assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_NO, lastConfig!!)
         }
     }
 
@@ -110,7 +110,7 @@ class NightModeUiModeConfigChangesTestCase(private val setMode: NightSetMode) {
         // Assert that the Activity resources configuration was updated
         assertConfigurationNightModeEquals(
             Configuration.UI_MODE_NIGHT_NO,
-            scenario.withActivity { this }
+            scenario.withActivity { resources.configuration }
         )
     }
 
@@ -129,8 +129,6 @@ class NightModeUiModeConfigChangesTestCase(private val setMode: NightSetMode) {
 
     @After
     fun cleanup() {
-        // Reset the default night mode
-        scenario.onActivity { setNightMode(MODE_NIGHT_NO, it, NightSetMode.DEFAULT) }
         scenario.close()
     }
 
