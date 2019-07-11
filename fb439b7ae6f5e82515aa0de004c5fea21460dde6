@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ae41c78_3f7e61ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-11T14:40:26Z",
+      "side": 1,
+      "message": "Mihai and I thought it\u0027s too early to write any tests because the API might change quite a bit in the future, but if you think otherwise, let me know and I will write a few tests for this CL.",
+      "parentUuid": "7a61fa9f_d9c88230",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6154959b_296bcc66",
         "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-11T12:59:14Z",
       "side": 1,
       "message": "(may be tackled in a later discussion)\nThis may be puzzling to developers as we also have capital Row, will they figure out that within a Table the need to type row?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a46500cb_73541843",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1521727
+      },
+      "writtenOn": "2019-07-11T14:40:26Z",
+      "side": 1,
+      "message": "We could rename it to something like TableRow, which is more similar to Flutter. That should be less confusing, but there is still the risk that developers might try to use Row inside Table and expect it to create a new row in the table.",
+      "parentUuid": "6154959b_296bcc66",
       "range": {
         "startLine": 41,
         "startChar": 8,
