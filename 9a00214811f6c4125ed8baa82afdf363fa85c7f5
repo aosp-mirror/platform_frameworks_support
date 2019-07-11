@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dae99207_920b85ff",
+        "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "That does not provide a way to reject a merge (other than exceptions, which I really don\u0027t think we should use here as this is expected to be a fairly hot code path and also not an exceptional condition)",
+      "parentUuid": "f7b3a06e_a258e3cf",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1df6313f_131b0053",
         "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-29T00:03:48Z",
       "side": 1,
       "message": "Why do we need a getter here? The developers should only be able to \"set\" properties.",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75d62173_fd040c8d",
+        "filename": "ui/core/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "That\u0027s an interesting idea, we could provide a readable version elsewhere...that said, I think there\u0027s maybe a good use-case for wrappers.  See e.g., the (hacky, to-be-removed) trick that Semantics does to add the testTag.  That relies on the broader access provided by SemanticsConfiguration, which might be an argument for moving it to SemanticsPropertyReceiver.\n\nIt would also mean that the extension properties getters (they have to have them, because Kotlin doesn\u0027t allow set-only properties) would just have to...throw, since they have no way of doing anything useful.  For those, I wish we didn\u0027t have to provide the getter and could restrict people to the APIs on SemanticsConfiguration (which may or may not want to move here, but I want to see if people miss them...minimal API first).  The idea of making a getter that just throws in all situations is not very appealing, although a getter that throws situationally (the current state) isn\u0027t _great_...\n\nThoughts?  I\u0027m definitely open to iterating on this in future CLs.",
+      "parentUuid": "1df6313f_131b0053",
       "range": {
         "startLine": 32,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7be4c0b5_d68d1d79",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "This is an error, removed",
+      "parentUuid": "b338d7be_882bc5a6",
+      "range": {
+        "startLine": 41,
+        "startChar": 77,
+        "endLine": 41,
+        "endChar": 82
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd8fbc89_1eb6681b",
         "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
         "patchSetId": 11
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ebf2ae07_b7ed3e43",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "It\u0027s for Label merging, but can\u0027t be used because of the TODO noted there.  Commented out.",
+      "parentUuid": "cd8fbc89_1eb6681b",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5af52f3_36f81382",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
         "patchSetId": 11
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-29T00:03:48Z",
       "side": 1,
       "message": "I\u0027m not sold on the idea of using a string here. Not part of this CL, but we should have a discussion about this.",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b81cac_b874d879",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m not totally sold either, at least for testing. I like the Material/foundation semantics idea better although I\u0027m not strongly tied to any solution yet.  I\u0027ve implemented that idea for now.",
+      "parentUuid": "a5af52f3_36f81382",
       "range": {
         "startLine": 61,
         "startChar": 8,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f434e930_4276d66b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsNode.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Hmmm...interesting point.  I _think_ this is fine, because Android virtual view hierarchies only need to have unique IDs within the virtual hierarchy rooted in a given View.  Maybe we\u0027ll want to change this anyway, though.  I\u0027ll add a TODO to reconsider this later.  It may also be good not to make this reliably zero so that we have more flexibility around exactly how this behaves.",
+      "parentUuid": "366667cc_8b1d9827",
+      "range": {
+        "startLine": 61,
+        "startChar": 37,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b543c1f_5a96a1f6",
         "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
         "patchSetId": 11
@@ -160,6 +304,30 @@
       "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81765d6_9b601cb3",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Rewritten",
+      "parentUuid": "8b543c1f_5a96a1f6",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "3fb8cc27_b7a9ab77",
+        "filename": "ui/test/src/main/java/androidx/ui/test/GoldenSemantics.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "The second one is not equivalent (it sets it unconditionally).  You\u0027re right that this is hard to read, though - I did a double take when I looked at it.  I\u0027m just going to use an if statement for clarity, and also name the parameter.",
+      "parentUuid": "95f2eb85_b2df23e5",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 23
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcd5c46c_e9ac560e",
         "filename": "ui/test/src/main/java/androidx/ui/test/GoldenSemantics.kt",
         "patchSetId": 11
@@ -197,6 +389,30 @@
       "writtenOn": "2019-06-29T00:03:48Z",
       "side": 1,
       "message": "Nit: This logic is hard to read. \n\nfor ((key, expectedValue) in expected) {\n    when {\n        !containsKey(key) -\u003e assertMessage.append(...)\n        this[key] !\u003d expectedValue -\u003e assertMessage.append(...)\n    }\n}",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "9a00214811f6c4125ed8baa82afdf363fa85c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3bbfde_a6c1cd05",
+        "filename": "ui/test/src/main/java/androidx/ui/test/GoldenSemantics.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "I was trying not to duplicate the string...unclear if this is worth the loss in readability.  Would it be readable with some comments (\"It matches, move on\" on the `continue`, and \"if we get to this point, it\u0027s incorrect\" above the message\"), or is it still too hard to follow without just reorganizing it and biting the bullet on the copy+paste?  I think I\u0027m leaning toward reorganizing.",
+      "parentUuid": "fcd5c46c_e9ac560e",
       "range": {
         "startLine": 54,
         "startChar": 4,

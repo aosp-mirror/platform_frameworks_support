@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c6c2969d_800a4127",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Definitely shouldn\u0027t be public API; see the comment at the top of the class: https://android-review.googlesource.com/c/platform/frameworks/support/+/986708/11/ui/framework/src/main/java/androidx/ui/internal/Unicode.kt#18\n\nThe comment may no longer apply, though, now that the parts of Semantics that need it are in framework...still, we don\u0027t have a way to expose internal utility non-public API (like this) across modules.  I\u0027ll make this internal for now.\n\nThey\u0027re defined because otherwise it\u0027s totally unclear what the escape codes are, although arguably these names aren\u0027t a _lot_ better.",
+      "parentUuid": "68fa42ed_50fd4ede",
+      "range": {
+        "startLine": 442,
+        "startChar": 21,
+        "endLine": 442,
+        "endChar": 28
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a38f0c9_2f55cfb9",
         "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
         "patchSetId": 10
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "a70fbeeb_f379dff7",
+        "filename": "ui/framework/src/main/java/androidx/ui/semantics/SemanticsProperties.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "No, but also nothing is using it, currently.  I can comment it out for now.",
+      "parentUuid": "be301b37_61c9c696",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31a96f34_f86fc594",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
         "patchSetId": 10
@@ -105,6 +153,30 @@
       "writtenOn": "2019-06-26T22:45:00Z",
       "side": 1,
       "message": "Please, let\u0027s not check-in anything with hardcoded strings. This will run out of control very quickly.",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 24
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96b879df_130944a8",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Any thoughts on where to put them?  They\u0027re really specific to the one component, but there\u0027s no equivalent of sticking them as static fields on the Java class.  I marked them all with TODOs, since once we have a string resources system we\u0027d presumably just be able to use that.",
+      "parentUuid": "31a96f34_f86fc594",
       "range": {
         "startLine": 61,
         "startChar": 17,
@@ -163,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "3ca89373_634e0971",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "T can be nullable here - a non-nullable T would be T : Any",
+      "parentUuid": "f056e621_0a21a787",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "090fc865_0ca8ac70",
         "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
         "patchSetId": 10
@@ -174,6 +270,30 @@
       "writtenOn": "2019-06-26T22:45:00Z",
       "side": 1,
       "message": "Are you sure you need to re-implement map\u0027s APIs? Can\u0027t you just expose the immutable version of the map?\n\nval Properties: Map\u003c...\u003e get() \u003d map",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e573ff5_6cd55156",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "I think I\u0027d rather keep the actual map as an implementation detail, although that\u0027s an interesting idea...  I did try to make SemanticsConfiguration implement Map, but the signatures of the get and set methods don\u0027t match because the generic type can be different between calls to the method based on the key, which Map doesn\u0027t allow (hence all the unchecked casting).\n\nI\u0027ll be the first to admit I\u0027m not super crazy about the number of Map/Map-like APIs I\u0027ve re-implemented here, though.",
+      "parentUuid": "090fc865_0ca8ac70",
       "range": {
         "startLine": 51,
         "startChar": 3,
@@ -209,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "0aa27fd0_218d2913",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Under new designs, this method is no longer required.",
+      "parentUuid": "e8046635_80a6d7eb",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4aa9d065_8dfd425c",
         "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
         "patchSetId": 10
@@ -229,6 +373,30 @@
       "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55681d77_49ae7c16",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "method removed",
+      "parentUuid": "4aa9d065_8dfd425c",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 45
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "a8846822_8475feb0",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/semantics/SemanticsConfiguration.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "Ideally, no - the values passed should _always_ be of type T, so ideally we\u0027d want the signature to reflect that.  Hints will also support merging, and other properties (including user-defined ones) may also want to.\n\nIs casting particularly expensive?  If so, we could add a thing for whether it ever supports merging or something to avoid this, or reconsider the typing.\n\nAlso, this method is now removed.",
+      "parentUuid": "9a4846f5_43c56876",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 52
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84f7a2ab_1de7ac8b",
         "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
         "patchSetId": 10
@@ -266,6 +458,30 @@
       "writtenOn": "2019-06-26T22:45:00Z",
       "side": 1,
       "message": "This will not work. I can have a TextView with text \u003d\u003d \"Checked\" and it would be recognized as checkable. I\u0027m worried about the reduction of meta-data we did here. We might be loosing quite a few information. This gets tricky especially if tests rely on this. Also how do screen-readers work without knowing what type of element they\u0027re working with?\n\nAlso my concern is that we are loosing type safety here. It might seem like it gives us a freedom to modify these strings in the future and extend them. But in fact it is part of public API and developers will rely on these values. So I\u0027m not sure if it is that extensible. It would make sense for Semantics internally to use extensible solution but it should still expose stable API endpoints we /devs can rely on.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "32d53f788631e776c267ce719709d58d3c8c0b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aadc8e95_6e8ab5e0",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Filters.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-07-11T02:44:43Z",
+      "side": 1,
+      "message": "This is sort of running into the impedance mismatch between a11y and testing as clients of semantics.\n\nFrom an a11y perspective, \"checkable\" is fairly questionable as a concept and runs into a lot of the issues/long-term regret that tend to happen with other properties that are based on the existence of a certain set of widgets.  For instance, this plays badly with Switch - it\u0027s sort of checkable, but you really wouldn\u0027t want Talkback to read that it\u0027s \"checked\" - it\u0027s \"on\".\n\nI don\u0027t see how this wouldn\u0027t be extensible - it works fine for content description today (hopefully devs aren\u0027t relying too much on the exact content descriptions of things for testing, although I imagine there\u0027s at least some reliance).  I agree that it may be a mistake to try to use it this directly for testing, though.\n\nPerhaps Material should expose its own set of semantics properties for things like this sort of testing?  It would make perfect sense for \"checkable\" (or maybe something like \"toggleable\") to exist as a concept within Material.  The nice thing about the extensible system is that you just have to define some extension properties in your library and you get all the same power that the \"framework\" ones do.",
+      "parentUuid": "84f7a2ab_1de7ac8b",
       "range": {
         "startLine": 26,
         "startChar": 4,
