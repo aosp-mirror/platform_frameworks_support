@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "baad6d4b_52ae2b1d",
+        "filename": "compose/compose-runtime/src/androidMain/kotlin/androidx/compose/Actual.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Can you split up this file into ActualJVM.kt and ActualAndroid.kt?  That might lead the way to some different build modularization in the future and even if not, the distinction makes sense to me (the JVM-only stuff tends to be much more \"core\").",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3152e74c_2184b01e",
+        "filename": "compose/compose-runtime/src/androidMain/kotlin/androidx/compose/Actual.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "I couldn\u0027t find a use of this in the code, am I missing something?",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "575cbcbe_92bdc087",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Applier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Looks like this is the only use of java.util.Stack, and https://stackoverflow.com/questions/46900048/how-can-i-use-stack-in-kotlin mentions Java\u0027s implementation has poor performance anyway, so could you either replace it with a use of MutableList or write a TODO to do so?",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adcd5632_ad7eee81",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Compose.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "I think it\u0027s time to apply this TODO.  Then, the expect declaration for ViewGroup (etc) will not be needed.",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb47fe9c_680f5aa0",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Compose.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "I think it should work to expect/actual properties, in which case this change isn\u0027t needed?",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7227933f_c17826e5",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Compose.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Hmm, an extension function on Activity doesn\u0027t really belong in the common module.  Instead of expecting getRootView(), could you add setContent() and disposeComposition() to the expect declaration of androidx.compose.Activity, and box android.app.Activity instead of typealiasing it?\n\n(In previous discussions on this, we agreed that the perf cost of boxing should not be a reason to avoid it for MPP use cases unless specifically indicated by benchmarking.  See https://chat.google.com/room/AAAAkD37w58/T4Fk7F61TuI)",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5cdbb75d_22e265e4",
         "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
         "patchSetId": 1
@@ -25,6 +127,47 @@
     },
     {
       "key": {
+        "uuid": "a345e934_e62c6c40",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Yes, assertState is equivalent to require(), so it would be better to use require().  However, require() has a material difference from assert(): it can\u0027t be disabled by flag or compile setting.  Leland, is that important for R4A?",
+      "parentUuid": "5cdbb75d_22e265e4",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 19
+      },
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930a27cb_ef60a1d1",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "This comment can be removed.",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbc6c6bd_6751b08b",
         "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
         "patchSetId": 1
@@ -42,6 +185,81 @@
         "endLine": 215,
         "endChar": 59
       },
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceedc6f2_a4b67f9a",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Effects.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Nice catch!  I guess doFrame should be a val containing a lambda instead of a method, like:\n\nval doFrame: (Long) -\u003e Unit \u003d { hasRun \u003d true; onCommit(this) }",
+      "parentUuid": "bbc6c6bd_6751b08b",
+      "range": {
+        "startLine": 215,
+        "startChar": 46,
+        "endLine": 215,
+        "endChar": 59
+      },
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d7d2a6e_fe105e4f",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/Recomposer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "Does this need to be expected?",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1b9d48_1aa78992",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/SlotTable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "nit: accidental newlines",
+      "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d9dc05c_135ee6e1",
+        "filename": "compose/compose-runtime/src/commonMain/kotlin/androidx/compose/frames/FrameContainers.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1006073
+      },
+      "writtenOn": "2019-07-11T02:33:35Z",
+      "side": 1,
+      "message": "nit: commented-out code",
       "revId": "b50af2e6ef8123ee0fafbeb2d6f49e47fd080400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
