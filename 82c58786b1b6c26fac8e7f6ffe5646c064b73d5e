@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af6f6191_8903a69e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T21:17:21Z",
+      "side": 1,
+      "message": "Whoops! Think we misspelled this. Can we change this name to \"mButtonPadding\" (you can do it in a follow-up if you\u0027d like).",
+      "range": {
+        "startLine": 227,
+        "startChar": 27,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21a6449_9f94be87",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T21:17:21Z",
+      "side": 1,
+      "message": "You can just get the context off the button; so you can remove this parameter.",
+      "range": {
+        "startLine": 152,
+        "startChar": 35,
+        "endLine": 152,
+        "endChar": 61
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eb7b9f7_616a33a4",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T21:17:21Z",
+      "side": 1,
+      "message": "Maybe \"calculateExtraButtonSpace\" instead to convey that this method isn\u0027t just a straight retrieval.",
+      "range": {
+        "startLine": 152,
+        "startChar": 15,
+        "endLine": 152,
+        "endChar": 34
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4206a9_602129a6",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-07-11T21:17:21Z",
+      "side": 1,
+      "message": "Do you need both these calls?\n\nAlso, in general, I worry about this method because measureText will incur a performance hit (you\u0027re gonna be measuring the button twice).\n\nI\u0027m not sure if there\u0027s another way to calculate the extra space that\u0027s added though \u003d/ Just something to watch out for",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 64
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
