@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5bd1fec5_34a59476",
+        "filename": "car/core/src/main/java/androidx/car/app/CarAlertDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-11T22:02:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af6f6191_8903a69e",
+      "range": {
+        "startLine": 227,
+        "startChar": 27,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b21a6449_9f94be87",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 2
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "81aae3cc_25f894d0",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-11T22:02:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eb7b9f7_616a33a4",
+      "range": {
+        "startLine": 152,
+        "startChar": 15,
+        "endLine": 152,
+        "endChar": 34
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31280f7c_2a6c6d8a",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-11T22:02:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b21a6449_9f94be87",
+      "range": {
+        "startLine": 152,
+        "startChar": 35,
+        "endLine": 152,
+        "endChar": 61
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf4206a9_602129a6",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "541d99fd_3df2ae01",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-07-11T22:02:52Z",
+      "side": 1,
+      "message": "Ah was experimenting with both to compare the returned values and didn\u0027t clean up. Fixed.",
+      "parentUuid": "cf4206a9_602129a6",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 64
+      },
+      "revId": "82c58786b1b6c26fac8e7f6ffe5646c064b73d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
