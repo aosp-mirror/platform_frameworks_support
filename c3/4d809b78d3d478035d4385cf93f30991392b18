@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Rahul Ravikumar <rahulrav@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: Oussama Ben Abdelbaki <obenabde@google.com>
+Submitted-at: Thu, 11 Jul 2019 15:57:52 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1012532
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
