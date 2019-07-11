@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "498d0c46_1c096c09",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-11T04:13:20Z",
+      "side": 1,
+      "message": "This should be fine for tests",
+      "parentUuid": "e28f91fe_dec41752",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 9
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7edcfa9_bb1295c0",
         "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
         "patchSetId": 14
@@ -248,6 +272,30 @@
       "side": 1,
       "message": "How we would know that?",
       "parentUuid": "8c2ccc7b_8e7ad091",
+      "range": {
+        "startLine": 264,
+        "startChar": 57,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "a2c5b98a934be7bdb2cfa2b35e135c24fbda188b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988745cb_967ba38d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-11T04:13:20Z",
+      "side": 1,
+      "message": "Hmm nevermind, I think I was wrong.\n\nI was thinking https://developer.android.com/reference/java/nio/charset/Charset.html#defaultCharset() is always \"utf-8\", but that doesn\u0027t apply to non-textual files. Is it actually OK to pass null for text though?",
+      "parentUuid": "2eab8f6d_666d4314",
       "range": {
         "startLine": 264,
         "startChar": 57,

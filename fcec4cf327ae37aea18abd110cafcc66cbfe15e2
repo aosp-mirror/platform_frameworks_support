@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9123747a_c58dee9a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-07-11T04:13:20Z",
+      "side": 1,
+      "message": "*DeleteFolder, not File",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "fcec4cf327ae37aea18abd110cafcc66cbfe15e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
