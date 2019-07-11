@@ -45,6 +45,29 @@
       "revId": "d0e8bfb79e6bb4d4b097195e5ba13ad8330831ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d399bb_2fcca2c9",
+        "filename": "fragment/fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-11T20:16:15Z",
+      "side": 1,
+      "message": "You should extract this to a method because you\u0027re doing it in 3 places.",
+      "range": {
+        "startLine": 1364,
+        "startChar": 27,
+        "endLine": 1373,
+        "endChar": 48
+      },
+      "revId": "d0e8bfb79e6bb4d4b097195e5ba13ad8330831ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
