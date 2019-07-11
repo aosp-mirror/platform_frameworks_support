@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.DataInput;
@@ -4450,12 +4451,12 @@ public class ExifInterface {
 
         FileInputStream in = null;
         FileOutputStream out = null;
+        File originalFile = new File(mFilename);
         File tempFile = null;
         try {
             // Move the original file to temporary file.
             if (mFilename != null) {
                 tempFile = new File(mFilename + ".tmp");
-                File originalFile = new File(mFilename);
                 if (!originalFile.renameTo(tempFile)) {
                     throw new IOException("Couldn't rename to " + tempFile.getAbsolutePath());
                 }
@@ -4467,7 +4468,7 @@ public class ExifInterface {
                 copy(in, out);
             }
         } catch (Exception e) {
-            throw new IOException("Failed to copy file");
+            throw new IOException("Failed to copy file", e);
         } finally {
             closeQuietly(in);
             closeQuietly(out);
@@ -4484,9 +4485,16 @@ public class ExifInterface {
                 Os.lseek(mSeekableFileDescriptor, 0, OsConstants.SEEK_SET);
                 out = new FileOutputStream(mSeekableFileDescriptor);
             }
-            saveJpegAttributes(in, out);
+            BufferedInputStream bufferedIs = new BufferedInputStream(in);
+            BufferedOutputStream bufferedOs = new BufferedOutputStream(out);
+            saveJpegAttributes(bufferedIs, bufferedOs);
         } catch (Exception e) {
-            throw new IOException("Failed to copy file");
+            if (mFilename != null) {
+                if (!tempFile.renameTo(originalFile)) {
+                    throw new IOException("Couldn't rename to " + tempFile.getAbsolutePath());
+                }
+            }
+            throw new IOException("Failed to save new file", e);
         } finally {
             closeQuietly(in);
             closeQuietly(out);
@@ -5667,8 +5675,8 @@ public class ExifInterface {
     }
 
     // Stores a new JPEG image with EXIF attributes into a given output stream.
-    private void saveJpegAttributes(InputStream inputStream, OutputStream outputStream)
-            throws IOException {
+    private void saveJpegAttributes(BufferedInputStream inputStream,
+            BufferedOutputStream outputStream) throws IOException {
         // See JPEG File Interchange Format Specification, "JFIF Specification"
         if (DEBUG) {
             Log.d(TAG, "saveJpegAttributes starting with (inputStream: " + inputStream
