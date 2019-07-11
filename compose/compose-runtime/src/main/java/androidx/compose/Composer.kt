@@ -949,7 +949,7 @@ open class Composer<N>(
 
     private fun invalidate(scope: RecomposeScope, sync: Boolean) {
         val location = scope.anchor?.location(slotTable) ?: return
-        assert(location >= 0) { "Invalid anchor" }
+        if (location < 0) return
         invalidations.insertIfMissing(location, scope)
         if (isComposing && location > slots.current) {
             // if we are invalidating a scope that is going to be traversed during this
