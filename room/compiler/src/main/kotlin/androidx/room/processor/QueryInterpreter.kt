@@ -45,7 +45,9 @@ class QueryInterpreter(
     }
 
     /**
-     * Analyzes and rewrites the specified [query] in the context of the provided [pojo].
+     * Analyzes and rewrites the specified [query] in the context of the provided [pojo]. Expanding
+     * its start projection ('SELECT *') and converting its named binding templates to positional
+     * templates (i.e. ':VVV' to '?').
      */
     fun interpret(
         query: ParsedQuery,
@@ -104,6 +106,19 @@ class QueryInterpreter(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Analyzes and rewrites the specified [query], converting its named binding templates to
+     * positional templates (i.e. ':VVV' to '?'), see: https://www.sqlite.org/c3ref/bind_blob.html.
+     */
+    fun interpretBindArgs(query: ParsedQuery): String {
+        return query.sections.joinToString("") { section ->
+            when (section) {
+                is Section.BindVar -> "?"
+                else -> section.text
             }
         }
     }

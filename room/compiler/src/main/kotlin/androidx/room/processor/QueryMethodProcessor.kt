@@ -116,6 +116,9 @@ class QueryMethodProcessor(
             ProcessorErrors.cannotFindPreparedQueryResultAdapter(returnType.toString(), query.type))
 
         val parameters = delegate.extractQueryParams()
+        if (parameters.isNotEmpty()) {
+            query.interpreted = queryInterpreter.interpretBindArgs(query)
+        }
 
         return WriteQueryMethod(
             element = executableElement,
@@ -149,23 +152,25 @@ class QueryMethodProcessor(
         }
 
         val parameters = delegate.extractQueryParams()
-
         if (context.expandProjection) {
-            resultBinder.adapter?.rowAdapter?.let { rowAdapter ->
-                if (rowAdapter is PojoRowAdapter) {
-                    query.interpreted = queryInterpreter.interpret(query, rowAdapter.pojo)
-                    if (dbVerifier != null) {
-                        query.resultInfo = dbVerifier.analyze(query.interpreted)
-                        if (query.resultInfo?.error != null) {
-                            context.logger.e(
-                                executableElement,
-                                DatabaseVerificationErrors.cannotVerifyQuery(
-                                    query.resultInfo!!.error!!
-                                )
-                            )
-                        }
+            val rowAdapter = resultBinder.adapter?.rowAdapter
+            if (rowAdapter != null && rowAdapter is PojoRowAdapter) {
+                query.interpreted = queryInterpreter.interpret(query, rowAdapter.pojo)
+                if (dbVerifier != null) {
+                    query.resultInfo = dbVerifier.analyze(query.interpreted)
+                    if (query.resultInfo?.error != null) {
+                        context.logger.e(
+                            executableElement,
+                            DatabaseVerificationErrors.cannotVerifyQuery(query.resultInfo!!.error!!)
+                        )
                     }
                 }
+            } else if (parameters.isNotEmpty()) {
+                query.interpreted = queryInterpreter.interpretBindArgs(query)
+            }
+        } else {
+            if (parameters.isNotEmpty()) {
+                query.interpreted = queryInterpreter.interpretBindArgs(query)
             }
         }
 
