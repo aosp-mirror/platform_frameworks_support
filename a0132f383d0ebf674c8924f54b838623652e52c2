@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d122c806_7f29a411",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-07-11T07:30:51Z",
+      "side": 1,
+      "message": "Oh, This is because the captrueStages will be used to initialize the ProcessingImageReader after the ImageCapture bindToLifeCycle. \nThe initial captureStages not greater than the maximum count can bypass the checking during the bindLiftCycle phase. \n\nLet me add some additional explanation in the code.",
+      "parentUuid": "7205a8e8_d8364b00",
+      "revId": "a0132f383d0ebf674c8924f54b838623652e52c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8511356f_ffacf73a",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 7
