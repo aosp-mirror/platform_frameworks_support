@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a61fa9f_d9c88230",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-11T12:59:14Z",
+      "side": 1,
+      "message": "please write tests",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6154959b_296bcc66",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-11T12:59:14Z",
+      "side": 1,
+      "message": "(may be tackled in a later discussion)\nThis may be puzzling to developers as we also have capital Row, will they figure out that within a Table the need to type row?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
