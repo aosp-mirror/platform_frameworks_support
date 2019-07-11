@@ -384,6 +384,30 @@
     },
     {
       "key": {
+        "uuid": "3ef74c06_b11b3cec",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "Regardless of the existence of the statement[1] in SessionPlayer javadoc, users may expect different behaviours user by user. For example, as I heard it from Jaewan, YT doesn\u0027t change its current media item although the item is removed from its playlist. That\u0027s why I thought that this behaviour should be clarified by javadoc of MediaPlayer (not SeessionPlayer).\n\n[1] \"The implementation may not change the currently playing media item even when it\u0027s removed.\"",
+      "parentUuid": "d7a6c72a_350f680a",
+      "range": {
+        "startLine": 1527,
+        "startChar": 41,
+        "endLine": 1527,
+        "endChar": 52
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c07560a9_0a1c05cc",
         "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
         "patchSetId": 3
@@ -1028,6 +1052,30 @@
       "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "109d9a84_1432829f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "Lint could fail if the dependency would be fixed as a specific version. Please search VERSION_CURRENT from https://android-build.googleplex.com/builds/pending/P9076230/androidx/latest/view/logs/build_error.log which is from the presubmit failure of aosp/989032. That\u0027s why aosp/999451 has been submitted.",
+      "parentUuid": "6ec053ee_6bf9333b",
+      "range": {
+        "startLine": 450,
+        "startChar": 21,
+        "endLine": 450,
+        "endChar": 85
+      },
+      "revId": "d77444ce73db16fa5e2ef50b484d4a670311d607",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d77585_39de8844",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "Does this file need to be changed?",
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97f7261_ba01c973",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "Could you test media2-player connectedCheck as well?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e92bdba_af553b44",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "nit) @Nullable",
+      "range": {
+        "startLine": 1513,
+        "startChar": 42,
+        "endLine": 1513,
+        "endChar": 55
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72116791_0ed7b88e",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "nit) @Nullable",
+      "range": {
+        "startLine": 1513,
+        "startChar": 20,
+        "endLine": 1513,
+        "endChar": 35
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f57014_6d78fd76",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-11T10:03:38Z",
+      "side": 1,
+      "message": "Don\u0027t we need to run updateApi for media2-player as well?",
+      "range": {
+        "startLine": 1341,
+        "startChar": 42,
+        "endLine": 1341,
+        "endChar": 58
+      },
+      "revId": "19bf6ac0b792efc48aa0e3d9165b76479717ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
