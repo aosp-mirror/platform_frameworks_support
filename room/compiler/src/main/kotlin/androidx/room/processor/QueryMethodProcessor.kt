@@ -116,6 +116,9 @@ class QueryMethodProcessor(
             ProcessorErrors.cannotFindPreparedQueryResultAdapter(returnType.toString(), query.type))
 
         val parameters = delegate.extractQueryParams()
+        if (parameters.isNotEmpty()) {
+            query.interpreted = queryInterpreter.interpretBindArgs(query)
+        }
 
         return WriteQueryMethod(
             element = executableElement,
@@ -132,6 +135,7 @@ class QueryMethodProcessor(
         query: ParsedQuery
     ): QueryMethod {
         val resultBinder = delegate.findResultBinder(returnType, query)
+        val rowAdapter = resultBinder.adapter?.rowAdapter
         context.checker.check(
             resultBinder.adapter != null,
             executableElement,
@@ -140,7 +144,7 @@ class QueryMethodProcessor(
         val inTransaction = executableElement.hasAnnotation(Transaction::class)
         if (query.type == QueryType.SELECT && !inTransaction) {
             // put a warning if it is has relations and not annotated w/ transaction
-            resultBinder.adapter?.rowAdapter?.let { rowAdapter ->
+            if (rowAdapter != null) {
                 if (rowAdapter is PojoRowAdapter && rowAdapter.relationCollectors.isNotEmpty()) {
                     context.logger.w(Warning.RELATION_QUERY_WITHOUT_TRANSACTION,
                         executableElement, ProcessorErrors.TRANSACTION_MISSING_ON_RELATION)
@@ -149,24 +153,19 @@ class QueryMethodProcessor(
         }
 
         val parameters = delegate.extractQueryParams()
-
-        if (context.expandProjection) {
-            resultBinder.adapter?.rowAdapter?.let { rowAdapter ->
-                if (rowAdapter is PojoRowAdapter) {
-                    query.interpreted = queryInterpreter.interpret(query, rowAdapter.pojo)
-                    if (dbVerifier != null) {
-                        query.resultInfo = dbVerifier.analyze(query.interpreted)
-                        if (query.resultInfo?.error != null) {
-                            context.logger.e(
-                                executableElement,
-                                DatabaseVerificationErrors.cannotVerifyQuery(
-                                    query.resultInfo!!.error!!
-                                )
-                            )
-                        }
-                    }
+        if (context.expandProjection && rowAdapter != null && rowAdapter is PojoRowAdapter) {
+            query.interpreted = queryInterpreter.interpret(query, rowAdapter.pojo)
+            if (dbVerifier != null) {
+                query.resultInfo = dbVerifier.analyze(query.interpreted)
+                if (query.resultInfo?.error != null) {
+                    context.logger.e(
+                        executableElement,
+                        DatabaseVerificationErrors.cannotVerifyQuery(query.resultInfo!!.error!!)
+                    )
                 }
             }
+        } else if (parameters.isNotEmpty()) {
+            query.interpreted = queryInterpreter.interpretBindArgs(query)
         }
 
         return ReadQueryMethod(
