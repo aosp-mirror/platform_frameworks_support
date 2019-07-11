@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "80fd79db_da9364e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-11T15:08:44Z",
+      "side": 1,
+      "message": "ack, please file a bug on yourself to track the work",
+      "parentUuid": "8ae41c78_3f7e61ff",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6154959b_296bcc66",
         "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
         "patchSetId": 4
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes, I actually just realised that :)",
       "parentUuid": "ab403f08_c054465a",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c40402a4_e0d3108f",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-11T15:08:44Z",
+      "side": 1,
+      "message": "the answer here might be to have tools suggest autocorrect from Row to row, or something like that",
+      "parentUuid": "84876ddc_d1a64f70",
       "range": {
         "startLine": 41,
         "startChar": 8,
