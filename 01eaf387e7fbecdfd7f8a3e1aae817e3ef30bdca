@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f232bc14_6f6c5b45",
+        "filename": "recyclerview/recyclerview/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-07-11T00:03:04Z",
+      "side": 1,
+      "message": "To elaborate a bit more: we\u0027re re-using an already defined attribute so we don\u0027t want to set a format.",
+      "parentUuid": "fbba94db_f4667cae",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d53bf55b_99a6e155",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
