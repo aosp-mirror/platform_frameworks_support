@@ -93,6 +93,30 @@
       "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab403f08_c054465a",
+        "filename": "ui/ui-layout/src/main/java/androidx/ui/layout/Table.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-07-11T14:46:11Z",
+      "side": 1,
+      "message": "I think tableRow would be better to keep lowercase DSL consistency with the rest of the layouts. Note that developers will not be able to use Row inside Table unless they are inside a Table row/tableRow, as the body of Table is not composable.",
+      "parentUuid": "a46500cb_73541843",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "fb439b7ae6f5e82515aa0de004c5fea21460dde6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
