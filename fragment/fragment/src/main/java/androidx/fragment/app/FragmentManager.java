@@ -1341,13 +1341,11 @@ public abstract class FragmentManager {
                                 saveFragmentViewState(f);
                             }
                         }
-                        f.performDestroyView();
-                        dispatchOnFragmentViewDestroyed(f, false);
+                        AnimationOrAnimator anim = null;
                         if (f.mView != null && f.mContainer != null) {
                             // Stop any current animations:
                             f.mContainer.endViewTransition(f.mView);
                             f.mView.clearAnimation();
-                            AnimationOrAnimator anim = null;
                             // If parent is being removed, no need to handle child animations.
                             if (!f.isRemovingParent()) {
                                 if (mCurState > Fragment.INITIALIZING && !mDestroyed
@@ -1362,14 +1360,18 @@ public abstract class FragmentManager {
                                 f.mContainer.removeView(f.mView);
                             }
                         }
-                        f.mContainer = null;
-                        f.mView = null;
-                        // Set here to ensure that Observers are called after
-                        // the Fragment's view is set to null
-                        f.mViewLifecycleOwner = null;
-                        f.mViewLifecycleOwnerLiveData.setValue(null);
-                        f.mInnerView = null;
-                        f.mInLayout = false;
+                        if (anim == null) {
+                            f.performDestroyView();
+                            dispatchOnFragmentViewDestroyed(f, false);
+                            f.mContainer = null;
+                            f.mView = null;
+                            // Set here to ensure that Observers are called after
+                            // the Fragment's view is set to null
+                            f.mViewLifecycleOwner = null;
+                            f.mViewLifecycleOwnerLiveData.setValue(null);
+                            f.mInnerView = null;
+                            f.mInLayout = false;
+                        }
                     }
                     // fall through
                 case Fragment.CREATED:
@@ -1485,6 +1487,16 @@ public abstract class FragmentManager {
                         public void run() {
                             if (fragment.getAnimatingAway() != null) {
                                 fragment.setAnimatingAway(null);
+                                fragment.performDestroyView();
+                                dispatchOnFragmentViewDestroyed(fragment, false);
+                                fragment.mContainer = null;
+                                fragment.mView = null;
+                                // Set here to ensure that Observers are called after
+                                // the Fragment's view is set to null
+                                fragment.mViewLifecycleOwner = null;
+                                fragment.mViewLifecycleOwnerLiveData.setValue(null);
+                                fragment.mInnerView = null;
+                                fragment.mInLayout = false;
                                 moveToState(fragment, fragment.getStateAfterAnimating(), 0, false);
                             }
                         }
@@ -1508,6 +1520,16 @@ public abstract class FragmentManager {
                     Animator animator = fragment.getAnimator();
                     fragment.setAnimator(null);
                     if (animator != null && container.indexOfChild(viewToAnimate) < 0) {
+                        fragment.performDestroyView();
+                        dispatchOnFragmentViewDestroyed(fragment, false);
+                        fragment.mContainer = null;
+                        fragment.mView = null;
+                        // Set here to ensure that Observers are called after
+                        // the Fragment's view is set to null
+                        fragment.mViewLifecycleOwner = null;
+                        fragment.mViewLifecycleOwnerLiveData.setValue(null);
+                        fragment.mInnerView = null;
+                        fragment.mInLayout = false;
                         moveToState(fragment, fragment.getStateAfterAnimating(), 0, false);
                     }
                 }
