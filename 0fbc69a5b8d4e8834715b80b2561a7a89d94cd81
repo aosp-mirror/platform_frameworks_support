@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2aab10e9_88738ca0",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2LensFacingCameraIdFilter.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1220b9c4_46bffb6d",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85c3ae54_87cad276",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraFactory.java",
         "patchSetId": 16
@@ -33,6 +51,24 @@
       "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9bee96c_9417f698",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraFactory.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c3ae54_87cad276",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f47dac06_69f57723",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c466644_2d01215d",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df0d41b5_1e66fd3b",
         "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
         "patchSetId": 16
@@ -67,6 +121,24 @@
       "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "358aaed9_0b882982",
+        "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df0d41b5_1e66fd3b",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "e97cdc7b_52ebcd6c",
+        "filename": "camera/core/src/test/java/androidx/camera/core/LensFacingCameraIdFilterTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3247661_552aad4a",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8cfae1a_60579fa7",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraFactory.java",
         "patchSetId": 16
@@ -101,6 +191,24 @@
       "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5e4ff5_0b49ab22",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraFactory.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-07-11T10:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8cfae1a_60579fa7",
+      "revId": "0fbc69a5b8d4e8834715b80b2561a7a89d94cd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
