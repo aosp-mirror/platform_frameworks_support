@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5326fc4e_88684a06",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-11T09:28:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cff18b29_e2c052cd",
+      "range": {
+        "startLine": 380,
+        "startChar": 67,
+        "endLine": 380,
+        "endChar": 85
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be92465f_4305922f",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b349e22f_9aa2010c",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-11T09:28:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be92465f_4305922f",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 34
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "13d95331_8ec11b97",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-11T09:28:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b3d613e_be4b7cf4",
+      "range": {
+        "startLine": 411,
+        "startChar": 7,
+        "endLine": 413,
+        "endChar": 43
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b72773_d4d2e29d",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "80138dae_4a0e1d37",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-11T09:28:16Z",
+      "side": 1,
+      "message": "Done.\nmDeviceStateCallback still work here.\nBecause camera will be closed when CameraX.unbindAll() in testDown().",
+      "parentUuid": "23b72773_d4d2e29d",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 0
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dcdd1ae_024960f6",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
         "patchSetId": 8
@@ -114,6 +210,30 @@
       "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1335b91_b6bf7861",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-07-11T09:28:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dcdd1ae_024960f6",
+      "range": {
+        "startLine": 469,
+        "startChar": 8,
+        "endLine": 470,
+        "endChar": 35
+      },
+      "revId": "527a14bd32183fb6fb8d25ce77f8048973ab6a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
