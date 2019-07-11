@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf0b3ac5_517880eb",
+        "filename": "fragment/fragment/src/main/res/anim/fast_out_extra_slow_in.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-07-11T21:40:03Z",
+      "side": 1,
+      "message": "I think acceleration interpolator instead of linearInterpolator? You may want to check their acceleration curves to see which is closest, but based on the name, I would guess accelerationInterpolator.",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 19
+      },
+      "revId": "fb450197cb635d3719b61fd1db6193d9f7f42eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
