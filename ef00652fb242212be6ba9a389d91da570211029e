@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7060cea4_862ace8f",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-07-11T00:54:54Z",
+      "side": 1,
+      "message": "Seems like it would be more convenient for devs if we provided defaults.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c898064c_18bfc41d",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-07-11T00:54:54Z",
+      "side": 1,
+      "message": "This should probably be a part of FlingConfig (see other comment for FlingConfig), as it only applies to flings.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea3d48b5_c6286ad3",
         "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimationAdjustment.kt",
         "patchSetId": 1
@@ -18,6 +64,53 @@
         "startChar": 0,
         "endLine": 39,
         "endChar": 29
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ffcbb55_869c329d",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AnimationAdjustment.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-07-11T00:54:54Z",
+      "side": 1,
+      "message": "This adjustment is for fling only. AnimatedDraggable doesn\u0027t necessarily fling (e.g. seekbar), so first of all there\u0027s needs to be a way to disable fling. I think this class would make more sense if it was called FlingConfig/FlingAnimationConfig. (AnimatedDraggable could probably take a null FlingConfig when one wants to disable fling.)",
+      "parentUuid": "ea3d48b5_c6286ad3",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "ef00652fb242212be6ba9a389d91da570211029e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0cede4a_6d059696",
+        "filename": "ui/foundation/src/main/java/androidx/ui/foundation/gestures/AxisProjection.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-07-11T00:54:54Z",
+      "side": 1,
+      "message": "I\u0027m not convinced that this class is necessary beyond Direction info, as in most cases you want to consume all and only horizontal or vertical movement. In the cases where movements on both X and Y axis are of interest, you\u0027d need to have two AnimatedValue to track the velocity on on both axis, or a 2D AnimatedFloat. I\u0027d simplify this as just Direction.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
       },
       "revId": "ef00652fb242212be6ba9a389d91da570211029e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
