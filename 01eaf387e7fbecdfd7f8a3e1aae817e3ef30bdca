@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9ded2898_d0f3eac0",
+        "filename": "recyclerview/recyclerview/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-11T01:52:12Z",
+      "side": 1,
+      "message": "Ah, thanks for the clarification!",
+      "parentUuid": "f232bc14_6f6c5b45",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "01eaf387e7fbecdfd7f8a3e1aae817e3ef30bdca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d53bf55b_99a6e155",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
