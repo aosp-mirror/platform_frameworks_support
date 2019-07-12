@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ac1ab43c_cc2fddd7",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-12T13:49:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0beafe3b_72892440",
+      "range": {
+        "startLine": 57,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 11
+      },
+      "revId": "b06bed40f18fb5aff061f8415af9731acffe6c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ef47ce5_f712c6cd",
         "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/gestures/DragDirection.kt",
         "patchSetId": 4
