@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e42800_271bf9bf",
+        "filename": "browser/api/1.2.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T22:03:18Z",
+      "side": 1,
+      "message": "This is a very generic name. Should we call it SMALL_ICON_NOT_SET or something like that?",
+      "range": {
+        "startLine": 252,
+        "startChar": 34,
+        "endLine": 252,
+        "endChar": 39
+      },
+      "revId": "72cd6283744eb1c8ea5407c2fccc34bdf3309ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e5fd21_66023bf7",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T22:03:18Z",
+      "side": 1,
+      "message": "Why are all these methods protected? Can we make them public?",
+      "range": {
+        "startLine": 220,
+        "startChar": 4,
+        "endLine": 220,
+        "endChar": 13
+      },
+      "revId": "72cd6283744eb1c8ea5407c2fccc34bdf3309ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4855433e_9958eb8b",
+        "filename": "browser/src/main/java/androidx/browser/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T22:03:18Z",
+      "side": 1,
+      "message": "Why are we catching and rethrowing here? RuntimeException seems less descriptive than RemoteException or SecurityException.",
+      "range": {
+        "startLine": 114,
+        "startChar": 10,
+        "endLine": 116,
+        "endChar": 9
+      },
+      "revId": "72cd6283744eb1c8ea5407c2fccc34bdf3309ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
