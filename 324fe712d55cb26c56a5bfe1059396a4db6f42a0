@@ -22,6 +22,30 @@
       "revId": "324fe712d55cb26c56a5bfe1059396a4db6f42a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a00789_9e7110b5",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6501,
+      "author": {
+        "id": 1508783
+      },
+      "writtenOn": "2019-07-12T19:04:48Z",
+      "side": 1,
+      "message": "Right. They must have a reason to set the delegate to null when putting into the pool. Sounds like each recyclerview should have its own pool? The delegate bug seems like a design issue.",
+      "parentUuid": "655071db_53da25df",
+      "range": {
+        "startLine": 6501,
+        "startChar": 58,
+        "endLine": 6501,
+        "endChar": 75
+      },
+      "revId": "324fe712d55cb26c56a5bfe1059396a4db6f42a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
