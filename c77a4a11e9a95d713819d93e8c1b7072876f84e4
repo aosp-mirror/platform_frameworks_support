@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c29cae2_02d4fecf",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1497627
+      },
+      "writtenOn": "2019-07-12T22:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3c1211_223bf4a1",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "311e1943_9e83bf33",
         "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-07-12T17:05:57Z",
       "side": 1,
       "message": "Import ArrayList instead of using the fully qualified name and use the base List interface as the type (to hide implementation detail).\n\nYou should also use val if you don\u0027t need to redefine the variable later.\n\nSo it should be:\n\nval params: List\u003c..\u003e \u003d ArrayList()",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62f24cb_5f62443e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1497627
+      },
+      "writtenOn": "2019-07-12T22:08:22Z",
+      "side": 1,
+      "message": "The \"List\" interface does not contain the methods for adding elements. Variable \"params\" is declared of type ArrayList because we need to add elements to the \"params\" list.\nTo hide implementation details the \"getParams\" method returns List and not ArrayList.\nVariable \"params\" is the implementation detail of the getParams method that is not exposed outside of the method.",
+      "parentUuid": "311e1943_9e83bf33",
       "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
