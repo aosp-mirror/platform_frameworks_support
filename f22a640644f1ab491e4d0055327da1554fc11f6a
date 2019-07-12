@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25c5b235_d6864ecf",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/SearchView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T16:31:14Z",
+      "side": 1,
+      "message": "We generally prefer actual integer as it is easier to reason. Can you use 29 here?",
+      "range": {
+        "startLine": 181,
+        "startChar": 23,
+        "endLine": 181,
+        "endChar": 24
+      },
+      "revId": "f22a640644f1ab491e4d0055327da1554fc11f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dadc820_34ea8291",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/SearchView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T16:31:14Z",
+      "side": 1,
+      "message": "Same use above. Keep it as 29",
+      "range": {
+        "startLine": 1702,
+        "startChar": 23,
+        "endLine": 1702,
+        "endChar": 24
+      },
+      "revId": "f22a640644f1ab491e4d0055327da1554fc11f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea6f4544_76b3eb18",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/SearchView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2030,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T16:31:14Z",
+      "side": 1,
+      "message": "s/Q/29",
+      "range": {
+        "startLine": 2030,
+        "startChar": 27,
+        "endLine": 2030,
+        "endChar": 28
+      },
+      "revId": "f22a640644f1ab491e4d0055327da1554fc11f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
