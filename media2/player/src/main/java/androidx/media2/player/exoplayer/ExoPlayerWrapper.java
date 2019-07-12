@@ -252,6 +252,7 @@ import java.util.Map;
     }
 
     public long getDuration() {
+        Preconditions.checkState(getState() != MediaPlayer2.PLAYER_STATE_IDLE);
         long duration = mMediaItemQueue.getCurrentMediaItemDuration();
         return duration == C.TIME_UNSET ? -1 : duration;
     }
@@ -508,13 +509,18 @@ import java.util.Map;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void handleVideoSizeChanged(int width, int height, float pixelWidthHeightRatio) {
+        int scaledWidth;
         if (pixelWidthHeightRatio != 1f) {
-            mVideoWidth = (int) (pixelWidthHeightRatio * width);
+            scaledWidth = (int) (pixelWidthHeightRatio * width);
         } else {
-            mVideoWidth = width;
+            scaledWidth = width;
         }
+        if (mVideoWidth == scaledWidth && mVideoHeight == height) {
+            return;
+        }
+        mVideoWidth = scaledWidth;
         mVideoHeight = height;
-        mListener.onVideoSizeChanged(mMediaItemQueue.getCurrentMediaItem(), width, height);
+        mListener.onVideoSizeChanged(mMediaItemQueue.getCurrentMediaItem(), scaledWidth, height);
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -757,7 +763,10 @@ import java.util.Map;
         public void onDroppedFrames(int count, long elapsedMs) {}
 
         @Override
-        public void onVideoDisabled(DecoderCounters counters) {}
+        public void onVideoDisabled(DecoderCounters counters) {
+            handleVideoSizeChanged(
+                    /* width= */ 0, /* height= */ 0, /* pixelWidthHeightRatio= */ 1f);
+        }
 
         // AudioListener implementation.
 

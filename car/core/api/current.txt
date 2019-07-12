@@ -8,7 +8,7 @@ package androidx.car.app {
     ctor public CarAlertDialog.Builder(android.content.Context);
     method public androidx.car.app.CarAlertDialog create();
     method public androidx.car.app.CarAlertDialog.Builder setBody(@StringRes int);
-    method public androidx.car.app.CarAlertDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarAlertDialog.Builder setBody(CharSequence);
     method public androidx.car.app.CarAlertDialog.Builder setBodyMovementMethod(android.text.method.MovementMethod?);
     method public androidx.car.app.CarAlertDialog.Builder setCancelable(boolean);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(@DrawableRes int);
@@ -19,7 +19,7 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener?);
     method public androidx.car.app.CarAlertDialog.Builder setTitle(@StringRes int);
-    method public androidx.car.app.CarAlertDialog.Builder setTitle(CharSequence?);
+    method public androidx.car.app.CarAlertDialog.Builder setTitle(CharSequence);
   }
 
   public class CarListDialog extends android.app.Dialog {
@@ -35,7 +35,7 @@ package androidx.car.app {
     method public androidx.car.app.CarListDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener);
     method public androidx.car.app.CarListDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener);
     method public androidx.car.app.CarListDialog.Builder setTitle(@StringRes int);
-    method public androidx.car.app.CarListDialog.Builder setTitle(CharSequence!);
+    method public androidx.car.app.CarListDialog.Builder setTitle(CharSequence);
   }
 
   public static class CarListDialog.DialogSubSection {
@@ -52,7 +52,7 @@ package androidx.car.app {
     ctor public CarMultipleChoiceDialog.Builder(android.content.Context);
     method public android.app.Dialog create();
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setBody(@StringRes int);
-    method public androidx.car.app.CarMultipleChoiceDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setBody(CharSequence);
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setCancelable(boolean);
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setItems(java.util.List<androidx.car.app.CarMultipleChoiceDialog.Item!>);
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setNegativeButton(@StringRes int);
@@ -62,7 +62,7 @@ package androidx.car.app {
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setPositiveButton(@StringRes int, androidx.car.app.CarMultipleChoiceDialog.OnMultiChoiceClickListener);
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setPositiveButton(CharSequence, androidx.car.app.CarMultipleChoiceDialog.OnMultiChoiceClickListener);
     method public androidx.car.app.CarMultipleChoiceDialog.Builder setTitle(@StringRes int);
-    method public androidx.car.app.CarMultipleChoiceDialog.Builder setTitle(CharSequence?);
+    method public androidx.car.app.CarMultipleChoiceDialog.Builder setTitle(CharSequence);
   }
 
   public static class CarMultipleChoiceDialog.Item {
@@ -81,7 +81,7 @@ package androidx.car.app {
     ctor public CarSingleChoiceDialog.Builder(android.content.Context);
     method public android.app.Dialog create();
     method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(@StringRes int);
-    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(CharSequence?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setBody(CharSequence);
     method public androidx.car.app.CarSingleChoiceDialog.Builder setCancelable(boolean);
     method public androidx.car.app.CarSingleChoiceDialog.Builder setItems(java.util.List<androidx.car.app.CarSingleChoiceDialog.Item!>, @IntRange(from=0) int);
     method public androidx.car.app.CarSingleChoiceDialog.Builder setNegativeButton(@StringRes int);
@@ -91,7 +91,7 @@ package androidx.car.app {
     method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener);
     method public androidx.car.app.CarSingleChoiceDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener);
     method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(@StringRes int);
-    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(CharSequence?);
+    method public androidx.car.app.CarSingleChoiceDialog.Builder setTitle(CharSequence);
   }
 
   public static class CarSingleChoiceDialog.Item {
@@ -373,6 +373,7 @@ package androidx.car.widget {
   public abstract class CompoundButtonListItem<VH extends androidx.car.widget.CompoundButtonListItem.ViewHolder> extends androidx.car.widget.ListItem<VH> {
     ctor public CompoundButtonListItem(android.content.Context);
     method public abstract boolean isCompoundButtonPositionEnd();
+    method public boolean isEntireItemClickable();
     method public void onBind(VH);
     method @CallSuper protected void resolveDirtyState();
     method public void setBody(CharSequence?);
@@ -435,7 +436,7 @@ package androidx.car.widget {
     method public boolean getShowDivider(@IntRange(from=0) int);
     method public void onBindViewHolder(androidx.car.widget.ListItem.ViewHolder!, int);
     method public androidx.car.widget.ListItem.ViewHolder! onCreateViewHolder(android.view.ViewGroup!, int);
-    method public void registerListItemViewType(@IntRange(from=java.lang.Integer.MIN_VALUE, to=0xffffffff) int, @LayoutRes int, java.util.function.Function<android.view.View!,androidx.car.widget.ListItem.ViewHolder!>!);
+    method public void registerListItemViewType(@IntRange(from=java.lang.Integer.MIN_VALUE, to=0xffffffff) int, @LayoutRes int, androidx.arch.core.util.Function<android.view.View!,androidx.car.widget.ListItem.ViewHolder!>!);
     method public void setMaxItems(int);
     method public void start();
     method public void stop();
@@ -511,6 +512,7 @@ package androidx.car.widget {
     method public void setScrollBarButtonTintColor(@ColorRes int);
     method public void setScrollBarContainerWidth(int);
     method public final void setScrollBarEnabled(boolean);
+    method public void setScrollBarGravity(int);
     method public void setScrollBarTopMargin(int);
     method public void setScrollbarThumbColor(@ColorRes int);
     method public void setScrollbarThumbEnabled(boolean);

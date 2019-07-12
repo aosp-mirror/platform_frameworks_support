@@ -18,7 +18,6 @@ package androidx.fragment.app
 
 import android.os.Bundle
 import androidx.fragment.app.test.EmptyFragmentTestActivity
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -47,10 +46,12 @@ class FragmentArchLifecycleTest {
         val first = Fragment()
         val second = Fragment()
         fm.beginTransaction().add(first, "first").commitNow()
-        first.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onStop(owner: LifecycleOwner) {
-                fm.beginTransaction().add(second, "second").commitNow()
-                first.lifecycle.removeObserver(this)
+        first.lifecycle.addObserver(object : LifecycleEventObserver {
+            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (event == Lifecycle.Event.ON_STOP) {
+                    fm.beginTransaction().add(second, "second").commitNow()
+                    first.lifecycle.removeObserver(this)
+                }
             }
         })
         activity.onSaveInstanceState(Bundle())
