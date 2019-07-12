@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c7164c4_9118ab02",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "m2:)",
+      "range": {
+        "startLine": 59,
+        "startChar": 86,
+        "endLine": 59,
+        "endChar": 88
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6014de48_b3167a9d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/binderprovider/CoroutineFlowResultBinderProvider.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "move to companion",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 57,
+        "endChar": 9
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8acba440_63b9e2ab",
+        "filename": "room/integration-tests/kotlintestapp/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "revert",
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e48ccf_e544c718",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ChannelQueryTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "not sure how possible but would be nice to get rid of drains and rely on coroutines. though may not be possible :/, i\u0027m not sure.",
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25336672_2ef148cb",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ChannelQueryTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "lets use the new TestCoroutine artifact which has the test scope.\nand then we should not even need the executor rule",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec17500a_a8db4e50",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ChannelQueryTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "lets assert the invalidation tracker does not have anything tracked after this cancelation. (same for others)",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b9b2df1_7d8f75a8",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ChannelQueryTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "do we still need to drain after the second receive ? idk the API but i assume it would wait ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 13
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c608a4_d04f2bc2",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/FlowQueryTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "ditto to use test coroutine dispatcher.",
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b16514fc_f5b90776",
+        "filename": "room/ktx/src/main/java/androidx/room/CoroutinesRoom.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T02:37:18Z",
+      "side": 1,
+      "message": "whoops :/",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "bf80b1de7affd945e9b4caf6772a7011dc7e273c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
