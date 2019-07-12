@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1f1c70d_458dcc79",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-12T20:53:30Z",
+      "side": 1,
+      "message": "Oops :D",
+      "revId": "a83b2b76fa89a66817ef8d1d8bc244c693e398d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
