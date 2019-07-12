@@ -84,7 +84,7 @@ open class ContiguousPagedList<K : Any, V : Any>(
     /**
      * Given a page result, apply or drop it, and return whether more loading is needed.
      */
-    override fun onPageResult(type: LoadType, pageResult: DataSource.BaseResult<V>): Boolean {
+    override fun onPageResult(type: LoadType, pageResult: PagedSource.LoadResult<*, V>): Boolean {
         var continueLoading = false
         val page = pageResult.data
 
@@ -105,7 +105,7 @@ open class ContiguousPagedList<K : Any, V : Any>(
             } else {
                 storage.appendPage(page, this@ContiguousPagedList)
                 appendItemsRequested -= page.size
-                if (appendItemsRequested > 0 && page.size != 0) {
+                if (appendItemsRequested > 0 && page.isNotEmpty()) {
                     continueLoading = true
                 }
             }
@@ -116,7 +116,7 @@ open class ContiguousPagedList<K : Any, V : Any>(
             } else {
                 storage.prependPage(page, this@ContiguousPagedList)
                 prependItemsRequested -= page.size
-                if (prependItemsRequested > 0 && page.size != 0) {
+                if (prependItemsRequested > 0 && page.isNotEmpty()) {
                     continueLoading = true
                 }
             }
@@ -196,7 +196,7 @@ open class ContiguousPagedList<K : Any, V : Any>(
             backgroundThreadExecutor,
             this,
             storage,
-            initialResult
+            initialResult.toLoadResult()
         )
 
         if (config.enablePlaceholders) {
