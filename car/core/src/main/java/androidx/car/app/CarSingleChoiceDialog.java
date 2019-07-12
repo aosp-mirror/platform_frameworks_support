@@ -165,13 +165,14 @@ public final class CarSingleChoiceDialog extends Dialog {
             positiveButtonLayoutParams.setMarginStart(buttonSpacing);
             positiveButtonView.requestLayout();
 
-            negativeButtonLayoutParams.setMarginStart(buttonOffset);
+            int buttonExtraSpace = CarDialogUtil.calculateExtraButtonSpace(negativeButtonView);
+            negativeButtonLayoutParams.setMarginStart(buttonOffset - buttonExtraSpace);
             negativeButtonLayoutParams.setMarginEnd(buttonSpacing);
             negativeButtonView.requestLayout();
         } else {
             negativeButtonView.setVisibility(View.GONE);
-
-            positiveButtonLayoutParams.setMarginStart(buttonOffset);
+            int buttonExtraSpace = CarDialogUtil.calculateExtraButtonSpace(positiveButtonView);
+            positiveButtonLayoutParams.setMarginStart(buttonOffset - buttonExtraSpace / 2);
             positiveButtonView.requestLayout();
         }
     }
@@ -234,7 +235,7 @@ public final class CarSingleChoiceDialog extends Dialog {
      * Creates the {@link RadioButtonListItem} that represents an item in the {@code
      * CarSingleChoiceDialog}.
      *
-     * @param {@link Item} to display as a {@code RadioButtonListItem}.
+     * @param {@link   Item} to display as a {@code RadioButtonListItem}.
      * @param position The position of the item in the list.
      */
     private RadioButtonListItem createItem(Item selectionItem, int position) {
@@ -339,7 +340,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
-        public Builder setTitle(@Nullable CharSequence title) {
+        public Builder setTitle(@NonNull CharSequence title) {
             mTitle = title;
             return this;
         }
@@ -364,7 +365,7 @@ public final class CarSingleChoiceDialog extends Dialog {
          * @return This {@code Builder} object to allow for chaining of calls.
          */
         @NonNull
-        public Builder setBody(@Nullable CharSequence bodyText) {
+        public Builder setBody(@NonNull CharSequence bodyText) {
             mSubtitle = bodyText;
             return this;
         }

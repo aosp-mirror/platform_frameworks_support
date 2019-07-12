@@ -30,10 +30,10 @@ import java.util.ArrayList;
  * Entry of an operation on the fragment back stack.
  */
 final class BackStackRecord extends FragmentTransaction implements
-        FragmentManager.BackStackEntry, FragmentManagerImpl.OpGenerator {
-    static final String TAG = FragmentManagerImpl.TAG;
+        FragmentManager.BackStackEntry, FragmentManager.OpGenerator {
+    static final String TAG = FragmentManager.TAG;
 
-    final FragmentManagerImpl mManager;
+    final FragmentManager mManager;
 
     boolean mCommitted;
     int mIndex = -1;
@@ -67,8 +67,6 @@ final class BackStackRecord extends FragmentTransaction implements
             if (mTransition != FragmentTransaction.TRANSIT_NONE) {
                 writer.print(prefix); writer.print("mTransition=#");
                         writer.print(Integer.toHexString(mTransition));
-                        writer.print(" mTransitionStyle=#");
-                        writer.println(Integer.toHexString(mTransitionStyle));
             }
             if (mEnterAnim != 0 || mExitAnim !=0) {
                 writer.print(prefix); writer.print("mEnterAnim=#");
@@ -137,7 +135,10 @@ final class BackStackRecord extends FragmentTransaction implements
         }
     }
 
-    public BackStackRecord(FragmentManagerImpl manager) {
+    BackStackRecord(@NonNull FragmentManager manager) {
+        super(manager.getFragmentFactory(), manager.mHost != null
+                ? manager.mHost.getContext().getClassLoader()
+                : null);
         mManager = manager;
     }
 
@@ -255,15 +256,18 @@ final class BackStackRecord extends FragmentTransaction implements
         if (!mAddToBackStack) {
             return;
         }
-        if (FragmentManagerImpl.DEBUG) Log.v(TAG, "Bump nesting in " + this
-                + " by " + amt);
+        if (FragmentManager.DEBUG) {
+            Log.v(TAG, "Bump nesting in " + this + " by " + amt);
+        }
         final int numOps = mOps.size();
         for (int opNum = 0; opNum < numOps; opNum++) {
             final Op op = mOps.get(opNum);
             if (op.mFragment != null) {
                 op.mFragment.mBackStackNesting += amt;
-                if (FragmentManagerImpl.DEBUG) Log.v(TAG, "Bump nesting of "
-                        + op.mFragment + " to " + op.mFragment.mBackStackNesting);
+                if (FragmentManager.DEBUG) {
+                    Log.v(TAG, "Bump nesting of "
+                            + op.mFragment + " to " + op.mFragment.mBackStackNesting);
+                }
             }
         }
     }
@@ -301,7 +305,7 @@ final class BackStackRecord extends FragmentTransaction implements
 
     int commitInternal(boolean allowStateLoss) {
         if (mCommitted) throw new IllegalStateException("commit already called");
-        if (FragmentManagerImpl.DEBUG) {
+        if (FragmentManager.DEBUG) {
             Log.v(TAG, "Commit: " + this);
             LogWriter logw = new LogWriter(TAG);
             PrintWriter pw = new PrintWriter(logw);
@@ -319,7 +323,7 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     /**
-     * Implementation of {@link FragmentManagerImpl.OpGenerator}.
+     * Implementation of {@link FragmentManager.OpGenerator}.
      * This operation is added to the list of pending actions during {@link #commit()}, and
      * will be executed on the UI thread to run this FragmentTransaction.
      *
@@ -329,7 +333,7 @@ final class BackStackRecord extends FragmentTransaction implements
      */
     @Override
     public boolean generateOps(ArrayList<BackStackRecord> records, ArrayList<Boolean> isRecordPop) {
-        if (FragmentManagerImpl.DEBUG) {
+        if (FragmentManager.DEBUG) {
             Log.v(TAG, "Run: " + this);
         }
 
@@ -391,7 +395,7 @@ final class BackStackRecord extends FragmentTransaction implements
             final Op op = mOps.get(opNum);
             final Fragment f = op.mFragment;
             if (f != null) {
-                f.setNextTransition(mTransition, mTransitionStyle);
+                f.setNextTransition(mTransition);
             }
             switch (op.mCmd) {
                 case OP_ADD:
@@ -452,8 +456,7 @@ final class BackStackRecord extends FragmentTransaction implements
             final Op op = mOps.get(opNum);
             Fragment f = op.mFragment;
             if (f != null) {
-                f.setNextTransition(FragmentManagerImpl.reverseTransit(mTransition),
-                        mTransitionStyle);
+                f.setNextTransition(FragmentManager.reverseTransit(mTransition));
             }
             switch (op.mCmd) {
                 case OP_ADD:

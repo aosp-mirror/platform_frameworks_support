@@ -218,6 +218,9 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
         mFragments.set(position, null);
 
         mCurTransaction.remove(fragment);
+        if (fragment == mCurrentPrimaryItem) {
+            mCurrentPrimaryItem = null;
+        }
     }
 
     @Override
@@ -253,7 +256,14 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     @Override
     public void finishUpdate(@NonNull ViewGroup container) {
         if (mCurTransaction != null) {
-            mCurTransaction.commitNowAllowingStateLoss();
+            try {
+                mCurTransaction.commitNowAllowingStateLoss();
+            } catch (IllegalStateException e) {
+                // Workaround for Robolectric running measure/layout
+                // calls inline rather than allowing them to be posted
+                // as they would on a real device.
+                mCurTransaction.commitAllowingStateLoss();
+            }
             mCurTransaction = null;
         }
     }

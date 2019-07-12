@@ -417,7 +417,9 @@ public final class MediaPlayer extends SessionPlayer {
      * The return value of {@link #getSelectedTrack} when there is no selected track for the given
      * type.
      * @see #getSelectedTrack(int)
+     * @deprecated {@link #getSelectedTrack} returns {@code null} instead of this value.
      */
+    @Deprecated
     public static final int NO_TRACK_SELECTED = Integer.MIN_VALUE;
 
     static final PlaybackParams DEFAULT_PLAYBACK_PARAMS = new PlaybackParams.Builder()
@@ -2942,7 +2944,7 @@ public final class MediaPlayer extends SessionPlayer {
 
         final TrackInfo trackInfo = expected.mTrackInfo;
         if (what != expected.mCallType) {
-            Log.w(TAG, "Call type does not match. expeced:" + expected.mCallType
+            Log.w(TAG, "Call type does not match. expected:" + expected.mCallType
                     + " actual:" + what);
             status = MediaPlayer2.CALL_STATUS_ERROR_UNKNOWN;
         }
@@ -2966,6 +2968,7 @@ public final class MediaPlayer extends SessionPlayer {
                     });
                     break;
                 case MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE:
+                case MediaPlayer2.CALL_COMPLETED_SKIP_TO_NEXT:
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
