@@ -22,6 +22,30 @@
       "revId": "61b8aff3058ac053d4a251d56a639f020fca54fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ec2447_1c747ed9",
+        "filename": "ui/ui-material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-12T14:37:05Z",
+      "side": 1,
+      "message": "Here we don\u0027t care whether this parameter was specified or not, since it is ok to emit an empty lambda. For the other ones, we need to know if it was set, or not, as the app bar\u0027s behaviour changes depending on this, so we use null. In the future it might be nice to use null for everything, so we can avoid emitting empty lambdas, but for now I think this is correct. \n\nDoes this make sense?",
+      "parentUuid": "d8e68a72_f798e2a3",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "61b8aff3058ac053d4a251d56a639f020fca54fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
