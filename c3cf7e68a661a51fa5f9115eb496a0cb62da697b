@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0df177d8_addaafab",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-07-12T20:25:09Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this class exists. Why does an Advertising ID Provider need to register itself within its own process? When would this code even get called?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 86
+      },
+      "revId": "c3cf7e68a661a51fa5f9115eb496a0cb62da697b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16734a5_c9496eb7",
+        "filename": "ads/ads-identifier/integration-tests/testapp/src/main/java/androidx/ads/identifier/testapp/AdsIdentifierActivity.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-07-12T20:25:09Z",
+      "side": 1,
+      "message": "This is not a pattern that we want to encourage.\n\nIs getAdvertisingIdInfo actually expected to block for so long that it can\u0027t be run synchronously? If so, please use a listener that wraps up the asynchronous execution and handles the result on the calling thread.\n\nOtherwise, just make the method block on the calling thread.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "c3cf7e68a661a51fa5f9115eb496a0cb62da697b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
