@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07c9d95f_47d2346e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-07-12T02:14:43Z",
+      "side": 1,
+      "message": "Q) Why do we need to keep these methods separate?",
+      "range": {
+        "startLine": 1532,
+        "startChar": 0,
+        "endLine": 1548,
+        "endChar": 22
+      },
+      "revId": "ab1e5539cb8f2149dcff7b9c9f87a524881d1b42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
