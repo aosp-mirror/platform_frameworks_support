@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4f3e0a1_731abcbf",
+        "filename": "ui/integration-tests/benchmark/src/androidTest/java/androidx/ui/benchmark/test/legacy/LegacyCheckboxesInLinearLayoutBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-12T14:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d508b50_8f503666",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d99668e4_d470c7c0",
         "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/BenchmarksExtensions.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b68b1ad1_c130816a",
+        "filename": "ui/integration-tests/benchmark/src/main/java/androidx/ui/benchmark/BenchmarksExtensions.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-12T14:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d99668e4_d470c7c0",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4d432ad0_38516e2f",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-12T14:45:30Z",
+      "side": 1,
+      "message": "Yep, I made these tests to be Q+ only.",
+      "parentUuid": "fe66852d_e00c447e",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f94b72f9_e23bd9ff",
         "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestCase.kt",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "6ffa26d7_f9d2ac66",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/TestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-12T14:45:30Z",
+      "side": 1,
+      "message": "Thanks, I changed it to the version you linked me.",
+      "parentUuid": "f94b72f9_e23bd9ff",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc559dc9_29f94ebe",
         "filename": "ui/integration-tests/src/main/java/androidx/ui/test/cases/CheckboxesInRowsTestCase.kt",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ce78ac1_09453079",
+        "filename": "ui/integration-tests/src/main/java/androidx/ui/test/cases/CheckboxesInRowsTestCase.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-07-12T14:45:30Z",
+      "side": 1,
+      "message": "The issue is that if I pass the model as reference to CheckboxWithState it makes R4A to re-run the whole for-loop (all the models would be referenced in the loop). This backdoor makes sure that R4A does not re-run the whole for-loop. Also I could use @Model but there is no difference comparing to using State AFAIK (and I\u0027m avoiding extra top level class).",
+      "parentUuid": "fc559dc9_29f94ebe",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "4fc179ee8f174132420a6301c9a076c847f61944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
