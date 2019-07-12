@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "655071db_53da25df",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6501,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-07-12T18:08:38Z",
+      "side": 1,
+      "message": "Does this hit the problem from before with two RecyclerViews reusing from the same pool? The originalDelegate only applies to RV1 but RV2 might call into this if it doesn\u0027t set its own.",
+      "range": {
+        "startLine": 6501,
+        "startChar": 58,
+        "endLine": 6501,
+        "endChar": 75
+      },
+      "revId": "324fe712d55cb26c56a5bfe1059396a4db6f42a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
