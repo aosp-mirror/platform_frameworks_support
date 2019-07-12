@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b43a3956_9b06c821",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-12T06:45:27Z",
+      "side": 1,
+      "message": "Add comment this is only for system-level providers",
+      "revId": "b3f1c0a8ecc996ee225371fc0162ffc88bda72c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07fd4b5f_c6ff5525",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-12T06:45:27Z",
+      "side": 1,
+      "message": "update here and elsewhere",
+      "revId": "b3f1c0a8ecc996ee225371fc0162ffc88bda72c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f758404_7368aa53",
+        "filename": "ads/ads-identifier-common/src/main/java/androidx/ads/identifier/AdvertisingIdUtils.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-12T06:45:27Z",
+      "side": 1,
+      "message": "how about inline?",
+      "range": {
+        "startLine": 160,
+        "startChar": 27,
+        "endLine": 160,
+        "endChar": 35
+      },
+      "revId": "b3f1c0a8ecc996ee225371fc0162ffc88bda72c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3614bf5a_c93e2bc8",
+        "filename": "ads/ads-identifier-provider/src/main/java/androidx/ads/identifier/provider/AdvertisingIdProviderManager.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-12T06:45:27Z",
+      "side": 1,
+      "message": "add a comment why you\u0027re only filtering system for \u003e\u003d N",
+      "revId": "b3f1c0a8ecc996ee225371fc0162ffc88bda72c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a917a8b_e9cd4c74",
+        "filename": "ads/ads-identifier/src/main/java/androidx/ads/identifier/AdvertisingIdClient.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1510547
+      },
+      "writtenOn": "2019-07-12T06:45:27Z",
+      "side": 1,
+      "message": "let\u0027s not static import",
+      "range": {
+        "startLine": 20,
+        "startChar": 57,
+        "endLine": 20,
+        "endChar": 89
+      },
+      "revId": "b3f1c0a8ecc996ee225371fc0162ffc88bda72c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
