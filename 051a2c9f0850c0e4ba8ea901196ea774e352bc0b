@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8929731_1a5e11b1",
+        "filename": "ui/ui-foundation/integration-tests/samples/src/main/java/androidx/ui/foundation/samples/DeterminateProgressSamples.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-07-12T16:10:01Z",
+      "side": 1,
+      "message": "nit: This won\u0027t be exposed in documentation, maybe it\u0027s better just to add a \u0027val Progress \u003d 50f\u0027 inline in the function, and pass that to DeterminateProgressIndicator and the ColoredRect",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "051a2c9f0850c0e4ba8ea901196ea774e352bc0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
