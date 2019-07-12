@@ -131,7 +131,9 @@ abstract class BaseSwipeRefreshLayoutActivity extends FragmentActivity
         super.onCreate(bundle);
         setContentView(getLayoutId());
 
-        mViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+        // TODO use by viewModels() once this class switches to Kotlin
+        mViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
         mViewModel.refreshDone.observe(this, event -> {
             if (event.getContentIfNotHandled() != null) {
                 mSwipeRefreshWidget.setRefreshing(false);
