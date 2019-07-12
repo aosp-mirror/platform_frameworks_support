@@ -141,6 +141,29 @@
       "revId": "0abc8af20101ecf6ee23cd48c6a978cfdb41987e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afb21b9f_26016ea3",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-12T17:40:47Z",
+      "side": 1,
+      "message": "Oops, didn\u0027t see this reference while code reviewing, but I always much prefer static classes anyway... so thanks for this change!",
+      "range": {
+        "startLine": 168,
+        "startChar": 50,
+        "endLine": 168,
+        "endChar": 54
+      },
+      "revId": "0abc8af20101ecf6ee23cd48c6a978cfdb41987e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
