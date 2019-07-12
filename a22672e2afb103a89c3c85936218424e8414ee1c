@@ -22,6 +22,30 @@
       "revId": "a22672e2afb103a89c3c85936218424e8414ee1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef50c2fb_9774c434",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/autovalue/AutoValuePojoProcessorDelegateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-07-12T23:43:22Z",
+      "side": 0,
+      "message": "No longer needed, lib compile util method uses AutoValue processor so its generated for real. \u003d]",
+      "parentUuid": "df1e31ed_6151144c",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "a22672e2afb103a89c3c85936218424e8414ee1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
