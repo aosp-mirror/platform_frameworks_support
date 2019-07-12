@@ -16,6 +16,7 @@
 
 package androidx.browser.trusted;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -35,6 +36,7 @@ import android.os.StrictMode;
 import android.support.customtabs.trusted.ITrustedWebActivityService;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.browser.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
@@ -49,7 +51,7 @@ import java.util.Locale;
 
 /**
  * The TrustedWebActivityService lives in a client app and serves requests from a Trusted Web
- * Activity provider. At present it only serves requests to display notifications.
+ * Activity provider. At present it only serves requests to do with notifications.
  * <p>
  * When the provider receives a notification from a scope that is associated with a Trusted Web
  * Activity client app, it will attempt to connect to a TrustedWebActivityService and forward calls.
@@ -60,7 +62,7 @@ import java.util.Locale;
  *
  * <pre>
  * <service
- *     android:name="android.support.customtabs.trusted.TrustedWebActivityService"
+ *     android:name="androidx.browser.trusted.TrustedWebActivityService"
  *     android:enabled="true"
  *     android:exported="true">
  *
@@ -77,29 +79,32 @@ import java.util.Locale;
  * The SMALL_ICON resource should point to a drawable to be used for the notification's small icon.
  * <p>
  * Alternatively for greater customization, TrustedWebActivityService can be extended and
- * {@link #onCreate}, {@link #getSmallIconId}, {@link #notifyNotificationWithChannel} and
- * {@link #cancelNotification} can be overridden. In this case the manifest entry should be updated
- * to point to the extending class.
+ * overridden. In this case the manifest entry should be updated to point to the extending class.
  * <p>
  * As this is an AIDL Service, calls to {@link #getSmallIconId},
  * {@link #notifyNotificationWithChannel} and {@link #cancelNotification} can occur on different
  * Binder threads, so overriding implementations need to be thread-safe.
  * <p>
  * For security, the TrustedWebActivityService will check that whatever connects to it is the
- * Trusted Web Activity provider that it was previously verified with. For testing,
- * {@link #setVerifiedProviderSynchronouslyForTesting} can be used to to allow connections from the
- * given package.
- *
- * @hide
+ * Trusted Web Activity provider that it was previously verified with (through
+ * {@link #setVerifiedProvider}).
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class TrustedWebActivityService extends Service {
     /** An Intent Action used by the provider to find the TrustedWebActivityService or subclass. */
-    public static final String INTENT_ACTION =
+    @SuppressLint({
+            "ActionValue",  // This value was being used before being moved into AndroidX.
+            "ServiceName",  // This variable is an Action, but Metalava thinks it's a Service.
+    })
+    public static final String ACTION_TRUSTED_WEB_ACTIVITY_SERVICE =
             "android.support.customtabs.trusted.TRUSTED_WEB_ACTIVITY_SERVICE";
+
     /** The Android Manifest meta-data name to specify a small icon id to use. */
-    public static final String SMALL_ICON_META_DATA_NAME =
+    public static final String META_DATA_NAME_SMALL_ICON =
             "android.support.customtabs.trusted.SMALL_ICON";
+
+    /** The key to use to store a Bitmap to return from the {@link #getSmallIconBitmap()} method. */
+    public static final String KEY_SMALL_ICON_BITMAP =
+            "android.support.customtabs.trusted.SMALL_ICON_BITMAP";
 
     /** Used as a return value of {@link #getSmallIconId} when the icon is not provided. */
     public static final int NO_ID = -1;
@@ -107,12 +112,8 @@ public class TrustedWebActivityService extends Service {
     private static final String PREFS_FILE = "TrustedWebActivityVerifiedProvider";
     private static final String PREFS_VERIFIED_PROVIDER = "Provider";
 
-    static final String KEY_SMALL_ICON_BITMAP =
-            "android.support.customtabs.trusted.SMALL_ICON_BITMAP";
-
     private NotificationManager mNotificationManager;
-
-    public int mVerifiedUid = -1;
+    private int mVerifiedUid = -1;
 
     private final ITrustedWebActivityService.Stub mBinder =
             new ITrustedWebActivityService.Stub() {
@@ -214,7 +215,7 @@ public class TrustedWebActivityService extends Service {
      * @param channelName The name of the notification channel to be used on Android O+.
      * @return Whether notifications are enabled.
      */
-    protected boolean areNotificationsEnabled(String channelName) {
+    protected boolean areNotificationsEnabled(@NonNull String channelName) {
         ensureOnCreateCalled();
 
         if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) return false;
@@ -238,8 +239,8 @@ public class TrustedWebActivityService extends Service {
      * @return Whether the notification was successfully displayed (the channel/app may be blocked
      *         by the user).
      */
-    protected boolean notifyNotificationWithChannel(String platformTag, int platformId,
-            Notification notification, String channelName) {
+    protected boolean notifyNotificationWithChannel(@NonNull String platformTag, int platformId,
+            @NonNull Notification notification, @NonNull String channelName) {
         ensureOnCreateCalled();
 
         if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) return false;
@@ -265,7 +266,7 @@ public class TrustedWebActivityService extends Service {
      * @param platformId The notification id, see
      *                   {@link NotificationManager#cancel(String, int)}.
      */
-    protected void cancelNotification(String platformTag, int platformId) {
+    protected void cancelNotification(@NonNull String platformTag, int platformId) {
         ensureOnCreateCalled();
         mNotificationManager.cancel(platformTag, platformId);
     }
@@ -275,8 +276,10 @@ public class TrustedWebActivityService extends Service {
      * NotificationManager#getActiveNotifications. The default implementation does not work on
      * pre-Android M.
      * @return An array of StatusBarNotifications as Parcelables.
+     *
+     * @hide
      */
-
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected Parcelable[] getActiveNotifications() {
         ensureOnCreateCalled();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -285,7 +288,12 @@ public class TrustedWebActivityService extends Service {
         throw new IllegalStateException("getActiveNotifications cannot be called pre-M.");
     }
 
-    Bundle getSmallIconBitmap() {
+    /**
+     * Returns a Bundle containing a bitmap to be use as the small icon for any notifications.
+     * @return A Bundle that may contain a Bitmap contained with key {@link #KEY_SMALL_ICON_BITMAP}.
+     *         The bundle may be empty if the client app does not provide a small icon.
+     */
+    protected @NonNull Bundle getSmallIconBitmap() {
         int id = getSmallIconId();
         Bundle bundle = new Bundle();
         if (id == NO_ID) {
@@ -298,10 +306,10 @@ public class TrustedWebActivityService extends Service {
 
     /**
      * Returns the Android resource id of a drawable to be used for the small icon of the
-     * notification. This is called by the provider as it is constructing the notification, so a
+     * notification. This is called by the provider as it is constructing the notification so a
      * complete notification can be passed to the client.
      *
-     * Default behaviour looks for meta-data with the name {@link #SMALL_ICON_META_DATA_NAME} in
+     * Default behaviour looks for meta-data with the name {@link #META_DATA_NAME_SMALL_ICON} in
      * service section of the manifest.
      * @return A resource id for the small icon, or {@link #NO_ID} if not found.
      */
@@ -312,7 +320,7 @@ public class TrustedWebActivityService extends Service {
 
             if (info.metaData == null) return NO_ID;
 
-            return info.metaData.getInt(SMALL_ICON_META_DATA_NAME, NO_ID);
+            return info.metaData.getInt(META_DATA_NAME_SMALL_ICON, NO_ID);
         } catch (PackageManager.NameNotFoundException e) {
             // Will only happen if the package provided (the one we are running in) is not
             // installed - so should never happen.
@@ -321,6 +329,7 @@ public class TrustedWebActivityService extends Service {
     }
 
     @Override
+    @Nullable
     public final IBinder onBind(Intent intent) {
         return mBinder;
     }
@@ -335,7 +344,7 @@ public class TrustedWebActivityService extends Service {
     /**
      * Should *not* be called on UI Thread, as accessing Preferences may hit disk.
      */
-    static SharedPreferences getPreferences(Context context) {
+    private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
     }
 
@@ -343,10 +352,9 @@ public class TrustedWebActivityService extends Service {
      * Sets (asynchronously) the package that this service will accept connections from.
      * @param context A context to be used to access SharedPreferences.
      * @param provider The package of the provider to accept connections from or null to clear.
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public static final void setVerifiedProvider(final Context context, @Nullable String provider) {
+    public static final void setVerifiedProvider(final @NonNull Context context,
+            @Nullable String provider) {
         final String providerEmptyChecked =
                 (provider == null || provider.isEmpty()) ? null : provider;
 
