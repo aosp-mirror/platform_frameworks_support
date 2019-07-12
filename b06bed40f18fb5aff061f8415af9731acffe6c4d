@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8528e1a8_5eedcbb8",
+        "filename": "ui/ui-foundation/api/1.0.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-12T11:40:48Z",
+      "side": 1,
+      "message": "does all this need to be public API? as far as the user is concerned, they only need to say Horizontal or Vertical, and these methods are used internally, am I right?",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 100
+      },
+      "revId": "b06bed40f18fb5aff061f8415af9731acffe6c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8c0255_1f44f170",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/gestures/AnimatedDraggable.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-12T11:40:48Z",
+      "side": 1,
+      "message": "missing sample",
+      "range": {
+        "startLine": 57,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 11
+      },
+      "revId": "b06bed40f18fb5aff061f8415af9731acffe6c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ef47ce5_f712c6cd",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/gestures/DragDirection.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-12T11:40:48Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 24,
+        "startChar": 69,
+        "endLine": 24,
+        "endChar": 71
+      },
+      "revId": "b06bed40f18fb5aff061f8415af9731acffe6c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c0bde7_5a590987",
+        "filename": "ui/ui-foundation/src/main/java/androidx/ui/foundation/gestures/DragDirection.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-07-12T11:40:48Z",
+      "side": 1,
+      "message": "It can be either....",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 14
+      },
+      "revId": "b06bed40f18fb5aff061f8415af9731acffe6c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
