@@ -20,6 +20,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import androidx.camera.testing.fakes.FakeActivity;
 import androidx.test.core.app.ApplicationProvider;
@@ -54,7 +55,10 @@ public final class Camera2InitializerTest {
     public void cameraXIsInitialized_beforeActivityIsCreated() {
         activityRule.launchActivity(new Intent(mAppContext, FakeActivity.class));
         FakeActivity activity = activityRule.getActivity();
-
-        assertThat(activity.isCameraXInitializedAtOnCreate()).isTrue();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            assertThat(activity.isCameraXInitializedAtOnCreate()).isTrue();
+        } else {
+            assertThat(activity.isCameraXInitializedAtOnCreate()).isFalse();
+        }
     }
 }

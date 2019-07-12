@@ -21,6 +21,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -40,8 +41,9 @@ public final class Camera2Initializer extends ContentProvider {
     @Override
     public boolean onCreate() {
         Log.d(TAG, "CameraX initializing with Camera2 ...");
-
-        CameraX.init(getContext(), Camera2AppConfig.create(getContext()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            CameraX.init(getContext(), Camera2AppConfig.create(getContext()));
+        }
         return false;
     }
 
