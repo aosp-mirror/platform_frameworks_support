@@ -36,6 +36,188 @@ import androidx.ui.material.surface.Surface
 import androidx.ui.text.TextStyle
 
 /**
+ * Outlined buttons are medium-emphasis buttons. They contain actions that are important, but aren’t the primary action
+ * in an app.
+ *
+ * Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher emphasis alternative to text
+ * buttons.
+ *
+ * @sample androidx.ui.material.samples.OutlinedButtonSample
+ *
+ * To modify the properties of the text within the button or to specify arbitrary content within your Button, use the
+ * version of this component that takes content:
+ *
+ * @sample androidx.ui.material.samples.SlottedOutlinedButtonSample
+ *
+ * @see ContainedButton
+ * @see TextButton
+ *
+ */
+@Composable
+fun OutlinedButton(
+    text: String,
+    onClick: (() -> Unit)? = null) {
+    OutlinedButton(
+        text = {
+            Text(text = text)
+        },
+        onClick = onClick
+    )
+}
+
+/**
+ * Outlined buttons are medium-emphasis buttons. They contain actions that are important, but aren’t the primary action
+ * in an app.
+ *
+ * Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher emphasis alternative to text
+ * buttons.
+ *
+ * To specify spec compliant content within your Outlined Button and have it follow Material guidelines, use the other
+ * overload for [OutlinedButton].
+ *
+ * @see ContainedButton
+ * @see TextButton
+ *
+ * @sample androidx.ui.material.samples.SlottedOutlinedButtonSample
+ */
+@Composable
+fun OutlinedButton(
+    text: @Composable() () -> Unit,
+    onClick: (() -> Unit)? = null) {
+    Button(
+        children = {
+            val constraints = DpConstraints
+                .tightConstraintsForHeight(ButtonHeight)
+                .copy(minWidth = ButtonMinWidth)
+            Container(
+                padding = EdgeInsets(left = ButtonHorPadding, right = ButtonHorPadding),
+                constraints = constraints) {
+                text()
+            }
+        },
+        onClick = onClick,
+        elevation = 0.dp,
+        // TODO: figure out the default border color
+        border = Border(Color(0xFF888888.toInt()), 1.dp),
+        color = Color.Transparent)
+}
+
+
+/**
+ * Contained buttons are high-emphasis, distinguished by their use of elevation and fill. They contain actions that are
+ * primary to your app.
+ *
+ * To specify arbitrary content within your Contained Button, use the other overload for [ContainedButton].
+ *
+ * @see OutlinedButton
+ * @see TextButton
+ *
+ * @sample androidx.ui.material.samples.ContainedButtonSample
+ */
+@Composable
+fun ContainedButton(
+    text: String,
+    color: Color = +themeColor { primary },
+    onClick: (() -> Unit)? = null) {
+    ContainedButton(
+        text = {
+            Text(text = text)
+        },
+        color = color,
+        onClick = onClick
+    )
+}
+
+/**
+ * Contained buttons are high-emphasis, distinguished by their use of elevation and fill. They contain actions that are
+ * primary to your app.
+ *
+ * To specify spec compliant content within your Contained Button and have it follow Material guidelines, use the other
+ * overload for [ContainedButton].
+ *
+ * @see OutlinedButton
+ * @see TextButton
+ *
+ * @sample androidx.ui.material.samples.SlottedOutlinedButtonSample
+ */
+@Composable
+fun ContainedButton(
+    text: @Composable() () -> Unit,
+    color: Color = +themeColor { primary },
+    onClick: (() -> Unit)? = null) {
+    Button(
+        children = {
+            val constraints = DpConstraints
+                .tightConstraintsForHeight(ButtonHeight)
+                .copy(minWidth = ButtonMinWidth)
+            Container(
+                padding = EdgeInsets(left = ButtonHorPadding, right = ButtonHorPadding),
+                constraints = constraints) {
+                text()
+            }
+        },
+        onClick = onClick,
+        // TODO: might have elevation
+        elevation = 0.dp,
+        color = color)
+}
+
+
+/**
+ * Text buttons are typically used for less-pronounced actions, including those located in cards and dialogs.
+ *
+ * To specify arbitrary content within your Text Button, use the other overload for [TextButton].
+ *
+ * @see OutlinedButton
+ * @see ContainedButton
+ *
+ * @sample androidx.ui.material.samples.TextButtonSample
+ */
+@Composable
+fun TextButton(
+    text: String,
+    onClick: (() -> Unit)? = null) {
+    TextButton(
+        text = {
+            Text(text = text)
+        },
+        onClick = onClick
+    )
+}
+
+/**
+ * Text buttons are typically used for less-pronounced actions, including those located in cards and dialogs.
+ *
+ * To specify spec compliant content within your Text Button and have it follow Material guidelines, use the other
+ * overload for [TextButton].
+ *
+ * @see OutlinedButton
+ * @see ContainedButton
+ *
+ * @sample androidx.ui.material.samples.SlottedTextButtonSample
+ */
+@Composable
+fun TextButton(
+    text: @Composable() () -> Unit,
+    onClick: (() -> Unit)? = null) {
+    Button(
+        children = {
+            val constraints = DpConstraints
+                .tightConstraintsForHeight(ButtonHeight)
+                .copy(minWidth = ButtonMinWidth)
+            Container(
+                padding = EdgeInsets(left = ButtonHorPadding, right = ButtonHorPadding),
+                constraints = constraints) {
+                text()
+            }
+        },
+        onClick = onClick,
+        // TODO: might have elevation
+        elevation = 0.dp,
+        color = Color.Transparent)
+}
+
+/**
  * [Button] with flexible user interface. You can provide any content you want as a
  * [children] composable.
  *
@@ -67,6 +249,7 @@ import androidx.ui.text.TextStyle
  * @param elevation The z-coordinate at which to place this button. This controls the size
  *  of the shadow below the button.
  */
+// TODO: rename to BaseButton
 @Composable
 fun Button(
     onClick: (() -> Unit)? = null,
@@ -126,6 +309,7 @@ fun Button(
  * @param elevation The z-coordinate at which to place this button. This controls the size
  *  of the shadow below the button.
  */
+// TODO: remove
 @Composable
 fun Button(
     text: String,
@@ -154,45 +338,6 @@ fun Button(
             Text(text = text, style = textStyle)
         }
     }
-}
-
-/**
- * Material Design implementation of [Button] with [text] and no background.
- * This will also apply [MaterialColors.primary] as a text color by default, but
- * you can override this with [textStyle].
- *
- * To make a [Button] clickable, you must provide an [onClick]. Not providing it will
- * also make this [Button] to be displayed as a disabled one.
- * You can specify a [shape] of the surface, it's background [color] and [elevation].
- *
- * @param text The text to display.
- * @param textStyle The optional text style to apply for the text.
- * @param onClick Will be called when user clicked on the button. The button will be disabled
- *  when it is null.
- * @param shape Defines the Button's shape as well its shadow. When null is provided it uses
- *  the [Shapes.button] from [CurrentShapeAmbient].
- * @param border Optional border to draw on top of the shape.
- * @param elevation The z-coordinate at which to place this button. This controls the size
- *  of the shadow below the button.
- */
-@Composable
-fun TransparentButton(
-    text: String,
-    textStyle: TextStyle? = null,
-    onClick: (() -> Unit)? = null,
-    shape: Shape = +themeShape { button },
-    border: Border? = null,
-    elevation: Dp = 0.dp
-) {
-    val finalTextStyle = TextStyle(color = +themeColor { primary }).merge(textStyle)
-    Button(
-        text = text,
-        onClick = onClick,
-        shape = shape,
-        elevation = elevation,
-        textStyle = finalTextStyle,
-        border = border,
-        color = Color.Transparent)
 }
 
 // Specification for Material Button:
