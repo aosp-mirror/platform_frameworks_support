@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+API-Review+1: Aurimas Liutikas <aurimas@google.com>
+Code-Review+2: Peter Conn <peconn@google.com>
+Submitted-by: Pavel Shmakov <pshmakov@google.com>
+Submitted-at: Fri, 12 Jul 2019 14:25:39 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/1009050
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
