@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a8838bfd_6c80500e",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-07-12T16:16:57Z",
+      "side": 1,
+      "message": "Totally cool if you don\u0027t want to make this change as it is outside of the intent of this CL.. but seems like private class OvalShadow should be static?",
+      "parentUuid": "92a3a40b_177d7903",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 34
+      },
+      "revId": "0abc8af20101ecf6ee23cd48c6a978cfdb41987e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "950a9330_8a4ea6a4",
         "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/CircleImageView.java",
         "patchSetId": 15
