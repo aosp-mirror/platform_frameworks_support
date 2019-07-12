@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "537cf6ff_f5d7811a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorResource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-07-12T23:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1defda8f_2311cbc1",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 41
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b84d6ad_3cb82b27",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorResource.kt",
         "patchSetId": 1
