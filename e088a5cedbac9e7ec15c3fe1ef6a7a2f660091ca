@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bfce2ea_e2756e77",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-12T06:11:01Z",
+      "side": 1,
+      "message": "Could you modify relevant test case to check the return value?",
+      "range": {
+        "startLine": 826,
+        "startChar": 12,
+        "endLine": 826,
+        "endChar": 19
+      },
+      "revId": "e088a5cedbac9e7ec15c3fe1ef6a7a2f660091ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
