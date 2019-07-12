@@ -46,6 +46,30 @@
       "revId": "a22672e2afb103a89c3c85936218424e8414ee1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0b19f52_2ca404dc",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/autovalue/AutoValuePojoProcessorDelegateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T23:46:35Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "ef50c2fb_9774c434",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "a22672e2afb103a89c3c85936218424e8414ee1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
