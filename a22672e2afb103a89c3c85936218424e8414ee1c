@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df1e31ed_6151144c",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/autovalue/AutoValuePojoProcessorDelegateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T23:21:18Z",
+      "side": 0,
+      "message": "? where did this go ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "a22672e2afb103a89c3c85936218424e8414ee1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
