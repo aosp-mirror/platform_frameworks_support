@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "322403f3_76ffcf06",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T17:48:10Z",
+      "side": 1,
+      "message": "nit: This comment feels a bit redundant, since you also mention it in the onCreate methods of the activity and fragment hosts. Could you maybe describe more generally here what the reconnect() method is supposed to do?",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "535d1da2_52b3c0c5",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T17:48:10Z",
+      "side": 1,
+      "message": "Is this method working for you? IIRC, when I tried to add an abstract constructor like this, the views weren\u0027t getting bound properly for some reason, so click listeners didn\u0027t fire.",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3208f09e_76aa1cd4",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T17:48:10Z",
+      "side": 1,
+      "message": "This one seems a bit odd to have as a debug-level log message, since it requires action from the user. Maybe we should leave this one as a toast, or else find a way to make it more prominent in the log? WDYT?",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8890435_24159c1a",
+        "filename": "samples/BiometricDemos/src/main/res/layout/biometric_prompt_demo_content.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T17:48:10Z",
+      "side": 1,
+      "message": "nit: Here and elsewhere in this file, it would be nice to settle on a consistent style for XML tags. As a strawman proposal, how about no space before the \"\u003e\" of an opening tag and a single space before the \"/\u003e\" of a self-closing tag?",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
