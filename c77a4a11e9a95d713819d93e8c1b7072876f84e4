@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e3c1211_223bf4a1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-12T17:05:57Z",
+      "side": 1,
+      "message": "The way this function is currently written is pretty hard to understand. I think something more intuitive would be to first split the param string and then apply a regex with capture groups to pull each pair.\n\nYou should be able to get a match result (https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/index.html) from the regex match on each key/value pair, which will let you access what your regex captured.",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "311e1943_9e83bf33",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-12T17:05:57Z",
+      "side": 1,
+      "message": "Import ArrayList instead of using the fully qualified name and use the base List interface as the type (to hide implementation detail).\n\nYou should also use val if you don\u0027t need to redefine the variable later.\n\nSo it should be:\n\nval params: List\u003c..\u003e \u003d ArrayList()",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
