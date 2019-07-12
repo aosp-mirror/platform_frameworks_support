@@ -413,7 +413,7 @@ open class BaseTest {
         return latch
     }
 
-    fun ViewPager2.addWaitForDistanceToTarget(target: Int, distance: Float): CountDownLatch {
+    fun ViewPager2.addWaitForDistanceToTarget(target: Int, distance: Double): CountDownLatch {
         val latch = CountDownLatch(1)
 
         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -422,7 +422,7 @@ open class BaseTest {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                if (abs(target - position - positionOffset) <= distance) {
+                if (abs(target - position - positionOffset.toDouble()) <= distance) {
                     latch.countDown()
                     post { unregisterOnPageChangeCallback(this) }
                 }

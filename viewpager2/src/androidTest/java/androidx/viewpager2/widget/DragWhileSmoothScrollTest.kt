@@ -56,7 +56,7 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
         val startPage: Int = 0,
         val targetPage: Int,
         val dragInOppositeDirection: Boolean,
-        val distanceToTargetWhenStartDrag: Float,
+        val distanceToTargetWhenStartDrag: Double,
         val endInSnappedPosition: Boolean = false
     )
 
@@ -71,7 +71,7 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
     @Test
     fun test() {
         // given
-        assertThat(config.distanceToTargetWhenStartDrag, greaterThan(0f))
+        assertThat(config.distanceToTargetWhenStartDrag, greaterThan(0.0))
         val pageCount = max(config.startPage, config.targetPage) + 1
         test = setUpTest(config.orientation)
         test.setAdapterSync(viewAdapterProvider(stringSequence(pageCount)))
@@ -254,7 +254,7 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
 private fun createTestSet(): List<TestConfig> {
     return listOf(ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL).flatMap { orientation ->
         listOf(true, false).flatMap { dragInOppositeDirection ->
-            listOf(0.4f, 1.5f).flatMap { distanceToTarget ->
+            listOf(0.4, 1.5).flatMap { distanceToTarget ->
                 listOf(true, false).flatMap { endInSnappedPosition ->
                     listOf(
                         TestConfig(
@@ -285,7 +285,7 @@ private fun createTestSet(): List<TestConfig> {
                 startPage = 0,
                 targetPage = 1,
                 dragInOppositeDirection = true,
-                distanceToTargetWhenStartDrag = .7f
+                distanceToTargetWhenStartDrag = .7
             )
         ))
     }
