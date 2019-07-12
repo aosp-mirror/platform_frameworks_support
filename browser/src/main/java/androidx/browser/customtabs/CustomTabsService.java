@@ -31,12 +31,11 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.collection.ArrayMap;
+import androidx.collection.SimpleArrayMap;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -57,7 +56,15 @@ public abstract class CustomTabsService extends Service {
      * the color of the navigation bar ({@link CustomTabsIntent.Builder#setNavigationBarColor}).
      */
     public static final String CATEGORY_NAVBAR_COLOR_CUSTOMIZATION =
-            "androidx.browser.trusted.category.NavBarColorCustomization";
+            "androidx.browser.customtabs.category.NavBarColorCustomization";
+
+    /**
+     * An Intent filter category to signify that the Custom Tabs provider supports selecting and
+     * customizing color schemes via {@link CustomTabsIntent.Builder#setColorScheme} and
+     * {@link CustomTabsIntent.Builder#setColorSchemeParams}.
+     */
+    public static final String CATEGORY_COLOR_SCHEME_CUSTOMIZATION =
+            "androidx.browser.customtabs.category.ColorSchemeCustomization";
 
     /**
      * An Intent filter category to signify that the Custom Tabs provider supports Trusted Web
@@ -140,7 +147,7 @@ public abstract class CustomTabsService extends Service {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public static final int FILE_PURPOSE_TWA_SPLASH_IMAGE = 1;
 
-    final Map<IBinder, DeathRecipient> mDeathRecipientMap = new ArrayMap<>();
+    final SimpleArrayMap<IBinder, DeathRecipient> mDeathRecipientMap = new SimpleArrayMap<>();
 
     private ICustomTabsService.Stub mBinder = new ICustomTabsService.Stub() {
 
