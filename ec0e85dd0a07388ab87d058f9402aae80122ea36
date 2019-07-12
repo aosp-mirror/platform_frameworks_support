@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "045d2ac5_f40f12ff",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T23:17:58Z",
+      "side": 1,
+      "message": "might be nicer to\n\nquery.resultInfo?.error?.let { error-\u003e\n    context.logger.e(...)\n}",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 98,
+        "endChar": 13
+      },
+      "revId": "ec0e85dd0a07388ab87d058f9402aae80122ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

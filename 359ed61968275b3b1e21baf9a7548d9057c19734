@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6511a8c1_d9a2b40b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryInterpreter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T23:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "513d3106_93e6a88e",
+      "range": {
+        "startLine": 118,
+        "startChar": 15,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "328e21e8_40ec87fc",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
         "patchSetId": 3
@@ -166,6 +190,29 @@
       "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b4971e8_76a65c41",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-07-12T23:17:58Z",
+      "side": 1,
+      "message": "we can keep these tests no? i mean, they are useful when we allow projection for tests (it just verifies things didn\u0027t break but better than non?)",
+      "range": {
+        "startLine": 433,
+        "startChar": 16,
+        "endLine": 433,
+        "endChar": 32
+      },
+      "revId": "359ed61968275b3b1e21baf9a7548d9057c19734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
