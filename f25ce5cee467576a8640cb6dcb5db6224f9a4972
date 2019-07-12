@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "36331bd7_0ecf8a81",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T20:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29369ff6_7f30245e",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "535d1da2_52b3c0c5",
         "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
         "patchSetId": 5
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Hmm, it works for me. I can\u0027t think of any reason why it wouldn\u0027t work, as long as this constructor was invoked after the views were created/inflated?",
       "parentUuid": "535d1da2_52b3c0c5",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14df55a0_f091f30f",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T20:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8caf1913_fc90b8c5",
       "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "faa69afb_4e03abf9",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemoController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T20:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb9d2f37_8883486c",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8890435_24159c1a",
         "filename": "samples/BiometricDemos/src/main/res/layout/biometric_prompt_demo_content.xml",
         "patchSetId": 5
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "Let\u0027s just have no spaces for both, the / is obvious enough :P",
       "parentUuid": "c8890435_24159c1a",
+      "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61f898a9_79ab09e0",
+        "filename": "samples/BiometricDemos/src/main/res/layout/biometric_prompt_demo_content.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1513319
+      },
+      "writtenOn": "2019-07-12T20:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de221462_cbca06fc",
       "revId": "f25ce5cee467576a8640cb6dcb5db6224f9a4972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
