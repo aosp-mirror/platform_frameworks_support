@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2019 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources>
+    <declare-styleable name="Fragment">
+        <attr name="android:name" />
+        <attr name="android:id" />
+        <attr name="android:tag" />
+    </declare-styleable>
+
+<!--    Taken from https://googleplex-android.googlesource.com/platform/frameworks/base/+/HEAD/core/res/res/values/attrs.xml-->
+    <declare-styleable name="AccelerateInterpolator">
+        <!-- This is the amount of deceleration to add when easing in. -->
+        <attr name="factor" format="float" />
+    </declare-styleable>
+    <declare-styleable name="DecelerateInterpolator">
+        <!-- This is the amount of acceleration to add when easing out. -->
+        <attr name="factor" />
+    </declare-styleable>
+    <declare-styleable name="PathInterpolator">
+        <!-- The x coordinate of the first control point of the cubic Bezier. -->
+        <attr name="controlX1" format="float" />
+        <!-- The y coordinate of the first control point of the cubic Bezier. -->
+        <attr name="controlY1" format="float" />
+        <!-- The x coordinate of the second control point of the cubic Bezier. -->
+        <attr name="controlX2" format="float" />
+        <!-- The y coordinate of the second control point of the cubic Bezier. -->
+        <attr name="controlY2" format="float" />
+        <!-- The control points defined as a path.
+             When pathData is defined, then both of the control points of the
+             cubic Bezier will be ignored. -->
+        <attr name="pathData"/>
+    </declare-styleable>
+</resources>

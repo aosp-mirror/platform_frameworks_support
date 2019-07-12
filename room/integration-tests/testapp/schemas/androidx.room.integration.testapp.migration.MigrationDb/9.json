@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 9,
-    "identityHash": "9ced6be3cddcc35aa6ec78f36c7214da",
+    "identityHash": "a6be2522a02b9ae6528719c637ac5daa",
     "entities": [
       {
         "tableName": "Entity1",
@@ -41,7 +41,7 @@
       },
       {
         "tableName": "Entity2",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `addedInV3` TEXT, `name` TEXT DEFAULT 'Unknown')",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `addedInV3` TEXT, `name` TEXT, `addedInV9` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -59,8 +59,13 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": false,
-            "defaultValue": "'Unknown'"
+            "notNull": false
+          },
+          {
+            "fieldPath": "addedInV9",
+            "columnName": "addedInV9",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -119,7 +124,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ced6be3cddcc35aa6ec78f36c7214da')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a6be2522a02b9ae6528719c637ac5daa')"
     ]
   }
 }

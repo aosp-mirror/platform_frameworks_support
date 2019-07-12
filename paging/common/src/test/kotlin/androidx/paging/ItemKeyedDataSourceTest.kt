@@ -19,6 +19,8 @@ package androidx.paging
 import androidx.paging.futures.DirectExecutor
 import com.nhaarman.mockitokotlin2.capture
 import com.nhaarman.mockitokotlin2.mock
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -28,13 +30,14 @@ import org.junit.runners.JUnit4
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
+import kotlin.test.assertFailsWith
 
 @RunWith(JUnit4::class)
 class ItemKeyedDataSourceTest {
 
     // ----- STANDARD -----
 
-    private fun loadInitial(
+    private suspend fun loadInitial(
         dataSource: ItemDataSource,
         key: Key?,
         initialLoadSize: Int,
@@ -43,11 +46,11 @@ class ItemKeyedDataSourceTest {
         dataSource.initExecutor(DirectExecutor)
         return dataSource.loadInitial(
             ItemKeyedDataSource.LoadInitialParams(key, initialLoadSize, enablePlaceholders)
-        ).get()
+        )
     }
 
     @Test
-    fun loadInitial() {
+    fun loadInitial() = runBlocking {
         val dataSource = ItemDataSource()
         val result = loadInitial(dataSource, dataSource.getKey(ITEMS_BY_NAME_ID[49]), 10, true)
 
@@ -57,7 +60,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_keyMatchesSingleItem() {
+    fun loadInitial_keyMatchesSingleItem() = runBlocking {
         val dataSource = ItemDataSource(items = ITEMS_BY_NAME_ID.subList(0, 1))
 
         // this is tricky, since load after and load before with the passed key will fail
@@ -69,7 +72,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_keyMatchesLastItem() {
+    fun loadInitial_keyMatchesLastItem() = runBlocking {
         val dataSource = ItemDataSource()
 
         // tricky, because load after key is empty, so another load before and load after required
@@ -82,7 +85,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_nullKey() {
+    fun loadInitial_nullKey() = runBlocking {
         val dataSource = ItemDataSource()
 
         // dispatchLoadInitial(null, count) == dispatchLoadInitial(count)
@@ -94,7 +97,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_keyPastEndOfList() {
+    fun loadInitial_keyPastEndOfList() = runBlocking {
         val dataSource = ItemDataSource()
 
         // if key is past entire data set, should return last items in data set
@@ -112,7 +115,7 @@ class ItemKeyedDataSourceTest {
     // ----- UNCOUNTED -----
 
     @Test
-    fun loadInitial_disablePlaceholders() {
+    fun loadInitial_disablePlaceholders() = runBlocking {
         val dataSource = ItemDataSource()
 
         // dispatchLoadInitial(key, count) == null padding, loadAfter(key, count), null padding
@@ -125,7 +128,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_uncounted() {
+    fun loadInitial_uncounted() = runBlocking {
         val dataSource = ItemDataSource(counted = false)
 
         // dispatchLoadInitial(key, count) == null padding, loadAfter(key, count), null padding
@@ -138,7 +141,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_nullKey_uncounted() {
+    fun loadInitial_nullKey_uncounted() = runBlocking {
         val dataSource = ItemDataSource(counted = false)
 
         // dispatchLoadInitial(null, count) == dispatchLoadInitial(count)
@@ -152,7 +155,7 @@ class ItemKeyedDataSourceTest {
     // ----- EMPTY -----
 
     @Test
-    fun loadInitial_empty() {
+    fun loadInitial_empty() = runBlocking {
         val dataSource = ItemDataSource(items = ArrayList())
 
         // dispatchLoadInitial(key, count) == null padding, loadAfter(key, count), null padding
@@ -165,7 +168,7 @@ class ItemKeyedDataSourceTest {
     }
 
     @Test
-    fun loadInitial_nullKey_empty() {
+    fun loadInitial_nullKey_empty() = runBlocking {
         val dataSource = ItemDataSource(items = ArrayList())
         val result = loadInitial(dataSource, null, 10, true)
 
@@ -309,16 +312,20 @@ class ItemKeyedDataSourceTest {
             }
         }
 
-        PagedList.create(
-            dataSource, FailExecutor(),
-            DirectExecutor,
-            DirectExecutor,
-            null,
-            PagedList.Config.Builder()
-                .setPageSize(10)
-                .build(),
-            ""
-        ).get()
+        runBlocking {
+            PagedList.create(
+                dataSource,
+                GlobalScope,
+                FailExecutor(),
+                DirectExecutor,
+                DirectExecutor,
+                null,
+                PagedList.Config.Builder()
+                    .setPageSize(10)
+                    .build(),
+                ""
+            )
+        }
     }
 
     @Test
@@ -334,28 +341,44 @@ class ItemKeyedDataSourceTest {
         it.onResult(elevenLetterList, 0, 12)
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun loadInitialCallbackListTooBig() = performLoadInitial {
-        // LoadInitialCallback can't accept pos + list > totalCount
-        it.onResult(listOf("a", "b", "c"), 0, 2)
+    @Test
+    fun loadInitialCallbackListTooBig() {
+        assertFailsWith<IllegalArgumentException> {
+            performLoadInitial {
+                // LoadInitialCallback can't accept pos + list > totalCount
+                it.onResult(listOf("a", "b", "c"), 0, 2)
+            }
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun loadInitialCallbackPositionTooLarge() = performLoadInitial {
-        // LoadInitialCallback can't accept pos + list > totalCount
-        it.onResult(listOf("a", "b"), 1, 2)
+    @Test
+    fun loadInitialCallbackPositionTooLarge() {
+        assertFailsWith<IllegalArgumentException> {
+            performLoadInitial {
+                // LoadInitialCallback can't accept pos + list > totalCount
+                it.onResult(listOf("a", "b"), 1, 2)
+            }
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun loadInitialCallbackPositionNegative() = performLoadInitial {
-        // LoadInitialCallback can't accept negative position
-        it.onResult(listOf("a", "b", "c"), -1, 2)
+    @Test
+    fun loadInitialCallbackPositionNegative() {
+        assertFailsWith<IllegalArgumentException> {
+            performLoadInitial {
+                // LoadInitialCallback can't accept negative position
+                it.onResult(listOf("a", "b", "c"), -1, 2)
+            }
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun loadInitialCallbackEmptyCannotHavePlaceholders() = performLoadInitial {
-        // LoadInitialCallback can't accept empty result unless data set is empty
-        it.onResult(emptyList(), 0, 2)
+    @Test
+    fun loadInitialCallbackEmptyCannotHavePlaceholders() {
+        assertFailsWith<IllegalArgumentException> {
+            performLoadInitial {
+                // LoadInitialCallback can't accept empty result unless data set is empty
+                it.onResult(emptyList(), 0, 2)
+            }
+        }
     }
 
     private abstract class WrapperDataSource<K : Any, A : Any, B : Any>(

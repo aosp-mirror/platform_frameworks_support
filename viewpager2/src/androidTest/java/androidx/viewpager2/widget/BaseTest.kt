@@ -440,8 +440,12 @@ open class BaseTest {
 
     val ViewPager2.currentCompletelyVisibleItem: Int
         get() {
-            return (recyclerView.layoutManager as LinearLayoutManager)
-                .findFirstCompletelyVisibleItemPosition()
+            var position = RecyclerView.NO_POSITION
+            activityTestRule.runOnUiThread {
+                position = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findFirstCompletelyVisibleItemPosition()
+            }
+            return position
         }
 
     /**
@@ -453,17 +457,19 @@ open class BaseTest {
      */
     fun Context.assertBasicState(
         pageIx: Int,
-        value: String = pageIx.toString(),
+        value: String? = pageIx.toString(),
         performSelfCheck: Boolean = true
     ) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
         )
-        assertThat(viewPager.scrollState, equalTo(SCROLL_STATE_IDLE))
-        onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
-            matches(withText(value))
-        )
+        assertThat("viewPager should be IDLE", viewPager.scrollState, equalTo(SCROLL_STATE_IDLE))
+        if (value != null) {
+            onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
+                matches(withText(value))
+            )
+        }
 
         // TODO(b/130153109): Wire offscreenPageLimit into FragmentAdapter, remove performSelfCheck
         if (performSelfCheck && viewPager.adapter is SelfChecking) {

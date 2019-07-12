@@ -35,7 +35,7 @@ const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.1.0"
 const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.1.0"
 const val ESPRESSO_IDLING_RESOURCE = "androidx.test.espresso:espresso-idling-resource:3.1.0"
 const val FINDBUGS = "com.google.code.findbugs:jsr305:3.0.2"
-const val GCM_NETWORK_MANAGER = "com.google.android.gms:play-services-gcm:16.0.0-jetified"
+const val GCM_NETWORK_MANAGER = "com.google.android.gms:play-services-gcm:17.0.0"
 const val GOOGLE_COMPILE_TESTING = "com.google.testing.compile:compile-testing:0.11"
 const val GSON = "com.google.code.gson:gson:2.8.0"
 const val GUAVA = "com.google.guava:guava:27.0.1-jre"
@@ -50,22 +50,31 @@ const val KOTLINPOET = "com.squareup:kotlinpoet:1.1.0"
 private const val KOTLIN_VERSION = "1.3.40"
 const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 const val KOTLIN_TEST_COMMON = "org.jetbrains.kotlin:kotlin-test:$KOTLIN_VERSION"
-const val COMPOSE_VERSION = "1.3.30-compose-20190503"
+const val COMPOSE_VERSION = "1.3.30-compose-20190520"
 const val KOTLIN_COMPOSE_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$COMPOSE_VERSION"
 const val KOTLIN_COMPOSE_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:$COMPOSE_VERSION"
 
 const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
 const val KOTLIN_METADATA_JVM = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
-const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-const val KOTLIN_COMPOSE_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-const val KOTLIN_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-const val KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1"
+
+private const val KOTLIN_COROUTINES_VERSION = "1.1.1"
+const val KOTLIN_COROUTINES =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COMPOSE_COROUTINES =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_CORE =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_GUAVA =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-guava:$KOTLIN_COROUTINES_VERSION"
+const val KOTLIN_COROUTINES_TEST =
+    "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINES_VERSION"
+
 const val LEAKCANARY_INSTRUMENTATION =
-        "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
+    "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
 const val LINT_API_MIN = "com.android.tools.lint:lint-api:26.3.0"
-const val LINT_API_LATEST = "com.android.tools.lint:lint-api:26.5.0-beta04"
-const val LINT_CORE = "com.android.tools.lint:lint:26.5.0-beta04"
-const val LINT_TESTS = "com.android.tools.lint:lint-tests:26.5.0-beta04"
+const val LINT_API_LATEST = "com.android.tools.lint:lint-api:26.5.0-beta05"
+const val LINT_CORE = "com.android.tools.lint:lint:26.5.0-beta05"
+const val LINT_TESTS = "com.android.tools.lint:lint-tests:26.5.0-beta05"
 const val MATERIAL = "com.google.android.material:material:1.0.0"
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
 const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
@@ -125,3 +134,6 @@ const val WORK_ARCH_ROOM_TESTING = "androidx.room:room-testing:2.1.0"
 const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"
 
 const val PROTOBUF = "com.google.protobuf:protobuf-java:3.4.0"
+
+const val FLOGGER = "com.google.flogger:flogger:0.4"
+const val FLOGGER_SYSTEM_BACKEND = "com.google.flogger:flogger-system-backend:0.4"

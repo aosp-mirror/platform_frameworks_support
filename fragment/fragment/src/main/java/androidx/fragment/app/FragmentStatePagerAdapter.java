@@ -102,8 +102,8 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     private final int mBehavior;
     private FragmentTransaction mCurTransaction = null;
 
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
-    private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
+    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<>();
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
     private Fragment mCurrentPrimaryItem = null;
 
     /**
@@ -253,7 +253,14 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     @Override
     public void finishUpdate(@NonNull ViewGroup container) {
         if (mCurTransaction != null) {
-            mCurTransaction.commitNowAllowingStateLoss();
+            try {
+                mCurTransaction.commitNowAllowingStateLoss();
+            } catch (IllegalStateException e) {
+                // Workaround for Robolectric running measure/layout
+                // calls inline rather than allowing them to be posted
+                // as they would on a real device.
+                mCurTransaction.commitAllowingStateLoss();
+            }
             mCurTransaction = null;
         }
     }
